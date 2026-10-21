@@ -19,7 +19,6 @@ const register = (kind: string, records: Array<{ id: string }>) => {
 const questionIds = new Set(dataScienceQuestions.map((question) => question.id));
 const topicIds = new Set(topicMetadata.map((topic) => topic.id));
 const sectionIds = new Set(sections.map((section) => section.id));
-const subjectIds = new Set(cgeiCurriculum.subjects.map((subject) => subject.subjectId));
 const unitIds = new Set(cgeiCurriculum.units.map((unit) => unit.id));
 const lessonIds = new Set(cgeiCurriculum.lessons.map((lesson) => lesson.id));
 const competencyIds = new Set(cgeiCurriculum.competencies.map((item) => item.id));
