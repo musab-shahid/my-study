@@ -278,7 +278,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       id: 'cgei-ds-unit-5-1', code: '5.1', title: 'Mathematical and physical foundations', order: 1, kind: 'unit', readiness: 'review',
       legacySectionId: 'CGEI-051',
       summary: 'Build the mathematical language needed to interpret environmental quantities, fields, matrices, stock–flux systems, energy/mass balances and uncertainty.',
-      estimatedHours: 4, prerequisites: ['Algebra and functions', 'Means and variances'], outcomes: outcomes51,
+      estimatedHours: 7.5, prerequisites: ['Algebra and functions', 'Means and variances'], outcomes: outcomes51,
       lessonIds: lessonDefinitions.map((lesson) => lesson.id),
       activityIds: ['cgei-ds-a-unit-audit', 'cgei-ds-a-rate-gradient', 'cgei-ds-a-least-squares', 'cgei-ds-a-eigen-check', 'cgei-ds-a-stock-flux', 'cgei-ds-a-water-balance', 'cgei-ds-a-energy-signs', 'cgei-ds-a-uncertainty-audit'],
       assessmentIds: ['cgei-ds-assess-unit-diagnostic', 'cgei-ds-assess-unit-quiz'],
@@ -289,7 +289,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     {
       id: 'cgei-ds-unit-5-2', code: '5.2', title: 'Python for scientific work', order: 2, kind: 'unit', readiness: 'draft',
       summary: 'Turn Python knowledge into reproducible environmental-data work: well-structured functions, disciplined NumPy shapes and missingness, timezone-safe Pandas aggregation, documented environments, open formats, metadata parsing and Python–R hand-offs.',
-      estimatedHours: 6, prerequisites: ['Unit 5.1 mathematical and physical foundations', 'Basic Python syntax, functions and data structures'], outcomes: outcomes52,
+      estimatedHours: 6.5, prerequisites: ['Unit 5.1 mathematical and physical foundations', 'Basic Python syntax, functions and data structures'], outcomes: outcomes52,
       lessonIds: lessons52.map((lesson) => lesson.id),
       activityIds: ['cgei-ds-a-52-functions', 'cgei-ds-a-52-numpy', 'cgei-ds-a-52-pkt-daily', 'cgei-ds-a-52-package', 'cgei-ds-a-52-regex'],
       assessmentIds: ['cgei-ds-assess-52-structure', 'cgei-ds-assess-52-arrays', 'cgei-ds-assess-52-time', 'cgei-ds-assess-52-package', 'cgei-ds-assess-52-metadata'],
