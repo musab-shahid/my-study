@@ -194,7 +194,9 @@ test.describe('Quiz completion journey', () => {
 
     await expect(check).toBeVisible();
 
-    const resultsHeading = page.getByRole('heading', { name: /^Results$/i });
+    // QuizResults renders a score heading (e.g. "2 / 10") and a completion
+    // status line ("20% correct · Quiz complete"), not a heading named "Results".
+    const resultsHeading = page.getByText(/% correct · (?:Quiz|Mock Exam) complete/i);
     // Quick Practice defaults to 10 questions. Wait for each question transition
     // instead of using isVisible() immediately after React updates the screen.
     for (let i = 0; i < 20; i++) {
