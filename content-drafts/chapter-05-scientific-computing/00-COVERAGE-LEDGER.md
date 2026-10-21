@@ -1,33 +1,46 @@
 # Chapter 5 Coverage Ledger
 ## Scientific Computing and Data Science
-**Source:** Master Study TOC · 19 October 2026
+**Authoritative source:** Master Study TOC · 19 October 2026  
+**Branch:** `feat/cgei-full-curriculum-skeleton`  
+**Audit date:** 21 October 2026 (honest revision after v1 outline pass)
 
-| Curriculum item | Location | Status |
-|---|---|---|
-| Part I Orientation + diagnostic | 01-CHAPTER-ORIENTATION.md | Covered (draft v1) |
-| Unit 5.1 Mathematical and physical foundations | units/05.1-mathematical-physical-foundations.md | Covered (draft v1) |
-| Unit 5.2 Python for scientific work | units/05.2-python-scientific-work.md | Covered (draft v1) |
-| Unit 5.3 Exploration and visualisation | units/05.3-exploration-visualisation.md | Covered (draft v1) |
-| Unit 5.4 Introductory statistics | units/05.4-introductory-statistics.md | Covered (draft v1) |
-| Unit 5.5 Data workflow and engineering | units/05.5-data-workflow-engineering.md | Covered (draft v1) |
-| Unit 5.6 Intermediate inference | units/05.6-intermediate-inference.md | Covered (draft v1) |
-| Unit 5.7 Time series | units/05.7-time-series.md | Covered (draft v1) |
-| Unit 5.8 Multivariate / EOF | units/05.8-multivariate.md | Covered (draft v1) |
-| Unit 5.9 GLM / mixed / Bayesian | units/05.9-glm-mixed-bayesian.md | Covered (draft v1) |
-| Unit 5.10 Causal inference | units/05.10-causal-inference.md | Covered (draft v1) |
-| Unit 5.11 Research software | units/05.11-research-software.md | Covered (draft v1) |
-| Unit 5.12 xarray and pipelines | units/05.12-xarray-pipelines.md | Covered (draft v1) |
-| Part III Integration | 02-CROSS-UNIT-INTEGRATION.md | Covered (draft v1) |
-| Part IV Capstone | 03-CAPSTONE.md | Covered (draft v1) |
-| Part V Assessment toolkit | 04-ASSESSMENT-TOOLKIT.md | Covered (draft v1) |
+### Status dimensions
+
+| Label | Meaning |
+|-------|---------|
+| **Outlined** | Headings / outcomes / deliverable named; little teaching prose |
+| **Partially taught** | Some concepts explained; missing worked examples, exercises, or major subtopics |
+| **Taught with examples** | Prose + worked numerical/code examples + limitations |
+| **Practised & assessed** | Guided + independent exercises with solutions/rubrics |
+| **App-ready structure** | Stable IDs, blocks sized for Topic conversion |
+
+### Unit-level status (post-audit)
+
+| Unit | Curriculum coverage | Scientific quality | App readiness | Priority to deepen |
+|------|---------------------|--------------------|---------------|--------------------|
+| 5.1 Mathematical & physical foundations | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
+| 5.2 Python for scientific work | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
+| 5.3 Exploration & visualisation | Outlined | Needs expansion | Standalone draft | High |
+| 5.4 Introductory statistics | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
+| 5.5 Data workflow & engineering | Outlined | Needs expansion | Standalone draft | Medium |
+| 5.6 Intermediate inference | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
+| 5.7 Time series | Outlined | Needs expansion | Standalone draft | High (climate track) |
+| 5.8 Multivariate / EOF | Outlined | Needs expansion | Standalone draft | High (exit competency) |
+| 5.9 GLM / mixed / Bayesian | Outlined | Needs expansion | Standalone draft | High (exit competency) |
+| 5.10 Causal inference | Outlined | Needs expansion | Standalone draft | High (exit competency) |
+| 5.11 Research software | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
+| 5.12 xarray & pipelines | Outlined | Needs expansion | Standalone draft | Medium |
+| Orientation / Integration / Capstone / Toolkit | Partially taught | Needs expansion | Standalone draft | Medium |
 
 ### Exit competencies
-| Competency | Primary units | Status |
-|---|---|---|
-| Tested versioned one-command repo | 5.11, 5.12, Capstone | Specified |
-| GLM/mixed + diagnostics + intervals | 5.9 | Specified |
-| EOF/PCA area-weighted + mode justification | 5.8 | Specified |
-| Causal question + assumptions + design + falsifiers | 5.10 | Specified |
 
-### Failure modes addressed
-Autocorrelation-as-independent; p without effect size; association-as-causation; spurious trends; notebook hidden state; unpinned env; secrets in git; undiagnosed model output — units 5.4–5.11 and toolkit checklist.
+| Competency | Prerequisites taught? | Explicit unit treatment | Status |
+|------------|----------------------|-------------------------|--------|
+| Tested versioned one-command repo | 5.2, 5.11 v2 | 5.11 + Capstone | Teachable; capstone still outline |
+| GLM/mixed + diagnostics + intervals | 5.4, 5.6 v2 | 5.9 still outline | **Blocked on 5.9** |
+| EOF/PCA area-weighted + mode justification | 5.1 v2 | 5.8 still outline | **Blocked on 5.8** |
+| Causal question + design + falsifiers | 5.4, 5.6 v2 | 5.10 still outline | **Blocked on 5.10** |
+
+### Honest summary
+
+v1 labelled everything "Covered (draft v1)" while most unit files were 7–20 line outlines. **v2 brings units 5.1, 5.2, 5.4, 5.6, and 5.11 to teaching depth with worked examples and exercises.** Remaining units are still outlined and must not be treated as complete for standalone study or app conversion.
