@@ -1,11 +1,52 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle2, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import type { CurriculumQuestion } from '@/types/curriculum';
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { PageContainer, Card, EmptyState, Button } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
+
+function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [submitted, setSubmitted] = useState(false);
+  const isCorrect = selected === question.correctAnswer;
+  return (
+    <Card className="p-4 border border-slate-200">
+      <div className="flex flex-wrap items-center gap-2 mb-2">
+        <span className="text-[10px] uppercase tracking-wide font-semibold text-slate-500">{question.difficulty} · {question.cognitiveLevel}</span>
+        <span className="text-[10px] text-slate-400">Knowledge check</span>
+      </div>
+      <p className="font-medium text-sm sm:text-base text-slate-900 leading-relaxed">{question.prompt}</p>
+      <div className="space-y-2 mt-3">
+        {question.options.map((option, index) => {
+          const isSelected = selected === index;
+          const isAnswer = submitted && index === question.correctAnswer;
+          const isWrongSelection = submitted && isSelected && !isCorrect;
+          return (
+            <button
+              key={option}
+              type="button"
+              aria-pressed={isSelected}
+              onClick={() => { if (!submitted) setSelected(index); }}
+              className={`w-full rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${isAnswer ? 'border-emerald-400 bg-emerald-50 text-emerald-900' : isWrongSelection ? 'border-rose-300 bg-rose-50 text-rose-900' : isSelected ? 'border-teal-400 bg-teal-50 text-teal-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+            >
+              <span className="font-semibold mr-2">{String.fromCharCode(65 + index)}.</span>{option}
+            </button>
+          );
+        })}
+      </div>
+      {!submitted ? <div className="mt-3"><Button variant="secondary" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button></div> : (
+        <div className={`mt-3 rounded-lg border p-3 ${isCorrect ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
+          <p className={`font-semibold text-sm ${isCorrect ? 'text-emerald-800' : 'text-amber-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
+          <p className="text-sm text-slate-700 leading-relaxed mt-1">{question.explanation}</p>
+          <button type="button" onClick={() => { setSelected(null); setSubmitted(false); }} className="mt-2 text-xs font-semibold text-teal-800 hover:underline">Try again</button>
+        </div>
+      )}
+    </Card>
+  );
+}
 
 export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
   const { navigate } = useRouter();
@@ -97,7 +138,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       {activities.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">Practice and application</h2><div className="space-y-3">{activities.map((activity) => <Card key={activity.id} className="p-4 border border-slate-200"><div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-slate-900 text-sm">{activity.title}</h3><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px]">{activity.level}</span>{activity.estimatedMinutes ? <span className="text-xs text-slate-500">{activity.estimatedMinutes} min</span> : null}</div><p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-teal-800 mt-2"><strong>Evidence to produce:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}{activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-teal-800">Hints</summary><ul className="list-disc pl-5 mt-2 text-sm text-slate-600 space-y-1">{activity.hints.map((hint) => <li key={hint}>{hint}</li>)}</ul></details> : null}</Card>)}</div></section>}
 
-      {assessments.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">Check your understanding</h2><div className="grid sm:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-4 border border-slate-200"><h3 className="font-semibold text-sm text-slate-900">{assessment.title}</h3><p className="text-sm text-slate-600 mt-2">{assessment.purpose}</p>{assessment.questionIds?.length ? <p className="text-xs text-slate-500 mt-2">{assessment.questionIds.length} linked questions</p> : null}</Card>)}</div></section>}
+      {assessments.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">Check your understanding</h2><div className="grid sm:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-4 border border-slate-200"><h3 className="font-semibold text-sm text-slate-900">{assessment.title}</h3><p className="text-sm text-slate-600 mt-2">{assessment.purpose}</p>{assessment.questionIds?.length ? <p className="text-xs text-slate-500 mt-2">{assessment.questionIds.length} linked questions</p> : null}{(assessment.questionIds ?? []).map((questionId) => cgeiCurriculum.questions.find((question) => question.id === questionId)).filter((question): question is CurriculumQuestion => Boolean(question)).map((question) => <div key={question.id} className="mt-3"><CurriculumQuestionCard question={question} /></div>)}</Card>)}</div></section>}
 
       {resources.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">References and tools</h2><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-4 border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-teal-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-slate-900">{resource.title}</span>}</div><p className="text-sm text-slate-600 mt-2">{resource.purpose}</p></Card>)}</div></section>}
 
