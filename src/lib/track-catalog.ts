@@ -8,7 +8,7 @@ import { sectionsBySubject, sectionMap } from '../data/sections.ts';
 import { topics } from '../data/topics.ts';
 import { topicMap } from '../data/topics.ts';
 import type { SubjectId, Topic, Question } from '../types.ts';
-import type { SubjectWithMeta } from '../data/subjects.ts';
+import { subjectMap, type SubjectWithMeta } from '../data/subjects.ts';
 
 function scopedSubjectIds(input: ScopeInput): Set<string> {
   return new Set(subjectsForScope(input).map((s) => s.id));
@@ -119,7 +119,7 @@ export function getTrackCatalog(
       questionCountPrecision = 'estimated';
     }
     return {
-      subject,
+      subject: subjectMap[sid],
       topicCount: sTopics.length,
       questionCount,
       questionCountPrecision,

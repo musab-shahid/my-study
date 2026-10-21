@@ -76,7 +76,10 @@ export function ProgressScreen() {
   const totalQuestionsAll = allStats.reduce((s, st) => s + st.questionsAnswered, 0);
   const subjectTopicIds = isAllSubjects ? null : new Set(sd.topicsFor(activeSubject as SubjectId).map((t) => t.id));
   const masteredTopics = countMasteredTopics(data, isAllSubjects ? null : subjectTopicIds);
-  const perfectQuizzes = data.quizHistory.filter((q) => q.total >= 5 && q.score === q.total && (!q.subjectId || scopedSubjectIds.has(q.subjectId))).length;
+  const perfectQuizzes = data.quizHistory.filter((q) =>
+    q.total >= 5 && q.score === q.total &&
+    (!q.subjectId || (q.subjectId in subjectMap && scopedSubjectIds.has(q.subjectId as SubjectId)))
+  ).length;
   const subjectsTouched = allStats.filter((s) => s.questionsAnswered > 0).length;
   const subjectsWithContent = allStats.filter((s) => s.hasContent).length;
 

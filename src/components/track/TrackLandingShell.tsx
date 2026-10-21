@@ -76,6 +76,7 @@ export function TrackSubjectRow({
   onOpen,
   disabled,
   actionLabel = 'Open',
+  dotClass,
 }: {
   title: string;
   meta: string;
@@ -83,6 +84,7 @@ export function TrackSubjectRow({
   onOpen: () => void;
   disabled?: boolean;
   actionLabel?: string;
+  dotClass?: string;
 }) {
   return (
     <div
@@ -90,6 +92,7 @@ export function TrackSubjectRow({
         disabled ? 'opacity-60' : 'hover:bg-slate-50'
       }`}
     >
+      {dotClass && <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} aria-hidden />}
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold text-slate-900 break-words">{title}</p>
         <p className="text-xs text-slate-500 mt-0.5 break-words leading-relaxed">{meta}</p>

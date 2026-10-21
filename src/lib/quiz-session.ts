@@ -7,10 +7,10 @@ import type { ScopeInput } from './track-scope.ts';
 import { sectionMap } from '../data/sections.ts';
 import { getTopic } from '../data/topics.ts';
 import { contentEligibleForScope } from './track-scope.ts';
-import { isTrackId } from '../data/tracks.ts';
+import { isTrackId, type TrackId } from '../data/tracks.ts';
 
 export type QuizSessionSnapshot = {
-  trackId: string;
+  trackId: TrackId;
   examId: string | null;
   allowedSubjectIds: string[];
   scopeInput: ScopeInput;

@@ -159,6 +159,8 @@ export interface Topic {
   keyFacts?: string[];
   explanationSections?: ExplanationSection[];
   formula?: Formula | Formula[];
+  /** Legacy plural alias present in authored environmental-studies content. */
+  formulas?: Formula | Formula[];
   examPoints?: string[];
   comparisonTable?: ComparisonTable;
   relatedTopics?: string[];

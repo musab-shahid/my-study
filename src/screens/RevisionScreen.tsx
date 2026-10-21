@@ -27,12 +27,12 @@ function getRevisionGroups(
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const due = Object.entries(topicProgress)
-    .filter(([, progress]) => progress.nextReview && scopedTopicIds.has(progress.topicId) && parseLocalDate(progress.nextReview) <= today)
+    .filter(([topicId, progress]) => progress.nextReview && scopedTopicIds.has(topicId) && parseLocalDate(progress.nextReview) <= today)
     .map(([topicId, progress]) => {
       const stats = getEffectiveQuizStats(progress);
       const attempts = stats.total;
       const accuracy = attempts > 0 ? stats.accuracy : null;
-      const group = attempts <= 0 ? 'refresh' : accuracy! < 60 ? 'high' : accuracy! < 75 ? 'review' : 'refresh';
+      const group: RevisionItem['group'] = attempts <= 0 ? 'refresh' : accuracy! < 60 ? 'high' : accuracy! < 75 ? 'review' : 'refresh';
       return { topicId, dateStr: progress.nextReview!, accuracy, attempts, group };
     });
   return {

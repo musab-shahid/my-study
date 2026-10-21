@@ -657,7 +657,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <div className="space-y-3 sm:space-y-4">
               {topic.qualitativeScenarios.map((q, i) => (
                 <div key={i} className="space-y-1">
-                  <p className="text-sm font-medium text-slate-900"><MathText text={q.scenario ?? (q as { question?: string }).question} /></p>
+                  <p className="text-sm font-medium text-slate-900"><MathText text={q.scenario ?? (q as { question?: string }).question ?? ''} /></p>
                   <p className="text-sm text-violet-800"><span className="font-medium">Answer: </span><MathText text={q.answer ?? ''} /></p>
                   <p className="text-xs text-slate-600 leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning ?? ''} /></p>
                 </div>
