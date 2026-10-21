@@ -891,7 +891,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     ...plannedUnits.map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
       code, title, order: Number(code.slice(2)), kind: 'unit' as const, readiness: 'planned' as const, summary,
-      prerequisites: [`Unit ${Number(code.slice(2)) - 1}`],
+      prerequisites: [`Unit 5.${Number(code.slice(2)) - 1}`],
       outcomes: [] as CurriculumOutcome[], lessonIds: [] as string[], activityIds: [] as string[], assessmentIds: [] as string[], resourceIds: [] as string[], deliverableIds: [] as string[],
       sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${plannedUnitSourceSlugs[code]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
