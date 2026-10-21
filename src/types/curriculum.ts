@@ -52,6 +52,8 @@ export interface CurriculumContentBlock {
   kind: ContentBlockKind;
   title?: string;
   body?: string;
+  /** Repeated text items for key-points and checklist blocks. */
+  items?: string[];
   expression?: string;
   language?: string;
   code?: string;
