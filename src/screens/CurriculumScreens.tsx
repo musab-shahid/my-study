@@ -87,7 +87,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
         </div>
         {lessons.length ? <div className="space-y-2">{lessons.map((lesson) => {
           const studied = lesson.sourceTopicId ? data.studiedTopics.includes(lesson.sourceTopicId) : (data.studiedCurriculumLessons ?? []).includes(lesson.id);
-          return <button key={lesson.id} onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lesson.id }) className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 p-4 text-left transition-colors">
+          return <button key={lesson.id} onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lesson.id })} className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 p-4 text-left transition-colors">
             <div className="flex items-start gap-3">
               <span className="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 flex items-center justify-center text-xs font-bold shrink-0">{lesson.order}</span>
               <span className="min-w-0 flex-1">
