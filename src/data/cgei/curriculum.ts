@@ -446,6 +446,7 @@ const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestio
     options: [...question.options],
     correctAnswer: question.correctAnswer,
     explanation: question.explanation,
+    sourceCitation: question.sourceCitation,
     difficulty: question.difficulty,
     cognitiveLevel,
   } satisfies CurriculumQuestion];
