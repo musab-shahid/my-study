@@ -152,6 +152,16 @@ export const topics: Topic[] = [
         body:
           'A field T(x,y,t) has partial derivatives holding other variables fixed. Integrating a precipitation rate over time yields depth only if units and missing data are handled deliberately.',
       },
+      {
+        heading: 'Gradient example with units',
+        body:
+          'For T(x,y) = 20 + 2x − 0.5y °C, where x and y are measured in kilometres, ∇T = (2, −0.5) °C km⁻¹. The local steepest increase points eastward and slightly southward under the chosen coordinate axes. If x and y were measured in metres instead, the numeric gradient would be (0.002, −0.0005) °C m⁻¹: same physical field, different coordinate units.',
+      },
+      {
+        heading: 'Integrating a rate',
+        body:
+          'A constant rainfall rate of 3 mm day⁻¹ over 10 complete days accumulates to 30 mm. This multiplication is valid only when the rate represents those days and no time interval is silently missing. For variable rates, approximate the integral by summing rate × interval duration.',
+      },
     ],
     formula: {
       name: 'Centred finite difference',
@@ -160,6 +170,11 @@ export const topics: Topic[] = [
         { symbol: 'f(x)', meaning: 'Sampled series or field value' },
         { symbol: 'Δx', meaning: 'Spacing (e.g. 1 day)' },
       ],
+    },
+    workedExample: {
+      problem: 'A spatial temperature field is T(x,y) = 20 + 2x − 0.5y °C, with x and y in km. Find the gradient and the temperature change along a 3 km eastward displacement at fixed y.',
+      solution: '∇T = (∂T/∂x, ∂T/∂y) = (2, −0.5) °C km⁻¹. At fixed y, ΔT = (2 °C km⁻¹)(3 km) = +6 °C for this linear field.',
+      takeaway: 'A gradient has units of temperature per distance; a directional change also depends on the displacement direction.',
     },
     examPoints: [
       'Report the unit of every rate',
@@ -205,6 +220,11 @@ export const topics: Topic[] = [
         body:
           'Multiple regression, PCA/EOF, and many spatial models are linear-algebra operations on tables of environmental measurements. Misreading sample versus variable axes is a common pipeline bug.',
       },
+      {
+        heading: 'A two-observation least-squares calculation',
+        body:
+          'For a deliberately simple through-origin model y ≈ βx with x = [1, 2] and y = [2, 5], β̂ = (xᵀy)/(xᵀx) = (1×2 + 2×5)/(1² + 2²) = 12/5 = 2.4. Fitted values are [2.4, 4.8] and residuals y − ŷ = [−0.4, 0.2]. Their dot product with x is 1(−0.4) + 2(0.2) = 0, illustrating residual orthogonality for this least-squares fit. This model has no intercept; do not mistake it for a general regression specification.',
+      },
     ],
     formula: {
       name: 'OLS residual criterion',
@@ -214,6 +234,11 @@ export const topics: Topic[] = [
         { symbol: 'X', meaning: 'Design matrix (n × p)' },
         { symbol: 'β', meaning: 'Coefficient vector (p × 1)' },
       ],
+    },
+    workedExample: {
+      problem: 'For a through-origin least-squares fit with x = [1, 2] and y = [2, 5], calculate β̂, fitted values, and residuals.',
+      solution: 'β̂ = (xᵀy)/(xᵀx) = 12/5 = 2.4. Therefore ŷ = [2.4, 4.8] and y − ŷ = [−0.4, 0.2]. The residual dot product xᵀ(y − ŷ) = −0.4 + 0.4 = 0.',
+      takeaway: 'Least squares minimises squared residual length; this example uses a no-intercept model and two observations only.',
     },
     examPoints: [
       'State the shape convention you use for X',
@@ -260,6 +285,11 @@ export const topics: Topic[] = [
         body:
           'For S = [[1.0, 0.8], [0.8, 1.0]], eigenvalues are 1.8 and 0.2. The first eigenvector lies along shared variability (about [0.707, 0.707]). Fraction of variance in the first component is 1.8/2.0 = 90%. Verify numerically with an eigh routine.',
       },
+      {
+        heading: 'Verify an eigenpair and distinguish SVD',
+        body:
+          'For S = [[1, 0.8], [0.8, 1]], take v = [1, 1]ᵀ. Then Sv = [1.8, 1.8]ᵀ = 1.8v, so 1.8 is the eigenvalue for that direction. The orthogonal direction [1, −1]ᵀ has eigenvalue 0.2. By contrast, SVD factors a general matrix X as UΣVᵀ; singular values are non-negative and are not themselves the eigenvalues of X unless additional conditions apply. For centred data, squared singular values relate to covariance eigenvalues after the appropriate normalisation.',
+      },
     ],
     formula: {
       name: 'Eigenrelation',
@@ -269,6 +299,11 @@ export const topics: Topic[] = [
         { symbol: 'v', meaning: 'Eigenvector' },
         { symbol: 'λ', meaning: 'Eigenvalue' },
       ],
+    },
+    workedExample: {
+      problem: 'Verify that v = [1, 1]ᵀ is an eigenvector of S = [[1, 0.8], [0.8, 1]], and calculate its eigenvalue.',
+      solution: 'Sv = [1×1 + 0.8×1, 0.8×1 + 1×1]ᵀ = [1.8, 1.8]ᵀ = 1.8[1, 1]ᵀ. Thus λ = 1.8.',
+      takeaway: 'An eigenpair must satisfy Av = λv. SVD is a related but more general matrix factorisation.',
     },
     examPoints: [
       'Report variance fractions when discussing PCA/EOF',
@@ -313,6 +348,11 @@ export const topics: Topic[] = [
         heading: 'Stability and truncation (conceptual)',
         body:
           'Large Δt relative to the fastest timescale can make Euler unstable or inaccurate. Adaptive methods adjust step size. Always compare endpoints to steady-state or analytical checks when available.',
+      },
+      {
+        heading: 'Lake stock–flux equilibrium',
+        body:
+          'For dM/dt = L − (k + Q/V)M, set dM/dt = 0 at steady state: M* = L/(k + Q/V). If L = 10 kg day⁻¹, k = 0.2 day⁻¹ and Q/V = 0.3 day⁻¹, then M* = 10/0.5 = 20 kg. The denominator has units day⁻¹, so the result is a mass. This is an equilibrium calculation, not a claim that the lake reaches equilibrium instantly.',
       },
     ],
     formula: {
@@ -372,6 +412,11 @@ export const topics: Topic[] = [
         body:
           'A mathematically closed balance can still be scientifically wrong if a major process is omitted. Always list what is inside the system boundary.',
       },
+      {
+        heading: 'Worked annual water balance',
+        body:
+          'Suppose a catchment receives P = 500 mm yr⁻¹, evapotranspiration is E = 350 mm yr⁻¹, runoff is R = 100 mm yr⁻¹, and storage change is ΔS = 50 mm yr⁻¹. Then P − E − R − ΔS = 500 − 350 − 100 − 50 = 0 mm yr⁻¹, so the stated terms close arithmetically. If storage change were unknown, the residual estimate would be ΔS = P − E − R = 50 mm yr⁻¹. Closure does not prove that every flux was measured or that irrigation and groundwater can be ignored.',
+      },
     ],
     formula: {
       name: 'Simplified catchment balance',
@@ -383,6 +428,11 @@ export const topics: Topic[] = [
         { symbol: 'ΔS', meaning: 'Storage change depth' },
       ],
       notes: 'All terms over the same period; expand for irrigation/groundwater when relevant.',
+    },
+    workedExample: {
+      problem: 'Given P = 500, E = 350 and R = 100 mm yr⁻¹, estimate ΔS from P = E + R + ΔS.',
+      solution: 'ΔS = P − E − R = 500 − 350 − 100 = 50 mm yr⁻¹.',
+      takeaway: 'A residual can close the equation even when omitted or uncertain fluxes remain; define the control volume before interpreting it.',
     },
     examPoints: [
       'State system boundary and period',
@@ -428,6 +478,11 @@ export const topics: Topic[] = [
         body:
           'Different texts orient fluxes into or out of the surface. The night-time arithmetic H = R_n − LE − G only means something after signs are defined for that convention.',
       },
+      {
+        heading: 'Night-time balance calculation',
+        body:
+          'Under the convention R_n = H + LE + G, let R_n = −40 W m⁻², LE = 0 W m⁻², and G = −15 W m⁻². Rearranging gives H = R_n − LE − G = −40 − 0 − (−15) = −25 W m⁻². The double negative matters. Under a different flux orientation, the written signs and interpretation must be adjusted consistently.',
+      },
     ],
     formula: [
       {
@@ -451,6 +506,11 @@ export const topics: Topic[] = [
         ],
       },
     ],
+    workedExample: {
+      problem: 'Using R_n = H + LE + G, calculate H when R_n = −40, LE = 0 and G = −15 W m⁻².',
+      solution: 'H = R_n − LE − G = −40 − 0 − (−15) = −25 W m⁻².',
+      takeaway: 'Write the balance and sign convention before substituting numbers; do not discard a negative sign.',
+    },
     examPoints: [
       'Check temperature units before radiation calculations',
       'Separate LST from air temperature in captions',
@@ -500,6 +560,16 @@ export const topics: Topic[] = [
         body:
           'Reporting σ/√n for one season of daily temperatures as if days were independent overstates precision. Spatial pixels are not independent samples either (Units 5.6–5.7).',
       },
+      {
+        heading: 'Choose a distribution from the data-generating process',
+        body:
+          'A Normal model is often a working approximation for continuous errors around a mean; Poisson models counts over a defined exposure when its assumptions are plausible; Gamma models positive continuous quantities such as some waiting times or skewed flux magnitudes. These are starting points, not automatic labels: inspect zeros, over-dispersion, tails, dependence and the sampling design. An empirical distribution may be safer when a simple parametric form is not justified.',
+      },
+      {
+        heading: 'Standard-error calculation and its assumption',
+        body:
+          'If independent observations have standard deviation σ = 4 units and n = 16, the conventional standard error is 4/√16 = 1 unit. That calculation relies on the independent-sample model. With serially correlated daily observations or spatially clustered pixels, the effective information can be much smaller than n suggests.',
+      },
     ],
     formula: {
       name: 'Bayes’ rule',
@@ -508,6 +578,11 @@ export const topics: Topic[] = [
         { symbol: 'A', meaning: 'Event of interest' },
         { symbol: 'B', meaning: 'Evidence' },
       ],
+    },
+    workedExample: {
+      problem: 'A set of 16 independent measurements has sample standard deviation 4 units. Calculate the conventional standard error of the mean.',
+      solution: 'SE = s/√n = 4/√16 = 1 unit.',
+      takeaway: 'The arithmetic is straightforward; whether the independent-observation assumption is defensible is a separate scientific question.',
     },
     examPoints: [
       'State when a standard error assumes independence',
