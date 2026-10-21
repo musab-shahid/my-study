@@ -2,7 +2,7 @@ import type { Topic } from '@/types';
 
 /**
  * CGEI Subject 5 — Scientific Computing and Data Science
- * Unit 5.1 complete app adaptation (8 topics) + subject roadmap.
+ * Unit 5.1 lesson content only; course orientation and unit hierarchy live in curriculum.ts.
  * Manuscript: content-drafts/chapter-05-scientific-computing/units/05.1-...
  * Coverage map: content-drafts/chapter-05-scientific-computing/07-UNIT-5.1-APP-COVERAGE-MAP.md
  */
