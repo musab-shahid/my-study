@@ -477,6 +477,66 @@ def check_unit_5_6_examples() -> None:
     print("OK Unit 5.6 interaction, interval, VIF and GroupKFold checks", scores.mean(axis=0).round(3).tolist())
 
 
+def check_unit_5_7_examples() -> None:
+    """Verify deterministic time-series decomposition, anomalies and leakage-safe evaluation."""
+    from sklearn.model_selection import TimeSeriesSplit
+    from sklearn.metrics import mean_absolute_error, mean_squared_error
+    from statsmodels.tsa.seasonal import STL
+    import statsmodels.api as sm
+
+    # A known monthly signal: linear trend + annual cycle + small deterministic noise.
+    n = 120
+    t = np.arange(n, dtype=float)
+    seasonal = 2.0 * np.sin(2 * np.pi * t / 12)
+    noise = np.random.default_rng(5707).normal(0.0, 0.05, n)
+    y = 10.0 + 0.03 * t + seasonal + noise
+    index = pd.date_range("2000-01-01", periods=n, freq="MS")
+    series = pd.Series(y, index=index)
+    assert series.index.is_unique and series.index.is_monotonic_increasing
+    assert series.index.freqstr == "MS"
+
+    # Seasonal anomalies calculated from the fixed first 8 years have near-zero
+    # mean by month in that baseline by construction.
+    baseline = series.loc["2000-01-01":"2007-12-01"]
+    climatology = baseline.groupby(baseline.index.month).mean()
+    anomalies = baseline - pd.Series(baseline.index.month, index=baseline.index).map(climatology).to_numpy()
+    by_month = pd.Series(anomalies.to_numpy(), index=baseline.index).groupby(lambda dt: dt.month).mean()
+    assert np.allclose(by_month.to_numpy(), 0.0, atol=1e-10)
+
+    decomp = STL(series, period=12, robust=True).fit()
+    assert np.isfinite(decomp.trend).all()
+    assert np.isfinite(decomp.seasonal).all()
+    assert np.isfinite(decomp.resid).all()
+    assert abs(np.polyfit(t, decomp.trend, 1)[0] - 0.03) < 0.01
+
+    # A synthetic serially correlated series should yield finite HAC trend estimates.
+    ar = np.zeros(n)
+    ar_rng = np.random.default_rng(57)
+    eps = ar_rng.normal(0, 1, n)
+    for i in range(1, n):
+        ar[i] = 0.65 * ar[i - 1] + eps[i]
+    fit = sm.OLS(ar, sm.add_constant(t)).fit(cov_type="HAC", cov_kwds={"maxlags": 3})
+    assert np.isfinite(fit.params).all() and np.isfinite(fit.bse).all()
+
+    # Chronological splits must keep every training timestamp earlier than test.
+    cv = TimeSeriesSplit(n_splits=5, test_size=12)
+    split_scores = []
+    for train_idx, test_idx in cv.split(t.reshape(-1, 1)):
+        assert train_idx.max() < test_idx.min()
+        train_y, test_y = y[train_idx], y[test_idx]
+        # Transparent mean baseline and persistence baseline use only training history.
+        mean_pred = np.repeat(train_y.mean(), len(test_idx))
+        persistence_pred = np.repeat(train_y[-1], len(test_idx))
+        split_scores.append((
+            mean_absolute_error(test_y, mean_pred),
+            float(np.sqrt(mean_squared_error(test_y, mean_pred))),
+            mean_absolute_error(test_y, persistence_pred),
+        ))
+    scores = np.asarray(split_scores)
+    assert scores.shape == (5, 3) and np.isfinite(scores).all()
+    print("OK Unit 5.7 time index, anomaly, STL, HAC and chronological CV checks", scores.mean(axis=0).round(3).tolist())
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -489,6 +549,7 @@ def main() -> int:
     check_unit_5_4_examples()
     check_unit_5_5_examples()
     check_unit_5_6_examples()
+    check_unit_5_7_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
