@@ -274,7 +274,23 @@ const lessons53: CurriculumLesson[] = lessonDefinitions53.map((lesson, index) =>
   deliverableIds: [...lesson.deliverableIds],
 }));
 
-const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53];
+const lessons54: CurriculumLesson[] = lessonDefinitions54.map((lesson, index) => ({
+  id: lesson.id,
+  kind: 'lesson' as const,
+  title: lesson.title,
+  order: index + 1,
+  readiness: 'draft' as const,
+  level: 'L3' as const,
+  estimatedMinutes: lesson.minutes,
+  objectives: outcomes54.filter((outcome) => lesson.objectiveIds.includes(outcome.id)),
+  content: [...lesson.content],
+  activityIds: [...lesson.activityIds],
+  assessmentIds: [...lesson.assessmentIds],
+  resourceIds: [...lesson.resourceIds],
+  deliverableIds: [...lesson.deliverableIds],
+}));
+
+const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54];
 
 export const cgeiCurriculum: CurriculumRegistry = {
   schemaVersion: 2,
@@ -305,7 +321,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
+      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
@@ -347,12 +363,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.3-exploration-visualisation.md',
       notes: ['Content is authored in canonical typed blocks and remains draft pending browser review.', 'Figure examples are illustrative; they require a real dataset before empirical claims can be made.'],
     },
+    {
+      id: 'cgei-ds-unit-5-4', code: '5.4', title: 'Introductory statistics for environmental data', order: 4, kind: 'unit', readiness: 'draft',
+      summary: 'Move from exploratory graphics to defensible inference: sampling support, confidence intervals, hypothesis tests, multiple testing, regression diagnostics, effect sizes and practical interpretation.',
+      estimatedHours: 6.5, prerequisites: ['Unit 5.1 probability foundations', 'Unit 5.2 scientific Python', 'Unit 5.3 EDA and visualisation'], outcomes: outcomes54,
+      lessonIds: lessons54.map((lesson) => lesson.id),
+      activityIds: ['cgei-ds-a-54-sampling', 'cgei-ds-a-54-interval', 'cgei-ds-a-54-tests', 'cgei-ds-a-54-regression', 'cgei-ds-a-54-effect-size'],
+      assessmentIds: ['cgei-ds-assess-54-sampling', 'cgei-ds-assess-54-intervals', 'cgei-ds-assess-54-tests', 'cgei-ds-assess-54-regression', 'cgei-ds-assess-54-effect-size'],
+      resourceIds: ['cgei-ds-r-54-wilks', 'cgei-ds-r-54-scipy-bootstrap', 'cgei-ds-r-54-statsmodels-multitest', 'cgei-ds-r-54-statsmodels-ols', 'cgei-ds-r-54-nist'],
+      deliverableIds: ['cgei-ds-d-54-brief', 'cgei-ds-d-54-inference-checklist', 'cgei-ds-d-54-regression-notebook'],
+      sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.4-introductory-statistics.md',
+      notes: ['Examples are instructional and remain draft until numerical smoke checks and UI review pass.', 'Sampling and independence assumptions must be stated before inferential claims.'],
+    },
     ...plannedUnits.map(([code, title, summary], index) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
-      code, title, order: index + 4, kind: 'unit' as const, readiness: 'planned' as const, summary,
-      prerequisites: [index === 0 ? 'Unit 5.3 EDA and visualisation' : `Unit ${plannedUnits[index - 1][0]}`],
+      code, title, order: index + 5, kind: 'unit' as const, readiness: 'planned' as const, summary,
+      prerequisites: [index === 0 ? 'Unit 5.4 introductory statistics' : `Unit ${plannedUnits[index - 1][0]}`],
       outcomes: [] as CurriculumOutcome[], lessonIds: [] as string[], activityIds: [] as string[], assessmentIds: [] as string[], resourceIds: [] as string[], deliverableIds: [] as string[],
-      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
+      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
   ],
