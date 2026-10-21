@@ -392,7 +392,10 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
       </div>
       {curriculumUnit && (
         <Card className="mb-5 p-4 sm:p-5 border border-teal-100 bg-teal-50/30">
-          <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
+            <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-teal-800 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
+          </div>
           <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
           {curriculumUnit.outcomes.length > 0 && (
             <div className="mt-4">
@@ -479,7 +482,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           const status = getTopicStatusFromProgress(studied, prog);
           return (
             <Card key={topic.id} className="p-0">
-              <button onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
+              <button onClick={() => curriculumUnit && topic.sectionId === 'CGEI-051' ? navigate({ screen: 'curriculum-lesson', lessonId: cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === topic.id)?.id ?? '' }) : navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
