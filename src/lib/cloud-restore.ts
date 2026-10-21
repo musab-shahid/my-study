@@ -1,27 +1,24 @@
-import type { AppData } from '../types.ts';
+import type { AppData } from '../types';
 
-/** Local recovery snapshot key written before applying a cloud restore. */
-export const CLOUD_RESTORE_RECOVERY_SUFFIX = ':pre-restore';
+export const CLOUD_RESTORE_RECOVERY_SUFFIX = '-pre-restore';
 
-/**
- * Pure plan for cloud → local restore ordering.
- * Callers must: write recovery (if any) → write app data → only then reload.
- * Never reload before both writes succeed.
- */
-export function planCloudRestoreWrite(
-  appDataStorageKey: string,
-  existingAppDataJson: string | null,
-  cloudData: AppData,
-): {
+export interface CloudRestorePlan {
   recoveryKey: string;
   recoveryValue: string | null;
   appDataKey: string;
   appDataValue: string;
-} {
+}
+
+export function planCloudRestoreWrite(
+  appDataKey: string,
+  existingRaw: string | null,
+  cloudData: AppData,
+): CloudRestorePlan {
+  const recoveryKey = `${appDataKey}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
   return {
-    recoveryKey: `${appDataStorageKey}${CLOUD_RESTORE_RECOVERY_SUFFIX}`,
-    recoveryValue: existingAppDataJson,
-    appDataKey: appDataStorageKey,
+    recoveryKey,
+    recoveryValue: existingRaw,
+    appDataKey,
     appDataValue: JSON.stringify(cloudData),
   };
 }

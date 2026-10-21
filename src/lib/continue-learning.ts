@@ -1,47 +1,35 @@
-import type { Topic, TopicProgress } from '../types.ts';
-import { getTopicStatusFromProgress } from './constants.ts';
+import type { Topic, TopicProgress } from '@/types';
 
-export type ContinueLearningInput = {
+interface Input {
   subjectTopics: Topic[];
   lastOpenedTopicId: string | null | undefined;
   studiedTopicIds: string[];
-  topicProgress: Record<string, TopicProgress | undefined>;
-  /** Resolve a topic by id; return undefined if missing or out of subject. */
+  topicProgress: Record<string, TopicProgress>;
   resolveTopic: (id: string) => Topic | undefined;
-};
+}
 
-/**
- * Pick the best "Continue Learning" topic for a subject list.
- * Priority: last opened (not yet studied) → most recently studied in-progress → first not started.
- */
-export function selectContinueLearningTopic(input: ContinueLearningInput): Topic | null {
+export function selectContinueLearningTopic(input: Input): Topic | null {
   const { subjectTopics, lastOpenedTopicId, studiedTopicIds, topicProgress, resolveTopic } = input;
+
   if (subjectTopics.length === 0) return null;
 
   if (lastOpenedTopicId) {
-    const t = resolveTopic(lastOpenedTopicId);
-    if (t && subjectTopics.some((st) => st.id === t.id) && !studiedTopicIds.includes(t.id)) {
-      return t;
+    const lastTopic = resolveTopic(lastOpenedTopicId);
+    if (lastTopic && subjectTopics.some((t) => t.id === lastOpenedTopicId)) {
+      return lastTopic;
     }
   }
 
-  const inProgress = subjectTopics
-    .filter((t) => {
-      const p = topicProgress[t.id];
-      const studied = studiedTopicIds.includes(t.id);
-      return getTopicStatusFromProgress(studied, p) === 'studied';
-    })
-    .sort((a, b) => {
-      const aTime = topicProgress[a.id]?.lastStudied
-        ? new Date(topicProgress[a.id]!.lastStudied!).getTime()
-        : 0;
-      const bTime = topicProgress[b.id]?.lastStudied
-        ? new Date(topicProgress[b.id]!.lastStudied!).getTime()
-        : 0;
-      return bTime - aTime;
-    });
-  if (inProgress.length > 0) return inProgress[0];
+  const studiedInSubject = subjectTopics
+    .filter((t) => studiedTopicIds.includes(t.id) && t.content)
+    .map((t) => ({ topic: t, progress: topicProgress[t.id] }))
+    .filter((x) => x.progress?.lastStudied)
+    .sort((a, b) => (b.progress!.lastStudied! > a.progress!.lastStudied! ? 1 : -1));
+  if (studiedInSubject.length > 0) return studiedInSubject[0].topic;
 
-  const notStarted = subjectTopics.find((t) => !studiedTopicIds.includes(t.id));
-  return notStarted ?? null;
+  const firstUnstudied = subjectTopics.find((t) => !studiedTopicIds.includes(t.id) && t.content);
+  if (firstUnstudied) return firstUnstudied;
+
+  const firstWithContent = subjectTopics.find((t) => t.content);
+  return firstWithContent ?? null;
 }

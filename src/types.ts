@@ -167,6 +167,8 @@ export interface Topic {
   comparisonTable?: ComparisonTable;
   relatedTopics?: string[];
   workedExample?: WorkedExample | WorkedExample[];
+  /** Plural alias used by some content banks (same shape as workedExample). */
+  workedExamples?: WorkedExample | WorkedExample[];
   /** Equation / method picker for quantitative topics */
   methodChooser?: MethodChooser | MethodChooserStep[];
   /** Special cases (a=0, open circuit, …) */

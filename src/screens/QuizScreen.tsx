@@ -10,8 +10,7 @@ import { allQuestions, questionsByTopic } from '@/data/questions';
 import { getTopic } from '@/data/topics';
 import { sectionMap } from '@/data/sections';
 import { useSubjectData } from '@/hooks/useSubjectData';
-import { subjectsByTrack } from '@/data/subjects';
-import { subjectMap } from '@/data/subjects';
+import { subjectsByTrack, subjectMap } from '@/data/subjects';
 import { BackButton, Breadcrumbs, HomeButton } from '@/components/layout/Breadcrumbs';
 import { PageContainer, Card, ProgressBar, Button, EmptyState, LoadingSpinner } from '@/components/ui';
 import { loadAllQuestions, loadSubjectQuestions, loadQuestionsForTopic } from '@/data/lazy-data';
@@ -1091,8 +1090,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         results={results}
         mode={mode}
         onRetry={handleRetry}
-        onNavigateToTopic={(tid) => navigate({ screen: 'topic', topicId: tid, parent: null })}
-        onPracticeTopic={(tid) => navigate({ screen: 'quiz', mode: 'topic', topicId: tid, count: 5 })}
+        onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid, parent: null })}
+        onPracticeTopic={(tid: string) => navigate({ screen: 'quiz', mode: 'topic', topicId: tid, count: 5 })}
         onNavigateToProgress={() => navigate({ screen: 'progress', parent: null })}
         onBack={exitToOrigin}
       />
