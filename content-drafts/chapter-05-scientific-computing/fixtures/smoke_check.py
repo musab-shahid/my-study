@@ -221,6 +221,33 @@ def check_unit_5_3_examples() -> None:
     print("OK Unit 5.3 EDA and visualisation examples")
 
 
+def check_unit_5_4_examples() -> None:
+    """Check the confidence-interval arithmetic, OLS and FDR examples."""
+    import math
+    import statsmodels.api as sm
+    from statsmodels.stats.multitest import multipletests
+
+    n, mean_c, sd_c = 30, 0.8, 1.2
+    se_c = sd_c / math.sqrt(n)
+    low, high = mean_c - 1.96 * se_c, mean_c + 1.96 * se_c
+    assert abs(se_c - 0.219089) < 1e-5
+    assert abs(low - 0.370584) < 1e-5
+    assert abs(high - 1.229416) < 1e-5
+
+    rng = np.random.default_rng(42)
+    ndvi = np.linspace(0.1, 0.8, 30)
+    lst = 40.0 - 7.0 * ndvi + rng.normal(0.0, 0.3, len(ndvi))
+    model = sm.OLS(lst, sm.add_constant(ndvi)).fit()
+    assert model.params[1] < 0
+    assert len(model.resid) == len(ndvi)
+
+    raw_p = np.array([0.001, 0.012, 0.031, 0.20, 0.44])
+    reject, adjusted_p, _, _ = multipletests(raw_p, alpha=0.05, method="fdr_bh")
+    assert len(reject) == len(raw_p) and len(adjusted_p) == len(raw_p)
+    assert np.all(adjusted_p >= raw_p)
+    print("OK Unit 5.4 statistics examples")
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -230,6 +257,7 @@ def main() -> int:
     check_logistic_glm()
     check_unit_5_2_examples()
     check_unit_5_3_examples()
+    check_unit_5_4_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
