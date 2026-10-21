@@ -315,6 +315,8 @@ export function screenDisplayName(screen: ScreenName | string): string {
     'hat': 'HAT Prep',
     'fpsc': 'FPSC Exam',
     'track': 'Track',
+    'curriculum-unit': 'Curriculum Unit',
+    'curriculum-lesson': 'Curriculum Lesson',
   };
   return names[resolved] ?? resolved;
 }
