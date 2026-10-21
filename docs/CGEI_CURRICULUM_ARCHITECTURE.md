@@ -83,7 +83,7 @@ Subject 5 is the pilot because a manuscript already exists for Units 5.1–5.12,
   6. Environmental mass and water balance
   7. Surface energy balance and thermal radiation
   8. Probability, uncertainty and dependent observations
-- Units 5.2–5.5 have typed lesson content and knowledge checks, but remain `draft` until validation and content review; Units 5.6–5.12 are registered as planned units, not falsely represented as app-ready lessons.
+- Units 5.2–5.5 have typed lesson content and knowledge checks, but remain `draft` until validation and content review. Unit 5.6 now has five typed lessons covering regression interpretation, diagnostics, uncertainty, dependence-aware validation and fair model comparison; it remains `draft` pending execution of examples and instructional review. Units 5.7–5.12 remain registered as planned units, not falsely represented as app-ready lessons.
 - Chapter capstone, practice tracks, solution keys, fixtures, and rubric become first-class entities and link to relevant units.
 - Existing `Topic` data is referenced by stable `sourceTopicId` until content blocks can be migrated without breaking progress, quizzes, or routes.
 
@@ -91,7 +91,7 @@ Subject 5 is the pilot because a manuscript already exists for Units 5.1–5.12,
 
 The current registry is a **vertical slice**, not yet the complete canonical migration of all 14 subjects:
 
-- Subject 5 orientation, Unit 5.1's eight lessons, and the capstone/project record are represented in the canonical curriculum model.
+- Subject 5 orientation, Units 5.1–5.6, and the capstone/project record are represented in the canonical curriculum model.
 - Unit 5.1's 35 legacy questions are bridged into canonical question records; source citations, legacy topic IDs, quiz routing, and studied-state compatibility are preserved.
 - Unit 5.1 has 16 additional worked-calculation, scientific-Python, and checklist blocks beyond the migrated source material.
 - Units 5.2–5.5 have five authored typed lessons each and 41 knowledge-check questions across those units. Their readiness remains `draft`, not `validated` or `released`.
