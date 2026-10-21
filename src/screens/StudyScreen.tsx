@@ -458,13 +458,14 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   }
 
   const isStudied = data.studiedTopics.includes(topicId);
+  const topicPositionLabel = topic.sectionId === 'CGEI-051' ? `Unit 5.1 · Lesson ${topic.order}` : `Section ${topic.sectionId} · Topic ${topic.order}`;
 
   if (!topic.content) {
     return (
       <PageContainer>
         <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
         <div className="mb-4">
-          <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
+          <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
           <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
@@ -481,7 +482,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
-        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
+        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
         <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
       </div>
