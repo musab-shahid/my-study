@@ -30,7 +30,7 @@
 
 ## Assessment and readiness
 
-Unit 5.2 has five typed lesson records, five linked practice activities, five assessment records, six references and three portfolio deliverables. The app renders assessment purpose and activity instructions; **this does not mean an interactive quiz exists yet**. Interactive question-bank integration is a separate implementation task.
+Unit 5.2 has five typed lesson records, five linked practice activities, five assessment records, six references, three portfolio deliverables, and eleven first-class curriculum questions. The lesson reader renders single-choice checks with answer feedback and explanations. These checks are not yet integrated into the app's adaptive legacy quiz scoring or spaced-repetition statistics.
 
 The unit remains `draft` until:
 1. the canonical content-block and lesson routes pass typecheck, tests, lint and build;
