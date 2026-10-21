@@ -46,14 +46,14 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
 
-### App integration (Units 5.1–5.5; canonical curriculum migration in progress)
+### App integration (Units 5.1–5.6; canonical curriculum migration in progress)
 
 | Item | Status |
 |------|--------|
 | Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
 | Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
 | Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
-| Assessment questions | **76 canonical questions**: 35 migrated from Unit 5.1 and 41 for Units 5.2–5.5; explanations preserved, and legacy Unit 5.1 source citations retained |
+| Assessment questions | **86 canonical questions**: 35 migrated from Unit 5.1, 41 for Units 5.2–5.5, and 10 for Unit 5.6; explanations preserved, and legacy Unit 5.1 source citations retained |
 | Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge, with 16 additional worked-calculation/code/checklist blocks; Units 5.2–5.5 are authored directly as typed content blocks |
@@ -61,6 +61,7 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |
 | Unit 5.4 | Five lessons, five practice activities, five assessment records and ten interactive knowledge checks; readiness remains **draft** |
 | Unit 5.5 | Five lessons, five practice activities, five formative assessments, ten interactive checks, five verified supporting references and three portfolio deliverables; readiness remains **draft** |
-| Units 5.6–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
-| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; latest schema/content changes still require a fresh CI run |
+| Unit 5.6 | Five lessons, five practice activities, five formative assessments, ten lesson-linked knowledge checks, three official references and three portfolio deliverables; readiness remains **draft** pending executed examples and review |
+| Units 5.7–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
+| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; Unit 5.6 validation rule added; the latest schema/content changes require a fresh CI run |
 | Scientific verification | `fixtures/smoke_check.py` includes synthetic scientific checks for Units 5.2–5.5, including Unit 5.5 SQLite aggregation, unmatched keys, idempotent merges, manifest fields and mocked 429/500/timeout retry cases. A previous CI run passed E2E and scientific smoke but failed a stale curriculum count assertion; that expectation has been updated. The latest Unit 5.5 code still requires a fresh green CI run. All data remain synthetic; no claim of live-data validation |
