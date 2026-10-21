@@ -123,3 +123,39 @@ test.describe('CGEI Unit 5.8 lesson rendering', () => {
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
 });
+
+
+test.describe('CGEI Unit 5.9 lesson rendering', () => {
+  const lessons = [
+    { id: 'cgei-ds-lesson-5-9-1', title: 'Choose a GLM from outcome support and scientific question' },
+    { id: 'cgei-ds-lesson-5-9-2', title: 'Mixed models for grouped and repeated environmental data' },
+    { id: 'cgei-ds-lesson-5-9-3', title: 'Bayesian models: priors, posterior and computation' },
+    { id: 'cgei-ds-lesson-5-9-4', title: 'Diagnostics, overdispersion and predictive checks' },
+    { id: 'cgei-ds-lesson-5-9-5', title: 'Effect contrasts, uncertainty and scientific reporting' },
+  ];
+
+  for (const lesson of lessons) {
+    test(`renders draft lesson: ${lesson.title}`, async ({ page }) => {
+      await seedCgeiWorkspace(page);
+      await page.goto(`/curriculum/lesson/${lesson.id}`);
+      await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'References and tools', exact: true })).toBeVisible();
+      await expect(page.getByRole('button', { name: /Unit overview/i })).toBeVisible();
+    });
+  }
+
+  test('Unit 5.9 overview lists all five lessons and remains marked draft', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/curriculum/unit/cgei-ds-unit-5-9');
+    await expect(page.getByRole('heading', { name: 'GLMs, mixed models and Bayesian modelling', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    for (const lesson of lessons) {
+      await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')) })).toBeVisible();
+    }
+    await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
+  });
+});
