@@ -39,10 +39,30 @@
 
 Roadmap remains `cgei-data-science-roadmap` under `CGEI-05`.
 
-## Assessment target
+## Assessment and depth review
 
-About **24–28** questions across the eight topics (calculation, interpretation, distinction, error diagnosis). Not claimed complete until quiz items exist for each topic.
+The expanded bank contains **35 questions across eight topics** (IDs `CGEI-05-Q001`–`CGEI-05-Q035`). New application items cover rate integration, a numeric gradient, a hand-calculated least-squares coefficient and residual check, eigenvalue/SVD distinction, a stock–flux steady state, water-balance storage, energy-balance signs, and standard error.
 
-## Status after this revision
+The count is a coverage indicator, not a mastery guarantee. Review questions for calculation, interpretation, transfer, and misconception diagnosis. Each topic should have at least one worked numerical example where the subject is quantitative, and explanations must show the reasoning rather than only repeat the answer.
 
-Expand Slice 1 from 4 topics / 10 questions to **8 topics / 26 questions** aligned to the map above.
+## Learning-objective depth checklist
+
+| Manuscript strand | Minimum app evidence expected | Current evidence / remaining caution |
+|-------------------|--------------------------------|-------------------------------------|
+| 5.1.1 Units and dimensional analysis | Conversion example, dimensional consistency, depth vs rate, encoding/precision caution | Worked °C→K example and dimensional discussion; verify all product-specific encoding claims against current documentation before reuse |
+| 5.1.2 Calculus and fields | Finite difference, gradient with coordinate units, integration of a rate | Added worked gradient and accumulation examples; discrete approximations must not be presented as exact continuous derivatives |
+| 5.1.3.1–5.1.3.2 Linear algebra and least squares | Matrix shapes, a matrix/linear-map interpretation, numeric coefficient and residual geometry | Added through-origin OLS example; explicitly note it has no intercept and is not a general model template |
+| 5.1.3.3 Eigenvalues, SVD and PCA | Verify an eigenpair, distinguish eigenvalues from singular values, explain variance share and sign indeterminacy | Added eigenpair calculation and SVD distinction; PCA/EOF physical interpretation still requires domain evidence |
+| 5.1.4 ODEs and numerical methods | Euler calculation, stock–flux equation, steady-state/unit check, step-size caveat | Euler example plus lake equilibrium example; no claim that Euler is generally accurate or stable |
+| 5.1.5 Water/mass balance | Numerical balance with a consistent control volume, period, and units | Added numerical storage residual; closure alone does not prove all fluxes are observed |
+| 5.1.5 Energy balance | Defined sign convention, numeric rearrangement, Kelvin for radiation, LST/air-temperature distinction | Added sign calculation; maintain the convention explicitly in all future examples |
+| 5.1.6 Probability foundations | Bayes/base-rate reasoning, distribution choice, standard error assumptions, dependence | Added standard-error example and distribution-selection guidance; effective sample size needs a dependence-aware method for real data |
+
+## Current status (depth review)
+
+- **Source-to-app map:** all six manuscript strands mapped to eight app topics.
+- **Topic teaching:** quantitative worked examples now exist for units, rates/gradients, OLS, eigenpairs, Euler integration, lake steady state, water balance, energy balance, and standard error.
+- **Assessment:** 35 questions across the eight topics; new applied items added after the initial 26-question review.
+- **Structural metadata:** `CGEI-051` declares 8 topics and 35 questions.
+- **Not yet verified in this environment:** `npm run validate:data`, full `npm run check`, and actual browser/UI rendering. Do not label Unit 5.1 fully validated until those checks run successfully.
+- **Scope boundary:** Units 5.2–5.12 remain manuscript-first and are not claimed to be integrated in the app.
