@@ -42,7 +42,7 @@ export function ExamProfilePicker({ trackId, enrolled }: Props) {
             return;
           }
           // Soft-clear subject picks that fall outside the new profile
-          if (lastSelected && lastSelected !== "all" && !subjectInScope(lastSelected, { trackId, examId })) {
+          if (lastSelected && !subjectInScope(lastSelected, { trackId, examId })) {
             setGlobalSubject("all");
           }
         }}
