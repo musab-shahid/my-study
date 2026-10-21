@@ -194,13 +194,18 @@ test.describe('Quiz completion journey', () => {
 
     await expect(check).toBeVisible();
 
-    for (let i = 0; i < 12; i++) {
-      if (await page.getByRole('heading', { name: /^Results$/i }).isVisible().catch(() => false)) break;
-      if (!(await page.getByRole('button', { name: /^Check Answer$/i }).isVisible().catch(() => false))) break;
+    const resultsHeading = page.getByRole('heading', { name: /^Results$/i });
+    // Quick Practice defaults to 10 questions. Wait for each question transition
+    // instead of using isVisible() immediately after React updates the screen.
+    for (let i = 0; i < 20; i++) {
+      if (await resultsHeading.isVisible().catch(() => false)) break;
+      const checkOrResults = check.or(resultsHeading);
+      await expect(checkOrResults).toBeVisible({ timeout: 20_000 });
+      if (await resultsHeading.isVisible().catch(() => false)) break;
       await answerCurrentQuestion(page);
     }
 
-    await expect(page.getByRole('heading', { name: /^Results$/i })).toBeVisible({ timeout: 30_000 });
+    await expect(resultsHeading).toBeVisible({ timeout: 30_000 });
     await expect(page.locator('main').getByText(/%/).first()).toBeVisible();
 
     const stored = await page.evaluate((key) => localStorage.getItem(key), APP_DATA_KEY);
