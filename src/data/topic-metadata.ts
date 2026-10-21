@@ -345,6 +345,12 @@ export const topicMetadata: TopicMeta[] = [
   { id: "cgei-ml-geoai-roadmap", sectionId: "CGEI-06", order: 1, title: "Subject roadmap — ML & GeoAI", content: true },
   { id: "cgei-climate-risk-roadmap", sectionId: "CGEI-07", order: 1, title: "Subject roadmap — Climate risk & DRR", content: true },
   { id: "cgei-research-practice-roadmap", sectionId: "CGEI-08", order: 1, title: "Subject roadmap — Research practice", content: true },
+  { id: "cgei-decision-support-roadmap", sectionId: "CGEI-09", order: 1, title: "Decision Support, Dashboards & Environmental Intelligence — roadmap", content: true },
+  { id: "cgei-climate-policy-roadmap", sectionId: "CGEI-10", order: 1, title: "Climate Policy, Mitigation, Sustainability & Environmental Economics — roadmap", content: true },
+  { id: "cgei-software-engineering-roadmap", sectionId: "CGEI-11", order: 1, title: "Software Engineering, Data Engineering & Reliable Scientific Computing — roadmap", content: true },
+  { id: "cgei-advanced-ai-roadmap", sectionId: "CGEI-12", order: 1, title: "Advanced AI Systems & AI-Assisted Scientific Workflows — roadmap", content: true },
+  { id: "cgei-capstone-roadmap", sectionId: "CGEI-13", order: 1, title: "Applied Capstone, Professional Portfolio & Career/Research Pathways — roadmap", content: true },
+  { id: "cgei-advanced-branches-roadmap", sectionId: "CGEI-14", order: 1, title: "Optional Advanced Environmental Branches — roadmap", content: true },
 ];
 
 export const topicMetaMap: Record<string, TopicMeta> = Object.fromEntries(
