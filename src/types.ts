@@ -26,7 +26,7 @@ export type SubjectId =
   | 'cgei-software-engineering'
   | 'cgei-advanced-ai'
   | 'cgei-capstone'
-  | 'cgei-advanced-branches'
+  | 'cgei-advanced-branches';
 
 export interface Subject {
   id: SubjectId;
