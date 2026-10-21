@@ -178,7 +178,7 @@ def check_unit_5_2_examples() -> None:
     }
 
     import re
-    pattern = re.compile(r"(?P<sensor>Landsat\\d+)_(?P<date>\\d{8})_(?P<band>B\\d+)\\.tif")
+    pattern = re.compile(r"(?P<sensor>Landsat\d+)_(?P<date>\d{8})_(?P<band>B\d+)\.tif")
     match = pattern.fullmatch("Landsat8_20260615_B4.tif")
     assert match is not None
     assert match.groupdict() == {"sensor": "Landsat8", "date": "20260615", "band": "B4"}
