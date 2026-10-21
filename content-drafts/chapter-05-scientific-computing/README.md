@@ -15,7 +15,8 @@
 |------|------|
 | `00-COVERAGE-LEDGER.md` | Honest audit |
 | `08-UNIT-5.2-APP-COVERAGE-MAP.md` | Scientific Python manuscript-to-app traceability |
-| `09-UNIT-5.3-APP-COVERAGE-MAP.md` | EDA and visualisation manuscript-to-app traceability |\n| `10-UNIT-5.5-APP-COVERAGE-MAP.md` | Data workflow engineering manuscript-to-app traceability |
+| `09-UNIT-5.3-APP-COVERAGE-MAP.md` | EDA and visualisation manuscript-to-app traceability |
+| `10-UNIT-5.5-APP-COVERAGE-MAP.md` | Data workflow engineering manuscript-to-app traceability |
 | `01-CHAPTER-ORIENTATION.md` | Part I entry + diagnostic |
 | `units/05.1` … `05.12` | Full teaching units |
 | `02-CROSS-UNIT-INTEGRATION.md` | Dependencies + checklist |
