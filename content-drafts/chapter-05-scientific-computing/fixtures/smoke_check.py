@@ -335,8 +335,59 @@ def check_unit_5_5_examples() -> None:
     required = {"dataset_id", "source", "variable", "source_units", "temporal_extent", "retrieved_utc", "licence", "sha256"}
     assert required.issubset(manifest)
     assert manifest["source_units"] == "degree_Celsius"
+
+    # Mock HTTP responses: verify bounded retry, Retry-After and timeout handling
+    # without relying on a live provider or network access.
+    class FakeResponse:
+        def __init__(self, status_code, payload, headers=None):
+            self.status_code = status_code
+            self._payload = payload
+            self.headers = headers or {}
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise RuntimeError(f"HTTP {self.status_code}")
+
+        def json(self):
+            return self._payload
+
+    def get_json_with_retry(get, attempts=4, sleep=lambda _seconds: None):
+        retryable = {429, 500, 502, 503, 504}
+        for attempt in range(attempts):
+            try:
+                response = get()
+            except (TimeoutError, ConnectionError):
+                if attempt == attempts - 1:
+                    raise
+                sleep(min(2 ** attempt, 60))
+                continue
+            if response.status_code in retryable and attempt < attempts - 1:
+                retry_after = response.headers.get("Retry-After", "")
+                wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt
+                sleep(min(wait, 60))
+                continue
+            response.raise_for_status()
+            return response.json()
+        raise RuntimeError("Request attempts exhausted")
+
+    queued = [FakeResponse(429, {"message": "rate limited"}, {"Retry-After": "3"}),
+              FakeResponse(200, {"ok": True})]
+    delays = []
+    payload = get_json_with_retry(lambda: queued.pop(0), sleep=delays.append)
+    assert payload == {"ok": True} and delays == [3]
+
+    timeout_calls = {"n": 0}
+    def timeout_then_success():
+        timeout_calls["n"] += 1
+        if timeout_calls["n"] == 1:
+            raise TimeoutError("synthetic timeout")
+        return FakeResponse(200, {"ok": True})
+    timeout_delays = []
+    assert get_json_with_retry(timeout_then_success, sleep=timeout_delays.append) == {"ok": True}
+    assert timeout_calls["n"] == 2 and timeout_delays == [1]
+
     conn.close()
-    print("OK Unit 5.5 SQL, idempotence and manifest examples")
+    print("OK Unit 5.5 SQL, idempotence, manifest and mocked API retry examples")
 
 
 def main() -> int:
