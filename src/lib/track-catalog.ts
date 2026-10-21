@@ -70,7 +70,7 @@ export function questionEligibleForScope(
   if (!inScopeSubject) return false;
   if (!contentEligibleForScope(question, input)) return false;
   // Question is directly eligible. If it has its own tags we are done.
-  if (question.examScope || question.postRestriction) return true;
+  if (question.examScope) return true;
   // Untagged question: inherit from its topic's restriction policy.
   const topic = topicMap[question.topicId];
   if (topic && !contentEligibleForScope(topic, input)) return false;
