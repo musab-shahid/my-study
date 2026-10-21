@@ -50,6 +50,45 @@ test.describe('Practice gate', () => {
   });
 });
 
+const CGEI_APP_DATA_KEY = 'examprep-data';
+const CGEI_SUBJECT_SELECTION_KEY = 'examprep-subject-selection';
+
+async function seedCgeiWorkspace(page: import('@playwright/test').Page) {
+  const now = new Date().toISOString();
+  await page.goto('/');
+  await page.evaluate(
+    ({ appKey, subjectKey, enrolledAt }) => {
+      localStorage.setItem(appKey, JSON.stringify({
+        studiedTopics: [],
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: '',
+        trackMembership: {
+          schemaVersion: 1,
+          enrollments: {
+            cgei: {
+              enrolledAt,
+              source: 'explicit',
+              lastOpenedAt: enrolledAt,
+              activeExamId: null,
+            },
+          },
+          activeTrackId: 'cgei',
+        },
+      }));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'cgei',
+        byTrack: { cgei: { perScreen: {}, lastSelected: '', prefersAll: true } },
+      }));
+    },
+    { appKey: CGEI_APP_DATA_KEY, subjectKey: CGEI_SUBJECT_SELECTION_KEY, enrolledAt: now },
+  );
+  await page.reload();
+  await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
+}
+
 test.describe('CGEI Unit 5.8 lesson rendering', () => {
   const lessons = [
     { id: 'cgei-ds-lesson-5-8-1', title: 'Build a defensible multivariate data matrix' },
@@ -61,6 +100,7 @@ test.describe('CGEI Unit 5.8 lesson rendering', () => {
 
   for (const lesson of lessons) {
     test(`renders draft lesson: ${lesson.title}`, async ({ page }) => {
+      await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
       await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
@@ -73,11 +113,12 @@ test.describe('CGEI Unit 5.8 lesson rendering', () => {
   }
 
   test('Unit 5.8 overview lists all five lessons and remains marked draft', async ({ page }) => {
+    await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-8');
     await expect(page.getByRole('heading', { name: 'Multivariate analysis, PCA and EOF', exact: true })).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) {
-      await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) })).toBeVisible();
+      await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')) })).toBeVisible();
     }
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
