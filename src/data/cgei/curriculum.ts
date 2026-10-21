@@ -975,7 +975,7 @@ const lessons59: CurriculumLesson[] = [
  ],activityIds:['cgei-ds-a-59-report'],assessmentIds:['cgei-ds-assess-59-report'],resourceIds:['cgei-ds-r-59-bda','cgei-ds-r-59-diagnostics'],deliverableIds:['cgei-ds-d-59-model-card','cgei-ds-d-59-report']}
 ];
 
-const lessons: CurriculumLesson[] =const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59];
+const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
