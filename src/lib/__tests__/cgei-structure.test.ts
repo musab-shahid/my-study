@@ -5,6 +5,7 @@ import { sectionsBySubject } from '../../data/sections.ts';
 import { topicMetadata } from '../../data/topic-metadata.ts';
 import { loadSubjectTopics, loadSubjectQuestions } from '../../data/lazy-data.ts';
 import type { SubjectId } from '../../types.ts';
+import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
 
 describe('CGEI curriculum structure', () => {
   const cgeiSubjects = subjectsByTrack('cgei');
@@ -35,6 +36,19 @@ describe('CGEI curriculum structure', () => {
         'cgei-advanced-branches',
       ],
     );
+  });
+
+  it('keeps course orientation out of Topic progress and registers canonical lesson units', () => {
+    assert.equal(topicMetadata.some((topic) => topic.id === 'cgei-data-science-roadmap'), false);
+    for (const code of ['5.1', '5.2', '5.3']) {
+      const unit = cgeiCurriculum.units.find((item) => item.code === code);
+      assert.ok(unit, `Unit ${code} should be registered`);
+      assert.equal(unit.lessonIds.length,  code === '5.1' ? 8 : 5);
+      assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
+    }
+    assert.equal(cgeiCurriculum.lessons.length, 18);
+    assert.equal(cgeiCurriculum.questions.length, 21);
+    assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
   });
 
   it('loads a topic module and question bank for every registered domain', async () => {
