@@ -77,11 +77,11 @@ export function searchTopics(query: string, scopedTopics: Topic[] = topics): Sea
     // Search common mistakes
     if (topic.commonMistakes) {
       const mistake = topic.commonMistakes.find((m) => {
-        const text = typeof m === 'string' ? m : (m.mistake ?? m.name ?? '') + ' ' + (m.correction ?? m.remedy ?? '') + ' ' + (m.explanation ?? m.correctModel ?? '');
+        const text = typeof m === 'string' ? m : m.mistake + ' ' + m.correction + ' ' + m.explanation;
         return text.toLowerCase().includes(q);
       });
       if (mistake) {
-        const text = typeof mistake === 'string' ? mistake : (mistake.mistake ?? mistake.name ?? '');
+        const text = typeof mistake === 'string' ? mistake : mistake.mistake;
         results.push({ type: 'mistake', ...base, match: snippet(text, q) });
         continue;
       }
@@ -96,7 +96,8 @@ export function searchTopics(query: string, scopedTopics: Topic[] = topics): Sea
         results.push({ type: 'comparison', ...base, match: headerMatch });
         break;
       }
-      const cellMatch = (table.rows ?? []).flat().find((cell) => cell?.toLowerCase().includes(q));
+      const cells = (table.rows ?? []).flatMap((row) => Array.isArray(row) ? row : Object.values(row));
+      const cellMatch = cells.find((cell) => cell?.toLowerCase().includes(q));
       if (cellMatch) {
         results.push({ type: 'comparison', ...base, match: snippet(cellMatch, q) });
         break;
