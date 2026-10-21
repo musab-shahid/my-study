@@ -45,3 +45,14 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Eigen, Bayes, Euler, PKT max, EOF synthetic | `fixtures/smoke_check.py` | Passed |
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
+
+### App integration (Unit 5.1 only)
+
+| Item | Status |
+|------|--------|
+| Source-to-app coverage map | `07-UNIT-5.1-APP-COVERAGE-MAP.md` |
+| App topics for Unit 5.1 | **8 topics** under section `CGEI-051` (all six manuscript strands) |
+| App questions | **26** with explanations |
+| Units 5.2–5.12 in app | **Not integrated** |
+| Schema migration (`Lesson` blocks) | **Not adopted** — existing Topic fields judged sufficient after renderer audit |
+| `npm run validate:data` | Run on a machine with working npm registry; structural checks passed in authoring env |

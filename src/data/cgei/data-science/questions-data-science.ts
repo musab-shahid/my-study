@@ -2,10 +2,9 @@ import type { Question } from '@/types';
 
 const SRC = 'CGEI Subject 5 / Unit 5.1 manuscript (content-drafts/chapter-05-scientific-computing)';
 
-/**
- * App Slice 1 — Unit 5.1 only (10 questions).
- */
+/** Unit 5.1 full slice — 26 questions across eight topics. */
 export const questions: Question[] = [
+  // Units (3)
   {
     id: 'CGEI-05-Q001',
     sectionId: 'CGEI-051',
@@ -16,7 +15,7 @@ export const questions: Question[] = [
     options: ['301.65 K', '28.5 K', '273.15 K', '255.65 K'],
     correctAnswer: 0,
     explanation:
-      'T_K = T_°C + 273.15 = 28.5 + 273.15 = 301.65 K. Radiation and thermodynamic formulas require kelvin, not Celsius.',
+      'T_K = T_°C + 273.15 = 28.5 + 273.15 = 301.65 K. Radiation formulas require kelvin.',
     sourceCitation: SRC,
   },
   {
@@ -35,7 +34,7 @@ export const questions: Question[] = [
     ],
     correctAnswer: 0,
     explanation:
-      'Depth in metres converts to millimetres by ×1000. A rate further needs a time basis. Daily extremes for Pakistan should respect PKT local days (UTC+5), not only UTC calendar bins.',
+      'Depth in metres converts to millimetres by ×1000. Rates need a time basis. Local extremes for Pakistan should respect PKT (UTC+5).',
     sourceCitation: SRC,
   },
   {
@@ -45,18 +44,19 @@ export const questions: Question[] = [
     difficulty: 'medium',
     type: 'single',
     question:
-      'A surface-temperature-like band is stored as an integer decoded by T_K = raw × scale + offset. What is the main consequence of omitting the offset?',
+      'A surface-temperature-like band is decoded as T_K = raw × scale + offset. What is the main consequence of omitting the offset?',
     options: [
-      'A large systematic temperature bias (often tens to hundreds of kelvin depending on the product encoding)',
-      'Only a change in the colour palette, with correct temperatures retained',
+      'A large systematic temperature bias (often tens to hundreds of kelvin depending on encoding)',
+      'Only a change in the colour palette',
       'Automatic conversion from Celsius to kelvin',
       'Removal of cloud-contaminated pixels',
     ],
     correctAnswer: 0,
     explanation:
-      'Scale and offset are defined by the product. Dropping the offset shifts every value by approximately the omitted constant — a catastrophic bias, not a cosmetic issue. Always take scale/offset from current product documentation.',
+      'Dropping the offset shifts every value by about the omitted constant — catastrophic bias. Use current product documentation.',
     sourceCitation: SRC,
   },
+  // Finite differences (3)
   {
     id: 'CGEI-05-Q004',
     sectionId: 'CGEI-051',
@@ -64,11 +64,10 @@ export const questions: Question[] = [
     difficulty: 'easy',
     type: 'single',
     question:
-      'Daily temperatures (°C) are T = [30, 32, 31, 33] at consecutive days. What is the centred finite-difference rate at the second sample (value 32)?',
+      'Daily temperatures (°C) are T = [30, 32, 31, 33]. What is the centred finite-difference rate at the second sample (32)?',
     options: ['0.5 °C day⁻¹', '2 °C day⁻¹', '1 °C day⁻¹', '−1 °C day⁻¹'],
     correctAnswer: 0,
-    explanation:
-      'Centred difference at the second point uses neighbours 30 and 31: (31 − 30) / (2 × 1 day) = 0.5 °C day⁻¹. Always keep the rate unit.',
+    explanation: '(31 − 30) / (2 × 1 day) = 0.5 °C day⁻¹.',
     sourceCitation: SRC,
   },
   {
@@ -77,7 +76,7 @@ export const questions: Question[] = [
     topicId: 'cgei-ds-rates-finite-diff',
     difficulty: 'medium',
     type: 'single',
-    question: 'Why must a reported warming rate include a time unit such as °C decade⁻¹ rather than a bare number?',
+    question: 'Why must a reported warming rate include a time unit such as °C decade⁻¹?',
     options: [
       'Without a time basis the magnitude cannot be checked for physical plausibility or compared across studies',
       'Units are optional when the p-value is small',
@@ -85,92 +84,357 @@ export const questions: Question[] = [
       'Finite differences cancel all units automatically',
     ],
     correctAnswer: 0,
-    explanation:
-      'A slope of “0.2” is meaningless until the independent-variable unit is stated. Plausibility checks and comparisons require explicit rate units.',
+    explanation: 'A bare number cannot be validated or compared.',
     sourceCitation: SRC,
   },
   {
     id: 'CGEI-05-Q006',
     sectionId: 'CGEI-051',
-    topicId: 'cgei-ds-energy-balance',
+    topicId: 'cgei-ds-rates-finite-diff',
     difficulty: 'medium',
     type: 'single',
-    question: 'In the Stefan–Boltzmann relation E = εσT⁴, which temperature unit is required for T?',
-    options: ['Kelvin', 'Degrees Celsius', 'Degrees Fahrenheit', 'Any unit, because ε absorbs unit choice'],
-    correctAnswer: 0,
-    explanation:
-      'The law is thermodynamic: T must be in kelvin. Using Celsius produces orders-of-magnitude errors. Emissivity ε is dimensionless and does not replace correct temperature units.',
-    sourceCitation: SRC,
-  },
-  {
-    id: 'CGEI-05-Q007',
-    sectionId: 'CGEI-051',
-    topicId: 'cgei-ds-energy-balance',
-    difficulty: 'medium',
-    type: 'single',
-    question:
-      'Which statement correctly relates land-surface temperature (LST), near-surface air temperature, and personal heat exposure?',
+    question: 'What does the horizontal gradient ∇T of a temperature field represent conceptually?',
     options: [
-      'They are different physical quantities; LST must not be equated with 2 m air temperature or personal heat stress without additional reasoning and data',
-      'LST is always identical to 2 m air temperature at the same pixel',
-      'Personal heat exposure equals district-mean LST by definition',
-      'If NDVI is high, LST is defined to equal wet-bulb temperature',
+      'The direction and rate of steepest increase of T in the plane',
+      'The time derivative of temperature only',
+      'The absolute temperature in kelvin',
+      'The eigenvalue of the spatial covariance matrix',
     ],
     correctAnswer: 0,
     explanation:
-      'LST is a surface radiometric (or retrieved) temperature. Air temperature and human heat stress depend on air properties, humidity, radiation, and physiology. Pixel LST–NDVI association is not proof of causal cooling of people.',
+      '∇T = (∂T/∂x, ∂T/∂y) points toward steepest ascent holding other coordinates in the usual horizontal interpretation.',
+    sourceCitation: SRC,
+  },
+  // Matrices / OLS (3)
+  {
+    id: 'CGEI-05-Q007',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-matrices-least-squares',
+    difficulty: 'easy',
+    type: 'single',
+    question:
+      'In the usual regression layout, what do the rows and columns of the design matrix X represent?',
+    options: [
+      'Rows are samples (observations); columns are variables (predictors)',
+      'Rows are variables; columns are always time only',
+      'Rows and columns are interchangeable with no effect on OLS',
+      'X must be square for OLS to exist',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'Standard regression uses n × p design matrices with samples in rows. Always document the convention.',
     sourceCitation: SRC,
   },
   {
     id: 'CGEI-05-Q008',
     sectionId: 'CGEI-051',
-    topicId: 'cgei-ds-probability-dependence',
+    topicId: 'cgei-ds-matrices-least-squares',
     difficulty: 'medium',
     type: 'single',
-    question:
-      'A sensor alarms with P(alarm|pollution)=0.9 and P(alarm|clean)=0.1. Prior P(pollution)=0.05. Approximately what is P(pollution|alarm)?',
-    options: ['About 0.32', '0.90', '0.05', '0.95'],
+    question: 'Ordinary least squares minimises which quantity?',
+    options: [
+      'The squared Euclidean norm of residuals ||y − Xβ||²',
+      'The sum of absolute residuals only',
+      'The determinant of X',
+      'The maximum residual exclusively',
+    ],
     correctAnswer: 0,
-    explanation:
-      'P(alarm)=0.9×0.05+0.1×0.95=0.14. Then P(pollution|alarm)=0.045/0.14≈0.32. A sensitive alarm still yields only a moderate posterior when the base rate is low.',
+    explanation: 'OLS is the minimiser of squared residual length.',
     sourceCitation: SRC,
   },
   {
     id: 'CGEI-05-Q009',
     sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-matrices-least-squares',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'In idealised OLS geometry, fitted values ŷ are:',
+    options: [
+      'The projection of y onto the column space of X',
+      'Always equal to y for any X',
+      'Independent of the columns of X',
+      'The eigenvalues of XᵀX',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'ŷ lies in the span of the columns of X; residuals are orthogonal to that span in the classical geometry.',
+    sourceCitation: SRC,
+  },
+  // Eigen / SVD (4)
+  {
+    id: 'CGEI-05-Q010',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-eigen-svd-pca',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'If Av = λv with v ≠ 0, what is λ?',
+    options: [
+      'An eigenvalue — the factor by which A scales vector v',
+      'Always the determinant of A',
+      'The number of rows of A',
+      'A probability between 0 and 1',
+    ],
+    correctAnswer: 0,
+    explanation: 'By definition Av = λv for eigenvector v and eigenvalue λ.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q011',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-eigen-svd-pca',
+    difficulty: 'medium',
+    type: 'single',
+    question:
+      'For covariance S = [[1, 0.8], [0.8, 1]], eigenvalues are approximately 1.8 and 0.2. About what fraction of variance lies on the first principal axis?',
+    options: ['90%', '50%', '20%', '8%'],
+    correctAnswer: 0,
+    explanation: '1.8 / (1.8 + 0.2) = 0.90.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q012',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-eigen-svd-pca',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'Why is an EOF/PCA eigenvalue not by itself a physical mechanism?',
+    options: [
+      'It describes variance structure of a defined data matrix (domain, season, weights), not a unique physical process',
+      'Eigenvalues are always zero in climate data',
+      'PCA can only be applied to non-environmental data',
+      'Software libraries forbid physical interpretation by license',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'Modes depend on matrix construction. Linking them to mechanisms needs separate physical evidence (Unit 5.8).',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q013',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-eigen-svd-pca',
+    difficulty: 'hard',
+    type: 'single',
+    question: 'If an EOF spatial pattern is multiplied by −1, what must happen to the corresponding PC time series to keep the reconstruction unchanged?',
+    options: [
+      'It must also flip sign',
+      'It must be squared',
+      'It must be set to zero',
+      'Nothing — signs never matter',
+    ],
+    correctAnswer: 0,
+    explanation: 'The product of pattern and amplitude is invariant under a joint sign flip.',
+    sourceCitation: SRC,
+  },
+  // ODEs (3)
+  {
+    id: 'CGEI-05-Q014',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-ode-numerical',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'A stock–flux environmental box model is typically written as:',
+    options: [
+      'dS/dt = F_in − F_out(S)',
+      'S = F_in × F_out with no time derivative',
+      'dS/dt = 0 always, for all systems',
+      'S = σT⁴ only',
+    ],
+    correctAnswer: 0,
+    explanation: 'Net rate of change of storage equals inflow minus outflow.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q015',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-ode-numerical',
+    difficulty: 'medium',
+    type: 'single',
+    question:
+      'For dC/dt = −0.5 C with C(0)=10 and Euler step Δt=1, what is C after one step?',
+    options: ['5.0', '10.0', '9.5', '0.0'],
+    correctAnswer: 0,
+    explanation: 'C_1 = 10 + 1×(−0.5×10) = 5.0.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q016',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-ode-numerical',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'Why compare Euler to an exact solution or adaptive integrator in teaching?',
+    options: [
+      'To see truncation/step-size error and understand what library methods improve',
+      'Because Euler is always more accurate than solve_ivp',
+      'Because environmental ODEs never have analytical limits',
+      'Because eigenvalues replace time integration',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'Euler can bias or destabilise trajectories; comparing methods builds numerical judgment.',
+    sourceCitation: SRC,
+  },
+  // Water balance (3)
+  {
+    id: 'CGEI-05-Q017',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-water-mass-balance',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'In P = E + R + ΔS, what must be true for dimensional homogeneity?',
+    options: [
+      'Every term is expressed as depth (or volume/area) over the same time period',
+      'P is in metres while E is in W m⁻²',
+      'ΔS is always unitless',
+      'Only P needs units',
+    ],
+    correctAnswer: 0,
+    explanation: 'All terms need matching dimensions and period.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q018',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-water-mass-balance',
+    difficulty: 'medium',
+    type: 'single',
+    question:
+      'Why can a rainfall-only water balance mislead in parts of the Indus irrigated plain?',
+    options: [
+      'Canal deliveries and groundwater abstraction can dominate local water accounting',
+      'Rainfall never occurs in Pakistan',
+      'Irrigation water has no volume',
+      'Dimensional homogeneity forbids irrigation terms',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'System boundaries must include major human fluxes where they matter.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q019',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-water-mass-balance',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'What is the primary role of a stated control volume in mass balance?',
+    options: [
+      'It defines which fluxes cross the boundary and which storage changes are inside',
+      'It replaces the need for units',
+      'It guarantees causal identification',
+      'It forces ΔS = 0',
+    ],
+    correctAnswer: 0,
+    explanation: 'Without a boundary, “in” and “out” are undefined.',
+    sourceCitation: SRC,
+  },
+  // Energy (3)
+  {
+    id: 'CGEI-05-Q020',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-energy-balance',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'In E = εσT⁴, which temperature unit is required for T?',
+    options: ['Kelvin', 'Degrees Celsius', 'Degrees Fahrenheit', 'Any unit, because ε absorbs unit choice'],
+    correctAnswer: 0,
+    explanation: 'Stefan–Boltzmann is thermodynamic; T must be in kelvin.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q021',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-energy-balance',
+    difficulty: 'medium',
+    type: 'single',
+    question:
+      'Which statement correctly relates LST, near-surface air temperature, and personal heat exposure?',
+    options: [
+      'They are different physical quantities; do not equate them without additional reasoning and data',
+      'LST is always identical to 2 m air temperature',
+      'Personal heat exposure equals district-mean LST by definition',
+      'High NDVI defines LST equal to wet-bulb temperature',
+    ],
+    correctAnswer: 0,
+    explanation:
+      'LST, Ta, and human heat stress are distinct. Pixel associations are not causal cooling proofs.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q022',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-energy-balance',
+    difficulty: 'hard',
+    type: 'single',
+    question:
+      'Under a stated convention, R_n = −40, G = −15, LE ≈ 0 (W m⁻²). What is H = R_n − LE − G?',
+    options: ['−25 W m⁻²', '−55 W m⁻²', '25 W m⁻²', '0 W m⁻²'],
+    correctAnswer: 0,
+    explanation: 'H = −40 − 0 − (−15) = −25 W m⁻² under that algebraic rearrangement of the stated form.',
+    sourceCitation: SRC,
+  },
+  // Probability (4)
+  {
+    id: 'CGEI-05-Q023',
+    sectionId: 'CGEI-051',
     topicId: 'cgei-ds-probability-dependence',
     difficulty: 'medium',
     type: 'single',
     question:
-      'Why is SE = σ/√n for the sample mean often too small when applied to one season of daily temperatures?',
-    options: [
-      'Positive day-to-day autocorrelation reduces the effective number of independent observations',
-      'Daily temperatures always have zero variance',
-      'The formula requires n to be a multiple of 30',
-      'Standard errors are never used in climate science',
-    ],
+      'Sensor: P(alarm|pollution)=0.9, P(alarm|clean)=0.1, prior P(pollution)=0.05. Approximately P(pollution|alarm)?',
+    options: ['About 0.32', '0.90', '0.05', '0.95'],
     correctAnswer: 0,
-    explanation:
-      'Independence is an assumption of the classical SE formula. Serial correlation means successive days share information, so uncertainty intervals based on raw n are over-optimistic. Use dependence-aware methods (Units 5.6–5.7).',
+    explanation: 'P(alarm)=0.14; posterior = 0.045/0.14 ≈ 0.32.',
     sourceCitation: SRC,
   },
   {
-    id: 'CGEI-05-Q010',
+    id: 'CGEI-05-Q024',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-probability-dependence',
+    difficulty: 'medium',
+    type: 'single',
+    question:
+      'Why is SE = σ/√n for the mean often too small for one season of daily temperatures?',
+    options: [
+      'Positive day-to-day autocorrelation reduces effective independent sample size',
+      'Daily temperatures always have zero variance',
+      'n must be a multiple of 30',
+      'Standard errors are never used in climate science',
+    ],
+    correctAnswer: 0,
+    explanation: 'Classical SE assumes independence; serial correlation overstates precision.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q025',
+    sectionId: 'CGEI-051',
+    topicId: 'cgei-ds-probability-dependence',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'Which distribution is a common model for count data when variance is near the mean?',
+    options: ['Poisson', 'Uniform on [−∞, ∞]', 'Degenerate at zero only', 'Stefan–Boltzmann'],
+    correctAnswer: 0,
+    explanation: 'Poisson is a standard count model; overdispersion may require alternatives.',
+    sourceCitation: SRC,
+  },
+  {
+    id: 'CGEI-05-Q026',
     sectionId: 'CGEI-051',
     topicId: 'cgei-ds-probability-dependence',
     difficulty: 'hard',
     type: 'single',
     question:
-      'An analysis regresses thousands of satellite pixels of LST on NDVI in one city and reports p < 0.001. Which critique is most justified?',
+      'An analysis regresses thousands of satellite LST pixels on NDVI in one city (p < 0.001). Which critique is most justified?',
     options: [
-      'Pixels are spatially dependent, so treating n_pixels as independent samples inflates significance; association is not a causal cooling proof',
-      'Any p-value below 0.001 guarantees a city-wide causal effect of vegetation',
-      'Large n always removes the need for units on the slope',
-      'NDVI is defined only for oceans, so the regression is impossible',
+      'Pixels are spatially dependent, so n_pixels is not independent sample size; association is not causal cooling proof',
+      'Any p < 0.001 guarantees a city-wide causal vegetation effect',
+      'Large n removes the need for units on the slope',
+      'NDVI is defined only for oceans',
     ],
     correctAnswer: 0,
     explanation:
-      'Spatial dependence violates i.i.d. sample-size intuition. Even a precise association does not identify a causal effect of planting trees without a suitable design (Unit 5.10). Report support, dependence handling, and non-claims.',
+      'Spatial dependence and causal identification are separate issues from a small p-value.',
     sourceCitation: SRC,
   },
 ];
