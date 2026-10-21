@@ -482,7 +482,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           const status = getTopicStatusFromProgress(studied, prog);
           return (
             <Card key={topic.id} className="p-0">
-              <button onClick={() => curriculumUnit && topic.sectionId === 'CGEI-051' ? navigate({ screen: 'curriculum-lesson', lessonId: cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === topic.id)?.id ?? '' }) : navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
+              <button onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
