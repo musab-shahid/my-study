@@ -142,6 +142,12 @@ export const sections: Section[] = [
   { id: 'CGEI-06', subjectId: 'cgei-ml-geoai', title: 'Subject roadmap', topicCount: 1, questionCount: 0 },
   { id: 'CGEI-07', subjectId: 'cgei-climate-risk', title: 'Subject roadmap', topicCount: 1, questionCount: 0 },
   { id: 'CGEI-08', subjectId: 'cgei-research-practice', title: 'Subject roadmap', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-09', subjectId: 'cgei-decision-support', title: 'Decision support & environmental intelligence', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-10', subjectId: 'cgei-climate-policy', title: 'Climate policy & sustainability', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-11', subjectId: 'cgei-software-engineering', title: 'Software & data engineering', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-12', subjectId: 'cgei-advanced-ai', title: 'Advanced AI workflows', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-13', subjectId: 'cgei-capstone', title: 'Applied capstone & portfolio', topicCount: 1, questionCount: 0 },
+  { id: 'CGEI-14', subjectId: 'cgei-advanced-branches', title: 'Optional environmental branches', topicCount: 1, questionCount: 0 },
 ];
 
 export const sectionMap: Record<string, Section> = Object.fromEntries(
