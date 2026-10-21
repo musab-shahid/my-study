@@ -26,7 +26,7 @@
 1. A deterministic SQLite smoke check now executes the June aggregation query and checks unmatched keys. Extend it if the schema or query changes.
 2. Deterministic smoke checks now cover mocked 200, 429, repeated 500 and timeout cases; do not make tests depend on a live provider.
 3. Bounded retry behaviour is smoke-tested. Provider-specific pagination termination and live cache behaviour remain unverified because no live endpoint is called by CI.
-4. The fixture checks required manifest fields, but the checksum is only a placeholder; verify a real SHA-256 calculation against a synthetic or permitted sample before release.
+4. The lesson now includes a chunked SHA-256 file-hash example; the fixture verifies it against the known digest for `abc`. Before release, verify it on an actual synthetic or permitted data file.
 5. Review the exact current licence for any real dataset used; do not assume public download grants redistribution rights.
 6. Confirm no real credentials, private station data or sensitive locations enter the committed fixture.
 7. Run `npm run validate:data`, `npm run check`, and the scientific workflow checks. Keep readiness at `draft` until the checks and teaching review pass.
