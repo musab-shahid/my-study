@@ -186,6 +186,41 @@ def check_unit_5_2_examples() -> None:
     print("OK Unit 5.2 scientific Python examples")
 
 
+def check_unit_5_3_examples() -> None:
+    """Check the numeric anomaly example and basic labelled figure construction."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    time = pd.date_range("1991-01-01", periods=24, freq="MS")
+    values = np.sin(np.arange(24) * 2 * np.pi / 12) + np.arange(24) * 0.1
+    df = pd.DataFrame({
+        "time": time,
+        "tmean_c": values,
+        "ndvi": np.linspace(0.1, 0.6, 24),
+        "lst_c": 38.0 - 8.0 * np.linspace(0.1, 0.6, 24) + np.random.default_rng(42).normal(0, 0.3, 24),
+    })
+    df["month"] = df["time"].dt.month
+    baseline = df.loc[df["time"].dt.year.between(1991, 2020)]
+    climatology = baseline.groupby("month")["tmean_c"].mean()
+    df["anomaly_c"] = df["tmean_c"] - df["month"].map(climatology)
+    # With this two-year synthetic baseline, each month's anomalies average to zero.
+    assert np.allclose(df.groupby("month")["anomaly_c"].mean().to_numpy(), 0.0, atol=1e-12)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.5))
+    axes[0].hist(df["lst_c"].dropna(), bins=8, edgecolor="white")
+    axes[0].set_xlabel("LST (°C)")
+    axes[0].set_ylabel("Pixel count")
+    axes[1].scatter(df["ndvi"], df["lst_c"], s=3, alpha=0.15)
+    axes[1].set_xlabel("NDVI (dimensionless)")
+    axes[1].set_ylabel("LST (°C)")
+    fig.tight_layout()
+    assert axes[0].get_xlabel() == "LST (°C)"
+    assert axes[1].get_ylabel() == "LST (°C)"
+    plt.close(fig)
+    print("OK Unit 5.3 EDA and visualisation examples")
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -194,6 +229,7 @@ def main() -> int:
     check_eof_weights()
     check_logistic_glm()
     check_unit_5_2_examples()
+    check_unit_5_3_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
