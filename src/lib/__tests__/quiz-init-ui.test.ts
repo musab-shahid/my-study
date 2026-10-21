@@ -51,6 +51,18 @@ describe('resolveQuizInitUiPhase', () => {
     );
   });
 
+  it('maps load-error after fetch settled with error flag', () => {
+    assert.equal(
+      resolveQuizInitUiPhase({
+        questionsLoading: false,
+        questionsLoadError: true,
+        hasState: false,
+        hasLearningScope: true,
+      }),
+      'load-error',
+    );
+  });
+
   it('ready when state exists', () => {
     assert.equal(
       resolveQuizInitUiPhase({
