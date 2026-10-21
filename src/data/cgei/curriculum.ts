@@ -119,7 +119,7 @@ const lessons = lessonDefinitions.map((lesson, index) => ({
   content: legacyTopicToBlocks(lesson.sourceTopicId),
   activityIds: [...lesson.activityIds],
   assessmentIds: [...lesson.assessmentIds],
-  resourceIds: [...(lesson.resourceIds ?? [])],
+  resourceIds: [...('resourceIds' in lesson ? lesson.resourceIds : [])],
   deliverableIds: [...lesson.deliverableIds],
 }));
 
