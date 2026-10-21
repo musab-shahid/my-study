@@ -415,6 +415,68 @@ def check_unit_5_5_examples() -> None:
     print("OK Unit 5.5 SQL, idempotence, manifest and mocked API retry examples")
 
 
+def check_unit_5_6_examples() -> None:
+    """Check Unit 5.6 interaction interpretation, intervals and group-safe folds."""
+    from sklearn.model_selection import GroupKFold
+    from sklearn.metrics import mean_absolute_error, mean_squared_error
+    from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+    rng = np.random.default_rng(5606)
+    n_groups, per_group = 20, 10
+    district_id = np.repeat(np.arange(n_groups), per_group)
+    n = district_id.size
+    ndvi = rng.uniform(0.1, 0.8, n)
+    built_frac = rng.uniform(0.05, 0.9, n)
+    season = rng.integers(0, 2, n)
+    district_effect = rng.normal(0.0, 0.7, n_groups)[district_id]
+    noise = rng.normal(0.0, 0.25, n)
+    # Fully synthetic DGP with a known NDVI-by-season interaction.
+    lst_c = 40.0 - 2.0 * ndvi + 1.5 * built_frac + 0.8 * season - 1.0 * ndvi * season + district_effect + noise
+    df = pd.DataFrame({
+        "lst_c": lst_c, "ndvi": ndvi, "built_frac": built_frac,
+        "season": season, "district_id": district_id,
+    })
+
+    fit = smf.ols("lst_c ~ ndvi * season + built_frac", data=df).fit()
+    assert fit.params["ndvi"] < 0
+    assert fit.params["ndvi:season"] < 0
+    assert np.isfinite(fit.params.to_numpy()).all()
+
+    prediction = fit.get_prediction(df.iloc[[0]]).summary_frame()
+    mean_width = float(prediction["mean_ci_upper"].iloc[0] - prediction["mean_ci_lower"].iloc[0])
+    observation_width = float(prediction["obs_ci_upper"].iloc[0] - prediction["obs_ci_lower"].iloc[0])
+    assert observation_width > mean_width > 0
+
+    # The VIF computation is diagnostic; this synthetic design should return finite values.
+    design = sm.add_constant(df[["ndvi", "built_frac"]])
+    vifs = [variance_inflation_factor(design.to_numpy(), i) for i in range(1, design.shape[1])]
+    assert np.isfinite(vifs).all() and all(value >= 1.0 for value in vifs)
+
+    # Every held-out district must be absent from that fold's training data.
+    cv = GroupKFold(n_splits=5)
+    fold_scores = []
+    for train_idx, test_idx in cv.split(df[["ndvi", "built_frac", "season"]], df["lst_c"], groups=df["district_id"]):
+        train_groups = set(df.iloc[train_idx]["district_id"])
+        test_groups = set(df.iloc[test_idx]["district_id"])
+        assert train_groups.isdisjoint(test_groups)
+        # Compare the fitted model and training-mean baseline on identical held-out rows.
+        fold_model = smf.ols(
+            "lst_c ~ ndvi * season + built_frac", data=df.iloc[train_idx]
+        ).fit()
+        pred = fold_model.predict(df.iloc[test_idx])
+        baseline = np.repeat(float(df.iloc[train_idx]["lst_c"].mean()), len(test_idx))
+        assert np.isfinite(pred.to_numpy()).all()
+        fold_scores.append((
+            mean_absolute_error(df.iloc[test_idx]["lst_c"], pred),
+            float(np.sqrt(mean_squared_error(df.iloc[test_idx]["lst_c"], pred))),
+            mean_absolute_error(df.iloc[test_idx]["lst_c"], baseline),
+        ))
+    scores = np.asarray(fold_scores)
+    assert scores.shape == (5, 3) and np.isfinite(scores).all()
+    assert abs(100.0 * (1.0 - 0.60) / (1.0 + 0.60) - 25.0) < 1e-12
+    print("OK Unit 5.6 interaction, interval, VIF and GroupKFold checks", scores.mean(axis=0).round(3).tolist())
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -426,6 +488,7 @@ def main() -> int:
     check_unit_5_3_examples()
     check_unit_5_4_examples()
     check_unit_5_5_examples()
+    check_unit_5_6_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
