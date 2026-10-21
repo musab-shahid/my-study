@@ -53,7 +53,7 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
 | Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
 | Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
-| Assessment questions | **66 canonical questions**: 35 migrated from Unit 5.1 and 41 for Units 5.2–5.5; explanations preserved, and legacy Unit 5.1 source citations retained |
+| Assessment questions | **76 canonical questions**: 35 migrated from Unit 5.1 and 41 for Units 5.2–5.5; explanations preserved, and legacy Unit 5.1 source citations retained |
 | Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge, with 16 additional worked-calculation/code/checklist blocks; Units 5.2–5.5 are authored directly as typed content blocks |
