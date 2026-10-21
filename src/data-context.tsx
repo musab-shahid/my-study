@@ -3,7 +3,7 @@ import type { AppData, Question, DifficultyFilter, PracticeMode, SubjectId, Trac
 import { emptyTrackMembership, normalizeTrackMembership, setActiveExamProfile as setActiveExamProfilePure, leaveTrack as leaveTrackPure } from '@/lib/track-membership';
 import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
 import { isTrackId, type TrackId } from '@/data/tracks';
-import { loadData, saveData, flushPendingSave, markTopicStudied, recordQuizResult, setLastOpenedTopic, resetData } from '@/lib/storage';
+import { loadData, saveData, flushPendingSave, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
@@ -11,8 +11,10 @@ import { topics } from '@/data/topics';
 export interface DataContextValue {
   data: AppData;
   markStudied: (topicId: string) => void;
+  markCurriculumLessonStudied: (lessonId: string) => void;
   recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
   setLastTopic: (topicId: string) => void;
+  setLastCurriculumLesson: (lessonId: string) => void;
   reset: () => void;
   resetSubjects: (subjectIds: SubjectId[]) => void;
   /** Explicit track enrollment; sets track active on success */
@@ -70,12 +72,20 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => markTopicStudied(prev, topicId));
   }, []);
 
+  const markCurriculumLessonStudied = useCallback((lessonId: string) => {
+    setData((prev) => markCurriculumLessonStudiedPure(prev, lessonId));
+  }, []);
+
   const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
     setData((prev) => recordQuizResult(prev, topicId, answers, questions, mode, subjectId, difficultyFilter));
   }, []);
 
   const setLastTopic = useCallback((topicId: string) => {
     setData((prev) => setLastOpenedTopic(prev, topicId));
+  }, []);
+
+  const setLastCurriculumLesson = useCallback((lessonId: string) => {
+    setData((prev) => setLastOpenedCurriculumLessonPure(prev, lessonId));
   }, []);
 
   const reset = useCallback(() => {
@@ -175,7 +185,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ data, markStudied, recordQuiz, setLastTopic, reset, resetSubjects, enrollInTrack, setActiveEnrolledTrack, setExamProfile, leaveEnrolledTrack, trackMembership }}>
+    <DataContext.Provider value={{ data, markStudied, markCurriculumLessonStudied, recordQuiz, setLastTopic, setLastCurriculumLesson, reset, resetSubjects, enrollInTrack, setActiveEnrolledTrack, setExamProfile, leaveEnrolledTrack, trackMembership }}>
       {children}
     </DataContext.Provider>
   );
