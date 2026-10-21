@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { CheckCircle2, XCircle, RotateCcw, BookOpen, Dumbbell, TrendingUp, Target, Sparkles } from 'lucide-react';
+import { CheckCircle2, XCircle, RotateCcw, BookOpen, Dumbbell, TrendingUp, Target, Sparkles, AlertTriangle } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { buildMistakePrompt, isTutorAvailable, buildTopicContext, buildStudentContext } from '@/lib/ai-tutor';
