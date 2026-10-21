@@ -29,8 +29,8 @@ describe('Phase A path mapping', () => {
   });
 
   it('round-trips canonical curriculum unit and lesson routes', () => {
-    const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-1' };
-    const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-1-1' };
+    const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-3' };
+    const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-3-1' };
     assert.deepEqual(pathToRoute(routeToPath(unitRoute)), unitRoute);
     assert.deepEqual(pathToRoute(routeToPath(lessonRoute)), lessonRoute);
   });
