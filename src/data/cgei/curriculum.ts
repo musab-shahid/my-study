@@ -167,11 +167,11 @@ const lessons51: CurriculumLesson[] = lessonDefinitions.map((lesson, index) => (
 
 const lessons52: CurriculumLesson[] = lessonDefinitions52.map((lesson, index) => ({
   id: lesson.id,
-  kind: 'lesson',
+  kind: 'lesson' as const,
   title: lesson.title,
   order: index + 1,
-  readiness: 'draft',
-  level: 'L3',
+  readiness: 'draft' as const,
+  level: 'L3' as const,
   estimatedMinutes: lesson.minutes,
   objectives: outcomes52.filter((outcome) => (lesson.objectiveIds as readonly string[]).includes(outcome.id)),
   content: [...lesson.content],
