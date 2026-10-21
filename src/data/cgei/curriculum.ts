@@ -152,7 +152,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`), 'cgei-ds-capstone-unit'],
+      unitIds: ['cgei-ds-unit-5-1', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: [],
     },
@@ -178,13 +178,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['python-scientific-work', 'exploration-visualisation', 'introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
-    {
-      id: 'cgei-ds-capstone-unit', code: 'CAPSTONE', title: 'Scientific computing portfolio capstone', order: 13, kind: 'project', readiness: 'outlined',
-      summary: 'Integrate quantitative reasoning, environmental data handling, model validation and reproducible research into a reviewable portfolio artefact.',
-      prerequisites: ['Core Units 5.1–5.5', 'Research software gate from Unit 5.11'], outcomes: [],
-      lessonIds: [], activityIds: [], assessmentIds: ['cgei-ds-assess-capstone-review'], resourceIds: [], deliverableIds: ['cgei-ds-d-capstone-repository'],
-      sourceDocument: 'content-drafts/chapter-05-scientific-computing/03-CAPSTONE.md',
-    },
   ],
   lessons,
   competencies: [
