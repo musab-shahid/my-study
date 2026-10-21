@@ -1,4 +1,4 @@
-import { ChevronDown, Library, BookA, BookCopy, Type, PenLine, Atom, Lightbulb, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
+import { ChevronDown, Library, BookA, BookCopy, Type, PenLine, Atom, Lightbulb, AlertTriangle, CheckCircle2, XCircle, Sparkles, GraduationCap, Calculator } from 'lucide-react';
 import { MathText } from '@/components/MathText';
 import { Card } from '@/components/ui';
 import type { Topic, ComparisonTable as ComparisonTableType } from '@/types';
