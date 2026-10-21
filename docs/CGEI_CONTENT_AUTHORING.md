@@ -11,7 +11,7 @@ Use `src/types/curriculum.ts` and `src/data/cgei/curriculum.ts` for the instruct
 - `CurriculumSubject` is the course/orientation layer: audience, purpose, prerequisites, outcomes, competencies, units and projects.
 - `CurriculumUnit` defines unit outcomes, lesson order, activities, assessments, resources and deliverables.
 - `CurriculumLesson` is one teachable objective with level, time estimate, content blocks, activities, assessments and an optional `sourceTopicId` migration bridge.
-- Resources, activities, assessments, rubrics, deliverables, competencies, and projects are separate typed entities linked by stable IDs.
+- Resources, activities, assessments, curriculum questions, rubrics, deliverables, competencies, and projects are separate typed entities linked by stable IDs. Curriculum questions are self-contained single-choice checks with an answer key, explanation, difficulty, and cognitive level; they need not be forced into legacy Topic quiz routing.
 - `CurriculumProject` represents projects/capstones as first-class work, not as fake units or topics.
 - Readiness status (`planned`, `outlined`, `draft`, `review`, `validated`, `released`) describes evidence state; do not mark a unit released because its metadata exists.
 
