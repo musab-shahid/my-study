@@ -76,6 +76,8 @@ export interface CurriculumQuestion {
   options: string[];
   correctAnswer: number;
   explanation: string;
+  /** Provenance for questions migrated from a source bank or manuscript. */
+  sourceCitation?: string;
   difficulty: CurriculumQuestionDifficulty;
   cognitiveLevel: CurriculumCognitiveLevel;
 }
