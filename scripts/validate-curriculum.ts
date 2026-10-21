@@ -60,7 +60,13 @@ for (const subject of cgeiCurriculum.subjects) {
   checkRefs(`Subject ${subject.id} resources`, subject.resourceIds, resourceIds);
   for (const outcome of subject.outcomes) checkRefs(`Outcome ${outcome.id} competencies`, outcome.competencyIds ?? [], competencyIds);
 }
+const unitOrderValues = cgeiCurriculum.units.map((unit) => unit.order);
+if (new Set(unitOrderValues).size !== unitOrderValues.length) errors.push('Curriculum units must have unique order values');
 for (const unit of cgeiCurriculum.units) {
+  const expectedOrder = Number(unit.code.slice(2));
+  if (Number.isFinite(expectedOrder) && unit.order !== expectedOrder) {
+    errors.push(`Unit ${unit.code} has order ${unit.order}; expected ${expectedOrder}`);
+  }
   checkRefs(`Unit ${unit.id} lessons`, unit.lessonIds, lessonIds);
   checkRefs(`Unit ${unit.id} activities`, unit.activityIds, activityIds);
   checkRefs(`Unit ${unit.id} assessments`, unit.assessmentIds, assessmentIds);
