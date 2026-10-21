@@ -55,10 +55,10 @@ const lessons = lessonDefinitions.map((lesson, index) => ({
   objectives: outcomes51.filter((outcome) => (lesson.objectiveIds as readonly string[]).includes(outcome.id)),
   sourceTopicId: lesson.sourceTopicId,
   content: [],
-  activityIds: [lesson.activityIds],
-  assessmentIds: [lesson.assessmentIds],
+  activityIds: [...lesson.activityIds],
+  assessmentIds: [...lesson.assessmentIds],
   resourceIds: [],
-  deliverableIds: [lesson.deliverableIds],
+  deliverableIds: [...lesson.deliverableIds],
 }));
 
 export const cgeiCurriculum: CurriculumRegistry = {
