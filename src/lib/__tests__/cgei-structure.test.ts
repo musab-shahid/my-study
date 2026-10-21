@@ -6,6 +6,7 @@ import { topicMetadata } from '../../data/topic-metadata.ts';
 import { loadSubjectTopics, loadSubjectQuestions } from '../../data/lazy-data.ts';
 import type { SubjectId } from '../../types.ts';
 import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
+import { questions as legacyUnit51Questions } from '../../data/cgei/data-science/questions-data-science.ts';
 
 describe('CGEI curriculum structure', () => {
   const cgeiSubjects = subjectsByTrack('cgei');
@@ -55,6 +56,17 @@ describe('CGEI curriculum structure', () => {
     assert.ok(unit51.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 5));
     const canonicalQuestionIds = new Set(cgeiCurriculum.questions.map((question) => question.id));
     assert.ok(cgeiCurriculum.assessments.every((assessment) => (assessment.questionIds ?? []).every((id) => canonicalQuestionIds.has(id))));
+  });
+
+  it('preserves every Unit 5.1 question ID, lesson mapping, and source citation', () => {
+    for (const legacyQuestion of legacyUnit51Questions) {
+      const migrated = cgeiCurriculum.questions.find((question) => question.id === legacyQuestion.id);
+      assert.ok(migrated, `Missing canonical question for ${legacyQuestion.id}`);
+      const expectedLesson = cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === legacyQuestion.topicId);
+      assert.ok(expectedLesson, `Missing lesson mapping for legacy topic ${legacyQuestion.topicId}`);
+      assert.equal(migrated.lessonId, expectedLesson.id);
+      assert.equal(migrated.sourceCitation, legacyQuestion.sourceCitation);
+    }
   });
 
   it('loads a topic module and question bank for every registered domain', async () => {
