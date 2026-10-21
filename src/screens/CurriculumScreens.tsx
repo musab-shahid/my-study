@@ -50,6 +50,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
 
 export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
   const { navigate } = useRouter();
+  const { data } = useData();
   const unit = cgeiCurriculum.units.find((item) => item.id === unitId);
   const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
   const lessons = unit?.lessonIds.map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)).sort((a, b) => a.order - b.order) ?? [];
@@ -85,6 +86,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
           <span className="text-xs text-slate-500">{lessons.length} mapped</span>
         </div>
         {lessons.length ? <div className="space-y-2">{lessons.map((lesson) => {
+          const studied = lesson.sourceTopicId ? data.studiedTopics.includes(lesson.sourceTopicId) : (data.studiedCurriculumLessons ?? []).includes(lesson.id);
           return <button key={lesson.id} onClick={() => lesson.sourceTopicId ? navigate({ screen: 'topic', topicId: lesson.sourceTopicId }) : navigate({ screen: 'curriculum-lesson', lessonId: lesson.id })} className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 p-4 text-left transition-colors">
             <div className="flex items-start gap-3">
               <span className="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 flex items-center justify-center text-xs font-bold shrink-0">{lesson.order}</span>
@@ -92,7 +94,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
                 <span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-slate-900">{lesson.title}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] capitalize">{lesson.readiness}</span></span>
                 <span className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mt-1">{lesson.estimatedMinutes ? <span className="inline-flex items-center gap-1"><Clock3 className="w-3 h-3" />{lesson.estimatedMinutes} min</span> : null}<span>{lesson.objectives.length} learning outcomes</span><span>{lesson.activityIds.length} practice activities</span></span>
               </span>
-              <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+              {studied ? <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
             </div>
           </button>;
         })}</div> : <Card className="p-5 border border-dashed border-slate-300 bg-slate-50"><p className="font-medium text-slate-800">Lesson content is being developed</p><p className="text-sm text-slate-600 mt-1">This unit is registered in the curriculum, but its lessons have not yet been authored and validated. It is intentionally not presented as complete.</p>{unit.sourceDocument && <p className="text-xs text-slate-500 mt-3">Source manuscript: <code>{unit.sourceDocument}</code></p>}</Card>}
@@ -111,15 +113,21 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 
 export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const { navigate } = useRouter();
-  const { data, markStudied, setLastTopic } = useData();
+  const { data, markStudied, setLastTopic, markCurriculumLessonStudied, setLastCurriculumLesson } = useData();
   const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
   const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
   const resources = lesson?.resourceIds.map((id) => cgeiCurriculum.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const activities = lesson?.activityIds.map((id) => cgeiCurriculum.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const assessments = lesson?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const progressId = lesson?.sourceTopicId ?? lesson?.id;
+  const isLessonStudied = lesson?.sourceTopicId
+    ? data.studiedTopics.includes(lesson.sourceTopicId)
+    : Boolean(lesson && (data.studiedCurriculumLessons ?? []).includes(lesson.id));
 
-  useEffect(() => { if (progressId) setLastTopic(progressId); }, [progressId, setLastTopic]);
+  useEffect(() => {
+    if (!lesson) return;
+    if (lesson.sourceTopicId) setLastTopic(lesson.sourceTopicId);
+    else setLastCurriculumLesson(lesson.id);
+  }, [lesson?.id, lesson?.sourceTopicId, setLastTopic, setLastCurriculumLesson]);
 
   if (!lesson) return <PageContainer><BackButton /><EmptyState title="Curriculum lesson not found" message="This lesson is not registered in the current curriculum." action={<Button variant="secondary" onClick={() => navigate({ screen: 'learn' })}>Back to Learn</Button>} /></PageContainer>;
 
@@ -144,9 +152,9 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit?.id ?? '' })} disabled={!unit}><ArrowLeft className="w-4 h-4 mr-1" /> Unit overview</Button>
-        <Button onClick={() => markStudied(progressId ?? lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
+        <Button onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
       </div>
-      {data.studiedTopics.includes(progressId ?? lesson.id) && <p className="text-xs text-emerald-700 mt-3 text-right">This lesson is marked as studied.</p>}
+      {isLessonStudied && <p className="text-xs text-emerald-700 mt-3 text-right">This lesson is marked as studied.</p>}
     </PageContainer>
   );
 }
