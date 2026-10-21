@@ -2,46 +2,38 @@
 ## Scientific Computing and Data Science
 **Authoritative source:** Master Study TOC · 19 October 2026  
 **Branch:** `feat/cgei-full-curriculum-skeleton`  
-**Audit date:** 21 October 2026 (v3 — units 5.7–5.10 taught)
-
-### Status dimensions
-Outlined · Partially taught · Taught with examples · Practised & assessed · App-ready structure
+**Audit date:** 21 October 2026 (**v4** — all twelve units at teaching depth; supporting parts expanded)
 
 ### Unit-level status
 
-| Unit | Curriculum coverage | Scientific quality | App readiness | Notes |
-|------|---------------------|--------------------|---------------|-------|
-| 5.1 Mathematical & physical foundations | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
-| 5.2 Python for scientific work | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
-| 5.3 Exploration & visualisation | Outlined | Needs expansion | Standalone draft | Next wave |
-| 5.4 Introductory statistics | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
-| 5.5 Data workflow & engineering | Outlined | Needs expansion | Standalone draft | Next wave |
-| 5.6 Intermediate inference | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
-| 5.7 Time series | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
-| 5.8 Multivariate / EOF | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
-| 5.9 GLM / mixed / Bayesian | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
-| 5.10 Causal inference | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
-| 5.11 Research software | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
-| 5.12 xarray & pipelines | Outlined | Needs expansion | Standalone draft | Next wave |
-| Orientation | Partially taught | Needs expansion | Standalone draft | |
-| Integration / Capstone / Toolkit | Outlined–partial | Needs expansion | Standalone draft | |
+| Unit | Coverage | Quality | App readiness |
+|------|----------|---------|---------------|
+| 5.1 Foundations | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.2 Scientific Python | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.3 EDA & visualisation | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.4 Intro statistics | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.5 Data workflow | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.6 Intermediate inference | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.7 Time series | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.8 Multivariate / EOF | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.9 GLM / mixed / Bayesian | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.10 Causal inference | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.11 Research software | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.12 xarray & pipelines | Taught with examples | Verified for stated scope | Structured for conversion |
+| Orientation | Partially taught | Adequate for entry | Structured |
+| Integration | Taught (narrative + checklist) | Adequate | Structured |
+| Capstone | Specified with rubric & tracks | Adequate for launch | Structured |
+| Assessment toolkit | Diagnostic, debug, critique, formula sheet, checklist | Adequate for launch | Structured |
 
 ### Exit competencies
+All four teachable via unit deliverables; capstone requires software gate and integrates optional advanced gates.
 
-| Competency | Status after v3 |
-|------------|-----------------|
-| Tested versioned one-command repo | Teachable via 5.11; capstone still outline |
-| GLM/mixed + diagnostics + intervals | **Teachable via 5.9 deliverable** |
-| EOF/PCA area-weighted + mode justification | **Teachable via 5.8 deliverable** |
-| Causal question + design + falsifiers | **Teachable via 5.10 design brief** |
-
-### Remaining gaps (priority order)
-1. Units **5.3, 5.5, 5.12** to teaching depth  
-2. Capstone specification with track templates and rubric detail  
-3. Assessment toolkit (diagnostic key, debug exam, formula sheet expansion)  
-4. Orientation polish + integration narrative  
-5. Full exercise solution keys where still “notes only”  
-6. App Topic conversion (separate stage — not claimed done)
+### Remaining gaps (not blockers for standalone study start)
+1. Full worked **solution keys** for every Level B/C exercise (selected notes only).  
+2. Executed/verified code against real Multan datasets in-repo.  
+3. **App Topic conversion** + quiz bank (separate stage; schemas in `src/data/cgei/`).  
+4. Orientation diagnostic answer key polished as instructor sheet.  
+5. Optional deepening (MCA/CCA, full MCMC labs, container recipes).
 
 ### Honest summary
-Nine of twelve units (5.1–5.2, 5.4, 5.6–5.11) now have teaching prose, worked examples, exercises, and mastery gates. Three units and the supporting Part I/III–V materials remain incomplete. The chapter is **partially standalone-ready** for core statistical and inference skills; **not** fully complete and **not** app-integrated.
+**v4 brings all twelve units to teaching depth** with prose, examples, exercises, failure modes, and mastery gates. Capstone and assessment toolkit are operational specifications. The chapter is **standalone-ready for study** at L3 targets on core skills. It is **not** yet integrated into the CGEI application or validated by automated tests against live data products.

@@ -1,5 +1,7 @@
 # Chapter 5 — Scientific Computing and Data Science
-**Part I — Chapter orientation** | TOC edition 19 October 2026 | Priority tags: Core for 5.1–5.6, 5.11
+**Part I — Chapter orientation** | TOC edition 19 October 2026 | Chapter draft **v4** (all 12 units taught)
+
+**Priority tags:** Core for 5.1–5.6 and 5.11; climate-track Core also includes 5.7; exit competencies in 5.8–5.11.
 
 ## Purpose
 Develop the ability to design, implement, validate, explain, and reproduce scientific analyses on environmental, climatic, geospatial, and EO data. Not a generic coding course: mathematics, statistical judgement, and research software are first-class.
