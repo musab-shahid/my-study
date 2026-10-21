@@ -2411,14 +2411,6 @@ export const topics: Topic[] = [
     }
   ],
 
-  examPoints: [
-    'Phrase-vs-clause test: subject + finite verb → clause; missing either → phrase.',
-    'Eight phrase types: noun, verb, adjective, adverb, prepositional, participial, gerund, infinitive.',
-    'Three subordinate-clause types: adverbial (when/why/how), relative (modifies noun), noun (subject/object).',
-    'Fragments come from participial phrases, prepositional phrases, and dependent clauses.',
-    'Defining relative clauses (no commas) vs non-defining (commas on both sides).',
-    'Comma test: comma between two ICs alone = comma splice; comma between IC and DC = fine.'
-  ],
 
   commonMistakes: [
     {
@@ -2574,9 +2566,15 @@ export const topics: Topic[] = [
   },
 
   examPoints: [
+    'Phrase-vs-clause test: subject + finite verb → clause; missing either → phrase.',
+    'Eight phrase types: noun, verb, adjective, adverb, prepositional, participial, gerund, infinitive.',
+    'Three subordinate-clause types: adverbial (when/why/how), relative (modifies noun), noun (subject/object).',
+    'Fragments come from participial phrases, prepositional phrases, and dependent clauses.',
+    'Defining relative clauses (no commas) vs non-defining (commas on both sides).',
+    'Comma test: comma between two ICs alone = comma splice; comma between IC and DC = fine.',
     'After a participial phrase, supply the subject that performs the action (to avoid dangling modifiers). — "Running through the field, the dog barked" — OK, "dog" runs. "Running through the field, the road stretched ahead" — NOT OK, "road" does not run. Fix: "As I ran through the field, the road stretched ahead" or "The road stretched ahead as I ran through the field".',
     'After a subordinator (because / although / when / if / since / while), a dependent clause must be attached to an independent clause. — "Because the storm was severe." → fragment. "Because the storm was severe, schools closed." → correct.',
-    'After a defining relative clause (no commas), do NOT add a comma before the main verb. — "The scientist who studied the data, presented the findings" → wrong. Either: "The scientist who studied the data presented the findings" (defining, no commas) OR "The scientist, who studied the data, presented the findings" (non-defining, commas on both sides).',
+    'After a defining relative clause (no commas), do NOT add a comma before the main verb. — "The scientist who studied the data, presented the findings" → wrong. Either: "The scientist who studied the data presented the findings" (defining, no commas) OR "The scientist, who studied the data, presented the findings" (non-defining, commas on both sides).'
   ],
 
 
@@ -2761,14 +2759,6 @@ export const topics: Topic[] = [
     }
   ],
 
-  examPoints: [
-    'Four structure types: simple (1 IC), compound (2+ ICs), complex (1 IC + 1+ DCs), compound-complex (2+ ICs + 1+ DCs).',
-    'Four purpose types: declarative, interrogative, imperative, exclamatory.',
-    'Four classic errors: fragment, run-on, comma splice, misplaced/dangling modifier — each has a defined fix.',
-    'Parallel structure: same grammatical form on both sides of a correlative conjunction / throughout a list.',
-    'Transformation: change structure, preserve meaning; never add or drop information.',
-    'Active → passive: object → subject, verb → be + past participle, "by + agent" optional.'
-  ],
 
   commonMistakes: [
     {
@@ -3000,10 +2990,16 @@ export const topics: Topic[] = [
   },
 
   examPoints: [
+    'Four structure types: simple (1 IC), compound (2+ ICs), complex (1 IC + 1+ DCs), compound-complex (2+ ICs + 1+ DCs).',
+    'Four purpose types: declarative, interrogative, imperative, exclamatory.',
+    'Four classic errors: fragment, run-on, comma splice, misplaced/dangling modifier — each has a defined fix.',
+    'Parallel structure: same grammatical form on both sides of a correlative conjunction / throughout a list.',
+    'Transformation: change structure, preserve meaning; never add or drop information.',
+    'Active → passive: object → subject, verb → be + past participle, "by + agent" optional.',
     'After a subordinator (because / although / when / if / since / while), a comma is REQUIRED when the DC precedes the IC. — "Because the storm was severe, schools closed." (DC first → comma required). "Schools closed, because the storm was severe." (DC second → comma optional).',
     'After a coordinating conjunction (FANBOYS) joining two ICs, a comma PRECEDES the conjunction. — "The rain fell, and the crops grew." (comma + FANBOYS). "The rain fell and the crops grew" → acceptable but less clear; comma is preferred for longer ICs. "The rain fell and, the crops grew" → INCORRECT; comma must precede FANBOYS, not follow.',
     'After a semicolon, the second clause must be an independent clause (not a phrase or dependent clause). — "It was raining; we stayed inside." "It was raining; the typical weather for Karachi." → second unit is a fragment, NOT joined correctly. "It was raining; because we disliked the cold." → second unit is a DC, NOT joined correctly.',
-    'After a defining relative clause (no commas), do NOT add a comma before the main verb. — "The scientist who studied the data presented the findings." "The scientist who studied the data, presented the findings" → INCORRECT comma placement. Either remove the comma (defining) OR add commas on BOTH sides (non-defining: "The scientist, who studied the data, presented the findings.").',
+    'After a defining relative clause (no commas), do NOT add a comma before the main verb. — "The scientist who studied the data presented the findings." "The scientist who studied the data, presented the findings" → INCORRECT comma placement. Either remove the comma (defining) OR add commas on BOTH sides (non-defining: "The scientist, who studied the data, presented the findings.").'
   ],
 
 
@@ -3164,14 +3160,6 @@ export const topics: Topic[] = [
     }
   ],
 
-  examPoints: [
-    'Completion: grammar first, then agreement, then word class, then context.',
-    'Rearrangement: identify the topic sentence (no referring pronouns at the start).',
-    'Rearrangement signals: logical connectors, pronoun chains, time/cause-effect order — all three should converge.',
-    'Combining techniques: subordination, coordination, participial, relative clause, apposition.',
-    'Five paragraph patterns: chronological, cause-effect, problem-solution, compare-contrast, general-to-specific.',
-    'Choosing combining technique: emphasis (main idea in IC), rhythm, subject match.'
-  ],
 
   commonMistakes: [
     {
@@ -3345,10 +3333,16 @@ export const topics: Topic[] = [
   },
 
   examPoints: [
+    'Completion: grammar first, then agreement, then word class, then context.',
+    'Rearrangement: identify the topic sentence (no referring pronouns at the start).',
+    'Rearrangement signals: logical connectors, pronoun chains, time/cause-effect order — all three should converge.',
+    'Combining techniques: subordination, coordination, participial, relative clause, apposition.',
+    'Five paragraph patterns: chronological, cause-effect, problem-solution, compare-contrast, general-to-specific.',
+    'Choosing combining technique: emphasis (main idea in IC), rhythm, subject match.',
     'After a participial phrase at the START of a sentence, supply the subject that performs the action (no dangling modifier). — "Having collected the data, the team analyzed it." — OK, "team" collected and analyzed. "Having collected the data, it was analyzed." → DANGLING, no subject performed "having collected".',
     'After a subordinator at the START of a sentence, a comma is REQUIRED before the IC. — "Although it rained, the match continued." (DC first → comma required). "Although it rained the match continued" → missing the required comma.',
     'After a non-defining relative clause (commas), the relative pronoun CANNOT be "that". — "The scientist, who studied the data, presented it." — NON-defining, "who", commas. "The scientist, that studied the data, won the award." → INCORRECT, "that" cannot be used in non-defining clauses. "The scientist that studied the data won the award." → CORRECT, "that" used in defining clause, no commas.',
-    'In a paragraph, a sentence starting with "this / these / it / they" must be preceded by the sentence it refers to. — "Meteorology is a science. This science has improved." → "This" refers to "Meteorology" in the previous sentence. "This science has improved. Meteorology is a science." → BROKEN order, "This" has no referent in the first sentence.',
+    'In a paragraph, a sentence starting with "this / these / it / they" must be preceded by the sentence it refers to. — "Meteorology is a science. This science has improved." → "This" refers to "Meteorology" in the previous sentence. "This science has improved. Meteorology is a science." → BROKEN order, "This" has no referent in the first sentence.'
   ],
 
 
