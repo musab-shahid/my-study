@@ -101,6 +101,7 @@ for (const activity of cgeiCurriculum.activities) {
   checkRefs(`Activity ${activity.id} objectives`, activity.objectiveIds, new Set([
     ...cgeiCurriculum.subjects.flatMap((subject) => subject.outcomes.map((outcome) => outcome.id)),
     ...cgeiCurriculum.units.flatMap((unit) => unit.outcomes.map((outcome) => outcome.id)),
+    ...cgeiCurriculum.lessons.flatMap((lesson) => lesson.objectives.map((outcome) => outcome.id)),
   ]));
   checkRefs(`Activity ${activity.id} resources`, activity.resourceIds ?? [], resourceIds);
   if (activity.solutionResourceId && !resourceIds.has(activity.solutionResourceId)) errors.push(`Activity ${activity.id} has missing solution resource ${activity.solutionResourceId}`);
@@ -132,9 +133,12 @@ for (const rubric of cgeiCurriculum.rubrics) {
 }
 const subject5 = cgeiCurriculum.subjects.find((subject) => subject.subjectId === 'cgei-data-science');
 const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
+const unit52 = cgeiCurriculum.units.find((unit) => unit.code === '5.2');
 if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is missing');
 if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
+if (unit52 && unit52.lessonIds.length !== 5) errors.push(`Unit 5.2 should map 5 substantive lessons; found ${unit52.lessonIds.length}`);
+if (unit52 && unit52.readiness === 'released') errors.push('Unit 5.2 cannot be released before example execution and instructional review');
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
 
