@@ -46,13 +46,17 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
 
-### App integration (Unit 5.1 only)
+### App integration (Unit 5.1 pilot; curriculum schema migration in progress)
 
 | Item | Status |
 |------|--------|
 | Source-to-app coverage map | `07-UNIT-5.1-APP-COVERAGE-MAP.md` |
-| App topics for Unit 5.1 | **8 topics** under section `CGEI-051` (all six manuscript strands) |
-| App questions | **26** with explanations |
-| Units 5.2–5.12 in app | **Not integrated** |
-| Schema migration (`Lesson` blocks) | **Not adopted** — existing Topic fields judged sufficient after renderer audit |
-| `npm run validate:data` | Run on a machine with working npm registry; structural checks passed in authoring env |
+| Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
+| Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
+| App questions | **35** with explanations |
+| Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
+| Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
+| Lesson rendering | Still uses the legacy Topic reader through `sourceTopicId`; full migration to the new block renderer remains future work |
+| Units 5.2–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
+| Data validation | Added `scripts/validate-curriculum.ts` to `npm run validate:data`; CI must pass after the obsolete roadmap cross-references are removed |
+| Scientific verification | Existing manuscript smoke checks are separate from app/type/UI validation; no claim of live-data validation |
