@@ -468,6 +468,7 @@ export interface QuantFormulaEntry {
   name: string;
   expression: string;
   note?: string;
+  notes?: string;
 }
 
 export function SubtopicsBlock({ subtopics, expandedGroups, onToggleGroup }: {
