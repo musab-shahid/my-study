@@ -213,8 +213,16 @@ test.describe('Quiz completion journey', () => {
     await expect(resultsHeading).toBeVisible({ timeout: 30_000 });
     await expect(page.locator('main').getByText(/%/).first()).toBeVisible();
 
-    const stored = await page.evaluate((key) => localStorage.getItem(key), APP_DATA_KEY);
-    expect(hasProgressSignal(stored), 'expected quiz/progress write after completion').toBeTruthy();
+    // AppData persistence is intentionally debounced; wait for the committed localStorage write.
+    await expect
+      .poll(
+        async () => {
+          const stored = await page.evaluate((key) => localStorage.getItem(key), APP_DATA_KEY);
+          return hasProgressSignal(stored);
+        },
+        { timeout: 5_000, message: 'expected quiz/progress write after completion' },
+      )
+      .toBeTruthy();
 
     await page.reload();
     await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
