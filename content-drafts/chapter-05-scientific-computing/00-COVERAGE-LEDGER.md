@@ -58,6 +58,7 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge; Unit 5.2 is authored directly as typed content blocks |
 | Unit 5.2 | Five lessons, five practice activities, five assessment records, eleven interactive knowledge checks, six official/research references, three portfolio deliverables; readiness remains **draft** |
-| Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |\n| Units 5.4–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
+| Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |
+| Units 5.4–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
 | Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity and block shape; latest Unit 5.2 validation is pending after the current changes |
 | Scientific verification | `fixtures/smoke_check.py` now includes Unit 5.2 checks; CI execution is being added. All data remain synthetic; no claim of live-data validation |
