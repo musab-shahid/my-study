@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { ArrowLeft, BookOpen, CheckCircle2, ChevronRight, Clock3, GraduationCap, Link2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
@@ -44,8 +44,6 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
           <span className="text-xs text-slate-500">{lessons.length} mapped</span>
         </div>
         {lessons.length ? <div className="space-y-2">{lessons.map((lesson) => {
-          const progressId = lesson.sourceTopicId ?? lesson.id;
-          const studied = false; // Study state is shown in the lesson reader; this list remains curriculum-driven.
           return <button key={lesson.id} onClick={() => lesson.sourceTopicId ? navigate({ screen: 'topic', topicId: lesson.sourceTopicId }) : navigate({ screen: 'curriculum-lesson', lessonId: lesson.id })} className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 p-4 text-left transition-colors">
             <div className="flex items-start gap-3">
               <span className="w-8 h-8 rounded-lg bg-teal-50 text-teal-800 flex items-center justify-center text-xs font-bold shrink-0">{lesson.order}</span>
@@ -53,7 +51,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
                 <span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-slate-900">{lesson.title}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] capitalize">{lesson.readiness}</span></span>
                 <span className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mt-1">{lesson.estimatedMinutes ? <span className="inline-flex items-center gap-1"><Clock3 className="w-3 h-3" />{lesson.estimatedMinutes} min</span> : null}<span>{lesson.objectives.length} learning outcomes</span><span>{lesson.activityIds.length} practice activities</span></span>
               </span>
-              {studied ? <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
+              <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
             </div>
           </button>;
         })}</div> : <Card className="p-5 border border-dashed border-slate-300 bg-slate-50"><p className="font-medium text-slate-800">Lesson content is being developed</p><p className="text-sm text-slate-600 mt-1">This unit is registered in the curriculum, but its lessons have not yet been authored and validated. It is intentionally not presented as complete.</p>{unit.sourceDocument && <p className="text-xs text-slate-500 mt-3">Source manuscript: <code>{unit.sourceDocument}</code></p>}</Card>}
