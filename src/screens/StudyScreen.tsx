@@ -16,6 +16,7 @@ import { PageContainer, Card, EmptyState, ProgressBar, ActionCard, TopicStatusIc
 import { MathText } from '@/components/MathText';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
+import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { loadQuestionsForTopic } from '@/data/lazy-data';
 import type { SubjectId, Topic, Question, MethodChooser } from '@/types';
 import type { QuantFormulaEntry } from '@/components/study/TopicContentBlocks';
@@ -52,6 +53,15 @@ export function StudyScreen() {
   const subjectTopics = sd.topicsFor(subjectId);
   const hasContent = isAllSubjects || subjectTopics.length > 0;
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
+  const curriculumSubject = subjectId === 'cgei-data-science'
+    ? cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId)
+    : undefined;
+  const curriculumUnits = curriculumSubject
+    ? curriculumSubject.unitIds
+        .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
+        .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit))
+        .sort((a, b) => a.order - b.order)
+    : [];
 
   const handleSubjectChange = (value: SubjectFilterValue) => {
     setActiveSubjectForScreen('learn', value);
@@ -181,6 +191,57 @@ export function StudyScreen() {
               </button>
             )}
           </div>
+
+          {curriculumSubject && (
+            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-teal-100 bg-teal-50/40">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-teal-800" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Course orientation · not a lesson</p>
+                  <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
+                  <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
+                  <div className="mt-4">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">What you will learn</h3>
+                    <ul className="space-y-1.5">
+                      {curriculumSubject.outcomes.map((outcome) => (
+                        <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
+                          <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="mt-4">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Curriculum units</h3>
+                    <div className="space-y-2">
+                      {curriculumUnits.map((unit) => (
+                        <button
+                          key={unit.id}
+                          disabled={!unit.legacySectionId}
+                          onClick={() => unit.legacySectionId && navigate({ screen: 'section', sectionId: unit.legacySectionId })}
+                          className={`w-full rounded-xl border p-3 text-left transition-colors ${unit.legacySectionId ? 'border-teal-200 bg-white hover:bg-teal-50 cursor-pointer' : 'border-slate-200 bg-white/70 cursor-default'}`}
+                        >
+                          <div className="flex items-start gap-3">
+                            <span className="text-xs font-bold text-slate-500 w-10 shrink-0 pt-0.5">{unit.code}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="flex flex-wrap items-center gap-2">
+                                <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
+                              </span>
+                              <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
+                              <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons currently mapped` : 'Lessons not yet integrated'}</span>
+                            </span>
+                            {unit.legacySectionId && <ChevronRight className="w-4 h-4 text-teal-700 shrink-0 mt-1" />}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Sections accordion */}
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
