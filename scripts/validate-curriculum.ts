@@ -153,6 +153,7 @@ if (unit53 && unit53.lessonIds.length !== 5) errors.push(`Unit 5.3 should map 5 
 if (unit52 && cgeiCurriculum.questions.filter((question) => unit52.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.2 should include at least ten lesson-linked curriculum knowledge checks');
 if (unit53 && cgeiCurriculum.questions.filter((question) => unit53.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.3 should include at least ten lesson-linked curriculum knowledge checks');
 if (unit52 && unit52.readiness === 'released') errors.push('Unit 5.2 cannot be released before example execution and instructional review');
+if (unit53 && unit53.readiness === 'released') errors.push('Unit 5.3 cannot be released before example execution and instructional review');
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
 
