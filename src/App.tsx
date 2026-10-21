@@ -7,6 +7,7 @@ import { Sidebar, MobileNav } from '@/components/layout/Navigation';
 import { Header } from '@/components/layout/Header';
 import { DashboardScreen } from '@/screens/DashboardScreen';
 import { StudyScreen, SectionScreen, TopicScreen } from '@/screens/StudyScreen';
+import { CurriculumUnitScreen, CurriculumLessonScreen } from '@/screens/CurriculumScreens';
 import { FormulaVaultScreen } from '@/screens/FormulaVaultScreen';
 import { FlashcardsScreen } from '@/screens/FlashcardsScreen';
 import { CloudAtlasScreen } from '@/screens/CloudAtlasScreen';
@@ -47,6 +48,10 @@ function ScreenRouter() {
           <SectionScreen sectionId={route.sectionId} />
         </SectionAccessGate>
       );
+    case 'curriculum-unit':
+      return <EnrollmentRequired purposeTitle="Curriculum unit" purpose="Follow the unit outcomes, lessons, activities and evidence requirements within your active track."><CurriculumUnitScreen unitId={route.unitId} /></EnrollmentRequired>;
+    case 'curriculum-lesson':
+      return <EnrollmentRequired purposeTitle="Curriculum lesson" purpose="Study the lesson, practise its skills, and save evidence of what you can do."><CurriculumLessonScreen lessonId={route.lessonId} /></EnrollmentRequired>;
     case 'topic':
       return (
         <TopicAccessGate topicId={route.topicId}>
