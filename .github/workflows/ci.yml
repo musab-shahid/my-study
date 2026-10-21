@@ -64,6 +64,6 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install scientific Python dependencies
-        run: python -m pip install numpy pandas statsmodels matplotlib
+        run: python -m pip install numpy pandas statsmodels matplotlib scikit-learn
       - name: Verify Chapter 5 numerical examples
         run: python content-drafts/chapter-05-scientific-computing/fixtures/smoke_check.py
