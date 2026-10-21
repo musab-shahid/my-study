@@ -117,7 +117,7 @@ for (const rubric of cgeiCurriculum.rubrics) {
 const subject5 = cgeiCurriculum.subjects.find((subject) => subject.subjectId === 'cgei-data-science');
 const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
 if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is missing');
-if (subject5 && subject5.unitIds.length !== 13) errors.push(`Subject 5 should list 12 units plus capstone unit; found ${subject5.unitIds.length}`);
+if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
