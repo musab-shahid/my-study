@@ -226,6 +226,145 @@ function legacyTopicToBlocks(topicId: string): CurriculumContentBlock[] {
   return blocks;
 }
 
+const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
+  "cgei-ds-lesson-5-1-1": [
+    {
+      "id": "cgei-ds-51-1-rate-depth-example",
+      "kind": "worked-example",
+      "title": "Worked example: convert an accumulated rainfall amount",
+      "body": "Problem: a gridded product reports 0.0018 m of precipitation accumulated during one hour. Express the accumulation in millimetres, then calculate the depth over six identical hours if the hourly amount remains constant.\n\nCalculation: 0.0018 m × 1000 mm m⁻¹ = 1.8 mm per hour. Over six hours: 6 × 1.8 = 10.8 mm.\n\nInterpretation: 1.8 mm is a one-hour accumulation, not automatically a rate in mm day⁻¹. The six-hour total assumes all six hourly accumulations are valid and represent the intended period."
+    },
+    {
+      "id": "cgei-ds-51-1-audit-checklist",
+      "kind": "checklist",
+      "title": "Before using any environmental number",
+      "items": [
+        "Identify the physical quantity and its unit, including whether it is an amount, rate, anomaly or index.",
+        "Confirm the product, band/variable, version and any scale factor, offset, fill value and QA mask.",
+        "Align temporal windows and spatial support before comparing or aggregating values.",
+        "Check dimensional homogeneity and an order-of-magnitude range before interpreting results."
+      ]
+    }
+  ],
+  "cgei-ds-lesson-5-1-2": [
+    {
+      "id": "cgei-ds-51-2-gradient-example",
+      "kind": "worked-example",
+      "title": "Worked example: estimate a spatial gradient",
+      "body": "Suppose T(x,y) = 20 + 2x − 0.5y °C, with x and y measured in kilometres. Then ∂T/∂x = 2 °C km⁻¹ and ∂T/∂y = −0.5 °C km⁻¹, so ∇T = (2, −0.5) °C km⁻¹. The gradient points toward the steepest local increase; it is not the direction of heat transport by itself.\n\nFor sampled data, approximate a derivative with a finite difference and divide by the coordinate spacing. If spacing changes from 1 km to 2 km, the denominator must change too."
+    },
+    {
+      "id": "cgei-ds-51-2-numpy-example",
+      "kind": "code",
+      "title": "Compute a centred finite difference",
+      "language": "python",
+      "code": "import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\nt_c = np.array([30.0, 32.0, 35.0])\ndt_dx = (t_c[2] - t_c[0]) / (x_km[2] - x_km[0])\nprint(f\"centred estimate: {dt_dx:.2f} °C km⁻¹\")  # 2.50 °C km⁻¹\n\n# Check that x is in kilometres; convert units if coordinates are metres."
+    }
+  ],
+  "cgei-ds-lesson-5-1-3": [
+    {
+      "id": "cgei-ds-51-3-least-squares-example",
+      "kind": "worked-example",
+      "title": "Worked example: fit a line using matrix notation",
+      "body": "Three sites have x = [0, 1, 2] km and measured temperatures y = [30, 32, 35] °C. Construct X = [[1,0],[1,1],[1,2]] and β = [intercept, slope]ᵀ. The least-squares estimate minimises ||Xβ − y||²; for these values, the fitted intercept is approximately 29.83 °C and the slope is 2.50 °C km⁻¹.\n\nThe residuals are observed minus fitted values. A small residual sum of squares describes fit to these points, not proof that distance causes temperature change or that the model generalises."
+    },
+    {
+      "id": "cgei-ds-51-3-numpy-example",
+      "kind": "code",
+      "title": "Solve a small least-squares problem",
+      "language": "python",
+      "code": "import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\ny_c = np.array([30.0, 32.0, 35.0])\nX = np.column_stack([np.ones_like(x_km), x_km])\nbeta, residual_sum_squares, rank, singular_values = np.linalg.lstsq(X, y_c, rcond=None)\ny_hat = X @ beta\nprint(\"intercept, slope:\", beta)  # about [29.833, 2.5]\nprint(\"residuals:\", y_c - y_hat)\nprint(\"rank:\", rank)"
+    }
+  ],
+  "cgei-ds-lesson-5-1-4": [
+    {
+      "id": "cgei-ds-51-4-eigen-svd-example",
+      "kind": "worked-example",
+      "title": "Worked example: eigenvalues are not always singular values",
+      "body": "Let A = [[2,0],[0,−1]]. For v₁ = [1,0]ᵀ, Av₁ = [2,0]ᵀ = 2v₁, so 2 is an eigenvalue. For v₂ = [0,1]ᵀ, Av₂ = [0,−1]ᵀ = −1v₂, so −1 is an eigenvalue.\n\nThe singular values of A are 2 and 1: they are non-negative and come from the square roots of the eigenvalues of AᵀA. The negative eigenvalue therefore demonstrates why eigenvalues and singular values must not be treated as interchangeable. PCA uses eigenvectors/eigenvalues of a covariance matrix (or an equivalent SVD formulation) to describe directions and variance."
+    },
+    {
+      "id": "cgei-ds-51-4-numpy-example",
+      "kind": "code",
+      "title": "Verify an eigenpair and inspect singular values",
+      "language": "python",
+      "code": "import numpy as np\n\nA = np.array([[2.0, 0.0], [0.0, -1.0]])\nvalues, vectors = np.linalg.eig(A)\nfor i, value in enumerate(values):\n    v = vectors[:, i]\n    assert np.allclose(A @ v, value * v)\nprint(\"eigenvalues:\", values)       # 2 and -1\nprint(\"singular values:\", np.linalg.svd(A, compute_uv=False))  # 2 and 1"
+    }
+  ],
+  "cgei-ds-lesson-5-1-5": [
+    {
+      "id": "cgei-ds-51-5-stock-flux-example",
+      "kind": "worked-example",
+      "title": "Worked example: a stock approaches equilibrium",
+      "body": "Consider dS/dt = I − kS, where S is stored water in mm, I = 10 mm day⁻¹ is constant inflow, and k = 0.2 day⁻¹ is a loss coefficient. At S = 20 mm, dS/dt = 10 − (0.2 × 20) = 6 mm day⁻¹.\n\nWith a one-day forward-Euler step, S₁ = S₀ + Δt(I − kS₀) = 20 + 1 × 6 = 26 mm. The steady state satisfies dS/dt = 0, so S* = I/k = 50 mm. Euler results depend on the step size; a numerically produced value is not automatically stable or physically plausible."
+    },
+    {
+      "id": "cgei-ds-51-5-euler-code",
+      "kind": "code",
+      "title": "Run and check a forward-Euler simulation",
+      "language": "python",
+      "code": "import numpy as np\n\nS_mm = 20.0\ninflow_mm_day = 10.0\nk_per_day = 0.2\ndt_day = 1.0\nfor day in range(5):\n    dS_dt = inflow_mm_day - k_per_day * S_mm\n    S_mm = S_mm + dt_day * dS_dt\n    print(day + 1, round(S_mm, 2), \"mm\")\n\nsteady_state_mm = inflow_mm_day / k_per_day\nprint(\"equilibrium:\", steady_state_mm, \"mm\")\n# Keep units consistent and test whether changing dt changes the path."
+    }
+  ],
+  "cgei-ds-lesson-5-1-6": [
+    {
+      "id": "cgei-ds-51-6-water-balance-example",
+      "kind": "worked-example",
+      "title": "Worked example: calculate storage change and diagnose closure",
+      "body": "For one catchment-year, precipitation P = 420 mm, evapotranspiration ET = 310 mm and runoff R = 70 mm. Under ΔS = P − ET − R, the implied storage change is 420 − 310 − 70 = +40 mm.\n\nIf an independent storage estimate instead gives ΔS = +20 mm, the closure residual ε = P − ET − R − ΔS = 20 mm. That residual signals unrepresented fluxes, measurement error, mismatched periods/support, or model error; it should not be silently forced to zero."
+    },
+    {
+      "id": "cgei-ds-51-6-balance-checklist",
+      "kind": "checklist",
+      "title": "Water-balance audit",
+      "items": [
+        "Use the same time interval and spatial boundary for every term.",
+        "Keep all terms in compatible depth units (for example, mm per year) or compatible volumes.",
+        "Define positive directions and whether storage change is final minus initial storage.",
+        "Report the closure residual and discuss plausible missing fluxes or measurement limitations."
+      ]
+    }
+  ],
+  "cgei-ds-lesson-5-1-7": [
+    {
+      "id": "cgei-ds-51-7-energy-example",
+      "kind": "worked-example",
+      "title": "Worked example: close a surface energy budget",
+      "body": "Adopt this convention: net radiation Rn is positive into the surface; sensible heat H, latent heat LE, ground heat G and storage change ΔQ are positive away from the surface. The balance residual is ε = Rn − H − LE − G − ΔQ.\n\nFor Rn = 500, H = 100, LE = 250, G = 50 and ΔQ = 40 W m⁻², ε = 500 − 100 − 250 − 50 − 40 = 60 W m⁻². A non-zero residual may reflect omitted terms, non-synchronous measurements, sign mistakes or uncertainty. If the sign convention changes, the equation must change consistently too."
+    },
+    {
+      "id": "cgei-ds-51-7-sign-checklist",
+      "kind": "checklist",
+      "title": "Before interpreting an energy-balance equation",
+      "items": [
+        "Write the positive direction beside each flux before substituting numbers.",
+        "Keep every flux in W m⁻² and align averaging periods.",
+        "Distinguish land-surface temperature from near-surface air temperature; they are different variables.",
+        "Do not interpret a closure residual as a measured physical flux without further evidence."
+      ]
+    }
+  ],
+  "cgei-ds-lesson-5-1-8": [
+    {
+      "id": "cgei-ds-51-8-uncertainty-example",
+      "kind": "worked-example",
+      "title": "Worked example: uncertainty in a heat-exceedance proportion",
+      "body": "Suppose 8 of 20 observed days exceed a defined heat threshold. The estimated exceedance proportion is p̂ = 8/20 = 0.40. Under a simple independent Bernoulli approximation, SE(p̂) = √[p̂(1 − p̂)/n] = √[0.4 × 0.6/20] ≈ 0.11.\n\nThis rough standard error is large relative to the estimate. Consecutive weather days are dependent, so the independent-observation formula may understate uncertainty. State the sampling unit, threshold, valid-day count and dependence limitation."
+    },
+    {
+      "id": "cgei-ds-51-8-distribution-choice",
+      "kind": "key-points",
+      "title": "Match the probability model to the data-generating question",
+      "items": [
+        "A Bernoulli model describes one binary event; a binomial model describes the number of events across a fixed number of trials under its assumptions.",
+        "A normal model can be useful for approximately symmetric continuous errors, but inspect tails and dependence rather than assuming normality by habit.",
+        "A Poisson model can describe event counts per interval under specific rate and independence assumptions; clustered extremes may violate them.",
+        "A standard error describes uncertainty in an estimator, not the spread of raw observations or the probability that a fixed parameter is true."
+      ]
+    }
+  ]
+};
+
 const lessons51: CurriculumLesson[] = lessonDefinitions.map((lesson, index) => ({
   id: lesson.id,
   kind: 'lesson' as const,
@@ -236,7 +375,7 @@ const lessons51: CurriculumLesson[] = lessonDefinitions.map((lesson, index) => (
   estimatedMinutes: lesson.minutes,
   objectives: outcomes51.filter((outcome) => (lesson.objectiveIds as readonly string[]).includes(outcome.id)),
   sourceTopicId: lesson.sourceTopicId,
-  content: legacyTopicToBlocks(lesson.sourceTopicId),
+  content: [...legacyTopicToBlocks(lesson.sourceTopicId), ...(unit51ExtensionBlocks[lesson.id] ?? [])],
   activityIds: [...lesson.activityIds],
   assessmentIds: [...lesson.assessmentIds],
   resourceIds: [...('resourceIds' in lesson ? lesson.resourceIds : [])],
