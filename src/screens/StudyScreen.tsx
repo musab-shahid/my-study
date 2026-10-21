@@ -674,6 +674,15 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   const isStudied = data.studiedTopics.includes(topicId);
   const topicPositionLabel = topic.sectionId === 'CGEI-051' ? `Unit 5.1 · Lesson ${topic.order}` : `Section ${topic.sectionId} · Topic ${topic.order}`;
   const curriculumLesson = cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === topic.id && lesson.content.length > 0);
+  const lessonActivities = curriculumLesson
+    ? curriculumLesson.activityIds.map((id) => cgeiCurriculum.activities.find((activity) => activity.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const lessonAssessments = curriculumLesson
+    ? curriculumLesson.assessmentIds.map((id) => cgeiCurriculum.assessments.find((assessment) => assessment.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const lessonResources = curriculumLesson
+    ? curriculumLesson.resourceIds.map((id) => cgeiCurriculum.resources.find((resource) => resource.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
 
   if (!topic.content) {
     return (
@@ -699,6 +708,24 @@ export function TopicScreen({ topicId }: { topicId: string }) {
       <div className="mb-6 sm:mb-8">
         <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
         <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+        {curriculumLesson && (
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
+            <span className="rounded-full bg-sky-50 text-sky-800 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
+            {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
+            <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
+          </div>
+        )}
+        {curriculumLesson?.objectives.length ? (
+          <section className="mt-4 rounded-xl border border-sky-100 bg-sky-50/50 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-sky-900 mb-2">By the end of this lesson, you should be able to</h2>
+            <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
+              <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="rounded bg-white border border-sky-100 px-1.5 py-0.5 text-[10px] font-bold text-sky-800 shrink-0">{outcome.level}</span>
+                <span>{outcome.statement}</span>
+              </li>
+            ))}</ul>
+          </section>
+        ) : null}
         {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
       </div>
       <article className="space-y-6 sm:space-y-8">
@@ -1060,6 +1087,51 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           );
         })()}
         </>)}
+        {(lessonActivities.length > 0 || lessonAssessments.length > 0 || lessonResources.length > 0) && (
+          <section className="space-y-4 pt-5 border-t border-slate-200">
+            {lessonActivities.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Practice and application</h2>
+                <div className="space-y-2">{lessonActivities.map((activity) => (
+                  <Card key={activity.id} className="p-4 border border-slate-200">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-medium text-slate-900 text-sm">{activity.title}</h3>
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes ? <span className="text-xs text-slate-500">~{activity.estimatedMinutes} min</span> : null}
+                    </div>
+                    <p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-slate-600 mt-2"><span className="font-semibold">Evidence to save:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-sky-800">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-600">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
+                  </Card>
+                ))}</div>
+              </div>
+            )}
+            {lessonAssessments.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Knowledge and skill checks</h2>
+                <div className="grid sm:grid-cols-2 gap-2">{lessonAssessments.map((assessment) => (
+                  <Card key={assessment.id} className="p-4 border border-slate-200">
+                    <h3 className="font-medium text-slate-900 text-sm">{assessment.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed mt-1">{assessment.purpose}</p>
+                    {assessment.passThreshold !== undefined ? <p className="text-xs text-slate-500 mt-2">Target: {Math.round(assessment.passThreshold * 100)}%</p> : null}
+                  </Card>
+                ))}</div>
+              </div>
+            )}
+            {lessonResources.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Further reading and tools</h2>
+                <ul className="space-y-2">{lessonResources.map((resource) => (
+                  <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-sky-800 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
+                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
+                    {resource.authorOrPublisher ? <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
+                  </li>
+                ))}</ul>
+              </div>
+            )}
+          </section>
+        )}
       </article>
       <AiTutorChat
         topicId={topic.id}
