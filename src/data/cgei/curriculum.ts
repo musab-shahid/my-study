@@ -313,7 +313,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'review',
       audience: 'Environmental science, climate, geospatial and Earth-observation learners who need to analyse data reproducibly.',
       purpose: 'Build reliable quantitative reasoning and scientific computing practice that can be reused across environmental and climate-intelligence workflows.',
-      overview: 'This subject connects mathematical foundations, scientific Python, exploratory analysis, statistical inference, time series, multivariate methods, modelling, causal reasoning, research software, and scalable environmental pipelines. Units 5.1–5.3 are the first integrated units. Unit 5.1 uses a compatibility bridge to existing lesson IDs; Units 5.2 and 5.3 are authored in the canonical content-block schema and remain draft until their examples and UI are validated.',
+      overview: 'This subject connects mathematical foundations, scientific Python, exploratory analysis, statistical inference, time series, multivariate methods, modelling, causal reasoning, research software, and scalable environmental pipelines. Units 5.1–5.4 are the first integrated units. Unit 5.1 uses a compatibility bridge to existing lesson IDs; Units 5.2–5.4 are authored in the canonical content-block schema and remain draft until their examples and UI are validated.',
       prerequisites: ['Algebra and functions', 'Means and variances', 'Basic file and spreadsheet handling'],
       outcomes: [
         { id: 'cgei-ds-o-reproducible-analysis', statement: 'Build an analysis that can be rerun, checked, and understood by another researcher.', action: 'build and document', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
