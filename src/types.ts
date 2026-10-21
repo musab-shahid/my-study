@@ -87,11 +87,22 @@ export interface MethodChooserOption {
   answer?: string;
 }
 
+export interface MethodChooserBranch {
+  condition: string;
+  result?: string;
+  branches?: MethodChooserBranch[];
+}
+
 export interface MethodChooser {
   title?: string;
   intro?: string;
   steps?: MethodChooserStep[];
   scenario?: string;
+  /** Legacy prompt alias used by existing question banks. */
+  question?: string;
+  /** Root prompt for nested decision-tree choosers. */
+  root?: string;
+  branches?: MethodChooserBranch[];
   options?: MethodChooserOption[];
   recommendation?: string;
 }
@@ -218,7 +229,7 @@ export interface Topic {
    */
   vocabularyGroups?: Array<{
     title: string;
-    description: string;
+    description?: string;
     words: Array<{
       word: string;
       definition: string;
