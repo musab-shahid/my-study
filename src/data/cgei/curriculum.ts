@@ -6,7 +6,9 @@
  * progress. The roadmap is represented in CurriculumSubject.overview, never as
  * a Topic or a lesson.
  */
-import type { CurriculumRegistry, CurriculumOutcome } from '@/types/curriculum';
+import type { CurriculumContentBlock, CurriculumRegistry, CurriculumOutcome } from '@/types/curriculum';
+import type { Topic } from '@/types';
+import { topics as dataScienceTopics } from './data-science/topics-data-science';
 
 const outcomes51: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-quantities', statement: 'Convert environmental quantities and diagnose dimensional or order-of-magnitude errors.', action: 'convert and validate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
@@ -44,6 +46,66 @@ const plannedUnits = [
   ['5.12', 'xarray and scalable environmental pipelines', 'Labeled multidimensional arrays, chunking, coordinate systems and efficient spatiotemporal workflows.'],
 ] as const;
 
+const legacyTopicById = new Map<string, Topic>(dataScienceTopics.map((topic) => [topic.id, topic]));
+
+function legacyTopicToBlocks(topicId: string): CurriculumContentBlock[] {
+  const topic = legacyTopicById.get(topicId);
+  if (!topic) return [];
+  const blocks: CurriculumContentBlock[] = [];
+  if (topic.definition) blocks.push({ id: `${topicId}-definition`, kind: 'prose', title: 'Core idea', body: topic.definition });
+  if (topic.keyFacts?.length) blocks.push({ id: `${topicId}-key-points`, kind: 'key-points', title: 'Key points', items: topic.keyFacts });
+  for (const [index, section] of (topic.explanationSections ?? []).entries()) {
+    blocks.push({ id: `${topicId}-explanation-${index + 1}`, kind: 'prose', title: section.heading, body: section.body });
+  }
+  const rawFormulas = topic.formula ?? topic.formulas;
+  const formulas = rawFormulas ? (Array.isArray(rawFormulas) ? rawFormulas : [rawFormulas]) : [];
+  for (const [index, formula] of formulas.entries()) {
+    const symbols = formula.variables?.map((variable) => `${variable.symbol}: ${variable.meaning}`).join('; ');
+    blocks.push({
+      id: `${topicId}-equation-${index + 1}`,
+      kind: 'equation',
+      title: formula.name,
+      expression: formula.expression,
+      body: [formula.notes, symbols ? `Symbols: ${symbols}` : undefined].filter(Boolean).join('\n'),
+    });
+  }
+  const rawExamples = topic.workedExample ?? topic.workedExamples;
+  const examples = rawExamples ? (Array.isArray(rawExamples) ? rawExamples : [rawExamples]) : [];
+  for (const [index, example] of examples.entries()) {
+    const solution = typeof example.solution === 'string'
+      ? example.solution
+      : example.solution
+        ? Object.entries(example.solution).map(([step, detail]) => `${step}: ${detail}`).join('\n')
+        : '';
+    blocks.push({
+      id: `${topicId}-worked-example-${index + 1}`,
+      kind: 'worked-example',
+      title: `Worked example ${index + 1}`,
+      body: [
+        `Problem: ${example.problem}`,
+        solution ? `Solution: ${solution}` : undefined,
+        example.answer ? `Answer: ${example.answer}` : undefined,
+        example.takeaway ? `Takeaway: ${example.takeaway}` : undefined,
+      ].filter(Boolean).join('\n\n'),
+    });
+  }
+  if (topic.comparisonTable) {
+    blocks.push({
+      id: `${topicId}-comparison-table`,
+      kind: 'table',
+      title: topic.comparisonTable.title,
+      headers: topic.comparisonTable.headers,
+      rows: topic.comparisonTable.rows.map((row) => Array.isArray(row) ? row : Object.values(row)),
+    });
+  }
+  const mistakes = (topic.commonMistakes ?? []).map((item) => typeof item === 'string'
+    ? item
+    : `${item.mistake} — correction: ${item.correction}. ${item.explanation}`);
+  if (mistakes.length) blocks.push({ id: `${topicId}-common-mistakes`, kind: 'callout', title: 'Common mistakes', tone: 'warning', items: mistakes });
+  if (topic.examPoints?.length) blocks.push({ id: `${topicId}-review-points`, kind: 'checklist', title: 'Check your understanding', items: topic.examPoints });
+  return blocks;
+}
+
 const lessons = lessonDefinitions.map((lesson, index) => ({
   id: lesson.id,
   kind: 'lesson' as const,
@@ -54,7 +116,7 @@ const lessons = lessonDefinitions.map((lesson, index) => ({
   estimatedMinutes: lesson.minutes,
   objectives: outcomes51.filter((outcome) => (lesson.objectiveIds as readonly string[]).includes(outcome.id)),
   sourceTopicId: lesson.sourceTopicId,
-  content: [],
+  content: legacyTopicToBlocks(lesson.sourceTopicId),
   activityIds: [...lesson.activityIds],
   assessmentIds: [...lesson.assessmentIds],
   resourceIds: [],
