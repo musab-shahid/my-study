@@ -43,7 +43,7 @@ export function swPrecachePlugin() {
   let outDir = 'dist';
   return {
     name: 'sw-precache',
-    apply: 'build',
+    apply: /** @type {'build'} */ ('build'),
     configResolved(config) {
       outDir = config.build.outDir;
     },
