@@ -336,6 +336,21 @@ def check_unit_5_5_examples() -> None:
     assert required.issubset(manifest)
     assert manifest["source_units"] == "degree_Celsius"
 
+    from hashlib import sha256
+    import tempfile
+
+    def sha256_file(path, chunk_size=1024 * 1024):
+        digest = sha256()
+        with Path(path).open("rb") as handle:
+            for chunk in iter(lambda: handle.read(chunk_size), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        sample_path = Path(temp_dir) / "payload.bin"
+        sample_path.write_bytes(b"abc")
+        assert sha256_file(sample_path) == "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+
     # Mock HTTP responses: verify bounded retry, Retry-After and timeout handling
     # without relying on a live provider or network access.
     class FakeResponse:
