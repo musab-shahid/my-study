@@ -4,6 +4,21 @@
 
 The CGEI track follows the 14-domain Master Study TOC. Subjects 1–8 are the core learning spine; Subjects 9–13 integrate decision support, policy, engineering, advanced AI, and capstone work; Subject 14 is an optional set of specialist branches. A registered subject or roadmap does **not** mean its full curriculum or quiz bank is complete.
 
+## Canonical curriculum model (new for CGEI)
+
+Use `src/types/curriculum.ts` and `src/data/cgei/curriculum.ts` for the instructional hierarchy:
+
+- `CurriculumSubject` is the course/orientation layer: audience, purpose, prerequisites, outcomes, competencies, units and projects.
+- `CurriculumUnit` defines unit outcomes, lesson order, activities, assessments, resources and deliverables.
+- `CurriculumLesson` is one teachable objective with level, time estimate, content blocks, activities, assessments and an optional `sourceTopicId` migration bridge.
+- Resources, activities, assessments, rubrics, deliverables, competencies, and projects are separate typed entities linked by stable IDs.
+- `CurriculumProject` represents projects/capstones as first-class work, not as fake units or topics.
+- Readiness status (`planned`, `outlined`, `draft`, `review`, `validated`, `released`) describes evidence state; do not mark a unit released because its metadata exists.
+
+**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 is the pilot. Its eight Unit 5.1 lessons currently bridge to legacy `Topic` records so existing navigation and saved progress are preserved while the canonical model is introduced. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
+
+Architecture and migration decisions: [CGEI Curriculum Architecture](CGEI_CURRICULUM_ARCHITECTURE.md).
+
 ## Where content lives
 
 Each subject has its own directory under `src/data/cgei/<subject-slug>/`:
