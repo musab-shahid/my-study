@@ -2,45 +2,46 @@
 ## Scientific Computing and Data Science
 **Authoritative source:** Master Study TOC · 19 October 2026  
 **Branch:** `feat/cgei-full-curriculum-skeleton`  
-**Audit date:** 21 October 2026 (honest revision after v1 outline pass)
+**Audit date:** 21 October 2026 (v3 — units 5.7–5.10 taught)
 
 ### Status dimensions
+Outlined · Partially taught · Taught with examples · Practised & assessed · App-ready structure
 
-| Label | Meaning |
-|-------|---------|
-| **Outlined** | Headings / outcomes / deliverable named; little teaching prose |
-| **Partially taught** | Some concepts explained; missing worked examples, exercises, or major subtopics |
-| **Taught with examples** | Prose + worked numerical/code examples + limitations |
-| **Practised & assessed** | Guided + independent exercises with solutions/rubrics |
-| **App-ready structure** | Stable IDs, blocks sized for Topic conversion |
+### Unit-level status
 
-### Unit-level status (post-audit)
-
-| Unit | Curriculum coverage | Scientific quality | App readiness | Priority to deepen |
-|------|---------------------|--------------------|---------------|--------------------|
-| 5.1 Mathematical & physical foundations | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
-| 5.2 Python for scientific work | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
-| 5.3 Exploration & visualisation | Outlined | Needs expansion | Standalone draft | High |
-| 5.4 Introductory statistics | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
-| 5.5 Data workflow & engineering | Outlined | Needs expansion | Standalone draft | Medium |
-| 5.6 Intermediate inference | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
-| 5.7 Time series | Outlined | Needs expansion | Standalone draft | High (climate track) |
-| 5.8 Multivariate / EOF | Outlined | Needs expansion | Standalone draft | High (exit competency) |
-| 5.9 GLM / mixed / Bayesian | Outlined | Needs expansion | Standalone draft | High (exit competency) |
-| 5.10 Causal inference | Outlined | Needs expansion | Standalone draft | High (exit competency) |
-| 5.11 Research software | Taught with examples (v2) | Verified for stated scope | Structured for conversion | Maintain |
-| 5.12 xarray & pipelines | Outlined | Needs expansion | Standalone draft | Medium |
-| Orientation / Integration / Capstone / Toolkit | Partially taught | Needs expansion | Standalone draft | Medium |
+| Unit | Curriculum coverage | Scientific quality | App readiness | Notes |
+|------|---------------------|--------------------|---------------|-------|
+| 5.1 Mathematical & physical foundations | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
+| 5.2 Python for scientific work | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
+| 5.3 Exploration & visualisation | Outlined | Needs expansion | Standalone draft | Next wave |
+| 5.4 Introductory statistics | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
+| 5.5 Data workflow & engineering | Outlined | Needs expansion | Standalone draft | Next wave |
+| 5.6 Intermediate inference | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
+| 5.7 Time series | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
+| 5.8 Multivariate / EOF | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
+| 5.9 GLM / mixed / Bayesian | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
+| 5.10 Causal inference | Taught with examples | Verified for stated scope | Structured for conversion | **v3** |
+| 5.11 Research software | Taught with examples | Verified for stated scope | Structured for conversion | v2 |
+| 5.12 xarray & pipelines | Outlined | Needs expansion | Standalone draft | Next wave |
+| Orientation | Partially taught | Needs expansion | Standalone draft | |
+| Integration / Capstone / Toolkit | Outlined–partial | Needs expansion | Standalone draft | |
 
 ### Exit competencies
 
-| Competency | Prerequisites taught? | Explicit unit treatment | Status |
-|------------|----------------------|-------------------------|--------|
-| Tested versioned one-command repo | 5.2, 5.11 v2 | 5.11 + Capstone | Teachable; capstone still outline |
-| GLM/mixed + diagnostics + intervals | 5.4, 5.6 v2 | 5.9 still outline | **Blocked on 5.9** |
-| EOF/PCA area-weighted + mode justification | 5.1 v2 | 5.8 still outline | **Blocked on 5.8** |
-| Causal question + design + falsifiers | 5.4, 5.6 v2 | 5.10 still outline | **Blocked on 5.10** |
+| Competency | Status after v3 |
+|------------|-----------------|
+| Tested versioned one-command repo | Teachable via 5.11; capstone still outline |
+| GLM/mixed + diagnostics + intervals | **Teachable via 5.9 deliverable** |
+| EOF/PCA area-weighted + mode justification | **Teachable via 5.8 deliverable** |
+| Causal question + design + falsifiers | **Teachable via 5.10 design brief** |
+
+### Remaining gaps (priority order)
+1. Units **5.3, 5.5, 5.12** to teaching depth  
+2. Capstone specification with track templates and rubric detail  
+3. Assessment toolkit (diagnostic key, debug exam, formula sheet expansion)  
+4. Orientation polish + integration narrative  
+5. Full exercise solution keys where still “notes only”  
+6. App Topic conversion (separate stage — not claimed done)
 
 ### Honest summary
-
-v1 labelled everything "Covered (draft v1)" while most unit files were 7–20 line outlines. **v2 brings units 5.1, 5.2, 5.4, 5.6, and 5.11 to teaching depth with worked examples and exercises.** Remaining units are still outlined and must not be treated as complete for standalone study or app conversion.
+Nine of twelve units (5.1–5.2, 5.4, 5.6–5.11) now have teaching prose, worked examples, exercises, and mastery gates. Three units and the supporting Part I/III–V materials remain incomplete. The chapter is **partially standalone-ready** for core statistical and inference skills; **not** fully complete and **not** app-integrated.
