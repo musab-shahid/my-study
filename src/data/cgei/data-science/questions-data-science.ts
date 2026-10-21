@@ -2,7 +2,7 @@ import type { Question } from '@/types';
 
 const SRC = 'CGEI Subject 5 / Unit 5.1 manuscript (content-drafts/chapter-05-scientific-computing)';
 
-/** Unit 5.1 full slice — 26 questions across eight topics. */
+/** Unit 5.1 question bank — 35 questions across eight substantive lessons. */
 export const questions: Question[] = [
   // Units (3)
   {
