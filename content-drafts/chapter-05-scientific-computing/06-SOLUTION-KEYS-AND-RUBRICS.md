@@ -114,6 +114,22 @@ Verify with `COUNT(*)` before/after filters and join.
 
 **B rubric:** predicted probabilities or mean counts at two covariate settings; residual/calibration note; grouping factor named for mixed models.
 
+
+### Verified logistic GLM numbers (fixture `synthetic_heat_exceedance.csv`)
+
+Executed with statsmodels GLM binomial/logit (seeded fixture). Locked coefficients:
+
+| Term | \(\hat\beta\) | SE | OR |
+|------|---------------|-----|-----|
+| Intercept | −0.5857 | 0.5410 | 0.557 |
+| lst_anom_c | 0.4401 | 0.0802 | 1.553 |
+| ndvi | −2.3653 | 1.1998 | 0.094 |
+| built_frac | 0.4701 | 0.8078 | 1.600 |
+
+Predicted probabilities: setting A (−1, 0.50, 0.20) → **0.1077**; setting B (2, 0.15, 0.70) → **0.5668**. Both match inverse-logit of the linear predictor to machine precision. Smoke test: `check_logistic_glm()` in `fixtures/smoke_check.py`.
+
+**B interpretation checklist:** reports log-odds *and* OR; gives both predicted probabilities; states synthetic/non-causal; notes large SE on `built_frac` or equivalent uncertainty language.
+
 **C rubric:** PPC checklist names at least two discrepancy features (e.g. excess zeros, spatial clustering of errors).
 
 ---

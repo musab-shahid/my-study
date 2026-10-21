@@ -7,6 +7,8 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
+import statsmodels.formula.api as smf
 
 ROOT = Path(__file__).resolve().parent
 
@@ -70,12 +72,73 @@ def check_eof_weights() -> None:
     print("OK eof synthetic corr", float(corr), "varfrac0", float(s[0] ** 2 / np.sum(s ** 2)))
 
 
+
+
+def check_logistic_glm() -> None:
+    """Unit 5.9 synthetic logistic GLM — coefficients and predicted probs."""
+    df = pd.read_csv(ROOT / "synthetic_heat_exceedance.csv")
+    assert set(df.columns) >= {"lst_anom_c", "ndvi", "built_frac", "exceed"}
+    assert df["exceed"].isin([0, 1]).all()
+    assert 0.1 < df["exceed"].mean() < 0.9  # not separated by class rarity alone
+
+    model = smf.glm(
+        "exceed ~ lst_anom_c + ndvi + built_frac",
+        data=df,
+        family=sm.families.Binomial(),
+    ).fit()
+
+    # Locked reference values from audit execution (seeded fixture)
+    expected = {
+        "Intercept": -0.5856719334245448,
+        "lst_anom_c": 0.4400675881212699,
+        "ndvi": -2.365330186603578,
+        "built_frac": 0.47010450038829293,
+    }
+    for name, val in expected.items():
+        assert abs(float(model.params[name]) - val) < 1e-8, name
+
+    settings = pd.DataFrame(
+        {
+            "lst_anom_c": [-1.0, 2.0],
+            "ndvi": [0.50, 0.15],
+            "built_frac": [0.20, 0.70],
+        }
+    )
+    pred = model.predict(settings).to_numpy()
+    assert abs(pred[0] - 0.10770664073655878) < 1e-8
+    assert abs(pred[1] - 0.5667827809478765) < 1e-8
+
+    # Independent recompute from coefficients
+    b = model.params
+    for i, row in settings.iterrows():
+        eta = (
+            b["Intercept"]
+            + b["lst_anom_c"] * row["lst_anom_c"]
+            + b["ndvi"] * row["ndvi"]
+            + b["built_frac"] * row["built_frac"]
+        )
+        p = 1.0 / (1.0 + np.exp(-eta))
+        assert abs(p - pred[i]) < 1e-12
+
+    # No complete separation: fitted probabilities not stuck at 0/1
+    phat = model.predict(df)
+    assert phat.min() > 0.001 and phat.max() < 0.999
+
+    print(
+        "OK logistic GLM",
+        f"predA={pred[0]:.4f}",
+        f"predB={pred[1]:.4f}",
+        f"n_iter={model.fit_history.get('iteration', '?') if hasattr(model, 'fit_history') else 'ok'}",
+    )
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
     check_euler()
     check_pkt_daily_max()
     check_eof_weights()
+    check_logistic_glm()
     print("All Chapter 5 smoke checks passed.")
     return 0
 

@@ -37,3 +37,11 @@ All four teachable via unit deliverables; capstone requires software gate and in
 
 ### Honest summary
 **v4.1:** All twelve units remain at teaching depth. Audit (`05-QUALITY-AUDIT.md`) found no critical scientific errors; high-priority gaps were missing B/C keys, unexecuted code, and over-strong verification language. Remediation added fixtures/smoke_check, EOF clarification, safer decode_st, and solution keys/rubrics. Still **not** app-integrated; live product pipelines not executed in-repo.
+
+### Computational checks actually run (v4.1+)
+
+| Check | Command / method | Result |
+|-------|------------------|--------|
+| Eigen, Bayes, Euler, PKT max, EOF synthetic | `fixtures/smoke_check.py` | Passed |
+| Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
+| Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
