@@ -159,7 +159,7 @@ export function Sidebar() {
                   {trackSubs.map((sub) => {
                     const subjectId = sub.id as SubjectId;
                     const colors = getSubjectStyle(subjectId);
-                    const Icon = sub.lucideIcon ?? BookOpen;
+                    const Icon = sub.lucideIcon ?? BookCopy;
                     const expanded = expandedSubject === subjectId;
                     return (
                       <div key={subjectId}>
