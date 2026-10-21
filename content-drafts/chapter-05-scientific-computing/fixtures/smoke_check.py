@@ -386,6 +386,16 @@ def check_unit_5_5_examples() -> None:
     assert get_json_with_retry(timeout_then_success, sleep=timeout_delays.append) == {"ok": True}
     assert timeout_calls["n"] == 2 and timeout_delays == [1]
 
+    server_errors = [FakeResponse(500, {"error": "synthetic"}), FakeResponse(500, {"error": "synthetic"})]
+    server_delays = []
+    try:
+        get_json_with_retry(lambda: server_errors.pop(0), attempts=2, sleep=server_delays.append)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("repeated HTTP 500 responses should fail after the retry limit")
+    assert server_delays == [1] and not server_errors
+
     conn.close()
     print("OK Unit 5.5 SQL, idempotence, manifest and mocked API retry examples")
 
