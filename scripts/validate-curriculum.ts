@@ -16,7 +16,7 @@ const register = (kind: string, records: Array<{ id: string }>) => {
     ids.add(record.id);
   }
 };
-const questionIds = new Set(dataScienceQuestions.map((question) => question.id));
+const questionIds = new Set([...dataScienceQuestions.map((question) => question.id), ...cgeiCurriculum.questions.map((question) => question.id)]);
 const topicIds = new Set(topicMetadata.map((topic) => topic.id));
 const sectionIds = new Set(sections.map((section) => section.id));
 const unitIds = new Set(cgeiCurriculum.units.map((unit) => unit.id));
@@ -33,6 +33,7 @@ register('track', cgeiCurriculum.tracks);
 register('subject', cgeiCurriculum.subjects);
 register('unit', cgeiCurriculum.units);
 register('lesson', cgeiCurriculum.lessons);
+register('question', cgeiCurriculum.questions);
 register('competency', cgeiCurriculum.competencies);
 register('resource', cgeiCurriculum.resources);
 register('activity', cgeiCurriculum.activities);
@@ -96,6 +97,12 @@ for (const lesson of cgeiCurriculum.lessons) {
   checkRefs(`Lesson ${lesson.id} resources`, lesson.resourceIds, resourceIds);
   checkRefs(`Lesson ${lesson.id} deliverables`, lesson.deliverableIds ?? [], deliverableIds);
   for (const outcome of lesson.objectives) checkRefs(`Lesson ${lesson.id} objective competencies`, outcome.competencyIds ?? [], competencyIds);
+}
+for (const question of cgeiCurriculum.questions) {
+  checkRefs(`Curriculum question ${question.id} lesson`, [question.lessonId], lessonIds);
+  if (question.options.length < 2) errors.push(`Curriculum question ${question.id} needs at least two options`);
+  if (!Number.isInteger(question.correctAnswer) || question.correctAnswer < 0 || question.correctAnswer >= question.options.length) errors.push(`Curriculum question ${question.id} has an invalid correctAnswer index`);
+  if (!question.explanation.trim()) errors.push(`Curriculum question ${question.id} requires an explanation`);
 }
 for (const activity of cgeiCurriculum.activities) {
   checkRefs(`Activity ${activity.id} objectives`, activity.objectiveIds, new Set([
