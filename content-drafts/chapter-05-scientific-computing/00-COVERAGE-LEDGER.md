@@ -10,7 +10,7 @@
 |------|----------|---------|---------------|
 | 5.1 Foundations | Taught with examples | Pedagogically reviewed; smoke coverage exists | Eight app lessons via legacy-ID bridge; rendering/CI checks pending |
 | 5.2 Scientific Python | Taught with examples | Manuscript review plus new app examples; smoke checks added, execution pending | Five canonical app lessons in draft state |
-| 5.3 EDA & visualisation | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.3 EDA & visualisation | Taught with examples | Manuscript mapped; examples illustrative and not yet fully compute-verified | Five canonical app lessons in draft state |
 | 5.4 Intro statistics | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.5 Data workflow | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.6 Intermediate inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
@@ -46,11 +46,11 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
 
-### App integration (Units 5.1–5.2; canonical curriculum migration in progress)
+### App integration (Units 5.1–5.3; canonical curriculum migration in progress)
 
 | Item | Status |
 |------|--------|
-| Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md` |
+| Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
 | Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
 | Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
 | App questions | **35** with explanations |
@@ -58,6 +58,6 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge; Unit 5.2 is authored directly as typed content blocks |
 | Unit 5.2 | Five lessons, five practice activities, five assessment records, eleven interactive knowledge checks, six official/research references, three portfolio deliverables; readiness remains **draft** |
-| Units 5.3–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
+| Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |\n| Units 5.4–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
 | Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity and block shape; latest Unit 5.2 validation is pending after the current changes |
 | Scientific verification | `fixtures/smoke_check.py` now includes Unit 5.2 checks; CI execution is being added. All data remain synthetic; no claim of live-data validation |
