@@ -366,7 +366,7 @@ export function ActionCard({
 }) {
   return (
     <div
-      className={`bg-white rounded-card border border-slate-200 border-l-4 ${borderColorClass} ${CARD_ELEVATION[elevation]} p-3.5 sm:p-6 ${className}`}
+      className={`bg-white rounded-card border border-slate-200 border-l-4 ${borderColorClass} ${CARD_ELEVATION[elevation ?? 'raised']} p-3.5 sm:p-6 ${className}`}
       style={style}
     >
       {children}
