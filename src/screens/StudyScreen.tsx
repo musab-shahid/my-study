@@ -111,7 +111,7 @@ export function StudyScreen() {
                   <div className="flex-1 min-w-0">
                     <p className={`font-semibold text-sm sm:text-base truncate ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-slate-500 text-xs">{topics.length} topics</span>
+                      <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span>
                       <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span>
                     </div>
                     <div className="mt-2"><ProgressBar value={topics.length > 0 ? Math.round((studied / topics.length) * 100) : 0} colorClass={getSubjectColor(subject.id).bar} /></div>
