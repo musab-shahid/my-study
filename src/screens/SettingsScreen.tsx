@@ -450,11 +450,11 @@ export function SettingsScreen() {
                         {hasData ? stats.questionsAnswered : '—'}
                       </span>
                       <span className={`text-sm text-right tabular-nums font-medium ${
-                        !hasData || stats.accuracy === 0 ? 'text-slate-500'
+                        !hasData || stats.accuracy == null || stats.accuracy === 0 ? 'text-slate-500'
                         : stats.accuracy >= 75 ? 'text-success-600'
                         : stats.accuracy >= 50 ? 'text-warning-600' : 'text-danger-600'
                       }`}>
-                        {hasData && stats.accuracy > 0 ? `${stats.accuracy}%` : '—'}
+                        {hasData && stats.accuracy != null && stats.accuracy > 0 ? `${stats.accuracy}%` : '—'}
                       </span>
                       <span className="flex items-center justify-center">
                         {selected
