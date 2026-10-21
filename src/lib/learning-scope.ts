@@ -65,7 +65,7 @@ export type SubjectAccessResult = SubjectAccessOk | SubjectAccessDeny;
 export function canAccessSubject(
   data: AppData | null | undefined,
   subjectId: string,
-  tags?: { examScope?: ('bs17' | 'bs16')[]; postRestriction?: string | null },
+  tags?: { examScope?: ('bs17' | 'bs16')[]; postRestriction?: string | null | Array<{ rule: string; restriction: string; consequence: string }> },
 ): SubjectAccessResult {
   const trackId = getTrackForSubject(subjectId);
   if (!isTrackId(trackId)) {
