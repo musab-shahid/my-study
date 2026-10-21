@@ -436,6 +436,8 @@ const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestio
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
   const lesson = lessonDefinitions.find((item) => item.sourceTopicId === question.topicId);
   if (!lesson) return [];
+  const cognitiveLevel: CurriculumQuestion['cognitiveLevel'] =
+    question.difficulty === 'hard' ? 'analyze' : question.difficulty === 'medium' ? 'apply' : 'understand';
   return [{
     id: question.id,
     lessonId: lesson.id,
@@ -445,8 +447,8 @@ const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestio
     correctAnswer: question.correctAnswer,
     explanation: question.explanation,
     difficulty: question.difficulty,
-    cognitiveLevel: question.difficulty === 'hard' ? 'analyze' : question.difficulty === 'medium' ? 'apply' : 'understand',
-  }];
+    cognitiveLevel,
+  } satisfies CurriculumQuestion];
 });
 
 
