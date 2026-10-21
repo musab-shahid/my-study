@@ -221,7 +221,23 @@ const lessons52: CurriculumLesson[] = lessonDefinitions52.map((lesson, index) =>
   deliverableIds: [...lesson.deliverableIds],
 }));
 
-const lessons: CurriculumLesson[] = [...lessons51, ...lessons52];
+const lessons53: CurriculumLesson[] = lessonDefinitions53.map((lesson, index) => ({
+  id: lesson.id,
+  kind: 'lesson' as const,
+  title: lesson.title,
+  order: index + 1,
+  readiness: 'draft' as const,
+  level: 'L3' as const,
+  estimatedMinutes: lesson.minutes,
+  objectives: outcomes53.filter((outcome) => lesson.objectiveIds.includes(outcome.id)),
+  content: [...lesson.content],
+  activityIds: [...lesson.activityIds],
+  assessmentIds: [...lesson.assessmentIds],
+  resourceIds: [...lesson.resourceIds],
+  deliverableIds: [...lesson.deliverableIds],
+}));
+
+const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53];
 
 export const cgeiCurriculum: CurriculumRegistry = {
   schemaVersion: 2,
@@ -252,7 +268,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
+      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
@@ -282,12 +298,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.2-python-scientific-work.md',
       notes: ['Content is authored in canonical typed blocks rather than migrated from legacy Topic fields.', 'Readiness remains draft until Python examples and route/rendering checks are verified.'],
     },
+    {
+      id: 'cgei-ds-unit-5-3', code: '5.3', title: 'Exploratory data analysis and visualisation', order: 3, kind: 'unit', readiness: 'draft',
+      summary: 'Use EDA as a scientific question sequence: profile data quality, choose distributional/relational and temporal graphics, make analytical maps with complete metadata, and communicate uncertainty and non-claims.',
+      estimatedHours: 6, prerequisites: ['Unit 5.1 mathematical and physical foundations', 'Unit 5.2 scientific Python'], outcomes: outcomes53,
+      lessonIds: lessons53.map((lesson) => lesson.id),
+      activityIds: ['cgei-ds-a-53-question-plan', 'cgei-ds-a-53-distribution', 'cgei-ds-a-53-time', 'cgei-ds-a-53-map-caption', 'cgei-ds-a-53-uncertainty'],
+      assessmentIds: ['cgei-ds-assess-53-questions', 'cgei-ds-assess-53-distribution', 'cgei-ds-assess-53-time', 'cgei-ds-assess-53-maps', 'cgei-ds-assess-53-communication'],
+      resourceIds: ['cgei-ds-r-53-pandas-eda', 'cgei-ds-r-53-seaborn-distributions', 'cgei-ds-r-53-seaborn-relational', 'cgei-ds-r-53-matplotlib', 'cgei-ds-r-53-cartopy', 'cgei-ds-r-53-colormaps', 'cgei-ds-r-53-wilke'],
+      deliverableIds: ['cgei-ds-d-53-eda-notebook', 'cgei-ds-d-53-figure-audit', 'cgei-ds-d-53-eda-memo'],
+      sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.3-exploration-visualisation.md',
+      notes: ['Content is authored in canonical typed blocks and remains draft pending browser review.', 'Figure examples are illustrative; they require a real dataset before empirical claims can be made.'],
+    },
     ...plannedUnits.map(([code, title, summary], index) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
-      code, title, order: index + 3, kind: 'unit' as const, readiness: 'planned' as const, summary,
-      prerequisites: [index === 0 ? 'Unit 5.2 scientific Python' : `Unit ${plannedUnits[index - 1][0]}`],
+      code, title, order: index + 4, kind: 'unit' as const, readiness: 'planned' as const, summary,
+      prerequisites: [index === 0 ? 'Unit 5.3 EDA and visualisation' : `Unit ${plannedUnits[index - 1][0]}`],
       outcomes: [] as CurriculumOutcome[], lessonIds: [] as string[], activityIds: [] as string[], assessmentIds: [] as string[], resourceIds: [] as string[], deliverableIds: [] as string[],
-      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['exploration-visualisation', 'introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
+      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
   ],
