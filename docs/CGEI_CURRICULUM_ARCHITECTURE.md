@@ -83,9 +83,22 @@ Subject 5 is the pilot because a manuscript already exists for Units 5.1–5.12,
   6. Environmental mass and water balance
   7. Surface energy balance and thermal radiation
   8. Probability, uncertainty and dependent observations
-- Units 5.2–5.12 are registered as planned units, not falsely represented as app-ready lessons.
+- Units 5.2–5.4 have typed lesson content and knowledge checks, but remain `draft` until validation and content review; Units 5.5–5.12 are registered as planned units, not falsely represented as app-ready lessons.
 - Chapter capstone, practice tracks, solution keys, fixtures, and rubric become first-class entities and link to relevant units.
 - Existing `Topic` data is referenced by stable `sourceTopicId` until content blocks can be migrated without breaking progress, quizzes, or routes.
+
+## 6.1 Current implementation boundary
+
+The current registry is a **vertical slice**, not yet the complete canonical migration of all 14 subjects:
+
+- Subject 5 orientation, Unit 5.1's eight lessons, and the capstone/project record are represented in the canonical curriculum model.
+- Unit 5.1's 35 legacy questions are bridged into canonical question records; source citations, legacy topic IDs, quiz routing, and studied-state compatibility are preserved.
+- Unit 5.1 has 16 additional worked-calculation, scientific-Python, and checklist blocks beyond the migrated source material.
+- Units 5.2–5.4 have five authored typed lessons each and 26 knowledge-check questions across those units. Their readiness remains `draft`, not `validated` or `released`.
+- Units 5.5–5.12 remain manuscript-first/planned in the app.
+- **Track-wide migration is still outstanding:** twelve roadmap cards in the other CGEI domains remain legacy Topic records. Move each into a canonical Subject orientation only when its replacement navigation and subject/unit metadata ship together. Do not remove all remaining roadmap IDs in a bulk edit.
+
+A green structural validator is necessary but insufficient: a fresh CI run, UI review, scientific-content review, and verification of the affected routes are still required before marking the pilot validated.
 
 ## 7. Migration sequence
 
@@ -101,14 +114,14 @@ Subject 5 is the pilot because a manuscript already exists for Units 5.1–5.12,
 
 ## 8. Acceptance criteria for the first vertical slice
 
-- [ ] The Subject 5 overview is rendered as orientation, never as a study topic.
-- [ ] The overview is excluded from lesson/topic counts and topic mastery.
-- [ ] Unit 5.1 contains eight substantive lessons, not an overview card masquerading as one.
-- [ ] The 8 lessons map one-to-one to stable legacy Topic IDs and the manuscript coverage map.
-- [ ] Units 5.2–5.12 appear as planned, with accurate readiness labels and no fabricated lesson counts.
-- [ ] Activities, resources, assessments, projects, and competencies have separate typed contracts.
-- [ ] Existing quiz answers, progress, and navigation remain backward compatible.
-- [ ] Data validation checks unique IDs, valid references, ordered children, and status/content consistency.
+- [x] The Subject 5 overview is rendered as orientation, never as a study topic.
+- [x] The overview is excluded from lesson/topic counts and topic mastery.
+- [x] Unit 5.1 contains eight substantive lessons, not an overview card masquerading as one.
+- [x] The 8 lessons map one-to-one to stable legacy Topic IDs and the manuscript coverage map.
+- [x] Units 5.2–5.4 have authored lesson records with draft readiness; Units 5.5–5.12 remain planned with no fabricated lesson counts.
+- [x] Activities, resources, assessments, projects, and competencies have separate typed contracts.
+- [x] Existing quiz answers, progress, and navigation retain stable legacy topic IDs during the migration.
+- [x] Data validation checks unique IDs, valid references, ordered children, status/content consistency, and canonical assessment question references.
 - [ ] Typecheck, tests, data validation, lint, build, and relevant UI/E2E tests pass.
 - [ ] Scientific content review remains separate from software validation.
 
