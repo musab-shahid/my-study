@@ -8,18 +8,18 @@
 
 | Unit | Coverage | Quality | App readiness |
 |------|----------|---------|---------------|
-| 5.1 Foundations | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.2 Scientific Python | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.3 EDA & visualisation | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.4 Intro statistics | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.5 Data workflow | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.6 Intermediate inference | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.7 Time series | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.8 Multivariate / EOF | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.9 GLM / mixed / Bayesian | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.10 Causal inference | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.11 Research software | Taught with examples | Verified for stated scope | Structured for conversion |
-| 5.12 xarray & pipelines | Taught with examples | Verified for stated scope | Structured for conversion |
+| 5.1 Foundations | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.2 Scientific Python | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.3 EDA & visualisation | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.4 Intro statistics | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.5 Data workflow | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.6 Intermediate inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.7 Time series | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.8 Multivariate / EOF | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.9 GLM / mixed / Bayesian | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.10 Causal inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.11 Research software | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.12 xarray & pipelines | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | Orientation | Partially taught | Adequate for entry | Structured |
 | Integration | Taught (narrative + checklist) | Adequate | Structured |
 | Capstone | Specified with rubric & tracks | Adequate for launch | Structured |
@@ -36,4 +36,4 @@ All four teachable via unit deliverables; capstone requires software gate and in
 5. Optional deepening (MCA/CCA, full MCMC labs, container recipes).
 
 ### Honest summary
-**v4 brings all twelve units to teaching depth** with prose, examples, exercises, failure modes, and mastery gates. Capstone and assessment toolkit are operational specifications. The chapter is **standalone-ready for study** at L3 targets on core skills. It is **not** yet integrated into the CGEI application or validated by automated tests against live data products.
+**v4.1:** All twelve units remain at teaching depth. Audit (`05-QUALITY-AUDIT.md`) found no critical scientific errors; high-priority gaps were missing B/C keys, unexecuted code, and over-strong verification language. Remediation added fixtures/smoke_check, EOF clarification, safer decode_st, and solution keys/rubrics. Still **not** app-integrated; live product pipelines not executed in-repo.

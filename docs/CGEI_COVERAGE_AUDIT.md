@@ -5,6 +5,17 @@
 **Audited ref:** `feat/cgei-full-curriculum-skeleton` (PR #3; not merged)  
 **Authoritative curriculum source:** *Complete Study TOC | Climate, Geospatial Science & Environmental Intelligence — Core Focus Edition*, 19 October 2026 (14 subjects; detailed units, topics, subtopics, L1–L4 competence checks, practice, and references).
 
+## Distinction: app architecture vs Chapter 5 manuscript
+
+| Layer | What exists (as of Chapter 5 v4.1 audit) |
+|-------|------------------------------------------|
+| **14-domain app architecture** | Subjects registered; loaders/metadata wiring present |
+| **Standalone Chapter 5 manuscript** | `content-drafts/chapter-05-scientific-computing/` — 12 units at teaching depth + audit/solutions |
+| **Chapter 5 integrated into the app** | **No** — Subject 5 is still a single roadmap topic with 0 quiz questions |
+| **Remaining subjects / question banks** | Mostly roadmap-only; Subject 2 holds the only substantial in-app sample |
+
+Do not treat the Chapter 5 Markdown manuscript as evidence that the app teaches Subject 5.
+
 ## Executive finding
 
 The app has a valid **14-subject registry**, but it does **not yet contain the 14-subject curriculum**. Current content is a thin scaffold plus one meaningful teaching sample.

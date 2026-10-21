@@ -2,7 +2,12 @@
 
 **Branch:** `feat/cgei-full-curriculum-skeleton`  
 **Curriculum:** Master Study TOC · 19 October 2026  
-**Status:** **v4 — all 12 units at teaching depth;** standalone-ready for study; app integration is a separate stage
+**Status:** **v4.1** — teaching depth + audit/remediation; standalone-ready with known gaps; app integration separate
+
+## Quality
+- `05-QUALITY-AUDIT.md` — independent audit (v4)
+- `06-SOLUTION-KEYS-AND-RUBRICS.md` — A keys + B/C rubrics
+- `fixtures/smoke_check.py` — numerical + synthetic EOF/timezone checks
 
 ## Contents
 | Path | Role |
