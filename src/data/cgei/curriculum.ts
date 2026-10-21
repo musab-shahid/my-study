@@ -215,7 +215,6 @@ const plannedUnitSourceSlugs: Record<string, string> = {
 };
 
 const plannedUnits = [
-  ['5.6', 'Intermediate statistical inference', 'Hypothesis tests, effect sizes, assumptions, multiple comparisons and robust inference.'],
   ['5.7', 'Time-series analysis', 'Temporal indexing, trend, seasonality, autocorrelation, extremes and forecast evaluation.'],
   ['5.8', 'Multivariate analysis, PCA and EOF', 'Scaling, covariance, dimensionality reduction, spatial patterns and interpretation.'],
   ['5.9', 'GLMs, mixed models and Bayesian modelling', 'Model families, hierarchical structure, diagnostics, uncertainty and predictive checks.'],
@@ -422,6 +421,14 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
     }
   ]
 };
+
+const outcomes56: CurriculumOutcome[] = [
+  { id: 'cgei-ds-o-56-multiple', statement: 'Specify and interpret multiple regression terms, categorical predictors and interactions in an environmental question.', action: 'specify and interpret', level: 'L3', competencyIds: ['cgei-comp-mathematical-modeling', 'cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ds-o-56-diagnostics', statement: 'Diagnose collinearity, non-linearity, heteroscedasticity and influential observations using residual-focused checks.', action: 'diagnose and justify', level: 'L3', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-ds-o-56-uncertainty', statement: 'Distinguish parameter confidence intervals, prediction intervals and major sources of uncertainty.', action: 'calculate and distinguish', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ds-o-56-dependence', statement: 'Choose uncertainty estimates and validation splits that respect station, scene, region or time dependence.', action: 'select and defend', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-ds-o-56-comparison', statement: 'Compare candidate models with simple baselines under the same leakage-aware validation design and communicate limits.', action: 'compare and communicate', level: 'L3', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
 
 const lessons51: CurriculumLesson[] = lessonDefinitions.map((lesson, index) => ({
   id: lesson.id,
@@ -777,7 +784,58 @@ const lessons55: CurriculumLesson[] = lesson55Definitions.map((lesson, index) =>
   deliverableIds: [...lesson.deliverableIds],
 }));
 
-const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55];
+const lessons56: CurriculumLesson[] = [
+  {
+    id: 'cgei-ds-lesson-5-6-1', kind: 'lesson', title: 'Multiple regression, categorical predictors and interactions', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40, objectives: [outcomes56[0]],
+    content: [
+      { id: 'cgei-ds-56-1-core', kind: 'prose', title: 'What a coefficient actually says', body: 'Multiple regression describes the conditional mean of an outcome given the predictors included in a specified model. In an LST analysis, predictors might include NDVI, built fraction, season and an NDVI × season interaction. A coefficient is conditional on the other included terms and model form; it does not mean every relevant cause has been controlled.' },
+      { id: 'cgei-ds-56-1-equation', kind: 'equation', title: 'A model with an interaction', expression: 'LST_i = β_0 + β_1 NDVI_i + β_2 Built_i + β_3 Season_i + β_4(NDVI_i × Season_i) + ε_i', body: 'LST is in °C; NDVI and built fraction are unitless. If Season is an indicator, β₁ is the NDVI slope in the reference season and β₄ is the change in that slope in the other season. Name the reference category.' },
+      { id: 'cgei-ds-56-1-example', kind: 'worked-example', title: 'Interpret a slope with units', body: 'If the fitted NDVI coefficient is −2.0 °C per NDVI unit, an increase of 0.10 NDVI corresponds to a modelled −0.20 °C difference in expected LST in the reference season, holding included predictors fixed. This is an association, not proof that planting vegetation causes that change.' },
+      { id: 'cgei-ds-56-1-code', kind: 'code', title: 'Fit an interpretable model', language: 'Python · statsmodels', code: 'import statsmodels.formula.api as smf\nfit = smf.ols("lst_c ~ ndvi * C(season) + built_frac", data=df).fit()\nprint(fit.summary())\n# Inspect units, reference category, residuals and support.' },
+      { id: 'cgei-ds-56-1-check', kind: 'checklist', title: 'Before interpreting', items: ['Define observational unit and target population.', 'Write units for the outcome and predictors.', 'Name the categorical reference level.', 'Plot simple slopes when an interaction is present.', 'Separate association from causal claims.'] },
+    ], activityIds: ['cgei-ds-a-56-multiple'], assessmentIds: ['cgei-ds-assess-56-multiple'], resourceIds: ['cgei-ds-r-56-statsmodels-ols'], deliverableIds: ['cgei-ds-d-56-model-memo'],
+  },
+  {
+    id: 'cgei-ds-lesson-5-6-2', kind: 'lesson', title: 'Residual diagnostics and multicollinearity', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40, objectives: [outcomes56[1]],
+    content: [
+      { id: 'cgei-ds-56-2-core', kind: 'prose', title: 'Diagnostics test the model story', body: 'Residuals are observed minus fitted outcomes. Curvature in residual-versus-fitted plots can indicate a misspecified mean; changing spread can indicate heteroscedasticity. Residuals against time, location or predictors may expose unmodelled structure. Investigate influential observations rather than automatically deleting them.' },
+      { id: 'cgei-ds-56-2-points', kind: 'key-points', title: 'Collinearity is an interpretation problem', items: ['NDVI and EVI, or imperviousness and built fraction, may encode overlapping information.', 'VIF describes how collinearity inflates coefficient variance in a specified design matrix.', 'A VIF threshold is a diagnostic heuristic, not an automatic delete-variable rule.', 'Individual coefficients may be unstable while predictions remain comparatively stable.', 'Use scientific meaning, measurement quality and the research question to justify variable choices.'] },
+      { id: 'cgei-ds-56-2-equation', kind: 'equation', title: 'Variance inflation factor', expression: 'VIF_j = 1 / (1 − R_j²)', body: 'R²_j comes from regressing predictor j on the other predictors. As R²_j approaches 1, VIF rises because that predictor contains little independent variation.' },
+      { id: 'cgei-ds-56-2-example', kind: 'worked-example', title: 'Diagnose before changing the model', body: 'If NDVI and EVI have VIF values of 9 and 11, do not automatically delete EVI. Inspect their relationship and measurement properties, decide whether both serve a defensible scientific purpose, then compare justified specifications under the same validation design. Record changes in coefficient signs, uncertainty and predictions.' },
+      { id: 'cgei-ds-56-2-code', kind: 'code', title: 'Residual checks', language: 'Python', code: 'import matplotlib.pyplot as plt\nplt.scatter(fit.fittedvalues, fit.resid, alpha=0.5)\nplt.axhline(0, color="black", linewidth=1)\nplt.xlabel("Fitted LST (°C)")\nplt.ylabel("Residual (°C)")\nplt.show()' },
+    ], activityIds: ['cgei-ds-a-56-diagnostics'], assessmentIds: ['cgei-ds-assess-56-diagnostics'], resourceIds: ['cgei-ds-r-56-vif'], deliverableIds: ['cgei-ds-d-56-diagnostic-sheet'],
+  },
+  {
+    id: 'cgei-ds-lesson-5-6-3', kind: 'lesson', title: 'Parameter uncertainty, prediction intervals and bootstrap', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 40, objectives: [outcomes56[2]],
+    content: [
+      { id: 'cgei-ds-56-3-core', kind: 'prose', title: 'Name the uncertainty being reported', body: 'A confidence interval quantifies uncertainty in an estimated parameter or mean response under a procedure and its assumptions. A prediction interval concerns a new individual observation and is usually wider because it includes observation-level variation as well as uncertainty in the mean. Neither automatically includes measurement error, sampling bias, model-form uncertainty or future-scenario uncertainty.' },
+      { id: 'cgei-ds-56-3-table', kind: 'table', title: 'Uncertainty sources are not interchangeable', headers: ['Source', 'Environmental example', 'Possible response'], rows: [['Measurement', 'Sensor calibration or retrieval error', 'Calibration metadata; propagate known error'], ['Representativeness', 'Sampled pixels omit parts of the target population', 'Describe support; improve sampling design'], ['Parameter', 'Finite-sample estimates of regression coefficients', 'Model-based interval or suitable bootstrap'], ['Model structure', 'Linear model misses threshold behaviour', 'Diagnostics; compare justified alternatives'], ['Dependence', 'Nearby pixels share spatial structure', 'Spatial/temporal block design or dependence-aware uncertainty']] },
+      { id: 'cgei-ds-56-3-example', kind: 'worked-example', title: 'Confidence interval versus prediction interval', body: 'Suppose estimated mean LST is 38.0 °C with a 95% confidence interval of 37.4–38.6 °C. A prediction interval for a new observation at that profile might be 33.0–43.0 °C. These numbers are illustrative; the prediction interval is wider because it includes observation-level variation, and both intervals depend on model assumptions and sampling design.' },
+      { id: 'cgei-ds-56-3-points', kind: 'key-points', title: 'Bootstrap the sampling structure you can defend', items: ['Independent cases may permit case resampling.', 'Serial observations may require time blocks or residual methods.', 'Spatially clustered observations may require spatial blocks or cluster resampling.', 'A bootstrap cannot repair a biased sampling frame or missing confounder.', 'State which uncertainty sources the interval includes and excludes.'] },
+    ], activityIds: ['cgei-ds-a-56-uncertainty'], assessmentIds: ['cgei-ds-assess-56-uncertainty'], resourceIds: ['cgei-ds-r-56-statsmodels-ols'], deliverableIds: ['cgei-ds-d-56-model-memo'],
+  },
+  {
+    id: 'cgei-ds-lesson-5-6-4', kind: 'lesson', title: 'Temporal and spatial dependence; leakage-aware validation', order: 4, readiness: 'draft', level: 'L3', estimatedMinutes: 45, objectives: [outcomes56[3]],
+    content: [
+      { id: 'cgei-ds-56-4-core', kind: 'prose', title: 'Nearby observations are not automatically independent', body: 'Repeated measurements from one station, pixels from one satellite scene and neighbouring grid cells often share weather, sensor, land-cover and processing effects. Treating all rows as independent can make standard errors too small and random train/test splits too optimistic for transfer to new places or times. Define what must be genuinely new at evaluation time.' },
+      { id: 'cgei-ds-56-4-equation', kind: 'equation', title: 'An approximate effective sample size', expression: 'n_eff ≈ n(1 − ρ) / (1 + ρ)', body: 'This is a rough heuristic for a stationary AR(1)-like dependence pattern, not a universal correction. It does not replace an appropriate sampling design or dependence model.' },
+      { id: 'cgei-ds-56-4-example', kind: 'worked-example', title: 'Why the split changes the claim', body: 'For n = 100 observations and lag-one correlation ρ = 0.60, n_eff ≈ 100 × 0.40 / 1.60 = 25. The row count may overstate independent information. To estimate performance in unseen districts, keep entire districts out of training; for future forecasting, use a time-ordered split.' },
+      { id: 'cgei-ds-56-4-code', kind: 'code', title: 'Group-aware cross-validation', language: 'Python · scikit-learn', code: 'from sklearn.model_selection import GroupKFold, cross_val_score\ncv = GroupKFold(n_splits=5)\nscores = cross_val_score(estimator, X, y, groups=district_id, cv=cv, scoring="neg_root_mean_squared_error")\nrmse = -scores' },
+      { id: 'cgei-ds-56-4-warning', kind: 'callout', tone: 'warning', title: 'Robust standard errors are not a leakage fix', body: 'Cluster-robust standard errors can adjust coefficient uncertainty for some within-cluster dependence when there are enough independent clusters and assumptions are appropriate. They do not prevent neighbouring locations from appearing in both training and test data. Inference and predictive validation are distinct design decisions.' },
+    ], activityIds: ['cgei-ds-a-56-dependence'], assessmentIds: ['cgei-ds-assess-56-dependence'], resourceIds: ['cgei-ds-r-56-groupkfold'], deliverableIds: ['cgei-ds-d-56-validation-memo'],
+  },
+  {
+    id: 'cgei-ds-lesson-5-6-5', kind: 'lesson', title: 'Compare models against baselines and report failure cases', order: 5, readiness: 'draft', level: 'L3', estimatedMinutes: 45, objectives: [outcomes56[4]],
+    content: [
+      { id: 'cgei-ds-56-5-core', kind: 'prose', title: 'Complexity must earn its place', body: 'Compare every candidate against a baseline on the same held-out observations and validation scheme. A mean-only baseline may suit a stable cross-sectional target; climatology or persistence may be more informative for climate series. Never compare a random-split candidate score with a blocked-split baseline score as if they were equivalent.' },
+      { id: 'cgei-ds-56-5-points', kind: 'key-points', title: 'Choose metrics for the decision', items: ['MAE is in outcome units and is less sensitive to large errors than RMSE.', 'RMSE penalises large errors more strongly and remains in outcome units.', 'Bias shows systematic over- or under-prediction.', 'R² is relative to a baseline and can be negative on held-out data.', 'For heat-risk work, report subgroup and tail performance when those affect decisions.'] },
+      { id: 'cgei-ds-56-5-code', kind: 'code', title: 'A transparent comparison skeleton', language: 'Python', code: 'from sklearn.metrics import mean_absolute_error, mean_squared_error\nimport numpy as np\nmae = mean_absolute_error(y_test, pred)\nrmse = np.sqrt(mean_squared_error(y_test, pred))\nbias = float(np.mean(pred - y_test))\n# Evaluate every candidate and baseline on identical test rows.' },
+      { id: 'cgei-ds-56-5-check', kind: 'checklist', title: 'Minimum model-comparison report', items: ['State prediction target and observational support.', 'Define the split before tuning and keep test data untouched.', 'Compare with a meaningful simple baseline.', 'Report units, MAE, RMSE and bias.', 'Inspect geography, season and important subgroups.', 'State the strongest supported claim and what remains unknown.'] },
+    ], activityIds: ['cgei-ds-a-56-comparison'], assessmentIds: ['cgei-ds-assess-56-comparison'], resourceIds: ['cgei-ds-r-56-groupkfold'], deliverableIds: ['cgei-ds-d-56-validation-memo'],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -829,7 +887,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
+      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', 'cgei-ds-unit-5-6', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
@@ -894,6 +952,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       deliverableIds: ['cgei-ds-d-55-acquisition-package', 'cgei-ds-d-55-sql-query', 'cgei-ds-d-55-provenance-note'],
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.5-data-workflow-engineering.md',
       notes: ['This is an integrated draft, not released content; the acquisition workflow must be validated with a deterministic fixture before release.'],
+    },
+    {
+      id: 'cgei-ds-unit-5-6', code: '5.6', title: 'Intermediate inference and model validation', order: 6, kind: 'unit', readiness: 'draft',
+      summary: 'Interpret multiple regression, diagnose assumptions, quantify uncertainty, respect spatial/temporal dependence and compare models under leakage-aware validation.',
+      estimatedHours: 8, prerequisites: ['Unit 5.4 introductory statistics', 'Unit 5.5 data workflow engineering'], outcomes: outcomes56,
+      lessonIds: lessons56.map((lesson) => lesson.id),
+      activityIds: ['cgei-ds-a-56-multiple', 'cgei-ds-a-56-diagnostics', 'cgei-ds-a-56-uncertainty', 'cgei-ds-a-56-dependence', 'cgei-ds-a-56-comparison'],
+      assessmentIds: ['cgei-ds-assess-56-multiple', 'cgei-ds-assess-56-diagnostics', 'cgei-ds-assess-56-uncertainty', 'cgei-ds-assess-56-dependence', 'cgei-ds-assess-56-comparison'],
+      resourceIds: ['cgei-ds-r-56-statsmodels-ols', 'cgei-ds-r-56-vif', 'cgei-ds-r-56-groupkfold'],
+      deliverableIds: ['cgei-ds-d-56-model-memo', 'cgei-ds-d-56-diagnostic-sheet', 'cgei-ds-d-56-validation-memo'],
+      sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.6-intermediate-inference.md',
+      notes: ['Draft lesson content integrated from the manuscript; computational examples still require execution against a synthetic fixture.', 'Validation design is chosen to match the target generalisation claim, not as a universal split rule.'],
     },
     ...plannedUnits.map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
