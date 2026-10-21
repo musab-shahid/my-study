@@ -14,7 +14,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.node.json --noEmit",
-    "validate:data": "tsx scripts/validate-question-bank.ts",
+    "validate:data": "tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts && tsx scripts/validate-question-bank.ts",
     "lint": "eslint src --max-warnings 200",
     "check": "npm run validate:data && npm test && npm run typecheck && npm run lint && npm run build",
     "test": "tsx --tsconfig tsconfig.app.json --test src/lib/__tests__/*.test.ts src/router/__tests__/*.test.ts",
