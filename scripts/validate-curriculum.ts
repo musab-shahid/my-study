@@ -155,6 +155,7 @@ const unit55 = cgeiCurriculum.units.find((unit) => unit.code === '5.5');
 const unit56 = cgeiCurriculum.units.find((unit) => unit.code === '5.6');
 const unit57 = cgeiCurriculum.units.find((unit) => unit.code === '5.7');
 const unit58 = cgeiCurriculum.units.find((unit) => unit.code === '5.8');
+const unit59 = cgeiCurriculum.units.find((unit) => unit.code === '5.9');
 if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is missing');
 if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
@@ -179,6 +180,9 @@ if (unit57 && unit57.readiness === 'released') errors.push('Unit 5.7 cannot be r
 if (unit58 && unit58.lessonIds.length !== 5) errors.push(`Unit 5.8 should map 5 substantive lessons; found ${unit58.lessonIds.length}`);
 if (unit58 && cgeiCurriculum.questions.filter((question) => unit58.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.8 should include at least ten lesson-linked knowledge checks');
 if (unit58 && unit58.readiness === 'released') errors.push('Unit 5.8 cannot be released before weighted EOF examples and instructional/UI review');
+if (unit59 && unit59.lessonIds.length !== 5) errors.push(`Unit 5.9 should map 5 substantive lessons; found ${unit59.lessonIds.length}`);
+if (unit59 && cgeiCurriculum.questions.filter((question) => unit59.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.9 should include at least ten lesson-linked knowledge checks');
+if (unit59 && unit59.readiness === 'released') errors.push('Unit 5.9 cannot be released before executed GLM/mixed/Bayesian examples and instructional/UI review');
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
 
