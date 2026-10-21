@@ -48,7 +48,13 @@ describe('CGEI curriculum structure', () => {
     }
     assert.equal(cgeiCurriculum.lessons.length, 23);
     assert.equal(cgeiCurriculum.questions.length, 61);
+    assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
+    const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
+    assert.ok(unit51);
+    assert.ok(unit51.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 5));
+    const canonicalQuestionIds = new Set(cgeiCurriculum.questions.map((question) => question.id));
+    assert.ok(cgeiCurriculum.assessments.every((assessment) => (assessment.questionIds ?? []).every((id) => canonicalQuestionIds.has(id))));
   });
 
   it('loads a topic module and question bank for every registered domain', async () => {
