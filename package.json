@@ -13,7 +13,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.node.json --noEmit",
     "validate:data": "tsx scripts/validate-question-bank.ts",
     "lint": "eslint src --max-warnings 200",
     "check": "npm run validate:data && npm test && npm run typecheck && npm run lint && npm run build",
