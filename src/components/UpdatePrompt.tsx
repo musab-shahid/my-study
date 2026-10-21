@@ -83,7 +83,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
       let reg = registrationRef.current;
       if (!reg) {
         try {
-          reg = await navigator.serviceWorker.getRegistration();
+          reg = (await navigator.serviceWorker.getRegistration()) ?? null;
           if (!reg) reg = await navigator.serviceWorker.ready;
           if (reg) {
             registrationRef.current = reg;
