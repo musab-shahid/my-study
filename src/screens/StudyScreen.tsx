@@ -238,6 +238,27 @@ export function StudyScreen() {
                       ))}
                     </div>
                   </div>
+                  {curriculumSubject.projectIds.map((projectId) => {
+                    const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
+                    if (!project) return null;
+                    return (
+                      <div key={project.id} className="mt-4 rounded-xl border border-violet-200 bg-violet-50/70 p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                            <GraduationCap className="w-5 h-5 text-violet-800" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h3 className="font-semibold text-sm text-slate-900">{project.title}</h3>
+                              <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-violet-100 text-violet-800">{project.readiness}</span>
+                            </div>
+                            <p className="text-xs text-slate-700 leading-relaxed mt-1">{project.purpose}</p>
+                            <p className="text-xs text-slate-500 mt-2">{project.milestones.length} milestones · assessed with a portfolio rubric</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </Card>
