@@ -20,6 +20,13 @@ export type SubjectId =
   | 'cgei-ml-geoai'
   | 'cgei-climate-risk'
   | 'cgei-research-practice'
+  /** CGEI — extended Master Study TOC domains (Subjects 9–14) */
+  | 'cgei-decision-support'
+  | 'cgei-climate-policy'
+  | 'cgei-software-engineering'
+  | 'cgei-advanced-ai'
+  | 'cgei-capstone'
+  | 'cgei-advanced-branches'
 
 export interface Subject {
   id: SubjectId;
