@@ -313,6 +313,8 @@ export interface Topic {
     name: string;
     expression: string;
     note?: string;
+    /** Legacy content-bank alias for note. */
+    notes?: string;
   }>;
 }
 
