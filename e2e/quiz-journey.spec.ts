@@ -79,7 +79,8 @@ async function dumpDiagnostics(page: Page, label: string) {
 }
 
 async function answerCurrentQuestion(page: Page) {
-  const check = page.getByRole('button', { name: /^Check$/i });
+  // UI labels are "Check Answer" / "Next Question" / "View Results" (not bare Check/Next)
+  const check = page.getByRole('button', { name: /^Check Answer$/i });
   await expect(check).toBeVisible({ timeout: 20_000 });
 
   const option = page.getByRole('button', { name: /^Option 1:/i }).first();
@@ -97,7 +98,7 @@ async function answerCurrentQuestion(page: Page) {
   await expect(check).toBeEnabled({ timeout: 5_000 });
   await check.click();
 
-  const next = page.getByRole('button', { name: /^Next$/i });
+  const next = page.getByRole('button', { name: /^(Next Question|View Results)$/i });
   const continueRegion = page.getByLabel(/tap or press enter to continue/i);
   if (await next.isVisible().catch(() => false)) {
     await next.click();
@@ -171,10 +172,11 @@ test.describe('Quiz completion journey', () => {
       await startNew.click();
     }
 
-    // Must leave the loading spinner and reach interactive quiz or a real terminal error
-    const check = page.getByRole('button', { name: /^Check$/i });
+    // Must leave the loading spinner and reach interactive quiz or a real terminal error.
+    // Primary action label is "Check Answer" (see QuizScreen action buttons).
+    const check = page.getByRole('button', { name: /^Check Answer$/i });
     const terminalError = page.getByText(
-      /No questions available|Could not start quiz|No active workspace|Failed to load|Invalid quiz/i,
+      /No questions available|Could not start quiz|No active workspace|Failed to load|Invalid quiz|Choose a track|Begin a track|Choose an active workspace/i,
     );
     try {
       await expect(check.or(terminalError.first())).toBeVisible({ timeout: 90_000 });
@@ -192,7 +194,7 @@ test.describe('Quiz completion journey', () => {
 
     for (let i = 0; i < 12; i++) {
       if (await page.getByRole('heading', { name: /^Results$/i }).isVisible().catch(() => false)) break;
-      if (!(await page.getByRole('button', { name: /^Check$/i }).isVisible().catch(() => false))) break;
+      if (!(await page.getByRole('button', { name: /^Check Answer$/i }).isVisible().catch(() => false))) break;
       await answerCurrentQuestion(page);
     }
 
