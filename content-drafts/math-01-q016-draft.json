@@ -1,0 +1,55 @@
+{
+  "status": "approved",
+  "baseQuestionId": "MATH-01-Q016",
+  "variantGroupId": "math-01-q016-skill",
+  "topicId": "math-1-2",
+  "sectionId": "MATH-01",
+  "createdAt": "2026-10-11T12:20:21.770Z",
+  "model": "groq/gpt-oss-120b",
+  "baseStem": "What is the value of 5 + 2 × 3² − 4?",
+  "variants": [
+    {
+      "id": "MATH-01-Q016-v2",
+      "question": "What is the value of 7 + 3 × 2³ − 5?",
+      "options": [
+        "26",
+        "24",
+        "28",
+        "30"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Step 1: 2³ = 8 → expression becomes 7 + 3 × 8 − 5. Step 2: 3 × 8 = 24 → 7 + 24 − 5. Step 3: 7 + 24 = 31; 31 − 5 = 26.",
+      "difficulty": "medium",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q016-v3",
+      "question": "Find the result of 6 − 4 × 5² + 9.",
+      "options": [
+        "-85",
+        "-79",
+        "-91",
+        "-75"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Step 1: 5² = 25 → 6 − 4 × 25 + 9. Step 2: 4 × 25 = 100 → 6 − 100 + 9. Step 3: 6 − 100 = -94; -94 + 9 = -85.",
+      "difficulty": "medium",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q016-v4",
+      "question": "Calculate 12 ÷ 3 + 2 × 4² − 6.",
+      "options": [
+        "30",
+        "28",
+        "32",
+        "34"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Step 1: 4² = 16 → 12 ÷ 3 + 2 × 16 − 6. Step 2: 2 × 16 = 32 → 12 ÷ 3 + 32 − 6. Step 3: 12 ÷ 3 = 4; 4 + 32 = 36; 36 − 6 = 30.",
+      "difficulty": "medium",
+      "type": "single"
+    }
+  ],
+  "authorNotes": "AI draft via Groq GPT-OSS-120b — math verified, structural check passed"
+}

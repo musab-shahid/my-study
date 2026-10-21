@@ -1,0 +1,21 @@
+{
+  "status": "draft",
+  "baseQuestionId": "MATH-01-Q009",
+  "variantGroupId": "math-01-q009-skill",
+  "topicId": "math-1-1",
+  "sectionId": "MATH-01",
+  "createdAt": "2026-10-11T00:00:00.000Z",
+  "baseStem": "How many integers are there between -3.5 and 4.7 (exclusive)?",
+  "authorNotes": "Example only — not for production bank",
+  "variants": [
+    {
+      "id": "MATH-01-Q009-v2",
+      "question": "How many integers lie strictly between -2.1 and 5.9?",
+      "options": ["6", "7", "8", "9"],
+      "correctAnswer": 2,
+      "explanation": "Integers strictly between -2.1 and 5.9 are -2,-1,0,1,2,3,4,5 — eight integers.",
+      "difficulty": "hard",
+      "type": "single"
+    }
+  ]
+}

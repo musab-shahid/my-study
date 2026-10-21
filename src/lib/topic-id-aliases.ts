@@ -1,0 +1,83 @@
+/**
+ * Topic ID migration aliases (old → new).
+ * Applied on load so localStorage progress survives renames.
+ *
+ * Currently Meteorology only (pre-prefix letter ids → meteo-*). Other subjects
+ * have used stable ids since ship; if a future rename lands, add aliases here
+ * in the same file — do not invent maps without a real rename.
+ */
+export const TOPIC_ID_ALIASES: Record<string, string> = {
+  'a-composition-today': 'meteo-composition-today',
+  'a-ionosphere-exosphere': 'meteo-ionosphere-exosphere',
+  'a-origin-evolution': 'meteo-origin-evolution',
+  'a-scales-of-motion': 'meteo-scales-of-motion',
+  'a-vertical-structure': 'meteo-vertical-structure',
+  'a-weather-vs-climate': 'meteo-weather-vs-climate',
+  'b-coriolis-effect': 'meteo-coriolis-effect',
+  'b-gas-law': 'meteo-gas-law',
+  'b-greenhouse-effect': 'meteo-greenhouse-effect',
+  'b-heat-transfer': 'meteo-heat-transfer',
+  'b-hydrostatic-equation': 'meteo-hydrostatic-equation',
+  'b-inversion-mechanics': 'meteo-inversion-mechanics',
+  'b-inversion-types': 'meteo-inversion-types',
+  'b-lapse-rates': 'meteo-lapse-rates',
+  'b-radiation-laws': 'meteo-radiation-laws',
+  'b-static-stability': 'meteo-static-stability',
+  'c-forces-governing-wind': 'meteo-forces-governing-wind',
+  'c-geostrophic-wind': 'meteo-geostrophic-wind',
+  'c-global-circulation': 'meteo-global-circulation',
+  'c-gradient-wind': 'meteo-gradient-wind',
+  'c-jet-stream': 'meteo-jet-stream',
+  'c-local-seasonal-winds': 'meteo-local-seasonal-winds',
+  'c-monsoon-system': 'meteo-monsoon-system',
+  'c-rossby-waves': 'meteo-rossby-waves',
+  'c-upper-air-charts': 'meteo-upper-air-charts',
+  'd-adiabatic-cloud-formation': 'meteo-adiabatic-cloud-formation',
+  'd-cloud-classification': 'meteo-cloud-classification',
+  'd-droplet-microphysics': 'meteo-droplet-microphysics',
+  'd-fog-types': 'meteo-fog-types',
+  'd-global-precip-patterns': 'meteo-global-precip-patterns',
+  'd-moisture-metrics': 'meteo-moisture-metrics',
+  'd-orographic-rainshadow': 'meteo-orographic-rainshadow',
+  'd-precipitation-processes': 'meteo-precipitation-processes',
+  'd-precipitation-types': 'meteo-precipitation-types',
+  'd-thermodynamic-diagrams': 'meteo-thermodynamic-diagrams',
+  'e-air-masses-fronts': 'meteo-air-masses-fronts',
+  'e-cyclones-development': 'meteo-cyclones-development',
+  'e-cyclones-structure': 'meteo-cyclones-structure',
+  'e-thunderstorms': 'meteo-thunderstorms',
+  'e-tornadoes': 'meteo-tornadoes',
+  'e-tropical-cyclones': 'meteo-tropical-cyclones',
+  'f-aviation-products': 'meteo-aviation-products',
+  'f-ground-aviation-instruments': 'meteo-ground-aviation-instruments',
+  'f-humidity-instruments': 'meteo-humidity-instruments',
+  'f-pressure-instruments': 'meteo-pressure-instruments',
+  'f-radiosondes': 'meteo-radiosondes',
+  'f-remote-sensing': 'meteo-remote-sensing',
+  'f-stevenson-screen': 'meteo-stevenson-screen',
+  'f-temperature-instruments': 'meteo-temperature-instruments',
+  'f-wind-instruments': 'meteo-wind-instruments',
+  'g-global-climate-regions': 'meteo-global-climate-regions',
+  'g-koppen-system': 'meteo-koppen-system',
+  'g-pakistan-macroclimate': 'meteo-pakistan-macroclimate',
+  'g-thornthwaite-system': 'meteo-thornthwaite-system',
+  'h-climate-feedbacks': 'meteo-climate-feedbacks',
+  'h-ipcc-rcps': 'meteo-ipcc-rcps',
+  'h-milankovitch-cycles': 'meteo-milankovitch-cycles',
+  'h-pakistan-nccp': 'meteo-pakistan-nccp',
+  'h-past-climate-reconstruction': 'meteo-past-climate-reconstruction',
+  'h-radiative-forcing': 'meteo-radiative-forcing',
+  'h-solar-volcanic-forcing': 'meteo-solar-volcanic-forcing',
+  'i-arabian-sea-cyclones-local': 'meteo-arabian-sea-cyclones-local',
+  'i-extreme-events': 'meteo-extreme-events',
+  'i-indian-ocean-monsoon': 'meteo-indian-ocean-monsoon',
+  'i-nccp-objectives': 'meteo-nccp-objectives',
+  'i-pmd-operational': 'meteo-pmd-operational',
+  'i-temp-rainfall-distribution': 'meteo-temp-rainfall-distribution',
+  'i-western-disturbances': 'meteo-western-disturbances',
+};
+
+export function resolveTopicId(id: string): string {
+  return TOPIC_ID_ALIASES[id] ?? id;
+}
+

@@ -1,0 +1,55 @@
+{
+  "status": "approved",
+  "baseQuestionId": "MATH-01-Q014",
+  "variantGroupId": "math-01-q014-skill",
+  "topicId": "math-1-2",
+  "sectionId": "MATH-01",
+  "createdAt": "2026-10-11T12:20:11.336Z",
+  "model": "groq/gpt-oss-120b",
+  "baseStem": "What is the value of 2 + 3 × 4?",
+  "variants": [
+    {
+      "id": "MATH-01-Q014-v2",
+      "question": "What is the value of 5 + 6 × 2?",
+      "options": [
+        "17",
+        "22",
+        "28",
+        "11"
+      ],
+      "correctAnswer": 0,
+      "explanation": "According to BODMAS, multiplication is performed before addition. 6 × 2 = 12; then 5 + 12 = 17. The answer 22 results from (5+6)×2, which ignores the order.",
+      "difficulty": "easy",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q014-v3",
+      "question": "Evaluate: 8 + 4 × 3.",
+      "options": [
+        "20",
+        "36",
+        "24",
+        "12"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Apply the order of operations: first 4 × 3 = 12, then add 8 to get 20. The option 36 comes from (8+4)×3, a common mistake.",
+      "difficulty": "easy",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q014-v4",
+      "question": "Find the result of 9 + 2 × 5.",
+      "options": [
+        "19",
+        "55",
+        "28",
+        "7"
+      ],
+      "correctAnswer": 0,
+      "explanation": "Multiplication precedes addition, so 2 × 5 = 10; 9 + 10 = 19. The choice 55 is obtained by (9+2)×5, which violates BODMAS.",
+      "difficulty": "easy",
+      "type": "single"
+    }
+  ],
+  "authorNotes": "AI draft via Groq GPT-OSS-120b — math verified, structural check passed"
+}

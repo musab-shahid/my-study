@@ -1,0 +1,55 @@
+{
+  "status": "approved",
+  "baseQuestionId": "MATH-01-Q019",
+  "variantGroupId": "math-01-q019-skill",
+  "topicId": "math-1-2",
+  "sectionId": "MATH-01",
+  "createdAt": "2026-10-11T12:20:24.280Z",
+  "model": "groq/gpt-oss-120b",
+  "baseStem": "What is the value of 24 ÷ (2 + 4) × 3 − 2³ + 5?",
+  "variants": [
+    {
+      "id": "MATH-01-Q019-v2",
+      "question": "What is the value of 36 ÷ (3 + 3) × 2 − 3³ + 4?",
+      "options": [
+        "-13",
+        "-11",
+        "-9",
+        "-7"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Step 1: Brackets → (3+3)=6. Expression becomes 36 ÷ 6 × 2 − 27 + 4. Step 2: Division → 36 ÷ 6 = 6. Then multiplication → 6 × 2 = 12. Expression: 12 − 27 + 4. Step 3: Subtraction → 12 − 27 = -15. Finally add 4 → -15 + 4 = -11. Hence the correct answer is -11.",
+      "difficulty": "hard",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q019-v3",
+      "question": "Find the result of 48 ÷ (4 + 2) × 5 − 2³ + 6.",
+      "options": [
+        "34",
+        "36",
+        "38",
+        "40"
+      ],
+      "correctAnswer": 2,
+      "explanation": "Step 1: Brackets → (4+2)=6. Expression becomes 48 ÷ 6 × 5 − 8 + 6. Step 2: Division → 48 ÷ 6 = 8. Multiplication → 8 × 5 = 40. Expression: 40 − 8 + 6. Step 3: Subtraction → 40 − 8 = 32. Add 6 → 32 + 6 = 38. So the answer is 38.",
+      "difficulty": "hard",
+      "type": "single"
+    },
+    {
+      "id": "MATH-01-Q019-v4",
+      "question": "Calculate 30 ÷ (5 + 1) × 4 − 3³ + 7.",
+      "options": [
+        "-2",
+        "0",
+        "2",
+        "4"
+      ],
+      "correctAnswer": 1,
+      "explanation": "Step 1: Brackets → (5+1)=6. Expression becomes 30 ÷ 6 × 4 − 27 + 7. Step 2: Division → 30 ÷ 6 = 5. Multiplication → 5 × 4 = 20. Expression: 20 − 27 + 7. Step 3: Subtraction → 20 − 27 = -7. Add 7 → -7 + 7 = 0. Therefore the correct answer is 0.",
+      "difficulty": "hard",
+      "type": "single"
+    }
+  ],
+  "authorNotes": "AI draft via Groq GPT-OSS-120b — math verified, structural check passed"
+}
