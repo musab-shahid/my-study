@@ -132,6 +132,60 @@ def check_logistic_glm() -> None:
     )
 
 
+def check_unit_5_2_examples() -> None:
+    """Check numerical claims represented in the Unit 5.2 app lessons."""
+    def celsius_to_kelvin(temp_c: float) -> float:
+        if temp_c < -273.15:
+            raise ValueError("Temperature is below absolute zero")
+        return temp_c + 273.15
+
+    assert abs(celsius_to_kelvin(0.0) - 273.15) < 1e-10
+    assert abs(celsius_to_kelvin(25.0) - 298.15) < 1e-10
+    try:
+        celsius_to_kelvin(-300.0)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("absolute-zero guard did not raise")
+
+    baseline_c = np.array([[30.0, 31.0], [32.0, 33.0]])
+    time_offset_c = np.array([0.0, 1.0, 2.0])[:, None, None]
+    field = baseline_c[None, :, :] + time_offset_c
+    assert field.shape == (3, 2, 2)
+    values = np.array([30.0, np.nan, 32.0])
+    assert np.isnan(np.mean(values))
+    assert abs(float(np.nanmean(values)) - 31.0) < 1e-12
+    try:
+        _ = np.array([0.0, 1.0, 2.0]) + np.zeros((2, 2))
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("incompatible broadcast was not rejected")
+
+    boundary = pd.DataFrame({
+        "time_utc": ["2026-06-01T18:00:00Z", "2026-06-01T19:00:00Z"],
+        "t2m_c": [39.0, 41.0],
+    })
+    boundary["time_utc"] = pd.to_datetime(boundary["time_utc"], utc=True)
+    boundary["time_pkt"] = boundary["time_utc"].dt.tz_convert("Asia/Karachi")
+    boundary["local_date"] = boundary["time_pkt"].dt.date
+    assert str(boundary.loc[0, "local_date"]) == "2026-06-01"
+    assert str(boundary.loc[1, "local_date"]) == "2026-06-02"
+    daily = boundary.groupby("local_date")["t2m_c"].max()
+    assert daily.to_dict() == {
+        pd.Timestamp("2026-06-01").date(): 39.0,
+        pd.Timestamp("2026-06-02").date(): 41.0,
+    }
+
+    import re
+    pattern = re.compile(r"(?P<sensor>Landsat\\d+)_(?P<date>\\d{8})_(?P<band>B\\d+)\\.tif")
+    match = pattern.fullmatch("Landsat8_20260615_B4.tif")
+    assert match is not None
+    assert match.groupdict() == {"sensor": "Landsat8", "date": "20260615", "band": "B4"}
+    assert pattern.fullmatch("Landsat8_20260615_B4.tif.extra") is None
+    print("OK Unit 5.2 scientific Python examples")
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -139,6 +193,7 @@ def main() -> int:
     check_pkt_daily_max()
     check_eof_weights()
     check_logistic_glm()
+    check_unit_5_2_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
