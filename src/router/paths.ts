@@ -5,6 +5,7 @@
 import { getTopic } from '../data/topics';
 import { isTrackId } from '../data/tracks';
 import { sectionMap } from '../data/sections';
+import { cgeiCurriculum } from '../data/cgei/curriculum';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
 /** Local mirror of router.Route to avoid circular imports with index.tsx */
@@ -35,7 +36,9 @@ export type PathRoute =
   | { screen: 'settings' }
   | { screen: 'hat' }
   | { screen: 'fpsc' }
-  | { screen: 'track'; trackId: string };
+  | { screen: 'track'; trackId: string }
+  | { screen: 'curriculum-unit'; unitId: string }
+  | { screen: 'curriculum-lesson'; lessonId: string };
 
 export function routeToPath(route: PathRoute): string {
   switch (route.screen) {
@@ -74,6 +77,10 @@ export function routeToPath(route: PathRoute): string {
       return '/fpsc';
     case 'track':
       return `/track/${encodeURIComponent(route.trackId)}`;
+    case 'curriculum-unit':
+      return `/curriculum/unit/${encodeURIComponent(route.unitId)}`;
+    case 'curriculum-lesson':
+      return `/curriculum/lesson/${encodeURIComponent(route.lessonId)}`;
     default:
       return '/';
   }
@@ -85,7 +92,7 @@ export function pathToRoute(pathname: string): PathRoute {
 
   if (parts.length === 0) return { screen: 'home' };
 
-  const [head, a] = parts;
+  const [head, a, b] = parts;
   switch (head) {
     case 'learn':
       return { screen: 'learn' };
@@ -134,6 +141,12 @@ export function pathToRoute(pathname: string): PathRoute {
     case 'track':
       if (a && isTrackId(a)) return { screen: 'track', trackId: a };
       return { screen: 'home' };
+    case 'curriculum': {
+      const id = b ? decodeURIComponent(b) : '';
+      if (a === 'unit' && cgeiCurriculum.units.some((unit) => unit.id === id)) return { screen: 'curriculum-unit', unitId: id };
+      if (a === 'lesson' && cgeiCurriculum.lessons.some((lesson) => lesson.id === id)) return { screen: 'curriculum-lesson', lessonId: id };
+      return { screen: 'learn' };
+    }
     default:
       return { screen: 'home' };
   }
@@ -145,6 +158,18 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
   switch (route.screen) {
     case 'home':
       return [home];
+    case 'curriculum-unit': {
+      const unit = cgeiCurriculum.units.find((item) => item.id === route.unitId);
+      return [home, { label: 'Learn', route: { screen: 'learn' } }, { label: unit?.title ?? 'Curriculum Unit', route }];
+    }
+    case 'curriculum-lesson': {
+      const lesson = cgeiCurriculum.lessons.find((item) => item.id === route.lessonId);
+      const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
+      const crumbs: { label: string; route: PathRoute }[] = [home, { label: 'Learn', route: { screen: 'learn' } }];
+      if (unit) crumbs.push({ label: unit.title, route: { screen: 'curriculum-unit', unitId: unit.id } });
+      crumbs.push({ label: lesson?.title ?? 'Curriculum Lesson', route });
+      return crumbs;
+    }
     case 'section': {
       const sec = sectionMap[route.sectionId];
       return [
