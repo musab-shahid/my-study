@@ -154,7 +154,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
       unitIds: ['cgei-ds-unit-5-1', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
-      resourceIds: [],
+      resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
   ],
   units: [
