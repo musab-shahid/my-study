@@ -6,7 +6,12 @@ All data here are **synthetic** and must never be cited as Multan, Pakistan, Lan
 |------|---------|
 | `synthetic_hourly_utc.csv` | Time-zone / local-day aggregation (Unit 5.2) |
 | `synthetic_heat_exceedance.csv` | Logistic GLM heat-exceedance walkthrough (Unit 5.9) |
+| `smoke_check.py` generated dataset | Deterministic regression interaction, interval-width, VIF and GroupKFold checks (Unit 5.6; generated in memory) |
 | `smoke_check.py` | Recomputes selected numerical teaching claims |
+
+## Unit 5.6 inference and validation checks
+
+`smoke_check.py` generates a deterministic synthetic dataset in memory (seed `5606`) with 20 districts, repeated observations, a known NDVI-by-season interaction and district-level variation. The smoke test checks the interaction sign, confidence-versus-prediction interval width, finite VIF results, disjoint train/test district groups, and finite MAE/RMSE comparisons against a training-mean baseline on identical folds. The dataset is synthetic and does not represent any real city or sensor product.
 
 ## Synthetic heat-exceedance DGP (Unit 5.9)
 
