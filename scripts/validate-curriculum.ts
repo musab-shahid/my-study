@@ -5,7 +5,6 @@
 import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { topicMetadata } from '../src/data/topic-metadata';
 import { sections } from '../src/data/sections';
-import { questions as dataScienceQuestions } from '../src/data/cgei/data-science/questions-data-science';
 
 const errors: string[] = [];
 const warnings: string[] = [];
