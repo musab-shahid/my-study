@@ -268,7 +268,7 @@ export function StudyScreen() {
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-slate-900 text-sm break-words">{section.title}</p>
-                        <p className="text-slate-500 text-xs mt-0.5">{section.topicCount} topics · {studiedInSection} studied · {masteredInSection} mastered</p>
+                        <p className="text-slate-500 text-xs mt-0.5">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
                       </div>
                       {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
                     </button>
@@ -340,7 +340,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           <SectionBadge section={section} />
         </div>
         <h1 className="text-2xl sm:text-[1.75rem] font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
-        <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} topics</p>
+        <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
       <div className="space-y-2">
         {sectionTopics.map((topic) => {
