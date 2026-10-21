@@ -538,6 +538,13 @@ const lesson55Definitions = [
         "kind": "worked-example",
         "title": "Diagnose a non-idempotent download stage",
         "body": "A script appends every downloaded daily row to an existing CSV each time it runs. A second run duplicates the same dates and inflates the sample size. Fix the stage by defining a stable key (for example, station_id + local_date), checking duplicates, and writing a deterministic output from the recorded raw input. Compare row counts and checksums before publishing."
+      },
+      {
+        "id": "cgei-ds-55-1-checksum",
+        "kind": "code",
+        "title": "Compute a SHA-256 checksum for the manifest",
+        "language": "python",
+        "code": "from hashlib import sha256\nfrom pathlib import Path\n\ndef sha256_file(path, chunk_size=1024 * 1024):\n    digest = sha256()\n    with Path(path).open('rb') as handle:\n        for chunk in iter(lambda: handle.read(chunk_size), b''):\n            digest.update(chunk)\n    return digest.hexdigest()\n\n# Hash raw bytes to identify the exact file contents."
       }
     ]
   },
