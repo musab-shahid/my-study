@@ -64,6 +64,22 @@ export interface CurriculumContentBlock {
   tone?: 'info' | 'warning' | 'success' | 'critical';
 }
 
+export type CurriculumQuestionDifficulty = 'easy' | 'medium' | 'hard';
+export type CurriculumCognitiveLevel = 'remember' | 'understand' | 'apply' | 'analyze' | 'evaluate' | 'create';
+
+/** Self-contained question for curriculum lessons, independent of legacy Topic quiz routing. */
+export interface CurriculumQuestion {
+  id: string;
+  lessonId: string;
+  type: 'single-choice';
+  prompt: string;
+  options: string[];
+  correctAnswer: number;
+  explanation: string;
+  difficulty: CurriculumQuestionDifficulty;
+  cognitiveLevel: CurriculumCognitiveLevel;
+}
+
 export interface CurriculumActivity {
   id: string;
   kind: ActivityKind;
@@ -214,11 +230,12 @@ export interface CurriculumTrack {
 }
 
 export interface CurriculumRegistry {
-  schemaVersion: 1;
+  schemaVersion: 2;
   tracks: CurriculumTrack[];
   subjects: CurriculumSubject[];
   units: CurriculumUnit[];
   lessons: CurriculumLesson[];
+  questions: CurriculumQuestion[];
   competencies: CurriculumCompetency[];
   resources: CurriculumResource[];
   activities: CurriculumActivity[];
