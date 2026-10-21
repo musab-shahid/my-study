@@ -28,6 +28,18 @@ describe('Phase A path mapping', () => {
     }
   });
 
+  it('round-trips canonical curriculum unit and lesson routes', () => {
+    const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-1' };
+    const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-1-1' };
+    assert.deepEqual(pathToRoute(routeToPath(unitRoute)), unitRoute);
+    assert.deepEqual(pathToRoute(routeToPath(lessonRoute)), lessonRoute);
+  });
+
+  it('resolves only registered curriculum unit and lesson IDs', () => {
+    assert.equal(pathToRoute('/curriculum/unit/not-real').screen, 'learn');
+    assert.equal(pathToRoute('/curriculum/lesson/not-real').screen, 'learn');
+  });
+
   it('maps /quiz deep link to practice (no quiz params in URL)', () => {
     const parsed = pathToRoute('/quiz');
     assert.equal(parsed.screen, 'practice');
