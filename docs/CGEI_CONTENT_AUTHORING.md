@@ -15,7 +15,7 @@ Use `src/types/curriculum.ts` and `src/data/cgei/curriculum.ts` for the instruct
 - `CurriculumProject` represents projects/capstones as first-class work, not as fake units or topics.
 - Readiness status (`planned`, `outlined`, `draft`, `review`, `validated`, `released`) describes evidence state; do not mark a unit released because its metadata exists.
 
-**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 is the pilot. Unit 5.1's eight lessons bridge to legacy `Topic` records to preserve existing navigation and saved progress; Unit 5.2's five lessons are authored directly as canonical content blocks and have eleven curriculum questions rendered inline. These self-checks provide immediate feedback but are not yet wired into legacy adaptive quiz scoring or spaced-repetition statistics. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
+**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 is the pilot. Unit 5.1's eight lessons bridge to legacy `Topic` records to preserve existing navigation and saved progress; Units 5.2 and 5.3 are authored directly as canonical content blocks and have lesson-linked curriculum questions rendered inline. These self-checks provide immediate feedback but are not yet wired into legacy adaptive quiz scoring or spaced-repetition statistics. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
 
 Architecture and migration decisions: [CGEI Curriculum Architecture](CGEI_CURRICULUM_ARCHITECTURE.md).
 
