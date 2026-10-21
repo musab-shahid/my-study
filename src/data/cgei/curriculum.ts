@@ -38,6 +38,55 @@ const outcomes53: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-53-communication', statement: 'Communicate uncertainty, data limitations and non-causal interpretations in figure captions and an EDA memo.', action: 'communicate and qualify', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
 ];
 
+const outcomes55: CurriculumOutcome[] = [
+  {
+    "id": "cgei-ds-o-55-workflow",
+    "statement": "Design an idempotent environmental-data workflow with separate raw, interim and processed products plus a reproducibility manifest.",
+    "action": "design and validate",
+    "level": "L3",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-ds-o-55-sql",
+    "statement": "Query relational environmental data with explicit keys, filters, joins and grouped summaries, then verify row counts and key uniqueness.",
+    "action": "query and verify",
+    "level": "L3",
+    "competencyIds": [
+      "cgei-comp-reproducibility",
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-ds-o-55-api",
+    "statement": "Acquire public environmental data through HTTP/API clients with timeouts, status checks, bounded retries, pagination awareness and local caching.",
+    "action": "acquire and validate",
+    "level": "L3",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-ds-o-55-provenance",
+    "statement": "Document source versions, requests, licence obligations and ethical limits while keeping credentials out of source control.",
+    "action": "document and protect",
+    "level": "L3",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-ds-o-55-package",
+    "statement": "Deliver a reproducible acquisition package that another researcher can rerun and audit without access to private credentials.",
+    "action": "package and demonstrate",
+    "level": "L3",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  }
+];
+
 const outcomes54: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-54-sampling', statement: 'Define population, sample support and sampling design before generalising an environmental estimate.', action: 'define and critique', level: 'L3', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
   { id: 'cgei-ds-o-54-intervals', statement: 'Calculate and interpret confidence intervals and bootstrap uncertainty while stating dependence assumptions.', action: 'calculate and interpret', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
@@ -155,8 +204,17 @@ const lessonDefinitions54 = [
   ] },
 ] satisfies Array<{ id: string; title: string; objectiveIds: string[]; minutes: number; activityIds: string[]; assessmentIds: string[]; resourceIds: string[]; deliverableIds: string[]; content: CurriculumContentBlock[] }>;
 
+const plannedUnitSourceSlugs: Record<string, string> = {
+  '5.6': 'intermediate-inference',
+  '5.7': 'time-series',
+  '5.8': 'multivariate',
+  '5.9': 'glm-mixed-bayesian',
+  '5.10': 'causal-inference',
+  '5.11': 'research-software',
+  '5.12': 'xarray-pipelines',
+};
+
 const plannedUnits = [
-  ['5.5', 'Data workflow engineering', 'Ingestion, schemas, quality checks, reproducible transformations and provenance.'],
   ['5.6', 'Intermediate statistical inference', 'Hypothesis tests, effect sizes, assumptions, multiple comparisons and robust inference.'],
   ['5.7', 'Time-series analysis', 'Temporal indexing, trend, seasonality, autocorrelation, extremes and forecast evaluation.'],
   ['5.8', 'Multivariate analysis, PCA and EOF', 'Scaling, covariance, dimensionality reduction, spatial patterns and interpretation.'],
@@ -430,7 +488,289 @@ const lessons54: CurriculumLesson[] = lessonDefinitions54.map((lesson, index) =>
   deliverableIds: [...lesson.deliverableIds],
 }));
 
-const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54];
+const lesson55Definitions = [
+  {
+    "id": "cgei-ds-lesson-5-5-1",
+    "title": "End-to-end workflows, idempotence and manifests",
+    "minutes": 35,
+    "objectiveIds": [
+      "cgei-ds-o-55-workflow"
+    ],
+    "activityIds": [
+      "cgei-ds-a-55-workflow"
+    ],
+    "assessmentIds": [
+      "cgei-ds-assess-55-workflow"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-good-practices"
+    ],
+    "deliverableIds": [
+      "cgei-ds-d-55-acquisition-package"
+    ],
+    "content": [
+      {
+        "id": "cgei-ds-55-1-core",
+        "kind": "prose",
+        "title": "A workflow is a sequence of auditable transformations",
+        "body": "A dependable scientific workflow separates acquisition, validation, transformation, analysis and publication. Preserve downloaded inputs under data/raw/; write intermediate products to data/interim/ and analysis-ready outputs to data/processed/. Do not overwrite raw files with cleaned results. Every stage should state its inputs, outputs, assumptions and failure conditions."
+      },
+      {
+        "id": "cgei-ds-55-1-idempotence",
+        "kind": "key-points",
+        "title": "Design for safe reruns",
+        "items": [
+          "Idempotence means rerunning a stage with the same inputs does not silently append duplicates or change the intended result.",
+          "Use stable keys, explicit output paths and overwrite/skip rules; record software and source versions.",
+          "Validate schema, units, ranges, CRS, temporal coverage and completeness before analysis.",
+          "Keep a manifest with the exact source/product, variables, request parameters, dates, licence, checksum and transformation notes."
+        ]
+      },
+      {
+        "id": "cgei-ds-55-1-manifest",
+        "kind": "code",
+        "title": "Example manifest for a climate-data request",
+        "language": "yaml",
+        "code": "dataset_id: era5_t2m_multan_2015_2024\\nsource: Copernicus Climate Data Store\\nvariable: 2m_temperature\\nsource_units: K\\nspatial_extent: documented bounding box\\ntemporal_extent: 2015-01-01/2024-12-31\\nrequest_file: requests/era5_request.json\\nretrieved_utc: YYYY-MM-DDTHH:MM:SSZ\\nlicence: verify the current dataset-specific terms\\nsha256: record checksum of the downloaded file\\nprocessing: daily maximum grouped by Asia/Karachi local date"
+      },
+      {
+        "id": "cgei-ds-55-1-example",
+        "kind": "worked-example",
+        "title": "Diagnose a non-idempotent download stage",
+        "body": "A script appends every downloaded daily row to an existing CSV each time it runs. A second run duplicates the same dates and inflates the sample size. Fix the stage by defining a stable key (for example, station_id + local_date), checking duplicates, and writing a deterministic output from the recorded raw input. Compare row counts and checksums before publishing."
+      }
+    ]
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-2",
+    "title": "Relational tables, SQL joins and grouped summaries",
+    "minutes": 40,
+    "objectiveIds": [
+      "cgei-ds-o-55-sql"
+    ],
+    "activityIds": [
+      "cgei-ds-a-55-sql"
+    ],
+    "assessmentIds": [
+      "cgei-ds-assess-55-sql"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-sqlite"
+    ],
+    "deliverableIds": [
+      "cgei-ds-d-55-sql-query"
+    ],
+    "content": [
+      {
+        "id": "cgei-ds-55-2-core",
+        "kind": "prose",
+        "title": "Model entities separately and connect them with keys",
+        "body": "Store station metadata (one row per station) separately from observations (many rows per station and date). A primary key uniquely identifies a record; a foreign key links an observation to its station. Joining on display names is fragile because spelling and formatting can change. Use stable IDs and validate the expected one-to-many relationship."
+      },
+      {
+        "id": "cgei-ds-55-2-table",
+        "kind": "table",
+        "title": "A minimal relational model",
+        "headers": [
+          "Table",
+          "Grain / key",
+          "Example columns"
+        ],
+        "rows": [
+          [
+            "stations",
+            "One row per station; primary key id",
+            "id, name, latitude, longitude, elevation_m"
+          ],
+          [
+            "daily",
+            "One row per station per local date; composite key station_id + date",
+            "station_id, date, tmax_c, n_valid_hours"
+          ],
+          [
+            "daily.station_id",
+            "Foreign key to stations.id",
+            "Must match an existing station unless intentionally flagged"
+          ]
+        ]
+      },
+      {
+        "id": "cgei-ds-55-2-sql",
+        "kind": "code",
+        "title": "Mean June maximum temperature by station",
+        "language": "sql",
+        "code": "SELECT\\n  s.id AS station_id,\\n  s.name,\\n  AVG(d.tmax_c) AS mean_tmax_c,\\n  COUNT(d.tmax_c) AS n_valid_days\\nFROM stations AS s\\nJOIN daily AS d ON d.station_id = s.id\\nWHERE d.date >= '2024-06-01'\\n  AND d.date <  '2024-07-01'\\nGROUP BY s.id, s.name\\nORDER BY s.id;"
+      },
+      {
+        "id": "cgei-ds-55-2-example",
+        "kind": "worked-example",
+        "title": "Check a join before trusting the aggregate",
+        "body": "Suppose daily has 3,000 rows and stations has 25 unique station IDs. An inner join returning 2,700 rows may mean 300 observations refer to missing station IDs, or the filters excluded rows. Check unmatched keys, duplicate metadata IDs, and counts before and after the join. Never assume a plausible-looking mean proves the join was correct."
+      }
+    ]
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-3",
+    "title": "HTTP APIs, retries, pagination and local caching",
+    "minutes": 40,
+    "objectiveIds": [
+      "cgei-ds-o-55-api"
+    ],
+    "activityIds": [
+      "cgei-ds-a-55-api"
+    ],
+    "assessmentIds": [
+      "cgei-ds-assess-55-api"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-requests"
+    ],
+    "deliverableIds": [
+      "cgei-ds-d-55-acquisition-package"
+    ],
+    "content": [
+      {
+        "id": "cgei-ds-55-3-core",
+        "kind": "prose",
+        "title": "Treat data acquisition as a controlled experiment",
+        "body": "An API request has an endpoint, parameters, authentication method, response status and often pagination or rate limits. Save the exact request parameters and client/library version. Set connection/read timeouts, call raise_for_status(), validate the returned schema and record the retrieval time. A successful JSON parse does not prove the HTTP response succeeded or that the payload represents the intended product."
+      },
+      {
+        "id": "cgei-ds-55-3-code",
+        "kind": "code",
+        "title": "A bounded retry pattern for idempotent GET requests",
+        "language": "python",
+        "code": "import time\\nimport requests\\n\\nRETRYABLE = {429, 500, 502, 503, 504}\\n\\ndef get_json(url, params=None, attempts=5):\\n    for attempt in range(attempts):\\n        response = requests.get(url, params=params, timeout=(5, 30))\\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\\n            retry_after = response.headers.get('Retry-After', '')\\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\\n            time.sleep(min(wait, 60))\\n            continue\\n        response.raise_for_status()\\n        return response.json()\\n    raise RuntimeError('Request attempts exhausted')\\n\\n# Add pagination handling and save the exact request/response metadata.\\n# Retry only operations whose semantics make retrying safe."
+      },
+      {
+        "id": "cgei-ds-55-3-checklist",
+        "kind": "checklist",
+        "title": "Acquisition checklist",
+        "items": [
+          "Set timeouts and handle non-success status codes explicitly.",
+          "Respect rate limits and Retry-After; bound retries and backoff.",
+          "Follow pagination until the documented terminal condition, not until one page looks complete.",
+          "Cache original responses under data/raw/ with request metadata and checksums.",
+          "Validate units, schema, date coverage and expected spatial/temporal extent after download."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-4",
+    "title": "Provenance, licences, credentials and ethical access",
+    "minutes": 35,
+    "objectiveIds": [
+      "cgei-ds-o-55-provenance"
+    ],
+    "activityIds": [
+      "cgei-ds-a-55-provenance"
+    ],
+    "assessmentIds": [
+      "cgei-ds-assess-55-provenance"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-cds-licence",
+      "cgei-ds-r-55-secret-scanning"
+    ],
+    "deliverableIds": [
+      "cgei-ds-d-55-provenance-note"
+    ],
+    "content": [
+      {
+        "id": "cgei-ds-55-4-core",
+        "kind": "prose",
+        "title": "Access is not the same as permission to redistribute",
+        "body": "A dataset's access method does not determine its licence. Read the terms attached to the exact product and version, record attribution requirements, and check whether derived products or redistribution have additional conditions. Respect provider terms, minimise personal data, and aggregate sensitive locations before publication when disclosure could cause harm."
+      },
+      {
+        "id": "cgei-ds-55-4-env",
+        "kind": "code",
+        "title": "Separate a committed template from local secrets",
+        "language": "text",
+        "code": ".env.example\\nCDS_API_URL=https://example.invalid/api\\nCDS_API_KEY=\\n\\n# Local .env (gitignored; never commit)\\nCDS_API_KEY=your_real_secret_here"
+      },
+      {
+        "id": "cgei-ds-55-4-checklist",
+        "kind": "checklist",
+        "title": "Repository safety and provenance checks",
+        "items": [
+          "Commit .env.example with variable names and harmless placeholders; keep .env ignored.",
+          "Read the current licence for each product, including attribution and redistribution terms.",
+          "Record source, product/version, access date, request parameters and any transformations.",
+          "Never paste credentials into notebooks, issue reports, logs, screenshots or public repositories.",
+          "If a secret is exposed, revoke/rotate it; deleting the visible line alone does not invalidate it."
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-5",
+    "title": "Build a reproducible environmental-data acquisition package",
+    "minutes": 45,
+    "objectiveIds": [
+      "cgei-ds-o-55-package"
+    ],
+    "activityIds": [
+      "cgei-ds-a-55-package"
+    ],
+    "assessmentIds": [
+      "cgei-ds-assess-55-package"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-good-practices",
+      "cgei-ds-r-55-cds-licence"
+    ],
+    "deliverableIds": [
+      "cgei-ds-d-55-acquisition-package",
+      "cgei-ds-d-55-provenance-note"
+    ],
+    "content": [
+      {
+        "id": "cgei-ds-55-5-core",
+        "kind": "prose",
+        "title": "The package is the evidence",
+        "body": "A robust deliverable includes an acquisition script, a small permitted sample or synthetic stub, a manifest, a licence/attribution note, a README with exact rerun steps, an environment record and a safe .env.example. A reviewer should be able to distinguish raw inputs from derived outputs and understand which checks would fail if a file, column, unit or licence changed."
+      },
+      {
+        "id": "cgei-ds-55-5-acceptance",
+        "kind": "checklist",
+        "title": "Acceptance criteria for the package",
+        "items": [
+          "A clean run creates the documented outputs from recorded inputs without duplicate appends.",
+          "The script validates schema, units, date coverage and key uniqueness, and fails with useful errors.",
+          "The manifest records source/product version, request parameters, retrieval time, licence and checksum.",
+          "The README states installation, command order, expected files and known limitations.",
+          "No credentials or restricted source data are committed; licence and attribution are explicit."
+        ]
+      },
+      {
+        "id": "cgei-ds-55-5-example",
+        "kind": "worked-example",
+        "title": "A reviewer tries to reproduce the download",
+        "body": "The reviewer starts from a clean environment and follows the README. If the provider endpoint has changed, the package should fail with an informative error and retain the recorded request/metadata—not silently substitute a different dataset. If access requires a personal key, the README explains how to set it locally without including the secret. Reproducibility means an auditable process, not a guarantee that every remote service will remain unchanged."
+      }
+    ]
+  }
+] satisfies Array<{ id: string; title: string; minutes: number; objectiveIds: string[]; activityIds: string[]; assessmentIds: string[]; resourceIds: string[]; deliverableIds: string[]; content: CurriculumContentBlock[] }>;
+
+const lessons55: CurriculumLesson[] = lesson55Definitions.map((lesson, index) => ({
+  id: lesson.id,
+  kind: 'lesson' as const,
+  title: lesson.title,
+  order: index + 1,
+  readiness: 'draft' as const,
+  level: 'L3' as const,
+  estimatedMinutes: lesson.minutes,
+  objectives: outcomes55.filter((outcome) => lesson.objectiveIds.includes(outcome.id)),
+  content: [...lesson.content],
+  activityIds: [...lesson.activityIds],
+  assessmentIds: [...lesson.assessmentIds],
+  resourceIds: [...lesson.resourceIds],
+  deliverableIds: [...lesson.deliverableIds],
+}));
+
+const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -482,7 +822,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
+      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
@@ -534,14 +874,26 @@ export const cgeiCurriculum: CurriculumRegistry = {
       resourceIds: ['cgei-ds-r-54-wilks', 'cgei-ds-r-54-scipy-bootstrap', 'cgei-ds-r-54-statsmodels-multitest', 'cgei-ds-r-54-statsmodels-ols', 'cgei-ds-r-54-nist'],
       deliverableIds: ['cgei-ds-d-54-brief', 'cgei-ds-d-54-inference-checklist', 'cgei-ds-d-54-regression-notebook'],
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.4-introductory-statistics.md',
-      notes: ['Examples are instructional and remain draft until numerical smoke checks and UI review pass.', 'Sampling and independence assumptions must be stated before inferential claims.'],
+      notes: ['Examples are instructional; validate code snippets and review licensing/security guidance before release.', 'API examples are patterns, not a guarantee that any provider endpoint remains stable.'],
     },
-    ...plannedUnits.map(([code, title, summary], index) => ({
+    {
+      id: 'cgei-ds-unit-5-5', code: '5.5', title: 'Data workflow engineering', order: 5, kind: 'unit', readiness: 'draft',
+      summary: 'Build idempotent acquisition-to-publication workflows with relational SQL, reliable HTTP/API acquisition, manifests, licence-aware provenance, safe credentials and a reproducible package.',
+      estimatedHours: 6.5, prerequisites: ['Unit 5.2 scientific Python', 'Basic SQL and structured-data concepts'], outcomes: outcomes55,
+      lessonIds: lessons55.map((lesson) => lesson.id),
+      activityIds: ['cgei-ds-a-55-workflow', 'cgei-ds-a-55-sql', 'cgei-ds-a-55-api', 'cgei-ds-a-55-provenance', 'cgei-ds-a-55-package'],
+      assessmentIds: ['cgei-ds-assess-55-workflow', 'cgei-ds-assess-55-sql', 'cgei-ds-assess-55-api', 'cgei-ds-assess-55-provenance', 'cgei-ds-assess-55-package'],
+      resourceIds: ['cgei-ds-r-55-good-practices', 'cgei-ds-r-55-sqlite', 'cgei-ds-r-55-requests', 'cgei-ds-r-55-cds-licence', 'cgei-ds-r-55-secret-scanning'],
+      deliverableIds: ['cgei-ds-d-55-acquisition-package', 'cgei-ds-d-55-sql-query', 'cgei-ds-d-55-provenance-note'],
+      sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.5-data-workflow-engineering.md',
+      notes: ['This is an integrated draft, not released content; the acquisition workflow must be validated with a deterministic fixture before release.'],
+    },
+    ...plannedUnits.map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
-      code, title, order: index + 5, kind: 'unit' as const, readiness: 'planned' as const, summary,
-      prerequisites: [index === 0 ? 'Unit 5.4 introductory statistics' : `Unit ${plannedUnits[index - 1][0]}`],
+      code, title, order: Number(code.slice(2)), kind: 'unit' as const, readiness: 'planned' as const, summary,
+      prerequisites: [`Unit ${Number(code.slice(2)) - 1}`],
       outcomes: [] as CurriculumOutcome[], lessonIds: [] as string[], activityIds: [] as string[], assessmentIds: [] as string[], resourceIds: [] as string[], deliverableIds: [] as string[],
-      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
+      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${plannedUnitSourceSlugs[code]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
   ],
@@ -581,6 +933,167 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-q-54-008', lessonId: 'cgei-ds-lesson-5-4-4', type: 'single-choice', prompt: 'A negative OLS slope relates NDVI to LST. What conclusion is justified by OLS alone?', options: ['Increasing vegetation will cause the estimated cooling effect', 'All confounding has been removed', 'The relationship is causal because R² is high', 'Higher NDVI is associated with lower LST in this sample under the model; causal claims need additional design assumptions'], correctAnswer: 3, explanation: 'Ordinary least squares describes a conditional association under the model. Confounding, spatial dependence and selection may explain the relationship.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-ds-q-54-009', lessonId: 'cgei-ds-lesson-5-4-5', type: 'single-choice', prompt: 'A huge sample gives p < 0.001 for a 0.05 °C difference. What else is needed to judge its importance?', options: ['Only more decimal places in the p-value', 'Effect size, interval/uncertainty and a decision-relevant practical threshold', 'Remove the confidence interval', 'Assume every statistically significant effect matters'], correctAnswer: 1, explanation: 'Statistical significance does not determine practical significance. Report magnitude, uncertainty and relevance to the scientific or policy decision.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
     { id: 'cgei-ds-q-54-010', lessonId: 'cgei-ds-lesson-5-4-5', type: 'single-choice', prompt: 'When might a rank-based method help, and what assumption may still matter?', options: ['It removes all assumptions automatically', 'It proves causality', 'It can reduce reliance on a particular distributional shape, but independence/design assumptions may still matter', 'It is only appropriate for normally distributed data'], correctAnswer: 2, explanation: 'Rank methods can be useful when parametric distributional assumptions are poor, but they do not automatically solve dependence, selection or other design problems.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+,
+{
+    "id": "cgei-ds-q-55-001",
+    "lessonId": "cgei-ds-lesson-5-5-1",
+    "type": "single-choice",
+    "prompt": "Which workflow ordering best protects raw environmental data and makes transformations auditable?",
+    "options": [
+      "Acquire → overwrite raw with cleaned data → analyse → publish",
+      "Acquire → validate → transform to separate outputs → analyse → publish with provenance",
+      "Analyse first, then record where the input might have come from",
+      "Append each run to the same processed file without checking duplicates"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Separate acquisition, validation, transformation, analysis and publication stages. Preserve raw inputs and record the transformations so results can be audited and reproduced.",
+    "difficulty": "easy",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-ds-q-55-002",
+    "lessonId": "cgei-ds-lesson-5-5-1",
+    "type": "single-choice",
+    "prompt": "A workflow appends the same daily rows every time it runs. Which change most directly addresses the failure?",
+    "options": [
+      "Increase the number of decimal places",
+      "Remove the manifest",
+      "Use stable keys and deterministic outputs, then check duplicates and row counts",
+      "Rename the raw folder after each run"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Stable keys and deterministic output rules make reruns safe. A manifest supports traceability but does not itself prevent duplicate rows.",
+    "difficulty": "medium",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-ds-q-55-003",
+    "lessonId": "cgei-ds-lesson-5-5-2",
+    "type": "single-choice",
+    "prompt": "You need mean June maximum temperature by station for 2024. Which SQL pattern is appropriate?",
+    "options": [
+      "SELECT station_id FROM daily;",
+      "SELECT station_id, AVG(tmax_c) FROM daily WHERE date >= '2024-06-01' AND date < '2024-07-01' GROUP BY station_id;",
+      "SELECT AVG(tmax_c) FROM daily ORDER BY station_id;",
+      "SELECT * FROM stations WHERE date = 'June';"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Filter the half-open date interval for June, group by station, and aggregate the temperature. A join is needed if station names or metadata are also required.",
+    "difficulty": "medium",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-ds-q-55-004",
+    "lessonId": "cgei-ds-lesson-5-5-2",
+    "type": "single-choice",
+    "prompt": "A join unexpectedly reduces 3,000 daily observations to 2,700 rows. What should you check first?",
+    "options": [
+      "Whether the chart colours are consistent",
+      "Whether the mean temperature is high enough",
+      "Whether the SQL engine rounded the station IDs",
+      "Unmatched foreign keys, duplicate metadata keys, and row counts before/after the join"
+    ],
+    "correctAnswer": 3,
+    "explanation": "A join can drop unmatched rows or multiply rows when keys are duplicated. Inspect key uniqueness, unmatched records and row counts before interpreting grouped summaries.",
+    "difficulty": "hard",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-ds-q-55-005",
+    "lessonId": "cgei-ds-lesson-5-5-3",
+    "type": "single-choice",
+    "prompt": "A public API responds with HTTP 429. What is the safest general response for an idempotent GET request?",
+    "options": [
+      "Retry in a tight loop until it succeeds",
+      "Ignore the status if the body parses as JSON",
+      "Respect Retry-After when supplied, use bounded backoff, and record the attempt",
+      "Switch to a guessed endpoint without logging the change"
+    ],
+    "correctAnswer": 2,
+    "explanation": "429 indicates rate limiting. Respect server guidance, bound retries, avoid hammering the service and record acquisition metadata.",
+    "difficulty": "medium",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-ds-q-55-006",
+    "lessonId": "cgei-ds-lesson-5-5-3",
+    "type": "single-choice",
+    "prompt": "Why should an HTTP client set a timeout and call raise_for_status() before trusting response.json()?",
+    "options": [
+      "JSON parsing proves the server returned a successful response",
+      "Timeouts prevent indefinite waits and raise_for_status() catches unsuccessful HTTP status codes",
+      "It automatically validates units and CRS",
+      "It disables pagination"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A response body may be valid JSON even when the server returned an error. Timeouts bound waiting; status checks surface HTTP failures before downstream processing.",
+    "difficulty": "medium",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-ds-q-55-007",
+    "lessonId": "cgei-ds-lesson-5-5-4",
+    "type": "single-choice",
+    "prompt": "A climate dataset is publicly downloadable. What must you still check before redistributing it?",
+    "options": [
+      "Only whether the file is smaller than 1 GB",
+      "Only whether the provider uses HTTPS",
+      "The exact product licence, attribution rules and any redistribution or derived-data conditions",
+      "Nothing; public download always means unrestricted redistribution"
+    ],
+    "correctAnswer": 2,
+    "explanation": "Public access does not imply unrestricted reuse. Terms can vary by dataset and version; record the applicable licence and attribution obligations.",
+    "difficulty": "easy",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-ds-q-55-008",
+    "lessonId": "cgei-ds-lesson-5-5-4",
+    "type": "single-choice",
+    "prompt": "Which credential-handling practice is appropriate for a public research repository?",
+    "options": [
+      "Commit a real API key so collaborators can reproduce the request",
+      "Store the real secret in a gitignored local .env file and commit only a blank .env.example template",
+      "Paste the key into a notebook markdown cell",
+      "Delete the key from the latest commit but leave it active"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Commit a harmless template, keep local secrets out of version control, and revoke/rotate any credential that has been exposed.",
+    "difficulty": "medium",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-ds-q-55-009",
+    "lessonId": "cgei-ds-lesson-5-5-5",
+    "type": "single-choice",
+    "prompt": "Which manifest gives the strongest basis for reproducing a data acquisition?",
+    "options": [
+      "A screenshot of the final plot",
+      "The analyst's name and a vague source URL",
+      "Only the download date",
+      "Provider/product version, exact request parameters, variable units, spatial/temporal extent, licence, retrieval time and checksum"
+    ],
+    "correctAnswer": 3,
+    "explanation": "A manifest should identify the source and request precisely enough to audit the acquisition and detect changed inputs or outputs.",
+    "difficulty": "hard",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-ds-q-55-010",
+    "lessonId": "cgei-ds-lesson-5-5-5",
+    "type": "single-choice",
+    "prompt": "A package runs only on the author's laptop because the API key and file paths are hard-coded. What is the best remediation?",
+    "options": [
+      "Commit the author's .env file",
+      "Remove all validation to avoid environment errors",
+      "Externalise configuration, document setup, add a safe .env.example, preserve raw data and test the workflow from a clean environment",
+      "Replace the real dataset with an undocumented file from a different provider"
+    ],
+    "correctAnswer": 2,
+    "explanation": "A reusable package externalises secrets and paths, documents dependencies and inputs, and can be run and checked from a clean environment without changing the source data.",
+    "difficulty": "hard",
+    "cognitiveLevel": "evaluate"
+  }
   ],
   competencies: [
     { id: 'cgei-comp-quantitative-reasoning', title: 'Quantitative reasoning', description: 'Use mathematical representations and units to reason about environmental systems.', level: 'L3', evidenceCriteria: ['Correct units and dimensional checks', 'Calculation independently reproduced', 'Plausibility and limitations stated'] },
@@ -714,6 +1227,62 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-r-54-statsmodels-multitest', kind: 'documentation', title: 'statsmodels: multiple testing procedures', url: 'https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html', purpose: 'Reference for family-wise and false-discovery-rate adjustments across multiple hypothesis tests.', authorOrPublisher: 'statsmodels developers', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
     { id: 'cgei-ds-r-54-statsmodels-ols', kind: 'documentation', title: 'statsmodels: linear regression', url: 'https://www.statsmodels.org/stable/regression.html', purpose: 'Reference for OLS, regression results, model assumptions and diagnostic workflows.', authorOrPublisher: 'statsmodels developers', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
     { id: 'cgei-ds-r-54-nist', kind: 'documentation', title: 'NIST/SEMATECH e-Handbook of Statistical Methods', url: 'https://www.itl.nist.gov/div898/handbook/', purpose: 'Reference for exploratory statistics, distributions, estimation and the interpretation of statistical methods.', authorOrPublisher: 'National Institute of Standards and Technology', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
+,
+{
+    "id": "cgei-ds-r-55-good-practices",
+    "kind": "paper",
+    "title": "Good enough practices in scientific computing",
+    "url": "https://doi.org/10.1371/journal.pcbi.1005510",
+    "purpose": "Evidence-informed practices for organizing projects, documenting workflows, managing data and making scientific computing reproducible.",
+    "authorOrPublisher": "Wilson et al., PLOS Computational Biology",
+    "accessedOn": "2026-10-22",
+    "verificationStatus": "checked",
+    "required": true
+  },
+  {
+    "id": "cgei-ds-r-55-sqlite",
+    "kind": "documentation",
+    "title": "SQLite SELECT statement reference",
+    "url": "https://www.sqlite.org/lang_select.html",
+    "purpose": "Official reference for filters, joins, grouping, ordering and query semantics used in the SQL lesson.",
+    "authorOrPublisher": "SQLite",
+    "accessedOn": "2026-10-22",
+    "verificationStatus": "checked",
+    "required": true
+  },
+  {
+    "id": "cgei-ds-r-55-requests",
+    "kind": "documentation",
+    "title": "Requests Quickstart",
+    "url": "https://requests.readthedocs.io/en/stable/user/quickstart/",
+    "purpose": "Official guidance on query parameters, JSON responses, status checks, exceptions and request timeouts.",
+    "authorOrPublisher": "Requests project",
+    "accessedOn": "2026-10-22",
+    "verificationStatus": "checked",
+    "required": true
+  },
+  {
+    "id": "cgei-ds-r-55-cds-licence",
+    "kind": "documentation",
+    "title": "Terms of use of the Copernicus Climate Data Store",
+    "url": "https://cds.climate.copernicus.eu/licences/terms-of-use-cds",
+    "purpose": "Check current terms and dataset-specific licences before acquiring, publishing or redistributing Copernicus Climate Data Store products.",
+    "authorOrPublisher": "Copernicus Climate Data Store / ECMWF",
+    "accessedOn": "2026-10-22",
+    "verificationStatus": "checked",
+    "required": true
+  },
+  {
+    "id": "cgei-ds-r-55-secret-scanning",
+    "kind": "documentation",
+    "title": "GitHub secret scanning",
+    "url": "https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning",
+    "purpose": "Understand how exposed API keys and credentials can be detected; scanning complements but does not replace safe secret handling.",
+    "authorOrPublisher": "GitHub Docs",
+    "accessedOn": "2026-10-22",
+    "verificationStatus": "checked",
+    "required": true
+  }
   ],
   activities: [
     { id: 'cgei-ds-a-unit-audit', kind: 'independent-practice', title: 'Environmental units audit', instructions: 'Create a short units sheet for temperature, precipitation, land-surface temperature and energy flux. Convert at least two values, distinguish a depth from a rate, and record one plausibility check.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-quantities'], expectedEvidence: ['Units sheet', 'Two checked conversions', 'One order-of-magnitude note'], required: true },
@@ -739,6 +1308,114 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-54-tests', kind: 'independent-practice', title: 'Write an honest test interpretation', instructions: 'Given a null hypothesis, a p-value and an estimated effect, write a plain-language interpretation. Identify the Type I/II error trade-off and determine whether a family of tests needs an FDR adjustment.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-ds-o-54-tests'], resourceIds: ['cgei-ds-r-54-statsmodels-multitest'], expectedEvidence: ['Correct conditional p-value statement', 'Effect-size interpretation', 'Multiple-testing decision'], required: true },
     { id: 'cgei-ds-a-54-regression', kind: 'coding-lab', title: 'Fit LST ~ NDVI and inspect residuals', instructions: 'Fit a simple OLS model to a sample table. Report slope units, confidence interval and R², then produce residual-vs-fitted and QQ plots. State why the slope is descriptive and what dependence may invalidate default standard errors.', level: 'L3', estimatedMinutes: 45, objectiveIds: ['cgei-ds-o-54-regression'], resourceIds: ['cgei-ds-r-54-statsmodels-ols'], expectedEvidence: ['Runnable regression notebook', 'Residual plots', 'Effect-size and limitation paragraph'], required: true },
     { id: 'cgei-ds-a-54-effect-size', kind: 'critique', title: 'Separate statistical from practical importance', instructions: 'Compare two reported effects with different sample sizes and p-values. Explain which effect is practically meaningful for an environmental decision, and justify whether a rank method or bootstrap would help without claiming it removes all assumptions.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-ds-o-54-effect-size'], resourceIds: ['cgei-ds-r-54-nist'], expectedEvidence: ['Effect-size comparison', 'Method-choice rationale', 'Assumptions and non-claims'], required: true },
+,
+{
+    "id": "cgei-ds-a-55-workflow",
+    "kind": "independent-practice",
+    "title": "Design an idempotent acquisition workflow",
+    "instructions": "Draw the acquire → validate → transform → analyse → publish flow for a climate or EO dataset. Define raw/interim/processed paths, a stable key, rerun behaviour and a manifest.",
+    "level": "L3",
+    "estimatedMinutes": 25,
+    "objectiveIds": [
+      "cgei-ds-o-55-workflow"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-good-practices"
+    ],
+    "expectedEvidence": [
+      "Workflow diagram or README section",
+      "Manifest draft",
+      "Rerun and duplicate-handling rule"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-a-55-sql",
+    "kind": "guided-practice",
+    "title": "Query and validate station observations",
+    "instructions": "Write SQL for mean June tmax by station, then state checks for key uniqueness, unmatched station IDs, valid-day counts and row counts before/after joins.",
+    "level": "L3",
+    "estimatedMinutes": 30,
+    "objectiveIds": [
+      "cgei-ds-o-55-sql"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-sqlite"
+    ],
+    "expectedEvidence": [
+      "SQL query",
+      "Validation checklist",
+      "Expected output grain"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-a-55-api",
+    "kind": "coding-lab",
+    "title": "Build a polite API client and cache",
+    "instructions": "Implement a GET request with timeouts, status validation and bounded retry/backoff. Save the exact request metadata and response under data/raw/; demonstrate a failed status and a repeatable cached run.",
+    "level": "L3",
+    "estimatedMinutes": 35,
+    "objectiveIds": [
+      "cgei-ds-o-55-api"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-requests"
+    ],
+    "expectedEvidence": [
+      "Tested request function",
+      "Recorded request metadata",
+      "Raw cache and validation result"
+    ],
+    "hints": [
+      "Use Retry-After when the provider supplies it.",
+      "Do not retry non-idempotent operations without understanding their semantics."
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-a-55-provenance",
+    "kind": "critique",
+    "title": "Licence and credential audit",
+    "instructions": "Review a public environmental-data repository or a synthetic example. Identify missing licence attribution, hard-coded credentials, undocumented endpoints and sensitive location exposure; rank each issue by severity.",
+    "level": "L3",
+    "estimatedMinutes": 25,
+    "objectiveIds": [
+      "cgei-ds-o-55-provenance"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-cds-licence",
+      "cgei-ds-r-55-secret-scanning"
+    ],
+    "expectedEvidence": [
+      "Licence/attribution note",
+      "Secret-handling plan",
+      "Severity-ranked findings"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-a-55-package",
+    "kind": "project-milestone",
+    "title": "Assemble a reproducible acquisition package",
+    "instructions": "Package a script, permitted sample or synthetic stub, manifest, licence note, README rerun instructions and .env.example. Run from a clean environment and verify the expected outputs.",
+    "level": "L3",
+    "estimatedMinutes": 45,
+    "objectiveIds": [
+      "cgei-ds-o-55-package"
+    ],
+    "resourceIds": [
+      "cgei-ds-r-55-good-practices",
+      "cgei-ds-r-55-cds-licence"
+    ],
+    "expectedEvidence": [
+      "Acquisition script",
+      "Manifest and licence note",
+      "README and safe .env.example",
+      "Clean-run validation log"
+    ],
+    "required": true
+  }
   ],
   assessments: [
     { id: 'cgei-ds-assess-unit-diagnostic', kind: 'diagnostic', title: 'Unit 5.1 entry diagnostic', purpose: 'Identify prerequisite gaps in algebra, units, rates and probability before the unit.', objectiveIds: outcomes51.map((o) => o.id), required: false },
@@ -767,6 +1444,77 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-assess-54-tests', kind: 'formative', title: 'Hypothesis testing and FDR check', purpose: 'Check conditional p-value interpretation, Type I/II errors and multiple-testing adjustment.', objectiveIds: ['cgei-ds-o-54-tests'], questionIds: ['cgei-ds-q-54-005', 'cgei-ds-q-54-006'], activityIds: ['cgei-ds-a-54-tests'], required: true },
     { id: 'cgei-ds-assess-54-regression', kind: 'practical', title: 'Regression diagnostics check', purpose: 'Check slope units, residual diagnostics and the distinction between association and causation.', objectiveIds: ['cgei-ds-o-54-regression'], questionIds: ['cgei-ds-q-54-007', 'cgei-ds-q-54-008'], activityIds: ['cgei-ds-a-54-regression'], required: true },
     { id: 'cgei-ds-assess-54-effect-size', kind: 'portfolio-review', title: 'Effect-size and method-choice review', purpose: 'Check practical interpretation and whether alternative methods address the stated problem and assumptions.', objectiveIds: ['cgei-ds-o-54-effect-size'], questionIds: ['cgei-ds-q-54-009', 'cgei-ds-q-54-010'], activityIds: ['cgei-ds-a-54-effect-size'], required: true },
+,
+{
+    "id": "cgei-ds-assess-55-workflow",
+    "kind": "formative",
+    "title": "Workflow and idempotence check",
+    "purpose": "Check stage ordering, raw-data preservation, manifest completeness and safe reruns.",
+    "objectiveIds": [
+      "cgei-ds-o-55-workflow"
+    ],
+    "questionIds": [
+      "cgei-ds-q-55-001",
+      "cgei-ds-q-55-002"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-assess-55-sql",
+    "kind": "formative",
+    "title": "Relational query and join check",
+    "purpose": "Check date filtering, grouping, stable keys and row-count diagnostics.",
+    "objectiveIds": [
+      "cgei-ds-o-55-sql"
+    ],
+    "questionIds": [
+      "cgei-ds-q-55-003",
+      "cgei-ds-q-55-004"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-assess-55-api",
+    "kind": "formative",
+    "title": "API acquisition reliability check",
+    "purpose": "Check status handling, bounded retries, timeouts and response validation.",
+    "objectiveIds": [
+      "cgei-ds-o-55-api"
+    ],
+    "questionIds": [
+      "cgei-ds-q-55-005",
+      "cgei-ds-q-55-006"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-assess-55-provenance",
+    "kind": "formative",
+    "title": "Licence and credential safety check",
+    "purpose": "Check that learners distinguish public access from reuse permission and separate templates from secrets.",
+    "objectiveIds": [
+      "cgei-ds-o-55-provenance"
+    ],
+    "questionIds": [
+      "cgei-ds-q-55-007",
+      "cgei-ds-q-55-008"
+    ],
+    "required": true
+  },
+  {
+    "id": "cgei-ds-assess-55-package",
+    "kind": "formative",
+    "title": "Reproducible package acceptance check",
+    "purpose": "Check manifest completeness, rerun instructions, safe configuration and clean-environment reproducibility.",
+    "objectiveIds": [
+      "cgei-ds-o-55-package"
+    ],
+    "questionIds": [
+      "cgei-ds-q-55-009",
+      "cgei-ds-q-55-010"
+    ],
+    "required": true
+  }
   ],
   rubrics: [
     {
@@ -797,6 +1545,55 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-d-54-brief', title: 'Statistical brief', description: 'A short report containing one estimation problem and one regression, with intervals, effect sizes, diagnostics and limitations.', artefactTypes: ['report', 'notebook', 'table'], acceptanceCriteria: ['Population and sample support are explicit', 'Estimate and interval include units', 'Effect size is interpreted practically', 'Assumptions and dependence are discussed', 'Conclusions avoid causal overclaim'] },
     { id: 'cgei-ds-d-54-inference-checklist', title: 'Inference and test-decision checklist', description: 'A reusable checklist for selecting and interpreting environmental statistical tests.', artefactTypes: ['report'], acceptanceCriteria: ['Null/alternative and estimand are stated', 'Test assumptions are checked', 'Multiple testing is considered', 'P-value is interpreted conditionally', 'Effect size is reported alongside uncertainty'] },
     { id: 'cgei-ds-d-54-regression-notebook', title: 'Regression diagnostics notebook', description: 'A reproducible OLS analysis with units, effect size, confidence interval and residual diagnostics.', artefactTypes: ['notebook', 'plot', 'report'], acceptanceCriteria: ['Predictor/response units are explicit', 'Residual-vs-fitted and QQ diagnostics are included', 'Sample support and dependence are stated', 'Slope is interpreted as association unless a causal design exists'] },
+,
+{
+    "id": "cgei-ds-d-55-acquisition-package",
+    "title": "Reproducible environmental-data acquisition package",
+    "description": "A shareable package containing an acquisition script, raw sample or synthetic stub, manifest, licence note, README and safe environment template.",
+    "artefactTypes": [
+      "repository",
+      "script",
+      "dataset",
+      "report"
+    ],
+    "acceptanceCriteria": [
+      "Raw inputs are preserved and transformations are deterministic",
+      "Request parameters, source/version, units, extent, retrieval time and checksum are recorded",
+      "Timeouts, status checks, validation and useful failure messages are present",
+      "README reproduces the workflow from a clean environment",
+      "No credentials or restricted data are committed"
+    ]
+  },
+  {
+    "id": "cgei-ds-d-55-sql-query",
+    "title": "Validated station-summary SQL query",
+    "description": "A query and short note that returns mean June maximum temperature by station with join and completeness checks.",
+    "artefactTypes": [
+      "script",
+      "table",
+      "report"
+    ],
+    "acceptanceCriteria": [
+      "Date interval and output grain are explicit",
+      "Stable primary/foreign keys are used",
+      "Unmatched keys and duplicate metadata IDs are checked",
+      "Counts and valid-day rules are reported"
+    ]
+  },
+  {
+    "id": "cgei-ds-d-55-provenance-note",
+    "title": "Data provenance, licence and secrets note",
+    "description": "A concise record of dataset terms, attribution, credential handling and ethical limits for a specific acquisition.",
+    "artefactTypes": [
+      "report"
+    ],
+    "acceptanceCriteria": [
+      "Exact dataset licence is identified and dated",
+      "Attribution and redistribution constraints are stated",
+      "Secrets are externalised and .env.example contains no real key",
+      "Sensitive data and location risks are considered"
+    ]
+  }
   ],
   projects: [
     {
