@@ -53,6 +53,8 @@ export interface Formula {
   name: string;
   expression: string;
   variables: FormulaVariable[];
+  /** Optional authored teaching note attached to legacy formula entries. */
+  notes?: string;
 }
 
 export interface ComparisonTable {
