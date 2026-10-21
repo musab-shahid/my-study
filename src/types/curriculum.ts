@@ -176,6 +176,8 @@ export interface CurriculumUnit {
   assessmentIds: string[];
   resourceIds: string[];
   deliverableIds: string[];
+  /** Optional legacy section route while the old navigation is retained. */
+  legacySectionId?: string;
   sourceDocument?: string;
   notes?: string[];
 }
