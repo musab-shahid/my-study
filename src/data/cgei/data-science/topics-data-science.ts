@@ -71,7 +71,6 @@ export const topics: Topic[] = [
     ],
     relatedTopics: ['cgei-ds-water-mass-balance', 'cgei-ds-energy-balance'],
     content: true,
-    buildsOn: ['cgei-data-science-roadmap'],
     leadsTo: ['cgei-ds-rates-finite-diff'],
     usedIn: [],
   },
