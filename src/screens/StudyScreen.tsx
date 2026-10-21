@@ -349,6 +349,9 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
   const unitDeliverables = curriculumUnit
     ? curriculumUnit.deliverableIds.map((id) => cgeiCurriculum.deliverables.find((deliverable) => deliverable.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
     : [];
+  const unitResources = curriculumUnit
+    ? curriculumUnit.resourceIds.map((id) => cgeiCurriculum.resources.find((resource) => resource.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
 
   if (!section) {
     return (
@@ -408,7 +411,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
               </div>
             </div>
           )}
-          <div className="grid sm:grid-cols-2 gap-4 mt-4">
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
             {unitAssessments.length > 0 && (
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Checks and assessments</h3>
@@ -431,6 +434,22 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                     <li key={deliverable.id} className="rounded-lg border border-slate-200 bg-white p-3">
                       <p className="font-medium text-sm text-slate-900">{deliverable.title}</p>
                       <p className="text-xs text-slate-600 mt-1">{deliverable.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {unitResources.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Supporting references</h3>
+                <ul className="space-y-2">
+                  {unitResources.map((resource) => (
+                    <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      {resource.url ? (
+                        <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a>
+                      ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
+                      <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
+                      {resource.authorOrPublisher && <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
                     </li>
                   ))}
                 </ul>
