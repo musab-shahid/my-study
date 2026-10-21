@@ -23,6 +23,12 @@ const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'cgei-ml-geoai': () => import('./cgei/ml-geoai/topics-ml-geoai'),
   'cgei-climate-risk': () => import('./cgei/climate-risk/topics-climate-risk'),
   'cgei-research-practice': () => import('./cgei/research-practice/topics-research-practice'),
+  'cgei-decision-support': () => import('./cgei/decision-support/topics-decision-support'),
+  'cgei-climate-policy': () => import('./cgei/climate-policy/topics-climate-policy'),
+  'cgei-software-engineering': () => import('./cgei/software-engineering/topics-software-engineering'),
+  'cgei-advanced-ai': () => import('./cgei/advanced-ai/topics-advanced-ai'),
+  'cgei-capstone': () => import('./cgei/capstone/topics-capstone'),
+  'cgei-advanced-branches': () => import('./cgei/advanced-branches/topics-advanced-branches'),
 };
 
 
@@ -45,6 +51,12 @@ const questionLoaders: Record<string, () => Promise<QuestionModule>> = {
   'cgei-ml-geoai': () => import('./cgei/ml-geoai/questions-ml-geoai'),
   'cgei-climate-risk': () => import('./cgei/climate-risk/questions-climate-risk'),
   'cgei-research-practice': () => import('./cgei/research-practice/questions-research-practice'),
+  'cgei-decision-support': () => import('./cgei/decision-support/questions-decision-support'),
+  'cgei-climate-policy': () => import('./cgei/climate-policy/questions-climate-policy'),
+  'cgei-software-engineering': () => import('./cgei/software-engineering/questions-software-engineering'),
+  'cgei-advanced-ai': () => import('./cgei/advanced-ai/questions-advanced-ai'),
+  'cgei-capstone': () => import('./cgei/capstone/questions-capstone'),
+  'cgei-advanced-branches': () => import('./cgei/advanced-branches/questions-advanced-branches'),
 };
 
 
