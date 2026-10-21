@@ -14,7 +14,7 @@ import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
 export type ScreenName =
   | 'home' | 'learn' | 'section' | 'topic' | 'formulas' | 'flashcards' | 'cloud-atlas'
-  | 'practice' | 'quiz' | 'review' | 'progress' | 'search' | 'settings' | 'hat' | 'fpsc' | 'track';
+  | 'practice' | 'quiz' | 'review' | 'progress' | 'search' | 'settings' | 'hat' | 'fpsc' | 'track' | 'curriculum-unit' | 'curriculum-lesson';
 
 export type Route =
   | { screen: 'home' }
@@ -32,7 +32,9 @@ export type Route =
   | { screen: 'settings' }
   | { screen: 'hat' }
   | { screen: 'fpsc' }
-  | { screen: 'track'; trackId: string };
+  | { screen: 'track'; trackId: string }
+  | { screen: 'curriculum-unit'; unitId: string }
+  | { screen: 'curriculum-lesson'; lessonId: string };
 
 export interface BreadcrumbItem {
   label: string;
@@ -60,6 +62,8 @@ interface NavigateOptions {
   topicIds?: string[];
   wrongPool?: boolean;
   trackId?: string;
+  unitId?: string;
+  lessonId?: string;
 }
 
 interface RouterContext {
@@ -95,6 +99,10 @@ function buildRoute(options: NavigateOptions): Route {
     case 'settings': return { screen: 'settings' };
     case 'hat': return { screen: 'hat' };
     case 'fpsc': return { screen: 'fpsc' };
+    case 'curriculum-unit':
+      return options.unitId ? { screen: 'curriculum-unit', unitId: options.unitId } : { screen: 'learn' };
+    case 'curriculum-lesson':
+      return options.lessonId ? { screen: 'curriculum-lesson', lessonId: options.lessonId } : { screen: 'learn' };
     case 'track':
       if (options.trackId && isTrackId(options.trackId)) {
         return { screen: 'track', trackId: options.trackId };
@@ -125,6 +133,8 @@ export function routeLabel(route: Route): string {
     case 'settings': return 'Settings';
     case 'hat': return 'HAT Prep';
     case 'fpsc': return 'FPSC Exam';
+    case 'curriculum-unit': return 'Curriculum Unit';
+    case 'curriculum-lesson': return 'Curriculum Lesson';
     case 'track':
       return isTrackId(route.trackId)
         ? getTrackDefinition(route.trackId).shortTitle || getTrackDefinition(route.trackId).title
