@@ -7,6 +7,7 @@ import { loadData, saveData, flushPendingSave, markTopicStudied, markCurriculumL
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
+import { cgeiCurriculum } from '@/data/cgei/curriculum';
 
 export interface DataContextValue {
   data: AppData;
@@ -158,9 +159,20 @@ export function DataProvider({ children }: { children: ReactNode }) {
       const subjectTopicIds = new Set(
         topics.filter((t) => subjectSectionIds.has(t.sectionId)).map((t) => t.id)
       );
+      const curriculumSubjectIds = new Set(
+        cgeiCurriculum.subjects.filter((subject) => subjectIdSet.has(subject.subjectId)).map((subject) => subject.subjectId)
+      );
+      const curriculumUnitIds = new Set(
+        cgeiCurriculum.units.filter((unit) => cgeiCurriculum.subjects.some((subject) => curriculumSubjectIds.has(subject.subjectId) && subject.unitIds.includes(unit.id))).map((unit) => unit.id)
+      );
+      const curriculumLessonIds = new Set(
+        cgeiCurriculum.lessons.filter((lesson) => curriculumUnitIds.has(cgeiCurriculum.units.find((unit) => unit.lessonIds.includes(lesson.id))?.id ?? '')).map((lesson) => lesson.id)
+      );
 
       return {
         studiedTopics: prev.studiedTopics.filter((tid) => !subjectTopicIds.has(tid)),
+        studiedCurriculumLessons: (prev.studiedCurriculumLessons ?? []).filter((id) => !curriculumLessonIds.has(id)),
+        lastOpenedCurriculumLesson: curriculumLessonIds.has(prev.lastOpenedCurriculumLesson ?? '') ? '' : (prev.lastOpenedCurriculumLesson ?? ''),
         topicProgress: Object.fromEntries(
           Object.entries(prev.topicProgress).filter(([tid]) => !subjectTopicIds.has(tid))
         ),
