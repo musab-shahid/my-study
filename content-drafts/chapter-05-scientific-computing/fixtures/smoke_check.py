@@ -248,6 +248,97 @@ def check_unit_5_4_examples() -> None:
     print("OK Unit 5.4 statistics examples")
 
 
+def check_unit_5_5_examples() -> None:
+    """Check the Unit 5.5 SQL, key integrity, idempotence and manifest examples."""
+    import sqlite3
+
+    conn = sqlite3.connect(":memory:")
+    conn.executescript(
+        """
+        CREATE TABLE stations (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            latitude REAL NOT NULL,
+            longitude REAL NOT NULL
+        );
+        CREATE TABLE daily (
+            station_id INTEGER NOT NULL,
+            date TEXT NOT NULL,
+            tmax_c REAL,
+            UNIQUE (station_id, date)
+        );
+        INSERT INTO stations VALUES
+            (1, 'North', 31.0, 71.0),
+            (2, 'South', 31.2, 71.4);
+        INSERT INTO daily VALUES
+            (1, '2024-06-01', 35.0),
+            (1, '2024-06-02', 37.0),
+            (1, '2024-07-01', 39.0),
+            (2, '2024-06-01', 40.0),
+            (99, '2024-06-01', 42.0);
+        """
+    )
+    rows = conn.execute(
+        """
+        SELECT s.id, s.name, AVG(d.tmax_c), COUNT(d.tmax_c)
+        FROM stations AS s
+        JOIN daily AS d ON d.station_id = s.id
+        WHERE d.date >= '2024-06-01' AND d.date < '2024-07-01'
+        GROUP BY s.id, s.name
+        ORDER BY s.id
+        """
+    ).fetchall()
+    assert rows == [(1, "North", 36.0, 2), (2, "South", 40.0, 1)]
+    orphan_count = conn.execute(
+        """
+        SELECT COUNT(*) FROM daily AS d
+        LEFT JOIN stations AS s ON s.id = d.station_id
+        WHERE s.id IS NULL
+        """
+    ).fetchone()[0]
+    assert orphan_count == 1  # a join should not silently hide unmatched keys
+
+    # Same-key, same-value ingestion is idempotent; conflicting values fail loudly.
+    def merge_by_key(existing, incoming):
+        merged = {(r["station_id"], r["date"]): dict(r) for r in existing}
+        for record in incoming:
+            key = (record["station_id"], record["date"])
+            if key in merged and merged[key] != record:
+                raise ValueError(f"conflicting record for {key}")
+            merged[key] = dict(record)
+        return [merged[key] for key in sorted(merged)]
+
+    incoming = [
+        {"station_id": "S1", "date": "2024-06-01", "tmax_c": 35.0},
+        {"station_id": "S1", "date": "2024-06-02", "tmax_c": 37.0},
+    ]
+    first = merge_by_key([], incoming)
+    second = merge_by_key(first, incoming)
+    assert first == second and len(second) == 2
+    try:
+        merge_by_key(first, [{"station_id": "S1", "date": "2024-06-01", "tmax_c": 99.0}])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("conflicting duplicate key was not rejected")
+
+    manifest = {
+        "dataset_id": "synthetic_station_daily",
+        "source": "synthetic fixture",
+        "variable": "tmax_c",
+        "source_units": "degree_Celsius",
+        "temporal_extent": "2024-06-01/2024-06-30",
+        "retrieved_utc": "2026-10-22T00:00:00Z",
+        "licence": "synthetic educational fixture",
+        "sha256": "example-checksum-placeholder",
+    }
+    required = {"dataset_id", "source", "variable", "source_units", "temporal_extent", "retrieved_utc", "licence", "sha256"}
+    assert required.issubset(manifest)
+    assert manifest["source_units"] == "degree_Celsius"
+    conn.close()
+    print("OK Unit 5.5 SQL, idempotence and manifest examples")
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -258,6 +349,7 @@ def main() -> int:
     check_unit_5_2_examples()
     check_unit_5_3_examples()
     check_unit_5_4_examples()
+    check_unit_5_5_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
