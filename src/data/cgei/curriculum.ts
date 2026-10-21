@@ -6,7 +6,8 @@
  * progress. The roadmap is represented in CurriculumSubject.overview, never as
  * a Topic or a lesson.
  */
-import type { CurriculumContentBlock, CurriculumRegistry, CurriculumOutcome, CurriculumLesson } from '@/types/curriculum';
+import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, CurriculumOutcome, CurriculumLesson } from '@/types/curriculum';
+import { questions as legacyDataScienceQuestions } from './data-science/questions-data-science';
 import type { Topic } from '@/types';
 import { topics as dataScienceTopics } from './data-science/topics-data-science';
 
@@ -292,6 +293,24 @@ const lessons54: CurriculumLesson[] = lessonDefinitions54.map((lesson, index) =>
 
 const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54];
 
+const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
+  if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
+  const lesson = lessonDefinitions.find((item) => item.sourceTopicId === question.topicId);
+  if (!lesson) return [];
+  return [{
+    id: question.id,
+    lessonId: lesson.id,
+    type: 'single-choice',
+    prompt: question.question,
+    options: [...question.options],
+    correctAnswer: question.correctAnswer,
+    explanation: question.explanation,
+    difficulty: question.difficulty,
+    cognitiveLevel: question.difficulty === 'hard' ? 'analyze' : question.difficulty === 'medium' ? 'apply' : 'understand',
+  }];
+});
+
+
 export const cgeiCurriculum: CurriculumRegistry = {
   schemaVersion: 2,
   tracks: [
@@ -386,6 +405,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
   ],
   lessons,
   questions: [
+    ...legacyCurriculumQuestions,
     { id: 'cgei-ds-q-52-001', lessonId: 'cgei-ds-lesson-5-2-1', type: 'single-choice', prompt: 'A temperature conversion is repeated in four notebooks. What is the strongest first step to reduce inconsistent results?', options: ['Copy the formula into all notebooks and check it visually', 'Create one documented, tested function and import it wherever needed', 'Round the converted values before saving them', 'Keep one manually maintained output table'], correctAnswer: 1, explanation: 'One tested function centralizes the transformation and its unit contract. It prevents duplicated implementations from drifting; tests should cover typical values and invalid inputs.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-52-002', lessonId: 'cgei-ds-lesson-5-2-1', type: 'single-choice', prompt: 'Why should a script entry point usually be guarded with if __name__ == "__main__":?', options: ['It makes all variables global', 'It automatically pins package versions', 'It prevents the script’s main workflow from running merely because the module is imported', 'It converts a notebook into a package'], correctAnswer: 2, explanation: 'The guard separates importable definitions from command-line execution. Other modules can import functions without unexpectedly triggering file reads or analysis runs.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ds-q-52-003', lessonId: 'cgei-ds-lesson-5-2-2', type: 'single-choice', prompt: 'What is the result shape when an array shaped (3, 1, 1) is added to one shaped (1, 2, 2)?', options: ['(3, 1, 1)', '(3, 2, 2)', '(1, 3, 2)', 'The operation must fail'], correctAnswer: 1, explanation: 'Broadcasting compares dimensions from the right. The compatible dimensions become max(1,2)=2, max(1,2)=2 and max(3,1)=3, producing (3,2,2). Confirm that these axes mean time, latitude and longitude in the intended order.', difficulty: 'medium', cognitiveLevel: 'apply' },
