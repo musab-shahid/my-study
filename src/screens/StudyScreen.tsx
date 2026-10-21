@@ -339,6 +339,16 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
   const { data } = useData();
   const section = sectionMap[sectionId];
   const sectionTopics = topicsBySection(sectionId);
+  const curriculumUnit = cgeiCurriculum.units.find((unit) => unit.legacySectionId === sectionId);
+  const unitActivities = curriculumUnit
+    ? curriculumUnit.activityIds.map((id) => cgeiCurriculum.activities.find((activity) => activity.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const unitAssessments = curriculumUnit
+    ? curriculumUnit.assessmentIds.map((id) => cgeiCurriculum.assessments.find((assessment) => assessment.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const unitDeliverables = curriculumUnit
+    ? curriculumUnit.deliverableIds.map((id) => cgeiCurriculum.deliverables.find((deliverable) => deliverable.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
 
   if (!section) {
     return (
@@ -363,6 +373,72 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
         <h1 className="text-2xl sm:text-[1.75rem] font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
         <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
+      {curriculumUnit && (
+        <Card className="mb-5 p-4 sm:p-5 border border-teal-100 bg-teal-50/30">
+          <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
+          <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
+          {curriculumUnit.outcomes.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning outcomes</h3>
+              <ul className="space-y-2">
+                {curriculumUnit.outcomes.map((outcome) => (
+                  <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+                    <span className="rounded-md bg-white border border-teal-100 px-1.5 py-0.5 text-[10px] font-bold text-teal-800 shrink-0">{outcome.level}</span>
+                    <span>{outcome.statement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {unitActivities.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Practice activities</h3>
+              <div className="space-y-2">
+                {unitActivities.map((activity) => (
+                  <div key={activity.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-sm text-slate-900">{activity.title}</span>
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes && <span className="text-[10px] text-slate-500">~{activity.estimatedMinutes} min</span>}
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{activity.instructions}</p>
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-teal-800 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="grid sm:grid-cols-2 gap-4 mt-4">
+            {unitAssessments.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Checks and assessments</h3>
+                <ul className="space-y-2">
+                  {unitAssessments.map((assessment) => (
+                    <li key={assessment.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      <p className="font-medium text-sm text-slate-900">{assessment.title}</p>
+                      <p className="text-xs text-slate-600 mt-1">{assessment.purpose}</p>
+                      {assessment.passThreshold !== undefined && <p className="text-xs text-slate-500 mt-1">Target: {Math.round(assessment.passThreshold * 100)}%</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {unitDeliverables.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Portfolio evidence</h3>
+                <ul className="space-y-2">
+                  {unitDeliverables.map((deliverable) => (
+                    <li key={deliverable.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      <p className="font-medium text-sm text-slate-900">{deliverable.title}</p>
+                      <p className="text-xs text-slate-600 mt-1">{deliverable.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
       <div className="space-y-2">
         {sectionTopics.map((topic) => {
           const prog = data.topicProgress[topic.id];
@@ -374,7 +450,14 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
-                  {topic.content ? <span className="text-success-600 text-xs font-medium">Content available</span> : <span className="text-slate-400 text-xs">Content coming soon</span>}
+                  {(() => {
+                    const lesson = cgeiCurriculum.lessons.find((item) => item.sourceTopicId === topic.id);
+                    return (
+                      <span className="text-xs text-slate-500">
+                        {lesson ? `${lesson.level} · ~${lesson.estimatedMinutes ?? 0} min · ${lesson.readiness}` : topic.content ? 'Content available' : 'Content coming soon'}
+                      </span>
+                    );
+                  })()}
                 </div>
                 <TopicStatusIcon status={status} />
                 <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
