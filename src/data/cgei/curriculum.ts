@@ -174,7 +174,7 @@ function legacyTopicToBlocks(topicId: string): CurriculumContentBlock[] {
   const blocks: CurriculumContentBlock[] = [];
   if (topic.definition) blocks.push({ id: `${topicId}-definition`, kind: 'prose', title: 'Core idea', body: topic.definition });
   if (topic.keyFacts?.length) blocks.push({ id: `${topicId}-key-points`, kind: 'key-points', title: 'Key points', items: topic.keyFacts });
-  for (const [index, section] of (topic.explanationSections ?? []).entries()) {
+  for (const [index, section] of (topic.explanationSections ?? []).filter((section) => section.heading.trim().toLowerCase() !== 'learning objectives').entries()) {
     blocks.push({ id: `${topicId}-explanation-${index + 1}`, kind: 'prose', title: section.heading, body: section.body });
   }
   const rawFormulas = topic.formula ?? topic.formulas;
