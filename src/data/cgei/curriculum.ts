@@ -113,7 +113,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       code, title, order: index + 2, kind: 'unit' as const, readiness: 'planned' as const, summary,
       prerequisites: [index === 0 ? 'Unit 5.1 foundations' : `Unit ${plannedUnits[index - 1][0]}`],
       outcomes: [] as CurriculumOutcome[], lessonIds: [] as string[], activityIds: [] as string[], assessmentIds: [] as string[], resourceIds: [] as string[], deliverableIds: [] as string[],
-      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/${code.replace('.', '')}-${['scientific-python', 'exploratory-data-analysis', 'introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series-analysis', 'multivariate-analysis', 'glm-mixed-bayesian', 'causal-inference', 'research-software-engineering', 'xarray-environmental-pipelines'][index]}.md`,
+      sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${['python-scientific-work', 'exploration-visualisation', 'introductory-statistics', 'data-workflow-engineering', 'intermediate-inference', 'time-series', 'multivariate', 'glm-mixed-bayesian', 'causal-inference', 'research-software', 'xarray-pipelines'][index]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
     {
