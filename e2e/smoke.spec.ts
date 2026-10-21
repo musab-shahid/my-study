@@ -50,3 +50,35 @@ test.describe('Practice gate', () => {
   });
 });
 
+test.describe('CGEI Unit 5.8 lesson rendering', () => {
+  const lessons = [
+    { id: 'cgei-ds-lesson-5-8-1', title: 'Build a defensible multivariate data matrix' },
+    { id: 'cgei-ds-lesson-5-8-2', title: 'Area weighting and covariance targets' },
+    { id: 'cgei-ds-lesson-5-8-3', title: 'PCA/EOF by eigenanalysis and SVD' },
+    { id: 'cgei-ds-lesson-5-8-4', title: 'Choose modes and test stability' },
+    { id: 'cgei-ds-lesson-5-8-5', title: 'Indices, composites and field significance' },
+  ];
+
+  for (const lesson of lessons) {
+    test(`renders draft lesson: ${lesson.title}`, async ({ page }) => {
+      await page.goto(`/curriculum/lesson/${lesson.id}`);
+      await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'References and tools', exact: true })).toBeVisible();
+      await expect(page.getByRole('button', { name: /Unit overview/i })).toBeVisible();
+    });
+  }
+
+  test('Unit 5.8 overview lists all five lessons and remains marked draft', async ({ page }) => {
+    await page.goto('/curriculum/unit/cgei-ds-unit-5-8');
+    await expect(page.getByRole('heading', { name: 'Multivariate analysis, PCA and EOF', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    for (const lesson of lessons) {
+      await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')) })).toBeVisible();
+    }
+    await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
+  });
+});
