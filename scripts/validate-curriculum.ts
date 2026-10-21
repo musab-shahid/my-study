@@ -72,9 +72,25 @@ for (const unit of cgeiCurriculum.units) {
   const orders = unit.lessonIds.map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.order);
   if (orders.some((order) => order === undefined)) errors.push(`Unit ${unit.id} has a lesson with no record`);
 }
+const contentBlockIds = new Set<string>();
+const bridgedTopicIds = new Set<string>();
 for (const lesson of cgeiCurriculum.lessons) {
   if (lesson.sourceTopicId && !topicIds.has(lesson.sourceTopicId)) errors.push(`Lesson ${lesson.id} references missing legacy topic ${lesson.sourceTopicId}`);
-  if (!lesson.sourceTopicId && lesson.content.length === 0) errors.push(`Lesson ${lesson.id} has neither content blocks nor a legacy content bridge`);
+  if (lesson.sourceTopicId && bridgedTopicIds.has(lesson.sourceTopicId)) errors.push(`More than one lesson bridges to legacy topic ${lesson.sourceTopicId}`);
+  if (lesson.sourceTopicId) bridgedTopicIds.add(lesson.sourceTopicId);
+  if (lesson.content.length === 0 && !lesson.sourceTopicId) errors.push(`Lesson ${lesson.id} has neither content blocks nor a legacy content bridge`);
+  if (lesson.sourceTopicId && lesson.content.length === 0) errors.push(`Migrated lesson ${lesson.id} has no canonical content blocks`);
+  for (const block of lesson.content) {
+    if (contentBlockIds.has(block.id)) errors.push(`Duplicate content block ID: ${block.id}`);
+    contentBlockIds.add(block.id);
+    if (['prose', 'worked-example'].includes(block.kind) && !block.body?.trim()) errors.push(`Content block ${block.id} (${block.kind}) requires body text`);
+    if (['key-points', 'checklist'].includes(block.kind) && !block.items?.length) errors.push(`Content block ${block.id} (${block.kind}) requires items`);
+    if (block.kind === 'equation' && !block.expression?.trim()) errors.push(`Equation block ${block.id} requires an expression`);
+    if (block.kind === 'table' && !block.headers?.length && !block.rows?.length) errors.push(`Table block ${block.id} requires headers or rows`);
+    if (block.kind === 'code' && !block.code?.trim() && !block.body?.trim()) errors.push(`Code block ${block.id} requires code or body`);
+    if (['callout', 'reflection'].includes(block.kind) && !block.body?.trim() && !block.items?.length) errors.push(`Content block ${block.id} (${block.kind}) requires body text or items`);
+    if (block.kind === 'figure' && !block.body?.trim() && !block.caption?.trim()) errors.push(`Figure block ${block.id} requires a description or caption`);
+  }
   checkRefs(`Lesson ${lesson.id} activities`, lesson.activityIds, activityIds);
   checkRefs(`Lesson ${lesson.id} assessments`, lesson.assessmentIds, assessmentIds);
   checkRefs(`Lesson ${lesson.id} resources`, lesson.resourceIds, resourceIds);
