@@ -2,13 +2,13 @@
 
 **Branch:** `feat/cgei-full-curriculum-skeleton`  
 **Curriculum:** Master Study TOC · 19 October 2026  
-**Status:** **v5.5** — manuscript units 5.1–5.12 plus canonical app pilots for Units 5.1–5.5; Units 5.2–5.5 remain draft pending validation and instructional review
+**Status:** **v5.6** — manuscript units 5.1–5.12 plus canonical app pilots for Units 5.1–5.6; integrated units remain draft pending validation and instructional review
 
 ## Quality
 - `05-QUALITY-AUDIT.md` — independent audit (v4)
 - `06-SOLUTION-KEYS-AND-RUBRICS.md` — A keys + B/C rubrics
-- `fixtures/smoke_check.py` — numerical + synthetic EOF/timezone checks, including Unit 5.2–5.5 examples (SQL, idempotence, manifest and mocked API retries)
-- `07-UNIT-5.1-APP-COVERAGE-MAP.md`, `08-UNIT-5.2-APP-COVERAGE-MAP.md`, `09-UNIT-5.3-APP-COVERAGE-MAP.md` and `10-UNIT-5.5-APP-COVERAGE-MAP.md` — manuscript-to-app traceability
+- `fixtures/smoke_check.py` — numerical + synthetic EOF/timezone checks, including Unit 5.2–5.6 examples (SQL, idempotence, manifests, mocked API retries, regression interactions and grouped validation)
+- `07-UNIT-5.1-APP-COVERAGE-MAP.md`, `08-UNIT-5.2-APP-COVERAGE-MAP.md`, `09-UNIT-5.3-APP-COVERAGE-MAP.md`, `10-UNIT-5.5-APP-COVERAGE-MAP.md` and `11-UNIT-5.6-APP-COVERAGE-MAP.md` — manuscript-to-app traceability
 
 ## Contents
 | Path | Role |
@@ -17,6 +17,7 @@
 | `08-UNIT-5.2-APP-COVERAGE-MAP.md` | Scientific Python manuscript-to-app traceability |
 | `09-UNIT-5.3-APP-COVERAGE-MAP.md` | EDA and visualisation manuscript-to-app traceability |
 | `10-UNIT-5.5-APP-COVERAGE-MAP.md` | Data workflow engineering manuscript-to-app traceability |
+| `11-UNIT-5.6-APP-COVERAGE-MAP.md` | Intermediate inference and model-validation manuscript-to-app traceability |
 | `01-CHAPTER-ORIENTATION.md` | Part I entry + diagnostic |
 | `units/05.1` … `05.12` | Full teaching units |
 | `02-CROSS-UNIT-INTEGRATION.md` | Dependencies + checklist |
@@ -30,4 +31,4 @@
 4. Causal design brief with assumptions and falsifiers (5.10)  
 
 ## Next stage
-Units 5.2–5.5 have canonical app drafts. Before release, pass current CI and fixture checks, review code/math wrapping at desktop and mobile widths, and complete each unit's coverage-map checks. Then integrate Unit 5.6; keep all draft units labelled honestly and do not create pseudo-topics for course overviews.
+Units 5.2–5.6 have canonical app drafts. Before release, pass current CI and fixture checks, review code/math wrapping at desktop and mobile widths, and complete each unit's coverage-map checks. Then integrate Unit 5.7; keep all draft units labelled honestly and do not create pseudo-topics for course overviews.
