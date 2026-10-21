@@ -49,6 +49,7 @@ describe('CGEI curriculum structure', () => {
     }
     assert.equal(cgeiCurriculum.lessons.length, 28);
     assert.equal(cgeiCurriculum.questions.length, 76);
+    assert.deepEqual(cgeiCurriculum.units.map((unit) => unit.order).sort((a, b) => a - b), Array.from({ length: 12 }, (_, index) => index + 1));
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
     const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
