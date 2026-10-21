@@ -23,10 +23,10 @@
 
 ## Review criteria before changing readiness
 
-1. Execute the SQL example against a small deterministic fixture and test unmatched/duplicate keys.
-2. Test HTTP handling with mocked 200, 429, 500 and timeout cases; do not make tests depend on a live provider.
-3. Check that retries are bounded and restricted to safe operations; confirm pagination termination and cache behaviour.
-4. Verify manifest fields and checksum procedure against a synthetic or permitted sample.
+1. A deterministic SQLite smoke check now executes the June aggregation query and checks unmatched keys. Extend it if the schema or query changes.
+2. Deterministic smoke checks now cover mocked 200, 429, repeated 500 and timeout cases; do not make tests depend on a live provider.
+3. Bounded retry behaviour is smoke-tested. Provider-specific pagination termination and live cache behaviour remain unverified because no live endpoint is called by CI.
+4. The fixture checks required manifest fields, but the checksum is only a placeholder; verify a real SHA-256 calculation against a synthetic or permitted sample before release.
 5. Review the exact current licence for any real dataset used; do not assume public download grants redistribution rights.
 6. Confirm no real credentials, private station data or sensitive locations enter the committed fixture.
 7. Run `npm run validate:data`, `npm run check`, and the scientific workflow checks. Keep readiness at `draft` until the checks and teaching review pass.
