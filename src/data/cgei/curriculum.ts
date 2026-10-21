@@ -640,7 +640,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "A bounded retry pattern for idempotent GET requests",
         "language": "python",
-        "code": "import time\nimport requests\n\nRETRYABLE = {429, 500, 502, 503, 504}\n\ndef get_json(url, params=None, attempts=5):\n    for attempt in range(attempts):\n        response = requests.get(url, params=params, timeout=(5, 30))\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\n            retry_after = response.headers.get('Retry-After', '')\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\n            time.sleep(min(wait, 60))\n            continue\n        response.raise_for_status()\n        return response.json()\n    raise RuntimeError('Request attempts exhausted')\n\n# Add pagination handling and save the exact request/response metadata.\n# Retry only operations whose semantics make retrying safe."
+        "code": "import time\nimport requests\n\nRETRYABLE = {429, 500, 502, 503, 504}\n\ndef get_json(url, params=None, attempts=5):\n    for attempt in range(attempts):\n        try:\n            response = requests.get(url, params=params, timeout=(5, 30))\n        except (requests.Timeout, requests.ConnectionError):\n            if attempt == attempts - 1:\n                raise\n            time.sleep(min(2 ** attempt, 60))\n            continue\n\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\n            retry_after = response.headers.get('Retry-After', '')\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\n            time.sleep(min(wait, 60))\n            continue\n        response.raise_for_status()\n        return response.json()\n    raise RuntimeError('Request attempts exhausted')\n\n# Add pagination handling and save exact request/response metadata.\n# Retry only safe, idempotent operations; keep attempts bounded."
       },
       {
         "id": "cgei-ds-55-3-checklist",
@@ -648,7 +648,7 @@ const lesson55Definitions = [
         "title": "Acquisition checklist",
         "items": [
           "Set timeouts and handle non-success status codes explicitly.",
-          "Respect rate limits and Retry-After; bound retries and backoff.",
+          "Respect rate limits and numeric Retry-After when supplied; bound retries and backoff.",
           "Follow pagination until the documented terminal condition, not until one page looks complete.",
           "Cache original responses under data/raw/ with request metadata and checksums.",
           "Validate units, schema, date coverage and expected spatial/temporal extent after download."
