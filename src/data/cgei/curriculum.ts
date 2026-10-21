@@ -154,7 +154,7 @@ const lessonDefinitions54 = [
   ] },
 ] satisfies Array<{ id: string; title: string; objectiveIds: string[]; minutes: number; activityIds: string[]; assessmentIds: string[]; resourceIds: string[]; deliverableIds: string[]; content: CurriculumContentBlock[] }>;
 
-const plannedUnits = [const plannedUnits = [
+const plannedUnits = [
   ['5.5', 'Data workflow engineering', 'Ingestion, schemas, quality checks, reproducible transformations and provenance.'],
   ['5.6', 'Intermediate statistical inference', 'Hypothesis tests, effect sizes, assumptions, multiple comparisons and robust inference.'],
   ['5.7', 'Time-series analysis', 'Temporal indexing, trend, seasonality, autocorrelation, extremes and forecast evaluation.'],
