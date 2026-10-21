@@ -64,6 +64,13 @@ export function StudyScreen() {
         .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit))
         .sort((a, b) => a.order - b.order)
     : [];
+  const lastCurriculumLesson = curriculumSubject && data.lastOpenedCurriculumLesson
+    ? cgeiCurriculum.lessons.find((lesson) =>
+        lesson.id === data.lastOpenedCurriculumLesson &&
+        !lesson.sourceTopicId &&
+        curriculumSubject.unitIds.some((unitId) => cgeiCurriculum.units.find((unit) => unit.id === unitId)?.lessonIds.includes(lesson.id))
+      )
+    : undefined;
 
   const handleSubjectChange = (value: SubjectFilterValue) => {
     setActiveSubjectForScreen('learn', value);
@@ -214,6 +221,12 @@ export function StudyScreen() {
                       ))}
                     </ul>
                   </div>
+                  {lastCurriculumLesson && (
+                    <button onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 p-3 text-left transition-colors">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
+                      <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
+                    </button>
+                  )}
                   <div className="mt-4">
                     <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Curriculum units</h3>
                     <div className="space-y-2">
