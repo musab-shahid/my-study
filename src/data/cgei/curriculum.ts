@@ -531,7 +531,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "Example manifest for a climate-data request",
         "language": "yaml",
-        "code": "dataset_id: era5_t2m_multan_2015_2024\\nsource: Copernicus Climate Data Store\\nvariable: 2m_temperature\\nsource_units: K\\nspatial_extent: documented bounding box\\ntemporal_extent: 2015-01-01/2024-12-31\\nrequest_file: requests/era5_request.json\\nretrieved_utc: YYYY-MM-DDTHH:MM:SSZ\\nlicence: verify the current dataset-specific terms\\nsha256: record checksum of the downloaded file\\nprocessing: daily maximum grouped by Asia/Karachi local date"
+        "code": "dataset_id: era5_t2m_multan_2015_2024\nsource: Copernicus Climate Data Store\nvariable: 2m_temperature\nsource_units: K\nspatial_extent: documented bounding box\ntemporal_extent: 2015-01-01/2024-12-31\nrequest_file: requests/era5_request.json\nretrieved_utc: YYYY-MM-DDTHH:MM:SSZ\nlicence: verify the current dataset-specific terms\nsha256: record checksum of the downloaded file\nprocessing: daily maximum grouped by Asia/Karachi local date"
       },
       {
         "id": "cgei-ds-55-1-example",
@@ -599,7 +599,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "Mean June maximum temperature by station",
         "language": "sql",
-        "code": "SELECT\\n  s.id AS station_id,\\n  s.name,\\n  AVG(d.tmax_c) AS mean_tmax_c,\\n  COUNT(d.tmax_c) AS n_valid_days\\nFROM stations AS s\\nJOIN daily AS d ON d.station_id = s.id\\nWHERE d.date >= '2024-06-01'\\n  AND d.date <  '2024-07-01'\\nGROUP BY s.id, s.name\\nORDER BY s.id;"
+        "code": "SELECT\n  s.id AS station_id,\n  s.name,\n  AVG(d.tmax_c) AS mean_tmax_c,\n  COUNT(d.tmax_c) AS n_valid_days\nFROM stations AS s\nJOIN daily AS d ON d.station_id = s.id\nWHERE d.date >= '2024-06-01'\n  AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;"
       },
       {
         "id": "cgei-ds-55-2-example",
@@ -640,7 +640,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "A bounded retry pattern for idempotent GET requests",
         "language": "python",
-        "code": "import time\\nimport requests\\n\\nRETRYABLE = {429, 500, 502, 503, 504}\\n\\ndef get_json(url, params=None, attempts=5):\\n    for attempt in range(attempts):\\n        response = requests.get(url, params=params, timeout=(5, 30))\\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\\n            retry_after = response.headers.get('Retry-After', '')\\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\\n            time.sleep(min(wait, 60))\\n            continue\\n        response.raise_for_status()\\n        return response.json()\\n    raise RuntimeError('Request attempts exhausted')\\n\\n# Add pagination handling and save the exact request/response metadata.\\n# Retry only operations whose semantics make retrying safe."
+        "code": "import time\nimport requests\n\nRETRYABLE = {429, 500, 502, 503, 504}\n\ndef get_json(url, params=None, attempts=5):\n    for attempt in range(attempts):\n        response = requests.get(url, params=params, timeout=(5, 30))\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\n            retry_after = response.headers.get('Retry-After', '')\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\n            time.sleep(min(wait, 60))\n            continue\n        response.raise_for_status()\n        return response.json()\n    raise RuntimeError('Request attempts exhausted')\n\n# Add pagination handling and save the exact request/response metadata.\n# Retry only operations whose semantics make retrying safe."
       },
       {
         "id": "cgei-ds-55-3-checklist",
@@ -688,7 +688,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "Separate a committed template from local secrets",
         "language": "text",
-        "code": ".env.example\\nCDS_API_URL=https://example.invalid/api\\nCDS_API_KEY=\\n\\n# Local .env (gitignored; never commit)\\nCDS_API_KEY=your_real_secret_here"
+        "code": ".env.example\nCDS_API_URL=https://example.invalid/api\nCDS_API_KEY=\n\n# Local .env (gitignored; never commit)\nCDS_API_KEY=your_real_secret_here"
       },
       {
         "id": "cgei-ds-55-4-checklist",
