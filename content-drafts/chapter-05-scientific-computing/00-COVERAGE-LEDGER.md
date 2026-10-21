@@ -58,5 +58,5 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Still uses the legacy Topic reader through `sourceTopicId`; full migration to the new block renderer remains future work |
 | Units 5.2–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
-| Data validation | Added `scripts/validate-curriculum.ts` to `npm run validate:data`; CI must pass after the obsolete roadmap cross-references are removed |
+| Data validation | `scripts/validate-curriculum.ts` is part of `npm run validate:data`; full CI passed on commit `305e99d` (data validation, unit tests, typecheck, lint, build, E2E) |
 | Scientific verification | Existing manuscript smoke checks are separate from app/type/UI validation; no claim of live-data validation |
