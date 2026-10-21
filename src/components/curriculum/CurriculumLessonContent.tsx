@@ -2,7 +2,7 @@ import { Card } from '@/components/ui';
 import { MathText } from '@/components/MathText';
 import type { CurriculumContentBlock, CurriculumLesson } from '@/types/curriculum';
 
-function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }) {
+export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }) {
   const toneClasses = {
     info: 'border-sky-200 bg-sky-50/70',
     warning: 'border-amber-200 bg-amber-50/70',
