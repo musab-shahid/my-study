@@ -9,6 +9,7 @@ import { questions as dataScienceQuestions } from '../src/data/cgei/data-science
 
 const errors: string[] = [];
 const warnings: string[] = [];
+if (cgeiCurriculum.schemaVersion !== 2) errors.push(`Expected curriculum schema version 2; found ${cgeiCurriculum.schemaVersion}`);
 const ids = new Set<string>();
 const register = (kind: string, records: Array<{ id: string }>) => {
   for (const record of records) {
@@ -72,6 +73,8 @@ for (const unit of cgeiCurriculum.units) {
   }
   const orders = unit.lessonIds.map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.order);
   if (orders.some((order) => order === undefined)) errors.push(`Unit ${unit.id} has a lesson with no record`);
+  const presentOrders = orders.filter((order): order is number => order !== undefined);
+  if (new Set(presentOrders).size !== presentOrders.length) errors.push(`Unit ${unit.id} has duplicate lesson order values`);
 }
 const contentBlockIds = new Set<string>();
 const bridgedTopicIds = new Set<string>();
