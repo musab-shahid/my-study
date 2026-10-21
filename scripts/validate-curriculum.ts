@@ -145,6 +145,7 @@ if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is m
 if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
 if (unit52 && unit52.lessonIds.length !== 5) errors.push(`Unit 5.2 should map 5 substantive lessons; found ${unit52.lessonIds.length}`);
+if (unit52 && cgeiCurriculum.questions.filter((question) => unit52.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.2 should include at least ten lesson-linked curriculum knowledge checks');
 if (unit52 && unit52.readiness === 'released') errors.push('Unit 5.2 cannot be released before example execution and instructional review');
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
