@@ -83,14 +83,16 @@ async function answerCurrentQuestion(page: Page) {
   const check = page.getByRole('button', { name: /^Check Answer$/i });
   await expect(check).toBeVisible({ timeout: 20_000 });
 
-  const option = page.getByRole('button', { name: /^Option 1:/i }).first();
+  // Options use semantic radio/checkbox roles, not the default button role.
+  // Match the accessible label independently of the control's role.
+  const option = page.locator('[aria-label^="Option 1:"]').first();
   if (await option.isVisible().catch(() => false)) {
     await option.click();
   } else {
     const radiogroup = page.getByRole('radiogroup', { name: /Answer options/i });
     const group = page.getByRole('group', { name: /Answer options/i });
     const optionsRoot = (await radiogroup.count()) > 0 ? radiogroup : group;
-    const firstOption = optionsRoot.getByRole('button').first();
+    const firstOption = optionsRoot.locator('[role="radio"], [role="checkbox"], button').first();
     await expect(firstOption).toBeVisible({ timeout: 10_000 });
     await firstOption.click();
   }
