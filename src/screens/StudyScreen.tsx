@@ -18,6 +18,7 @@ import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
 import { loadQuestionsForTopic } from '@/data/lazy-data';
 import type { SubjectId, Topic, Question, MethodChooser } from '@/types';
+import type { QuantFormulaEntry } from '@/components/study/TopicContentBlocks';
 import { AiTutorChat } from '@/components/AiTutorChat';
 import { buildTopicContext, buildStudentContext, consumePendingExplain } from '@/lib/ai-tutor';
 import { isTopicMastered } from '@/lib/attention';
@@ -90,7 +91,7 @@ export function StudyScreen() {
             const topics = sd.topicsFor(subject.id as SubjectId);
             const studied = topics.filter((t) => data.studiedTopics.includes(t.id)).length;
             const color = getSubjectColor(subject.id);
-            const Icon = subject.lucideIcon;
+            const Icon = BookCopy;
             return (
               <Card key={subject.id} className="p-4">
                 <button onClick={() => handleSubjectChange(subject.id as SubjectId)} className="w-full flex items-center gap-4 text-left">
@@ -657,8 +658,8 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               {topic.qualitativeScenarios.map((q, i) => (
                 <div key={i} className="space-y-1">
                   <p className="text-sm font-medium text-slate-900"><MathText text={q.scenario ?? (q as { question?: string }).question} /></p>
-                  <p className="text-sm text-violet-800"><span className="font-medium">Answer: </span><MathText text={q.answer} /></p>
-                  <p className="text-xs text-slate-600 leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning} /></p>
+                  <p className="text-sm text-violet-800"><span className="font-medium">Answer: </span><MathText text={q.answer ?? ''} /></p>
+                  <p className="text-xs text-slate-600 leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning ?? ''} /></p>
                 </div>
               ))}
             </div>
