@@ -50,7 +50,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
 
     const init = async () => {
       try {
-        let reg = await navigator.serviceWorker.getRegistration();
+        let reg = (await navigator.serviceWorker.getRegistration()) ?? null;
         if (!reg) {
           reg = await navigator.serviceWorker.ready;
         }
@@ -98,9 +98,6 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
           setChecking(true);
           window.setTimeout(() => {
             if (mounted) setChecking(false);
-            if (reg?.waiting && navigator.serviceWorker.controller) {
-              setUpdateAvailable(true);
-            }
           }, 800);
         }
         return;
