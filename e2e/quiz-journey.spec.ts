@@ -200,7 +200,12 @@ test.describe('Quiz completion journey', () => {
     for (let i = 0; i < 20; i++) {
       if (await resultsHeading.isVisible().catch(() => false)) break;
       const checkOrResults = check.or(resultsHeading);
-      await expect(checkOrResults).toBeVisible({ timeout: 20_000 });
+      try {
+        await expect(checkOrResults).toBeVisible({ timeout: 20_000 });
+      } catch (error) {
+        await dumpDiagnostics(page, `transition-${i}`);
+        throw error;
+      }
       if (await resultsHeading.isVisible().catch(() => false)) break;
       await answerCurrentQuestion(page);
     }
