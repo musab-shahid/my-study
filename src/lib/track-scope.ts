@@ -82,7 +82,7 @@ export function subjectInScope(subjectId: string, input: ScopeInput): boolean {
 
 export type ContentTag = {
   examScope?: ('bs17' | 'bs16')[] | null;
-  postRestriction?: 'bs17' | 'bs16' | 'all' | string | null;
+  postRestriction?: 'bs17' | 'bs16' | 'all' | string | null | Array<{ rule: string; restriction: string; consequence: string }>;
 };
 
 /**
@@ -113,8 +113,9 @@ export function contentEligibleForScope(
       if (tagged.every((s) => !scaleSet.has(s))) return false;
     }
 
-    if (tags.postRestriction && tags.postRestriction !== 'all') {
-      const pr = tags.postRestriction as string;
+    const postRestriction = typeof tags.postRestriction === 'string' ? tags.postRestriction : undefined;
+    if (postRestriction && postRestriction !== 'all') {
+      const pr = postRestriction;
       if (pr === 'bs16' || pr === 'bs17') {
         if (!scaleSet.has(pr as ExamScale)) return false;
       } else {
