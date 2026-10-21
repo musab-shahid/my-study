@@ -3,7 +3,7 @@ import type { AppData, Question, DifficultyFilter, PracticeMode, SubjectId, Trac
 import { emptyTrackMembership, normalizeTrackMembership, setActiveExamProfile as setActiveExamProfilePure, leaveTrack as leaveTrackPure } from '@/lib/track-membership';
 import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
 import { isTrackId, type TrackId } from '@/data/tracks';
-import { loadData, saveData, markTopicStudied, recordQuizResult, setLastOpenedTopic, resetData } from '@/lib/storage';
+import { loadData, saveData, flushPendingSave, markTopicStudied, recordQuizResult, setLastOpenedTopic, resetData } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
