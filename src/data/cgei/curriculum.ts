@@ -93,12 +93,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
       unitIds: ['cgei-ds-unit-5-1', ...plannedUnits.map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`), 'cgei-ds-capstone-unit'],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: [],
-      estimatedHours: 90,
     },
   ],
   units: [
     {
       id: 'cgei-ds-unit-5-1', code: '5.1', title: 'Mathematical and physical foundations', order: 1, kind: 'unit', readiness: 'review',
+      legacySectionId: 'CGEI-051',
       summary: 'Build the mathematical language needed to interpret environmental quantities, fields, matrices, stock–flux systems, energy/mass balances and uncertainty.',
       estimatedHours: 4, prerequisites: ['Algebra and functions', 'Means and variances'], outcomes: outcomes51,
       lessonIds: lessonDefinitions.map((lesson) => lesson.id),
