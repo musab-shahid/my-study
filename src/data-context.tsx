@@ -166,7 +166,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
           return true;
         }),
         revisionDates: Object.fromEntries(
-          Object.entries(prev.revisionDates).filter(([tid]) => !subjectTopicIds.has(tid))
+          Object.entries(prev.revisionDates ?? {}).filter(([tid]) => !subjectTopicIds.has(tid))
         ),
         lastOpenedTopic: subjectTopicIds.has(prev.lastOpenedTopic) ? '' : prev.lastOpenedTopic,
         trackMembership: prev.trackMembership,
