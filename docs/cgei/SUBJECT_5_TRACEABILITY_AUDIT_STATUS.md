@@ -6,7 +6,7 @@
 
 | Source unit | Traceability artifact | Current claim |
 |---|---|---|
-| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | First semantic pass: 11 partial mappings and 1 explicit gap (Taylor expansion/error propagation); vector calculus, optimisation, environmental PDEs, and probability limit cases remain incomplete. |
+| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | First semantic pass: 12 partial mappings. Added Taylor linearisation/error propagation, Euler stability, advection/diffusion, heat-transfer mechanisms and CLT/dependence limitations; vector calculus, constrained optimisation and advanced numerical methods remain incomplete. |
 | 5.2 | `subject-5-unit-5-2-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
 | 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | Partial mappings and unassigned gaps are recorded; deeper semantic review remains. |
