@@ -11,13 +11,13 @@
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | ID-checked mappings are partial unless a row is explicitly a gap/candidate. |
 | 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Existing candidate/partial mappings retain their stated evidence limits. |
 | 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | Source paths/titles are inventoried; no app mapping claim is made. |
-| 5.6–5.12 | `subject-5-unit-5.6-subtopic-traceability.csv` … `subject-5-unit-5.12-subtopic-traceability.csv` | Source paths/titles are inventoried; app mappings remain candidates pending semantic inspection. |
+| 5.6 | `subject-5-unit-5.6-subtopic-traceability.csv` | First semantic pass completed against lesson blocks: 3 mapped, 7 partial, 6 explicit gaps; the topic crosswalk records partial coverage, not completion. |\n| 5.7–5.12 | `subject-5-unit-5.7-subtopic-traceability.csv` … `subject-5-unit-5.12-subtopic-traceability.csv` | Source paths/titles inventoried; mappings remain candidates pending semantic inspection. |
 
-The validator audits the source paths and parent structure across all twelve units. This is source-inventory validation, not proof of semantic coverage: the 5.1 and 5.6–5.12 matrices intentionally leave app mappings unassigned pending semantic inspection.
+The validator audits the source paths and parent structure across all twelve units. This is source-inventory validation, not proof of semantic coverage. Unit 5.6 now has an evidence-based first-pass audit; Unit 5.1 and Units 5.7–5.12 still need semantic inspection, while Units 5.2–5.5 also need deeper semantic review.
 
 ## Topic-level crosswalk
 
-`subject-5-topic-crosswalk.csv` now inventories all 51 source topics across Units 5.1–5.12. The newly added Unit 5.6–5.12 rows are explicitly `candidate` with `subtopic_coverage_status=not_audited`; this closes a source-inventory omission only and does not claim app integration or semantic teaching coverage.
+`subject-5-topic-crosswalk.csv` now inventories all 51 source topics across Units 5.1–5.12. Units 5.7–5.12 remain `candidate` with `subtopic_coverage_status=not_audited`. Unit 5.6 now has partial topic-level statuses supported by a first-pass subtopic audit; gaps remain explicit. This is not a claim of full Subject 5 coverage.
 
 ## Status semantics
 
