@@ -223,3 +223,35 @@ test.describe('CGEI Unit 5.11 lesson rendering', () => {
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
 });
+
+
+test.describe('CGEI Unit 5.12 lesson rendering', () => {
+  const lessons = [
+    { id: 'cgei-ds-lesson-5-12-1', title: 'Labeled arrays and multidimensional data models' },
+    { id: 'cgei-ds-lesson-5-12-2', title: 'Coordinate alignment, selection and aggregation' },
+    { id: 'cgei-ds-lesson-5-12-3', title: 'Lazy computation, chunking and Dask' },
+    { id: 'cgei-ds-lesson-5-12-4', title: 'Robust spatiotemporal feature pipelines' },
+    { id: 'cgei-ds-lesson-5-12-5', title: 'Validation, performance and reproducible outputs' },
+  ];
+  for (const lesson of lessons) {
+    test(`renders draft lesson: ${lesson.title}`, async ({ page }) => {
+      await seedCgeiWorkspace(page);
+      await page.goto(`/curriculum/lesson/${lesson.id}`);
+      await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
+      await expect(page.getByRole('heading', { name: 'References and tools', exact: true })).toBeVisible();
+      await expect(page.getByRole('button', { name: /Unit overview/i })).toBeVisible();
+    });
+  }
+  test('Unit 5.12 overview lists all five lessons and remains marked draft', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/curriculum/unit/cgei-ds-unit-5-12');
+    await expect(page.getByRole('heading', { name: 'xarray and scalable environmental pipelines', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    for (const lesson of lessons) await expect(page.getByRole('button', { name: lesson.title })).toBeVisible();
+    await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
+  });
+});
