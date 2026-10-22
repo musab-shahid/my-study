@@ -781,6 +781,8 @@ const lesson55Definitions = [
         "title": "The package is the evidence",
         "body": "A robust deliverable includes an acquisition script, a small permitted sample or synthetic stub, a manifest, a licence/attribution note, a README with exact rerun steps, an environment record and a safe .env.example. A reviewer should be able to distinguish raw inputs from derived outputs and understand which checks would fail if a file, column, unit or licence changed."
       },
+      {"id":"cgei-ds-55-5-large-data","kind":"prose","title":"Select a large-data tool by the bottleneck","body":"Parquet/Arrow provide columnar storage and efficient interchange; DuckDB can query local files with SQL; Polars offers eager/lazy DataFrame execution; Dask distributes chunked array/DataFrame work when data or compute exceed a single process. These tools are not interchangeable speed switches: inspect file size, row/column access, memory, joins, task overhead and deployment needs. Start with a bounded benchmark against a correct baseline and record memory/time as well as output equivalence."},
+      {"id":"cgei-ds-55-5-large-data-code","kind":"code","title":"A small DuckDB query over Parquet","language":"python","code":"import duckdb\n\nresult = duckdb.sql(\"\"\"\n    SELECT station_id, AVG(tmax_c) AS mean_tmax_c, COUNT(*) AS n\n    FROM read_parquet('station_daily.parquet')\n    WHERE date >= '2024-06-01' AND date < '2024-07-01'\n    GROUP BY station_id\n    ORDER BY station_id\n\"\"\").df()","body":"Use a fixture small enough to test locally, then benchmark representative larger data. Keep SQL filters and units explicit; compare results to a trusted implementation before claiming performance or correctness."}
       {
         "id": "cgei-ds-55-5-acceptance",
         "kind": "checklist",
@@ -2259,9 +2261,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       "Timeouts, status checks, validation and useful failure messages are present",
       "README reproduces the workflow from a clean environment",
       "No credentials or restricted data are committed",
-      {"id":"cgei-ds-55-5-large-data","kind":"prose","title":"Select a large-data tool by the bottleneck","body":"Parquet/Arrow provide columnar storage and efficient interchange; DuckDB can query local files with SQL; Polars offers eager/lazy DataFrame execution; Dask distributes chunked array/DataFrame work when data or compute exceed a single process. These tools are not interchangeable speed switches: inspect file size, row/column access, memory, joins, task overhead and deployment needs. Start with a bounded benchmark against a correct baseline and record memory/time as well as output equivalence."},
-      {"id":"cgei-ds-55-5-large-data-code","kind":"code","title":"A small DuckDB query over Parquet","language":"python","code":"import duckdb\n\nresult = duckdb.sql(\"\"\"\n    SELECT station_id, AVG(tmax_c) AS mean_tmax_c, COUNT(*) AS n\n    FROM read_parquet('station_daily.parquet')\n    WHERE date >= '2024-06-01' AND date < '2024-07-01'\n    GROUP BY station_id\n    ORDER BY station_id\n\"\"\").df()","body":"Use a fixture small enough to test locally, then benchmark representative larger data. Keep SQL filters and units explicit; compare results to a trusted implementation before claiming performance or correctness."}
-    ]
+      
+      ]
   },
   {
     "id": "cgei-ds-d-55-sql-query",
