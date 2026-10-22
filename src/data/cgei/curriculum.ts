@@ -1358,7 +1358,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
     {
       id: 'cgei-ds-unit-5-4', code: '5.4', title: 'Introductory statistics for environmental data', order: 4, kind: 'unit', readiness: 'draft',
-      summary: 'Move from exploratory graphics to defensible inference: sampling support, confidence intervals, hypothesis tests, multiple testing, regression diagnostics, effect sizes and practical interpretation.',
+      summary: 'Move from probability models and distribution diagnostics through sampling, uncertainty, hypothesis tests, effect sizes and non-parametric methods to correlation/regression and defensible environmental inference.',
       estimatedHours: 6.5, prerequisites: ['Unit 5.1 probability foundations', 'Unit 5.2 scientific Python', 'Unit 5.3 EDA and visualisation'], outcomes: outcomes54,
       lessonIds: lessons54.map((lesson) => lesson.id),
       activityIds: ['cgei-ds-a-54-distributions', 'cgei-ds-a-54-sampling', 'cgei-ds-a-54-interval', 'cgei-ds-a-54-tests', 'cgei-ds-a-54-effect-size', 'cgei-ds-a-54-regression'],
