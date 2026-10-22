@@ -342,9 +342,23 @@ export const topicMetadata: TopicMeta[] = [
   { id: "cgei-geospatial-roadmap", sectionId: "CGEI-03", order: 1, title: "Subject roadmap — Geospatial & GIS", content: true },
   { id: "cgei-remote-sensing-roadmap", sectionId: "CGEI-04", order: 1, title: "Subject roadmap — Remote sensing & EO", content: true },
   { id: "cgei-data-science-roadmap", sectionId: "CGEI-05", order: 1, title: "Subject roadmap — Scientific computing", content: true },
+  { id: "cgei-ds-units-dimensions", sectionId: "CGEI-051", order: 1, title: "Quantities, units and dimensional analysis", content: true },
+  { id: "cgei-ds-rates-finite-diff", sectionId: "CGEI-051", order: 2, title: "Calculus, finite differences and environmental fields", content: true },
+  { id: "cgei-ds-matrices-least-squares", sectionId: "CGEI-051", order: 3, title: "Matrices, linear maps and least squares", content: true },
+  { id: "cgei-ds-eigen-svd-pca", sectionId: "CGEI-051", order: 4, title: "Eigenvalues, SVD and PCA foundations", content: true },
+  { id: "cgei-ds-ode-numerical", sectionId: "CGEI-051", order: 5, title: "Stock–flux systems, ODEs and numerical integration", content: true },
+  { id: "cgei-ds-water-mass-balance", sectionId: "CGEI-051", order: 6, title: "Environmental mass and water balance", content: true },
+  { id: "cgei-ds-energy-balance", sectionId: "CGEI-051", order: 7, title: "Surface energy balance and thermal radiation", content: true },
+  { id: "cgei-ds-probability-dependence", sectionId: "CGEI-051", order: 8, title: "Probability, uncertainty and dependent observations", content: true },
   { id: "cgei-ml-geoai-roadmap", sectionId: "CGEI-06", order: 1, title: "Subject roadmap — ML & GeoAI", content: true },
   { id: "cgei-climate-risk-roadmap", sectionId: "CGEI-07", order: 1, title: "Subject roadmap — Climate risk & DRR", content: true },
   { id: "cgei-research-practice-roadmap", sectionId: "CGEI-08", order: 1, title: "Subject roadmap — Research practice", content: true },
+  { id: "cgei-decision-support-roadmap", sectionId: "CGEI-09", order: 1, title: "Decision Support, Dashboards & Environmental Intelligence — roadmap", content: true },
+  { id: "cgei-climate-policy-roadmap", sectionId: "CGEI-10", order: 1, title: "Climate Policy, Mitigation, Sustainability & Environmental Economics — roadmap", content: true },
+  { id: "cgei-software-engineering-roadmap", sectionId: "CGEI-11", order: 1, title: "Software Engineering, Data Engineering & Reliable Scientific Computing — roadmap", content: true },
+  { id: "cgei-advanced-ai-roadmap", sectionId: "CGEI-12", order: 1, title: "Advanced AI Systems & AI-Assisted Scientific Workflows — roadmap", content: true },
+  { id: "cgei-capstone-roadmap", sectionId: "CGEI-13", order: 1, title: "Applied Capstone, Professional Portfolio & Career/Research Pathways — roadmap", content: true },
+  { id: "cgei-advanced-branches-roadmap", sectionId: "CGEI-14", order: 1, title: "Optional Advanced Environmental Branches — roadmap", content: true },
 ];
 
 export const topicMetaMap: Record<string, TopicMeta> = Object.fromEntries(

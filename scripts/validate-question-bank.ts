@@ -37,6 +37,12 @@ const questionLoaders: Record<string, () => Promise<{ questions: Question[] }>> 
   'cgei-ml-geoai': () => import('../src/data/cgei/ml-geoai/questions-ml-geoai'),
   'cgei-climate-risk': () => import('../src/data/cgei/climate-risk/questions-climate-risk'),
   'cgei-research-practice': () => import('../src/data/cgei/research-practice/questions-research-practice'),
+  'cgei-decision-support': () => import('../src/data/cgei/decision-support/questions-decision-support'),
+  'cgei-climate-policy': () => import('../src/data/cgei/climate-policy/questions-climate-policy'),
+  'cgei-software-engineering': () => import('../src/data/cgei/software-engineering/questions-software-engineering'),
+  'cgei-advanced-ai': () => import('../src/data/cgei/advanced-ai/questions-advanced-ai'),
+  'cgei-capstone': () => import('../src/data/cgei/capstone/questions-capstone'),
+  'cgei-advanced-branches': () => import('../src/data/cgei/advanced-branches/questions-advanced-branches'),
 };
 
 type Severity = 'critical' | 'warning';
@@ -283,6 +289,12 @@ async function main() {
     'cgei-ml-geoai': () => import('../src/data/cgei/ml-geoai/topics-ml-geoai'),
     'cgei-climate-risk': () => import('../src/data/cgei/climate-risk/topics-climate-risk'),
     'cgei-research-practice': () => import('../src/data/cgei/research-practice/topics-research-practice'),
+    'cgei-decision-support': () => import('../src/data/cgei/decision-support/topics-decision-support'),
+    'cgei-climate-policy': () => import('../src/data/cgei/climate-policy/topics-climate-policy'),
+    'cgei-software-engineering': () => import('../src/data/cgei/software-engineering/topics-software-engineering'),
+    'cgei-advanced-ai': () => import('../src/data/cgei/advanced-ai/topics-advanced-ai'),
+    'cgei-capstone': () => import('../src/data/cgei/capstone/topics-capstone'),
+    'cgei-advanced-branches': () => import('../src/data/cgei/advanced-branches/topics-advanced-branches'),
   };
   const knownTopicIds = new Set(topics.map((t) => t.id));
   for (const subjectId of activeSubjects as SubjectId[]) {

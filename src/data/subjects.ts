@@ -136,6 +136,48 @@ export const subjects: SubjectWithMeta[] = [
     lucideIcon: FlaskConical,
     track: 'cgei',
   },
+  {
+    id: 'cgei-decision-support',
+    title: 'Decision Support, Dashboards & Environmental Intelligence',
+    color: 'blue',
+    lucideIcon: BarChart3,
+    track: 'cgei',
+  },
+  {
+    id: 'cgei-climate-policy',
+    title: 'Climate Policy, Mitigation, Sustainability & Environmental Economics',
+    color: 'green',
+    lucideIcon: Leaf,
+    track: 'cgei',
+  },
+  {
+    id: 'cgei-software-engineering',
+    title: 'Software Engineering, Data Engineering & Reliable Scientific Computing',
+    color: 'violet',
+    lucideIcon: Binary,
+    track: 'cgei',
+  },
+  {
+    id: 'cgei-advanced-ai',
+    title: 'Advanced AI Systems & AI-Assisted Scientific Workflows',
+    color: 'fuchsia',
+    lucideIcon: Brain,
+    track: 'cgei',
+  },
+  {
+    id: 'cgei-capstone',
+    title: 'Applied Capstone, Professional Portfolio & Career/Research Pathways',
+    color: 'amber',
+    lucideIcon: Trophy,
+    track: 'cgei',
+  },
+  {
+    id: 'cgei-advanced-branches',
+    title: 'Optional Advanced Environmental Branches',
+    color: 'stone',
+    lucideIcon: Globe,
+    track: 'cgei',
+  },
 ];
 
 export const subjectMap: Record<string, SubjectWithMeta> = Object.fromEntries(
