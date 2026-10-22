@@ -1395,6 +1395,8 @@ const outcomes33: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-33-zonal', statement: 'Compute zonal mean/sum/count from an explicit membership mask while excluding NoData and treating zero as valid.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-33-reclass', statement: 'Reclassify a raster with explicit interval rules and build a cell-wise map-algebra indicator while preserving NoData.', action: 'reclassify and combine', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-33-qgis', statement: 'Document a reproducible QGIS project workflow including CRS checks, tool parameters and output verification against known tables.', action: 'document and verify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-33-formats', statement: 'Select exchange, analysis and archive formats and state shapefile, GeoPackage and GeoJSON limitations including CRS tagging versus reprojection.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-33-admin', statement: 'Validate synthetic administrative hierarchies and joins using stable IDs, detecting duplicates, missing parents and unmatched observation codes.', action: 'validate and diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
 ];
 
 const lessons33: CurriculumLesson[] = [
@@ -1450,6 +1452,28 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-5-3', kind: 'callout', title: 'Common failure modes', tone: 'warning', items: ['Buffering in geographic degrees', 'Ignoring NoData (treated as zero)', 'Overwriting inputs without versioned outputs', 'No record of tool parameters', 'Assuming same resolution implies cell alignment'] },
     ],
     activityIds: ['cgei-geo-a-33-qgis'], assessmentIds: ['cgei-geo-assess-33-qgis'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-3-6', kind: 'lesson', title: 'Geospatial formats for exchange and analysis', order: 6, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes33[5]],
+    content: [
+      { id: 'cgei-geo-33-6-1', kind: 'prose', title: 'Containers, tables and project files', body: 'A spatial dataset stores geometry or raster grids plus attributes/metadata. GeoPackage is a preferred multi-layer analysis container. GeoJSON is convenient for web exchange but is WGS 84-only by convention and not ideal for large analysis. Shapefile remains common but limits field names to 10 characters and has a practical ~2 GB size ceiling. A .qgz project stores layer paths and styling—not a portable data archive by itself. Changing a CRS tag without transforming coordinates is not a reprojection.' },
+      { id: 'cgei-geo-33-6-2', kind: 'table', title: 'Format trade-offs', headers: ['Format', 'Strength', 'Limitation'], rows: [['GeoPackage', 'Single-file multi-layer, good types', 'Requires GIS-aware tools'], ['GeoJSON', 'Human-readable web exchange', 'WGS 84 convention; large files verbose'], ['Shapefile', 'Wide legacy support', '10-char fields; multi-file; size limits'], ['GeoTIFF', 'Raster with georeferencing', 'Must document NoData and bands'], ['CSV + x/y', 'Simple tabular points', 'Not geometry until geocoded; fragile joins']] },
+      { id: 'cgei-geo-33-6-3', kind: 'worked-example', title: 'Exchange versus analysis', body: 'Publish a district boundary to a web map as GeoJSON (WGS 84). Keep the working analysis layer as GeoPackage in a regional projected CRS for metric buffers. Export a station table as CSV with station_id, not only coordinates, so attribute joins remain stable. Fixture unit_3_3_admin_formats_check.py records the teaching format preferences (GeoPackage preferred container; shapefile field limit 10).' },
+      { id: 'cgei-geo-33-6-4', kind: 'key-points', title: 'Conversion risks', items: ['Field name truncation on shapefile export', 'Lost NoData on careless raster conversion', 'CRS tag edits ≠ coordinate transforms', 'Project files break when relative paths move', 'Choose archive formats for long-term storage deliberately'] },
+    ],
+    activityIds: ['cgei-geo-a-33-formats'], assessmentIds: ['cgei-geo-assess-33-formats'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-3-7', kind: 'lesson', title: 'Administrative hierarchy and study areas', order: 7, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes33[6]],
+    content: [
+      { id: 'cgei-geo-33-7-1', kind: 'prose', title: 'Stable IDs beat display names', body: 'Administrative geography nests province → district → tehsil → union council → mauza in many South Asian systems. Official codes and boundary vintages change. Spatial containment (point in polygon) is not the same as the legal parent–child table. Always record boundary source and year. Synthetic teaching IDs in the fixture are not Survey of Pakistan codes.' },
+      { id: 'cgei-geo-33-7-lab', kind: 'worked-example', title: 'Lab: hierarchy defects and observation joins', body: 'Fixture unit_3_3_admin_formats_check.py uses synthetic units. It detects duplicate unit_id T1, missing parent D9 for T_BAD, and unmatched observation U_X. On a cleaned hierarchy, three tehsil observations match and sum to 60. Learners must flag defects before aggregating indicators to districts.' },
+      { id: 'cgei-geo-33-7-3', kind: 'checklist', title: 'Admin data acceptance checks', items: ['Unique unit_id', 'Every child parent_id exists', 'Boundary year documented', 'Join key match rate reported', 'Unmatched codes listed', 'Study-area polygon version recorded'] },
+      { id: 'cgei-geo-33-7-4', kind: 'callout', title: 'Study-area sensitivity', tone: 'warning', items: ['Changing district boundaries changes zonal means', 'Name-based joins break when spellings change', 'Do not invent official codes in published work'] },
+    ],
+    activityIds: ['cgei-geo-a-33-admin'], assessmentIds: ['cgei-geo-assess-33-admin'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
 ];
 
@@ -1705,12 +1729,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Apply buffer, clip and intersect semantics; choose attribute versus spatial joins; compute zonal statistics with explicit NoData handling.',
       estimatedHours: 8, prerequisites: ['Unit 3.1 spatial data models', 'Unit 3.2 CRS and units'], outcomes: outcomes33,
       lessonIds: lessons33.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-33-ops', 'cgei-geo-a-33-joins', 'cgei-geo-a-33-zonal', 'cgei-geo-a-33-reclass', 'cgei-geo-a-33-qgis'],
-      assessmentIds: ['cgei-geo-assess-33-ops', 'cgei-geo-assess-33-joins', 'cgei-geo-assess-33-zonal', 'cgei-geo-assess-33-reclass', 'cgei-geo-assess-33-qgis'],
+      activityIds: ['cgei-geo-a-33-ops', 'cgei-geo-a-33-joins', 'cgei-geo-a-33-zonal', 'cgei-geo-a-33-reclass', 'cgei-geo-a-33-qgis', 'cgei-geo-a-33-formats', 'cgei-geo-a-33-admin'],
+      assessmentIds: ['cgei-geo-assess-33-ops', 'cgei-geo-assess-33-joins', 'cgei-geo-assess-33-zonal', 'cgei-geo-assess-33-reclass', 'cgei-geo-assess-33-qgis', 'cgei-geo-assess-33-formats', 'cgei-geo-assess-33-admin'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.3 — Desktop GIS and spatial operations',
-      notes: ['Five draft lessons: overlays, joins, zonal stats, reclass/map algebra, QGIS workflow.', 'QGIS GUI is documented, not CI-executed; reclass numbers locked in Python fixture.'],
+      notes: ['Seven draft lessons covering Core Unit 3.3 operations, formats and admin geography.', 'QGIS GUI documented; admin/format invariants locked in Python fixture.'],
     },
 
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
@@ -1740,6 +1764,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-33-004', lessonId: 'cgei-geo-lesson-3-3-4', type: 'single-choice', prompt: 'Under the Unit 3.3 teaching rules, a cell value of 30 becomes which class?', options: ['1 cool', '2 moderate', '3 hot', 'NoData'], correctAnswer: 2, explanation: 'The top class is value ≥ 30 → class 3. The interval 20≤x<30 is moderate.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-33-005', lessonId: 'cgei-geo-lesson-3-3-5', type: 'single-choice', prompt: 'Which item is essential in a reproducible QGIS processing log for this unit?', options: ['Only the final map screenshot', 'CRS, tool names, parameters and output paths', 'The laptop brand', 'A Web Mercator buffer distance in degrees'], correctAnswer: 1, explanation: 'Logs must record CRS, tools, parameters and outputs so another analyst can repeat the work.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-006', lessonId: 'cgei-geo-lesson-3-3-1', type: 'single-choice', prompt: 'Which operation keeps the part of layer A that lies outside layer B?', options: ['Dissolve', 'Union', 'Difference (A−B)', 'Attribute join'], correctAnswer: 2, explanation: 'Difference retains A outside B; union keeps all pieces; dissolve merges by attribute.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-33-007', lessonId: 'cgei-geo-lesson-3-3-6', type: 'single-choice', prompt: 'Which statement about shapefiles is correct for analysis workflows?', options: ['They support unlimited field name length', 'Field names are limited to about 10 characters and the format is multi-file', 'They always store project styling', 'They force equal-area projection'], correctAnswer: 1, explanation: 'Shapefile field names are limited (~10 characters) and data span multiple files; prefer GeoPackage for multi-layer analysis.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-33-008', lessonId: 'cgei-geo-lesson-3-3-7', type: 'single-choice', prompt: 'In the Unit 3.3 admin fixture, which defect must be fixed before trusting a district aggregation?', options: ['Duplicate unit_id T1 and missing parent D9', 'Using GeoPackage instead of shapefile', 'Setting NoData to −9999', 'Buffering in metres'], correctAnswer: 0, explanation: 'Duplicate IDs and missing parents break hierarchical joins and inflate or drop aggregates.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
     { id: 'cgei-geo-q-32-001', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
@@ -2290,6 +2317,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
   activities: [
     { id: 'cgei-geo-a-33-reclass', kind: 'coding-lab', title: 'Reclass and hot indicator', instructions: 'Run unit_3_3_reclass_map_algebra_check.py. Manually reclassify the teaching grid and confirm the hot mask has three cells equal to 1.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-reclass'] },
     { id: 'cgei-geo-a-33-qgis', kind: 'field-task', title: 'QGIS processing log', instructions: 'Follow labs/unit-3-3-qgis-workflow.md: set CRS, reclass the teaching grid, write processing_log.md with tools and parameters.', level: 'L2', estimatedMinutes: 40, objectiveIds: ['cgei-geo-o-33-qgis'] },
+    { id: 'cgei-geo-a-33-formats', kind: 'guided-practice', title: 'Choose formats for exchange vs analysis', instructions: 'For (a) web map boundaries, (b) metric buffer analysis, (c) long-term archive, name a preferred format and one risk of the wrong choice.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-formats'] },
+    { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
     { id: 'cgei-geo-a-33-ops', kind: 'guided-practice', title: 'Choose buffer vs clip vs intersect', instructions: 'For (a) assets within 500 m of a river, (b) stations inside a district, (c) land-cover pieces cut by a district, name the primary operation and CRS precondition.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-ops'] },
     { id: 'cgei-geo-a-33-joins', kind: 'independent-practice', title: 'Predict join row counts', instructions: 'With 5 daily rows for 2 stations and 2 non-overlapping districts, state expected row counts for attribute join to station metadata and spatial join of points to districts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-joins'] },
     { id: 'cgei-geo-a-33-zonal', kind: 'coding-lab', title: 'Zonal stats fixture lab', instructions: 'Run unit_3_3_zonal_stats_check.py. Change the NoData cell to 0 and recompute zone-1 mean by hand; explain why count and mean change.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-zonal'] },
@@ -2475,6 +2504,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
   assessments: [
     { id: 'cgei-geo-assess-33-reclass', kind: 'formative', title: 'Reclass interval rules', purpose: 'Assess threshold inclusivity and NoData handling.', objectiveIds: ['cgei-geo-o-33-reclass'], questionIds: ['cgei-geo-q-33-004'], required: true },
     { id: 'cgei-geo-assess-33-qgis', kind: 'formative', title: 'Workflow documentation', purpose: 'Assess reproducible GIS logging habits.', objectiveIds: ['cgei-geo-o-33-qgis'], questionIds: ['cgei-geo-q-33-005'], required: true },
+    { id: 'cgei-geo-assess-33-formats', kind: 'formative', title: 'Format selection', purpose: 'Assess format trade-off reasoning.', objectiveIds: ['cgei-geo-o-33-formats'], questionIds: ['cgei-geo-q-33-007'], required: true },
+    { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
     { id: 'cgei-geo-assess-33-ops', kind: 'formative', title: 'Spatial operation choice', purpose: 'Assess buffer/clip/intersect distinction.', objectiveIds: ['cgei-geo-o-33-ops'], questionIds: ['cgei-geo-q-33-001'], required: true },
     { id: 'cgei-geo-assess-33-joins', kind: 'formative', title: 'Join type selection', purpose: 'Assess attribute vs spatial join reasoning.', objectiveIds: ['cgei-geo-o-33-joins'], questionIds: ['cgei-geo-q-33-002'], required: true },
     { id: 'cgei-geo-assess-33-zonal', kind: 'formative', title: 'Zonal NoData handling', purpose: 'Assess zonal statistics with NoData.', objectiveIds: ['cgei-geo-o-33-zonal'], questionIds: ['cgei-geo-q-33-003'], required: true },

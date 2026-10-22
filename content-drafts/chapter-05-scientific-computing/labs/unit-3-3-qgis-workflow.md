@@ -51,3 +51,25 @@ Expected reclass (locked by `unit_3_3_reclass_map_algebra_check.py`):
 
 ## What CI verifies
 Only the numerical reclass/map-algebra rules in `unit_3_3_reclass_map_algebra_check.py`. CI does **not** launch QGIS.
+
+## Extension — Formats and administrative joins
+
+### Formats
+1. Save analysis layers as **GeoPackage** in `03_out/analysis.gpkg`.
+2. Export a web copy as **GeoJSON** only after reprojecting/exporting to WGS 84 deliberately.
+3. Avoid shapefile if field names exceed 10 characters; if required for a partner, rename fields first and log the mapping.
+4. Confirm: editing the CRS string alone does **not** reproject coordinates (Processing → Reproject layer).
+
+### Administrative hierarchy (synthetic)
+Use the teaching tables from `unit_3_3_admin_formats_check.py` (or recreate as CSV):
+
+**units.csv** columns: `unit_id,level,parent_id`  
+**obs.csv** columns: `unit_id,value`
+
+1. Load both as delimited text (no geometry required for the attribute join exercise).
+2. Join `obs` → `units` on `unit_id` (Layer → Add join or Processing → Join attributes by field value).
+3. Open the attribute table: confirm `U_X` is unmatched; confirm duplicate `T1` appears twice in units.
+4. Filter or mark rows with missing parents (`T_BAD` → `D9`).
+5. Export a cleaned join to GeoPackage/CSV in `03_out/` and list defects in `04_docs/processing_log.md`.
+
+**Expected defects (locked by fixture):** duplicate `T1`; missing parent `D9`; unmatched observation `U_X`; clean match count = 3; matched sum = 60.

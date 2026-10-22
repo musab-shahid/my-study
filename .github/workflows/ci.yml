@@ -93,3 +93,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_stats_check.py
       - name: Verify Unit 3.3 reclassification and map algebra
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_reclass_map_algebra_check.py
+      - name: Verify Unit 3.3 admin hierarchy and format contract
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_admin_formats_check.py

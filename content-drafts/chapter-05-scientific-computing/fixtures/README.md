@@ -76,3 +76,6 @@ Mask-based zonal mean/sum/count with NoData exclusion. Validates aggregation, no
 
 ## unit_3_3_reclass_map_algebra_check.py
 Reclass thresholds and hot indicator on synthetic 3×3 grid; NoData propagation; shape mismatch raises.
+
+## unit_3_3_admin_formats_check.py
+Synthetic admin hierarchy defects (duplicate ID, missing parent) and observation join match counts; format preference contract.

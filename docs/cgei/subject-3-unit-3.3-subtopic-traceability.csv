@@ -1,10 +1,17 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-3.3.1.1,Projects layers symbology labelling,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-5,cgei-geo-33-5-1;cgei-geo-33-5-2,mapped_partial,Documented QGIS workflow checklist; GUI not executed in CI.
-3.3.1.3,Vector and raster geoprocessing tools,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-1,cgei-geo-33-1-2;cgei-geo-33-1-5;cgei-geo-33-1-6,mapped_partial,Operation semantics including dissolve/union/difference; tool menus still GUI practice.
-3.3.1.4,Graphical models for repeatability,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-5,cgei-geo-33-5-1;cgei-geo-33-5-2,mapped_partial,Processing log requirement taught; Model Designer not stepped through.
-3.3.3.1,Buffer dissolve clip intersection union difference,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-1,cgei-geo-33-1-1;cgei-geo-33-1-2;cgei-geo-33-1-5;cgei-geo-33-1-6,mapped_partial,All six operations explained conceptually with checklist; geometry engine not implemented.
+3.3.1.1,Projects layers symbology labelling,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-5,cgei-geo-33-5-1;cgei-geo-33-5-2,mapped_partial,Documented QGIS workflow; GUI not CI-executed.
+3.3.1.2,Print layouts,3.3.1,QGIS proficiency,Core,,,mapped_partial,Not taught in depth; deferred print composer skills.
+3.3.1.3,Vector and raster geoprocessing tools,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-1,cgei-geo-33-1-2;cgei-geo-33-1-5,mapped_partial,Operation semantics taught; GUI menus practice outside CI.
+3.3.1.4,Graphical models for repeatability,3.3.1,QGIS proficiency,Core,cgei-geo-lesson-3-3-5,cgei-geo-33-5-1,mapped_partial,Processing log required; Model Designer not stepped through.
+3.3.2.1,PyQGIS scripting,3.3.2,Scripting and alternative platforms,Core,,,mapped_partial,Named in TOC; not implemented in this unit slice.
+3.3.2.3,GDAL/OGR batch inspection,3.3.2,Scripting and alternative platforms,Core,,,mapped_partial,Deferred command-line GDAL labs.
+3.3.3.1,Buffer dissolve clip intersection union difference,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-1,cgei-geo-33-1-1;cgei-geo-33-1-2;cgei-geo-33-1-5;cgei-geo-33-1-6,mapped_partial,Conceptual teaching of all six operations; not a geometry engine.
 3.3.3.2,Spatial join and attribute join,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-2,cgei-geo-33-2-1;cgei-geo-33-2-2;cgei-geo-33-2-3,mapped_partial,Join types and row counts taught.
-3.3.3.3,Zonal statistics,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-3,cgei-geo-33-3-1;cgei-geo-33-3-lab;cgei-geo-33-3-3,mapped_partial,Mask-based aggregation fixture; polygon rasterization not implemented.
-3.3.3.4,Reclassification and map algebra,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-4,cgei-geo-33-4-1;cgei-geo-33-4-lab;cgei-geo-33-4-3,mapped_partial,Reclass table and hot indicator locked; not a published hazard index.
-3.3.4.1,File formats shapefile GeoPackage GeoJSON,3.3.4,Formats editing and digitising,Core,,,mapped_partial,Still deferred.
-3.3.5.1,Province district tehsil hierarchy,3.3.5,Administrative and study geography,Core,,,mapped_partial,Still deferred.
+3.3.3.3,Zonal statistics,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-3,cgei-geo-33-3-1;cgei-geo-33-3-lab,mapped_partial,Mask-based aggregation; no polygon rasterization.
+3.3.3.4,Reclassification and map algebra,3.3.3,Core spatial operations,Core,cgei-geo-lesson-3-3-4,cgei-geo-33-4-1;cgei-geo-33-4-lab,mapped_partial,Locked synthetic reclass/hot mask.
+3.3.4.1,File formats shapefile GeoPackage GeoJSON FlatGeobuf KML,3.3.4,Formats editing and digitising,Core,cgei-geo-lesson-3-3-6,cgei-geo-33-6-1;cgei-geo-33-6-2;cgei-geo-33-6-3,mapped_partial,Trade-off table and CRS-tag vs reproject; FlatGeobuf/KML only named.
+3.3.4.2,Topological editing snapping digitising georeferencing RMSE,3.3.4,Formats editing and digitising,Core,,,mapped_partial,Deferred digitising/georeferencing practice.
+3.3.4.3,Choosing formats for exchange analysis archive,3.3.4,Formats editing and digitising,Core,cgei-geo-lesson-3-3-6,cgei-geo-33-6-3;cgei-geo-33-6-4,mapped_partial,Exchange vs analysis recommendations taught.
+3.3.5.1,Province district tehsil union council mauza hierarchy,3.3.5,Administrative and study geography,Core,cgei-geo-lesson-3-3-7,cgei-geo-33-7-1;cgei-geo-33-7-lab,mapped_partial,Synthetic hierarchy validation; not official codes.
+3.3.5.2,Boundary source year topology issues,3.3.5,Administrative and study geography,Core,cgei-geo-lesson-3-3-7,cgei-geo-33-7-3;cgei-geo-33-7-4,mapped_partial,Year/source checklist; topology issues conceptual.
+3.3.5.3,Study-area definition and boundary sensitivity,3.3.5,Administrative and study geography,Core,cgei-geo-lesson-3-3-7,cgei-geo-33-7-4,mapped_partial,Sensitivity callout; quantitative MAUP lab deferred.
