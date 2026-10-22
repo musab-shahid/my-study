@@ -16,4 +16,5 @@
 ## Unit 3.4 Support notes
 - 3.4.1 terrain: slope + D8 flow fixtures
 - 3.4.2 network: Dijkstra distance vs time fixture; accessibility threshold
-- 3.4.3–3.4.4: survey depth in lesson 3-4-5
+- 3.4.3 geocoding: synthetic match-rate fixture (0.6) + positional offset case
+- 3.4.4 field collection: checklist only; no mobile deployment lab

@@ -88,3 +88,6 @@ Instructional D8: direction codes, accumulation includes self, outlet facc=9; fl
 
 ## unit_3_4_network_accessibility_check.py
 Dijkstra on synthetic undirected graph: distance vs time optima differ; unreachable Island; edge closure raises time cost to 14.
+
+## unit_3_4_geocoding_quality_check.py
+Synthetic n=10: matched=6, ambiguous=2, unmatched=2, match_rate=0.6; one 150 m offset; accepted_rate=0.5. Not a live geocoder.

@@ -82,3 +82,27 @@ Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_ne
 
 ### Deliverable
 Hand-check distance and time paths; note one limitation of synthetic networks vs OSM.
+
+
+## Geocoding quality control (Unit 3.4.3)
+
+### Synthetic table (fixture-tested)
+| Class | Count |
+|-------|-------|
+| matched | 6 |
+| ambiguous | 2 |
+| unmatched | 2 |
+| **match rate** | **0.60** (matched / 10) |
+| accepted after excluding 150 m offset | 5 → rate **0.50** |
+
+Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_geocoding_quality_check.py`
+
+### QC workflow (documented, not a live geocoder)
+1. Require stable record IDs and non-empty address text.
+2. Classify matched / ambiguous / unmatched with stated rules.
+3. Compute match rate with denominator = all inputs.
+4. Review ambiguous and any large residual against reference coordinates.
+5. Document exclusions before joining to network or exposure layers.
+
+### Deliverable
+Report the three counts, match rate, and one sentence on why match ≠ positional accuracy.
