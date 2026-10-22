@@ -94,3 +94,6 @@ Synthetic n=10: matched=6, ambiguous=2, unmatched=2, match_rate=0.6; one 150 m o
 
 ## unit_3_4_field_data_qc_check.py
 n=8 synthetic field records; errors for duplicate ID, missing type, invalid vocab, OOB coords, missing/negative GNSS accuracy; only OBS-002 clean.
+
+## unit_1_1_energy_budget_check.py
+Stefan–Boltzmann M(288)≈390 W/m²; Te≈255 K for S=1361, A=0.30; Wien peak ≈10.06 μm. Teaching energy budget only.

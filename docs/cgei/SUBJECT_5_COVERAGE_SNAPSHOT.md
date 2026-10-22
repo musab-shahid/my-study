@@ -22,4 +22,5 @@ Generated as an implementation aid; dispositions come from unit CSV matrices.
 | Subject | Status | Notes |
 |---------|--------|-------|
 | 5 Scientific Computing | Pilot — Units 5.1–5.12 with fixtures | Not released |
+| 1 Earth System | **Unit 1.1 draft** (spheres, radiation, feedbacks) |
 | 3 Geospatial | **Units 3.1–3.4 draft** (through Support terrain/network intro) | 3.4.2–3.4.4 survey depth |

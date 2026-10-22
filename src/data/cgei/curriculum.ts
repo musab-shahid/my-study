@@ -1555,7 +1555,47 @@ const lessons34: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes11: CurriculumOutcome[] = [
+  { id: 'cgei-es-o-11-spheres', statement: 'Identify the major Earth-system spheres and describe one coupling relevant to climate or water resources.', action: 'identify and describe', level: 'L1', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-es-o-11-radiation', statement: 'Apply Stefan–Boltzmann and Wien relations and compute a simple planetary effective temperature from solar constant and albedo.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-es-o-11-feedback', statement: 'Distinguish positive and negative feedbacks and state why ice–albedo is a positive climate feedback at overview level.', action: 'distinguish', level: 'L1', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons11: CurriculumLesson[] = [
+  {
+    id: 'cgei-es-lesson-1-1-1', kind: 'lesson', title: 'Earth-system spheres and couplings', order: 1, readiness: 'draft', level: 'L1', estimatedMinutes: 40,
+    objectives: [outcomes11[0]],
+    content: [
+      { id: 'cgei-es-11-1-1', kind: 'prose', title: 'Spheres as interacting stores', body: 'The Earth system is organised into atmosphere, hydrosphere, cryosphere, lithosphere/geosphere, biosphere and anthroposphere. These are analytical stores of mass and energy, not rigid boxes. The Hindu Kush–Karakoram–Himalaya cryosphere acts as a regional water tower feeding Indus-basin rivers—an explicit sphere coupling for South Asian water security.' },
+      { id: 'cgei-es-11-1-2', kind: 'table', title: 'Sphere snapshot', headers: ['Sphere', 'Key stores', 'Climate-relevant coupling'], rows: [['Atmosphere', 'gases, aerosols, water vapour', 'radiation, circulation'], ['Hydrosphere', 'ocean, freshwater', 'heat capacity, moisture'], ['Cryosphere', 'ice, snow, permafrost', 'albedo, mass balance'], ['Lithosphere', 'rock, soil, landforms', 'weathering, dust'], ['Biosphere', 'ecosystems', 'carbon, surface roughness'], ['Anthroposphere', 'land use, emissions', 'forcing and surface change']] },
+      { id: 'cgei-es-11-1-3', kind: 'key-points', title: 'Use carefully', items: ['Spheres overlap (soil moisture is hydro + bio + litho)', 'Anthroposphere fluxes can dominate regional budgets', 'Regional water-tower role is not a global ice-sheet claim'] },
+    ],
+    activityIds: ['cgei-es-a-11-spheres'], assessmentIds: ['cgei-es-assess-11-spheres'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-es-lesson-1-1-2', kind: 'lesson', title: 'Radiation, blackbody laws and planetary energy budget', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes11[1]],
+    content: [
+      { id: 'cgei-es-11-2-1', kind: 'prose', title: 'Energy in, energy out', body: 'Solar irradiance at TOA (solar constant S ≈ 1361 W m⁻²) is distributed over the Earth’s cross-section versus surface area, giving a factor 1/4. Absorbed power per unit area is S(1−A)/4 with planetary albedo A. In equilibrium a blackbody planet emits σ Te⁴ = S(1−A)/4. Real surface temperatures exceed Te because of the greenhouse effect—this lesson stops at the conceptual distinction.' },
+      { id: 'cgei-es-11-2-lab', kind: 'worked-example', title: 'Lab: Stefan–Boltzmann, Wien and Te', body: 'σ = 5.670374419×10⁻⁸ W m⁻² K⁻⁴. At T=288 K, exitance M=σT⁴ ≈ 390.1 W m⁻². Wien peak λ_max ≈ 2897.8/T ≈ 10.06 μm (thermal IR). With S=1361 W m⁻² and A=0.30, Te ≈ 254.6 K. Fixture unit_1_1_energy_budget_check.py locks these values. Teaching model only—not a GCM.' },
+      { id: 'cgei-es-11-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Blackbody idealisation', 'Global mean balance hides regional contrasts', 'Te is not surface air temperature', 'Clouds and aerosols change both albedo and longwave'] },
+    ],
+    activityIds: ['cgei-es-a-11-radiation'], assessmentIds: ['cgei-es-assess-11-radiation'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-es-lesson-1-1-3', kind: 'lesson', title: 'Feedbacks and biogeochemical organising ideas', order: 3, readiness: 'draft', level: 'L1', estimatedMinutes: 35,
+    objectives: [outcomes11[2]],
+    content: [
+      { id: 'cgei-es-11-3-1', kind: 'prose', title: 'Positive versus negative feedbacks', body: 'A positive feedback amplifies an initial change (ice melt → lower albedo → more absorption → more melt). A negative feedback damps change. Water-vapour feedback is positive at overview level; Planck response (hotter surface emits more) is stabilising. Radiative forcing and climate sensitivity are defined concepts here, not numerically fitted.' },
+      { id: 'cgei-es-11-3-2', kind: 'prose', title: 'Cycles as stocks and flows', body: 'Water and carbon cycles are organised by reservoirs and fluxes. Residence time = stock/flux at steady state is an organising idea, not a claim that the Earth system is steady. Human amplification of nitrogen and phosphorus cycles is noted qualitatively.' },
+      { id: 'cgei-es-11-3-3', kind: 'key-points', title: 'What this unit does not claim', items: ['No equilibrium climate sensitivity number fitted here', 'No tipping-element quantification', 'Biogeochemical detail deferred to later units'] },
+    ],
+    activityIds: ['cgei-es-a-11-feedback'], assessmentIds: ['cgei-es-assess-11-feedback'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1628,6 +1668,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: ['cgei-geo-r-epsg'],
       estimatedHours: 6,
+    },
+    {
+      id: 'cgei-subject-1-earth-system',
+      subjectId: 'cgei-earth-system',
+      title: 'Earth System Science Foundations',
+      subtitle: 'Spheres, energy balance and feedbacks before climate data and EO depth',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners entering climate and environmental intelligence from environmental science backgrounds.',
+      purpose: 'Establish shared Earth-system vocabulary, radiation physics and feedback language used across climate and geospatial analysis.',
+      overview: 'Unit 1.1 introduces spheres, planetary energy budget (Stefan–Boltzmann, Wien, effective temperature) and feedback/cycle organising ideas. Draft slice only—not the full Subject 1 TOC.',
+      prerequisites: ['Algebra', 'Units and scientific notation'],
+      outcomes: [...outcomes11],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty'],
+      unitIds: ['cgei-es-unit-1-1'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 5,
     },
   ],
   units: [
@@ -1825,6 +1883,19 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
       notes: ['Support unit: DEM/slope/flow/network/geocoding/field QC fixtures.', 'Mobile apps documented only—not CI-deployed.'],
     },
+    {
+      id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 11, kind: 'unit', readiness: 'draft',
+      summary: 'Describe Earth-system spheres, apply blackbody radiation and a simple planetary energy budget, and distinguish climate feedbacks at overview level.',
+      estimatedHours: 5, prerequisites: ['Algebra', 'Units'], outcomes: outcomes11,
+      lessonIds: lessons11.map((lesson) => lesson.id),
+      activityIds: ['cgei-es-a-11-spheres', 'cgei-es-a-11-radiation', 'cgei-es-a-11-feedback'],
+      assessmentIds: ['cgei-es-assess-11-spheres', 'cgei-es-assess-11-radiation', 'cgei-es-assess-11-feedback'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 1 Unit 1.1 — Earth system components (Core)',
+      notes: ['Core unit: spheres, radiation/energy budget fixture, feedback overview.', 'Not a full biogeochemistry or climate-sensitivity course.'],
+    },
+
 
 
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
@@ -1866,6 +1937,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-34-008', lessonId: 'cgei-geo-lesson-3-4-5', type: 'single-choice', prompt: 'A record is status=matched but its coordinates are 150 m from the known true location. The correct interpretation is:', options: ['Match rate proves positional accuracy', 'The record is matched yet positionally wrong and needs review', 'Ambiguous records should be counted as matched', 'Unmatched records can be dropped silently'], correctAnswer: 1, explanation: 'Match success and positional accuracy are different QC dimensions; offsets require review before spatial analysis.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-geo-q-34-009', lessonId: 'cgei-geo-lesson-3-4-6', type: 'single-choice', prompt: 'In the Unit 3.4 field QC fixture, which observation_id is fully clean?', options: ['OBS-001', 'OBS-002', 'OBS-003', 'OBS-008'], correctAnswer: 1, explanation: 'OBS-002 has unique id, valid vocab, in-bounds coords, declared CRS and non-negative accuracy. OBS-001 is duplicated.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-34-010', lessonId: 'cgei-geo-lesson-3-4-6', type: 'single-choice', prompt: 'Missing gnss_accuracy_m on an otherwise complete record should be treated as:', options: ['Proof the position is exact', 'An error under the teaching data contract', 'A successful mobile sync', 'Equivalent to a 150 m measured offset'], correctAnswer: 1, explanation: 'Missing accuracy metadata is a contract error; it is not the same as a quantified positional residual.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-11-001', lessonId: 'cgei-es-lesson-1-1-1', type: 'single-choice', prompt: 'Which sphere coupling best describes Himalayan snow and ice feeding the Indus?', options: ['Cryosphere → hydrosphere mass flux', 'Only biosphere photosynthesis', 'Lithosphere rock cycle alone', 'No sphere interaction'], correctAnswer: 0, explanation: 'Cryospheric mass balance supplies seasonal and longer-term river flow in the Indus basin.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-11-002', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'Using σT⁴ at T=288 K, blackbody exitance is about:', options: ['1361 W m⁻²', '390 W m⁻²', '240 W m⁻²', '5.67×10⁻⁸ W m⁻²'], correctAnswer: 1, explanation: 'σ(288)⁴ ≈ 390 W m⁻² under the Stefan–Boltzmann law.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-es-q-11-003', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'With S=1361 W m⁻² and A=0.30, the planetary effective temperature Te is nearest:', options: ['288 K', '255 K', '373 K', '0 K'], correctAnswer: 1, explanation: 'σTe⁴ = S(1−A)/4 yields Te ≈ 255 K; surface air temperature is warmer due to the greenhouse effect.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-es-q-11-004', lessonId: 'cgei-es-lesson-1-1-3', type: 'single-choice', prompt: 'Ice–albedo feedback is classified as positive because:', options: ['Melting increases albedo and cools the surface', 'Melting decreases albedo, increases absorption and amplifies warming', 'It always stabilises climate', 'It equals climate sensitivity'], correctAnswer: 1, explanation: 'Lower ice cover reduces albedo, increasing absorbed solar radiation and reinforcing the initial warming.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2426,6 +2502,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
     { id: 'cgei-geo-a-34-network', kind: 'coding-lab', title: 'Distance vs time routing lab', instructions: 'Run unit_3_4_network_accessibility_check.py. By hand, confirm distance-shortest A→Clinic is 4 km via B and time-shortest is 9 min via C. State what happens to time cost if A–C is closed.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-network'] },
     { id: 'cgei-geo-a-34-field', kind: 'coding-lab', title: 'Field observation QC lab', instructions: 'Run unit_3_4_field_data_qc_check.py. List each error type found and identify the single fully clean observation_id.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-field'] },
+    { id: 'cgei-es-a-11-spheres', kind: 'guided-practice', title: 'Sphere coupling sketch', instructions: 'Name one flux that couples the cryosphere to the hydrosphere in the Indus basin and state whether it is primarily seasonal or multi-decadal.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-spheres'] },
+    { id: 'cgei-es-a-11-radiation', kind: 'coding-lab', title: 'Energy budget lab', instructions: 'Run unit_1_1_energy_budget_check.py. Report M at 288 K, Te for S=1361 and A=0.30, and λ_max at 288 K.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-11-radiation'] },
+    { id: 'cgei-es-a-11-feedback', kind: 'reflection', title: 'Feedback polarity', instructions: 'Explain in three sentences why ice–albedo feedback is positive and why Planck emission is stabilising.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-feedback'] },
     { id: 'cgei-geo-a-34-dem', kind: 'guided-practice', title: 'DEM metadata audit', instructions: 'List five metadata fields you must record before computing slope on a new DEM and mark which distinguish DSM from DTM.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-34-dem'] },
     { id: 'cgei-geo-a-34-slope', kind: 'coding-lab', title: 'Finite-difference slope lab', instructions: 'Run unit_3_4_terrain_slope_check.py and recompute the centre slope by hand from the printed grid.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-slope'] },
     { id: 'cgei-geo-a-34-hydro', kind: 'coding-lab', title: 'D8 flow direction and accumulation lab', instructions: 'Run unit_3_4_flow_routing_check.py. From the printed 3×3 grid, verify by hand that the centre cell flows south (code 4) and the outlet accumulation equals 9 under the include-self convention.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-hydro'] },
@@ -2619,6 +2698,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
     { id: 'cgei-geo-assess-34-network', kind: 'formative', title: 'Network routing', purpose: 'Assess distance vs time path selection and unreachable nodes.', objectiveIds: ['cgei-geo-o-34-network'], questionIds: ['cgei-geo-q-34-006', 'cgei-geo-q-34-007'], required: true },
     { id: 'cgei-geo-assess-34-field', kind: 'formative', title: 'Field data contract', purpose: 'Assess ID, vocab and GNSS accuracy validation.', objectiveIds: ['cgei-geo-o-34-field'], questionIds: ['cgei-geo-q-34-009', 'cgei-geo-q-34-010'], required: true },
+    { id: 'cgei-es-assess-11-spheres', kind: 'formative', title: 'Spheres', purpose: 'Assess sphere identification.', objectiveIds: ['cgei-es-o-11-spheres'], questionIds: ['cgei-es-q-11-001'], required: true },
+    { id: 'cgei-es-assess-11-radiation', kind: 'formative', title: 'Radiation laws', purpose: 'Assess Stefan–Boltzmann and Te.', objectiveIds: ['cgei-es-o-11-radiation'], questionIds: ['cgei-es-q-11-002', 'cgei-es-q-11-003'], required: true },
+    { id: 'cgei-es-assess-11-feedback', kind: 'formative', title: 'Feedbacks', purpose: 'Assess feedback polarity.', objectiveIds: ['cgei-es-o-11-feedback'], questionIds: ['cgei-es-q-11-004'], required: true },
     { id: 'cgei-geo-assess-34-dem', kind: 'formative', title: 'DEM surface type', purpose: 'Assess DSM/DTM and metadata awareness.', objectiveIds: ['cgei-geo-o-34-dem'], questionIds: ['cgei-geo-q-34-001'], required: true },
     { id: 'cgei-geo-assess-34-slope', kind: 'formative', title: 'Slope calculation', purpose: 'Assess finite-difference slope understanding.', objectiveIds: ['cgei-geo-o-34-slope'], questionIds: ['cgei-geo-q-34-002'], required: true },
     { id: 'cgei-geo-assess-34-hydro', kind: 'formative', title: 'Flow routing concepts', purpose: 'Assess D8 direction and accumulation under stated conventions.', objectiveIds: ['cgei-geo-o-34-hydro'], questionIds: ['cgei-geo-q-34-003', 'cgei-geo-q-34-005'], required: true },
