@@ -48,6 +48,16 @@ describe('source traceability row validation', () => {
     assert.deepEqual(issues, []);
   });
 
+  it('rejects a gap row that still points at a lesson or content block', () => {
+    const issues = validateTraceabilityRow(row({
+      disposition: 'gap',
+      app_lesson_id: 'lesson-a',
+      app_content_block_ids: 'block-a',
+      evidence_note: 'A related lesson exists but does not teach the required method.',
+    }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'GAP_HAS_MAPPING'));
+  });
+
   it('allows an explicit gap without inventing a lesson mapping', () => {
     const issues = validateTraceabilityRow(row({
       app_lesson_id: '',
