@@ -2,7 +2,7 @@
 
 **Status: partial pilot; not a declaration of Subject 5 completeness.**
 
-## Source-subtopic matrices now exist for all instructional units
+## Source-subtopic matrix status
 
 | Source unit | Traceability artifact | Current claim |
 |---|---|---|
@@ -10,7 +10,10 @@
 | 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv`, validated by `scripts/validate-source-traceability.ts` | Coverage map exists; semantic review remains necessary. |
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | ID-checked mappings are partial unless a row is explicitly a gap/candidate. |
 | 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Existing candidate/partial mappings retain their stated evidence limits. |
-| 5.1, 5.6–5.12 | `subject-5-unit-5-1-subtopic-traceability.csv`, `subject-5-unit-5-6-subtopic-traceability.csv` … `subject-5-unit-5-12-subtopic-traceability.csv` | Source paths/titles are inventoried and path-validated. App lesson/content-block mapping remains intentionally unassigned pending semantic inspection. |
+| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | Source paths/titles are inventoried; no app mapping claim is made. |
+| 5.6–5.12 | **Not committed on this branch yet** | Not audited by the validator. Source inventory and semantic mapping remain outstanding. |
+
+The validator intentionally audits only matrices that are present and committed. It must not imply that absent matrices were checked. The previous CI failure exposed that the validator expected 5.6–5.12 files that were not actually on the PR branch; those paths have been removed from the active audit until the artifacts are committed.
 
 ## Status semantics
 
