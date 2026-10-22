@@ -1568,7 +1568,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Five draft lessons distinguish coordinate semantics, alignment, chunking, feature pipelines and validation.', 'Readiness remains draft pending eager/lazy comparison, clean execution, route rendering and scientific review.'],
     },
     {
-      id: 'cgei-geo-unit-3-1', code: '3.1', title: 'Coordinates, scale and map projections', order: 1, kind: 'unit', readiness: 'draft',
+      id: 'cgei-geo-unit-3-1', code: '3.1', title: 'Coordinates, scale and map projections', order: 31, kind: 'unit', readiness: 'draft',
       summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
       estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes31,
       lessonIds: lessons31.map((lesson) => lesson.id),
