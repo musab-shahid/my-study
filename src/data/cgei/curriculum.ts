@@ -1478,7 +1478,60 @@ const lessons33: CurriculumLesson[] = [
 ];
 
 
-const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons33, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes34: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-34-dem', statement: 'Describe DEM resolution, vertical units, NoData and the DSM versus DTM distinction for environmental analyses.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-34-slope', statement: 'Compute and interpret slope from a small elevation grid using stated finite-difference assumptions and units.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-34-hydro', statement: 'Explain flow-direction and accumulation concepts and why depression filling and DEM error affect drainage products.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-34-access', statement: 'State network accessibility assumptions and geocoding quality metrics relevant to climate-risk facility analysis.', action: 'state and critique', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons34: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-4-1', kind: 'lesson', title: 'DEM sources, resolution and surface type', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes34[0]],
+    content: [
+      { id: 'cgei-geo-34-1-1', kind: 'prose', title: 'What a DEM cell stores', body: 'A digital elevation model stores elevation on a regular grid. Critical metadata include horizontal resolution (cell size), vertical units (usually metres), NoData coding, and whether the product is a DSM (includes canopy/buildings) or DTM/bare-earth terrain. Using a DSM as if it were bare earth biases slopes and flow paths in vegetated or urban areas.' },
+      { id: 'cgei-geo-34-1-2', kind: 'table', title: 'DEM source considerations', headers: ['Product family', 'Typical use caution', 'Notes'], rows: [['SRTM', 'Vegetation/urban bias; voids in steep terrain', 'Widely used heritage global DEM'], ['Copernicus DEM', 'Check geoid/vertical reference', 'Modern global alternative'], ['ALOS AW3D', 'Licence and version matter', 'Often finer but not always better in plains'], ['Local survey LiDAR', 'Best local accuracy when available', 'Coverage and date limited']] },
+      { id: 'cgei-geo-34-1-3', kind: 'worked-example', title: 'Flat plains and vertical error', body: 'In low-relief agricultural plains, vertical DEM error of a few metres can dominate true elevation differences between adjacent cells. Slope and flow products may then reflect noise more than topography. Always inspect histograms and known benchmarks before hydrological interpretation.' },
+      { id: 'cgei-geo-34-1-4', kind: 'key-points', title: 'Quality checklist', items: ['Cell size vs process scale', 'Vertical unit and datum', 'DSM vs DTM', 'NoData and voids', 'Source, version, and acquisition date'] },
+    ],
+    activityIds: ['cgei-geo-a-34-dem'], assessmentIds: ['cgei-geo-assess-34-dem'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-4-2', kind: 'lesson', title: 'Slope, aspect and hillshade', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes34[1]],
+    content: [
+      { id: 'cgei-geo-34-2-1', kind: 'prose', title: 'Terrain derivatives', body: 'Slope measures steepness (degrees or percent rise). Aspect is the downslope direction. Hillshade is a visualisation, not a physical flux. Algorithms differ (finite difference vs Horn). Horizontal and vertical units must match; degree-cell DEMs must be projected before metric slope.' },
+      { id: 'cgei-geo-34-2-lab', kind: 'worked-example', title: 'Lab: centre-cell finite-difference slope', body: 'On a 3×3 grid with Δx=Δy=30 m and centre neighbourhood elevations west=100, east=130, south=105, north=110 (m), dz/dx=0.5 and dz/dy≈0.0833, giving slope ≈26.9°. Fixture unit_3_4_terrain_slope_check.py locks these values. QGIS Horn slopes may differ slightly—document the method.' },
+      { id: 'cgei-geo-34-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Teaching stencil ≠ Horn production algorithm', 'Slope ≠ landslide susceptibility by itself', 'Edge cells need explicit padding rules', 'Percent slope = 100×rise/run, not degrees'] },
+    ],
+    activityIds: ['cgei-geo-a-34-slope'], assessmentIds: ['cgei-geo-assess-34-slope'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-4-3', kind: 'lesson', title: 'Flow routing and hydro-terrain concepts', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes34[2]],
+    content: [
+      { id: 'cgei-geo-34-3-1', kind: 'prose', title: 'From elevation to drainage', body: 'Flow-direction assigns each cell a downslope neighbour (or multiple directions in advanced models). Flow accumulation counts upstream contributing cells. Depression filling removes sinks that trap flow. Topographic wetness and height-above-nearest-drainage build on these surfaces. DEM noise and wrong surface type (DSM vs DTM) distort streams extracted from accumulation thresholds.' },
+      { id: 'cgei-geo-34-3-2', kind: 'worked-example', title: 'Why sinks matter', body: 'A single spurious low cell can capture accumulation and invent a lake. Filling changes the surface: document whether and how depressions were filled before publishing watershed boundaries. Tools (GRASS, Whitebox, TauDEM, pysheds) implement different defaults—record the tool and version.' },
+      { id: 'cgei-geo-34-3-3', kind: 'key-points', title: 'Hydro-terrain cautions', items: ['Condition DEM before routing', 'Accumulation threshold is a choice', 'Flat areas are ambiguous', 'Do not equate stream raster with surveyed hydrography'] },
+    ],
+    activityIds: ['cgei-geo-a-34-hydro'], assessmentIds: ['cgei-geo-assess-34-hydro'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-4-4', kind: 'lesson', title: 'Networks, geocoding and field collection', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes34[3]],
+    content: [
+      { id: 'cgei-geo-34-4-1', kind: 'prose', title: 'Accessibility is model-dependent', body: 'Service areas and isochrones depend on the network graph, speed assumptions, and one-way restrictions. OSM completeness varies by locality—always check coverage before claiming hospital accessibility. Cooling-centre or shelter analyses inherit those network biases.' },
+      { id: 'cgei-geo-34-4-2', kind: 'prose', title: 'Geocoding quality', body: 'Geocoding match rate, precision, and spatial bias matter as much as the point map. Informal addressing and transliteration reduce match quality. Landmark-based or participatory GPS capture may outperform automated geocoding in some settlements.' },
+      { id: 'cgei-geo-34-4-3', kind: 'checklist', title: 'Field data model checks', items: ['Controlled vocabularies for categorical fields', 'Required fields enforced', 'Unique record IDs', 'GNSS accuracy logged when available', 'Daily sync and backup plan', 'Photo links stored with stable paths'] },
+      { id: 'cgei-geo-34-4-4', kind: 'callout', title: 'Coverage honesty', tone: 'info', items: ['This lesson introduces 3.4.2–3.4.4 at survey depth', 'Full OSMnx/OR-Tools labs and QField deployments are later practice', 'Terrain derivatives remain the fixture-tested Core of Unit 3.4 Support'] },
+    ],
+    activityIds: ['cgei-geo-a-34-access'], assessmentIds: ['cgei-geo-assess-34-access'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1545,9 +1598,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
       overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
-      outcomes: [...outcomes31, ...outcomes32, ...outcomes33],
+      outcomes: [...outcomes31, ...outcomes32, ...outcomes33, ...outcomes34],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2', 'cgei-geo-unit-3-3'],
+      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2', 'cgei-geo-unit-3-3', 'cgei-geo-unit-3-4'],
       projectIds: [],
       resourceIds: ['cgei-geo-r-epsg'],
       estimatedHours: 6,
@@ -1736,6 +1789,19 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.3 — Desktop GIS and spatial operations',
       notes: ['Seven draft lessons covering Core Unit 3.3 operations, formats and admin geography.', 'QGIS GUI documented; admin/format invariants locked in Python fixture.'],
     },
+    {
+      id: 'cgei-geo-unit-3-4', code: '3.4', title: 'Terrain, network, and field-mapping workflows', order: 34, kind: 'unit', readiness: 'draft',
+      summary: 'Interpret DEMs and terrain derivatives, recognise hydro-terrain assumptions, and introduce network accessibility, geocoding quality and field data controls.',
+      estimatedHours: 8, prerequisites: ['Unit 3.2 CRS and units', 'Unit 3.3 raster operations'], outcomes: outcomes34,
+      lessonIds: lessons34.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-34-dem', 'cgei-geo-a-34-slope', 'cgei-geo-a-34-hydro', 'cgei-geo-a-34-access'],
+      assessmentIds: ['cgei-geo-assess-34-dem', 'cgei-geo-assess-34-slope', 'cgei-geo-assess-34-hydro', 'cgei-geo-assess-34-access'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
+      notes: ['Support unit: deepest teaching on DEM/slope; network/geocoding/field at survey depth.', 'Slope fixture uses finite differences, not Horn/QGIS defaults.'],
+    },
+
 
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
@@ -1766,6 +1832,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-33-006', lessonId: 'cgei-geo-lesson-3-3-1', type: 'single-choice', prompt: 'Which operation keeps the part of layer A that lies outside layer B?', options: ['Dissolve', 'Union', 'Difference (A−B)', 'Attribute join'], correctAnswer: 2, explanation: 'Difference retains A outside B; union keeps all pieces; dissolve merges by attribute.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-007', lessonId: 'cgei-geo-lesson-3-3-6', type: 'single-choice', prompt: 'Which statement about shapefiles is correct for analysis workflows?', options: ['They support unlimited field name length', 'Field names are limited to about 10 characters and the format is multi-file', 'They always store project styling', 'They force equal-area projection'], correctAnswer: 1, explanation: 'Shapefile field names are limited (~10 characters) and data span multiple files; prefer GeoPackage for multi-layer analysis.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-008', lessonId: 'cgei-geo-lesson-3-3-7', type: 'single-choice', prompt: 'In the Unit 3.3 admin fixture, which defect must be fixed before trusting a district aggregation?', options: ['Duplicate unit_id T1 and missing parent D9', 'Using GeoPackage instead of shapefile', 'Setting NoData to −9999', 'Buffering in metres'], correctAnswer: 0, explanation: 'Duplicate IDs and missing parents break hierarchical joins and inflate or drop aggregates.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-geo-q-34-001', lessonId: 'cgei-geo-lesson-3-4-1', type: 'single-choice', prompt: 'Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:', options: ['Correcting vertical datums automatically', 'Biased slopes and flow paths in vegetated or urban areas', 'Removing all NoData cells', 'Converting degrees to metres'], correctAnswer: 1, explanation: 'DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-34-002', lessonId: 'cgei-geo-lesson-3-4-2', type: 'single-choice', prompt: 'With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:', options: ['1.0', '0.5', '30', '0.0833'], correctAnswer: 1, explanation: 'dz/dx = (130−100)/(2×30) = 30/60 = 0.5 (dimensionless rise/run).', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-34-003', lessonId: 'cgei-geo-lesson-3-4-3', type: 'single-choice', prompt: 'Depression filling before flow accumulation is primarily intended to:', options: ['Increase DEM resolution', 'Remove sinks that artificially trap flow', 'Convert DSM to GeoJSON', 'Eliminate the need for a CRS'], correctAnswer: 1, explanation: 'Filling removes spurious sinks so flow can continue downstream; it also alters the elevation surface and must be documented.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-34-004', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'A 15-minute walking isochrone to cooling centres is most sensitive to:', options: ['Shapefile field name length only', 'Network completeness, speed/walk assumptions and barriers', 'Hillshade visualisation parameters', 'GeoTIFF compression'], correctAnswer: 1, explanation: 'Accessibility products inherit network graph quality and travel assumptions; OSM gaps change service-area geometry.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
 
@@ -2319,6 +2390,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-33-qgis', kind: 'field-task', title: 'QGIS processing log', instructions: 'Follow labs/unit-3-3-qgis-workflow.md: set CRS, reclass the teaching grid, write processing_log.md with tools and parameters.', level: 'L2', estimatedMinutes: 40, objectiveIds: ['cgei-geo-o-33-qgis'] },
     { id: 'cgei-geo-a-33-formats', kind: 'guided-practice', title: 'Choose formats for exchange vs analysis', instructions: 'For (a) web map boundaries, (b) metric buffer analysis, (c) long-term archive, name a preferred format and one risk of the wrong choice.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-formats'] },
     { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
+    { id: 'cgei-geo-a-34-dem', kind: 'guided-practice', title: 'DEM metadata audit', instructions: 'List five metadata fields you must record before computing slope on a new DEM and mark which distinguish DSM from DTM.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-34-dem'] },
+    { id: 'cgei-geo-a-34-slope', kind: 'coding-lab', title: 'Finite-difference slope lab', instructions: 'Run unit_3_4_terrain_slope_check.py and recompute the centre slope by hand from the printed grid.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-slope'] },
+    { id: 'cgei-geo-a-34-hydro', kind: 'reflection', title: 'Depression filling trade-off', instructions: 'Explain in one paragraph how filling sinks changes flow accumulation and when that is and is not desirable.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-34-hydro'] },
+    { id: 'cgei-geo-a-34-access', kind: 'critique', title: 'Accessibility assumption critique', instructions: 'List three assumptions in a 15-minute walking isochrone to cooling centres and one OSM completeness check.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-34-access'] },
     { id: 'cgei-geo-a-33-ops', kind: 'guided-practice', title: 'Choose buffer vs clip vs intersect', instructions: 'For (a) assets within 500 m of a river, (b) stations inside a district, (c) land-cover pieces cut by a district, name the primary operation and CRS precondition.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-ops'] },
     { id: 'cgei-geo-a-33-joins', kind: 'independent-practice', title: 'Predict join row counts', instructions: 'With 5 daily rows for 2 stations and 2 non-overlapping districts, state expected row counts for attribute join to station metadata and spatial join of points to districts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-joins'] },
     { id: 'cgei-geo-a-33-zonal', kind: 'coding-lab', title: 'Zonal stats fixture lab', instructions: 'Run unit_3_3_zonal_stats_check.py. Change the NoData cell to 0 and recompute zone-1 mean by hand; explain why count and mean change.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-zonal'] },
@@ -2506,6 +2581,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-33-qgis', kind: 'formative', title: 'Workflow documentation', purpose: 'Assess reproducible GIS logging habits.', objectiveIds: ['cgei-geo-o-33-qgis'], questionIds: ['cgei-geo-q-33-005'], required: true },
     { id: 'cgei-geo-assess-33-formats', kind: 'formative', title: 'Format selection', purpose: 'Assess format trade-off reasoning.', objectiveIds: ['cgei-geo-o-33-formats'], questionIds: ['cgei-geo-q-33-007'], required: true },
     { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
+    { id: 'cgei-geo-assess-34-dem', kind: 'formative', title: 'DEM surface type', purpose: 'Assess DSM/DTM and metadata awareness.', objectiveIds: ['cgei-geo-o-34-dem'], questionIds: ['cgei-geo-q-34-001'], required: true },
+    { id: 'cgei-geo-assess-34-slope', kind: 'formative', title: 'Slope calculation', purpose: 'Assess finite-difference slope understanding.', objectiveIds: ['cgei-geo-o-34-slope'], questionIds: ['cgei-geo-q-34-002'], required: true },
+    { id: 'cgei-geo-assess-34-hydro', kind: 'formative', title: 'Flow routing concepts', purpose: 'Assess hydro-terrain assumptions.', objectiveIds: ['cgei-geo-o-34-hydro'], questionIds: ['cgei-geo-q-34-003'], required: true },
+    { id: 'cgei-geo-assess-34-access', kind: 'formative', title: 'Network and geocoding limits', purpose: 'Assess accessibility and geocoding critique.', objectiveIds: ['cgei-geo-o-34-access'], questionIds: ['cgei-geo-q-34-004'], required: true },
     { id: 'cgei-geo-assess-33-ops', kind: 'formative', title: 'Spatial operation choice', purpose: 'Assess buffer/clip/intersect distinction.', objectiveIds: ['cgei-geo-o-33-ops'], questionIds: ['cgei-geo-q-33-001'], required: true },
     { id: 'cgei-geo-assess-33-joins', kind: 'formative', title: 'Join type selection', purpose: 'Assess attribute vs spatial join reasoning.', objectiveIds: ['cgei-geo-o-33-joins'], questionIds: ['cgei-geo-q-33-002'], required: true },
     { id: 'cgei-geo-assess-33-zonal', kind: 'formative', title: 'Zonal NoData handling', purpose: 'Assess zonal statistics with NoData.', objectiveIds: ['cgei-geo-o-33-zonal'], questionIds: ['cgei-geo-q-33-003'], required: true },

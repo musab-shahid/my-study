@@ -79,3 +79,6 @@ Reclass thresholds and hot indicator on synthetic 3×3 grid; NoData propagation;
 
 ## unit_3_3_admin_formats_check.py
 Synthetic admin hierarchy defects (duplicate ID, missing parent) and observation join match counts; format preference contract.
+
+## unit_3_4_terrain_slope_check.py
+3×3 DEM, 30 m cells, central-difference centre slope ≈26.88°. Teaching stencil, not Horn/QGIS.

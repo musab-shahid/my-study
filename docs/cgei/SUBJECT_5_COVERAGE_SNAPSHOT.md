@@ -22,4 +22,4 @@ Generated as an implementation aid; dispositions come from unit CSV matrices.
 | Subject | Status | Notes |
 |---------|--------|-------|
 | 5 Scientific Computing | Pilot — Units 5.1–5.12 with fixtures | Not released |
-| 3 Geospatial | **Units 3.1–3.3 draft** (models, CRS, spatial ops + zonal fixture) | TOC-aligned; 3.4+ not started |
+| 3 Geospatial | **Units 3.1–3.4 draft** (through Support terrain/network intro) | 3.4.2–3.4.4 survey depth |
