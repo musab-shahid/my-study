@@ -109,9 +109,9 @@ for (const lesson of cgeiCurriculum.lessons) {
 }
 
 /**
- * Validate the reviewed Subject 5.2 subtopic crosswalk against actual canonical
- * lesson/content-block IDs. This checks referential integrity, not pedagogy:
- * the CSV's explicit disposition and evidence note still require human review.
+ * Validate reviewed source-TOC crosswalks against canonical lesson/content-block IDs.
+ * This enforces referential integrity, not pedagogical completeness; dispositions
+ * and evidence notes still require human review.
  */
 const parseCsv = (input: string): string[][] => {
   const rows: string[][] = [];
@@ -148,51 +148,58 @@ const parseCsv = (input: string): string[][] => {
   return rows;
 };
 
-try {
-  const crosswalkText = readFileSync(
-    new URL('../docs/cgei/subject-5-unit-5-2-subtopic-traceability.csv', import.meta.url),
-    'utf8',
-  );
-  const parsedRows = parseCsv(crosswalkText);
-  const headers = parsedRows[0] ?? [];
-  const values = parsedRows.slice(1);
-  const records = values.map((valuesRow) =>
-    Object.fromEntries(headers.map((header, index) => [header, valuesRow[index] ?? ''])) as Record<string, string>,
-  );
-  const expectedPaths = [
-    '5.2.1.1', '5.2.1.2', '5.2.1.3', '5.2.1.4',
-    '5.2.2.1', '5.2.2.2', '5.2.2.3', '5.2.2.4', '5.2.2.5',
-    '5.2.3.1', '5.2.3.2', '5.2.3.3', '5.2.3.4', '5.2.3.5', '5.2.3.6', '5.2.3.7',
-    '5.2.4.1', '5.2.4.2', '5.2.4.3', '5.2.4.4',
-    '5.2.5.1', '5.2.5.2', '5.2.5.3',
-  ];
-  const paths = records.map((record) => record.source_subtopic_path);
-  if (records.length !== expectedPaths.length) {
-    errors.push(`Subject 5.2 crosswalk should contain ${expectedPaths.length} subtopics; found ${records.length}`);
-  }
-  if (new Set(paths).size !== paths.length) errors.push('Subject 5.2 crosswalk contains duplicate source subtopic paths');
-  for (const path of expectedPaths) {
-    if (!paths.includes(path)) errors.push(`Subject 5.2 crosswalk is missing source subtopic ${path}`);
-  }
-  for (const record of records) {
-    const path = record.source_subtopic_path;
-    const lessonId = record.app_lesson_id;
-    if (!lessonIds.has(lessonId)) errors.push(`Crosswalk ${path} references unknown lesson ID: ${lessonId}`);
-    const parentTopic = path.split('.').slice(0, 3).join('.');
-    if (record.parent_topic_path !== parentTopic) {
-      errors.push(`Crosswalk ${path} has incorrect parent topic ${record.parent_topic_path}; expected ${parentTopic}`);
+const validateSubtopicCrosswalk = (filePath: string, label: string, expectedPaths: string[]) => {
+  try {
+    const csvText = readFileSync(new URL(filePath, import.meta.url), 'utf8');
+    const parsedRows = parseCsv(csvText);
+    const headers = parsedRows[0] ?? [];
+    const values = parsedRows.slice(1);
+    const records = values.map((valuesRow) =>
+      Object.fromEntries(headers.map((header, index) => [header, valuesRow[index] ?? ''])) as Record<string, string>,
+    );
+    const paths = records.map((record) => record.source_subtopic_path);
+    if (records.length !== expectedPaths.length) {
+      errors.push(`${label} crosswalk should contain ${expectedPaths.length} subtopics; found ${records.length}`);
     }
-    const blockIds = record.app_content_block_ids.split(';').filter(Boolean);
-    if (['mapped', 'mapped_partial'].includes(record.disposition) && blockIds.length === 0) {
-      errors.push(`Crosswalk ${path} claims ${record.disposition} without content-block evidence`);
+    if (new Set(paths).size !== paths.length) errors.push(`${label} crosswalk contains duplicate source subtopic paths`);
+    for (const path of expectedPaths) {
+      if (!paths.includes(path)) errors.push(`${label} crosswalk is missing source subtopic ${path}`);
     }
-    for (const blockId of blockIds) {
-      if (!contentBlockIds.has(blockId)) errors.push(`Crosswalk ${path} references unknown content block ID: ${blockId}`);
+    for (const record of records) {
+      const path = record.source_subtopic_path;
+      const lessonId = record.app_lesson_id;
+      if (!lessonIds.has(lessonId)) errors.push(`${label} crosswalk ${path} references unknown lesson ID: ${lessonId}`);
+      const expectedParentTopic = path.split('.').slice(0, 3).join('.');
+      if (record.parent_topic_path !== expectedParentTopic) {
+        errors.push(`${label} crosswalk ${path} has incorrect parent topic ${record.parent_topic_path}; expected ${expectedParentTopic}`);
+      }
+      const blockIds = record.app_content_block_ids.split(';').filter(Boolean);
+      if (['mapped', 'mapped_partial'].includes(record.disposition) && blockIds.length === 0) {
+        errors.push(`${label} crosswalk ${path} claims ${record.disposition} without content-block evidence`);
+      }
+      for (const blockId of blockIds) {
+        if (!contentBlockIds.has(blockId)) errors.push(`${label} crosswalk ${path} references unknown content block ID: ${blockId}`);
+      }
     }
+  } catch (error) {
+    errors.push(`Could not validate ${label} subtopic crosswalk: ${String(error)}`);
   }
-} catch (error) {
-  errors.push(`Could not validate Subject 5.2 subtopic crosswalk: ${String(error)}`);
-}
+};
+
+validateSubtopicCrosswalk('../docs/cgei/subject-5-unit-5-2-subtopic-traceability.csv', 'Subject 5.2', [
+  '5.2.1.1', '5.2.1.2', '5.2.1.3', '5.2.1.4',
+  '5.2.2.1', '5.2.2.2', '5.2.2.3', '5.2.2.4', '5.2.2.5',
+  '5.2.3.1', '5.2.3.2', '5.2.3.3', '5.2.3.4', '5.2.3.5', '5.2.3.6', '5.2.3.7',
+  '5.2.4.1', '5.2.4.2', '5.2.4.3', '5.2.4.4',
+  '5.2.5.1', '5.2.5.2', '5.2.5.3',
+]);
+validateSubtopicCrosswalk('../docs/cgei/subject-5-unit-5-3-subtopic-traceability.csv', 'Subject 5.3', [
+  '5.3.1.1', '5.3.1.2', '5.3.1.3', '5.3.1.4',
+  '5.3.2.1', '5.3.2.2', '5.3.2.3',
+  '5.3.3.1', '5.3.3.2', '5.3.3.3', '5.3.3.4',
+  '5.3.4.1', '5.3.4.2', '5.3.4.3',
+  '5.3.5.1', '5.3.5.2', '5.3.5.3',
+]);
 
 for (const question of cgeiCurriculum.questions) {
   checkRefs(`Curriculum question ${question.id} lesson`, [question.lessonId], lessonIds);
