@@ -46,14 +46,14 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
 
-### App integration (Units 5.1–5.10; canonical curriculum migration in progress)
+### App integration (Units 5.1–5.11; canonical curriculum migration in progress)
 
 | Item | Status |
 |------|--------|
 | Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
 | Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
 | Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
-| Assessment questions | **126 canonical questions**: 35 migrated from Unit 5.1, 41 for Units 5.2–5.5, and 10 each for Units 5.6–5.10; explanations preserved, and legacy Unit 5.1 source citations retained |
+| Assessment questions | **136 canonical questions**: 35 migrated from Unit 5.1, 41 for Units 5.2–5.5, and 10 each for Units 5.6–5.11; explanations preserved, and legacy Unit 5.1 source citations retained |
 | Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
 | Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
 | Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge, with 16 additional worked-calculation/code/checklist blocks; Units 5.2–5.5 are authored directly as typed content blocks |
@@ -69,6 +69,8 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Unit 5.10 | Five canonical causal-inference lessons, five linked activities/assessments, ten knowledge checks and five portfolio artefacts; remains draft pending scientific review and executable design examples |
 | Unit 5.10 source | `units/05.10-causal-inference.md` records learning sequence, causal assumptions, design-specific diagnostics and worked environmental cases |
 | Unit 5.10 app map | `15-UNIT-5.10-APP-COVERAGE-MAP.md` records registry evidence, source-to-app gaps, scientific cautions and release gates |
+| Unit 5.11 | Five canonical lessons on version control, data contracts, scientific tests, clean environments and releases; five activities/assessments, ten linked checks and five deliverables; remains draft |
+| Unit 5.11 source | `units/05.11-research-software-engineering.md` defines the manuscript-first learning sequence and release boundaries |
 | Units 5.10–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
-| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; Unit 5.6–5.10 validation rules added; the latest schema/content changes require a fresh CI run |
-| Scientific verification | `fixtures/smoke_check.py` includes synthetic scientific checks for Units 5.2–5.6, including Unit 5.5 SQLite aggregation, unmatched keys, and Unit 5.6 interaction/interval/VIF/grouped-validation checks, Unit 5.7 temporal checks, and the synthetic EOF known-mode recovery check. Unit 5.8 remains draft pending fresh CI and explicit lesson UI review; Unit 5.9 remains draft pending GLM/mixed/Bayesian example execution and review; Unit 5.10 remains draft pending causal-design examples and scientific/UI review. No claim of causal identification from synthetic smoke checks or live-data validation |
+| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; Unit 5.6–5.11 validation rules added; the latest schema/content changes require a fresh CI run |
+| Scientific verification | `fixtures/smoke_check.py` includes synthetic scientific checks for Units 5.2–5.6, including Unit 5.5 SQLite aggregation, unmatched keys, and Unit 5.6 interaction/interval/VIF/grouped-validation checks, Unit 5.7 temporal checks, and the synthetic EOF known-mode recovery check. Unit 5.8 remains draft pending fresh CI and explicit lesson UI review; Unit 5.9 remains draft pending GLM/mixed/Bayesian example execution and review; Unit 5.10 remains draft pending causal-design examples and scientific/UI review; Unit 5.11 remains draft pending clean-environment execution and rendered UI review. No claim of causal identification from synthetic smoke checks or live-data validation |
