@@ -720,6 +720,7 @@ const lesson55Definitions = [
           "Read robots.txt and site terms; do not bypass authentication, technical controls or restrictions, and do not assume public visibility grants reuse rights."
         ]
       },
+      {
         "id": "cgei-ds-55-3-checklist",
         "kind": "checklist",
         "title": "Acquisition checklist",
@@ -796,6 +797,7 @@ const lesson55Definitions = [
           "Keep the date and URL of the terms reviewed; re-check when the product or release changes."
         ]
       },
+      {
         "id": "cgei-ds-55-4-env",
         "kind": "code",
         "title": "Separate a committed template from local secrets",
