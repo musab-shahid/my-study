@@ -1596,7 +1596,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-q-54-013', lessonId: 'cgei-ds-lesson-5-4-5', type: 'single-choice', prompt: 'A forecast verification study records observed event/no event and forecast event/no event. What should be done before applying a chi-square test of independence?', options: ['Replace all counts with percentages and discard the denominators', 'Build and inspect the contingency table of hits, misses, false alarms and correct negatives', 'Assume each grid cell is an independent event', 'Interpret the chi-square statistic as a causal effect'], correctAnswer: 1, explanation: 'The contingency table makes the verification counts and event definitions explicit. Expected counts, sampling dependence and the purpose of the test still need consideration; verification scores should also be reported.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-54-009', lessonId: 'cgei-ds-lesson-5-4-5', type: 'single-choice', prompt: 'A huge sample gives p < 0.001 for a 0.05 °C difference. What else is needed to judge its importance?', options: ['Only more decimal places in the p-value', 'Effect size, interval/uncertainty and a decision-relevant practical threshold', 'Remove the confidence interval', 'Assume every statistically significant effect matters'], correctAnswer: 1, explanation: 'Statistical significance does not determine practical significance. Report magnitude, uncertainty and relevance to the scientific or policy decision.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
     { id: 'cgei-ds-q-54-010', lessonId: 'cgei-ds-lesson-5-4-5', type: 'single-choice', prompt: 'When might a rank-based method help, and what assumption may still matter?', options: ['It removes all assumptions automatically', 'It proves causality', 'It can reduce reliance on a particular distributional shape, but independence/design assumptions may still matter', 'It is only appropriate for normally distributed data'], correctAnswer: 2, explanation: 'Rank methods can be useful when parametric distributional assumptions are poor, but they do not automatically solve dependence, selection or other design problems.', difficulty: 'medium', cognitiveLevel: 'analyze' },
-{
     {
       "id": "cgei-ds-q-55-011",
       "lessonId": "cgei-ds-lesson-5-5-3",
@@ -1619,6 +1618,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       "difficulty": "hard",
       "cognitiveLevel": "evaluate"
     },
+    {
     "id": "cgei-ds-q-55-001",
     "lessonId": "cgei-ds-lesson-5-5-1",
     "type": "single-choice",
