@@ -40,3 +40,9 @@ python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_c
 The script writes a temporary synthetic station/day CSV, filters a fixed June window, and compares per-station integer sums and observation counts across three chunk sizes. Every candidate runs in a fresh child process; elapsed time and peak process RSS are printed for inspection. The temporary fixture is deleted when the run ends.
 
 This validates aggregation equivalence and demonstrates how to collect process-level memory observations. It does **not** establish a universally optimal chunk size: timing and RSS depend on machine, Python/library versions, input layout and workload. CI checks correctness and that memory measurements are available, not performance thresholds. The CSV is synthetic and is not environmental observation data.
+
+## unit_5_7_timeseries_lab_check.py
+Deterministic lag-1 ACF and chronological persistence evaluation for Unit 5.7. Not real-world forecast validation.
+
+## unit_5_8_eof_weight_check.py
+Locks 2×2 covariance eigenvalues (1.8, 0.2) for EOF teaching. Not a gridded climate EOF verification.

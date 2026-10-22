@@ -48,7 +48,7 @@ describe('CGEI curriculum structure', () => {
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 64);
-    assert.equal(cgeiCurriculum.questions.length, 163);
+    assert.equal(cgeiCurriculum.questions.length, 166);
     assert.deepEqual(cgeiCurriculum.units.map((unit) => unit.order).sort((a, b) => a - b), Array.from({ length: 12 }, (_, index) => index + 1));
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));

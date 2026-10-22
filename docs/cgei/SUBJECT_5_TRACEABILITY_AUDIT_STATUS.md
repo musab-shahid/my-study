@@ -46,3 +46,10 @@ The matrices cover source inventory across all twelve units. Structural validati
 - Unit 5.4: partial-correlation numeric example; two-sample power sketch with dependence caution; fixture extended.
 - Unit 5.5: NULL/date filtering worked example; schema/normalisation/index prose; environment-variable load pattern.
 - Knowledge checks added for these points; dispositions remain `mapped_partial` where practice is still incomplete.
+
+
+## 2026-10-23 — Unit 5.7 / 5.8 executable labs
+
+- Unit 5.7: fixture-backed lag-1 ACF (≈0.636) and chronological persistence MAE; mixed-order comparison documented without overclaiming skill.
+- Unit 5.8: fixture-backed 2×2 eigenexample (90% variance on leading mode).
+- Dispositions remain mapped_partial where full software workflows are incomplete.

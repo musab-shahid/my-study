@@ -71,3 +71,7 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py
       - name: Verify Unit 5.4 inference arithmetic
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_4_inference_check.py
+      - name: Verify Unit 5.7 time-series lab arithmetic
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_timeseries_lab_check.py
+      - name: Verify Unit 5.8 EOF eigenvalue arithmetic
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_8_eof_weight_check.py
