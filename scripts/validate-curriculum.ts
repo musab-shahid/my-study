@@ -64,9 +64,12 @@ for (const subject of cgeiCurriculum.subjects) {
 const unitOrderValues = cgeiCurriculum.units.map((unit) => unit.order);
 if (new Set(unitOrderValues).size !== unitOrderValues.length) errors.push('Curriculum units must have unique order values');
 for (const unit of cgeiCurriculum.units) {
-  const expectedOrder = Number(unit.code.slice(2));
-  if (Number.isFinite(expectedOrder) && unit.order !== expectedOrder) {
-    errors.push(`Unit ${unit.code} has order ${unit.order}; expected ${expectedOrder}`);
+  // Subject 5 pilot: order equals the minor component of "5.N". Other subjects use unique global orders.
+  if (unit.code.startsWith('5.')) {
+    const expectedOrder = Number(unit.code.slice(2));
+    if (Number.isFinite(expectedOrder) && unit.order !== expectedOrder) {
+      errors.push(`Unit ${unit.code} has order ${unit.order}; expected ${expectedOrder}`);
+    }
   }
   checkRefs(`Unit ${unit.id} lessons`, unit.lessonIds, lessonIds);
   checkRefs(`Unit ${unit.id} activities`, unit.activityIds, activityIds);
