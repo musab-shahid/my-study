@@ -58,7 +58,17 @@ def main():
     n, rho = 100, 0.60
     n_eff = n * (1 - rho) / (1 + rho)
     assert isclose(n_eff, 25.0, rel_tol=0, abs_tol=1e-12)
-    print("Unit 5.4 ANOVA, chi-square expected counts, and n_eff arithmetic passed.")
+    # Partial correlation example used in lesson 5-4-4
+    r_xy, r_xz, r_yz = -0.60, 0.50, -0.40
+    r_xy_z = (r_xy - r_xz * r_yz) / ((1 - r_xz**2) * (1 - r_yz**2)) ** 0.5
+    assert isclose(r_xy_z, -0.5039526306789697, rel_tol=0, abs_tol=1e-9)
+
+    # Power sketch n ≈ 2 (zα + zβ)^2 (σ/δ)^2
+    z_a, z_b, sigma, delta = 1.96, 0.84, 4.0, 2.0
+    n_per_group = 2 * (z_a + z_b) ** 2 * (sigma / delta) ** 2
+    assert isclose(n_per_group, 62.72, rel_tol=0, abs_tol=1e-9)
+
+    print("Unit 5.4 ANOVA, chi-square, n_eff, partial correlation, and power-sketch arithmetic passed.")
 
 
 if __name__ == "__main__":

@@ -39,3 +39,10 @@ The matrices cover source inventory across all twelve units. Structural validati
 2. Add and execute focused examples for spectral analysis/aliasing, ARIMA/SARIMA and state-space forecasts, changepoint/gap-fill sensitivity, MCA/CCA, cluster validity, field significance, GLM offsets, survey design, Bayesian sampler diagnostics and causal-design sensitivity.
 3. Independently re-audit Units 5.2–5.5 and turn their new illustrative code into executed fixture-backed labs; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
 4. Do not promote candidate or partial mappings to complete coverage solely because identifiers resolve.
+
+
+## 2026-10-23 content batch
+
+- Unit 5.4: partial-correlation numeric example; two-sample power sketch with dependence caution; fixture extended.
+- Unit 5.5: NULL/date filtering worked example; schema/normalisation/index prose; environment-variable load pattern.
+- Knowledge checks added for these points; dispositions remain `mapped_partial` where practice is still incomplete.
