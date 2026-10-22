@@ -70,3 +70,6 @@ Axis-aligned bbox interior overlap + duplicate IDs. Not a full topology engine.
 
 ## unit_3_2_crs_scale_check.py
 Metres-per-degree and 1° cell area ratio cos(φ). Spherical teaching approximation.
+
+## unit_3_3_zonal_stats_check.py
+Mask-based zonal mean/sum/count with NoData exclusion. Validates aggregation, not polygon rasterization.

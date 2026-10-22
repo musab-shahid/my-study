@@ -89,3 +89,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_1_spatial_integrity_check.py
       - name: Verify Unit 3.2 geographic scale and degree-cell area
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_scale_check.py
+      - name: Verify Unit 3.3 zonal statistics aggregation
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_stats_check.py

@@ -1388,7 +1388,49 @@ const lessons32: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes33: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-33-ops', statement: 'Distinguish buffer, clip and intersect operations and state CRS/unit preconditions for distance buffers.', action: 'distinguish and apply', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-33-joins', statement: 'Choose attribute versus spatial joins and predict row-count effects of one-to-many matches.', action: 'choose and predict', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-33-zonal', statement: 'Compute zonal mean/sum/count from an explicit membership mask while excluding NoData and treating zero as valid.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons33: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-3-1', kind: 'lesson', title: 'Buffer, clip and intersect', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes33[0]],
+    content: [
+      { id: 'cgei-geo-33-1-1', kind: 'prose', title: 'Distance zones are not impact predictions', body: 'A buffer constructs a region within a stated distance of input features. Distance units inherit the layer CRS: buffering in geographic degrees is almost always wrong for metric policy distances. A 500 m river buffer identifies assets inside a distance zone; it does not by itself prove flood exposure without hydrology and elevation evidence.' },
+      { id: 'cgei-geo-33-1-2', kind: 'table', title: 'Core overlay operations', headers: ['Operation', 'Typical output', 'Geometry change?'], rows: [['Buffer', 'Polygon zone around inputs', 'Creates new geometry'], ['Clip', 'Input features limited to a boundary', 'May cut geometries'], ['Intersect', 'Overlap of inputs with combined attributes', 'Often splits features'], ['Attribute join', 'Table match on keys', 'No geometry change'], ['Spatial join', 'Attributes transferred by spatial predicate', 'Usually keeps target geometry']] },
+      { id: 'cgei-geo-33-1-3', kind: 'worked-example', title: 'Study-area clip versus intersect', body: 'Clipping station points to a district polygon keeps only points inside the district (points unchanged). Intersecting land-cover polygons with the district yields new polygons for each land-cover×district piece and carries attributes from both layers. Selecting features by location without cutting boundaries is not the same as clip when polygons straddle the border.' },
+      { id: 'cgei-geo-33-1-4', kind: 'callout', title: 'Desktop GIS requirement', tone: 'info', items: ['TOC Unit 3.3 expects QGIS (or equivalent) proficiency for full workflows.', 'This lesson teaches operation semantics and CRS preconditions.', 'GUI click-paths and print-layout production are practice tasks outside the automated fixture.'] },
+    ],
+    activityIds: ['cgei-geo-a-33-ops'], assessmentIds: ['cgei-geo-assess-33-ops'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-3-2', kind: 'lesson', title: 'Attribute joins versus spatial joins', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes33[1]],
+    content: [
+      { id: 'cgei-geo-33-2-1', kind: 'prose', title: 'Keys answer identity; geometry answers location', body: 'An attribute join matches rows on explicit fields (station_id, district_code). A spatial join transfers attributes using a geometric predicate (within, intersects, nearest). Mixing them without documentation produces silent mismatches when IDs and locations disagree.' },
+      { id: 'cgei-geo-33-2-2', kind: 'worked-example', title: 'Row counts under one-to-many joins', body: 'Three daily observation rows share station_id S1. An attribute join to a one-row station metadata table yields three rows (one-to-many). A spatial join of three points into two districts may produce three rows if each point hits one district, or more if a point matches multiple overlapping polygons. Always record predicate, join type, and before/after counts.' },
+      { id: 'cgei-geo-33-2-3', kind: 'checklist', title: 'Join acceptance checks', items: ['Key uniqueness on the intended side', 'CRS agreement before spatial predicates', 'Boundary rule (contains vs intersects)', 'Null rate among unmatched features', 'Row count before and after'] },
+    ],
+    activityIds: ['cgei-geo-a-33-joins'], assessmentIds: ['cgei-geo-assess-33-joins'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-3-3', kind: 'lesson', title: 'Zonal statistics on grids', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes33[2]],
+    content: [
+      { id: 'cgei-geo-33-3-1', kind: 'prose', title: 'Summarise cells inside zones', body: 'Zonal statistics aggregate raster cell values within polygon zones (or zone masks). Mean, sum, count, min and max answer different questions. Inclusion rules (cell centre, majority, exact area fraction) change results at coarse resolution. Equal-area considerations from Unit 3.2 still apply when interpreting physical totals.' },
+      { id: 'cgei-geo-33-3-lab', kind: 'worked-example', title: 'Lab: mask-based zonal mean with NoData', body: 'Fixture unit_3_3_zonal_stats_check.py uses a 3×3 value grid and aligned zone IDs. Zone 1 valid cells {10,20,30} → mean 20, sum 60, count 3 (NoData cell excluded). Zone 2 {40,50,60,70} → mean 55. Zero is counted as a valid value. Empty zones return count 0 and mean None. Membership is an explicit mask—this validates aggregation, not polygon rasterization.' },
+      { id: 'cgei-geo-33-3-3', kind: 'callout', title: 'Scientific limits', tone: 'warning', items: ['NoData is not zero', 'Cell mean ≠ area-weighted mean when cell areas differ', 'Mask membership ≠ full GIS zonal pipeline', 'Do not treat zonal means as causal exposure without design'] },
+    ],
+    activityIds: ['cgei-geo-a-33-zonal'], assessmentIds: ['cgei-geo-assess-33-zonal'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+];
+
+
+const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons33, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1453,11 +1495,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with spatial data models (Unit 3.1), then coordinate reference systems (Unit 3.2). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
-      outcomes: [...outcomes31, ...outcomes32],
+      outcomes: [...outcomes31, ...outcomes32, ...outcomes33],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2'],
+      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2', 'cgei-geo-unit-3-3'],
       projectIds: [],
       resourceIds: ['cgei-geo-r-epsg'],
       estimatedHours: 6,
@@ -1634,6 +1676,19 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master_Study_TOC Subject 3 — Geospatial Science, GIS & Cartography',
       notes: ['Core Unit 3.2 per TOC — CRS, scale and projections.', 'Area comparison uses spherical approximation; not a geodesic engine.'],
     },
+    {
+      id: 'cgei-geo-unit-3-3', code: '3.3', title: 'Desktop GIS and spatial operations', order: 33, kind: 'unit', readiness: 'draft',
+      summary: 'Apply buffer, clip and intersect semantics; choose attribute versus spatial joins; compute zonal statistics with explicit NoData handling.',
+      estimatedHours: 8, prerequisites: ['Unit 3.1 spatial data models', 'Unit 3.2 CRS and units'], outcomes: outcomes33,
+      lessonIds: lessons33.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-33-ops', 'cgei-geo-a-33-joins', 'cgei-geo-a-33-zonal'],
+      assessmentIds: ['cgei-geo-assess-33-ops', 'cgei-geo-assess-33-joins', 'cgei-geo-assess-33-zonal'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.3 — Desktop GIS and spatial operations',
+      notes: ['Core operations and zonal stats taught with mask-based fixture.', 'QGIS GUI proficiency and full geoprocessing menus remain learner practice outside CI.'],
+    },
+
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
       code, title, order: Number(code.slice(2)), kind: 'unit' as const, readiness: 'planned' as const, summary,
@@ -1653,6 +1708,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-31-001', lessonId: 'cgei-geo-lesson-3-1-1', type: 'single-choice', prompt: 'Which representation best stores continuous precipitation rate on a regular 0.1° grid?', options: ['Polygon districts only', 'A raster with explicit nodata', 'A single multipoint without attributes', 'A text list of station names'], correctAnswer: 1, explanation: 'Continuous fields on regular grids are naturally rasters; nodata must be distinguished from zero.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-31-002', lessonId: 'cgei-geo-lesson-3-1-2', type: 'single-choice', prompt: 'Matching station rows to districts by approximate lat/lon equality is risky primarily because:', options: ['Floating coordinates rarely match as keys and ignore CRS/tolerance', 'Polygons cannot store attributes', 'Rasters forbid joins', 'EPSG codes are optional'], correctAnswer: 0, explanation: 'Use stable IDs or explicit spatial predicates with documented CRS and tolerance—not raw float equality.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-geo-q-31-003', lessonId: 'cgei-geo-lesson-3-1-3', type: 'single-choice', prompt: 'Two axis-aligned district boxes share only a boundary edge and have unique IDs. Under the teaching fixture rules, this should be treated as:', options: ['Always invalid topology', 'A valid control for non-overlapping interiors', 'Proof that Web Mercator preserves area', 'A raster mixed-pixel error'], correctAnswer: 1, explanation: 'Shared boundaries can be valid; the fixture flags interior overlaps and duplicate IDs, not every adjacency.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
+
+    
+    { id: 'cgei-geo-q-33-001', lessonId: 'cgei-geo-lesson-3-3-1', type: 'single-choice', prompt: 'A 500 m buffer around rivers should be computed in which setting?', options: ['Geographic degrees on WGS 84 without projection', 'A projected CRS with metre units appropriate to the region', 'Any web tile CRS', 'Pixel coordinates of a screenshot'], correctAnswer: 1, explanation: 'Metric policy distances require a projected CRS with linear units; degree buffers are not metres.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-33-002', lessonId: 'cgei-geo-lesson-3-3-2', type: 'single-choice', prompt: 'Five daily rows share two station_ids. An attribute join to a two-row station metadata table (unique station_id) typically yields:', options: ['Two rows only', 'Five rows (one-to-many expansion)', 'Zero rows', 'One multipoint geometry'], correctAnswer: 1, explanation: 'One-to-many attribute joins expand the many-side rows; always check counts before/after.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-33-003', lessonId: 'cgei-geo-lesson-3-3-3', type: 'single-choice', prompt: 'In the Unit 3.3 fixture, zone 1 has values 10, 20 and NoData. The correct zonal mean excludes NoData and equals:', options: ['10', '15', '20', '0'], correctAnswer: 2, explanation: 'Valid cells 10, 20, 30 average to 20; NoData is skipped and zero would be a valid value if present.', difficulty: 'easy', cognitiveLevel: 'apply' },
 
     { id: 'cgei-geo-q-32-001', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-32-002', lessonId: 'cgei-geo-lesson-3-2-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
@@ -2200,6 +2260,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-r-512-rasterio', kind: 'documentation', title: 'Rasterio documentation', url: 'https://rasterio.readthedocs.io/', purpose: 'Reference for raster geospatial metadata, grid transforms and raster operations.', authorOrPublisher: 'Rasterio project', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
   ],
   activities: [
+    { id: 'cgei-geo-a-33-ops', kind: 'guided-practice', title: 'Choose buffer vs clip vs intersect', instructions: 'For (a) assets within 500 m of a river, (b) stations inside a district, (c) land-cover pieces cut by a district, name the primary operation and CRS precondition.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-ops'] },
+    { id: 'cgei-geo-a-33-joins', kind: 'independent-practice', title: 'Predict join row counts', instructions: 'With 5 daily rows for 2 stations and 2 non-overlapping districts, state expected row counts for attribute join to station metadata and spatial join of points to districts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-joins'] },
+    { id: 'cgei-geo-a-33-zonal', kind: 'coding-lab', title: 'Zonal stats fixture lab', instructions: 'Run unit_3_3_zonal_stats_check.py. Change the NoData cell to 0 and recompute zone-1 mean by hand; explain why count and mean change.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-zonal'] },
     { id: 'cgei-geo-a-31-models', kind: 'guided-practice', title: 'Choose vector or raster', instructions: 'For station heat indices, district population density and a precipitation surface, state which spatial model fits and why.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-31-models'] },
     { id: 'cgei-geo-a-31-attributes', kind: 'independent-practice', title: 'Join diagnostics', instructions: 'Given a station table and district polygons, list three checks before an attribute join and three before a spatial join.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-31-attributes'] },
     { id: 'cgei-geo-a-31-topology', kind: 'coding-lab', title: 'Integrity fixture lab', instructions: 'Run unit_3_1_spatial_integrity_check.py, then modify one rectangle to remove the intentional overlap and confirm the fixture still passes the control case.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-31-topology'] },
@@ -2380,6 +2443,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-512-validation', kind: 'project-milestone', title: 'Prepare a pipeline validation report', instructions: 'Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-512-release'], expectedEvidence: ['Validation report', 'Performance table', 'Limitations and provenance'], required: true },
   ],
   assessments: [
+    { id: 'cgei-geo-assess-33-ops', kind: 'formative', title: 'Spatial operation choice', purpose: 'Assess buffer/clip/intersect distinction.', objectiveIds: ['cgei-geo-o-33-ops'], questionIds: ['cgei-geo-q-33-001'], required: true },
+    { id: 'cgei-geo-assess-33-joins', kind: 'formative', title: 'Join type selection', purpose: 'Assess attribute vs spatial join reasoning.', objectiveIds: ['cgei-geo-o-33-joins'], questionIds: ['cgei-geo-q-33-002'], required: true },
+    { id: 'cgei-geo-assess-33-zonal', kind: 'formative', title: 'Zonal NoData handling', purpose: 'Assess zonal statistics with NoData.', objectiveIds: ['cgei-geo-o-33-zonal'], questionIds: ['cgei-geo-q-33-003'], required: true },
+
     { id: 'cgei-geo-assess-31-models', kind: 'formative', title: 'Vector/raster choice', purpose: 'Check model selection reasoning.', objectiveIds: ['cgei-geo-o-31-models'], questionIds: ['cgei-geo-q-31-001'], required: true },
     { id: 'cgei-geo-assess-31-attributes', kind: 'formative', title: 'Join semantics', purpose: 'Distinguish attribute and spatial joins.', objectiveIds: ['cgei-geo-o-31-attributes'], questionIds: ['cgei-geo-q-31-002'], required: true },
     { id: 'cgei-geo-assess-31-topology', kind: 'formative', title: 'Integrity diagnosis', purpose: 'Interpret simple topology diagnostics.', objectiveIds: ['cgei-geo-o-31-topology'], questionIds: ['cgei-geo-q-31-003'], required: true },
