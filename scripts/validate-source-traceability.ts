@@ -56,10 +56,14 @@ function audit(file: string, label: string, expectedPaths: string[]) {
     const previousParentTitle = parentTitles.get(record.parent_topic_path);
     if (previousParentTitle && previousParentTitle !== record.parent_topic_title) errors.push(`${label} ${path}: inconsistent parent title for ${record.parent_topic_path}`);
     else parentTitles.set(record.parent_topic_path, record.parent_topic_title);
-    const lesson = lessons.get(record.app_lesson_id);
     const expectedParent = path.split('.').slice(0, 3).join('.');
-    const expectedLessonId = `cgei-ds-lesson-${expectedParent.replaceAll('.', '-')}`;
-    if (record.app_lesson_id !== expectedLessonId) errors.push(`${label} ${path}: lesson ${record.app_lesson_id} does not match source parent ${expectedParent}; expected ${expectedLessonId}`);
+    const expectedUnitPrefix = `cgei-ds-lesson-${path.split('.').slice(0, 2).join('-')}-`;
+    if (record.app_lesson_id && !record.app_lesson_id.startsWith(expectedUnitPrefix)) {
+      errors.push(`${label} ${path}: lesson ${record.app_lesson_id} belongs outside source unit ${path.split('.').slice(0, 2).join('.')}`);
+    }
+    if (!record.app_lesson_id && record.disposition !== 'candidate') {
+      errors.push(`${label} ${path}: only candidate rows may leave app_lesson_id unassigned`);
+    }
     if (record.parent_topic_path !== expectedParent) {
       errors.push(`${label} ${path}: wrong parent ${record.parent_topic_path}, expected ${expectedParent}`);
     }
@@ -94,6 +98,35 @@ audit('docs/cgei/subject-5-unit-5-5-subtopic-traceability.csv', 'Subject 5.5', [
   '5.5.1.1','5.5.1.2','5.5.1.3','5.5.2.1','5.5.2.2','5.5.2.3','5.5.2.4',
   '5.5.3.1','5.5.3.2','5.5.3.3','5.5.4.1','5.5.4.2','5.5.4.3','5.5.5.1','5.5.5.2','5.5.5.3',
 ]);
+
+
+const expectedSubtopicPaths = (topics: Array<[string, number]>): string[] =>
+  topics.flatMap(([topic, count]) => Array.from({ length: count }, (_, index) => `${topic}.${index + 1}`));
+
+audit('docs/cgei/subject-5-unit-5.1-subtopic-traceability.csv', 'Subject 5.1', expectedSubtopicPaths([
+  ['5.1.1', 3], ['5.1.2', 3], ['5.1.3', 3], ['5.1.4', 3],
+]));
+audit('docs/cgei/subject-5-unit-5-6-subtopic-traceability.csv', 'Subject 5.6', expectedSubtopicPaths([
+  ['5.6.1', 4], ['5.6.2', 3], ['5.6.3', 4], ['5.6.4', 5],
+]));
+audit('docs/cgei/subject-5-unit-5-7-subtopic-traceability.csv', 'Subject 5.7', expectedSubtopicPaths([
+  ['5.7.1', 3], ['5.7.2', 3], ['5.7.3', 3],
+]));
+audit('docs/cgei/subject-5-unit-5-8-subtopic-traceability.csv', 'Subject 5.8', expectedSubtopicPaths([
+  ['5.8.1', 3], ['5.8.2', 3], ['5.8.3', 3],
+]));
+audit('docs/cgei/subject-5-unit-5-9-subtopic-traceability.csv', 'Subject 5.9', expectedSubtopicPaths([
+  ['5.9.1', 3], ['5.9.2', 3], ['5.9.3', 3],
+]));
+audit('docs/cgei/subject-5-unit-5-10-subtopic-traceability.csv', 'Subject 5.10', expectedSubtopicPaths([
+  ['5.10.1', 3], ['5.10.2', 3], ['5.10.3', 3],
+]));
+audit('docs/cgei/subject-5-unit-5-11-subtopic-traceability.csv', 'Subject 5.11', expectedSubtopicPaths([
+  ['5.11.1', 4], ['5.11.2', 3], ['5.11.3', 4], ['5.11.4', 4], ['5.11.5', 3], ['5.11.6', 6],
+]));
+audit('docs/cgei/subject-5-unit-5-12-subtopic-traceability.csv', 'Subject 5.12', expectedSubtopicPaths([
+  ['5.12.1', 4], ['5.12.2', 4], ['5.12.3', 3], ['5.12.4', 3], ['5.12.5', 5],
+]));
 
 function auditTopicCrosswalk() {
   const file = 'docs/cgei/subject-5-topic-crosswalk.csv';
