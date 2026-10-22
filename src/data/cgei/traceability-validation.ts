@@ -36,6 +36,9 @@ export function validateTraceabilityRow(
   if (['mapped', 'mapped_partial'].includes(row.disposition) && blockIds.length === 0) {
     issues.push({ code: 'MAPPED_WITHOUT_BLOCKS', message: 'Coverage disposition lacks content-block evidence', sourcePath: path });
   }
+  if (row.disposition === 'gap' && (Boolean(row.app_lesson_id) || blockIds.length > 0)) {
+    issues.push({ code: 'GAP_HAS_MAPPING', message: 'An explicit gap must not claim a lesson or content-block mapping; use mapped_partial if a related block provides partial coverage', sourcePath: path });
+  }
   for (const blockId of blockIds) {
     const blockExists = [...lessons.values()].some((candidate) => candidate.content.some((block) => block.id === blockId));
     if (!blockExists) {
