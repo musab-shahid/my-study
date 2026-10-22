@@ -62,3 +62,23 @@ D8 steepest descent; accumulation includes self; outlet (2,2) accumulation **9**
 - Hand calculation of centre direction and outlet accumulation
 - Screenshot or note of GIS accumulation at a comparable outlet (if run)
 - Written limitation: terrain-derived streams ≠ surveyed hydrography
+
+
+## Network accessibility (Unit 3.4.2)
+
+### Synthetic graph (fixture-tested)
+- Distance-shortest A→Clinic: **A–B–Clinic = 4 km**
+- Time-shortest A→Clinic: **A–C–Clinic = 9 min**
+- Island: unreachable
+- After removing A–C: time cost **14 min**
+
+Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_network_accessibility_check.py`
+
+### Documented GIS notes (not CI-executed)
+1. Prefer projected CRS for metric lengths.
+2. Network Analysis / Shortest path tools need a topology-checked network with cost field.
+3. Compare length-cost vs time-cost results; do not equate Euclidean buffers with network service areas.
+4. Log graph source, cost field, and any edge filters.
+
+### Deliverable
+Hand-check distance and time paths; note one limitation of synthetic networks vs OSM.

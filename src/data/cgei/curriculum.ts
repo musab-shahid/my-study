@@ -1483,7 +1483,8 @@ const outcomes34: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-34-dem', statement: 'Describe DEM resolution, vertical units, NoData and the DSM versus DTM distinction for environmental analyses.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-34-slope', statement: 'Compute and interpret slope from a small elevation grid using stated finite-difference assumptions and units.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-34-hydro', statement: 'Assign D8 flow direction and compute flow accumulation on a small grid under a stated counting convention, and explain sink, flat and NoData limitations.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-geo-o-34-access', statement: 'State network accessibility assumptions and geocoding quality metrics relevant to climate-risk facility analysis.', action: 'state and critique', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-34-network', statement: 'Compute distance- versus time-weighted shortest paths on a small network and interpret facility accessibility under a stated cost threshold.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-34-access', statement: 'Critique geocoding match quality and field-data controls relevant to climate-risk facility analysis.', action: 'critique', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
 const lessons34: CurriculumLesson[] = [
@@ -1520,13 +1521,23 @@ const lessons34: CurriculumLesson[] = [
     activityIds: ['cgei-geo-a-34-hydro'], assessmentIds: ['cgei-geo-assess-34-hydro'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
   {
-    id: 'cgei-geo-lesson-3-4-4', kind: 'lesson', title: 'Networks, geocoding and field collection', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    id: 'cgei-geo-lesson-3-4-4', kind: 'lesson', title: 'Network analysis and facility accessibility', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
     objectives: [outcomes34[3]],
     content: [
-      { id: 'cgei-geo-34-4-1', kind: 'prose', title: 'Accessibility is model-dependent', body: 'Service areas and isochrones depend on the network graph, speed assumptions, and one-way restrictions. OSM completeness varies by locality—always check coverage before claiming hospital accessibility. Cooling-centre or shelter analyses inherit those network biases.' },
-      { id: 'cgei-geo-34-4-2', kind: 'prose', title: 'Geocoding quality', body: 'Geocoding match rate, precision, and spatial bias matter as much as the point map. Informal addressing and transliteration reduce match quality. Landmark-based or participatory GPS capture may outperform automated geocoding in some settlements.' },
-      { id: 'cgei-geo-34-4-3', kind: 'checklist', title: 'Field data model checks', items: ['Controlled vocabularies for categorical fields', 'Required fields enforced', 'Unique record IDs', 'GNSS accuracy logged when available', 'Daily sync and backup plan', 'Photo links stored with stable paths'] },
-      { id: 'cgei-geo-34-4-4', kind: 'callout', title: 'Coverage honesty', tone: 'info', items: ['This lesson introduces 3.4.2–3.4.4 at survey depth', 'Full OSMnx/OR-Tools labs and QField deployments are later practice', 'Terrain derivatives remain the fixture-tested Core of Unit 3.4 Support'] },
+      { id: 'cgei-geo-34-4-1', kind: 'prose', title: 'Nodes, edges and costs', body: 'A network is a graph of nodes (intersections, facilities) and edges (road segments). Edge attributes may encode length, free-flow time, or generalized cost. Shortest-path algorithms minimize a declared cost; the cheapest distance route need not be the fastest. Real accessibility also depends on network completeness, one-way rules, and barriers—not captured by a toy graph.' },
+      { id: 'cgei-geo-34-4-lab', kind: 'worked-example', title: 'Lab: distance vs time to a clinic', body: 'Synthetic undirected graph: A–B (2 km, 10 min), A–C (5 km, 6 min), B–Clinic (2 km, 4 min), C–Clinic (1 km, 3 min). Distance-shortest A→Clinic is A–B–Clinic = 4 km. Time-shortest is A–C–Clinic = 9 min. Island is unreachable (cost ∞). After removing A–C, time cost rises to 14 min. Fixture unit_3_4_network_accessibility_check.py locks these results with Dijkstra (non-negative weights).' },
+      { id: 'cgei-geo-34-4-3', kind: 'worked-example', title: 'Accessibility threshold', body: 'Declare a 10-minute threshold to Clinic. Origins A, B, C all fall inside on the intact graph (9, 4, 3 min). Closing A–C still leaves A inside via B (14 min fails the threshold)—showing how one edge can change who is counted as served.' },
+      { id: 'cgei-geo-34-4-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Instructional graph ≠ OSM completeness', 'No turn restrictions or live traffic', 'Euclidean distance ≠ network cost', 'Do not claim flood-road closures without a hazard model'] },
+    ],
+    activityIds: ['cgei-geo-a-34-network'], assessmentIds: ['cgei-geo-assess-34-network'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-4-5', kind: 'lesson', title: 'Geocoding quality and field data controls', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes34[4]],
+    content: [
+      { id: 'cgei-geo-34-5-1', kind: 'prose', title: 'Geocoding quality', body: 'Match rate, precision, and spatial bias matter as much as the point map. Informal addressing and transliteration reduce match quality. Landmark-based or participatory GPS capture may outperform automated geocoding in some settlements.' },
+      { id: 'cgei-geo-34-5-2', kind: 'checklist', title: 'Field data model checks', items: ['Controlled vocabularies for categorical fields', 'Required fields enforced', 'Unique record IDs', 'GNSS accuracy logged when available', 'Daily sync and backup plan', 'Photo links stored with stable paths'] },
+      { id: 'cgei-geo-34-5-3', kind: 'callout', title: 'Coverage honesty', tone: 'info', items: ['3.4.3–3.4.4 remain survey depth (no full QField deployment lab)', 'Network routing is the fixture-tested skill in this unit slice'] },
     ],
     activityIds: ['cgei-geo-a-34-access'], assessmentIds: ['cgei-geo-assess-34-access'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
@@ -1795,12 +1806,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Interpret DEMs and terrain derivatives, recognise hydro-terrain assumptions, and introduce network accessibility, geocoding quality and field data controls.',
       estimatedHours: 8, prerequisites: ['Unit 3.2 CRS and units', 'Unit 3.3 raster operations'], outcomes: outcomes34,
       lessonIds: lessons34.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-34-dem', 'cgei-geo-a-34-slope', 'cgei-geo-a-34-hydro', 'cgei-geo-a-34-access'],
-      assessmentIds: ['cgei-geo-assess-34-dem', 'cgei-geo-assess-34-slope', 'cgei-geo-assess-34-hydro', 'cgei-geo-assess-34-access'],
+      activityIds: ['cgei-geo-a-34-dem', 'cgei-geo-a-34-slope', 'cgei-geo-a-34-hydro', 'cgei-geo-a-34-network', 'cgei-geo-a-34-access'],
+      assessmentIds: ['cgei-geo-assess-34-dem', 'cgei-geo-assess-34-slope', 'cgei-geo-assess-34-hydro', 'cgei-geo-assess-34-network', 'cgei-geo-assess-34-access'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
-      notes: ['Support unit: deepest teaching on DEM/slope; network/geocoding/field at survey depth.', 'Slope fixture uses finite differences, not Horn/QGIS defaults.'],
+      notes: ['Support unit: DEM/slope/flow fixtures; network Dijkstra fixture; geocoding/field survey depth.', 'Routing graph is synthetic—not OSM validation.'],
     },
 
 
@@ -1836,8 +1847,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-34-001', lessonId: 'cgei-geo-lesson-3-4-1', type: 'single-choice', prompt: 'Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:', options: ['Correcting vertical datums automatically', 'Biased slopes and flow paths in vegetated or urban areas', 'Removing all NoData cells', 'Converting degrees to metres'], correctAnswer: 1, explanation: 'DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-34-002', lessonId: 'cgei-geo-lesson-3-4-2', type: 'single-choice', prompt: 'With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:', options: ['1.0', '0.5', '30', '0.0833'], correctAnswer: 1, explanation: 'dz/dx = (130−100)/(2×30) = 30/60 = 0.5 (dimensionless rise/run).', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-34-003', lessonId: 'cgei-geo-lesson-3-4-3', type: 'single-choice', prompt: 'On the Unit 3.4 teaching grid, under D8 steepest descent, the centre cell flows which direction (Esri code)?', options: ['E (1)', 'SE (2)', 'S (4)', 'No downslope (0)'], correctAnswer: 2, explanation: 'Centre elevation 5: south to 2 has slope 3, steeper than SE to 1 (~2.83), so code 4 (S).', difficulty: 'medium', cognitiveLevel: 'apply' },
-    { id: 'cgei-geo-q-34-004', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'A 15-minute walking isochrone to cooling centres is most sensitive to:', options: ['Shapefile field name length only', 'Network completeness, speed/walk assumptions and barriers', 'Hillshade visualisation parameters', 'GeoTIFF compression'], correctAnswer: 1, explanation: 'Accessibility products inherit network graph quality and travel assumptions; OSM gaps change service-area geometry.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-geo-q-34-004', lessonId: 'cgei-geo-lesson-3-4-5', type: 'single-choice', prompt: 'Which metric best indicates automated geocoding quality for facility mapping?', options: ['Hillshade exaggeration', 'Match rate, spatial precision and bias', 'Shapefile field name length', 'DEM cell size only'], correctAnswer: 1, explanation: 'Match rate, precision and spatial bias determine whether geocoded points are usable for accessibility analysis.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-34-005', lessonId: 'cgei-geo-lesson-3-4-3', type: 'single-choice', prompt: 'With accumulation including the cell itself, the outlet cell of the teaching 3×3 grid accumulates:', options: ['1', '3', '8', '9'], correctAnswer: 3, explanation: 'All nine cells drain to the outlet under the instructional D8 routing, so accumulation is 9.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-34-006', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'On the Unit 3.4 teaching network, the distance-shortest path A→Clinic is:', options: ['A–C–Clinic (6 km)', 'A–B–Clinic (4 km)', 'A–Shelter–Clinic', 'Unreachable'], correctAnswer: 1, explanation: 'A–B (2 km) + B–Clinic (2 km) = 4 km, shorter than A–C–Clinic at 6 km.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-34-007', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'Using time (minutes) as cost, the least-cost path A→Clinic is:', options: ['A–B–Clinic (14 min)', 'A–C–Clinic (9 min)', 'Direct 0 min edge', 'Island path'], correctAnswer: 1, explanation: 'A–C (6 min) + C–Clinic (3 min) = 9 min beats A–B–Clinic at 14 min—distance and time optima differ.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
 
 
@@ -2393,6 +2407,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-33-qgis', kind: 'field-task', title: 'QGIS processing log', instructions: 'Follow labs/unit-3-3-qgis-workflow.md: set CRS, reclass the teaching grid, write processing_log.md with tools and parameters.', level: 'L2', estimatedMinutes: 40, objectiveIds: ['cgei-geo-o-33-qgis'] },
     { id: 'cgei-geo-a-33-formats', kind: 'guided-practice', title: 'Choose formats for exchange vs analysis', instructions: 'For (a) web map boundaries, (b) metric buffer analysis, (c) long-term archive, name a preferred format and one risk of the wrong choice.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-formats'] },
     { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
+    { id: 'cgei-geo-a-34-network', kind: 'coding-lab', title: 'Distance vs time routing lab', instructions: 'Run unit_3_4_network_accessibility_check.py. By hand, confirm distance-shortest A→Clinic is 4 km via B and time-shortest is 9 min via C. State what happens to time cost if A–C is closed.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-network'] },
     { id: 'cgei-geo-a-34-dem', kind: 'guided-practice', title: 'DEM metadata audit', instructions: 'List five metadata fields you must record before computing slope on a new DEM and mark which distinguish DSM from DTM.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-34-dem'] },
     { id: 'cgei-geo-a-34-slope', kind: 'coding-lab', title: 'Finite-difference slope lab', instructions: 'Run unit_3_4_terrain_slope_check.py and recompute the centre slope by hand from the printed grid.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-slope'] },
     { id: 'cgei-geo-a-34-hydro', kind: 'coding-lab', title: 'D8 flow direction and accumulation lab', instructions: 'Run unit_3_4_flow_routing_check.py. From the printed 3×3 grid, verify by hand that the centre cell flows south (code 4) and the outlet accumulation equals 9 under the include-self convention.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-hydro'] },
@@ -2584,6 +2599,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-33-qgis', kind: 'formative', title: 'Workflow documentation', purpose: 'Assess reproducible GIS logging habits.', objectiveIds: ['cgei-geo-o-33-qgis'], questionIds: ['cgei-geo-q-33-005'], required: true },
     { id: 'cgei-geo-assess-33-formats', kind: 'formative', title: 'Format selection', purpose: 'Assess format trade-off reasoning.', objectiveIds: ['cgei-geo-o-33-formats'], questionIds: ['cgei-geo-q-33-007'], required: true },
     { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
+    { id: 'cgei-geo-assess-34-network', kind: 'formative', title: 'Network routing', purpose: 'Assess distance vs time path selection and unreachable nodes.', objectiveIds: ['cgei-geo-o-34-network'], questionIds: ['cgei-geo-q-34-006', 'cgei-geo-q-34-007'], required: true },
     { id: 'cgei-geo-assess-34-dem', kind: 'formative', title: 'DEM surface type', purpose: 'Assess DSM/DTM and metadata awareness.', objectiveIds: ['cgei-geo-o-34-dem'], questionIds: ['cgei-geo-q-34-001'], required: true },
     { id: 'cgei-geo-assess-34-slope', kind: 'formative', title: 'Slope calculation', purpose: 'Assess finite-difference slope understanding.', objectiveIds: ['cgei-geo-o-34-slope'], questionIds: ['cgei-geo-q-34-002'], required: true },
     { id: 'cgei-geo-assess-34-hydro', kind: 'formative', title: 'Flow routing concepts', purpose: 'Assess D8 direction and accumulation under stated conventions.', objectiveIds: ['cgei-geo-o-34-hydro'], questionIds: ['cgei-geo-q-34-003', 'cgei-geo-q-34-005'], required: true },

@@ -99,3 +99,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_terrain_slope_check.py
       - name: Verify Unit 3.4 instructional D8 flow routing
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_flow_routing_check.py
+      - name: Verify Unit 3.4 network accessibility Dijkstra
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_network_accessibility_check.py

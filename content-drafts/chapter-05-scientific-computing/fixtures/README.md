@@ -85,3 +85,6 @@ Synthetic admin hierarchy defects (duplicate ID, missing parent) and observation
 
 ## unit_3_4_flow_routing_check.py
 Instructional D8: direction codes, accumulation includes self, outlet facc=9; flats and NoData cases. Not GRASS/Arc hydrology.
+
+## unit_3_4_network_accessibility_check.py
+Dijkstra on synthetic undirected graph: distance vs time optima differ; unreachable Island; edge closure raises time cost to 14.

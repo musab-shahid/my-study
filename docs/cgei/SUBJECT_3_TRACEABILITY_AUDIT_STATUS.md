@@ -14,5 +14,6 @@
 - Overlay geometry engine / polygon zonal rasterization
 
 ## Unit 3.4 Support notes
-- 3.4.1 terrain: slope fixture (~26.9°) + instructional D8 flow fixture (outlet facc=9)
-- 3.4.2–3.4.4: survey-level single lesson; not full network/field labs
+- 3.4.1 terrain: slope + D8 flow fixtures
+- 3.4.2 network: Dijkstra distance vs time fixture; accessibility threshold
+- 3.4.3–3.4.4: survey depth in lesson 3-4-5

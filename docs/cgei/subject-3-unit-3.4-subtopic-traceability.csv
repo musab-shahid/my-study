@@ -3,12 +3,12 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 3.4.1.2,Depression filling flow routing watershed TWI HAND,3.4.1,Terrain and hydro-terrain analysis,Support,cgei-geo-lesson-3-4-3,cgei-geo-34-3-1;cgei-geo-34-3-lab;cgei-geo-34-3-2;cgei-geo-34-3-3,mapped_partial,Instructional D8 direction+accumulation fixture (outlet facc=9); TWI/HAND and production watershed tools not implemented.
 3.4.1.3,DEM source selection SRTM Copernicus ALOS DSM vs DTM,3.4.1,Terrain and hydro-terrain analysis,Support,cgei-geo-lesson-3-4-1,cgei-geo-34-1-1;cgei-geo-34-1-2;cgei-geo-34-1-3,mapped_partial,Source table and plains error discussion; no empirical accuracy lab.
 3.4.1.4,Tools QGIS GRASS Whitebox TauDEM pysheds,3.4.1,Terrain and hydro-terrain analysis,Support,cgei-geo-lesson-3-4-3,cgei-geo-34-3-2,mapped_partial,Tools named; not executed in CI.
-3.4.2.1,Road networks shortest path service areas isochrones,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-1,mapped_partial,Survey-level introduction only.
-3.4.2.2,Accessibility to shade cooling centres hospitals shelters,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-1,mapped_partial,Assumptions critique; no network solve.
-3.4.2.3,OSMnx OpenRouteService r5py OSM completeness,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-1;cgei-geo-34-4-4,mapped_partial,Tools named; not implemented.
-3.4.3.1,Geocoding match rate precision bias,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-2,mapped_partial,Quality metrics introduced.
-3.4.3.2,Informal addressing transliteration duplicates,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-2,mapped_partial,Qualitative only.
-3.4.3.3,Landmark and participatory location capture,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-2,mapped_partial,Mentioned as alternative.
-3.4.4.1,QField Mergin Kobo Survey123,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-3,mapped_partial,Tool names in checklist context only.
-3.4.4.2,Data model controlled vocabularies required fields,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-3,mapped_partial,Checklist taught; no form builder lab.
-3.4.4.3,QC GNSS logging sync backup,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-3,mapped_partial,Checklist items only.
+3.4.2.1,Road networks shortest path service areas isochrones,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-1;cgei-geo-34-4-lab;cgei-geo-34-4-3,mapped_partial,Dijkstra distance vs time on synthetic graph; not OSM service areas.
+3.4.2.2,Accessibility to shade cooling centres hospitals shelters,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-3;cgei-geo-34-4-4,mapped_partial,10-min Clinic threshold + edge-closure scenario; synthetic only.
+3.4.2.3,OSMnx OpenRouteService r5py OSM completeness,3.4.2,Network and accessibility analysis,Support,cgei-geo-lesson-3-4-4,cgei-geo-34-4-4,mapped_partial,Tools named; not executed.
+3.4.3.1,Geocoding match rate precision bias,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1,mapped_partial,Survey-level quality metrics.
+3.4.3.2,Informal addressing transliteration duplicates,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1,mapped_partial,Qualitative only.
+3.4.3.3,Landmark and participatory location capture,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1,mapped_partial,Mentioned as alternative.
+3.4.4.1,QField Mergin Kobo Survey123,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Tool names in checklist only.
+3.4.4.2,Data model controlled vocabularies required fields,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Checklist taught.
+3.4.4.3,QC GNSS logging sync backup,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Checklist items only.
