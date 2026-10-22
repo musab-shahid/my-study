@@ -47,8 +47,8 @@ describe('CGEI curriculum structure', () => {
       assert.equal(unit.lessonIds.length,  code === '5.1' ? 8 : 5);
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
-    assert.equal(cgeiCurriculum.lessons.length, 58);
-    assert.equal(cgeiCurriculum.questions.length, 136);
+    assert.equal(cgeiCurriculum.lessons.length, 63);
+    assert.equal(cgeiCurriculum.questions.length, 146);
     assert.deepEqual(cgeiCurriculum.units.map((unit) => unit.order).sort((a, b) => a - b), Array.from({ length: 12 }, (_, index) => index + 1));
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
@@ -91,6 +91,12 @@ describe('CGEI curriculum structure', () => {
     assert.equal(cgeiCurriculum.questions.filter((question) => unit511.lessonIds.includes(question.lessonId)).length, 10);
     assert.equal(unit511.readiness, 'draft');
     assert.ok(unit511.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
+    const unit512 = cgeiCurriculum.units.find((item) => item.code === '5.12');
+    assert.ok(unit512);
+    assert.equal(unit512.lessonIds.length, 5);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit512.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(unit512.readiness, 'draft');
+    assert.ok(unit512.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     assert.ok(unit51.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 5));
     const canonicalQuestionIds = new Set(cgeiCurriculum.questions.map((question) => question.id));
     assert.ok(cgeiCurriculum.assessments.every((assessment) => (assessment.questionIds ?? []).every((id) => canonicalQuestionIds.has(id))));
