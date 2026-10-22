@@ -69,3 +69,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/smoke_check.py
       - name: Verify chunked CSV equivalence and peak memory lab
         run: python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py
+      - name: Verify Unit 5.4 inference arithmetic
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_4_inference_check.py
