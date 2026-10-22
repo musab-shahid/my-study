@@ -1,8 +1,8 @@
 source_topic_path,source_topic_title,priority,mapping_status,app_lesson_ids,subtopic_coverage_status,notes
-5.1.1,Calculus and linear algebra,Support,candidate,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-3;cgei-ds-lesson-5-1-4,not_audited,Taylor expansion and error propagation need explicit evidence; numeric-suffix mapping to lesson 5-1-1 is incorrect.
-5.1.2,Differential equations and numerical methods,Support,candidate,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-5,not_audited,Finite differences and ODE/numerical integration span lessons; optimisation and stability need evidence.
-5.1.3,Physics for environmental modelling,Support,candidate,cgei-ds-lesson-5-1-1;cgei-ds-lesson-5-1-6;cgei-ds-lesson-5-1-7,not_audited,Dimensional analysis maps to 5-1-1; conservation and energy/radiation are partial; momentum and diffusion/advection need evidence.
-5.1.4,Probability foundations,Support,candidate,cgei-ds-lesson-5-1-8,not_audited,Conditional probability; named distributions; LLN/CLT and heavy-tail caveats need explicit evidence.
+5.1.1,Calculus and linear algebra,Support,partial,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-4,partial,Calculus/gradient and eigen/SVD content exists; Taylor/error propagation and fully integrated linear-algebra practice remain gaps.
+5.1.2,Differential equations and numerical methods,Support,partial,cgei-ds-lesson-5-1-5;cgei-ds-lesson-5-1-3,partial,ODE/numerical integration and least-squares content exists; constrained optimisation and numerical stability detail remain gaps.
+5.1.3,Physics for environmental modelling,Support,partial,cgei-ds-lesson-5-1-6;cgei-ds-lesson-5-1-7,partial,"Mass/water and surface-energy balance are covered; momentum, advection/diffusion and conduction/convection are incomplete."
+5.1.4,Probability foundations,Support,partial,cgei-ds-lesson-5-1-8,partial,"Bayes, common working distributions and dependence are introduced; LLN/CLT failure cases and distributional physical origins need deeper teaching."
 5.2.1,Language core,Core,candidate,cgei-ds-lesson-5-2-1,not_audited,Functions/modules/defensive checks are explicit; core data structures and comprehensions need verification.
 5.2.2,NumPy,Core,candidate,cgei-ds-lesson-5-2-2,not_audited,"Arrays/shapes/broadcasting/NaNs are explicit; verify indexing, precision and seeded RNG subtopics."
 5.2.3,pandas,Core,candidate,cgei-ds-lesson-5-2-3,not_audited,Timezone/daily summary/grouping/join material is explicit; reshape/categoricals/tidy-data need evidence.
