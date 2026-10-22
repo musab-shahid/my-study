@@ -1,0 +1,4 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+3.1.1.1,Geographic coordinates and datums,3.1.1,Spatial reference systems,Core,cgei-geo-lesson-3-1-1,cgei-geo-31-1-1;cgei-geo-31-1-2;cgei-geo-31-1-3,mapped_partial,CRS/datum/axis-order concepts taught; full EPSG lookup lab limited.
+3.1.1.2,Metres-per-degree scale with latitude,3.1.1,Spatial reference systems,Core,cgei-geo-lesson-3-1-2,cgei-geo-31-2-1;cgei-geo-31-2-lab;cgei-geo-31-2-3,mapped_partial,Fixture locks spherical m/deg factors; geodesic library not used.
+3.1.1.3,Map projection property trade-offs,3.1.1,Spatial reference systems,Core,cgei-geo-lesson-3-1-3,cgei-geo-31-3-1;cgei-geo-31-3-2;cgei-geo-31-3-3,mapped_partial,Conformal vs equal-area guidance present; software reprojection not executed.

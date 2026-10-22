@@ -15,3 +15,11 @@ Generated as an implementation aid; dispositions come from unit CSV matrices.
 | 5.12 | full map | mapped_partial | **unit_5_12_multidim_contract_check** (stdlib; not xarray runtime) |
 
 **Rule:** nonempty blocks ≠ substantive mastery. Prefer fixture-backed claims when asserting numerical teaching content.
+
+
+## Cross-subject progress
+
+| Subject | Status | Notes |
+|---------|--------|-------|
+| 5 Scientific Computing | Pilot — Units 5.1–5.12 with fixtures | Not released |
+| 3 Geospatial | **Unit 3.1 draft slice** (3 lessons + scale fixture) | First non-Subject-5 graph |

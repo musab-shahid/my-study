@@ -351,6 +351,13 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
         "Check dimensional homogeneity and an order-of-magnitude range before interpreting results."
       ]
     }
+  ,
+    {
+      "id": "cgei-ds-51-1-lab",
+      "kind": "worked-example",
+      "title": "Lab: unit conversion and rate bookkeeping",
+      "body": "Fixture unit_5_1_foundations_check.py locks 0 °C = 273.15 K and 1 mm day⁻¹ = 1×10⁻³/86400 m s⁻¹. Omitting the seconds-per-day factor mis-scales fluxes by about 8.64×10⁴. Depth (mm) and rate (mm day⁻¹) are different quantities; state which one a product reports before combining with an energy or mass balance."
+    }
   ],
   "cgei-ds-lesson-5-1-2": [
     {
@@ -367,6 +374,13 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
       "code": "import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\nt_c = np.array([30.0, 32.0, 35.0])\ndt_dx = (t_c[2] - t_c[0]) / (x_km[2] - x_km[0])\nprint(f\"centred estimate: {dt_dx:.2f} °C km⁻¹\")  # 2.50 °C km⁻¹\n\n# Check that x is in kilometres; convert units if coordinates are metres."
     },
     {"id":"cgei-ds-51-2-taylor-error","kind":"worked-example","title":"Linearise a nonlinear environmental relationship and propagate uncertainty","body":"For a smooth function f(x), a first-order Taylor approximation near x₀ is f(x) ≈ f(x₀) + f′(x₀)(x−x₀). If x has small standard uncertainty σₓ, a first-order approximation gives σ_f ≈ |f′(x₀)|σₓ. Example: for f(T)=T⁴ in a radiation calculation, the local derivative is 4T³, so temperature uncertainty has a much larger absolute effect at higher T. This approximation is local; check nonlinear curvature or use Monte Carlo propagation when uncertainty is large or the response is strongly nonlinear."}
+  ,
+    {
+      "id": "cgei-ds-51-2-lab",
+      "kind": "worked-example",
+      "title": "Lab: central difference on a quadratic",
+      "body": "For y=t² at t=2 with step h=0.1, the central difference [y(2.1)−y(1.9)]/(2h) equals 4, matching dy/dt=2t. The forward difference [y(2.1)−y(2)]/h equals 4.1. Fixture unit_5_1_foundations_check.py locks both results. Always divide by the actual time interval with units; a sign error or omitted 2 in the central denominator is a common failure mode."
+    }
   ],
   "cgei-ds-lesson-5-1-3": [
     {
@@ -413,6 +427,13 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
       "code": "import numpy as np\n\nS_mm = 20.0\ninflow_mm_day = 10.0\nk_per_day = 0.2\ndt_day = 1.0\nfor day in range(5):\n    dS_dt = inflow_mm_day - k_per_day * S_mm\n    S_mm = S_mm + dt_day * dS_dt\n    print(day + 1, round(S_mm, 2), \"mm\")\n\nsteady_state_mm = inflow_mm_day / k_per_day\nprint(\"equilibrium:\", steady_state_mm, \"mm\")\n# Keep units consistent and test whether changing dt changes the path."
     },
     {"id":"cgei-ds-51-5-stability","kind":"worked-example","title":"Check forward-Euler stability by changing the time step","body":"For dS/dt = −kS, forward Euler gives Sₙ₊₁=(1−kΔt)Sₙ. For this linear decay equation, stability requires |1−kΔt|<1, or 0<kΔt<2. If k=0.8 day⁻¹, Δt=1 day gives a factor 0.2, while Δt=3 days gives −1.4 and produces alternating growth in magnitude. A numerical trajectory can therefore be unstable even when the physical system decays. Compare time steps and report the method's limitations."}
+  ,
+    {
+      "id": "cgei-ds-51-5-lab",
+      "kind": "worked-example",
+      "title": "Lab: Euler lake mass balance",
+      "body": "With V₀=1×10⁶ m³, Q_in=2.0 m³ s⁻¹, Q_out=1.5 m³ s⁻¹ and Δt=3600 s, Euler update V←V+Δt(Q_in−Q_out) yields V₁=1 001 800 m³. Fixture unit_5_1_foundations_check.py locks this step. Treating Δt as 1 hour while leaving Q in m³ s⁻¹ understates the volume change by a factor of 3600. This is a teaching discretisation, not a calibrated reservoir model."
+    }
   ],
   "cgei-ds-lesson-5-1-6": [
     {
@@ -1284,7 +1305,47 @@ const lessons512: CurriculumLesson[] = [
     ],activityIds:['cgei-ds-a-512-validation'],assessmentIds:['cgei-ds-assess-512-validation'],resourceIds:['cgei-ds-r-512-xarray','cgei-ds-r-512-zarr','cgei-ds-r-512-cf'],deliverableIds:['cgei-ds-d-512-report']}
 ];
 
-const lessons: CurriculumLesson[] = [...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes31: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-31-crs', statement: 'Distinguish geographic coordinates, projected coordinates and when units are angular versus linear.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-31-scale', statement: 'Estimate order-of-magnitude ground distances from degree differences using latitude-dependent scale factors.', action: 'estimate and check', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-31-projection', statement: 'State that map projections trade area, shape and distance properties and name the property prioritised by a chosen projection class.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons31: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-1-1', kind: 'lesson', title: 'Geographic coordinates, datums and axis order', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes31[0]],
+    content: [
+      { id: 'cgei-geo-31-1-1', kind: 'prose', title: 'Latitude and longitude are angles', body: 'Geographic coordinates locate positions on a reference surface using angular measures. Latitude and longitude are not planar metres. A CRS statement must include the geodetic datum (for example WGS 84) and axis order convention. Swapping axis order is a common GIS integration failure.' },
+      { id: 'cgei-geo-31-1-2', kind: 'key-points', title: 'Minimum CRS declaration', items: ['Datum / geographic CRS name', 'Axis order (lon/lat vs lat/lon)', 'Units (degrees versus metres)', 'Vertical datum when elevations matter', 'Epoch when plate motion or time-dependent frames matter'] },
+      { id: 'cgei-geo-31-1-3', kind: 'worked-example', title: 'Why 70, 30 is ambiguous without a CRS note', body: 'The pair (70, 30) could be (lon, lat) in Pakistan’s longitude range or (lat, lon) near the Arctic. Always document axis order and CRS when exchanging coordinates between tools.' },
+    ],
+    activityIds: ['cgei-geo-a-31-crs'], assessmentIds: ['cgei-geo-assess-31-crs'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-1-2', kind: 'lesson', title: 'Metres per degree and scale with latitude', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes31[1]],
+    content: [
+      { id: 'cgei-geo-31-2-1', kind: 'prose', title: 'Degree spacing is not constant in metres', body: 'On a sphere, one degree of latitude is approximately constant in metres, while one degree of longitude shrinks by cos(latitude). Treating degree cells as equal-area squares near the poles distorts area and flux densities.' },
+      { id: 'cgei-geo-31-2-lab', kind: 'worked-example', title: 'Lab: metres per degree factors', body: 'Fixture unit_3_1_crs_scale_check.py uses R=6 371 km to lock ≈111 195 m per degree of latitude and ≈96 298 m per degree of longitude at 30°N. A 0.01° cell is about 1.1 km on a side at the equator. These are instructional spherical approximations, not survey-grade geodesics.' },
+      { id: 'cgei-geo-31-2-3', kind: 'callout', title: 'Equal-degree is not equal-area', tone: 'warning', items: ['Do not convert degree-cell counts to area without a scale factor or equal-area projection.', 'Cosine-latitude weighting is an approximation on a sphere.', 'True cell areas from the product grid definition are preferable when available.'] },
+    ],
+    activityIds: ['cgei-geo-a-31-scale'], assessmentIds: ['cgei-geo-assess-31-scale'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-1-3', kind: 'lesson', title: 'Map projections and property trade-offs', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes31[2]],
+    content: [
+      { id: 'cgei-geo-31-3-1', kind: 'prose', title: 'Projections cannot preserve all metric properties', body: 'A map projection maps the curved Earth to a plane. Conformal projections preserve local angles; equal-area projections preserve area; equidistant designs preserve selected distances. Choosing Web Mercator for global area statistics is a common scientific error.' },
+      { id: 'cgei-geo-31-3-2', kind: 'table', title: 'Property priorities', headers: ['Need', 'Prefer', 'Avoid for that need'], rows: [['Navigation angles', 'Conformal (e.g. Mercator family)', 'Using it for country area ranks'], ['Area totals / densities', 'Equal-area (e.g. equal-earth, sinusoidal)', 'Web Mercator area stats'], ['Regional metric mapping', 'Suitable projected CRS (e.g. UTM zone)', 'A single global planar CRS for local surveys']] },
+      { id: 'cgei-geo-31-3-3', kind: 'checklist', title: 'Before computing areas', items: ['Confirm CRS and units', 'Prefer equal-area CRS or true cell areas', 'Document geographic vs projected coordinates', 'State whether distances are great-circle, projected planar or approximate'] },
+    ],
+    activityIds: ['cgei-geo-a-31-projection'], assessmentIds: ['cgei-geo-assess-31-projection'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons31, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1339,6 +1400,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', 'cgei-ds-unit-5-6', 'cgei-ds-unit-5-7', 'cgei-ds-unit-5-8', 'cgei-ds-unit-5-9', 'cgei-ds-unit-5-10', 'cgei-ds-unit-5-11', 'cgei-ds-unit-5-12'],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
+    },
+    {
+      id: 'cgei-subject-3-geospatial',
+      subjectId: 'cgei-geospatial',
+      title: 'Geospatial Science, GIS & Cartography',
+      subtitle: 'Spatial reference, measurement and map reasoning before deep EO workflows',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners who will analyse climate and environmental data on maps and grids.',
+      purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
+      overview: 'Subject 3 begins with coordinates, scale and projections (Unit 3.1). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
+      prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
+      outcomes: outcomes31,
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-geo-unit-3-1'],
+      projectIds: [],
+      resourceIds: ['cgei-geo-r-epsg'],
+      estimatedHours: 6,
     },
   ],
   units: [
@@ -1488,6 +1567,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.12-xarray-scalable-environmental-pipelines.md',
       notes: ['Five draft lessons distinguish coordinate semantics, alignment, chunking, feature pipelines and validation.', 'Readiness remains draft pending eager/lazy comparison, clean execution, route rendering and scientific review.'],
     },
+    {
+      id: 'cgei-geo-unit-3-1', code: '3.1', title: 'Coordinates, scale and map projections', order: 1, kind: 'unit', readiness: 'draft',
+      summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
+      estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes31,
+      lessonIds: lessons31.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-31-crs', 'cgei-geo-a-31-scale', 'cgei-geo-a-31-projection'],
+      assessmentIds: ['cgei-geo-assess-31-crs', 'cgei-geo-assess-31-scale', 'cgei-geo-assess-31-projection'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master_Study_TOC Subject 3 — Geospatial Science, GIS & Cartography',
+      notes: ['First substantive Subject 3 slice (Unit 3.1 only).', 'Readiness remains draft pending broader GIS unit build-out.'],
+    },
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
       code, title, order: Number(code.slice(2)), kind: 'unit' as const, readiness: 'planned' as const, summary,
@@ -1500,6 +1591,15 @@ export const cgeiCurriculum: CurriculumRegistry = {
   lessons,
   questions: [
     ...legacyCurriculumQuestions,
+    { id: 'cgei-ds-q-51-001', lessonId: 'cgei-ds-lesson-5-1-1', type: 'single-choice', prompt: 'A product reports 1 mm day⁻¹ of precipitation. Which conversion yields SI depth rate in m s⁻¹?', options: ['Multiply by 86400', 'Divide by 1000 only', 'Multiply by 1e-3 and divide by 86400', 'Subtract 273.15'], correctAnswer: 2, explanation: 'Convert millimetres to metres (×10⁻³) and days to seconds (÷86400). Omitting either factor mis-scales fluxes.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ds-q-51-002', lessonId: 'cgei-ds-lesson-5-1-2', type: 'single-choice', prompt: 'For y=t² at t=2 with h=0.1, why does the central difference equal the exact derivative?', options: ['All finite differences are exact for every function', 'For polynomials up to degree 2, central differences with this stencil recover the exact derivative', 'Because Kelvin conversion is exact', 'Because the time step is one day'], correctAnswer: 1, explanation: 'Central differences are exact for linear trends in the derivative of quadratics under this symmetric stencil; forward differences still show O(h) error.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    
+    { id: 'cgei-geo-q-31-001', lessonId: 'cgei-geo-lesson-3-1-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-31-002', lessonId: 'cgei-geo-lesson-3-1-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-31-003', lessonId: 'cgei-geo-lesson-3-1-3', type: 'single-choice', prompt: 'Which choice best matches computing global land-area totals?', options: ['Web Mercator for convenience', 'An equal-area projection or true cell areas from the native grid', 'Any conformal projection', 'Unprojected pixel counts in a screen screenshot'], correctAnswer: 1, explanation: 'Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+    { id: 'cgei-ds-q-51-003', lessonId: 'cgei-ds-lesson-5-1-5', type: 'single-choice', prompt: 'Euler update with V in m³, Q in m³ s⁻¹, and Δt=1 h written as 1 without converting to seconds will:', options: ['Always improve stability', 'Understate the volume change by a factor of 3600 relative to SI-consistent units', 'Convert Celsius to Kelvin', 'Remove mass conservation'], correctAnswer: 1, explanation: 'Flow rates in m³ s⁻¹ must be paired with Δt in seconds. Using 1 hour as the number 1 leaves a 3600× unit error.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
     { id: 'cgei-ds-q-57-001', lessonId: 'cgei-ds-lesson-5-7-1', type: 'single-choice', prompt: "Which is the first step before decomposing a monthly environmental series?", options: ["Define frequency, timezone, missingness and duplicate-period rules","Apply STL and interpret the smooth trend immediately","Fill every missing value with zero","Remove unusual observations without recording them"], correctAnswer: 0, explanation: "A time index and data-quality audit prevents missing or duplicated periods from being mistaken for signal.", difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-57-002', lessonId: 'cgei-ds-lesson-5-7-2', type: 'single-choice', prompt: "How should a June temperature anomaly be defined?", options: ["Subtract the mean of all months in the baseline","Subtract the June climatology from the pre-specified baseline period","Subtract the warmest June on record","Standardise using future years only"], correctAnswer: 1, explanation: "A seasonal anomaly compares a value with the corresponding season's baseline climatology; report the baseline and season definition.", difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-57-003', lessonId: 'cgei-ds-lesson-5-7-3', type: 'single-choice', prompt: "What is the main risk of ignoring positive serial autocorrelation in a conventional trend test?", options: ["The trend slope must become positive","All missing values disappear","Standard errors may be too small and false positives too frequent","The time index becomes categorical"], correctAnswer: 2, explanation: "Serial dependence reduces effective independent information and can invalidate naive standard errors.", difficulty: 'medium', cognitiveLevel: 'analyze' },
@@ -1824,6 +1924,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-comp-reproducibility', title: 'Reproducible scientific computing', description: 'Create a transparent and rerunnable computational artefact with checks and documentation.', level: 'L3', evidenceCriteria: ['Inputs and environment documented', 'Key transformations tested', 'Outputs independently checked'] },
   ],
   resources: [
+    { id: 'cgei-geo-r-epsg', kind: 'documentation', title: 'EPSG registry / spatial reference guidance', url: 'https://epsg.org/', purpose: 'Look up CRS identifiers and axis information when documenting spatial data.', authorOrPublisher: 'IOGP', accessedOn: '2026-10-23', verificationStatus: 'checked', required: true },
+
     {
       id: 'cgei-ds-r-usgs-l2-scaling', kind: 'documentation',
       title: 'USGS: Landsat Level-2 scale factors and offsets',
@@ -2038,6 +2140,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-r-512-rasterio', kind: 'documentation', title: 'Rasterio documentation', url: 'https://rasterio.readthedocs.io/', purpose: 'Reference for raster geospatial metadata, grid transforms and raster operations.', authorOrPublisher: 'Rasterio project', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
   ],
   activities: [
+    { id: 'cgei-geo-a-31-crs', kind: 'guided-practice', title: 'Declare CRS and axis order', instructions: 'For a CSV of city points, write a one-paragraph CRS statement including datum and axis order.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-31-crs'], resourceIds: ['cgei-geo-r-epsg'] },
+    { id: 'cgei-geo-a-31-scale', kind: 'coding-lab', title: 'Metres-per-degree check', instructions: 'Reproduce the Unit 3.1 scale fixture numbers and compare a 0.01° cell length at the equator and at 60°N.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-31-scale'], resourceIds: ['cgei-geo-r-epsg'] },
+    { id: 'cgei-geo-a-31-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-31-projection'], resourceIds: ['cgei-geo-r-epsg'] },
+
     { id: 'cgei-ds-a-unit-audit', kind: 'independent-practice', title: 'Environmental units audit', instructions: 'Create a short units sheet for temperature, precipitation, land-surface temperature and energy flux. Convert at least two values, distinguish a depth from a rate, and record one plausibility check.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-quantities'], expectedEvidence: ['Units sheet', 'Two checked conversions', 'One order-of-magnitude note'], required: true },
     { id: 'cgei-ds-a-rate-gradient', kind: 'guided-practice', title: 'Rates and gradients in a spatial field', instructions: 'Calculate a finite difference for a short temperature series, then interpret the gradient of a simple two-dimensional temperature field with coordinate units.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-calculus'], expectedEvidence: ['Calculation with units', 'One-sentence directional interpretation'], required: true },
     { id: 'cgei-ds-a-least-squares', kind: 'coding-lab', title: 'Least squares as a projection', instructions: 'Reproduce the small least-squares fit with an intercept in a notebook, calculate fitted values and residuals, and verify residual orthogonality.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-linear-algebra'], expectedEvidence: ['Notebook cell or calculation sheet', 'Residual check'], required: true },
@@ -2211,6 +2317,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-512-validation', kind: 'project-milestone', title: 'Prepare a pipeline validation report', instructions: 'Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-512-release'], expectedEvidence: ['Validation report', 'Performance table', 'Limitations and provenance'], required: true },
   ],
   assessments: [
+    { id: 'cgei-geo-assess-31-crs', kind: 'formative', title: 'CRS declaration check', purpose: 'Verify learners can state datum and axis order.', objectiveIds: ['cgei-geo-o-31-crs'], questionIds: ['cgei-geo-q-31-001'], required: true },
+    { id: 'cgei-geo-assess-31-scale', kind: 'formative', title: 'Scale with latitude', purpose: 'Verify scale factor reasoning.', objectiveIds: ['cgei-geo-o-31-scale'], questionIds: ['cgei-geo-q-31-002'], required: true },
+    { id: 'cgei-geo-assess-31-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-31-projection'], questionIds: ['cgei-geo-q-31-003'], required: true },
+
     { id: 'cgei-ds-assess-unit-diagnostic', kind: 'diagnostic', title: 'Unit 5.1 entry diagnostic', purpose: 'Identify prerequisite gaps in algebra, units, rates and probability before the unit.', objectiveIds: outcomes51.map((o) => o.id), required: false },
     { id: 'cgei-ds-assess-unit-quiz', kind: 'quiz', title: 'Unit 5.1 concept and calculation check', purpose: 'Check conceptual understanding and short calculations across the eight substantive lessons.', objectiveIds: outcomes51.map((o) => o.id), questionIds: Array.from({ length: 35 }, (_, i) => `CGEI-05-Q${String(i + 1).padStart(3, '0')}`), passThreshold: 0.8, required: true },
     { id: 'cgei-ds-assess-unit-check', kind: 'formative', title: 'Units and dimensional analysis checkpoint', purpose: 'Check conversions, dimensions and plausibility reasoning.', objectiveIds: ['cgei-ds-o-quantities'], questionIds: ['CGEI-05-Q001', 'CGEI-05-Q027'], required: true },

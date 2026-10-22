@@ -83,3 +83,7 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_11_manifest_checksum_check.py
       - name: Verify Unit 5.12 multidimensional bookkeeping contract
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_12_multidim_contract_check.py
+      - name: Verify Unit 5.1 numerical foundations
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_1_foundations_check.py
+      - name: Verify Unit 3.1 geographic scale factors
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_1_crs_scale_check.py

@@ -58,3 +58,9 @@ Manifest required fields and SHA-256 integrity for synthetic input.csv. Not auth
 
 ## unit_5_12_multidim_contract_check.py
 Stdlib regular 3×2×2 cube selection and NaN-aware unweighted mean. Not an xarray API execution test.
+
+## unit_5_1_foundations_check.py
+°C↔K, mm/day→m/s, central difference on t², Euler lake step. Teaching arithmetic only.
+
+## unit_3_1_crs_scale_check.py
+Spherical metres-per-degree factors. Not a geodesic engine.
