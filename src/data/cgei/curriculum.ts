@@ -522,7 +522,8 @@ const lessons53: CurriculumLesson[] = lessonDefinitions53.map((lesson, index) =>
   deliverableIds: [...lesson.deliverableIds],
 }));
 
-const lessons54: CurriculumLesson[] = lessonDefinitions54.map((lesson, index) => ({
+const lessonOrder54 = ['cgei-ds-lesson-5-4-distributions', 'cgei-ds-lesson-5-4-1', 'cgei-ds-lesson-5-4-2', 'cgei-ds-lesson-5-4-3', 'cgei-ds-lesson-5-4-5', 'cgei-ds-lesson-5-4-4'];
+const lessons54: CurriculumLesson[] = [...lessonDefinitions54].sort((a, b) => lessonOrder54.indexOf(a.id) - lessonOrder54.indexOf(b.id)).map((lesson, index) => ({
   id: lesson.id,
   kind: 'lesson' as const,
   title: lesson.title,
