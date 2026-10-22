@@ -157,6 +157,7 @@ const unit57 = cgeiCurriculum.units.find((unit) => unit.code === '5.7');
 const unit58 = cgeiCurriculum.units.find((unit) => unit.code === '5.8');
 const unit59 = cgeiCurriculum.units.find((unit) => unit.code === '5.9');
 const unit510 = cgeiCurriculum.units.find((unit) => unit.code === '5.10');
+const unit511 = cgeiCurriculum.units.find((unit) => unit.code === '5.11');
 if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is missing');
 if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
@@ -187,6 +188,9 @@ if (unit59 && unit59.readiness === 'released') errors.push('Unit 5.9 cannot be r
 if (unit510 && unit510.lessonIds.length !== 5) errors.push(`Unit 5.10 should map 5 substantive lessons; found ${unit510.lessonIds.length}`);
 if (unit510 && cgeiCurriculum.questions.filter((question) => unit510.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.10 should include at least ten lesson-linked knowledge checks');
 if (unit510 && unit510.readiness === 'released') errors.push('Unit 5.10 cannot be released before causal-identification examples, design-specific checks and scientific/UI review');
+if (unit511 && unit511.lessonIds.length !== 5) errors.push(`Unit 5.11 should map 5 substantive lessons; found ${unit511.lessonIds.length}`);
+if (unit511 && cgeiCurriculum.questions.filter((question) => unit511.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.11 should include at least ten lesson-linked knowledge checks');
+if (unit511 && unit511.readiness === 'released') errors.push('Unit 5.11 cannot be released before clean-environment execution, test review and scientific/UI review');
 if (topicIds.has('cgei-data-science-roadmap')) errors.push('Course roadmap must not be registered as a lesson topic');
 if (sectionIds.has('CGEI-05')) errors.push('Roadmap pseudo-section should not remain in legacy unit navigation');
 
