@@ -1219,9 +1219,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       description: 'A competency-led pathway from environmental systems and geospatial foundations to reproducible climate-risk intelligence and research artefacts.',
       subjectIds: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
       recommendedOrder: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
-    },,
-    {"id":"cgei-ds-51-8-clt-limits","kind":"worked-example","title":"Why the central limit theorem is not a free pass","body":"The usual central-limit approximation requires conditions on the sampling process; heavy-tailed observations or strong serial dependence can make convergence slow or invalidate a naive independent-sample standard error. For a daily temperature record, adjacent days share weather regimes, so the nominal count n overstates independent information. Compare an independence-based standard error with a dependence-aware block-resampling sensitivity analysis, and state that the latter also depends on block choice and record length."}
-  ],
+    },
   subjects: [
     {
       id: 'cgei-subject-5-data-science',
