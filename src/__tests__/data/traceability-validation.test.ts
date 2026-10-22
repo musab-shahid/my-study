@@ -37,4 +37,24 @@ describe('source traceability row validation', () => {
     const issues = validateTraceabilityRow(row({ app_content_block_ids: '' }), lessons);
     assert.ok(issues.some((issue) => issue.code === 'MAPPED_WITHOUT_BLOCKS'));
   });
+
+  it('allows an explicitly unassigned candidate row in a source inventory', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'candidate',
+      evidence_note: 'Source item transcribed; semantic mapping pending.',
+    }), lessons);
+    assert.deepEqual(issues, []);
+  });
+
+  it('rejects an unassigned row that claims mapped coverage', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'mapped',
+    }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'UNKNOWN_LESSON'));
+    assert.ok(issues.some((issue) => issue.code === 'MAPPED_WITHOUT_BLOCKS'));
+  });
 });
