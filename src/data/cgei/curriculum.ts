@@ -316,7 +316,8 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
       "title": "Compute a centred finite difference",
       "language": "python",
       "code": "import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\nt_c = np.array([30.0, 32.0, 35.0])\ndt_dx = (t_c[2] - t_c[0]) / (x_km[2] - x_km[0])\nprint(f\"centred estimate: {dt_dx:.2f} °C km⁻¹\")  # 2.50 °C km⁻¹\n\n# Check that x is in kilometres; convert units if coordinates are metres."
-    }
+    },
+    {"id":"cgei-ds-51-2-taylor-error","kind":"worked-example","title":"Linearise a nonlinear environmental relationship and propagate uncertainty","body":"For a smooth function f(x), a first-order Taylor approximation near x₀ is f(x) ≈ f(x₀) + f′(x₀)(x−x₀). If x has small standard uncertainty σₓ, a first-order approximation gives σ_f ≈ |f′(x₀)|σₓ. Example: for f(T)=T⁴ in a radiation calculation, the local derivative is 4T³, so temperature uncertainty has a much larger absolute effect at higher T. This approximation is local; check nonlinear curvature or use Monte Carlo propagation when uncertainty is large or the response is strongly nonlinear."}
   ],
   "cgei-ds-lesson-5-1-3": [
     {
@@ -361,7 +362,8 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
       "title": "Run and check a forward-Euler simulation",
       "language": "python",
       "code": "import numpy as np\n\nS_mm = 20.0\ninflow_mm_day = 10.0\nk_per_day = 0.2\ndt_day = 1.0\nfor day in range(5):\n    dS_dt = inflow_mm_day - k_per_day * S_mm\n    S_mm = S_mm + dt_day * dS_dt\n    print(day + 1, round(S_mm, 2), \"mm\")\n\nsteady_state_mm = inflow_mm_day / k_per_day\nprint(\"equilibrium:\", steady_state_mm, \"mm\")\n# Keep units consistent and test whether changing dt changes the path."
-    }
+    },
+    {"id":"cgei-ds-51-5-stability","kind":"worked-example","title":"Check forward-Euler stability by changing the time step","body":"For dS/dt = −kS, forward Euler gives Sₙ₊₁=(1−kΔt)Sₙ. For this linear decay equation, stability requires |1−kΔt|<1, or 0<kΔt<2. If k=0.8 day⁻¹, Δt=1 day gives a factor 0.2, while Δt=3 days gives −1.4 and produces alternating growth in magnitude. A numerical trajectory can therefore be unstable even when the physical system decays. Compare time steps and report the method's limitations."}
   ],
   "cgei-ds-lesson-5-1-6": [
     {
@@ -380,7 +382,8 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
         "Define positive directions and whether storage change is final minus initial storage.",
         "Report the closure residual and discuss plausible missing fluxes or measurement limitations."
       ]
-    }
+    },
+    {"id":"cgei-ds-51-6-transport","kind":"prose","title":"Conservation laws, advection and diffusion","body":"A conservation statement balances accumulation with inflow, outflow and sources/sinks. In a continuum, the continuity equation expresses local conservation; advection transports a quantity with a flow, while diffusion spreads gradients. These mechanisms are distinct: advection can move a plume downstream, whereas diffusion smooths concentration gradients. The catchment balance in this lesson is a control-volume example, not a derivation of the full momentum or transport equations."}
   ],
   "cgei-ds-lesson-5-1-7": [
     {
@@ -399,7 +402,8 @@ const unit51ExtensionBlocks: Record<string, CurriculumContentBlock[]> = {
         "Distinguish land-surface temperature from near-surface air temperature; they are different variables.",
         "Do not interpret a closure residual as a measured physical flux without further evidence."
       ]
-    }
+    },
+    {"id":"cgei-ds-51-7-heat-transfer","kind":"prose","title":"Conduction, convection and radiation are different transfer mechanisms","body":"Conduction transfers energy through molecular interactions within matter; convection transports energy with moving fluid; radiation transfers energy through electromagnetic emission and absorption. Surface energy budgets combine fluxes from several mechanisms, but a residual does not identify which process is missing. State sign conventions, measurement heights and averaging periods before comparing terms."}
   ],
   "cgei-ds-lesson-5-1-8": [
     {
@@ -1190,7 +1194,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       description: 'A competency-led pathway from environmental systems and geospatial foundations to reproducible climate-risk intelligence and research artefacts.',
       subjectIds: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
       recommendedOrder: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
-    },
+    },,
+    {"id":"cgei-ds-51-8-clt-limits","kind":"worked-example","title":"Why the central limit theorem is not a free pass","body":"The usual central-limit approximation requires conditions on the sampling process; heavy-tailed observations or strong serial dependence can make convergence slow or invalidate a naive independent-sample standard error. For a daily temperature record, adjacent days share weather regimes, so the nominal count n overstates independent information. Compare an independence-based standard error with a dependence-aware block-resampling sensitivity analysis, and state that the latter also depends on block choice and record length."}
   ],
   subjects: [
     {
