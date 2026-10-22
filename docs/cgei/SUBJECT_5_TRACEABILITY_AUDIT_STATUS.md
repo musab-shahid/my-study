@@ -53,3 +53,10 @@ The matrices cover source inventory across all twelve units. Structural validati
 - Unit 5.7: fixture-backed lag-1 ACF (≈0.636) and chronological persistence MAE; mixed-order comparison documented without overclaiming skill.
 - Unit 5.8: fixture-backed 2×2 eigenexample (90% variance on leading mode).
 - Dispositions remain mapped_partial where full software workflows are incomplete.
+
+
+## 2026-10-23 — Units 5.9–5.10 executable labs
+
+- Unit 5.9: inverse-logit / odds-ratio interpretation fixture aligned with synthetic heat-exceedance coefficients; credible-interval semantics block (no MCMC claim).
+- Unit 5.10: deterministic confounding table (crude ≈5.14 vs stratified +2); language and adjustment lessons linked.
+- Dispositions remain mapped_partial where software workflows or full target-trial practice are incomplete.

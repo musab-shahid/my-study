@@ -48,7 +48,7 @@ describe('CGEI curriculum structure', () => {
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 64);
-    assert.equal(cgeiCurriculum.questions.length, 166);
+    assert.equal(cgeiCurriculum.questions.length, 170);
     assert.deepEqual(cgeiCurriculum.units.map((unit) => unit.order).sort((a, b) => a - b), Array.from({ length: 12 }, (_, index) => index + 1));
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
@@ -76,13 +76,13 @@ describe('CGEI curriculum structure', () => {
     const unit59 = cgeiCurriculum.units.find((item) => item.code === '5.9');
     assert.ok(unit59);
     assert.equal(unit59.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit59.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit59.lessonIds.includes(question.lessonId)).length, 12);
     assert.equal(unit59.readiness, 'draft');
     assert.ok(unit59.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     const unit510 = cgeiCurriculum.units.find((item) => item.code === '5.10');
     assert.ok(unit510);
     assert.equal(unit510.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit510.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit510.lessonIds.includes(question.lessonId)).length, 12);
     assert.equal(unit510.readiness, 'draft');
     assert.ok(unit510.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     const unit511 = cgeiCurriculum.units.find((item) => item.code === '5.11');

@@ -75,3 +75,7 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_timeseries_lab_check.py
       - name: Verify Unit 5.8 EOF eigenvalue arithmetic
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_8_eof_weight_check.py
+      - name: Verify Unit 5.9 logistic interpretation arithmetic
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_9_logistic_interpret_check.py
+      - name: Verify Unit 5.10 confounding arithmetic
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_10_confounding_check.py

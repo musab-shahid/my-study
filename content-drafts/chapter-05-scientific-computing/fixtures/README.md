@@ -46,3 +46,9 @@ Deterministic lag-1 ACF and chronological persistence evaluation for Unit 5.7. N
 
 ## unit_5_8_eof_weight_check.py
 Locks 2×2 covariance eigenvalues (1.8, 0.2) for EOF teaching. Not a gridded climate EOF verification.
+
+## unit_5_9_logistic_interpret_check.py
+Stdlib inverse-logit using locked synthetic logistic coefficients (aligned with smoke_check). Not real-world validation.
+
+## unit_5_10_confounding_check.py
+Deterministic crude vs stratified treatment contrasts under explicit confounding. Not an empirical causal claim.
