@@ -646,7 +646,8 @@ const lesson55Definitions = [
         "kind": "worked-example",
         "title": "Check a join before trusting the aggregate",
         "body": "Suppose daily has 3,000 rows and stations has 25 unique station IDs. An inner join returning 2,700 rows may mean 300 observations refer to missing station IDs, or the filters excluded rows. Check unmatched keys, duplicate metadata IDs, and counts before and after the join. Never assume a plausible-looking mean proves the join was correct."
-      }
+      },
+      {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH daily AS (\n  SELECT station_id, date, tmax_c,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM station_daily\n  WHERE tmax_c IS NOT NULL\n)\nSELECT station_id, date, tmax_c,\n       AVG(tmax_c) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM daily\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."}
     ]
   },
   {
@@ -792,11 +793,8 @@ const lesson55Definitions = [
       }
     ]
   }
-] satisfies Array<{ id: string; title: string; minutes: number; objectiveIds: string[,
-      {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH daily AS (\n  SELECT station_id, date, tmax_c,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM station_daily\n  WHERE tmax_c IS NOT NULL\n)\nSELECT station_id, date, tmax_c,\n       AVG(tmax_c) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM daily\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."}
-    ,
-      {"id":"cgei-ds-55-5-large-data","kind":"prose","title":"Select a large-data tool by the bottleneck","body":"Parquet/Arrow provide columnar storage and efficient interchange; DuckDB can query local files with SQL; Polars offers eager/lazy DataFrame execution; Dask distributes chunked array/DataFrame work when data or compute exceed a single process. These tools are not interchangeable speed switches: inspect file size, row/column access, memory, joins, task overhead and deployment needs. Start with a bounded benchmark against a correct baseline and record memory/time as well as output equivalence."},
-      {"id":"cgei-ds-55-5-large-data-code","kind":"code","title":"A small DuckDB query over Parquet","language":"python","code":"import duckdb\n\nresult = duckdb.sql(\"\"\"\n    SELECT station_id, AVG(tmax_c) AS mean_tmax_c, COUNT(*) AS n\n    FROM read_parquet('station_daily.parquet')\n    WHERE date >= '2024-06-01' AND date < '2024-07-01'\n    GROUP BY station_id\n    ORDER BY station_id\n\"\"\").df()","body":"Use a fixture small enough to test locally, then benchmark representative larger data. Keep SQL filters and units explicit; compare results to a trusted implementation before claiming performance or correctness."}
+] satisfies Array<{ id: string; title: string; minutes: number; objectiveIds: string[
+    
     ]; activityIds: string[]; assessmentIds: string[]; resourceIds: string[]; deliverableIds: string[]; content: CurriculumContentBlock[] }>;
 
 const lessons55: CurriculumLesson[] = lesson55Definitions.map((lesson, index) => ({
@@ -2254,7 +2252,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
       "Request parameters, source/version, units, extent, retrieval time and checksum are recorded",
       "Timeouts, status checks, validation and useful failure messages are present",
       "README reproduces the workflow from a clean environment",
-      "No credentials or restricted data are committed"
+      "No credentials or restricted data are committed",
+      {"id":"cgei-ds-55-5-large-data","kind":"prose","title":"Select a large-data tool by the bottleneck","body":"Parquet/Arrow provide columnar storage and efficient interchange; DuckDB can query local files with SQL; Polars offers eager/lazy DataFrame execution; Dask distributes chunked array/DataFrame work when data or compute exceed a single process. These tools are not interchangeable speed switches: inspect file size, row/column access, memory, joins, task overhead and deployment needs. Start with a bounded benchmark against a correct baseline and record memory/time as well as output equivalence."},
+      {"id":"cgei-ds-55-5-large-data-code","kind":"code","title":"A small DuckDB query over Parquet","language":"python","code":"import duckdb\n\nresult = duckdb.sql(\"\"\"\n    SELECT station_id, AVG(tmax_c) AS mean_tmax_c, COUNT(*) AS n\n    FROM read_parquet('station_daily.parquet')\n    WHERE date >= '2024-06-01' AND date < '2024-07-01'\n    GROUP BY station_id\n    ORDER BY station_id\n\"\"\").df()","body":"Use a fixture small enough to test locally, then benchmark representative larger data. Keep SQL filters and units explicit; compare results to a trusted implementation before claiming performance or correctness."}
     ]
   },
   {
