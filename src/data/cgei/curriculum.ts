@@ -1485,6 +1485,7 @@ const outcomes34: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-34-hydro', statement: 'Assign D8 flow direction and compute flow accumulation on a small grid under a stated counting convention, and explain sink, flat and NoData limitations.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-34-network', statement: 'Compute distance- versus time-weighted shortest paths on a small network and interpret facility accessibility under a stated cost threshold.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-34-access', statement: 'Classify synthetic geocoding results, compute match rate with an explicit denominator, and separate match success from positional accuracy.', action: 'classify and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-34-field', statement: 'Validate synthetic field observations against a data contract covering unique IDs, controlled vocabularies, CRS, and GNSS accuracy metadata.', action: 'validate', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
 ];
 
 const lessons34: CurriculumLesson[] = [
@@ -1532,15 +1533,25 @@ const lessons34: CurriculumLesson[] = [
     activityIds: ['cgei-geo-a-34-network'], assessmentIds: ['cgei-geo-assess-34-network'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
   {
-    id: 'cgei-geo-lesson-3-4-5', kind: 'lesson', title: 'Geocoding quality and field data controls', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    id: 'cgei-geo-lesson-3-4-5', kind: 'lesson', title: 'Geocoding quality metrics', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
     objectives: [outcomes34[4]],
     content: [
       { id: 'cgei-geo-34-5-1', kind: 'prose', title: 'Match is not the same as correct location', body: 'Geocoding assigns coordinates to addresses. A service may return a matched status for the wrong building. Classify results as matched (single acceptable candidate with coordinates), ambiguous (multiple candidates or forced low-confidence hit), or unmatched. Match rate = matched / all input records. Ambiguous records are not matched. Provider confidence scores are not calibrated probabilities unless proven otherwise.' },
       { id: 'cgei-geo-34-5-lab', kind: 'worked-example', title: 'Lab: synthetic quality table', body: 'Ten fictional records: 6 matched, 2 ambiguous, 2 unmatched → match rate 0.60. One matched record is offset 150 m from its reference in a local metre CRS—technically matched but positionally wrong. Accepted-after-review rate (exclude the offset) is 0.50. Fixture unit_3_4_geocoding_quality_check.py locks these counts. No live geocoder is called.' },
-      { id: 'cgei-geo-34-5-2', kind: 'checklist', title: 'Field data model checks (3.4.4 survey)', items: ['Controlled vocabularies for categorical fields', 'Required fields enforced', 'Unique record IDs', 'GNSS accuracy logged when available', 'Daily sync and backup plan', 'Photo links stored with stable paths'] },
-      { id: 'cgei-geo-34-5-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Synthetic QC ≠ provider evaluation', 'Do not compute metre error on lon/lat degrees', 'High match rate can hide spatial bias', 'Field collection (3.4.4) still lacks a deployment lab'] },
+      { id: 'cgei-geo-34-5-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Synthetic QC ≠ provider evaluation', 'Do not compute metre error on lon/lat degrees', 'High match rate can hide spatial bias'] },
     ],
     activityIds: ['cgei-geo-a-34-access'], assessmentIds: ['cgei-geo-assess-34-access'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-4-6', kind: 'lesson', title: 'Field data contracts and observation QC', order: 6, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes34[5]],
+    content: [
+      { id: 'cgei-geo-34-6-1', kind: 'prose', title: 'A collected record is not automatically analysable', body: 'Field schemas need stable observation_id values, controlled vocabularies, declared CRS, and GNSS accuracy metadata. Missing accuracy is not the same as a large measured error. Offline mobile tools (QField, Mergin, Kobo, Survey123) help capture data but post-sync validation remains essential before joining to networks or exposure layers.' },
+      { id: 'cgei-geo-34-6-lab', kind: 'worked-example', title: 'Lab: synthetic field QC', body: 'Eight fictional observations under a fixed contract (unique id, ISO date, vocab {heat_stress,flood_mark,station_visit}, local metre coords, CRS EPSG:32642, gnss_accuracy_m ≥ 0). Fixture unit_3_4_field_data_qc_check.py flags duplicate OBS-001, missing type, invalid vocab, out-of-bounds x_m, missing and negative accuracy. Only OBS-002 is fully clean.' },
+      { id: 'cgei-geo-34-6-3', kind: 'table', title: 'Data contract (teaching)', headers: ['Field', 'Rule', 'Severity'], rows: [['observation_id', 'required, unique', 'error'], ['observed_at', 'YYYY-MM-DD', 'error'], ['observation_type', 'controlled vocab', 'error'], ['x_m, y_m', 'in study bounds (m)', 'error'], ['crs', 'equals declared EPSG', 'error'], ['gnss_accuracy_m', 'required, ≥ 0', 'error'], ['gnss_accuracy_m > 30', 'flag for review', 'warning']] },
+      { id: 'cgei-geo-34-6-4', kind: 'callout', title: 'Mobile workflow (documented only)', tone: 'info', items: ['Design form constraints offline', 'Sync and resolve conflicts deliberately', 'Re-run QC after sync before analysis', 'CI does not deploy QField or Survey123'] },
+    ],
+    activityIds: ['cgei-geo-a-34-field'], assessmentIds: ['cgei-geo-assess-34-field'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
 ];
 
@@ -1807,12 +1818,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Interpret DEMs and terrain derivatives, recognise hydro-terrain assumptions, and introduce network accessibility, geocoding quality and field data controls.',
       estimatedHours: 8, prerequisites: ['Unit 3.2 CRS and units', 'Unit 3.3 raster operations'], outcomes: outcomes34,
       lessonIds: lessons34.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-34-dem', 'cgei-geo-a-34-slope', 'cgei-geo-a-34-hydro', 'cgei-geo-a-34-network', 'cgei-geo-a-34-access'],
-      assessmentIds: ['cgei-geo-assess-34-dem', 'cgei-geo-assess-34-slope', 'cgei-geo-assess-34-hydro', 'cgei-geo-assess-34-network', 'cgei-geo-assess-34-access'],
+      activityIds: ['cgei-geo-a-34-dem', 'cgei-geo-a-34-slope', 'cgei-geo-a-34-hydro', 'cgei-geo-a-34-network', 'cgei-geo-a-34-access', 'cgei-geo-a-34-field'],
+      assessmentIds: ['cgei-geo-assess-34-dem', 'cgei-geo-assess-34-slope', 'cgei-geo-assess-34-hydro', 'cgei-geo-assess-34-network', 'cgei-geo-assess-34-access', 'cgei-geo-assess-34-field'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
-      notes: ['Support unit: DEM/slope/flow fixtures; network Dijkstra fixture; geocoding/field survey depth.', 'Routing graph is synthetic—not OSM validation.'],
+      notes: ['Support unit: DEM/slope/flow/network/geocoding/field QC fixtures.', 'Mobile apps documented only—not CI-deployed.'],
     },
 
 
@@ -1853,6 +1864,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-34-006', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'On the Unit 3.4 teaching network, the distance-shortest path A→Clinic is:', options: ['A–C–Clinic (6 km)', 'A–B–Clinic (4 km)', 'A–Shelter–Clinic', 'Unreachable'], correctAnswer: 1, explanation: 'A–B (2 km) + B–Clinic (2 km) = 4 km, shorter than A–C–Clinic at 6 km.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-34-007', lessonId: 'cgei-geo-lesson-3-4-4', type: 'single-choice', prompt: 'Using time (minutes) as cost, the least-cost path A→Clinic is:', options: ['A–B–Clinic (14 min)', 'A–C–Clinic (9 min)', 'Direct 0 min edge', 'Island path'], correctAnswer: 1, explanation: 'A–C (6 min) + C–Clinic (3 min) = 9 min beats A–B–Clinic at 14 min—distance and time optima differ.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-34-008', lessonId: 'cgei-geo-lesson-3-4-5', type: 'single-choice', prompt: 'A record is status=matched but its coordinates are 150 m from the known true location. The correct interpretation is:', options: ['Match rate proves positional accuracy', 'The record is matched yet positionally wrong and needs review', 'Ambiguous records should be counted as matched', 'Unmatched records can be dropped silently'], correctAnswer: 1, explanation: 'Match success and positional accuracy are different QC dimensions; offsets require review before spatial analysis.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-geo-q-34-009', lessonId: 'cgei-geo-lesson-3-4-6', type: 'single-choice', prompt: 'In the Unit 3.4 field QC fixture, which observation_id is fully clean?', options: ['OBS-001', 'OBS-002', 'OBS-003', 'OBS-008'], correctAnswer: 1, explanation: 'OBS-002 has unique id, valid vocab, in-bounds coords, declared CRS and non-negative accuracy. OBS-001 is duplicated.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-34-010', lessonId: 'cgei-geo-lesson-3-4-6', type: 'single-choice', prompt: 'Missing gnss_accuracy_m on an otherwise complete record should be treated as:', options: ['Proof the position is exact', 'An error under the teaching data contract', 'A successful mobile sync', 'Equivalent to a 150 m measured offset'], correctAnswer: 1, explanation: 'Missing accuracy metadata is a contract error; it is not the same as a quantified positional residual.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2411,6 +2425,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-33-formats', kind: 'guided-practice', title: 'Choose formats for exchange vs analysis', instructions: 'For (a) web map boundaries, (b) metric buffer analysis, (c) long-term archive, name a preferred format and one risk of the wrong choice.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-formats'] },
     { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
     { id: 'cgei-geo-a-34-network', kind: 'coding-lab', title: 'Distance vs time routing lab', instructions: 'Run unit_3_4_network_accessibility_check.py. By hand, confirm distance-shortest A→Clinic is 4 km via B and time-shortest is 9 min via C. State what happens to time cost if A–C is closed.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-network'] },
+    { id: 'cgei-geo-a-34-field', kind: 'coding-lab', title: 'Field observation QC lab', instructions: 'Run unit_3_4_field_data_qc_check.py. List each error type found and identify the single fully clean observation_id.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-field'] },
     { id: 'cgei-geo-a-34-dem', kind: 'guided-practice', title: 'DEM metadata audit', instructions: 'List five metadata fields you must record before computing slope on a new DEM and mark which distinguish DSM from DTM.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-34-dem'] },
     { id: 'cgei-geo-a-34-slope', kind: 'coding-lab', title: 'Finite-difference slope lab', instructions: 'Run unit_3_4_terrain_slope_check.py and recompute the centre slope by hand from the printed grid.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-slope'] },
     { id: 'cgei-geo-a-34-hydro', kind: 'coding-lab', title: 'D8 flow direction and accumulation lab', instructions: 'Run unit_3_4_flow_routing_check.py. From the printed 3×3 grid, verify by hand that the centre cell flows south (code 4) and the outlet accumulation equals 9 under the include-self convention.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-hydro'] },
@@ -2603,6 +2618,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-33-formats', kind: 'formative', title: 'Format selection', purpose: 'Assess format trade-off reasoning.', objectiveIds: ['cgei-geo-o-33-formats'], questionIds: ['cgei-geo-q-33-007'], required: true },
     { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
     { id: 'cgei-geo-assess-34-network', kind: 'formative', title: 'Network routing', purpose: 'Assess distance vs time path selection and unreachable nodes.', objectiveIds: ['cgei-geo-o-34-network'], questionIds: ['cgei-geo-q-34-006', 'cgei-geo-q-34-007'], required: true },
+    { id: 'cgei-geo-assess-34-field', kind: 'formative', title: 'Field data contract', purpose: 'Assess ID, vocab and GNSS accuracy validation.', objectiveIds: ['cgei-geo-o-34-field'], questionIds: ['cgei-geo-q-34-009', 'cgei-geo-q-34-010'], required: true },
     { id: 'cgei-geo-assess-34-dem', kind: 'formative', title: 'DEM surface type', purpose: 'Assess DSM/DTM and metadata awareness.', objectiveIds: ['cgei-geo-o-34-dem'], questionIds: ['cgei-geo-q-34-001'], required: true },
     { id: 'cgei-geo-assess-34-slope', kind: 'formative', title: 'Slope calculation', purpose: 'Assess finite-difference slope understanding.', objectiveIds: ['cgei-geo-o-34-slope'], questionIds: ['cgei-geo-q-34-002'], required: true },
     { id: 'cgei-geo-assess-34-hydro', kind: 'formative', title: 'Flow routing concepts', purpose: 'Assess D8 direction and accumulation under stated conventions.', objectiveIds: ['cgei-geo-o-34-hydro'], questionIds: ['cgei-geo-q-34-003', 'cgei-geo-q-34-005'], required: true },

@@ -9,6 +9,6 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 3.4.3.1,Geocoding match rate precision bias,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1;cgei-geo-34-5-lab,mapped_partial,Synthetic match rate 0.6 and 150 m offset case; no live geocoder.
 3.4.3.2,Informal addressing transliteration duplicates,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1,mapped_partial,Qualitative discussion; not a full address-normalization lab.
 3.4.3.3,Landmark and participatory location capture,3.4.3,Geocoding and addresses,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-1,mapped_partial,Mentioned as alternative to automated geocoding.
-3.4.4.1,QField Mergin Kobo Survey123,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Tool names in checklist only.
-3.4.4.2,Data model controlled vocabularies required fields,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Checklist taught.
-3.4.4.3,QC GNSS logging sync backup,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-5,cgei-geo-34-5-2,mapped_partial,Checklist items only.
+3.4.4.1,QField Mergin Kobo Survey123,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-6,cgei-geo-34-6-1;cgei-geo-34-6-4,mapped_partial,Tools named; offline/sync documented; not CI-deployed.
+3.4.4.2,Data model controlled vocabularies required fields,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-6,cgei-geo-34-6-lab;cgei-geo-34-6-3,mapped_partial,Teaching contract + fixture validates vocab and required fields.
+3.4.4.3,QC GNSS logging sync backup,3.4.4,Field data collection,Support,cgei-geo-lesson-3-4-6,cgei-geo-34-6-lab;cgei-geo-34-6-4,mapped_partial,GNSS accuracy required in fixture; sync/backup documented only.

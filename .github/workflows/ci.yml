@@ -103,3 +103,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_network_accessibility_check.py
       - name: Verify Unit 3.4 geocoding quality metrics
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_geocoding_quality_check.py
+      - name: Verify Unit 3.4 field-data QC contract
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_field_data_qc_check.py

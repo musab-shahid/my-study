@@ -106,3 +106,21 @@ Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_ge
 
 ### Deliverable
 Report the three counts, match rate, and one sentence on why match ≠ positional accuracy.
+
+
+## Field data QC (Unit 3.4.4)
+
+### Contract (fixture-tested)
+Required: unique `observation_id`, `observed_at` (YYYY-MM-DD), `observation_type` ∈ {heat_stress, flood_mark, station_visit}, `x_m`/`y_m` in study bounds, `crs` = EPSG:32642, `gnss_accuracy_m` ≥ 0.
+
+### Expected findings
+- Duplicate **OBS-001**
+- Missing type, invalid vocab, out-of-bounds x, missing/negative accuracy
+- Clean id: **OBS-002**
+
+Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_field_data_qc_check.py`
+
+### Mobile/offline (documented only — not CI-executed)
+1. Encode the same constraints in the form designer (required fields, pick lists).
+2. Capture offline; sync; resolve conflicts without silent overwrites.
+3. Re-run QC after sync; archive raw and cleaned tables with a processing log.

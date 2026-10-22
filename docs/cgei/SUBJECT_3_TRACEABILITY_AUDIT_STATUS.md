@@ -17,4 +17,4 @@
 - 3.4.1 terrain: slope + D8 flow fixtures
 - 3.4.2 network: Dijkstra distance vs time fixture; accessibility threshold
 - 3.4.3 geocoding: synthetic match-rate fixture (0.6) + positional offset case
-- 3.4.4 field collection: checklist only; no mobile deployment lab
+- 3.4.4 field collection: data-contract fixture (unique IDs, vocab, GNSS accuracy); mobile apps documented only

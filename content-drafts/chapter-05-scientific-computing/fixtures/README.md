@@ -91,3 +91,6 @@ Dijkstra on synthetic undirected graph: distance vs time optima differ; unreacha
 
 ## unit_3_4_geocoding_quality_check.py
 Synthetic n=10: matched=6, ambiguous=2, unmatched=2, match_rate=0.6; one 150 m offset; accepted_rate=0.5. Not a live geocoder.
+
+## unit_3_4_field_data_qc_check.py
+n=8 synthetic field records; errors for duplicate ID, missing type, invalid vocab, OOB coords, missing/negative GNSS accuracy; only OBS-002 clean.
