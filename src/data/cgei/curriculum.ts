@@ -1018,11 +1018,11 @@ const lessons510: CurriculumLesson[] = [
 
 
 const outcomes511: CurriculumOutcome[] = [
- {id:'cgei-ds-o-511-vcs',statement:'Use version control to create traceable, reviewable changes to environmental analysis code and documentation.',action:'commit and review',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-communication']},
- {id:'cgei-ds-o-511-design',statement:'Refactor an analysis into modular functions with explicit data contracts, configuration and actionable failure behaviour.',action:'design and refactor',level:'L3',competencyIds:['cgei-comp-programming','cgei-comp-reproducibility']},
- {id:'cgei-ds-o-511-testing',statement:'Construct unit, integration and regression tests for data transformations and scientifically meaningful invariants.',action:'test and diagnose',level:'L3',competencyIds:['cgei-comp-programming','cgei-comp-quantitative-reasoning']},
- {id:'cgei-ds-o-511-environment',statement:'Specify dependencies, runtime, data provenance and execution steps to reproduce an analysis in a clean environment.',action:'specify and reproduce',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-data-management']},
- {id:'cgei-ds-o-511-release',statement:'Configure automated quality checks and prepare documentation and release notes that accurately describe validation evidence and limits.',action:'automate and release',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-communication']},
+ {id:'cgei-ds-o-511-vcs',statement:'Use version control to create traceable, reviewable changes to environmental analysis code and documentation.',action:'commit and review',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-reproducibility']},
+ {id:'cgei-ds-o-511-design',statement:'Refactor an analysis into modular functions with explicit data contracts, configuration and actionable failure behaviour.',action:'design and refactor',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-reproducibility']},
+ {id:'cgei-ds-o-511-testing',statement:'Construct unit, integration and regression tests for data transformations and scientifically meaningful invariants.',action:'test and diagnose',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-quantitative-reasoning']},
+ {id:'cgei-ds-o-511-environment',statement:'Specify dependencies, runtime, data provenance and execution steps to reproduce an analysis in a clean environment.',action:'specify and reproduce',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-reproducibility']},
+ {id:'cgei-ds-o-511-release',statement:'Configure automated quality checks and prepare documentation and release notes that accurately describe validation evidence and limits.',action:'automate and release',level:'L3',competencyIds:['cgei-comp-reproducibility','cgei-comp-reproducibility']},
 ];
 
 const lessons511: CurriculumLesson[] = [
