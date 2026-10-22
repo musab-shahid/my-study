@@ -3,26 +3,26 @@ source_topic_path,source_topic_title,priority,mapping_status,app_lesson_ids,subt
 5.1.2,Differential equations and numerical methods,Support,partial,cgei-ds-lesson-5-1-5;cgei-ds-lesson-5-1-3,partial,ODE/numerical integration and least-squares content exists; constrained optimisation and numerical stability detail remain gaps.
 5.1.3,Physics for environmental modelling,Support,partial,cgei-ds-lesson-5-1-6;cgei-ds-lesson-5-1-7,partial,"Mass/water and surface-energy balance are covered; momentum, advection/diffusion and conduction/convection are incomplete."
 5.1.4,Probability foundations,Support,partial,cgei-ds-lesson-5-1-8,partial,"Bayes, common working distributions and dependence are introduced; LLN/CLT failure cases and distributional physical origins need deeper teaching."
-5.2.1,Language core,Core,candidate,cgei-ds-lesson-5-2-1,not_audited,Functions/modules/defensive checks are explicit; core data structures and comprehensions need verification.
+5.2.1,Language core,Core,candidate,cgei-ds-lesson-5-2-1,not_audited,Added explicit built-in containers/comprehensions; package creation and exception-handling practice remain partial.
 5.2.2,NumPy,Core,candidate,cgei-ds-lesson-5-2-2,not_audited,"Arrays/shapes/broadcasting/NaNs are explicit; verify indexing, precision and seeded RNG subtopics."
-5.2.3,pandas,Core,candidate,cgei-ds-lesson-5-2-3,not_audited,Timezone/daily summary/grouping/join material is explicit; reshape/categoricals/tidy-data need evidence.
-5.2.4,Tooling and environment,Core,candidate,cgei-ds-lesson-5-2-4,not_audited,Environments/formats/provenance are explicit; CLI/pathlib/unit-aware computing/regex coverage needs evidence.
-5.2.5,R as a complement,Core,candidate,cgei-ds-lesson-5-2-5,not_audited,Python-R interoperability is discussed; equivalent tidyverse/terra workflows and decision criteria need stronger practice.
-5.3.1,Exploratory data analysis,Core,candidate,cgei-ds-lesson-5-3-1,not_audited,Scientific questioning/profiling/missingness are explicit; verify outlier and bivariate diagnostics.
+5.2.3,pandas,Core,candidate,cgei-ds-lesson-5-2-3,not_audited,Added tidy-data melt/pivot and key-integrity checks; broader categorical/missingness and resampling practice remains partial.
+5.2.4,Tooling and environment,Core,candidate,cgei-ds-lesson-5-2-4,not_audited,Added zoneinfo/regex examples; Pint and full command-line/filesystem workflow remain partial.
+5.2.5,R as a complement,Core,candidate,cgei-ds-lesson-5-2-5,not_audited,Added R/Arrow interoperability sketch and evidence-based language-choice rule; full tidyverse/terra workflow remains partial.
+5.3.1,Exploratory data analysis,Core,candidate,cgei-ds-lesson-5-3-1,not_audited,Added outlier detection-versus-treatment guidance; computed detector comparison remains partial.
 5.3.2,Diagnostics for time series and spatial data,Core,candidate,cgei-ds-lesson-5-3-3;cgei-ds-lesson-5-3-4,not_audited,Time-series and map diagnostics are separate; spatial residual/missingness maps and unit/sign/timestamp checks need evidence.
-5.3.3,Plotting fundamentals,Core,candidate,cgei-ds-lesson-5-3-2;cgei-ds-lesson-5-3-4,not_audited,Distribution/relational/map graphics are present; plotting APIs and interactive layers are not all established.
+5.3.3,Plotting fundamentals,Core,candidate,cgei-ds-lesson-5-3-2;cgei-ds-lesson-5-3-4,not_audited,Added Seaborn and Plotly code; rendered interactive review and full library coverage remain partial.
 5.3.4,Honest graphics,Core,candidate,cgei-ds-lesson-5-3-5,not_audited,"Uncertainty/axes/caption discipline are explicit; accessibility, greyscale, dual axes and log scales need evidence."
-5.3.5,Climate and spatial plot types,Core,candidate,cgei-ds-lesson-5-3-3;cgei-ds-lesson-5-3-4,not_audited,Anomalies/maps are covered; named climate diagrams and shared panel scales need explicit evidence.
+5.3.5,Climate and spatial plot types,Core,candidate,cgei-ds-lesson-5-3-3;cgei-ds-lesson-5-3-4,not_audited,Added specialist climate-plot selection and geospatial setup; several plot implementations remain partial.
 5.4.1,Probability and distributions,Core,candidate,cgei-ds-lesson-5-4-1,not_audited,"Current lesson focuses on population/sample/support, not the full distributions scope; likely expand or split."
-5.4.2,Sampling,Core,candidate,cgei-ds-lesson-5-4-1,not_audited,Sampling design and representativeness are explicit; estimators and standard-error calculations need practice verification.
+5.4.2,Sampling,Core,candidate,cgei-ds-lesson-5-4-1,not_audited,Added seeded bootstrap/block-bootstrap logic; interval and block-length sensitivity analysis remain incomplete.
 5.4.3,Confidence intervals and hypothesis tests,Core,candidate,cgei-ds-lesson-5-4-2;cgei-ds-lesson-5-4-3,not_audited,Intervals/bootstrapping and tests/multiple testing are separated; effect sizes/power/error types need cross-check.
 5.4.4,Non-parametric and categorical methods,Core,candidate,cgei-ds-lesson-5-4-5,not_audited,Rank methods are mentioned; Wilcoxon/Kruskal-Wallis/KS/ANOVA/chi-square/contingency tables are not established.
-5.4.5,Correlation and simple regression,Core,candidate,cgei-ds-lesson-5-4-4,not_audited,OLS/slope units/diagnostics/non-causal interpretation are explicit; Pearson/Spearman/partial correlation need checking.
+5.4.5,Correlation and simple regression,Core,candidate,cgei-ds-lesson-5-4-4,not_audited,Added rank-test choice and assumptions; computed worked results remain incomplete.
 5.5.1,End-to-end workflow,Core,candidate,cgei-ds-lesson-5-5-1,not_audited,Workflow stages/idempotence/manifests/validation are explicit; source subtopics need block-level traceability.
-5.5.2,Data management and licensing,Core,candidate,cgei-ds-lesson-5-5-4,not_audited,Provenance/licences/credentials/ethical access are explicit; FAIR and metadata standards need evidence.
+5.5.2,Data management and licensing,Core,candidate,cgei-ds-lesson-5-5-4,not_audited,Added CTE/window-function SQL; NULL/date edge cases and index/normalisation practice remain partial.
 5.5.3,Large-data tools,Core,gap,,not_audited,No dedicated inspected lesson establishes Arrow/Parquet/Polars/DuckDB/Dask/chunk sizing/memory profiling coverage.
 5.5.4,SQL and structured data,Core,candidate,cgei-ds-lesson-5-5-2,not_audited,SQL joins/grouped summaries are explicit; CTEs/window functions/NULL/date functions/schema design need verification.
-5.5.5,APIs and acquisition,Core,candidate,cgei-ds-lesson-5-5-3;cgei-ds-lesson-5-5-5,not_audited,HTTP/API mechanics and acquisition package are separate; manual extraction/terms/credentials/manifest detail need evidence.
+5.5.5,APIs and acquisition,Core,candidate,cgei-ds-lesson-5-5-3;cgei-ds-lesson-5-5-5,not_audited,Added large-data tool selection and DuckDB/Parquet example; comparative benchmark and memory profiling remain gaps.
 5.6.1,Linear and generalised regression,Core,partial,cgei-ds-lesson-5-6-1,partial,Semantic audit of Unit 5.6 blocks: multiple regression and interaction interpretation are evidenced; ridge/lasso and logistic regression are explicit gaps.
 5.6.2,Model selection and comparison,Core,partial,cgei-ds-lesson-5-6-4;cgei-ds-lesson-5-6-5,partial,"Semantic audit: blocked validation, baseline comparison and parsimony are present; AIC/BIC, full model-selection workflow, GAMs and quantile regression remain incomplete or gaps."
 5.6.3,Uncertainty quantification,Core,partial,cgei-ds-lesson-5-6-3,partial,"Semantic audit: confidence vs prediction intervals and bootstrap caveats are present; permutation tests, sensitivity analysis and Monte Carlo simulation remain gaps."
