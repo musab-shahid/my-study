@@ -79,3 +79,7 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_9_logistic_interpret_check.py
       - name: Verify Unit 5.10 confounding arithmetic
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_10_confounding_check.py
+      - name: Verify Unit 5.11 manifest and checksum integrity
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_11_manifest_checksum_check.py
+      - name: Verify Unit 5.12 multidimensional bookkeeping contract
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_12_multidim_contract_check.py

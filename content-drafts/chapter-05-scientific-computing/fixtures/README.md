@@ -52,3 +52,9 @@ Stdlib inverse-logit using locked synthetic logistic coefficients (aligned with 
 
 ## unit_5_10_confounding_check.py
 Deterministic crude vs stratified treatment contrasts under explicit confounding. Not an empirical causal claim.
+
+## unit_5_11_manifest_checksum_check.py + repro_lab/
+Manifest required fields and SHA-256 integrity for synthetic input.csv. Not authenticity or licence clearance for third-party data.
+
+## unit_5_12_multidim_contract_check.py
+Stdlib regular 3×2×2 cube selection and NaN-aware unweighted mean. Not an xarray API execution test.

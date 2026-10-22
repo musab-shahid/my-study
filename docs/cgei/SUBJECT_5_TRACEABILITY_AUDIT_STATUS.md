@@ -60,3 +60,10 @@ The matrices cover source inventory across all twelve units. Structural validati
 - Unit 5.9: inverse-logit / odds-ratio interpretation fixture aligned with synthetic heat-exceedance coefficients; credible-interval semantics block (no MCMC claim).
 - Unit 5.10: deterministic confounding table (crude ≈5.14 vs stratified +2); language and adjustment lessons linked.
 - Dispositions remain mapped_partial where software workflows or full target-trial practice are incomplete.
+
+
+## 2026-10-23 — Units 5.11–5.12 executable labs
+
+- Unit 5.11: synthetic manifest + SHA-256 integrity fixture (tamper and missing-field failures).
+- Unit 5.12: stdlib multidimensional bookkeeping contract (selection, NaN-aware mean); xarray Dataset API not executed in CI.
+- Dispositions remain mapped_partial where containers, orchestration, or xarray runtime practice are incomplete.

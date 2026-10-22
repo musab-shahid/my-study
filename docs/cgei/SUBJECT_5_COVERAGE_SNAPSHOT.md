@@ -11,6 +11,7 @@ Generated as an implementation aid; dispositions come from unit CSV matrices.
 | 5.8 | full map | mapped_partial | **unit_5_8_eof_weight_check** |
 | 5.9 | full map | mapped_partial | **unit_5_9_logistic_interpret_check** + smoke logistic |
 | 5.10 | full map | mapped_partial | **unit_5_10_confounding_check** |
-| 5.11–5.12 | inventory / partial maps | candidate / partial | — |
+| 5.11 | full map | mapped_partial | **unit_5_11_manifest_checksum_check** |
+| 5.12 | full map | mapped_partial | **unit_5_12_multidim_contract_check** (stdlib; not xarray runtime) |
 
 **Rule:** nonempty blocks ≠ substantive mastery. Prefer fixture-backed claims when asserting numerical teaching content.

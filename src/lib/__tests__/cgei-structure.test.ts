@@ -48,7 +48,7 @@ describe('CGEI curriculum structure', () => {
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 64);
-    assert.equal(cgeiCurriculum.questions.length, 170);
+    assert.equal(cgeiCurriculum.questions.length, 174);
     assert.deepEqual(cgeiCurriculum.units.map((unit) => unit.order).sort((a, b) => a - b), Array.from({ length: 12 }, (_, index) => index + 1));
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
@@ -88,13 +88,13 @@ describe('CGEI curriculum structure', () => {
     const unit511 = cgeiCurriculum.units.find((item) => item.code === '5.11');
     assert.ok(unit511);
     assert.equal(unit511.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit511.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit511.lessonIds.includes(question.lessonId)).length, 12);
     assert.equal(unit511.readiness, 'draft');
     assert.ok(unit511.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     const unit512 = cgeiCurriculum.units.find((item) => item.code === '5.12');
     assert.ok(unit512);
     assert.equal(unit512.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit512.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit512.lessonIds.includes(question.lessonId)).length, 12);
     assert.equal(unit512.readiness, 'draft');
     assert.ok(unit512.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     assert.ok(unit51.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 5));
