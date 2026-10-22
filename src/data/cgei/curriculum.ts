@@ -1152,7 +1152,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ds-o-data-product', statement: 'Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.', action: 'produce and validate', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
       ],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-environmental-accounting', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', 'cgei-ds-unit-5-6', 'cgei-ds-unit-5-7', 'cgei-ds-unit-5-8', ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code]) => `cgei-ds-unit-${code.replace('.', '-')}`)],
+      unitIds: ['cgei-ds-unit-5-1', 'cgei-ds-unit-5-2', 'cgei-ds-unit-5-3', 'cgei-ds-unit-5-4', 'cgei-ds-unit-5-5', 'cgei-ds-unit-5-6', 'cgei-ds-unit-5-7', 'cgei-ds-unit-5-8', 'cgei-ds-unit-5-9', 'cgei-ds-unit-5-10', 'cgei-ds-unit-5-11', 'cgei-ds-unit-5-12'],
       projectIds: ['cgei-ds-capstone'],
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
@@ -1304,7 +1304,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.12-xarray-scalable-environmental-pipelines.md',
       notes: ['Five draft lessons distinguish coordinate semantics, alignment, chunking, feature pipelines and validation.', 'Readiness remains draft pending eager/lazy comparison, clean execution, route rendering and scientific review.'],
     },
-    ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11'].includes(code)).map(([code, title, summary]) => ({
+    ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
       code, title, order: Number(code.slice(2)), kind: 'unit' as const, readiness: 'planned' as const, summary,
       prerequisites: [`Unit 5.${Number(code.slice(2)) - 1}`],
@@ -2106,6 +2106,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-assess-512-pipeline', kind: 'formative', title: 'Feature-pipeline checkpoint', purpose: 'Check derived-feature documentation and coordinate integrity.', objectiveIds: ['cgei-ds-o-512-pipeline'], questionIds: ['cgei-ds-q-512-007','cgei-ds-q-512-008'], required: true },
     { id: 'cgei-ds-assess-512-validation', kind: 'formative', title: 'Pipeline validation checkpoint', purpose: 'Check eager/lazy comparison evidence and bounded scientific claims.', objectiveIds: ['cgei-ds-o-512-release'], questionIds: ['cgei-ds-q-512-009','cgei-ds-q-512-010'], required: true },
 
+{ id: 'cgei-ds-assess-510-dag', kind: 'formative', title: 'DAG and variable-role checkpoint', purpose: 'Assess whether the learner distinguishes causal assumptions and common variable roles.', objectiveIds: ['cgei-ds-o-510-dag'], questionIds: ['cgei-ds-q-510-001', 'cgei-ds-q-510-002'], required: true },
+{ id: 'cgei-ds-assess-510-estimand', kind: 'formative', title: 'Estimand specification checkpoint', purpose: 'Check completeness of the target population, contrast, outcome and time horizon.', objectiveIds: ['cgei-ds-o-510-estimand'], questionIds: ['cgei-ds-q-510-003', 'cgei-ds-q-510-004'], required: true },
+{ id: 'cgei-ds-assess-510-adjustment', kind: 'formative', title: 'Identification and adjustment checkpoint', purpose: 'Check assumptions behind adjustment and identify collider/mediator hazards.', objectiveIds: ['cgei-ds-o-510-identification'], questionIds: ['cgei-ds-q-510-005', 'cgei-ds-q-510-006'], required: true },
+{ id: 'cgei-ds-assess-510-designs', kind: 'formative', title: 'Causal design assumptions checkpoint', purpose: 'Check design-specific assumptions and the limits of propensity methods.', objectiveIds: ['cgei-ds-o-510-designs'], questionIds: ['cgei-ds-q-510-007', 'cgei-ds-q-510-008'], required: true },
+{ id: 'cgei-ds-assess-510-sensitivity', kind: 'formative', title: 'Sensitivity and reporting checkpoint', purpose: 'Check interpretation of negative controls and transparent causal claims.', objectiveIds: ['cgei-ds-o-510-sensitivity'], questionIds: ['cgei-ds-q-510-009', 'cgei-ds-q-510-010'], required: true },
   ],
   rubrics: [
     {
@@ -2201,13 +2206,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-d-59-bayes-note', title: 'Bayesian prior and posterior note', description: 'Reproducible note describing prior rationale, prior predictive implications, posterior summaries and computational checks.', artefactTypes: ['report', 'notebook'], acceptanceCriteria: ['Likelihood and priors stated', 'Prior predictive implications inspected', 'Sampler diagnostics recorded where relevant', 'Sensitivity and posterior predictive checks discussed'] },
     { id: 'cgei-ds-d-59-diagnostics', title: 'Model diagnostics and validation record', description: 'Evidence-backed diagnostic record covering residual structure, dispersion, convergence, influence and validation design.', artefactTypes: ['notebook', 'report'], acceptanceCriteria: ['Family-appropriate diagnostics included', 'Validation mimics intended deployment', 'Failure cases disclosed', 'Alternative specification considered'] },
     { id: 'cgei-ds-d-59-report', title: 'Interpretable environmental model report', description: 'Decision-facing summary of a defensible model with effect scale, uncertainty, subgroup performance and limitations.', artefactTypes: ['report', 'table'], acceptanceCriteria: ['Reference categories and contrast defined', 'Effect reported on interpretable scale', 'Uncertainty and practical relevance discussed', 'Association is not overstated as causation'] },
-
-
-    { id: 'cgei-ds-assess-510-dag', kind: 'formative', title: 'DAG and variable-role checkpoint', purpose: 'Assess whether the learner distinguishes causal assumptions and common variable roles.', objectiveIds: ['cgei-ds-o-510-dag'], questionIds: ['cgei-ds-q-510-001', 'cgei-ds-q-510-002'], required: true },
-    { id: 'cgei-ds-assess-510-estimand', kind: 'formative', title: 'Estimand specification checkpoint', purpose: 'Check completeness of the target population, contrast, outcome and time horizon.', objectiveIds: ['cgei-ds-o-510-estimand'], questionIds: ['cgei-ds-q-510-003', 'cgei-ds-q-510-004'], required: true },
-    { id: 'cgei-ds-assess-510-adjustment', kind: 'formative', title: 'Identification and adjustment checkpoint', purpose: 'Check assumptions behind adjustment and identify collider/mediator hazards.', objectiveIds: ['cgei-ds-o-510-identification'], questionIds: ['cgei-ds-q-510-005', 'cgei-ds-q-510-006'], required: true },
-    { id: 'cgei-ds-assess-510-designs', kind: 'formative', title: 'Causal design assumptions checkpoint', purpose: 'Check design-specific assumptions and the limits of propensity methods.', objectiveIds: ['cgei-ds-o-510-designs'], questionIds: ['cgei-ds-q-510-007', 'cgei-ds-q-510-008'], required: true },
-    { id: 'cgei-ds-assess-510-sensitivity', kind: 'formative', title: 'Sensitivity and reporting checkpoint', purpose: 'Check interpretation of negative controls and transparent causal claims.', objectiveIds: ['cgei-ds-o-510-sensitivity'], questionIds: ['cgei-ds-q-510-009', 'cgei-ds-q-510-010'], required: true },
 
     { id: 'cgei-ds-d-510-dag-memo', title: 'Environmental causal DAG memo', description: 'A diagram and concise rationale for variable roles and plausible alternative structures.', artefactTypes: ['diagram', 'report'], acceptanceCriteria: ['Exposure and outcome defined', 'Variable roles explained', 'Alternative DAG or uncertainty noted', 'No claim that graph is data-proven'] },
     { id: 'cgei-ds-d-510-estimand-sheet', title: 'Causal estimand and target-trial sheet', description: 'A pre-analysis statement of target population, strategies, time zero, outcome and contrast.', artefactTypes: ['report', 'table'], acceptanceCriteria: ['All estimand components explicit', 'Time alignment defensible', 'Target contrast interpretable'] },
