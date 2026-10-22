@@ -27,8 +27,8 @@ export function validateTraceabilityRow(
   const issues: TraceabilityIssue[] = [];
   const lesson = row.app_lesson_id ? lessons.get(row.app_lesson_id) : undefined;
   const path = row.source_subtopic_path || '(missing path)';
-  if (!row.app_lesson_id && row.disposition !== 'candidate') {
-    issues.push({ code: 'UNKNOWN_LESSON', message: 'A non-candidate row must identify its app lesson', sourcePath: path });
+  if (!row.app_lesson_id && ['mapped', 'mapped_partial'].includes(row.disposition)) {
+    issues.push({ code: 'UNKNOWN_LESSON', message: 'A mapped row must identify its app lesson', sourcePath: path });
   } else if (row.app_lesson_id && !lesson) {
     issues.push({ code: 'UNKNOWN_LESSON', message: `Unknown lesson ${row.app_lesson_id}`, sourcePath: path });
   }
