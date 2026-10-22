@@ -9,8 +9,8 @@
 | 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | First semantic pass: 12 partial mappings. Added Taylor linearisation/error propagation, Euler stability, advection/diffusion, heat-transfer mechanisms and CLT/dependence limitations; vector calculus, constrained optimisation and advanced numerical methods remain incomplete. |
 | 5.2 | `subject-5-unit-5-2-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
 | 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
-| 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | Partial mappings and unassigned gaps are recorded; deeper semantic review remains. |
-| 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Partial mappings and unassigned gaps are recorded; deeper semantic review remains. |
+| 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | Added seeded block-bootstrap logic and rank-test choice/assumptions; interval execution and numerical rank-test worked results remain incomplete. |
+| 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Added advanced SQL window/CTE example and DuckDB/Parquet large-data example; tool benchmarking, memory profiling and remaining query edge cases are gaps. |
 | 5.6 | `subject-5-unit-5-6-subtopic-traceability.csv` | First semantic pass: 3 mapped, 7 partial, 6 explicit gaps. |
 | 5.7 | `subject-5-unit-5.7-subtopic-traceability.csv` | First semantic pass: 9 partial mappings against lesson bodies. Added teaching blocks on spectral/wavelet reasoning, stationarity diagnostics, ARIMA/state-space concepts, gap filling/changepoints, spurious trends and aliasing. The scientific smoke suite now checks a periodogram peak, level shift and finite ARIMA forecasts; wavelet, changepoint sensitivity and real-data analyses remain gaps. |
 | 5.8 | `subject-5-unit-5.8-subtopic-traceability.csv` | First semantic pass: 9 partial mappings against lesson bodies. Added teaching blocks on MCA/CCA, North's rule, clustering/SOM validity, regime stability, effective sample size, field significance and index/detrending sensitivity. The smoke suite now checks synthetic CCA recovery, cluster validity/stability, effective-sample-size arithmetic and FDR adjustment; rotation and full field-inference analyses remain gaps. |
@@ -19,7 +19,7 @@
 | 5.11 | `subject-5-unit-5.11-subtopic-traceability.csv` | First semantic pass: 24 partial mappings; expanded testing, CLI/project structure, security/licensing, FAIR, manifests and release practices. Full repository deliverable remains unassessed. |
 | 5.12 | `subject-5-unit-5.12-subtopic-traceability.csv` | First semantic pass: 19 partial mappings; expanded rioxarray, idempotence, orchestration/HPC, provenance and archival release practices. Executed scalable pipeline benchmarks remain gaps. |
 
-The matrices cover source inventory across all twelve units. Structural validation verifies source paths, parent relationships, IDs and block-to-lesson joins; it does not prove semantic fidelity. Units 5.1 and 5.6–5.12 now have first-pass semantic audits; Units 5.2–5.5 still require deeper semantic review.
+The matrices cover source inventory across all twelve units. Structural validation verifies source paths, parent relationships, IDs and block-to-lesson joins; it does not prove semantic fidelity. Units 5.1 and 5.6–5.12 now have first-pass semantic audits; Units 5.2–5.5 have more explicit evidence notes and new gap-filling blocks, but still require independent row-by-row semantic review.
 
 ## Topic-level crosswalk
 
@@ -37,5 +37,5 @@ The matrices cover source inventory across all twelve units. Structural validati
 
 1. Run CI on the latest branch after the Unit 5.7–5.8 content and crosswalk changes.
 2. Add and execute focused examples for spectral analysis/aliasing, ARIMA/SARIMA and state-space forecasts, changepoint/gap-fill sensitivity, MCA/CCA, cluster validity, field significance, GLM offsets, survey design, Bayesian sampler diagnostics and causal-design sensitivity.
-3. Semantically re-audit Units 5.2–5.5; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
+3. Independently re-audit Units 5.2–5.5 and turn their new illustrative code into executed fixture-backed labs; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
 4. Do not promote candidate or partial mappings to complete coverage solely because identifiers resolve.
