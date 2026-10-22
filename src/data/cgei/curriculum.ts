@@ -708,6 +708,19 @@ const lesson55Definitions = [
         "code": "import time\nimport requests\n\nRETRYABLE = {429, 500, 502, 503, 504}\n\ndef get_json(url, params=None, attempts=5):\n    for attempt in range(attempts):\n        try:\n            response = requests.get(url, params=params, timeout=(5, 30))\n        except (requests.Timeout, requests.ConnectionError):\n            if attempt == attempts - 1:\n                raise\n            time.sleep(min(2 ** attempt, 60))\n            continue\n\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\n            retry_after = response.headers.get('Retry-After', '')\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\n            time.sleep(min(wait, 60))\n            continue\n        response.raise_for_status()\n        return response.json()\n    raise RuntimeError('Request attempts exhausted')\n\n# Add pagination handling and save exact request/response metadata.\n# Retry only safe, idempotent operations; keep attempts bounded."
       },
       {
+        {
+        "id": "cgei-ds-55-3-manual-extraction",
+        "kind": "checklist",
+        "title": "Manual extraction when no supported API exists",
+        "items": [
+          "First check whether the provider publishes a bulk download, documented API, or machine-readable table.",
+          "Record the exact page/document URL, publisher, access date, version/date, table or page identifier, units and licence/terms.",
+          "Create a field dictionary and a repeatable extraction protocol; preserve the source file or lawful archival copy where terms permit.",
+          "Use double entry or independent spot-checking for critical numeric fields; reconcile disagreements against the source.",
+          "Validate row counts, totals, date ranges, units and missing values, and retain an audit log of corrections.",
+          "Read robots.txt and site terms; do not bypass authentication, technical controls or restrictions, and do not assume public visibility grants reuse rights."
+        ]
+      },
         "id": "cgei-ds-55-3-checklist",
         "kind": "checklist",
         "title": "Acquisition checklist",
@@ -749,6 +762,42 @@ const lesson55Definitions = [
         "body": "A dataset's access method does not determine its licence. Read the terms attached to the exact product and version, record attribution requirements, and check whether derived products or redistribution have additional conditions. Respect provider terms, minimise personal data, and aggregate sensitive locations before publication when disclosure could cause harm."
       },
       {
+        {
+        "id": "cgei-ds-55-4-fair",
+        "kind": "key-points",
+        "title": "FAIR metadata and dataset release",
+        "items": [
+          "Findable: assign a stable identifier where possible and provide searchable descriptive metadata.",
+          "Accessible: document how the data and metadata can be retrieved, including any access restrictions.",
+          "Interoperable: use documented units, controlled vocabularies and machine-readable formats.",
+          "Reusable: include provenance, quality information, version, licence and sufficient method detail.",
+          "DataCite-style citation metadata helps identify and cite a dataset; ISO 19115 is relevant for geographic information metadata. Select the profile appropriate to the release and complete its required fields."
+        ]
+      },
+      {
+        "id": "cgei-ds-55-4-licence",
+        "kind": "table",
+        "title": "Licence checks before combining or releasing data",
+        "headers": ["Licence / term pattern", "What to verify", "Workflow action"],
+        "rows": [
+          ["CC BY", "Attribution and any product-specific notices", "Preserve required citation and licence notice"],
+          ["ODbL", "Database rights, attribution and share-alike obligations for relevant database use", "Review whether the planned extraction or derived database triggers obligations"],
+          ["Non-commercial clause", "How the provider defines permitted non-commercial use", "Do not assume a research context automatically satisfies the clause"],
+          ["Provider-specific terms", "Exact product/version terms, redistribution, derived data and attribution", "Record the checked terms and decision in the manifest"]
+        ]
+      },
+      {
+        "id": "cgei-ds-55-4-provider-audit",
+        "kind": "checklist",
+        "title": "Check the actual source product, not the brand name",
+        "items": [
+          "For USGS products, record the specific dataset/product and its stated terms and attribution.",
+          "For Copernicus products, verify the current terms attached to the particular service or dataset.",
+          "For CDS/ERA5 access, distinguish API credentials and access conditions from reuse/redistribution terms.",
+          "For demographic data, check jurisdiction, privacy, aggregation and any restricted-use conditions.",
+          "Keep the date and URL of the terms reviewed; re-check when the product or release changes."
+        ]
+      },
         "id": "cgei-ds-55-4-env",
         "kind": "code",
         "title": "Separate a committed template from local secrets",
