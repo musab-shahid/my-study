@@ -1,10 +1,12 @@
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { cgeiCurriculum } from '../src/data/cgei/curriculum';
+import { validateTraceabilityRow } from '../src/data/cgei/traceability-validation';
 
 type Row = Record<string, string>;
 const errors: string[] = [];
 const lessons = new Map(cgeiCurriculum.lessons.map((lesson) => [lesson.id, lesson]));
+const lessonRecords = new Map(cgeiCurriculum.lessons.map((lesson) => [lesson.id, lesson]));
 const contentBlocks = new Set(cgeiCurriculum.lessons.flatMap((lesson) => lesson.content.map((block) => block.id)));
 
 function parseCsv(input: string): string[][] {
@@ -55,7 +57,6 @@ function audit(file: string, label: string, expectedPaths: string[]) {
     if (previousParentTitle && previousParentTitle !== record.parent_topic_title) errors.push(`${label} ${path}: inconsistent parent title for ${record.parent_topic_path}`);
     else parentTitles.set(record.parent_topic_path, record.parent_topic_title);
     const lesson = lessons.get(record.app_lesson_id);
-    if (!lesson) errors.push(`${label} ${path}: unknown lesson ${record.app_lesson_id}`);
     const expectedParent = path.split('.').slice(0, 3).join('.');
     const expectedLessonId = `cgei-ds-lesson-${expectedParent.replaceAll('.', '-')}`;
     if (record.app_lesson_id !== expectedLessonId) errors.push(`${label} ${path}: lesson ${record.app_lesson_id} does not match source parent ${expectedParent}; expected ${expectedLessonId}`);
@@ -64,18 +65,8 @@ function audit(file: string, label: string, expectedPaths: string[]) {
     }
     if (!['Core', 'Support', 'Optional'].includes(record.priority)) errors.push(`${label} ${path}: invalid priority ${record.priority}`);
     if (!['mapped', 'mapped_partial', 'gap', 'deferred', 'candidate'].includes(record.disposition)) errors.push(`${label} ${path}: unsupported disposition ${record.disposition}`);
-    const blockIds = record.app_content_block_ids.split(';').filter(Boolean);
-    if (['mapped', 'mapped_partial'].includes(record.disposition) && blockIds.length === 0) {
-      errors.push(`${label} ${path}: coverage disposition lacks content-block evidence`);
-    }
-    for (const blockId of blockIds) {
-      if (!contentBlocks.has(blockId)) errors.push(`${label} ${path}: unknown content-block ID ${blockId}`);
-      else if (lesson && !lesson.content.some((block) => block.id === blockId)) {
-        errors.push(`${label} ${path}: block ${blockId} exists but is not in declared lesson ${lesson.id}`);
-      }
-    }
-    if (['gap', 'deferred'].includes(record.disposition) && !record.evidence_note.trim()) {
-      errors.push(`${label} ${path}: gap/defer requires an evidence note`);
+    for (const issue of validateTraceabilityRow(record, lessonRecords)) {
+      errors.push(`${label} ${path}: ${issue.message}`);
     }
   }
   console.log(`${label}: audited ${records.length} subtopics (${records.filter((r) => ['mapped', 'mapped_partial'].includes(r.disposition)).length} with content evidence, ${records.filter((r) => r.disposition === 'gap').length} explicit gaps)`);
