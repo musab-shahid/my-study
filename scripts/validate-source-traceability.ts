@@ -78,6 +78,50 @@ audit('docs/cgei/subject-5-unit-5-5-subtopic-traceability.csv', 'Subject 5.5', [
   '5.5.1.1','5.5.1.2','5.5.1.3','5.5.2.1','5.5.2.2','5.5.2.3','5.5.2.4',
   '5.5.3.1','5.5.3.2','5.5.3.3','5.5.4.1','5.5.4.2','5.5.4.3','5.5.5.1','5.5.5.2','5.5.5.3',
 ]);
+
+function auditTopicCrosswalk() {
+  const file = 'docs/cgei/subject-5-topic-crosswalk.csv';
+  const rows = parseCsv(readFileSync(resolve(process.cwd(), file), 'utf8'));
+  const headers = rows[0] ?? [];
+  const records: Row[] = rows.slice(1).map((values) =>
+    Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ''])) as Row);
+  const paths = records.map((record) => record.source_topic_path);
+  const expectedPaths = [
+    '5.1.1','5.1.2','5.1.3','5.1.4',
+    '5.2.1','5.2.2','5.2.3','5.2.4','5.2.5',
+    '5.3.1','5.3.2','5.3.3','5.3.4','5.3.5',
+    '5.4.1','5.4.2','5.4.3','5.4.4','5.4.5',
+    '5.5.1','5.5.2','5.5.3','5.5.4','5.5.5',
+  ];
+  if (new Set(paths).size !== paths.length) errors.push('Subject 5 topic crosswalk: duplicate source topic path');
+  for (const path of expectedPaths) if (!paths.includes(path)) errors.push(`Subject 5 topic crosswalk: missing source path ${path}`);
+  for (const path of paths) if (!expectedPaths.includes(path)) errors.push(`Subject 5 topic crosswalk: unexpected source path ${path}`);
+  for (const record of records) {
+    const path = record.source_topic_path;
+    const status = record.mapping_status;
+    const lessonIds = record.app_lesson_ids.split(';').filter(Boolean);
+    if (!['candidate', 'unresolved', 'gap', 'partial', 'split_partial', 'gap_or_partial'].includes(status)) {
+      errors.push(`Subject 5 topic crosswalk ${path}: unsupported mapping_status ${status}`);
+    }
+    if (record.subtopic_coverage_status === 'not_audited' && !['candidate', 'unresolved', 'gap'].includes(status)) {
+      errors.push(`Subject 5 topic crosswalk ${path}: unaudited subtopics cannot be represented as ${status}; use candidate, unresolved, or gap`);
+    }
+    if (['candidate', 'partial', 'split_partial', 'gap_or_partial'].includes(status) && lessonIds.length === 0) {
+      errors.push(`Subject 5 topic crosswalk ${path}: ${status} mapping must identify candidate lesson IDs or be marked unresolved/gap`);
+    }
+    for (const lessonId of lessonIds) {
+      if (!lessons.has(lessonId)) errors.push(`Subject 5 topic crosswalk ${path}: unknown lesson ID ${lessonId}`);
+    }
+  }
+  console.log(`Subject 5 topic crosswalk: audited ${records.length} topics; ${records.filter((record) => record.mapping_status === 'candidate').length} candidates, ${records.filter((record) => record.mapping_status === 'gap').length} explicit gaps`);
+}
+
+try {
+  auditTopicCrosswalk();
+} catch (error) {
+  errors.push(`Could not validate Subject 5 topic crosswalk: ${String(error)}`);
+}
+
 if (errors.length) {
   console.error(`Source traceability validation failed: ${errors.length} error(s)`);
   for (const error of errors) console.error(`  ERROR: ${error}`);
