@@ -81,3 +81,7 @@ For the CGEI core, favour output-producing practice: a reproducible notebook, va
 ## Current scaffold status
 
 The registry contains 14 domains and each has at least a roadmap topic. Subjects 9–14 now have tailored roadmap outlines and empty quiz-bank files. They are structural scaffolds, not completed lessons. Continue filling the existing subject files progressively; do not try to author the entire TOC in one change.
+
+## Pull-request validation
+
+For curriculum-content changes, confirm that GitHub Actions ran against the latest pull-request head before treating a result as current. The CI suite includes data validation, unit tests, typechecking, lint/build checks, and browser smoke tests. A run for an older merge commit is historical evidence only; after a new commit, inspect the newest run and address its actual failures.
