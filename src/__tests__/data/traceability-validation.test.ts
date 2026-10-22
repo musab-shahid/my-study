@@ -48,6 +48,16 @@ describe('source traceability row validation', () => {
     assert.deepEqual(issues, []);
   });
 
+  it('allows an explicit gap without inventing a lesson mapping', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'gap',
+      evidence_note: 'Inspected content does not teach this requirement.',
+    }), lessons);
+    assert.deepEqual(issues, []);
+  });
+
   it('rejects an unassigned row that claims mapped coverage', () => {
     const issues = validateTraceabilityRow(row({
       app_lesson_id: '',
