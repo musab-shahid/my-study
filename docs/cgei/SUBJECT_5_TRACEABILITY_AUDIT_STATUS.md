@@ -11,9 +11,9 @@
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | ID-checked mappings are partial unless a row is explicitly a gap/candidate. |
 | 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Existing candidate/partial mappings retain their stated evidence limits. |
 | 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | Source paths/titles are inventoried; no app mapping claim is made. |
-| 5.6–5.12 | **Not committed on this branch yet** | Not audited by the validator. Source inventory and semantic mapping remain outstanding. |
+| 5.6–5.12 | `subject-5-unit-5.6-subtopic-traceability.csv` … `subject-5-unit-5.12-subtopic-traceability.csv` | Source paths/titles are inventoried; app mappings remain candidates pending semantic inspection. |
 
-The validator intentionally audits only matrices that are present and committed. It must not imply that absent matrices were checked. The previous CI failure exposed that the validator expected 5.6–5.12 files that were not actually on the PR branch; those paths have been removed from the active audit until the artifacts are committed.
+The validator audits the source paths and parent structure across all twelve units. This is source-inventory validation, not proof of semantic coverage: the 5.1 and 5.6–5.12 matrices intentionally leave app mappings unassigned pending semantic inspection.
 
 ## Status semantics
 
