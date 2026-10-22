@@ -15,7 +15,7 @@
 | Numbered subtopics | 2,052 |
 | **Total traceability rows** | **2,763** |
 
-Counts were extracted from the DOCX Part II knowledge map using unit-header priority tags and numbered paths. The downloadable CSV preserves each item's source title and zero-based paragraph index for back-checking.
+Counts were extracted from the DOCX Part II knowledge map using unit-header priority tags and numbered paths. A companion CSV was generated as a working artifact; it preserves each item's source title and zero-based paragraph index for back-checking. The CSV is not yet committed to the repository, so do not use it as a CI input until it is added and reviewed.
 
 ## Current app mapping evidence
 
