@@ -166,7 +166,7 @@ if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should li
 if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
 if (unit52 && unit52.lessonIds.length !== 5) errors.push(`Unit 5.2 should map 5 substantive lessons; found ${unit52.lessonIds.length}`);
 if (unit53 && unit53.lessonIds.length !== 5) errors.push(`Unit 5.3 should map 5 substantive lessons; found ${unit53.lessonIds.length}`);
-if (unit54 && unit54.lessonIds.length !== 5) errors.push(`Unit 5.4 should map 5 substantive lessons; found ${unit54.lessonIds.length}`);
+if (unit54 && unit54.lessonIds.length !== 6) errors.push(`Unit 5.4 should map 6 substantive lessons after adding the source-aligned probability/distributions lesson; found ${unit54.lessonIds.length}`);
 if (unit55 && unit55.lessonIds.length !== 5) errors.push(`Unit 5.5 should map 5 substantive lessons; found ${unit55.lessonIds.length}`);
 if (unit52 && cgeiCurriculum.questions.filter((question) => unit52.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.2 should include at least ten lesson-linked curriculum knowledge checks');
 if (unit53 && cgeiCurriculum.questions.filter((question) => unit53.lessonIds.includes(question.lessonId)).length < 10) errors.push('Unit 5.3 should include at least ten lesson-linked curriculum knowledge checks');
