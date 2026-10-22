@@ -2,6 +2,7 @@
  * Validate the canonical curriculum registry and its compatibility bridge.
  * Run with: npx tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts
  */
+import { readFileSync } from 'node:fs';
 import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { topicMetadata } from '../src/data/topic-metadata';
 import { sections } from '../src/data/sections';
@@ -106,6 +107,91 @@ for (const lesson of cgeiCurriculum.lessons) {
   checkRefs(`Lesson ${lesson.id} deliverables`, lesson.deliverableIds ?? [], deliverableIds);
   for (const outcome of lesson.objectives) checkRefs(`Lesson ${lesson.id} objective competencies`, outcome.competencyIds ?? [], competencyIds);
 }
+
+/**
+ * Validate the reviewed Subject 5.2 subtopic crosswalk against actual canonical
+ * lesson/content-block IDs. This checks referential integrity, not pedagogy:
+ * the CSV's explicit disposition and evidence note still require human review.
+ */
+const parseCsv = (input: string): string[][] => {
+  const rows: string[][] = [];
+  let row: string[] = [];
+  let field = '';
+  let quoted = false;
+  const text = input.replace(/^\uFEFF/, '');
+  for (let i = 0; i < text.length; i += 1) {
+    const char = text[i];
+    if (char === '"') {
+      if (quoted && text[i + 1] === '"') {
+        field += '"';
+        i += 1;
+      } else {
+        quoted = !quoted;
+      }
+    } else if (char === ',' && !quoted) {
+      row.push(field);
+      field = '';
+    } else if ((char === '\n' || char === '\r') && !quoted) {
+      if (char === '\r' && text[i + 1] === '\n') i += 1;
+      row.push(field);
+      if (row.some((value) => value.length > 0)) rows.push(row);
+      row = [];
+      field = '';
+    } else {
+      field += char;
+    }
+  }
+  if (field.length > 0 || row.length > 0) {
+    row.push(field);
+    rows.push(row);
+  }
+  return rows;
+};
+
+try {
+  const crosswalkText = readFileSync(
+    new URL('../docs/cgei/subject-5-unit-5-2-subtopic-traceability.csv', import.meta.url),
+    'utf8',
+  );
+  const [headers, ...values] = parseCsv(crosswalkText);
+  const records = values.map((valuesRow) =>
+    Object.fromEntries(headers.map((header, index) => [header, valuesRow[index] ?? ''])),
+  );
+  const expectedPaths = [
+    '5.2.1.1', '5.2.1.2', '5.2.1.3', '5.2.1.4',
+    '5.2.2.1', '5.2.2.2', '5.2.2.3', '5.2.2.4', '5.2.2.5',
+    '5.2.3.1', '5.2.3.2', '5.2.3.3', '5.2.3.4', '5.2.3.5', '5.2.3.6', '5.2.3.7',
+    '5.2.4.1', '5.2.4.2', '5.2.4.3', '5.2.4.4',
+    '5.2.5.1', '5.2.5.2', '5.2.5.3',
+  ];
+  const paths = records.map((record) => record.source_subtopic_path);
+  if (records.length !== expectedPaths.length) {
+    errors.push(`Subject 5.2 crosswalk should contain ${expectedPaths.length} subtopics; found ${records.length}`);
+  }
+  if (new Set(paths).size !== paths.length) errors.push('Subject 5.2 crosswalk contains duplicate source subtopic paths');
+  for (const path of expectedPaths) {
+    if (!paths.includes(path)) errors.push(`Subject 5.2 crosswalk is missing source subtopic ${path}`);
+  }
+  for (const record of records) {
+    const path = record.source_subtopic_path;
+    const lessonId = record.app_lesson_id;
+    if (!lessonIds.has(lessonId)) errors.push(`Crosswalk ${path} references unknown lesson ID: ${lessonId}`);
+    const parentTopic = path.split('.').slice(0, 3).join('.');
+    if (record.parent_topic_path !== parentTopic) {
+      errors.push(`Crosswalk ${path} has incorrect parent topic ${record.parent_topic_path}; expected ${parentTopic}`);
+    }
+    const blockIds = record.app_content_block_ids.split(';').filter(Boolean);
+    if (['mapped', 'mapped_partial'].includes(record.disposition) && blockIds.length === 0) {
+      errors.push(`Crosswalk ${path} claims ${record.disposition} without content-block evidence`);
+    }
+    for (const blockId of blockIds) {
+      if (!contentBlockIds.has(blockId)) errors.push(`Crosswalk ${path} references unknown content block ID: ${blockId}`);
+    }
+  }
+} catch (error) {
+  errors.push(`Could not validate Subject 5.2 subtopic crosswalk: ${String(error)}`);
+}
+
 for (const question of cgeiCurriculum.questions) {
   checkRefs(`Curriculum question ${question.id} lesson`, [question.lessonId], lessonIds);
   if (question.options.length < 2) errors.push(`Curriculum question ${question.id} needs at least two options`);
