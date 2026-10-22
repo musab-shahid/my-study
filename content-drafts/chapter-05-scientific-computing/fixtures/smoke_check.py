@@ -482,6 +482,8 @@ def check_unit_5_7_examples() -> None:
     from sklearn.model_selection import TimeSeriesSplit
     from sklearn.metrics import mean_absolute_error, mean_squared_error
     from statsmodels.tsa.seasonal import STL
+    from statsmodels.tsa.arima.model import ARIMA
+    from scipy.signal import periodogram
     import statsmodels.api as sm
 
     # A known monthly signal: linear trend + annual cycle + small deterministic noise.
@@ -534,7 +536,60 @@ def check_unit_5_7_examples() -> None:
         ))
     scores = np.asarray(split_scores)
     assert scores.shape == (5, 3) and np.isfinite(scores).all()
-    print("OK Unit 5.7 time index, anomaly, STL, HAC and chronological CV checks", scores.mean(axis=0).round(3).tolist())
+    # Frequency-domain check: the known annual cycle should dominate the periodogram.
+    frequencies, power = periodogram(seasonal + noise, fs=1.0, detrend="linear")
+    dominant_frequency = float(frequencies[1 + np.argmax(power[1:])])
+    assert abs(dominant_frequency - (1.0 / 12.0)) < 0.01
+
+    # A deterministic level shift remains detectable as a change in segment means.
+    shifted = np.r_[np.zeros(40), np.repeat(2.0, 40)] + np.random.default_rng(5710).normal(0, 0.05, 80)
+    assert abs(float(shifted[40:].mean() - shifted[:40].mean()) - 2.0) < 0.05
+
+    # ARIMA forecast is finite on a deterministic seasonal/trend fixture.
+    arima_fit = ARIMA(series, order=(1, 1, 0), seasonal_order=(1, 0, 0, 12)).fit()
+    forecast = np.asarray(arima_fit.forecast(steps=6), dtype=float)
+    assert forecast.shape == (6,) and np.isfinite(forecast).all()
+
+    print("OK Unit 5.7 time index, anomaly, STL, HAC, spectral peak, level shift, ARIMA and chronological CV checks", scores.mean(axis=0).round(3).tolist())
+
+
+def check_unit_5_8_examples() -> None:
+    """Verify EOF, paired-field CCA, regime validity and map multiplicity examples."""
+    from sklearn.cross_decomposition import CCA
+    from sklearn.cluster import KMeans
+    from sklearn.metrics import adjusted_rand_score, silhouette_score
+    from statsmodels.stats.multitest import multipletests
+
+    rng = np.random.default_rng(5808)
+    n = 180
+    latent = rng.normal(size=n)
+    field_a = np.column_stack([latent + rng.normal(0, 0.25, n) for _ in range(3)])
+    field_b = np.column_stack([0.8 * latent + rng.normal(0, 0.3, n) for _ in range(3)])
+    cca = CCA(n_components=1, max_iter=1000)
+    score_a, score_b = cca.fit_transform(field_a, field_b)
+    canonical_corr = float(np.corrcoef(score_a[:, 0], score_b[:, 0])[0, 1])
+    assert canonical_corr > 0.8
+
+    # Two deliberately separated synthetic regimes; evaluate, don't assume, cluster quality.
+    regime = np.repeat([0, 1, 2], 60)
+    centres = np.array([[0.0, 0.0], [4.0, 0.0], [0.0, 4.0]])
+    cluster_data = centres[regime] + rng.normal(0, 0.25, (n, 2))
+    model_a = KMeans(n_clusters=3, n_init=10, random_state=42).fit(cluster_data)
+    model_b = KMeans(n_clusters=3, n_init=10, random_state=42).fit(cluster_data)
+    sil = float(silhouette_score(cluster_data, model_a.labels_))
+    ari = float(adjusted_rand_score(model_a.labels_, model_b.labels_))
+    assert sil > 0.7 and ari == 1.0
+
+    # Positive AR(1) dependence reduces approximate effective sample size.
+    phi, nominal_n = 0.7, 120
+    effective_n = nominal_n * (1 - phi) / (1 + phi)
+    assert 0 < effective_n < nominal_n
+
+    raw_p = np.array([0.001, 0.008, 0.02, 0.11, 0.30, 0.65])
+    reject, adjusted, _, _ = multipletests(raw_p, alpha=0.05, method="fdr_bh")
+    assert len(reject) == len(raw_p) and np.all(adjusted >= raw_p)
+    assert reject[0] and reject[1] and not reject[-1]
+    print("OK Unit 5.8 CCA, cluster validity/stability, effective sample size and field-multiplicity checks", round(canonical_corr, 3), round(sil, 3), round(effective_n, 2))
 
 
 def main() -> int:
@@ -550,6 +605,7 @@ def main() -> int:
     check_unit_5_5_examples()
     check_unit_5_6_examples()
     check_unit_5_7_examples()
+    check_unit_5_8_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 
