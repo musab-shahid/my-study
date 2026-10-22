@@ -33,6 +33,46 @@ function parseCsv(input: string): string[][] {
   return rows;
 }
 
+const authoritativeSourceMetadata: Record<string, { title: string; parentTitle: string }> = {
+  '5.4.1.1': { title: 'Random variables; common distributions', parentTitle: 'Probability and distributions' },
+  '5.4.1.2': { title: 'Expectation, variance, covariance', parentTitle: 'Probability and distributions' },
+  '5.4.1.3': { title: 'Distribution fitting for environmental variables (normal, log-normal, gamma, Weibull); goodness-of-fit and transformations', parentTitle: 'Probability and distributions' },
+  '5.4.2.1': { title: 'Sampling distributions; standard error', parentTitle: 'Sampling' },
+  '5.4.2.2': { title: 'Sampling bias and representativeness', parentTitle: 'Sampling' },
+  '5.4.2.3': { title: 'Sampling designs and their estimators at overview level', parentTitle: 'Sampling' },
+  '5.4.3.1': { title: 'Confidence intervals', parentTitle: 'Confidence intervals and hypothesis tests' },
+  '5.4.3.2': { title: 'Hypothesis tests; p-values and their limits', parentTitle: 'Confidence intervals and hypothesis tests' },
+  '5.4.3.3': { title: 'Effect sizes', parentTitle: 'Confidence intervals and hypothesis tests' },
+  '5.4.3.4': { title: 'Type I / II errors; power (conceptual)', parentTitle: 'Confidence intervals and hypothesis tests' },
+  '5.4.3.5': { title: 'Multiple testing problem', parentTitle: 'Confidence intervals and hypothesis tests' },
+  '5.4.4.1': { title: 'Non-parametric tests (Wilcoxon, Kruskal–Wallis, Kolmogorov–Smirnov); QQ plots; robust statistics', parentTitle: 'Non-parametric and categorical methods' },
+  '5.4.4.2': { title: 'ANOVA and chi-square tests; contingency tables (hits, misses, false alarms) — link to verification in Subject 7', parentTitle: 'Non-parametric and categorical methods' },
+  '5.4.4.3': { title: 'Power and sample-size calculations; effective sample size under autocorrelation', parentTitle: 'Non-parametric and categorical methods' },
+  '5.4.5.1': { title: 'Pearson/Spearman correlation; partial correlation idea', parentTitle: 'Correlation and simple regression' },
+  '5.4.5.2': { title: 'Simple linear regression; assumptions', parentTitle: 'Correlation and simple regression' },
+  '5.4.5.3': { title: 'Residuals and basic diagnostics', parentTitle: 'Correlation and simple regression' },
+  '5.4.5.4': { title: 'Correlation ≠ causation', parentTitle: 'Correlation and simple regression' },
+  '5.5.1.1': { title: 'Question and variable catalogue first', parentTitle: 'End-to-end workflow' },
+  '5.5.1.2': { title: 'Discovery, access, ingestion, quality assessment', parentTitle: 'End-to-end workflow' },
+  '5.5.1.3': { title: 'Transformation, analysis, visualisation, reporting', parentTitle: 'End-to-end workflow' },
+  '5.5.1.4': { title: 'Data lineage and reproducibility', parentTitle: 'End-to-end workflow' },
+  '5.5.2.1': { title: 'Data management plans, FAIR principles, and metadata (DataCite, ISO 19115) for released datasets', parentTitle: 'Data management and licensing' },
+  '5.5.2.2': { title: 'Data licences: CC-BY, ODbL, non-commercial clauses; recording the licence in the manifest', parentTitle: 'Data management and licensing' },
+  '5.5.2.3': { title: 'Licence compliance for USGS, Copernicus, CDS, demographic data', parentTitle: 'Data management and licensing' },
+  '5.5.3.1': { title: 'Large-data tools: Arrow/Parquet, Polars, DuckDB, Dask; chunk-size tuning; memory profiling', parentTitle: 'Large-data tools' },
+  '5.5.3.2': { title: 'Sizing and profiling: when data fit in memory and when they do not', parentTitle: 'Large-data tools' },
+  '5.5.3.3': { title: 'Columnar and chunked formats for repeated analysis', parentTitle: 'Large-data tools' },
+  '5.5.4.1': { title: 'SELECT, WHERE, JOIN, GROUP BY, aggregates', parentTitle: 'SQL and structured data' },
+  '5.5.4.2': { title: 'CTEs, subqueries, window functions', parentTitle: 'SQL and structured data' },
+  '5.5.4.3': { title: 'NULL handling and date functions', parentTitle: 'SQL and structured data' },
+  '5.5.4.4': { title: 'Keys, normalisation, indexes — conceptual schema design', parentTitle: 'SQL and structured data' },
+  '5.5.5.1': { title: 'HTTP, JSON, pagination, status codes', parentTitle: 'APIs and acquisition' },
+  '5.5.5.2': { title: 'Authentication patterns; rate limits; retries', parentTitle: 'APIs and acquisition' },
+  '5.5.5.3': { title: 'Download manifests: URL, version, extent, date, licence, checksum', parentTitle: 'APIs and acquisition' },
+  '5.5.5.4': { title: 'When no API exists (e.g. data published as web pages or PDFs): manual extraction protocol, double entry, and checks; robots.txt and terms of use', parentTitle: 'APIs and acquisition' },
+  '5.5.5.5': { title: 'Credential management; environment variables; never in notebooks or repositories', parentTitle: 'APIs and acquisition' },
+};
+
 function audit(file: string, label: string, expectedPaths: string[]) {
   const input = readFileSync(resolve(process.cwd(), file), 'utf8');
   const rows = parseCsv(input);
@@ -50,6 +90,13 @@ function audit(file: string, label: string, expectedPaths: string[]) {
   const parentTitles = new Map<string, string>();
   for (const record of records) {
     const path = record.source_subtopic_path;
+    const authoritative = authoritativeSourceMetadata[path];
+    if (authoritative && record.source_subtopic_title !== authoritative.title) {
+      errors.push(`${label} ${path}: source title differs from authoritative TOC; expected "${authoritative.title}"`);
+    }
+    if (authoritative && record.parent_topic_title !== authoritative.parentTitle) {
+      errors.push(`${label} ${path}: parent title differs from authoritative TOC; expected "${authoritative.parentTitle}"`);
+    }
     for (const field of ['source_subtopic_path', 'source_subtopic_title', 'parent_topic_path', 'parent_topic_title', 'priority', 'disposition']) {
       if (!record[field]?.trim()) errors.push(`${label} row ${path || '(missing path)'}: required field ${field} is empty`);
     }
