@@ -1,5 +1,5 @@
 source_topic_path,source_topic_title,priority,mapping_status,app_lesson_ids,subtopic_coverage_status,notes
-5.1.1,Calculus and linear algebra,Support,partial,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-4,partial,Calculus/gradient and eigen/SVD content exists; Taylor/error propagation and fully integrated linear-algebra practice remain gaps.
+5.1.1,Calculus and linear algebra,Support,partial,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-4,partial,"Calculus/gradient, Taylor linearisation/error propagation and eigen/SVD content exists; divergence/curl intuition and fully integrated linear-algebra practice remain gaps."
 5.1.2,Differential equations and numerical methods,Support,partial,cgei-ds-lesson-5-1-5;cgei-ds-lesson-5-1-3,partial,ODE/numerical integration and least-squares content exists; constrained optimisation and numerical stability detail remain gaps.
 5.1.3,Physics for environmental modelling,Support,partial,cgei-ds-lesson-5-1-6;cgei-ds-lesson-5-1-7,partial,"Mass/water and surface-energy balance are covered; momentum, advection/diffusion and conduction/convection are incomplete."
 5.1.4,Probability foundations,Support,partial,cgei-ds-lesson-5-1-8,partial,"Bayes, common working distributions and dependence are introduced; LLN/CLT failure cases and distributional physical origins need deeper teaching."
