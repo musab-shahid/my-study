@@ -145,6 +145,13 @@ function auditTopicCrosswalk() {
     '5.3.1','5.3.2','5.3.3','5.3.4','5.3.5',
     '5.4.1','5.4.2','5.4.3','5.4.4','5.4.5',
     '5.5.1','5.5.2','5.5.3','5.5.4','5.5.5',
+    '5.6.1','5.6.2','5.6.3','5.6.4',
+    '5.7.1','5.7.2','5.7.3',
+    '5.8.1','5.8.2','5.8.3',
+    '5.9.1','5.9.2','5.9.3',
+    '5.10.1','5.10.2','5.10.3',
+    '5.11.1','5.11.2','5.11.3','5.11.4','5.11.5','5.11.6',
+    '5.12.1','5.12.2','5.12.3','5.12.4','5.12.5',
   ];
   if (new Set(paths).size !== paths.length) errors.push('Subject 5 topic crosswalk: duplicate source topic path');
   for (const path of expectedPaths) if (!paths.includes(path)) errors.push(`Subject 5 topic crosswalk: missing source path ${path}`);
