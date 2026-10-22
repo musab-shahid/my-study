@@ -1,0 +1,25 @@
+source_topic_path,source_topic_title,priority,mapping_status,app_lesson_ids,subtopic_coverage_status,notes
+5.1.1,Calculus and linear algebra,Support,split_partial,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-3;cgei-ds-lesson-5-1-4,not_audited,Taylor expansion and error propagation need explicit evidence; numeric-suffix mapping to lesson 5-1-1 is incorrect.
+5.1.2,Differential equations and numerical methods,Support,split_partial,cgei-ds-lesson-5-1-2;cgei-ds-lesson-5-1-5,not_audited,Finite differences and ODE/numerical integration span lessons; optimisation and stability need evidence.
+5.1.3,Physics for environmental modelling,Support,split_partial,cgei-ds-lesson-5-1-1;cgei-ds-lesson-5-1-6;cgei-ds-lesson-5-1-7,not_audited,Dimensional analysis maps to 5-1-1; conservation and energy/radiation are partial; momentum and diffusion/advection need evidence.
+5.1.4,Probability foundations,Support,partial,cgei-ds-lesson-5-1-8,not_audited,Conditional probability; named distributions; LLN/CLT and heavy-tail caveats need explicit evidence.
+5.2.1,Language core,Core,partial,cgei-ds-lesson-5-2-1,not_audited,Functions/modules/defensive checks are explicit; core data structures and comprehensions need verification.
+5.2.2,NumPy,Core,partial,cgei-ds-lesson-5-2-2,not_audited,Arrays/shapes/broadcasting/NaNs are explicit; verify indexing, precision and seeded RNG subtopics.
+5.2.3,pandas,Core,partial,cgei-ds-lesson-5-2-3,not_audited,Timezone/daily summary/grouping/join material is explicit; reshape/categoricals/tidy-data need evidence.
+5.2.4,Tooling and environment,Core,partial,cgei-ds-lesson-5-2-4,not_audited,Environments/formats/provenance are explicit; CLI/pathlib/unit-aware computing/regex coverage needs evidence.
+5.2.5,R as a complement,Core,partial,cgei-ds-lesson-5-2-5,not_audited,Python-R interoperability is discussed; equivalent tidyverse/terra workflows and decision criteria need stronger practice.
+5.3.1,Exploratory data analysis,Core,partial,cgei-ds-lesson-5-3-1,not_audited,Scientific questioning/profiling/missingness are explicit; verify outlier and bivariate diagnostics.
+5.3.2,Diagnostics for time series and spatial data,Core,split_partial,cgei-ds-lesson-5-3-3;cgei-ds-lesson-5-3-4,not_audited,Time-series and map diagnostics are separate; spatial residual/missingness maps and unit/sign/timestamp checks need evidence.
+5.3.3,Plotting fundamentals,Core,partial,cgei-ds-lesson-5-3-2;cgei-ds-lesson-5-3-4,not_audited,Distribution/relational/map graphics are present; plotting APIs and interactive layers are not all established.
+5.3.4,Honest graphics,Core,partial,cgei-ds-lesson-5-3-5,not_audited,Uncertainty/axes/caption discipline are explicit; accessibility, greyscale, dual axes and log scales need evidence.
+5.3.5,Climate and spatial plot types,Core,partial,cgei-ds-lesson-5-3-3;cgei-ds-lesson-5-3-4,not_audited,Anomalies/maps are covered; named climate diagrams and shared panel scales need explicit evidence.
+5.4.1,Probability and distributions,Core,partial_needs_expansion,cgei-ds-lesson-5-4-1,not_audited,Current lesson focuses on population/sample/support, not the full distributions scope; likely expand or split.
+5.4.2,Sampling,Core,partial,cgei-ds-lesson-5-4-1,not_audited,Sampling design and representativeness are explicit; estimators and standard-error calculations need practice verification.
+5.4.3,Confidence intervals and hypothesis tests,Core,split_partial,cgei-ds-lesson-5-4-2;cgei-ds-lesson-5-4-3,not_audited,Intervals/bootstrapping and tests/multiple testing are separated; effect sizes/power/error types need cross-check.
+5.4.4,Non-parametric and categorical methods,Core,gap_or_partial,cgei-ds-lesson-5-4-5,not_audited,Rank methods are mentioned; Wilcoxon/Kruskal-Wallis/KS/ANOVA/chi-square/contingency tables are not established.
+5.4.5,Correlation and simple regression,Core,partial,cgei-ds-lesson-5-4-4,not_audited,OLS/slope units/diagnostics/non-causal interpretation are explicit; Pearson/Spearman/partial correlation need checking.
+5.5.1,End-to-end workflow,Core,partial,cgei-ds-lesson-5-5-1,not_audited,Workflow stages/idempotence/manifests/validation are explicit; source subtopics need block-level traceability.
+5.5.2,Data management and licensing,Core,partial,cgei-ds-lesson-5-5-4,not_audited,Provenance/licences/credentials/ethical access are explicit; FAIR and metadata standards need evidence.
+5.5.3,Large-data tools,Core,gap,,not_audited,No dedicated inspected lesson establishes Arrow/Parquet/Polars/DuckDB/Dask/chunk sizing/memory profiling coverage.
+5.5.4,SQL and structured data,Core,partial,cgei-ds-lesson-5-5-2,not_audited,SQL joins/grouped summaries are explicit; CTEs/window functions/NULL/date functions/schema design need verification.
+5.5.5,APIs and acquisition,Core,split_partial,cgei-ds-lesson-5-5-3;cgei-ds-lesson-5-5-5,not_audited,HTTP/API mechanics and acquisition package are separate; manual extraction/terms/credentials/manifest detail need evidence.
