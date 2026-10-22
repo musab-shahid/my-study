@@ -153,9 +153,11 @@ try {
     new URL('../docs/cgei/subject-5-unit-5-2-subtopic-traceability.csv', import.meta.url),
     'utf8',
   );
-  const [headers, ...values] = parseCsv(crosswalkText);
+  const parsedRows = parseCsv(crosswalkText);
+  const headers = parsedRows[0] ?? [];
+  const values = parsedRows.slice(1);
   const records = values.map((valuesRow) =>
-    Object.fromEntries(headers.map((header, index) => [header, valuesRow[index] ?? ''])),
+    Object.fromEntries(headers.map((header, index) => [header, valuesRow[index] ?? ''])) as Record<string, string>,
   );
   const expectedPaths = [
     '5.2.1.1', '5.2.1.2', '5.2.1.3', '5.2.1.4',
