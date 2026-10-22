@@ -23,6 +23,21 @@ const row = (overrides: Partial<{
 });
 
 describe('source traceability row validation', () => {
+  it('rejects an unknown disposition instead of silently accepting it', () => {
+    const issues = validateTraceabilityRow(row({ disposition: 'complete-ish' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'INVALID_DISPOSITION'));
+  });
+
+  it('rejects duplicate content-block references in one row', () => {
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: 'block-a;block-a' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'DUPLICATE_BLOCK_REFERENCE'));
+  });
+
+  it('requires an evidence note for every disposition', () => {
+    const issues = validateTraceabilityRow(row({ evidence_note: '   ' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'GAP_WITHOUT_EVIDENCE'));
+  });
+
   it('rejects an unknown content block', () => {
     const issues = validateTraceabilityRow(row({ app_content_block_ids: 'forged-block' }), lessons);
     assert.ok(issues.some((issue) => issue.code === 'UNKNOWN_BLOCK'));
