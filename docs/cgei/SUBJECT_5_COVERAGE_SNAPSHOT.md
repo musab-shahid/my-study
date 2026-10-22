@@ -22,4 +22,4 @@ Generated as an implementation aid; dispositions come from unit CSV matrices.
 | Subject | Status | Notes |
 |---------|--------|-------|
 | 5 Scientific Computing | Pilot — Units 5.1–5.12 with fixtures | Not released |
-| 3 Geospatial | **Unit 3.1 draft slice** (3 lessons + scale fixture) | First non-Subject-5 graph |
+| 3 Geospatial | **Units 3.1–3.2 draft** (models + CRS; integrity & area fixtures) | TOC-aligned; 3.3+ not started |

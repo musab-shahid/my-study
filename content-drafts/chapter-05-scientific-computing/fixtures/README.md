@@ -62,5 +62,11 @@ Stdlib regular 3×2×2 cube selection and NaN-aware unweighted mean. Not an xarr
 ## unit_5_1_foundations_check.py
 °C↔K, mm/day→m/s, central difference on t², Euler lake step. Teaching arithmetic only.
 
-## unit_3_1_crs_scale_check.py
+## unit_3_2_crs_scale_check.py
 Spherical metres-per-degree factors. Not a geodesic engine.
+
+## unit_3_1_spatial_integrity_check.py
+Axis-aligned bbox interior overlap + duplicate IDs. Not a full topology engine.
+
+## unit_3_2_crs_scale_check.py
+Metres-per-degree and 1° cell area ratio cos(φ). Spherical teaching approximation.

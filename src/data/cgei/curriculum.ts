@@ -1306,46 +1306,89 @@ const lessons512: CurriculumLesson[] = [
 ];
 
 
+
 const outcomes31: CurriculumOutcome[] = [
-  { id: 'cgei-geo-o-31-crs', statement: 'Distinguish geographic coordinates, projected coordinates and when units are angular versus linear.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-geo-o-31-scale', statement: 'Estimate order-of-magnitude ground distances from degree differences using latitude-dependent scale factors.', action: 'estimate and check', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-geo-o-31-projection', statement: 'State that map projections trade area, shape and distance properties and name the property prioritised by a chosen projection class.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-31-models', statement: 'Choose vector or raster representation for an environmental question and state the support of each observation.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-31-attributes', statement: 'Separate geometry from attributes and diagnose key mismatches in joins between stations and administrative units.', action: 'diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-31-topology', statement: 'Detect simple polygon integrity problems (duplicate IDs, bounding-box overlaps) and distinguish data defects from valid adjacency.', action: 'detect and classify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
 const lessons31: CurriculumLesson[] = [
   {
-    id: 'cgei-geo-lesson-3-1-1', kind: 'lesson', title: 'Geographic coordinates, datums and axis order', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    id: 'cgei-geo-lesson-3-1-1', kind: 'lesson', title: 'Vector and raster spatial data models', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
     objectives: [outcomes31[0]],
     content: [
-      { id: 'cgei-geo-31-1-1', kind: 'prose', title: 'Latitude and longitude are angles', body: 'Geographic coordinates locate positions on a reference surface using angular measures. Latitude and longitude are not planar metres. A CRS statement must include the geodetic datum (for example WGS 84) and axis order convention. Swapping axis order is a common GIS integration failure.' },
-      { id: 'cgei-geo-31-1-2', kind: 'key-points', title: 'Minimum CRS declaration', items: ['Datum / geographic CRS name', 'Axis order (lon/lat vs lat/lon)', 'Units (degrees versus metres)', 'Vertical datum when elevations matter', 'Epoch when plate motion or time-dependent frames matter'] },
-      { id: 'cgei-geo-31-1-3', kind: 'worked-example', title: 'Why 70, 30 is ambiguous without a CRS note', body: 'The pair (70, 30) could be (lon, lat) in Pakistan’s longitude range or (lat, lon) near the Arctic. Always document axis order and CRS when exchanging coordinates between tools.' },
+      { id: 'cgei-geo-31-1-1', kind: 'prose', title: 'Geometry types answer different questions', body: 'Vector data represent discrete features as points, lines or polygons with attached attributes. Raster data partition space into a regular grid of cells, each holding a value (continuous or categorical). Weather stations are naturally points; administrative districts are polygons; precipitation analyses often use rasters. Choosing the model changes what “nearby” and “average” mean.' },
+      { id: 'cgei-geo-31-1-2', kind: 'table', title: 'Representation trade-offs', headers: ['Question', 'Often prefer', 'Watch for'], rows: [['Where is each station?', 'Point vector', 'Duplicate station IDs'], ['What is the district mean?', 'Polygon + zonal stats on a raster', 'MAUP and unequal area'], ['Continuous field surface', 'Raster', 'Resolution, nodata, mixed pixels'], ['Road network length', 'Line vector', 'Topology and connectivity']] },
+      { id: 'cgei-geo-31-1-3', kind: 'worked-example', title: 'Stations versus gridded rainfall', body: 'Point station totals describe instrument locations; a 0.1° precipitation raster assigns one value per cell. Aggregating stations inside a district without area or density weights is not the same operation as averaging raster cells that intersect the district. Document support: point, cell, or polygon.' },
+      { id: 'cgei-geo-31-1-4', kind: 'key-points', title: 'Raster bookkeeping', items: ['Pixel size and extent define the grid', 'Nodata is not zero', 'Categorical rasters must not be averaged as if continuous', 'Pixel-is-area vs pixel-is-point conventions affect overlays'] },
     ],
-    activityIds: ['cgei-geo-a-31-crs'], assessmentIds: ['cgei-geo-assess-31-crs'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+    activityIds: ['cgei-geo-a-31-models'], assessmentIds: ['cgei-geo-assess-31-models'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
   {
-    id: 'cgei-geo-lesson-3-1-2', kind: 'lesson', title: 'Metres per degree and scale with latitude', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    id: 'cgei-geo-lesson-3-1-2', kind: 'lesson', title: 'Attributes, keys and spatial joins', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
     objectives: [outcomes31[1]],
     content: [
-      { id: 'cgei-geo-31-2-1', kind: 'prose', title: 'Degree spacing is not constant in metres', body: 'On a sphere, one degree of latitude is approximately constant in metres, while one degree of longitude shrinks by cos(latitude). Treating degree cells as equal-area squares near the poles distorts area and flux densities.' },
-      { id: 'cgei-geo-31-2-lab', kind: 'worked-example', title: 'Lab: metres per degree factors', body: 'Fixture unit_3_1_crs_scale_check.py uses R=6 371 km to lock ≈111 195 m per degree of latitude and ≈96 298 m per degree of longitude at 30°N. A 0.01° cell is about 1.1 km on a side at the equator. These are instructional spherical approximations, not survey-grade geodesics.' },
-      { id: 'cgei-geo-31-2-3', kind: 'callout', title: 'Equal-degree is not equal-area', tone: 'warning', items: ['Do not convert degree-cell counts to area without a scale factor or equal-area projection.', 'Cosine-latitude weighting is an approximation on a sphere.', 'True cell areas from the product grid definition are preferable when available.'] },
+      { id: 'cgei-geo-31-2-1', kind: 'prose', title: 'Geometry is not the attribute table', body: 'A feature has a geometry and a row of attributes. Keys (station_id, district_code) link tables. A spatial join uses geometry predicates; an attribute join uses keys. They are not interchangeable: matching on approximate coordinates is fragile; matching on unstable names is also fragile.' },
+      { id: 'cgei-geo-31-2-2', kind: 'worked-example', title: 'One-to-many station histories', body: 'Daily observations form many rows per station_id. Joining district polygons to daily rows multiplies polygon attributes across days. Check row counts before and after joins. Missing keys create null districts, not silent averages.' },
+      { id: 'cgei-geo-31-2-3', kind: 'checklist', title: 'Join acceptance checks', items: ['Key uniqueness on the intended side', 'Row counts before/after', 'Null rate after join', 'CRS agreement before spatial predicates', 'Document predicate (intersects, within, nearest)'] },
     ],
-    activityIds: ['cgei-geo-a-31-scale'], assessmentIds: ['cgei-geo-assess-31-scale'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+    activityIds: ['cgei-geo-a-31-attributes'], assessmentIds: ['cgei-geo-assess-31-attributes'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
   {
-    id: 'cgei-geo-lesson-3-1-3', kind: 'lesson', title: 'Map projections and property trade-offs', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    id: 'cgei-geo-lesson-3-1-3', kind: 'lesson', title: 'Topology and spatial integrity checks', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
     objectives: [outcomes31[2]],
     content: [
-      { id: 'cgei-geo-31-3-1', kind: 'prose', title: 'Projections cannot preserve all metric properties', body: 'A map projection maps the curved Earth to a plane. Conformal projections preserve local angles; equal-area projections preserve area; equidistant designs preserve selected distances. Choosing Web Mercator for global area statistics is a common scientific error.' },
-      { id: 'cgei-geo-31-3-2', kind: 'table', title: 'Property priorities', headers: ['Need', 'Prefer', 'Avoid for that need'], rows: [['Navigation angles', 'Conformal (e.g. Mercator family)', 'Using it for country area ranks'], ['Area totals / densities', 'Equal-area (e.g. equal-earth, sinusoidal)', 'Web Mercator area stats'], ['Regional metric mapping', 'Suitable projected CRS (e.g. UTM zone)', 'A single global planar CRS for local surveys']] },
-      { id: 'cgei-geo-31-3-3', kind: 'checklist', title: 'Before computing areas', items: ['Confirm CRS and units', 'Prefer equal-area CRS or true cell areas', 'Document geographic vs projected coordinates', 'State whether distances are great-circle, projected planar or approximate'] },
+      { id: 'cgei-geo-31-3-1', kind: 'prose', title: 'Validity is not the same as real-world complexity', body: 'Topology rules describe required relationships among geometries (no unintended overlaps in a cadastral layer, closed rings, unique IDs). Some overlaps are data defects; shared boundaries between districts can be valid. Always state the rule set before calling a geometry invalid.' },
+      { id: 'cgei-geo-31-3-lab', kind: 'worked-example', title: 'Lab: detect duplicate IDs and bbox overlaps', body: 'Fixture unit_3_1_spatial_integrity_check.py uses axis-aligned rectangles as teaching polygons. It asserts unique feature IDs, detects a deliberate overlap between two district boxes, and confirms a valid control pair with only shared edges (no interior overlap under the bbox-interior test). This is not a full OGC topology engine—complex curves and true segment intersection are out of scope.' },
+      { id: 'cgei-geo-31-3-3', kind: 'callout', title: 'Fixture scope', tone: 'warning', items: ['Axis-aligned boxes only', 'Interior-overlap heuristic, not full planar graph topology', 'Does not replace QGIS/GEOS validity tools for production data'] },
     ],
-    activityIds: ['cgei-geo-a-31-projection'], assessmentIds: ['cgei-geo-assess-31-projection'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+    activityIds: ['cgei-geo-a-31-topology'], assessmentIds: ['cgei-geo-assess-31-topology'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons31, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes32: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-32-crs', statement: 'Distinguish geographic coordinates, projected coordinates and when units are angular versus linear.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-32-scale', statement: 'Estimate order-of-magnitude ground distances from degree differences using latitude-dependent scale factors.', action: 'estimate and check', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-32-projection', statement: 'State that map projections trade area, shape and distance properties and name the property prioritised by a chosen projection class.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons32: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-2-1', kind: 'lesson', title: 'Geographic coordinates, datums and axis order', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes32[0]],
+    content: [
+      { id: 'cgei-geo-32-1-1', kind: 'prose', title: 'Latitude and longitude are angles', body: 'Geographic coordinates locate positions on a reference surface using angular measures. Latitude and longitude are not planar metres. A CRS statement must include the geodetic datum (for example WGS 84) and axis order convention. Swapping axis order is a common GIS integration failure.' },
+      { id: 'cgei-geo-32-1-2', kind: 'key-points', title: 'Minimum CRS declaration', items: ['Datum / geographic CRS name', 'Axis order (lon/lat vs lat/lon)', 'Units (degrees versus metres)', 'Vertical datum when elevations matter', 'Epoch when plate motion or time-dependent frames matter'] },
+      { id: 'cgei-geo-32-1-3', kind: 'worked-example', title: 'Why 70, 30 is ambiguous without a CRS note', body: 'The pair (70, 30) could be (lon, lat) in Pakistan’s longitude range or (lat, lon) near the Arctic. Always document axis order and CRS when exchanging coordinates between tools.' },
+    ],
+    activityIds: ['cgei-geo-a-32-crs'], assessmentIds: ['cgei-geo-assess-32-crs'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-2-2', kind: 'lesson', title: 'Metres per degree and scale with latitude', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes32[1]],
+    content: [
+      { id: 'cgei-geo-32-2-1', kind: 'prose', title: 'Degree spacing is not constant in metres', body: 'On a sphere, one degree of latitude is approximately constant in metres, while one degree of longitude shrinks by cos(latitude). Treating degree cells as equal-area squares near the poles distorts area and flux densities.' },
+      { id: 'cgei-geo-32-2-lab', kind: 'worked-example', title: 'Lab: metres per degree factors', body: 'Fixture unit_3_2_crs_scale_check.py uses R=6 371 km to lock ≈111 195 m per degree of latitude and ≈96 298 m per degree of longitude at 30°N. A 0.01° cell is about 1.1 km on a side at the equator. These are instructional spherical approximations, not survey-grade geodesics.' },
+      { id: 'cgei-geo-32-2-3', kind: 'callout', title: 'Equal-degree is not equal-area', tone: 'warning', items: ['Do not convert degree-cell counts to area without a scale factor or equal-area projection.', 'Cosine-latitude weighting is an approximation on a sphere.', 'True cell areas from the product grid definition are preferable when available.'] },
+      { id: 'cgei-geo-32-2-area', kind: 'worked-example', title: 'Lab: degree-cell area shrinks with latitude', body: 'On a sphere of radius R, a 1°×1° cell near latitude φ has approximate area (π/180)R × (π/180)R cos(φ). Fixture unit_3_2_crs_scale_check.py compares 1° cells at the equator and at 60°N: the mid-latitude cell has about half the area (cos 60° = 0.5). Square degrees are not a physical area unit. Equal-area projections (e.g. Albers) are designed to preserve area; conformal projections are not. Web Mercator is for web tiles, not hectare statistics.' }
+    ],
+    activityIds: ['cgei-geo-a-32-scale'], assessmentIds: ['cgei-geo-assess-32-scale'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-2-3', kind: 'lesson', title: 'Map projections and property trade-offs', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes32[2]],
+    content: [
+      { id: 'cgei-geo-32-3-1', kind: 'prose', title: 'Projections cannot preserve all metric properties', body: 'A map projection maps the curved Earth to a plane. Conformal projections preserve local angles; equal-area projections preserve area; equidistant designs preserve selected distances. Choosing Web Mercator for global area statistics is a common scientific error.' },
+      { id: 'cgei-geo-32-3-2', kind: 'table', title: 'Property priorities', headers: ['Need', 'Prefer', 'Avoid for that need'], rows: [['Navigation angles', 'Conformal (e.g. Mercator family)', 'Using it for country area ranks'], ['Area totals / densities', 'Equal-area (e.g. equal-earth, sinusoidal)', 'Web Mercator area stats'], ['Regional metric mapping', 'Suitable projected CRS (e.g. UTM zone)', 'A single global planar CRS for local surveys']] },
+      { id: 'cgei-geo-32-3-3', kind: 'checklist', title: 'Before computing areas', items: ['Confirm CRS and units', 'Prefer equal-area CRS or true cell areas', 'Document geographic vs projected coordinates', 'State whether distances are great-circle, projected planar or approximate'] },
+    ],
+    activityIds: ['cgei-geo-a-32-projection'], assessmentIds: ['cgei-geo-assess-32-projection'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons31, ...lessons32, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1410,11 +1453,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with coordinates, scale and projections (Unit 3.1). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), then coordinate reference systems (Unit 3.2). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
-      outcomes: outcomes31,
+      outcomes: [...outcomes31, ...outcomes32],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-geo-unit-3-1'],
+      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2'],
       projectIds: [],
       resourceIds: ['cgei-geo-r-epsg'],
       estimatedHours: 6,
@@ -1568,16 +1611,28 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Five draft lessons distinguish coordinate semantics, alignment, chunking, feature pipelines and validation.', 'Readiness remains draft pending eager/lazy comparison, clean execution, route rendering and scientific review.'],
     },
     {
-      id: 'cgei-geo-unit-3-1', code: '3.1', title: 'Coordinates, scale and map projections', order: 31, kind: 'unit', readiness: 'draft',
-      summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
-      estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes31,
+      id: 'cgei-geo-unit-3-1', code: '3.1', title: 'Spatial data models', order: 31, kind: 'unit', readiness: 'draft',
+      summary: 'Represent environmental features as vectors or rasters, manage attributes and keys, and apply basic spatial integrity checks.',
+      estimatedHours: 6, prerequisites: ['Basic geometry', 'Tabular data literacy'], outcomes: outcomes31,
       lessonIds: lessons31.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-31-crs', 'cgei-geo-a-31-scale', 'cgei-geo-a-31-projection'],
-      assessmentIds: ['cgei-geo-assess-31-crs', 'cgei-geo-assess-31-scale', 'cgei-geo-assess-31-projection'],
+      activityIds: ['cgei-geo-a-31-models', 'cgei-geo-a-31-attributes', 'cgei-geo-a-31-topology'],
+      assessmentIds: ['cgei-geo-assess-31-models', 'cgei-geo-assess-31-attributes', 'cgei-geo-assess-31-topology'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.1 — Spatial data models',
+      notes: ['Core Unit 3.1 per TOC: vector/raster, attributes, topology introduction.', 'Topology fixture uses axis-aligned boxes only.'],
+    },
+    {
+      id: 'cgei-geo-unit-3-2', code: '3.2', title: 'Coordinate reference systems', order: 32, kind: 'unit', readiness: 'draft',
+      summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
+      estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes32,
+      lessonIds: lessons32.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-32-crs', 'cgei-geo-a-32-scale', 'cgei-geo-a-32-projection'],
+      assessmentIds: ['cgei-geo-assess-32-crs', 'cgei-geo-assess-32-scale', 'cgei-geo-assess-32-projection'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master_Study_TOC Subject 3 — Geospatial Science, GIS & Cartography',
-      notes: ['First substantive Subject 3 slice (Unit 3.1 only).', 'Readiness remains draft pending broader GIS unit build-out.'],
+      notes: ['Core Unit 3.2 per TOC — CRS, scale and projections.', 'Area comparison uses spherical approximation; not a geodesic engine.'],
     },
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
       id: `cgei-ds-unit-${code.replace('.', '-')}`,
@@ -1594,9 +1649,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-q-51-001', lessonId: 'cgei-ds-lesson-5-1-1', type: 'single-choice', prompt: 'A product reports 1 mm day⁻¹ of precipitation. Which conversion yields SI depth rate in m s⁻¹?', options: ['Multiply by 86400', 'Divide by 1000 only', 'Multiply by 1e-3 and divide by 86400', 'Subtract 273.15'], correctAnswer: 2, explanation: 'Convert millimetres to metres (×10⁻³) and days to seconds (÷86400). Omitting either factor mis-scales fluxes.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-51-002', lessonId: 'cgei-ds-lesson-5-1-2', type: 'single-choice', prompt: 'For y=t² at t=2 with h=0.1, why does the central difference equal the exact derivative?', options: ['All finite differences are exact for every function', 'For polynomials up to degree 2, central differences with this stencil recover the exact derivative', 'Because Kelvin conversion is exact', 'Because the time step is one day'], correctAnswer: 1, explanation: 'Central differences are exact for linear trends in the derivative of quadratics under this symmetric stencil; forward differences still show O(h) error.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     
-    { id: 'cgei-geo-q-31-001', lessonId: 'cgei-geo-lesson-3-1-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
-    { id: 'cgei-geo-q-31-002', lessonId: 'cgei-geo-lesson-3-1-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
-    { id: 'cgei-geo-q-31-003', lessonId: 'cgei-geo-lesson-3-1-3', type: 'single-choice', prompt: 'Which choice best matches computing global land-area totals?', options: ['Web Mercator for convenience', 'An equal-area projection or true cell areas from the native grid', 'Any conformal projection', 'Unprojected pixel counts in a screen screenshot'], correctAnswer: 1, explanation: 'Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    
+    { id: 'cgei-geo-q-31-001', lessonId: 'cgei-geo-lesson-3-1-1', type: 'single-choice', prompt: 'Which representation best stores continuous precipitation rate on a regular 0.1° grid?', options: ['Polygon districts only', 'A raster with explicit nodata', 'A single multipoint without attributes', 'A text list of station names'], correctAnswer: 1, explanation: 'Continuous fields on regular grids are naturally rasters; nodata must be distinguished from zero.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-31-002', lessonId: 'cgei-geo-lesson-3-1-2', type: 'single-choice', prompt: 'Matching station rows to districts by approximate lat/lon equality is risky primarily because:', options: ['Floating coordinates rarely match as keys and ignore CRS/tolerance', 'Polygons cannot store attributes', 'Rasters forbid joins', 'EPSG codes are optional'], correctAnswer: 0, explanation: 'Use stable IDs or explicit spatial predicates with documented CRS and tolerance—not raw float equality.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-geo-q-31-003', lessonId: 'cgei-geo-lesson-3-1-3', type: 'single-choice', prompt: 'Two axis-aligned district boxes share only a boundary edge and have unique IDs. Under the teaching fixture rules, this should be treated as:', options: ['Always invalid topology', 'A valid control for non-overlapping interiors', 'Proof that Web Mercator preserves area', 'A raster mixed-pixel error'], correctAnswer: 1, explanation: 'Shared boundaries can be valid; the fixture flags interior overlaps and duplicate IDs, not every adjacency.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
+
+    { id: 'cgei-geo-q-32-001', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-32-002', lessonId: 'cgei-geo-lesson-3-2-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-32-003', lessonId: 'cgei-geo-lesson-3-2-3', type: 'single-choice', prompt: 'Which choice best matches computing global land-area totals?', options: ['Web Mercator for convenience', 'An equal-area projection or true cell areas from the native grid', 'Any conformal projection', 'Unprojected pixel counts in a screen screenshot'], correctAnswer: 1, explanation: 'Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.', difficulty: 'medium', cognitiveLevel: 'apply' },
 
     { id: 'cgei-ds-q-51-003', lessonId: 'cgei-ds-lesson-5-1-5', type: 'single-choice', prompt: 'Euler update with V in m³, Q in m³ s⁻¹, and Δt=1 h written as 1 without converting to seconds will:', options: ['Always improve stability', 'Understate the volume change by a factor of 3600 relative to SI-consistent units', 'Convert Celsius to Kelvin', 'Remove mass conservation'], correctAnswer: 1, explanation: 'Flow rates in m³ s⁻¹ must be paired with Δt in seconds. Using 1 hour as the number 1 leaves a 3600× unit error.', difficulty: 'medium', cognitiveLevel: 'apply' },
 
@@ -2140,9 +2200,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-r-512-rasterio', kind: 'documentation', title: 'Rasterio documentation', url: 'https://rasterio.readthedocs.io/', purpose: 'Reference for raster geospatial metadata, grid transforms and raster operations.', authorOrPublisher: 'Rasterio project', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
   ],
   activities: [
-    { id: 'cgei-geo-a-31-crs', kind: 'guided-practice', title: 'Declare CRS and axis order', instructions: 'For a CSV of city points, write a one-paragraph CRS statement including datum and axis order.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-31-crs'], resourceIds: ['cgei-geo-r-epsg'] },
-    { id: 'cgei-geo-a-31-scale', kind: 'coding-lab', title: 'Metres-per-degree check', instructions: 'Reproduce the Unit 3.1 scale fixture numbers and compare a 0.01° cell length at the equator and at 60°N.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-31-scale'], resourceIds: ['cgei-geo-r-epsg'] },
-    { id: 'cgei-geo-a-31-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-31-projection'], resourceIds: ['cgei-geo-r-epsg'] },
+    { id: 'cgei-geo-a-32-crs', kind: 'guided-practice', title: 'Declare CRS and axis order', instructions: 'For a CSV of city points, write a one-paragraph CRS statement including datum and axis order.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-32-crs'], resourceIds: ['cgei-geo-r-epsg'] },
+    { id: 'cgei-geo-a-32-scale', kind: 'coding-lab', title: 'Metres-per-degree check', instructions: 'Reproduce the Unit 3.2 scale fixture numbers and compare a 0.01° cell length at the equator and at 60°N.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-32-scale'], resourceIds: ['cgei-geo-r-epsg'] },
+    { id: 'cgei-geo-a-32-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-projection'], resourceIds: ['cgei-geo-r-epsg'] },
 
     { id: 'cgei-ds-a-unit-audit', kind: 'independent-practice', title: 'Environmental units audit', instructions: 'Create a short units sheet for temperature, precipitation, land-surface temperature and energy flux. Convert at least two values, distinguish a depth from a rate, and record one plausibility check.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-quantities'], expectedEvidence: ['Units sheet', 'Two checked conversions', 'One order-of-magnitude note'], required: true },
     { id: 'cgei-ds-a-rate-gradient', kind: 'guided-practice', title: 'Rates and gradients in a spatial field', instructions: 'Calculate a finite difference for a short temperature series, then interpret the gradient of a simple two-dimensional temperature field with coordinate units.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-calculus'], expectedEvidence: ['Calculation with units', 'One-sentence directional interpretation'], required: true },
@@ -2317,9 +2377,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-512-validation', kind: 'project-milestone', title: 'Prepare a pipeline validation report', instructions: 'Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-512-release'], expectedEvidence: ['Validation report', 'Performance table', 'Limitations and provenance'], required: true },
   ],
   assessments: [
-    { id: 'cgei-geo-assess-31-crs', kind: 'formative', title: 'CRS declaration check', purpose: 'Verify learners can state datum and axis order.', objectiveIds: ['cgei-geo-o-31-crs'], questionIds: ['cgei-geo-q-31-001'], required: true },
-    { id: 'cgei-geo-assess-31-scale', kind: 'formative', title: 'Scale with latitude', purpose: 'Verify scale factor reasoning.', objectiveIds: ['cgei-geo-o-31-scale'], questionIds: ['cgei-geo-q-31-002'], required: true },
-    { id: 'cgei-geo-assess-31-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-31-projection'], questionIds: ['cgei-geo-q-31-003'], required: true },
+    { id: 'cgei-geo-assess-32-crs', kind: 'formative', title: 'CRS declaration check', purpose: 'Verify learners can state datum and axis order.', objectiveIds: ['cgei-geo-o-32-crs'], questionIds: ['cgei-geo-q-32-001'], required: true },
+    { id: 'cgei-geo-assess-32-scale', kind: 'formative', title: 'Scale with latitude', purpose: 'Verify scale factor reasoning.', objectiveIds: ['cgei-geo-o-32-scale'], questionIds: ['cgei-geo-q-32-002'], required: true },
+    { id: 'cgei-geo-assess-32-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-32-projection'], questionIds: ['cgei-geo-q-32-003'], required: true },
 
     { id: 'cgei-ds-assess-unit-diagnostic', kind: 'diagnostic', title: 'Unit 5.1 entry diagnostic', purpose: 'Identify prerequisite gaps in algebra, units, rates and probability before the unit.', objectiveIds: outcomes51.map((o) => o.id), required: false },
     { id: 'cgei-ds-assess-unit-quiz', kind: 'quiz', title: 'Unit 5.1 concept and calculation check', purpose: 'Check conceptual understanding and short calculations across the eight substantive lessons.', objectiveIds: outcomes51.map((o) => o.id), questionIds: Array.from({ length: 35 }, (_, i) => `CGEI-05-Q${String(i + 1).padStart(3, '0')}`), passThreshold: 0.8, required: true },

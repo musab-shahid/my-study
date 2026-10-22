@@ -1,0 +1,7 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+3.2.1.1,Geographic versus projected CRS,3.2.1,Geographic reference concepts,Core,cgei-geo-lesson-3-2-1,cgei-geo-32-1-1;cgei-geo-32-1-2,mapped_partial,Angular vs linear units and CRS declaration taught.
+3.2.1.2,Datum ellipsoid prime meridian,3.2.1,Geographic reference concepts,Core,cgei-geo-lesson-3-2-1,cgei-geo-32-1-1;cgei-geo-32-1-2,mapped_partial,Datum named in CRS checklist; ellipsoid mathematics not taught.
+3.2.1.3,Map projections and distortion types,3.2.1,Geographic reference concepts,Core,cgei-geo-lesson-3-2-3,cgei-geo-32-3-1;cgei-geo-32-3-2,mapped_partial,Conformal vs equal-area trade-offs table present.
+3.2.1.4,EPSG codes and axis order,3.2.1,Geographic reference concepts,Core,cgei-geo-lesson-3-2-1,cgei-geo-32-1-2;cgei-geo-32-1-3,mapped_partial,Axis-order ambiguity example present; EPSG lookup practice limited.
+3.2.3.4,Equal-area projections for area summaries,3.2.3,Choosing a CRS,Core,cgei-geo-lesson-3-2-2,cgei-geo-32-2-area;cgei-geo-32-2-3,mapped_partial,Degree-cell area ratio cos(phi)=0.5 at 60N locked; software equal-area workflow not executed.
+3.2.3.5,Why Web Mercator is not for hectare calculations,3.2.3,Choosing a CRS,Core,cgei-geo-lesson-3-2-3,cgei-geo-32-3-1;cgei-geo-32-3-2,mapped_partial,Web Mercator caution in projection property table; quantitative Mercator distortion demo not coded.

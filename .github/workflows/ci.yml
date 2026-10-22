@@ -85,5 +85,7 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_12_multidim_contract_check.py
       - name: Verify Unit 5.1 numerical foundations
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_1_foundations_check.py
-      - name: Verify Unit 3.1 geographic scale factors
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_1_crs_scale_check.py
+      - name: Verify Unit 3.1 spatial integrity diagnostics
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_1_spatial_integrity_check.py
+      - name: Verify Unit 3.2 geographic scale and degree-cell area
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_scale_check.py
