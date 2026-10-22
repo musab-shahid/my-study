@@ -27,3 +27,16 @@ Run:
 ```bash
 python content-drafts/chapter-05-scientific-computing/fixtures/smoke_check.py
 ```
+
+
+## Unit 5.5 chunked CSV lab
+
+Run the deterministic chunk-size correctness and profiling harness from the repository root:
+
+```bash
+python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py
+```
+
+The script writes a temporary synthetic station/day CSV, filters a fixed June window, and compares per-station integer sums and observation counts across three chunk sizes. Every candidate runs in a fresh child process; elapsed time and peak process RSS are printed for inspection. The temporary fixture is deleted when the run ends.
+
+This validates aggregation equivalence and demonstrates how to collect process-level memory observations. It does **not** establish a universally optimal chunk size: timing and RSS depend on machine, Python/library versions, input layout and workload. CI checks correctness and that memory measurements are available, not performance thresholds. The CSV is synthetic and is not environmental observation data.
