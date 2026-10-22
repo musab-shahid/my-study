@@ -1390,9 +1390,11 @@ const lessons32: CurriculumLesson[] = [
 
 
 const outcomes33: CurriculumOutcome[] = [
-  { id: 'cgei-geo-o-33-ops', statement: 'Distinguish buffer, clip and intersect operations and state CRS/unit preconditions for distance buffers.', action: 'distinguish and apply', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-33-ops', statement: 'Distinguish buffer, clip, intersect, dissolve, union and difference operations and state CRS/unit preconditions for distance buffers.', action: 'distinguish and apply', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-33-joins', statement: 'Choose attribute versus spatial joins and predict row-count effects of one-to-many matches.', action: 'choose and predict', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
   { id: 'cgei-geo-o-33-zonal', statement: 'Compute zonal mean/sum/count from an explicit membership mask while excluding NoData and treating zero as valid.', action: 'compute and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-33-reclass', statement: 'Reclassify a raster with explicit interval rules and build a cell-wise map-algebra indicator while preserving NoData.', action: 'reclassify and combine', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-33-qgis', statement: 'Document a reproducible QGIS project workflow including CRS checks, tool parameters and output verification against known tables.', action: 'document and verify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
 const lessons33: CurriculumLesson[] = [
@@ -1404,6 +1406,8 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-1-2', kind: 'table', title: 'Core overlay operations', headers: ['Operation', 'Typical output', 'Geometry change?'], rows: [['Buffer', 'Polygon zone around inputs', 'Creates new geometry'], ['Clip', 'Input features limited to a boundary', 'May cut geometries'], ['Intersect', 'Overlap of inputs with combined attributes', 'Often splits features'], ['Attribute join', 'Table match on keys', 'No geometry change'], ['Spatial join', 'Attributes transferred by spatial predicate', 'Usually keeps target geometry']] },
       { id: 'cgei-geo-33-1-3', kind: 'worked-example', title: 'Study-area clip versus intersect', body: 'Clipping station points to a district polygon keeps only points inside the district (points unchanged). Intersecting land-cover polygons with the district yields new polygons for each land-cover×district piece and carries attributes from both layers. Selecting features by location without cutting boundaries is not the same as clip when polygons straddle the border.' },
       { id: 'cgei-geo-33-1-4', kind: 'callout', title: 'Desktop GIS requirement', tone: 'info', items: ['TOC Unit 3.3 expects QGIS (or equivalent) proficiency for full workflows.', 'This lesson teaches operation semantics and CRS preconditions.', 'GUI click-paths and print-layout production are practice tasks outside the automated fixture.'] },
+      { id: 'cgei-geo-33-1-5', kind: 'worked-example', title: 'Dissolve, union and difference', body: 'Dissolve merges adjacent polygons that share a grouping attribute (e.g. land-cover code) into fewer features—geometry becomes multipart when parts are disconnected. Union overlays two polygon layers and keeps all pieces from both, carrying attributes (with nulls where one side is absent). Difference keeps the part of the input that lies outside the overlay layer (e.g. study area minus water bodies). These are conceptual GIS operations; production geometry engines handle curve segments and topology beyond axis-aligned teaching sketches.' },
+      { id: 'cgei-geo-33-1-6', kind: 'table', title: 'Overlay operation checklist', headers: ['Need', 'Prefer', 'Watch'], rows: [['Combine same-class parcels', 'Dissolve by attribute', 'Null group fields create many classes'], ['All combinations of two layers', 'Union', 'Attribute nulls outside overlaps'], ['Area of A outside B', 'Difference (A−B)', 'CRS must match'], ['Only overlap of A and B', 'Intersect', 'Splits input features']] },
     ],
     activityIds: ['cgei-geo-a-33-ops'], assessmentIds: ['cgei-geo-assess-33-ops'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
@@ -1426,6 +1430,26 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-3-3', kind: 'callout', title: 'Scientific limits', tone: 'warning', items: ['NoData is not zero', 'Cell mean ≠ area-weighted mean when cell areas differ', 'Mask membership ≠ full GIS zonal pipeline', 'Do not treat zonal means as causal exposure without design'] },
     ],
     activityIds: ['cgei-geo-a-33-zonal'], assessmentIds: ['cgei-geo-assess-33-zonal'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },,
+  {
+    id: 'cgei-geo-lesson-3-3-4', kind: 'lesson', title: 'Reclassification and map algebra', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes33[3]],
+    content: [
+      { id: 'cgei-geo-33-4-1', kind: 'prose', title: 'From continuous values to decision classes', body: 'Reclassification maps continuous or fine categorical values onto a smaller set of classes using explicit thresholds. Class boundaries change area totals and downstream indicators. NoData must stay distinguishable from zero. Interval rules must state inclusivity (this course uses left-closed, right-open intervals with the top class closed on the left: value ≥ 30 → hot).' },
+      { id: 'cgei-geo-33-4-lab', kind: 'worked-example', title: 'Lab: LST-like reclass and hot indicator', body: 'Synthetic 3×3 grid (°C teaching values): row0 [15,22,NoData], row1 [30,28,35], row2 [10,30,19.9]. Rules: <20→1, 20≤x<30→2, ≥30→3, NoData→NoData. Fixture unit_3_3_reclass_map_algebra_check.py locks the reclass grid and a hot indicator (1 where class=3). Cell-wise difference propagates NoData if either input is NoData and rejects mismatched shapes.' },
+      { id: 'cgei-geo-33-4-3', kind: 'key-points', title: 'Map-algebra preconditions', items: ['Same dimensions and cell alignment', 'Compatible CRS and units', 'Document NoData propagation', 'Numerical output ≠ validated environmental index', 'Thresholds are teaching choices, not a published hazard standard'] },
+    ],
+    activityIds: ['cgei-geo-a-33-reclass'], assessmentIds: ['cgei-geo-assess-33-reclass'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-3-5', kind: 'lesson', title: 'Reproducible QGIS project workflow', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes33[4]],
+    content: [
+      { id: 'cgei-geo-33-5-1', kind: 'prose', title: 'Projects, folders and processing logs', body: 'TOC Unit 3.3 expects desktop GIS proficiency. A reproducible workflow uses a fixed folder layout (raw/work/out/docs), records CRS before geoprocessing, names outputs explicitly, and logs tool parameters. Full lab steps live in content-drafts/chapter-05-scientific-computing/labs/unit-3-3-qgis-workflow.md. CI does not launch QGIS; numerical reclass rules are checked by the Python fixture.' },
+      { id: 'cgei-geo-33-5-2', kind: 'checklist', title: 'Minimum QGIS session checklist', items: ['Create project folder structure', 'Set project CRS (metres for buffers)', 'Load layers and read CRS/extent/NoData', 'Run one overlay and one raster reclass', 'Write processing_log.md with tools and parameters', 'Compare reclass output to the locked teaching table'] },
+      { id: 'cgei-geo-33-5-3', kind: 'callout', title: 'Common failure modes', tone: 'warning', items: ['Buffering in geographic degrees', 'Ignoring NoData (treated as zero)', 'Overwriting inputs without versioned outputs', 'No record of tool parameters', 'Assuming same resolution implies cell alignment'] },
+    ],
+    activityIds: ['cgei-geo-a-33-qgis'], assessmentIds: ['cgei-geo-assess-33-qgis'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
 ];
 
@@ -1681,12 +1705,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Apply buffer, clip and intersect semantics; choose attribute versus spatial joins; compute zonal statistics with explicit NoData handling.',
       estimatedHours: 8, prerequisites: ['Unit 3.1 spatial data models', 'Unit 3.2 CRS and units'], outcomes: outcomes33,
       lessonIds: lessons33.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-33-ops', 'cgei-geo-a-33-joins', 'cgei-geo-a-33-zonal'],
-      assessmentIds: ['cgei-geo-assess-33-ops', 'cgei-geo-assess-33-joins', 'cgei-geo-assess-33-zonal'],
+      activityIds: ['cgei-geo-a-33-ops', 'cgei-geo-a-33-joins', 'cgei-geo-a-33-zonal', 'cgei-geo-a-33-reclass', 'cgei-geo-a-33-qgis'],
+      assessmentIds: ['cgei-geo-assess-33-ops', 'cgei-geo-assess-33-joins', 'cgei-geo-assess-33-zonal', 'cgei-geo-assess-33-reclass', 'cgei-geo-assess-33-qgis'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.3 — Desktop GIS and spatial operations',
-      notes: ['Core operations and zonal stats taught with mask-based fixture.', 'QGIS GUI proficiency and full geoprocessing menus remain learner practice outside CI.'],
+      notes: ['Five draft lessons: overlays, joins, zonal stats, reclass/map algebra, QGIS workflow.', 'QGIS GUI is documented, not CI-executed; reclass numbers locked in Python fixture.'],
     },
 
     ...plannedUnits.filter(([code]) => !['5.7', '5.8', '5.9', '5.10', '5.11', '5.12'].includes(code)).map(([code, title, summary]) => ({
@@ -2260,6 +2284,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-r-512-rasterio', kind: 'documentation', title: 'Rasterio documentation', url: 'https://rasterio.readthedocs.io/', purpose: 'Reference for raster geospatial metadata, grid transforms and raster operations.', authorOrPublisher: 'Rasterio project', accessedOn: '2026-10-22', verificationStatus: 'checked', required: true },
   ],
   activities: [
+    { id: 'cgei-geo-a-33-reclass', kind: 'coding-lab', title: 'Reclass and hot indicator', instructions: 'Run unit_3_3_reclass_map_algebra_check.py. Manually reclassify the teaching grid and confirm the hot mask has three cells equal to 1.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-reclass'] },
+    { id: 'cgei-geo-a-33-qgis', kind: 'field-task', title: 'QGIS processing log', instructions: 'Follow labs/unit-3-3-qgis-workflow.md: set CRS, reclass the teaching grid, write processing_log.md with tools and parameters.', level: 'L2', estimatedMinutes: 40, objectiveIds: ['cgei-geo-o-33-qgis'] },
     { id: 'cgei-geo-a-33-ops', kind: 'guided-practice', title: 'Choose buffer vs clip vs intersect', instructions: 'For (a) assets within 500 m of a river, (b) stations inside a district, (c) land-cover pieces cut by a district, name the primary operation and CRS precondition.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-ops'] },
     { id: 'cgei-geo-a-33-joins', kind: 'independent-practice', title: 'Predict join row counts', instructions: 'With 5 daily rows for 2 stations and 2 non-overlapping districts, state expected row counts for attribute join to station metadata and spatial join of points to districts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-joins'] },
     { id: 'cgei-geo-a-33-zonal', kind: 'coding-lab', title: 'Zonal stats fixture lab', instructions: 'Run unit_3_3_zonal_stats_check.py. Change the NoData cell to 0 and recompute zone-1 mean by hand; explain why count and mean change.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-zonal'] },
@@ -2443,6 +2469,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-512-validation', kind: 'project-milestone', title: 'Prepare a pipeline validation report', instructions: 'Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-512-release'], expectedEvidence: ['Validation report', 'Performance table', 'Limitations and provenance'], required: true },
   ],
   assessments: [
+    { id: 'cgei-geo-assess-33-reclass', kind: 'formative', title: 'Reclass interval rules', purpose: 'Assess threshold inclusivity and NoData handling.', objectiveIds: ['cgei-geo-o-33-reclass'], questionIds: ['cgei-geo-q-33-004'], required: true },
+    { id: 'cgei-geo-assess-33-qgis', kind: 'formative', title: 'Workflow documentation', purpose: 'Assess reproducible GIS logging habits.', objectiveIds: ['cgei-geo-o-33-qgis'], questionIds: ['cgei-geo-q-33-005'], required: true },
     { id: 'cgei-geo-assess-33-ops', kind: 'formative', title: 'Spatial operation choice', purpose: 'Assess buffer/clip/intersect distinction.', objectiveIds: ['cgei-geo-o-33-ops'], questionIds: ['cgei-geo-q-33-001'], required: true },
     { id: 'cgei-geo-assess-33-joins', kind: 'formative', title: 'Join type selection', purpose: 'Assess attribute vs spatial join reasoning.', objectiveIds: ['cgei-geo-o-33-joins'], questionIds: ['cgei-geo-q-33-002'], required: true },
     { id: 'cgei-geo-assess-33-zonal', kind: 'formative', title: 'Zonal NoData handling', purpose: 'Assess zonal statistics with NoData.', objectiveIds: ['cgei-geo-o-33-zonal'], questionIds: ['cgei-geo-q-33-003'], required: true },
