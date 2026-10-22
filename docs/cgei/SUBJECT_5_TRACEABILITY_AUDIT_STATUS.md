@@ -6,8 +6,8 @@
 
 | Source unit | Traceability artifact | Current claim |
 |---|---|---|
-| 5.2 | `07-UNIT-5.2-APP-COVERAGE-MAP.md` and unit-specific validator in `scripts/validate-curriculum.ts` | Coverage map exists; semantic review remains necessary. |
-| 5.3 | `07-UNIT-5.3-APP-COVERAGE-MAP.md` and unit-specific validator in `scripts/validate-curriculum.ts` | Coverage map exists; semantic review remains necessary. |
+| 5.2 | `subject-5-unit-5-2-subtopic-traceability.csv`, validated by `scripts/validate-source-traceability.ts` | Coverage map exists; semantic review remains necessary. |
+| 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv`, validated by `scripts/validate-source-traceability.ts` | Coverage map exists; semantic review remains necessary. |
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | ID-checked mappings are partial unless a row is explicitly a gap/candidate. |
 | 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | ID-checked mappings are partial unless a row is explicitly a gap/candidate. |
 
