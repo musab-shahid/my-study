@@ -1430,7 +1430,7 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-3-3', kind: 'callout', title: 'Scientific limits', tone: 'warning', items: ['NoData is not zero', 'Cell mean ≠ area-weighted mean when cell areas differ', 'Mask membership ≠ full GIS zonal pipeline', 'Do not treat zonal means as causal exposure without design'] },
     ],
     activityIds: ['cgei-geo-a-33-zonal'], assessmentIds: ['cgei-geo-assess-33-zonal'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
-  },,
+  },
   {
     id: 'cgei-geo-lesson-3-3-4', kind: 'lesson', title: 'Reclassification and map algebra', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
     objectives: [outcomes33[3]],
