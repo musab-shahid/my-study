@@ -15,6 +15,10 @@
 
 The validator audits the source paths and parent structure across all twelve units. This is source-inventory validation, not proof of semantic coverage: the 5.1 and 5.6–5.12 matrices intentionally leave app mappings unassigned pending semantic inspection.
 
+## Topic-level crosswalk
+
+`subject-5-topic-crosswalk.csv` now inventories all 51 source topics across Units 5.1–5.12. The newly added Unit 5.6–5.12 rows are explicitly `candidate` with `subtopic_coverage_status=not_audited`; this closes a source-inventory omission only and does not claim app integration or semantic teaching coverage.
+
 ## Status semantics
 
 - **ID-verified partial:** referenced lesson and content block IDs resolve, and the block belongs to the declared lesson. This is structural integrity only; it does not prove the content fully teaches every source requirement.
