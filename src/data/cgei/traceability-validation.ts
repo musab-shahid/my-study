@@ -25,9 +25,11 @@ export function validateTraceabilityRow(
   lessons: Map<string, TraceabilityLesson>,
 ): TraceabilityIssue[] {
   const issues: TraceabilityIssue[] = [];
-  const lesson = lessons.get(row.app_lesson_id);
+  const lesson = row.app_lesson_id ? lessons.get(row.app_lesson_id) : undefined;
   const path = row.source_subtopic_path || '(missing path)';
-  if (!lesson) {
+  if (!row.app_lesson_id && row.disposition !== 'candidate') {
+    issues.push({ code: 'UNKNOWN_LESSON', message: 'A non-candidate row must identify its app lesson', sourcePath: path });
+  } else if (row.app_lesson_id && !lesson) {
     issues.push({ code: 'UNKNOWN_LESSON', message: `Unknown lesson ${row.app_lesson_id}`, sourcePath: path });
   }
   const blockIds = row.app_content_block_ids.split(';').map((id) => id.trim()).filter(Boolean);
