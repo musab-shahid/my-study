@@ -6,7 +6,7 @@
 
 | Source unit | Traceability artifact | Current claim |
 |---|---|---|
-| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | Source paths/titles inventoried; no app mapping claim. |
+| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | First semantic pass: 11 partial mappings and 1 explicit gap (Taylor expansion/error propagation); vector calculus, optimisation, environmental PDEs, and probability limit cases remain incomplete. |
 | 5.2 | `subject-5-unit-5-2-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
 | 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv` | Structural mappings exist; explicit gaps are unassigned; deeper semantic review remains. |
 | 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | Partial mappings and unassigned gaps are recorded; deeper semantic review remains. |
@@ -19,11 +19,11 @@
 | 5.11 | `subject-5-unit-5.11-subtopic-traceability.csv` | First semantic pass: 24 partial mappings; expanded testing, CLI/project structure, security/licensing, FAIR, manifests and release practices. Full repository deliverable remains unassessed. |
 | 5.12 | `subject-5-unit-5.12-subtopic-traceability.csv` | First semantic pass: 19 partial mappings; expanded rioxarray, idempotence, orchestration/HPC, provenance and archival release practices. Executed scalable pipeline benchmarks remain gaps. |
 
-The matrices cover source inventory across all twelve units. Structural validation verifies source paths, parent relationships, IDs and block-to-lesson joins; it does not prove semantic fidelity. Units 5.6–5.12 now have first-pass semantic audits. Unit 5.1 remains unaudited at subtopic level; Units 5.2–5.5 still require deeper semantic review.
+The matrices cover source inventory across all twelve units. Structural validation verifies source paths, parent relationships, IDs and block-to-lesson joins; it does not prove semantic fidelity. Units 5.1 and 5.6–5.12 now have first-pass semantic audits; Units 5.2–5.5 still require deeper semantic review.
 
 ## Topic-level crosswalk
 
-`subject-5-topic-crosswalk.csv` inventories 51 source topics. Topics 5.7.1–5.7.3, 5.8.1–5.8.3, 5.9.1–5.9.3, 5.10.1–5.10.3, 5.11.1–5.11.6 and 5.12.1–5.12.5 are now marked `partial`, supported by first-pass subtopic mappings and explicit notes on residual gaps. This does not mean the topics are complete or release-ready. Other unaudited topics retain candidate/unresolved status.
+`subject-5-topic-crosswalk.csv` inventories 51 source topics. Topics 5.1.1–5.1.4 and 5.7.1–5.7.3, 5.8.1–5.8.3, 5.9.1–5.9.3, 5.10.1–5.10.3, 5.11.1–5.11.6 and 5.12.1–5.12.5 are now marked `partial`, supported by first-pass subtopic mappings and explicit notes on residual gaps. This does not mean the topics are complete or release-ready. Other unaudited topics retain candidate/unresolved status.
 
 ## Status semantics
 
@@ -37,5 +37,5 @@ The matrices cover source inventory across all twelve units. Structural validati
 
 1. Run CI on the latest branch after the Unit 5.7–5.8 content and crosswalk changes.
 2. Add and execute focused examples for spectral analysis/aliasing, ARIMA/SARIMA and state-space forecasts, changepoint/gap-fill sensitivity, MCA/CCA, cluster validity, field significance, GLM offsets, survey design, Bayesian sampler diagnostics and causal-design sensitivity.
-3. Semantically re-audit Units 5.2–5.5 and Unit 5.1; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
+3. Semantically re-audit Units 5.2–5.5; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
 4. Do not promote candidate or partial mappings to complete coverage solely because identifiers resolve.
