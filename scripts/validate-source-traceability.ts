@@ -61,8 +61,8 @@ function audit(file: string, label: string, expectedPaths: string[]) {
     if (record.app_lesson_id && !record.app_lesson_id.startsWith(expectedUnitPrefix)) {
       errors.push(`${label} ${path}: lesson ${record.app_lesson_id} belongs outside source unit ${path.split('.').slice(0, 2).join('.')}`);
     }
-    if (!record.app_lesson_id && record.disposition !== 'candidate') {
-      errors.push(`${label} ${path}: only candidate rows may leave app_lesson_id unassigned`);
+    if (!record.app_lesson_id && ['mapped', 'mapped_partial'].includes(record.disposition)) {
+      errors.push(`${label} ${path}: mapped rows must identify app_lesson_id`);
     }
     if (record.parent_topic_path !== expectedParent) {
       errors.push(`${label} ${path}: wrong parent ${record.parent_topic_path}, expected ${expectedParent}`);
