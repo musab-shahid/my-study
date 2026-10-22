@@ -36,3 +36,29 @@ Centre slope uses central differences → about **26.9°**. Reproduce with the P
 - Teaching stencil ≠ production Horn/Zevenbergen algorithms
 - Slope is not flood hazard by itself
 - DEM source error (SRTM vs Copernicus) is a separate quality step
+
+## Flow direction and accumulation (instructional)
+
+### Synthetic grid (same as fixture)
+```
+9 8 7
+6 5 4
+3 2 1
+```
+D8 steepest descent; accumulation includes self; outlet (2,2) accumulation **9**; centre flows **S (code 4)**.
+
+### Fixture-tested
+- `python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_flow_routing_check.py`
+
+### Documented QGIS/GRASS steps (not CI-executed)
+1. Use a projected DEM in metres after Unit 3.2 CRS checks.
+2. Optional: fill sinks (document method).
+3. Processing → **Catchment area** / **r.watershed** / **Flow Direction** (tool names vary by provider)—record which algorithm (D8 vs MFD).
+4. Inspect flow-direction and accumulation rasters; compare a known teaching cell only after matching conventions (direction encoding differs by tool).
+5. Choose an outlet point; delineate watershed if the tool supports it; state that results depend on outlet and fill choices.
+6. Log tools, parameters, and that production outputs may not match the instructional 3×3 stencil.
+
+### Deliverable
+- Hand calculation of centre direction and outlet accumulation
+- Screenshot or note of GIS accumulation at a comparable outlet (if run)
+- Written limitation: terrain-derived streams ≠ surveyed hydrography

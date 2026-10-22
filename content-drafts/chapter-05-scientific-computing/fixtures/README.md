@@ -82,3 +82,6 @@ Synthetic admin hierarchy defects (duplicate ID, missing parent) and observation
 
 ## unit_3_4_terrain_slope_check.py
 3×3 DEM, 30 m cells, central-difference centre slope ≈26.88°. Teaching stencil, not Horn/QGIS.
+
+## unit_3_4_flow_routing_check.py
+Instructional D8: direction codes, accumulation includes self, outlet facc=9; flats and NoData cases. Not GRASS/Arc hydrology.

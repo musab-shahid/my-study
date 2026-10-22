@@ -14,5 +14,5 @@
 - Overlay geometry engine / polygon zonal rasterization
 
 ## Unit 3.4 Support notes
-- 3.4.1 terrain: substantive draft + slope fixture (~26.9° centre)
+- 3.4.1 terrain: slope fixture (~26.9°) + instructional D8 flow fixture (outlet facc=9)
 - 3.4.2–3.4.4: survey-level single lesson; not full network/field labs
