@@ -162,6 +162,17 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
   switch (route.screen) {
     case 'home':
       return [home];
+    case 'learn': {
+      const subject = route.subjectId ? subjectMap[route.subjectId] : undefined;
+      if (subject && isTrackId(subject.track)) {
+        return [
+          home,
+          { label: getTrackDefinition(subject.track).shortTitle, route: { screen: 'track', trackId: subject.track } },
+          { label: subject.title, route },
+        ];
+      }
+      return [home, { label: 'Learn', route }];
+    }
     case 'curriculum-unit': {
       const unit = cgeiCurriculum.units.find((item) => item.id === route.unitId);
       const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
