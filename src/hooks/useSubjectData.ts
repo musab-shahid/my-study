@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useData } from '@/hooks/useData';
 import { subjectsForScope, contentEligibleForScope } from '@/lib/track-scope';
 import { isTrackId } from '@/data/tracks';
+import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { sectionMap, sectionsBySubject, sections } from '@/data/sections';
 import { topics, topicsBySubject, getTopic } from '@/data/topics';
 import { questionsByTopic } from '@/data/questions';
