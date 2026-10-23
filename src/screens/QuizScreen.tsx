@@ -1360,19 +1360,19 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <Keyboard className="w-4 h-4 text-brand-600" />
                 Keyboard shortcuts
               </h2>
-              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100" aria-label="Close">
+              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" aria-label="Close">
                 <X className="w-4 h-4" />
               </button>
             </div>
             <ul className="space-y-2 text-sm text-slate-700">
-              <li className="flex justify-between gap-4"><span>Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
-              <li className="flex justify-between gap-4"><span>Multi-select toggle</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–9</kbd></li>
-              <li className="flex justify-between gap-4"><span>Check / Next</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Enter</kbd></li>
-              <li className="flex justify-between gap-4"><span>Exit quiz</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Esc</kbd></li>
-              <li className="flex justify-between gap-4"><span>This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Multi-select toggle</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–9</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Check / Next</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Enter</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Exit quiz</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Esc</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
             </ul>
             <p className="text-xs text-slate-500 mt-3">Matching questions still use tap/click. Shortcuts are disabled while this dialog or the exit prompt is open.</p>
-            <Button className="w-full mt-4" onClick={() => setShowKeysHelp(false)}>Got it</Button>
+            <Button className="w-full min-h-11 mt-4 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" onClick={() => setShowKeysHelp(false)}>Got it</Button>
           </div>
         </div>
       )}
@@ -1401,7 +1401,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               You&apos;ve answered {state.answers.length} of {state.questions.length} questions. Your progress will be lost.
             </p>
             <div className="flex gap-3">
-              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="flex-1">
+              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                 Stay
               </Button>
               <Button
@@ -1411,7 +1411,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                   clearQuizProgress();
                   exitToOrigin();
                 }}
-                className="flex-1"
+                className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 Exit
               </Button>
