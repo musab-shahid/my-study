@@ -51,6 +51,7 @@ export function SettingsScreen() {
   const [syncBusy, setSyncBusy] = useState(false);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
+  const [updateMsg, setUpdateMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -352,16 +353,18 @@ export function SettingsScreen() {
               type="button"
               onClick={() => {
                 if (!navigator.onLine) {
-                  window.alert('Connect to the internet to check for updates.');
+                  setUpdateMsg('You are offline. Reconnect to the internet before checking for updates.');
                   return;
                 }
+                setUpdateMsg('Update check requested. If an update is available, you will be prompted to restart.');
                 window.dispatchEvent(new Event('examprep:check-update'));
               }}
-              className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm"
+              className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Check for updates
             </button>
+            {updateMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{updateMsg}</p>}
           </div>
         </div>
       </Card>
