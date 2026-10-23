@@ -106,3 +106,6 @@ Synthetic 36-month series: normals/anomalies, window-dependent slopes, missing�
 
 ## unit_2_2_climate_system_processes_check.py
 One-layer greenhouse Ts=Te*2^(1/4); albedo absorption sensitivity; latent-heat residual change. Instructional only.
+
+## unit_2_4_data_products_check.py
+Synthetic station QC (range/step/spike/persistence); missing≠0; point≠grid-cell mean. Not live product validation.

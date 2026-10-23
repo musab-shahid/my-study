@@ -113,3 +113,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_1_weather_climate_timescales_check.py
       - name: Verify Unit 2.2 climate system process checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_2_climate_system_processes_check.py
+      - name: Verify Unit 2.4 data-product QC checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_4_data_products_check.py

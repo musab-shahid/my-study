@@ -1724,7 +1724,47 @@ const lessons22: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes24: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-24-station', statement: 'Apply basic station QC checks (range, step, spike, persistence) and distinguish missing values from valid zeros.', action: 'apply and distinguish', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-24-products', statement: 'Distinguish in-situ observations, gridded observational products and reanalysis estimates and state why a grid-cell value is not a station observation.', action: 'distinguish and state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-24-select', statement: 'Select a climate data product using a fitness-for-purpose checklist including variable, resolution, record length, licence and known limitations.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons24: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-4-1', kind: 'lesson', title: 'In-situ stations and quality control', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes24[0]],
+    content: [
+      { id: 'cgei-cl-24-1-1', kind: 'prose', title: 'What a station actually measures', body: 'In-situ stations provide high temporal fidelity at a point, with limited spatial representativeness. Archives such as GHCN-Daily, ISD and GSOD differ in completeness and metadata. Homogenisation addresses station moves and instrument changes; this unit introduces the need for it without implementing SNHT/Pettitt software.' },
+      { id: 'cgei-cl-24-1-lab', kind: 'worked-example', title: 'Lab: synthetic station QC', body: 'Teaching checks on a synthetic Tmax series flag range violations (65°C, 80°C), large steps, spikes, and long persistence runs. Missing values are excluded from means and must not be replaced by zero. Fixture unit_2_4_data_products_check.py locks these behaviours.' },
+      { id: 'cgei-cl-24-1-3', kind: 'key-points', title: 'QC rules of thumb', items: ['Range, step, spike, persistence, internal consistency', 'Missing ≠ 0', 'Metadata: station, height, instrument, period, time zone'] },
+    ],
+    activityIds: ['cgei-cl-a-24-qc'], assessmentIds: ['cgei-cl-assess-24-qc'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-4-2', kind: 'lesson', title: 'Gridded products and reanalysis', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes24[1]],
+    content: [
+      { id: 'cgei-cl-24-2-1', kind: 'prose', title: 'Grids are constructed estimates', body: 'Gridded temperature and precipitation products (CRU TS, Berkeley Earth, CHIRPS, IMERG, GPCC, MSWEP, …) blend gauges and/or satellites with interpolation or merging. They are products with error structures—not direct observations of every cell. Satellite retrievals estimate geophysical quantities under retrieval assumptions.' },
+      { id: 'cgei-cl-24-2-2', kind: 'prose', title: 'Reanalysis idea', body: 'Reanalysis (ERA5, ERA5-Land, MERRA-2, JRA-3Q) assimilates observations into a model to produce a physically coherent time series. Grid values are estimates; constraint strength varies by variable and era. Spread across reanalyses is an uncertainty indicator. ERA6 planning should keep analysis code product-agnostic.' },
+      { id: 'cgei-cl-24-2-lab', kind: 'worked-example', title: 'Lab: point versus cell mean', body: 'A synthetic 2×2 grid mean of 21.5°C need not equal a station reading of 25°C inside the cell—spatial support differs. Fixture unit_2_4_data_products_check.py asserts the inequality.' },
+    ],
+    activityIds: ['cgei-cl-a-24-products'], assessmentIds: ['cgei-cl-assess-24-products'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-4-3', kind: 'lesson', title: 'Choosing products and representativeness', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes24[2]],
+    content: [
+      { id: 'cgei-cl-24-3-1', kind: 'checklist', title: 'Fitness-for-purpose checklist', items: ['Variable and units', 'Spatial/temporal resolution and coverage', 'Record length and latency', 'Licence and citation', 'Known biases and regional validation', 'Missing-data pattern', 'Whether the question needs a point, a grid cell, or a canopy-scale quantity'] },
+      { id: 'cgei-cl-24-3-2', kind: 'prose', title: 'Agreement is not validation', body: 'Two products can agree and both be biased. Disagreement can reflect different methods, periods, or spatial support rather than a simple right/wrong label. Version changes and orbit drift affect satellite climate records. Document provenance before comparing series.' },
+      { id: 'cgei-cl-24-3-3', kind: 'callout', title: 'Scope honesty', tone: 'info', items: ['No live download of ERA5/CHIRPS in CI', 'Homogenisation algorithms named, not implemented', 'Unit 2.1 station/attribution gaps remain'] },
+    ],
+    activityIds: ['cgei-cl-a-24-select'], assessmentIds: ['cgei-cl-assess-24-select'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1825,11 +1865,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.2 cover weather–climate foundations and climate-system processes (radiation, feedbacks, regional circulation, UHI). Draft slice only—not full Subject 2.',
+      overview: 'Units 2.1–2.2 and 2.4 cover weather–climate foundations, processes, and climate data products. Unit 2.3 (Support thermodynamics) not yet implemented. Draft slice only.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21, ...outcomes22],
+      outcomes: [...outcomes21, ...outcomes22, ...outcomes24],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2075,6 +2115,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.2 — Climate system processes (Core)',
       notes: ['One-layer greenhouse is instructional; ECS/TCR ranges stated from AR6, not fitted.', 'Extreme-event cases use template language, not full attribution reanalysis.'],
     },
+    {
+      id: 'cgei-cl-unit-2-4', code: '2.4', title: 'Observations, reanalysis, and gridded products', order: 204, kind: 'unit', readiness: 'draft',
+      summary: 'Quality-control station series, distinguish observations from gridded products and reanalysis, and select datasets with an explicit fitness-for-purpose checklist.',
+      estimatedHours: 7, prerequisites: ['Unit 2.1'], outcomes: outcomes24,
+      lessonIds: lessons24.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-24-qc', 'cgei-cl-a-24-products', 'cgei-cl-a-24-select'],
+      assessmentIds: ['cgei-cl-assess-24-qc', 'cgei-cl-assess-24-products', 'cgei-cl-assess-24-select'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.4 — Observations, reanalysis, and gridded products (Core)',
+      notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
+    },
+
 
 
 
@@ -2137,6 +2189,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-22-003', lessonId: 'cgei-cl-lesson-2-2-2', type: 'single-choice', prompt: 'AR6 likely ECS range is approximately:', options: ['0.1–0.5 °C', '2.5–4 °C', '10–20 °C', 'Exactly 1.5 °C only'], correctAnswer: 1, explanation: 'AR6 assesses ECS as likely 2.5–4 °C; TCR is a separate transient metric.', difficulty: 'easy', cognitiveLevel: 'remember' },
     { id: 'cgei-cl-q-22-004', lessonId: 'cgei-cl-lesson-2-2-3', type: 'single-choice', prompt: 'Western disturbances primarily influence:', options: ['Only equatorial Pacific SSTs', 'Winter precipitation over northern Pakistan and adjoining regions', 'Stratospheric ozone chemistry alone', 'Deep-ocean carbon pumps only'], correctAnswer: 1, explanation: 'Western disturbances are key winter precipitation systems for northern Pakistan.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-22-005', lessonId: 'cgei-cl-lesson-2-2-4', type: 'single-choice', prompt: 'Canopy-layer UHI is best described as:', options: ['Skin temperature from a satellite only', 'Near-surface air temperature contrast in the urban canopy versus a rural reference', 'Only anthropogenic heat with no rural reference', 'Ocean heat content anomaly'], correctAnswer: 1, explanation: 'Canopy UHI uses air temperature in the urban canopy layer relative to a rural site; surface UHI is skin temperature.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-24-001', lessonId: 'cgei-cl-lesson-2-4-1', type: 'single-choice', prompt: 'Replacing a missing daily temperature with 0°C before averaging will typically:', options: ['Leave the mean unchanged', 'Bias the mean if true values are not near 0°C', 'Improve homogenisation automatically', 'Convert the series to anomalies'], correctAnswer: 1, explanation: 'Zero is a physical value; using it as a fill for missing data biases statistics.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-24-002', lessonId: 'cgei-cl-lesson-2-4-1', type: 'single-choice', prompt: 'A persistence QC flag is intended to catch:', options: ['Long runs of identical values that may indicate stuck sensors', 'Only satellite orbit drift', 'Licence violations', 'Grid CRS mismatches'], correctAnswer: 0, explanation: 'Unrealistic long constant runs often signal instrument or encoding problems.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-24-003', lessonId: 'cgei-cl-lesson-2-4-2', type: 'single-choice', prompt: 'An ERA5 grid-cell temperature is best described as:', options: ['A direct thermometer reading at every location in the cell', 'A model-and-assimilation estimate constrained by observations', 'Always more accurate than any station', 'Identical to CHIRPS precipitation'], correctAnswer: 1, explanation: 'Reanalysis blends observations with a model via data assimilation; it is not a dense network of direct measurements.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-24-004', lessonId: 'cgei-cl-lesson-2-4-3', type: 'single-choice', prompt: 'Agreement between two gridded products is sufficient to conclude:', options: ['Both are unbiased truth', 'They are similar under their methods, not that either is validated', 'Station data are unnecessary forever', 'Homogenisation is complete'], correctAnswer: 1, explanation: 'Shared methods or shared inputs can produce agreement without eliminating bias; independent validation is still required.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
 
@@ -2708,6 +2765,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-a-22-feedback', kind: 'guided-practice', title: 'Feedback polarity chain', instructions: 'Write the ice–albedo causal chain and classify Planck feedback as stabilising or amplifying.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-22-feedback'] },
     { id: 'cgei-cl-a-22-regional', kind: 'reflection', title: 'Regional process note', instructions: 'In five sentences, contrast monsoon moisture pathways with western-disturbance winter precipitation for northern Pakistan without inventing event statistics.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-22-regional'] },
     { id: 'cgei-cl-a-22-uhi', kind: 'guided-practice', title: 'UHI definition drill', instructions: 'Define surface vs canopy UHI and give one reason the rural reference can flip the sign in arid cities.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-22-uhi'] },
+    { id: 'cgei-cl-a-24-qc', kind: 'coding-lab', title: 'Station QC lab', instructions: 'Run unit_2_4_data_products_check.py. List which indices fail range, step, spike and persistence checks, and state why missing must not become zero.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-24-station'] },
+    { id: 'cgei-cl-a-24-products', kind: 'guided-practice', title: 'Point vs grid comparison', instructions: 'Using the fixture grid mean and station value, explain why they may legitimately differ without either being a coding error.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-24-products'] },
+    { id: 'cgei-cl-a-24-select', kind: 'critique', title: 'Fitness-for-purpose memo', instructions: 'For a local heat-threshold analysis, choose between a nearby station series and a coarse reanalysis grid and justify with the checklist (coverage, support, licence, bias).', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-24-select'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
     { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
     { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
@@ -2914,6 +2974,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-assess-22-feedback', kind: 'formative', title: 'Feedbacks and sensitivity', purpose: 'Assess feedback polarity and AR6 ranges.', objectiveIds: ['cgei-cl-o-22-feedback'], questionIds: ['cgei-cl-q-22-003'], required: true },
     { id: 'cgei-cl-assess-22-regional', kind: 'formative', title: 'Regional systems', purpose: 'Assess monsoon/WD process knowledge.', objectiveIds: ['cgei-cl-o-22-regional'], questionIds: ['cgei-cl-q-22-004'], required: true },
     { id: 'cgei-cl-assess-22-uhi', kind: 'formative', title: 'UHI definitions', purpose: 'Assess surface vs canopy UHI.', objectiveIds: ['cgei-cl-o-22-uhi'], questionIds: ['cgei-cl-q-22-005'], required: true },
+    { id: 'cgei-cl-assess-24-qc', kind: 'formative', title: 'Station QC', purpose: 'Assess QC rule application.', objectiveIds: ['cgei-cl-o-24-station'], questionIds: ['cgei-cl-q-24-001', 'cgei-cl-q-24-002'], required: true },
+    { id: 'cgei-cl-assess-24-products', kind: 'formative', title: 'Product types', purpose: 'Assess observation vs product distinction.', objectiveIds: ['cgei-cl-o-24-products'], questionIds: ['cgei-cl-q-24-003'], required: true },
+    { id: 'cgei-cl-assess-24-select', kind: 'formative', title: 'Product selection', purpose: 'Assess fitness-for-purpose reasoning.', objectiveIds: ['cgei-cl-o-24-select'], questionIds: ['cgei-cl-q-24-004'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
     { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
     { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },

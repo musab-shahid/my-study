@@ -2,8 +2,10 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 2.1 | Weather, climate, and time scales (Core) | Draft + synthetic stats fixture |
-| 2.2 | Climate system processes (Core) | Draft — 4 lessons + greenhouse/latent-heat fixture |
-| 2.3+ | Later units | Not started |
+| 2.1 | Weather, climate, time scales (Core) | Draft + fixture |
+| 2.2 | Climate system processes (Core) | Draft + fixture |
+| 2.3 | Atmospheric thermodynamics (Support) | Not started |
+| 2.4 | Observations, reanalysis, gridded products (Core) | Draft + QC fixture |
+| 2.5+ | Later units | Not started |
 
-Unit 2.1 gaps (real station data, homogenisation, operational attribution) remain open.
+Homogenisation software and live product downloads remain out of CI scope.
