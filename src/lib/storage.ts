@@ -29,19 +29,26 @@ export function getBackupRaw(): string | null {
   }
 }
 
-export function downloadBackupFile(): boolean {
-  const raw = getBackupRaw();
+export function downloadBackupFile(data?: AppData): boolean {
+  // Settings exports the live in-memory state; recovery actions may still export
+  // the last known-good raw backup when no state is supplied.
+  const raw = data ? JSON.stringify(sanitizeForSave(data)) : getBackupRaw();
   if (!raw) return false;
+  let url: string | null = null;
   try {
     const blob = new Blob([raw], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `examprep-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
-    URL.revokeObjectURL(url);
+    // Give the browser time to begin consuming the blob before releasing it.
+    window.setTimeout(() => {
+      if (url) URL.revokeObjectURL(url);
+    }, 1000);
     return true;
   } catch {
+    if (url) URL.revokeObjectURL(url);
     return false;
   }
 }
