@@ -18,7 +18,7 @@ export type ScreenName =
 
 export type Route =
   | { screen: 'home' }
-  | { screen: 'learn' }
+  | { screen: 'learn'; subjectId?: string }
   | { screen: 'section'; sectionId: string }
   | { screen: 'topic'; topicId: string }
   | { screen: 'formulas' }
@@ -75,7 +75,7 @@ const RouterContext = createContext<RouterContext | null>(null);
 function buildRoute(options: NavigateOptions): Route {
   switch (options.screen) {
     case 'home': return { screen: 'home' };
-    case 'learn': return { screen: 'learn' };
+    case 'learn': return { screen: 'learn', subjectId: options.subjectId };
     case 'section':
       if (!options.sectionId) return { screen: 'learn' };
       return { screen: 'section', sectionId: options.sectionId };
