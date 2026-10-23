@@ -11,7 +11,16 @@ def eigen_2x2(a: float, b: float, c: float) -> tuple[float, float]:
     return (a + c + disc) / 2, (a + c - disc) / 2
 
 
+
+def north_delta(lam: float, n_star: float) -> float:
+    """Sampling-error scale ~ lambda * sqrt(2/N*) (North et al. rule of thumb)."""
+    if n_star <= 0:
+        raise ValueError("n_star must be positive")
+    return lam * (2.0 / n_star) ** 0.5
+
+
 def main() -> None:
+
     # Covariance S = [[1, 0.8], [0.8, 1]] (equal-area two-point toy field)
     l1, l2 = eigen_2x2(1.0, 0.8, 1.0)
     assert isclose(l1, 1.8, rel_tol=0, abs_tol=1e-12)
@@ -23,6 +32,11 @@ def main() -> None:
     # when both locations share weight 1 (already unit-scaled). Unequal area
     # weights would pre-multiply rows/columns by sqrt(w); learners must state
     # the weight definition before interpreting variance shares.
+    # North rule: large eigenvalue gap vs sampling scale
+    d1 = north_delta(1.8, 50)
+    assert abs(d1 - 1.8 * (2 / 50) ** 0.5) < 1e-12
+    assert (1.8 - 0.2) > d1  # clear separation in the teaching example
+
     print("Unit 5.8 EOF/PCA 2x2 eigenvalue and variance-share checks passed.")
 
 
