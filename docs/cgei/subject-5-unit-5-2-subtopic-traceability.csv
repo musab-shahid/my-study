@@ -18,7 +18,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 5.2.4.1,CLI bash grep find cron pathlib,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-pathlib,mapped_partial,pathlib and CLI hygiene taught; full shell lab deferred.
 5.2.4.2,Environment managers pyproject Jupyter,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-env,mapped_partial,conda/uv/pip and pyproject guidance added.
 5.2.4.3,Formats CSV Parquet NetCDF HDF5 GeoTIFF GeoJSON Zarr,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-formats,mapped_partial,Format family overview with library pointers; hands-on each format deferred.
-5.2.4.4,Units pint zoneinfo regex,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-units;cgei-ds-52-5-code,mapped_partial,Units/zoneinfo/regex guidance; Pint execution not required in CI.
+5.2.4.4,Units pint zoneinfo regex,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-units,mapped_partial,Units/zoneinfo/regex guidance; Pint execution not required in CI.
 5.2.5.1,R as complement when and interoperate,5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r,mapped_partial,Decision criteria and shared-format interop taught.
 5.2.5.2,Equivalent R tidyverse terra workflows,5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r-eq,mapped_partial,Orientation mapping to tidyverse/terra; not a full R course.
 5.2.5.3,Second language justified by libraries,5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r,mapped_partial,Library/literature/maintenance decision framework explicit.
