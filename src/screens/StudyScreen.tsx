@@ -62,7 +62,7 @@ export function StudyScreen() {
     }
   }, [route, activeTrack, setActiveSubjectForScreen]);
 
-  const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId);
+  const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
   const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
   useEffect(() => {
     let active = true;
