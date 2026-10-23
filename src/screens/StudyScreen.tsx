@@ -318,7 +318,7 @@ export function StudyScreen() {
                       {curriculumUnits.map((unit) => (
                         <button
                           key={unit.id}
-                          onClick={() => unit.legacySectionId ? navigate({ screen: 'section', sectionId: unit.legacySectionId }) : navigate({ screen: 'curriculum-unit', unitId: unit.id })}
+                          onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
                           className="w-full rounded-xl border border-teal-200 bg-white hover:bg-teal-50 p-3 text-left transition-colors cursor-pointer"
                         >
                           <div className="flex items-start gap-3">
