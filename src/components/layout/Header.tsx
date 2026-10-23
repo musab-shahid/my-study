@@ -35,12 +35,12 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
             </IconButton>
           )}
           {showSearch && (
-            <IconButton label="Search" onClick={() => navigate({ screen: 'search', parent: null })}>
+            <IconButton label="Search" onClick={() => navigate({ screen: 'search' })}>
               <Search className="w-5 h-5" />
             </IconButton>
           )}
           {showSettings && (
-            <IconButton label="Settings" onClick={() => navigate({ screen: 'settings', parent: null })}>
+            <IconButton label="Settings" onClick={() => navigate({ screen: 'settings' })}>
               <Settings className="w-5 h-5" />
             </IconButton>
           )}
