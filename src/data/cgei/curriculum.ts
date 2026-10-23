@@ -2701,7 +2701,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
     {
-      {
       id: 'cgei-subject-6-ml-geoai',
       subjectId: 'cgei-ml-geoai',
       title: 'Machine Learning & GeoAI',
