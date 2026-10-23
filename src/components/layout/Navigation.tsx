@@ -89,7 +89,7 @@ export function Sidebar() {
     return currentScreen === landing;
   };
   return (
-    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-60 bg-slate-950 flex-col z-40 border-r border-slate-800/80">
+    <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-64 bg-slate-950 flex-col z-40 border-r border-slate-800/80">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-slate-800">
         <div className="flex items-center gap-3">
