@@ -43,7 +43,7 @@ import {
 
 // ---- Learn Landing ----
 export function StudyScreen() {
-  const { navigate, route } = useRouter();
+  const { navigate, currentRoute, route } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack, setActiveTrack } = useSubjectSelection();
   const { data, trackMembership, setActiveEnrolledTrack } = useData();
