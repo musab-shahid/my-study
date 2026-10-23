@@ -42,7 +42,7 @@ import {
 
 // ---- Learn Landing ----
 export function StudyScreen() {
-  const { navigate } = useRouter();
+  const { navigate, route } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
   const { data, trackMembership } = useData();
@@ -50,6 +50,16 @@ export function StudyScreen() {
   const activeSubject = getActiveSubject('learn');
   const isAllSubjects = activeSubject === 'all';
   const subjectId = isAllSubjects ? 'all' : (activeSubject as SubjectId);
+
+  // A subject-aware URL is the canonical deep link for the Learn workspace.
+  // Wait until the active track matches the subject before restoring its selection.
+  useEffect(() => {
+    if (route.screen !== 'learn' || !route.subjectId) return;
+    const subject = subjectMap[route.subjectId];
+    if (subject && subject.track === activeTrack) {
+      setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+    }
+  }, [route, activeTrack, setActiveSubjectForScreen]);
 
   const subjectSections = isAllSubjects ? [] : sd.sectionsFor(subjectId);
   const subjectTopics = sd.topicsFor(subjectId);
