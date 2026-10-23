@@ -39,7 +39,7 @@ import {
 
 // ---- Learn Landing ----
 export function StudyScreen() {
-  const { navigate } = useRouter();
+  const { navigate, currentRoute, route } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
   const { data, trackMembership } = useData();
@@ -53,8 +53,22 @@ export function StudyScreen() {
   const hasContent = isAllSubjects || subjectTopics.length > 0;
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
 
+  // Keep the selected subject addressable so reloads and breadcrumbs preserve context.
+  useEffect(() => {
+    if (route.screen !== 'learn' || !route.subjectId) return;
+    const subject = subjectMap[route.subjectId];
+    if (subject && subject.track === activeTrack) {
+      setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+    }
+  }, [route, activeTrack, setActiveSubjectForScreen]);
+
   const handleSubjectChange = (value: SubjectFilterValue) => {
     setActiveSubjectForScreen('learn', value);
+    navigate({
+      screen: 'learn',
+      subjectId: value === 'all' ? undefined : value,
+      parent: currentRoute,
+    });
   };
 
   // Continue Learning logic
