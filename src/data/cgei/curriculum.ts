@@ -6,7 +6,7 @@
  * progress. The roadmap is represented in CurriculumSubject.overview, never as
  * a Topic or a lesson.
  */
-import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, CurriculumOutcome, CurriculumLesson } from '@/types/curriculum';
+import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, CurriculumOutcome, CurriculumLesson, CurriculumUnit } from '@/types/curriculum';
 import { questions as legacyDataScienceQuestions } from './data-science/questions-data-science';
 import type { Topic } from '@/types';
 import { topics as dataScienceTopics } from './data-science/topics-data-science';
@@ -1477,7 +1477,7 @@ const lessons66: CurriculumLesson[] = [
  {id:'cgei-ml-66-1-2',kind:'checklist',title:'Minimum honest ML report',items:['Problem statement and horizon','Leakage-safe split described','Baselines reported','Metrics matched to decision','Applicability limits stated']}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
 ];
 
-const mlUnits = [
+const mlUnits: CurriculumUnit[] = [
   {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
   {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:62,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
   {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:63,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
