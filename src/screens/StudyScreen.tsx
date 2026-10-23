@@ -357,6 +357,7 @@ export function StudyScreen() {
           )}
 
           {/* Sections accordion */}
+          {subjectSections.length > 0 && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-slate-900">Sections</h3>
@@ -414,11 +415,14 @@ export function StudyScreen() {
               })}
             </div>
           </Card>
+          )}
 
           {/* Stats footer */}
-          <p className="text-slate-500 text-sm text-center">
-            {subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length} / {subjectTopics.length} topics studied · {subjectTopics.length > 0 ? Math.round((subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length / subjectTopics.length) * 100) : 0}% complete
-          </p>
+          {subjectTopics.length > 0 && (
+            <p className="text-slate-500 text-sm text-center">
+              {subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length} / {subjectTopics.length} topics studied · {Math.round((subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length / subjectTopics.length) * 100)}% complete
+            </p>
+          )}
         </>
       )}
     </PageContainer>
