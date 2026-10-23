@@ -28,3 +28,7 @@ export function isCgeiOverviewTopic(topicId: string): boolean {
 export function cgeiOverviewTopicIdForSubject(subjectId: SubjectId): string | undefined {
   return CGEI_OVERVIEW_TOPIC_BY_SUBJECT[subjectId];
 }
+
+export function cgeiSubjectIdForOverviewTopic(topicId: string): SubjectId | undefined {
+  return (Object.entries(CGEI_OVERVIEW_TOPIC_BY_SUBJECT).find(([, id]) => id === topicId)?.[0] as SubjectId | undefined);
+}
