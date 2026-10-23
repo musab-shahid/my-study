@@ -25,7 +25,7 @@ test.describe('Mobile More sheet accessibility', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    const trigger = page.getByRole('button', { name: /^More$/ });
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
     await expect(dialog).toBeVisible();
@@ -48,7 +48,7 @@ test.describe('Mobile More menu consistency', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    const trigger = page.getByRole('button', { name: /^More$/ });
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
 
@@ -58,6 +58,7 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog).toBeHidden();
 
     await trigger.click();
+    await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('button', { name: 'Review', exact: true })).toHaveAttribute('aria-current', 'page');
     await expect(dialog.getByRole('button', { name: 'Review', exact: true })).toHaveClass(/bg-brand-50/);
   });
@@ -66,13 +67,14 @@ test.describe('Mobile More menu consistency', () => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
 
-    const trigger = page.getByRole('button', { name: /^More$/ });
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
     await dialog.getByRole('button', { name: 'Mock Exam', exact: true }).click();
     await expect(dialog).toBeHidden();
 
     await trigger.click();
+    await expect(dialog).toBeVisible();
     await expect(dialog.getByRole('button', { name: 'Mock Exam', exact: true })).toHaveAttribute('aria-current', 'page');
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).not.toHaveAttribute('aria-current', 'page');
   });
