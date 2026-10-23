@@ -9,6 +9,7 @@ import { getTopic } from '@/data/topics';
 import { resolveScreen } from './resolveScreen';
 import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from './paths';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
+import { cgeiSubjectIdForOverviewTopic } from '@/data/cgei/overview';
 
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
@@ -85,6 +86,8 @@ function buildRoute(options: NavigateOptions): Route {
       return { screen: 'section', sectionId: options.sectionId };
     case 'topic':
       if (!options.topicId) return { screen: 'learn' };
+      const overviewSubjectId = cgeiSubjectIdForOverviewTopic(options.topicId);
+      if (overviewSubjectId) return { screen: 'learn', subjectId: overviewSubjectId };
       return { screen: 'topic', topicId: options.topicId };
     case 'formulas': return { screen: 'formulas' };
     case 'flashcards': return { screen: 'flashcards', topicId: options.topicId };
