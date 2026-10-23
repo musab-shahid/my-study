@@ -367,6 +367,13 @@ export function MobileNav() {
             const activeColor = activeEnrolled && isTrackId(activeEnrolled)
               ? getTrackStyle(activeEnrolled).accent
               : 'text-sky-500';
+            // Keep the active marker in the same semantic track color as the label.
+            // Tailwind classes are explicit so all supported track colors are emitted.
+            const activeIndicatorColor = activeColor.includes('indigo')
+              ? 'bg-indigo-400'
+              : activeColor.includes('teal')
+                ? 'bg-teal-400'
+                : 'bg-sky-400';
             return (
               <button
                 key={item.screen}
@@ -379,9 +386,7 @@ export function MobileNav() {
               >
                 {active && (
                   <span
-                    className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${
-                      activeEnrolled === 'hat' ? 'bg-indigo-600' : 'bg-sky-500'
-                    }`}
+                    className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${activeIndicatorColor}`}
                     aria-hidden
                   />
                 )}
