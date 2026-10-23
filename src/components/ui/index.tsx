@@ -114,7 +114,7 @@ const CARD_ELEVATION = {
   raised: 'shadow-card',
   /** Clickable / selectable — lifts on hover */
   interactive:
-    'shadow-card cursor-pointer transition-all duration-medium hover:border-slate-300 hover:shadow-card-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+    'shadow-card cursor-pointer transition-all duration-medium hover:border-slate-300 hover:shadow-card-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
   /** Featured / CTA cards */
   hero: 'shadow-card-hover ring-1 ring-brand-100/80',
 } as const;
@@ -306,10 +306,10 @@ export function Button({
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'onClick' | 'disabled' | 'className'>) {
   const variants: Record<ButtonVariant, string> = {
-    primary: 'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 shadow-sm shadow-brand-500/20', // button chrome, not card elevation
+    primary: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900 shadow-sm shadow-brand-700/20', // button chrome, not card elevation
     secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100',
     ghost: 'text-slate-600 hover:bg-slate-100 active:bg-slate-200',
-    danger: 'bg-danger-500 text-white hover:bg-danger-600 active:bg-danger-700 shadow-sm shadow-danger-500/20',
+    danger: 'bg-danger-600 text-white hover:bg-danger-700 active:bg-danger-700 shadow-sm shadow-danger-600/20',
   };
   const sizes: Record<ButtonSize, string> = {
     sm: 'px-3 py-2 text-xs rounded-lg min-h-[32px]',
