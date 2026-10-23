@@ -7,7 +7,7 @@ import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/S
 import { useData } from '@/hooks/useData';
 import { subjects, subjectMap } from '@/data/subjects';
 import { subjectsForScope } from '@/lib/track-scope';
-import { isTrackId } from '@/data/tracks';
+import { getTrackDefinition, isTrackId } from '@/data/tracks';
 import { topicsBySection, getTopic, topicsBySubject } from '@/data/topics';
 import { sectionMap, sections } from '@/data/sections';
 import { SectionBadge } from '@/components/SectionBadge';
@@ -88,6 +88,7 @@ export function StudyScreen() {
     : sd.sectionsFor(subjectId).filter((section) => subjectTopics.some((topic) => topic.sectionId === section.id));
   const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
+  const showFormulaVault = Boolean(subjectMap[subjectId] && getTrackDefinition(subjectMap[subjectId].track).capabilities.formulas);
   const curriculumSubject = subjectId === 'cgei-data-science'
     ? cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId)
     : undefined;
@@ -222,18 +223,22 @@ export function StudyScreen() {
             </button>
           )}
 
-          <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
-            <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
-              <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
-            </button>
-            {subjectId === 'meteo-climatology' && (
-              <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-slate-700" /></div>
-                <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Cloud Atlas</p><p className="text-slate-500 text-xs">10 cloud genera</p></div>
-              </button>
-            )}
-          </div>
+          {(showFormulaVault || subjectId === 'meteo-climatology') && (
+            <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
+              {showFormulaVault && (
+                <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
+                </button>
+              )}
+              {subjectId === 'meteo-climatology' && (
+                <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-slate-700" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Cloud Atlas</p><p className="text-slate-500 text-xs">10 cloud genera</p></div>
+                </button>
+              )}
+            </div>
+          )}
 
           {roadmapTopicId && !roadmapTopic && subjectTopics.length === 0 && (
             <Card className="mb-4 sm:mb-6 p-4 border border-slate-200">
