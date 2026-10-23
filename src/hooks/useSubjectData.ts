@@ -151,8 +151,8 @@ export function useSubjectData(): SubjectDataLayer {
   const questionCountFor = useCallback((id: SubjectId | 'all'): number => {
     if (id !== 'all' && !trackSubjectIds.has(id)) return 0;
     if (id === 'all') return trackSections.reduce((sum, s) => sum + s.questionCount, 0);
-    return sectionsBySubject(id).reduce((sum, s) => sum + s.questionCount, 0);
-  }, [trackSections, trackSubjectIds]);
+    return sectionsFor(id).reduce((sum, s) => sum + s.questionCount, 0);
+  }, [trackSections, trackSubjectIds, sectionsFor]);
 
   const sectionsFor = useCallback((id: SubjectId | 'all'): Section[] => {
     if (id === 'all') return trackSections;
