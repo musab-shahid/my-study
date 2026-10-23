@@ -2720,7 +2720,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
     },
-    id: 'cgei-subject-3-geospatial',
+    {
+      id: 'cgei-subject-3-geospatial',
       subjectId: 'cgei-geospatial',
       title: 'Geospatial Science, GIS & Cartography',
       subtitle: 'Spatial reference, measurement and map reasoning before deep EO workflows',
