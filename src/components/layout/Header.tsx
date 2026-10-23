@@ -1,8 +1,6 @@
-import type { ScreenName } from '@/router';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
 export function Header({ title, subtitle }: { title?: string; subtitle?: string }) {
-
   return (
     <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80 supports-[backdrop-filter]:bg-white/85">
       <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[60px]">
@@ -24,7 +22,7 @@ export function Header({ title, subtitle }: { title?: string; subtitle?: string 
         </div>
       </div>
       {/* Mobile breadcrumbs row */}
-      <div className="px-4 sm:px-6 pb-2 sm:hidden" aria-label="Page breadcrumbs">
+      <div className="px-4 sm:px-6 pb-2 sm:hidden">
         <Breadcrumbs />
       </div>
     </header>
