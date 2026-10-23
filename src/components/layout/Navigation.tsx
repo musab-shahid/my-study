@@ -165,6 +165,8 @@ export function Sidebar() {
                       <div key={subjectId}>
                         <button
                           type="button"
+                          aria-expanded={expanded}
+                          aria-controls={`subject-nav-${subjectId}`}
                           onClick={() => {
                             setActiveSubjectForScreen('learn', subjectId);
                             setExpandedSubject((prev) => (prev === subjectId ? null : subjectId));
@@ -178,7 +180,7 @@ export function Sidebar() {
                           <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
                         </button>
                         {expanded && (
-                          <div className="ml-2 mb-1 space-y-0.5">
+                          <div id={`subject-nav-${subjectId}`} className="ml-2 mb-1 space-y-0.5">
                             {STAGE_SCREENS.filter((s) => s !== 'search').map((stage) => {
                               const StageIcon = stageIcons[stage];
                               const active = currentScreen === stage && getActiveSubject(stage) === subjectId;
@@ -190,6 +192,7 @@ export function Sidebar() {
                                     setActiveSubjectForScreen(stage, subjectId);
                                     navigate({ screen: stage, parent: null });
                                   }}
+                                  aria-current={active ? 'page' : undefined}
                                   className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs capitalize ${
                                     active ? styles.stageActive : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/60'
                                   }`}
@@ -346,7 +349,7 @@ export function MobileNav() {
   })();
   const moreActive =
     moreOpen ||
-    (['review', 'formulas', 'progress', 'search', 'settings', 'learn'] as string[]).includes(currentScreen);
+    (['review', 'formulas', 'progress', 'search', 'settings'] as string[]).includes(currentScreen);
 
   return (
     <>
@@ -358,9 +361,9 @@ export function MobileNav() {
           {navItems.map((item) => {
             const active = item.screen === 'track' ? tracksActive : currentScreen === item.screen;
             const Icon = item.icon;
-            const isHat = item.screen === 'hat';
-            const isFpsc = item.screen === 'fpsc';
-            const activeColor = isHat ? getTrackStyle('hat').accent : getTrackStyle('fpsc').accent;
+            const activeColor = activeEnrolled && isTrackId(activeEnrolled)
+              ? getTrackStyle(activeEnrolled).accent
+              : 'text-sky-500';
             return (
               <button
                 key={item.screen}
@@ -374,7 +377,7 @@ export function MobileNav() {
                 {active && (
                   <span
                     className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${
-                      isHat ? 'bg-indigo-600' : 'bg-sky-500'
+                      activeEnrolled === 'hat' ? 'bg-indigo-600' : 'bg-sky-500'
                     }`}
                     aria-hidden
                   />
@@ -386,7 +389,7 @@ export function MobileNav() {
           })}
           <button
             type="button"
-            onClick={() => setMoreOpen(true)}
+            onClick={() => setMoreOpen((open) => !open)}
             aria-expanded={moreOpen}
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
