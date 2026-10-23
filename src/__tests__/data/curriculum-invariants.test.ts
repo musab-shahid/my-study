@@ -29,4 +29,43 @@ describe('CGEI curriculum invariants', () => {
       assert.equal(blockIds.length, new Set(blockIds).size, `duplicate block in ${lesson.id}`);
     }
   });
+
+  it('keeps canonical subject, unit, and lesson navigation references resolvable', () => {
+    const unitsById = new Map(cgeiCurriculum.units.map((unit) => [unit.id, unit]));
+    const lessonsById = new Map(cgeiCurriculum.lessons.map((lesson) => [lesson.id, lesson]));
+    const activities = new Set(cgeiCurriculum.activities.map((item) => item.id));
+    const assessments = new Set(cgeiCurriculum.assessments.map((item) => item.id));
+    const resources = new Set(cgeiCurriculum.resources.map((item) => item.id));
+    const deliverables = new Set(cgeiCurriculum.deliverables.map((item) => item.id));
+    const projects = new Set(cgeiCurriculum.projects.map((item) => item.id));
+
+    for (const subject of cgeiCurriculum.subjects) {
+      for (const unitId of subject.unitIds) {
+        assert.ok(unitsById.has(unitId), `missing unit ${unitId} for ${subject.subjectId}`);
+      }
+      for (const projectId of subject.projectIds) {
+        assert.ok(projects.has(projectId), `missing project ${projectId} for ${subject.subjectId}`);
+      }
+      for (const resourceId of subject.resourceIds) {
+        assert.ok(resources.has(resourceId), `missing resource ${resourceId} for ${subject.subjectId}`);
+      }
+    }
+
+    for (const unit of cgeiCurriculum.units) {
+      for (const lessonId of unit.lessonIds) {
+        assert.ok(lessonsById.has(lessonId), `missing lesson ${lessonId} for unit ${unit.id}`);
+      }
+      for (const id of unit.activityIds) assert.ok(activities.has(id), `missing activity ${id} for unit ${unit.id}`);
+      for (const id of unit.assessmentIds) assert.ok(assessments.has(id), `missing assessment ${id} for unit ${unit.id}`);
+      for (const id of unit.resourceIds) assert.ok(resources.has(id), `missing resource ${id} for unit ${unit.id}`);
+      for (const id of unit.deliverableIds) assert.ok(deliverables.has(id), `missing deliverable ${id} for unit ${unit.id}`);
+    }
+
+    for (const lesson of cgeiCurriculum.lessons) {
+      for (const id of lesson.activityIds) assert.ok(activities.has(id), `missing activity ${id} for lesson ${lesson.id}`);
+      for (const id of lesson.assessmentIds) assert.ok(assessments.has(id), `missing assessment ${id} for lesson ${lesson.id}`);
+      for (const id of lesson.resourceIds) assert.ok(resources.has(id), `missing resource ${id} for lesson ${lesson.id}`);
+      for (const id of lesson.deliverableIds ?? []) assert.ok(deliverables.has(id), `missing deliverable ${id} for lesson ${lesson.id}`);
+    }
+  });
 });
