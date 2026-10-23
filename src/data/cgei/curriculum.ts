@@ -1478,12 +1478,12 @@ const lessons66: CurriculumLesson[] = [
 ];
 
 const mlUnits = [
-  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:1,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
-  {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:2,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:3,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:4,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:5,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:6,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
+  {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:62,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:63,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:64,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:65,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:66,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
 ];
 
 const lessons31: CurriculumLesson[] = [
@@ -3207,8 +3207,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${plannedUnitSourceSlugs[code]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
-,
-    ...mlUnits  ],
+    ...mlUnits,
+  ],
   lessons,
   questions: [
     ...legacyCurriculumQuestions,
