@@ -297,6 +297,16 @@ const plannedUnitSourceSlugs: Record<string, string> = {
   '5.12': 'xarray-pipelines',
 };
 
+
+const mlUnits = [
+  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:1,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
+  {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:2,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:3,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:4,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:5,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:6,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+];
+
 const plannedUnits = [
   ['5.7', 'Time-series analysis', 'Temporal indexing, trend, seasonality, autocorrelation, extremes and forecast evaluation.'],
   ['5.8', 'Multivariate analysis, PCA and EOF', 'Scaling, covariance, dimensionality reduction, spatial patterns and interpretation.'],
@@ -1413,6 +1423,67 @@ const outcomes31: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-31-models', statement: 'Choose vector or raster representation for an environmental question and state the support of each observation.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-31-attributes', statement: 'Separate geometry from attributes and diagnose key mismatches in joins between stations and administrative units.', action: 'diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
   { id: 'cgei-geo-o-31-topology', statement: 'Detect simple polygon integrity problems (duplicate IDs, bounding-box overlaps) and distinguish data defects from valid adjacency.', action: 'detect and classify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+
+const outcomes61: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-61-problem',statement:'State a learning problem with target, unit of analysis, horizon, decision use, and applicability limits.',action:'define',level:'L3',competencyIds:['cgei-comp-uncertainty','cgei-comp-reproducibility']},
+  {id:'cgei-ml-o-61-baseline',statement:'Compare any candidate model to climatology, persistence, and simple linear baselines under a leakage-safe split.',action:'compare',level:'L3',competencyIds:['cgei-comp-uncertainty']},
+];
+const lessons61: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-1-1',kind:'lesson',title:'Prediction target, unit, and horizon',order:1,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes61[0]],content:[
+ {id:'cgei-ml-61-1-1',kind:'prose',title:'What is being predicted, for whom, and when',body:'A learning problem states the prediction target (quantity or class), the unit of analysis (pixel, parcel, station, event), and the horizon (nowcast, short lead, seasonal). Without these, metrics and baselines are not comparable. Environmental labels often mix spatial support and time aggregation—document both.'},
+ {id:'cgei-ml-61-1-2',kind:'prose',title:'Decision context',body:'State the decision the prediction is meant to support (alert threshold, resource allocation, screening). A model that is accurate but unavailable at decision time, or that optimises the wrong loss, is not fit for purpose.'},
+ {id:'cgei-ml-61-1-3',kind:'checklist',title:'Problem statement checklist',items:['Target and units stated','Unit of analysis and spatial support stated','Horizon and lead time stated','Decision use stated','Interpolation vs extrapolation risk named']}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-1-2',kind:'lesson',title:'Problem families and data limits',order:2,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes61[0]],content:[
+ {id:'cgei-ml-61-2-1',kind:'prose',title:'Interpolation, extrapolation, retrieval, emulation',body:'Interpolation predicts within the support of training examples; extrapolation steps outside it. Retrieval is an inverse problem (state from observations). Emulation approximates an expensive physical model. Downscaling, gap filling, and nowcasting each imply different leakage and evaluation risks—name the family explicitly.'},
+ {id:'cgei-ml-61-2-2',kind:'prose',title:'Leakage, label scarcity, applicability',body:'Feature leakage occurs when predictors encode future or target information not available at prediction time. Labels may be scarce or biased toward cities and accessible sites. Area of applicability restricts predictions to regions similar to training coverage; dissimilarity indices help, but do not create new physics.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-1-3',kind:'lesson',title:'Task types and baselines first',order:3,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes61[1]],content:[
+ {id:'cgei-ml-61-3-1',kind:'prose',title:'Match task type to the estimand',body:'Regression predicts continuous quantities; classification predicts categories; clustering finds structure without labels; anomaly detection flags unusual cases; probabilistic prediction reports distributions or quantiles. Choosing the wrong task type silently changes the scientific question.'},
+ {id:'cgei-ml-61-3-2',kind:'prose',title:'Baselines before complexity',body:'Always report climatology and persistence where temporal structure exists, plus a transparent linear or logistic model and simple threshold rules when relevant. A complex model must beat these baselines under the same chronological or spatial split. Winning on a shuffled random split is not evidence of operational skill.'},
+ {id:'cgei-ml-61-3-3',kind:'worked-example',title:'Synthetic baseline comparison (conceptual)',body:'Hold out the last 20% of a time-ordered series. Persistence MAE and climatology MAE set the bar. A gradient-boosted model that loses to persistence under that split is not deployable—regardless of cross-validated R² on random folds.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+];
+const outcomes62: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-62-features',statement:'Document features with definition, units, and availability at prediction time; fit scalers only on training data.',action:'document and fit',level:'L3',competencyIds:['cgei-comp-reproducibility']},
+];
+const lessons62: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-2-1',kind:'lesson',title:'Feature construction without leakage',order:1,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes62[0]],content:[
+ {id:'cgei-ml-62-1-1',kind:'prose',title:'Environmental feature families',body:'Spectral indices, texture, temporal percentiles, harmonic terms, topography, and distance-to features are common. Neighbourhood and multi-scale focal statistics can leak if computed using future labels or the full dataset before splitting. Lagged and rolling features must respect time order.'},
+ {id:'cgei-ml-62-1-2',kind:'prose',title:'Fit transforms after the split',body:'Scalers, encoders, and feature selectors are fit on training data only. Applying a global scaler fit on all rows before splitting is a classic leakage path. Document definition, source, scale, units, and whether each feature is available at prediction time.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-2-2',kind:'lesson',title:'Samples, targets, and imbalance',order:2,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes62[0]],content:[
+ {id:'cgei-ml-62-2-1',kind:'prose',title:'Targets and spatial dependence',body:'Target construction can embed leakage (e.g. using future observations). Spatial autocorrelation reduces effective sample size; random point splits overstate accuracy. Class imbalance needs care: resampling changes prevalence and can mislead metrics if evaluation is not stratified by the operational prior.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+];
+const outcomes63: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-63-models',statement:'Select linear, tree, or clustering methods with stated assumptions and a baseline comparison.',action:'select and justify',level:'L3',competencyIds:['cgei-comp-uncertainty']},
+];
+const lessons63: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-3-1',kind:'lesson',title:'Linear models and tree ensembles',order:1,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes63[0]],content:[
+ {id:'cgei-ml-63-1-1',kind:'prose',title:'Start simple, then ensembles',body:'Linear and regularised regression remain strong baselines for continuous environmental targets. Logistic regression is the classification baseline. Tree ensembles capture interactions but still require leakage-safe evaluation and can be poorly calibrated. Dimension reduction is exploratory, not automatic feature truth.'},
+ {id:'cgei-ml-63-1-2',kind:'prose',title:'Assumptions and limits',body:'State linearity, independence, and support assumptions. Tree models do not remove confounding or spatial dependence. Report variable importance as association under the training design, not causation.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+];
+const outcomes64: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-64-validate',statement:'Design spatial and temporal validation that blocks leakage and reports honest skill.',action:'design and evaluate',level:'L3',competencyIds:['cgei-comp-uncertainty','cgei-comp-reproducibility']},
+];
+const lessons64: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-4-1',kind:'lesson',title:'Leakage-safe spatial and temporal validation',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes64[0]],content:[
+ {id:'cgei-ml-64-1-1',kind:'prose',title:'Why random splits fail geospatial ML',body:'Nearby pixels and consecutive times are dependent. Random row splits leak spatial or temporal structure into the test set and inflate skill. Prefer blocked spatial CV, hold-out regions, and chronological or rolling-origin splits matched to the decision horizon.'},
+ {id:'cgei-ml-64-1-2',kind:'prose',title:'Metrics and operational prevalence',body:'Choose metrics that match the decision (e.g. precision at a recall target for rare events). Accuracy alone is misleading under imbalance. Calibration matters for probabilistic alerts.'},
+ {id:'cgei-ml-64-1-3',kind:'worked-example',title:'Blocked hold-out beats random shuffle (principle)',body:'Train on years 1–8, test on years 9–10; or train on region A, test on region B. If skill collapses relative to a random 80/20 split, the random split was optimistic—not the blocked protocol overly harsh.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+];
+const outcomes65: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-65-interpret',statement:'Explain model behaviour with limitations and stress tests; avoid overclaiming.',action:'explain and stress-test',level:'L3',competencyIds:['cgei-comp-uncertainty']},
+];
+const lessons65: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-5-1',kind:'lesson',title:'Interpretation, robustness, and misuse zones',order:1,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes65[0]],content:[
+ {id:'cgei-ml-65-1-1',kind:'prose',title:'Explanation is not causation',body:'Feature attributions and partial dependence describe the fitted model under the training distribution. They do not identify causal effects. Stress-test with shifted years, sensors, and regions; document where predictions must not be used.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+];
+const outcomes66: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-66-pitfalls',statement:'Recognise common environmental ML validation failures and required documentation.',action:'recognise and document',level:'L3',competencyIds:['cgei-comp-uncertainty']},
+];
+const lessons66: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-6-1',kind:'lesson',title:'Common pitfalls in environmental ML',order:1,readiness:'draft',level:'L3',estimatedMinutes:30,objectives:[outcomes66[0]],content:[
+ {id:'cgei-ml-66-1-1',kind:'prose',title:'Literature failure modes',body:'Typical failures: spatial leakage, unreported baselines, test-set tuning, ignoring label bias, and treating cluster labels as validated classes. Urban heat clustering studies are a recurring example where correlation maps are over-read as causal cooling strategies.'},
+ {id:'cgei-ml-66-1-2',kind:'checklist',title:'Minimum honest ML report',items:['Problem statement and horizon','Leakage-safe split described','Baselines reported','Metrics matched to decision','Applicability limits stated']}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
 ];
 
 const lessons31: CurriculumLesson[] = [
@@ -2573,7 +2644,7 @@ const lessons410: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2630,7 +2701,27 @@ export const cgeiCurriculum: CurriculumRegistry = {
       resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'],
     },
     {
-      id: 'cgei-subject-3-geospatial',
+      {
+      id: 'cgei-subject-6-ml-geoai',
+      subjectId: 'cgei-ml-geoai',
+      title: 'Machine Learning & GeoAI',
+      subtitle: 'Leakage-safe environmental ML before deep learning and frontier GeoAI',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Climate, EO, and environmental analysts who will train and evaluate predictive models.',
+      purpose: 'Establish problem formulation, leakage-safe features and validation, and honest baselines before complex or deep models.',
+      overview: 'Subject 6 Core path (Units 6.1–6.6) covers learning problem formulation, feature engineering, core algorithms, spatial/temporal validation, interpretation limits, and common environmental ML failures. Units 6.7–6.9 remain deferred until leakage-safe evaluation is in place. Draft: not release-complete.',
+      prerequisites: ['Subject 5 introductory statistics and scientific Python', 'Subject 3 spatial foundations'],
+      outcomes: [
+        { id: 'cgei-ml-o-leakage-safe', statement: 'Design and evaluate environmental models under spatial and temporal splits that prevent leakage.', action: 'design and evaluate', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+        { id: 'cgei-ml-o-baselines', statement: 'Beat transparent baselines before claiming value from complex models.', action: 'compare', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+      ],
+      competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'],
+      unitIds: ['cgei-ml-unit-6-1','cgei-ml-unit-6-2','cgei-ml-unit-6-3','cgei-ml-unit-6-4','cgei-ml-unit-6-5','cgei-ml-unit-6-6'],
+      projectIds: [],
+      resourceIds: [],
+    },
+    id: 'cgei-subject-3-geospatial',
       subjectId: 'cgei-geospatial',
       title: 'Geospatial Science, GIS & Cartography',
       subtitle: 'Spatial reference, measurement and map reasoning before deep EO workflows',
@@ -3116,7 +3207,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: `content-drafts/chapter-05-scientific-computing/units/05.${code.slice(2)}-${plannedUnitSourceSlugs[code]}.md`,
       notes: ['Manuscript-first; not yet integrated into the app.', 'Do not infer lesson or assessment completion from this unit record.'],
     })),
-  ],
+,
+    ...mlUnits  ],
   lessons,
   questions: [
     ...legacyCurriculumQuestions,
@@ -3317,6 +3409,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-q-58-016', lessonId: 'cgei-ds-lesson-5-8-3', type: 'single-choice', prompt: 'North\'s rule of thumb is mainly used to:', options: ['Prove an EOF is a physical mechanism', 'Assess whether neighbouring eigenvalues are close enough that EOFs may be mixed by sampling error', 'Replace area weighting', 'Guarantee cluster validity'], correctAnswer: 1, explanation: 'Near-degenerate eigenvalues imply unstable, mixed patterns.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ds-q-58-017', lessonId: 'cgei-ds-lesson-5-8-3', type: 'single-choice', prompt: 'MCA primarily maximises:', options: ['Correlation of projected indices only', 'Covariance between two fields\' coupled patterns', 'Silhouette score of weather regimes', 'Causal effect of SST on rain'], correctAnswer: 1, explanation: 'MCA targets cross-covariance patterns; CCA targets correlation.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ds-q-58-018', lessonId: 'cgei-ds-lesson-5-8-5', type: 'single-choice', prompt: 'A leading EOF should be reported as:', options: ['Proof of a named physical oscillation by default', 'A statistical mode whose physical interpretation needs independent evidence', 'Unaffected by detrending choices', 'Field-significant at every grid cell automatically'], correctAnswer: 1, explanation: 'Modes are statistical until mechanism is supported separately.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-61-001', lessonId: 'cgei-ml-lesson-6-1-1', type: 'single-choice', prompt: 'A complete learning problem statement must include at least:', options: ['Only the model architecture', 'Target, unit of analysis, horizon, and decision context', 'Hyperparameters only', 'A deep learning library name'], correctAnswer: 1, explanation: 'Architecture comes after the problem is defined.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-61-002', lessonId: 'cgei-ml-lesson-6-1-3', type: 'single-choice', prompt: 'Before deploying a complex environmental model you should:', options: ['Skip baselines if R² is high on a random split', 'Show it beats climatology/persistence/simple linear baselines under a leakage-safe split', 'Tune on the final test year', 'Ignore label sampling bias'], correctAnswer: 1, explanation: 'Complex models must beat transparent baselines under honest splits.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-64-001', lessonId: 'cgei-ml-lesson-6-4-1', type: 'single-choice', prompt: 'Random row splits for gridded climate data often:', options: ['Fully block spatial leakage', 'Inflate skill by leaking spatial/temporal dependence into the test set', 'Replace the need for baselines', 'Guarantee area of applicability'], correctAnswer: 1, explanation: 'Dependent neighbours in train and test inflate accuracy.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-62-001', lessonId: 'cgei-ml-lesson-6-2-1', type: 'single-choice', prompt: 'Scalers and encoders should be fit:', options: ['On the full dataset before splitting', 'On training data only, after the split', 'On the test set to maximise accuracy', 'Only inside deep networks'], correctAnswer: 1, explanation: 'Fitting on all rows leaks test information.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
+
 
     { id: 'cgei-ds-q-56-001', lessonId: 'cgei-ds-lesson-5-6-1', type: 'single-choice', prompt: 'In LST ~ NDVI * C(season) + built_frac, what does the NDVI coefficient represent when season uses a reference category?', options: ['The NDVI slope in the reference season, conditional on included terms', 'The causal cooling effect in every season', 'The average difference between seasons regardless of NDVI', 'The residual variance'], correctAnswer: 0, explanation: 'With an interaction, the main NDVI coefficient is the slope in the reference season; the interaction term modifies that slope for other seasons. This remains a conditional association unless a causal design supports more.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-56-002', lessonId: 'cgei-ds-lesson-5-6-1', type: 'single-choice', prompt: 'A fitted NDVI coefficient is −2.0 °C per NDVI unit. What modelled difference corresponds to an NDVI increase of 0.10 in the reference season?', options: ['−2.0 °C', '−0.20 °C', '−0.02 °C', '+0.20 °C'], correctAnswer: 1, explanation: 'Multiply the coefficient by the change: −2.0 × 0.10 = −0.20 °C. The coefficient is per full NDVI unit.', difficulty: 'easy', cognitiveLevel: 'apply' },
