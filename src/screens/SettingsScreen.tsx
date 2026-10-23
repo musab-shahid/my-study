@@ -332,8 +332,12 @@ export function SettingsScreen() {
           </div>
           <Button variant="secondary" onClick={() => {
             try {
-              downloadBackupFile();
-              setBackupMsg('Backup export requested. Check your downloads.');
+              const started = downloadBackupFile(data);
+              setBackupMsg(
+                started
+                  ? 'Backup download started. Check your downloads.'
+                  : 'Backup could not be created. Please try again.',
+              );
             } catch (e) {
               console.error('[settings] export failed', e);
               setBackupMsg('Backup could not be created. Please try again.');
