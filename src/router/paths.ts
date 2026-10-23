@@ -3,7 +3,8 @@
  * Live quiz parameters stay out of the URL (storage-backed resume).
  */
 import { getTopic } from '../data/topics';
-import { isTrackId } from '../data/tracks';
+import { getTrackDefinition, isTrackId } from '../data/tracks';
+import { subjectMap } from '../data/subjects';
 import { sectionMap } from '../data/sections';
 import { cgeiCurriculum } from '../data/cgei/curriculum';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
@@ -11,7 +12,7 @@ import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 /** Local mirror of router.Route to avoid circular imports with index.tsx */
 export type PathRoute =
   | { screen: 'home' }
-  | { screen: 'learn' }
+  | { screen: 'learn'; subjectId?: string }
   | { screen: 'section'; sectionId: string }
   | { screen: 'topic'; topicId: string }
   | { screen: 'formulas' }
@@ -45,7 +46,7 @@ export function routeToPath(route: PathRoute): string {
     case 'home':
       return '/';
     case 'learn':
-      return '/learn';
+      return route.subjectId ? `/learn/${encodeURIComponent(route.subjectId)}` : '/learn';
     case 'section':
       return `/section/${encodeURIComponent(route.sectionId)}`;
     case 'topic':
@@ -94,8 +95,11 @@ export function pathToRoute(pathname: string): PathRoute {
 
   const [head, a, b] = parts;
   switch (head) {
-    case 'learn':
-      return { screen: 'learn' };
+    case 'learn': {
+      if (!a) return { screen: 'learn' };
+      const subjectId = decodeURIComponent(a);
+      return subjectMap[subjectId] ? { screen: 'learn', subjectId } : { screen: 'learn' };
+    }
     case 'section': {
       if (!a) return { screen: 'learn' };
       const id = decodeURIComponent(a);
@@ -160,37 +164,57 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
       return [home];
     case 'curriculum-unit': {
       const unit = cgeiCurriculum.units.find((item) => item.id === route.unitId);
-      return [home, { label: 'Learn', route: { screen: 'learn' } }, { label: unit?.title ?? 'Curriculum Unit', route }];
+      const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
+      const crumbs: { label: string; route: PathRoute }[] = [home];
+      if (subject) {
+        crumbs.push({ label: getTrackDefinition('cgei').shortTitle, route: { screen: 'track', trackId: 'cgei' } });
+        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.subjectId } });
+      } else {
+        crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
+      }
+      crumbs.push({ label: unit?.title ?? 'Curriculum Unit', route });
+      return crumbs;
     }
     case 'curriculum-lesson': {
       const lesson = cgeiCurriculum.lessons.find((item) => item.id === route.lessonId);
       const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
-      const crumbs: { label: string; route: PathRoute }[] = [home, { label: 'Learn', route: { screen: 'learn' } }];
+      const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
+      const crumbs: { label: string; route: PathRoute }[] = [home];
+      if (subject) {
+        crumbs.push({ label: getTrackDefinition('cgei').shortTitle, route: { screen: 'track', trackId: 'cgei' } });
+        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.subjectId } });
+      } else {
+        crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
+      }
       if (unit) crumbs.push({ label: unit.title, route: { screen: 'curriculum-unit', unitId: unit.id } });
       crumbs.push({ label: lesson?.title ?? 'Curriculum Lesson', route });
       return crumbs;
     }
     case 'section': {
       const sec = sectionMap[route.sectionId];
-      return [
-        home,
-        { label: 'Learn', route: { screen: 'learn' } },
-        { label: sec?.title ?? 'Section', route },
-      ];
+      const subject = sec ? subjectMap[sec.subjectId] : undefined;
+      const crumbs: { label: string; route: PathRoute }[] = [home];
+      if (subject && isTrackId(subject.track)) {
+        crumbs.push({ label: getTrackDefinition(subject.track).shortTitle, route: { screen: 'track', trackId: subject.track } });
+        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.id } });
+      } else {
+        crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
+      }
+      crumbs.push({ label: sec?.title ?? 'Section', route });
+      return crumbs;
     }
     case 'topic': {
       const topic = getTopic(route.topicId);
       const sec = topic ? sectionMap[topic.sectionId] : undefined;
-      const crumbs: { label: string; route: PathRoute }[] = [
-        home,
-        { label: 'Learn', route: { screen: 'learn' } },
-      ];
-      if (sec) {
-        crumbs.push({
-          label: sec.title,
-          route: { screen: 'section', sectionId: sec.id },
-        });
+      const subject = sec ? subjectMap[sec.subjectId] : undefined;
+      const crumbs: { label: string; route: PathRoute }[] = [home];
+      if (subject && isTrackId(subject.track)) {
+        crumbs.push({ label: getTrackDefinition(subject.track).shortTitle, route: { screen: 'track', trackId: subject.track } });
+        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.id } });
+      } else {
+        crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
       }
+      if (sec) crumbs.push({ label: sec.title, route: { screen: 'section', sectionId: sec.id } });
       crumbs.push({ label: topic?.title ?? 'Topic', route });
       return crumbs;
     }
