@@ -74,7 +74,6 @@ export function ProgressScreen() {
 
   // Achievements
   const totalQuestionsAll = allStats.reduce((s, st) => s + st.questionsAnswered, 0);
-  const subjectTopicIds = isAllSubjects ? null : new Set(sd.topicsFor(activeSubject as SubjectId).map((t) => t.id));
   const masteredTopics = countMasteredTopics(data, allTopicIds);
   const perfectQuizzes = data.quizHistory.filter((q) =>
     q.total >= 5 && q.score === q.total &&
