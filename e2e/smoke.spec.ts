@@ -59,8 +59,8 @@ test.describe('Mobile More menu consistency', () => {
 
     await trigger.click();
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('button', { name: 'Review', exact: true })).toHaveAttribute('aria-current', 'page');
-    await expect(dialog.getByRole('button', { name: 'Review', exact: true })).toHaveClass(/bg-brand-50/);
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveClass(/bg-brand-50/);
   });
 
   test('marks Mock Exam rather than the general Practice stage as current', async ({ page }) => {
@@ -75,7 +75,7 @@ test.describe('Mobile More menu consistency', () => {
 
     await trigger.click();
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('button', { name: 'Mock Exam', exact: true })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: /Mock Exam/ })).toHaveAttribute('aria-current', 'page');
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).not.toHaveAttribute('aria-current', 'page');
   });
 });
