@@ -2,7 +2,7 @@
  * Path ↔ route mapping for shareable / refreshable URLs (Phase A).
  * Live quiz parameters stay out of the URL (storage-backed resume).
  */
-import { getTopic } from '../data/topics';
+import { getTopic, topicsBySection } from '../data/topics';
 import { getTrackDefinition, isTrackId } from '../data/tracks';
 import { subjectMap } from '../data/subjects';
 import { sectionMap } from '../data/sections';
@@ -104,7 +104,14 @@ export function pathToRoute(pathname: string): PathRoute {
     case 'section': {
       if (!a) return { screen: 'learn' };
       const id = decodeURIComponent(a);
-      if (sectionMap[id]) return { screen: 'section', sectionId: id };
+      const section = sectionMap[id];
+      if (section) {
+        const sectionTopics = topicsBySection(id);
+        if (sectionTopics.length > 0 && sectionTopics.every((topic) => isCgeiOverviewTopic(topic.id))) {
+          return { screen: 'learn', subjectId: section.subjectId };
+        }
+        return { screen: 'section', sectionId: id };
+      }
       return { screen: 'learn' };
     }
     case 'topic': {
