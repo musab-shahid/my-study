@@ -86,12 +86,14 @@ export function StudyScreen() {
   const subjectSections = isAllSubjects
     ? []
     : sd.sectionsFor(subjectId).filter((section) => subjectTopics.some((topic) => topic.sectionId === section.id));
-  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId);
+  // Canonical curriculum registration is an independent source of learning
+  // content; do not gate a registered subject behind legacy topic records.
+  const curriculumSubject = isAllSubjects
+    ? undefined
+    : cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId);
+  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId) || Boolean(curriculumSubject);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
   const showFormulaVault = Boolean(subjectMap[subjectId] && getTrackDefinition(subjectMap[subjectId].track).capabilities.formulas);
-  const curriculumSubject = subjectId === 'cgei-data-science'
-    ? cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId)
-    : undefined;
   const curriculumUnits = curriculumSubject
     ? curriculumSubject.unitIds
         .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
