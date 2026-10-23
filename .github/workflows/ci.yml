@@ -151,6 +151,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_ai_split_baseline_check.py
       - name: Verify Unit 13 capstone heat-risk checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_capstone_heat_risk_check.py
+      - name: Verify Unit 13 public-data pathway checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_public_data_pathway_check.py
       - name: Verify Unit 4.3 spectral indices and LST checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
       - name: Verify Unit 4.4 preprocessing and harmonisation checks

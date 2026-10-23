@@ -148,3 +148,6 @@ Disjoint splits, spatial adjacency leakage, linear baseline vs overfit lookup, m
 
 ## unit_13_capstone_heat_risk_check.py
 Synthetic neighbourhood heat screening E2E: protocol, baseline, H/E/V ranks, decision card, provenance. Not Multan validation.
+
+## unit_13_public_data_pathway_check.py
+Offline public-data pathway: MOD11A2 manifest validation, teaching extract QA, LST anomaly, synthetic E/V merge, rank sensitivity, claim rejection.

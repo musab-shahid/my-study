@@ -10,3 +10,7 @@
 | 13.3–13.5, 13.7 | Core/Optional/Support | Deferred (portfolio/career) |
 
 Fixture: `unit_13_capstone_heat_risk_check.py` — synthetic neighbourhoods only.
+
+## V2 public-data pathway
+
+Added offline MOD11A2-documented pathway (`unit_13_public_data_pathway_check.py`). Synthetic fixture retained. Still draft; portfolio units deferred.
