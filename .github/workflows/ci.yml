@@ -133,3 +133,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_suhi_analysis_check.py
       - name: Verify Unit 4.6 pipeline and platform checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_6_pipeline_platform_check.py
+      - name: Verify Unit 4.7 classification and change checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_7_classification_change_check.py

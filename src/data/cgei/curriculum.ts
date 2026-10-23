@@ -1959,6 +1959,14 @@ const outcomes46: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-46-hybrid', statement: 'Build a parameterised local pipeline with fixture inputs, validate a manifest, and reconcile a metric against an independent calculation without live API calls.', action: 'build and reconcile', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
 ];
 
+const outcomes47: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-47-labels', statement: 'Design stratified samples and independent validation labels with explicit class taxonomy, imbalance awareness, and no train–test leakage.', action: 'design and separate', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-47-metrics', statement: 'Compute confusion-matrix metrics (OA, user/producer accuracy, F1), state limits of overall accuracy and kappa, and describe area-adjusted accuracy concepts.', action: 'compute and critique', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-47-cluster-change', statement: 'Treat clusters as unlabelled groupings until validated, and compare maps for change only under compatible temporal and processing support with explicit uncertainty.', action: 'interpret and compare', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-47-scenario', statement: 'Distinguish land-use projections as conditional scenarios from forecasts, and outline an upgrade path from exploratory clustering to a validated classification with area-adjusted reporting.', action: 'distinguish and outline', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+
 
 
 
@@ -2236,7 +2244,67 @@ const lessons46: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons47: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-7-1', kind: 'lesson', title: 'Labels, features and supervised algorithms', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes47[0]],
+    content: [
+      { id: 'cgei-rs-47-1-sample', kind: 'prose', title: 'Sampling and class taxonomy', body: 'Training design must address class imbalance and rare classes. Define a legend, minimum mapping unit, and mixed-class rules before collecting labels. Label sources (VHR interpretation, field, existing maps) carry uncertainty—record provenance. Use stratified random sampling with per-class minimum sizes for training and, separately, for independent reference validation.' },
+      { id: 'cgei-rs-47-1-indep', kind: 'prose', title: 'Independent validation', body: 'Validation samples must not overlap training units spatially or share the same biased label generation process. Spatial blocks or geographic holdouts reduce leakage from autocorrelation. Random pixel splits often leak when neighbours share labels and predictors.' },
+      { id: 'cgei-rs-47-1-feat', kind: 'prose', title: 'Features and algorithms', body: 'Features may include spectral bands, indices, GLCM texture, temporal percentiles or harmonic terms, topography, and SAR backscatter—each with units and processing level (Unit 4.4). Random Forest is a common baseline; alternatives exist. Object-based (superpixel/segment) approaches trade segment purity against mixed-pixel honesty; pixel-based methods remain standard for many moderate-resolution maps.' },
+      { id: 'cgei-rs-47-1-points', kind: 'key-points', title: 'Before the algorithm', items: ['Legend and MMU first', 'Stratify and size samples per class', 'Hold out independent reference samples', 'Prevent spatial/temporal leakage in splits', 'Feature processing level is part of the model'] },
+    ],
+    activityIds: ['cgei-rs-a-47-labels'], assessmentIds: ['cgei-rs-assess-47-labels'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-7-2', kind: 'lesson', title: 'Accuracy assessment beyond overall accuracy', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes47[1]],
+    content: [
+      { id: 'cgei-rs-47-2-cm', kind: 'prose', title: 'Confusion matrix metrics', body: 'From a confusion matrix, overall accuracy (OA) is the trace sum over total. User’s accuracy (precision) for class j is correct predictions of j over all predicted j. Producer’s accuracy (recall) is correct reference j over all reference j. F1 is the harmonic mean of precision and recall for a class. High OA can hide failure on rare classes.' },
+      { id: 'cgei-rs-47-2-eq', kind: 'equation', title: 'User and producer accuracy', expression: 'UA_j = \\frac{n_{jj}}{\\sum_i n_{ij}},\\quad PA_j = \\frac{n_{jj}}{\\sum_k n_{jk}}', caption: 'n_ij = count with reference i and predicted j (row/column convention must be stated). OA = Σ_j n_jj / N.' },
+      { id: 'cgei-rs-47-2-area', kind: 'prose', title: 'Area-adjusted accuracy and kappa limits', body: 'Pixel-count metrics ignore mapped area proportions. Area-adjusted accuracy (e.g. Olofsson et al. frameworks) incorporates map area strata for unbiased class-area estimation with confidence intervals under a sampling design. Kappa is widely criticised; prefer quantity and allocation disagreement (Pontius & Millones) and area-adjusted estimates over kappa as a headline metric.' },
+      { id: 'cgei-rs-47-2-post', kind: 'prose', title: 'Post-classification filtering and benchmarks', body: 'Majority filters smooth maps but can erase linear features and change rare-class area. Benchmarks against Dynamic World, ESA WorldCover, or similar require legend crosswalks and same-date comparison—differences are expected and must be explained, not “resolved” by silent relabelling.' },
+      { id: 'cgei-rs-47-2-work', kind: 'worked-example', title: 'OA vs rare-class failure', body: 'Two classes, N=100: matrix [[90,5],[2,3]] (rows=reference water/urban). OA=0.93 but urban PA=3/5=0.60 and UA=3/8=0.375. A flood model using the urban class is not “93% good.”' },
+    ],
+    activityIds: ['cgei-rs-a-47-metrics'], assessmentIds: ['cgei-rs-assess-47-metrics'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-7-3', kind: 'lesson', title: 'Sub-pixel unmixing and unsupervised clustering', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes47[2]],
+    content: [
+      { id: 'cgei-rs-47-3-lsma', kind: 'prose', title: 'Linear spectral mixture and V-I-S', body: 'Linear spectral mixture analysis models a pixel spectrum as a weighted sum of endmembers (e.g. vegetation–impervious–soil fractions) under stated constraints. Endmember selection drives results. Fractional cover often represents mixed urban pixels better than a single hard class when decisions need continuous imperviousness or canopy fraction.' },
+      { id: 'cgei-rs-47-3-hard', kind: 'prose', title: 'Hard class vs fraction', body: 'Choose hard classification when the decision needs discrete polygons and a legend. Choose fractions when the target is continuous cover or highly mixed pixels. Document the choice against the decision, not against algorithm fashion.' },
+      { id: 'cgei-rs-47-3-kmeans', kind: 'prose', title: 'K-means optimises partitions, not legends', body: 'K-means minimises within-cluster sum of squares in the chosen feature space. Choice of k, scaling, and features dominates outcomes. Stability across seeds and seasons should be checked. Cluster IDs are not land-cover names until labelled against reference imagery and validated. Never treat cluster maps as ground truth for later supervised training.' },
+      { id: 'cgei-rs-47-3-callout', kind: 'callout', title: 'Clustering discipline', tone: 'warning', items: ['Scale features before distance-based clustering', 'k is a modelling choice, not a truth', 'Name clusters only after reference inspection', 'Do not feed cluster labels as supervised truth'] },
+    ],
+    activityIds: ['cgei-rs-a-47-cluster'], assessmentIds: ['cgei-rs-assess-47-cluster'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-7-4', kind: 'lesson', title: 'Change detection and temporal comparability', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes47[2]],
+    content: [
+      { id: 'cgei-rs-47-4-pcc', kind: 'prose', title: 'Post-classification comparison', body: 'Change matrices tabulate class transitions between two dates. Errors in either map multiply into false change. Require compatible sensors, processing levels, georegistration, masks, legends, and seasonal phase (Units 4.4–4.5). Binary changed/unchanged labels hide direction and magnitude.' },
+      { id: 'cgei-rs-47-4-ts', kind: 'prose', title: 'Trajectories and time-series methods', body: 'Temporal composites and trajectory views summarise multi-date signals. LandTrendr, CCDC, and BFAST-style methods segment time series and detect breakpoints under parameter choices—report sensitivity. Unequal observation density and clear-sky bias affect apparent change timing.' },
+      { id: 'cgei-rs-47-4-urban', kind: 'prose', title: 'Urban expansion metrics', body: 'Built-up growth rate, compactness, and landscape metrics summarise pattern change. They inherit classification and change errors. Interpret within the map’s MMU, legend, and validation limits—not as census population growth.' },
+      { id: 'cgei-rs-47-4-unc', kind: 'prose', title: 'Uncertainty in change maps', body: 'False change arises from registration error, phenology, cloud gaps, and class confusion. Propagate or bound uncertainty rather than treating the change layer as truth. Matched processing and independent change reference samples are required for strong claims.' },
+      { id: 'cgei-rs-47-4-points', kind: 'key-points', title: 'Change checklist', items: ['Same legend and processing level', 'Document temporal support and masks', 'Change matrix ≠ error-free transitions', 'Breakpoint methods need parameter sensitivity', 'Metrics inherit map error'] },
+    ],
+    activityIds: ['cgei-rs-a-47-change'], assessmentIds: ['cgei-rs-assess-47-change'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-7-5', kind: 'lesson', title: 'Scenarios and upgrade path to a validated map', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes47[3]],
+    content: [
+      { id: 'cgei-rs-47-5-proj', kind: 'prose', title: 'Projection is not forecast', body: 'CA-Markov, ANN-CA, PLUS-type and related models generate land-use transitions under stated drivers and rules. Calibration and validation should report quantity/allocation disagreement and figure-of-merit where used. A projection is a **conditional scenario**—not a prediction of what will occur regardless of policy and climate.' },
+      { id: 'cgei-rs-47-5-upgrade', kind: 'prose', title: 'From K-means to validated classification', body: 'Upgrade path: (1) exploratory clustering only; (2) define legend and MMU; (3) stratified reference samples from VHR/field; (4) train a baseline classifier with spatially separated train/test; (5) crosswalk and compare with Dynamic World / ESA WorldCover for the same date; (6) report error matrix, user/producer accuracy, and area-adjusted class areas with confidence intervals under the sampling design.' },
+      { id: 'cgei-rs-47-5-check', kind: 'checklist', title: 'Validated map checklist', items: ['Legend + MMU documented', 'Independent stratified reference sample', 'Spatially separated train/test', 'Confusion matrix + UA/PA (+ area-adjusted areas)', 'Benchmark legend crosswalk explained', 'Change or scenario claims inherit map uncertainty'] },
+    ],
+    activityIds: ['cgei-rs-a-47-upgrade'], assessmentIds: ['cgei-rs-assess-47-upgrade'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2355,11 +2423,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.6 cover radiometry through SUHI methods and processing platforms/pipelines. Draft slice.',
+      overview: 'Units 4.1–4.7 cover radiometry through classification, clustering, and change. Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2715,6 +2783,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.6 — Processing platforms and pipelines (Core)',
       notes: ['No live GEE authentication in CI; fixtures are offline.', 'Quota tier figures follow TOC planning cues—verify current EE terms for operations.'],
     },
+    {
+      id: 'cgei-rs-unit-4-7', code: '4.7', title: 'Classification, clustering, and change', order: 407, kind: 'unit', readiness: 'draft',
+      summary: 'Design labels and spatial validation, evaluate beyond overall accuracy, interpret clusters without semantic overclaim, detect change only under comparable processing, and treat land-use projections as conditional scenarios.',
+      estimatedHours: 12, prerequisites: ['Unit 4.4', 'Unit 4.5', 'Unit 4.6'], outcomes: outcomes47,
+      lessonIds: lessons47.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-47-labels', 'cgei-rs-a-47-metrics', 'cgei-rs-a-47-cluster', 'cgei-rs-a-47-change', 'cgei-rs-a-47-upgrade'],
+      assessmentIds: ['cgei-rs-assess-47-labels', 'cgei-rs-assess-47-metrics', 'cgei-rs-assess-47-cluster', 'cgei-rs-assess-47-change', 'cgei-rs-assess-47-upgrade'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.7 — Classification, clustering, and change (Core)',
+      notes: ['Synthetic metrics fixture only—not a real land-cover product validation.', 'Kappa is de-emphasised per Pontius/Millones and area-adjusted reporting practice.'],
+    },
 
 
 
@@ -3020,6 +3099,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-46-008', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'Fixture datasets in CI pipelines are valuable because:', options: ['They replace all scientific validation forever', 'They test logic without live API credentials or unstable network calls', 'They require production credentials in git', 'They disable parameter files'], correctAnswer: 1, explanation: 'Offline fixtures support reproducible tests.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-46-009', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'Reconciling a zonal mean between GEE and local Python on a test geometry primarily checks:', options: ['Global climate sensitivity', 'Agreement under stated scale, mask, and product assumptions—not automatic full-pipeline equivalence', 'That quotas are infinite', 'That STAC is unnecessary'], correctAnswer: 1, explanation: 'Small-geometry cross-checks catch contract mismatches.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-46-010', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'A green pipeline exit code alone is insufficient because:', options: ['Exit codes are never useful', 'The run can still implement the wrong product, mask, or scientific protocol', 'Logs are illegal', 'Parameter files forbid success'], correctAnswer: 1, explanation: 'Scientific validity is separate from process success.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-001', lessonId: 'cgei-rs-lesson-4-7-1', type: 'single-choice', prompt: 'Validation samples should be:', options: ['The same pixels used for training to maximise accuracy', 'Independent of training, preferably with spatial separation when dependence is strong', 'Only from cluster maps', 'Optional if OA exceeds 90%'], correctAnswer: 1, explanation: 'Independent reference samples are required for honest accuracy assessment.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-002', lessonId: 'cgei-rs-lesson-4-7-1', type: 'single-choice', prompt: 'Random pixel train/test splits often leak because:', options: ['Pixels have no spatial structure', 'Neighbouring pixels share predictors and labels under spatial autocorrelation', 'RF cannot overfit', 'Stratified sampling forbids holdouts'], correctAnswer: 1, explanation: 'Spatial dependence violates i.i.d. split assumptions.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-003', lessonId: 'cgei-rs-lesson-4-7-2', type: 'single-choice', prompt: 'User’s accuracy for a class is:', options: ['Always equal to OA', 'Correct predictions of the class divided by all pixels predicted as that class', 'Only defined for kappa', 'Independent of the confusion matrix'], correctAnswer: 1, explanation: 'UA is a column (or predicted-marginal) conditional accuracy—state matrix orientation.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-47-004', lessonId: 'cgei-rs-lesson-4-7-2', type: 'single-choice', prompt: 'High overall accuracy can still be misleading when:', options: ['All classes are balanced and perfect', 'Rare classes have low producer/user accuracy', 'The matrix is empty', 'Area-adjusted methods are used correctly'], correctAnswer: 1, explanation: 'Majority classes dominate OA.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-005', lessonId: 'cgei-rs-lesson-4-7-2', type: 'single-choice', prompt: 'Relative to kappa as a headline metric, good practice emphasises:', options: ['Only kappa', 'Quantity/allocation disagreement and area-adjusted class-area estimates with sampling-based intervals', 'Ignoring the error matrix', 'Using cluster purity only'], correctAnswer: 1, explanation: 'Pontius & Millones and Olofsson-style reporting address known kappa limitations.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-006', lessonId: 'cgei-rs-lesson-4-7-3', type: 'single-choice', prompt: 'K-means cluster IDs should be treated as:', options: ['Validated FAO land-cover names', 'Unlabelled partitions until interpreted against reference data', 'Ground truth for RF training', 'Change maps'], correctAnswer: 1, explanation: 'Clusters lack intrinsic semantic meaning.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-007', lessonId: 'cgei-rs-lesson-4-7-3', type: 'single-choice', prompt: 'Fractional V-I-S cover is often preferred in mixed urban pixels because:', options: ['Hard classes always capture sub-pixel mixtures perfectly', 'Continuous fractions represent mixed composition better than a single hard label', 'Unmixing needs no endmembers', 'Fractions equal air temperature'], correctAnswer: 1, explanation: 'Hard classes force a single label on mixed spectra.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-008', lessonId: 'cgei-rs-lesson-4-7-4', type: 'single-choice', prompt: 'Post-classification change maps require:', options: ['No legend consistency', 'Compatible processing, registration, masks, legends, and temporal support', 'Only one date', 'K-means on a single image'], correctAnswer: 1, explanation: 'Incompatible maps create false change.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-009', lessonId: 'cgei-rs-lesson-4-7-4', type: 'single-choice', prompt: 'Classification error on either date tends to:', options: ['Cancel perfectly in the change matrix', 'Propagate into false change transitions', 'Guarantee unbiased urban growth rates', 'Remove the need for validation'], correctAnswer: 1, explanation: 'Map error inflates apparent change.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-47-010', lessonId: 'cgei-rs-lesson-4-7-5', type: 'single-choice', prompt: 'A CA-Markov land-use projection should be communicated as:', options: ['An unconditional forecast of the future', 'A conditional scenario under stated drivers and rules', 'A substitute for reference sampling', 'Proof that OA equals 100%'], correctAnswer: 1, explanation: 'Projections are scenario tools, not guaranteed forecasts.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3466,6 +3556,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-46-compute', kind: 'critique', title: 'getInfo postmortem', instructions: 'Explain why calling getInfo on a full national ImageCollection is risky and what to use instead for zonal means.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-46-compute'] },
     { id: 'cgei-rs-a-46-quota', kind: 'reflection', title: 'Platform choice memo', instructions: 'For a one-off city study vs a monthly national monitoring job, choose GEE-style vs local/STAC and justify with quota, licence, and reproducibility.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-46-quota'] },
     { id: 'cgei-rs-a-46-hybrid', kind: 'coding-lab', title: 'Parameterised pipeline lab', instructions: 'Run unit_4_6_pipeline_platform_check.py. Report manifest validation, zonal mean, output manifest fields, and deterministic rerun status.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-46-hybrid'] },
+    { id: 'cgei-rs-a-47-labels', kind: 'guided-practice', title: 'Spatial split design', instructions: 'Propose train and test blocks for a city AOI so that adjacent pixels do not cross the split; state one leakage risk you avoided.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-47-labels'] },
+    { id: 'cgei-rs-a-47-metrics', kind: 'coding-lab', title: 'Confusion-matrix metrics lab', instructions: 'Run unit_4_7_classification_change_check.py. Report OA, UA/PA for the rare class, and change-matrix false-change count.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-47-metrics', 'cgei-rs-o-47-cluster-change'] },
+    { id: 'cgei-rs-a-47-cluster', kind: 'critique', title: 'Cluster naming ban', instructions: 'Rewrite a caption that says “K-means land-cover map” into scientifically accurate language.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-47-cluster-change'] },
+    { id: 'cgei-rs-a-47-change', kind: 'reflection', title: 'Change comparability', instructions: 'List four preprocessing or temporal mismatches that create false change between two classified maps.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-47-cluster-change'] },
+    { id: 'cgei-rs-a-47-upgrade', kind: 'project-milestone', title: 'Upgrade-path card', instructions: 'Fill the six-step upgrade path from exploratory clustering to area-adjusted accuracy reporting for one class legend.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-47-scenario'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3707,6 +3802,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-46-compute', kind: 'formative', title: 'Computation practice', purpose: 'Assess client/server and logging literacy.', objectiveIds: ['cgei-rs-o-46-compute'], questionIds: ['cgei-rs-q-46-003', 'cgei-rs-q-46-004', 'cgei-rs-q-46-005'], required: true },
     { id: 'cgei-rs-assess-46-quota', kind: 'formative', title: 'Quota and platform choice', purpose: 'Assess planning criteria.', objectiveIds: ['cgei-rs-o-46-quota'], questionIds: ['cgei-rs-q-46-006', 'cgei-rs-q-46-007'], required: true },
     { id: 'cgei-rs-assess-46-hybrid', kind: 'formative', title: 'Local hybrid pipelines', purpose: 'Assess manifests, fixtures, and reconciliation.', objectiveIds: ['cgei-rs-o-46-hybrid'], questionIds: ['cgei-rs-q-46-008', 'cgei-rs-q-46-009', 'cgei-rs-q-46-010'], required: true },
+    { id: 'cgei-rs-assess-47-labels', kind: 'formative', title: 'Labels and splits', purpose: 'Assess sampling and leakage literacy.', objectiveIds: ['cgei-rs-o-47-labels'], questionIds: ['cgei-rs-q-47-001', 'cgei-rs-q-47-002'], required: true },
+    { id: 'cgei-rs-assess-47-metrics', kind: 'formative', title: 'Accuracy metrics', purpose: 'Assess confusion-matrix and OA limits.', objectiveIds: ['cgei-rs-o-47-metrics'], questionIds: ['cgei-rs-q-47-003', 'cgei-rs-q-47-004', 'cgei-rs-q-47-005'], required: true },
+    { id: 'cgei-rs-assess-47-cluster', kind: 'formative', title: 'Clustering and fractions', purpose: 'Assess cluster and unmixing literacy.', objectiveIds: ['cgei-rs-o-47-cluster-change'], questionIds: ['cgei-rs-q-47-006', 'cgei-rs-q-47-007'], required: true },
+    { id: 'cgei-rs-assess-47-change', kind: 'formative', title: 'Change detection', purpose: 'Assess change comparability.', objectiveIds: ['cgei-rs-o-47-cluster-change'], questionIds: ['cgei-rs-q-47-008', 'cgei-rs-q-47-009'], required: true },
+    { id: 'cgei-rs-assess-47-upgrade', kind: 'formative', title: 'Scenarios and upgrade', purpose: 'Assess scenario language and upgrade path.', objectiveIds: ['cgei-rs-o-47-scenario'], questionIds: ['cgei-rs-q-47-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
