@@ -153,12 +153,16 @@ return (
             <StatCard icon={<Target className="w-5 h-5" />} label="Accuracy" value={currentStats.questionsAnswered === 0 || currentStats.accuracy === null ? '—' : `${currentStats.accuracy}%`} color="amber" />
             <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Mastery" value={String(masteryScore)} color="green" sub="/100" />
           </div>
+          <p className="text-xs leading-5 text-slate-500 mb-4">
+            Accuracy is the percentage of attempted questions answered correctly. Mastery combines topic coverage (50%) and quiz accuracy (50%); before you attempt quizzes, the accuracy half counts as zero.
+          </p>
 
           {/* Accuracy chart */}
           <Card className="p-3.5 sm:p-5 mb-4">
             <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
               <div>
                 <h3 className="font-semibold text-slate-900">Accuracy over time</h3>
+                <p className="text-xs text-slate-500 mt-1">Weekly percentage of attempted questions answered correctly.</p>
                 <p className="text-slate-400 text-xs mt-0.5">
                   Last {weeklyData.length} weeks · {totalQuestionsThisPeriod} questions answered
                   {practicedSubjectsNote(isAllSubjects) ? ` · ${practicedSubjectsNote(isAllSubjects)}` : ''}
@@ -413,7 +417,10 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
   return (
     <div className="w-full overflow-x-auto">
+      <p className="text-xs text-slate-400 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
       <svg
+        role="img"
+        aria-label={`Weekly accuracy chart with ${validPoints.length} weeks containing quiz attempts.`}
         viewBox={`0 0 ${width} ${height}`}
         className="w-full"
         style={{ minWidth: 480 }}
