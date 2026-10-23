@@ -289,11 +289,11 @@ export function DashboardScreen() {
       )}
 
       {/* Primary next action — resume unfinished quiz when draft is valid */}
-      <Card className="p-4 sm:p-5 mb-5 border-slate-200">
+      <Card className="relative overflow-hidden p-5 sm:p-6 mb-6 border-brand-200 bg-gradient-to-br from-white via-white to-sky-50/80 shadow-card">
         {resumableDraft ? (
           <>
-            <p className="text-xs font-medium text-slate-500 mb-1">Unfinished quiz</p>
-            <p className="text-lg font-semibold text-slate-900 tracking-tight">Resume your quiz</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Pick up where you left off</p>
+            <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">Resume your quiz</p>
             <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">
               You have a saved attempt ({resumableDraft.answers?.length ?? 0} answered of{' '}
               {resumableDraft.questionIds?.length ?? 0}). Continue where you left off — same questions and answers.
@@ -318,8 +318,8 @@ export function DashboardScreen() {
           </>
         ) : (
           <>
-            <p className="text-xs font-medium text-slate-500 mb-1">Next up</p>
-            <p className="text-lg font-semibold text-slate-900 tracking-tight">{recHeadline}</p>
+            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Your next best step</p>
+            <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">{recHeadline}</p>
             <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">{recSubtext}</p>
             <div className="flex flex-wrap gap-2">
               <button
@@ -347,8 +347,8 @@ export function DashboardScreen() {
 
       {/* Progress summary — only when there is history; honest empty otherwise */}
       {hasHistory ? (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
-          <div className="rounded-card border border-slate-200 bg-white p-3">
+        <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-6">
+          <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
             <p className="text-xs text-slate-500">Topics studied</p>
             <p className="text-xl font-semibold text-slate-900 mt-0.5">
               {globalStats.studiedTopics}
