@@ -1973,7 +1973,6 @@ const lessons42: CurriculumLesson[] = [
     ],
     activityIds: ['cgei-rs-a-42-qa'], assessmentIds: ['cgei-rs-assess-42-qa'], resourceIds: [], deliverableIds: [],
   },
-]
 ];
 
 const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
