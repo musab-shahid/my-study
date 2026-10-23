@@ -381,9 +381,12 @@ export function MobileNav() {
       return 0;
     }
   })();
+  // Keep the More destination indicator aligned with every secondary destination.
+  // FPSC/HAT belong to the Tracks item in the primary bar, so they are excluded here.
   const moreActive =
     moreOpen ||
-    (['review', 'formulas', 'progress', 'search', 'settings'] as string[]).includes(currentScreen);
+    (['review', 'formulas', 'progress', 'search', 'settings', 'flashcards', 'cloud-atlas'] as string[]).includes(currentScreen) ||
+    (currentScreen === 'practice' && route.mode === 'mock');
 
   return (
     <>
