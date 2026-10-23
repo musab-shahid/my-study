@@ -40,7 +40,7 @@ function ScreenRouter() {
     case 'home':
       return <DashboardScreen />;
     case 'learn':
-      return <EnrollmentRequired purposeTitle="Study material" purpose="Read structured topics and mark what you have studied. Begin a track to unlock subjects in your workspace.">
+      return <EnrollmentRequired requiredTrack={route.subjectId ? subjectMap[route.subjectId]?.track : undefined} purposeTitle="Study material" purpose="Read structured topics and mark what you have studied. Begin the relevant track to unlock its subjects in your workspace.">
         <StudyScreen />
       </EnrollmentRequired>;
     case 'section':
@@ -50,9 +50,9 @@ function ScreenRouter() {
         </SectionAccessGate>
       );
     case 'curriculum-unit':
-      return <EnrollmentRequired purposeTitle="Curriculum unit" purpose="Follow the unit outcomes, lessons, activities and evidence requirements within your active track."><CurriculumUnitScreen unitId={route.unitId} /></EnrollmentRequired>;
+      return <EnrollmentRequired requiredTrack="cgei" purposeTitle="Curriculum unit" purpose="Follow the unit outcomes, lessons, activities and evidence requirements within the CGEI track."><CurriculumUnitScreen unitId={route.unitId} /></EnrollmentRequired>;
     case 'curriculum-lesson':
-      return <EnrollmentRequired purposeTitle="Curriculum lesson" purpose="Study the lesson, practise its skills, and save evidence of what you can do."><CurriculumLessonScreen lessonId={route.lessonId} /></EnrollmentRequired>;
+      return <EnrollmentRequired requiredTrack="cgei" purposeTitle="Curriculum lesson" purpose="Study the lesson, practise its skills, and save evidence of what you can do within CGEI."><CurriculumLessonScreen lessonId={route.lessonId} /></EnrollmentRequired>;
     case 'topic':
       return (
         <TopicAccessGate topicId={route.topicId}>
