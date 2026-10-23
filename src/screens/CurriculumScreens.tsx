@@ -16,9 +16,10 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
     <Card className="p-4 border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-[10px] uppercase tracking-wide font-semibold text-slate-500">{question.difficulty} · {question.cognitiveLevel}</span>
-        <span className="text-[10px] text-slate-400">Knowledge check</span>
+        <span className="text-[10px] text-slate-400">Unrecorded knowledge check</span>
       </div>
       <p className="font-medium text-sm sm:text-base text-slate-900 leading-relaxed">{question.prompt}</p>
+      <p className="text-xs text-slate-500 mt-1">Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
       <div className="space-y-2 mt-3">
         {question.options.map((option, index) => {
           const isSelected = selected === index;
