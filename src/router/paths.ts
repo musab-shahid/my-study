@@ -4,13 +4,14 @@
  */
 import { getTopic } from '../data/topics';
 import { getTrackDefinition, isTrackId } from '../data/tracks';
+import { subjectMap } from '../data/subjects';
 import { sectionMap } from '../data/sections';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
 /** Local mirror of router.Route to avoid circular imports with index.tsx */
 export type PathRoute =
   | { screen: 'home' }
-  | { screen: 'learn' }
+  | { screen: 'learn'; subjectId?: string }
   | { screen: 'section'; sectionId: string }
   | { screen: 'topic'; topicId: string }
   | { screen: 'formulas' }
@@ -42,7 +43,7 @@ export function routeToPath(route: PathRoute): string {
     case 'home':
       return '/';
     case 'learn':
-      return '/learn';
+      return route.subjectId ? `/learn/${encodeURIComponent(route.subjectId)}` : '/learn';
     case 'section':
       return `/section/${encodeURIComponent(route.sectionId)}`;
     case 'topic':
@@ -88,6 +89,7 @@ export function pathToRoute(pathname: string): PathRoute {
   const [head, a] = parts;
   switch (head) {
     case 'learn':
+      if (a && subjectMap[decodeURIComponent(a)]) return { screen: 'learn', subjectId: decodeURIComponent(a) };
       return { screen: 'learn' };
     case 'section': {
       if (!a) return { screen: 'learn' };
@@ -142,29 +144,41 @@ export function pathToRoute(pathname: string): PathRoute {
 /** Minimal breadcrumb for cold-load / popstate (no full parent chain). */
 export function breadcrumbForRoute(route: PathRoute): { label: string; route: PathRoute }[] {
   const home = { label: 'Home', route: { screen: 'home' } as PathRoute };
+  const subjectCrumbs = (subjectId: string) => {
+    const subject = subjectMap[subjectId];
+    if (!subject) return [{ label: 'Learn', route: { screen: 'learn' } as PathRoute }];
+    return [
+      { label: getTrackDefinition(subject.track).shortTitle, route: { screen: 'track', trackId: subject.track } as PathRoute },
+      { label: subject.title, route: { screen: 'learn', subjectId: subject.id } as PathRoute },
+    ];
+  };
+
   switch (route.screen) {
     case 'home':
       return [home];
+    case 'learn': {
+      if (!route.subjectId || !subjectMap[route.subjectId]) {
+        return [home, { label: 'Learn', route: { screen: 'learn' } }];
+      }
+      return [home, ...subjectCrumbs(route.subjectId)];
+    }
     case 'section': {
       const sec = sectionMap[route.sectionId];
       return [
         home,
-        { label: 'Learn', route: { screen: 'learn' } },
+        ...(sec ? subjectCrumbs(sec.subjectId) : [{ label: 'Learn', route: { screen: 'learn' } as PathRoute }]),
         { label: sec?.title ?? 'Section', route },
       ];
     }
     case 'topic': {
       const topic = getTopic(route.topicId);
       const sec = topic ? sectionMap[topic.sectionId] : undefined;
-      const crumbs: { label: string; route: PathRoute }[] = [
-        home,
-        { label: 'Learn', route: { screen: 'learn' } },
-      ];
+      const crumbs: { label: string; route: PathRoute }[] = [home];
       if (sec) {
-        crumbs.push({
-          label: sec.title,
-          route: { screen: 'section', sectionId: sec.id },
-        });
+        crumbs.push(...subjectCrumbs(sec.subjectId));
+        crumbs.push({ label: sec.title, route: { screen: 'section', sectionId: sec.id } });
+      } else {
+        crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
       }
       crumbs.push({ label: topic?.title ?? 'Topic', route });
       return crumbs;
