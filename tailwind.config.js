@@ -51,7 +51,7 @@ export default {
       boxShadow: {
         'card':     '0 1px 2px 0 rgb(15 23 42 / 0.04)',
         'card-hover': '0 2px 8px -2px rgb(15 23 42 / 0.08)',
-        'glow-brand': '0 0 0 1px rgb(3 105 161 / 0.12)',
+        'glow-brand': '0 0 0 1px rgb(var(--color-brand-700) / 0.12)',
         'glow-indigo': '0 0 0 1px rgb(67 56 202 / 0.12)',
       },
       maxWidth: {
