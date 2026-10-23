@@ -424,28 +424,28 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   return (
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
-      <div className="mb-6 sm:mb-8">
-        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
-        <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+      <header className="mb-7 sm:mb-9">
+        <p className="inline-flex items-center rounded-md bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-100">Section {topic.sectionId} · Topic {topic.order}</p>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight mt-3 break-words">{topic.title}</h1>
         {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
       </div>
-      <article className="space-y-6 sm:space-y-8">
+      <article className="max-w-reading space-y-7 sm:space-y-9 text-[1rem] leading-7 sm:leading-8">
         {topic.definition && (
           <section>
-            <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-sky-700 mb-2">Definition</h3>
-            <p className="text-slate-800 text-base sm:text-lg leading-relaxed"><MathText text={topic.definition} /></p>
+            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-sky-700 mb-2.5">Definition</h2>
+            <p className="text-slate-800 text-base sm:text-lg leading-7 sm:leading-8"><MathText text={topic.definition} /></p>
           </section>
         )}
         {topic.keyFacts && topic.keyFacts.length > 0 && (
           <section>
-            <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-slate-500 mb-3">Key Facts</h3>
-            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-sm sm:text-base leading-relaxed"><span className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
+            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-slate-500 mb-3">Key Facts</h2>
+            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
           </section>
         )}
         {topic.explanationSections && topic.explanationSections.map((sec, i) => (
           <section key={i}>
-            <h3 className="font-semibold text-slate-900 text-base sm:text-lg mb-2">{sec.heading}</h3>
-            <p className="text-slate-700 text-sm sm:text-base leading-relaxed"><MathText text={sec.body} /></p>
+            <h2 className="font-semibold text-slate-900 text-lg sm:text-xl tracking-tight mb-2.5">{sec.heading}</h2>
+            <p className="text-slate-700 text-base leading-7 sm:leading-8"><MathText text={sec.body} /></p>
           </section>
         ))}
         {topic.subtopics && topic.subtopics.length > 0 && (
