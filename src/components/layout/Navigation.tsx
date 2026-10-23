@@ -16,6 +16,7 @@ import { useData } from '@/hooks/useData';
 import { ToolsTray } from '@/components/layout/ToolsTray';
 import {
   getLandingScreenForTrack,
+  getTrackMeta,
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
