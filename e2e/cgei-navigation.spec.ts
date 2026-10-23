@@ -54,6 +54,19 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('Domain orientation', { exact: true }).first()).toBeVisible();
   });
 
+  test('canonical curriculum units are discoverable from every registered subject overview', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+
+    await page.goto('/learn/cgei-remote-sensing');
+    await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('4.1', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('4.10', { exact: true }).first()).toBeVisible();
+
+    await page.goto('/learn/cgei-ml-geoai');
+    await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('6.1', { exact: true }).first()).toBeVisible();
+  });
+
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/topic/cgei-env-systems-roadmap');
