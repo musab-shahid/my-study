@@ -93,13 +93,21 @@ export function QuizResults({
             {Object.entries(perTopic).map(([topicId, stats]) => {
               const topic = getTopic(topicId);
               return (
-                <div key={topicId} className="flex items-center justify-between text-sm">
-                  <button onClick={() => onNavigateToTopic(topicId)} className="min-h-10 min-w-0 flex-1 truncate rounded-md text-left text-brand-600 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                <div key={topicId} className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-center sm:justify-between">
+                  <button
+                    type="button"
+                    onClick={() => onNavigateToTopic(topicId)}
+                    className="min-h-10 w-full min-w-0 rounded-md text-left text-brand-600 hover:text-brand-700 break-words whitespace-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 sm:flex-1"
+                  >
                     {topic?.title ?? topicId}
                   </button>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex items-center justify-between gap-2 sm:shrink-0 sm:justify-end">
                     <span className="text-slate-500">{stats.correct} / {stats.total}</span>
-                    <button onClick={() => onPracticeTopic(topicId)} className="min-h-10 rounded-md px-2 text-xs text-slate-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                    <button
+                      type="button"
+                      onClick={() => onPracticeTopic(topicId)}
+                      className="min-h-10 rounded-md px-2 text-xs text-slate-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                    >
                       Practice
                     </button>
                   </div>
