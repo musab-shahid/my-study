@@ -16,15 +16,15 @@ The shared RGB-channel tokens live in `src/index.css`. Tailwind's `brand`, `succ
 | Token family | Intended use |
 | --- | --- |
 | `brand-50`–`brand-200` | Soft selection surfaces, quiet badges, and subtle highlights |
-| `brand-500`–`brand-700` | Primary buttons, links, active navigation, and focus affordances |
+| `brand-500`–`brand-700` | Brand accents; use `brand-700` or darker for white-text controls, and `brand-600` for focus rings |
 | `brand-800`–`brand-900` | High-contrast brand text on light surfaces |
 | `success-*` | Correct answers, successful completion, and positive status |
 | `warning-*` | Caution, at-risk status, and attention-needed states |
 | `danger-*` | Errors, incorrect answers, and destructive actions |
-| `surface-* ` | Page, card, and muted backgrounds |
+| `surface-*` | Page, card, and muted backgrounds |
 | `text-primary`, `text-muted`, `border-subtle` | Neutral content and structure |
 
-Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue. Track-specific accents should map to these semantic families instead of introducing unrelated one-off hex colors.
+Use `success-600/700` and `danger-600/700` for white-text controls; reserve the lighter `*-500` values for accents unless contrast has been checked. Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue. Track-specific accents should map to these semantic families instead of introducing unrelated one-off hex colors.
 
 ## Typography and reading
 
