@@ -84,11 +84,12 @@ function buildRoute(options: NavigateOptions): Route {
     case 'section':
       if (!options.sectionId) return { screen: 'learn' };
       return { screen: 'section', sectionId: options.sectionId };
-    case 'topic':
+    case 'topic': {
       if (!options.topicId) return { screen: 'learn' };
       const overviewSubjectId = cgeiSubjectIdForOverviewTopic(options.topicId);
       if (overviewSubjectId) return { screen: 'learn', subjectId: overviewSubjectId };
       return { screen: 'topic', topicId: options.topicId };
+    }
     case 'formulas': return { screen: 'formulas' };
     case 'flashcards': return { screen: 'flashcards', topicId: options.topicId };
     case 'cloud-atlas': return { screen: 'cloud-atlas' };
