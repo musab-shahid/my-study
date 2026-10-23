@@ -106,7 +106,7 @@ export function Sidebar() {
           </div>
           <div className="min-w-0">
             <h1 className="text-white font-bold text-lg leading-tight">ExamPrep Hub</h1>
-            <p className="text-slate-400 text-xs">FPSC & HAT Study Hub</p>
+            <p className="text-slate-400 text-xs">Structured learning & exam prep</p>
           </div>
         </div>
       </div>
