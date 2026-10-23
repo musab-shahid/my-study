@@ -424,11 +424,59 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   return (
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
-      <header className="mb-7 sm:mb-9">
-        <p className="inline-flex items-center rounded-md bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-100">Section {topic.sectionId} · Topic {topic.order}</p>
-        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight mt-3 break-words">{topic.title}</h1>
-        {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
+      <header className="mb-5 sm:mb-7">
+        <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500 mb-3">
+          <button
+            type="button"
+            onClick={() => navigate({ screen: 'section', sectionId: topic.sectionId })}
+            className="inline-flex min-h-8 items-center gap-1 rounded-lg bg-slate-100 px-2.5 text-slate-700 hover:bg-slate-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+          >
+            <ChevronLeft className="h-3.5 w-3.5" />
+            {sectionMap[topic.sectionId]?.title ?? `Section ${topic.sectionId}`}
+          </button>
+          <span aria-hidden="true">/</span>
+          <span>Topic {topic.order}</span>
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight break-words">{topic.title}</h1>
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {isStudied ? (
+            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <BookOpen className="w-3.5 h-3.5" /> Read
+            </span>
+          ) : (
+            <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600">Not marked as read</span>
+          )}
+          {topicQuestions.length > 0 && <span className="text-xs text-slate-500">{topicQuestions.length} quiz questions</span>}
+        </div>
       </header>
+      <section aria-label="Topic actions" className="mb-7 rounded-2xl border border-slate-200 bg-white p-3 sm:p-4 shadow-sm">
+        <p className="px-1 text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Your next step</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          {topicQuestions.length > 0 ? (
+            <Button onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="min-h-11 justify-center">
+              <span>Take topic quiz</span>
+              <ChevronRight className="ml-1 h-4 w-4" />
+            </Button>
+          ) : (
+            <Button disabled variant="secondary" className="min-h-11 justify-center">Quiz unavailable</Button>
+          )}
+          <Button
+            variant="secondary"
+            onClick={() => markStudied(topicId)}
+            disabled={isStudied}
+            className="min-h-11 justify-center"
+          >
+            {isStudied ? 'Already marked read' : 'Mark as read'}
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => navigate({ screen: 'flashcards', topicId })}
+            className="min-h-11 justify-center"
+          >
+            Review flashcards
+          </Button>
+        </div>
+      </section>
       <article className="max-w-reading space-y-7 sm:space-y-9 text-[1rem] leading-7 sm:leading-8">
         {topic.definition && (
           <section>
@@ -738,10 +786,19 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </Card>
           );
         })()}
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <Button onClick={() => markStudied(topicId)} disabled={isStudied} variant={isStudied ? 'secondary' : 'primary'} className="flex-1">{isStudied ? 'Marked as Studied' : 'Mark as Studied'}</Button>
-          {topicQuestions.length > 0 && <Button variant="secondary" onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="flex-1">Test Me — {topicQuestions.length} Question{topicQuestions.length !== 1 ? 's' : ''}</Button>}
-          <Button variant="secondary" onClick={() => navigate({ screen: 'flashcards', topicId })} className="flex-1">Flashcards</Button>
+        <div className="rounded-2xl border border-sky-100 bg-sky-50/70 p-4 sm:p-5">
+          <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
+          <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
+          <div className="mt-3 flex flex-col sm:flex-row gap-2">
+            {topicQuestions.length > 0 && (
+              <Button onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="min-h-11 flex-1 justify-center">
+                Take topic quiz
+              </Button>
+            )}
+            <Button onClick={() => markStudied(topicId)} disabled={isStudied} variant="secondary" className="min-h-11 flex-1 justify-center">
+              {isStudied ? 'Marked as read' : 'Mark as read'}
+            </Button>
+          </div>
         </div>
         {(() => {
           const sectionTopics = topicsBySection(topic.sectionId);
