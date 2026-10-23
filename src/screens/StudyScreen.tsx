@@ -62,18 +62,25 @@ export function StudyScreen() {
     }
   }, [route, activeTrack, setActiveSubjectForScreen]);
 
-  const loadedSubjectTopics = sd.topicsFor(subjectId);
   const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId);
-  const roadmapTopic = roadmapTopicId
-    ? loadedSubjectTopics.find((topic) => topic.id === roadmapTopicId)
-    : undefined;
-  // Roadmap records remain addressable for legacy links, but are orientation,
-  // not lessons: keep them out of topic lists, progress, and mastery counts.
-  const subjectTopics = loadedSubjectTopics.filter((topic) => !isCgeiOverviewTopic(topic.id));
+  const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
+  useEffect(() => {
+    let active = true;
+    setRoadmapTopic(null);
+    if (!roadmapTopicId) return () => { active = false; };
+    getTopicAsync(roadmapTopicId)
+      .then((topic) => { if (active) setRoadmapTopic(topic ?? null); })
+      .catch(() => { if (active) setRoadmapTopic(null); });
+    return () => { active = false; };
+  }, [roadmapTopicId]);
+
+  // Orientation records are loaded separately from the lesson list so they
+  // never enter topic counts, study progress, revision, or mastery metrics.
+  const subjectTopics = sd.topicsFor(subjectId);
   const subjectSections = isAllSubjects
     ? []
     : sd.sectionsFor(subjectId).filter((section) => subjectTopics.some((topic) => topic.sectionId === section.id));
-  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopic);
+  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
   const curriculumSubject = subjectId === 'cgei-data-science'
     ? cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId)
@@ -115,10 +122,7 @@ export function StudyScreen() {
   if (isAllSubjects) {
     const examId = isTrackId(activeTrack) ? (trackMembership.enrollments[activeTrack]?.activeExamId ?? null) : null;
     const trackSubjects = isTrackId(activeTrack) ? subjectsForScope({ trackId: activeTrack, examId }) : [];
-    const subjectsWithContent = trackSubjects.filter((s) => {
-      const items = sd.topicsFor(s.id as SubjectId);
-      return items.some((topic) => !isCgeiOverviewTopic(topic.id)) || items.some((topic) => isCgeiOverviewTopic(topic.id));
-    });
+    const subjectsWithContent = trackSubjects.filter((s) => sd.topicsFor(s.id as SubjectId).length > 0 || Boolean(cgeiOverviewTopicIdForSubject(s.id as SubjectId)));
     return (
       <PageContainer className="max-w-3xl">
         <ScreenHeader
@@ -130,9 +134,8 @@ export function StudyScreen() {
         </div>
         <div className="space-y-2 sm:space-y-3">
           {subjectsWithContent.map((subject) => {
-            const allTopics = sd.topicsFor(subject.id as SubjectId);
-            const topics = allTopics.filter((topic) => !isCgeiOverviewTopic(topic.id));
-            const hasOverview = allTopics.some((topic) => isCgeiOverviewTopic(topic.id));
+            const topics = sd.topicsFor(subject.id as SubjectId);
+            const hasOverview = Boolean(cgeiOverviewTopicIdForSubject(subject.id as SubjectId));
             const studied = topics.filter((t) => data.studiedTopics.includes(t.id)).length;
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
@@ -225,6 +228,12 @@ export function StudyScreen() {
               </button>
             )}
           </div>
+
+          {roadmapTopicId && !roadmapTopic && subjectTopics.length === 0 && (
+            <Card className="mb-4 sm:mb-6 p-4 border border-slate-200">
+              <div className="flex items-center gap-3"><LoadingSpinner /><p className="text-sm text-slate-600">Loading domain orientation…</p></div>
+            </Card>
+          )}
 
           {roadmapTopic && (
             <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-sky-100 bg-sky-50/40">
