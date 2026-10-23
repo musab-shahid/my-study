@@ -115,3 +115,6 @@ UTC vs PKT daily max; precip sum; monthly completeness; anomaly vs baseline. Not
 
 ## unit_2_6_extremes_trend_analysis_check.py
 OLS/Sen slope 0.2°C/year; percentile exceedance; spell duration; empirical T=n/k. Not GEV/attribution.
+
+## unit_2_8_regional_climate_literacy_check.py
+Teaching season bins vs JJA; seasonal completeness; evidence-tag discipline. Not PMD validation.

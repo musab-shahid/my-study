@@ -1,9 +1,9 @@
 # Subject 2 traceability status
 
-| Unit | TOC title | Status |
-|------|-----------|--------|
-| 2.1–2.2, 2.4–2.6 | Core sequence | Draft + fixtures |
-| 2.3 | Support thermodynamics | Not started |
-| 2.7 | Extreme value statistics (Support) | Not started |
+| Unit | Priority | Status |
+|------|----------|--------|
+| 2.1, 2.2, 2.4, 2.5, 2.6, 2.8 | Core | Draft + fixtures |
+| 2.3, 2.7 | Support | Not started |
+| 2.9+ | Support/Optional | Not started |
 
-Unit 2.6: OLS/Sen + empirical T; no GEV/GPD or field significance.
+Unit 2.8 contains no fabricated PMD station statistics.

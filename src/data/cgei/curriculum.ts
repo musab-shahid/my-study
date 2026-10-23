@@ -1844,7 +1844,47 @@ const lessons26: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes28: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-28-seasons', statement: 'Justify local seasonal definitions for Pakistan analyses and distinguish PMD-style season bins from default JJA without treating ENSO/IOD as one-line local causes.', action: 'justify and distinguish', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-28-multan', statement: 'Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-28-evidence', statement: 'Identify appropriate national data institutions and evidence types, documenting access limits without fabricating restricted observations.', action: 'identify and document', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons28: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-8-1', kind: 'lesson', title: 'Seasons and regional drivers', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes28[0]],
+    content: [
+      { id: 'cgei-cl-28-1-1', kind: 'prose', title: 'Local seasons, not default JJA', body: 'Pakistan analyses often need season definitions justified by local timing—not automatic June–August (JJA). A PMD-style teaching partition groups winter, pre-monsoon, monsoon and post-monsoon months; monsoon onset/withdrawal timing varies by year and location. Fixture unit_2_8_regional_climate_literacy_check.py labels months under this teaching map and shows September is monsoon-style here while not in JJA.' },
+      { id: 'cgei-cl-28-1-2', kind: 'prose', title: 'Drivers with scale discipline', body: 'Monsoon moisture transport, western disturbances (cool-season precipitation over northern Pakistan), and Indus snow/glacier melt timing structure the annual cycle. ENSO and IOD modulate variability but are not one-line causes of every local anomaly. Irrigation canals and the Indus system modify land–atmosphere fluxes and must be treated as climate-relevant human systems, not scenery.' },
+      { id: 'cgei-cl-28-1-3', kind: 'key-points', title: 'Seasonal literacy', items: ['Declare the season definition used', 'JJA ≠ local monsoon definition by default', 'Teleconnections are context, not automatic attribution'] },
+    ],
+    activityIds: ['cgei-cl-a-28-seasons'], assessmentIds: ['cgei-cl-assess-28-seasons'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-8-2', kind: 'lesson', title: 'Heat, air-quality seasons and Multan context', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes28[1]],
+    content: [
+      { id: 'cgei-cl-28-2-1', kind: 'prose', title: 'Hazard seasons', body: 'Pre-monsoon heat, hot nights and dust differ from winter fog/smog seasons, dust storms, thunderstorm outflows, cold waves and frost. Crop-residue burning (rice stubble in autumn; wheat residue in spring) is an air-quality driver overlapping climate-sensitive seasons. These are process categories—quantitative rankings for specific districts require sourced data, not assumed hierarchy.' },
+      { id: 'cgei-cl-28-2-2', kind: 'prose', title: 'Multan and southern Punjab setting', body: 'Multan sits on an arid plain with irrigated surroundings and a river/canal network. Station series represent point conditions; gridded products and reanalysis estimate spatial fields with their own support and biases (Units 2.4–2.5). Typical analyses must declare baseline (e.g. 1991–2020) and period before computing anomalies or extremes (Units 2.1, 2.6). No fabricated Multan station means are claimed in this lesson.' },
+      { id: 'cgei-cl-28-2-3', kind: 'callout', title: 'Evidence discipline', tone: 'warning', items: ['Synthetic series in fixtures are not Multan observations', 'Do not equate a hot season with a proven long-term trend', 'Grid-cell averages are not every farm field'] },
+    ],
+    activityIds: ['cgei-cl-a-28-multan'], assessmentIds: ['cgei-cl-assess-28-multan'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-8-3', kind: 'lesson', title: 'Data institutions and access practice', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes28[2]],
+    content: [
+      { id: 'cgei-cl-28-3-1', kind: 'prose', title: 'Who holds what', body: 'Pakistan Meteorological Department (PMD) holds core meteorological records—public versus restricted access must be verified per product. Related institutions include SUPARCO, NDMA, PDMA Punjab, PBS geography, PMD Flood Forecasting Division, WAPDA, IRSA, Punjab Irrigation Department, PCRWR, PARC, Survey of Pakistan, PBS digital census products, and ICIMOD for HKH context. List membership is not a data download.' },
+      { id: 'cgei-cl-28-3-2', kind: 'prose', title: 'Access trail', body: 'When local series are unavailable, global layers (reanalysis, satellite blends) remain usable with honest representativeness limits. Document what is open, on request, or paid; keep request trails and licences. Local knowledge and farmer observation complement but do not replace instrumental series. Evidence tags: principle, assessment finding, observed result, synthetic example, unverified hypothesis—keep them separate.' },
+      { id: 'cgei-cl-28-3-3', kind: 'checklist', title: 'Regional literacy brief fields', items: ['Defined geography (e.g. Multan district or station radius)', 'Season definition', 'Variable and spatial support', 'Evidence type and source class', 'Period and baseline', 'Limits and next data need'] },
+    ],
+    activityIds: ['cgei-cl-a-28-evidence'], assessmentIds: ['cgei-cl-assess-28-evidence'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1945,11 +1985,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.2 and 2.4–2.6 cover foundations through extremes/trends. Unit 2.3 Support not yet implemented. Draft slice only.',
+      overview: 'Units 2.1–2.2 and 2.4–2.6 plus 2.8 cover foundations through regional climate literacy. Units 2.3/2.7 Support not yet implemented. Draft slice only.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25, ...outcomes26],
+      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25, ...outcomes26, ...outcomes28],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6', 'cgei-cl-unit-2-8'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2228,6 +2268,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.6 — Extremes and trend analysis (Core)',
       notes: ['OLS/Sen and empirical T only; no GEV/GPD or field significance in this slice.'],
     },
+    {
+      id: 'cgei-cl-unit-2-8', code: '2.8', title: 'Regional climate literacy (Pakistan / southern Punjab)', order: 208, kind: 'unit', readiness: 'draft',
+      summary: 'Interpret Pakistan and southern Punjab seasonal climate context, Multan land–climate setting, and data-institution access practice with disciplined evidence types.',
+      estimatedHours: 7, prerequisites: ['Unit 2.1', 'Unit 2.4', 'Unit 2.6'], outcomes: outcomes28,
+      lessonIds: lessons28.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-28-seasons', 'cgei-cl-a-28-multan', 'cgei-cl-a-28-evidence'],
+      assessmentIds: ['cgei-cl-assess-28-seasons', 'cgei-cl-assess-28-multan', 'cgei-cl-assess-28-evidence'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.8 — Regional climate literacy (Pakistan / southern Punjab) (Core)',
+      notes: ['No fabricated PMD station statistics; synthetic season helper only.', 'Institution list is navigational literacy, not a data portal.'],
+    },
+
 
 
 
@@ -2305,6 +2357,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-26-002', lessonId: 'cgei-cl-lesson-2-6-1', type: 'single-choice', prompt: 'Three consecutive days above a heat threshold are best treated as:', options: ['Three fully independent 1-day events by default', 'One multi-day spell for duration metrics unless declustered for event counts', 'Proof of a 3-year return period', 'Evidence against autocorrelation'], correctAnswer: 1, explanation: 'Duration metrics treat consecutive exceedances as one spell; independence must be justified before counting separate events.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-26-003', lessonId: 'cgei-cl-lesson-2-6-2', type: 'single-choice', prompt: 'For T_t = 30 + 0.2 t (°C), t = 0…9, the OLS slope is:', options: ['0.2°C/year', '2°C/year', '30°C', '0°C/year'], correctAnswer: 0, explanation: 'The designed series has slope 0.2°C per year; Sen’s slope matches on this noise-free series.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-cl-q-26-004', lessonId: 'cgei-cl-lesson-2-6-3', type: 'single-choice', prompt: 'An empirical return period T = 5 years from 2 events in 10 years means:', options: ['The event is scheduled every fifth calendar year', 'Under the empirical annual rate and stated assumptions, mean recurrence is about 5 years—not a fixed schedule', 'A 100-year event is impossible', 'Attribution is complete'], correctAnswer: 1, explanation: 'Return period is a probability-based mean recurrence under assumptions, not a deterministic calendar schedule.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-28-001', lessonId: 'cgei-cl-lesson-2-8-1', type: 'single-choice', prompt: 'Using JJA by default for every Pakistan monsoon analysis is risky because:', options: ['JJA is never warm', 'Local onset/withdrawal and justified season bins may differ from fixed JJA', 'Monsoon only occurs in December', 'ENSO replaces all local data'], correctAnswer: 1, explanation: 'Season definitions should be justified locally; fixed JJA can misalign with local monsoon timing.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-28-002', lessonId: 'cgei-cl-lesson-2-8-1', type: 'single-choice', prompt: 'ENSO or IOD anomalies should be treated as:', options: ['Automatic one-line causes of every local weather event', 'Large-scale variability context that may modulate but does not by itself prove local causation', 'Proof that stations are unnecessary', 'Identical to irrigation effects'], correctAnswer: 1, explanation: 'Teleconnections provide context; local causation needs local evidence and mechanisms.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-28-003', lessonId: 'cgei-cl-lesson-2-8-2', type: 'single-choice', prompt: 'A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:', options: ['One must be a software bug', 'They sample different spatial supports and methods', 'Reanalysis always equals the station', 'Irrigation cancels all differences'], correctAnswer: 1, explanation: 'Point observations and grid estimates have different spatial support and construction (Units 2.4–2.5).', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cl-q-28-004', lessonId: 'cgei-cl-lesson-2-8-3', type: 'single-choice', prompt: 'When a local PMD series is restricted, the correct practice is to:', options: ['Invent plausible station numbers for the lesson', 'Use permitted global layers only with documented limits, request trails and licences', 'Ignore provenance', 'Treat farmer anecdotes as instrumental Tmax'], correctAnswer: 1, explanation: 'Access limits require documentation and honest use of alternative products—not fabricated observations.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2888,6 +2945,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-a-26-threshold', kind: 'coding-lab', title: 'Threshold and spell lab', instructions: 'Run unit_2_6_extremes_trend_analysis_check.py. Report the 90th percentile threshold, exceedance count, and max spell length 3 from the binary pattern.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-26-threshold'] },
     { id: 'cgei-cl-a-26-trend', kind: 'coding-lab', title: 'Slope lab', instructions: 'Confirm OLS and Sen slopes equal 0.2°C/year and write one sentence on why dependence still matters for uncertainty on real series.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-26-trend'] },
     { id: 'cgei-cl-a-26-inference', kind: 'critique', title: 'Claim rewrite', instructions: 'Rewrite “A 100-year flood is due next year” into a statement that uses probability language and record-length limits.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-26-inference'] },
+    { id: 'cgei-cl-a-28-seasons', kind: 'coding-lab', title: 'Season definition lab', instructions: 'Run unit_2_8_regional_climate_literacy_check.py. Contrast PMD-style September with JJA and state why analyses must declare the season definition.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-28-seasons'] },
+    { id: 'cgei-cl-a-28-multan', kind: 'guided-practice', title: 'Multan context sketch', instructions: 'In six sentences, describe arid plain + irrigation setting and why a station and a grid cell can differ without either being a coding error.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-28-multan'] },
+    { id: 'cgei-cl-a-28-evidence', kind: 'critique', title: 'Regional literacy brief', instructions: 'Write a one-page brief for a Multan pre-monsoon heat question: geography, season definition, variable, evidence type, period/baseline, limits, next data need—without inventing station numbers.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-28-evidence'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
     { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
     { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
@@ -3103,6 +3163,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-assess-26-threshold', kind: 'formative', title: 'Thresholds', purpose: 'Assess threshold and duration concepts.', objectiveIds: ['cgei-cl-o-26-threshold'], questionIds: ['cgei-cl-q-26-001', 'cgei-cl-q-26-002'], required: true },
     { id: 'cgei-cl-assess-26-trend', kind: 'formative', title: 'Trends', purpose: 'Assess slope interpretation.', objectiveIds: ['cgei-cl-o-26-trend'], questionIds: ['cgei-cl-q-26-003'], required: true },
     { id: 'cgei-cl-assess-26-inference', kind: 'formative', title: 'Inference discipline', purpose: 'Assess return-period and reporting discipline.', objectiveIds: ['cgei-cl-o-26-inference'], questionIds: ['cgei-cl-q-26-004'], required: true },
+    { id: 'cgei-cl-assess-28-seasons', kind: 'formative', title: 'Seasons', purpose: 'Assess season-definition discipline.', objectiveIds: ['cgei-cl-o-28-seasons'], questionIds: ['cgei-cl-q-28-001', 'cgei-cl-q-28-002'], required: true },
+    { id: 'cgei-cl-assess-28-multan', kind: 'formative', title: 'Multan context', purpose: 'Assess regional setting literacy.', objectiveIds: ['cgei-cl-o-28-multan'], questionIds: ['cgei-cl-q-28-003'], required: true },
+    { id: 'cgei-cl-assess-28-evidence', kind: 'formative', title: 'Evidence practice', purpose: 'Assess institution and evidence-type awareness.', objectiveIds: ['cgei-cl-o-28-evidence'], questionIds: ['cgei-cl-q-28-004'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
     { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
     { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },
