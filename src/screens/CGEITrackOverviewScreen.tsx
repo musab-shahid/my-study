@@ -13,6 +13,33 @@ import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner'
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import type { SubjectId } from '@/types';
 
+function hasSubstantiveLessonContent(lesson: (typeof cgeiCurriculum.lessons)[number]): boolean {
+  return lesson.content.some((block) => {
+    const hasText = (value?: string) => Boolean(value?.trim());
+    switch (block.kind) {
+      case 'prose':
+      case 'worked-example':
+        return hasText(block.body);
+      case 'key-points':
+      case 'checklist':
+        return Boolean(block.items?.some((item) => hasText(item)));
+      case 'equation':
+        return hasText(block.expression) || hasText(block.body);
+      case 'code':
+        return hasText(block.code) || hasText(block.body);
+      case 'table':
+        return Boolean(block.headers?.some((item) => hasText(item)) && block.rows?.some((row) => row.some((cell) => hasText(cell))));
+      case 'callout':
+      case 'reflection':
+        return hasText(block.body) || Boolean(block.items?.some((item) => hasText(item)));
+      case 'figure':
+        return (hasText(block.body) && block.body?.trim() !== 'Figure or visual resource to be added.') || hasText(block.caption);
+      default:
+        return false;
+    }
+  });
+}
+
 const DOMAIN_GROUPS = [
   {
     id: 'foundations',
@@ -150,7 +177,7 @@ export function CGEITrackOverviewScreen() {
                 const subjectLessons = units.flatMap((unit) => unit.lessonIds
                   .map((id) => cgeiCurriculum.lessons.find((item) => item.id === id))
                   .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson)));
-                const authoredLessons = subjectLessons.filter((lesson) => lesson.content.length > 0).length;
+                const authoredLessons = subjectLessons.filter(hasSubstantiveLessonContent).length;
                 const lessonReadiness = subjectLessons.reduce<Record<string, number>>((counts, lesson) => {
                   counts[lesson.readiness] = (counts[lesson.readiness] ?? 0) + 1;
                   return counts;
@@ -170,7 +197,7 @@ export function CGEITrackOverviewScreen() {
                         {canonical ? (
                           <>
                             <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
-                            <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with content</p>
+                            <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
                             <p className="text-xs text-slate-500 mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
                           </>
                         ) : hasTopicContent ? (
