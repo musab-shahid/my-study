@@ -43,7 +43,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
 
   const goToStage = (stage: StageScreen, subjectId: SubjectFilterValue) => {
     setActiveSubjectForScreen(stage, subjectId);
-    navigate({ screen: stage, parent: null });
+    navigate({ screen: stage });
     onClose();
   };
 
@@ -54,7 +54,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       icon: Search,
       label: 'Search',
       onClick: () => {
-        navigate({ screen: 'search', parent: null });
+        navigate({ screen: 'search' });
         onClose();
       },
     },
@@ -63,7 +63,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       label: 'Mock Exam',
       onClick: () => {
         setActiveSubjectForScreen('practice', 'all');
-        navigate({ screen: 'practice', mode: 'mock', parent: null });
+        navigate({ screen: 'practice', mode: 'mock' });
         onClose();
       },
     },
@@ -72,7 +72,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       label: 'Progress',
       onClick: () => {
         setActiveSubjectForScreen('progress', 'all');
-        navigate({ screen: 'progress', parent: null });
+        navigate({ screen: 'progress' });
         onClose();
       },
     },
@@ -80,7 +80,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       icon: Layers,
       label: 'Flashcards',
       onClick: () => {
-        navigate({ screen: 'flashcards', parent: null });
+        navigate({ screen: 'flashcards' });
         onClose();
       },
     },
@@ -88,7 +88,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       icon: SettingsIcon,
       label: 'Settings',
       onClick: () => {
-        navigate({ screen: 'settings', parent: null });
+        navigate({ screen: 'settings' });
         onClose();
       },
     },
@@ -169,7 +169,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    navigate({ screen: 'fpsc', parent: null });
+                    navigate({ screen: 'fpsc' });
                     onClose();
                   }}
                   className={rowClass}
@@ -180,7 +180,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    navigate({ screen: 'hat', parent: null });
+                    navigate({ screen: 'hat' });
                     onClose();
                   }}
                   className={rowClass}
@@ -220,7 +220,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
         <button
           type="button"
           onClick={() => {
-            navigate({ screen: 'fpsc', parent: null });
+            navigate({ screen: 'fpsc' });
             onClose();
           }}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
@@ -231,7 +231,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
         <button
           type="button"
           onClick={() => {
-            navigate({ screen: 'hat', parent: null });
+            navigate({ screen: 'hat' });
             onClose();
           }}
           className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
