@@ -84,7 +84,21 @@ def z_statistic(mean, mu0, se):
     return (mean - mu0) / se
 
 
+def n_eff_ar1(n: float, rho: float) -> float:
+    """Approximate effective sample size for AR(1)-like dependence of the mean."""
+    if n <= 1:
+        raise ValueError("n must exceed 1")
+    if abs(rho) >= 1:
+        raise ValueError("rho must satisfy |rho| < 1")
+    return n * (1.0 - rho) / (1.0 + rho)
+
+
+def mann_whitney_rank_sum_A(ranks_a) -> int:
+    return int(sum(ranks_a))
+
+
 def main():
+
     groups = [[20, 22, 21], [25, 27, 26], [23, 24, 22]]
     ss_between, ss_within, f_statistic = one_way_anova(groups)
     assert isclose(ss_between, 38.0, rel_tol=0, abs_tol=1e-12)
@@ -151,6 +165,15 @@ def main():
     try:
         cohens_d(1.0, 0.0, 0.0)
         raise AssertionError("expected failure")
+    except ValueError:
+        pass
+
+    # Cycle B: n_eff and rank-sum invariant
+    assert abs(n_eff_ar1(100, 0.5) - 100 * 0.5 / 1.5) < 1e-12
+    assert mann_whitney_rank_sum_A([1, 2, 5]) == 8
+    try:
+        n_eff_ar1(100, 1.0)
+        raise AssertionError("expected rho failure")
     except ValueError:
         pass
 
