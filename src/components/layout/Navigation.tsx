@@ -3,7 +3,7 @@ import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy, Library,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
-  Dumbbell,
+  Dumbbell, Layers,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
@@ -298,6 +298,30 @@ export function Sidebar() {
             Mock Exam
           </button>
           <button
+            onClick={() => navigate({ screen: 'flashcards', parent: null })}
+            aria-current={currentScreen === 'flashcards' ? 'page' : undefined}
+            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+              currentScreen === 'flashcards'
+                ? 'text-white bg-slate-800'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Layers className="w-5 h-5 shrink-0" />
+            Flashcards
+          </button>
+          <button
+            onClick={() => navigate({ screen: 'cloud-atlas', parent: null })}
+            aria-current={currentScreen === 'cloud-atlas' ? 'page' : undefined}
+            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
+              currentScreen === 'cloud-atlas'
+                ? 'text-white bg-slate-800'
+                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+            }`}
+          >
+            <Cloud className="w-5 h-5 shrink-0" />
+            Cloud Atlas
+          </button>
+          <button
             onClick={() => { setActiveSubjectForScreen('progress', 'all'); navigate({ screen: 'progress', parent: null }); }}
             aria-current={currentScreen === 'progress' && getActiveSubject('progress') === 'all' ? 'page' : undefined}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
@@ -449,7 +473,7 @@ export function MobileNav() {
           </button>
         </div>
       </nav>
-      <ToolsTray isOpen={moreOpen} onClose={closeMore} variant="mobile-sheet" />
+      <ToolsTray isOpen={moreOpen} onClose={closeMore} />
     </>
   );
 }

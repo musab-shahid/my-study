@@ -1,14 +1,6 @@
-import { Search, Settings, Home } from 'lucide-react';
-import { useRouter, type ScreenName } from '@/router';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { IconButton } from '@/components/ui';
 
-export function Header({ title, subtitle, screen }: { title?: string; subtitle?: string; screen?: ScreenName }) {
-  const { navigate } = useRouter();
-  const showSearch = screen !== 'search';
-  const showSettings = screen !== 'settings';
-  const showHome = screen !== 'home';
-
+export function Header({ title, subtitle }: { title?: string; subtitle?: string }) {
   return (
     <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80 supports-[backdrop-filter]:bg-white/85">
       <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[60px]">
@@ -28,26 +20,9 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
             </div>
           </div>
         </div>
-        <div className="flex items-center shrink-0 -mr-1">
-          {showHome && (
-            <IconButton label="Home" onClick={() => navigate({ screen: 'home', parent: null })}>
-              <Home className="w-5 h-5" />
-            </IconButton>
-          )}
-          {showSearch && (
-            <IconButton label="Search" onClick={() => navigate({ screen: 'search' })}>
-              <Search className="w-5 h-5" />
-            </IconButton>
-          )}
-          {showSettings && (
-            <IconButton label="Settings" onClick={() => navigate({ screen: 'settings' })}>
-              <Settings className="w-5 h-5" />
-            </IconButton>
-          )}
-        </div>
       </div>
       {/* Mobile breadcrumbs row */}
-      <div className="px-4 sm:px-6 pb-2 sm:hidden" aria-label="Page breadcrumbs">
+      <div className="px-4 sm:px-6 pb-2 sm:hidden">
         <Breadcrumbs />
       </div>
     </header>
