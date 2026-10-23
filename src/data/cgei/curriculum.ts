@@ -1671,7 +1671,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
     {
       id: 'cgei-subject-1-earth-system',
-      subjectId: 'cgei-earth-system',
+      subjectId: 'cgei-env-systems',
       title: 'Earth System Science Foundations',
       subtitle: 'Spheres, energy balance and feedbacks before climate data and EO depth',
       version: 1,
@@ -1884,7 +1884,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Support unit: DEM/slope/flow/network/geocoding/field QC fixtures.', 'Mobile apps documented only—not CI-deployed.'],
     },
     {
-      id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 11, kind: 'unit', readiness: 'draft',
+      id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 101, kind: 'unit', readiness: 'draft',
       summary: 'Describe Earth-system spheres, apply blackbody radiation and a simple planetary energy budget, and distinguish climate feedbacks at overview level.',
       estimatedHours: 5, prerequisites: ['Algebra', 'Units'], outcomes: outcomes11,
       lessonIds: lessons11.map((lesson) => lesson.id),
