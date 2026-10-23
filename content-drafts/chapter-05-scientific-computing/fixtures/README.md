@@ -130,3 +130,6 @@ ANOVA F, chi-square, n_eff, partial correlation, power sketch, SE/CI, one-sample
 
 ## unit_7_risk_index_check.py
 Synthetic H/E/V weighted index; ranking sensitivity to weights; no silent zero-fill. Not observed loss validation.
+
+## unit_8_research_protocol_check.py
+Protocol completeness contract for research questions/estimands. Not ethics-board approval.

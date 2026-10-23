@@ -2717,7 +2717,88 @@ const lessons75: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75];
+
+const outcomes81: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-81-question', statement: 'Turn a broad interest into a focused research question with a distinct estimand, unit of analysis, population and time horizon.', action: 'formulate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rp-o-81-design', statement: 'Classify exploratory versus confirmatory designs and state when pre-analysis plans and deviation logs are required.', action: 'classify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes82: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-82-measure', statement: 'Distinguish construct validity, accuracy, precision and bias, and state why the measure must match the concept.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-82-sample', statement: 'Define target population, sampling frame and basic design choices that affect generalisation.', action: 'define', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes83: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-83-validity', statement: 'Identify threats to internal, external, measurement and selection validity in environmental studies.', action: 'identify', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-83-ethics', statement: 'State core research-integrity and ethics obligations including authorship, data stewardship and avoiding selective reporting.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes86: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-86-report', statement: 'Structure scientific reporting with transparent methods, uncertainty language and data/code availability statements.', action: 'structure', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons81: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-1-1', kind: 'lesson', title: 'From interest to research question and estimand', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes81[0]],
+    content: [
+      { id: 'cgei-rp-81-1-1', kind: 'prose', title: 'Focus the question', body: 'A broad interest (“urban heat”) is not a research question. A usable question names the population, place, time horizon and the quantity of interest. Separate the research question from the estimand: the estimand is the precise target quantity (for example mean difference in summer peak LST between treated and matched untreated parcels), not a restatement of the topic title.' },
+      { id: 'cgei-rp-81-1-2', kind: 'prose', title: 'Unit of analysis and contribution', body: 'Declare the unit of analysis (pixel, parcel, household, district-year), the population, and the time horizon. State the intended contribution (empirical, methodological or contextual) without overclaiming causation when the design is observational.' },
+      { id: 'cgei-rp-81-1-lab', kind: 'worked-example', title: 'Protocol completeness lab', body: 'Fixture unit_8_research_protocol_check.py rejects protocols that omit estimand or unit of analysis, that set estimand equal to a vague question, that claim confirmatory certainty for exploratory designs, or that omit a pre-analysis plan and deviation log for confirmatory work.' },
+    ],
+    activityIds: ['cgei-rp-a-81-question'], assessmentIds: ['cgei-rp-assess-81-question'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-1-2', kind: 'lesson', title: 'Design types and pre-analysis planning', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes81[1]],
+    content: [
+      { id: 'cgei-rp-81-2-1', kind: 'prose', title: 'Exploratory versus confirmatory', body: 'Exploratory analyses generate hypotheses and describe patterns; confirmatory analyses test pre-specified claims. Observational designs (cross-sectional, longitudinal, comparative) dominate environmental systems; experiments are often impossible or unethical. Quasi-experimental ideas (matching, difference-in-differences concepts) require explicit assumptions and are not automatic causal proof.' },
+      { id: 'cgei-rp-81-2-2', kind: 'prose', title: 'Plans and deviations', body: 'Confirmatory work benefits from pre-registration or a written pre-analysis plan and a data-management plan before collection. Document deviations from the plan; selective reporting of only favourable specifications is a primary integrity failure.' },
+      { id: 'cgei-rp-81-2-3', kind: 'key-points', title: 'Literature discipline', items: ['Search and screening criteria before summarising', 'Evidence tables over narrative cherry-picking', 'Gap statements that name what remains unknown'] },
+    ],
+    activityIds: ['cgei-rp-a-81-design'], assessmentIds: ['cgei-rp-assess-81-design'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons82: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-2-1', kind: 'lesson', title: 'Measurement validity and sampling frames', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes82[0], outcomes82[1]],
+    content: [
+      { id: 'cgei-rp-82-1-1', kind: 'prose', title: 'Does the measure match the concept?', body: 'Construct validity asks whether the indicator matches the intended concept. Precision is repeatability; accuracy is closeness to the true value; bias is systematic error. Calibration, blanks, detection limits and reference materials are measurement controls—not optional metadata.' },
+      { id: 'cgei-rp-82-1-2', kind: 'prose', title: 'Sampling and generalisation', body: 'Distinguish target population from sampling frame. Convenience samples of well-instrumented sites rarely represent informal settlements or rural stations. Spatial and temporal dependence reduce effective sample size; treating autocorrelated observations as independent inflates certainty.' },
+      { id: 'cgei-rp-82-1-3', kind: 'callout', title: 'Common failure', tone: 'warning', items: ['Using LST as a direct substitute for human heat stress without justification', 'Reporting survey scales without reliability checks when claims depend on them', 'Generalising beyond the sampling frame'] },
+    ],
+    activityIds: ['cgei-rp-a-82-measure'], assessmentIds: ['cgei-rp-assess-82-measure'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons83: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-3-1', kind: 'lesson', title: 'Validity threats, ethics and integrity', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes83[0], outcomes83[1]],
+    content: [
+      { id: 'cgei-rp-83-1-1', kind: 'prose', title: 'Validity families', body: 'Internal validity concerns whether the study supports its causal or associative claims. External validity concerns generalisation. Measurement validity concerns indicators. Selection validity concerns who enters the sample. Environmental studies commonly face confounding, spatial spillover, changing instruments and incomplete loss databases.' },
+      { id: 'cgei-rp-83-1-2', kind: 'prose', title: 'Ethics and integrity', body: 'Respect persons, communities and sensitive locations; obtain required approvals; steward data with access controls when needed. Authorship should follow contribution (e.g. CRediT-style thinking). Avoid fabrication, falsification, plagiarism and selective reporting. Field data without timestamps, siting metadata or calibration records are weak evidence.' },
+      { id: 'cgei-rp-83-1-3', kind: 'key-points', title: 'Integrity checklist', items: ['No silent analytic switches after seeing results', 'Document exclusions and missingness', 'Separate exploratory findings from confirmatory claims'] },
+    ],
+    activityIds: ['cgei-rp-a-83-ethics'], assessmentIds: ['cgei-rp-assess-83-ethics'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons86: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-6-1', kind: 'lesson', title: 'Scientific reporting and availability statements', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes86[0]],
+    content: [
+      { id: 'cgei-rp-86-1-1', kind: 'prose', title: 'Report so a stranger can evaluate the claim', body: 'Methods must state data sources, processing, units, sample construction and limitations. Results should include uncertainty language appropriate to the design. Discussion must not upgrade associations to causal certainty without design support. Data and code availability statements are part of the evidence, not optional footnotes.' },
+      { id: 'cgei-rp-86-1-2', kind: 'checklist', title: 'Minimum reporting elements', items: ['Question and estimand', 'Data provenance and versions', 'Analysis steps a stranger can follow', 'Uncertainty and limitations', 'Data/code availability statement'] },
+    ],
+    activityIds: ['cgei-rp-a-86-report'], assessmentIds: ['cgei-rp-assess-86-report'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2828,6 +2909,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-8-research-practice',
+      subjectId: 'cgei-research-practice',
+      title: 'Research Practice & Scientific Integrity',
+      subtitle: 'Research questions, measurement, validity, ethics and transparent reporting',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Students and analysts who must design, critique and report environmental research.',
+      purpose: 'Build research-question discipline, measurement and validity literacy, and integrity habits before FYP and publication tracks.',
+      overview: 'Core draft path: Units 8.1, 8.2, 8.3 and 8.6. Units 8.4–8.5 and 8.7–8.9 (field methods, FYP paper, portfolio, proposals) are deferred. Draft only.',
+      prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
+      outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 14,
     },
     {
       id: 'cgei-subject-1-earth-system',
@@ -3223,6 +3322,51 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 7 Unit 7.5 — Risk assessment methods (Core)',
       notes: ['Synthetic index lab only; not catastrophe model validation.'],
     },
+    {
+      id: 'cgei-rp-unit-8-1', code: '8.1', title: 'Research questions and design', order: 801, kind: 'unit', readiness: 'draft',
+      summary: 'Formulate focused questions and estimands; separate exploratory from confirmatory designs; plan analyses and document deviations.',
+      estimatedHours: 4, prerequisites: ['Subject 5 introductory statistics'], outcomes: outcomes81,
+      lessonIds: lessons81.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-81-question', 'cgei-rp-a-81-design'],
+      assessmentIds: ['cgei-rp-assess-81-question', 'cgei-rp-assess-81-design'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.1 — Research questions and design (Core)',
+      notes: ['Protocol completeness fixture only; not institutional review board training.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-2', code: '8.2', title: 'Measurement and sampling foundations', order: 802, kind: 'unit', readiness: 'draft',
+      summary: 'Link constructs to measures; distinguish accuracy, precision and bias; define populations and sampling frames.',
+      estimatedHours: 3.5, prerequisites: ['Unit 8.1'], outcomes: outcomes82,
+      lessonIds: lessons82.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-82-measure'],
+      assessmentIds: ['cgei-rp-assess-82-measure'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.2 — Measurement and sampling foundations (Core)',
+      notes: ['Survey scale psychometrics and full GUM budgets deferred.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-3', code: '8.3', title: 'Validity, ethics, and integrity', order: 803, kind: 'unit', readiness: 'draft',
+      summary: 'Identify validity threats and practice research integrity, authorship and anti-selective-reporting norms.',
+      estimatedHours: 3.5, prerequisites: ['Unit 8.1'], outcomes: outcomes83,
+      lessonIds: lessons83.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-83-ethics'],
+      assessmentIds: ['cgei-rp-assess-83-ethics'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.3 — Validity, ethics, and integrity (Core)',
+      notes: ['Not a substitute for local ethics board procedures.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-6', code: '8.6', title: 'Scientific reporting', order: 806, kind: 'unit', readiness: 'draft',
+      summary: 'Report methods and uncertainty so claims can be evaluated; include data and code availability statements.',
+      estimatedHours: 3, prerequisites: ['Unit 8.1', 'Unit 8.3'], outcomes: outcomes86,
+      lessonIds: lessons86.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-86-report'],
+      assessmentIds: ['cgei-rp-assess-86-report'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.6 — Scientific reporting (Core)',
+      notes: ['Units 8.7–8.9 (paper, portfolio, proposals) deferred.'],
+    },
+
 
     {
       id: 'cgei-rs-unit-4-3', code: '4.3', title: 'Spectral indices and thermal products', order: 403, kind: 'unit', readiness: 'draft',
@@ -3415,6 +3559,15 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-risk-q-75-001', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'Changing indicator weights in a composite risk index can:', options: ['Never change district rankings', 'Change rankings even when input layers are fixed', 'Convert the index into a loss probability automatically', 'Eliminate uncertainty'], correctAnswer: 1, explanation: 'Weighting is a design choice that can reorder rankings; the fixture demonstrates this.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-risk-q-75-002', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'If vulnerability data are missing for a district, a transparent workflow should:', options: ['Treat missing V as zero risk', 'Mark risk incomplete rather than silently zero-filling', 'Replace V with hazard', 'Drop the district without documentation'], correctAnswer: 1, explanation: 'Silent zero-fill fabricates false safety; incomplete components must remain visible.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-risk-q-75-003', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'A composite risk index primarily:', options: ['Measures calibrated expected loss for every household', 'Ranks places under stated assumptions and should keep components visible', 'Replaces the need for hazard characterisation', 'Proves intervention effectiveness'], correctAnswer: 1, explanation: 'Indices rank under assumptions; they are not automatic calibrated loss models or impact evaluations.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-81-001', lessonId: 'cgei-rp-lesson-8-1-1', type: 'single-choice', prompt: 'An estimand is best described as:', options: ['A restatement of the broad topic title', 'The precise target quantity the study aims to estimate', 'Any p-value threshold', 'A journal name'], correctAnswer: 1, explanation: 'The estimand is the target quantity, distinct from a vague interest statement.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-81-002', lessonId: 'cgei-rp-lesson-8-1-1', type: 'single-choice', prompt: 'A protocol that sets estimand equal to a vague research question should be:', options: ['Accepted as confirmatory', 'Revised so the estimand names a specific target quantity', 'Ignored if the code runs', 'Converted automatically into causal proof'], correctAnswer: 1, explanation: 'Fixture and teaching require distinct estimands.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rp-q-81-003', lessonId: 'cgei-rp-lesson-8-1-2', type: 'single-choice', prompt: 'Confirmatory environmental analyses should typically include:', options: ['Only figures that look significant', 'A pre-analysis plan (or equivalent) and documentation of deviations', 'No methods section', 'Automatic causal claims'], correctAnswer: 1, explanation: 'Pre-specification and deviation logs protect against selective reporting.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-82-001', lessonId: 'cgei-rp-lesson-8-2-1', type: 'single-choice', prompt: 'Construct validity primarily asks:', options: ['Whether the sample size is large', 'Whether the measure matches the intended concept', 'Whether Git is used', 'Whether the map is red'], correctAnswer: 1, explanation: 'Construct validity links concept and measure.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-82-002', lessonId: 'cgei-rp-lesson-8-2-1', type: 'single-choice', prompt: 'Generalising beyond the sampling frame without justification threatens:', options: ['File naming only', 'External validity', 'Git commit messages', 'Colour palettes'], correctAnswer: 1, explanation: 'External validity concerns generalisation limits.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-83-001', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Reporting only the model specifications that look favourable after seeing results is primarily:', options: ['Good exploratory practice always', 'Selective reporting and a research-integrity failure', 'Required by Sendai', 'A sampling-frame issue only'], correctAnswer: 1, explanation: 'Selective reporting undermines confirmatory claims.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-83-002', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Internal validity concerns:', options: ['Whether the journal is open access', 'Whether the study design supports the causal or associative claims made', 'Whether the abstract is short', 'Whether the colour scale is sequential'], correctAnswer: 1, explanation: 'Internal validity is about support for the claimed relationship.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-86-001', lessonId: 'cgei-rp-lesson-8-6-1', type: 'single-choice', prompt: 'Data and code availability statements in environmental research reports are:', options: ['Optional decoration', 'Part of making claims evaluable and reproducible', 'Required only for machine learning', 'A substitute for methods'], correctAnswer: 1, explanation: 'Availability statements support evaluation and reuse.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -4192,6 +4345,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-rp-a-81-question', kind: 'guided-practice', title: 'Question and estimand card', instructions: 'Write a focused question, distinct estimand, unit of analysis, population and time horizon for an environmental study.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-81-question'] },
+    { id: 'cgei-rp-a-81-design', kind: 'critique', title: 'Exploratory vs confirmatory critique', instructions: 'Label a short study abstract as exploratory or confirmatory and list one required planning control.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-81-design'] },
+    { id: 'cgei-rp-a-82-measure', kind: 'guided-practice', title: 'Measure–construct match', instructions: 'For LST used as “heat stress,” state construct, measure, one validity threat and one sampling-frame limit.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'] },
+    { id: 'cgei-rp-a-83-ethics', kind: 'critique', title: 'Selective reporting case', instructions: 'Identify the integrity failure when only favourable specifications are reported after seeing results.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-83-ethics'] },
+    { id: 'cgei-rp-a-86-report', kind: 'coding-lab', title: 'Protocol fixture lab', instructions: 'Run unit_8_research_protocol_check.py and produce a one-page reporting checklist including data/code availability.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-86-report'] },
     { id: 'cgei-risk-a-71-vocab', kind: 'guided-practice', title: 'Vocabulary card', instructions: 'For a flood example, write one sentence each for hazard, exposure, vulnerability and residual risk.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-71-vocab'] },
     { id: 'cgei-risk-a-71-framework', kind: 'critique', title: 'Hazard map critique', instructions: 'Critique a statement that equates a red hazard zone with “high risk” for all residents.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-71-framework'] },
     { id: 'cgei-risk-a-73-heat', kind: 'guided-practice', title: 'Metric selection', instructions: 'Choose LST vs air temperature vs a heat-stress index for outdoor worker guidance and justify data needs.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-73-heat'] },
@@ -4455,6 +4613,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-rp-assess-81-question', kind: 'formative', title: 'Question/estimand', purpose: 'Assess focused questions and estimands.', objectiveIds: ['cgei-rp-o-81-question'], questionIds: ['cgei-rp-q-81-001', 'cgei-rp-q-81-002'], required: true },
+    { id: 'cgei-rp-assess-81-design', kind: 'formative', title: 'Design planning', purpose: 'Assess exploratory/confirmatory planning controls.', objectiveIds: ['cgei-rp-o-81-design'], questionIds: ['cgei-rp-q-81-003'], required: true },
+    { id: 'cgei-rp-assess-82-measure', kind: 'formative', title: 'Measurement', purpose: 'Assess measurement and sampling literacy.', objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'], questionIds: ['cgei-rp-q-82-001', 'cgei-rp-q-82-002'], required: true },
+    { id: 'cgei-rp-assess-83-ethics', kind: 'formative', title: 'Validity and integrity', purpose: 'Assess validity threats and integrity norms.', objectiveIds: ['cgei-rp-o-83-validity', 'cgei-rp-o-83-ethics'], questionIds: ['cgei-rp-q-83-001', 'cgei-rp-q-83-002'], required: true },
+    { id: 'cgei-rp-assess-86-report', kind: 'formative', title: 'Reporting', purpose: 'Assess transparent reporting requirements.', objectiveIds: ['cgei-rp-o-86-report'], questionIds: ['cgei-rp-q-86-001'], required: true },
     { id: 'cgei-risk-assess-71-vocab', kind: 'formative', title: 'Risk vocabulary', purpose: 'Assess H/E/V/risk distinctions.', objectiveIds: ['cgei-risk-o-71-vocab'], questionIds: ['cgei-risk-q-71-001', 'cgei-risk-q-71-002'], required: true },
     { id: 'cgei-risk-assess-71-framework', kind: 'formative', title: 'Frameworks', purpose: 'Assess IPCC/Sendai and social vulnerability literacy.', objectiveIds: ['cgei-risk-o-71-framework'], questionIds: ['cgei-risk-q-71-003'], required: true },
     { id: 'cgei-risk-assess-73-heat', kind: 'formative', title: 'Heat metrics', purpose: 'Assess heat metric selection.', objectiveIds: ['cgei-risk-o-73-heat'], questionIds: ['cgei-risk-q-73-001'], required: true },
