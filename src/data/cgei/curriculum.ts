@@ -1980,6 +1980,14 @@ const outcomes49: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-49-ops', statement: 'Design an operational monitoring workflow with cadence, latency budget, alert thresholds distinct from exploratory maps, QA flags, human review, and archives.', action: 'design workflow', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
+const outcomes410: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-410-water', statement: 'Select SAR or optical approaches for flood/surface-water mapping, state urban/vegetation/cloud limits, and refuse equating extent maps with depth or potable supply.', action: 'select and refuse overclaim', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-410-ag', statement: 'Interpret drought, ET, soil-moisture, and crop indicators with irrigation and calendar context, and refuse treating vegetation indices as yield or food security.', action: 'interpret with context', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-410-air-snow', statement: 'Distinguish satellite column/AOD products from surface exposure and snow cover from SWE; require suitable validation and spatial blocking where models are used.', action: 'distinguish and validate', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-410-deform', statement: 'Interpret InSAR and GRACE-scale groundwater storage change with geometry and scale limits, and require groundwater/land-use evidence before causal attribution.', action: 'interpret with limits', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+
 
 
 
@@ -2415,7 +2423,55 @@ const lessons49: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons410: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-10-1', kind: 'lesson', title: 'Floods and surface water', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes410[0]],
+    content: [
+      { id: 'cgei-rs-410-1-sar', kind: 'prose', title: 'SAR flood mapping', body: 'SAR flood mapping uses low backscatter over open water, often with thresholds (e.g. Otsu) or change detection versus a dry reference. Limits: urban double-bounce, emergent vegetation, wind-roughened water, and very flat dry terrain that can look dark. Speckle and incidence angle matter—document product and parameters.' },
+      { id: 'cgei-rs-410-1-opt', kind: 'prose', title: 'Optical water indices', body: 'MNDWI and related indices highlight open water in clear-sky optical data. Monsoon cloud often blocks the critical days. Dynamic surface-water products provide multi-date extent layers—still not water depth or quality. Extent ≠ volume or safe drinking water.' },
+      { id: 'cgei-rs-410-1-ops', kind: 'prose', title: 'Validation and operational services', body: 'Validate flood extent against independent high-resolution interpretation or field reports. Depth estimation from DEM plus extent is model-based and inherits DEM error. Operational activations (Copernicus EMS, UNOSAT-type) have stated products and timelines—cite the actual service product, not a generic “satellite flood map.”' },
+      { id: 'cgei-rs-410-1-points', kind: 'key-points', title: 'Water extent literacy', items: ['SAR and optical have different failure modes', 'Cloud vs urban/vegetation limits', 'Extent ≠ depth or potability', 'Name the operational product version'] },
+    ],
+    activityIds: ['cgei-rs-a-410-water'], assessmentIds: ['cgei-rs-assess-410-water'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-10-2', kind: 'lesson', title: 'Drought, ET, soil moisture and agriculture', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes410[1]],
+    content: [
+      { id: 'cgei-rs-410-2-drought', kind: 'prose', title: 'Vegetation and temperature drought indices', body: 'VCI, TCI, VHI, NDDI and related indices place current vegetation or temperature in a historical range. In irrigated systems, indices can stay high while basin water stress rises elsewhere—irrigation confounds drought interpretation (Units 4.5 and 4.9).' },
+      { id: 'cgei-rs-410-2-et', kind: 'prose', title: 'ET and soil moisture products', body: 'Evapotranspiration products use energy-balance or water-balance approaches at field to regional scales—check resolution and intended use. Soil-moisture products sense near-surface layers; root-zone inference is model-dependent. Do not treat coarse SM as farm-level root-zone truth.' },
+      { id: 'cgei-rs-410-2-ag', kind: 'prose', title: 'Crop type, irrigation and yield proxies', body: 'Crop mapping needs calendars and multi-date features. Irrigated-area and canal-command monitoring combine spectral, thermal, and sometimes SAR cues. Vegetation indices are weak yield predictors alone—yield needs agronomic context and often models with independent validation. Water productivity claims need water-use estimates, not NDVI maps only.' },
+      { id: 'cgei-rs-410-2-callout', kind: 'callout', title: 'Agriculture overclaims', tone: 'warning', items: ['Greenness ≠ yield', 'Irrigated NDVI can mask meteorological drought', 'Soil moisture depth is product-specific', 'Baseline choice changes “stress” flags'] },
+    ],
+    activityIds: ['cgei-rs-a-410-ag'], assessmentIds: ['cgei-rs-assess-410-ag'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-10-3', kind: 'lesson', title: 'Air quality from space', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes410[2]],
+    content: [
+      { id: 'cgei-rs-410-3-aod', kind: 'prose', title: 'AOD and PM2.5', body: 'Aerosol optical depth relates to column aerosol, not automatically to surface PM2.5. AOD-to-PM2.5 models use meteorology and often ML; they need spatial cross-validation because monitors are sparse and clustered. Personal exposure and regulatory compliance are further steps beyond a regional map.' },
+      { id: 'cgei-rs-410-3-tropomi', kind: 'prose', title: 'TROPOMI columns', body: 'TROPOMI NO2, SO2, and CO are column (or column-related) products. They inform emissions and regional patterns but do not equal ground-level concentrations without additional modelling and validation. Cloud screening and retrieval assumptions affect coverage and bias.' },
+      { id: 'cgei-rs-410-3-val', kind: 'prose', title: 'Evaluation design', body: 'Compare satellite-derived PM2.5 to reference monitors and, carefully, low-cost sensors—with spatial blocking so nearby sites do not leak into both train and test (Unit 4.7). Report stratum performance (urban/rural, season).' },
+    ],
+    activityIds: ['cgei-rs-a-410-air'], assessmentIds: ['cgei-rs-assess-410-air'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-10-4', kind: 'lesson', title: 'Water quality, snow and ground deformation', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes410[2], outcomes410[3]],
+    content: [
+      { id: 'cgei-rs-410-4-wq', kind: 'prose', title: 'Inland water quality retrievals', body: 'Chlorophyll, turbidity, and suspended-sediment algorithms are limited by optical complexity, adjacency, and bottom effects. Validate with in-situ turbidity or chlorophyll—not only another satellite product.' },
+      { id: 'cgei-rs-410-4-snow', kind: 'prose', title: 'Snow cover and glaciers', body: 'NDSI-based snow-cover mapping is not snow depth or snow-water equivalent. Debris-covered glacier ice is hard to map optically. Seasonal snow in basins such as the Upper Indus needs station or snow-course context; extent ≠ basin water storage.' },
+      { id: 'cgei-rs-410-4-insar', kind: 'prose', title: 'InSAR subsidence', body: 'InSAR measures line-of-sight displacement under coherence, atmospheric phase, and unwrapping constraints—not automatically vertical motion. Links to groundwater abstraction are hypotheses needing well levels and land-use evidence, not map colour alone.' },
+      { id: 'cgei-rs-410-4-grace', kind: 'prose', title: 'GRACE-scale storage change', body: 'GRACE/GRACE-FO observe large-scale mass change. Groundwater isolation requires accounting for other storage terms and is coarse relative to aquifers and cities. Do not assign a GRACE pixel trend to a single well field without scale-aware analysis.' },
+      { id: 'cgei-rs-410-4-points', kind: 'key-points', title: 'Proxy boundaries', items: ['WQ algorithms need in-situ checks', 'Snow cover ≠ SWE', 'InSAR LOS ≠ vertical without geometry', 'GRACE is regional mass change', 'Cause needs independent evidence'] },
+    ],
+    activityIds: ['cgei-rs-a-410-deform'], assessmentIds: ['cgei-rs-assess-410-deform'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2534,11 +2590,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.9 cover radiometry through advanced EO analysis (multi-source, time series, ops monitoring). Draft slice.',
+      overview: 'Units 4.1–4.10 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49, ...outcomes410],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8', 'cgei-rs-unit-4-9'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8', 'cgei-rs-unit-4-9', 'cgei-rs-unit-4-10'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2927,6 +2983,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.9 — Advanced EO analysis (Support)',
       notes: ['Support unit: workflow design and validation discipline.', 'Synthetic anomaly/fusion scores only—not STARFM production runs.'],
     },
+    {
+      id: 'cgei-rs-unit-4-10', code: '4.10', title: 'Thematic EO applications beyond heat: water, agriculture, air, snow, subsidence', order: 410, kind: 'unit', readiness: 'draft',
+      summary: 'Select and interpret EO methods for floods, drought/ET/soil moisture, agriculture, air quality, water quality, snow, and ground deformation—keeping proxies distinct from target quantities.',
+      estimatedHours: 8, prerequisites: ['Unit 4.2', 'Unit 4.4', 'Unit 4.7', 'Unit 4.9'], outcomes: outcomes410,
+      lessonIds: lessons410.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-410-water', 'cgei-rs-a-410-ag', 'cgei-rs-a-410-air', 'cgei-rs-a-410-deform'],
+      assessmentIds: ['cgei-rs-assess-410-water', 'cgei-rs-assess-410-ag', 'cgei-rs-assess-410-air', 'cgei-rs-assess-410-deform'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.10 — Thematic EO applications beyond heat (Support)',
+      notes: ['Support unit: application literacy across themes.', 'Synthetic method-selection fixture—not operational flood/AQ processing.'],
+    },
 
 
 
@@ -3262,6 +3329,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-49-008', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'Alert thresholds differ from exploratory mapping because alerts require:', options: ['No documentation', 'Explicit thresholds, false-alarm tolerance, QA flags, and often human review', 'Maximum visual stretch only', 'Deletion of archives'], correctAnswer: 1, explanation: 'Alerts are operational decisions with risk controls.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-49-009', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'Archiving inputs, configs, and outputs supports:', options: ['Larger file sizes only', 'Audit, reprocessing, and scientific reproducibility', 'Removing human review', 'Skipping validation'], correctAnswer: 1, explanation: 'Archives enable audit and reprocessing.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-49-010', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'A monitoring design is incomplete without:', options: ['A stated cadence, latency budget, and failure/review path', 'Guaranteed zero false alarms', 'Live credentials in git', 'Replacing single-source data always'], correctAnswer: 0, explanation: 'Operational completeness includes timing and failure handling.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-001', lessonId: 'cgei-rs-lesson-4-10-1', type: 'single-choice', prompt: 'During cloudy monsoon flooding, a first-pass extent map often prefers:', options: ['Only optical MNDWI', 'SAR-based methods because radar can observe through many clouds', 'Ignoring urban areas entirely always', 'Hotspot counts as flood depth'], correctAnswer: 1, explanation: 'SAR is cloud-tolerant relative to optical; urban/vegetation limits remain.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-002', lessonId: 'cgei-rs-lesson-4-10-1', type: 'single-choice', prompt: 'Mapped surface-water extent alone establishes:', options: ['Drinking-water safety', 'Water depth and volume', 'Neither depth/volume nor potability without additional methods and data', 'GRACE storage change'], correctAnswer: 2, explanation: 'Extent is not depth, volume, or potability.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-003', lessonId: 'cgei-rs-lesson-4-10-2', type: 'single-choice', prompt: 'In irrigated agriculture, high vegetation indices can:', options: ['Guarantee meteorological drought is absent basin-wide', 'Mask local greenness while broader water stress continues', 'Equal root-zone soil moisture at 1 m depth', 'Replace crop calendars'], correctAnswer: 1, explanation: 'Irrigation confounds drought-index interpretation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-004', lessonId: 'cgei-rs-lesson-4-10-2', type: 'single-choice', prompt: 'Soil-moisture satellite products typically:', options: ['Always sense the full root zone at field scale', 'Have resolution and sensing-depth limits that constrain farm-level root-zone claims', 'Equal ET energy-balance residuals', 'Require no validation'], correctAnswer: 1, explanation: 'Depth and resolution caveats are central.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-005', lessonId: 'cgei-rs-lesson-4-10-2', type: 'single-choice', prompt: 'Using NDVI alone as a yield map is weak because:', options: ['NDVI is never related to canopy', 'Yield depends on many factors beyond greenness; proxies need validation', 'Crop type mapping forbids indices', 'ET products replace all crop data'], correctAnswer: 1, explanation: 'Greenness is not yield.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-006', lessonId: 'cgei-rs-lesson-4-10-3', type: 'single-choice', prompt: 'AOD-to-PM2.5 models should be evaluated with:', options: ['Only visual RGB inspection', 'Spatial cross-validation against monitors, given spatial clustering of stations', 'Random pixel splits that ignore geography', 'Hotspot FRP only'], correctAnswer: 1, explanation: 'Spatial dependence and sparse monitors require spatial CV.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-007', lessonId: 'cgei-rs-lesson-4-10-3', type: 'single-choice', prompt: 'TROPOMI NO2 column amounts:', options: ['Equal personal exposure at 2 m', 'Inform regional patterns but are not surface concentrations without further analysis', 'Are identical to PM2.5', 'Replace meteorological data'], correctAnswer: 1, explanation: 'Columns ≠ surface exposure automatically.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-008', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'NDSI snow-cover maps measure:', options: ['Snow-water equivalent storage', 'Snow-covered area under algorithm assumptions—not automatically SWE or depth', 'Glacier mass balance directly', 'InSAR coherence'], correctAnswer: 1, explanation: 'Cover ≠ SWE/depth.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-009', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'InSAR displacement is fundamentally:', options: ['Always vertical centimetres at every building', 'Line-of-sight change under coherence and atmospheric constraints', 'Identical to GRACE mascon trends', 'Proof of a single causal mechanism'], correctAnswer: 1, explanation: 'LOS geometry and error sources limit interpretation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-410-010', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'Before attributing InSAR subsidence to groundwater pumping, add:', options: ['Only a red colour ramp', 'Groundwater levels, land-use context, and awareness of alternative drivers', 'Nothing—maps are self-explanatory', 'AOD columns'], correctAnswer: 1, explanation: 'Causal attribution needs independent evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3724,6 +3802,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-49-timeseries', kind: 'coding-lab', title: 'Seasonal anomaly lab', instructions: 'Run unit_4_9_advanced_eo_check.py. Report fusion vs single-source scores, anomaly value, and stratum-wise rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-49-timeseries', 'cgei-rs-o-49-validate'] },
     { id: 'cgei-rs-a-49-validate', kind: 'critique', title: 'Overall-only validation', instructions: 'Critique a report that quotes only overall accuracy for a phenology product spanning irrigated and rainfed strata.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-49-validate'] },
     { id: 'cgei-rs-a-49-ops', kind: 'reflection', title: 'Alert design note', instructions: 'Write cadence, latency budget, threshold rule, and human-review step for one monitoring decision.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-49-ops'] },
+    { id: 'cgei-rs-a-410-water', kind: 'guided-practice', title: 'Flood method choice', instructions: 'For a cloudy monsoon flood in mixed urban–ag land, choose SAR vs optical first-pass mapping and list two failure modes for your choice.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-410-water'] },
+    { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
+    { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
+    { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3978,6 +4060,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-49-timeseries', kind: 'formative', title: 'Time series', purpose: 'Assess phenology and anomaly literacy.', objectiveIds: ['cgei-rs-o-49-timeseries'], questionIds: ['cgei-rs-q-49-003', 'cgei-rs-q-49-004'], required: true },
     { id: 'cgei-rs-assess-49-validate', kind: 'formative', title: 'Validation', purpose: 'Assess independent stratified validation.', objectiveIds: ['cgei-rs-o-49-validate'], questionIds: ['cgei-rs-q-49-005', 'cgei-rs-q-49-006'], required: true },
     { id: 'cgei-rs-assess-49-ops', kind: 'formative', title: 'Operations', purpose: 'Assess monitoring design.', objectiveIds: ['cgei-rs-o-49-ops'], questionIds: ['cgei-rs-q-49-007', 'cgei-rs-q-49-008', 'cgei-rs-q-49-009', 'cgei-rs-q-49-010'], required: true },
+    { id: 'cgei-rs-assess-410-water', kind: 'formative', title: 'Floods and surface water', purpose: 'Assess flood/water extent literacy.', objectiveIds: ['cgei-rs-o-410-water'], questionIds: ['cgei-rs-q-410-001', 'cgei-rs-q-410-002'], required: true },
+    { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
+    { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
+    { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },

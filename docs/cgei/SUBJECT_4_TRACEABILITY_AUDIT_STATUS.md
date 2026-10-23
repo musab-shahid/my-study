@@ -2,8 +2,8 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 4.1–4.8 | Prior Core/Support units | Draft + fixtures as recorded |
-| 4.9 | Advanced EO analysis (**Support**) | Draft + synthetic fusion/anomaly/ops fixture |
-| 4.10+ | Thematic EO applications beyond heat (Support) onward | Not started |
+| 4.1–4.9 | Prior Core/Support units | Draft + fixtures as recorded |
+| 4.10 | Thematic EO applications beyond heat (**Support**) | Draft + method-selection fixture |
+| Subject 5+ | Scientific computing / later domains | Not started in this Subject 4 slice |
 
-Fusion is not automatic improvement. Report validation by stratum. Alerts need thresholds, QA, and review—not exploratory maps alone.
+Proxy ≠ target: extent≠depth, VI≠yield, column≠exposure, NDSI≠SWE, InSAR map≠cause.

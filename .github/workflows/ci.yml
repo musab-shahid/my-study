@@ -139,3 +139,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_8_active_fire_check.py
       - name: Verify Unit 4.9 advanced EO analysis checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_9_advanced_eo_check.py
+      - name: Verify Unit 4.10 thematic EO application checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_10_thematic_eo_check.py
