@@ -1,10 +1,11 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
+import { subjectsByTrack } from '../../data/subjects.ts';
 
 describe('CGEI assessment and evidence integrity', () => {
   it('keeps track subject membership and recommended order aligned', () => {
-    const subjectIds = new Set(cgeiCurriculum.subjects.map((subject) => subject.subjectId));
+    const appSubjectIds = new Set(subjectsByTrack('cgei').map((subject) => subject.id));
     for (const track of cgeiCurriculum.tracks) {
       assert.equal(new Set(track.subjectIds).size, track.subjectIds.length, `duplicate subject in ${track.id}`);
       assert.equal(new Set(track.recommendedOrder).size, track.recommendedOrder.length, `duplicate recommendation in ${track.id}`);
@@ -14,11 +15,7 @@ describe('CGEI assessment and evidence integrity', () => {
         `subject membership and recommended order differ for ${track.id}`,
       );
       for (const subjectId of track.subjectIds) {
-        assert.ok(
-          cgeiCurriculum.subjects.some((subject) => subject.subjectId === subjectId) ||
-            !subjectIds.has(subjectId),
-          `track subject ${subjectId} is not registered`,
-        );
+        assert.ok(appSubjectIds.has(subjectId), `track subject ${subjectId} is not registered in the application`);
       }
     }
   });
