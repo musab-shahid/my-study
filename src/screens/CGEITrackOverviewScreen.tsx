@@ -143,7 +143,7 @@ export function CGEITrackOverviewScreen() {
                   const lesson = cgeiCurriculum.lessons.find((item) => item.id === id);
                   return Boolean(lesson?.content.length);
                 }).length, 0);
-                const Icon = subject.lucideIcon;
+                const Icon = subject.lucideIcon ?? BookOpen;
                 return (
                   <Card key={subject.id} className="p-4 border border-slate-200 hover:border-teal-300 transition-colors">
                     <div className="flex items-start gap-3">
