@@ -2,8 +2,8 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 4.1–4.6 | (prior Core units) | Draft + fixtures as previously recorded |
-| 4.7 | Classification, clustering, and change (Core) | Draft + confusion/change fixture; leakage & OA limits taught |
-| 4.8+ | Active fire and hotspot products (Support) onward | Not started |
+| 4.1–4.7 | Core units (radiometry → classification/change) | Draft + fixtures as recorded |
+| 4.8 | Active fire and hotspot products (**Support**) | Draft + synthetic detection-count fixture |
+| 4.9+ | Advanced EO analysis (Support) onward | Not started |
 
-Overall accuracy is not map validity. Clusters are not classes until labelled. Change requires comparable processing. Projections are conditional scenarios.
+Hotspot counts are not burned area. Masked ≠ no fire. FRP is an intensity proxy. Synthetic fixtures are not real FIRMS validation.

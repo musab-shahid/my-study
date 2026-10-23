@@ -1966,6 +1966,14 @@ const outcomes47: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-47-scenario', statement: 'Distinguish land-use projections as conditional scenarios from forecasts, and outline an upgrade path from exploratory clustering to a validated classification with area-adjusted reporting.', action: 'distinguish and outline', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
+const outcomes48: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-48-detect', statement: 'Explain thermal-anomaly active-fire detection, FIRMS-style fields (pixel, confidence, satellite, time), and MODIS/VIIRS resolution and FRP as an intensity proxy—not a burned-area measure.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-48-errors', statement: 'Distinguish omission and commission, and refuse to treat hotspot counts as fire perimeters, burned area, or unique fire events without a stated protocol.', action: 'distinguish and refuse overclaim', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-48-interpret', statement: 'Interpret detections with land-cover and seasonal context, separate residue burning claims from industrial heat, and keep burned-area and smoke products as complementary evidence.', action: 'interpret with context', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-48-communicate', statement: 'Produce map metadata and a limitations sentence covering source, date range, sensor set, confidence filter, and what the layer cannot show.', action: 'document and communicate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+
 
 
 
@@ -2304,7 +2312,54 @@ const lessons47: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons48: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-8-1', kind: 'lesson', title: 'Active-fire detection principle and products', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes48[0]],
+    content: [
+      { id: 'cgei-rs-48-1-principle', kind: 'prose', title: 'Thermal anomaly detection', body: 'Active-fire (hotspot) products flag pixels where mid-infrared / thermal channels show a thermal anomaly relative to the background under a stated algorithm. A detection is an observation at a time and location—not a mapped fire perimeter and not proof of burned land. One fire event can produce many detections across overpasses; a fire can also be missed entirely between overpasses or under cloud and smoke.' },
+      { id: 'cgei-rs-48-1-firms', kind: 'prose', title: 'FIRMS-style product fields', body: 'NASA FIRMS-style feeds commonly expose pixel location, detection time, satellite/sensor, confidence, day/night flag, and often fire radiative power (FRP). Always read the product user guide for the exact field definitions and units. Confidence classes are product-specific—do not treat “nominal” on one sensor as identical to another without documentation.' },
+      { id: 'cgei-rs-48-1-sensors', kind: 'prose', title: 'MODIS and VIIRS characteristics', body: 'MODIS active-fire products are often discussed at ~1 km class resolution; VIIRS 375 m products resolve finer footprints. Near-real-time latency is typically hours, not instantaneous truth. FRP is an intensity proxy for radiant energy release rate under retrieval assumptions—not hectares burned, not severity class, and not emissions by itself.' },
+      { id: 'cgei-rs-48-1-points', kind: 'key-points', title: 'Product literacy', items: ['Detection ≠ perimeter ≠ burned area', 'Record sensor, time, confidence, product version', 'FRP is intensity proxy, not area', 'Counts need a defined unit (records, cells, events)'] },
+    ],
+    activityIds: ['cgei-rs-a-48-detect'], assessmentIds: ['cgei-rs-assess-48-detect'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-8-2', kind: 'lesson', title: 'Errors, limits and counting discipline', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes48[1]],
+    content: [
+      { id: 'cgei-rs-48-2-notba', kind: 'prose', title: 'Not perimeter, not burned area', body: 'Active-fire detections do not delineate the burned polygon. Burned-area products (e.g. MCD64A1, VIIRS burned-area, Sentinel-2-based maps) estimate affected surface over a period using different algorithms and temporal support. Never convert hotspot counts directly into hectares or severity without a separate, validated estimation method.' },
+      { id: 'cgei-rs-48-2-err', kind: 'prose', title: 'Omission and commission', body: 'Omission: small, short-lived, cloudy, canopy-obscured, or low-contrast fires may not be detected. Commission: gas flares, hot bare surfaces, and other thermal anomalies can trigger detections. No detection is not confirmed absence of fire when the pixel was cloudy, masked, or unobserved.' },
+      { id: 'cgei-rs-48-2-counts', kind: 'prose', title: 'Count sensitivity', body: 'Detection counts change with confidence filters, sensor mix (MODIS vs VIIRS), day/night, and overpass geometry. Aggregating multi-day detections without event deduplication inflates “number of fires.” State whether a chart shows observation records, unique cells, or claimed unique events—and only claim events if a deduplication protocol is defined and validated.' },
+      { id: 'cgei-rs-48-2-callout', kind: 'callout', title: 'Counting guardrails', tone: 'warning', items: ['Do not map count → burned hectares', 'Separate missing/masked from valid non-detection', 'Filter rules are product- and exercise-specific', 'Trends can reflect coverage or processing changes'] },
+    ],
+    activityIds: ['cgei-rs-a-48-counts'], assessmentIds: ['cgei-rs-assess-48-errors'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-8-3', kind: 'lesson', title: 'Interpretation, burned area and intensity', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes48[2]],
+    content: [
+      { id: 'cgei-rs-48-3-context', kind: 'prose', title: 'Context before attribution', body: 'The same thermal anomaly product can capture wildfire, agricultural residue burning, industrial heat, or false positives. Land-cover and season matter. Crop-residue claims need timing against crop calendars, field-scale context, and preferably high-resolution confirmation—not hotspot presence alone.' },
+      { id: 'cgei-rs-48-3-ba', kind: 'prose', title: 'Burned area versus active fire', body: 'Burned-area products and active-fire detections are complementary. Temporal mismatch is expected: a fire may burn between overpasses; a scar may persist after active detections stop. Disagreement does not automatically mean one product is “wrong.” Keep layers separate on maps and in analyses.' },
+      { id: 'cgei-rs-48-3-smoke', kind: 'prose', title: 'Smoke and pollution proxies', body: 'Using fire counts as pollution proxies is risky: emissions depend on fuel, combustion phase, and meteorology. FRP can better track intensity than raw counts under product assumptions, but still does not equal ambient air-quality concentrations or health outcomes.' },
+      { id: 'cgei-rs-48-3-points', kind: 'key-points', title: 'Interpretation rules', items: ['Context before residue-burning claims', 'BA and AF are different quantities', 'FRP ≠ emissions inventory', 'Association ≠ causation'] },
+    ],
+    activityIds: ['cgei-rs-a-48-interpret'], assessmentIds: ['cgei-rs-assess-48-interpret'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-8-4', kind: 'lesson', title: 'Map metadata and hotspot dashboard checklist', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes48[3]],
+    content: [
+      { id: 'cgei-rs-48-4-meta', kind: 'prose', title: 'Required map metadata', body: 'Every hotspot map should show source/product version, date range, sensor set, confidence filter, geographic extent, and a limitations sentence. Lineage includes last update time for dashboards. Missing metadata makes counts uninterpretable.' },
+      { id: 'cgei-rs-48-4-limit', kind: 'prose', title: 'Limitations sentence pattern', body: 'State what the layer shows (e.g. “VIIRS 375 m active-fire detections with confidence ≥ nominal, 1–7 Oct, filtered”) and what it cannot show (fire perimeter, burned hectares, unique fire events, absence of fire under cloud). Prefer plain language; add Urdu summaries where local users need them (TOC 4.8.6.5).' },
+      { id: 'cgei-rs-48-4-dash', kind: 'checklist', title: 'Hotspot dashboard upgrade checklist', items: ['Lineage: sensor, product version, confidence filter, date range, last update', 'Separate AF detections from burned area and from smoke/AQ layers', 'Crop-calendar and land-cover context before residue claims', 'Scheduled updates with failure alerts; archive snapshots', 'Limitations text and accessibility (including local-language summary where needed)'] },
+    ],
+    activityIds: ['cgei-rs-a-48-map'], assessmentIds: ['cgei-rs-assess-48-map'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2423,11 +2478,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.7 cover radiometry through classification, clustering, and change. Draft slice.',
+      overview: 'Units 4.1–4.8 cover radiometry through active-fire/hotspot products (Support). Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2794,6 +2849,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.7 — Classification, clustering, and change (Core)',
       notes: ['Synthetic metrics fixture only—not a real land-cover product validation.', 'Kappa is de-emphasised per Pontius/Millones and area-adjusted reporting practice.'],
     },
+    {
+      id: 'cgei-rs-unit-4-8', code: '4.8', title: 'Active fire and hotspot products', order: 408, kind: 'unit', readiness: 'draft',
+      summary: 'Interpret FIRMS-style active-fire detections with correct metadata, omission/commission limits, and strict separation from burned-area, severity, and emissions claims.',
+      estimatedHours: 6, prerequisites: ['Unit 4.2', 'Unit 4.4'], outcomes: outcomes48,
+      lessonIds: lessons48.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-48-detect', 'cgei-rs-a-48-counts', 'cgei-rs-a-48-interpret', 'cgei-rs-a-48-map'],
+      assessmentIds: ['cgei-rs-assess-48-detect', 'cgei-rs-assess-48-errors', 'cgei-rs-assess-48-interpret', 'cgei-rs-assess-48-map'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.8 — Active fire and hotspot products (Support)',
+      notes: ['Support unit: product literacy and interpretation guardrails.', 'Synthetic fixture only—no live FIRMS download in CI.', 'Never derive burned area from hotspot counts.'],
+    },
 
 
 
@@ -3109,6 +3175,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-47-008', lessonId: 'cgei-rs-lesson-4-7-4', type: 'single-choice', prompt: 'Post-classification change maps require:', options: ['No legend consistency', 'Compatible processing, registration, masks, legends, and temporal support', 'Only one date', 'K-means on a single image'], correctAnswer: 1, explanation: 'Incompatible maps create false change.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-47-009', lessonId: 'cgei-rs-lesson-4-7-4', type: 'single-choice', prompt: 'Classification error on either date tends to:', options: ['Cancel perfectly in the change matrix', 'Propagate into false change transitions', 'Guarantee unbiased urban growth rates', 'Remove the need for validation'], correctAnswer: 1, explanation: 'Map error inflates apparent change.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-47-010', lessonId: 'cgei-rs-lesson-4-7-5', type: 'single-choice', prompt: 'A CA-Markov land-use projection should be communicated as:', options: ['An unconditional forecast of the future', 'A conditional scenario under stated drivers and rules', 'A substitute for reference sampling', 'Proof that OA equals 100%'], correctAnswer: 1, explanation: 'Projections are scenario tools, not guaranteed forecasts.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-001', lessonId: 'cgei-rs-lesson-4-8-1', type: 'single-choice', prompt: 'An active-fire (hotspot) detection primarily indicates:', options: ['A surveyed fire perimeter in hectares', 'A thermal anomaly observation at a time and location under a product algorithm', 'Confirmed burned-area percentage', 'Ambient PM2.5 concentration'], correctAnswer: 1, explanation: 'Detections are thermal-anomaly observations, not perimeters or burned area.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-002', lessonId: 'cgei-rs-lesson-4-8-1', type: 'single-choice', prompt: 'Fire radiative power (FRP) in active-fire products is best treated as:', options: ['Exact burned hectares', 'An intensity proxy under retrieval assumptions, not burned area or emissions by itself', 'A unique fire-event ID', 'A soil-moisture measure'], correctAnswer: 1, explanation: 'FRP tracks radiant intensity proxy, not area or inventory emissions alone.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-003', lessonId: 'cgei-rs-lesson-4-8-2', type: 'single-choice', prompt: 'Hotspot counts alone can establish burned area:', options: ['Always, by multiplying count by 1 km²', 'Never without a separate, defensible burned-area method or product', 'Only at night', 'Only when FRP is missing'], correctAnswer: 1, explanation: 'Central guardrail: do not convert detections to hectares directly.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-004', lessonId: 'cgei-rs-lesson-4-8-2', type: 'single-choice', prompt: 'A pixel with no detection under cloud should be treated as:', options: ['Confirmed absence of fire', 'Not observed / not usable for presence–absence without additional evidence', 'Maximum FRP', 'A burned-area polygon'], correctAnswer: 1, explanation: 'Missing observation ≠ confirmed no fire.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-005', lessonId: 'cgei-rs-lesson-4-8-2', type: 'single-choice', prompt: 'Summing detections over many overpasses without deduplication mainly risks:', options: ['Under-counting observation records', 'Inflating apparent “number of fires” if records are treated as unique events', 'Removing commission error automatically', 'Creating MCD64A1 tiles'], correctAnswer: 1, explanation: 'State the count unit: records vs cells vs events.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-006', lessonId: 'cgei-rs-lesson-4-8-3', type: 'single-choice', prompt: 'Claiming crop-residue burning from hotspots alone is weak because:', options: ['Residue never burns', 'Industrial heat, wildfire, and false positives exist; calendar and land-cover context are required', 'VIIRS cannot detect thermal anomalies', 'Burned-area products forbid context'], correctAnswer: 1, explanation: 'Attribution needs context and preferably corroboration.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-007', lessonId: 'cgei-rs-lesson-4-8-3', type: 'single-choice', prompt: 'Active-fire detections and burned-area products:', options: ['Are always identical maps', 'Provide complementary evidence with possible legitimate temporal/spatial mismatch', 'Must be multiplied to get severity', 'Replace the need for metadata'], correctAnswer: 1, explanation: 'Different quantities and temporal support.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-008', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'A responsible hotspot map must include:', options: ['Only a red colour ramp', 'Source/product, date range, sensor set, confidence filter, and a limitations sentence', 'A guaranteed unique-fire count', 'Burned hectares derived from count × pixel area'], correctAnswer: 1, explanation: 'Metadata and limitations are required for interpretation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-009', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'A good limitations sentence states:', options: ['That the map shows absolute truth', 'What detections show and what they cannot show (perimeter, burned area, unique events, absence under cloud)', 'Only the analyst name', 'That FRP equals emissions'], correctAnswer: 1, explanation: 'Explicit non-claims prevent overinterpretation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-48-010', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'On a hotspot dashboard, burned-area and smoke/AQ layers should be:', options: ['Merged into the detection count', 'Kept separate with their own provenance and units', 'Hidden to simplify the UI', 'Used only when confidence is low'], correctAnswer: 1, explanation: 'TOC checklist: keep AF separate from BA and smoke/AQ evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3561,6 +3638,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-47-cluster', kind: 'critique', title: 'Cluster naming ban', instructions: 'Rewrite a caption that says “K-means land-cover map” into scientifically accurate language.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-47-cluster-change'] },
     { id: 'cgei-rs-a-47-change', kind: 'reflection', title: 'Change comparability', instructions: 'List four preprocessing or temporal mismatches that create false change between two classified maps.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-47-cluster-change'] },
     { id: 'cgei-rs-a-47-upgrade', kind: 'project-milestone', title: 'Upgrade-path card', instructions: 'Fill the six-step upgrade path from exploratory clustering to area-adjusted accuracy reporting for one class legend.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-47-scenario'] },
+    { id: 'cgei-rs-a-48-detect', kind: 'guided-practice', title: 'Product field list', instructions: 'List five FIRMS-style fields you would put on a map legend and one field that does not equal burned hectares.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-48-detect'] },
+    { id: 'cgei-rs-a-48-counts', kind: 'coding-lab', title: 'Detection counting lab', instructions: 'Run unit_4_8_active_fire_check.py. Report detection records, unique cells, masked count, and confirm burned area is not derived from detections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-48-errors'] },
+    { id: 'cgei-rs-a-48-interpret', kind: 'critique', title: 'Residue-burning claim', instructions: 'Rewrite a claim that “hotspots prove crop-residue burning” into a defensible statement requiring calendar and land-cover context.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-48-interpret'] },
+    { id: 'cgei-rs-a-48-map', kind: 'reflection', title: 'Limitations sentence', instructions: 'Write one limitations sentence for a VIIRS hotspot map covering one week with a confidence filter.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-48-communicate'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3807,6 +3888,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-47-cluster', kind: 'formative', title: 'Clustering and fractions', purpose: 'Assess cluster and unmixing literacy.', objectiveIds: ['cgei-rs-o-47-cluster-change'], questionIds: ['cgei-rs-q-47-006', 'cgei-rs-q-47-007'], required: true },
     { id: 'cgei-rs-assess-47-change', kind: 'formative', title: 'Change detection', purpose: 'Assess change comparability.', objectiveIds: ['cgei-rs-o-47-cluster-change'], questionIds: ['cgei-rs-q-47-008', 'cgei-rs-q-47-009'], required: true },
     { id: 'cgei-rs-assess-47-upgrade', kind: 'formative', title: 'Scenarios and upgrade', purpose: 'Assess scenario language and upgrade path.', objectiveIds: ['cgei-rs-o-47-scenario'], questionIds: ['cgei-rs-q-47-010'], required: true },
+    { id: 'cgei-rs-assess-48-detect', kind: 'formative', title: 'Detection products', purpose: 'Assess active-fire product literacy.', objectiveIds: ['cgei-rs-o-48-detect'], questionIds: ['cgei-rs-q-48-001', 'cgei-rs-q-48-002'], required: true },
+    { id: 'cgei-rs-assess-48-errors', kind: 'formative', title: 'Errors and counts', purpose: 'Assess omission/commission and counting discipline.', objectiveIds: ['cgei-rs-o-48-errors'], questionIds: ['cgei-rs-q-48-003', 'cgei-rs-q-48-004', 'cgei-rs-q-48-005'], required: true },
+    { id: 'cgei-rs-assess-48-interpret', kind: 'formative', title: 'Interpretation', purpose: 'Assess context and BA separation.', objectiveIds: ['cgei-rs-o-48-interpret'], questionIds: ['cgei-rs-q-48-006', 'cgei-rs-q-48-007'], required: true },
+    { id: 'cgei-rs-assess-48-map', kind: 'formative', title: 'Metadata and limits', purpose: 'Assess map communication.', objectiveIds: ['cgei-rs-o-48-communicate'], questionIds: ['cgei-rs-q-48-008', 'cgei-rs-q-48-009', 'cgei-rs-q-48-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
