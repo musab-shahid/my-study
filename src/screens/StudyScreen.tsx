@@ -100,6 +100,14 @@ export function StudyScreen() {
         .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit))
         .sort((a, b) => a.order - b.order)
     : [];
+  const curriculumLessons = [...new Set(curriculumUnits.flatMap((unit) => unit.lessonIds))]
+    .map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id))
+    .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson));
+  const studiedCurriculumLessonCount = curriculumLessons.filter((lesson) =>
+    lesson.sourceTopicId
+      ? data.studiedTopics.includes(lesson.sourceTopicId)
+      : (data.studiedCurriculumLessons ?? []).includes(lesson.id),
+  ).length;
   const lastCurriculumLesson = curriculumSubject && data.lastOpenedCurriculumLesson
     ? cgeiCurriculum.lessons.find((lesson) =>
         lesson.id === data.lastOpenedCurriculumLesson &&
@@ -313,7 +321,14 @@ export function StudyScreen() {
                     </button>
                   )}
                   <div className="mt-4">
-                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Curriculum units</h3>
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Curriculum units</h3>
+                      <span className="text-xs text-slate-500">
+                        {curriculumLessons.length > 0
+                          ? `${studiedCurriculumLessonCount} of ${curriculumLessons.length} lessons marked studied`
+                          : 'No lessons mapped yet'}
+                      </span>
+                    </div>
                     <div className="space-y-2">
                       {curriculumUnits.map((unit) => (
                         <button
