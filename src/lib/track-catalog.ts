@@ -9,6 +9,7 @@ import { topics } from '../data/topics.ts';
 import { topicMap } from '../data/topics.ts';
 import type { SubjectId, Topic, Question } from '../types.ts';
 import { subjectMap, type SubjectWithMeta } from '../data/subjects.ts';
+import { isCgeiOverviewTopic } from '../data/cgei/overview.ts';
 
 function scopedSubjectIds(input: ScopeInput): Set<string> {
   return new Set(subjectsForScope(input).map((s) => s.id));
@@ -101,7 +102,7 @@ export function getTrackCatalog(
     const sSections = sectionsBySubject(sid);
     const sSectionIds = new Set(sSections.map((s) => s.id));
     const sTopics = topics.filter((t) => {
-      if (!sSectionIds.has(t.sectionId)) return false;
+      if (!sSectionIds.has(t.sectionId) || isCgeiOverviewTopic(t.id)) return false;
       return contentEligibleForScope(t, input);
     });
     const loaded = loadedQuestionsBySubject?.get(sid);
@@ -145,7 +146,7 @@ export function topicsForSubjectInScope(subjectId: SubjectId, input: ScopeInput)
   const sSections = sectionsBySubject(subjectId);
   const sSectionIds = new Set(sSections.map((s) => s.id));
   return topics.filter((t) => {
-    if (!sSectionIds.has(t.sectionId)) return false;
+    if (!sSectionIds.has(t.sectionId) || isCgeiOverviewTopic(t.id)) return false;
     return contentEligibleForScope(t, input);
   });
 }
