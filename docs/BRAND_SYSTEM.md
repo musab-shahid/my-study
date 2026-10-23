@@ -24,7 +24,7 @@ The shared RGB-channel tokens live in `src/index.css`. Tailwind's `brand`, `succ
 | `surface-* ` | Page, card, and muted backgrounds |
 | `text-primary`, `text-muted`, `border-subtle` | Neutral content and structure |
 
-Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue.
+Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue. Track-specific accents should map to these semantic families instead of introducing unrelated one-off hex colors.
 
 ## Typography and reading
 
