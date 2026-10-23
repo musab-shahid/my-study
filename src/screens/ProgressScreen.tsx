@@ -206,7 +206,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{subject.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{subject.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{mScore}/100</span>
                       </div>
@@ -229,7 +229,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <SectionBadge section={section} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{section.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{section.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
@@ -262,7 +262,7 @@ return (
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-slate-400 text-xs font-bold w-4 shrink-0">{i + 1}</span>
                         {color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />}
-                        <span className="text-slate-700 text-sm truncate">{topic.title}</span>
+                        <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm">{topic.title}</span>
                       </div>
                       <span className={`text-sm font-bold shrink-0 ml-2 ${w.accuracy < 60 ? 'text-danger-500' : 'text-warning-500'}`}>{w.accuracy}%</span>
                     </div>
