@@ -1277,7 +1277,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <span className="font-semibold text-danger-700">Incorrect</span>
               </>
             )}
-            <span className="ml-auto text-xs text-slate-400 font-medium">Tap or press Enter to continue →</span>
+            <span className="ml-auto text-xs text-slate-500 font-medium">Tap or press Enter to continue →</span>
           </div>
           {!correctAns && (currentQ.type === 'multi') && (
             <div className="mb-3 space-y-1">
