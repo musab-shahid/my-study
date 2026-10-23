@@ -313,7 +313,7 @@ export function Button({
   };
   const sizes: Record<ButtonSize, string> = {
     sm: 'px-3 py-2 text-xs rounded-lg min-h-[32px]',
-    md: 'px-4 py-2 text-sm rounded-btn min-h-[40px]',
+    md: 'px-4 py-2 text-sm rounded-btn min-h-touch',
     lg: 'px-5 py-3 text-sm rounded-btn min-h-touch',
   };
   return (
