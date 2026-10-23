@@ -40,7 +40,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
       </div>
       {!submitted ? <div className="mt-3"><Button variant="secondary" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button></div> : (
         <div className={`mt-3 rounded-lg border p-3 ${isCorrect ? 'border-emerald-200 bg-emerald-50' : 'border-amber-200 bg-amber-50'}`}>
-          <p className={`font-semibold text-sm ${isCorrect ? 'text-emerald-800' : 'text-amber-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
+          <p role="status" aria-live="polite" aria-atomic="true" className={`font-semibold text-sm ${isCorrect ? 'text-emerald-800' : 'text-amber-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
           <p className="text-sm text-slate-700 leading-relaxed mt-1">{question.explanation}</p>
           {question.sourceCitation ? <p className="text-[10px] text-slate-500 mt-2">Source: {question.sourceCitation}</p> : null}
           <button type="button" onClick={() => { setSelected(null); setSubmitted(false); }} className="mt-2 text-xs font-semibold text-teal-800 hover:underline">Try again</button>
