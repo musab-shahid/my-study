@@ -54,17 +54,25 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('Domain orientation', { exact: true }).first()).toBeVisible();
   });
 
-  test('canonical curriculum units are discoverable from every registered subject overview', async ({ page }) => {
+  test('all registered canonical subjects expose their unit hierarchy', async ({ page }) => {
     await seedCgeiWorkspace(page);
 
-    await page.goto('/learn/cgei-remote-sensing');
-    await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('4.1', { exact: true }).first()).toBeVisible();
-    await expect(page.getByText('4.10', { exact: true }).first()).toBeVisible();
+    const subjects = [
+      { id: 'cgei-env-systems', firstUnit: '1.1', lastUnit: '1.10' },
+      { id: 'cgei-climate-science', firstUnit: '2.1', lastUnit: '2.8' },
+      { id: 'cgei-geospatial', firstUnit: '3.1', lastUnit: '3.4' },
+      { id: 'cgei-remote-sensing', firstUnit: '4.1', lastUnit: '4.10' },
+      { id: 'cgei-data-science', firstUnit: '5.1', lastUnit: '5.12' },
+      { id: 'cgei-ml-geoai', firstUnit: '6.1', lastUnit: '6.6' },
+      { id: 'cgei-climate-risk', firstUnit: '7.1', lastUnit: '7.5' },
+    ];
 
-    await page.goto('/learn/cgei-ml-geoai');
-    await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('6.1', { exact: true }).first()).toBeVisible();
+    for (const subject of subjects) {
+      await page.goto(`/learn/${subject.id}`);
+      await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText(subject.firstUnit, { exact: true }).first()).toBeVisible();
+      await expect(page.getByText(subject.lastUnit, { exact: true }).first()).toBeVisible();
+    }
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
