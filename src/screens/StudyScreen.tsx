@@ -45,8 +45,8 @@ import {
 export function StudyScreen() {
   const { navigate, route } = useRouter();
   const sd = useSubjectData();
-  const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
-  const { data, trackMembership } = useData();
+  const { getActiveSubject, setActiveSubjectForScreen, activeTrack, setActiveTrack } = useSubjectSelection();
+  const { data, trackMembership, setActiveEnrolledTrack } = useData();
 
   const activeSubject = getActiveSubject('learn');
   const isAllSubjects = activeSubject === 'all';
@@ -57,10 +57,16 @@ export function StudyScreen() {
   useEffect(() => {
     if (route.screen !== 'learn' || !route.subjectId) return;
     const subject = subjectMap[route.subjectId];
-    if (subject && subject.track === activeTrack) {
-      setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+    if (!subject) return;
+    if (subject.track !== activeTrack) {
+      // Direct links and breadcrumbs may be opened while another track is active.
+      // Switch only if the learner is enrolled; the route gate handles access.
+      const switched = setActiveEnrolledTrack(subject.track);
+      if (switched.ok) setActiveTrack(subject.track);
+      return;
     }
-  }, [route, activeTrack, setActiveSubjectForScreen]);
+    setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+  }, [route, activeTrack, setActiveSubjectForScreen, setActiveEnrolledTrack, setActiveTrack]);
 
   const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
   const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
