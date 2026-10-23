@@ -656,6 +656,18 @@ const lesson55Definitions = [
         "title": "Compute a SHA-256 checksum for the manifest",
         "language": "python",
         "code": "from hashlib import sha256\nfrom pathlib import Path\n\ndef sha256_file(path, chunk_size=1024 * 1024):\n    digest = sha256()\n    with Path(path).open('rb') as handle:\n        for chunk in iter(lambda: handle.read(chunk_size), b''):\n            digest.update(chunk)\n    return digest.hexdigest()\n\n# Hash raw bytes to identify the exact file contents."
+      },
+      {
+        "id": "cgei-ds-55-1-catalogue",
+        "kind": "prose",
+        "title": "Question and variable catalogue first",
+        "body": "Before downloading, write the analysis question and a variable catalogue: quantity, units, spatial/temporal support, acceptable sources, and QA flags you will require. Discovery and ingestion follow the catalogue—not the other way around. Changing the question after acquisition is allowed, but then update the catalogue and re-check licence and fitness-for-purpose."
+      },
+      {
+        "id": "cgei-ds-55-1-stages",
+        "kind": "prose",
+        "title": "Discovery through reporting as stages",
+        "body": "Name stages explicitly: discovery, access, ingestion, quality assessment, transformation, analysis, visualisation, reporting. Each stage has inputs, outputs, and failure modes. Lineage records which raw files and config versions produced each derived table so a reviewer can rerun the path."
       }
     ]
   },
@@ -787,6 +799,12 @@ const lesson55Definitions = [
           "Cache original responses under data/raw/ with request metadata and checksums.",
           "Validate units, schema, date coverage and expected spatial/temporal extent after download."
         ]
+      },
+      {
+        "id": "cgei-ds-55-3-auth",
+        "kind": "prose",
+        "title": "Authentication, rate limits and retries",
+        "body": "APIs may use API keys, OAuth tokens, or signed URLs. Never commit secrets. Respect rate limits and Retry-After; use bounded exponential backoff for transient 429/5xx, not infinite loops. Distinguish 401/403 (authz) from 404 (missing) and 5xx (retryable). Pagination must follow the provider contract until a terminal page."
       }
     ]
   },
@@ -931,6 +949,18 @@ const lesson55Definitions = [
         "kind": "worked-example",
         "title": "A reviewer tries to reproduce the download",
         "body": "The reviewer starts from a clean environment and follows the README. If the provider endpoint has changed, the package should fail with an informative error and retain the recorded request/metadata—not silently substitute a different dataset. If access requires a personal key, the README explains how to set it locally without including the secret. Reproducibility means an auditable process, not a guarantee that every remote service will remain unchanged."
+      },
+      {
+        "id": "cgei-ds-55-5-tools",
+        "kind": "prose",
+        "title": "Large-data tools and memory fit",
+        "body": "Arrow/Parquet enable columnar, often zero-copy exchange; Polars and DuckDB excel at single-node analytical queries; Dask targets parallel/out-of-core DataFrame workloads. Profile memory and time before scaling out. If a table fits comfortably in RAM, a simple pandas or DuckDB path may be clearer than a distributed framework. Chunk size is a measured trade-off—verify that chunked results match a full read on a sample."
+      },
+      {
+        "id": "cgei-ds-55-5-columnar",
+        "kind": "prose",
+        "title": "Columnar and chunked formats for repeated analysis",
+        "body": "Repeated scans of wide CSV waste I/O. Columnar formats (Parquet) and chunked array stores (Zarr for n-D) speed selective column and region reads. Record compression, partition keys, and schema versions in the package manifest so collaborators read the same bytes."
       }
     ]
   }
@@ -3306,6 +3336,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
 
     { id: 'cgei-ds-q-55-013', lessonId: 'cgei-ds-lesson-5-5-2', type: 'single-choice', prompt: 'A heat-day query uses WHERE tmax_c > 40 without handling NULLs. What is a likely consequence?', options: ['NULL temperatures are treated as greater than 40', 'Rows with missing tmax_c are dropped from the result without an explicit missing-data rule', 'SQL raises an error and forces imputation', 'Date filters become unnecessary'], correctAnswer: 1, explanation: 'Comparisons with NULL are unknown, so those rows fail the WHERE predicate and vanish from counts unless handled explicitly.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-ds-q-55-014', lessonId: 'cgei-ds-lesson-5-5-4', type: 'single-choice', prompt: 'Where should a CDS API key live in a shared analysis repository?', options: ['Hard-coded in a notebook cell for convenience', 'Committed in .env.example with the real secret', 'In a local .env or secret store, referenced via environment variables, never printed', 'In the git commit message'], correctAnswer: 2, explanation: 'Secrets belong outside version control. Commit only templates with placeholder names.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ds-q-55-015', lessonId: 'cgei-ds-lesson-5-5-1', type: 'single-choice', prompt: 'A variable catalogue should be written:', options: ['Only after the paper is accepted', 'Before bulk download, specifying quantities, units, support and QA needs', 'Only inside the API provider dashboard', 'Never, if SQL is used'], correctAnswer: 1, explanation: 'Catalogue-first avoids collecting unfit data.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ds-q-55-016', lessonId: 'cgei-ds-lesson-5-5-3', type: 'single-choice', prompt: 'Bounded retries with backoff are appropriate for:', options: ['Permanent 404 responses', 'Transient rate limits or 5xx failures, within a fixed attempt budget', 'Skipping checksum verification', 'Storing API keys in git'], correctAnswer: 1, explanation: 'Retries help transient failures; they must be bounded.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ds-q-55-017', lessonId: 'cgei-ds-lesson-5-5-5', type: 'single-choice', prompt: 'Choose Dask over a single-node DuckDB/Parquet path primarily when:', options: ['The dataset always fits in memory and is scanned once', 'Measured memory/time requirements exceed a single node and parallelism is justified', 'You want to avoid manifests', 'SQL is forbidden'], correctAnswer: 1, explanation: 'Scale out from measured bottlenecks, not fashion.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
     {
       "id": "cgei-ds-q-55-011",
       "lessonId": "cgei-ds-lesson-5-5-3",
