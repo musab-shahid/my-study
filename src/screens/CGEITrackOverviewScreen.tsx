@@ -144,7 +144,9 @@ export function CGEITrackOverviewScreen() {
                 const subject = subjects.find((item) => item.id === subjectId);
                 if (!subject) return null;
                 const canonical = cgeiCurriculum.subjects.find((item) => item.subjectId === subject.id);
-                const hasTopicContent = topicsBySubject(subject.id as SubjectId).some((topic) => !isCgeiOverviewTopic(topic.id));
+                const subjectTopics = topicsBySubject(subject.id as SubjectId).filter((topic) => !isCgeiOverviewTopic(topic.id));
+                const hasTopicContent = subjectTopics.some((topic) => topic.content);
+                const hasTopicOutlines = subjectTopics.length > 0;
                 const units = canonical?.unitIds
                   .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
                   .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit)) ?? [];
@@ -176,13 +178,18 @@ export function CGEITrackOverviewScreen() {
                           </>
                         ) : hasTopicContent ? (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Topic-based material</p>
-                            <p className="text-xs text-slate-500 mt-1">Existing study topics are available; the canonical orientation and unit hierarchy are still being migrated.</p>
+                            <p className="text-xs text-slate-600 font-semibold mt-1">Legacy topic content · release status not tracked</p>
+                            <p className="text-xs text-slate-500 mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
+                          </>
+                        ) : hasTopicOutlines ? (
+                          <>
+                            <p className="text-xs text-slate-600 font-semibold mt-1">Partial topic outline</p>
+                            <p className="text-xs text-slate-500 mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
                           </>
                         ) : (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Domain orientation</p>
-                            <p className="text-xs text-slate-500 mt-1">The roadmap is available; structured lessons and assessments are being authored progressively.</p>
+                            <p className="text-xs text-slate-600 font-semibold mt-1">Orientation only</p>
+                            <p className="text-xs text-slate-500 mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
                           </>
                         )}
                       </div>
@@ -190,7 +197,7 @@ export function CGEITrackOverviewScreen() {
                     <div className="mt-4 flex items-center justify-between gap-3">
                       <span className="text-xs text-slate-500 flex items-center gap-1">
                         {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-teal-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
-                        {canonical ? 'Structured pathway' : hasTopicContent ? 'Topic-based content' : 'Orientation only'}
+                        {canonical ? 'Structured pathway' : hasTopicContent ? 'Legacy topic content' : hasTopicOutlines ? 'Partial topic outline' : 'Orientation only'}
                       </span>
                       <Button size="sm" variant="secondary" disabled={!enrolled} onClick={() => openSubject(subject.id as SubjectId)}>
                         {enrolled ? 'Explore' : 'Locked'} <ArrowRight className="w-3.5 h-3.5 ml-1" />
