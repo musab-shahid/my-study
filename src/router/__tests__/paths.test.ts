@@ -75,6 +75,13 @@ describe('Phase A path mapping', () => {
     });
   });
 
+  it('routes roadmap-only CGEI sections to the subject orientation', () => {
+    assert.deepEqual(pathToRoute('/section/CGEI-01'), {
+      screen: 'learn',
+      subjectId: 'cgei-env-systems',
+    });
+  });
+
   it('round-trips canonical curriculum unit and lesson routes', () => {
     const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-3' };
     const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-3-1' };
