@@ -1,4 +1,4 @@
-import { useEffect, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
 const FOCUSABLE =
   'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -17,6 +17,13 @@ export function useFocusTrap(
   },
 ): void {
   const { initialFocusRef, onEscape } = options ?? {};
+  const onEscapeRef = useRef(onEscape);
+
+  // Keep the current callback without restarting the focus-trap effect when callers
+  // provide an inline callback. Restarting would restore focus during ordinary renders.
+  useEffect(() => {
+    onEscapeRef.current = onEscape;
+  }, [onEscape]);
 
   useEffect(() => {
     if (!open) return;
@@ -34,7 +41,7 @@ export function useFocusTrap(
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
-        onEscape?.();
+        onEscapeRef.current?.();
         return;
       }
       if (e.key !== 'Tab' || !containerRef.current) return;
@@ -59,6 +66,5 @@ export function useFocusTrap(
       document.removeEventListener('keydown', onKeyDown);
       previouslyFocused?.focus();
     };
-  }, [open, containerRef, initialFocusRef, onEscape]);
+  }, [open, containerRef, initialFocusRef]);
 }
-
