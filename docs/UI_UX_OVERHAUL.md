@@ -44,6 +44,8 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - Preserved existing color tokens, reduced-motion behavior, safe-area helpers, and KaTeX formula styling.
 - Improved mobile navigation state feedback, track-aware active styling, expandable subject semantics, and the More toggle behavior.
 - Polished subject-discovery cards and section/topic rows with consistent keyboard focus, touch-friendly actions, and more readable topic titles.
+- Improved topic-reader typography: clearer title and metadata hierarchy, more generous reading measure/line spacing, and stronger section headings while retaining MathText rendering.
+- Refined the quiz question panel with a clearer question heading, consistent responsive padding, and visible keyboard focus for key controls.
 - Added explicit expanded-state relationships to the section accordion and strengthened the Continue Reading action’s focus and touch affordances.
 
 ## Next implementation passes
@@ -53,7 +55,8 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - [x] Review and refine mobile navigation state feedback and expanded subject hierarchy semantics.
 - [x] Make a first shared-button focus-state cleanup and refine subject/section card interactions.
 - [ ] Audit remaining shared cards, section headers, empty states, and form controls for consistency.
-- [ ] Check study and quiz reading comfort, especially dense content and long questions.
+- [x] First-pass improvement to study topic typography and quiz question hierarchy.
+- [ ] Review remaining dense learning blocks, matching questions, and answer feedback at narrow widths.
 - [ ] Verify small-screen layouts and fixed-navigation clearance.
 - [ ] Run data validation, unit tests, type checks, lint, production build, and end-to-end tests where available.
 - [ ] Capture updated desktop/mobile screenshots and review differences before opening a pull request.
