@@ -7,38 +7,12 @@ import { subjectsByTrack } from '@/data/subjects';
 import { topicsBySubject } from '@/data/topics';
 import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { isTrackEnrolled } from '@/lib/track-access';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import type { SubjectId } from '@/types';
-
-function hasSubstantiveLessonContent(lesson: (typeof cgeiCurriculum.lessons)[number]): boolean {
-  return lesson.content.some((block) => {
-    const hasText = (value?: string) => Boolean(value?.trim());
-    switch (block.kind) {
-      case 'prose':
-      case 'worked-example':
-        return hasText(block.body);
-      case 'key-points':
-      case 'checklist':
-        return Boolean(block.items?.some((item) => hasText(item)));
-      case 'equation':
-        return hasText(block.expression) || hasText(block.body);
-      case 'code':
-        return hasText(block.code) || hasText(block.body);
-      case 'table':
-        return Boolean(block.headers?.some((item) => hasText(item)) && block.rows?.some((row) => row.some((cell) => hasText(cell))));
-      case 'callout':
-      case 'reflection':
-        return hasText(block.body) || Boolean(block.items?.some((item) => hasText(item)));
-      case 'figure':
-        return (hasText(block.body) && block.body?.trim() !== 'Figure or visual resource to be added.') || hasText(block.caption);
-      default:
-        return false;
-    }
-  });
-}
 
 const DOMAIN_GROUPS = [
   {
