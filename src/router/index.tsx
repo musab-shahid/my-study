@@ -242,11 +242,10 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     let breadcrumb: BreadcrumbItem[];
     if (options.breadcrumb) {
       breadcrumb = options.breadcrumb;
-    } else if (options.parent === null) {
-      breadcrumb = [{ label: routeLabel(route), route }];
     } else {
-      const parentCrumb = options.parent ?? prev;
-      breadcrumb = [...parentCrumb.breadcrumb, { label: routeLabel(route), route }];
+      // Breadcrumbs describe the route's place in the product's information
+      // architecture; parent is reserved for the learner's actual Back path.
+      breadcrumb = breadcrumbForRoute(route) as BreadcrumbItem[];
     }
     const next: RouteState = { route, parent, breadcrumb };
     setCurrentRoute(next);
