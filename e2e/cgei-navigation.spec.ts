@@ -84,6 +84,8 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
     await expect(page).toHaveURL(/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
     await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+    await expect(page.getByText('Unrecorded knowledge check', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText(/does not establish mastery/).first()).toBeVisible();
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toBeVisible();
     await page.goto('/learn/cgei-data-science');
