@@ -428,7 +428,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         <p className="inline-flex items-center rounded-md bg-sky-50 px-2.5 py-1 text-xs font-semibold text-sky-700 ring-1 ring-inset ring-sky-100">Section {topic.sectionId} · Topic {topic.order}</p>
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 leading-tight mt-3 break-words">{topic.title}</h1>
         {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
-      </div>
+      </header>
       <article className="max-w-reading space-y-7 sm:space-y-9 text-[1rem] leading-7 sm:leading-8">
         {topic.definition && (
           <section>
