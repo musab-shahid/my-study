@@ -389,7 +389,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-                  active ? activeColor : 'text-slate-500 hover:text-slate-300'
+                  active ? activeColor : 'text-slate-400 hover:text-slate-300'
                 }`}
               >
                 {active && (
@@ -411,7 +411,7 @@ export function MobileNav() {
             aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-              moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-300'
+              moreActive ? 'text-brand-400' : 'text-slate-400 hover:text-slate-300'
             }`}
           >
             {moreActive && (
@@ -425,7 +425,7 @@ export function MobileNav() {
                 </span>
               )}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-medium leading-tight">More</span>
+            <span className="text-[11px] font-medium leading-tight">More</span>
           </button>
         </div>
       </nav>
