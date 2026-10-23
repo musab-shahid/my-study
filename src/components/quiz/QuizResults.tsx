@@ -129,7 +129,12 @@ export function QuizResults({
                         const matchOptions = q.matchOptions ?? [];
                         const selectedMatch = selectedMatchIdx >= 0 ? matchOptions[selectedMatchIdx] : undefined;
                         const correctMatch = correctMatchIdx >= 0 ? matchOptions[correctMatchIdx] : undefined;
-                        const isCorrect = selectedMatchIdx === correctMatchIdx;
+                        const isCorrect =
+                          selectedMatchIdx >= 0 &&
+                          selectedMatchIdx < matchOptions.length &&
+                          correctMatchIdx >= 0 &&
+                          correctMatchIdx < matchOptions.length &&
+                          selectedMatchIdx === correctMatchIdx;
                         return (
                           <div key={idx} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-2 sm:gap-3 rounded-lg border border-slate-100 p-3">
                             <p className="min-w-0 break-words font-medium leading-5 text-slate-800">{opt}</p>
