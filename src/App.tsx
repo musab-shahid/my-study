@@ -275,7 +275,6 @@ function AppContent() {
           <Header
             title={title}
             subtitle={finalSubtitle}
-            screen={route.screen}
           />
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>
