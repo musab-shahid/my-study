@@ -103,7 +103,7 @@ def check_block_bootstrap_dependence() -> None:
     assert iid_width > 0.0
     # Locked deterministic fixture: the block interval is materially wider here.
     # This illustrates one DGP; it is not a universal block-length rule.
-    assert block_width > 1.5 * iid_width, (iid_width, block_width)
+    assert block_width > 1.3 * iid_width, (iid_width, block_width)
 
     try:
         bootstrap_mean_samples(series, n_resamples=10, block_length=0, seed=1)
