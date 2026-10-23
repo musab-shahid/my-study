@@ -50,6 +50,7 @@ export function SettingsScreen() {
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
+  const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -323,7 +324,16 @@ export function SettingsScreen() {
             <p className="font-semibold text-slate-900 text-sm">Export progress</p>
             <p className="text-slate-500 text-xs mt-0.5">Download a JSON backup of your local study data.</p>
           </div>
-          <Button variant="secondary" onClick={() => { try { downloadBackupFile(); } catch (e) { console.error('[settings] export failed', e); } }}>Download backup</Button>
+          <Button variant="secondary" onClick={() => {
+            try {
+              downloadBackupFile();
+              setBackupMsg('Backup export requested. Check your downloads.');
+            } catch (e) {
+              console.error('[settings] export failed', e);
+              setBackupMsg('Backup could not be created. Please try again.');
+            }
+          }}>Download backup</Button>
+          {backupMsg && <p className="text-xs text-slate-600 sm:basis-full" role="status" aria-live="polite">{backupMsg}</p>}
         </div>
       </Card>
 
