@@ -100,3 +100,6 @@ Stefan–Boltzmann M(288)≈390 W/m²; Te≈255 K for S=1361, A=0.30; Wien peak 
 
 ## unit_1_10_coupled_systems_check.py
 Urban SEB residual ΔQ_S=120; UHI=3.5 K; compound AND thresholds. Teaching models only.
+
+## unit_2_1_weather_climate_timescales_check.py
+Synthetic 36-month series: normals/anomalies, window-dependent slopes, missing≠0, cold spike ≠ trend reversal.

@@ -109,3 +109,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_1_energy_budget_check.py
       - name: Verify Unit 1.10 coupled systems teaching checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_10_coupled_systems_check.py
+      - name: Verify Unit 2.1 weather-climate timescale statistics
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_1_weather_climate_timescales_check.py

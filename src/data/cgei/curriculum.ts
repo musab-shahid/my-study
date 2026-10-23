@@ -1635,7 +1635,47 @@ const lessons110: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes21: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-21-weather-climate', statement: 'Distinguish weather from climate and compute anomalies relative to a stated baseline normal without treating a single extreme as climate disproof.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-21-stats', statement: 'Describe climate with mean, spread and percentiles, and show that estimated trends depend on the analysis window.', action: 'describe and demonstrate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-21-evidence', statement: 'State the metadata required for a climate claim and separate trend description from causal attribution at overview level.', action: 'state and separate', level: 'L1', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons21: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-1-1', kind: 'lesson', title: 'Weather versus climate and baselines', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes21[0]],
+    content: [
+      { id: 'cgei-cl-21-1-1', kind: 'prose', title: 'State, distribution and baseline', body: 'Weather is the short-term atmospheric state. Climate is a statistical description of weather over a defined period and region. Climate normals summarise that distribution; anomalies measure departures from a stated baseline. A single cold day is weather variability, not a disproof of a long-term warming signal—and a single heatwave is not, by itself, a full attribution study.' },
+      { id: 'cgei-cl-21-1-2', kind: 'prose', title: 'Normals and WMO practice', body: 'WMO climatological standard normals currently use 1991–2020; longer monitoring often still references 1961–1990. Changing the baseline changes anomaly numbers without changing the raw observations. Always report station/domain, variable, units, period, baseline and time zone.' },
+      { id: 'cgei-cl-21-1-lab', kind: 'worked-example', title: 'Lab: normal and anomaly on synthetic months', body: 'A 36-month synthetic series has seasonality plus a weak upward trend and one cold spike. Year-1 mean is the teaching normal (~16.8°C). Month 18 anomaly is positive relative to that normal. Fixture unit_2_1_weather_climate_timescales_check.py locks the calculations. Data are synthetic.' },
+    ],
+    activityIds: ['cgei-cl-a-21-baseline'], assessmentIds: ['cgei-cl-assess-21-baseline'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-1-2', kind: 'lesson', title: 'Climate statistics and time windows', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes21[1]],
+    content: [
+      { id: 'cgei-cl-21-2-1', kind: 'prose', title: 'Mean, variance, extremes, stationarity', body: 'Climate description needs central tendency, spread and extremes (percentiles, threshold exceedances). Temperature is often roughly unimodal; precipitation is skewed. Stationarity is an assumption, not a guarantee—nonstationarity matters for return periods. Time horizons span synoptic to multi-decadal; mixing them without saying so confuses weather noise with climate signals.' },
+      { id: 'cgei-cl-21-2-lab', kind: 'worked-example', title: 'Lab: window-dependent slopes', body: 'On the synthetic series, the OLS slope over 36 months is positive and small per month; the slope over the first 12 months differs because seasonality dominates the short window. Missing values must be dropped from means, not treated as zero. Fixture unit_2_1_weather_climate_timescales_check.py asserts both behaviours.' },
+      { id: 'cgei-cl-21-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Linear slope ≠ attribution', 'Short records exaggerate sampling noise', 'Subject 5 covers formal time-series inference in more depth'] },
+    ],
+    activityIds: ['cgei-cl-a-21-stats'], assessmentIds: ['cgei-cl-assess-21-stats'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-1-3', kind: 'lesson', title: 'Indices, past climate and evidence language', order: 3, readiness: 'draft', level: 'L1', estimatedMinutes: 40,
+    objectives: [outcomes21[2]],
+    content: [
+      { id: 'cgei-cl-21-3-1', kind: 'prose', title: 'Climate and teleconnection indices', body: 'Indices such as ONI, IOD/DMI, SOI, NAO and MJO phase summarise large-scale variability. Construction depends on standardisation and reference periods. Correlation with local weather is not automatic causation; over-reading index maps is a common error.' },
+      { id: 'cgei-cl-21-3-2', kind: 'prose', title: 'Past climate and instrumental records', body: 'Natural drivers include orbital, solar and volcanic forcings plus internal variability. Palaeo archives (ice cores, tree rings, speleothems, sediments) differ in resolution and what they record. Instrumental global series (HadCRUT, GISTEMP, NOAAGlobalTemp, Berkeley Earth) are constructed products with uncertainty. IPCC AR6 states that human influence on the climate system is unequivocal—this unit treats that as a headline result, not a calculation the learner repeats from the synthetic series.' },
+      { id: 'cgei-cl-21-3-3', kind: 'checklist', title: 'Minimum climate-claim checklist', items: ['Variable and units', 'Domain', 'Period and baseline', 'Statistic', 'Data source and limits', 'What is not claimed'] },
+    ],
+    activityIds: ['cgei-cl-a-21-evidence'], assessmentIds: ['cgei-cl-assess-21-evidence'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1726,6 +1766,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 5,
+    },
+    {
+      id: 'cgei-subject-2-climate',
+      subjectId: 'cgei-climate-science',
+      title: 'Climate Science',
+      subtitle: 'Weather–climate distinction, observations and the statistical language of change',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
+      purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
+      overview: 'Unit 2.1 teaches weather versus climate, normals/anomalies, time windows, basic climate statistics, and careful evidence language. Draft slice only—not full Subject 2.',
+      prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
+      outcomes: [...outcomes21],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-cl-unit-2-1'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 6,
     },
   ],
   units: [
@@ -1946,6 +2004,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 1 Unit 1.10 — Coupled human–natural systems (Core)',
       notes: ['Core unit after 1.1; Support units 1.2–1.9 not required by TOC order for this Core path.', 'Urban SEB and compound flag are teaching models only.'],
     },
+    {
+      id: 'cgei-cl-unit-2-1', code: '2.1', title: 'Weather, climate, and time scales', order: 201, kind: 'unit', readiness: 'draft',
+      summary: 'Distinguish weather from climate, compute anomalies against stated normals, and interpret variability and trends without confusing description with attribution.',
+      estimatedHours: 6, prerequisites: ['Unit 1.1'], outcomes: outcomes21,
+      lessonIds: lessons21.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-21-baseline', 'cgei-cl-a-21-stats', 'cgei-cl-a-21-evidence'],
+      assessmentIds: ['cgei-cl-assess-21-baseline', 'cgei-cl-assess-21-stats', 'cgei-cl-assess-21-evidence'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.1 — Weather, climate, and time scales (Core)',
+      notes: ['Core unit; synthetic series only; attribution is headline-level, not computed here.'],
+    },
+
 
 
 
@@ -1997,6 +2067,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-q-110-002', lessonId: 'cgei-es-lesson-1-10-1', type: 'single-choice', prompt: 'Urban heat intensity for T_u=38.5°C and T_r=35.0°C is:', options: ['73.5 K', '3.5 K', '0 K', '−3.5 K'], correctAnswer: 1, explanation: 'UHI = T_urban − T_rural = 3.5 K for this synthetic pair.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-110-003', lessonId: 'cgei-es-lesson-1-10-2', type: 'single-choice', prompt: 'Urban expansion most directly tends to:', options: ['Increase infiltration everywhere', 'Increase runoff and heat-storage exposure of assets', 'Eliminate the need for irrigation data', 'Remove compound climate risk'], correctAnswer: 1, explanation: 'Impervious growth raises runoff and heat storage while concentrating assets and people.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-es-q-110-004', lessonId: 'cgei-es-lesson-1-10-3', type: 'single-choice', prompt: 'Under an AND compound rule with thresholds 0.6/0.6, heat=0.8 and drought=0.4 yields:', options: ['Compound true', 'Compound false because drought is below threshold', 'Always true if heat is high', 'Undefined'], correctAnswer: 1, explanation: 'Both stressors must meet thresholds; drought 0.4 < 0.6 so the compound flag is false.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-21-001', lessonId: 'cgei-cl-lesson-2-1-1', type: 'single-choice', prompt: 'A single unusually cold month most correctly indicates:', options: ['Climate change has reversed', 'Weather variability within a longer climate distribution', 'The baseline normal is invalid', 'Attribution is complete'], correctAnswer: 1, explanation: 'Weather extremes occur within climate distributions; one cold month does not overturn a long-term climate assessment.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-21-002', lessonId: 'cgei-cl-lesson-2-1-1', type: 'single-choice', prompt: 'An anomaly is defined relative to:', options: ['Tomorrow’s forecast only', 'A stated baseline normal for a defined period', 'The maximum possible temperature', 'Sea-level pressure alone'], correctAnswer: 1, explanation: 'Anomalies require an explicit baseline period; changing the baseline changes anomaly values.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-21-003', lessonId: 'cgei-cl-lesson-2-1-2', type: 'single-choice', prompt: 'Treating a missing monthly temperature as 0°C when computing a mean will:', options: ['Always improve accuracy', 'Bias the mean downward if true values are warmer', 'Remove seasonality', 'Equal the median'], correctAnswer: 1, explanation: 'Zero is a real temperature; inserting it for missing data biases the mean and violates the observation contract.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cl-q-21-004', lessonId: 'cgei-cl-lesson-2-1-3', type: 'single-choice', prompt: 'A positive linear trend on a short local series is sufficient to conclude:', options: ['Full IPCC-level attribution for the globe', 'A descriptive change over that window, not automatic causal attribution', 'That weather no longer exists', 'That the baseline must be 1961–1990'], correctAnswer: 1, explanation: 'Trend description is not attribution; causal claims need additional evidence beyond a short local fit.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2562,6 +2637,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-a-110-urban', kind: 'coding-lab', title: 'Urban energy residual lab', instructions: 'Run unit_1_10_coupled_systems_check.py. Compute ΔQ_S from the teaching fluxes and report the urban–rural storage contrast and UHI.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-110-urban'] },
     { id: 'cgei-es-a-110-lulc', kind: 'guided-practice', title: 'LULC pathway sketch', instructions: 'Pick one peri-urban change and state one hydrological and one exposure consequence without inventing quantitative rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-es-o-110-agri-lulc'] },
     { id: 'cgei-es-a-110-compound', kind: 'guided-practice', title: 'Compound threshold exercise', instructions: 'Using thresholds 0.6/0.6, classify three synthetic (heat, drought) pairs as compound or not and justify the AND rule.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-110-compound'] },
+    { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
+    { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
+    { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
     { id: 'cgei-es-a-11-spheres', kind: 'guided-practice', title: 'Sphere coupling sketch', instructions: 'Name one flux that couples the cryosphere to the hydrosphere in the Indus basin and state whether it is primarily seasonal or multi-decadal.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-spheres'] },
     { id: 'cgei-es-a-11-radiation', kind: 'coding-lab', title: 'Energy budget lab', instructions: 'Run unit_1_1_energy_budget_check.py. Report M at 288 K, Te for S=1361 and A=0.30, and λ_max at 288 K.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-11-radiation'] },
     { id: 'cgei-es-a-11-feedback', kind: 'reflection', title: 'Feedback polarity', instructions: 'Explain in three sentences why ice–albedo feedback is positive and why Planck emission is stabilising.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-feedback'] },
@@ -2761,6 +2839,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-assess-110-urban', kind: 'formative', title: 'Urban energy balance', purpose: 'Assess residual closure and UHI.', objectiveIds: ['cgei-es-o-110-urban'], questionIds: ['cgei-es-q-110-001', 'cgei-es-q-110-002'], required: true },
     { id: 'cgei-es-assess-110-lulc', kind: 'formative', title: 'LULC consequences', purpose: 'Assess land-use impact pathways.', objectiveIds: ['cgei-es-o-110-agri-lulc'], questionIds: ['cgei-es-q-110-003'], required: true },
     { id: 'cgei-es-assess-110-compound', kind: 'formative', title: 'Compound stress', purpose: 'Assess compound threshold logic.', objectiveIds: ['cgei-es-o-110-compound'], questionIds: ['cgei-es-q-110-004'], required: true },
+    { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
+    { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
+    { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },
     { id: 'cgei-es-assess-11-spheres', kind: 'formative', title: 'Spheres', purpose: 'Assess sphere identification.', objectiveIds: ['cgei-es-o-11-spheres'], questionIds: ['cgei-es-q-11-001'], required: true },
     { id: 'cgei-es-assess-11-radiation', kind: 'formative', title: 'Radiation laws', purpose: 'Assess Stefan–Boltzmann and Te.', objectiveIds: ['cgei-es-o-11-radiation'], questionIds: ['cgei-es-q-11-002', 'cgei-es-q-11-003'], required: true },
     { id: 'cgei-es-assess-11-feedback', kind: 'formative', title: 'Feedbacks', purpose: 'Assess feedback polarity.', objectiveIds: ['cgei-es-o-11-feedback'], questionIds: ['cgei-es-q-11-004'], required: true },
