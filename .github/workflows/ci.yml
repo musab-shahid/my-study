@@ -129,3 +129,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
       - name: Verify Unit 4.4 preprocessing and harmonisation checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_4_preprocess_harmonise_check.py
+      - name: Verify Unit 4.5 SUHI analysis checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_suhi_analysis_check.py

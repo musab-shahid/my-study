@@ -1945,6 +1945,14 @@ const outcomes44: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-44-harmonise', statement: 'State Landsat–Sentinel and multi-generation Landsat continuity requirements, and identify when time-series smoothing can erase real change.', action: 'state and identify', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
 ];
 
+const outcomes45: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-45-define', statement: 'Distinguish surface SUHII from canopy-layer air-temperature UHI and compute a stated urban–reference LST contrast with explicit sign convention and units.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-45-reference', statement: 'Design and sensitivity-test rural/reference regions (elevation, land cover, water exclusion, buffers) and describe LCZ-based alternatives to binary urban–rural splits.', action: 'design and sensitivity-test', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-45-drivers', statement: 'Select candidate heat drivers and state interpretation limits of OLS, spatial models, and ML with spatial cross-validation; recognise MAUP and hotspot edge effects.', action: 'select and state limits', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-rs-o-45-interpret', statement: 'Interpret green/blue cooling associations without causal overclaim, separate surface heat from population exposure, and list validation and clear-sky limitations for heat maps.', action: 'interpret without overclaim', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+
 
 const lessons42: CurriculumLesson[] = [
   {
@@ -2103,7 +2111,68 @@ const lessons44: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons45: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-5-1', kind: 'lesson', title: 'SUHII definitions and reference design', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 55,
+    objectives: [outcomes45[0], outcomes45[1]],
+    content: [
+      { id: 'cgei-rs-45-1-define', kind: 'prose', title: 'Surface SUHII is not air-temperature UHI', body: 'Surface urban heat island intensity (SUHII) is a contrast in land-surface temperature (LST) between an urban target and a stated non-urban reference under a sampling protocol. Canopy-layer UHI contrasts near-surface air temperature; boundary-layer UHI refers to deeper urban atmospheric modification. Day versus night and season change both magnitude and spatial pattern. Never treat satellite LST as a direct measure of human-experienced air temperature or heat-stress indices.' },
+      { id: 'cgei-rs-45-1-eq', kind: 'equation', title: 'Baseline SUHII (teaching form)', expression: '\\mathrm{SUHII} = \\overline{T}_{\\mathrm{urban}} - \\overline{T}_{\\mathrm{reference}}', caption: 'Kelvin (or °C difference of equal magnitude). Positive values mean the urban mean is warmer than the reference. Means use only valid, co-masked pixels under a stated date protocol.' },
+      { id: 'cgei-rs-45-1-ref', kind: 'prose', title: 'Reference selection is a design choice', body: 'Reference candidates include rural buffers/rings, land-cover classes, and elevation-matched zones. Exclude open water and extreme relief when they are not comparable to the urban fabric. Peri-urban contamination biases the reference warm or green. No single buffer distance is universal—justify the choice and run sensitivity across defensible alternatives. Local Climate Zone (LCZ) mapping (WUDAPT, LCZ Generator) provides structured urban form classes as an alternative to binary urban–rural splits.' },
+      { id: 'cgei-rs-45-1-time', kind: 'prose', title: 'Matched dates before casual composites', body: 'Prefer same-date urban and reference contrasts when comparing intensity. Multi-date seasonal or annual summaries need stated windows, cloud/QA rules, and valid-observation counts. Clear-sky LST is not a random sample of all weather; composites often run warm (Unit 4.3–4.4). Do not subtract unrelated dates or mix incompatible temporal support without disclosure.' },
+      { id: 'cgei-rs-45-1-work', kind: 'worked-example', title: 'Two references, two intensities', body: 'Valid urban mean LST = 312.0 K. Reference A (dry cropland, elevation-matched) mean = 308.5 K → SUHII = 3.5 K. Reference B (irrigated fringe) mean = 310.0 K → SUHII = 2.0 K. The 1.5 K swing is a reference-design effect, not a change in the city. Report both and the inclusion rules.' },
+      { id: 'cgei-rs-45-1-points', kind: 'key-points', title: 'Definition discipline', items: ['SUHII uses LST; air UHI uses air temperature', 'State sign convention and units', 'Reference and date protocol belong in the estimand', 'LCZ is an alternative to binary urban–rural'] },
+    ],
+    activityIds: ['cgei-rs-a-45-suhii'], assessmentIds: ['cgei-rs-assess-45-define'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-5-2', kind: 'lesson', title: 'Drivers, models, scale and hotspots', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes45[2]],
+    content: [
+      { id: 'cgei-rs-45-2-drivers', kind: 'prose', title: 'Candidate drivers', body: 'Common covariates include vegetation indices, impervious fraction, albedo, building density/height, population, night-time lights, water proximity, and topography. Correlation with LST is not proof that changing one driver will cool the city by the fitted coefficient.' },
+      { id: 'cgei-rs-45-2-models', kind: 'prose', title: 'Model families and limits', body: 'OLS associations ignore spatial dependence. GWR and spatial lag/error models address spatial structure under their assumptions. Random forests with spatial cross-validation and SHAP explain predictive contributions—not causal effects. Choose the model to match the question; write the statistics plan before analysis (Unit 4.5.6).' },
+      { id: 'cgei-rs-45-2-maup', kind: 'prose', title: 'MAUP and aggregation', body: 'Pixel, block, grid, and administrative units can reverse apparent relationships (modifiable areal unit problem). Report the support of every summary. Thousands of pixels are not thousands of independent observations when fields are spatially autocorrelated.' },
+      { id: 'cgei-rs-45-2-hotspot', kind: 'prose', title: 'Hotspot detection', body: 'Getis–Ord Gi* and related cluster tests flag local concentrations of high or low values. Edge effects, masks, and unequal n_valid distort clusters—inspect boundaries and do not equate a Gi* hotspot with a health-priority zone without exposure layers.' },
+      { id: 'cgei-rs-45-2-callout', kind: 'callout', title: 'Association ≠ intervention effect', tone: 'warning', items: ['LST–NDVI slopes are associational unless designed for causality', 'Spatial ML importance is not a policy elasticity', 'Hotspots need exposure context before vulnerability language', 'State scale of analysis explicitly'] },
+    ],
+    activityIds: ['cgei-rs-a-45-drivers'], assessmentIds: ['cgei-rs-assess-45-drivers'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-5-3', kind: 'lesson', title: 'Green and blue space cooling associations', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes45[3]],
+    content: [
+      { id: 'cgei-rs-45-3-cooling', kind: 'prose', title: 'Cooling intensity and distance', body: 'LST profiles away from parks or water can show cooling intensity (centre-to-surround difference) and a distance over which the anomaly decays. Patch-size thresholds are landscape- and climate-specific—not universal design codes. Report the index, season, time of day, and whether irrigation is present.' },
+      { id: 'cgei-rs-45-3-arid', kind: 'prose', title: 'Arid cities and irrigation', body: 'In arid and semi-arid cities, irrigated greenery may cool locally while consuming scarce water. Non-irrigated native cover behaves differently. Separate vegetation amount from configuration and irrigation status before recommending “more green” as cost-free cooling.' },
+      { id: 'cgei-rs-45-3-points', kind: 'key-points', title: 'Green/blue literacy', items: ['Cooling metrics need stated profiles and seasons', 'Irrigation confounds vegetation–LST links', 'Configuration can matter beyond mean NDVI', 'Use associational language unless design supports more'] },
+    ],
+    activityIds: ['cgei-rs-a-45-green'], assessmentIds: ['cgei-rs-assess-45-green'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-5-4', kind: 'lesson', title: 'Simulation tools, validation and exposure', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes45[3]],
+    content: [
+      { id: 'cgei-rs-45-4-models', kind: 'prose', title: 'Microclimate and canopy models', body: 'ENVI-met, SOLWEIG/UMEP, Urban Weather Generator, WRF urban schemes, and CFD operate at different scales with heavy input demands (geometry, materials, meteorology). A scenario that plants trees or raises albedo tests model sensitivity—not automatic real-world validation. Record domain size, resolution, and calibration data needs.' },
+      { id: 'cgei-rs-45-4-val', kind: 'prose', title: 'Validation against air temperature', body: 'Compare satellite LST with loggers, mobile traverses, and official stations near overpass time while stating the surface–air relation and point-versus-pixel support mismatch. Cross-check with MODIS/VIIRS/ECOSTRESS on matched dates when available. Agreement is not guaranteed and does not convert LST into air temperature.' },
+      { id: 'cgei-rs-45-4-exposure', kind: 'prose', title: 'From heat maps to exposure', body: 'Population and vulnerability overlays (age, housing, cooling access) turn a heat pattern into an exposure discussion—cross-reference Subject 7. Do not label a pixel “vulnerable” from LST alone. Report confidence as a function of data quality, n_valid, and validation coverage.' },
+      { id: 'cgei-rs-45-4-callout', kind: 'callout', title: 'Model and map limits', tone: 'warning', items: ['Scenario output ≠ measured impact', 'Point air temperature ≠ 100 m LST pixel', 'Exposure needs people and access layers', 'Health outcomes are out of scope without health data'] },
+    ],
+    activityIds: ['cgei-rs-a-45-validate'], assessmentIds: ['cgei-rs-assess-45-validate'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-5-5', kind: 'lesson', title: 'Study design, sensitivity and responsible writing', order: 5, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes45[0], outcomes45[1], outcomes45[3]],
+    content: [
+      { id: 'cgei-rs-45-5-estimand', kind: 'prose', title: 'Question and estimand first', body: 'Ask how much of an apparent SUHI pattern comes from compositing, reference choice, and sensor decisions rather than land-cover change. Write the estimand, data plan (Collection 2 L2 windows, masks, n_valid), reference design (multiple rural + LCZ), and statistics plan before analysis.' },
+      { id: 'cgei-rs-45-5-sens', kind: 'prose', title: 'Sensitivity experiments', body: 'Repeat with alternative composites (median, percentile), seasons, and cloud rules; report how hotspot maps change. Test cooling associations across pixel/grid/ward scales and vegetation indices. Flag least-reliable settings: water edges, bare fields, new construction, mixed pixels.' },
+      { id: 'cgei-rs-45-5-write', kind: 'prose', title: 'Responsible results language', body: 'Use associational language for LST–NDVI links; reserve causal cooling claims for designs that support them. Separate surface heat from human exposure. State limitations: clear-sky bias, overpass time, native thermal resolution (~100 m for Landsat TIRS-class products), and absence of health outcome data when not collected.' },
+      { id: 'cgei-rs-45-5-check', kind: 'checklist', title: 'Study design checklist', items: ['Estimand and sign convention written', '≥2 reference designs + sensitivity', 'Matched-date or justified composite protocol', 'n_valid and mask rules reported', 'Statistics plan pre-registered in the methods note', 'Associational language; exposure layers before vulnerability', 'Limitations explicit'] },
+    ],
+    activityIds: ['cgei-rs-a-45-design'], assessmentIds: ['cgei-rs-assess-45-design'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2222,11 +2291,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.4 cover radiometric physics, data families, spectral indices/LST, and image preprocessing/harmonisation. Draft slice.',
+      overview: 'Units 4.1–4.5 cover radiometry, data families, indices/LST, preprocessing, and urban thermal (SUHI) methods. Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2560,6 +2629,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.4 — Image preprocessing and harmonisation (Core)',
       notes: ['Processor names are families; versions and ancillaries must be cited in methods.', 'Smoothing is optional and can erase abrupt change signals.'],
     },
+    {
+      id: 'cgei-rs-unit-4-5', code: '4.5', title: 'Urban thermal environment analysis (SUHI/UHI methods)', order: 405, kind: 'unit', readiness: 'draft',
+      summary: 'Define SUHII vs air-temperature UHI; design reference and temporal protocols; analyse drivers and green/blue associations without causal overclaim; plan validation and sensitivity.',
+      estimatedHours: 12, prerequisites: ['Unit 4.3', 'Unit 4.4'], outcomes: outcomes45,
+      lessonIds: lessons45.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-45-suhii', 'cgei-rs-a-45-drivers', 'cgei-rs-a-45-green', 'cgei-rs-a-45-validate', 'cgei-rs-a-45-design'],
+      assessmentIds: ['cgei-rs-assess-45-define', 'cgei-rs-assess-45-drivers', 'cgei-rs-assess-45-green', 'cgei-rs-assess-45-validate', 'cgei-rs-assess-45-design'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.5 — Urban thermal environment analysis (SUHI/UHI methods) (Core)',
+      notes: ['SUHII is LST contrast under a stated protocol; not air temperature or health risk by itself.', 'Synthetic fixture demonstrates calculation and sensitivity, not a real city study.'],
+    },
 
 
 
@@ -2845,6 +2925,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-44-008', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Landsat–Sentinel harmonisation products primarily address:', options: ['Ocean tide models', 'Band-pass and related cross-sensor differences for a more comparable time series', 'GPS orbit manoeuvres only', 'Soil laboratory calibration'], correctAnswer: 1, explanation: 'HLS-style products apply empirical adjustments; residual differences remain.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-44-009', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Multi-decadal Landsat 5–9 reflectance series should include:', options: ['No overlap checks if filenames match', 'Overlap-period continuity checks and collection-consistent processing notes', 'Only pan-sharpened inputs', 'Mandatory Savitzky–Golay on all bands'], correctAnswer: 1, explanation: 'Generation and calibration differences require explicit continuity evidence.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-44-010', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Savitzky–Golay or harmonic smoothing can be harmful when:', options: ['The target is smooth seasonal phenology and gaps are noise', 'The signal of interest is abrupt (harvest, flood, fire) and would be damped', 'Metadata lists the filter name', 'Only night-time lights are used'], correctAnswer: 1, explanation: 'Smoothing trades noise reduction against attenuation of real high-frequency change.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-001', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'SUHII based on satellite LST measures:', options: ['Canopy-layer air temperature at 2 m', 'A surface-temperature contrast between urban and reference areas under a stated protocol', 'A regulated heat-health index', 'Soil moisture in percent'], correctAnswer: 1, explanation: 'SUHII is an LST contrast; air UHI is a different quantity.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-002', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'If urban mean LST is 312 K and reference mean is 308.5 K, baseline SUHII is:', options: ['−3.5 K', '3.5 K', '312 K', '0.5 K'], correctAnswer: 1, explanation: 'SUHII = T_urban − T_reference = 3.5 K with the teaching sign convention.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-45-003', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'A high-quality reference design should:', options: ['Always use a fixed 50 km buffer for every city', 'Match elevation/land cover where feasible, exclude non-comparable water/relief, and test alternative references', 'Use only ocean pixels', 'Ignore peri-urban contamination'], correctAnswer: 1, explanation: 'Reference choice changes SUHII; sensitivity is required.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-004', lessonId: 'cgei-rs-lesson-4-5-2', type: 'single-choice', prompt: 'Spatial cross-validation in ML heat-driver models primarily helps:', options: ['Prove causality of tree planting', 'Reduce optimistic accuracy from spatial autocorrelation in random splits', 'Convert LST to air temperature', 'Eliminate the need for references'], correctAnswer: 1, explanation: 'Spatial structure leaks into random train/test splits.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-005', lessonId: 'cgei-rs-lesson-4-5-2', type: 'single-choice', prompt: 'MAUP matters in urban heat studies because:', options: ['Pixel and ward summaries can change apparent relationships', 'Satellites cannot measure LST', 'It only affects SAR', 'It removes clear-sky bias'], correctAnswer: 0, explanation: 'Aggregation support changes statistics and interpretation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-006', lessonId: 'cgei-rs-lesson-4-5-3', type: 'single-choice', prompt: 'In arid cities, irrigated parks complicate cooling interpretation because:', options: ['Irrigation is impossible', 'Water use and vegetation status confound simple NDVI–LST associations', 'LST cannot be measured near water', 'Parks never appear in LCZ maps'], correctAnswer: 1, explanation: 'Amount, configuration, and irrigation must be separated.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-007', lessonId: 'cgei-rs-lesson-4-5-4', type: 'single-choice', prompt: 'Comparing Landsat LST to a weather-station air temperature requires stating:', options: ['That they are identical quantities', 'Surface–air relation limits and point-versus-pixel support mismatch near overpass time', 'That validation is unnecessary', 'Only the station WMO number'], correctAnswer: 1, explanation: 'Different physical quantities and supports.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-008', lessonId: 'cgei-rs-lesson-4-5-4', type: 'single-choice', prompt: 'Calling a pixel “vulnerable” from mean LST alone is problematic because:', options: ['LST maps are never useful', 'Vulnerability requires people, housing, and adaptive capacity layers—not temperature alone', 'Gi* forbids overlays', 'NDVI equals vulnerability'], correctAnswer: 1, explanation: 'Exposure and vulnerability are multi-factor concepts (see Subject 7).', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-009', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'A responsible SUHI methods section should include:', options: ['Only the final pretty map', 'Estimand, reference alternatives, date/mask protocol, n_valid, and sensitivity results', 'A guarantee of zero uncertainty', 'Causal policy recommendations from OLS alone'], correctAnswer: 1, explanation: 'Protocol transparency is the Core skill.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-010', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'Clear-sky satellite composites of LST often:', options: ['Sample all weather equally', 'Bias toward clearer conditions and can run warm relative to all-sky climate', 'Remove the need for references', 'Equal air-temperature climatologies'], correctAnswer: 1, explanation: 'Sampling bias must be reported (Units 4.3–4.5).', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3280,6 +3371,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-44-geometric', kind: 'guided-practice', title: 'Registration residual memo', instructions: 'Explain in five sentences why sub-pixel misregistration creates false change along edges and what residual metric you would report.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-44-geometric'] },
     { id: 'cgei-rs-a-44-masks', kind: 'critique', title: 'Mask trade-off', instructions: 'Given omission 0.12 and commission 0.22 on a sample, argue whether the mask is acceptable for a greenness composite vs a cloud-free surface-water extract.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-44-masks'] },
     { id: 'cgei-rs-a-44-harmonise', kind: 'reflection', title: 'Smoothing risk', instructions: 'Name one phenology use-case where Savitzky–Golay is helpful and one abrupt-change use-case where it is harmful.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-44-harmonise'] },
+    { id: 'cgei-rs-a-45-suhii', kind: 'coding-lab', title: 'SUHII and reference sensitivity lab', instructions: 'Run unit_4_5_suhi_analysis_check.py. Report baseline SUHII, alternate-reference SUHII, and matched-date vs mismatched-date results.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-reference'] },
+    { id: 'cgei-rs-a-45-drivers', kind: 'critique', title: 'Model choice memo', instructions: 'For a city-wide LST–impervious association map, argue for or against OLS versus spatial CV ML and what each can claim.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-45-drivers'] },
+    { id: 'cgei-rs-a-45-green', kind: 'guided-practice', title: 'Cooling language check', instructions: 'Rewrite a causal “parks cool the city by 2 °C” claim into associational language with required protocol details.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-45-interpret'] },
+    { id: 'cgei-rs-a-45-validate', kind: 'reflection', title: 'Exposure vs LST', instructions: 'List three layers required before calling a neighbourhood vulnerable, beyond mean LST.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-45-interpret'] },
+    { id: 'cgei-rs-a-45-design', kind: 'project-milestone', title: 'Mini study-design card', instructions: 'Fill estimand, two references, date protocol, n_valid rule, and one sensitivity test for a named city-scale question.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-reference', 'cgei-rs-o-45-interpret'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3512,6 +3608,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-44-geometric', kind: 'formative', title: 'Geometry', purpose: 'Assess co-registration and resampling literacy.', objectiveIds: ['cgei-rs-o-44-geometric'], questionIds: ['cgei-rs-q-44-003', 'cgei-rs-q-44-004'], required: true },
     { id: 'cgei-rs-assess-44-masks', kind: 'formative', title: 'Masks', purpose: 'Assess mask validation metrics.', objectiveIds: ['cgei-rs-o-44-masks'], questionIds: ['cgei-rs-q-44-005', 'cgei-rs-q-44-006', 'cgei-rs-q-44-007'], required: true },
     { id: 'cgei-rs-assess-44-harmonise', kind: 'formative', title: 'Harmonisation', purpose: 'Assess continuity and smoothing risks.', objectiveIds: ['cgei-rs-o-44-harmonise'], questionIds: ['cgei-rs-q-44-008', 'cgei-rs-q-44-009', 'cgei-rs-q-44-010'], required: true },
+    { id: 'cgei-rs-assess-45-define', kind: 'formative', title: 'SUHII definition', purpose: 'Assess SUHII vs air UHI and reference sensitivity.', objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-reference'], questionIds: ['cgei-rs-q-45-001', 'cgei-rs-q-45-002', 'cgei-rs-q-45-003'], required: true },
+    { id: 'cgei-rs-assess-45-drivers', kind: 'formative', title: 'Drivers and scale', purpose: 'Assess model limits and MAUP.', objectiveIds: ['cgei-rs-o-45-drivers'], questionIds: ['cgei-rs-q-45-004', 'cgei-rs-q-45-005'], required: true },
+    { id: 'cgei-rs-assess-45-green', kind: 'formative', title: 'Green/blue cooling', purpose: 'Assess cooling association literacy.', objectiveIds: ['cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-006'], required: true },
+    { id: 'cgei-rs-assess-45-validate', kind: 'formative', title: 'Validation and exposure', purpose: 'Assess LST–air and exposure limits.', objectiveIds: ['cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-007', 'cgei-rs-q-45-008'], required: true },
+    { id: 'cgei-rs-assess-45-design', kind: 'formative', title: 'Design and language', purpose: 'Assess sensitivity and responsible claims.', objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-009', 'cgei-rs-q-45-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
