@@ -233,9 +233,9 @@ export function ProgressBar({
 
 /** Unified status icon (Lucide). Prefer TopicStatusIcon name in new code. */
 export function StatusIcon({ status }: { status: 'not_started' | 'studied' | 'mastered' }) {
-  if (status === 'mastered') return <Star className="w-4 h-4 text-brand-500 fill-brand-500 shrink-0" aria-label="Mastered" />;
-  if (status === 'studied') return <CheckCircle2 className="w-4 h-4 text-success-500 shrink-0" aria-label="Studied" />;
-  return <Circle className="w-4 h-4 text-slate-300 shrink-0" aria-label="Not started" />;
+  if (status === 'mastered') return <Star className="w-4 h-4 text-brand-500 fill-brand-500 shrink-0" strokeWidth={1.75} aria-label="Mastered" />;
+  if (status === 'studied') return <CheckCircle2 className="w-4 h-4 text-success-600 shrink-0" strokeWidth={1.75} aria-label="Studied" />;
+  return <Circle className="w-4 h-4 text-slate-400 shrink-0" strokeWidth={1.75} aria-label="Not started" />;
 }
 
 export function EmptyState({
@@ -252,7 +252,7 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center py-14 sm:py-20 px-6 text-center">
       {icon && (
-        <div className="mb-5 text-slate-300 flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
+        <div className="mb-5 text-slate-400 flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card [&>svg]:h-7 [&>svg]:w-7 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]">
           {icon}
         </div>
       )}
@@ -397,8 +397,8 @@ export function StreakIndicator({ streak, atRisk = false }: { streak: number; at
     <span
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
         atRisk
-          ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200/60'
-          : 'bg-orange-50 text-orange-600 ring-1 ring-orange-100'
+          ? 'bg-warning-50 text-warning-700 ring-1 ring-warning-100'
+          : 'bg-success-50 text-success-700 ring-1 ring-success-100'
       }`}
     >
       <Flame className="w-4 h-4" />
@@ -470,7 +470,7 @@ export function IconButton({
       onClick={onClick}
       aria-label={label}
       className={[
-        'flex items-center justify-center w-11 h-11 rounded-btn',
+        'flex items-center justify-center w-11 h-11 rounded-btn [&>svg]:h-5 [&>svg]:w-5 [&>svg]:shrink-0 [&>svg]:stroke-[1.75]',
         'text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200',
         'transition-colors duration-DEFAULT touch-manipulation',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1',
