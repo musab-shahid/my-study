@@ -52,6 +52,7 @@ export function SettingsScreen() {
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
+  const [installMsg, setInstallMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -144,12 +145,16 @@ export function SettingsScreen() {
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted' || outcome === 'dismissed') {
-        setDeferredPrompt(null);
+      setDeferredPrompt(null);
+      if (outcome === 'accepted') {
         setShowInstall(false);
+        setInstallMsg('App installation started.');
+      } else {
+        setInstallMsg('Installation was dismissed. You can use your browser menu to install the app later.');
       }
     } catch (err) {
       console.warn('[install] prompt failed', err);
+      setInstallMsg('The install prompt could not be opened. Use your browser menu to install the app if available.');
       setDeferredPrompt(null);
     }
   };
@@ -386,7 +391,7 @@ export function SettingsScreen() {
                   <button
                     type="button"
                     onClick={handleInstall}
-                    className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                   >
                     <Download className="w-3.5 h-3.5" />
                     Install
