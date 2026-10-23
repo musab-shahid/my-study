@@ -38,12 +38,16 @@ Improve the existing ExamPrep Hub experience without replacing established study
 
 - Added a stronger global keyboard-focus indicator and base interaction affordances.
 - Improved base text rendering and set an explicit minimum viewport width.
+- Refined the sticky header so workspace context remains visible on small screens.
+- Reworked the dashboard's primary action into a clearer, calmer visual focal point and improved progress-card spacing.
+- Aligned the desktop sidebar width with the app shell's `lg:ml-64` content offset to remove the unintended 16px mismatch.
 - Preserved existing color tokens, reduced-motion behavior, safe-area helpers, and KaTeX formula styling.
 
 ## Next implementation passes
 
-- [ ] Review desktop sidebar and mobile navigation at common breakpoints.
-- [ ] Refine dashboard hierarchy: next action, resume state, progress, and track context.
+- [x] First-pass review of desktop sidebar sizing and mobile header context.
+- [x] Refine dashboard hierarchy: next action, resume state, and progress-card spacing.
+- [ ] Review mobile navigation and expanded subject hierarchy at common breakpoints.
 - [ ] Align shared cards, buttons, section headers, empty states, and form controls.
 - [ ] Check study and quiz reading comfort, especially dense content and long questions.
 - [ ] Verify small-screen layouts and fixed-navigation clearance.
