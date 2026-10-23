@@ -73,6 +73,12 @@ test.describe('CGEI curriculum navigation and orientation', () => {
       await expect(page.getByText(subject.firstUnit, { exact: true }).first()).toBeVisible();
       await expect(page.getByText(subject.lastUnit, { exact: true }).first()).toBeVisible();
     }
+
+    await page.goto('/learn/cgei-data-science');
+    await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
+    await expect(page).toHaveURL(/curriculum\/unit\/cgei-ds-unit-5-1$/);
+    await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
