@@ -136,3 +136,6 @@ Protocol completeness contract for research questions/estimands. Not ethics-boar
 
 ## unit_9_decision_product_check.py
 Product-card provenance contract + MCA weight sensitivity. Not a deployed dashboard.
+
+## unit_10_policy_appraisal_check.py
+Instrument-card completeness + discount-rate PV sensitivity. Not official SCC or NDC verification.

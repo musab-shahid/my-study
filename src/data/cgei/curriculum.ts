@@ -2854,7 +2854,70 @@ const lessons94: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94];
+
+const outcomes101: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-101-governance', statement: 'Explain UNFCCC/Paris architecture (NDCs, transparency, stocktake) and relate it to national/provincial implementation roles.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-pol-o-101-instruments', statement: 'Classify policy instruments and separate ex-ante appraisal from ex-post evaluation with indicators, baselines and uncertainty notes.', action: 'classify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
+
+const outcomes102: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-102-ghg', statement: 'Distinguish inventory sectors, GWP metrics and organisational Scope 1/2/3 boundaries at literacy level without claiming verified national inventory skill.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes106: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-106-econ', statement: 'State how discount rates and equity weights change climate-economic rankings, and refuse benefit-transfer without documented error bounds.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons101: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-1-1', kind: 'lesson', title: 'Climate governance architecture and national roles', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes101[0]],
+    content: [
+      { id: 'cgei-pol-101-1-1', kind: 'prose', title: 'UNFCCC to Paris', body: 'The UNFCCC sets the cooperative frame; the Kyoto Protocol pioneered binding targets for some parties; the Paris Agreement centres nationally determined contributions (NDCs), an ambition cycle, the global stocktake and an enhanced transparency framework. NDCs state content, base years, conditionality and update cycles—they are political commitments, not automatic physical outcomes.' },
+      { id: 'cgei-pol-101-1-2', kind: 'prose', title: 'Finance, Article 6 and related regimes', body: 'Climate finance goals, adaptation and loss-and-damage arrangements, and Article 6 market provisions shape implementation capacity. Related regimes (Sendai, SDGs, CBD, Montreal/Kigali) create shared indicators and reporting burdens. Always check the current UNFCCC record before citing the latest COP outcome.' },
+      { id: 'cgei-pol-101-1-3', kind: 'prose', title: 'Pakistan institutional interface (teaching frame)', body: 'After the 18th Amendment, climate and environment roles are shared across federal and provincial institutions. Policy documents such as the Pakistan Climate Change Act (2017), National Climate Change Policy (2021), National Adaptation Plan and the latest NDC submission are starting points—verify the current official text and version before operational use. Energy-policy interfaces (renewables policy, net-metering) illustrate how climate goals meet grid and distributional constraints.' },
+    ],
+    activityIds: ['cgei-pol-a-101-gov'], assessmentIds: ['cgei-pol-assess-101-gov'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-pol-lesson-10-1-2', kind: 'lesson', title: 'Policy instruments and evaluation discipline', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes101[1]],
+    content: [
+      { id: 'cgei-pol-101-2-1', kind: 'prose', title: 'Instrument menu', body: 'Climate policy uses regulation and standards, taxes, trading schemes, subsidies, public investment, information and voluntary measures. Instrument choice depends on market failures, administrative capacity, political feasibility and distributional effects—not only technical optimality.' },
+      { id: 'cgei-pol-101-2-2', kind: 'prose', title: 'Ex-ante versus ex-post', body: 'Ex-ante appraisal designs options before implementation; ex-post evaluation tests what changed after. Both need indicators, baselines and uncertainty notes. Cost-effectiveness and co-benefits matter, but so do coherence across sectors and who gains, loses or can veto. Ex-ante cards must not claim causal impact already achieved.' },
+      { id: 'cgei-pol-101-2-lab', kind: 'worked-example', title: 'Adaptation instrument card (synthetic heat example)', body: 'Fixture unit_10_policy_appraisal_check.py requires instrument type, objective, sector, authority, indicator, baseline and uncertainty note; blocks causal-impact claims at ex-ante stage; requires a distribution note when equity benefits are claimed. Example objective: expand shaded rest areas for outdoor workers with access metrics—not unverified hospitalisation causation.' },
+    ],
+    activityIds: ['cgei-pol-a-101-instruments'], assessmentIds: ['cgei-pol-assess-101-instruments'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons102: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-2-1', kind: 'lesson', title: 'GHG accounting literacy for policy readers', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes102[0]],
+    content: [
+      { id: 'cgei-pol-102-1-1', kind: 'prose', title: 'Inventories and metrics', body: 'National inventories follow IPCC Guidelines sectors (energy, IPPU, AFOLU, waste) with Tier 1–3 methods combining activity data and emission factors. Warming metrics such as GWP100 convert gases to CO2-equivalents; metric choice changes the relative weight of methane. Uncertainty and MRV limits are part of the evidence, not footnotes.' },
+      { id: 'cgei-pol-102-1-2', kind: 'prose', title: 'Organisational scopes', body: 'The GHG Protocol distinguishes Scope 1 (direct), Scope 2 (purchased energy; location- vs market-based) and Scope 3 (value chain). Boundary choices and double-counting risks matter for policy claims about corporate or city targets. Greenwashing patterns include selective boundaries and unverifiable offsets—literacy, not full inventory production, is the outcome here.' },
+      { id: 'cgei-pol-102-1-3', kind: 'key-points', title: 'Limits of this lesson', items: ['Does not produce a verified national inventory', 'Does not certify organisational GHG reports', 'Satellite/inversion reconciliation is awareness-level only'] },
+    ],
+    activityIds: ['cgei-pol-a-102-ghg'], assessmentIds: ['cgei-pol-assess-102-ghg'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons106: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-6-1', kind: 'lesson', title: 'Environmental economics for climate decisions', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes106[0]],
+    content: [
+      { id: 'cgei-pol-106-1-1', kind: 'prose', title: 'Externalities and policy prices', body: 'Climate damages are classic externalities. Pigouvian taxes, subsidies and quantity instruments are conceptual responses. Distributional incidence matters: who pays and who benefits can dominate political feasibility. Equity weights and vulnerability targeting change which options rank highest.' },
+      { id: 'cgei-pol-106-1-2', kind: 'prose', title: 'Discounting and social cost of carbon (conceptual)', body: 'Present-value calculations weight future damages by a discount rate. Higher discount rates shrink long-horizon damages in present-value terms. The social cost of carbon aggregates discounted damages with deep uncertainty—fixture unit_10_policy_appraisal_check.py shows PV sensitivity for a synthetic stream at 2% versus 7%. This is teaching arithmetic, not an official SCC.' },
+      { id: 'cgei-pol-106-1-3', kind: 'callout', title: 'Valuation caution', tone: 'warning', items: ['Benefit transfer can be large-error', 'VSL and ecosystem valuations embed ethical choices', 'Risk finance (insurance, parametric triggers) is complementary, not a substitute for risk reduction'] },
+    ],
+    activityIds: ['cgei-pol-a-106-econ'], assessmentIds: ['cgei-pol-assess-106-econ'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -3001,6 +3064,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 10,
+    },
+    {
+      id: 'cgei-subject-10-climate-policy',
+      subjectId: 'cgei-climate-policy',
+      title: 'Climate Policy & Governance',
+      subtitle: 'Governance architecture, instruments, GHG literacy and climate-economic judgement',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts connecting climate evidence to policy instruments and evaluation.',
+      purpose: 'Build policy-architecture literacy and appraisal discipline without claiming inventory certification or official economic modelling.',
+      overview: 'TOC marks Units 10.1 and 10.6 as Support and 10.2 as Optional (no Core units in Subject 10). Draft path implements 10.1, 10.2 and 10.6. Other optional units deferred.',
+      prerequisites: ['Subject 7 climate risk concepts', 'Subject 9 decision-support communication'],
+      outcomes: [...outcomes101, ...outcomes102, ...outcomes106],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-pol-unit-10-1', 'cgei-pol-unit-10-2', 'cgei-pol-unit-10-6'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 11,
     },
     {
       id: 'cgei-subject-1-earth-system',
@@ -3473,6 +3554,40 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 9 Unit 9.4 — Provenance-first product design (Core)',
       notes: ['Core unit; fixture validates product-card contract only.'],
     },
+    {
+      id: 'cgei-pol-unit-10-1', code: '10.1', title: 'Climate governance and policy architecture', order: 1001, kind: 'unit', readiness: 'draft',
+      summary: 'Map UNFCCC/Paris architecture, national–provincial roles and instrument evaluation discipline.',
+      estimatedHours: 4.5, prerequisites: ['Subject 9 decision communication'], outcomes: outcomes101,
+      lessonIds: lessons101.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-101-gov', 'cgei-pol-a-101-instruments'],
+      assessmentIds: ['cgei-pol-assess-101-gov', 'cgei-pol-assess-101-instruments'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.1 — Climate governance and policy architecture (Support)',
+      notes: ['Support unit; verify current NDC/COP texts before operational citation.'],
+    },
+    {
+      id: 'cgei-pol-unit-10-2', code: '10.2', title: 'Greenhouse-gas fundamentals and carbon accounting', order: 1002, kind: 'unit', readiness: 'draft',
+      summary: 'GHG inventory and Scope 1/2/3 literacy for policy readers—not verified inventory production.',
+      estimatedHours: 3, prerequisites: ['Unit 10.1'], outcomes: outcomes102,
+      lessonIds: lessons102.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-102-ghg'],
+      assessmentIds: ['cgei-pol-assess-102-ghg'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.2 — Greenhouse-gas fundamentals and carbon accounting (Optional)',
+      notes: ['Optional unit included for pathway coherence; LCA depth deferred.'],
+    },
+    {
+      id: 'cgei-pol-unit-10-6', code: '10.6', title: 'Environmental economics and valuation', order: 1006, kind: 'unit', readiness: 'draft',
+      summary: 'Externalities, discount-rate sensitivity and valuation cautions for climate decisions.',
+      estimatedHours: 3.5, prerequisites: ['Unit 10.1'], outcomes: outcomes106,
+      lessonIds: lessons106.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-106-econ'],
+      assessmentIds: ['cgei-pol-assess-106-econ'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.6 — Environmental economics and valuation (Support)',
+      notes: ['Support unit; synthetic PV only—not official SCC.'],
+    },
+
 
 
 
@@ -3682,6 +3797,15 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-dspt-q-94-001', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A published consequential product should include:', options: ['Only a screenshot', 'Named reviewer and review date in addition to source/version metadata', 'No confidence note', 'A single unexplained red class'], correctAnswer: 1, explanation: 'Review state requires accountable review metadata.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-dspt-q-94-002', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'Provenance-first design requires that hazard, exposure and vulnerability:', options: ['Always be multiplied into one hidden score', 'Remain separable in the layer list where used', 'Never appear on maps', 'Replace options analysis'], correctAnswer: 1, explanation: 'Separate layers preserve interpretability.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-dspt-q-94-003', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A non-author usability pass is valuable because:', options: ['It replaces peer review of methods', 'It surfaces language and interpretation failures specialists miss', 'It proves causal impact', 'It is only for printed atlases'], correctAnswer: 1, explanation: 'Usability testing catches communication failures.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-101-001', lessonId: 'cgei-pol-lesson-10-1-1', type: 'single-choice', prompt: 'Nationally determined contributions (NDCs) under Paris are best described as:', options: ['Guaranteed physical emission pathways', 'Nationally stated contributions subject to ambition cycles and transparency', 'Only Kyoto-style top-down allocations for all parties', 'Private corporate pledges'], correctAnswer: 1, explanation: 'NDCs are nationally determined political contributions, not automatic physical outcomes.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-101-002', lessonId: 'cgei-pol-lesson-10-1-1', type: 'single-choice', prompt: 'Before citing the “latest COP outcome” in coursework, learners should:', options: ['Rely on memory of headlines only', 'Check the current UNFCCC record and official decision text', 'Use only secondary social posts', 'Ignore transparency frameworks'], correctAnswer: 1, explanation: 'COP outcomes change; primary records must be checked.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-101-003', lessonId: 'cgei-pol-lesson-10-1-2', type: 'single-choice', prompt: 'An ex-ante policy appraisal should not:', options: ['State indicators and baselines', 'Claim causal impact already demonstrated by the future policy', 'Note uncertainty', 'Identify responsible authorities'], correctAnswer: 1, explanation: 'Causal impact claims belong to evaluation designs, not ex-ante cards.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-101-004', lessonId: 'cgei-pol-lesson-10-1-2', type: 'single-choice', prompt: 'When a policy card claims equity benefits, transparent practice requires:', options: ['No further documentation', 'A distribution note on who is prioritised or affected', 'Only a cost figure', 'Hiding losers'], correctAnswer: 1, explanation: 'Equity claims need distributional documentation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-102-001', lessonId: 'cgei-pol-lesson-10-2-1', type: 'single-choice', prompt: 'Scope 2 emissions under the GHG Protocol primarily concern:', options: ['Direct on-site combustion only', 'Purchased energy, with location-based and market-based accounting options', 'Only employee commuting', 'Only land-use change'], correctAnswer: 1, explanation: 'Scope 2 is purchased energy with dual accounting approaches.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-pol-q-102-002', lessonId: 'cgei-pol-lesson-10-2-1', type: 'single-choice', prompt: 'Choosing GWP100 versus alternative methane metrics can:', options: ['Never affect policy rankings', 'Change the relative weight of methane versus CO2 in CO2-equivalent totals', 'Eliminate inventory uncertainty', 'Replace activity data'], correctAnswer: 1, explanation: 'Metric choice changes gas weighting.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-106-001', lessonId: 'cgei-pol-lesson-10-6-1', type: 'single-choice', prompt: 'Raising the discount rate in a present-value damage calculation typically:', options: ['Increases the present value of distant damages', 'Decreases the present value of distant damages', 'Has no effect by construction', 'Proves equity automatically'], correctAnswer: 1, explanation: 'Higher discount rates shrink distant future values in present terms.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-106-002', lessonId: 'cgei-pol-lesson-10-6-1', type: 'single-choice', prompt: 'Benefit transfer of valuation estimates should be treated as:', options: ['Always error-free', 'Potentially useful but error-prone and requiring documented limits', 'A substitute for risk reduction', 'Mandatory for all NDCs'], correctAnswer: 1, explanation: 'Benefit transfer has well-known pitfalls and error magnitudes.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -4461,6 +4585,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-pol-a-101-gov', kind: 'guided-practice', title: 'NDC architecture card', instructions: 'In five bullets, link Paris NDC, transparency and stocktake to one national implementation task.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-101-governance'] },
+    { id: 'cgei-pol-a-101-instruments', kind: 'coding-lab', title: 'Instrument appraisal lab', instructions: 'Run unit_10_policy_appraisal_check.py and complete an ex-ante adaptation instrument card with distribution and uncertainty notes.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-pol-o-101-instruments'] },
+    { id: 'cgei-pol-a-102-ghg', kind: 'guided-practice', title: 'Scope boundary critique', instructions: 'Critique a claim that omits Scope 3 while advertising “net zero operations”.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-102-ghg'] },
+    { id: 'cgei-pol-a-106-econ', kind: 'guided-practice', title: 'Discount-rate sensitivity note', instructions: 'Using the fixture PV results, explain how 2% vs 7% changes the present value of a long damage stream.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-106-econ'] },
     { id: 'cgei-dspt-a-91-comms', kind: 'guided-practice', title: 'Audience message card', instructions: 'Rewrite one technical result for a planner: knowns, unknowns, action, and required metadata fields.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'] },
     { id: 'cgei-dspt-a-93-mca', kind: 'guided-practice', title: 'Weight sensitivity note', instructions: 'Compare two options under cost-heavy and equity-heavy weights; report whether ranking changes.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-93-criteria'] },
     { id: 'cgei-dspt-a-94-prov', kind: 'coding-lab', title: 'Product-card fixture lab', instructions: 'Run unit_9_decision_product_check.py and produce a product card with layers, version, review state and confidence note.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'] },
@@ -4732,6 +4860,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-pol-assess-101-gov', kind: 'formative', title: 'Governance architecture', purpose: 'Assess Paris/NDC literacy.', objectiveIds: ['cgei-pol-o-101-governance'], questionIds: ['cgei-pol-q-101-001', 'cgei-pol-q-101-002'], required: true },
+    { id: 'cgei-pol-assess-101-instruments', kind: 'formative', title: 'Instruments and evaluation', purpose: 'Assess instrument and evaluation discipline.', objectiveIds: ['cgei-pol-o-101-instruments'], questionIds: ['cgei-pol-q-101-003', 'cgei-pol-q-101-004'], required: true },
+    { id: 'cgei-pol-assess-102-ghg', kind: 'formative', title: 'GHG literacy', purpose: 'Assess inventory/scope literacy.', objectiveIds: ['cgei-pol-o-102-ghg'], questionIds: ['cgei-pol-q-102-001', 'cgei-pol-q-102-002'], required: true },
+    { id: 'cgei-pol-assess-106-econ', kind: 'formative', title: 'Climate economics judgement', purpose: 'Assess discounting and valuation cautions.', objectiveIds: ['cgei-pol-o-106-econ'], questionIds: ['cgei-pol-q-106-001', 'cgei-pol-q-106-002'], required: true },
     { id: 'cgei-dspt-assess-91-comms', kind: 'formative', title: 'Decision communication', purpose: 'Assess audience and metadata discipline.', objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'], questionIds: ['cgei-dspt-q-91-001', 'cgei-dspt-q-91-002'], required: true },
     { id: 'cgei-dspt-assess-93-mca', kind: 'formative', title: 'Multi-criteria thinking', purpose: 'Assess criteria, weights and inspectable layers.', objectiveIds: ['cgei-dspt-o-93-criteria', 'cgei-dspt-o-93-layers'], questionIds: ['cgei-dspt-q-93-001', 'cgei-dspt-q-93-002'], required: true },
     { id: 'cgei-dspt-assess-94-prov', kind: 'formative', title: 'Provenance-first products', purpose: 'Assess provenance and review-state requirements.', objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'], questionIds: ['cgei-dspt-q-94-001', 'cgei-dspt-q-94-002', 'cgei-dspt-q-94-003'], required: true },
