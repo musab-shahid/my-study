@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
+  Home, BookCopy, BookOpenCheck, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy, Library,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
   Dumbbell,
@@ -35,8 +35,16 @@ const stageIcons: Record<StageScreen, typeof BookCopy> = {
 
 function trackNavStyles(trackId: ExamTrack) {
   const a = trackAccentClasses(trackId);
-  const border = a.text.includes('indigo') ? 'border-l-indigo-600' : 'border-l-sky-500';
-  const bg = a.text.includes('indigo') ? 'bg-indigo-600/10' : 'bg-sky-500/10';
+  const border = a.text.includes('indigo')
+    ? 'border-l-indigo-600'
+    : a.text.includes('teal')
+      ? 'border-l-teal-500'
+      : 'border-l-sky-500';
+  const bg = a.text.includes('indigo')
+    ? 'bg-indigo-600/10'
+    : a.text.includes('teal')
+      ? 'bg-teal-500/10'
+      : 'bg-sky-500/10';
   return {
     activeBorder: border,
     activeBg: bg,
@@ -94,11 +102,11 @@ export function Sidebar() {
       <div className="px-6 py-5 border-b border-slate-800">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-btn bg-brand-700 flex items-center justify-center shrink-0">
-            <Library className="w-5 h-5 text-white" aria-hidden />
+            <BookOpenCheck className="w-5 h-5 text-white" aria-hidden />
           </div>
           <div className="min-w-0">
             <h1 className="text-white font-bold text-lg leading-tight">ExamPrep Hub</h1>
-            <p className="text-slate-400 text-xs">FPSC & HAT Study Hub</p>
+            <p className="text-slate-400 text-xs">Structured learning & exam prep</p>
           </div>
         </div>
       </div>
@@ -109,7 +117,7 @@ export function Sidebar() {
           onClick={() => navigate({ screen: 'home', parent: null })}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
-              ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
+              ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/20'
               : 'text-slate-400 hover:text-white hover:bg-slate-800'
           }`}
         >
@@ -367,6 +375,13 @@ export function MobileNav() {
             const activeColor = activeEnrolled && isTrackId(activeEnrolled)
               ? getTrackStyle(activeEnrolled).accent
               : 'text-sky-500';
+            // Keep the active marker in the same semantic track color as the label.
+            // Tailwind classes are explicit so all supported track colors are emitted.
+            const activeIndicatorColor = activeColor.includes('indigo')
+              ? 'bg-indigo-400'
+              : activeColor.includes('teal')
+                ? 'bg-teal-400'
+                : 'bg-sky-400';
             return (
               <button
                 key={item.screen}
@@ -374,14 +389,12 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-                  active ? activeColor : 'text-slate-500 hover:text-slate-300'
+                  active ? activeColor : 'text-slate-400 hover:text-slate-300'
                 }`}
               >
                 {active && (
                   <span
-                    className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${
-                      activeEnrolled === 'hat' ? 'bg-indigo-600' : 'bg-sky-500'
-                    }`}
+                    className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${activeIndicatorColor}`}
                     aria-hidden
                   />
                 )}
@@ -398,7 +411,7 @@ export function MobileNav() {
             aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-              moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-300'
+              moreActive ? 'text-brand-400' : 'text-slate-400 hover:text-slate-300'
             }`}
           >
             {moreActive && (
@@ -407,12 +420,12 @@ export function MobileNav() {
             <span className="relative">
               <MoreHorizontal className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} />
               {reviewDue > 0 && (
-                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-500 text-white text-[9px] font-bold leading-4 text-center">
+                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-700 text-white text-[9px] font-bold leading-4 text-center">
                   {reviewDue > 9 ? '9+' : reviewDue}
                 </span>
               )}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-medium leading-tight">More</span>
+            <span className="text-[11px] font-medium leading-tight">More</span>
           </button>
         </div>
       </nav>
