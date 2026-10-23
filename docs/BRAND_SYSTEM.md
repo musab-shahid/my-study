@@ -24,7 +24,7 @@ The shared RGB-channel tokens live in `src/index.css`. Tailwind's `brand`, `succ
 | `surface-*` | Page, card, and muted backgrounds |
 | `text-primary`, `text-muted`, `border-subtle` | Neutral content and structure |
 
-Use `success-600/700` and `danger-600/700` for white-text controls; reserve the lighter `*-500` values for accents unless contrast has been checked. Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue. Track-specific accents should map to these semantic families instead of introducing unrelated one-off hex colors.
+Use `success-700`, `warning-700`, and `danger-600/700` for white-text controls; reserve the lighter `*-500` values for accents unless contrast has been checked. Do not use status colors as decoration alone. Pair important status colors with text, an icon, or another non-color cue. Track-specific accents should map to these semantic families instead of introducing unrelated one-off hex colors.
 
 ## Typography and reading
 
