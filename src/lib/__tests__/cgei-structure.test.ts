@@ -66,7 +66,7 @@ describe('CGEI curriculum structure', () => {
     const unit56 = cgeiCurriculum.units.find((unit) => unit.code === '5.6');
     assert.ok(unit56);
     assert.equal(unit56.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit56.lessonIds.includes(question.lessonId)).length, 10);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit56.lessonIds.includes(question.lessonId)).length, 16);
     assert.equal(unit56.readiness, 'draft');
     const unit57 = cgeiCurriculum.units.find((item) => item.code === '5.7');
     assert.ok(unit57);
