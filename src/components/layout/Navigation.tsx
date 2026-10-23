@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy, Library,
@@ -310,6 +310,7 @@ export function MobileNav() {
   const { getActiveSubject, setActiveSubjectForScreen } = useSubjectSelection();
   const sd = useSubjectData();
   const [moreOpen, setMoreOpen] = useState(false);
+  const closeMore = useCallback(() => setMoreOpen(false), []);
   const currentScreen = route.screen;
   const goToStage = (stage: StageScreen) => {
     const subject = getActiveSubject(stage);
@@ -391,6 +392,8 @@ export function MobileNav() {
             type="button"
             onClick={() => setMoreOpen((open) => !open)}
             aria-expanded={moreOpen}
+            aria-haspopup="dialog"
+            aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
               moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-300'
@@ -411,7 +414,7 @@ export function MobileNav() {
           </button>
         </div>
       </nav>
-      <ToolsTray isOpen={moreOpen} onClose={() => setMoreOpen(false)} variant="mobile-sheet" />
+      <ToolsTray isOpen={moreOpen} onClose={closeMore} variant="mobile-sheet" />
     </>
   );
 }
