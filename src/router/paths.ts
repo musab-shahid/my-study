@@ -3,7 +3,7 @@
  * Live quiz parameters stay out of the URL (storage-backed resume).
  */
 import { getTopic } from '../data/topics';
-import { isTrackId } from '../data/tracks';
+import { getTrackDefinition, isTrackId } from '../data/tracks';
 import { sectionMap } from '../data/sections';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
@@ -183,6 +183,9 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
 }
 
 function routeLabelFallback(route: PathRoute): string {
+  if (route.screen === 'track') {
+    return isTrackId(route.trackId) ? getTrackDefinition(route.trackId).shortTitle : 'Track';
+  }
   const names: Record<string, string> = {
     learn: 'Learn',
     formulas: 'Formulas',
