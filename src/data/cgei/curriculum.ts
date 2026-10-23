@@ -2798,7 +2798,63 @@ const lessons86: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86];
+
+const outcomes91: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-91-audience', statement: 'Match product message, figure and language to audience and the decision the product must support.', action: 'match', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-dspt-o-91-uncertainty', statement: 'Display uncertainty and required metadata (definition, time, resolution, source, version, confidence) on decision products.', action: 'display', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const outcomes93: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-93-criteria', statement: 'Compare options with explicit criteria and stakeholder weights, and test ranking sensitivity to value judgements.', action: 'compare', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-dspt-o-93-layers', statement: 'Prefer separate inspectable layers over one opaque decision score.', action: 'prefer', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const outcomes94: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-94-provenance', statement: 'Design provenance-first products with source citation, version stamps, review states and confidence notes.', action: 'design', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-dspt-o-94-usability', statement: 'State local usability requirements including plain-language briefs and correction channels for non-specialist users.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons91: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-1-1', kind: 'lesson', title: 'Audience, risk communication and product metadata', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes91[0], outcomes91[1]],
+    content: [
+      { id: 'cgei-dspt-91-1-1', kind: 'prose', title: 'Who decides what?', body: 'A methods reader, a planner and the public need different detail. Start from the question the product must answer and what the audience can act on. Risk communication states what is known, what is not, and what to do—avoid fear-only messaging. Test wording with a non-specialist before release.' },
+      { id: 'cgei-dspt-91-1-2', kind: 'prose', title: 'Visual encoding and uncertainty', body: 'Match chart and map types to the question. Avoid misleading scales. Accessibility includes colour vision, type size and mobile readability. Uncertainty may be shown with intervals, hatching, bivariate maps, ensembles or confidence labels—silence is not neutral.' },
+      { id: 'cgei-dspt-91-1-3', kind: 'checklist', title: 'Required product metadata', items: ['Variable definition and units', 'Date/time of observation or model validity', 'Spatial resolution and coverage', 'Source and version', 'Uncertainty or confidence indication'] },
+    ],
+    activityIds: ['cgei-dspt-a-91-comms'], assessmentIds: ['cgei-dspt-assess-91-comms'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons93: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-3-1', kind: 'lesson', title: 'Multi-criteria options and weight sensitivity', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes93[0], outcomes93[1]],
+    content: [
+      { id: 'cgei-dspt-93-1-1', kind: 'prose', title: 'From analysis to options', body: 'Decision logic ties indicators and thresholds to actions. Compare scenarios with feasibility, cost concepts, co-benefits and equity—not technical performance alone. Plan monitoring metrics after intervention. Value of information asks whether more data would change the decision.' },
+      { id: 'cgei-dspt-93-1-2', kind: 'prose', title: 'Weights are value judgements', body: 'Multi-criteria methods (weighted sum and related approaches) require documented criteria and weights. Rankings can reverse when weights change. Report dispersion of elicited weights. Prefer separate inspectable layers over one opaque score. Fixture unit_9_decision_product_check.py demonstrates cost-heavy versus equity-heavy rank changes.' },
+      { id: 'cgei-dspt-93-1-3', kind: 'callout', title: 'Do not hide the value judgements', tone: 'warning', items: ['Document criteria selection', 'Sensitivity-test rankings', 'Link to deep-uncertainty framing when weights are contested'] },
+    ],
+    activityIds: ['cgei-dspt-a-93-mca'], assessmentIds: ['cgei-dspt-assess-93-mca'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons94: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-4-1', kind: 'lesson', title: 'Provenance-first product design', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes94[0], outcomes94[1]],
+    content: [
+      { id: 'cgei-dspt-94-1-1', kind: 'prose', title: 'Interface requirements', body: 'Source citation belongs on or adjacent to the map. Time and confidence controls matter when validity is time-limited. Layer lists should separate hazard, exposure, vulnerability and options—not collapse them into a single unexplained colour ramp.' },
+      { id: 'cgei-dspt-94-1-2', kind: 'prose', title: 'Review states and lineage', body: 'Provenance-first design uses lineage notes (PROV-style thinking), dataset/model cards, changelogs and version stamps. Consequential content should carry review states (draft, reviewed, published) with named reviewer and date. Public changelogs support correction.' },
+      { id: 'cgei-dspt-94-1-lab', kind: 'worked-example', title: 'Product-card lab', body: 'Fixture unit_9_decision_product_check.py requires metadata, separate H/E/V layers, confidence notes, and reviewer+date when review_state is published. Opaque composite-only products fail validation.' },
+      { id: 'cgei-dspt-94-1-4', kind: 'prose', title: 'Local usability', body: 'Provide bilingual or plain-language briefs when users are not specialists. Run one usability pass with a non-author reader. Profile language, literacy, device and connectivity; consider offline or low-bandwidth modes. Make feedback and correction policy visible on the product.' },
+    ],
+    activityIds: ['cgei-dspt-a-94-prov'], assessmentIds: ['cgei-dspt-assess-94-prov'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2927,6 +2983,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
+    },
+    {
+      id: 'cgei-subject-9-decision-support',
+      subjectId: 'cgei-decision-support',
+      title: 'Decision Support & Intelligence Products',
+      subtitle: 'Decision communication, multi-criteria options and provenance-first products',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts who turn environmental evidence into decision-facing products.',
+      purpose: 'Communicate uncertainty, compare options transparently and design products with provenance and review states.',
+      overview: 'Core Unit 9.4 plus Support Units 9.1 and 9.3 form the draft decision-support path. Units 9.2, 9.5 and 9.6 are deferred. Draft only.',
+      prerequisites: ['Subject 7 climate risk concepts', 'Subject 8 research integrity basics'],
+      outcomes: [...outcomes91, ...outcomes93, ...outcomes94],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-dspt-unit-9-1', 'cgei-dspt-unit-9-3', 'cgei-dspt-unit-9-4'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 10,
     },
     {
       id: 'cgei-subject-1-earth-system',
@@ -3366,6 +3440,40 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 8 Unit 8.6 — Scientific reporting (Core)',
       notes: ['Units 8.7–8.9 (paper, portfolio, proposals) deferred.'],
     },
+    {
+      id: 'cgei-dspt-unit-9-1', code: '9.1', title: 'Communicating for decisions', order: 901, kind: 'unit', readiness: 'draft',
+      summary: 'Match messages to audiences; encode uncertainty; require definition, time, resolution, source, version and confidence on products.',
+      estimatedHours: 3, prerequisites: ['Subject 8 scientific reporting'], outcomes: outcomes91,
+      lessonIds: lessons91.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-91-comms'],
+      assessmentIds: ['cgei-dspt-assess-91-comms'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.1 — Communicating for decisions (Support)',
+      notes: ['Support unit included for coherent decision-support path; Urdu/RTL layout practice deferred.'],
+    },
+    {
+      id: 'cgei-dspt-unit-9-3', code: '9.3', title: 'Decision logic and multi-criteria thinking', order: 903, kind: 'unit', readiness: 'draft',
+      summary: 'Compare options with explicit criteria and weights; sensitivity-test rankings; keep layers inspectable.',
+      estimatedHours: 3.5, prerequisites: ['Unit 9.1', 'Subject 7 risk indices'], outcomes: outcomes93,
+      lessonIds: lessons93.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-93-mca'],
+      assessmentIds: ['cgei-dspt-assess-93-mca'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.3 — Decision logic and multi-criteria thinking (Support)',
+      notes: ['AHP/TOPSIS software workflows deferred; weight sensitivity taught.'],
+    },
+    {
+      id: 'cgei-dspt-unit-9-4', code: '9.4', title: 'Provenance-first product design', order: 904, kind: 'unit', readiness: 'draft',
+      summary: 'Require source citation, versioning, review states, separate H/E/V layers and local usability on decision products.',
+      estimatedHours: 3.5, prerequisites: ['Unit 9.1', 'Unit 9.3'], outcomes: outcomes94,
+      lessonIds: lessons94.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-94-prov'],
+      assessmentIds: ['cgei-dspt-assess-94-prov'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.4 — Provenance-first product design (Core)',
+      notes: ['Core unit; fixture validates product-card contract only.'],
+    },
+
 
 
     {
@@ -3567,6 +3675,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rp-q-83-001', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Reporting only the model specifications that look favourable after seeing results is primarily:', options: ['Good exploratory practice always', 'Selective reporting and a research-integrity failure', 'Required by Sendai', 'A sampling-frame issue only'], correctAnswer: 1, explanation: 'Selective reporting undermines confirmatory claims.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rp-q-83-002', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Internal validity concerns:', options: ['Whether the journal is open access', 'Whether the study design supports the causal or associative claims made', 'Whether the abstract is short', 'Whether the colour scale is sequential'], correctAnswer: 1, explanation: 'Internal validity is about support for the claimed relationship.', difficulty: 'medium', cognitiveLevel: 'remember' },
     { id: 'cgei-rp-q-86-001', lessonId: 'cgei-rp-lesson-8-6-1', type: 'single-choice', prompt: 'Data and code availability statements in environmental research reports are:', options: ['Optional decoration', 'Part of making claims evaluable and reproducible', 'Required only for machine learning', 'A substitute for methods'], correctAnswer: 1, explanation: 'Availability statements support evaluation and reuse.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-91-001', lessonId: 'cgei-dspt-lesson-9-1-1', type: 'single-choice', prompt: 'A decision-facing product should primarily start from:', options: ['The longest methods appendix', 'The question the audience can act on', 'The reddest colour ramp', 'The highest model complexity'], correctAnswer: 1, explanation: 'Audience and actionable question drive product design.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-91-002', lessonId: 'cgei-dspt-lesson-9-1-1', type: 'single-choice', prompt: 'Omitting units, valid time, source, version and confidence from a map product:', options: ['Is acceptable for planners', 'Removes information users need to interpret the product', 'Improves accessibility', 'Is required by Sendai'], correctAnswer: 1, explanation: 'Metadata and confidence are required interpretation aids.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-93-001', lessonId: 'cgei-dspt-lesson-9-3-1', type: 'single-choice', prompt: 'Changing multi-criteria weights can:', options: ['Never change option rankings', 'Change rankings because weights encode value judgements', 'Convert screening scores into causal proof', 'Remove the need for monitoring'], correctAnswer: 1, explanation: 'Weight sensitivity is expected and must be reported.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-dspt-q-93-002', lessonId: 'cgei-dspt-lesson-9-3-1', type: 'single-choice', prompt: 'Relative to one opaque composite score, separate inspectable layers are preferred because:', options: ['They always look prettier', 'Users can see which component drives the result', 'They hide uncertainty', 'They remove equity concerns'], correctAnswer: 1, explanation: 'Inspectable components reduce false precision.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-94-001', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A published consequential product should include:', options: ['Only a screenshot', 'Named reviewer and review date in addition to source/version metadata', 'No confidence note', 'A single unexplained red class'], correctAnswer: 1, explanation: 'Review state requires accountable review metadata.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-dspt-q-94-002', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'Provenance-first design requires that hazard, exposure and vulnerability:', options: ['Always be multiplied into one hidden score', 'Remain separable in the layer list where used', 'Never appear on maps', 'Replace options analysis'], correctAnswer: 1, explanation: 'Separate layers preserve interpretability.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-94-003', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A non-author usability pass is valuable because:', options: ['It replaces peer review of methods', 'It surfaces language and interpretation failures specialists miss', 'It proves causal impact', 'It is only for printed atlases'], correctAnswer: 1, explanation: 'Usability testing catches communication failures.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -4345,6 +4461,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-dspt-a-91-comms', kind: 'guided-practice', title: 'Audience message card', instructions: 'Rewrite one technical result for a planner: knowns, unknowns, action, and required metadata fields.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'] },
+    { id: 'cgei-dspt-a-93-mca', kind: 'guided-practice', title: 'Weight sensitivity note', instructions: 'Compare two options under cost-heavy and equity-heavy weights; report whether ranking changes.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-93-criteria'] },
+    { id: 'cgei-dspt-a-94-prov', kind: 'coding-lab', title: 'Product-card fixture lab', instructions: 'Run unit_9_decision_product_check.py and produce a product card with layers, version, review state and confidence note.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'] },
     { id: 'cgei-rp-a-81-question', kind: 'guided-practice', title: 'Question and estimand card', instructions: 'Write a focused question, distinct estimand, unit of analysis, population and time horizon for an environmental study.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-81-question'] },
     { id: 'cgei-rp-a-81-design', kind: 'critique', title: 'Exploratory vs confirmatory critique', instructions: 'Label a short study abstract as exploratory or confirmatory and list one required planning control.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-81-design'] },
     { id: 'cgei-rp-a-82-measure', kind: 'guided-practice', title: 'Measure–construct match', instructions: 'For LST used as “heat stress,” state construct, measure, one validity threat and one sampling-frame limit.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'] },
@@ -4613,6 +4732,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-dspt-assess-91-comms', kind: 'formative', title: 'Decision communication', purpose: 'Assess audience and metadata discipline.', objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'], questionIds: ['cgei-dspt-q-91-001', 'cgei-dspt-q-91-002'], required: true },
+    { id: 'cgei-dspt-assess-93-mca', kind: 'formative', title: 'Multi-criteria thinking', purpose: 'Assess criteria, weights and inspectable layers.', objectiveIds: ['cgei-dspt-o-93-criteria', 'cgei-dspt-o-93-layers'], questionIds: ['cgei-dspt-q-93-001', 'cgei-dspt-q-93-002'], required: true },
+    { id: 'cgei-dspt-assess-94-prov', kind: 'formative', title: 'Provenance-first products', purpose: 'Assess provenance and review-state requirements.', objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'], questionIds: ['cgei-dspt-q-94-001', 'cgei-dspt-q-94-002', 'cgei-dspt-q-94-003'], required: true },
     { id: 'cgei-rp-assess-81-question', kind: 'formative', title: 'Question/estimand', purpose: 'Assess focused questions and estimands.', objectiveIds: ['cgei-rp-o-81-question'], questionIds: ['cgei-rp-q-81-001', 'cgei-rp-q-81-002'], required: true },
     { id: 'cgei-rp-assess-81-design', kind: 'formative', title: 'Design planning', purpose: 'Assess exploratory/confirmatory planning controls.', objectiveIds: ['cgei-rp-o-81-design'], questionIds: ['cgei-rp-q-81-003'], required: true },
     { id: 'cgei-rp-assess-82-measure', kind: 'formative', title: 'Measurement', purpose: 'Assess measurement and sampling literacy.', objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'], questionIds: ['cgei-rp-q-82-001', 'cgei-rp-q-82-002'], required: true },

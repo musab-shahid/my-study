@@ -133,3 +133,6 @@ Synthetic H/E/V weighted index; ranking sensitivity to weights; no silent zero-f
 
 ## unit_8_research_protocol_check.py
 Protocol completeness contract for research questions/estimands. Not ethics-board approval.
+
+## unit_9_decision_product_check.py
+Product-card provenance contract + MCA weight sensitivity. Not a deployed dashboard.

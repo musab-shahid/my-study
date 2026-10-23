@@ -141,6 +141,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_risk_index_check.py
       - name: Verify Unit 8 research-protocol checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_research_protocol_check.py
+      - name: Verify Unit 9 decision-product checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_9_decision_product_check.py
       - name: Verify Unit 4.3 spectral indices and LST checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
       - name: Verify Unit 4.4 preprocessing and harmonisation checks
