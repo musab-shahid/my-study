@@ -16,7 +16,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
     <Card className="p-4 border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-[10px] uppercase tracking-wide font-semibold text-slate-500">{question.difficulty} · {question.cognitiveLevel}</span>
-        <span className="text-[10px] text-slate-400">Unrecorded knowledge check</span>
+        <span className="text-[10px] text-slate-500">Unrecorded knowledge check</span>
       </div>
       <p className="font-medium text-sm sm:text-base text-slate-900 leading-relaxed">{question.prompt}</p>
       <p className="text-xs text-slate-500 mt-1">Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
@@ -108,7 +108,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 
       {deliverables.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">Portfolio evidence</h2><div className="space-y-2">{deliverables.map((item) => <Card key={item.id} className="p-4 border border-slate-200"><h3 className="font-semibold text-sm text-slate-900">{item.title}</h3><p className="text-sm text-slate-600 mt-1">{item.description}</p><ul className="list-disc pl-5 mt-2 text-xs text-slate-600 space-y-1">{item.acceptanceCriteria.map((criterion) => <li key={criterion}>{criterion}</li>)}</ul></Card>)}</div></section>}
 
-      {resources.length > 0 && <section><h2 className="text-lg font-semibold text-slate-900 mb-3">Resources</h2><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-4 border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-teal-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-slate-900">{resource.title}</span>}</div><p className="text-sm text-slate-600 mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
+      {resources.length > 0 && <section><h2 className="text-lg font-semibold text-slate-900 mb-3">Resources</h2><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-4 border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-teal-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-slate-900">{resource.title}</span>}</div><p className="text-sm text-slate-600 mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-slate-500 mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
     </PageContainer>
   );
 }
