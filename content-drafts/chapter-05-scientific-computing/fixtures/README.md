@@ -127,3 +127,6 @@ Illustrative Landsat-style ST scale/offset decode; QA usable-pixel count. Not a 
 
 ## unit_5_4_inference_check.py (expanded)
 ANOVA F, chi-square, n_eff, partial correlation, power sketch, SE/CI, one-sample z, Cohen d, Pearson r. Teaching arithmetic only.
+
+## unit_7_risk_index_check.py
+Synthetic H/E/V weighted index; ranking sensitivity to weights; no silent zero-fill. Not observed loss validation.

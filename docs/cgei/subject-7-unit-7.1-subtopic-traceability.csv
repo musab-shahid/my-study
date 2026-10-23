@@ -1,0 +1,19 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+7.1.1.1,"Hazard, exposure, vulnerability, capacity",7.1.1,Core vocabulary,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-1,mapped_partial,Vocabulary taught; capacity depth limited.
+7.1.1.2,"Risk, consequence, residual risk",7.1.1,Core vocabulary,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-1,mapped_partial,Residual risk defined.
+7.1.1.3,"Resilience, adaptation, mitigation (climate vs disaster usage)",7.1.1,Core vocabulary,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-2,mapped_partial,Distinctions named.
+7.1.1.4,"Preparedness, response, recovery, Build Back Better",7.1.1,Core vocabulary,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-2,mapped_partial,Named in DRM cycle context.
+7.1.2.1,Risk as interaction — not hazard alone,7.1.2,Risk properties,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-1;cgei-risk-71-1-3,mapped_partial,Core teaching point.
+7.1.2.2,Dynamic and scale-dependent risk,7.1.2,Risk properties,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-1,mapped_partial,Mentioned; limited depth.
+7.1.2.3,Social vulnerability cannot be read off a physical map alone,7.1.2,Risk properties,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-2,mapped_partial,Taught with assessment.
+7.1.2.4,Uncertainty in likelihood and in impact,7.1.2,Risk properties,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-3,mapped_partial,Stated.
+7.1.3.1,"Sensitivity, adaptive capacity, and coping capacity; differential vulnerability",7.1.3,Vulnerability theory,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-2,mapped_partial,Overview; indicator construction limited.
+7.1.3.2,Pressure-and-release model,7.1.3,Vulnerability theory,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-2,mapped_partial,Named.
+7.1.3.3,Sustainable livelihoods framework,7.1.3,Vulnerability theory,Core,,,mapped_partial,Not taught in depth this cycle.
+7.1.3.4,Social vulnerability indices construction transferability,7.1.3,Vulnerability theory,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-2,mapped_partial,Construction/transferability caution.
+7.1.4.1,IPCC risk framing interaction of hazard exposure vulnerability,7.1.4,Frameworks,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-1,mapped_partial,Taught; responses determinant noted.
+7.1.4.2,Sendai Framework priorities,7.1.4,Frameworks,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-1,mapped_partial,Priorities named.
+7.1.4.3,"Multi-hazard, compound, cascading, systemic risk",7.1.4,Frameworks,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-1,mapped_partial,Definitions only; Unit 7.10 deferred.
+7.1.5.1,Key risks adaptation limits maladaptation,7.1.5,Adaptation limits loss and risk management,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-3,mapped_partial,Named.
+7.1.5.2,DRM cycle structural vs non-structural measures,7.1.5,Adaptation limits loss and risk management,Core,cgei-risk-lesson-7-1-1,cgei-risk-71-1-2,mapped_partial,Light coverage.
+7.1.5.3,Loss and damage economic and non-economic,7.1.5,Adaptation limits loss and risk management,Core,cgei-risk-lesson-7-1-2,cgei-risk-71-2-3,mapped_partial,Named only.
