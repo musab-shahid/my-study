@@ -1675,7 +1675,56 @@ const lessons21: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes22: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-22-energy', statement: 'Explain the greenhouse effect with a one-layer teaching model and show how latent heat alters the surface energy residual.', action: 'explain and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-cl-o-22-feedback', statement: 'Distinguish major climate feedbacks and state AR6 assessed ranges for ECS and TCR without treating them as single point truths.', action: 'distinguish and state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-22-regional', statement: 'Describe monsoon, western-disturbance and land–atmosphere couplings relevant to South Asian climate at process level.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-22-uhi', statement: 'Distinguish surface and canopy UHI definitions and explain why rural-reference and day–night contrasts matter.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons22: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-2-1', kind: 'lesson', title: 'Radiation, greenhouse effect and surface energy', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes22[0]],
+    content: [
+      { id: 'cgei-cl-22-1-1', kind: 'prose', title: 'From planetary Te to a warmer surface', body: 'The planetary effective temperature Te satisfies σ Te⁴ = S(1−A)/4. A one-layer longwave absorber teaching model yields σ Ts⁴ = 2 σ Te⁴, so Ts = Te × 2^{1/4} ≈ 1.19 Te—illustrating why a greenhouse atmosphere produces a surface warmer than Te. Real atmospheres are multi-layer and spectrally selective; this is not a GCM.' },
+      { id: 'cgei-cl-22-1-lab', kind: 'worked-example', title: 'Lab: greenhouse Ts and latent-heat residual', body: 'With S=1361 W m⁻² and A=0.30, Te≈254.6 K and one-layer Ts≈302.8 K. On the surface budget Q*+Q_F=Q_H+Q_E+ΔQ_S, raising Q_E from 100 to 180 W m⁻² (more evaporative cooling) cuts the residual available for storage/sensible heat from 150 to 70 W m⁻². Fixture unit_2_2_climate_system_processes_check.py locks these results.' },
+      { id: 'cgei-cl-22-1-3', kind: 'key-points', title: 'Energy process cautions', items: ['Greenhouse gases do not “create” energy; they alter the vertical flux profile', 'Soil moisture controls evaporative cooling capacity', 'Urban materials change storage and Q_F (link Unit 1.10)'] },
+    ],
+    activityIds: ['cgei-cl-a-22-energy'], assessmentIds: ['cgei-cl-assess-22-energy'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-2-2', kind: 'lesson', title: 'Forcing, feedbacks and sensitivity', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes22[1]],
+    content: [
+      { id: 'cgei-cl-22-2-1', kind: 'prose', title: 'Feedback chains', body: 'Effective radiative forcing quantifies an imposed TOA imbalance. Feedbacks amplify or damp the response: Planck (stabilising), water-vapour (positive), lapse-rate (often negative, tightly coupled to water vapour), surface-albedo (positive when ice/snow retreats), and clouds (sign and magnitude uncertain). Ice–albedo: melt → lower A → more absorbed solar → more melt.' },
+      { id: 'cgei-cl-22-2-2', kind: 'table', title: 'AR6 sensitivity ranges (stated, not fitted here)', headers: ['Metric', 'AR6 likely range', 'Meaning'], rows: [['ECS', '2.5–4 °C', 'Equilibrium response to 2×CO₂'], ['TCR', '1.4–2.2 °C', 'Transient response at CO₂ doubling in a 1%/yr scenario']] },
+      { id: 'cgei-cl-22-2-3', kind: 'callout', title: 'Scope', tone: 'info', items: ['TCRE and remaining carbon budget link to Subject 10', 'This lesson does not recompute ECS from the synthetic series'] },
+    ],
+    activityIds: ['cgei-cl-a-22-feedback'], assessmentIds: ['cgei-cl-assess-22-feedback'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-2-3', kind: 'lesson', title: 'Circulation, monsoon and teleconnections', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes22[2]],
+    content: [
+      { id: 'cgei-cl-22-3-1', kind: 'prose', title: 'Regional process systems', body: 'General circulation organises heat and moisture transport. South Asian monsoon onset and withdrawal are driven by land–ocean thermal contrast, moisture supply and large-scale dynamics. Western disturbances deliver winter precipitation over northern Pakistan. Irrigation and dust modify regional land–atmosphere coupling. Intraseasonal active/break spells and teleconnections (ENSO, IOD, MJO) modulate rainfall—correlation is not mechanism by itself.' },
+      { id: 'cgei-cl-22-3-2', kind: 'prose', title: 'Extreme-event case template', body: 'Mechanistic case studies (e.g. major flood or heatwave years named in the TOC) should record synoptic set-up, moisture source, antecedent conditions, impacts and data used. Consistent event definitions are required before inter-annual comparison. Rapid-attribution literature is cited as an evidence class, not re-derived here.' },
+    ],
+    activityIds: ['cgei-cl-a-22-regional'], assessmentIds: ['cgei-cl-assess-22-regional'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-2-4', kind: 'lesson', title: 'Urban heat island processes', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes22[3]],
+    content: [
+      { id: 'cgei-cl-22-4-1', kind: 'prose', title: 'Surface versus canopy UHI', body: 'Surface UHI is a skin-temperature contrast; canopy-layer UHI is air temperature in the urban canopy. Intensity is urban minus rural, so the rural reference controls the sign and magnitude—especially in arid cities where irrigated or bare surroundings can produce daytime surface cool islands. Day/night and seasonal contrasts differ because storage and Q_F cycles differ.' },
+      { id: 'cgei-cl-22-4-2', kind: 'key-points', title: 'Urban process controls', items: ['Materials, geometry, vegetation, anthropogenic heat', 'AC/traffic can feed electricity–heat loops', 'Local Climate Zones standardise urban form descriptors', 'Link Unit 1.10 urban energy residual practice'] },
+    ],
+    activityIds: ['cgei-cl-a-22-uhi'], assessmentIds: ['cgei-cl-assess-22-uhi'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1776,11 +1825,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Unit 2.1 teaches weather versus climate, normals/anomalies, time windows, basic climate statistics, and careful evidence language. Draft slice only—not full Subject 2.',
+      overview: 'Units 2.1–2.2 cover weather–climate foundations and climate-system processes (radiation, feedbacks, regional circulation, UHI). Draft slice only—not full Subject 2.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21],
-      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-cl-unit-2-1'],
+      outcomes: [...outcomes21, ...outcomes22],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2015,6 +2064,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.1 — Weather, climate, and time scales (Core)',
       notes: ['Core unit; synthetic series only; attribution is headline-level, not computed here.'],
     },
+    {
+      id: 'cgei-cl-unit-2-2', code: '2.2', title: 'Climate system processes', order: 202, kind: 'unit', readiness: 'draft',
+      summary: 'Explain greenhouse and surface-energy processes, climate feedbacks and sensitivity ranges, regional monsoon/WD systems, and urban heat-island definitions.',
+      estimatedHours: 8, prerequisites: ['Unit 2.1', 'Unit 1.1'], outcomes: outcomes22,
+      lessonIds: lessons22.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-22-energy', 'cgei-cl-a-22-feedback', 'cgei-cl-a-22-regional', 'cgei-cl-a-22-uhi'],
+      assessmentIds: ['cgei-cl-assess-22-energy', 'cgei-cl-assess-22-feedback', 'cgei-cl-assess-22-regional', 'cgei-cl-assess-22-uhi'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.2 — Climate system processes (Core)',
+      notes: ['One-layer greenhouse is instructional; ECS/TCR ranges stated from AR6, not fitted.', 'Extreme-event cases use template language, not full attribution reanalysis.'],
+    },
+
 
 
 
@@ -2071,6 +2132,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-21-002', lessonId: 'cgei-cl-lesson-2-1-1', type: 'single-choice', prompt: 'An anomaly is defined relative to:', options: ['Tomorrow’s forecast only', 'A stated baseline normal for a defined period', 'The maximum possible temperature', 'Sea-level pressure alone'], correctAnswer: 1, explanation: 'Anomalies require an explicit baseline period; changing the baseline changes anomaly values.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-21-003', lessonId: 'cgei-cl-lesson-2-1-2', type: 'single-choice', prompt: 'Treating a missing monthly temperature as 0°C when computing a mean will:', options: ['Always improve accuracy', 'Bias the mean downward if true values are warmer', 'Remove seasonality', 'Equal the median'], correctAnswer: 1, explanation: 'Zero is a real temperature; inserting it for missing data biases the mean and violates the observation contract.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-21-004', lessonId: 'cgei-cl-lesson-2-1-3', type: 'single-choice', prompt: 'A positive linear trend on a short local series is sufficient to conclude:', options: ['Full IPCC-level attribution for the globe', 'A descriptive change over that window, not automatic causal attribution', 'That weather no longer exists', 'That the baseline must be 1961–1990'], correctAnswer: 1, explanation: 'Trend description is not attribution; causal claims need additional evidence beyond a short local fit.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-22-001', lessonId: 'cgei-cl-lesson-2-2-1', type: 'single-choice', prompt: 'In the one-layer greenhouse teaching model, surface temperature Ts relates to Te by:', options: ['Ts = Te', 'Ts = Te × 2^{1/4}', 'Ts = 2 Te', 'Ts = Te / 2'], correctAnswer: 1, explanation: 'σ Ts⁴ = 2 σ Te⁴ implies Ts = Te × 2^{1/4}.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-22-002', lessonId: 'cgei-cl-lesson-2-2-1', type: 'single-choice', prompt: 'Increasing latent heat flux Q_E while holding Q* and Q_H fixed tends to:', options: ['Increase the residual available for storage', 'Decrease the residual ΔQ_S in the teaching budget', 'Create energy', 'Set albedo to zero'], correctAnswer: 1, explanation: 'ΔQ_S = Q*+Q_F−Q_H−Q_E falls when Q_E rises (evaporative cooling).', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-22-003', lessonId: 'cgei-cl-lesson-2-2-2', type: 'single-choice', prompt: 'AR6 likely ECS range is approximately:', options: ['0.1–0.5 °C', '2.5–4 °C', '10–20 °C', 'Exactly 1.5 °C only'], correctAnswer: 1, explanation: 'AR6 assesses ECS as likely 2.5–4 °C; TCR is a separate transient metric.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-cl-q-22-004', lessonId: 'cgei-cl-lesson-2-2-3', type: 'single-choice', prompt: 'Western disturbances primarily influence:', options: ['Only equatorial Pacific SSTs', 'Winter precipitation over northern Pakistan and adjoining regions', 'Stratospheric ozone chemistry alone', 'Deep-ocean carbon pumps only'], correctAnswer: 1, explanation: 'Western disturbances are key winter precipitation systems for northern Pakistan.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-22-005', lessonId: 'cgei-cl-lesson-2-2-4', type: 'single-choice', prompt: 'Canopy-layer UHI is best described as:', options: ['Skin temperature from a satellite only', 'Near-surface air temperature contrast in the urban canopy versus a rural reference', 'Only anthropogenic heat with no rural reference', 'Ocean heat content anomaly'], correctAnswer: 1, explanation: 'Canopy UHI uses air temperature in the urban canopy layer relative to a rural site; surface UHI is skin temperature.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2637,6 +2704,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-a-110-urban', kind: 'coding-lab', title: 'Urban energy residual lab', instructions: 'Run unit_1_10_coupled_systems_check.py. Compute ΔQ_S from the teaching fluxes and report the urban–rural storage contrast and UHI.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-110-urban'] },
     { id: 'cgei-es-a-110-lulc', kind: 'guided-practice', title: 'LULC pathway sketch', instructions: 'Pick one peri-urban change and state one hydrological and one exposure consequence without inventing quantitative rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-es-o-110-agri-lulc'] },
     { id: 'cgei-es-a-110-compound', kind: 'guided-practice', title: 'Compound threshold exercise', instructions: 'Using thresholds 0.6/0.6, classify three synthetic (heat, drought) pairs as compound or not and justify the AND rule.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-110-compound'] },
+    { id: 'cgei-cl-a-22-energy', kind: 'coding-lab', title: 'Greenhouse and latent-heat lab', instructions: 'Run unit_2_2_climate_system_processes_check.py. Report Te, one-layer Ts, and how increasing Q_E changes the surface residual.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-22-energy'] },
+    { id: 'cgei-cl-a-22-feedback', kind: 'guided-practice', title: 'Feedback polarity chain', instructions: 'Write the ice–albedo causal chain and classify Planck feedback as stabilising or amplifying.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-22-feedback'] },
+    { id: 'cgei-cl-a-22-regional', kind: 'reflection', title: 'Regional process note', instructions: 'In five sentences, contrast monsoon moisture pathways with western-disturbance winter precipitation for northern Pakistan without inventing event statistics.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-22-regional'] },
+    { id: 'cgei-cl-a-22-uhi', kind: 'guided-practice', title: 'UHI definition drill', instructions: 'Define surface vs canopy UHI and give one reason the rural reference can flip the sign in arid cities.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-22-uhi'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
     { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
     { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
@@ -2839,6 +2910,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-assess-110-urban', kind: 'formative', title: 'Urban energy balance', purpose: 'Assess residual closure and UHI.', objectiveIds: ['cgei-es-o-110-urban'], questionIds: ['cgei-es-q-110-001', 'cgei-es-q-110-002'], required: true },
     { id: 'cgei-es-assess-110-lulc', kind: 'formative', title: 'LULC consequences', purpose: 'Assess land-use impact pathways.', objectiveIds: ['cgei-es-o-110-agri-lulc'], questionIds: ['cgei-es-q-110-003'], required: true },
     { id: 'cgei-es-assess-110-compound', kind: 'formative', title: 'Compound stress', purpose: 'Assess compound threshold logic.', objectiveIds: ['cgei-es-o-110-compound'], questionIds: ['cgei-es-q-110-004'], required: true },
+    { id: 'cgei-cl-assess-22-energy', kind: 'formative', title: 'Energy processes', purpose: 'Assess greenhouse model and latent heat.', objectiveIds: ['cgei-cl-o-22-energy'], questionIds: ['cgei-cl-q-22-001', 'cgei-cl-q-22-002'], required: true },
+    { id: 'cgei-cl-assess-22-feedback', kind: 'formative', title: 'Feedbacks and sensitivity', purpose: 'Assess feedback polarity and AR6 ranges.', objectiveIds: ['cgei-cl-o-22-feedback'], questionIds: ['cgei-cl-q-22-003'], required: true },
+    { id: 'cgei-cl-assess-22-regional', kind: 'formative', title: 'Regional systems', purpose: 'Assess monsoon/WD process knowledge.', objectiveIds: ['cgei-cl-o-22-regional'], questionIds: ['cgei-cl-q-22-004'], required: true },
+    { id: 'cgei-cl-assess-22-uhi', kind: 'formative', title: 'UHI definitions', purpose: 'Assess surface vs canopy UHI.', objectiveIds: ['cgei-cl-o-22-uhi'], questionIds: ['cgei-cl-q-22-005'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
     { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
     { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },

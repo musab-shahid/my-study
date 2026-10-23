@@ -103,3 +103,6 @@ Urban SEB residual ΔQ_S=120; UHI=3.5 K; compound AND thresholds. Teaching model
 
 ## unit_2_1_weather_climate_timescales_check.py
 Synthetic 36-month series: normals/anomalies, window-dependent slopes, missing≠0, cold spike ≠ trend reversal.
+
+## unit_2_2_climate_system_processes_check.py
+One-layer greenhouse Ts=Te*2^(1/4); albedo absorption sensitivity; latent-heat residual change. Instructional only.

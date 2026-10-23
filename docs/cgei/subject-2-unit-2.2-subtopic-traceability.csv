@@ -1,0 +1,25 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+2.2.1.1,Global energy budget greenhouse effect,2.2.1,Radiation and energy,Core,cgei-cl-lesson-2-2-1,cgei-cl-22-1-1;cgei-cl-22-1-lab,mapped_partial,One-layer teaching model; not multi-layer GCM.
+2.2.1.2,Surface energy balance land urban,2.2.1,Radiation and energy,Core,cgei-cl-lesson-2-2-1,cgei-cl-22-1-lab;cgei-cl-22-1-3,mapped_partial,Teaching residual with Q_E; links Unit 1.10.
+2.2.1.3,Latent heat soil moisture evaporative cooling,2.2.1,Radiation and energy,Core,cgei-cl-lesson-2-2-1,cgei-cl-22-1-lab,mapped_partial,Q_E sensitivity in fixture.
+2.2.2.1,Effective radiative forcing major feedbacks,2.2.2,Forcing feedbacks sensitivity,Core,cgei-cl-lesson-2-2-2,cgei-cl-22-2-1,mapped_partial,Feedback list and ice-albedo chain.
+2.2.2.2,ECS and TCR AR6 ranges,2.2.2,Forcing feedbacks sensitivity,Core,cgei-cl-lesson-2-2-2,cgei-cl-22-2-2,mapped_partial,Ranges stated from AR6; not fitted.
+2.2.2.3,TCRE remaining carbon budget,2.2.2,Forcing feedbacks sensitivity,Core,cgei-cl-lesson-2-2-2,cgei-cl-22-2-3,mapped_partial,Linked to Subject 10; not computed.
+2.2.3.1,General circulation conceptual,2.2.3,General circulation and regional systems,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Overview.
+2.2.3.2,Monsoon drivers onset withdrawal,2.2.3,General circulation and regional systems,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Process narrative.
+2.2.3.3,Western disturbances winter precipitation,2.2.3,General circulation and regional systems,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Regional process note.
+2.2.3.4,Land-atmosphere irrigation dust,2.2.3,General circulation and regional systems,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Named modifiers.
+2.2.4.1,Monsoon intraseasonal active break,2.2.4,Intraseasonal variability teleconnections,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Overview only.
+2.2.4.2,Teleconnections mechanism vs correlation,2.2.4,Intraseasonal variability teleconnections,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-1,mapped_partial,Caution taught.
+2.2.4.3,Lead-lag seasonal predictability sources,2.2.4,Intraseasonal variability teleconnections,Core,,,mapped_partial,Not detailed in this slice.
+2.2.5.1,Extreme-event case studies named years,2.2.5,Case studies of extreme events,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-2,mapped_partial,Template only; no event reconstruction.
+2.2.5.2,Case-study template,2.2.5,Case studies of extreme events,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-2,mapped_partial,Template taught.
+2.2.5.3,Comparing events consistent definitions,2.2.5,Case studies of extreme events,Core,cgei-cl-lesson-2-2-3,cgei-cl-22-3-2,mapped_partial,Principle stated.
+2.2.6.1,Surface vs canopy UHI,2.2.6,Urban heat island concepts,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-1,mapped_partial,Definitions taught.
+2.2.6.2,UHI intensity rural-reference problem,2.2.6,Urban heat island concepts,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-1,mapped_partial,Reference dependence taught.
+2.2.6.3,Day night seasonal dependence,2.2.6,Urban heat island concepts,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-1,mapped_partial,Named.
+2.2.6.4,Local Climate Zones sky-view factor,2.2.6,Urban heat island concepts,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-2,mapped_partial,LCZ named; no mapping lab.
+2.2.7.1,Materials geometry vegetation Q_F,2.2.7,Urban energy balance anthropogenic heat,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-2,mapped_partial,Controls listed.
+2.2.7.2,Anthropogenic heat sources demand feedback,2.2.7,Urban energy balance anthropogenic heat,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-2,mapped_partial,Overview.
+2.2.7.3,Humidity heat stress ventilation,2.2.7,Urban energy balance anthropogenic heat,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-2,mapped_partial,Named.
+2.2.7.4,Arid city cool islands rural reference,2.2.7,Urban energy balance anthropogenic heat,Core,cgei-cl-lesson-2-2-4,cgei-cl-22-4-1,mapped_partial,Sign-flip caution taught.
