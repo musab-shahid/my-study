@@ -139,3 +139,6 @@ Product-card provenance contract + MCA weight sensitivity. Not a deployed dashbo
 
 ## unit_10_policy_appraisal_check.py
 Instrument-card completeness + discount-rate PV sensitivity. Not official SCC or NDC verification.
+
+## unit_11_env_pipeline_check.py
+Validate→summarise→provenance environmental pipeline. Synthetic stations only.

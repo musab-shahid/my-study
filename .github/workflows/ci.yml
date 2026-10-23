@@ -145,6 +145,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_9_decision_product_check.py
       - name: Verify Unit 10 policy-appraisal checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_10_policy_appraisal_check.py
+      - name: Verify Unit 11 env-pipeline checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_11_env_pipeline_check.py
       - name: Verify Unit 4.3 spectral indices and LST checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
       - name: Verify Unit 4.4 preprocessing and harmonisation checks
