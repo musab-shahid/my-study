@@ -10,8 +10,8 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
   const showHome = screen !== 'home';
 
   return (
-    <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80">
-      <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[56px]">
+    <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80 supports-[backdrop-filter]:bg-white/85">
+      <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[60px]">
         <div className="flex items-center gap-1 min-w-0 flex-1">
           <BackButton />
           <div className="min-w-0 flex-1">
@@ -20,7 +20,7 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
             </h2>
             <div className="flex items-center gap-2 mt-0.5 min-w-0">
               {subtitle && (
-                <p className="text-slate-500 text-xs sm:text-sm truncate hidden sm:block">{subtitle}</p>
+                <p className="text-slate-500 text-[11px] sm:text-sm truncate">{subtitle}</p>
               )}
               <div className="hidden sm:block min-w-0">
                 <Breadcrumbs />
@@ -47,7 +47,7 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
         </div>
       </div>
       {/* Mobile breadcrumbs row */}
-      <div className="px-4 sm:px-6 pb-2 sm:hidden">
+      <div className="px-4 sm:px-6 pb-2 sm:hidden" aria-label="Page breadcrumbs">
         <Breadcrumbs />
       </div>
     </header>
