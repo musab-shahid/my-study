@@ -1121,7 +1121,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           <div className="flex items-center gap-1 min-w-0">
             <button
               onClick={handleExit}
-              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
+              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label="Exit quiz"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -1132,7 +1132,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             <button
               type="button"
               onClick={() => setShowKeysHelp(true)}
-              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label="Keyboard shortcuts"
               title="Keyboard shortcuts"
             >
@@ -1188,8 +1188,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       )}
 
       {/* Question */}
-      <Card className="p-3.5 sm:p-5 sm:p-6 mb-4">
-        <p className="text-slate-900 text-lg font-medium leading-relaxed mb-5">{currentQ.question}</p>
+      <Card className="p-4 sm:p-6 mb-4">
+        <h1 className="text-slate-900 text-lg sm:text-xl font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
         {currentQ.type === 'matching' ? (
           <MatchingOptions question={currentQ} selectedIndices={state.selectedIndices} checked={state.checked} onSelect={toggleOption} />
         ) : (
