@@ -5,7 +5,8 @@
  * - Live quiz params stay out of the URL (see paths.ts)
  */
 import { createContext, useContext, useState, useCallback, useRef, useEffect, type ReactNode } from 'react';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicsBySection } from '@/data/topics';
+import { sectionMap } from '@/data/sections';
 import { resolveScreen } from './resolveScreen';
 import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from './paths';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
@@ -81,9 +82,15 @@ function buildRoute(options: NavigateOptions): Route {
   switch (options.screen) {
     case 'home': return { screen: 'home' };
     case 'learn': return { screen: 'learn', subjectId: options.subjectId };
-    case 'section':
+    case 'section': {
       if (!options.sectionId) return { screen: 'learn' };
+      const section = sectionMap[options.sectionId];
+      const sectionTopics = topicsBySection(options.sectionId);
+      if (section && sectionTopics.length > 0 && sectionTopics.every((topic) => cgeiSubjectIdForOverviewTopic(topic.id) !== undefined)) {
+        return { screen: 'learn', subjectId: section.subjectId };
+      }
       return { screen: 'section', sectionId: options.sectionId };
+    }
     case 'topic': {
       if (!options.topicId) return { screen: 'learn' };
       const overviewSubjectId = cgeiSubjectIdForOverviewTopic(options.topicId);
