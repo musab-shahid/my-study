@@ -109,3 +109,6 @@ One-layer greenhouse Ts=Te*2^(1/4); albedo absorption sensitivity; latent-heat r
 
 ## unit_2_4_data_products_check.py
 Synthetic station QC (range/step/spike/persistence); missing≠0; point≠grid-cell mean. Not live product validation.
+
+## unit_2_5_climate_data_handling_check.py
+UTC vs PKT daily max; precip sum; monthly completeness; anomaly vs baseline. Not ERA5/CDS validation.

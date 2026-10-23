@@ -1764,7 +1764,47 @@ const lessons24: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes25: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-25-time', statement: 'Distinguish accumulated versus instantaneous variables and show how UTC versus local (PKT) day boundaries change daily maxima.', action: 'distinguish and demonstrate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-cl-o-25-aggregate', statement: 'Aggregate climate series with variable-specific rules and completeness thresholds without treating missing as zero.', action: 'aggregate and validate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cl-o-25-anomaly', statement: 'Compute monthly anomalies against a declared baseline and document units, baseline period and processing steps.', action: 'compute and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
+
+const lessons25: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-5-1', kind: 'lesson', title: 'Formats, metadata and time conventions', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes25[0]],
+    content: [
+      { id: 'cgei-cl-25-1-1', kind: 'prose', title: 'Structure before arithmetic', body: 'NetCDF/GRIB and CF conventions encode coordinates, units and standard names. Model calendars may be non-Gregorian. Accumulated fields (e.g. precipitation over a forecast step) differ from instantaneous temperatures. Longitude conventions and time zones matter: PKT = UTC+5. Deriving Tmax on UTC days versus local days can reassign a nocturnal spike across calendar dates—biasing heat-day counts if ignored.' },
+      { id: 'cgei-cl-25-1-lab', kind: 'worked-example', title: 'Lab: UTC vs PKT daily max', body: 'A synthetic hourly series places a 42°C spike at UTC hour 22. Under PKT (UTC+5) that hour belongs to the next local calendar day. Fixture unit_2_5_climate_data_handling_check.py demonstrates local-day grouping. Product accumulation rules (ERA5 vs ERA5-Land) must be read before differencing—not guessed.' },
+      { id: 'cgei-cl-25-1-3', kind: 'key-points', title: 'Metadata checklist', items: ['Variable, units, standard_name', 'Time coordinate and calendar', 'Accumulated vs instantaneous', 'UTC vs local day definition'] },
+    ],
+    activityIds: ['cgei-cl-a-25-time'], assessmentIds: ['cgei-cl-assess-25-time'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-5-2', kind: 'lesson', title: 'Aggregation, missingness and anomalies', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes25[1], outcomes25[2]],
+    content: [
+      { id: 'cgei-cl-25-2-1', kind: 'prose', title: 'Variable-specific aggregation', body: 'Temperature means and precipitation sums are different operations. Completeness thresholds decide whether a monthly mean is publishable. Missing values stay missing—never coerced to zero for temperature. Anomalies use a declared baseline: A_t = X_t − X̄_baseline,m(t). Baselines (e.g. 1991–2020) must be fixed before analysis.' },
+      { id: 'cgei-cl-25-2-lab', kind: 'worked-example', title: 'Lab: completeness and anomaly', body: 'A month with only 2/10 valid days fails an 80% completeness rule (returns incomplete). Dense data mean is 4.5. Anomaly of 35°C against a July baseline of 32°C is +3°C. Fixture unit_2_5_climate_data_handling_check.py locks these results.' },
+      { id: 'cgei-cl-25-2-3', kind: 'callout', title: 'xarray workflow pointer', tone: 'info', items: ['Labelled arrays, groupby, resample, weighted means are the production pattern', 'Area-weighting by cos(latitude) matters for regional means', 'This fixture stays stdlib; Subject 5/Unit 5.12 deepen xarray pipelines'] },
+    ],
+    activityIds: ['cgei-cl-a-25-aggregate'], assessmentIds: ['cgei-cl-assess-25-aggregate'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-5-3', kind: 'lesson', title: 'Reproducible workflow and Multan case template', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes25[2]],
+    content: [
+      { id: 'cgei-cl-25-3-1', kind: 'prose', title: 'From inventory to analysis-ready table', body: 'A defensible workflow: inventory metadata → validate units/time → QC gaps/duplicates → aggregate with completeness rules → build fixed-baseline anomalies → align sources → record provenance (version, extent, access date, licence, checksum). Cloud access (Zarr, CDS API) requires pinned clients and cited requests—CI here does not call CDS.' },
+      { id: 'cgei-cl-25-3-2', kind: 'prose', title: 'Multan monsoon/heat case (template)', body: 'Define region mask and justify ERA5 vs ERA5-Land. Fix variables (2 m temperature, dew point, precipitation, wind), units, accumulation and UTC vs PKT daily definitions. Derive local-day Tmax/Tmin and rainfall totals. Use a pre-declared 1991–2020 baseline. Validate against stations or a second product. Do not equate rainfall anomalies with flood causation without hydrology and exposure.' },
+      { id: 'cgei-cl-25-3-3', kind: 'checklist', title: 'Processing record fields', items: ['Source product and version', 'Spatial/temporal extent', 'UTC vs local aggregation rule', 'Baseline period', 'Completeness threshold', 'Licence and citation'] },
+    ],
+    activityIds: ['cgei-cl-a-25-workflow'], assessmentIds: ['cgei-cl-assess-25-workflow'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1865,11 +1905,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.2 and 2.4 cover weather–climate foundations, processes, and climate data products. Unit 2.3 (Support thermodynamics) not yet implemented. Draft slice only.',
+      overview: 'Units 2.1–2.2, 2.4–2.5 cover weather–climate foundations, processes, data products and climate data handling. Unit 2.3 Support not yet implemented. Draft slice only.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21, ...outcomes22, ...outcomes24],
+      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2126,6 +2166,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.4 — Observations, reanalysis, and gridded products (Core)',
       notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
     },
+    {
+      id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
+      summary: 'Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.',
+      estimatedHours: 8, prerequisites: ['Unit 2.4'], outcomes: outcomes25,
+      lessonIds: lessons25.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-25-time', 'cgei-cl-a-25-aggregate', 'cgei-cl-a-25-workflow'],
+      assessmentIds: ['cgei-cl-assess-25-time', 'cgei-cl-assess-25-aggregate', 'cgei-cl-assess-25-workflow'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.5 — Climate data handling (Core)',
+      notes: ['Synthetic handling only; no CDS/ERA5 download in CI.', 'Multan case is a workflow template, not a validated local study.'],
+    },
+
 
 
 
@@ -2193,6 +2245,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-24-002', lessonId: 'cgei-cl-lesson-2-4-1', type: 'single-choice', prompt: 'A persistence QC flag is intended to catch:', options: ['Long runs of identical values that may indicate stuck sensors', 'Only satellite orbit drift', 'Licence violations', 'Grid CRS mismatches'], correctAnswer: 0, explanation: 'Unrealistic long constant runs often signal instrument or encoding problems.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-24-003', lessonId: 'cgei-cl-lesson-2-4-2', type: 'single-choice', prompt: 'An ERA5 grid-cell temperature is best described as:', options: ['A direct thermometer reading at every location in the cell', 'A model-and-assimilation estimate constrained by observations', 'Always more accurate than any station', 'Identical to CHIRPS precipitation'], correctAnswer: 1, explanation: 'Reanalysis blends observations with a model via data assimilation; it is not a dense network of direct measurements.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-24-004', lessonId: 'cgei-cl-lesson-2-4-3', type: 'single-choice', prompt: 'Agreement between two gridded products is sufficient to conclude:', options: ['Both are unbiased truth', 'They are similar under their methods, not that either is validated', 'Station data are unnecessary forever', 'Homogenisation is complete'], correctAnswer: 1, explanation: 'Shared methods or shared inputs can produce agreement without eliminating bias; independent validation is still required.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cl-q-25-001', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'Pakistan Standard Time (PKT) is offset from UTC by:', options: ['UTC−5', 'UTC+5', 'UTC+0 only', 'UTC+12'], correctAnswer: 1, explanation: 'PKT = UTC+5; local calendar days therefore group UTC hours differently than UTC days.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-cl-q-25-002', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'Before differencing accumulated precipitation fields from two products, you should first:', options: ['Assume identical accumulation windows', 'Read each product’s accumulation and time conventions', 'Convert all values to anomalies automatically', 'Drop all missing as zeros'], correctAnswer: 1, explanation: 'Accumulation windows and time encodings differ by product (e.g. ERA5 vs ERA5-Land documentation).', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-25-003', lessonId: 'cgei-cl-lesson-2-5-2', type: 'single-choice', prompt: 'With baseline July mean 32°C, an observed July value of 35°C has anomaly:', options: ['35°C', '+3°C', '−3°C', '32°C'], correctAnswer: 1, explanation: 'A = X − baseline = 35 − 32 = +3°C.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-25-004', lessonId: 'cgei-cl-lesson-2-5-3', type: 'single-choice', prompt: 'A complete processing record for climate data handling should include at least:', options: ['Only the final plot colours', 'Source version, extent, time rule, baseline, completeness rule, licence', 'Solely the programming language version', 'No baseline if anomalies are used'], correctAnswer: 1, explanation: 'Reproducibility requires provenance of source, spatial/temporal extent, aggregation rules, baseline and licence.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2768,6 +2825,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-a-24-qc', kind: 'coding-lab', title: 'Station QC lab', instructions: 'Run unit_2_4_data_products_check.py. List which indices fail range, step, spike and persistence checks, and state why missing must not become zero.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-24-station'] },
     { id: 'cgei-cl-a-24-products', kind: 'guided-practice', title: 'Point vs grid comparison', instructions: 'Using the fixture grid mean and station value, explain why they may legitimately differ without either being a coding error.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-24-products'] },
     { id: 'cgei-cl-a-24-select', kind: 'critique', title: 'Fitness-for-purpose memo', instructions: 'For a local heat-threshold analysis, choose between a nearby station series and a coarse reanalysis grid and justify with the checklist (coverage, support, licence, bias).', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-24-select'] },
+    { id: 'cgei-cl-a-25-time', kind: 'coding-lab', title: 'UTC vs PKT daily max lab', instructions: 'Run unit_2_5_climate_data_handling_check.py. Explain which local day owns the 42°C spike under PKT=UTC+5.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-time'] },
+    { id: 'cgei-cl-a-25-aggregate', kind: 'coding-lab', title: 'Completeness and anomaly lab', instructions: 'From the fixture, report the incomplete-month result, the dense mean, and the +3°C anomaly calculation with baseline stated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-aggregate', 'cgei-cl-o-25-anomaly'] },
+    { id: 'cgei-cl-a-25-workflow', kind: 'critique', title: 'Processing record draft', instructions: 'Write a six-field processing record for a hypothetical Multan Tmax anomaly workflow without inventing downloaded data.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-anomaly'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
     { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
     { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
@@ -2977,6 +3037,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-assess-24-qc', kind: 'formative', title: 'Station QC', purpose: 'Assess QC rule application.', objectiveIds: ['cgei-cl-o-24-station'], questionIds: ['cgei-cl-q-24-001', 'cgei-cl-q-24-002'], required: true },
     { id: 'cgei-cl-assess-24-products', kind: 'formative', title: 'Product types', purpose: 'Assess observation vs product distinction.', objectiveIds: ['cgei-cl-o-24-products'], questionIds: ['cgei-cl-q-24-003'], required: true },
     { id: 'cgei-cl-assess-24-select', kind: 'formative', title: 'Product selection', purpose: 'Assess fitness-for-purpose reasoning.', objectiveIds: ['cgei-cl-o-24-select'], questionIds: ['cgei-cl-q-24-004'], required: true },
+    { id: 'cgei-cl-assess-25-time', kind: 'formative', title: 'Time conventions', purpose: 'Assess UTC/local and accumulation awareness.', objectiveIds: ['cgei-cl-o-25-time'], questionIds: ['cgei-cl-q-25-001', 'cgei-cl-q-25-002'], required: true },
+    { id: 'cgei-cl-assess-25-aggregate', kind: 'formative', title: 'Aggregation and anomalies', purpose: 'Assess completeness and anomaly definition.', objectiveIds: ['cgei-cl-o-25-aggregate', 'cgei-cl-o-25-anomaly'], questionIds: ['cgei-cl-q-25-003'], required: true },
+    { id: 'cgei-cl-assess-25-workflow', kind: 'formative', title: 'Workflow provenance', purpose: 'Assess processing-record completeness.', objectiveIds: ['cgei-cl-o-25-anomaly'], questionIds: ['cgei-cl-q-25-004'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
     { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
     { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },
