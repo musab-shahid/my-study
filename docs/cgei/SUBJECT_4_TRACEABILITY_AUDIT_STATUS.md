@@ -3,8 +3,9 @@
 | Unit | TOC title | Status |
 |------|-----------|--------|
 | 4.1 | Remote sensing physics and sensors (Core) | Draft + radiometric fixture |
-| 4.2 | Major data families (Core) | Draft + depth audit; scale/QA fixture; SAR/DEM inference limits taught |
-| 4.3+ | Spectral indices and thermal products (Core) onward | Not started — 4.2 prerequisites judged sufficient to begin |
+| 4.2 | Major data families (Core) | Draft + depth audit; scale/QA fixture; SAR/DEM inference limits |
+| 4.3 | Spectral indices and thermal products (Core) | Draft + NDVI/ST fixture; proxy honesty; LST discipline |
+| 4.4+ | Later EO units | Not started |
 
-Mission status statements are literacy cues — verify against agency docs for operational planning.  
-Scale/offset constants in unit fixtures are illustrative teaching values, not operational USGS tables.
+Scale/offset constants in fixtures are illustrative teaching values — verify current USGS product documentation for operations.  
+UTFVI-style categories are descriptive, not health thresholds.

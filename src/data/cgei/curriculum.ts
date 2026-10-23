@@ -1930,6 +1930,14 @@ const outcomes42: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-42-quality', statement: 'Use QA/cloud masks and product-status caveats when selecting usable observations and comparing sensors.', action: 'use and select', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
 ];
 
+
+const outcomes43: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-43-indices', statement: 'Compute NDVI/EVI/NDWI/NBR-style indices from stated band reflectances and state saturation, soil-background, and water-index limits.', action: 'compute and state limits', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-43-proxy', statement: 'Diagnose common proxy failures (NDBI–bare soil, irrigated fields, arid scenes) and apply a checklist of what an index measures and where it fails.', action: 'diagnose and checklist', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-43-lst', statement: 'Decode Landsat-style surface temperature with documented scale/offset, apply QA/cloud rules before compositing, and refuse equating morning LST with afternoon air temperature.', action: 'decode and apply QA', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-43-uncertainty', statement: 'Report LST uncertainty and clear-sky sampling bias, and state assumptions of thermal sharpening/fusion methods over heterogeneous scenes.', action: 'report and state assumptions', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
 const lessons42: CurriculumLesson[] = [
   {
     id: 'cgei-rs-lesson-4-2-1', kind: 'lesson', title: 'Optical, thermal and geostationary families', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
@@ -1975,7 +1983,66 @@ const lessons42: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons43: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-3-1', kind: 'lesson', title: 'Vegetation, water and burn indices', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes43[0]],
+    content: [
+      { id: 'cgei-rs-43-1-ndvi', kind: 'prose', title: 'NDVI and EVI', body: 'NDVI = (NIR − Red) / (NIR + Red) uses surface reflectance bands. It saturates in dense canopies and is sensitive to soil background in sparse cover. EVI adds a blue band and canopy-background adjustment to reduce saturation and atmosphere residual effects under the product’s formulation. Always use the same processing level (prefer surface reflectance) and document the sensor band set—Landsat and Sentinel-2 NIR/Red centres are not identical.' },
+      { id: 'cgei-rs-43-1-ndvi-eq', kind: 'equation', title: 'NDVI', expression: 'NDVI = (\\rho_{NIR} - \\rho_{Red}) / (\\rho_{NIR} + \\rho_{Red})', caption: 'ρ are reflectance (unitless). Undefined or masked when denominators are zero or bands are invalid.' },
+      { id: 'cgei-rs-43-1-water', kind: 'prose', title: 'NDWI / MNDWI for water', body: 'NDWI formulations contrast green or NIR with shortwave infrared to highlight open water. MNDWI typically substitutes SWIR for MIR to improve water–built-up separation. Turbid water, cloud shadow, and dark roofs still confuse thresholds—validate against independent water masks or local knowledge.' },
+      { id: 'cgei-rs-43-1-burn', kind: 'prose', title: 'NBR and burn severity', body: 'NBR = (NIR − SWIR) / (NIR + SWIR); differenced NBR (dNBR) compares pre- and post-fire scenes. Severity classes are region- and protocol-specific, not universal health or ecological thresholds. Active-fire detections are not the same product as burned-area maps (Unit 4.2).' },
+      { id: 'cgei-rs-43-1-soil', kind: 'prose', title: 'Soil-background and moisture indices', body: 'SAVI/MSAVI introduce a soil-adjustment factor for sparse vegetation. NDMI/NDII/LSWI use NIR–SWIR contrasts as moisture-sensitive proxies—not volumetric soil-moisture percentage. Bare-soil and built-up indices (BSI, IBI, NDBI−NDVI combinations) require the same proxy honesty as NDBI alone.' },
+      { id: 'cgei-rs-43-1-work', kind: 'worked-example', title: 'NDVI from two reflectance samples', body: 'Sparse soil-influenced pixel: ρ_NIR=0.25, ρ_Red=0.18 → NDVI=(0.25−0.18)/(0.25+0.18)=0.07/0.43≈0.163. Dense canopy: ρ_NIR=0.45, ρ_Red=0.05 → NDVI=0.40/0.50=0.80. The dense case can still saturate relative to biomass; EVI or alternative indices may be preferred for high LAI.' },
+      { id: 'cgei-rs-43-1-points', kind: 'key-points', title: 'Index discipline', items: ['Use surface reflectance when the product provides it', 'Saturation and soil background limit NDVI', 'Water and burn indices need independent checks', 'Moisture indices are proxies, not lab soil moisture'] },
+    ],
+    activityIds: ['cgei-rs-a-43-indices'], assessmentIds: ['cgei-rs-assess-43-indices'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-3-2', kind: 'lesson', title: 'Built-up, albedo indices and proxy honesty', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes43[1]],
+    content: [
+      { id: 'cgei-rs-43-2-ndbi', kind: 'prose', title: 'NDBI and built-up proxies', body: 'NDBI contrasts SWIR and NIR to highlight built-up surfaces in many temperate cities. In arid and semi-arid scenes, bare soil often yields high NDBI and is confused with built-up. Pairing NDBI with NDVI or using IBI-style combinations reduces but does not eliminate confusion—report the known failure mode for your landscape.' },
+      { id: 'cgei-rs-43-2-albedo', kind: 'prose', title: 'Albedo and emissivity concepts', body: 'Broadband albedo is the fraction of incoming shortwave reflected by the surface; narrowband-to-broadband conversions (including tasselled-cap style components) depend on spectral response and atmospheric assumptions. Emissivity is required to convert brightness temperature toward land-surface temperature; NDVI-threshold and ASTER-based emissivity estimates each contribute error to LST.' },
+      { id: 'cgei-rs-43-2-fail', kind: 'callout', title: 'Known failure modes', tone: 'warning', items: ['NDBI confuses bare soil with built-up in arid scenes', 'Irrigated fields alter both vegetation and thermal contrasts', 'Tasselled-cap and albedo conversions are sensor-specific', 'Never treat an index as a universal land-cover classifier'] },
+      { id: 'cgei-rs-43-2-checklist', kind: 'checklist', title: 'Proxy honesty checklist', items: ['What physical/optical quantity does the index respond to?', 'Where does it fail in arid, irrigated, or heterogeneous urban scenes?', 'What independent evidence (maps, field, alternate sensor) supports interpretation?', 'Are thresholds local or borrowed without validation?'] },
+      { id: 'cgei-rs-43-2-table', kind: 'table', title: 'Index fitness (teaching summary)', headers: ['Index family', 'Primary response', 'Common misuse'], rows: [
+        ['NDVI/EVI', 'Canopy greenness / structure proxy', 'Equating high NDVI with biomass or yield'],
+        ['NDWI/MNDWI', 'Open-water spectral contrast', 'Thresholding without shadow/turbidity checks'],
+        ['NBR/dNBR', 'Fire-affected spectral change', 'Universal severity classes across biomes'],
+        ['NDBI', 'SWIR–NIR built-up contrast', 'Bare soil as “urban” in arid regions'],
+      ] },
+    ],
+    activityIds: ['cgei-rs-a-43-proxy'], assessmentIds: ['cgei-rs-assess-43-proxy'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-3-3', kind: 'lesson', title: 'LST retrieval and product discipline', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 55,
+    objectives: [outcomes43[2]],
+    content: [
+      { id: 'cgei-rs-43-3-rte', kind: 'prose', title: 'From radiance to LST', body: 'Land-surface temperature retrieval starts from the thermal radiative transfer equation. Practical approaches include single-channel, mono-window, split-window, and temperature–emissivity separation. Each needs atmospheric terms and emissivity. Collection-based ST products embed a chosen algorithm—read the product guide rather than re-deriving from Level-1 without the same inputs.' },
+      { id: 'cgei-rs-43-3-tirs', kind: 'prose', title: 'Landsat TIRS band discipline', body: 'Landsat 8 TIRS Band 11 has known stray-light problems; USGS guidance has long preferred Band 10 for single-band applications. Landsat 9 TIRS-2 reduces the stray-light issue. Always record which thermal band and collection were used.' },
+      { id: 'cgei-rs-43-3-scale', kind: 'prose', title: 'Official scaling (verify current docs)', body: 'TOC cites illustrative Collection-2 style factors widely published for teaching: ST (K) = DN × 0.00341802 + 149.0 and surface reflectance = DN × 0.0000275 − 0.2. Operational work must verify against the current USGS product documentation for the exact collection and band. Collection 2 ST ancillary bands (ST_QA per-pixel uncertainty, emissivity, atmospheric terms, cloud distance) should be used, not discarded.' },
+      { id: 'cgei-rs-43-3-eq', kind: 'equation', title: 'Surface temperature decode (teaching form)', expression: 'T_{ST} = DN \\times 0.00341802 + 149.0', caption: 'Kelvin. Teaching constants from common Collection-2 documentation; verify before operational use.' },
+      { id: 'cgei-rs-43-3-discipline', kind: 'prose', title: 'LST interpretation discipline', body: 'QA_PIXEL cloud, shadow, and fill rules must be written before compositing. Morning Landsat overpass LST is not afternoon air temperature and is not a heat-stress index. Landsat 8 vs 9 continuity needs explicit checks when merging series. Seasonal composites depend on median/mean/percentile and season window; clear-sky sampling removes cloudy cooler days, so composites often run warm—report valid observation counts per pixel.' },
+      { id: 'cgei-rs-43-3-points', kind: 'key-points', title: 'Before publishing an LST map', items: ['Document scale/offset source', 'Apply cloud/shadow/fill masks first', 'Use ST_QA or equivalent uncertainty layers', 'State overpass time vs air-temperature products', 'Report valid observation counts for composites'] },
+    ],
+    activityIds: ['cgei-rs-a-43-lst'], assessmentIds: ['cgei-rs-assess-43-lst'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-3-4', kind: 'lesson', title: 'Validation, uncertainty and thermal downscaling', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes43[3]],
+    content: [
+      { id: 'cgei-rs-43-4-val', kind: 'prose', title: 'Validating LST', body: 'Compare satellite LST against in-situ radiometers, loggers, and other satellite LST (MODIS/VIIRS/ECOSTRESS) with matched timing and view geometry where possible. Uncertainty must be reported alongside the heat signal being interpreted. Relative LST, UTFVI-style categories, and similar indices are descriptive—not health thresholds or regulatory limits.' },
+      { id: 'cgei-rs-43-4-proxy', kind: 'prose', title: 'Proxy honesty for indices and LST', body: 'Every index and thermal product has context-dependent meaning. Arid, irrigated, and heterogeneous urban scenes are high-failure environments. Use the checklist: what is measured, where it fails, and what independent evidence supports the claim.' },
+      { id: 'cgei-rs-43-4-down', kind: 'prose', title: 'Thermal downscaling and fusion', body: 'Thermal sharpening (DisTrad/TsHARP-style) and spatio-temporal fusion (STARFM family) assume relationships between thermal and optical/reflectance predictors that break over heterogeneous urban fabric and rapidly changing moisture. Diurnal temperature cycle models and ML air-temperature estimation from LST require spatial validation—not only in-sample fit. Validate sharpened products against independent finer-scale thermal data when claiming improved resolution.' },
+      { id: 'cgei-rs-43-4-callout', kind: 'callout', title: 'Do not over-claim', tone: 'warning', items: ['UTFVI-like categories are not health thresholds', 'Clear-sky composites bias warm without reported n_valid', 'Sharpening does not create new thermal measurements', 'Air temperature from LST needs explicit spatial validation'] },
+    ],
+    activityIds: ['cgei-rs-a-43-uncertainty'], assessmentIds: ['cgei-rs-assess-43-uncertainty'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2094,11 +2161,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.2 cover radiometric physics and major EO data families. Draft slice only.',
+      overview: 'Units 4.1–4.3 cover radiometric physics, major EO data families, spectral indices and LST discipline. Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2410,6 +2477,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.2 — Major data families (Core)',
       notes: ['Mission status is literacy, not a live catalogue.', 'ST scale factors are illustrative teaching constants—verify USGS docs for operations.'],
     },
+    {
+      id: 'cgei-rs-unit-4-3', code: '4.3', title: 'Spectral indices and thermal products', order: 403, kind: 'unit', readiness: 'draft',
+      summary: 'Compute and interpret vegetation/water/burn/built-up indices with proxy honesty; decode and discipline Landsat-style LST; report uncertainty and downscaling limits.',
+      estimatedHours: 10, prerequisites: ['Unit 4.1', 'Unit 4.2'], outcomes: outcomes43,
+      lessonIds: lessons43.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-43-indices', 'cgei-rs-a-43-proxy', 'cgei-rs-a-43-lst', 'cgei-rs-a-43-uncertainty'],
+      assessmentIds: ['cgei-rs-assess-43-indices', 'cgei-rs-assess-43-proxy', 'cgei-rs-assess-43-lst', 'cgei-rs-assess-43-uncertainty'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.3 — Spectral indices and thermal products (Core)',
+      notes: ['Official Collection scale factors must be verified against current USGS docs.', 'UTFVI-style categories are descriptive, not health thresholds.'],
+    },
 
 
 
@@ -2675,6 +2753,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-42-006', lessonId: 'cgei-rs-lesson-4-2-2', type: 'single-choice', prompt: 'SAR backscatter (e.g. Sentinel-1 GRD σ⁰) is best interpreted as:', options: ['A direct measurement of surface elevation in metres', 'A microwave scattering response that is not itself a DEM or soil-moisture percentage', 'A land-cover class label from a universal legend', 'A brightness temperature in kelvin'], correctAnswer: 1, explanation: 'Backscatter reflects geometry and dielectric properties; elevation and moisture require other methods or careful retrievals, not raw σ⁰ as the quantity.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-42-007', lessonId: 'cgei-rs-lesson-4-2-2', type: 'single-choice', prompt: 'When choosing a DEM for hydrologic routing, a critical product-literacy check is:', options: ['Assuming every DEM is bare-earth terrain at 1 m vertical accuracy', 'Whether the product is closer to a surface or terrain model, and how voids and conditioning are handled', 'Using night-time lights as elevation', 'Treating GEDI track samples as a wall-to-wall DEM'], correctAnswer: 1, explanation: 'Surface-versus-terrain definition, voids, and conditioning choices affect flow paths; lidar tracks are samples, not full DEMs.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-rs-q-42-008', lessonId: 'cgei-rs-lesson-4-2-1', type: 'single-choice', prompt: 'Top-of-atmosphere reflectance and surface reflectance differ because:', options: ['They are always numerically identical after any rescale', 'Surface reflectance products attempt to remove atmospheric path effects under stated assumptions; TOA still includes them', 'TOA products are thermal-only', 'Surface reflectance is only available from SAR'], correctAnswer: 1, explanation: 'Processing level changes physical meaning; cite SR vs TOA explicitly.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-001', lessonId: 'cgei-rs-lesson-4-3-1', type: 'single-choice', prompt: 'NDVI = (NIR − Red) / (NIR + Red) is best computed from:', options: ['Raw digital numbers without reflectance conversion', 'Surface reflectance bands with invalid pixels masked', 'Brightness temperature in kelvin', 'SAR backscatter in decibels'], correctAnswer: 1, explanation: 'NDVI is a reflectance index; use surface reflectance when available and mask invalid observations.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-002', lessonId: 'cgei-rs-lesson-4-3-1', type: 'single-choice', prompt: 'A practical limitation of NDVI in dense canopies is:', options: ['It never uses NIR', 'Saturation with respect to biomass / LAI', 'It equals LST', 'It requires SAR'], correctAnswer: 1, explanation: 'NDVI saturates in high leaf-area canopies; EVI or other indices may reduce saturation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-003', lessonId: 'cgei-rs-lesson-4-3-1', type: 'single-choice', prompt: 'Differenced NBR (dNBR) is primarily used to:', options: ['Estimate air temperature', 'Compare pre- and post-fire spectral conditions for burn severity mapping', 'Replace DEM vertical accuracy checks', 'Measure soil volumetric water content directly'], correctAnswer: 1, explanation: 'dNBR is a bi-temporal burn-severity proxy with region-specific class meaning.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-004', lessonId: 'cgei-rs-lesson-4-3-2', type: 'single-choice', prompt: 'In arid scenes, NDBI commonly confuses:', options: ['Cloud with snow only', 'Bare soil with built-up surfaces', 'Open ocean with kelp', 'SAR with lidar'], correctAnswer: 1, explanation: 'Bare soil often has high NDBI; arid urban mapping needs additional evidence.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-005', lessonId: 'cgei-rs-lesson-4-3-2', type: 'single-choice', prompt: 'Proxy honesty requires that an index user can state:', options: ['Only the acronym expansion', 'What the index responds to, where it fails, and what independent evidence supports it', 'That all thresholds are universal', 'That albedo equals emissivity'], correctAnswer: 1, explanation: 'Context, failure modes, and corroboration are required for defensible use.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-006', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Using the teaching Collection-2 style factors, ST (K) is recovered as:', options: ['DN / 10000', 'DN × 0.00341802 + 149.0 (verified against current product docs for operations)', 'DN × 0.0000275 − 0.2', 'Always equal to 2 m air temperature'], correctAnswer: 1, explanation: 'ST uses thermal scale/offset; reflectance uses a different pair. Verify official tables operationally.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-43-007', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Landsat 8 TIRS Band 11 is problematic for many single-band applications because of:', options: ['Perfect calibration with no issues', 'Known stray-light problems; Band 10 has been preferred', 'It is an optical blue band', 'It measures SAR backscatter'], correctAnswer: 1, explanation: 'Stray light in Band 11 drove Band-10 preference; L9 TIRS-2 improves the situation.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-rs-q-43-008', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Morning satellite LST should not be treated as:', options: ['A thermal infrared retrieval at overpass time', 'Identical to afternoon air temperature or a heat-stress health threshold', 'A quantity needing cloud masks', 'Something with per-pixel uncertainty'], correctAnswer: 1, explanation: 'Overpass time, land skin temperature, and air temperature are different quantities.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-009', lessonId: 'cgei-rs-lesson-4-3-4', type: 'single-choice', prompt: 'Clear-sky LST composites often run warm because:', options: ['Clouds are hotter than land', 'Cloudy cooler days are removed, biasing the sample toward clearer warmer conditions', 'Scale factors double temperature', 'NDVI equals LST'], correctAnswer: 1, explanation: 'Sampling bias from cloud filtering must be reported (e.g. n_valid per pixel).', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-43-010', lessonId: 'cgei-rs-lesson-4-3-4', type: 'single-choice', prompt: 'Thermal sharpening (e.g. TsHARP-style) over heterogeneous urban scenes:', options: ['Always recovers true 10 m thermal measurements', 'Relies on assumptions that can fail when optical predictors and thermal fields decouple', 'Removes the need for validation', 'Converts SAR to LST directly'], correctAnswer: 1, explanation: 'Sharpening is model-based; validate against independent finer thermal data.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
     {
       "id": "cgei-ds-q-55-012",
@@ -3100,6 +3189,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
             { id: 'cgei-rs-a-42-families', kind: 'guided-practice', title: 'Product family card', instructions: 'Build one product card each for Landsat C2 L2 reflectance, Sentinel-1 GRD, and a DEM source using the checklist fields.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-42-families'] },
     { id: 'cgei-rs-a-42-radar', kind: 'critique', title: 'Cloudy-season choice', instructions: 'For a monsoon surface-water question, argue for or against relying solely on optical reflectance versus adding SAR.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-42-families'] },
     { id: 'cgei-rs-a-42-qa', kind: 'coding-lab', title: 'ST decode and QA mask lab', instructions: 'Run unit_4_2_data_families_check.py. Report ST and usable pixel count; state why scale/offset must be documented.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-42-decode', 'cgei-rs-o-42-quality'] },
+    { id: 'cgei-rs-a-43-indices', kind: 'coding-lab', title: 'NDVI and ST decode lab', instructions: 'Run unit_4_3_indices_lst_check.py. Report NDVI for both sample pixels, decoded ST, and usable clear count after QA.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-43-indices', 'cgei-rs-o-43-lst'] },
+    { id: 'cgei-rs-a-43-proxy', kind: 'critique', title: 'Proxy honesty memo', instructions: 'For an arid-fringe city, explain why NDBI alone can mislabel bare soil as built-up and what independent evidence you would require.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-43-proxy'] },
+    { id: 'cgei-rs-a-43-lst', kind: 'guided-practice', title: 'Compositing bias note', instructions: 'Explain in four sentences why clear-sky LST composites can run warm and what n_valid reports.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-43-lst'] },
+    { id: 'cgei-rs-a-43-uncertainty', kind: 'reflection', title: 'Downscaling assumptions', instructions: 'List two assumptions of TsHARP/STARFM-style methods that fail over heterogeneous urban scenes.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-43-uncertainty'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3324,6 +3417,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
             { id: 'cgei-rs-assess-42-families', kind: 'formative', title: 'Data families', purpose: 'Assess family literacy.', objectiveIds: ['cgei-rs-o-42-families'], questionIds: ['cgei-rs-q-42-001', 'cgei-rs-q-42-002', 'cgei-rs-q-42-008'], required: true },
     { id: 'cgei-rs-assess-42-radar', kind: 'formative', title: 'SAR and elevation', purpose: 'Assess SAR/DEM roles.', objectiveIds: ['cgei-rs-o-42-families'], questionIds: ['cgei-rs-q-42-003', 'cgei-rs-q-42-006', 'cgei-rs-q-42-007'], required: true },
     { id: 'cgei-rs-assess-42-qa', kind: 'formative', title: 'QA and scale factors', purpose: 'Assess decode and mask discipline.', objectiveIds: ['cgei-rs-o-42-decode', 'cgei-rs-o-42-quality'], questionIds: ['cgei-rs-q-42-004', 'cgei-rs-q-42-005'], required: true },
+    { id: 'cgei-rs-assess-43-indices', kind: 'formative', title: 'Spectral indices', purpose: 'Assess NDVI/water/burn index literacy.', objectiveIds: ['cgei-rs-o-43-indices'], questionIds: ['cgei-rs-q-43-001', 'cgei-rs-q-43-002', 'cgei-rs-q-43-003'], required: true },
+    { id: 'cgei-rs-assess-43-proxy', kind: 'formative', title: 'Proxy honesty', purpose: 'Assess NDBI/albedo failure modes.', objectiveIds: ['cgei-rs-o-43-proxy'], questionIds: ['cgei-rs-q-43-004', 'cgei-rs-q-43-005'], required: true },
+    { id: 'cgei-rs-assess-43-lst', kind: 'formative', title: 'LST discipline', purpose: 'Assess ST decode, QA, and air-temperature distinction.', objectiveIds: ['cgei-rs-o-43-lst'], questionIds: ['cgei-rs-q-43-006', 'cgei-rs-q-43-007', 'cgei-rs-q-43-008'], required: true },
+    { id: 'cgei-rs-assess-43-uncertainty', kind: 'formative', title: 'Uncertainty and downscaling', purpose: 'Assess uncertainty reporting and sharpening limits.', objectiveIds: ['cgei-rs-o-43-uncertainty'], questionIds: ['cgei-rs-q-43-009', 'cgei-rs-q-43-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
