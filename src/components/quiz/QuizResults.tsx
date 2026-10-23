@@ -46,7 +46,7 @@ export function QuizResults({
   return (
     <PageContainer width="focused">
       <div className="flex items-center gap-2 mb-4"><BackButton fallbackToHome /><Breadcrumbs /></div>
-      <Card className="p-6 sm:p-8 mb-4">
+      <Card className="p-4 sm:p-8 mb-4">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 bg-brand-50">
             {pct >= 60 ? <CheckCircle2 className="w-8 h-8 text-success-500" /> : <XCircle className="w-8 h-8 text-danger-500" />}
@@ -94,12 +94,12 @@ export function QuizResults({
               const topic = getTopic(topicId);
               return (
                 <div key={topicId} className="flex items-center justify-between text-sm">
-                  <button onClick={() => onNavigateToTopic(topicId)} className="text-brand-600 hover:text-brand-700 truncate flex-1 text-left">
+                  <button onClick={() => onNavigateToTopic(topicId)} className="min-h-10 min-w-0 flex-1 truncate rounded-md text-left text-brand-600 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                     {topic?.title ?? topicId}
                   </button>
                   <div className="flex items-center gap-2 shrink-0">
                     <span className="text-slate-500">{stats.correct} / {stats.total}</span>
-                    <button onClick={() => onPracticeTopic(topicId)} className="text-xs text-slate-400 hover:text-brand-600">
+                    <button onClick={() => onPracticeTopic(topicId)} className="min-h-10 rounded-md px-2 text-xs text-slate-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                       Practice
                     </button>
                   </div>
@@ -137,7 +137,7 @@ export function QuizResults({
                       );
                     })}
                   </div>
-                  <button onClick={() => onNavigateToTopic(q.topicId)} className="text-xs text-brand-600 hover:text-brand-700 mt-2 inline-flex items-center gap-1">
+                  <button onClick={() => onNavigateToTopic(q.topicId)} type="button" className="mt-3 inline-flex min-h-10 items-center gap-1 rounded-md text-sm font-medium text-brand-600 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                     Review topic <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>
