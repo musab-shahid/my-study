@@ -36,8 +36,18 @@ const stageIcons: Record<StageScreen, typeof BookCopy> = {
 
 function trackNavStyles(trackId: ExamTrack) {
   const a = trackAccentClasses(trackId);
-  const border = a.text.includes('indigo') ? 'border-l-indigo-600' : 'border-l-sky-500';
-  const bg = a.text.includes('indigo') ? 'bg-indigo-600/10' : 'bg-sky-500/10';
+  const isIndigo = a.text.includes('indigo');
+  const isTeal = a.text.includes('teal');
+  const border = isIndigo
+    ? 'border-l-indigo-600'
+    : isTeal
+      ? 'border-l-teal-500'
+      : 'border-l-sky-500';
+  const bg = isIndigo
+    ? 'bg-indigo-600/10'
+    : isTeal
+      ? 'bg-teal-500/10'
+      : 'bg-sky-500/10';
   return {
     activeBorder: border,
     activeBg: bg,
