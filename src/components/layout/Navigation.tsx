@@ -326,6 +326,12 @@ export function MobileNav() {
   };
   const { trackMembership } = useData();
   const activeEnrolled = trackMembership.activeTrackId;
+  const activeTrackAccent =
+    activeEnrolled && isTrackId(activeEnrolled) ? getTrackMeta(activeEnrolled).accent : 'sky';
+  const activeIndicatorColor =
+    activeTrackAccent === 'indigo' ? 'bg-indigo-600' :
+    activeTrackAccent === 'teal' ? 'bg-teal-500' :
+    'bg-sky-500';
   const tracksClick = () => {
     if (activeEnrolled && isTrackId(activeEnrolled)) {
       navigate({ ...openTrackOptions(activeEnrolled) });
