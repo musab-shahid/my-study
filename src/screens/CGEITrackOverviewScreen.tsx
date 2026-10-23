@@ -147,10 +147,18 @@ export function CGEITrackOverviewScreen() {
                 const units = canonical?.unitIds
                   .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
                   .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit)) ?? [];
-                const authoredLessons = units.reduce((sum, unit) => sum + unit.lessonIds.filter((id) => {
-                  const lesson = cgeiCurriculum.lessons.find((item) => item.id === id);
-                  return Boolean(lesson?.content.length);
-                }).length, 0);
+                const subjectLessons = units.flatMap((unit) => unit.lessonIds
+                  .map((id) => cgeiCurriculum.lessons.find((item) => item.id === id))
+                  .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson)));
+                const authoredLessons = subjectLessons.filter((lesson) => lesson.content.length > 0).length;
+                const lessonReadiness = subjectLessons.reduce<Record<string, number>>((counts, lesson) => {
+                  counts[lesson.readiness] = (counts[lesson.readiness] ?? 0) + 1;
+                  return counts;
+                }, {});
+                const readinessSummary = ['draft', 'review', 'validated', 'released']
+                  .filter((status) => lessonReadiness[status])
+                  .map((status) => `${lessonReadiness[status]} ${status}`)
+                  .join(' · ');
                 const Icon = subject.lucideIcon ?? BookOpen;
                 return (
                   <Card key={subject.id} className="p-4 border border-slate-200 hover:border-teal-300 transition-colors">
@@ -162,8 +170,9 @@ export function CGEITrackOverviewScreen() {
                         <h4 className="font-semibold text-slate-900 leading-snug">{subject.title}</h4>
                         {canonical ? (
                           <>
-                            <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum pilot</p>
-                            <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons} lessons with content</p>
+                            <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
+                            <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with content</p>
+                            <p className="text-xs text-slate-500 mt-1">Lesson status: {readinessSummary || 'no lessons mapped'}.</p>
                           </>
                         ) : hasTopicContent ? (
                           <>
