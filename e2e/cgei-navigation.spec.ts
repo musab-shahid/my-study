@@ -50,6 +50,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('heading', { name: 'Applied environmental intelligence' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Research & professional practice' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(14);
     await expect(page.getByText(/Canonical curriculum · subject readiness:/).first()).toBeVisible();
     await expect(page.getByText('Domain orientation', { exact: true }).first()).toBeVisible();
   });
