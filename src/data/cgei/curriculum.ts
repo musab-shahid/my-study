@@ -2981,7 +2981,62 @@ const lessons115: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115];
+
+const outcomes121: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-121-nn', statement: 'Explain tensors, loss, train/val/test separation, overfitting controls and when tree/statistical baselines remain preferable.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ai-o-121-cost', statement: 'Estimate data/compute cost concerns and require experiment tracking before large training runs.', action: 'estimate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes122: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-122-cv', statement: 'Define EO vision tasks and require spatially independent splits to avoid tile leakage.', action: 'define', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-122-eval', statement: 'Select class-wise and overlap metrics appropriate to the task and report geography/season failure modes.', action: 'select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes127: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-127-gov', statement: 'Write intended-use, exclusions, baseline comparison and human-review requirements before deploying AI for decisions.', action: 'document', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons121: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-1-1', kind: 'lesson', title: 'Neural network practice and baseline discipline', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes121[0], outcomes121[1]],
+    content: [
+      { id: 'cgei-ai-121-1-1', kind: 'prose', title: 'Core training concepts', body: 'Deep learning systems compose tensors, layers, activations, losses, gradients and optimisers. Training requires train/validation/test separation, mini-batches, learning-rate choices, epochs and early stopping. Regularisation (dropout, weight decay, normalisation) and overfitting diagnostics are mandatory, not optional polish.' },
+      { id: 'cgei-ai-121-1-2', kind: 'prose', title: 'Architecture selection and baselines', body: 'MLPs suit tabular baselines; CNNs suit image/raster structure; sequence and attention models address time-dependent signals. Transfer learning needs matched domain assumptions. Tree-based models and statistical baselines often remain preferable for small tabular environmental datasets—compare before claiming deep-learning necessity.' },
+      { id: 'cgei-ai-121-1-lab', kind: 'worked-example', title: 'Baseline vs overfit lookup', body: 'Fixture unit_12_ai_split_baseline_check.py fits a linear baseline and an overfit lookup on synthetic features. On held-out points the baseline generalises better. The fixture also rejects train/val/test ID overlap and flags spatial adjacency leakage between train and test tiles.' },
+      { id: 'cgei-ai-121-1-4', kind: 'key-points', title: 'Cost and determinism', items: ['Estimate parameters, memory and time before large runs', 'Track seeds, hardware and experiment settings', 'Report energy/cost for training when relevant'] },
+    ],
+    activityIds: ['cgei-ai-a-121-nn'], assessmentIds: ['cgei-ai-assess-121-nn'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons122: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-2-1', kind: 'lesson', title: 'EO computer vision tasks and leakage-safe evaluation', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes122[0], outcomes122[1]],
+    content: [
+      { id: 'cgei-ai-122-1-1', kind: 'prose', title: 'Tasks and labels', body: 'EO vision problems include classification, detection, semantic segmentation and change detection. Labels carry annotation protocols, inter-annotator uncertainty and class imbalance. Augmentations must preserve physical meaning—do not invent impossible reflectance or temperature values.' },
+      { id: 'cgei-ai-122-1-2', kind: 'prose', title: 'Spatial independence', body: 'Random pixel splits leak information across adjacent tiles. Prefer spatially independent splits and test for adjacency leakage. Report precision/recall, IoU/Dice or confusion matrices by class, and stratify errors by geography, season, sensor and land-cover when data allow.' },
+      { id: 'cgei-ai-122-1-3', kind: 'callout', title: 'Operational caveats', tone: 'warning', items: ['Tiled inference needs overlap/blending plans', 'Domain shift across sensors and seasons is common', 'High overall accuracy can hide rare-class failure'] },
+    ],
+    activityIds: ['cgei-ai-a-122-cv'], assessmentIds: ['cgei-ai-assess-122-cv'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons127: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-7-1', kind: 'lesson', title: 'Evaluating and governing environmental AI', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes127[0]],
+    content: [
+      { id: 'cgei-ai-127-1-1', kind: 'prose', title: 'Evaluation design', body: 'Define success criteria and representative test sets before selecting a system. Measure factuality/groundedness (for generative tools), robustness, calibration, latency and cost as relevant. Always compare against a no-AI or simpler deterministic baseline.' },
+      { id: 'cgei-ai-127-1-2', kind: 'prose', title: 'Risk and documentation', body: 'Document intended use, exclusions, data sources, known risks and human review. Assess privacy, bias, licensing and environmental cost. Separate research prototypes from systems that guide real decisions. Fixture unit_12_ai_split_baseline_check.py requires model-card fields including baseline and human review.' },
+      { id: 'cgei-ai-127-1-3', kind: 'checklist', title: 'Release discipline', items: ['Staged rollout criteria', 'Feedback and incident reporting', 'User docs: intended use and known failures', 'Retire systems that drift without monitoring'] },
+    ],
+    activityIds: ['cgei-ai-a-127-gov'], assessmentIds: ['cgei-ai-assess-127-gov'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -3161,6 +3216,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       outcomes: [...outcomes111, ...outcomes112, ...outcomes115],
       competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'],
       unitIds: ['cgei-se-unit-11-1', 'cgei-se-unit-11-2', 'cgei-se-unit-11-5'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-12-advanced-ai',
+      subjectId: 'cgei-advanced-ai',
+      title: 'Advanced AI for Environmental Intelligence',
+      subtitle: 'Deep-learning foundations, EO vision evaluation and AI governance',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts who may use neural methods after stronger baselines and leakage-safe evaluation.',
+      purpose: 'Teach when deep learning is warranted, how to evaluate EO vision tasks without spatial leakage, and how to govern AI claims.',
+      overview: 'Core Units 12.1–12.2 plus Support 12.7. Unit 12.3 and generative/agent units deferred. No production deep-net training in fixtures. Draft only.',
+      prerequisites: ['Subject 6 ML & GeoAI', 'Subject 11 software engineering tests'],
+      outcomes: [...outcomes121, ...outcomes122, ...outcomes127],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-ai-unit-12-1', 'cgei-ai-unit-12-2', 'cgei-ai-unit-12-7'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 12,
@@ -3702,6 +3775,40 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 11 Unit 11.5 — Data pipelines, orchestration, and reliable updates (Support)',
       notes: ['Orchestrators named as options; not required simultaneously.'],
     },
+    {
+      id: 'cgei-ai-unit-12-1', code: '12.1', title: 'Deep-learning foundations and neural-network practice', order: 1201, kind: 'unit', readiness: 'draft',
+      summary: 'Training concepts, architecture selection, baselines-first discipline and compute/cost awareness.',
+      estimatedHours: 4.5, prerequisites: ['Subject 6 supervised learning'], outcomes: outcomes121,
+      lessonIds: lessons121.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-121-nn'],
+      assessmentIds: ['cgei-ai-assess-121-nn'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.1 — Deep-learning foundations (Core)',
+      notes: ['Core; fixture uses linear baseline not a trained deep net.'],
+    },
+    {
+      id: 'cgei-ai-unit-12-2', code: '12.2', title: 'Computer vision and image understanding for Earth observation', order: 1202, kind: 'unit', readiness: 'draft',
+      summary: 'EO vision tasks, spatially independent splits and task-appropriate metrics.',
+      estimatedHours: 4, prerequisites: ['Unit 12.1', 'Subject 4 remote sensing literacy'], outcomes: outcomes122,
+      lessonIds: lessons122.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-122-cv'],
+      assessmentIds: ['cgei-ai-assess-122-cv'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.2 — Computer vision for EO (Core)',
+      notes: ['Core; no GPU training required for this draft.'],
+    },
+    {
+      id: 'cgei-ai-unit-12-7', code: '12.7', title: 'Evaluating and governing AI systems', order: 1207, kind: 'unit', readiness: 'draft',
+      summary: 'Evaluation design, model cards, baselines and human review before decision use.',
+      estimatedHours: 3.5, prerequisites: ['Unit 12.1'], outcomes: outcomes127,
+      lessonIds: lessons127.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-127-gov'],
+      assessmentIds: ['cgei-ai-assess-127-gov'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.7 — Evaluating and governing AI systems (Support)',
+      notes: ['Support unit included for responsible-use path.'],
+    },
+
 
 
 
@@ -3929,6 +4036,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-se-q-112-004', lessonId: 'cgei-se-lesson-11-2-2', type: 'single-choice', prompt: 'Dependency pinning and CI smoke tests primarily support:', options: ['Faster random results', 'Reproducible environments and early detection of breakages', 'Hiding failures', 'Removing README files'], correctAnswer: 1, explanation: 'Pinning and CI stabilise research software.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-se-q-115-001', lessonId: 'cgei-se-lesson-11-5-1', type: 'single-choice', prompt: 'An idempotent pipeline step is one that:', options: ['Can be re-run safely without corrupting results through uncontrolled duplication', 'Must never be logged', 'Requires three orchestrators at once', 'Skips schema validation'], correctAnswer: 0, explanation: 'Idempotency supports reliable recovery and reruns.', difficulty: 'medium', cognitiveLevel: 'remember' },
     { id: 'cgei-se-q-115-002', lessonId: 'cgei-se-lesson-11-5-1', type: 'single-choice', prompt: 'Provenance manifests in environmental pipelines should typically record:', options: ['Only the plot colour palette', 'Source, configuration, software version and input/output counts (as applicable)', 'Only the developer username', 'Nothing if tests pass'], correctAnswer: 1, explanation: 'Provenance connects outputs to inputs and settings.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-121-001', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'Before adopting a deep neural network for a small tabular environmental dataset, best practice is to:', options: ['Skip baselines to save time', 'Compare against simpler statistical or tree-based baselines with leakage-safe evaluation', 'Use only training accuracy', 'Ignore compute cost'], correctAnswer: 1, explanation: 'Baselines-first is required; deep models are not automatically better.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ai-q-121-002', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'Train/validation/test separation primarily helps:', options: ['Increase training loss only', 'Estimate generalisation and control overfitting decisions such as early stopping', 'Remove the need for baselines', 'Guarantee causal identification'], correctAnswer: 1, explanation: 'Held-out sets estimate generalisation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-121-003', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'An overfit model that memorises training points but fails on new inputs illustrates:', options: ['Perfect scientific validity', 'Why test-set evaluation and simpler baselines matter', 'That adjacency leakage is desirable', 'That model cards are optional'], correctAnswer: 1, explanation: 'Fixture demonstrates poor generalisation of memorisation.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-ai-q-122-001', lessonId: 'cgei-ai-lesson-12-2-1', type: 'single-choice', prompt: 'Random pixel-level splits of EO imagery often fail because:', options: ['They are always slower', 'Adjacent pixels/tiles leak spatial information across splits', 'They require GPUs', 'They eliminate class imbalance'], correctAnswer: 1, explanation: 'Spatial dependence causes leakage under random splits.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-122-002', lessonId: 'cgei-ai-lesson-12-2-1', type: 'single-choice', prompt: 'For semantic segmentation evaluation, IoU/Dice metrics are useful because they:', options: ['Ignore class structure', 'Summarise overlap quality beyond simple pixel accuracy', 'Prove operational readiness alone', 'Replace spatial independence'], correctAnswer: 1, explanation: 'Overlap metrics better match segmentation goals.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-127-001', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'A model card for decision-facing environmental AI should include:', options: ['Only the architecture name', 'Intended use, exclusions, data sources, baseline, limitations and human review', 'Only training loss curves', 'No mention of failure cases'], correctAnswer: 1, explanation: 'Governance requires explicit use boundaries and review.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ai-q-127-002', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'Comparing an AI system only to itself without a simpler baseline is problematic because:', options: ['Baselines are illegal', 'Relative value and necessity of AI remain untested', 'It always reduces latency', 'It guarantees calibration'], correctAnswer: 1, explanation: 'No-AI or deterministic baselines test necessity.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
 
@@ -4710,6 +4825,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-ai-a-121-nn', kind: 'coding-lab', title: 'Baseline and leakage lab', instructions: 'Run unit_12_ai_split_baseline_check.py. Report baseline vs overfit MSE and one adjacency leakage flag.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-121-nn'] },
+    { id: 'cgei-ai-a-122-cv', kind: 'guided-practice', title: 'EO split design', instructions: 'Propose a spatially independent split for a city tile grid and name one metric for segmentation evaluation.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'] },
+    { id: 'cgei-ai-a-127-gov', kind: 'guided-practice', title: 'Model card draft', instructions: 'Complete intended use, exclusions, baseline, limitations and human-review fields for a synthetic EO classifier.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-127-gov'] },
     { id: 'cgei-se-a-111-cs', kind: 'guided-practice', title: 'Decompose a pipeline', instructions: 'For a station temperature workflow, list inputs, transformations, outputs and checks before writing code.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-se-o-111-decomp'] },
     { id: 'cgei-se-a-112-structure', kind: 'guided-practice', title: 'Module boundary sketch', instructions: 'Sketch modules for acquire/validate/transform/analyse/report and list what belongs in config versus code.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-se-o-112-structure'] },
     { id: 'cgei-se-a-112-test', kind: 'coding-lab', title: 'Pipeline fixture lab', instructions: 'Run unit_11_env_pipeline_check.py. Document one invalid input the fixture rejects and the provenance fields emitted on success.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-se-o-112-test'] },
@@ -4989,6 +5107,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-ai-assess-121-nn', kind: 'formative', title: 'DL foundations', purpose: 'Assess baselines and split discipline.', objectiveIds: ['cgei-ai-o-121-nn', 'cgei-ai-o-121-cost'], questionIds: ['cgei-ai-q-121-001', 'cgei-ai-q-121-002', 'cgei-ai-q-121-003'], required: true },
+    { id: 'cgei-ai-assess-122-cv', kind: 'formative', title: 'EO vision evaluation', purpose: 'Assess spatial leakage and metrics literacy.', objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'], questionIds: ['cgei-ai-q-122-001', 'cgei-ai-q-122-002'], required: true },
+    { id: 'cgei-ai-assess-127-gov', kind: 'formative', title: 'AI governance', purpose: 'Assess model-card and human-review requirements.', objectiveIds: ['cgei-ai-o-127-gov'], questionIds: ['cgei-ai-q-127-001', 'cgei-ai-q-127-002'], required: true },
     { id: 'cgei-se-assess-111-cs', kind: 'formative', title: 'CS foundations', purpose: 'Assess decomposition and runtime literacy.', objectiveIds: ['cgei-se-o-111-cs', 'cgei-se-o-111-decomp'], questionIds: ['cgei-se-q-111-001', 'cgei-se-q-111-002'], required: true },
     { id: 'cgei-se-assess-112-structure', kind: 'formative', title: 'Modular design', purpose: 'Assess modular structure habits.', objectiveIds: ['cgei-se-o-112-structure'], questionIds: ['cgei-se-q-112-001'], required: true },
     { id: 'cgei-se-assess-112-test', kind: 'formative', title: 'Testing and releases', purpose: 'Assess testing and VCS/CI literacy.', objectiveIds: ['cgei-se-o-112-test', 'cgei-se-o-112-vcs'], questionIds: ['cgei-se-q-112-002', 'cgei-se-q-112-003', 'cgei-se-q-112-004'], required: true },

@@ -142,3 +142,6 @@ Instrument-card completeness + discount-rate PV sensitivity. Not official SCC or
 
 ## unit_11_env_pipeline_check.py
 Validate→summarise→provenance environmental pipeline. Synthetic stations only.
+
+## unit_12_ai_split_baseline_check.py
+Disjoint splits, spatial adjacency leakage, linear baseline vs overfit lookup, model-card fields. No GPU training.
