@@ -48,8 +48,12 @@ export function TrackOverviewScreen({ trackId }: { trackId: TrackId }) {
 
   const openSubject = (subjectId: SubjectId) => {
     if (!enrolled) return;
-    setActiveSubjectForScreen('learn', subjectId);
-    navigate({ screen: 'learn', parent: currentRoute });
+    // Switch the canonical workspace first. The subject-aware route restores
+    // the selection once the active-track context has caught up.
+    const switched = setActiveEnrolledTrack(trackId);
+    if (!switched.ok) return;
+    setActiveTrack(trackId);
+    navigate({ screen: 'learn', subjectId, parent: currentRoute });
   };
 
   return (

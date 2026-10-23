@@ -1,0 +1,21 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+4.8.1.1,Thermal anomaly active fire detection principle,4.8.1,Unit 4.8 Support,cgei-rs-lesson-4-8-1,cgei-rs-48-1-principle,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.1.2,FIRMS-style pixel confidence satellite time,4.8.1,Unit 4.8 Support,cgei-rs-lesson-4-8-1,cgei-rs-48-1-firms,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.1.3,MODIS VIIRS resolution latency FRP proxy,4.8.1,Unit 4.8 Support,cgei-rs-lesson-4-8-1,cgei-rs-48-1-sensors,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.2.1,Not perimeter not burned area,4.8.2,Unit 4.8 Support,cgei-rs-lesson-4-8-2,cgei-rs-48-2-notba,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.2.2,Omission and commission errors,4.8.2,Unit 4.8 Support,cgei-rs-lesson-4-8-2,cgei-rs-48-2-err,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.2.3,Count sensitivity confidence sensor overpass,4.8.2,Unit 4.8 Support,cgei-rs-lesson-4-8-2,cgei-rs-48-2-counts,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.3.1,Residue wildfire industrial false positives,4.8.3,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-context,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.3.2,Land-cover and season context,4.8.3,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-context,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.3.3,Crop-residue calendar and confirmation,4.8.3,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-context,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.4.1,Burned-area products vs active fire,4.8.4,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-ba,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.4.2,Smoke emission inventories count proxies,4.8.4,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-smoke,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.4.3,FRP versus counts intensity,4.8.4,Unit 4.8 Support,cgei-rs-lesson-4-8-3,cgei-rs-48-3-smoke,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.5.1,Required map metadata,4.8.5,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-meta,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.5.2,Limitations sentence phrasing,4.8.5,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-limit,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.5.3,Show date range sensor confidence extent,4.8.5,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-meta,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.6.1,Dashboard data lineage,4.8.6,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-dash,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.6.2,Separate AF BA smoke AQ,4.8.6,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-dash,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.6.3,Crop-calendar land-cover before residue,4.8.6,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-dash,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.6.4,Automate updates archive snapshots,4.8.6,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-dash,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.
+4.8.6.5,Limitations accessibility local language,4.8.6,Unit 4.8 Support,cgei-rs-lesson-4-8-4,cgei-rs-48-4-limit,mapped_partial,Support-level teaching; synthetic fixture for counts/QA/BA separation.

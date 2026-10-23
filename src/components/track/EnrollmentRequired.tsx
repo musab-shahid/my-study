@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useData } from '@/hooks/useData';
 import { useRouter } from '@/router';
 import { assertCanStudy, getMembership } from '@/lib/track-access';
@@ -24,12 +25,21 @@ type Props = {
  */
 export function EnrollmentRequired({ children, requiredTrack, purpose, purposeTitle }: Props) {
   const { data, setActiveEnrolledTrack } = useData();
-  const { setActiveTrack } = useSubjectSelection();
+  const { activeTrack, setActiveTrack } = useSubjectSelection();
   const { navigate } = useRouter();
 
   const check = requiredTrack
     ? assertCanStudy(data, requiredTrack)
     : assertCanStudy(data);
+
+  // A track-specific deep link may be opened while a different workspace is
+  // active. Once enrollment is confirmed, align both workspace sources before
+  // rendering tools/progress that depend on the active track.
+  useEffect(() => {
+    if (!requiredTrack || !check.ok || activeTrack === requiredTrack) return;
+    const result = setActiveEnrolledTrack(requiredTrack);
+    if (result.ok) setActiveTrack(requiredTrack);
+  }, [requiredTrack, check.ok, activeTrack, setActiveEnrolledTrack, setActiveTrack]);
 
   if (check.ok) {
     return <>{children}</>;

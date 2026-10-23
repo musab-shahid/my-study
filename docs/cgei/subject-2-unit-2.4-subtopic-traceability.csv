@@ -1,0 +1,20 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+2.4.1.1,In-situ stations strengths gaps inhomogeneity,2.4.1,In-situ station records,Core,cgei-cl-lesson-2-4-1,cgei-cl-24-1-1,mapped_partial,Strengths/gaps taught; inhomogeneity named.
+2.4.1.2,Station archives GHCN ISD GSOD,2.4.1,In-situ station records,Core,cgei-cl-lesson-2-4-1,cgei-cl-24-1-1,mapped_partial,Archives named; not downloaded in CI.
+2.4.1.3,Station QC range step spike persistence,2.4.1,In-situ station records,Core,cgei-cl-lesson-2-4-1,cgei-cl-24-1-lab,mapped_partial,Synthetic QC fixture.
+2.4.1.4,Homogenisation SNHT Pettitt,2.4.1,In-situ station records,Core,cgei-cl-lesson-2-4-1,cgei-cl-24-1-1,mapped_partial,Need stated; algorithms not implemented.
+2.4.2.1,Satellite retrievals vs in-situ,2.4.2,Satellite and gridded observational products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-1,mapped_partial,Distinction taught.
+2.4.2.2,Gridded precipitation are products,2.4.2,Satellite and gridded observational products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-1,mapped_partial,Product-not-observation principle.
+2.4.2.3,Gridded temperature datasets,2.4.2,Satellite and gridded observational products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-1,mapped_partial,Named families.
+2.4.2.4,Gridded precipitation product families,2.4.2,Satellite and gridded observational products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-1,mapped_partial,Named; no download lab.
+2.4.3.1,Reanalysis data assimilation ERA5,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Concept taught.
+2.4.3.2,Reanalysis comparison uncertainty,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Spread as uncertainty indicator.
+2.4.3.3,Agro-climate POWER HEAT CAMS,2.4.3,Reanalysis products,Core,,,mapped_partial,Not detailed in this slice.
+2.4.3.4,ERA6 successor planning,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Product-agnostic code note.
+2.4.4.1,What each product is optimised for,2.4.4,Choosing and comparing products,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-1,mapped_partial,Checklist.
+2.4.4.2,Comparing products limits of agreement,2.4.4,Choosing and comparing products,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-2,mapped_partial,Agreement≠validation.
+2.4.4.3,Selection checklist,2.4.4,Choosing and comparing products,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-1,mapped_partial,Checklist taught.
+2.4.5.1,Resolution grid-cell representativeness,2.4.5,Representativeness and uncertainty,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-lab,mapped_partial,Point vs cell example.
+2.4.5.2,Point vs grid vs canopy support,2.4.5,Representativeness and uncertainty,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-1,mapped_partial,Checklist item.
+2.4.5.3,Systematic bias version missing data,2.4.5,Representativeness and uncertainty,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-2,mapped_partial,Named risks.
+2.4.5.4,Sampling orbit-drift satellite records,2.4.5,Representativeness and uncertainty,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-2,mapped_partial,Mentioned.

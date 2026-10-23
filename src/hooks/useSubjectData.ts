@@ -2,6 +2,7 @@ import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useData } from '@/hooks/useData';
 import { subjectsForScope, contentEligibleForScope } from '@/lib/track-scope';
 import { isTrackId } from '@/data/tracks';
+import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { sectionMap, sectionsBySubject, sections } from '@/data/sections';
 import { topics, topicsBySubject, getTopic } from '@/data/topics';
 import { questionsByTopic } from '@/data/questions';
@@ -83,7 +84,7 @@ export function useSubjectData(): SubjectDataLayer {
   }, [activeTrack, activeExamId]);
 
   const trackSections = useMemo(() => {
-    return sections.filter((s) => trackSubjectIds.has(s.subjectId));
+    return sections.filter((s) => trackSubjectIds.has(s.subjectId) && topics.some((topic) => topic.sectionId === s.id && !isCgeiOverviewTopic(topic.id)));
   }, [trackSubjectIds]);
 
   const trackTopics = useMemo(() => {
@@ -91,7 +92,7 @@ export function useSubjectData(): SubjectDataLayer {
     if (!activeTrack) return [];
     const scope = { trackId: activeTrack, examId: activeExamId };
     return topics.filter((t) => {
-      if (!trackSectionIds.has(t.sectionId)) return false;
+      if (!trackSectionIds.has(t.sectionId) || isCgeiOverviewTopic(t.id)) return false;
       return contentEligibleForScope(t, scope);
     });
   }, [trackSections, activeTrack, activeExamId]);
@@ -121,7 +122,7 @@ export function useSubjectData(): SubjectDataLayer {
     if (id === 'all') return trackTopics;
     if (!trackSubjectIds.has(id)) return [];
     const scope = activeTrack ? { trackId: activeTrack, examId: activeExamId } : null;
-    const list = topicsBySubject(id);
+    const list = topicsBySubject(id).filter((topic) => !isCgeiOverviewTopic(topic.id));
     if (!scope) return list;
     return list.filter((topic) => contentEligibleForScope(topic, scope));
   }, [trackTopics, trackSubjectIds, activeTrack, activeExamId]);
@@ -151,13 +152,15 @@ export function useSubjectData(): SubjectDataLayer {
   const questionCountFor = useCallback((id: SubjectId | 'all'): number => {
     if (id !== 'all' && !trackSubjectIds.has(id)) return 0;
     if (id === 'all') return trackSections.reduce((sum, s) => sum + s.questionCount, 0);
-    return sectionsBySubject(id).reduce((sum, s) => sum + s.questionCount, 0);
+    return sectionsBySubject(id)
+      .filter((section) => topics.some((topic) => topic.sectionId === section.id && !isCgeiOverviewTopic(topic.id)))
+      .reduce((sum, section) => sum + section.questionCount, 0);
   }, [trackSections, trackSubjectIds]);
 
   const sectionsFor = useCallback((id: SubjectId | 'all'): Section[] => {
     if (id === 'all') return trackSections;
     if (!trackSubjectIds.has(id)) return [];
-    return sectionsBySubject(id);
+    return sectionsBySubject(id).filter((section) => topics.some((topic) => topic.sectionId === section.id && !isCgeiOverviewTopic(topic.id)));
   }, [trackSections, trackSubjectIds]);
 
   const statsFor = useCallback((id: SubjectId | 'all'): SubjectStats => {
@@ -261,7 +264,7 @@ export function useSubjectData(): SubjectDataLayer {
     const byId = new Map<string, (typeof topics)[number]>();
     const allow = (topic: (typeof topics)[number]) => {
       const subjId = sectionMap[topic.sectionId]?.subjectId;
-      if (!subjId || !trackSubjectIds.has(subjId)) return false;
+      if (!subjId || !trackSubjectIds.has(subjId) || isCgeiOverviewTopic(topic.id)) return false;
       if (scope && !contentEligibleForScope(topic, scope)) return false;
       return true;
     };
@@ -283,7 +286,7 @@ export function useSubjectData(): SubjectDataLayer {
   const getTopicById = useCallback((topicId: string): Topic | undefined => {
     const cached = getTopicFromCache(topicId);
     const topic = cached ?? getTopic(topicId);
-    if (!topic) return undefined;
+    if (!topic || isCgeiOverviewTopic(topic.id)) return undefined;
     const subjId = sectionMap[topic.sectionId]?.subjectId;
     if (!subjId || !trackSubjectIds.has(subjId)) return undefined;
     const scope = activeTrack ? { trackId: activeTrack, examId: activeExamId } : null;

@@ -7,6 +7,7 @@ import { Sidebar, MobileNav } from '@/components/layout/Navigation';
 import { Header } from '@/components/layout/Header';
 import { DashboardScreen } from '@/screens/DashboardScreen';
 import { StudyScreen, SectionScreen, TopicScreen } from '@/screens/StudyScreen';
+import { CurriculumUnitScreen, CurriculumLessonScreen } from '@/screens/CurriculumScreens';
 import { FormulaVaultScreen } from '@/screens/FormulaVaultScreen';
 import { FlashcardsScreen } from '@/screens/FlashcardsScreen';
 import { CloudAtlasScreen } from '@/screens/CloudAtlasScreen';
@@ -19,6 +20,7 @@ import { SettingsScreen } from '@/screens/SettingsScreen';
 import { HatLandingScreen } from '@/screens/hat/HatLandingScreen';
 import { FpscLandingScreen } from '@/screens/fpsc/FpscLandingScreen';
 import { TrackOverviewScreen } from '@/screens/TrackOverviewScreen';
+import { CGEITrackOverviewScreen } from '@/screens/CGEITrackOverviewScreen';
 import { EnrollmentRequired } from '@/components/track/EnrollmentRequired';
 import { TopicAccessGate, SectionAccessGate } from '@/components/track/ResourceAccessGate';
 import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
@@ -38,7 +40,7 @@ function ScreenRouter() {
     case 'home':
       return <DashboardScreen />;
     case 'learn':
-      return <EnrollmentRequired purposeTitle="Study material" purpose="Read structured topics and mark what you have studied. Begin a track to unlock subjects in your workspace.">
+      return <EnrollmentRequired requiredTrack={route.subjectId ? subjectMap[route.subjectId]?.track : undefined} purposeTitle="Study material" purpose="Read structured topics and mark what you have studied. Begin the relevant track to unlock its subjects in your workspace.">
         <StudyScreen />
       </EnrollmentRequired>;
     case 'section':
@@ -47,6 +49,10 @@ function ScreenRouter() {
           <SectionScreen sectionId={route.sectionId} />
         </SectionAccessGate>
       );
+    case 'curriculum-unit':
+      return <EnrollmentRequired requiredTrack="cgei" purposeTitle="Curriculum unit" purpose="Follow the unit outcomes, lessons, activities and evidence requirements within the CGEI track."><CurriculumUnitScreen unitId={route.unitId} /></EnrollmentRequired>;
+    case 'curriculum-lesson':
+      return <EnrollmentRequired requiredTrack="cgei" purposeTitle="Curriculum lesson" purpose="Study the lesson, practise its skills, and save evidence of what you can do within CGEI."><CurriculumLessonScreen lessonId={route.lessonId} /></EnrollmentRequired>;
     case 'topic':
       return (
         <TopicAccessGate topicId={route.topicId}>
@@ -106,6 +112,7 @@ function ScreenRouter() {
       const def = getTrackDefinition(route.trackId);
       if (def.landingVariant === 'hat') return <HatLandingScreen />;
       if (def.landingVariant === 'fpsc') return <FpscLandingScreen />;
+      if (route.trackId === 'cgei') return <CGEITrackOverviewScreen />;
       return <TrackOverviewScreen trackId={route.trackId} />;
     }
     default:

@@ -36,7 +36,7 @@ export const topics: Topic[] = [
     ],
     content: true,
     relatedTopics: [],
-    buildsOn: ['cgei-data-science-roadmap', 'cgei-ml-geoai-roadmap', 'cgei-software-engineering-roadmap'],
+    buildsOn: ['cgei-ml-geoai-roadmap', 'cgei-software-engineering-roadmap'],
     leadsTo: ['cgei-capstone-roadmap'],
     usedIn: ['cgei-capstone-roadmap'],
   },

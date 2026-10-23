@@ -36,7 +36,7 @@ export const topics: Topic[] = [
     ],
     content: true,
     relatedTopics: [],
-    buildsOn: ['cgei-env-systems-roadmap', 'cgei-climate-data-products', 'cgei-geospatial-roadmap', 'cgei-remote-sensing-roadmap', 'cgei-data-science-roadmap', 'cgei-ml-geoai-roadmap', 'cgei-climate-risk-roadmap', 'cgei-research-practice-roadmap', 'cgei-decision-support-roadmap'],
+    buildsOn: ['cgei-env-systems-roadmap', 'cgei-climate-data-products', 'cgei-geospatial-roadmap', 'cgei-remote-sensing-roadmap', 'cgei-ml-geoai-roadmap', 'cgei-climate-risk-roadmap', 'cgei-research-practice-roadmap', 'cgei-decision-support-roadmap'],
     leadsTo: [],
     usedIn: [],
   },

@@ -8,13 +8,13 @@
 
 | Unit | Coverage | Quality | App readiness |
 |------|----------|---------|---------------|
-| 5.1 Foundations | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.2 Scientific Python | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.3 EDA & visualisation | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.1 Foundations | Taught with examples | Pedagogically reviewed; smoke coverage exists | Eight app lessons via legacy-ID bridge; rendering/CI checks pending |
+| 5.2 Scientific Python | Taught with examples | Manuscript review plus new app examples; smoke checks added, execution pending | Five canonical app lessons in draft state |
+| 5.3 EDA & visualisation | Taught with examples | Manuscript mapped; examples illustrative and not yet fully compute-verified | Five canonical app lessons in draft state |
 | 5.4 Intro statistics | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.5 Data workflow | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.6 Intermediate inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.7 Time series | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
+| 5.7 Time series | Taught with examples | Synthetic decomposition, anomaly, HAC and chronological-split checks pass; broader methods remain gaps | Five canonical lessons integrated; draft pending UI and instructional review |
 | 5.8 Multivariate / EOF | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.9 GLM / mixed / Bayesian | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
 | 5.10 Causal inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
@@ -46,13 +46,35 @@ All four teachable via unit deliverables; capstone requires software gate and in
 | Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
 | Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
 
-### App integration (Unit 5.1 only)
+### App integration (Units 5.1–5.12; canonical curriculum migration in progress)
 
 | Item | Status |
 |------|--------|
-| Source-to-app coverage map | `07-UNIT-5.1-APP-COVERAGE-MAP.md` |
-| App topics for Unit 5.1 | **8 topics** under section `CGEI-051` (all six manuscript strands) |
-| App questions | **26** with explanations |
-| Units 5.2–5.12 in app | **Not integrated** |
-| Schema migration (`Lesson` blocks) | **Not adopted** — existing Topic fields judged sufficient after renderer audit |
-| `npm run validate:data` | Run on a machine with working npm registry; structural checks passed in authoring env |
+| Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
+| Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
+| Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
+| Assessment questions | **146 canonical questions**: 35 migrated from Unit 5.1, 41 for Units 5.2–5.5, and 10 each for Units 5.6–5.12; explanations preserved, and legacy Unit 5.1 source citations retained |
+| Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
+| Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
+| Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge, with 16 additional worked-calculation/code/checklist blocks; Units 5.2–5.5 are authored directly as typed content blocks |
+| Unit 5.2 | Five lessons, five practice activities, five assessment records, eleven interactive knowledge checks, six official/research references, three portfolio deliverables; readiness remains **draft** |
+| Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |
+| Unit 5.4 | Five lessons, five practice activities, five assessment records and ten interactive knowledge checks; readiness remains **draft** |
+| Unit 5.5 | Five lessons, five practice activities, five formative assessments, ten interactive checks, five verified supporting references and three portfolio deliverables; readiness remains **draft** |
+| Unit 5.6 | Five lessons, five practice activities, five formative assessments, ten lesson-linked knowledge checks, three official references and three portfolio deliverables; readiness remains **draft** pending executed examples and review |
+| Unit 5.7 | Five lessons, five practice activities, five formative assessments, ten lesson-linked knowledge checks, three supporting references and five portfolio artefacts; readiness remains **draft** pending UI and instructional review |
+| Unit 5.8 | Five canonical lessons, five activities, five formative assessments, ten linked knowledge checks, six references and four portfolio deliverables; remains draft pending scientific/UI review |
+| Unit 5.9 | Five canonical lessons covering GLMs, mixed models, Bayesian workflow, diagnostics and reporting; five activities, five formative assessments, ten linked knowledge checks, six references and four deliverables; remains draft pending executed examples and review |
+| Unit 5.9 app map | `14-UNIT-5.9-APP-COVERAGE-MAP.md` records manuscript mapping, app evidence, computational gaps and explicit release gates |
+| Unit 5.10 | Five canonical causal-inference lessons, five linked activities/assessments, ten knowledge checks and five portfolio artefacts; remains draft pending scientific review and executable design examples |
+| Unit 5.10 source | `units/05.10-causal-inference.md` records learning sequence, causal assumptions, design-specific diagnostics and worked environmental cases |
+| Unit 5.10 app map | `15-UNIT-5.10-APP-COVERAGE-MAP.md` records registry evidence, source-to-app gaps, scientific cautions and release gates |
+| Unit 5.11 | Five canonical lessons on version control, data contracts, scientific tests, clean environments and releases; five activities/assessments, ten linked checks and five deliverables; remains draft |
+| Unit 5.11 source | `units/05.11-research-software-engineering.md` defines the manuscript-first learning sequence and release boundaries |
+| Unit 5.11 app map | `16-UNIT-5.11-APP-COVERAGE-MAP.md` records source-to-app mapping, registry/test evidence and clean-environment release gates |
+| Unit 5.12 | Five canonical lessons on labeled arrays, alignment, lazy computation, pipelines and validation; five activities/assessments, ten linked checks and five deliverables; remains draft |
+| Unit 5.12 source | `units/05.12-xarray-scalable-environmental-pipelines.md` defines the multidimensional data and scalable pipeline learning sequence |
+| Unit 5.12 app map | `17-UNIT-5.12-APP-COVERAGE-MAP.md` records source-to-app coverage, computational gaps and release gates |
+| Units 5.10–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
+| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; Unit 5.6–5.11 validation rules added; the latest schema/content changes require a fresh CI run |
+| Scientific verification | `fixtures/smoke_check.py` includes synthetic scientific checks for Units 5.2–5.6, including Unit 5.5 SQLite aggregation, unmatched keys, and Unit 5.6 interaction/interval/VIF/grouped-validation checks, Unit 5.7 temporal checks, and the synthetic EOF known-mode recovery check. Unit 5.8 remains draft pending fresh CI and explicit lesson UI review; Unit 5.9 remains draft pending GLM/mixed/Bayesian example execution and review; Unit 5.10 remains draft pending causal-design examples and scientific/UI review; Unit 5.11 remains draft pending clean-environment execution and rendered UI review; Unit 5.12 remains draft pending eager/lazy comparison, metadata/alignment checks and scientific/UI review. No claim of causal identification from synthetic smoke checks or live-data validation |

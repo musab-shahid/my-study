@@ -1,0 +1,95 @@
+import { describe, it } from 'node:test';
+import assert from 'node:assert/strict';
+import { validateTraceabilityRow } from '../../data/cgei/traceability-validation.ts';
+
+const lessons = new Map([
+  ['lesson-a', { id: 'lesson-a', content: [{ id: 'block-a' }] }],
+  ['lesson-b', { id: 'lesson-b', content: [{ id: 'block-b' }] }],
+]);
+
+const row = (overrides: Partial<{
+  source_subtopic_path: string;
+  app_lesson_id: string;
+  app_content_block_ids: string;
+  disposition: string;
+  evidence_note: string;
+}> = {}) => ({
+  source_subtopic_path: '5.4.1.1',
+  app_lesson_id: 'lesson-a',
+  app_content_block_ids: 'block-a',
+  disposition: 'mapped_partial',
+  evidence_note: 'Partial coverage is documented.',
+  ...overrides,
+});
+
+describe('source traceability row validation', () => {
+  it('rejects an unknown disposition instead of silently accepting it', () => {
+    const issues = validateTraceabilityRow(row({ disposition: 'complete-ish' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'INVALID_DISPOSITION'));
+  });
+
+  it('rejects duplicate content-block references in one row', () => {
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: 'block-a;block-a' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'DUPLICATE_BLOCK_REFERENCE'));
+  });
+
+  it('requires an evidence note for every disposition', () => {
+    const issues = validateTraceabilityRow(row({ evidence_note: '   ' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'GAP_WITHOUT_EVIDENCE'));
+  });
+
+  it('rejects an unknown content block', () => {
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: 'forged-block' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'UNKNOWN_BLOCK'));
+  });
+
+  it('rejects a valid block assigned to the wrong lesson', () => {
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: 'block-b' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'BLOCK_WRONG_LESSON'));
+  });
+
+  it('rejects mapped_partial rows with no content-block evidence', () => {
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: '' }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'MAPPED_WITHOUT_BLOCKS'));
+  });
+
+  it('allows an explicitly unassigned candidate row in a source inventory', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'candidate',
+      evidence_note: 'Source item transcribed; semantic mapping pending.',
+    }), lessons);
+    assert.deepEqual(issues, []);
+  });
+
+  it('rejects a gap row that still points at a lesson or content block', () => {
+    const issues = validateTraceabilityRow(row({
+      disposition: 'gap',
+      app_lesson_id: 'lesson-a',
+      app_content_block_ids: 'block-a',
+      evidence_note: 'A related lesson exists but does not teach the required method.',
+    }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'GAP_HAS_MAPPING'));
+  });
+
+  it('allows an explicit gap without inventing a lesson mapping', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'gap',
+      evidence_note: 'Inspected content does not teach this requirement.',
+    }), lessons);
+    assert.deepEqual(issues, []);
+  });
+
+  it('rejects an unassigned row that claims mapped coverage', () => {
+    const issues = validateTraceabilityRow(row({
+      app_lesson_id: '',
+      app_content_block_ids: '',
+      disposition: 'mapped',
+    }), lessons);
+    assert.ok(issues.some((issue) => issue.code === 'UNKNOWN_LESSON'));
+    assert.ok(issues.some((issue) => issue.code === 'MAPPED_WITHOUT_BLOCKS'));
+  });
+});

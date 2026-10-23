@@ -1,0 +1,30 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+4.5.1.1,Canopy vs surface UHI; day/night; SUHII definitions,4.5.1,Defining the quantity,Core,cgei-rs-lesson-4-5-1,cgei-rs-45-1-define;cgei-rs-45-1-eq,mapped_partial,SUHII vs air UHI; equation; fixture.
+4.5.1.2,Rural/reference selection and sensitivity,4.5.1,Defining the quantity,Core,cgei-rs-lesson-4-5-1,cgei-rs-45-1-ref;cgei-rs-45-1-work,mapped_partial,Two-reference worked example + fixture.
+4.5.1.3,LCZ mapping alternative to urban-rural binary,4.5.1,Defining the quantity,Core,cgei-rs-lesson-4-5-1,cgei-rs-45-1-ref,mapped_partial,LCZ named as alternative; no WUDAPT lab.
+4.5.2.1,Candidate drivers,4.5.2,Drivers and statistics,Core,cgei-rs-lesson-4-5-2,cgei-rs-45-2-drivers,mapped_partial,Driver list + non-causal caution.
+4.5.2.2,OLS GWR spatial ML SHAP limits,4.5.2,Drivers and statistics,Core,cgei-rs-lesson-4-5-2,cgei-rs-45-2-models,mapped_partial,Interpretation limits taught.
+4.5.2.3,Scale effects MAUP,4.5.2,Drivers and statistics,Core,cgei-rs-lesson-4-5-2,cgei-rs-45-2-maup,mapped_partial,MAUP explicit.
+4.5.2.4,Getis-Ord Gi* edge effects,4.5.2,Drivers and statistics,Core,cgei-rs-lesson-4-5-2,cgei-rs-45-2-hotspot,mapped_partial,Hotspot caveats.
+4.5.3.1,Cooling intensity distance patch size,4.5.3,Green blue effects,Core,cgei-rs-lesson-4-5-3,cgei-rs-45-3-cooling,mapped_partial,Conceptual metrics.
+4.5.3.2,Water demand vs cooling arid cities,4.5.3,Green blue effects,Core,cgei-rs-lesson-4-5-3,cgei-rs-45-3-arid,mapped_partial,Irrigation confound.
+4.5.3.3,Vegetation amount vs configuration irrigation,4.5.3,Green blue effects,Core,cgei-rs-lesson-4-5-3,cgei-rs-45-3-arid;cgei-rs-45-3-points,mapped_partial,Separation required.
+4.5.4.1,Microclimate urban canopy models,4.5.4,Simulation tools,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-models,mapped_partial,Tool families; no GUI runs.
+4.5.4.2,Scenario testing limits,4.5.4,Simulation tools,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-models;cgei-rs-45-4-callout,mapped_partial,Scenario ≠ validation.
+4.5.4.3,Input demands domain resolution,4.5.4,Simulation tools,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-models,mapped_partial,Inputs named.
+4.5.5.1,Logger traverse station validation,4.5.5,Validation exposure,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-val,mapped_partial,Point vs pixel.
+4.5.5.2,Heat maps to exposure Subject 7,4.5.5,Validation exposure,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-exposure,mapped_partial,Exposure layers required.
+4.5.5.3,Confidence vs data quality,4.5.5,Validation exposure,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-exposure,mapped_partial,n_valid and validation coverage.
+4.5.6.1,Question and estimand,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand,mapped_partial,Estimand-first.
+4.5.6.2,Data plan L2 masks n_valid,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand;cgei-rs-45-5-check,mapped_partial,Data plan checklist.
+4.5.6.3,Reference design multiple rural LCZ,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand,mapped_partial,Multi-reference.
+4.5.6.4,Statistics plan pre-analysis,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand;cgei-rs-45-5-check,mapped_partial,Pre-write stats plan.
+4.5.6.5,Deliverables workflow manifest,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-check,mapped_partial,Deliverable checklist.
+4.5.7.1,LST vs station air temperature,4.5.7,Validation sensitivity experiments,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-val,mapped_partial,Surface-air mismatch.
+4.5.7.2,Cross-check MODIS VIIRS ECOSTRESS,4.5.7,Validation sensitivity experiments,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-val,mapped_partial,Matched-date cross-check.
+4.5.7.3,Alternative composites hotspot change,4.5.7,Validation sensitivity experiments,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-sens,mapped_partial,Composite sensitivity.
+4.5.7.4,Cooling effect scale and index sensitivity,4.5.7,Validation sensitivity experiments,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-sens,mapped_partial,Scale/index tests.
+4.5.7.5,Least reliable settings,4.5.7,Validation sensitivity experiments,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-sens,mapped_partial,Water edges bare fields.
+4.5.8.1,Associational language LST-NDVI,4.5.8,Writing responsibly,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-write,mapped_partial,Associational language.
+4.5.8.2,Surface heat vs human exposure,4.5.8,Writing responsibly,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-write,mapped_partial,Exposure separation.
+4.5.8.3,Limitations clear-sky overpass resolution health,4.5.8,Writing responsibly,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-write,mapped_partial,Limitations list.

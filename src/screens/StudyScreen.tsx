@@ -7,7 +7,7 @@ import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/S
 import { useData } from '@/hooks/useData';
 import { subjects, subjectMap } from '@/data/subjects';
 import { subjectsForScope } from '@/lib/track-scope';
-import { isTrackId } from '@/data/tracks';
+import { getTrackDefinition, isTrackId } from '@/data/tracks';
 import { topicsBySection, getTopic, topicsBySubject } from '@/data/topics';
 import { sectionMap, sections } from '@/data/sections';
 import { SectionBadge } from '@/components/SectionBadge';
@@ -16,8 +16,12 @@ import { PageContainer, Card, EmptyState, ProgressBar, ActionCard, TopicStatusIc
 import { MathText } from '@/components/MathText';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
+import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { cgeiOverviewTopicIdForSubject, isCgeiOverviewTopic } from '@/data/cgei/overview';
+import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { loadQuestionsForTopic } from '@/data/lazy-data';
 import type { SubjectId, Topic, Question, MethodChooser } from '@/types';
+import type { CurriculumLesson } from '@/types/curriculum';
 import type { QuantFormulaEntry } from '@/components/study/TopicContentBlocks';
 import { AiTutorChat } from '@/components/AiTutorChat';
 import { buildTopicContext, buildStudentContext, consumePendingExplain } from '@/lib/ai-tutor';
@@ -39,19 +43,78 @@ import {
 
 // ---- Learn Landing ----
 export function StudyScreen() {
-  const { navigate } = useRouter();
+  const { navigate, route } = useRouter();
   const sd = useSubjectData();
-  const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
-  const { data, trackMembership } = useData();
+  const { getActiveSubject, setActiveSubjectForScreen, activeTrack, setActiveTrack } = useSubjectSelection();
+  const { data, trackMembership, setActiveEnrolledTrack } = useData();
 
   const activeSubject = getActiveSubject('learn');
   const isAllSubjects = activeSubject === 'all';
   const subjectId = isAllSubjects ? 'all' : (activeSubject as SubjectId);
 
-  const subjectSections = isAllSubjects ? [] : sd.sectionsFor(subjectId);
+  // A subject-aware URL is the canonical deep link for the Learn workspace.
+  // Wait until the active track matches the subject before restoring its selection.
+  useEffect(() => {
+    if (route.screen !== 'learn' || !route.subjectId) return;
+    const subject = subjectMap[route.subjectId];
+    if (!subject) return;
+    if (subject.track !== activeTrack) {
+      // Direct links and breadcrumbs may be opened while another track is active.
+      // Switch only if the learner is enrolled; the route gate handles access.
+      const switched = setActiveEnrolledTrack(subject.track);
+      if (switched.ok) setActiveTrack(subject.track);
+      return;
+    }
+    setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+  }, [route, activeTrack, setActiveSubjectForScreen, setActiveEnrolledTrack, setActiveTrack]);
+
+  const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
+  const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
+  useEffect(() => {
+    let active = true;
+    setRoadmapTopic(null);
+    if (!roadmapTopicId) return () => { active = false; };
+    getTopicAsync(roadmapTopicId)
+      .then((topic) => { if (active) setRoadmapTopic(topic ?? null); })
+      .catch(() => { if (active) setRoadmapTopic(null); });
+    return () => { active = false; };
+  }, [roadmapTopicId]);
+
+  // Orientation records are loaded separately from the lesson list so they
+  // never enter topic counts, study progress, revision, or mastery metrics.
   const subjectTopics = sd.topicsFor(subjectId);
-  const hasContent = isAllSubjects || subjectTopics.length > 0;
+  const subjectSections = isAllSubjects
+    ? []
+    : sd.sectionsFor(subjectId).filter((section) => subjectTopics.some((topic) => topic.sectionId === section.id));
+  // Canonical curriculum registration is an independent source of learning
+  // content; do not gate a registered subject behind legacy topic records.
+  const curriculumSubject = isAllSubjects
+    ? undefined
+    : cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId);
+  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId) || Boolean(curriculumSubject);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
+  const showFormulaVault = Boolean(subjectMap[subjectId] && getTrackDefinition(subjectMap[subjectId].track).capabilities.formulas);
+  const curriculumUnits = curriculumSubject
+    ? curriculumSubject.unitIds
+        .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
+        .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit))
+        .sort((a, b) => a.order - b.order)
+    : [];
+  const curriculumLessons = [...new Set(curriculumUnits.flatMap((unit) => unit.lessonIds))]
+    .map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id))
+    .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson));
+  const studiedCurriculumLessonCount = curriculumLessons.filter((lesson) =>
+    lesson.sourceTopicId
+      ? data.studiedTopics.includes(lesson.sourceTopicId)
+      : (data.studiedCurriculumLessons ?? []).includes(lesson.id),
+  ).length;
+  const lastCurriculumLesson = curriculumSubject && data.lastOpenedCurriculumLesson
+    ? cgeiCurriculum.lessons.find((lesson) =>
+        lesson.id === data.lastOpenedCurriculumLesson &&
+        !lesson.sourceTopicId &&
+        curriculumSubject.unitIds.some((unitId) => cgeiCurriculum.units.find((unit) => unit.id === unitId)?.lessonIds.includes(lesson.id))
+      )
+    : undefined;
 
   const handleSubjectChange = (value: SubjectFilterValue) => {
     setActiveSubjectForScreen('learn', value);
@@ -76,7 +139,7 @@ export function StudyScreen() {
   if (isAllSubjects) {
     const examId = isTrackId(activeTrack) ? (trackMembership.enrollments[activeTrack]?.activeExamId ?? null) : null;
     const trackSubjects = isTrackId(activeTrack) ? subjectsForScope({ trackId: activeTrack, examId }) : [];
-    const subjectsWithContent = trackSubjects.filter((s) => sd.topicsFor(s.id as SubjectId).length > 0);
+    const subjectsWithContent = trackSubjects.filter((s) => sd.topicsFor(s.id as SubjectId).length > 0 || Boolean(cgeiOverviewTopicIdForSubject(s.id as SubjectId)));
     return (
       <PageContainer className="max-w-3xl">
         <ScreenHeader
@@ -89,6 +152,7 @@ export function StudyScreen() {
         <div className="space-y-2 sm:space-y-3">
           {subjectsWithContent.map((subject) => {
             const topics = sd.topicsFor(subject.id as SubjectId);
+            const hasOverview = Boolean(cgeiOverviewTopicIdForSubject(subject.id as SubjectId));
             const studied = topics.filter((t) => data.studiedTopics.includes(t.id)).length;
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
@@ -101,10 +165,10 @@ export function StudyScreen() {
                   <div className="flex-1 min-w-0">
                     <p className={`font-semibold text-sm sm:text-base truncate ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-slate-500 text-xs">{topics.length} topics</span>
-                      <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span>
+                      {topics.length > 0 ? <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span> : hasOverview ? <span className="text-slate-500 text-xs">Domain overview</span> : null}
+                      {topics.length > 0 ? <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span> : hasOverview ? <span className={`text-xs font-medium ${color.text}`}>Orientation</span> : null}
                     </div>
-                    <div className="mt-2"><ProgressBar value={topics.length > 0 ? Math.round((studied / topics.length) * 100) : 0} colorClass={getSubjectColor(subject.id).bar} /></div>
+                    {topics.length > 0 && <div className="mt-2"><ProgressBar value={Math.round((studied / topics.length) * 100)} colorClass={getSubjectColor(subject.id).bar} /></div>}
                   </div>
                   <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
                 </button>
@@ -169,20 +233,153 @@ export function StudyScreen() {
             </button>
           )}
 
-          <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
-            <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-              <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
-              <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
-            </button>
-            {subjectId === 'meteo-climatology' && (
-              <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-slate-700" /></div>
-                <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Cloud Atlas</p><p className="text-slate-500 text-xs">10 cloud genera</p></div>
-              </button>
-            )}
-          </div>
+          {(showFormulaVault || subjectId === 'meteo-climatology') && (
+            <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
+              {showFormulaVault && (
+                <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
+                </button>
+              )}
+              {subjectId === 'meteo-climatology' && (
+                <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-slate-700" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Cloud Atlas</p><p className="text-slate-500 text-xs">10 cloud genera</p></div>
+                </button>
+              )}
+            </div>
+          )}
+
+          {roadmapTopicId && !roadmapTopic && subjectTopics.length === 0 && (
+            <Card className="mb-4 sm:mb-6 p-4 border border-slate-200">
+              <div className="flex items-center gap-3"><LoadingSpinner /><p className="text-sm text-slate-600">Loading domain orientation…</p></div>
+            </Card>
+          )}
+
+          {roadmapTopic && (
+            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-sky-100 bg-sky-50/40">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-sky-800" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation · not a lesson</p>
+                  <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
+                  {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
+                  {roadmapTopic.explanationSections?.map((section) => (
+                    <div key={section.heading} className="mt-3">
+                      <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
+                      <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
+                    </div>
+                  ))}
+                  {roadmapTopic.keyFacts?.length ? (
+                    <div className="mt-4">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Orientation notes</h3>
+                      <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
+                    </div>
+                  ) : null}
+                  {roadmapTopic.examPoints?.length ? (
+                    <div className="mt-4">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning principles</h3>
+                      <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
+                    </div>
+                  ) : null}
+                  {subjectTopics.length === 0 && (
+                    <p className="mt-4 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
+                      Structured lessons and assessments for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </Card>
+          )}
+
+          {curriculumSubject && (
+            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-teal-100 bg-teal-50/40">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-teal-800" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Course orientation · not a lesson</p>
+                  <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
+                  <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
+                  <div className="mt-4">
+                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">What you will learn</h3>
+                    <ul className="space-y-1.5">
+                      {curriculumSubject.outcomes.map((outcome) => (
+                        <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
+                          <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  {lastCurriculumLesson && (
+                    <button onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 p-3 text-left transition-colors">
+                      <span className="text-[10px] font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
+                      <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
+                    </button>
+                  )}
+                  <div className="mt-4">
+                    <div className="flex items-center justify-between gap-3 mb-2">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Curriculum units</h3>
+                      <span className="text-xs text-slate-500">
+                        {curriculumLessons.length > 0
+                          ? `${studiedCurriculumLessonCount} of ${curriculumLessons.length} lessons marked studied`
+                          : 'No lessons mapped yet'}
+                      </span>
+                    </div>
+                    <div className="space-y-2">
+                      {curriculumUnits.map((unit) => (
+                        <button
+                          key={unit.id}
+                          onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
+                          className="w-full rounded-xl border border-teal-200 bg-white hover:bg-teal-50 p-3 text-left transition-colors cursor-pointer"
+                        >
+                          <div className="flex items-start gap-3">
+                            <span className="text-xs font-bold text-slate-500 w-10 shrink-0 pt-0.5">{unit.code}</span>
+                            <span className="min-w-0 flex-1">
+                              <span className="flex flex-wrap items-center gap-2">
+                                <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
+                              </span>
+                              <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
+                              <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons currently mapped` : 'Lessons not yet integrated'}</span>
+                            </span>
+                            {unit.legacySectionId && <ChevronRight className="w-4 h-4 text-teal-700 shrink-0 mt-1" />}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {curriculumSubject.projectIds.map((projectId) => {
+                    const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
+                    if (!project) return null;
+                    return (
+                      <div key={project.id} className="mt-4 rounded-xl border border-violet-200 bg-violet-50/70 p-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+                            <GraduationCap className="w-5 h-5 text-violet-800" />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <h3 className="font-semibold text-sm text-slate-900">{project.title}</h3>
+                              <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-violet-100 text-violet-800">{project.readiness}</span>
+                            </div>
+                            <p className="text-xs text-slate-700 leading-relaxed mt-1">{project.purpose}</p>
+                            <p className="text-xs text-slate-500 mt-2">{project.milestones.length} milestones · assessed with a portfolio rubric</p>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </Card>
+          )}
 
           {/* Sections accordion */}
+          {subjectSections.length > 0 && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-slate-900">Sections</h3>
@@ -190,7 +387,7 @@ export function StudyScreen() {
             </div>
             <div className="space-y-2">
               {subjectSections.map((section) => {
-                const sectionTopics = topicsBySection(section.id);
+                const sectionTopics = topicsBySection(section.id).filter((topic) => !isCgeiOverviewTopic(topic.id));
                 const studiedInSection = sectionTopics.filter((t) => data.studiedTopics.includes(t.id)).length;
                 const masteredInSection = sectionTopics.filter((t) => {
                   const p = data.topicProgress[t.id];
@@ -207,7 +404,7 @@ export function StudyScreen() {
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-slate-900 text-sm break-words">{section.title}</p>
-                        <p className="text-slate-500 text-xs mt-0.5">{section.topicCount} topics · {studiedInSection} studied · {masteredInSection} mastered</p>
+                        <p className="text-slate-500 text-xs mt-0.5">{sectionTopics.length} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
                       </div>
                       {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
                     </button>
@@ -240,11 +437,14 @@ export function StudyScreen() {
               })}
             </div>
           </Card>
+          )}
 
           {/* Stats footer */}
-          <p className="text-slate-500 text-sm text-center">
-            {subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length} / {subjectTopics.length} topics studied · {subjectTopics.length > 0 ? Math.round((subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length / subjectTopics.length) * 100) : 0}% complete
-          </p>
+          {subjectTopics.length > 0 && (
+            <p className="text-slate-500 text-sm text-center">
+              {subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length} / {subjectTopics.length} topics studied · {Math.round((subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length / subjectTopics.length) * 100)}% complete
+            </p>
+          )}
         </>
       )}
     </PageContainer>
@@ -257,6 +457,19 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
   const { data } = useData();
   const section = sectionMap[sectionId];
   const sectionTopics = topicsBySection(sectionId);
+  const curriculumUnit = cgeiCurriculum.units.find((unit) => unit.legacySectionId === sectionId);
+  const unitActivities = curriculumUnit
+    ? curriculumUnit.activityIds.map((id) => cgeiCurriculum.activities.find((activity) => activity.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const unitAssessments = curriculumUnit
+    ? curriculumUnit.assessmentIds.map((id) => cgeiCurriculum.assessments.find((assessment) => assessment.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const unitDeliverables = curriculumUnit
+    ? curriculumUnit.deliverableIds.map((id) => cgeiCurriculum.deliverables.find((deliverable) => deliverable.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const unitResources = curriculumUnit
+    ? curriculumUnit.resourceIds.map((id) => cgeiCurriculum.resources.find((resource) => resource.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
 
   if (!section) {
     return (
@@ -279,8 +492,93 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           <SectionBadge section={section} />
         </div>
         <h1 className="text-2xl sm:text-[1.75rem] font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
-        <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} topics</p>
+        <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
+      {curriculumUnit && (
+        <Card className="mb-5 p-4 sm:p-5 border border-teal-100 bg-teal-50/30">
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
+            <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-teal-800 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
+          </div>
+          <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
+          {curriculumUnit.outcomes.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning outcomes</h3>
+              <ul className="space-y-2">
+                {curriculumUnit.outcomes.map((outcome) => (
+                  <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+                    <span className="rounded-md bg-white border border-teal-100 px-1.5 py-0.5 text-[10px] font-bold text-teal-800 shrink-0">{outcome.level}</span>
+                    <span>{outcome.statement}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {unitActivities.length > 0 && (
+            <div className="mt-4">
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Practice activities</h3>
+              <div className="space-y-2">
+                {unitActivities.map((activity) => (
+                  <div key={activity.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-semibold text-sm text-slate-900">{activity.title}</span>
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes && <span className="text-[10px] text-slate-500">~{activity.estimatedMinutes} min</span>}
+                    </div>
+                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{activity.instructions}</p>
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-teal-800 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
+            {unitAssessments.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Checks and assessments</h3>
+                <ul className="space-y-2">
+                  {unitAssessments.map((assessment) => (
+                    <li key={assessment.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      <p className="font-medium text-sm text-slate-900">{assessment.title}</p>
+                      <p className="text-xs text-slate-600 mt-1">{assessment.purpose}</p>
+                      {assessment.passThreshold !== undefined && <p className="text-xs text-slate-500 mt-1">Target: {Math.round(assessment.passThreshold * 100)}%</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {unitDeliverables.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Portfolio evidence</h3>
+                <ul className="space-y-2">
+                  {unitDeliverables.map((deliverable) => (
+                    <li key={deliverable.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      <p className="font-medium text-sm text-slate-900">{deliverable.title}</p>
+                      <p className="text-xs text-slate-600 mt-1">{deliverable.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            {unitResources.length > 0 && (
+              <div>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Supporting references</h3>
+                <ul className="space-y-2">
+                  {unitResources.map((resource) => (
+                    <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                      {resource.url ? (
+                        <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a>
+                      ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
+                      <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
+                      {resource.authorOrPublisher && <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        </Card>
+      )}
       <div className="space-y-2">
         {sectionTopics.map((topic) => {
           const prog = data.topicProgress[topic.id];
@@ -292,7 +590,14 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
-                  {topic.content ? <span className="text-success-600 text-xs font-medium">Content available</span> : <span className="text-slate-400 text-xs">Content coming soon</span>}
+                  {(() => {
+                    const lesson = cgeiCurriculum.lessons.find((item) => item.sourceTopicId === topic.id);
+                    return (
+                      <span className="text-xs text-slate-500">
+                        {lesson ? `${lesson.level} · ~${lesson.estimatedMinutes ?? 0} min · ${lesson.readiness}` : topic.content ? 'Content available' : 'Content coming soon'}
+                      </span>
+                    );
+                  })()}
                 </div>
                 <TopicStatusIcon status={status} />
                 <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
@@ -397,13 +702,24 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   }
 
   const isStudied = data.studiedTopics.includes(topicId);
+  const topicPositionLabel = topic.sectionId === 'CGEI-051' ? `Unit 5.1 · Lesson ${topic.order}` : `Section ${topic.sectionId} · Topic ${topic.order}`;
+  const curriculumLesson = cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === topic.id && lesson.content.length > 0);
+  const lessonActivities = curriculumLesson
+    ? curriculumLesson.activityIds.map((id) => cgeiCurriculum.activities.find((activity) => activity.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const lessonAssessments = curriculumLesson
+    ? curriculumLesson.assessmentIds.map((id) => cgeiCurriculum.assessments.find((assessment) => assessment.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
+  const lessonResources = curriculumLesson
+    ? curriculumLesson.resourceIds.map((id) => cgeiCurriculum.resources.find((resource) => resource.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item))
+    : [];
 
   if (!topic.content) {
     return (
       <PageContainer>
         <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
         <div className="mb-4">
-          <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
+          <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
           <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
@@ -420,11 +736,30 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
-        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
+        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
         <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+        {curriculumLesson && (
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
+            <span className="rounded-full bg-sky-50 text-sky-800 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
+            {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
+            <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
+          </div>
+        )}
+        {curriculumLesson?.objectives.length ? (
+          <section className="mt-4 rounded-xl border border-sky-100 bg-sky-50/50 p-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-sky-900 mb-2">By the end of this lesson, you should be able to</h2>
+            <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
+              <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+                <span className="rounded bg-white border border-sky-100 px-1.5 py-0.5 text-[10px] font-bold text-sky-800 shrink-0">{outcome.level}</span>
+                <span>{outcome.statement}</span>
+              </li>
+            ))}</ul>
+          </section>
+        ) : null}
         {isStudied && <span className="inline-flex items-center gap-1 text-success-600 text-sm font-medium mt-2"><BookOpen className="w-4 h-4" /> Studied</span>}
       </div>
       <article className="space-y-6 sm:space-y-8">
+        {curriculumLesson ? <CurriculumLessonContent lesson={curriculumLesson} /> : (<>
         {topic.definition && (
           <section>
             <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-sky-700 mb-2">Definition</h3>
@@ -781,6 +1116,52 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </div>
           );
         })()}
+        </>)}
+        {(lessonActivities.length > 0 || lessonAssessments.length > 0 || lessonResources.length > 0) && (
+          <section className="space-y-4 pt-5 border-t border-slate-200">
+            {lessonActivities.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Practice and application</h2>
+                <div className="space-y-2">{lessonActivities.map((activity) => (
+                  <Card key={activity.id} className="p-4 border border-slate-200">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <h3 className="font-medium text-slate-900 text-sm">{activity.title}</h3>
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes ? <span className="text-xs text-slate-500">~{activity.estimatedMinutes} min</span> : null}
+                    </div>
+                    <p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-slate-600 mt-2"><span className="font-semibold">Evidence to save:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-sky-800">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-600">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
+                  </Card>
+                ))}</div>
+              </div>
+            )}
+            {lessonAssessments.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Knowledge and skill checks</h2>
+                <div className="grid sm:grid-cols-2 gap-2">{lessonAssessments.map((assessment) => (
+                  <Card key={assessment.id} className="p-4 border border-slate-200">
+                    <h3 className="font-medium text-slate-900 text-sm">{assessment.title}</h3>
+                    <p className="text-sm text-slate-600 leading-relaxed mt-1">{assessment.purpose}</p>
+                    {assessment.passThreshold !== undefined ? <p className="text-xs text-slate-500 mt-2">Target: {Math.round(assessment.passThreshold * 100)}%</p> : null}
+                  </Card>
+                ))}</div>
+              </div>
+            )}
+            {lessonResources.length > 0 && (
+              <div>
+                <h2 className="font-semibold text-slate-900 mb-2">Further reading and tools</h2>
+                <ul className="space-y-2">{lessonResources.map((resource) => (
+                  <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
+                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-sky-800 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
+                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
+                    {resource.authorOrPublisher ? <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
+                  </li>
+                ))}</ul>
+              </div>
+            )}
+          </section>
+        )}
       </article>
       <AiTutorChat
         topicId={topic.id}

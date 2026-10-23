@@ -48,6 +48,8 @@ export function downloadBackupFile(): boolean {
 
 const emptyData: AppData = {
   studiedTopics: [],
+  studiedCurriculumLessons: [],
+  lastOpenedCurriculumLesson: '',
   topicProgress: {},
   questionResults: {},
   quizHistory: [],
@@ -177,6 +179,14 @@ function validateAppData(data: unknown): data is AppData {
   }
   if (data.questionResults !== undefined && !isObject(data.questionResults)) {
     console.warn('[storage] Invalid data: questionResults is not an object');
+    return false;
+  }
+  if (data.studiedCurriculumLessons !== undefined && !Array.isArray(data.studiedCurriculumLessons)) {
+    console.warn('[storage] Invalid data: studiedCurriculumLessons is not an array');
+    return false;
+  }
+  if (data.lastOpenedCurriculumLesson !== undefined && typeof data.lastOpenedCurriculumLesson !== 'string') {
+    console.warn('[storage] Invalid data: lastOpenedCurriculumLesson is not a string');
     return false;
   }
   if (data.studiedTopics !== undefined && !Array.isArray(data.studiedTopics)) {
@@ -448,6 +458,18 @@ function defaultProgress(): TopicProgress {
 /** Read-only lookup — does not mutate `data`. */
 export function getOrCreateProgress(data: AppData, topicId: string): TopicProgress {
   return data.topicProgress[topicId] ?? defaultProgress();
+}
+
+export function markCurriculumLessonStudied(data: AppData, lessonId: string): AppData {
+  return {
+    ...data,
+    studiedCurriculumLessons: [...new Set([...(data.studiedCurriculumLessons ?? []), lessonId])],
+    lastOpenedCurriculumLesson: lessonId,
+  };
+}
+
+export function setLastOpenedCurriculumLesson(data: AppData, lessonId: string): AppData {
+  return { ...data, lastOpenedCurriculumLesson: lessonId };
 }
 
 export function markTopicStudied(data: AppData, topicId: string): AppData {

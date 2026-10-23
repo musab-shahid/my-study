@@ -4,11 +4,26 @@
 
 The CGEI track follows the 14-domain Master Study TOC. Subjects 1–8 are the core learning spine; Subjects 9–13 integrate decision support, policy, engineering, advanced AI, and capstone work; Subject 14 is an optional set of specialist branches. A registered subject or roadmap does **not** mean its full curriculum or quiz bank is complete.
 
+## Canonical curriculum model (new for CGEI)
+
+Use `src/types/curriculum.ts` and `src/data/cgei/curriculum.ts` for the instructional hierarchy (registry schema version 2):
+
+- `CurriculumSubject` is the course/orientation layer: audience, purpose, prerequisites, outcomes, competencies, units and projects.
+- `CurriculumUnit` defines unit outcomes, lesson order, activities, assessments, resources and deliverables.
+- `CurriculumLesson` is one teachable objective with level, time estimate, content blocks, activities, assessments and an optional `sourceTopicId` migration bridge.
+- Resources, activities, assessments, curriculum questions, rubrics, deliverables, competencies, and projects are separate typed entities linked by stable IDs. Curriculum questions are self-contained single-choice checks with an answer key, explanation, difficulty, and cognitive level; they need not be forced into legacy Topic quiz routing.
+- `CurriculumProject` represents projects/capstones as first-class work, not as fake units or topics.
+- Readiness status (`planned`, `outlined`, `draft`, `review`, `validated`, `released`) describes evidence state; do not mark a unit released because its metadata exists.
+
+**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 is the pilot. Unit 5.1's eight lessons bridge to legacy `Topic` records to preserve navigation, quiz access and saved progress; Units 5.2–5.5 are authored directly as canonical content blocks and have lesson-linked curriculum questions rendered inline. Unit 5.5 adds an acquisition workflow, SQL, API reliability, licence/secret handling and a reproducible package. These self-checks provide immediate feedback but are not yet wired into legacy adaptive quiz scoring or spaced-repetition statistics. Units 5.2–5.5 remain `draft` until code examples, fixtures and instructional review pass. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
+
+Architecture and migration decisions: [CGEI Curriculum Architecture](CGEI_CURRICULUM_ARCHITECTURE.md).
+
 ## Where content lives
 
-Each subject has its own directory under `src/data/cgei/<subject-slug>/`:
+Each subject has a directory under `src/data/cgei/<subject-slug>/`. Subject 5's canonical unit/lesson records live in `src/data/cgei/curriculum.ts`; its remaining legacy topic/question files are compatibility layers during migration.
 
-- `topics-<subject-slug>.ts` — full study content, one `Topic` object per teachable topic.
+- `topics-<subject-slug>.ts` — legacy study content for sections that have not migrated to the canonical curriculum model; do not create a roadmap Topic as a substitute for a Subject overview.
 - `questions-<subject-slug>.ts` — question bank, one `Question` object per quiz item.
 
 The subject must also be registered consistently in:
@@ -66,3 +81,7 @@ For the CGEI core, favour output-producing practice: a reproducible notebook, va
 ## Current scaffold status
 
 The registry contains 14 domains and each has at least a roadmap topic. Subjects 9–14 now have tailored roadmap outlines and empty quiz-bank files. They are structural scaffolds, not completed lessons. Continue filling the existing subject files progressively; do not try to author the entire TOC in one change.
+
+## Pull-request validation
+
+For curriculum-content changes, confirm that GitHub Actions ran against the latest pull-request head before treating a result as current. The CI suite includes data validation, unit tests, typechecking, lint/build checks, and browser smoke tests. A run for an older merge commit is historical evidence only; after a new commit, inspect the newest run and address its actual failures.

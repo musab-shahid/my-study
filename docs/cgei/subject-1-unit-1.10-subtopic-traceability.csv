@@ -1,0 +1,17 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+1.10.1.1,Urban ecosystems modified fluxes,1.10.1,Urban systems,Core,cgei-es-lesson-1-10-1,cgei-es-110-1-1,mapped_partial,Flux modification conceptual.
+1.10.1.2,Urban surface energy balance and heat storage,1.10.1,Urban systems,Core,cgei-es-lesson-1-10-1,cgei-es-110-1-1;cgei-es-110-1-lab,mapped_partial,Teaching SEB residual fixture; not full urban canopy model.
+1.10.1.3,Urban metabolism FEW nexus,1.10.1,Urban systems,Core,cgei-es-lesson-1-10-1,cgei-es-110-1-3,mapped_partial,Named only.
+1.10.1.4,Urban heat and energy-demand interactions,1.10.1,Urban systems,Core,cgei-es-lesson-1-10-1,cgei-es-110-1-lab,mapped_partial,UHI synthetic delta only.
+1.10.2.1,Agricultural systems soil fertiliser irrigation,1.10.2,Agricultural systems,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-1,mapped_partial,Conceptual dependence.
+1.10.2.2,Cereal-legume intercropping,1.10.2,Agricultural systems,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-1,mapped_partial,Mentioned; no agronomy lab.
+1.10.2.3,Cropping diversity ecosystem services,1.10.2,Agricultural systems,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-1,mapped_partial,Overview.
+1.10.3.1,LULC urban expansion peri-urban,1.10.3,Land-use and land-cover change,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-1;cgei-es-110-2-2,mapped_partial,Drivers and pathways table.
+1.10.3.2,Drivers population economy policy markets,1.10.3,Land-use and land-cover change,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-1,mapped_partial,Listed; not quantified.
+1.10.3.3,Consequences hydrology climate biodiversity exposure,1.10.3,Land-use and land-cover change,Core,cgei-es-lesson-1-10-2,cgei-es-110-2-2,mapped_partial,Qualitative pathways.
+1.10.4.1,Multiple stressors,1.10.4,Stress compound events change,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-1,mapped_partial,Conceptual.
+1.10.4.2,Compound and cascading events,1.10.4,Stress compound events change,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-lab,mapped_partial,AND threshold fixture; not event catalogue.
+1.10.4.3,Long-term change vs short-term variability,1.10.4,Stress compound events change,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-1,mapped_partial,Overview.
+1.10.5.1,Thresholds regime shifts hysteresis,1.10.5,Resilience and system dynamics,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-3,mapped_partial,Overview language only.
+1.10.5.2,Adaptive capacity path dependence,1.10.5,Resilience and system dynamics,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-3,mapped_partial,Overview.
+1.10.5.3,Social-ecological adaptive cycle,1.10.5,Resilience and system dynamics,Core,cgei-es-lesson-1-10-3,cgei-es-110-3-3,mapped_partial,Named at overview level.

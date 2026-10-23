@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { routeToPath, pathToRoute, shouldUseBrowserHistoryBack } from '../paths.ts';
+import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from '../paths.ts';
 
 describe('Phase A path mapping', () => {
   it('round-trips static screens', () => {
@@ -26,6 +26,72 @@ describe('Phase A path mapping', () => {
         assert.equal((parsed as { mode?: string }).mode, route.mode);
       }
     }
+  });
+
+  it('round-trips subject-aware Learn routes and rejects unknown subjects', () => {
+    const route = { screen: 'learn' as const, subjectId: 'cgei-data-science' };
+    assert.equal(routeToPath(route), '/learn/cgei-data-science');
+    assert.deepEqual(pathToRoute('/learn/cgei-data-science'), route);
+    assert.deepEqual(pathToRoute('/learn/not-a-real-subject'), { screen: 'learn' });
+    assert.deepEqual(pathToRoute('/learn'), { screen: 'learn' });
+  });
+
+  it('builds structural CGEI breadcrumbs through the subject overview', () => {
+    const unit = breadcrumbForRoute({ screen: 'curriculum-unit', unitId: 'cgei-ds-unit-5-3' });
+    assert.deepEqual(unit.map((item) => item.label), [
+      'Home',
+      'CGEI',
+      'Scientific Computing & Data Science',
+      unit[3].label,
+    ]);
+    const lesson = breadcrumbForRoute({ screen: 'curriculum-lesson', lessonId: 'cgei-ds-lesson-5-3-1' });
+    assert.deepEqual(lesson.map((item) => item.label), [
+      'Home',
+      'CGEI',
+      'Scientific Computing & Data Science',
+      'Exploratory data analysis and visualisation',
+      lesson[4].label,
+    ]);
+  });
+
+  it('builds track and subject breadcrumbs for a subject deep link', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'learn', subjectId: 'cgei-data-science' });
+    assert.deepEqual(crumbs.map((item) => item.label), [
+      'Home',
+      'CGEI',
+      'Scientific Computing & Data Science',
+    ]);
+    assert.deepEqual(crumbs[2].route, { screen: 'learn', subjectId: 'cgei-data-science' });
+  });
+
+  it('routes legacy CGEI roadmap URLs to the subject orientation', () => {
+    assert.deepEqual(pathToRoute('/topic/cgei-env-systems-roadmap'), {
+      screen: 'learn',
+      subjectId: 'cgei-env-systems',
+    });
+    assert.deepEqual(pathToRoute('/topic/cgei-capstone-roadmap'), {
+      screen: 'learn',
+      subjectId: 'cgei-capstone',
+    });
+  });
+
+  it('routes roadmap-only CGEI sections to the subject orientation', () => {
+    assert.deepEqual(pathToRoute('/section/CGEI-01'), {
+      screen: 'learn',
+      subjectId: 'cgei-env-systems',
+    });
+  });
+
+  it('round-trips canonical curriculum unit and lesson routes', () => {
+    const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-3' };
+    const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-3-1' };
+    assert.deepEqual(pathToRoute(routeToPath(unitRoute)), unitRoute);
+    assert.deepEqual(pathToRoute(routeToPath(lessonRoute)), lessonRoute);
+  });
+
+  it('resolves only registered curriculum unit and lesson IDs', () => {
+    assert.equal(pathToRoute('/curriculum/unit/not-real').screen, 'learn');
+    assert.equal(pathToRoute('/curriculum/lesson/not-real').screen, 'learn');
   });
 
   it('maps /quiz deep link to practice (no quiz params in URL)', () => {

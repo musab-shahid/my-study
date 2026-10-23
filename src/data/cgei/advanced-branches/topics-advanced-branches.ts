@@ -36,7 +36,7 @@ export const topics: Topic[] = [
     ],
     content: true,
     relatedTopics: [],
-    buildsOn: ['cgei-env-systems-roadmap', 'cgei-data-science-roadmap', 'cgei-research-practice-roadmap'],
+    buildsOn: ['cgei-env-systems-roadmap', 'cgei-research-practice-roadmap'],
     leadsTo: [],
     usedIn: [],
   },

@@ -74,8 +74,7 @@ export function ProgressScreen() {
 
   // Achievements
   const totalQuestionsAll = allStats.reduce((s, st) => s + st.questionsAnswered, 0);
-  const subjectTopicIds = isAllSubjects ? null : new Set(sd.topicsFor(activeSubject as SubjectId).map((t) => t.id));
-  const masteredTopics = countMasteredTopics(data, isAllSubjects ? null : subjectTopicIds);
+  const masteredTopics = countMasteredTopics(data, allTopicIds);
   const perfectQuizzes = data.quizHistory.filter((q) =>
     q.total >= 5 && q.score === q.total &&
     (!q.subjectId || (q.subjectId in subjectMap && scopedSubjectIds.has(q.subjectId as SubjectId)))
@@ -223,7 +222,8 @@ return (
               <div className="space-y-3">
                 {currentStats.sections.map((section) => {
                   const accuracy = getSectionAccuracy(data, section.id, currentStats.questions);
-                  const studiedCount = data.studiedTopics.filter((tid) => getTopic(tid)?.sectionId === section.id).length;
+                  const sectionTopicCount = currentStats.topics.filter((topic) => topic.sectionId === section.id).length;
+                  const studiedCount = data.studiedTopics.filter((tid) => allTopicIds.has(tid) && getTopic(tid)?.sectionId === section.id).length;
                   return (
                     <div key={section.id}>
                       <div className="flex items-center justify-between mb-1">
@@ -234,7 +234,7 @@ return (
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
                       <ProgressBar value={accuracy ?? 0} color={accuracy === null ? 'sky' : accuracy >= 75 ? 'green' : accuracy >= 50 ? 'amber' : 'red'} />
-                      <p className="text-slate-400 text-xs mt-0.5">{studiedCount}/{section.topicCount} topics studied</p>
+                      <p className="text-slate-400 text-xs mt-0.5">{studiedCount}/{sectionTopicCount} topics studied</p>
                     </div>
                   );
                 })}
