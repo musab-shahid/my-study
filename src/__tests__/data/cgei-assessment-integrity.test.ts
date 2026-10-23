@@ -2,8 +2,22 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
 import { subjectsByTrack } from '../../data/subjects.ts';
+import { topicMap } from '../../data/topics.ts';
+import { hasSubstantiveLessonContent } from '../../data/cgei/readiness.ts';
 
 describe('CGEI assessment and evidence integrity', () => {
+  it('keeps lesson source-topic bridges valid and readiness claims evidence-based', () => {
+    const topicIds = new Set(Object.keys(topicMap));
+    for (const lesson of cgeiCurriculum.lessons) {
+      if (lesson.sourceTopicId) {
+        assert.ok(topicIds.has(lesson.sourceTopicId), `lesson ${lesson.id} references missing source topic ${lesson.sourceTopicId}`);
+      }
+      if (['review', 'validated', 'released'].includes(lesson.readiness)) {
+        assert.ok(hasSubstantiveLessonContent(lesson), `lesson ${lesson.id} is marked ${lesson.readiness} without substantive content`);
+      }
+    }
+  });
+
   it('keeps track subject membership and recommended order aligned', () => {
     const appSubjectIds = new Set(subjectsByTrack('cgei').map((subject) => subject.id));
     for (const track of cgeiCurriculum.tracks) {
