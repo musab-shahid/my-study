@@ -107,3 +107,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_field_data_qc_check.py
       - name: Verify Unit 1.1 planetary energy budget
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_1_energy_budget_check.py
+      - name: Verify Unit 1.10 coupled systems teaching checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_10_coupled_systems_check.py

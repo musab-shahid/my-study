@@ -1595,7 +1595,47 @@ const lessons11: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes110: CurriculumOutcome[] = [
+  { id: 'cgei-es-o-110-urban', statement: 'Apply a simplified urban surface energy balance including anthropogenic heat and interpret urban–rural storage and UHI differences.', action: 'apply and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-es-o-110-agri-lulc', statement: 'Describe agricultural dependence on soil, fertiliser and irrigation and link land-use change drivers to hydrology and exposure consequences.', action: 'describe and link', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-es-o-110-compound', statement: 'Distinguish single versus compound stressors and explain thresholds/adaptive capacity at overview level for coupled systems.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons110: CurriculumLesson[] = [
+  {
+    id: 'cgei-es-lesson-1-10-1', kind: 'lesson', title: 'Urban energy, metabolism and heat', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes110[0]],
+    content: [
+      { id: 'cgei-es-110-1-1', kind: 'prose', title: 'Cities reshape fluxes', body: 'Urban surfaces modify energy, water and material fluxes. A teaching surface energy balance is Q* + Q_F = Q_H + Q_E + ΔQ_S, where Q_F is anthropogenic heat and ΔQ_S is storage in buildings and pavement. Compared with vegetated rural land, cities often show larger daytime storage and a positive urban heat intensity (T_urban − T_rural).' },
+      { id: 'cgei-es-110-1-lab', kind: 'worked-example', title: 'Lab: close the urban energy residual', body: 'Given Q*=450, Q_F=30, Q_H=280, Q_E=80 W m⁻², storage ΔQ_S = 120 W m⁻². A rural contrast with Q_F=0, Q_H=Q_E=200 yields ΔQ_S=50. Synthetic stations 38.5°C vs 35.0°C give UHI=3.5 K. Fixture unit_1_10_coupled_systems_check.py locks these values. Not a calibrated urban climate model.' },
+      { id: 'cgei-es-110-1-3', kind: 'key-points', title: 'Urban systems cautions', items: ['Q_F is hard to observe directly', 'UHI depends on rural reference choice', 'Metabolism/FEW nexus is multi-sector — only introduced here'] },
+    ],
+    activityIds: ['cgei-es-a-110-urban'], assessmentIds: ['cgei-es-assess-110-urban'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-es-lesson-1-10-2', kind: 'lesson', title: 'Agricultural systems and land-use change', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes110[1]],
+    content: [
+      { id: 'cgei-es-110-2-1', kind: 'prose', title: 'Farm systems as coupled production landscapes', body: 'Agricultural systems depend on soil multifunctionality, fertiliser inputs and irrigation. Cropping diversity and intercropping can support ecosystem services but do not remove climate or water constraints. Land-use and land-cover change is driven by population, markets, policy and infrastructure; peri-urban expansion and informality reshape both food production and exposure.' },
+      { id: 'cgei-es-110-2-2', kind: 'table', title: 'LULC consequence pathways', headers: ['Change', 'Hydrology', 'Climate/exposure'], rows: [['Urban expansion', 'More runoff, less infiltration', 'Higher heat storage, denser assets'], ['Irrigation expansion', 'Altered streamflow timing', 'Local moisture and labour exposure'], ['Cropland intensification', 'Nutrient and sediment loads', 'Monoculture service trade-offs']] },
+      { id: 'cgei-es-110-2-3', kind: 'callout', title: 'Scope', tone: 'info', items: ['Detailed irrigated-plains agronomy is Unit 1.11 Optional', 'No claim of optimal cropping mix without local data'] },
+    ],
+    activityIds: ['cgei-es-a-110-lulc'], assessmentIds: ['cgei-es-assess-110-lulc'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-es-lesson-1-10-3', kind: 'lesson', title: 'Compound stress, thresholds and adaptive capacity', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes110[2]],
+    content: [
+      { id: 'cgei-es-110-3-1', kind: 'prose', title: 'Multiple stressors on one system', body: 'Coupled systems experience concurrent pressures (heat, drought, pollution, market shocks). Compound events occur when two or more stressors exceed thresholds together; cascading impacts propagate through infrastructure and livelihoods. Long-term change shifts the baseline against which short-term variability is judged.' },
+      { id: 'cgei-es-110-3-lab', kind: 'worked-example', title: 'Lab: compound flag on synthetic indices', body: 'With heat index 0.8 and drought index 0.7 against thresholds 0.6/0.6, the compound flag is true; either index alone below threshold yields false. Fixture unit_1_10_coupled_systems_check.py encodes this AND rule. Indices are teaching scores, not operational drought products.' },
+      { id: 'cgei-es-110-3-3', kind: 'prose', title: 'Resilience language', body: 'Thresholds, regime shifts and hysteresis mean recovery paths can differ from degradation paths. Adaptive capacity and path dependence shape social–ecological responses. The adaptive cycle is named at overview level only.' },
+    ],
+    activityIds: ['cgei-es-a-110-compound'], assessmentIds: ['cgei-es-assess-110-compound'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1680,9 +1720,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
       purpose: 'Establish shared Earth-system vocabulary, radiation physics and feedback language used across climate and geospatial analysis.',
       overview: 'Unit 1.1 introduces spheres, planetary energy budget (Stefan–Boltzmann, Wien, effective temperature) and feedback/cycle organising ideas. Draft slice only—not the full Subject 1 TOC.',
       prerequisites: ['Algebra', 'Units and scientific notation'],
-      outcomes: [...outcomes11],
+      outcomes: [...outcomes11, ...outcomes110],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty'],
-      unitIds: ['cgei-es-unit-1-1'],
+      unitIds: ['cgei-es-unit-1-1', 'cgei-es-unit-1-10'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 5,
@@ -1895,6 +1935,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 1 Unit 1.1 — Earth system components (Core)',
       notes: ['Core unit: spheres, radiation/energy budget fixture, feedback overview.', 'Not a full biogeochemistry or climate-sensitivity course.'],
     },
+    {
+      id: 'cgei-es-unit-1-10', code: '1.10', title: 'Coupled human–natural systems', order: 110, kind: 'unit', readiness: 'draft',
+      summary: 'Analyse urban energy and heat, agricultural and land-use couplings, and compound stress/resilience ideas in human–natural systems.',
+      estimatedHours: 6, prerequisites: ['Unit 1.1 radiation and feedback vocabulary'], outcomes: outcomes110,
+      lessonIds: lessons110.map((lesson) => lesson.id),
+      activityIds: ['cgei-es-a-110-urban', 'cgei-es-a-110-lulc', 'cgei-es-a-110-compound'],
+      assessmentIds: ['cgei-es-assess-110-urban', 'cgei-es-assess-110-lulc', 'cgei-es-assess-110-compound'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 1 Unit 1.10 — Coupled human–natural systems (Core)',
+      notes: ['Core unit after 1.1; Support units 1.2–1.9 not required by TOC order for this Core path.', 'Urban SEB and compound flag are teaching models only.'],
+    },
+
 
 
 
@@ -1941,6 +1993,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-q-11-002', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'Using σT⁴ at T=288 K, blackbody exitance is about:', options: ['1361 W m⁻²', '390 W m⁻²', '240 W m⁻²', '5.67×10⁻⁸ W m⁻²'], correctAnswer: 1, explanation: 'σ(288)⁴ ≈ 390 W m⁻² under the Stefan–Boltzmann law.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-11-003', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'With S=1361 W m⁻² and A=0.30, the planetary effective temperature Te is nearest:', options: ['288 K', '255 K', '373 K', '0 K'], correctAnswer: 1, explanation: 'σTe⁴ = S(1−A)/4 yields Te ≈ 255 K; surface air temperature is warmer due to the greenhouse effect.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-11-004', lessonId: 'cgei-es-lesson-1-1-3', type: 'single-choice', prompt: 'Ice–albedo feedback is classified as positive because:', options: ['Melting increases albedo and cools the surface', 'Melting decreases albedo, increases absorption and amplifies warming', 'It always stabilises climate', 'It equals climate sensitivity'], correctAnswer: 1, explanation: 'Lower ice cover reduces albedo, increasing absorbed solar radiation and reinforcing the initial warming.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-110-001', lessonId: 'cgei-es-lesson-1-10-1', type: 'single-choice', prompt: 'With Q*=450, Q_F=30, Q_H=280, Q_E=80 W m⁻², storage ΔQ_S equals:', options: ['120 W m⁻²', '450 W m⁻²', '30 W m⁻²', '0 W m⁻²'], correctAnswer: 0, explanation: 'ΔQ_S = Q* + Q_F − Q_H − Q_E = 450+30−280−80 = 120 W m⁻².', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-es-q-110-002', lessonId: 'cgei-es-lesson-1-10-1', type: 'single-choice', prompt: 'Urban heat intensity for T_u=38.5°C and T_r=35.0°C is:', options: ['73.5 K', '3.5 K', '0 K', '−3.5 K'], correctAnswer: 1, explanation: 'UHI = T_urban − T_rural = 3.5 K for this synthetic pair.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-es-q-110-003', lessonId: 'cgei-es-lesson-1-10-2', type: 'single-choice', prompt: 'Urban expansion most directly tends to:', options: ['Increase infiltration everywhere', 'Increase runoff and heat-storage exposure of assets', 'Eliminate the need for irrigation data', 'Remove compound climate risk'], correctAnswer: 1, explanation: 'Impervious growth raises runoff and heat storage while concentrating assets and people.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-110-004', lessonId: 'cgei-es-lesson-1-10-3', type: 'single-choice', prompt: 'Under an AND compound rule with thresholds 0.6/0.6, heat=0.8 and drought=0.4 yields:', options: ['Compound true', 'Compound false because drought is below threshold', 'Always true if heat is high', 'Undefined'], correctAnswer: 1, explanation: 'Both stressors must meet thresholds; drought 0.4 < 0.6 so the compound flag is false.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
 
 
@@ -2502,6 +2559,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-33-admin', kind: 'coding-lab', title: 'Admin hierarchy validation', instructions: 'Run unit_3_3_admin_formats_check.py. List the duplicate ID, missing parent, and unmatched observation code, then describe how you would fix each before district aggregation.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-33-admin'] },
     { id: 'cgei-geo-a-34-network', kind: 'coding-lab', title: 'Distance vs time routing lab', instructions: 'Run unit_3_4_network_accessibility_check.py. By hand, confirm distance-shortest A→Clinic is 4 km via B and time-shortest is 9 min via C. State what happens to time cost if A–C is closed.', level: 'L2', estimatedMinutes: 30, objectiveIds: ['cgei-geo-o-34-network'] },
     { id: 'cgei-geo-a-34-field', kind: 'coding-lab', title: 'Field observation QC lab', instructions: 'Run unit_3_4_field_data_qc_check.py. List each error type found and identify the single fully clean observation_id.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-34-field'] },
+    { id: 'cgei-es-a-110-urban', kind: 'coding-lab', title: 'Urban energy residual lab', instructions: 'Run unit_1_10_coupled_systems_check.py. Compute ΔQ_S from the teaching fluxes and report the urban–rural storage contrast and UHI.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-110-urban'] },
+    { id: 'cgei-es-a-110-lulc', kind: 'guided-practice', title: 'LULC pathway sketch', instructions: 'Pick one peri-urban change and state one hydrological and one exposure consequence without inventing quantitative rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-es-o-110-agri-lulc'] },
+    { id: 'cgei-es-a-110-compound', kind: 'guided-practice', title: 'Compound threshold exercise', instructions: 'Using thresholds 0.6/0.6, classify three synthetic (heat, drought) pairs as compound or not and justify the AND rule.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-110-compound'] },
     { id: 'cgei-es-a-11-spheres', kind: 'guided-practice', title: 'Sphere coupling sketch', instructions: 'Name one flux that couples the cryosphere to the hydrosphere in the Indus basin and state whether it is primarily seasonal or multi-decadal.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-spheres'] },
     { id: 'cgei-es-a-11-radiation', kind: 'coding-lab', title: 'Energy budget lab', instructions: 'Run unit_1_1_energy_budget_check.py. Report M at 288 K, Te for S=1361 and A=0.30, and λ_max at 288 K.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-es-o-11-radiation'] },
     { id: 'cgei-es-a-11-feedback', kind: 'reflection', title: 'Feedback polarity', instructions: 'Explain in three sentences why ice–albedo feedback is positive and why Planck emission is stabilising.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-es-o-11-feedback'] },
@@ -2698,6 +2758,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-33-admin', kind: 'formative', title: 'Hierarchy integrity', purpose: 'Assess admin join validation.', objectiveIds: ['cgei-geo-o-33-admin'], questionIds: ['cgei-geo-q-33-008'], required: true },
     { id: 'cgei-geo-assess-34-network', kind: 'formative', title: 'Network routing', purpose: 'Assess distance vs time path selection and unreachable nodes.', objectiveIds: ['cgei-geo-o-34-network'], questionIds: ['cgei-geo-q-34-006', 'cgei-geo-q-34-007'], required: true },
     { id: 'cgei-geo-assess-34-field', kind: 'formative', title: 'Field data contract', purpose: 'Assess ID, vocab and GNSS accuracy validation.', objectiveIds: ['cgei-geo-o-34-field'], questionIds: ['cgei-geo-q-34-009', 'cgei-geo-q-34-010'], required: true },
+    { id: 'cgei-es-assess-110-urban', kind: 'formative', title: 'Urban energy balance', purpose: 'Assess residual closure and UHI.', objectiveIds: ['cgei-es-o-110-urban'], questionIds: ['cgei-es-q-110-001', 'cgei-es-q-110-002'], required: true },
+    { id: 'cgei-es-assess-110-lulc', kind: 'formative', title: 'LULC consequences', purpose: 'Assess land-use impact pathways.', objectiveIds: ['cgei-es-o-110-agri-lulc'], questionIds: ['cgei-es-q-110-003'], required: true },
+    { id: 'cgei-es-assess-110-compound', kind: 'formative', title: 'Compound stress', purpose: 'Assess compound threshold logic.', objectiveIds: ['cgei-es-o-110-compound'], questionIds: ['cgei-es-q-110-004'], required: true },
     { id: 'cgei-es-assess-11-spheres', kind: 'formative', title: 'Spheres', purpose: 'Assess sphere identification.', objectiveIds: ['cgei-es-o-11-spheres'], questionIds: ['cgei-es-q-11-001'], required: true },
     { id: 'cgei-es-assess-11-radiation', kind: 'formative', title: 'Radiation laws', purpose: 'Assess Stefan–Boltzmann and Te.', objectiveIds: ['cgei-es-o-11-radiation'], questionIds: ['cgei-es-q-11-002', 'cgei-es-q-11-003'], required: true },
     { id: 'cgei-es-assess-11-feedback', kind: 'formative', title: 'Feedbacks', purpose: 'Assess feedback polarity.', objectiveIds: ['cgei-es-o-11-feedback'], questionIds: ['cgei-es-q-11-004'], required: true },

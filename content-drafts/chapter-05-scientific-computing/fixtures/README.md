@@ -97,3 +97,6 @@ n=8 synthetic field records; errors for duplicate ID, missing type, invalid voca
 
 ## unit_1_1_energy_budget_check.py
 Stefan–Boltzmann M(288)≈390 W/m²; Te≈255 K for S=1361, A=0.30; Wien peak ≈10.06 μm. Teaching energy budget only.
+
+## unit_1_10_coupled_systems_check.py
+Urban SEB residual ΔQ_S=120; UHI=3.5 K; compound AND thresholds. Teaching models only.

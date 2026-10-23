@@ -2,10 +2,12 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 1.1 | Earth system components (Core) | Draft — 3 lessons + energy-budget fixture |
-| 1.2+ | Ecology, chemistry, hydrology, … | Not started |
+| 1.1 | Earth system components (Core) | Draft — energy budget fixture; SEB terms / deep BGC / time-scale gaps retained |
+| 1.2–1.9 | Support sequence | Not started (Support; not required before Core 1.10) |
+| 1.10 | Coupled human–natural systems (Core) | Draft — 3 lessons + urban SEB/UHI/compound fixture |
+| 1.11+ | Optional/Support | Not started |
 
-## Unit 1.1 notes
-- Strongest coverage: 1.1.2 radiation / blackbody / Te
-- Spheres and feedbacks at overview depth
-- SEB terms, aerosol detail, full BGC cycles deferred
+## Unit 1.1 gaps preserved
+- Full surface-energy-balance term depth (beyond Unit 1.10 urban teaching form)
+- Deeper biogeochemical cycles
+- Time and scale (1.1.5) depth
