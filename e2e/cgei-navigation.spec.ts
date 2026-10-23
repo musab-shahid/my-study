@@ -51,7 +51,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('heading', { name: 'Research & professional practice' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
     await expect(page.getByText('Canonical curriculum pilot', { exact: true })).toBeVisible();
-    await expect(page.getByText('Domain roadmap', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Domain orientation', { exact: true }).first()).toBeVisible();
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
