@@ -126,7 +126,8 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     }
     case 'topic': {
       const t = getTopic(route.topicId);
-      return { title: t?.title ?? 'Topic', subtitle: t ? `Section ${t.sectionId}` : undefined };
+      // Keep the global header as navigation chrome; the reader owns the page title.
+      return { title: 'Study', subtitle: t ? (sectionMap[t.sectionId]?.title ?? `Section ${t.sectionId}`) : undefined };
     }
     case 'formulas':
       return { title: 'Formulas' };
