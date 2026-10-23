@@ -407,7 +407,7 @@ export function MobileNav() {
             <span className="relative">
               <MoreHorizontal className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} />
               {reviewDue > 0 && (
-                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-500 text-white text-[9px] font-bold leading-4 text-center">
+                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-700 text-white text-[9px] font-bold leading-4 text-center">
                   {reviewDue > 9 ? '9+' : reviewDue}
                 </span>
               )}
