@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { routeToPath, pathToRoute, shouldUseBrowserHistoryBack } from '../paths.ts';
+import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from '../paths.ts';
 
 describe('Phase A path mapping', () => {
   it('round-trips static screens', () => {
@@ -26,6 +26,20 @@ describe('Phase A path mapping', () => {
         assert.equal((parsed as { mode?: string }).mode, route.mode);
       }
     }
+  });
+
+  it('builds section breadcrumbs from the learning hierarchy', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'section', sectionId: 'METEO-01' });
+    assert.deepEqual(crumbs.map((crumb) => crumb.label), [
+      'Home',
+      'Learn',
+      'Atmosphere & Climate Foundations',
+    ]);
+  });
+
+  it('uses the real track title in track breadcrumbs', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'track', trackId: 'fpsc' });
+    assert.deepEqual(crumbs.map((crumb) => crumb.label), ['Home', 'FPSC']);
   });
 
   it('maps /quiz deep link to practice (no quiz params in URL)', () => {
