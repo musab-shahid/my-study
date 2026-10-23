@@ -46,6 +46,7 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - Polished subject-discovery cards and section/topic rows with consistent keyboard focus, touch-friendly actions, and more readable topic titles.
 - Improved topic-reader typography: clearer title and metadata hierarchy, more generous reading measure/line spacing, and stronger section headings while retaining MathText rendering.
 - Refined the quiz question panel with a clearer question heading, consistent responsive padding, and visible keyboard focus for key controls.
+- Improved worked-example problem/solution readability and exam-point lists; adjusted formula display sizing for narrow screens.
 - Added explicit expanded-state relationships to the section accordion and strengthened the Continue Reading action’s focus and touch affordances.
 
 ## Next implementation passes
