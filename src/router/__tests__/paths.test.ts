@@ -64,6 +64,17 @@ describe('Phase A path mapping', () => {
     assert.deepEqual(crumbs[2].route, { screen: 'learn', subjectId: 'cgei-data-science' });
   });
 
+  it('routes legacy CGEI roadmap URLs to the subject orientation', () => {
+    assert.deepEqual(pathToRoute('/topic/cgei-env-systems-roadmap'), {
+      screen: 'learn',
+      subjectId: 'cgei-env-systems',
+    });
+    assert.deepEqual(pathToRoute('/topic/cgei-capstone-roadmap'), {
+      screen: 'learn',
+      subjectId: 'cgei-capstone',
+    });
+  });
+
   it('round-trips canonical curriculum unit and lesson routes', () => {
     const unitRoute = { screen: 'curriculum-unit' as const, unitId: 'cgei-ds-unit-5-3' };
     const lessonRoute = { screen: 'curriculum-lesson' as const, lessonId: 'cgei-ds-lesson-5-3-1' };
