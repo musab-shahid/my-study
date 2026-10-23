@@ -33,7 +33,23 @@ def build_series() -> list[float]:
     return series
 
 
+
+def climatology_mae(y_true: list[float], clim: float) -> float:
+    return sum(abs(y - clim) for y in y_true) / len(y_true)
+
+
+def pearson(x: list[float], y: list[float]) -> float:
+    n = len(x)
+    mx = sum(x) / n
+    my = sum(y) / n
+    num = sum((a - mx) * (b - my) for a, b in zip(x, y))
+    denx = sum((a - mx) ** 2 for a in x) ** 0.5
+    deny = sum((b - my) ** 2 for b in y) ** 0.5
+    return num / (denx * deny)
+
+
 def main() -> None:
+
     series = build_series()
     acf1 = lag1_acf(series)
     assert isclose(acf1, 0.6362820695451732, rel_tol=0, abs_tol=1e-9), acf1
@@ -60,6 +76,24 @@ def main() -> None:
         [pairs[i][0] for i in mixed_test],
     )
     assert isclose(mixed_mae, 0.07474422317683212, rel_tol=0, abs_tol=1e-9), mixed_mae
+
+    # Climatology baseline on a flat series should beat wild persistence noise in this toy case
+    series = build_series()
+    clim = sum(series[: len(series) // 2]) / (len(series) // 2)
+    holdout = series[len(series) // 2 :]
+    c_mae = climatology_mae(holdout, clim)
+    assert c_mae >= 0
+
+    # Independent linear trends: high raw correlation, low differenced correlation
+    t = list(range(30))
+    a = [0.5 * i + 0.01 * (i % 3) for i in t]
+    b = [0.4 * i + 0.02 * ((i + 1) % 5) for i in t]
+    r_raw = pearson(a, b)
+    da = [a[i] - a[i - 1] for i in range(1, len(a))]
+    db = [b[i] - b[i - 1] for i in range(1, len(b))]
+    r_diff = pearson(da, db)
+    assert r_raw > 0.9
+    assert abs(r_diff) < abs(r_raw)
 
     print("Unit 5.7 lag-1 ACF, chronological split, and persistence MAE checks passed.")
     print(f"acf1={acf1:.6f} chrono_mae={chrono_mae:.6f} mixed_order_mae={mixed_mae:.6f}")
