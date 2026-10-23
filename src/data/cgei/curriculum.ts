@@ -1952,6 +1952,14 @@ const outcomes45: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-45-interpret', statement: 'Interpret green/blue cooling associations without causal overclaim, separate surface heat from population exposure, and list validation and clear-sky limitations for heat maps.', action: 'interpret without overclaim', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
 ];
 
+const outcomes46: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-46-ee-model', statement: 'Distinguish Image/ImageCollection and Feature/FeatureCollection, and describe space–time–metadata filters, masking, compositing, reducers, and zonal statistics in an EE-style data model.', action: 'distinguish and describe', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-46-compute', statement: 'Contrast client versus server computation, state getInfo and scale/CRS reducer pitfalls, and specify parameterised scripts with asset IDs, versions, and processing logs.', action: 'contrast and specify', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-46-quota', statement: 'Plan platform choice using quota, cost, licence, and reproducibility criteria, and monitor consumption rather than assuming unlimited noncommercial capacity.', action: 'plan and monitor', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-46-hybrid', statement: 'Build a parameterised local pipeline with fixture inputs, validate a manifest, and reconcile a metric against an independent calculation without live API calls.', action: 'build and reconcile', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+];
+
+
 
 
 const lessons42: CurriculumLesson[] = [
@@ -2172,7 +2180,63 @@ const lessons45: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons46: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-6-1', kind: 'lesson', title: 'Earth Engine data model and operations', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes46[0]],
+    content: [
+      { id: 'cgei-rs-46-1-types', kind: 'prose', title: 'Images, collections, features', body: 'In Google Earth Engine (GEE), an Image is a multi-band raster object; an ImageCollection is a time- or product-stacked set of Images. Features and FeatureCollections hold vector geometries and properties. Most large analyses filter collections rather than loading entire archives. Treat the data model as a server-side graph of operations until a result is explicitly requested or exported.' },
+      { id: 'cgei-rs-46-1-filter', kind: 'prose', title: 'Filter by space, time, metadata', body: 'Filter ImageCollections by date range, bounds or geometry, and metadata (e.g. CLOUD_COVER, SPACECRAFT_ID). Prefer Collection 2 Landsat and current Sentinel collections; record collection IDs in the processing log. Filtering is not atmospheric correction—pair with Unit 4.4 mask and product-level discipline.' },
+      { id: 'cgei-rs-46-1-ops', kind: 'prose', title: 'Mask, composite, reduce, zonal', body: 'Cloud masking, temporal compositing (median, mean, percentile), reducers, and zonal statistics are core operations. Reducers aggregate over time, bands, or regions. Zonal statistics summarise an Image over Feature geometries. Always state scale (metres), CRS, and region—defaults can silently change results.' },
+      { id: 'cgei-rs-46-1-apis', kind: 'prose', title: 'Code Editor, Python API, geemap', body: 'The JavaScript Code Editor is interactive; the Python API supports scripts and notebooks; geemap wraps common mapping patterns. Concepts transfer; syntax and authentication differ. This curriculum emphasises transferable contracts (parameters, logs, exports)—not a single vendor IDE tutorial.' },
+      { id: 'cgei-rs-46-1-points', kind: 'key-points', title: 'Data-model literacy', items: ['Image vs ImageCollection; Feature vs FeatureCollection', 'Filter space, time, metadata before heavy compute', 'Mask and composite with stated rules', 'Record collection/asset IDs and versions'] },
+    ],
+    activityIds: ['cgei-rs-a-46-model'], assessmentIds: ['cgei-rs-assess-46-model'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-6-2', kind: 'lesson', title: 'Earth Engine computation practice', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes46[1]],
+    content: [
+      { id: 'cgei-rs-46-2-client', kind: 'prose', title: 'Client versus server computation', body: 'Server-side objects describe computation graphs. Client-side calls (including getInfo) pull results to the notebook or script process and can fail on large objects. Prefer reducers and exports for bulk work. For reducers, understand scale, CRS, bestEffort, tileScale, and maxPixels—mis-set values truncate, error, or sample incompletely.' },
+      { id: 'cgei-rs-46-2-params', kind: 'prose', title: 'Parameterised scripts and logs', body: 'Hard-coded dates and asset IDs make reruns brittle. Parameter files (JSON/YAML) should declare AOI, date window, collection ID, scale, mask rules, and output names. Processing logs should capture parameters, software/API versions, asset IDs, task IDs, timestamps, and exit status so another analyst can repeat or audit the run.' },
+      { id: 'cgei-rs-46-2-versions', kind: 'prose', title: 'Collection versions and deprecations', body: 'Collections are versioned and sometimes deprecated. Prefer Landsat Collection 2 surface products for new work. When a collection ID changes, old scripts break silently or shift calibration. Record the exact collection path and access date in the log.' },
+      { id: 'cgei-rs-46-2-export', kind: 'prose', title: 'Exports, assets, quotas', body: 'Export tasks write to Drive, Cloud Storage, or EE assets under quota and permission constraints. Failed exports often reflect region size, scale, or quota—not a wrong scientific formula. Separate “graph built” from “export completed and validated.”' },
+      { id: 'cgei-rs-46-2-callout', kind: 'callout', title: 'Successful run ≠ valid science', tone: 'warning', items: ['A finished export can still use the wrong product level', 'getInfo on large collections is a common failure mode', 'Scale/CRS defaults change zonal means', 'Log asset IDs and parameter hashes every run'] },
+    ],
+    activityIds: ['cgei-rs-a-46-compute'], assessmentIds: ['cgei-rs-assess-46-compute'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-6-3', kind: 'lesson', title: 'Quotas, cost and platform planning', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes46[2]],
+    content: [
+      { id: 'cgei-rs-46-3-quota', kind: 'prose', title: 'Noncommercial quota awareness', body: 'Earth Engine noncommercial access is quota-limited and policy-governed. The TOC cites post–April 2026 Community and Contributor EECU-hour tiers (e.g. Community 150 and Contributor 1,000 EECU-hours/month) with annual re-verification of noncommercial status. Treat those numbers as planning cues from the curriculum source—verify current Google Earth Engine terms and project dashboards before operational work. Monitor consumption; do not assume unlimited free compute.' },
+      { id: 'cgei-rs-46-3-embed', kind: 'prose', title: 'Satellite embeddings as features', body: 'Learned embedding layers (e.g. annual ~10 m satellite embedding products) can serve as feature sources for downstream models. They do not replace physical LST/index interpretation taught in Units 4.3–4.5. Treat embeddings as another product with version, date, and licence constraints—see emerging EO/GeoAI units for model detail.' },
+      { id: 'cgei-rs-46-3-plan', kind: 'prose', title: 'Choosing GEE versus open pipelines', body: 'Compare platforms on data volume, interactive latency, licence, reproducibility (can a third party re-run without your account?), team skills, and cost/quota. Open pipelines (local GDAL/rasterio, STAC + odc-stac/stackstac, openEO, Copernicus Data Space, Dask cubes) trade convenience for control and auditability.' },
+      { id: 'cgei-rs-46-3-table', kind: 'table', title: 'Planning criteria (teaching summary)', headers: ['Criterion', 'GEE-style platform', 'Local / STAC / openEO'], rows: [
+        ['Discovery', 'Catalog + collections in-platform', 'STAC catalogs and item assets'],
+        ['Compute', 'Server-side graph + quotas', 'Your CPU/RAM/HPC allocation'],
+        ['Reproducibility', 'Script + asset IDs + account access', 'Containers, pins, local fixtures'],
+        ['Cost driver', 'EECU-hours, export size', 'Hardware time, storage, egress'],
+      ] },
+    ],
+    activityIds: ['cgei-rs-a-46-quota'], assessmentIds: ['cgei-rs-assess-46-quota'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-6-4', kind: 'lesson', title: 'Local hybrid pipelines and cross-checks', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes46[3]],
+    content: [
+      { id: 'cgei-rs-46-4-local', kind: 'prose', title: 'Rasterio/GDAL batch processing', body: 'Local pipelines use GDAL/rasterio (and similar) to read, mask, resample, and reduce rasters under explicit CRS and resolution. Batch over tiles or scenes with parameter files. Memory and I/O dominate; chunking and streaming beat loading entire countries into RAM.' },
+      { id: 'cgei-rs-46-4-params', kind: 'prose', title: 'Parameter files and fixtures', body: 'A reproducible parameter file lists inputs, windows, scales, and mask rules. Fixture datasets let CI and learners test logic without live API credentials. Teaching fixtures are synthetic contracts—not substitutes for full AOI production runs.' },
+      { id: 'cgei-rs-46-4-recon', kind: 'prose', title: 'Reconcile GEE and local metrics', body: 'On a small test geometry, compute the same zonal statistic in GEE and in local Python. Differences arise from scale, CRS, mask, floating precision, and product version. Document the residual tolerance you accept. Agreement on a toy AOI does not prove global pipeline equivalence.' },
+      { id: 'cgei-rs-46-4-alt', kind: 'prose', title: 'STAC and open alternatives', body: 'STAC Catalog → Collection → Item → Asset describes discoverable data. odc-stac and stackstac load items into array workflows; Dask supports larger-than-memory cubes; openEO and Copernicus Data Space provide alternative execution models. Choose by volume, latency, licence, reproducibility, and skills—not brand familiarity alone.' },
+      { id: 'cgei-rs-46-4-flow', kind: 'checklist', title: 'Reference pipeline stages', items: ['Declare question and protocol', 'Parameter file: IDs, dates, region, scale, masks', 'Validate manifest and inputs', 'Process with logged configuration', 'Validate outputs and invariants', 'Write output manifest (checksums, versions, status)', 'Rerun deterministically or document nondeterminism'] },
+    ],
+    activityIds: ['cgei-rs-a-46-hybrid'], assessmentIds: ['cgei-rs-assess-46-hybrid'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2291,11 +2355,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.5 cover radiometry, data families, indices/LST, preprocessing, and urban thermal (SUHI) methods. Draft slice.',
+      overview: 'Units 4.1–4.6 cover radiometry through SUHI methods and processing platforms/pipelines. Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2640,6 +2704,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.5 — Urban thermal environment analysis (SUHI/UHI methods) (Core)',
       notes: ['SUHII is LST contrast under a stated protocol; not air temperature or health risk by itself.', 'Synthetic fixture demonstrates calculation and sensitivity, not a real city study.'],
     },
+    {
+      id: 'cgei-rs-unit-4-6', code: '4.6', title: 'Processing platforms and pipelines', order: 406, kind: 'unit', readiness: 'draft',
+      summary: 'Use EE-style data models and computation patterns, plan for quotas and licences, and build parameterised local/hybrid pipelines that log provenance and reconcile metrics without treating a green run as scientific validation.',
+      estimatedHours: 10, prerequisites: ['Unit 4.3', 'Unit 4.4', 'Unit 4.5'], outcomes: outcomes46,
+      lessonIds: lessons46.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-46-model', 'cgei-rs-a-46-compute', 'cgei-rs-a-46-quota', 'cgei-rs-a-46-hybrid'],
+      assessmentIds: ['cgei-rs-assess-46-model', 'cgei-rs-assess-46-compute', 'cgei-rs-assess-46-quota', 'cgei-rs-assess-46-hybrid'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.6 — Processing platforms and pipelines (Core)',
+      notes: ['No live GEE authentication in CI; fixtures are offline.', 'Quota tier figures follow TOC planning cues—verify current EE terms for operations.'],
+    },
 
 
 
@@ -2935,6 +3010,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-45-008', lessonId: 'cgei-rs-lesson-4-5-4', type: 'single-choice', prompt: 'Calling a pixel “vulnerable” from mean LST alone is problematic because:', options: ['LST maps are never useful', 'Vulnerability requires people, housing, and adaptive capacity layers—not temperature alone', 'Gi* forbids overlays', 'NDVI equals vulnerability'], correctAnswer: 1, explanation: 'Exposure and vulnerability are multi-factor concepts (see Subject 7).', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-45-009', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'A responsible SUHI methods section should include:', options: ['Only the final pretty map', 'Estimand, reference alternatives, date/mask protocol, n_valid, and sensitivity results', 'A guarantee of zero uncertainty', 'Causal policy recommendations from OLS alone'], correctAnswer: 1, explanation: 'Protocol transparency is the Core skill.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-45-010', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'Clear-sky satellite composites of LST often:', options: ['Sample all weather equally', 'Bias toward clearer conditions and can run warm relative to all-sky climate', 'Remove the need for references', 'Equal air-temperature climatologies'], correctAnswer: 1, explanation: 'Sampling bias must be reported (Units 4.3–4.5).', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-001', lessonId: 'cgei-rs-lesson-4-6-1', type: 'single-choice', prompt: 'An ImageCollection in Earth Engine is best described as:', options: ['A single static PNG', 'A filtered, stackable set of Images (often over time or products)', 'A vector-only database', 'A GPU driver'], correctAnswer: 1, explanation: 'Collections are the primary unit for multi-temporal / multi-product raster work.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-002', lessonId: 'cgei-rs-lesson-4-6-1', type: 'single-choice', prompt: 'Before computing a median composite you should typically:', options: ['Skip metadata filters', 'Filter by space, time, and relevant metadata and apply cloud/QA masks with stated rules', 'Always download the global archive first', 'Disable all logging'], correctAnswer: 1, explanation: 'Filter and mask discipline precede compositing.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-003', lessonId: 'cgei-rs-lesson-4-6-2', type: 'single-choice', prompt: 'Calling getInfo on a very large server-side object is risky because:', options: ['It is always faster than exports', 'It forces large results onto the client and can fail or stall', 'It permanently deletes assets', 'It only works for FeatureCollections of size one'], correctAnswer: 1, explanation: 'Prefer reducers and exports for bulk results.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-004', lessonId: 'cgei-rs-lesson-4-6-2', type: 'single-choice', prompt: 'A processing log for a parameterised EE script should include:', options: ['Only the analyst first name', 'Parameters, collection/asset IDs and versions, scale/CRS, timestamps, and status', 'Passwords and tokens', 'Nothing if the export succeeded'], correctAnswer: 1, explanation: 'Provenance enables audit and rerun.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-46-005', lessonId: 'cgei-rs-lesson-4-6-2', type: 'single-choice', prompt: 'Reducer scale and CRS matter because:', options: ['They never affect zonal means', 'Defaults or mismatches change which pixels enter the statistic', 'They only apply to vector buffers', 'They replace atmospheric correction'], correctAnswer: 1, explanation: 'Aggregation support is part of the estimand.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-006', lessonId: 'cgei-rs-lesson-4-6-3', type: 'single-choice', prompt: 'Noncommercial EE access should be treated as:', options: ['Unlimited forever without monitoring', 'Quota- and policy-limited capacity that must be monitored and periodically re-verified', 'Identical to local GDAL with no account', 'Only available for SAR'], correctAnswer: 1, explanation: 'TOC and platform terms require quota awareness; verify current EE documentation for operations.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-007', lessonId: 'cgei-rs-lesson-4-6-3', type: 'single-choice', prompt: 'When choosing GEE versus a local/STAC pipeline, weigh:', options: ['Only the logo colour', 'Data volume, latency, licence, reproducibility, skills, and cost/quota', 'Only whether JavaScript is preferred to Python', 'Only the number of basemap styles'], correctAnswer: 1, explanation: 'Platform choice is multi-criteria.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-008', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'Fixture datasets in CI pipelines are valuable because:', options: ['They replace all scientific validation forever', 'They test logic without live API credentials or unstable network calls', 'They require production credentials in git', 'They disable parameter files'], correctAnswer: 1, explanation: 'Offline fixtures support reproducible tests.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-009', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'Reconciling a zonal mean between GEE and local Python on a test geometry primarily checks:', options: ['Global climate sensitivity', 'Agreement under stated scale, mask, and product assumptions—not automatic full-pipeline equivalence', 'That quotas are infinite', 'That STAC is unnecessary'], correctAnswer: 1, explanation: 'Small-geometry cross-checks catch contract mismatches.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-46-010', lessonId: 'cgei-rs-lesson-4-6-4', type: 'single-choice', prompt: 'A green pipeline exit code alone is insufficient because:', options: ['Exit codes are never useful', 'The run can still implement the wrong product, mask, or scientific protocol', 'Logs are illegal', 'Parameter files forbid success'], correctAnswer: 1, explanation: 'Scientific validity is separate from process success.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3376,6 +3462,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-45-green', kind: 'guided-practice', title: 'Cooling language check', instructions: 'Rewrite a causal “parks cool the city by 2 °C” claim into associational language with required protocol details.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-45-interpret'] },
     { id: 'cgei-rs-a-45-validate', kind: 'reflection', title: 'Exposure vs LST', instructions: 'List three layers required before calling a neighbourhood vulnerable, beyond mean LST.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-45-interpret'] },
     { id: 'cgei-rs-a-45-design', kind: 'project-milestone', title: 'Mini study-design card', instructions: 'Fill estimand, two references, date protocol, n_valid rule, and one sensitivity test for a named city-scale question.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-reference', 'cgei-rs-o-45-interpret'] },
+    { id: 'cgei-rs-a-46-model', kind: 'guided-practice', title: 'Collection filter sketch', instructions: 'For a summer LST composite over a city AOI, list the ImageCollection filters (space, time, metadata) and mask rule you would log.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-46-ee-model'] },
+    { id: 'cgei-rs-a-46-compute', kind: 'critique', title: 'getInfo postmortem', instructions: 'Explain why calling getInfo on a full national ImageCollection is risky and what to use instead for zonal means.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-46-compute'] },
+    { id: 'cgei-rs-a-46-quota', kind: 'reflection', title: 'Platform choice memo', instructions: 'For a one-off city study vs a monthly national monitoring job, choose GEE-style vs local/STAC and justify with quota, licence, and reproducibility.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-46-quota'] },
+    { id: 'cgei-rs-a-46-hybrid', kind: 'coding-lab', title: 'Parameterised pipeline lab', instructions: 'Run unit_4_6_pipeline_platform_check.py. Report manifest validation, zonal mean, output manifest fields, and deterministic rerun status.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-46-hybrid'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3613,6 +3703,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-45-green', kind: 'formative', title: 'Green/blue cooling', purpose: 'Assess cooling association literacy.', objectiveIds: ['cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-006'], required: true },
     { id: 'cgei-rs-assess-45-validate', kind: 'formative', title: 'Validation and exposure', purpose: 'Assess LST–air and exposure limits.', objectiveIds: ['cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-007', 'cgei-rs-q-45-008'], required: true },
     { id: 'cgei-rs-assess-45-design', kind: 'formative', title: 'Design and language', purpose: 'Assess sensitivity and responsible claims.', objectiveIds: ['cgei-rs-o-45-define', 'cgei-rs-o-45-interpret'], questionIds: ['cgei-rs-q-45-009', 'cgei-rs-q-45-010'], required: true },
+    { id: 'cgei-rs-assess-46-model', kind: 'formative', title: 'EE data model', purpose: 'Assess ImageCollection and operation literacy.', objectiveIds: ['cgei-rs-o-46-ee-model'], questionIds: ['cgei-rs-q-46-001', 'cgei-rs-q-46-002'], required: true },
+    { id: 'cgei-rs-assess-46-compute', kind: 'formative', title: 'Computation practice', purpose: 'Assess client/server and logging literacy.', objectiveIds: ['cgei-rs-o-46-compute'], questionIds: ['cgei-rs-q-46-003', 'cgei-rs-q-46-004', 'cgei-rs-q-46-005'], required: true },
+    { id: 'cgei-rs-assess-46-quota', kind: 'formative', title: 'Quota and platform choice', purpose: 'Assess planning criteria.', objectiveIds: ['cgei-rs-o-46-quota'], questionIds: ['cgei-rs-q-46-006', 'cgei-rs-q-46-007'], required: true },
+    { id: 'cgei-rs-assess-46-hybrid', kind: 'formative', title: 'Local hybrid pipelines', purpose: 'Assess manifests, fixtures, and reconciliation.', objectiveIds: ['cgei-rs-o-46-hybrid'], questionIds: ['cgei-rs-q-46-008', 'cgei-rs-q-46-009', 'cgei-rs-q-46-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
