@@ -93,9 +93,9 @@ export function StudyScreen() {
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
             return (
-              <Card key={subject.id} className="p-4">
-                <button onClick={() => handleSubjectChange(subject.id as SubjectId)} className="w-full flex items-center gap-4 text-left">
-                  <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0`}>
+              <Card key={subject.id} className="p-3.5 sm:p-4 transition-colors hover:border-slate-300">
+                <button type="button" onClick={() => handleSubjectChange(subject.id as SubjectId)} className="group w-full flex items-center gap-4 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                  <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0 transition-transform group-hover:scale-[1.03]`}>
                     {Icon && <Icon className={`w-6 h-6 ${color.text}`} />}
                   </div>
                   <div className="flex-1 min-w-0">
@@ -106,7 +106,7 @@ export function StudyScreen() {
                     </div>
                     <div className="mt-2"><ProgressBar value={topics.length > 0 ? Math.round((studied / topics.length) * 100) : 0} colorClass={getSubjectColor(subject.id).bar} /></div>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </button>
               </Card>
             );
