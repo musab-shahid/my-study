@@ -64,7 +64,7 @@ export function Sidebar() {
   const currentScreen = route.screen;
   const goToStage = (stage: StageScreen, subjectId: SubjectId) => {
     setActiveSubjectForScreen(stage, subjectId);
-    navigate({ screen: stage, parent: null });
+    navigate({ screen: stage });
   };
   const isSubjectActive = (subjectId: string): boolean => {
     if (!(STAGE_SCREENS as readonly string[]).includes(currentScreen)) return false;
@@ -315,7 +315,9 @@ export function MobileNav() {
   const goToStage = (stage: StageScreen) => {
     const subject = getActiveSubject(stage);
     setActiveSubjectForScreen(stage, subject);
-    navigate({ screen: stage, parent: null });
+    // Stage navigation is a side trip, not a reset: keep the current screen
+    // reachable with Back so learners don't lose their place.
+    navigate({ screen: stage });
   };
   const { trackMembership } = useData();
   const activeEnrolled = trackMembership.activeTrackId;
