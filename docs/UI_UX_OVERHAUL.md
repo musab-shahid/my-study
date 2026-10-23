@@ -42,13 +42,17 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - Reworked the dashboard's primary action into a clearer, calmer visual focal point and improved progress-card spacing.
 - Aligned the desktop sidebar width with the app shell's `lg:ml-64` content offset to remove the unintended 16px mismatch.
 - Preserved existing color tokens, reduced-motion behavior, safe-area helpers, and KaTeX formula styling.
+- Improved mobile navigation state feedback, track-aware active styling, expandable subject semantics, and the More toggle behavior.
+- Polished subject-discovery cards and section/topic rows with consistent keyboard focus, touch-friendly actions, and more readable topic titles.
+- Added explicit expanded-state relationships to the section accordion and strengthened the Continue Reading action’s focus and touch affordances.
 
 ## Next implementation passes
 
 - [x] First-pass review of desktop sidebar sizing and mobile header context.
 - [x] Refine dashboard hierarchy: next action, resume state, and progress-card spacing.
-- [ ] Review mobile navigation and expanded subject hierarchy at common breakpoints.
-- [ ] Align shared cards, buttons, section headers, empty states, and form controls.
+- [x] Review and refine mobile navigation state feedback and expanded subject hierarchy semantics.
+- [x] Make a first shared-button focus-state cleanup and refine subject/section card interactions.
+- [ ] Audit remaining shared cards, section headers, empty states, and form controls for consistency.
 - [ ] Check study and quiz reading comfort, especially dense content and long questions.
 - [ ] Verify small-screen layouts and fixed-navigation clearance.
 - [ ] Run data validation, unit tests, type checks, lint, production build, and end-to-end tests where available.
