@@ -379,7 +379,6 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (loading) return <PageContainer><LoadingSpinner label="Loading topic…" /></PageContainer>;
   if (loadError) return (
     <PageContainer>
-      <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <Card className="p-8">
         <EmptyState title="Failed to load" message="Something went wrong while loading this topic." icon={<AlertTriangle className="w-12 h-12" />} />
         <div className="flex justify-center mt-4">
@@ -391,7 +390,6 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (!topic) {
     return (
       <PageContainer>
-        <BackButton />
         <EmptyState
           title="Topic not found"
           message="This topic does not exist or was removed."
@@ -406,8 +404,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (!topic.content) {
     return (
       <PageContainer>
-        <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
-        <div className="mb-4">
+          <div className="mb-4">
           <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">Section {topic.sectionId} · Topic {topic.order}</span>
           <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
@@ -423,7 +420,6 @@ export function TopicScreen({ topicId }: { topicId: string }) {
 
   return (
     <PageContainer className="max-w-3xl">
-      <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <header className="mb-5 sm:mb-7">
         <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-slate-500 mb-3">
           <button
