@@ -341,7 +341,6 @@ export const topicMetadata: TopicMeta[] = [
   { id: "cgei-env-systems-roadmap", sectionId: "CGEI-01", order: 1, title: "Subject roadmap — Environmental systems", content: true },
   { id: "cgei-geospatial-roadmap", sectionId: "CGEI-03", order: 1, title: "Subject roadmap — Geospatial & GIS", content: true },
   { id: "cgei-remote-sensing-roadmap", sectionId: "CGEI-04", order: 1, title: "Subject roadmap — Remote sensing & EO", content: true },
-  { id: "cgei-data-science-roadmap", sectionId: "CGEI-05", order: 1, title: "Subject roadmap — Scientific computing", content: true },
   { id: "cgei-ds-units-dimensions", sectionId: "CGEI-051", order: 1, title: "Quantities, units and dimensional analysis", content: true },
   { id: "cgei-ds-rates-finite-diff", sectionId: "CGEI-051", order: 2, title: "Calculus, finite differences and environmental fields", content: true },
   { id: "cgei-ds-matrices-least-squares", sectionId: "CGEI-051", order: 3, title: "Matrices, linear maps and least squares", content: true },

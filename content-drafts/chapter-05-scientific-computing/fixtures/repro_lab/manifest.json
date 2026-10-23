@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "synthetic-station-daily-v1",
+  "source": "in-repo fixture (not observational data)",
+  "retrieval_date": "2026-10-23",
+  "spatial_extent": "none (tabular)",
+  "temporal_extent": "2024-06-01/2024-06-02",
+  "units": {
+    "tmax_c": "degree_Celsius"
+  },
+  "licence": "CC0-1.0 (synthetic instructional data)",
+  "relative_path": "input.csv",
+  "sha256": "55c0194e755415bdcc14c5c28741a147c8f7ae1d3dab739e067d9e7e9a7d43a6",
+  "notes": "Byte integrity check only; not scientific quality or authenticity proof."
+}

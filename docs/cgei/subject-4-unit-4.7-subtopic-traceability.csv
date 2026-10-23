@@ -1,0 +1,32 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+4.7.1.1,Training sample design class imbalance,4.7.1,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-sample,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.1.2,Class taxonomy legend MMU mixed,4.7.1,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-sample,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.1.3,Stratified random sampling minima,4.7.1,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-sample,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.1.4,Validation independent of training,4.7.1,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-indep,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.2.1,Features bands indices texture temporal SAR,4.7.2,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-feat,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.2.2,Algorithms Random Forest alternatives,4.7.2,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-feat,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.2.3,OBIA vs pixel-based,4.7.2,Unit 4.7,cgei-rs-lesson-4-7-1,cgei-rs-47-1-feat,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.3.1,Confusion matrix OA UA PA F1,4.7.3,Unit 4.7,cgei-rs-lesson-4-7-2,cgei-rs-47-2-cm;cgei-rs-47-2-eq;cgei-rs-47-2-work,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.3.2,Area-adjusted accuracy concepts,4.7.3,Unit 4.7,cgei-rs-lesson-4-7-2,cgei-rs-47-2-area,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.3.3,Kappa criticisms Pontius Olofsson,4.7.3,Unit 4.7,cgei-rs-lesson-4-7-2,cgei-rs-47-2-area,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.3.4,Post-classification filtering benchmarks,4.7.3,Unit 4.7,cgei-rs-lesson-4-7-2,cgei-rs-47-2-post,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.4.1,LSMA V-I-S endmembers,4.7.4,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-lsma,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.4.2,Fractional cover vs hard classes,4.7.4,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-lsma;cgei-rs-47-3-hard,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.4.3,Choosing hard vs fractional,4.7.4,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-hard,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.5.1,K-means what is optimised,4.7.5,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-kmeans,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.5.2,Choosing k stability,4.7.5,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-kmeans,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.5.3,Clusters not land-cover until labelled,4.7.5,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-kmeans;cgei-rs-47-3-callout,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.5.4,Do not use clusters as supervised truth,4.7.5,Unit 4.7,cgei-rs-lesson-4-7-3,cgei-rs-47-3-callout,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.6.1,Post-classification change matrices,4.7.6,Unit 4.7,cgei-rs-lesson-4-7-4,cgei-rs-47-4-pcc,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.6.2,Temporal composites trajectories,4.7.6,Unit 4.7,cgei-rs-lesson-4-7-4,cgei-rs-47-4-ts,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.6.3,Uncertainty in change maps,4.7.6,Unit 4.7,cgei-rs-lesson-4-7-4,cgei-rs-47-4-unc,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.6.4,LandTrendr CCDC BFAST sensitivity,4.7.6,Unit 4.7,cgei-rs-lesson-4-7-4,cgei-rs-47-4-ts,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.6.5,Urban expansion metrics limits,4.7.6,Unit 4.7,cgei-rs-lesson-4-7-4,cgei-rs-47-4-urban,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.7.1,CA-Markov ANN-CA PLUS-type,4.7.7,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-proj,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.7.2,Driver calibration FoM assumptions,4.7.7,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-proj,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.7.3,Projection is conditional scenario,4.7.7,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-proj,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.8.1,K-means exploratory only,4.7.8,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-upgrade,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.8.2,Legend MMU stratified reference,4.7.8,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-upgrade,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.8.3,RF spatial train test,4.7.8,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-upgrade,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.8.4,Compare Dynamic World ESA WorldCover,4.7.8,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-upgrade,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.
+4.7.8.5,Error matrix UA PA area-adjusted CI,4.7.8,Unit 4.7,cgei-rs-lesson-4-7-5,cgei-rs-47-5-upgrade;cgei-rs-47-5-check,mapped_partial,Taught; synthetic fixture for metrics/blocks/change where applicable.

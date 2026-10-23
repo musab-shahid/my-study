@@ -2,56 +2,11 @@ import type { Topic } from '@/types';
 
 /**
  * CGEI Subject 5 — Scientific Computing and Data Science
- * Unit 5.1 complete app adaptation (8 topics) + subject roadmap.
+ * Unit 5.1 lesson content only; course orientation and unit hierarchy live in curriculum.ts.
  * Manuscript: content-drafts/chapter-05-scientific-computing/units/05.1-...
  * Coverage map: content-drafts/chapter-05-scientific-computing/07-UNIT-5.1-APP-COVERAGE-MAP.md
  */
 export const topics: Topic[] = [
-  {
-    id: 'cgei-data-science-roadmap',
-    sectionId: 'CGEI-05',
-    order: 1,
-    title: 'Scientific Computing & Data Science — roadmap',
-    definition:
-      'Python, statistics, time series, inference, and reproducible research software — the working method across every CGEI subject. Unit 5.1 is the first fully adapted unit in the app; Units 5.2–5.12 remain manuscript-first until reviewed.',
-    keyFacts: [
-      'TOC Subject 5 — prior tool exposure is not mastery',
-      'Exit competencies: reproducible repo; GLM/mixed; weighted EOF/PCA; causal design brief',
-      'App Unit 5.1 covers all six manuscript strands (units through probability)',
-      'Gate: analyses state units, provenance, dependence, and claim limits',
-    ],
-    explanationSections: [
-      {
-        heading: 'Manuscript vs app',
-        body:
-          'The Chapter 5 Markdown under content-drafts/ is the full curriculum text. Section CGEI-051 delivers Unit 5.1 as eight study topics with quiz coverage. Later units are not implied by this roadmap.',
-      },
-    ],
-    examPoints: [
-      'Complete Unit 5.1 topics before treating foundations as closed',
-      'Reading a roadmap is not mastery',
-    ],
-    commonMistakes: [
-      'Assuming all twelve Chapter 5 units are already in the app',
-      'Skipping Unit 5.1 linear algebra or ODE topics because they look “math-heavy”',
-    ],
-    relatedTopics: [
-      'cgei-ds-units-dimensions',
-      'cgei-ds-rates-finite-diff',
-      'cgei-ds-matrices-least-squares',
-      'cgei-ds-eigen-svd-pca',
-      'cgei-ds-ode-numerical',
-      'cgei-ds-water-mass-balance',
-      'cgei-ds-energy-balance',
-      'cgei-ds-probability-dependence',
-    ],
-    content: true,
-    buildsOn: [],
-    leadsTo: ['cgei-ds-units-dimensions'],
-    usedIn: [],
-  },
-
-  // ── 5.1.1 ────────────────────────────────────────────────────────────────
   {
     id: 'cgei-ds-units-dimensions',
     sectionId: 'CGEI-051',
@@ -116,7 +71,6 @@ export const topics: Topic[] = [
     ],
     relatedTopics: ['cgei-ds-water-mass-balance', 'cgei-ds-energy-balance'],
     content: true,
-    buildsOn: ['cgei-data-science-roadmap'],
     leadsTo: ['cgei-ds-rates-finite-diff'],
     usedIn: [],
   },

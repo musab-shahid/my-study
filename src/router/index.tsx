@@ -5,16 +5,19 @@
  * - Live quiz params stay out of the URL (see paths.ts)
  */
 import { createContext, useContext, useState, useCallback, useRef, useEffect, type ReactNode } from 'react';
-import { getTopic } from '@/data/topics';
+import { getTopic, topicsBySection } from '@/data/topics';
+import { sectionMap } from '@/data/sections';
+import { subjectMap } from '@/data/subjects';
 import { resolveScreen } from './resolveScreen';
 import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from './paths';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
+import { cgeiSubjectIdForOverviewTopic } from '@/data/cgei/overview';
 
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
 export type ScreenName =
   | 'home' | 'learn' | 'section' | 'topic' | 'formulas' | 'flashcards' | 'cloud-atlas'
-  | 'practice' | 'quiz' | 'review' | 'progress' | 'search' | 'settings' | 'hat' | 'fpsc' | 'track';
+  | 'practice' | 'quiz' | 'review' | 'progress' | 'search' | 'settings' | 'hat' | 'fpsc' | 'track' | 'curriculum-unit' | 'curriculum-lesson';
 
 export type Route =
   | { screen: 'home' }
@@ -32,7 +35,9 @@ export type Route =
   | { screen: 'settings' }
   | { screen: 'hat' }
   | { screen: 'fpsc' }
-  | { screen: 'track'; trackId: string };
+  | { screen: 'track'; trackId: string }
+  | { screen: 'curriculum-unit'; unitId: string }
+  | { screen: 'curriculum-lesson'; lessonId: string };
 
 export interface BreadcrumbItem {
   label: string;
@@ -60,6 +65,8 @@ interface NavigateOptions {
   topicIds?: string[];
   wrongPool?: boolean;
   trackId?: string;
+  unitId?: string;
+  lessonId?: string;
 }
 
 interface RouterContext {
@@ -76,12 +83,21 @@ function buildRoute(options: NavigateOptions): Route {
   switch (options.screen) {
     case 'home': return { screen: 'home' };
     case 'learn': return { screen: 'learn', subjectId: options.subjectId };
-    case 'section':
+    case 'section': {
       if (!options.sectionId) return { screen: 'learn' };
+      const section = sectionMap[options.sectionId];
+      const sectionTopics = topicsBySection(options.sectionId);
+      if (section && sectionTopics.length > 0 && sectionTopics.every((topic) => cgeiSubjectIdForOverviewTopic(topic.id) !== undefined)) {
+        return { screen: 'learn', subjectId: section.subjectId };
+      }
       return { screen: 'section', sectionId: options.sectionId };
-    case 'topic':
+    }
+    case 'topic': {
       if (!options.topicId) return { screen: 'learn' };
+      const overviewSubjectId = cgeiSubjectIdForOverviewTopic(options.topicId);
+      if (overviewSubjectId) return { screen: 'learn', subjectId: overviewSubjectId };
       return { screen: 'topic', topicId: options.topicId };
+    }
     case 'formulas': return { screen: 'formulas' };
     case 'flashcards': return { screen: 'flashcards', topicId: options.topicId };
     case 'cloud-atlas': return { screen: 'cloud-atlas' };
@@ -95,6 +111,10 @@ function buildRoute(options: NavigateOptions): Route {
     case 'settings': return { screen: 'settings' };
     case 'hat': return { screen: 'hat' };
     case 'fpsc': return { screen: 'fpsc' };
+    case 'curriculum-unit':
+      return options.unitId ? { screen: 'curriculum-unit', unitId: options.unitId } : { screen: 'learn' };
+    case 'curriculum-lesson':
+      return options.lessonId ? { screen: 'curriculum-lesson', lessonId: options.lessonId } : { screen: 'learn' };
     case 'track':
       if (options.trackId && isTrackId(options.trackId)) {
         return { screen: 'track', trackId: options.trackId };
@@ -108,7 +128,7 @@ function buildRoute(options: NavigateOptions): Route {
 export function routeLabel(route: Route): string {
   switch (route.screen) {
     case 'home': return 'Home';
-    case 'learn': return 'Learn';
+    case 'learn': return route.subjectId ? (subjectMap[route.subjectId]?.title ?? 'Subject') : 'Learn';
     case 'section': return `Section ${route.sectionId}`;
     case 'topic': {
       const t = getTopic(route.topicId);
@@ -125,6 +145,8 @@ export function routeLabel(route: Route): string {
     case 'settings': return 'Settings';
     case 'hat': return 'HAT Prep';
     case 'fpsc': return 'FPSC Exam';
+    case 'curriculum-unit': return 'Curriculum Unit';
+    case 'curriculum-lesson': return 'Curriculum Lesson';
     case 'track':
       return isTrackId(route.trackId)
         ? getTrackDefinition(route.trackId).shortTitle || getTrackDefinition(route.trackId).title
@@ -239,14 +261,11 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     const route = buildRoute(options);
     const prev = routeRef.current;
     const parent = options.parent !== undefined ? options.parent : prev;
-    let breadcrumb: BreadcrumbItem[];
-    if (options.breadcrumb) {
-      breadcrumb = options.breadcrumb;
-    } else {
-      // Breadcrumbs describe the route's place in the product's information
-      // architecture; parent is reserved for the learner's actual Back path.
-      breadcrumb = breadcrumbForRoute(route) as BreadcrumbItem[];
-    }
+    // Breadcrumbs represent structural location; parent remains the actual
+    // Back destination. This is essential for deep curriculum hierarchies.
+    const breadcrumb: BreadcrumbItem[] = options.breadcrumb
+      ? options.breadcrumb
+      : breadcrumbForRoute(route) as BreadcrumbItem[];
     const next: RouteState = { route, parent, breadcrumb };
     setCurrentRoute(next);
     pushRouteHistory(next, 'push', spaDepthRef);
@@ -304,6 +323,8 @@ export function screenDisplayName(screen: ScreenName | string): string {
     'hat': 'HAT Prep',
     'fpsc': 'FPSC Exam',
     'track': 'Track',
+    'curriculum-unit': 'Curriculum Unit',
+    'curriculum-lesson': 'Curriculum Lesson',
   };
   return names[resolved] ?? resolved;
 }

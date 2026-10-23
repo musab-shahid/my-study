@@ -1,0 +1,24 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+5.2.1.1,"Types, structures (list, dict, set, tuple), comprehensions",5.2.1,Language core,Core,cgei-ds-lesson-5-2-1,cgei-ds-52-1-structures,mapped_partial,Container roles and comprehension demonstrated; deep performance tuning deferred.
+5.2.1.2,"Functions, modules, packages",5.2.1,Language core,Core,cgei-ds-lesson-5-2-1,cgei-ds-52-1-core;cgei-ds-52-1-code,mapped_partial,Functions and modules explicit; packaging still light.
+5.2.1.3,"Exceptions, assertions, basic type hints",5.2.1,Language core,Core,cgei-ds-lesson-5-2-1,cgei-ds-52-1-code,mapped_partial,Assertions and type hints in worked code; broader exception hierarchy light.
+5.2.1.4,Readable naming and docstrings,5.2.1,Language core,Core,cgei-ds-lesson-5-2-1,cgei-ds-52-1-principles,mapped,Naming and docstrings explicit.
+5.2.2.1,"ndarrays, dtypes, shapes",5.2.2,NumPy,Core,cgei-ds-lesson-5-2-2,cgei-ds-52-2-core;cgei-ds-52-2-dtype,mapped_partial,Shapes plus dedicated dtype/precision prose; interactive dtype lab deferred.
+5.2.2.2,Vectorisation and broadcasting,5.2.2,NumPy,Core,cgei-ds-lesson-5-2-2,cgei-ds-52-2-code;cgei-ds-52-2-example,mapped,Broadcasting and reshape diagnostics explicit.
+5.2.2.3,"Boolean masks, fancy indexing",5.2.2,NumPy,Core,cgei-ds-lesson-5-2-2,cgei-ds-52-2-mask,mapped_partial,Boolean/fancy indexing taught; advanced advanced-index edge cases deferred.
+5.2.2.4,NaN handling and numerical precision,5.2.2,NumPy,Core,cgei-ds-lesson-5-2-2,cgei-ds-52-2-core;cgei-ds-52-2-dtype,mapped_partial,NaN-safe summaries and precision notes present.
+5.2.2.5,Random number generators and seeds,5.2.2,NumPy,Core,cgei-ds-lesson-5-2-2,cgei-ds-52-2-rng,mapped_partial,Seeded Generator example and stdlib seed fixture; full numpy CI not required.
+5.2.3.1,Series and DataFrame,5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-core,mapped_partial,DataFrame workflow used; systematic Series API survey deferred.
+5.2.3.2,"Indexing, filtering, assignment",5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-loc,mapped_partial,.loc and filter guidance added; multi-index deferred.
+5.2.3.3,"Joins/merges, groupby, aggregate",5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-core;cgei-ds-52-3-points,mapped_partial,Groupby and join cautions present.
+5.2.3.4,"Reshape: melt, pivot, stack",5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-points,mapped_partial,melt/pivot and tidy principles; stack variants light.
+5.2.3.5,Datetime handling and resampling,5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-example;cgei-ds-52-3-resample,mapped_partial,Timezone conversion worked; resample semantics added.
+5.2.3.6,Categoricals; missing data patterns,5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-cat,mapped_partial,Categorical and missingness-pattern guidance added.
+5.2.3.7,Tidy data principles,5.2.3,pandas,Core,cgei-ds-lesson-5-2-3,cgei-ds-52-3-points,mapped_partial,Tidy principles explicit; multi-table tidy case study deferred.
+5.2.4.1,"Command-line basics (bash, grep, find, cron); file-system hygiene; paths with pathlib",5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-pathlib,mapped_partial,pathlib and CLI hygiene taught; full shell lab deferred.
+5.2.4.2,"Environment managers (conda/mamba, uv, pip) and project configuration with pyproject.toml; Jupyter and editor workflows",5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-env,mapped_partial,conda/uv/pip and pyproject guidance added.
+5.2.4.3,"Common formats and their libraries: CSV, Parquet, NetCDF, HDF5, GeoTIFF, GeoJSON, Zarr",5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-formats,mapped_partial,Format family overview with library pointers; hands-on each format deferred.
+5.2.4.4,Units-aware computing (e.g. pint); time zones and datetime handling with zoneinfo; regular expressions for messy text,5.2.4,Tooling and environment,Core,cgei-ds-lesson-5-2-4,cgei-ds-52-4-units,mapped_partial,Units/zoneinfo/regex guidance; Pint execution not required in CI.
+5.2.5.1,"R as a complement: when to use it, and how to interoperate",5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r,mapped_partial,Decision criteria and shared-format interop taught.
+5.2.5.2,"Equivalent workflows in R (tidyverse, terra) for reading the spatial-statistics literature",5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r-eq,mapped_partial,Orientation mapping to tidyverse/terra; not a full R course.
+5.2.5.3,Deciding when a second language is justified by library availability rather than preference,5.2.5,R as a complement,Core,cgei-ds-lesson-5-2-5,cgei-ds-52-5-r,mapped_partial,Library/literature/maintenance decision framework explicit.

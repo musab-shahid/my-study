@@ -511,6 +511,9 @@ export interface TrackMembershipState {
 
 export interface AppData {
   studiedTopics: string[];
+  /** Separate passive-study progress for canonical curriculum lessons; never mixed into legacy Topic quiz/SR statistics. */
+  studiedCurriculumLessons?: string[];
+  lastOpenedCurriculumLesson?: string;
   topicProgress: Record<string, TopicProgress>;
   questionResults: Record<string, QuestionResult>;
   quizHistory: QuizHistoryEntry[];

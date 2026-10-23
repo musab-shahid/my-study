@@ -1,0 +1,77 @@
+# Subject 5 source-traceability audit status
+
+**Status: comprehensive reconciliation completed (planning baseline); Subject 5 is not complete.**
+
+**Current reconciliation:** `docs/cgei/SUBJECT_5_COMPREHENSIVE_RECONCILIATION.md`  
+**Leaf inventory:** `docs/cgei/subject-5-canonical-leaf-inventory.csv` (184 TOC leaves)  
+**Backlog:** `docs/cgei/SUBJECT_5_REMEDIATION_BACKLOG.md`
+
+**Headline counts (traceability dispositions):** 6 `mapped` · 178 `mapped_partial` · 0 `gap` across 184 leaves.
+
+Historical unit-level notes below may lag the reconciliation report; prefer the reconciliation document for programme-level decisions.
+
+## Source-subtopic matrix status
+
+| Source unit | Traceability artifact | Current claim |
+|---|---|---|
+| 5.1 | `subject-5-unit-5.1-subtopic-traceability.csv` | First semantic pass: 12 partial mappings. Added Taylor linearisation/error propagation, Euler stability, advection/diffusion, heat-transfer mechanisms and CLT/dependence limitations; vector calculus, constrained optimisation and advanced numerical methods remain incomplete. |
+| 5.2 | `subject-5-unit-5-2-subtopic-traceability.csv` | Semantic remediation: **23 rows, 2 mapped / 21 mapped_partial / 0 gap**. Strengthened dtypes/masks/RNG, pandas loc/categorical/resample, pathlib/env/formats/units, and R-complement guidance; added `unit_5_2_python_scientific_check` and five questions. Still partial—no full NumPy/pandas runtime lab suite in CI. |
+| 5.3 | `subject-5-unit-5-3-subtopic-traceability.csv` | Semantic remediation: **17 rows, 0 gap / 17 mapped_partial**. Strengthened EDA quality/outliers, scatter diagnostics, TS/spatial habits, Matplotlib/Seaborn/interactive archival, honest axes, climate plot selection; `unit_5_3_eda_visualisation_check`. Still partial—no rendered figure CI. |
+| 5.4 | `subject-5-unit-5-4-subtopic-traceability.csv` | Cycle B: rank numeric + KS caveat, GOF path, n_eff fixture, residual multi-diagnostic example; **1 mapped / 17 partial**. Still draft. |
+| 5.5 | `subject-5-unit-5-5-subtopic-traceability.csv` | Semantic remediation: **19 rows, 0 gap / 19 mapped_partial**. Strengthened catalogue-first workflow, stage lineage, auth/rate-limit retries, large-data tool selection and columnar formats; `unit_5_5_data_workflow_check` for manifest fields and fail-closed secrets. Still partial—no live API/DuckDB CI. |
+| 5.6 | `subject-5-unit-5.6-subtopic-traceability.csv` | Remediation pass: **0 gap / 3 mapped / 13 mapped_partial**. Added conceptual regularisation, logistic odds-ratio interpretation, AIC/BIC vs CV, GAM/quantile orientation, sensitivity analysis, introductory Monte Carlo coverage, and block-bootstrap teaching plus `unit_5_6_inference_modelling_check`. Still partial—no full GLM/GAM lab suite. |
+| 5.7 | `subject-5-unit-5.7-subtopic-traceability.csv` | Strengthened aliasing, baselines, spurious-trend, gaps/changepoints; fixture extended. **0 mapped / 9 partial**. Support, draft. |
+| 5.8 | `subject-5-unit-5.8-subtopic-traceability.csv` | Strengthened MCA/CCA, North rule, regime validity, field significance; North δλ fixture. **0 mapped / 9 partial**. Support, draft. |
+| 5.9 | `subject-5-unit-5.9-subtopic-traceability.csv` | First semantic pass: 9 partial mappings; added offsets, survey-design distinctions and Bayesian toolchain guidance. Executed GLM/Bayesian examples remain gaps. |
+| 5.10 | `subject-5-unit-5.10-subtopic-traceability.csv` | Strengthened design menu, DiD parallel trends, causal language checklist; fixture pretrend gap. **0 mapped / 9 partial**. Support, draft. |
+| 5.11 | `subject-5-unit-5.11-subtopic-traceability.csv` | Remediation: **24 leaves, 0 gap / 24 mapped_partial**. Strengthened git hygiene, layout/CLI, pytest/seeds, lockfiles/licences, CI/docs, and student repair checklist; `unit_5_11_research_software_check`. Still partial—no live git/CI lab. |
+| 5.12 | `subject-5-unit-5.12-subtopic-traceability.csv` | Strengthened idempotence, manifests, workflow managers, provenance levels, archive checklist; SHA fixture. **0 mapped / 19 partial**. Support, draft. |
+
+The matrices cover source inventory across all twelve units. Structural validation verifies source paths, parent relationships, IDs and block-to-lesson joins; it does not prove semantic fidelity. The latest Unit 5.4–5.5 audit found and corrected a substantive TOC alignment defect: several prior paths and parent titles did not match the source manuscript. Treat the corrected rows as conservative first-pass mappings, not independent approval; the validator now asserts exact source-subtopic and parent-topic titles for Units 5.4–5.5, so those source-label mismatches fail validation instead of silently passing. Units 5.1 and 5.6–5.12 now have first-pass semantic audits; Units 5.2–5.5 have more explicit evidence notes and new gap-filling blocks, but still require independent row-by-row semantic review.
+
+## Topic-level crosswalk
+
+`subject-5-topic-crosswalk.csv` inventories 51 source topics. Topics 5.1.1–5.1.4 and 5.7.1–5.7.3, 5.8.1–5.8.3, 5.9.1–5.9.3, 5.10.1–5.10.3, 5.11.1–5.11.6 and 5.12.1–5.12.5 are now marked `partial`, supported by first-pass subtopic mappings and explicit notes on residual gaps. This does not mean the topics are complete or release-ready. Other unaudited topics retain candidate/unresolved status.
+
+## Status semantics
+
+- **Mapped:** the reviewed source requirement is evidenced by the cited content blocks to the extent recorded in the audit note.
+- **Mapped partial:** the blocks address some of the requirement, while the note states what remains missing or unverified.
+- **Explicit gap:** the requirement is not yet evidenced as taught; gap rows have no lesson or content-block mapping.
+- **Candidate / not audited:** no accepted semantic coverage claim exists.
+- Source priority (`Core`, `Support`, `Optional`) is independent of implementation readiness and evidence.
+
+## Remaining quality gates
+
+1. Run CI on the latest branch after the Unit 5.7–5.8 content and crosswalk changes.
+2. Add and execute focused examples for spectral analysis/aliasing, ARIMA/SARIMA and state-space forecasts, changepoint/gap-fill sensitivity, MCA/CCA, cluster validity, field significance, GLM offsets, survey design, Bayesian sampler diagnostics and causal-design sensitivity.
+3. Independently re-audit Units 5.2–5.5 and turn their new illustrative code into executed fixture-backed labs; then add scientific smoke coverage for the new GLM offset, survey-design, causal sensitivity, repository and scalable-pipeline claims.
+4. Do not promote candidate or partial mappings to complete coverage solely because identifiers resolve.
+
+
+## 2026-10-23 content batch
+
+- Unit 5.4: partial-correlation numeric example; two-sample power sketch with dependence caution; fixture extended.
+- Unit 5.5: NULL/date filtering worked example; schema/normalisation/index prose; environment-variable load pattern.
+- Knowledge checks added for these points; dispositions remain `mapped_partial` where practice is still incomplete.
+
+
+## 2026-10-23 — Unit 5.7 / 5.8 executable labs
+
+- Unit 5.7: fixture-backed lag-1 ACF (≈0.636) and chronological persistence MAE; mixed-order comparison documented without overclaiming skill.
+- Unit 5.8: fixture-backed 2×2 eigenexample (90% variance on leading mode).
+- Dispositions remain mapped_partial where full software workflows are incomplete.
+
+
+## 2026-10-23 — Units 5.9–5.10 executable labs
+
+- Unit 5.9: inverse-logit / odds-ratio interpretation fixture aligned with synthetic heat-exceedance coefficients; credible-interval semantics block (no MCMC claim).
+- Unit 5.10: deterministic confounding table (crude ≈5.14 vs stratified +2); language and adjustment lessons linked.
+- Dispositions remain mapped_partial where software workflows or full target-trial practice are incomplete.
+
+
+## 2026-10-23 — Units 5.11–5.12 executable labs
+
+- Unit 5.11: synthetic manifest + SHA-256 integrity fixture (tamper and missing-field failures).
+- Unit 5.12: stdlib multidimensional bookkeeping contract (selection, NaN-aware mean); xarray Dataset API not executed in CI.
+- Dispositions remain mapped_partial where containers, orchestration, or xarray runtime practice are incomplete.

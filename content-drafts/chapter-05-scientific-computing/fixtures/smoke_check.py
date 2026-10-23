@@ -132,6 +132,466 @@ def check_logistic_glm() -> None:
     )
 
 
+def check_unit_5_2_examples() -> None:
+    """Check numerical claims represented in the Unit 5.2 app lessons."""
+    def celsius_to_kelvin(temp_c: float) -> float:
+        if temp_c < -273.15:
+            raise ValueError("Temperature is below absolute zero")
+        return temp_c + 273.15
+
+    assert abs(celsius_to_kelvin(0.0) - 273.15) < 1e-10
+    assert abs(celsius_to_kelvin(25.0) - 298.15) < 1e-10
+    try:
+        celsius_to_kelvin(-300.0)
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("absolute-zero guard did not raise")
+
+    baseline_c = np.array([[30.0, 31.0], [32.0, 33.0]])
+    time_offset_c = np.array([0.0, 1.0, 2.0])[:, None, None]
+    field = baseline_c[None, :, :] + time_offset_c
+    assert field.shape == (3, 2, 2)
+    values = np.array([30.0, np.nan, 32.0])
+    assert np.isnan(np.mean(values))
+    assert abs(float(np.nanmean(values)) - 31.0) < 1e-12
+    try:
+        _ = np.array([0.0, 1.0, 2.0]) + np.zeros((2, 2))
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("incompatible broadcast was not rejected")
+
+    boundary = pd.DataFrame({
+        "time_utc": ["2026-06-01T18:00:00Z", "2026-06-01T19:00:00Z"],
+        "t2m_c": [39.0, 41.0],
+    })
+    boundary["time_utc"] = pd.to_datetime(boundary["time_utc"], utc=True)
+    boundary["time_pkt"] = boundary["time_utc"].dt.tz_convert("Asia/Karachi")
+    boundary["local_date"] = boundary["time_pkt"].dt.date
+    assert str(boundary.loc[0, "local_date"]) == "2026-06-01"
+    assert str(boundary.loc[1, "local_date"]) == "2026-06-02"
+    daily = boundary.groupby("local_date")["t2m_c"].max()
+    assert daily.to_dict() == {
+        pd.Timestamp("2026-06-01").date(): 39.0,
+        pd.Timestamp("2026-06-02").date(): 41.0,
+    }
+
+    import re
+    pattern = re.compile(r"(?P<sensor>Landsat\d+)_(?P<date>\d{8})_(?P<band>B\d+)\.tif")
+    match = pattern.fullmatch("Landsat8_20260615_B4.tif")
+    assert match is not None
+    assert match.groupdict() == {"sensor": "Landsat8", "date": "20260615", "band": "B4"}
+    assert pattern.fullmatch("Landsat8_20260615_B4.tif.extra") is None
+    print("OK Unit 5.2 scientific Python examples")
+
+
+def check_unit_5_3_examples() -> None:
+    """Check the numeric anomaly example and basic labelled figure construction."""
+    import matplotlib
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    time = pd.date_range("1991-01-01", periods=24, freq="MS")
+    values = np.sin(np.arange(24) * 2 * np.pi / 12) + np.arange(24) * 0.1
+    df = pd.DataFrame({
+        "time": time,
+        "tmean_c": values,
+        "ndvi": np.linspace(0.1, 0.6, 24),
+        "lst_c": 38.0 - 8.0 * np.linspace(0.1, 0.6, 24) + np.random.default_rng(42).normal(0, 0.3, 24),
+    })
+    df["month"] = df["time"].dt.month
+    baseline = df.loc[df["time"].dt.year.between(1991, 2020)]
+    climatology = baseline.groupby("month")["tmean_c"].mean()
+    df["anomaly_c"] = df["tmean_c"] - df["month"].map(climatology)
+    # With this two-year synthetic baseline, each month's anomalies average to zero.
+    assert np.allclose(df.groupby("month")["anomaly_c"].mean().to_numpy(), 0.0, atol=1e-12)
+
+    fig, axes = plt.subplots(1, 2, figsize=(9, 3.5))
+    axes[0].hist(df["lst_c"].dropna(), bins=8, edgecolor="white")
+    axes[0].set_xlabel("LST (°C)")
+    axes[0].set_ylabel("Pixel count")
+    axes[1].scatter(df["ndvi"], df["lst_c"], s=3, alpha=0.15)
+    axes[1].set_xlabel("NDVI (dimensionless)")
+    axes[1].set_ylabel("LST (°C)")
+    fig.tight_layout()
+    assert axes[0].get_xlabel() == "LST (°C)"
+    assert axes[1].get_ylabel() == "LST (°C)"
+    plt.close(fig)
+    print("OK Unit 5.3 EDA and visualisation examples")
+
+
+def check_unit_5_4_examples() -> None:
+    """Check the confidence-interval arithmetic, OLS and FDR examples."""
+    import math
+    import statsmodels.api as sm
+    from statsmodels.stats.multitest import multipletests
+
+    n, mean_c, sd_c = 30, 0.8, 1.2
+    se_c = sd_c / math.sqrt(n)
+    low, high = mean_c - 1.96 * se_c, mean_c + 1.96 * se_c
+    assert abs(se_c - 0.219089) < 1e-5
+    assert abs(low - 0.370584) < 1e-5
+    assert abs(high - 1.229416) < 1e-5
+
+    rng = np.random.default_rng(42)
+    ndvi = np.linspace(0.1, 0.8, 30)
+    lst = 40.0 - 7.0 * ndvi + rng.normal(0.0, 0.3, len(ndvi))
+    model = sm.OLS(lst, sm.add_constant(ndvi)).fit()
+    assert model.params[1] < 0
+    assert len(model.resid) == len(ndvi)
+
+    raw_p = np.array([0.001, 0.012, 0.031, 0.20, 0.44])
+    reject, adjusted_p, _, _ = multipletests(raw_p, alpha=0.05, method="fdr_bh")
+    assert len(reject) == len(raw_p) and len(adjusted_p) == len(raw_p)
+    assert np.all(adjusted_p >= raw_p)
+    print("OK Unit 5.4 statistics examples")
+
+
+def check_unit_5_5_examples() -> None:
+    """Check the Unit 5.5 SQL, key integrity, idempotence and manifest examples."""
+    import sqlite3
+
+    conn = sqlite3.connect(":memory:")
+    conn.executescript(
+        """
+        CREATE TABLE stations (
+            id INTEGER PRIMARY KEY,
+            name TEXT NOT NULL,
+            latitude REAL NOT NULL,
+            longitude REAL NOT NULL
+        );
+        CREATE TABLE daily (
+            station_id INTEGER NOT NULL,
+            date TEXT NOT NULL,
+            tmax_c REAL,
+            UNIQUE (station_id, date)
+        );
+        INSERT INTO stations VALUES
+            (1, 'North', 31.0, 71.0),
+            (2, 'South', 31.2, 71.4);
+        INSERT INTO daily VALUES
+            (1, '2024-06-01', 35.0),
+            (1, '2024-06-02', 37.0),
+            (1, '2024-07-01', 39.0),
+            (2, '2024-06-01', 40.0),
+            (99, '2024-06-01', 42.0);
+        """
+    )
+    rows = conn.execute(
+        """
+        SELECT s.id, s.name, AVG(d.tmax_c), COUNT(d.tmax_c)
+        FROM stations AS s
+        JOIN daily AS d ON d.station_id = s.id
+        WHERE d.date >= '2024-06-01' AND d.date < '2024-07-01'
+        GROUP BY s.id, s.name
+        ORDER BY s.id
+        """
+    ).fetchall()
+    assert rows == [(1, "North", 36.0, 2), (2, "South", 40.0, 1)]
+    orphan_count = conn.execute(
+        """
+        SELECT COUNT(*) FROM daily AS d
+        LEFT JOIN stations AS s ON s.id = d.station_id
+        WHERE s.id IS NULL
+        """
+    ).fetchone()[0]
+    assert orphan_count == 1  # a join should not silently hide unmatched keys
+
+    # Same-key, same-value ingestion is idempotent; conflicting values fail loudly.
+    def merge_by_key(existing, incoming):
+        merged = {(r["station_id"], r["date"]): dict(r) for r in existing}
+        for record in incoming:
+            key = (record["station_id"], record["date"])
+            if key in merged and merged[key] != record:
+                raise ValueError(f"conflicting record for {key}")
+            merged[key] = dict(record)
+        return [merged[key] for key in sorted(merged)]
+
+    incoming = [
+        {"station_id": "S1", "date": "2024-06-01", "tmax_c": 35.0},
+        {"station_id": "S1", "date": "2024-06-02", "tmax_c": 37.0},
+    ]
+    first = merge_by_key([], incoming)
+    second = merge_by_key(first, incoming)
+    assert first == second and len(second) == 2
+    try:
+        merge_by_key(first, [{"station_id": "S1", "date": "2024-06-01", "tmax_c": 99.0}])
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("conflicting duplicate key was not rejected")
+
+    manifest = {
+        "dataset_id": "synthetic_station_daily",
+        "source": "synthetic fixture",
+        "variable": "tmax_c",
+        "source_units": "degree_Celsius",
+        "temporal_extent": "2024-06-01/2024-06-30",
+        "retrieved_utc": "2026-10-22T00:00:00Z",
+        "licence": "synthetic educational fixture",
+        "sha256": "example-checksum-placeholder",
+    }
+    required = {"dataset_id", "source", "variable", "source_units", "temporal_extent", "retrieved_utc", "licence", "sha256"}
+    assert required.issubset(manifest)
+    assert manifest["source_units"] == "degree_Celsius"
+
+    from hashlib import sha256
+    import tempfile
+
+    def sha256_file(path, chunk_size=1024 * 1024):
+        digest = sha256()
+        with Path(path).open("rb") as handle:
+            for chunk in iter(lambda: handle.read(chunk_size), b""):
+                digest.update(chunk)
+        return digest.hexdigest()
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        sample_path = Path(temp_dir) / "payload.bin"
+        sample_path.write_bytes(b"abc")
+        assert sha256_file(sample_path) == "ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad"
+
+    # Mock HTTP responses: verify bounded retry, Retry-After and timeout handling
+    # without relying on a live provider or network access.
+    class FakeResponse:
+        def __init__(self, status_code, payload, headers=None):
+            self.status_code = status_code
+            self._payload = payload
+            self.headers = headers or {}
+
+        def raise_for_status(self):
+            if self.status_code >= 400:
+                raise RuntimeError(f"HTTP {self.status_code}")
+
+        def json(self):
+            return self._payload
+
+    def get_json_with_retry(get, attempts=4, sleep=lambda _seconds: None):
+        retryable = {429, 500, 502, 503, 504}
+        for attempt in range(attempts):
+            try:
+                response = get()
+            except (TimeoutError, ConnectionError):
+                if attempt == attempts - 1:
+                    raise
+                sleep(min(2 ** attempt, 60))
+                continue
+            if response.status_code in retryable and attempt < attempts - 1:
+                retry_after = response.headers.get("Retry-After", "")
+                wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt
+                sleep(min(wait, 60))
+                continue
+            response.raise_for_status()
+            return response.json()
+        raise RuntimeError("Request attempts exhausted")
+
+    queued = [FakeResponse(429, {"message": "rate limited"}, {"Retry-After": "3"}),
+              FakeResponse(200, {"ok": True})]
+    delays = []
+    payload = get_json_with_retry(lambda: queued.pop(0), sleep=delays.append)
+    assert payload == {"ok": True} and delays == [3]
+
+    timeout_calls = {"n": 0}
+    def timeout_then_success():
+        timeout_calls["n"] += 1
+        if timeout_calls["n"] == 1:
+            raise TimeoutError("synthetic timeout")
+        return FakeResponse(200, {"ok": True})
+    timeout_delays = []
+    assert get_json_with_retry(timeout_then_success, sleep=timeout_delays.append) == {"ok": True}
+    assert timeout_calls["n"] == 2 and timeout_delays == [1]
+
+    server_errors = [FakeResponse(500, {"error": "synthetic"}), FakeResponse(500, {"error": "synthetic"})]
+    server_delays = []
+    try:
+        get_json_with_retry(lambda: server_errors.pop(0), attempts=2, sleep=server_delays.append)
+    except RuntimeError:
+        pass
+    else:
+        raise AssertionError("repeated HTTP 500 responses should fail after the retry limit")
+    assert server_delays == [1] and not server_errors
+
+    conn.close()
+    print("OK Unit 5.5 SQL, idempotence, manifest and mocked API retry examples")
+
+
+def check_unit_5_6_examples() -> None:
+    """Check Unit 5.6 interaction interpretation, intervals and group-safe folds."""
+    from sklearn.model_selection import GroupKFold
+    from sklearn.metrics import mean_absolute_error, mean_squared_error
+    from statsmodels.stats.outliers_influence import variance_inflation_factor
+
+    rng = np.random.default_rng(5606)
+    n_groups, per_group = 20, 10
+    district_id = np.repeat(np.arange(n_groups), per_group)
+    n = district_id.size
+    ndvi = rng.uniform(0.1, 0.8, n)
+    built_frac = rng.uniform(0.05, 0.9, n)
+    season = rng.integers(0, 2, n)
+    district_effect = rng.normal(0.0, 0.7, n_groups)[district_id]
+    noise = rng.normal(0.0, 0.25, n)
+    # Fully synthetic DGP with a known NDVI-by-season interaction.
+    lst_c = 40.0 - 2.0 * ndvi + 1.5 * built_frac + 0.8 * season - 1.0 * ndvi * season + district_effect + noise
+    df = pd.DataFrame({
+        "lst_c": lst_c, "ndvi": ndvi, "built_frac": built_frac,
+        "season": season, "district_id": district_id,
+    })
+
+    fit = smf.ols("lst_c ~ ndvi * season + built_frac", data=df).fit()
+    assert fit.params["ndvi"] < 0
+    assert fit.params["ndvi:season"] < 0
+    assert np.isfinite(fit.params.to_numpy()).all()
+
+    prediction = fit.get_prediction(df.iloc[[0]]).summary_frame()
+    mean_width = float(prediction["mean_ci_upper"].iloc[0] - prediction["mean_ci_lower"].iloc[0])
+    observation_width = float(prediction["obs_ci_upper"].iloc[0] - prediction["obs_ci_lower"].iloc[0])
+    assert observation_width > mean_width > 0
+
+    # The VIF computation is diagnostic; this synthetic design should return finite values.
+    design = sm.add_constant(df[["ndvi", "built_frac"]])
+    vifs = [variance_inflation_factor(design.to_numpy(), i) for i in range(1, design.shape[1])]
+    assert np.isfinite(vifs).all() and all(value >= 1.0 for value in vifs)
+
+    # Every held-out district must be absent from that fold's training data.
+    cv = GroupKFold(n_splits=5)
+    fold_scores = []
+    for train_idx, test_idx in cv.split(df[["ndvi", "built_frac", "season"]], df["lst_c"], groups=df["district_id"]):
+        train_groups = set(df.iloc[train_idx]["district_id"])
+        test_groups = set(df.iloc[test_idx]["district_id"])
+        assert train_groups.isdisjoint(test_groups)
+        # Compare the fitted model and training-mean baseline on identical held-out rows.
+        fold_model = smf.ols(
+            "lst_c ~ ndvi * season + built_frac", data=df.iloc[train_idx]
+        ).fit()
+        pred = fold_model.predict(df.iloc[test_idx])
+        baseline = np.repeat(float(df.iloc[train_idx]["lst_c"].mean()), len(test_idx))
+        assert np.isfinite(pred.to_numpy()).all()
+        fold_scores.append((
+            mean_absolute_error(df.iloc[test_idx]["lst_c"], pred),
+            float(np.sqrt(mean_squared_error(df.iloc[test_idx]["lst_c"], pred))),
+            mean_absolute_error(df.iloc[test_idx]["lst_c"], baseline),
+        ))
+    scores = np.asarray(fold_scores)
+    assert scores.shape == (5, 3) and np.isfinite(scores).all()
+    assert abs(100.0 * (1.0 - 0.60) / (1.0 + 0.60) - 25.0) < 1e-12
+    print("OK Unit 5.6 interaction, interval, VIF and GroupKFold checks", scores.mean(axis=0).round(3).tolist())
+
+
+def check_unit_5_7_examples() -> None:
+    """Verify deterministic time-series decomposition, anomalies and leakage-safe evaluation."""
+    from sklearn.model_selection import TimeSeriesSplit
+    from sklearn.metrics import mean_absolute_error, mean_squared_error
+    from statsmodels.tsa.seasonal import STL
+    from statsmodels.tsa.arima.model import ARIMA
+    from scipy.signal import periodogram
+    import statsmodels.api as sm
+
+    # A known monthly signal: linear trend + annual cycle + small deterministic noise.
+    n = 120
+    t = np.arange(n, dtype=float)
+    seasonal = 2.0 * np.sin(2 * np.pi * t / 12)
+    noise = np.random.default_rng(5707).normal(0.0, 0.05, n)
+    y = 10.0 + 0.03 * t + seasonal + noise
+    index = pd.date_range("2000-01-01", periods=n, freq="MS")
+    series = pd.Series(y, index=index)
+    assert series.index.is_unique and series.index.is_monotonic_increasing
+    assert series.index.freqstr == "MS"
+
+    # Seasonal anomalies calculated from the fixed first 8 years have near-zero
+    # mean by month in that baseline by construction.
+    baseline = series.loc["2000-01-01":"2007-12-01"]
+    climatology = baseline.groupby(baseline.index.month).mean()
+    anomalies = baseline - pd.Series(baseline.index.month, index=baseline.index).map(climatology).to_numpy()
+    by_month = pd.Series(anomalies.to_numpy(), index=baseline.index).groupby(lambda dt: dt.month).mean()
+    assert np.allclose(by_month.to_numpy(), 0.0, atol=1e-10)
+
+    decomp = STL(series, period=12, robust=True).fit()
+    assert np.isfinite(decomp.trend).all()
+    assert np.isfinite(decomp.seasonal).all()
+    assert np.isfinite(decomp.resid).all()
+    assert abs(np.polyfit(t, decomp.trend, 1)[0] - 0.03) < 0.01
+
+    # A synthetic serially correlated series should yield finite HAC trend estimates.
+    ar = np.zeros(n)
+    ar_rng = np.random.default_rng(57)
+    eps = ar_rng.normal(0, 1, n)
+    for i in range(1, n):
+        ar[i] = 0.65 * ar[i - 1] + eps[i]
+    fit = sm.OLS(ar, sm.add_constant(t)).fit(cov_type="HAC", cov_kwds={"maxlags": 3})
+    assert np.isfinite(fit.params).all() and np.isfinite(fit.bse).all()
+
+    # Chronological splits must keep every training timestamp earlier than test.
+    cv = TimeSeriesSplit(n_splits=5, test_size=12)
+    split_scores = []
+    for train_idx, test_idx in cv.split(t.reshape(-1, 1)):
+        assert train_idx.max() < test_idx.min()
+        train_y, test_y = y[train_idx], y[test_idx]
+        # Transparent mean baseline and persistence baseline use only training history.
+        mean_pred = np.repeat(train_y.mean(), len(test_idx))
+        persistence_pred = np.repeat(train_y[-1], len(test_idx))
+        split_scores.append((
+            mean_absolute_error(test_y, mean_pred),
+            float(np.sqrt(mean_squared_error(test_y, mean_pred))),
+            mean_absolute_error(test_y, persistence_pred),
+        ))
+    scores = np.asarray(split_scores)
+    assert scores.shape == (5, 3) and np.isfinite(scores).all()
+    # Frequency-domain check: the known annual cycle should dominate the periodogram.
+    frequencies, power = periodogram(seasonal + noise, fs=1.0, detrend="linear")
+    dominant_frequency = float(frequencies[1 + np.argmax(power[1:])])
+    assert abs(dominant_frequency - (1.0 / 12.0)) < 0.01
+
+    # A deterministic level shift remains detectable as a change in segment means.
+    shifted = np.r_[np.zeros(40), np.repeat(2.0, 40)] + np.random.default_rng(5710).normal(0, 0.05, 80)
+    assert abs(float(shifted[40:].mean() - shifted[:40].mean()) - 2.0) < 0.05
+
+    # ARIMA forecast is finite on a deterministic seasonal/trend fixture.
+    arima_fit = ARIMA(series, order=(1, 1, 0), seasonal_order=(1, 0, 0, 12)).fit()
+    forecast = np.asarray(arima_fit.forecast(steps=6), dtype=float)
+    assert forecast.shape == (6,) and np.isfinite(forecast).all()
+
+    print("OK Unit 5.7 time index, anomaly, STL, HAC, spectral peak, level shift, ARIMA and chronological CV checks", scores.mean(axis=0).round(3).tolist())
+
+
+def check_unit_5_8_examples() -> None:
+    """Verify EOF, paired-field CCA, regime validity and map multiplicity examples."""
+    from sklearn.cross_decomposition import CCA
+    from sklearn.cluster import KMeans
+    from sklearn.metrics import adjusted_rand_score, silhouette_score
+    from statsmodels.stats.multitest import multipletests
+
+    rng = np.random.default_rng(5808)
+    n = 180
+    latent = rng.normal(size=n)
+    field_a = np.column_stack([latent + rng.normal(0, 0.25, n) for _ in range(3)])
+    field_b = np.column_stack([0.8 * latent + rng.normal(0, 0.3, n) for _ in range(3)])
+    cca = CCA(n_components=1, max_iter=1000)
+    score_a, score_b = cca.fit_transform(field_a, field_b)
+    canonical_corr = float(np.corrcoef(score_a[:, 0], score_b[:, 0])[0, 1])
+    assert canonical_corr > 0.8
+
+    # Two deliberately separated synthetic regimes; evaluate, don't assume, cluster quality.
+    regime = np.repeat([0, 1, 2], 60)
+    centres = np.array([[0.0, 0.0], [4.0, 0.0], [0.0, 4.0]])
+    cluster_data = centres[regime] + rng.normal(0, 0.25, (n, 2))
+    model_a = KMeans(n_clusters=3, n_init=10, random_state=42).fit(cluster_data)
+    model_b = KMeans(n_clusters=3, n_init=10, random_state=42).fit(cluster_data)
+    sil = float(silhouette_score(cluster_data, model_a.labels_))
+    ari = float(adjusted_rand_score(model_a.labels_, model_b.labels_))
+    assert sil > 0.7 and ari == 1.0
+
+    # Positive AR(1) dependence reduces approximate effective sample size.
+    phi, nominal_n = 0.7, 120
+    effective_n = nominal_n * (1 - phi) / (1 + phi)
+    assert 0 < effective_n < nominal_n
+
+    raw_p = np.array([0.001, 0.008, 0.02, 0.11, 0.30, 0.65])
+    reject, adjusted, _, _ = multipletests(raw_p, alpha=0.05, method="fdr_bh")
+    assert len(reject) == len(raw_p) and np.all(adjusted >= raw_p)
+    assert reject[0] and reject[1] and not reject[-1]
+    print("OK Unit 5.8 CCA, cluster validity/stability, effective sample size and field-multiplicity checks", round(canonical_corr, 3), round(sil, 3), round(effective_n, 2))
+
+
 def main() -> int:
     check_eigen()
     check_bayes()
@@ -139,6 +599,13 @@ def main() -> int:
     check_pkt_daily_max()
     check_eof_weights()
     check_logistic_glm()
+    check_unit_5_2_examples()
+    check_unit_5_3_examples()
+    check_unit_5_4_examples()
+    check_unit_5_5_examples()
+    check_unit_5_6_examples()
+    check_unit_5_7_examples()
+    check_unit_5_8_examples()
     print("All Chapter 5 smoke checks passed.")
     return 0
 

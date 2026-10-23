@@ -1,0 +1,30 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+4.3.1.1,NDVI EVI formulation saturation soil,4.3.1,Vegetation water burn indices,Core,cgei-rs-lesson-4-3-1,cgei-rs-43-1-ndvi;cgei-rs-43-1-ndvi-eq;cgei-rs-43-1-work,mapped_partial,Formula + worked examples; sensor band differences noted.
+4.3.1.2,NDWI MNDWI for water,4.3.1,Vegetation water burn indices,Core,cgei-rs-lesson-4-3-1,cgei-rs-43-1-water,mapped_partial,Formulation and turbidity/shadow limits.
+4.3.1.3,NBR burn severity,4.3.1,Vegetation water burn indices,Core,cgei-rs-lesson-4-3-1,cgei-rs-43-1-burn,mapped_partial,dNBR role; not universal classes.
+4.3.1.4,SAVI MSAVI NDMI moisture bare-soil built-up,4.3.1,Vegetation water burn indices,Core,cgei-rs-lesson-4-3-1,cgei-rs-43-1-soil,mapped_partial,Proxy nature of moisture indices stated.
+4.3.2.1,NDBI built-up proxies,4.3.2,Built-up soil albedo,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-ndbi;cgei-rs-43-2-table,mapped_partial,Arid bare-soil confusion taught.
+4.3.2.2,Albedo and emissivity concepts,4.3.2,Built-up soil albedo,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-albedo,mapped_partial,Conceptual; no full conversion lab.
+4.3.2.3,Tasselled-cap narrow-to-broadband albedo,4.3.2,Built-up soil albedo,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-albedo;cgei-rs-43-2-fail,mapped_partial,Sensor-specific caveat.
+4.3.2.4,NDBI bare-soil irrigated failure,4.3.2,Built-up soil albedo,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-fail;cgei-rs-43-2-checklist,mapped_partial,Explicit failure modes.
+4.3.3.1,RTE single-channel split-window TES,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-rte,mapped_partial,Approach families named; not full derivation.
+4.3.3.2,Landsat 8 Band 11 stray light Band 10,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-tirs,mapped_partial,Band discipline taught.
+4.3.3.3,Emissivity estimation error,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-rte;cgei-rs-43-2-albedo,mapped_partial,Error contribution named.
+4.3.3.4,Official ST and SR scaling factors,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale;cgei-rs-43-3-eq,mapped_partial,Teaching constants + verify USGS.
+4.3.3.5,Collection 2 ST ancillary bands,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale;cgei-rs-43-3-points,mapped_partial,ST_QA and friends required.
+4.3.4.1,C2 ST scale offset official only,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale,mapped_partial,Same as 4.3.3.4 evidence.
+4.3.4.2,QA_PIXEL before compositing,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Rule stated; fixture QA count.
+4.3.4.3,Morning overpass vs air temperature,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Explicit non-equivalence.
+4.3.4.4,Landsat 8 vs 9 continuity,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Check required when merging.
+4.3.4.5,Seasonal composites sensitivity,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Rule sensitivity noted.
+4.3.4.6,Compositing choices hotspot maps,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Median/mean/percentile named.
+4.3.4.7,Clear-sky sampling bias n_valid,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-discipline,mapped_partial,Fixture demonstrates warm bias.
+4.3.5.1,Validation in-situ and other satellites,4.3.5,Validation uncertainty,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-val,mapped_partial,Conceptual validation paths.
+4.3.5.2,UTFVI descriptive not health thresholds,4.3.5,Validation uncertainty,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-val;cgei-rs-43-4-callout,mapped_partial,Explicit non-threshold claim.
+4.3.5.3,Report LST uncertainty with heat signal,4.3.5,Validation uncertainty,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-val,mapped_partial,Reporting requirement taught.
+4.3.6.1,Context-dependent index meaning,4.3.6,Proxy honesty,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-checklist,mapped_partial,Checklist.
+4.3.6.2,Failure arid irrigated urban,4.3.6,Proxy honesty,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-fail,mapped_partial,Failure modes.
+4.3.6.3,Checklist measure fail evidence,4.3.6,Proxy honesty,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-checklist,mapped_partial,Same checklist.
+4.3.7.1,TsHARP STARFM assumptions urban,4.3.7,Thermal downscaling fusion,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-down,mapped_partial,Assumptions and failure; no code.
+4.3.7.2,DTC and ML air temp from LST validation,4.3.7,Thermal downscaling fusion,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-down;cgei-rs-43-4-callout,mapped_partial,Spatial validation required.
+4.3.7.3,Validate sharpened vs independent thermal,4.3.7,Thermal downscaling fusion,Core,cgei-rs-lesson-4-3-4,cgei-rs-43-4-down,mapped_partial,Validation requirement stated.
