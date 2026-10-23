@@ -1090,9 +1090,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         results={results}
         mode={mode}
         onRetry={handleRetry}
-        onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid, parent: null })}
+        onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid })}
         onPracticeTopic={(tid: string) => navigate({ screen: 'quiz', mode: 'topic', topicId: tid, count: 5 })}
-        onNavigateToProgress={() => navigate({ screen: 'progress', parent: null })}
+        onNavigateToProgress={() => navigate({ screen: 'progress' })}
         onBack={exitToOrigin}
       />
     );
