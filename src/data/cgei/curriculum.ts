@@ -3036,7 +3036,61 @@ const lessons127: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127];
+
+const outcomes131: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-131-scope', statement: 'Scope a coherent environmental project with audience, question, study area, estimand, feasibility checks and minimum viable result.', action: 'scope', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-131-controls', statement: 'Maintain milestones, risk log, acceptance criteria and decision records for scope changes.', action: 'control', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes132: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-132-workflow', statement: 'Execute protocol → data audit → baseline → H/E/V screening → sensitivity → decision card with provenance on synthetic data.', action: 'execute', level: 'L3', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-132-limits', statement: 'State uncertainty, exclusions and human-review requirements; refuse calibrated health-risk or operational-forecast claims without evidence.', action: 'state limits', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const outcomes136: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-136-revise', statement: 'Produce a prioritised revision list from validation failures and re-run from a clean environment after fixes.', action: 'revise', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons131: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-1-1', kind: 'lesson', title: 'Scoping the environmental capstone', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes131[0], outcomes131[1]],
+    content: [
+      { id: 'cgei-cap-131-1-1', kind: 'prose', title: 'One coherent problem', body: 'Choose one coherent environmental problem—not a catalogue of tools. Define audience, research question, study area, dates, target variables and output type. Check data availability, licences, quality, compute and permissions before committing. Distinguish class exercise, portfolio project, operational prototype and publishable study.' },
+      { id: 'cgei-cap-131-1-2', kind: 'prose', title: 'Plan and controls', body: 'Set milestones, dependencies and a minimum viable result before advanced methods. Maintain a risk log (missing data, failed methods, resource limits). Record decisions and reasons for dropping approaches. Capstone teaching example: synthetic neighbourhood heat screening—not an operational Multan forecast.' },
+      { id: 'cgei-cap-131-1-3', kind: 'checklist', title: 'Scope gate', items: ['Question and estimand written', 'Intended use and exclusions stated', 'Data/licence/compute feasible', 'MVP defined', 'Ethics/privacy screen done'] },
+    ],
+    activityIds: ['cgei-cap-a-131-scope'], assessmentIds: ['cgei-cap-assess-131-scope'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons132: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-2-1', kind: 'lesson', title: 'Integrated heat-risk screening workflow', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 50,
+    objectives: [outcomes132[0], outcomes132[1]],
+    content: [
+      { id: 'cgei-cap-132-1-1', kind: 'prose', title: 'From question to evidence', body: 'Write the brief and method rationale. Audit data and preserve provenance. Build a simple baseline (mean LST anomaly, mean vulnerability) before composites. Construct transparent H/E/V layers, test weight sensitivity, and emit a decision card that keeps components visible and requires human review.' },
+      { id: 'cgei-cap-132-1-lab', kind: 'worked-example', title: 'Synthetic neighbourhood capstone lab', body: 'Fixture unit_13_capstone_heat_risk_check.py runs protocol validation → row contracts → baseline → equal-weight and heat-heavy ranks → decision card → fingerprint. It rejects calibrated health-risk and operational-forecast claims. Neighbourhoods N1–N3 are synthetic—not Multan observations.' },
+      { id: 'cgei-cap-132-1-3', kind: 'prose', title: 'Outputs and delivery', body: 'Deliver maps/tables (or ranked tables), metrics, executive summary, reproducible repository instructions, technical report and plain-language summary. Present assumptions and limitations explicitly. Reproduce from a clean environment before sharing.' },
+      { id: 'cgei-cap-132-1-4', kind: 'callout', title: 'What this vertical slice does not prove', tone: 'warning', items: ['Not empirical Multan heat epidemiology', 'Not calibrated expected loss', 'Not proof that interventions work', 'Software correctness ≠ scientific validity'] },
+    ],
+    activityIds: ['cgei-cap-a-132-workflow'], assessmentIds: ['cgei-cap-assess-132-workflow'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons136: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-6-1', kind: 'lesson', title: 'Assessment, revision and reproducibility audit', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes136[0]],
+    content: [
+      { id: 'cgei-cap-136-1-1', kind: 'prose', title: 'Prioritised revision', body: 'Turn validation failures and reviewer comments into a prioritised revision list. Re-run from a clean environment after changes. Record main limitations and the next realistic improvement. Keep a decision log of what changed and why.' },
+      { id: 'cgei-cap-136-1-2', kind: 'checklist', title: 'Capstone exit checks', items: ['Protocol complete', 'Fixture/tests pass', 'Ranks sensitive to weights documented', 'Decision card exclusions present', 'Clean-environment rerun documented', 'Human review required flag set'] },
+    ],
+    activityIds: ['cgei-cap-a-136-revise'], assessmentIds: ['cgei-cap-assess-136-revise'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -3237,6 +3291,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-13-capstone',
+      subjectId: 'cgei-capstone',
+      title: 'Capstone: Integrated Environmental Intelligence Project',
+      subtitle: 'Scope, execute, and revise a reproducible heat-risk screening project with honest limits',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners integrating CGEI methods into one defensible project.',
+      purpose: 'Demonstrate end-to-end research and decision-support workflow with tests, provenance and explicit non-claims.',
+      overview: 'Core Units 13.1, 13.2 and 13.6. Portfolio/career Units 13.3–13.5 and 13.7 deferred. Synthetic heat screening only. Draft.',
+      prerequisites: ['Subjects 5–12 draft Core paths as applicable'],
+      outcomes: [...outcomes131, ...outcomes132, ...outcomes136],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-cap-unit-13-1', 'cgei-cap-unit-13-2', 'cgei-cap-unit-13-6'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 14,
     },
     {
       id: 'cgei-subject-1-earth-system',
@@ -3808,6 +3880,40 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 12 Unit 12.7 — Evaluating and governing AI systems (Support)',
       notes: ['Support unit included for responsible-use path.'],
     },
+    {
+      id: 'cgei-cap-unit-13-1', code: '13.1', title: 'Choosing and scoping a project', order: 1301, kind: 'unit', readiness: 'draft',
+      summary: 'Select one coherent problem; define question, estimand, feasibility, MVP and project controls.',
+      estimatedHours: 4, prerequisites: ['Subject 8 research questions'], outcomes: outcomes131,
+      lessonIds: lessons131.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-131-scope'],
+      assessmentIds: ['cgei-cap-assess-131-scope'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.1 — Choosing and scoping a project (Core)',
+      notes: ['Core; synthetic heat screening is the teaching anchor.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-2', code: '13.2', title: 'Integrated project workflow', order: 1302, kind: 'unit', readiness: 'draft',
+      summary: 'Run protocol, data audit, baseline, H/E/V screening, sensitivity and decision-card delivery with provenance.',
+      estimatedHours: 6, prerequisites: ['Unit 13.1', 'Subject 7 risk concepts', 'Subject 11 pipelines'], outcomes: outcomes132,
+      lessonIds: lessons132.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-132-workflow'],
+      assessmentIds: ['cgei-cap-assess-132-workflow'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.2 — Integrated project workflow (Core)',
+      notes: ['Core vertical slice; not empirical Multan validation.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-6', code: '13.6', title: 'Project assessment and revision', order: 1306, kind: 'unit', readiness: 'draft',
+      summary: 'Prioritise revisions from validation and review; re-run cleanly; log decisions.',
+      estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes136,
+      lessonIds: lessons136.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-136-revise'],
+      assessmentIds: ['cgei-cap-assess-136-revise'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.6 — Project assessment and revision (Core)',
+      notes: ['Core assessment loop.'],
+    },
+
 
 
 
@@ -4043,6 +4149,13 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ai-q-122-002', lessonId: 'cgei-ai-lesson-12-2-1', type: 'single-choice', prompt: 'For semantic segmentation evaluation, IoU/Dice metrics are useful because they:', options: ['Ignore class structure', 'Summarise overlap quality beyond simple pixel accuracy', 'Prove operational readiness alone', 'Replace spatial independence'], correctAnswer: 1, explanation: 'Overlap metrics better match segmentation goals.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ai-q-127-001', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'A model card for decision-facing environmental AI should include:', options: ['Only the architecture name', 'Intended use, exclusions, data sources, baseline, limitations and human review', 'Only training loss curves', 'No mention of failure cases'], correctAnswer: 1, explanation: 'Governance requires explicit use boundaries and review.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ai-q-127-002', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'Comparing an AI system only to itself without a simpler baseline is problematic because:', options: ['Baselines are illegal', 'Relative value and necessity of AI remain untested', 'It always reduces latency', 'It guarantees calibration'], correctAnswer: 1, explanation: 'No-AI or deterministic baselines test necessity.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cap-q-131-001', lessonId: 'cgei-cap-lesson-13-1-1', type: 'single-choice', prompt: 'A defensible capstone scope should primarily start from:', options: ['Every tool in the curriculum', 'One coherent question, audience, estimand and feasible MVP', 'Only deep learning', 'Operational deployment without exclusions'], correctAnswer: 1, explanation: 'Scope one problem with feasibility and MVP.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-131-002', lessonId: 'cgei-cap-lesson-13-1-1', type: 'single-choice', prompt: 'Before coding, learners should check:', options: ['Only plot styles', 'Data access, licence, quality and compute feasibility', 'Nothing if synthetic data will be used later', 'Only GPU availability'], correctAnswer: 1, explanation: 'Feasibility checks precede commitment.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-132-001', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'In the teaching capstone, synthetic neighbourhood ranks should be interpreted as:', options: ['Calibrated Multan health risk', 'Screening ranks under stated assumptions, not empirical city findings', 'Operational forecasts', 'Proof of intervention effectiveness'], correctAnswer: 1, explanation: 'Synthetic screening only.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-132-002', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'Weight sensitivity in the H/E/V index is important because:', options: ['Weights never matter', 'Value judgements can change priority rankings', 'It replaces baselines', 'It proves causation'], correctAnswer: 1, explanation: 'Ranks can change with weights.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-132-003', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'A capstone decision card should require human review because:', options: ['Software tests already prove policy impact', 'Screening outputs need contextual judgement before action', 'Review is optional for synthetic data only', 'Provenance replaces review'], correctAnswer: 1, explanation: 'Human review is part of responsible delivery.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-136-001', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'After fixing validation failures, best practice is to:', options: ['Skip re-running tests', 'Re-run from a clean environment and record what changed', 'Delete the risk log', 'Remove limitations from the report'], correctAnswer: 1, explanation: 'Clean re-run and decision logging close the loop.', difficulty: 'easy', cognitiveLevel: 'apply' },
+
 
 
 
@@ -4825,6 +4938,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-cap-a-131-scope', kind: 'guided-practice', title: 'Capstone scope card', instructions: 'Write question, estimand, intended use, exclusions, MVP and one feasibility risk for a heat-screening project.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'] },
+    { id: 'cgei-cap-a-132-workflow', kind: 'coding-lab', title: 'Capstone pipeline lab', instructions: 'Run unit_13_capstone_heat_risk_check.py. Report baseline means, rank change under heat-heavy weights, and decision-card non-claims.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'] },
+    { id: 'cgei-cap-a-136-revise', kind: 'guided-practice', title: 'Revision list', instructions: 'From a failed validation message, write a prioritised revision list and clean-rerun steps.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-cap-o-136-revise'] },
     { id: 'cgei-ai-a-121-nn', kind: 'coding-lab', title: 'Baseline and leakage lab', instructions: 'Run unit_12_ai_split_baseline_check.py. Report baseline vs overfit MSE and one adjacency leakage flag.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-121-nn'] },
     { id: 'cgei-ai-a-122-cv', kind: 'guided-practice', title: 'EO split design', instructions: 'Propose a spatially independent split for a city tile grid and name one metric for segmentation evaluation.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'] },
     { id: 'cgei-ai-a-127-gov', kind: 'guided-practice', title: 'Model card draft', instructions: 'Complete intended use, exclusions, baseline, limitations and human-review fields for a synthetic EO classifier.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-127-gov'] },
@@ -5107,6 +5223,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-cap-assess-131-scope', kind: 'formative', title: 'Scoping', purpose: 'Assess project scoping discipline.', objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'], questionIds: ['cgei-cap-q-131-001', 'cgei-cap-q-131-002'], required: true },
+    { id: 'cgei-cap-assess-132-workflow', kind: 'formative', title: 'Integrated workflow', purpose: 'Assess workflow and limitation literacy.', objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'], questionIds: ['cgei-cap-q-132-001', 'cgei-cap-q-132-002', 'cgei-cap-q-132-003'], required: true },
+    { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001'], required: true },
     { id: 'cgei-ai-assess-121-nn', kind: 'formative', title: 'DL foundations', purpose: 'Assess baselines and split discipline.', objectiveIds: ['cgei-ai-o-121-nn', 'cgei-ai-o-121-cost'], questionIds: ['cgei-ai-q-121-001', 'cgei-ai-q-121-002', 'cgei-ai-q-121-003'], required: true },
     { id: 'cgei-ai-assess-122-cv', kind: 'formative', title: 'EO vision evaluation', purpose: 'Assess spatial leakage and metrics literacy.', objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'], questionIds: ['cgei-ai-q-122-001', 'cgei-ai-q-122-002'], required: true },
     { id: 'cgei-ai-assess-127-gov', kind: 'formative', title: 'AI governance', purpose: 'Assess model-card and human-review requirements.', objectiveIds: ['cgei-ai-o-127-gov'], questionIds: ['cgei-ai-q-127-001', 'cgei-ai-q-127-002'], required: true },

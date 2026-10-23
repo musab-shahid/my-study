@@ -1,0 +1,11 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+13.2.1.1,Project brief hypothesis method rationale,13.2.1,From question to evidence,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-1,mapped_partial,Taught.
+13.2.1.2,Data audit inventory provenance,13.2.1,From question to evidence,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-1;cgei-cap-132-1-lab,mapped_partial,Fixture provenance.
+13.2.1.3,Simple baseline before complex methods,13.2.1,From question to evidence,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-lab,mapped_partial,Baseline means in fixture.
+13.2.1.4,Transparent preprocessing modelling evaluation,13.2.1,From question to evidence,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-1;cgei-cap-132-1-lab,mapped_partial,H/E/V screening only.
+13.2.1.5,Validate errors uncertainty limitations,13.2.1,From question to evidence,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-4,mapped_partial,Non-claims taught.
+13.2.2.1,Maps plots tables executive summary,13.2.2,Outputs and delivery,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-3,mapped_partial,Ranked tables via fixture.
+13.2.2.2,Reproducible repository environment instructions,13.2.2,Outputs and delivery,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-3,mapped_partial,Lab instructions.
+13.2.2.3,Technical report and plain-language summary,13.2.2,Outputs and delivery,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-3,mapped_partial,Named.
+13.2.2.4,Short talk assumptions limitations,13.2.2,Outputs and delivery,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-3,mapped_partial,Named.
+13.2.3,Review iteration clean reproduction,13.2.3,Review and iteration,Core,cgei-cap-lesson-13-2-1,cgei-cap-132-1-3,mapped_partial,Light; deepened in 13.6.

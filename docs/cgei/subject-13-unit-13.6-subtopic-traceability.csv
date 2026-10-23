@@ -1,0 +1,6 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+13.6.1,Assessment criteria for project quality,13.6,Project assessment and revision,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-2,mapped_partial,Exit checklist.
+13.6.2.1,Prioritized revision list from validation,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Taught.
+13.6.2.2,Re-run from clean environment,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1;cgei-cap-136-1-2,mapped_partial,Taught.
+13.6.2.3,Record limitations next improvement,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Taught.
+13.6.3,External assessment peer reproducibility audit,13.6.3,External assessment,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Named; not executed with external reviewer.

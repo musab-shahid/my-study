@@ -145,3 +145,6 @@ Validate→summarise→provenance environmental pipeline. Synthetic stations onl
 
 ## unit_12_ai_split_baseline_check.py
 Disjoint splits, spatial adjacency leakage, linear baseline vs overfit lookup, model-card fields. No GPU training.
+
+## unit_13_capstone_heat_risk_check.py
+Synthetic neighbourhood heat screening E2E: protocol, baseline, H/E/V ranks, decision card, provenance. Not Multan validation.
