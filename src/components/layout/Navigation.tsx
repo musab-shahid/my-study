@@ -16,6 +16,7 @@ import { useData } from '@/hooks/useData';
 import { ToolsTray } from '@/components/layout/ToolsTray';
 import {
   getLandingScreenForTrack,
+  getTrackMeta,
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
@@ -325,6 +326,12 @@ export function MobileNav() {
   };
   const { trackMembership } = useData();
   const activeEnrolled = trackMembership.activeTrackId;
+  const activeTrackAccent =
+    activeEnrolled && isTrackId(activeEnrolled) ? getTrackMeta(activeEnrolled).accent : 'sky';
+  const activeIndicatorColor =
+    activeTrackAccent === 'indigo' ? 'bg-indigo-600' :
+    activeTrackAccent === 'teal' ? 'bg-teal-500' :
+    'bg-sky-500';
   const tracksClick = () => {
     if (activeEnrolled && isTrackId(activeEnrolled)) {
       navigate({ ...openTrackOptions(activeEnrolled) });
@@ -384,7 +391,7 @@ export function MobileNav() {
                 {active && (
                   <span
                     className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${
-                      activeEnrolled === 'hat' ? 'bg-indigo-600' : 'bg-sky-500'
+                      activeIndicatorColor
                     }`}
                     aria-hidden
                   />
