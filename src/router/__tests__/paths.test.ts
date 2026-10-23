@@ -49,9 +49,19 @@ describe('Phase A path mapping', () => {
       'Home',
       'CGEI',
       'Scientific Computing & Data Science',
-      'Exploratory data analysis and scientific visualisation',
+      'Exploratory data analysis and visualisation',
       lesson[4].label,
     ]);
+  });
+
+  it('builds track and subject breadcrumbs for a subject deep link', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'learn', subjectId: 'cgei-data-science' });
+    assert.deepEqual(crumbs.map((item) => item.label), [
+      'Home',
+      'CGEI',
+      'Scientific Computing & Data Science',
+    ]);
+    assert.deepEqual(crumbs[2].route, { screen: 'learn', subjectId: 'cgei-data-science' });
   });
 
   it('round-trips canonical curriculum unit and lesson routes', () => {
