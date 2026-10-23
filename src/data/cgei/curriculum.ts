@@ -1938,6 +1938,14 @@ const outcomes43: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-43-uncertainty', statement: 'Report LST uncertainty and clear-sky sampling bias, and state assumptions of thermal sharpening/fusion methods over heterogeneous scenes.', action: 'report and state assumptions', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
 ];
 
+const outcomes44: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-44-radiometric', statement: 'Trace DN→radiance→reflectance, distinguish TOA from surface reflectance, and state inputs required by common atmospheric-correction families.', action: 'trace and distinguish', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-44-geometric', statement: 'Explain orthorectification and co-registration needs, estimate how sub-pixel shift biases change detection, and state how to report residual registration error.', action: 'explain and estimate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-44-masks', statement: 'Compare cloud-mask families, declare mask rules before compositing, and compute omission and commission rates against a reference sample.', action: 'compare and compute', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-44-harmonise', statement: 'State Landsat–Sentinel and multi-generation Landsat continuity requirements, and identify when time-series smoothing can erase real change.', action: 'state and identify', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+
 const lessons42: CurriculumLesson[] = [
   {
     id: 'cgei-rs-lesson-4-2-1', kind: 'lesson', title: 'Optical, thermal and geostationary families', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
@@ -2042,7 +2050,60 @@ const lessons43: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons44: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-4-1', kind: 'lesson', title: 'Radiometric and atmospheric correction', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes44[0]],
+    content: [
+      { id: 'cgei-rs-44-1-chain', kind: 'prose', title: 'DN → radiance → reflectance', body: 'Sensors store scaled digital numbers (DN). Radiometric calibration converts DN to at-sensor spectral radiance using gain and offset (or equivalent metadata). Top-of-atmosphere (TOA) reflectance normalises radiance by solar irradiance, sun geometry, and Earth–Sun distance. Surface reflectance further attempts to remove atmospheric path radiance and transmittance effects under a stated model. Never treat DN, TOA reflectance, and surface reflectance as interchangeable in multi-date analysis.' },
+      { id: 'cgei-rs-44-1-eq', kind: 'equation', title: 'Generic DN to radiance', expression: 'L = G \\times DN + B', caption: 'G = gain, B = bias/offset from product metadata; units of spectral radiance. Exact coefficients are band- and collection-specific.' },
+      { id: 'cgei-rs-44-1-atm', kind: 'prose', title: 'Atmospheric correction families', body: 'Physics-based radiative-transfer approaches (e.g. 6S-type) need atmospheric profiles, aerosol, water vapour, and geometry. Operational product processors (LaSRC for Landsat, Sen2Cor and MAJA for Sentinel-2) embed chosen defaults and ancillary inputs—read the processor version notes. Residual atmosphere, adjacency, and BRDF effects remain after any single product run.' },
+      { id: 'cgei-rs-44-1-brdf', kind: 'prose', title: 'BRDF and topographic correction', body: 'Surface reflectance still depends on view and illumination angles (BRDF). Nadir-normalisation products reduce but do not eliminate angular effects. In rugged terrain, topographic correction adjusts for slope and aspect illumination; poor DEMs or cast shadows create artefacts. Apply and document these steps only when the analysis and landscape justify them.' },
+      { id: 'cgei-rs-44-1-work', kind: 'worked-example', title: 'Why processing level matters for NDVI', body: 'Suppose Red_TOA and NIR_TOA still carry haze that inflates both bands unevenly. NDVI from TOA can shift relative to NDVI from surface reflectance. A defensible multi-date greenness series states the processing level, processor version, and cloud/QA rules—not only “NDVI from Landsat”.' },
+      { id: 'cgei-rs-44-1-points', kind: 'key-points', title: 'Radiometric discipline', items: ['DN is not a physical reflectance', 'TOA ≠ surface reflectance', 'Atmospheric processors need stated inputs and versions', 'BRDF and topography matter in rugged or multi-angle series'] },
+    ],
+    activityIds: ['cgei-rs-a-44-radiometric'], assessmentIds: ['cgei-rs-assess-44-radiometric'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-4-2', kind: 'lesson', title: 'Geometric processing and co-registration', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes44[1]],
+    content: [
+      { id: 'cgei-rs-44-2-ortho', kind: 'prose', title: 'Orthorectification and co-registration', body: 'Orthorectification removes terrain displacement using a DEM and sensor model so map coordinates are closer to ground control. Multi-date or multi-sensor work still needs co-registration (image-to-image or image-to-reference matching). Sub-pixel misregistration creates false change along edges and fragments, especially for high-resolution indices and classification.' },
+      { id: 'cgei-rs-44-2-resamp', kind: 'prose', title: 'Resampling and pan-sharpening', body: 'Resampling (nearest neighbour, bilinear, cubic) changes local values and can smooth or shift edges. Pan-sharpening increases apparent spatial detail but mixes spectral fidelity—indices and classification trained on native multispectral pixels may not transfer cleanly to sharpened stacks. Document the method and whether analysis used native or sharpened bands.' },
+      { id: 'cgei-rs-44-2-qc', kind: 'prose', title: 'Reporting residual shift', body: 'Check co-registration with independent control features (road intersections, stable rooftops). Report residual shift (e.g. mean and RMSE in x/y pixels or metres) on a hold-out set of controls, not only the points used to estimate the transform. Large residuals over the study AOI mean change maps need geometric caution.' },
+      { id: 'cgei-rs-44-2-work', kind: 'worked-example', title: 'Sub-pixel shift and false change', body: 'A bright–dark edge with a 0.5-pixel lateral shift moves mixed pixels between classes. Differencing NDVI or hard classes then lights up linear artefacts. Mitigation: measure residual registration error; avoid interpreting single-pixel edge change as land-cover change without geometric QC.' },
+      { id: 'cgei-rs-44-2-points', kind: 'key-points', title: 'Geometric QC', items: ['Orthorectified ≠ automatically co-registered across sensors', 'Report residual shift with independent controls', 'Resampling and pan-sharpening alter spectral metrics', 'Edge false change is a registration symptom'] },
+    ],
+    activityIds: ['cgei-rs-a-44-geometric'], assessmentIds: ['cgei-rs-assess-44-geometric'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-4-3', kind: 'lesson', title: 'Cloud, shadow and quality masks', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes44[2]],
+    content: [
+      { id: 'cgei-rs-44-3-masks', kind: 'prose', title: 'Mask families', body: 'Fmask, s2cloudless, Cloud Score+, and product QA bands each optimise different trade-offs between omission (missed cloud) and commission (clear land labelled cloud). No mask is perfect: thin cirrus, haze, bright sand, and snow create confusion. Prefer declaring the mask rule and version before compositing rather than tuning masks after seeing the desired map.' },
+      { id: 'cgei-rs-44-3-rules', kind: 'prose', title: 'Declare rules before compositing', body: 'Write cloud, shadow, fill, and saturation rules up front. Seasonal composites that drop cloudy observations change the effective climate sampling—same clear-sky bias discussed for LST in Unit 4.3. Record valid observation counts when temporal composites support the scientific claim.' },
+      { id: 'cgei-rs-44-3-val', kind: 'prose', title: 'Omission and commission on a sample', body: 'Validate a mask on a small manually interpreted sample. Omission rate = missed cloud / true cloud. Commission rate = false cloud / predicted cloud (or equivalently false cloud among clear reference—state the denominator). Report both; a mask can look “clean” while omitting thin cloud over the target class.' },
+      { id: 'cgei-rs-44-3-eq', kind: 'equation', title: 'Omission and commission (reference sample)', expression: 'O = FN / (TP + FN),\\quad C = FP / (TP + FP)', caption: 'TP/FP/FN from mask vs reference labels on sampled pixels or chips. State the reference protocol.' },
+      { id: 'cgei-rs-44-3-work', kind: 'worked-example', title: 'Mask rates from a 100-pixel sample', body: 'Reference cloud=40, clear=60. Mask predicts cloud=45 with TP=35, FP=10, FN=5. Omission=5/40=0.125; commission=10/45≈0.222. The mask over-flags clear pixels more than it misses cloud in this sample—document whether that trade-off is acceptable for the analysis.' },
+    ],
+    activityIds: ['cgei-rs-a-44-masks'], assessmentIds: ['cgei-rs-assess-44-masks'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-4-4', kind: 'lesson', title: 'Cross-sensor harmonisation and time-series smoothing', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes44[3]],
+    content: [
+      { id: 'cgei-rs-44-4-hls', kind: 'prose', title: 'Landsat–Sentinel harmonisation', body: 'Harmonized Landsat Sentinel-2 (HLS) and similar products adjust for band-pass and related differences so a combined time series is more comparable. Linear adjustment coefficients are empirical and sensor-pair specific. Band-pass differences never fully disappear—cite the harmonisation product version and still inspect overlap periods.' },
+      { id: 'cgei-rs-44-4-landsat', kind: 'prose', title: 'Landsat generation continuity', body: 'Multi-decadal series spanning Landsat 5→7→8→9 require overlap-period checks for reflectance and thermal continuity. SLC-off gaps on Landsat 7, calibration updates, and collection reprocessing all affect apparent trends. Prefer Collection-consistent surface products and document which generations enter the stack.' },
+      { id: 'cgei-rs-44-4-smooth', kind: 'prose', title: 'Gap filling and smoothing', body: 'Harmonic regression and Savitzky–Golay filters reduce noise and fill gaps but can erase real high-frequency change (harvest, flood, fire). Use smoothing when the scientific question targets seasonal phenology—not when the signal of interest is abrupt. Always compare smoothed vs unsmoothed series on known events.' },
+      { id: 'cgei-rs-44-4-callout', kind: 'callout', title: 'Continuity risks', tone: 'warning', items: ['Harmonisation ≠ perfect spectral identity', 'Overlap periods are required evidence for multi-generation stacks', 'Smoothing can remove the change you care about', 'State processor and collection versions in methods'] },
+      { id: 'cgei-rs-44-4-points', kind: 'checklist', title: 'Preprocessing chain checklist', items: ['Radiometric level (TOA vs SR) and processor version', 'Geometric co-registration residual reported', 'Mask rules declared before composite', 'Cross-sensor or cross-generation continuity check', 'Smoothing justified or avoided'] },
+    ],
+    activityIds: ['cgei-rs-a-44-harmonise'], assessmentIds: ['cgei-rs-assess-44-harmonise'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2161,11 +2222,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.3 cover radiometric physics, major EO data families, spectral indices and LST discipline. Draft slice.',
+      overview: 'Units 4.1–4.4 cover radiometric physics, data families, spectral indices/LST, and image preprocessing/harmonisation. Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2488,6 +2549,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.3 — Spectral indices and thermal products (Core)',
       notes: ['Official Collection scale factors must be verified against current USGS docs.', 'UTFVI-style categories are descriptive, not health thresholds.'],
     },
+    {
+      id: 'cgei-rs-unit-4-4', code: '4.4', title: 'Image preprocessing and harmonisation', order: 404, kind: 'unit', readiness: 'draft',
+      summary: 'Build a defensible preprocessing chain: radiometric/atmospheric correction, geometry and co-registration QC, cloud masks with omission/commission rates, and cross-sensor time-series continuity.',
+      estimatedHours: 10, prerequisites: ['Unit 4.1', 'Unit 4.2', 'Unit 4.3'], outcomes: outcomes44,
+      lessonIds: lessons44.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-44-radiometric', 'cgei-rs-a-44-geometric', 'cgei-rs-a-44-masks', 'cgei-rs-a-44-harmonise'],
+      assessmentIds: ['cgei-rs-assess-44-radiometric', 'cgei-rs-assess-44-geometric', 'cgei-rs-assess-44-masks', 'cgei-rs-assess-44-harmonise'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.4 — Image preprocessing and harmonisation (Core)',
+      notes: ['Processor names are families; versions and ancillaries must be cited in methods.', 'Smoothing is optional and can erase abrupt change signals.'],
+    },
 
 
 
@@ -2763,6 +2835,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-43-008', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Morning satellite LST should not be treated as:', options: ['A thermal infrared retrieval at overpass time', 'Identical to afternoon air temperature or a heat-stress health threshold', 'A quantity needing cloud masks', 'Something with per-pixel uncertainty'], correctAnswer: 1, explanation: 'Overpass time, land skin temperature, and air temperature are different quantities.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-43-009', lessonId: 'cgei-rs-lesson-4-3-4', type: 'single-choice', prompt: 'Clear-sky LST composites often run warm because:', options: ['Clouds are hotter than land', 'Cloudy cooler days are removed, biasing the sample toward clearer warmer conditions', 'Scale factors double temperature', 'NDVI equals LST'], correctAnswer: 1, explanation: 'Sampling bias from cloud filtering must be reported (e.g. n_valid per pixel).', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-43-010', lessonId: 'cgei-rs-lesson-4-3-4', type: 'single-choice', prompt: 'Thermal sharpening (e.g. TsHARP-style) over heterogeneous urban scenes:', options: ['Always recovers true 10 m thermal measurements', 'Relies on assumptions that can fail when optical predictors and thermal fields decouple', 'Removes the need for validation', 'Converts SAR to LST directly'], correctAnswer: 1, explanation: 'Sharpening is model-based; validate against independent finer thermal data.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-001', lessonId: 'cgei-rs-lesson-4-4-1', type: 'single-choice', prompt: 'Top-of-atmosphere reflectance differs from surface reflectance because:', options: ['They are always identical after any rescale', 'Surface reflectance products attempt to remove atmospheric effects under a stated model; TOA does not', 'TOA is only defined for SAR', 'Surface reflectance is stored as DN only'], correctAnswer: 1, explanation: 'Atmospheric correction is the key distinction; cite processing level explicitly.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-002', lessonId: 'cgei-rs-lesson-4-4-1', type: 'single-choice', prompt: 'A defensible atmospheric-correction description should include:', options: ['Only the satellite name', 'Processor family/version and key ancillary assumptions', 'Only the output file size', 'A claim that residuals are zero'], correctAnswer: 1, explanation: 'LaSRC/Sen2Cor/MAJA/6S-type runs depend on versioned inputs and assumptions.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-003', lessonId: 'cgei-rs-lesson-4-4-2', type: 'single-choice', prompt: 'Sub-pixel misregistration most often creates false change:', options: ['Only in the deep ocean', 'Along high-contrast edges and fragmented boundaries', 'Only in the thermal infrared', 'Only when using GRACE'], correctAnswer: 1, explanation: 'Edge mixed pixels shift between classes under small geometric offsets.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-004', lessonId: 'cgei-rs-lesson-4-4-2', type: 'single-choice', prompt: 'Co-registration quality should be reported using:', options: ['Only visual inspection of a stretched RGB', 'Residual shift statistics on independent control features', 'The file compression ratio', 'NDVI mean alone'], correctAnswer: 1, explanation: 'Independent controls and residual RMSE/mean shift are standard geometric QC.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-44-005', lessonId: 'cgei-rs-lesson-4-4-3', type: 'single-choice', prompt: 'Mask omission rate on a reference sample is:', options: ['False cloud / predicted cloud', 'Missed cloud / reference cloud', 'Always zero for Fmask', 'Equal to overall accuracy'], correctAnswer: 1, explanation: 'Omission = FN/(TP+FN) relative to reference cloud.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-44-006', lessonId: 'cgei-rs-lesson-4-4-3', type: 'single-choice', prompt: 'Cloud/shadow mask rules should be declared:', options: ['After finalising the map that looks best', 'Before compositing, with version and rule text recorded', 'Only for SAR products', 'Never, because QA bands are optional decoration'], correctAnswer: 1, explanation: 'Pre-declared rules reduce p-hacking the mask to the desired result.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-007', lessonId: 'cgei-rs-lesson-4-4-3', type: 'single-choice', prompt: 'Thin cirrus and bright sand are difficult for optical cloud masks because:', options: ['They never appear in satellite data', 'Spectral signatures can resemble cloud or clear bright surfaces, causing omission or commission', 'They only affect DEM voids', 'They are identical to open water in all bands'], correctAnswer: 1, explanation: 'Known confusion cases require sample-based validation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-008', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Landsat–Sentinel harmonisation products primarily address:', options: ['Ocean tide models', 'Band-pass and related cross-sensor differences for a more comparable time series', 'GPS orbit manoeuvres only', 'Soil laboratory calibration'], correctAnswer: 1, explanation: 'HLS-style products apply empirical adjustments; residual differences remain.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-009', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Multi-decadal Landsat 5–9 reflectance series should include:', options: ['No overlap checks if filenames match', 'Overlap-period continuity checks and collection-consistent processing notes', 'Only pan-sharpened inputs', 'Mandatory Savitzky–Golay on all bands'], correctAnswer: 1, explanation: 'Generation and calibration differences require explicit continuity evidence.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-44-010', lessonId: 'cgei-rs-lesson-4-4-4', type: 'single-choice', prompt: 'Savitzky–Golay or harmonic smoothing can be harmful when:', options: ['The target is smooth seasonal phenology and gaps are noise', 'The signal of interest is abrupt (harvest, flood, fire) and would be damped', 'Metadata lists the filter name', 'Only night-time lights are used'], correctAnswer: 1, explanation: 'Smoothing trades noise reduction against attenuation of real high-frequency change.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
     {
@@ -3193,6 +3276,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-43-proxy', kind: 'critique', title: 'Proxy honesty memo', instructions: 'For an arid-fringe city, explain why NDBI alone can mislabel bare soil as built-up and what independent evidence you would require.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-43-proxy'] },
     { id: 'cgei-rs-a-43-lst', kind: 'guided-practice', title: 'Compositing bias note', instructions: 'Explain in four sentences why clear-sky LST composites can run warm and what n_valid reports.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-43-lst'] },
     { id: 'cgei-rs-a-43-uncertainty', kind: 'reflection', title: 'Downscaling assumptions', instructions: 'List two assumptions of TsHARP/STARFM-style methods that fail over heterogeneous urban scenes.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-43-uncertainty'] },
+    { id: 'cgei-rs-a-44-radiometric', kind: 'coding-lab', title: 'Radiometric chain and mask rates lab', instructions: 'Run unit_4_4_preprocess_harmonise_check.py. Report radiance from DN, TOA-vs-SR distinction note, omission/commission rates, and residual shift RMSE.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-44-radiometric', 'cgei-rs-o-44-masks'] },
+    { id: 'cgei-rs-a-44-geometric', kind: 'guided-practice', title: 'Registration residual memo', instructions: 'Explain in five sentences why sub-pixel misregistration creates false change along edges and what residual metric you would report.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-44-geometric'] },
+    { id: 'cgei-rs-a-44-masks', kind: 'critique', title: 'Mask trade-off', instructions: 'Given omission 0.12 and commission 0.22 on a sample, argue whether the mask is acceptable for a greenness composite vs a cloud-free surface-water extract.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-44-masks'] },
+    { id: 'cgei-rs-a-44-harmonise', kind: 'reflection', title: 'Smoothing risk', instructions: 'Name one phenology use-case where Savitzky–Golay is helpful and one abrupt-change use-case where it is harmful.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-44-harmonise'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3421,6 +3508,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-43-proxy', kind: 'formative', title: 'Proxy honesty', purpose: 'Assess NDBI/albedo failure modes.', objectiveIds: ['cgei-rs-o-43-proxy'], questionIds: ['cgei-rs-q-43-004', 'cgei-rs-q-43-005'], required: true },
     { id: 'cgei-rs-assess-43-lst', kind: 'formative', title: 'LST discipline', purpose: 'Assess ST decode, QA, and air-temperature distinction.', objectiveIds: ['cgei-rs-o-43-lst'], questionIds: ['cgei-rs-q-43-006', 'cgei-rs-q-43-007', 'cgei-rs-q-43-008'], required: true },
     { id: 'cgei-rs-assess-43-uncertainty', kind: 'formative', title: 'Uncertainty and downscaling', purpose: 'Assess uncertainty reporting and sharpening limits.', objectiveIds: ['cgei-rs-o-43-uncertainty'], questionIds: ['cgei-rs-q-43-009', 'cgei-rs-q-43-010'], required: true },
+    { id: 'cgei-rs-assess-44-radiometric', kind: 'formative', title: 'Radiometric chain', purpose: 'Assess DN/TOA/SR and atmospheric literacy.', objectiveIds: ['cgei-rs-o-44-radiometric'], questionIds: ['cgei-rs-q-44-001', 'cgei-rs-q-44-002'], required: true },
+    { id: 'cgei-rs-assess-44-geometric', kind: 'formative', title: 'Geometry', purpose: 'Assess co-registration and resampling literacy.', objectiveIds: ['cgei-rs-o-44-geometric'], questionIds: ['cgei-rs-q-44-003', 'cgei-rs-q-44-004'], required: true },
+    { id: 'cgei-rs-assess-44-masks', kind: 'formative', title: 'Masks', purpose: 'Assess mask validation metrics.', objectiveIds: ['cgei-rs-o-44-masks'], questionIds: ['cgei-rs-q-44-005', 'cgei-rs-q-44-006', 'cgei-rs-q-44-007'], required: true },
+    { id: 'cgei-rs-assess-44-harmonise', kind: 'formative', title: 'Harmonisation', purpose: 'Assess continuity and smoothing risks.', objectiveIds: ['cgei-rs-o-44-harmonise'], questionIds: ['cgei-rs-q-44-008', 'cgei-rs-q-44-009', 'cgei-rs-q-44-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },

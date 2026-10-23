@@ -1,0 +1,13 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+4.4.1.1,DN radiance reflectance TOA vs SR,4.4.1,Radiometric atmospheric correction,Core,cgei-rs-lesson-4-4-1,cgei-rs-44-1-chain;cgei-rs-44-1-eq;cgei-rs-44-1-work,mapped_partial,Chain + equation + NDVI level example; fixture DN→radiance.
+4.4.1.2,Atmospheric correction 6S LaSRC Sen2Cor MAJA,4.4.1,Radiometric atmospheric correction,Core,cgei-rs-lesson-4-4-1,cgei-rs-44-1-atm,mapped_partial,Families and inputs named; no live processor run.
+4.4.1.3,BRDF nadir topographic correction,4.4.1,Radiometric atmospheric correction,Core,cgei-rs-lesson-4-4-1,cgei-rs-44-1-brdf,mapped_partial,Conceptual applicability.
+4.4.2.1,Orthorectification co-registration sub-pixel,4.4.2,Geometric processing,Core,cgei-rs-lesson-4-4-2,cgei-rs-44-2-ortho;cgei-rs-44-2-work,mapped_partial,False-change mechanism taught.
+4.4.2.2,Resampling pan-sharpening effects,4.4.2,Geometric processing,Core,cgei-rs-lesson-4-4-2,cgei-rs-44-2-resamp,mapped_partial,Spectral fidelity caution.
+4.4.2.3,Co-registration residual reporting,4.4.2,Geometric processing,Core,cgei-rs-lesson-4-4-2,cgei-rs-44-2-qc,mapped_partial,Independent controls; fixture RMSE.
+4.4.3.1,Fmask s2cloudless Cloud Score+ QA,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-masks,mapped_partial,Trade-offs omission/commission.
+4.4.3.2,Haze cirrus snow vs cloud rules before composite,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-rules,mapped_partial,Pre-declare rules.
+4.4.3.3,Validate mask omission commission,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-val;cgei-rs-44-3-eq;cgei-rs-44-3-work,mapped_partial,Worked rates + fixture.
+4.4.4.1,Landsat Sentinel harmonisation HLS,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-hls,mapped_partial,Band-pass residual caveat.
+4.4.4.2,Landsat 5-9 continuity overlap,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-landsat,mapped_partial,Overlap-period requirement.
+4.4.4.3,Gap filling smoothing harmonic SG signal loss,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-smooth;cgei-rs-44-4-callout,mapped_partial,Fixture peak damping illustration.

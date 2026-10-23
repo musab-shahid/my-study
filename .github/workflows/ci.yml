@@ -127,3 +127,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_2_data_families_check.py
       - name: Verify Unit 4.3 spectral indices and LST checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
+      - name: Verify Unit 4.4 preprocessing and harmonisation checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_4_preprocess_harmonise_check.py
