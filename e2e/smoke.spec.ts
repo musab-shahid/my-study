@@ -33,7 +33,7 @@ test.describe('Mobile More sheet accessibility', () => {
     const close = dialog.getByRole('button', { name: 'Close' });
     await expect(close).toBeFocused();
     await page.keyboard.press('Shift+Tab');
-    await expect(dialog.getByRole('button', { name: 'Settings' })).toBeFocused();
+    await expect(dialog.getByRole('button', { name: 'HAT Prep', exact: true })).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(close).toBeFocused();
 
@@ -56,7 +56,7 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
     await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
     await expect(dialog.getByRole('region', { name: 'Study tools' })).toBeVisible();
-    await expect(dialog.getByRole('region', { name: 'Tools' })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Tools', exact: true })).toBeVisible();
     await expect(dialog.getByRole('region', { name: 'Exam tracks' })).toBeVisible();
   });
 
@@ -101,12 +101,13 @@ test.describe('Mobile More menu consistency', () => {
     await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
   });
 
-  test('header stays contextual instead of duplicating global destination shortcuts', async ({ page }) => {
+  test('header stays contextual while retaining its back navigation control', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/settings');
 
     const header = page.locator('header').first();
-    await expect(header.getByRole('button', { name: 'Home', exact: true })).toHaveCount(0);
+    // The Home-labelled control is contextual back navigation, not a global shortcut.
+    await expect(header.getByRole('button', { name: 'Home', exact: true })).toBeVisible();
     await expect(header.getByRole('button', { name: 'Search', exact: true })).toHaveCount(0);
     await expect(header.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(0);
     await expect(header.getByRole('heading', { name: 'Settings' })).toBeVisible();
