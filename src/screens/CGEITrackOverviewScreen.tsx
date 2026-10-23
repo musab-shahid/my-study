@@ -155,9 +155,8 @@ export function CGEITrackOverviewScreen() {
                   counts[lesson.readiness] = (counts[lesson.readiness] ?? 0) + 1;
                   return counts;
                 }, {});
-                const readinessSummary = ['draft', 'review', 'validated', 'released']
-                  .filter((status) => lessonReadiness[status])
-                  .map((status) => `${lessonReadiness[status]} ${status}`)
+                const readinessSummary = ['planned', 'outlined', 'draft', 'review', 'validated', 'released']
+                  .map((status) => `${lessonReadiness[status] ?? 0} ${status}`)
                   .join(' · ');
                 const Icon = subject.lucideIcon ?? BookOpen;
                 return (
@@ -172,7 +171,7 @@ export function CGEITrackOverviewScreen() {
                           <>
                             <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
                             <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with content</p>
-                            <p className="text-xs text-slate-500 mt-1">Lesson status: {readinessSummary || 'no lessons mapped'}.</p>
+                            <p className="text-xs text-slate-500 mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
                           </>
                         ) : hasTopicContent ? (
                           <>
