@@ -28,14 +28,16 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', handler);
-    // Lock body scroll while sheet is open
+    // Only the mobile modal sheet should lock page scrolling. The desktop
+    // popover is non-modal and must leave the page scrollable.
+    const shouldLockScroll = variant === 'mobile-sheet';
     const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    if (shouldLockScroll) document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handler);
-      document.body.style.overflow = prev;
+      if (shouldLockScroll) document.body.style.overflow = prev;
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, variant]);
 
   if (!isOpen) return null;
 
@@ -112,19 +114,20 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
           aria-hidden
         />
         <div
+          id="mobile-tools-tray"
           role="dialog"
           aria-modal="true"
-          aria-label="More tools"
+          aria-labelledby="mobile-tools-title"
           ref={sheetRef} className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto pb-safe animate-fade-in-up"
         >
           <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pt-3 pb-2 border-b border-slate-100">
             <div className="sheet-handle mb-3" aria-hidden />
             <div className="flex items-center justify-between px-5">
-              <h3 className="font-bold text-slate-900 text-base tracking-tight">More</h3>
+              <h3 id="mobile-tools-title" className="font-bold text-slate-900 text-base tracking-tight">More</h3>
               <button
                 type="button"
                 onClick={onClose}
-                className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation"
+                className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
@@ -208,7 +211,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
             key={t.label}
             type="button"
             onClick={t.onClick}
-            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm"
+            className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
           >
             <t.icon className="w-4 h-4" />
             {t.label}
@@ -220,7 +223,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
             navigate({ screen: 'fpsc', parent: null });
             onClose();
           }}
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
         >
           <FileText className="w-4 h-4" />
           FPSC Exam
@@ -231,7 +234,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
             navigate({ screen: 'hat', parent: null });
             onClose();
           }}
-          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm"
+          className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-slate-300 hover:text-white hover:bg-slate-700 transition-colors text-left text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-inset"
         >
           <Trophy className="w-4 h-4" />
           HAT Prep
