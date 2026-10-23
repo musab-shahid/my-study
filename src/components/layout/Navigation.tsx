@@ -129,12 +129,17 @@ export function Sidebar() {
           const styles = trackNavStyles(trackId);
           const TrackIcon = trackIcon(trackId);
           const landing = getLandingScreenForTrack(trackId);
-          const isTrackActive = isTrackLandingActive(trackId) || trackMembership.activeTrackId === trackId;
+          // Highlight the track only when the current route belongs to it. The
+          // selected/enrolled track remains indicated separately by its "Active" badge.
+          const isTrackCurrentPage =
+            isTrackLandingActive(trackId) ||
+            ((STAGE_SCREENS as readonly string[]).includes(currentScreen) &&
+              trackSubs.some((sub) => sub.id === getActiveSubject(currentScreen as StageScreen)));
           return (
             <div key={trackId} className="mb-1">
               <button
                 type="button"
-                aria-current={trackMembership.activeTrackId === trackId ? 'page' : undefined}
+                aria-current={isTrackCurrentPage ? 'page' : undefined}
                 onClick={() => {
                   const sw = setActiveEnrolledTrack(trackId);
                   if (sw.ok) {
@@ -143,12 +148,12 @@ export function Sidebar() {
                   }
                 }}
                 className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium transition-all duration-DEFAULT border-l-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                  isTrackActive
+                  isTrackCurrentPage
                     ? `${styles.activeBorder} text-white bg-slate-800`
                     : 'border-transparent text-slate-400 hover:text-white hover:bg-slate-800'
                 }`}
               >
-                <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackActive ? styles.iconColor : ''}`} aria-hidden />
+                <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackCurrentPage ? styles.iconColor : ''}`} aria-hidden />
                 <span className="flex-1 text-left">{track.title}</span>
                 {trackMembership.activeTrackId === trackId && (
                   <span className="text-[10px] text-emerald-400 font-semibold">Active</span>
