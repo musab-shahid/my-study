@@ -406,6 +406,7 @@ export function SettingsScreen() {
                   Use your browser menu (often <strong className="font-semibold text-slate-700">Install app</strong> or <strong className="font-semibold text-slate-700">Add to Home Screen</strong>). The app works offline once loaded.
                 </p>
               )}
+              {installMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{installMsg}</p>}
             </div>
           </div>
         </Card>
