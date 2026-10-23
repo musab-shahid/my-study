@@ -36,11 +36,19 @@ def range_flags(vals, lo, hi):
     return [i for i, v in enumerate(vals) if v is not None and not (lo <= v <= hi)]
 
 
-def step_flags(vals, max_step):
+def step_flags(vals, max_step, lo=None, hi=None):
+    """Flag large jumps between consecutive *in-range* values.
+
+    Out-of-range values break the chain (treated like gaps) so a single
+    range violation does not cascade into many step flags.
+    """
     flags = []
     prev = None
     for i, v in enumerate(vals):
         if v is None:
+            prev = None
+            continue
+        if lo is not None and hi is not None and not (lo <= v <= hi):
             prev = None
             continue
         if prev is not None and abs(v - prev) > max_step:
@@ -85,8 +93,9 @@ def main() -> None:
     rf = range_flags(STATION, T_MIN_ALLOWED, T_MAX_ALLOWED)
     assert 5 in rf and 18 in rf  # 65 and 80
 
-    sf = step_flags(STATION, STEP_MAX)
-    assert 7 in sf  # 33 -> 50
+    sf = step_flags(STATION, STEP_MAX, T_MIN_ALLOWED, T_MAX_ALLOWED)
+    assert 7 in sf  # 33 -> 50 (both in-range)
+    assert 5 not in sf  # out-of-range day is a range flag, not a step chain
 
     sp = spike_flags(STATION, STEP_MAX)
     assert 18 in sp  # 35 -> 80 -> 36
