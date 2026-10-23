@@ -108,8 +108,13 @@ export function SettingsScreen() {
   const handleReset = () => {
     try {
       if (isFullReset) {
-        reset();
-        setResetDone('All data has been reset');
+        const didReset = reset();
+        if (!didReset) {
+          setResetDone('Reset cancelled because a recovery backup could not be saved. Free browser storage and try again.');
+          setConfirming(false);
+          return;
+        }
+        setResetDone('All data has been reset. A recovery backup was saved.');
       } else {
         resetSubjects([...selectedSubjects]);
         const n = selectedSubjects.size;
@@ -119,7 +124,7 @@ export function SettingsScreen() {
       setConfirming(false);
     } catch (err) {
       console.error('[settings] reset failed', err);
-      setResetDone('Reset failed — try again');
+      setResetDone('Reset failed — check your saved data and backup before trying again.');
       setConfirming(false);
     }
   };
