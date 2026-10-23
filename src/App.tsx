@@ -20,6 +20,7 @@ import { SettingsScreen } from '@/screens/SettingsScreen';
 import { HatLandingScreen } from '@/screens/hat/HatLandingScreen';
 import { FpscLandingScreen } from '@/screens/fpsc/FpscLandingScreen';
 import { TrackOverviewScreen } from '@/screens/TrackOverviewScreen';
+import { CGEITrackOverviewScreen } from '@/screens/CGEITrackOverviewScreen';
 import { EnrollmentRequired } from '@/components/track/EnrollmentRequired';
 import { TopicAccessGate, SectionAccessGate } from '@/components/track/ResourceAccessGate';
 import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
@@ -111,6 +112,7 @@ function ScreenRouter() {
       const def = getTrackDefinition(route.trackId);
       if (def.landingVariant === 'hat') return <HatLandingScreen />;
       if (def.landingVariant === 'fpsc') return <FpscLandingScreen />;
+      if (route.trackId === 'cgei') return <CGEITrackOverviewScreen />;
       return <TrackOverviewScreen trackId={route.trackId} />;
     }
     default:
