@@ -139,14 +139,15 @@ export function StudyScreen() {
             return (
             <ActionCard className="mb-3 sm:mb-6" borderColorClass={contColor.borderLeft}>
               <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${contColor.text}`}>Continue Learning</p>
-              <p className="text-lg font-bold text-slate-900 mb-1">{continueTopic.title}</p>
+              <p className="text-lg sm:text-xl font-bold leading-snug text-slate-900 mb-1 break-words">{continueTopic.title}</p>
               <p className="text-slate-500 text-sm mb-1">Section: {sectionMap[continueTopic.sectionId]?.title ?? continueTopic.sectionId}</p>
               <p className="text-slate-400 text-xs mb-4">
                 {data.studiedTopics.includes(continueTopic.id) ? '100% read' : '0% read'}
               </p>
               <button
+                type="button"
                 onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 transition-opacity`}
+                className={`inline-flex min-h-touch items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2`}
               >
                 Continue Reading <ArrowRight className="w-4 h-4" />
               </button>
@@ -201,8 +202,11 @@ export function StudyScreen() {
                 return (
                   <div key={section.id}>
                     <button
+                      type="button"
+                      aria-expanded={isExpanded}
+                      aria-controls={`section-topics-${section.id}`}
                       onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left"
+                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
                     >
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
@@ -212,7 +216,7 @@ export function StudyScreen() {
                       {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
                     </button>
                     {isExpanded && (
-                      <div className="ml-12 pl-3 pr-1 py-1 space-y-1">
+                      <div id={`section-topics-${section.id}`} className="ml-12 pl-3 pr-1 py-1 space-y-1">
                         {sectionTopics.map((topic) => {
                           const p = data.topicProgress[topic.id];
                           const studied = data.studiedTopics.includes(topic.id);
@@ -221,8 +225,9 @@ export function StudyScreen() {
                           return (
                             <button
                               key={topic.id}
+                              type="button"
                               onClick={() => navigate({ screen: 'topic', topicId: topic.id })}
-                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left"
+                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
                               <span className="text-slate-700 text-sm font-medium truncate flex-1">{topic.title}</span>
