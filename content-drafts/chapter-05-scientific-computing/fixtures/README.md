@@ -112,3 +112,6 @@ Synthetic station QC (range/step/spike/persistence); missing≠0; point≠grid-c
 
 ## unit_2_5_climate_data_handling_check.py
 UTC vs PKT daily max; precip sum; monthly completeness; anomaly vs baseline. Not ERA5/CDS validation.
+
+## unit_2_6_extremes_trend_analysis_check.py
+OLS/Sen slope 0.2°C/year; percentile exceedance; spell duration; empirical T=n/k. Not GEV/attribution.

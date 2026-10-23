@@ -47,8 +47,8 @@ describe('CGEI curriculum structure', () => {
       assert.equal(unit.lessonIds.length,  code === '5.1' ? 8 : 5);
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
-    assert.equal(cgeiCurriculum.lessons.length, 102);
-    assert.equal(cgeiCurriculum.questions.length, 226);
+    assert.equal(cgeiCurriculum.lessons.length, 105);
+    assert.equal(cgeiCurriculum.questions.length, 230);
     const unitOrders = cgeiCurriculum.units.map((unit) => unit.order);
     assert.equal(unitOrders.length, new Set(unitOrders).size);
     assert.deepEqual(

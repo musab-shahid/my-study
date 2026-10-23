@@ -1804,7 +1804,47 @@ const lessons25: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes26: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-26-threshold', statement: 'Define absolute and percentile thresholds with a declared baseline and count exceedances and spell durations without treating each day as an independent event without justification.', action: 'define and count', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-26-trend', statement: 'Estimate a linear and Sen slope with explicit units and state why autocorrelation affects uncertainty even when the slope estimate is unchanged.', action: 'estimate and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-cl-o-26-inference', statement: 'Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and return-period schedules.', action: 'report with limits', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons26: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-6-1', kind: 'lesson', title: 'Thresholds, heat and rainfall extremes', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes26[0]],
+    content: [
+      { id: 'cgei-cl-26-1-1', kind: 'prose', title: 'Defining an extreme', body: 'Extremes need a threshold: absolute (e.g. 40°C) or percentile-based (e.g. 90th percentile of a reference period). Frequency, intensity, duration, timing and spatial extent answer different questions. Changing the baseline changes percentile thresholds and therefore counts. Heat metrics (percentile spells, tropical nights, heat index, UTCI, WBGT) require different inputs. ETCCDI rainfall indices (Rx1day, R95pTOT, CDD, …) are resolution-sensitive. Daily data cannot resolve sub-daily intensities.' },
+      { id: 'cgei-cl-26-1-lab', kind: 'worked-example', title: 'Lab: percentile exceedance and spell length', body: 'On a 10-year synthetic annual series 30, 30.2, …, 31.8°C, the nearest-rank 90th percentile is 31.6°C with one exceedance. A binary spell pattern 0,1,1,1,0,1,0 has max duration 3. Fixture unit_2_6_extremes_trend_analysis_check.py locks these results. Consecutive days in one heatwave are not independent events for return-period counting without declustering.' },
+      { id: 'cgei-cl-26-1-3', kind: 'key-points', title: 'Extreme-definition cautions', items: ['Declare baseline and percentile convention', 'Duration ≠ number of threshold crossings', 'Drought indices SPI/SPEI answer timescale-specific questions'] },
+    ],
+    activityIds: ['cgei-cl-a-26-threshold'], assessmentIds: ['cgei-cl-assess-26-threshold'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-6-2', kind: 'lesson', title: 'Trend estimation and dependence', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes26[1]],
+    content: [
+      { id: 'cgei-cl-26-2-1', kind: 'prose', title: 'Slopes with units', body: 'A linear OLS slope against time is an estimate of average change per year (or per decade)—not attribution. Sen’s slope (median of pairwise slopes) is robust to outliers. Mann–Kendall tests the presence of a monotonic trend; serial correlation reduces effective sample size and can inflate significance if ignored. Bootstrap/block-bootstrap and seasonal Mann–Kendall address dependence and seasonality at more advanced depth.' },
+      { id: 'cgei-cl-26-2-lab', kind: 'worked-example', title: 'Lab: OLS and Sen slopes', body: 'For T_t = 30 + 0.2 t (°C), t=0…9, both OLS and Sen slopes equal 0.2°C/year. Fixture unit_2_6_extremes_trend_analysis_check.py asserts both. Autocorrelation is not present in this noise-free series; real climate series need dependence-aware uncertainty even when the slope formula is unchanged.' },
+      { id: 'cgei-cl-26-2-3', kind: 'callout', title: 'What is deferred', tone: 'warning', items: ['Full Mann–Kendall p-value tables and variance correction', 'Field significance / FDR for maps (Wilks)', 'GEV/GPD fitting (Unit 2.7 Support)'] },
+    ],
+    activityIds: ['cgei-cl-a-26-trend'], assessmentIds: ['cgei-cl-assess-26-trend'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-6-3', kind: 'lesson', title: 'Return periods and inference discipline', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes26[2]],
+    content: [
+      { id: 'cgei-cl-26-3-1', kind: 'prose', title: 'Probability is not a schedule', body: 'Under stationarity and independence, an annual exceedance probability p corresponds to return period T ≈ 1/p years—not a promise the event occurs once every T years on a fixed calendar. Empirical T from k events in n years is T=n/k; when T ≫ n the estimate is weakly constrained. Non-stationarity breaks classical return-period interpretation.' },
+      { id: 'cgei-cl-26-3-lab', kind: 'worked-example', title: 'Lab: empirical return period', body: 'With 2 events in 10 years, T=5 years under the empirical annual rate. Fixture unit_2_6_extremes_trend_analysis_check.py locks T=5. This is not a fitted GEV return level.' },
+      { id: 'cgei-cl-26-3-2', kind: 'checklist', title: 'Reporting discipline', items: ['Variable, units, product, domain', 'Period, baseline, season definition', 'Method and assumptions', 'Effect size not only p-value', 'Short records cannot alone prove long-term climate change', 'Reanalysis trends describe the product as well as the climate', 'Rainfall extremes ≠ flood causation without hydrology/exposure'] },
+    ],
+    activityIds: ['cgei-cl-a-26-inference'], assessmentIds: ['cgei-cl-assess-26-inference'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1905,11 +1945,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.2, 2.4–2.5 cover weather–climate foundations, processes, data products and climate data handling. Unit 2.3 Support not yet implemented. Draft slice only.',
+      overview: 'Units 2.1–2.2 and 2.4–2.6 cover foundations through extremes/trends. Unit 2.3 Support not yet implemented. Draft slice only.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25],
+      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25, ...outcomes26],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2177,6 +2217,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.5 — Climate data handling (Core)',
       notes: ['Synthetic handling only; no CDS/ERA5 download in CI.', 'Multan case is a workflow template, not a validated local study.'],
     },
+    {
+      id: 'cgei-cl-unit-2-6', code: '2.6', title: 'Extremes and trend analysis', order: 206, kind: 'unit', readiness: 'draft',
+      summary: 'Define thresholds and extreme indices, estimate trends with explicit units and dependence awareness, and report results without overstating return periods or attribution.',
+      estimatedHours: 8, prerequisites: ['Unit 2.5'], outcomes: outcomes26,
+      lessonIds: lessons26.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-26-threshold', 'cgei-cl-a-26-trend', 'cgei-cl-a-26-inference'],
+      assessmentIds: ['cgei-cl-assess-26-threshold', 'cgei-cl-assess-26-trend', 'cgei-cl-assess-26-inference'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.6 — Extremes and trend analysis (Core)',
+      notes: ['OLS/Sen and empirical T only; no GEV/GPD or field significance in this slice.'],
+    },
+
 
 
 
@@ -2249,6 +2301,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-25-002', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'Before differencing accumulated precipitation fields from two products, you should first:', options: ['Assume identical accumulation windows', 'Read each product’s accumulation and time conventions', 'Convert all values to anomalies automatically', 'Drop all missing as zeros'], correctAnswer: 1, explanation: 'Accumulation windows and time encodings differ by product (e.g. ERA5 vs ERA5-Land documentation).', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-25-003', lessonId: 'cgei-cl-lesson-2-5-2', type: 'single-choice', prompt: 'With baseline July mean 32°C, an observed July value of 35°C has anomaly:', options: ['35°C', '+3°C', '−3°C', '32°C'], correctAnswer: 1, explanation: 'A = X − baseline = 35 − 32 = +3°C.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-cl-q-25-004', lessonId: 'cgei-cl-lesson-2-5-3', type: 'single-choice', prompt: 'A complete processing record for climate data handling should include at least:', options: ['Only the final plot colours', 'Source version, extent, time rule, baseline, completeness rule, licence', 'Solely the programming language version', 'No baseline if anomalies are used'], correctAnswer: 1, explanation: 'Reproducibility requires provenance of source, spatial/temporal extent, aggregation rules, baseline and licence.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-26-001', lessonId: 'cgei-cl-lesson-2-6-1', type: 'single-choice', prompt: 'Changing the baseline period for a percentile threshold will typically:', options: ['Leave all exceedance counts unchanged', 'Change the threshold and therefore the exceedance counts', 'Convert the series to precipitation', 'Eliminate the need for units'], correctAnswer: 1, explanation: 'Percentile thresholds are baseline-dependent; different baselines yield different thresholds and counts.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-26-002', lessonId: 'cgei-cl-lesson-2-6-1', type: 'single-choice', prompt: 'Three consecutive days above a heat threshold are best treated as:', options: ['Three fully independent 1-day events by default', 'One multi-day spell for duration metrics unless declustered for event counts', 'Proof of a 3-year return period', 'Evidence against autocorrelation'], correctAnswer: 1, explanation: 'Duration metrics treat consecutive exceedances as one spell; independence must be justified before counting separate events.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cl-q-26-003', lessonId: 'cgei-cl-lesson-2-6-2', type: 'single-choice', prompt: 'For T_t = 30 + 0.2 t (°C), t = 0…9, the OLS slope is:', options: ['0.2°C/year', '2°C/year', '30°C', '0°C/year'], correctAnswer: 0, explanation: 'The designed series has slope 0.2°C per year; Sen’s slope matches on this noise-free series.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-26-004', lessonId: 'cgei-cl-lesson-2-6-3', type: 'single-choice', prompt: 'An empirical return period T = 5 years from 2 events in 10 years means:', options: ['The event is scheduled every fifth calendar year', 'Under the empirical annual rate and stated assumptions, mean recurrence is about 5 years—not a fixed schedule', 'A 100-year event is impossible', 'Attribution is complete'], correctAnswer: 1, explanation: 'Return period is a probability-based mean recurrence under assumptions, not a deterministic calendar schedule.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
@@ -2828,6 +2885,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-a-25-time', kind: 'coding-lab', title: 'UTC vs PKT daily max lab', instructions: 'Run unit_2_5_climate_data_handling_check.py. Explain which local day owns the 42°C spike under PKT=UTC+5.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-time'] },
     { id: 'cgei-cl-a-25-aggregate', kind: 'coding-lab', title: 'Completeness and anomaly lab', instructions: 'From the fixture, report the incomplete-month result, the dense mean, and the +3°C anomaly calculation with baseline stated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-aggregate', 'cgei-cl-o-25-anomaly'] },
     { id: 'cgei-cl-a-25-workflow', kind: 'critique', title: 'Processing record draft', instructions: 'Write a six-field processing record for a hypothetical Multan Tmax anomaly workflow without inventing downloaded data.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-25-anomaly'] },
+    { id: 'cgei-cl-a-26-threshold', kind: 'coding-lab', title: 'Threshold and spell lab', instructions: 'Run unit_2_6_extremes_trend_analysis_check.py. Report the 90th percentile threshold, exceedance count, and max spell length 3 from the binary pattern.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-26-threshold'] },
+    { id: 'cgei-cl-a-26-trend', kind: 'coding-lab', title: 'Slope lab', instructions: 'Confirm OLS and Sen slopes equal 0.2°C/year and write one sentence on why dependence still matters for uncertainty on real series.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-26-trend'] },
+    { id: 'cgei-cl-a-26-inference', kind: 'critique', title: 'Claim rewrite', instructions: 'Rewrite “A 100-year flood is due next year” into a statement that uses probability language and record-length limits.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-26-inference'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
     { id: 'cgei-cl-a-21-stats', kind: 'coding-lab', title: 'Window sensitivity lab', instructions: 'Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-21-stats'] },
     { id: 'cgei-cl-a-21-evidence', kind: 'critique', title: 'Climate claim critique', instructions: 'Rewrite a vague claim ("it is getting hotter") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.', level: 'L1', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-21-evidence'] },
@@ -3040,6 +3100,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-assess-25-time', kind: 'formative', title: 'Time conventions', purpose: 'Assess UTC/local and accumulation awareness.', objectiveIds: ['cgei-cl-o-25-time'], questionIds: ['cgei-cl-q-25-001', 'cgei-cl-q-25-002'], required: true },
     { id: 'cgei-cl-assess-25-aggregate', kind: 'formative', title: 'Aggregation and anomalies', purpose: 'Assess completeness and anomaly definition.', objectiveIds: ['cgei-cl-o-25-aggregate', 'cgei-cl-o-25-anomaly'], questionIds: ['cgei-cl-q-25-003'], required: true },
     { id: 'cgei-cl-assess-25-workflow', kind: 'formative', title: 'Workflow provenance', purpose: 'Assess processing-record completeness.', objectiveIds: ['cgei-cl-o-25-anomaly'], questionIds: ['cgei-cl-q-25-004'], required: true },
+    { id: 'cgei-cl-assess-26-threshold', kind: 'formative', title: 'Thresholds', purpose: 'Assess threshold and duration concepts.', objectiveIds: ['cgei-cl-o-26-threshold'], questionIds: ['cgei-cl-q-26-001', 'cgei-cl-q-26-002'], required: true },
+    { id: 'cgei-cl-assess-26-trend', kind: 'formative', title: 'Trends', purpose: 'Assess slope interpretation.', objectiveIds: ['cgei-cl-o-26-trend'], questionIds: ['cgei-cl-q-26-003'], required: true },
+    { id: 'cgei-cl-assess-26-inference', kind: 'formative', title: 'Inference discipline', purpose: 'Assess return-period and reporting discipline.', objectiveIds: ['cgei-cl-o-26-inference'], questionIds: ['cgei-cl-q-26-004'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },
     { id: 'cgei-cl-assess-21-stats', kind: 'formative', title: 'Windows and missing data', purpose: 'Assess window sensitivity and missing-data handling.', objectiveIds: ['cgei-cl-o-21-stats'], questionIds: ['cgei-cl-q-21-003'], required: true },
     { id: 'cgei-cl-assess-21-evidence', kind: 'formative', title: 'Evidence language', purpose: 'Assess claim completeness and attribution caution.', objectiveIds: ['cgei-cl-o-21-evidence'], questionIds: ['cgei-cl-q-21-004'], required: true },
