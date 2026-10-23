@@ -17,7 +17,14 @@ def spatial_mean(field: list[list[float]]) -> float:
     return sum(vals) / len(vals)
 
 
+
+def sha256_hex(payload: bytes) -> str:
+    import hashlib
+    return hashlib.sha256(payload).hexdigest()
+
+
 def main() -> None:
+
     # Regular 2x2 spatial grid, 3 times; units: degree_Celsius (toy)
     # dims order: time, lat, lon
     data = [
@@ -43,6 +50,11 @@ def main() -> None:
 
     # Missing value is not treated as zero
     assert spatial_mean([[nan, 10.0], [10.0, 10.0]]) == 10.0
+
+    # Deterministic checksum contract for manifest-style bookkeeping
+    assert sha256_hex(b"cgei-unit-5-12") == sha256_hex(b"cgei-unit-5-12")
+    assert len(sha256_hex(b"cgei-unit-5-12")) == 64
+    assert sha256_hex(b"a") != sha256_hex(b"b")
 
     print(
         "Unit 5.12 multidim contract checks passed "
