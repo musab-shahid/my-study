@@ -127,7 +127,7 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
               <button
                 type="button"
                 onClick={onClose}
-                className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="w-11 h-11 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                 aria-label="Close"
               >
                 <X className="w-5 h-5" />
