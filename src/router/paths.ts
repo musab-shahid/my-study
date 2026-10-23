@@ -7,6 +7,7 @@ import { getTrackDefinition, isTrackId } from '../data/tracks';
 import { subjectMap } from '../data/subjects';
 import { sectionMap } from '../data/sections';
 import { cgeiCurriculum } from '../data/cgei/curriculum';
+import { cgeiSubjectIdForOverviewTopic, isCgeiOverviewTopic } from '../data/cgei/overview';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
 /** Local mirror of router.Route to avoid circular imports with index.tsx */
@@ -109,6 +110,10 @@ export function pathToRoute(pathname: string): PathRoute {
     case 'topic': {
       if (!a) return { screen: 'learn' };
       const id = decodeURIComponent(a);
+      if (isCgeiOverviewTopic(id)) {
+        const subjectId = cgeiSubjectIdForOverviewTopic(id);
+        return subjectId ? { screen: 'learn', subjectId } : { screen: 'learn' };
+      }
       if (getTopic(id)) return { screen: 'topic', topicId: id };
       return { screen: 'learn' };
     }
