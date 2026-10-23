@@ -151,8 +151,10 @@ export function useSubjectData(): SubjectDataLayer {
   const questionCountFor = useCallback((id: SubjectId | 'all'): number => {
     if (id !== 'all' && !trackSubjectIds.has(id)) return 0;
     if (id === 'all') return trackSections.reduce((sum, s) => sum + s.questionCount, 0);
-    return sectionsFor(id).reduce((sum, s) => sum + s.questionCount, 0);
-  }, [trackSections, trackSubjectIds, sectionsFor]);
+    return sectionsBySubject(id)
+      .filter((section) => topics.some((topic) => topic.sectionId === section.id && !isCgeiOverviewTopic(topic.id)))
+      .reduce((sum, section) => sum + section.questionCount, 0);
+  }, [trackSections, trackSubjectIds]);
 
   const sectionsFor = useCallback((id: SubjectId | 'all'): Section[] => {
     if (id === 'all') return trackSections;
