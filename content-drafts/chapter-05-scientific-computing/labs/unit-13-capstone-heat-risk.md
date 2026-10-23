@@ -34,3 +34,14 @@ python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_public_da
 - Rankings ≠ calibrated health risk or expected loss  
 - Synthetic E/V proxies ≠ census ground truth  
 - Pipeline success ≠ validated adaptation priority  
+
+
+## Path C — Real MODIS granule (learner machine only)
+
+See `labs/unit-13-modis-real-granule.md`.
+
+```bash
+python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py
+```
+
+Offline miniature scale/fill test only. Real HDF download is outside CI.

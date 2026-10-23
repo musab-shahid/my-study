@@ -14,3 +14,7 @@ Fixture: `unit_13_capstone_heat_risk_check.py` — synthetic neighbourhoods only
 ## V2 public-data pathway
 
 Added offline MOD11A2-documented pathway (`unit_13_public_data_pathway_check.py`). Synthetic fixture retained. Still draft; portfolio units deferred.
+
+## V3 real-granule path
+
+Miniature scale/fill processor + learner acquisition lab. **No** genuine HDF processed in CI.

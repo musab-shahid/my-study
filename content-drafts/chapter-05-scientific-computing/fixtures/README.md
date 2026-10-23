@@ -151,3 +151,6 @@ Synthetic neighbourhood heat screening E2E: protocol, baseline, H/E/V ranks, dec
 
 ## unit_13_public_data_pathway_check.py
 Offline public-data pathway: MOD11A2 manifest validation, teaching extract QA, LST anomaly, synthetic E/V merge, rank sensitivity, claim rejection.
+
+## unit_13_modis_local_process_check.py
+MOD11A2 scale 0.02 / fill 0 / K→C on miniature JSON fixture. Not a real HDF.

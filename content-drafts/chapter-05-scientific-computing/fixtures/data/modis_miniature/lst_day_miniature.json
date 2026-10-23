@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "product": "MOD11A2",
+    "version": "061",
+    "layer": "LST_Day_1km",
+    "scale_factor": 0.02,
+    "add_offset": 0.0,
+    "fill_value": 0,
+    "units_after_scale": "Kelvin",
+    "crs": "EPSG:4326",
+    "note": "Miniature teaching array \u2014 NOT a NASA HDF granule. Scale/fill follow MOD11A2 docs.",
+    "documentation_url": "https://lpdaac.usgs.gov/products/mod11a2v061/"
+  },
+  "raw_dn": [
+    [
+      0,
+      15500,
+      15400
+    ],
+    [
+      15600,
+      0,
+      15350
+    ],
+    [
+      15450,
+      15550,
+      0
+    ]
+  ]
+}
