@@ -108,6 +108,7 @@ export function Sidebar() {
         <button
           type="button"
           onClick={() => navigate({ screen: 'home', parent: null })}
+          aria-current={currentScreen === 'home' ? 'page' : undefined}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
               ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
@@ -259,6 +260,7 @@ export function Sidebar() {
         <div className="space-y-0.5">
           <button
             onClick={() => { setActiveSubjectForScreen('search', 'all'); navigate({ screen: 'search', parent: null }); }}
+            aria-current={currentScreen === 'search' ? 'page' : undefined}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               currentScreen === 'search'
                 ? 'text-white bg-slate-800'
@@ -270,6 +272,7 @@ export function Sidebar() {
           </button>
           <button
             onClick={() => { setActiveSubjectForScreen('practice', 'all'); navigate({ screen: 'practice', mode: 'mock', parent: null }); }}
+            aria-current={route.screen === 'practice' && route.mode === 'mock' ? 'page' : undefined}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               route.screen === 'practice' && route.mode === 'mock'
                 ? 'text-white bg-slate-800'
@@ -281,6 +284,7 @@ export function Sidebar() {
           </button>
           <button
             onClick={() => { setActiveSubjectForScreen('progress', 'all'); navigate({ screen: 'progress', parent: null }); }}
+            aria-current={currentScreen === 'progress' && getActiveSubject('progress') === 'all' ? 'page' : undefined}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
               currentScreen === 'progress' && getActiveSubject('progress') === 'all'
                 ? 'text-white bg-slate-800'
@@ -296,6 +300,7 @@ export function Sidebar() {
       <div className="px-3 py-3 border-t border-slate-800 relative">
         <button
           onClick={() => navigate({ screen: 'settings', parent: null })}
+          aria-current={currentScreen === 'settings' ? 'page' : undefined}
           className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all ${
             currentScreen === 'settings'
               ? 'text-white bg-slate-800'
