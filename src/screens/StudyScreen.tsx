@@ -292,11 +292,11 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           const studied = data.studiedTopics.includes(topic.id);
           const status = getTopicStatusFromProgress(studied, prog);
           return (
-            <Card key={topic.id} className="p-0">
-              <button onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
+            <Card key={topic.id} className="p-0 transition-colors hover:border-slate-300">
+              <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset">
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
+                  <p className="font-medium text-slate-900 text-sm sm:text-base leading-snug">{topic.title}</p>
                   {topic.content ? <span className="text-success-600 text-xs font-medium">Content available</span> : <span className="text-slate-400 text-xs">Content coming soon</span>}
                 </div>
                 <TopicStatusIcon status={status} />
