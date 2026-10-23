@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { useRouter } from '@/router';
+import { breadcrumbForRoute } from '@/router/paths';
 
 export function Breadcrumbs() {
   const { currentRoute, navigate } = useRouter();
@@ -19,7 +20,7 @@ export function Breadcrumbs() {
             ) : (
               <button
                 type="button"
-                onClick={() => navigate({ ...item.route, parent: null })}
+                onClick={() => navigate({ ...item.route, breadcrumb: breadcrumbForRoute(item.route) })}
                 className="text-slate-500 hover:text-brand-600 transition-colors duration-DEFAULT truncate max-w-[120px] sm:max-w-[160px] rounded px-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1"
               >
                 {item.label}

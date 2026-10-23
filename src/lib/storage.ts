@@ -29,19 +29,26 @@ export function getBackupRaw(): string | null {
   }
 }
 
-export function downloadBackupFile(): boolean {
-  const raw = getBackupRaw();
+export function downloadBackupFile(data?: AppData): boolean {
+  // Settings exports the live in-memory state; recovery actions may still export
+  // the last known-good raw backup when no state is supplied.
+  const raw = data ? JSON.stringify(sanitizeForSave(data)) : getBackupRaw();
   if (!raw) return false;
+  let url: string | null = null;
   try {
     const blob = new Blob([raw], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `examprep-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
-    URL.revokeObjectURL(url);
+    // Give the browser time to begin consuming the blob before releasing it.
+    window.setTimeout(() => {
+      if (url) URL.revokeObjectURL(url);
+    }, 1000);
     return true;
   } catch {
+    if (url) URL.revokeObjectURL(url);
     return false;
   }
 }
@@ -409,39 +416,40 @@ export function flushPendingSave(): boolean {
   return flushSave();
 }
 
-export function resetData(): void {
-  // Persist any in-flight debounced write into primary before backup/reset.
+export function resetData(): boolean {
+  // Keep the latest in-memory state available for recovery even if the primary
+  // write failed because storage is full.
   if (saveTimer !== null) {
     clearTimeout(saveTimer);
     saveTimer = null;
   }
-  if (pendingData !== null) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(pendingData)));
-    } catch {
-      /* still attempt backup of whatever is on disk */
-    }
-    pendingData = null;
-  }
+
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = pendingData !== null
+      ? JSON.stringify(sanitizeForSave(pendingData))
+      : localStorage.getItem(STORAGE_KEY);
     if (raw) {
       try {
         localStorage.setItem(BACKUP_KEY, raw);
       } catch {
         lastStorageWarning =
           'Could not create a backup before reset (storage full). Reset cancelled so your data is not lost.';
-        return;
+        return false;
       }
     }
+
+    pendingData = null;
+    saveRetryCount = 0;
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(LEGACY_KEY);
     localStorage.removeItem(STORAGE_KEYS.subjectSelection);
     localStorage.removeItem(STORAGE_KEYS.practicePrefs);
     localStorage.removeItem(STORAGE_KEYS.quizProgress);
     localStorage.removeItem(STORAGE_KEYS.sidebarExpanded);
+    return true;
   } catch {
-    lastStorageWarning = 'Reset failed. Your existing progress was left unchanged.';
+    lastStorageWarning = 'Reset failed. Check your saved data and backup before trying again.';
+    return false;
   }
 }
 

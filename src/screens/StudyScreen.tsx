@@ -43,7 +43,7 @@ import {
 
 // ---- Learn Landing ----
 export function StudyScreen() {
-  const { navigate, route } = useRouter();
+  const { navigate, currentRoute, route } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack, setActiveTrack } = useSubjectSelection();
   const { data, trackMembership, setActiveEnrolledTrack } = useData();
@@ -116,8 +116,22 @@ export function StudyScreen() {
       )
     : undefined;
 
+  // Keep the selected subject addressable so reloads and breadcrumbs preserve context.
+  useEffect(() => {
+    if (route.screen !== 'learn' || !route.subjectId) return;
+    const subject = subjectMap[route.subjectId];
+    if (subject && subject.track === activeTrack) {
+      setActiveSubjectForScreen('learn', route.subjectId as SubjectId);
+    }
+  }, [route, activeTrack, setActiveSubjectForScreen]);
+
   const handleSubjectChange = (value: SubjectFilterValue) => {
     setActiveSubjectForScreen('learn', value);
+    navigate({
+      screen: 'learn',
+      subjectId: value === 'all' ? undefined : value,
+      parent: currentRoute,
+    });
   };
 
   // Continue Learning logic
@@ -157,20 +171,20 @@ export function StudyScreen() {
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
             return (
-              <Card key={subject.id} className="p-4">
-                <button onClick={() => handleSubjectChange(subject.id as SubjectId)} className="w-full flex items-center gap-4 text-left">
-                  <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0`}>
+              <Card key={subject.id} className="p-3.5 sm:p-4 transition-colors hover:border-slate-300">
+                <button type="button" onClick={() => handleSubjectChange(subject.id as SubjectId)} className="group w-full flex items-center gap-4 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                  <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0 transition-transform group-hover:scale-[1.03]`}>
                     {Icon && <Icon className={`w-6 h-6 ${color.text}`} />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className={`font-semibold text-sm sm:text-base truncate ${color.text}`}>{subject.title}</p>
+                    <p className={`font-semibold text-sm sm:text-base break-words ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
                       {topics.length > 0 ? <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span> : hasOverview ? <span className="text-slate-500 text-xs">Domain overview</span> : null}
                       {topics.length > 0 ? <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span> : hasOverview ? <span className={`text-xs font-medium ${color.text}`}>Orientation</span> : null}
                     </div>
                     {topics.length > 0 && <div className="mt-2"><ProgressBar value={Math.round((studied / topics.length) * 100)} colorClass={getSubjectColor(subject.id).bar} /></div>}
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </button>
               </Card>
             );
@@ -203,14 +217,15 @@ export function StudyScreen() {
             return (
             <ActionCard className="mb-3 sm:mb-6" borderColorClass={contColor.borderLeft}>
               <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${contColor.text}`}>Continue Learning</p>
-              <p className="text-lg font-bold text-slate-900 mb-1">{continueTopic.title}</p>
+              <p className="text-lg sm:text-xl font-bold leading-snug text-slate-900 mb-1 break-words">{continueTopic.title}</p>
               <p className="text-slate-500 text-sm mb-1">Section: {sectionMap[continueTopic.sectionId]?.title ?? continueTopic.sectionId}</p>
               <p className="text-slate-400 text-xs mb-4">
                 {data.studiedTopics.includes(continueTopic.id) ? '100% read' : '0% read'}
               </p>
               <button
+                type="button"
                 onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}
-                className={`inline-flex items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 transition-opacity`}
+                className={`inline-flex min-h-touch items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2`}
               >
                 Continue Reading <ArrowRight className="w-4 h-4" />
               </button>
@@ -398,8 +413,11 @@ export function StudyScreen() {
                 return (
                   <div key={section.id}>
                     <button
+                      type="button"
+                      aria-expanded={isExpanded}
+                      aria-controls={`section-topics-${section.id}`}
                       onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left"
+                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
                     >
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
@@ -409,7 +427,7 @@ export function StudyScreen() {
                       {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
                     </button>
                     {isExpanded && (
-                      <div className="ml-12 pl-3 pr-1 py-1 space-y-1">
+                      <div id={`section-topics-${section.id}`} className="ml-12 pl-3 pr-1 py-1 space-y-1">
                         {sectionTopics.map((topic) => {
                           const p = data.topicProgress[topic.id];
                           const studied = data.studiedTopics.includes(topic.id);
@@ -418,11 +436,12 @@ export function StudyScreen() {
                           return (
                             <button
                               key={topic.id}
+                              type="button"
                               onClick={() => navigate({ screen: 'topic', topicId: topic.id })}
-                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left"
+                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
-                              <span className="text-slate-700 text-sm font-medium truncate flex-1">{topic.title}</span>
+                              <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{topic.title}</span>
                               {topic.postRestriction === 'bs17' && (
                                 <span className="text-xs font-medium px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-200 shrink-0">BS-17</span>
                               )}
@@ -585,11 +604,11 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           const studied = data.studiedTopics.includes(topic.id);
           const status = getTopicStatusFromProgress(studied, prog);
           return (
-            <Card key={topic.id} className="p-0">
-              <button onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 transition-colors text-left rounded-2xl">
+            <Card key={topic.id} className="p-0 transition-colors hover:border-slate-300">
+              <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset">
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-slate-900 text-sm sm:text-base truncate">{topic.title}</p>
+                  <p className="font-medium text-slate-900 text-sm sm:text-base leading-snug">{topic.title}</p>
                   {(() => {
                     const lesson = cgeiCurriculum.lessons.find((item) => item.sourceTopicId === topic.id);
                     return (
@@ -679,7 +698,6 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (loading) return <PageContainer><LoadingSpinner label="Loading topic…" /></PageContainer>;
   if (loadError) return (
     <PageContainer>
-      <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <Card className="p-8">
         <EmptyState title="Failed to load" message="Something went wrong while loading this topic." icon={<AlertTriangle className="w-12 h-12" />} />
         <div className="flex justify-center mt-4">
@@ -691,7 +709,6 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (!topic) {
     return (
       <PageContainer>
-        <BackButton />
         <EmptyState
           title="Topic not found"
           message="This topic does not exist or was removed."
@@ -717,8 +734,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
   if (!topic.content) {
     return (
       <PageContainer>
-        <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
-        <div className="mb-4">
+          <div className="mb-4">
           <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
           <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
@@ -762,20 +778,20 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {curriculumLesson ? <CurriculumLessonContent lesson={curriculumLesson} /> : (<>
         {topic.definition && (
           <section>
-            <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-sky-700 mb-2">Definition</h3>
-            <p className="text-slate-800 text-base sm:text-lg leading-relaxed"><MathText text={topic.definition} /></p>
+            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-sky-700 mb-2.5">Definition</h2>
+            <p className="text-slate-800 text-base sm:text-lg leading-7 sm:leading-8"><MathText text={topic.definition} /></p>
           </section>
         )}
         {topic.keyFacts && topic.keyFacts.length > 0 && (
           <section>
-            <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-slate-500 mb-3">Key Facts</h3>
-            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-sm sm:text-base leading-relaxed"><span className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
+            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-slate-500 mb-3">Key Facts</h2>
+            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
           </section>
         )}
         {topic.explanationSections && topic.explanationSections.map((sec, i) => (
           <section key={i}>
-            <h3 className="font-semibold text-slate-900 text-base sm:text-lg mb-2">{sec.heading}</h3>
-            <p className="text-slate-700 text-sm sm:text-base leading-relaxed"><MathText text={sec.body} /></p>
+            <h2 className="font-semibold text-slate-900 text-lg sm:text-xl tracking-tight mb-2.5">{sec.heading}</h2>
+            <p className="text-slate-700 text-base leading-7 sm:leading-8"><MathText text={sec.body} /></p>
           </section>
         ))}
         {topic.subtopics && topic.subtopics.length > 0 && (
@@ -814,7 +830,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 <p className="text-xs text-slate-500 mt-0.5">From this topic · {topic.title}</p>
               </div>
             </div>
-            <div className="formula-display text-slate-900 text-lg mb-4 text-center py-4 px-3 bg-slate-50 border border-slate-200 rounded-xl overflow-x-auto">
+            <div className="formula-display text-slate-900 text-base sm:text-lg mb-4 text-center py-4 px-3 bg-slate-50 border border-slate-200 rounded-xl overflow-x-auto">
               <MathText text={`$$${f.expression}$$`} />
             </div>
             {(f.variables?.length ?? 0) > 0 && (
@@ -838,7 +854,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {topic.examPoints && topic.examPoints.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-amber-500 bg-amber-50/50">
             <div className="flex items-center gap-2 mb-3"><span className="text-warning-600 font-semibold text-sm uppercase tracking-wide">Exam Points</span></div>
-            <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-slate-800 text-sm leading-relaxed"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
+            <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
           </Card>
         )}
         {topic.comparisonTable && <ComparisonTableBlock table={topic.comparisonTable} />}
@@ -850,9 +866,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <Card key={ei} className="p-5 border-l-4 border-l-emerald-500 bg-emerald-50/40">
             <div className="flex items-center gap-2 mb-3"><span className="text-emerald-700 font-semibold text-sm uppercase tracking-wide">Worked Example{examples.length > 1 ? ` ${ei + 1}` : ''}</span></div>
             <div className="space-y-2 sm:space-y-3">
-              <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Problem</p><p className="text-slate-800 text-base leading-relaxed"><MathText text={ex.problem} /></p></div>
-              {ex.solution && typeof ex.solution === 'string' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><p className="text-slate-700 text-sm leading-relaxed"><MathText text={ex.solution} /></p></div>}
-              {ex.solution && typeof ex.solution === 'object' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solution).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-sm leading-relaxed"><MathText text={val} /></p></div>)}</div></div>}
+              <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Problem</p><p className="text-slate-800 text-base leading-7"><MathText text={ex.problem} /></p></div>
+              {ex.solution && typeof ex.solution === 'string' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><p className="text-slate-700 text-base leading-7"><MathText text={ex.solution} /></p></div>}
+              {ex.solution && typeof ex.solution === 'object' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solution).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-base leading-7"><MathText text={val} /></p></div>)}</div></div>}
               {ex.solutionSteps && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solutionSteps).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-sm leading-relaxed"><MathText text={val} /></p></div>)}</div></div>}
               {ex.answer && <div className="pt-2 border-t border-emerald-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Answer</p><p className="text-emerald-800 text-base font-semibold"><MathText text={ex.answer} /></p></div>}
               {ex.takeaway && <div className="pt-2 border-t border-emerald-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Takeaway</p><p className="text-emerald-800 text-sm leading-relaxed"><MathText text={ex.takeaway} /></p></div>}
@@ -864,7 +880,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <div className="flex items-center gap-2 mb-3"><span className="text-rose-700 font-semibold text-sm uppercase tracking-wide">Common Mistakes</span></div>
             <ul className="space-y-2 sm:space-y-3">{topic.commonMistakes.map((mistake, i) => {
               if (typeof mistake === 'string') {
-                return <li key={i} className="flex items-start gap-2 text-slate-800 text-sm leading-relaxed"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><MathText text={mistake} /></li>;
+                return <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><MathText text={mistake} /></li>;
               }
               const m = mistake as { mistake: string; correction: string; explanation: string };
               return (
@@ -1068,10 +1084,19 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </Card>
           );
         })()}
-        <div className="flex flex-col sm:flex-row gap-3 pt-2">
-          <Button onClick={() => markStudied(topicId)} disabled={isStudied} variant={isStudied ? 'secondary' : 'primary'} className="flex-1">{isStudied ? 'Marked as Studied' : 'Mark as Studied'}</Button>
-          {topicQuestions.length > 0 && <Button variant="secondary" onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="flex-1">Test Me — {topicQuestions.length} Question{topicQuestions.length !== 1 ? 's' : ''}</Button>}
-          <Button variant="secondary" onClick={() => navigate({ screen: 'flashcards', topicId })} className="flex-1">Flashcards</Button>
+        <div className="rounded-2xl border border-sky-100 bg-sky-50/70 p-4 sm:p-5">
+          <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
+          <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
+          <div className="mt-3 flex flex-col sm:flex-row gap-2">
+            {topicQuestions.length > 0 && (
+              <Button onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="min-h-11 flex-1 justify-center">
+                Take topic quiz
+              </Button>
+            )}
+            <Button onClick={() => markStudied(topicId)} disabled={isStudied} variant="secondary" className="min-h-11 flex-1 justify-center">
+              {isStudied ? 'Marked as read' : 'Mark as read'}
+            </Button>
+          </div>
         </div>
         {(() => {
           const sectionTopics = topicsBySection(topic.sectionId);
@@ -1096,19 +1121,19 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           return (
             <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
               {prevTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%]">
+                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                   <ChevronLeft className="w-5 h-5 text-slate-400 shrink-0" />
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Previous</p>
-                    <p className="text-sm text-slate-700 font-medium truncate">{prevTopic.title}</p>
+                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{prevTopic.title}</p>
                   </div>
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
               {nextTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end">
+                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Next</p>
-                    <p className="text-sm text-slate-700 font-medium truncate">{nextTopic.title}</p>
+                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{nextTopic.title}</p>
                   </div>
                   <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
                 </button>

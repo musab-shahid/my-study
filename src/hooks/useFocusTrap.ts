@@ -38,15 +38,17 @@ export function useFocusTrap(
         return;
       }
       if (e.key !== 'Tab' || !containerRef.current) return;
+      const container = containerRef.current;
       const focusable = Array.from(
-        containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE),
-      ).filter((el) => el.offsetParent !== null || el === document.activeElement);
+        container.querySelectorAll<HTMLElement>(FOCUSABLE),
+      ).filter((el) => el.getClientRects().length > 0 || el === document.activeElement);
       if (focusable.length === 0) return;
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
+      const focusEscaped = !container.contains(document.activeElement);
+      if (focusEscaped || (e.shiftKey && document.activeElement === first)) {
         e.preventDefault();
-        last.focus();
+        (e.shiftKey ? last : first).focus();
       } else if (!e.shiftKey && document.activeElement === last) {
         e.preventDefault();
         first.focus();

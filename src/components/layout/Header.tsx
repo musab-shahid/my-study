@@ -1,17 +1,9 @@
-import { Search, Settings, Home } from 'lucide-react';
-import { useRouter, type ScreenName } from '@/router';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { IconButton } from '@/components/ui';
 
-export function Header({ title, subtitle, screen }: { title?: string; subtitle?: string; screen?: ScreenName }) {
-  const { navigate } = useRouter();
-  const showSearch = screen !== 'search';
-  const showSettings = screen !== 'settings';
-  const showHome = screen !== 'home';
-
+export function Header({ title, subtitle }: { title?: string; subtitle?: string }) {
   return (
-    <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80">
-      <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[56px]">
+    <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80 supports-[backdrop-filter]:bg-white/85">
+      <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[60px]">
         <div className="flex items-center gap-1 min-w-0 flex-1">
           <BackButton />
           <div className="min-w-0 flex-1">
@@ -20,30 +12,13 @@ export function Header({ title, subtitle, screen }: { title?: string; subtitle?:
             </h2>
             <div className="flex items-center gap-2 mt-0.5 min-w-0">
               {subtitle && (
-                <p className="text-slate-500 text-xs sm:text-sm truncate hidden sm:block">{subtitle}</p>
+                <p className="text-slate-500 text-[11px] sm:text-sm truncate">{subtitle}</p>
               )}
               <div className="hidden sm:block min-w-0">
                 <Breadcrumbs />
               </div>
             </div>
           </div>
-        </div>
-        <div className="flex items-center shrink-0 -mr-1">
-          {showHome && (
-            <IconButton label="Home" onClick={() => navigate({ screen: 'home', parent: null })}>
-              <Home className="w-5 h-5" />
-            </IconButton>
-          )}
-          {showSearch && (
-            <IconButton label="Search" onClick={() => navigate({ screen: 'search', parent: null })}>
-              <Search className="w-5 h-5" />
-            </IconButton>
-          )}
-          {showSettings && (
-            <IconButton label="Settings" onClick={() => navigate({ screen: 'settings', parent: null })}>
-              <Settings className="w-5 h-5" />
-            </IconButton>
-          )}
         </div>
       </div>
       {/* Mobile breadcrumbs row */}

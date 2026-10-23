@@ -152,12 +152,16 @@ return (
             <StatCard icon={<Target className="w-5 h-5" />} label="Accuracy" value={currentStats.questionsAnswered === 0 || currentStats.accuracy === null ? '—' : `${currentStats.accuracy}%`} color="amber" />
             <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Mastery" value={String(masteryScore)} color="green" sub="/100" />
           </div>
+          <p className="text-xs leading-5 text-slate-500 mb-4">
+            Accuracy is the percentage of attempted questions answered correctly. Mastery combines topic coverage (50%) and quiz accuracy (50%); before you attempt quizzes, the accuracy half counts as zero.
+          </p>
 
           {/* Accuracy chart */}
           <Card className="p-3.5 sm:p-5 mb-4">
             <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
               <div>
                 <h3 className="font-semibold text-slate-900">Accuracy over time</h3>
+                <p className="text-xs text-slate-500 mt-1">Weekly percentage of attempted questions answered correctly.</p>
                 <p className="text-slate-400 text-xs mt-0.5">
                   Last {weeklyData.length} weeks · {totalQuestionsThisPeriod} questions answered
                   {practicedSubjectsNote(isAllSubjects) ? ` · ${practicedSubjectsNote(isAllSubjects)}` : ''}
@@ -205,7 +209,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{subject.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{subject.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{mScore}/100</span>
                       </div>
@@ -229,7 +233,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <SectionBadge section={section} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{section.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{section.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
@@ -262,7 +266,7 @@ return (
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-slate-400 text-xs font-bold w-4 shrink-0">{i + 1}</span>
                         {color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />}
-                        <span className="text-slate-700 text-sm truncate">{topic.title}</span>
+                        <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm">{topic.title}</span>
                       </div>
                       <span className={`text-sm font-bold shrink-0 ml-2 ${w.accuracy < 60 ? 'text-danger-500' : 'text-warning-500'}`}>{w.accuracy}%</span>
                     </div>
@@ -413,7 +417,10 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
   return (
     <div className="w-full overflow-x-auto">
+      <p className="text-xs text-slate-400 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
       <svg
+        role="img"
+        aria-label={`Weekly accuracy chart with ${validPoints.length} weeks containing quiz attempts.`}
         viewBox={`0 0 ${width} ${height}`}
         className="w-full"
         style={{ minWidth: 480 }}

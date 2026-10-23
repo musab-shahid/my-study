@@ -36,6 +36,37 @@ describe('Phase A path mapping', () => {
     assert.deepEqual(pathToRoute('/learn'), { screen: 'learn' });
   });
 
+  it('round-trips a selected subject in the learning URL', () => {
+    const path = routeToPath({ screen: 'learn', subjectId: 'meteo-climatology' });
+    assert.equal(path, '/learn/meteo-climatology');
+    assert.deepEqual(pathToRoute(path), { screen: 'learn', subjectId: 'meteo-climatology' });
+  });
+
+  it('builds section breadcrumbs with track and subject context', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'section', sectionId: 'METEO-01' });
+    assert.deepEqual(crumbs.map((crumb) => crumb.label), [
+      'Home',
+      'FPSC',
+      'Meteorology & Climatology',
+      'Atmosphere & Climate Foundations',
+    ]);
+    assert.deepEqual(crumbs[2].route, { screen: 'learn', subjectId: 'meteo-climatology' });
+  });
+
+  it('builds topic breadcrumbs through its subject and section', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'topic', topicId: 'meteo-origin-evolution' });
+    assert.equal(crumbs[0].label, 'Home');
+    assert.equal(crumbs[1].label, 'FPSC');
+    assert.equal(crumbs[2].label, 'Meteorology & Climatology');
+    assert.equal(crumbs[crumbs.length - 2].label, 'Atmosphere & Climate Foundations');
+  });
+
+  it('uses the real track title in track breadcrumbs', () => {
+    const crumbs = breadcrumbForRoute({ screen: 'track', trackId: 'fpsc' });
+    assert.deepEqual(crumbs.map((crumb) => crumb.label), ['Home', 'Exam Prep']);
+  });
+
+
   it('builds structural CGEI breadcrumbs through the subject overview', () => {
     const unit = breadcrumbForRoute({ screen: 'curriculum-unit', unitId: 'cgei-ds-unit-5-3' });
     assert.deepEqual(unit.map((item) => item.label), [

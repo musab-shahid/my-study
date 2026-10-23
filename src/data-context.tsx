@@ -16,7 +16,7 @@ export interface DataContextValue {
   recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
-  reset: () => void;
+  reset: () => boolean;
   resetSubjects: (subjectIds: SubjectId[]) => void;
   /** Explicit track enrollment; sets track active on success */
   enrollInTrack: (trackId: TrackId) => { ok: boolean; reason?: string };
@@ -90,13 +90,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const reset = useCallback(() => {
-    resetData();
+    if (!resetData()) return false;
     const fresh = loadData();
     setData(fresh);
     dataRef.current = fresh;
     try {
       window.dispatchEvent(new CustomEvent('examprep-subject-selection-reset'));
     } catch { /* ignore */ }
+    return true;
   }, []);
 
   /**

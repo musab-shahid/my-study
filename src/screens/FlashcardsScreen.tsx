@@ -144,7 +144,8 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
               key={k}
               type="button"
               onClick={() => setKindFilter(k)}
-              className={`min-h-[40px] px-3 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+              aria-pressed={active}
+              className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
                 active
                   ? 'bg-brand-500 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
@@ -177,7 +178,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
         </Card>
       ) : (
         <>
-          <div className="flex items-center justify-between mb-3 text-sm text-slate-500">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 mb-3 text-sm text-slate-500" aria-live="polite">
             <span>
               Card {idx + 1} / {total}
               {card ? ` · ${KIND_LABEL[card.kind]}` : ''}
@@ -190,12 +191,13 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
           <button
             type="button"
             onClick={() => setFlipped((f) => !f)}
-            className="w-full text-left mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded-xl"
-            aria-label={flipped ? 'Hide answer' : 'Show answer'}
+            className="w-full text-left mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            aria-label={flipped ? `Hide answer for card ${idx + 1}` : `Show answer for card ${idx + 1}`}
+            aria-pressed={flipped}
           >
             <Card
               elevation="raised"
-              className={`p-4 sm:p-6 sm:p-8 min-h-[220px] flex flex-col justify-center transition-colors ${
+              className={`p-4 sm:p-6 md:p-8 min-h-[220px] flex flex-col justify-center transition-colors ${
                 flipped ? 'bg-sky-50/80 border-sky-200' : 'bg-white'
               }`}
             >
@@ -265,7 +267,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
               <button
                 type="button"
                 onClick={() => navigate({ screen: 'topic', topicId })}
-                className="text-sm text-brand-600 font-medium hover:underline"
+                className="min-h-11 inline-flex items-center text-sm text-brand-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-sm"
               >
                 ← Back to topic
               </button>

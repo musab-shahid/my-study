@@ -133,7 +133,8 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     }
     case 'topic': {
       const t = getTopic(route.topicId);
-      return { title: t?.title ?? 'Topic', subtitle: t ? `Section ${t.sectionId}` : undefined };
+      // Keep the global header as navigation chrome; the reader owns the page title.
+      return { title: 'Study', subtitle: t ? (sectionMap[t.sectionId]?.title ?? `Section ${t.sectionId}`) : undefined };
     }
     case 'formulas':
       return { title: 'Formulas' };
@@ -274,7 +275,6 @@ function AppContent() {
           <Header
             title={title}
             subtitle={finalSubtitle}
-            screen={route.screen}
           />
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>

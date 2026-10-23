@@ -49,6 +49,10 @@ export function SettingsScreen() {
   const [resetDone, setResetDone] = useState<string | null>(null);
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
+  const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
+  const [backupMsg, setBackupMsg] = useState<string | null>(null);
+  const [updateMsg, setUpdateMsg] = useState<string | null>(null);
+  const [installMsg, setInstallMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -104,8 +108,13 @@ export function SettingsScreen() {
   const handleReset = () => {
     try {
       if (isFullReset) {
-        reset();
-        setResetDone('All data has been reset');
+        const didReset = reset();
+        if (!didReset) {
+          setResetDone('Reset cancelled because a recovery backup could not be saved. Free browser storage and try again.');
+          setConfirming(false);
+          return;
+        }
+        setResetDone('All data has been reset. A recovery backup was saved.');
       } else {
         resetSubjects([...selectedSubjects]);
         const n = selectedSubjects.size;
@@ -115,7 +124,7 @@ export function SettingsScreen() {
       setConfirming(false);
     } catch (err) {
       console.error('[settings] reset failed', err);
-      setResetDone('Reset failed — try again');
+      setResetDone('Reset failed — check your saved data and backup before trying again.');
       setConfirming(false);
     }
   };
@@ -141,12 +150,16 @@ export function SettingsScreen() {
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted' || outcome === 'dismissed') {
-        setDeferredPrompt(null);
+      setDeferredPrompt(null);
+      if (outcome === 'accepted') {
         setShowInstall(false);
+        setInstallMsg('App installation started.');
+      } else {
+        setInstallMsg('Installation was dismissed. You can use your browser menu to install the app later.');
       }
     } catch (err) {
       console.warn('[install] prompt failed', err);
+      setInstallMsg('The install prompt could not be opened. Use your browser menu to install the app if available.');
       setDeferredPrompt(null);
     }
   };
@@ -257,38 +270,59 @@ export function SettingsScreen() {
               <Button
                 variant="secondary"
                 disabled={syncBusy || !getProgressSyncAccessToken()}
-                onClick={async () => {
-                  setSyncBusy(true);
-                  setSyncMsg(null);
-                  const r = await pullProgress();
-                  if (!r.ok || !r.data) {
-                    setSyncMsg(
-                      r.error === 'auth-required'
-                        ? 'Sign in required before cloud restore.'
-                        : `Download failed: ${r.error ?? 'unknown'}`,
-                    );
-                    setSyncBusy(false);
-                    return;
-                  }
-                  // Recovery copy → write cloud payload → reload only after successful write.
-                  try {
-                    const existing = localStorage.getItem(STORAGE_KEYS.appData);
-                    const plan = planCloudRestoreWrite(STORAGE_KEYS.appData, existing, r.data);
-                    if (plan.recoveryValue != null) {
-                      localStorage.setItem(plan.recoveryKey, plan.recoveryValue);
-                    }
-                    localStorage.setItem(plan.appDataKey, plan.appDataValue);
-                    setSyncMsg('Downloaded and saved. Reloading…');
-                    window.location.reload();
-                  } catch {
-                    setSyncMsg('Download ok but could not write locally — local data unchanged.');
-                    setSyncBusy(false);
-                  }
-                }}
+                onClick={() => setConfirmCloudRestore(true)}
               >
-                Download
+                Restore from cloud
               </Button>
             </div>
+            {confirmCloudRestore && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-3" role="group" aria-label="Confirm cloud restore">
+                <p className="text-sm font-semibold text-amber-900">Replace local progress with the cloud backup?</p>
+                <p className="mt-1 text-xs leading-5 text-amber-800">
+                  A recovery copy of your current local data will be saved first. Restoring will replace the progress currently loaded in this browser.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    variant="danger"
+                    disabled={syncBusy}
+                    onClick={async () => {
+                      setSyncBusy(true);
+                      setSyncMsg(null);
+                      const r = await pullProgress();
+                      if (!r.ok || !r.data) {
+                        setSyncMsg(
+                          r.error === 'auth-required'
+                            ? 'Sign in required before cloud restore.'
+                            : `Download failed: ${r.error ?? 'unknown'}`,
+                        );
+                        setSyncBusy(false);
+                        setConfirmCloudRestore(false);
+                        return;
+                      }
+                      try {
+                        const existing = localStorage.getItem(STORAGE_KEYS.appData);
+                        const plan = planCloudRestoreWrite(STORAGE_KEYS.appData, existing, r.data);
+                        if (plan.recoveryValue != null) {
+                          localStorage.setItem(plan.recoveryKey, plan.recoveryValue);
+                        }
+                        localStorage.setItem(plan.appDataKey, plan.appDataValue);
+                        setSyncMsg('Downloaded and saved. Reloading…');
+                        window.location.reload();
+                      } catch {
+                        setSyncMsg('Download ok but could not write locally — local data unchanged.');
+                        setSyncBusy(false);
+                      }
+                      setConfirmCloudRestore(false);
+                    }}
+                  >
+                    Confirm restore
+                  </Button>
+                  <Button variant="secondary" disabled={syncBusy} onClick={() => setConfirmCloudRestore(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
             {syncMsg && <p className="text-xs text-slate-600">{syncMsg}</p>}
           </div>
         </Card>
@@ -301,7 +335,20 @@ export function SettingsScreen() {
             <p className="font-semibold text-slate-900 text-sm">Export progress</p>
             <p className="text-slate-500 text-xs mt-0.5">Download a JSON backup of your local study data.</p>
           </div>
-          <Button variant="secondary" onClick={() => { try { downloadBackupFile(); } catch (e) { console.error('[settings] export failed', e); } }}>Download backup</Button>
+          <Button variant="secondary" onClick={() => {
+            try {
+              const started = downloadBackupFile(data);
+              setBackupMsg(
+                started
+                  ? 'Backup download started. Check your downloads.'
+                  : 'Backup could not be created. Please try again.',
+              );
+            } catch (e) {
+              console.error('[settings] export failed', e);
+              setBackupMsg('Backup could not be created. Please try again.');
+            }
+          }}>Download backup</Button>
+          {backupMsg && <p className="text-xs text-slate-600 sm:basis-full" role="status" aria-live="polite">{backupMsg}</p>}
         </div>
       </Card>
 
@@ -320,16 +367,18 @@ export function SettingsScreen() {
               type="button"
               onClick={() => {
                 if (!navigator.onLine) {
-                  window.alert('Connect to the internet to check for updates.');
+                  setUpdateMsg('You are offline. Reconnect to the internet before checking for updates.');
                   return;
                 }
+                setUpdateMsg('Update check requested. If an update is available, you will be prompted to restart.');
                 window.dispatchEvent(new Event('examprep:check-update'));
               }}
-              className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm"
+              className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Check for updates
             </button>
+            {updateMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{updateMsg}</p>}
           </div>
         </div>
       </Card>
@@ -351,7 +400,7 @@ export function SettingsScreen() {
                   <button
                     type="button"
                     onClick={handleInstall}
-                    className="mt-3 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
                   >
                     <Download className="w-3.5 h-3.5" />
                     Install
@@ -366,6 +415,7 @@ export function SettingsScreen() {
                   Use your browser menu (often <strong className="font-semibold text-slate-700">Install app</strong> or <strong className="font-semibold text-slate-700">Add to Home Screen</strong>). The app works offline once loaded.
                 </p>
               )}
+              {installMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{installMsg}</p>}
             </div>
           </div>
         </Card>

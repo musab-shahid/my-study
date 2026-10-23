@@ -125,10 +125,11 @@ export function SearchScreen() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
               type="search"
+              aria-label={`Search ${subjectTitle}`}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${subjectTitle}…`}
-              className="w-full pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-400"
+              className="w-full min-h-12 pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500/50 focus-visible:border-sky-400"
               autoComplete="off"
             />
           </div>
@@ -151,7 +152,7 @@ export function SearchScreen() {
             </Card>
           ) : (
             <div>
-              <p className="text-slate-500 text-sm mb-3">
+              <p className="text-slate-500 text-sm mb-3" role="status" aria-live="polite">
                 {results.length} result{results.length !== 1 ? 's' : ''} · {subjectTitle}
               </p>
               <div className="space-y-2">

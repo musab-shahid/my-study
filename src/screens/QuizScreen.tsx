@@ -1090,9 +1090,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         results={results}
         mode={mode}
         onRetry={handleRetry}
-        onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid, parent: null })}
+        onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid })}
         onPracticeTopic={(tid: string) => navigate({ screen: 'quiz', mode: 'topic', topicId: tid, count: 5 })}
-        onNavigateToProgress={() => navigate({ screen: 'progress', parent: null })}
+        onNavigateToProgress={() => navigate({ screen: 'progress' })}
         onBack={exitToOrigin}
       />
     );
@@ -1121,7 +1121,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           <div className="flex items-center gap-1 min-w-0">
             <button
               onClick={handleExit}
-              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0"
+              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label="Exit quiz"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -1132,7 +1132,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             <button
               type="button"
               onClick={() => setShowKeysHelp(true)}
-              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors"
+              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label="Keyboard shortcuts"
               title="Keyboard shortcuts"
             >
@@ -1188,8 +1188,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       )}
 
       {/* Question */}
-      <Card className="p-3.5 sm:p-5 sm:p-6 mb-4">
-        <p className="text-slate-900 text-lg font-medium leading-relaxed mb-5">{currentQ.question}</p>
+      <Card className="p-4 sm:p-6 mb-4">
+        <h1 className="text-slate-900 text-lg sm:text-xl font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
         {currentQ.type === 'matching' ? (
           <MatchingOptions question={currentQ} selectedIndices={state.selectedIndices} checked={state.checked} onSelect={toggleOption} />
         ) : (
@@ -1360,19 +1360,19 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <Keyboard className="w-4 h-4 text-brand-600" />
                 Keyboard shortcuts
               </h2>
-              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-9 h-9 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100" aria-label="Close">
+              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" aria-label="Close">
                 <X className="w-4 h-4" />
               </button>
             </div>
             <ul className="space-y-2 text-sm text-slate-700">
-              <li className="flex justify-between gap-4"><span>Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
-              <li className="flex justify-between gap-4"><span>Multi-select toggle</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–9</kbd></li>
-              <li className="flex justify-between gap-4"><span>Check / Next</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Enter</kbd></li>
-              <li className="flex justify-between gap-4"><span>Exit quiz</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Esc</kbd></li>
-              <li className="flex justify-between gap-4"><span>This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Multi-select toggle</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–9</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Check / Next</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Enter</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Exit quiz</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Esc</kbd></li>
+              <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
             </ul>
             <p className="text-xs text-slate-500 mt-3">Matching questions still use tap/click. Shortcuts are disabled while this dialog or the exit prompt is open.</p>
-            <Button className="w-full mt-4" onClick={() => setShowKeysHelp(false)}>Got it</Button>
+            <Button className="w-full min-h-11 mt-4 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" onClick={() => setShowKeysHelp(false)}>Got it</Button>
           </div>
         </div>
       )}
@@ -1401,7 +1401,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               You&apos;ve answered {state.answers.length} of {state.questions.length} questions. Your progress will be lost.
             </p>
             <div className="flex gap-3">
-              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="flex-1">
+              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                 Stay
               </Button>
               <Button
@@ -1411,7 +1411,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                   clearQuizProgress();
                   exitToOrigin();
                 }}
-                className="flex-1"
+                className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 Exit
               </Button>

@@ -20,6 +20,100 @@ test.describe('App shell & navigation', () => {
   });
 });
 
+test.describe('Mobile More sheet accessibility', () => {
+  test('contains keyboard focus, closes on Escape, and restores trigger focus', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await expect(dialog).toBeVisible();
+
+    const close = dialog.getByRole('button', { name: 'Close' });
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(dialog.getByRole('button', { name: 'HAT Prep', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+});
+
+test.describe('Mobile More menu consistency', () => {
+  test('contains secondary destinations without duplicating primary Learn and Practice tabs', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+
+    await expect(dialog.getByRole('button', { name: 'Learn', exact: true })).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
+    await expect(dialog.getByRole('region', { name: 'Study tools' })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Tools', exact: true })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Exam tracks' })).toBeVisible();
+  });
+
+  test('marks the current secondary destination and returns focus after closing', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await dialog.getByRole('button', { name: 'Review', exact: true }).click();
+    await expect(dialog).toBeHidden();
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveClass(/bg-brand-50/);
+  });
+
+  test('marks Mock Exam current without duplicating the primary Practice destination', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await dialog.getByRole('button', { name: 'Mock Exam', exact: true }).click();
+    await expect(dialog).toBeHidden();
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: /Mock Exam/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
+  });
+
+  test('desktop sidebar exposes Flashcards and Cloud Atlas as global tools', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+
+    const sidebar = page.locator('aside').filter({ hasText: 'ExamPrep Hub' });
+    await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
+    await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
+  });
+
+  test('header stays contextual while retaining its back navigation control', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/settings');
+
+    const header = page.locator('header').first();
+    // The Home-labelled control is contextual back navigation, not a global shortcut.
+    await expect(header.getByRole('button', { name: 'Home', exact: true })).toBeVisible();
+    await expect(header.getByRole('button', { name: 'Search', exact: true })).toHaveCount(0);
+    await expect(header.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(0);
+    await expect(header.getByRole('heading', { name: 'Settings' })).toBeVisible();
+  });
+});
+
 test.describe('Track enrollment surface', () => {
   test('FPSC landing shows Begin or enrolled workspace actions', async ({ page }) => {
     await page.goto('/');
