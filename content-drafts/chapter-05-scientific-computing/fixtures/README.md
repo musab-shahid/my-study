@@ -118,3 +118,6 @@ OLS/Sen slope 0.2°C/year; percentile exceedance; spell duration; empirical T=n/
 
 ## unit_2_8_regional_climate_literacy_check.py
 Teaching season bins vs JJA; seasonal completeness; evidence-tag discipline. Not PMD validation.
+
+## unit_4_1_radiometric_physics_check.py
+c=λν; Wien peak; Planck B_λ; brightness-temperature round-trip. Blackbody teaching only.

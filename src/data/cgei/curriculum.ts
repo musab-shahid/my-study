@@ -1884,7 +1884,46 @@ const lessons28: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes41: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-41-radiometry', statement: 'Distinguish radiance, reflectance, emissivity and brightness temperature, and compute Planck B_λ and a brightness-temperature inversion for a synthetic spectral point.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-rs-o-41-resolution', statement: 'Distinguish spatial, spectral, radiometric and temporal resolution and explain trade-offs without equating pixel spacing with effective resolution.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-41-sensing', statement: 'Contrast passive optical/thermal and active microwave/lidar sensing modes and select a plausible product level for an environmental question with stated limits.', action: 'contrast and select', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons41: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-1-1', kind: 'lesson', title: 'Electromagnetic basis and radiometric quantities', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes41[0]],
+    content: [
+      { id: 'cgei-rs-41-1-1', kind: 'prose', title: 'What the sensor records', body: 'Earth-observation sensors measure electromagnetic radiation after reflection, emission, scattering and atmospheric modification. Key distinctions: spectral radiance, reflectance under stated geometry, emissivity, and brightness temperature T_b. T_b is not land-surface temperature without emissivity and atmospheric correction.' },
+      { id: 'cgei-rs-41-1-2', kind: 'prose', title: 'Planck and Wien (wavelength form)', body: 'B_λ(T)=2hc²/λ⁵ × 1/(exp(hc/λkT)−1). Wien (wavelength form): λ_max T ≈ 2897.8 μm·K, so 300 K peaks near 10 μm in the TIR window. Frequency-form peaks differ. Fixture unit_4_1_radiometric_physics_check.py verifies c=λν, Wien peak, Planck B_λ and a T_b round-trip at λ=10 μm, T=300 K.' },
+      { id: 'cgei-rs-41-1-3', kind: 'key-points', title: 'Spectral cues', items: ['Vegetation red edge', 'SWIR moisture sensitivity', 'Atmosphere absorbs outside windows'] },
+    ],
+    activityIds: ['cgei-rs-a-41-radiometry'], assessmentIds: ['cgei-rs-assess-41-radiometry'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-1-2', kind: 'lesson', title: 'Atmosphere, geometry and resolution', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes41[1]],
+    content: [
+      { id: 'cgei-rs-41-2-1', kind: 'prose', title: 'Atmosphere and geometry', body: 'Absorption, scattering and path radiance modify the at-sensor signal. Solar geometry, BRDF, shadows and topography affect reflected-solar data. Product labels do not guarantee correction quality.' },
+      { id: 'cgei-rs-41-2-2', kind: 'table', title: 'Four resolution types', headers: ['Type', 'Meaning', 'Common mistake'], rows: [['Spatial', 'Footprint / resolving scale', 'Pixel spacing = true resolution'], ['Spectral', 'Channels and bandwidths', 'More bands always better'], ['Radiometric', 'Sensitivity to signal differences', 'Bit depth alone is SNR'], ['Temporal', 'Revisit vs usable observations', 'Nominal revisit = always available']] },
+    ],
+    activityIds: ['cgei-rs-a-41-resolution'], assessmentIds: ['cgei-rs-assess-41-resolution'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-1-3', kind: 'lesson', title: 'Sensing modes, orbits and product levels', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes41[2]],
+    content: [
+      { id: 'cgei-rs-41-3-1', kind: 'prose', title: 'Passive and active', body: 'Passive optical/thermal records reflected solar or emitted thermal radiation. SAR actively illuminates; returns depend on geometry, roughness and dielectric properties. Lidar times laser returns. Do not treat retrieved geophysical fields as direct detector measurements.' },
+      { id: 'cgei-rs-41-3-2', kind: 'prose', title: 'Orbits and products', body: 'Sun-synchronous orbiters target consistent local solar time; geostationary sensors sample the diurnal cycle. Revisit, swath and cloud-free probability jointly limit usable data. TOA versus surface products, retrieved variables, mission-specific Level labels, and native versus resampled footprints all affect fitness for purpose.' },
+      { id: 'cgei-rs-41-3-3', kind: 'checklist', title: 'Selection memo fields', items: ['Question', 'Measured vs retrieved quantity', 'Wavelength region', 'Resolution needs', 'Product level limits', 'Rejected alternatives'] },
+    ],
+    activityIds: ['cgei-rs-a-41-sensing'], assessmentIds: ['cgei-rs-assess-41-sensing'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -1993,6 +2032,24 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
+    },
+    {
+      id: 'cgei-subject-4-remote-sensing',
+      subjectId: 'cgei-remote-sensing',
+      title: 'Earth Observation & Remote Sensing',
+      subtitle: 'Radiometric physics, sensors and product literacy before deep EO pipelines',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
+      purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
+      overview: 'Unit 4.1 covers EM/radiometric basis, resolution, sensing modes, orbits and product levels. Draft slice only.',
+      prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
+      outcomes: [...outcomes41],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-rs-unit-4-1'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 8,
     },
   ],
   units: [
@@ -2279,6 +2336,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.8 — Regional climate literacy (Pakistan / southern Punjab) (Core)',
       notes: ['No fabricated PMD station statistics; synthetic season helper only.', 'Institution list is navigational literacy, not a data portal.'],
     },
+    {
+      id: 'cgei-rs-unit-4-1', code: '4.1', title: 'Remote sensing physics and sensors', order: 401, kind: 'unit', readiness: 'draft',
+      summary: 'Explain radiometric quantities and Planck/Wien relations, resolve resolution trade-offs, and select sensing modes and product levels for environmental questions.',
+      estimatedHours: 8, prerequisites: ['Unit 2.2'], outcomes: outcomes41,
+      lessonIds: lessons41.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-41-radiometry', 'cgei-rs-a-41-resolution', 'cgei-rs-a-41-sensing'],
+      assessmentIds: ['cgei-rs-assess-41-radiometry', 'cgei-rs-assess-41-resolution', 'cgei-rs-assess-41-sensing'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.1 — Remote sensing physics and sensors (Core)',
+      notes: ['Blackbody teaching model only; not atmospheric correction or LST validation.'],
+    },
+
 
 
 
@@ -2361,6 +2430,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-28-002', lessonId: 'cgei-cl-lesson-2-8-1', type: 'single-choice', prompt: 'ENSO or IOD anomalies should be treated as:', options: ['Automatic one-line causes of every local weather event', 'Large-scale variability context that may modulate but does not by itself prove local causation', 'Proof that stations are unnecessary', 'Identical to irrigation effects'], correctAnswer: 1, explanation: 'Teleconnections provide context; local causation needs local evidence and mechanisms.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-28-003', lessonId: 'cgei-cl-lesson-2-8-2', type: 'single-choice', prompt: 'A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:', options: ['One must be a software bug', 'They sample different spatial supports and methods', 'Reanalysis always equals the station', 'Irrigation cancels all differences'], correctAnswer: 1, explanation: 'Point observations and grid estimates have different spatial support and construction (Units 2.4–2.5).', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-28-004', lessonId: 'cgei-cl-lesson-2-8-3', type: 'single-choice', prompt: 'When a local PMD series is restricted, the correct practice is to:', options: ['Invent plausible station numbers for the lesson', 'Use permitted global layers only with documented limits, request trails and licences', 'Ignore provenance', 'Treat farmer anecdotes as instrumental Tmax'], correctAnswer: 1, explanation: 'Access limits require documentation and honest use of alternative products—not fabricated observations.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-41-001', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Brightness temperature is best defined as:', options: ['Air temperature at 2 m', 'The blackbody temperature that would produce the observed radiance under a stated inversion', 'Always equal to land-surface temperature', 'Digital number divided by 100'], correctAnswer: 1, explanation: 'T_b is a radiometric equivalent temperature; LST requires emissivity and atmospheric correction.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-41-002', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Using Wien’s law (wavelength form) at T=300 K, λ_max is nearest:', options: ['0.5 μm', '10 μm', '1 m', '100 μm'], correctAnswer: 1, explanation: 'λ_max ≈ 2898/300 ≈ 9.7 μm, in the thermal infrared.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-41-003', lessonId: 'cgei-rs-lesson-4-1-2', type: 'single-choice', prompt: 'Nominal revisit every 5 days guarantees cloud-free observations every 5 days:', options: ['True for all sensors', 'False — usable frequency depends on clouds, swath and acquisition', 'True only for SAR', 'True only at night'], correctAnswer: 1, explanation: 'Nominal revisit is not usable observation frequency under cloud and scheduling constraints.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-41-004', lessonId: 'cgei-rs-lesson-4-1-3', type: 'single-choice', prompt: 'SAR is classified as active microwave sensing because:', options: ['It only records solar reflection', 'It transmits microwave energy and measures the returned signal', 'It measures only thermal emission', 'It never interacts with the surface'], correctAnswer: 1, explanation: 'Active sensors illuminate the target; SAR interprets returned microwave energy.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-41-005', lessonId: 'cgei-rs-lesson-4-1-3', type: 'single-choice', prompt: 'A Level-2 product label always means the same atmospheric correction across agencies:', options: ['True universally', 'False — product-level definitions are mission/agency specific', 'True for all optical data only', 'True for brightness temperature only'], correctAnswer: 1, explanation: 'Processing-level nomenclature is not universal across agencies and missions.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
 
