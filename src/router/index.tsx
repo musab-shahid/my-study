@@ -7,6 +7,7 @@
 import { createContext, useContext, useState, useCallback, useRef, useEffect, type ReactNode } from 'react';
 import { getTopic, topicsBySection } from '@/data/topics';
 import { sectionMap } from '@/data/sections';
+import { subjectMap } from '@/data/subjects';
 import { resolveScreen } from './resolveScreen';
 import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from './paths';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
@@ -127,7 +128,7 @@ function buildRoute(options: NavigateOptions): Route {
 export function routeLabel(route: Route): string {
   switch (route.screen) {
     case 'home': return 'Home';
-    case 'learn': return route.subjectId ? 'Subject' : 'Learn';
+    case 'learn': return route.subjectId ? (subjectMap[route.subjectId]?.title ?? 'Subject') : 'Learn';
     case 'section': return `Section ${route.sectionId}`;
     case 'topic': {
       const t = getTopic(route.topicId);
