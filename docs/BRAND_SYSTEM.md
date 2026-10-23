@@ -42,8 +42,10 @@ Use `success-700`, `warning-700`, and `danger-600/700` for white-text controls; 
 
 ## Icons
 
-- Use Lucide icons from the existing dependency.
-- Keep icon size and stroke weight consistent within a control group.
+- Use Lucide icons from the existing dependency; do not mix in emoji or a second icon family for application controls.
+- Use a small, deliberate size scale: 14–16px for dense secondary navigation, 20px for primary navigation and icon buttons, and 28px for empty-state illustrations.
+- Keep stroke weight consistent within a control group. Use the same size and stroke treatment for equivalent states (for example, not started / studied / mastered).
+- Keep icons optically aligned with their labels and reserve semantic colors for meaningful states, not decoration.
 - Give icon-only controls an accessible name; decorative icons should be hidden from assistive technology when their meaning is already conveyed by text.
 - Avoid adding a second icon style or emoji-based icon system to application navigation.
 
