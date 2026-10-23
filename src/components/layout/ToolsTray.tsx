@@ -27,14 +27,14 @@ export function ToolsTray({ isOpen, onClose, variant }: ToolsTrayProps) {
     const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
-    document.addEventListener('keydown', handler);
-    // Only the mobile modal sheet should lock page scrolling. The desktop
-    // popover is non-modal and must leave the page scrollable.
+    // The mobile focus trap already handles Escape. Add a separate Escape
+    // listener only for the non-modal desktop popover.
     const shouldLockScroll = variant === 'mobile-sheet';
+    if (variant === 'desktop-popover') document.addEventListener('keydown', handler);
     const prev = document.body.style.overflow;
     if (shouldLockScroll) document.body.style.overflow = 'hidden';
     return () => {
-      document.removeEventListener('keydown', handler);
+      if (variant === 'desktop-popover') document.removeEventListener('keydown', handler);
       if (shouldLockScroll) document.body.style.overflow = prev;
     };
   }, [isOpen, onClose, variant]);
