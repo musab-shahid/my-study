@@ -23,7 +23,7 @@ Improve the existing ExamPrep Hub experience without replacing established study
 3. **Consistent visual language:** shared spacing, surface, typography, border, focus, and interaction states.
 4. **Responsive by design:** preserve comfortable touch targets and prevent content from hiding behind fixed mobile navigation.
 5. **Accessible interactions:** visible keyboard focus, reduced-motion support, readable contrast, and semantic controls.
-6. **Protect learner data:** do not change progress calculations, saved quiz sessions, enrollment rules, or storage behavior as part of visual work.
+6. **Protect learner data:** do not change progress calculations, saved quiz sessions, enrollment rules, or storage behavior for visual polish. Any narrowly scoped data-safety correction must be explicitly documented and covered by tests.
 7. **Progressive enhancement:** refine reusable components before making large screen-specific changes.
 
 ## Initial audit observations
@@ -48,6 +48,8 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - Refined the quiz question panel with a clearer question heading, consistent responsive padding, and visible keyboard focus for key controls.
 - Improved worked-example problem/solution readability and exam-point lists; adjusted formula display sizing for narrow screens.
 - Added explicit expanded-state relationships to the section accordion and strengthened the Continue Reading action’s focus and touch affordances.
+- Added a narrowly scoped data-safety correction: backup export can use live in-memory state, and reset is cancelled if a pre-reset backup cannot be written. Dedicated tests cover the failure and successful-reset paths; this is an explicit safety exception to the visual-only scope.
+- Synced the branch with current `main`, resolved overlapping router/curriculum changes, and corrected the stale track-breadcrumb expectation.
 
 ## Next implementation passes
 
@@ -57,9 +59,9 @@ Improve the existing ExamPrep Hub experience without replacing established study
 - [x] Make a first shared-button focus-state cleanup and refine subject/section card interactions.
 - [ ] Audit remaining shared cards, section headers, empty states, and form controls for consistency.
 - [x] First-pass improvement to study topic typography and quiz question hierarchy.
-- [ ] Review remaining dense learning blocks, matching questions, and answer feedback at narrow widths.
+- [ ] Review remaining dense learning blocks and answer feedback at narrow widths. Matching controls and quiz-result topic rows have received a first mobile readability pass.
 - [ ] Verify small-screen layouts and fixed-navigation clearance.
-- [ ] Run data validation, unit tests, type checks, lint, production build, and end-to-end tests where available.
+- [x] Data validation, unit tests, type checks, lint, production build, and scientific smoke checks passed on the current branch head. End-to-end tests passed on the immediately preceding UI revision; the latest storage-test-only run is still waiting on Playwright Chromium installation.
 - [ ] Capture updated desktop/mobile screenshots and review differences before opening a pull request.
 
 ## Safety boundary
