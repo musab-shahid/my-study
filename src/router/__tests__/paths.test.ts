@@ -47,7 +47,7 @@ describe('Phase A path mapping', () => {
   });
 
   it('builds topic breadcrumbs through its subject and section', () => {
-    const crumbs = breadcrumbForRoute({ screen: 'topic', topicId: 'METEO-01-T01' });
+    const crumbs = breadcrumbForRoute({ screen: 'topic', topicId: 'meteo-origin-evolution' });
     assert.equal(crumbs[0].label, 'Home');
     assert.equal(crumbs[1].label, 'FPSC');
     assert.equal(crumbs[2].label, 'Meteorology & Climatology');
