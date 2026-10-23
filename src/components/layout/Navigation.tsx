@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
+  Home, BookCopy, BookOpenCheck, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy, Library,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
   Dumbbell,
@@ -94,7 +94,7 @@ export function Sidebar() {
       <div className="px-6 py-5 border-b border-slate-800">
         <div className="flex items-center gap-3">
           <div className="w-9 h-9 rounded-btn bg-brand-700 flex items-center justify-center shrink-0">
-            <Library className="w-5 h-5 text-white" aria-hidden />
+            <BookOpenCheck className="w-5 h-5 text-white" aria-hidden />
           </div>
           <div className="min-w-0">
             <h1 className="text-white font-bold text-lg leading-tight">ExamPrep Hub</h1>
