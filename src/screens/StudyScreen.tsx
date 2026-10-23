@@ -99,7 +99,7 @@ export function StudyScreen() {
                     {Icon && <Icon className={`w-6 h-6 ${color.text}`} />}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className={`font-semibold text-sm sm:text-base truncate ${color.text}`}>{subject.title}</p>
+                    <p className={`font-semibold text-sm sm:text-base break-words ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
                       <span className="text-slate-500 text-xs">{topics.length} topics</span>
                       <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span>
@@ -171,7 +171,7 @@ export function StudyScreen() {
           )}
 
           <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
-            <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
+            <button onClick={() => navigate({ screen: 'formulas' })} className="flex min-w-0 min-h-touch items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
               <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
               <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
             </button>
@@ -230,7 +230,7 @@ export function StudyScreen() {
                               className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
-                              <span className="text-slate-700 text-sm font-medium truncate flex-1">{topic.title}</span>
+                              <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{topic.title}</span>
                               {topic.postRestriction === 'bs17' && (
                                 <span className="text-xs font-medium px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-200 shrink-0">BS-17</span>
                               )}
@@ -766,19 +766,19 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           return (
             <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
               {prevTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%]">
+                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                   <ChevronLeft className="w-5 h-5 text-slate-400 shrink-0" />
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Previous</p>
-                    <p className="text-sm text-slate-700 font-medium truncate">{prevTopic.title}</p>
+                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{prevTopic.title}</p>
                   </div>
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
               {nextTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end">
+                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Next</p>
-                    <p className="text-sm text-slate-700 font-medium truncate">{nextTopic.title}</p>
+                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{nextTopic.title}</p>
                   </div>
                   <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
                 </button>
