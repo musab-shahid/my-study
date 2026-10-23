@@ -4,6 +4,8 @@ import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { useRouter } from '@/router';
 import { getTrackDefinition } from '@/data/tracks';
 import { subjectsByTrack } from '@/data/subjects';
+import { topicsBySubject } from '@/data/topics';
+import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { isTrackEnrolled } from '@/lib/track-access';
 import { trackAccentClasses } from '@/lib/track-chrome';
@@ -141,6 +143,7 @@ export function CGEITrackOverviewScreen() {
                 const subject = subjects.find((item) => item.id === subjectId);
                 if (!subject) return null;
                 const canonical = cgeiCurriculum.subjects.find((item) => item.subjectId === subject.id);
+                const hasTopicContent = topicsBySubject(subject.id as SubjectId).some((topic) => !isCgeiOverviewTopic(topic.id));
                 const units = canonical?.unitIds
                   .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
                   .filter((unit): unit is NonNullable<typeof unit> => Boolean(unit)) ?? [];
@@ -162,10 +165,15 @@ export function CGEITrackOverviewScreen() {
                             <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum pilot</p>
                             <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons} lessons with content</p>
                           </>
+                        ) : hasTopicContent ? (
+                          <>
+                            <p className="text-xs text-slate-600 font-semibold mt-1">Topic-based material</p>
+                            <p className="text-xs text-slate-500 mt-1">Existing study topics are available; the canonical orientation and unit hierarchy are still being migrated.</p>
+                          </>
                         ) : (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Domain roadmap</p>
-                            <p className="text-xs text-slate-500 mt-1">Overview and legacy material are being migrated into the structured curriculum.</p>
+                            <p className="text-xs text-slate-600 font-semibold mt-1">Domain orientation</p>
+                            <p className="text-xs text-slate-500 mt-1">The roadmap is available; structured lessons and assessments are being authored progressively.</p>
                           </>
                         )}
                       </div>
@@ -173,10 +181,10 @@ export function CGEITrackOverviewScreen() {
                     <div className="mt-4 flex items-center justify-between gap-3">
                       <span className="text-xs text-slate-500 flex items-center gap-1">
                         {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-teal-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
-                        {canonical ? 'Structured pathway' : 'Roadmap stage'}
+                        {canonical ? 'Structured pathway' : hasTopicContent ? 'Topic-based content' : 'Orientation only'}
                       </span>
                       <Button size="sm" variant="secondary" disabled={!enrolled} onClick={() => openSubject(subject.id as SubjectId)}>
-                        {enrolled ? 'Explore' : 'Begin track'} <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                        {enrolled ? 'Explore' : 'Locked'} <ArrowRight className="w-3.5 h-3.5 ml-1" />
                       </Button>
                     </div>
                   </Card>
