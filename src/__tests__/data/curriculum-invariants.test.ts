@@ -12,7 +12,18 @@ describe('CGEI curriculum invariants', () => {
     const lessonIds = new Set(cgeiCurriculum.lessons.map((lesson) => lesson.id));
     for (const question of cgeiCurriculum.questions) {
       assert.ok(lessonIds.has(question.lessonId), `missing lesson for ${question.id}`);
+      const lesson = cgeiCurriculum.lessons.find((item) => item.id === question.lessonId);
+      assert.ok(lesson, `missing lesson for ${question.id}`);
+      assert.ok(lesson.objectives.length > 0, `${question.id} belongs to a lesson without learning objectives`);
+      assert.ok(question.prompt.trim().length > 0, `${question.id} needs a prompt`);
+      assert.ok(question.explanation.trim().length > 0, `${question.id} needs an explanation`);
       assert.ok(question.options.length >= 2, `${question.id} needs options`);
+      assert.ok(question.options.every((option) => option.trim().length > 0), `${question.id} has an empty option`);
+      assert.equal(
+        new Set(question.options.map((option) => option.trim().toLocaleLowerCase())).size,
+        question.options.length,
+        `${question.id} has duplicate answer options`,
+      );
       assert.ok(
         Number.isInteger(question.correctAnswer)
           && question.correctAnswer >= 0
