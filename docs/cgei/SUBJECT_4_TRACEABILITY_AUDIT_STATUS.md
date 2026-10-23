@@ -2,8 +2,8 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 4.1–4.7 | Core units (radiometry → classification/change) | Draft + fixtures as recorded |
-| 4.8 | Active fire and hotspot products (**Support**) | Draft + synthetic detection-count fixture |
-| 4.9+ | Advanced EO analysis (Support) onward | Not started |
+| 4.1–4.8 | Prior Core/Support units | Draft + fixtures as recorded |
+| 4.9 | Advanced EO analysis (**Support**) | Draft + synthetic fusion/anomaly/ops fixture |
+| 4.10+ | Thematic EO applications beyond heat (Support) onward | Not started |
 
-Hotspot counts are not burned area. Masked ≠ no fire. FRP is an intensity proxy. Synthetic fixtures are not real FIRMS validation.
+Fusion is not automatic improvement. Report validation by stratum. Alerts need thresholds, QA, and review—not exploratory maps alone.

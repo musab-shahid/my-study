@@ -137,3 +137,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_7_classification_change_check.py
       - name: Verify Unit 4.8 active-fire and hotspot checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_8_active_fire_check.py
+      - name: Verify Unit 4.9 advanced EO analysis checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_9_advanced_eo_check.py

@@ -1973,6 +1973,14 @@ const outcomes48: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-48-communicate', statement: 'Produce map metadata and a limitations sentence covering source, date range, sensor set, confidence filter, and what the layer cannot show.', action: 'document and communicate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
 ];
 
+const outcomes49: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-49-fusion', statement: 'Select optical–thermal–SAR fusion use cases, require post-fusion validation, and test whether fusion improves on the best single source.', action: 'select and test', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-49-timeseries', statement: 'Design time-series monitoring with phenology metrics, gap filling, and anomaly detection against a seasonal baseline under stated assumptions.', action: 'design and detect', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-49-validate', statement: 'Specify independent reference samples for time-series products and report validation by stratum, not only overall scores.', action: 'specify and report', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-49-ops', statement: 'Design an operational monitoring workflow with cadence, latency budget, alert thresholds distinct from exploratory maps, QA flags, human review, and archives.', action: 'design workflow', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+
 
 
 
@@ -2359,7 +2367,55 @@ const lessons48: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const lessons49: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-9-1', kind: 'lesson', title: 'Multi-source fusion', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes49[0]],
+    content: [
+      { id: 'cgei-rs-49-1-use', kind: 'prose', title: 'Optical, thermal and SAR together', body: 'Fusion is justified when sensors supply complementary information: optical structure and indices, thermal surface temperature, SAR structure/moisture under cloud. Fusion is not automatic improvement—misaligned geometry, different physical quantities, and mismatched dates can inject artefacts (Units 4.4–4.6).' },
+      { id: 'cgei-rs-49-1-methods', kind: 'prose', title: 'Spatio-temporal and SAR–optical fusion', body: 'STARFM-family methods blend dense coarse and sparse fine optical time series under stated assumptions; SAR–optical fusion and gap-filled series need the same honesty. Validate after fusion against independent reference—not only visual smoothness. Ask whether the fused product beats the best single source on a held-out metric.' },
+      { id: 'cgei-rs-49-1-test', kind: 'prose', title: 'Does fusion add information?', body: 'Compare fused output to the best single-source baseline using the same validation sample. If fusion does not improve (or harms) skill, prefer the simpler product. Document scale, date support, and preprocessing for each source.' },
+      { id: 'cgei-rs-49-1-points', kind: 'key-points', title: 'Fusion discipline', items: ['Complementarity is a hypothesis, not a guarantee', 'Validate after fusion', 'Benchmark against best single source', 'Geometry and temporal support matter'] },
+    ],
+    activityIds: ['cgei-rs-a-49-fusion'], assessmentIds: ['cgei-rs-assess-49-fusion'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-9-2', kind: 'lesson', title: 'Time-series and phenology', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes49[1]],
+    content: [
+      { id: 'cgei-rs-49-2-ts', kind: 'prose', title: 'Monitoring transitions', body: 'Time-series EO tracks land-cover transitions, phenology, and anomalies when temporal sampling and masks are adequate. Compositing and gap filling (Unit 4.4) change the signal—state the method. Abrupt change (harvest, flood, fire) can be erased by aggressive smoothing (Unit 4.4.4.3).' },
+      { id: 'cgei-rs-49-2-phen', kind: 'prose', title: 'Phenology metrics', body: 'TIMESAT-style metrics (start/peak/end of season, amplitude) summarise seasonal trajectories for crop-type and irrigated-area workflows. Metrics inherit cloud bias, sensor mix, and index choice. Irrigated vs rainfed separation needs ancillary water/land-use evidence, not NDVI amplitude alone.' },
+      { id: 'cgei-rs-49-2-anom', kind: 'prose', title: 'Gap filling and seasonal anomalies', body: 'Gap filling enables continuous series but interpolates, not observes. Anomaly detection compares a value to a seasonal baseline (climatology of the same DOY or week). Baseline length, trend, and extreme years affect thresholds—label exercise thresholds as exercise parameters.' },
+      { id: 'cgei-rs-49-2-work', kind: 'worked-example', title: 'Seasonal anomaly (teaching)', body: 'Baseline mean NDVI for week 30 = 0.55 (sd not required for sign). Observed week-30 NDVI = 0.40 → anomaly = −0.15. Interpretation needs crop calendar and cloud QA; a single negative anomaly is not a drought declaration.' },
+    ],
+    activityIds: ['cgei-rs-a-49-timeseries'], assessmentIds: ['cgei-rs-assess-49-timeseries'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-9-3', kind: 'lesson', title: 'Independent validation for advanced products', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes49[2]],
+    content: [
+      { id: 'cgei-rs-49-3-ref', kind: 'prose', title: 'Independent reference data', body: 'Fused and time-series products need reference data not used in method tuning. Sources include field plots, VHR interpretation, and independent sensors. Reference uncertainty remains (Unit 4.7)—record it.' },
+      { id: 'cgei-rs-49-3-design', kind: 'prose', title: 'Sample design for time series', body: 'Design samples across seasons and strata (crop type, irrigation, cloud climate). Temporal support of the product must match the reference date. Avoid validating only the easiest clear-sky month.' },
+      { id: 'cgei-rs-49-3-stratum', kind: 'prose', title: 'Report by stratum', body: 'Overall metrics hide stratum failure (rare crops, urban fringe, cloudy mountains). Report accuracy or error rates by stratum, then overall. Link to Unit 4.7 rare-class lessons.' },
+      { id: 'cgei-rs-49-3-points', kind: 'key-points', title: 'Validation rules', items: ['Independent of training/tuning', 'Match temporal support', 'Stratum-wise reporting', 'Reference uncertainty stated'] },
+    ],
+    activityIds: ['cgei-rs-a-49-validate'], assessmentIds: ['cgei-rs-assess-49-validate'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-9-4', kind: 'lesson', title: 'Operational monitoring design', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes49[3]],
+    content: [
+      { id: 'cgei-rs-49-4-cadence', kind: 'prose', title: 'Cadence, latency and need', body: 'Operational monitoring starts from the user decision (irrigation alert, flood watch, crop stress). Update cadence and maximum acceptable latency follow that need—not the sensor’s marketing revisit time. A daily product delivered five days late may fail the use case.' },
+      { id: 'cgei-rs-49-4-alert', kind: 'prose', title: 'Alerts versus exploratory maps', body: 'Exploratory mapping tolerates uncertainty visualisation. Alerts require explicit thresholds, false-alarm tolerance, automated quality flags, and human review before dissemination. Thresholds are policy and risk choices, not purely statistical optima.' },
+      { id: 'cgei-rs-49-4-ops', kind: 'prose', title: 'QA, review and archive', body: 'Latency budgets allocate time to ingest, process, QA, and review. Archive inputs, configs, and outputs for audit and reprocessing (Unit 4.6 pipeline discipline). Failure alerts on the pipeline are part of the product.' },
+      { id: 'cgei-rs-49-4-check', kind: 'checklist', title: 'Monitoring design checklist', items: ['User decision and acceptable latency stated', 'Cadence matched to process being monitored', 'Alert thresholds documented and reviewed', 'Automated QA flags + human review path', 'Inputs/outputs/config archived'] },
+    ],
+    activityIds: ['cgei-rs-a-49-ops'], assessmentIds: ['cgei-rs-assess-49-ops'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2478,11 +2534,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.8 cover radiometry through active-fire/hotspot products (Support). Draft slice.',
+      overview: 'Units 4.1–4.9 cover radiometry through advanced EO analysis (multi-source, time series, ops monitoring). Draft slice.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48],
+      outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8', 'cgei-rs-unit-4-9'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2860,6 +2916,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.8 — Active fire and hotspot products (Support)',
       notes: ['Support unit: product literacy and interpretation guardrails.', 'Synthetic fixture only—no live FIRMS download in CI.', 'Never derive burned area from hotspot counts.'],
     },
+    {
+      id: 'cgei-rs-unit-4-9', code: '4.9', title: 'Advanced EO analysis', order: 409, kind: 'unit', readiness: 'draft',
+      summary: 'Design multi-source fusion and time-series monitoring with independent stratified validation, and specify operational cadence, latency, alerts, and archives without treating fusion as automatic improvement.',
+      estimatedHours: 7, prerequisites: ['Unit 4.4', 'Unit 4.6', 'Unit 4.7'], outcomes: outcomes49,
+      lessonIds: lessons49.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-49-fusion', 'cgei-rs-a-49-timeseries', 'cgei-rs-a-49-validate', 'cgei-rs-a-49-ops'],
+      assessmentIds: ['cgei-rs-assess-49-fusion', 'cgei-rs-assess-49-timeseries', 'cgei-rs-assess-49-validate', 'cgei-rs-assess-49-ops'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.9 — Advanced EO analysis (Support)',
+      notes: ['Support unit: workflow design and validation discipline.', 'Synthetic anomaly/fusion scores only—not STARFM production runs.'],
+    },
 
 
 
@@ -3185,6 +3252,17 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-48-008', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'A responsible hotspot map must include:', options: ['Only a red colour ramp', 'Source/product, date range, sensor set, confidence filter, and a limitations sentence', 'A guaranteed unique-fire count', 'Burned hectares derived from count × pixel area'], correctAnswer: 1, explanation: 'Metadata and limitations are required for interpretation.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-48-009', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'A good limitations sentence states:', options: ['That the map shows absolute truth', 'What detections show and what they cannot show (perimeter, burned area, unique events, absence under cloud)', 'Only the analyst name', 'That FRP equals emissions'], correctAnswer: 1, explanation: 'Explicit non-claims prevent overinterpretation.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-48-010', lessonId: 'cgei-rs-lesson-4-8-4', type: 'single-choice', prompt: 'On a hotspot dashboard, burned-area and smoke/AQ layers should be:', options: ['Merged into the detection count', 'Kept separate with their own provenance and units', 'Hidden to simplify the UI', 'Used only when confidence is low'], correctAnswer: 1, explanation: 'TOC checklist: keep AF separate from BA and smoke/AQ evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-001', lessonId: 'cgei-rs-lesson-4-9-1', type: 'single-choice', prompt: 'Optical–thermal–SAR fusion is best justified when:', options: ['Any extra layer always improves maps', 'Sensors provide complementary information under comparable geometry and temporal support', 'STARFM removes the need for validation', 'SAR equals optical reflectance'], correctAnswer: 1, explanation: 'Complementarity and comparability are prerequisites; fusion is not automatic gain.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-002', lessonId: 'cgei-rs-lesson-4-9-1', type: 'single-choice', prompt: 'After spatio-temporal fusion you should:', options: ['Skip validation if the image looks smooth', 'Validate against independent reference and compare to the best single source', 'Always discard single-source products', 'Treat fused pixels as field measurements'], correctAnswer: 1, explanation: 'Post-fusion validation and baseline comparison are required.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-003', lessonId: 'cgei-rs-lesson-4-9-2', type: 'single-choice', prompt: 'A seasonal anomaly compares an observation to:', options: ['A random number', 'A baseline for the same season/week under a stated climatology definition', 'Only the global maximum NDVI', 'FRP totals'], correctAnswer: 1, explanation: 'Anomalies need an explicit seasonal baseline.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-004', lessonId: 'cgei-rs-lesson-4-9-2', type: 'single-choice', prompt: 'Aggressive gap filling / smoothing of EO time series can:', options: ['Only improve abrupt-change detection', 'Attenuate real high-frequency change such as harvest or flood', 'Replace independent validation', 'Convert SAR to LST'], correctAnswer: 1, explanation: 'Smoothing trades noise reduction against signal loss (Unit 4.4).', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-005', lessonId: 'cgei-rs-lesson-4-9-3', type: 'single-choice', prompt: 'Independent reference data for a fused product must not be:', options: ['Field plots with recorded dates', 'The same samples used to tune fusion parameters', 'VHR interpretation', 'An independent sensor'], correctAnswer: 1, explanation: 'Tuning samples are not independent validation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-006', lessonId: 'cgei-rs-lesson-4-9-3', type: 'single-choice', prompt: 'Reporting only overall accuracy for a multi-stratum product risks:', options: ['Perfect transparency', 'Hiding failure in rare or difficult strata', 'Eliminating reference uncertainty', 'Guaranteeing operational alerts'], correctAnswer: 1, explanation: 'Stratum-wise metrics are required.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-007', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'Operational latency should be set from:', options: ['Only the satellite’s advertised revisit', 'The user’s decision deadline and end-to-end processing budget', 'Random forest depth', 'Kappa only'], correctAnswer: 1, explanation: 'User need and pipeline budget define latency.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-008', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'Alert thresholds differ from exploratory mapping because alerts require:', options: ['No documentation', 'Explicit thresholds, false-alarm tolerance, QA flags, and often human review', 'Maximum visual stretch only', 'Deletion of archives'], correctAnswer: 1, explanation: 'Alerts are operational decisions with risk controls.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-009', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'Archiving inputs, configs, and outputs supports:', options: ['Larger file sizes only', 'Audit, reprocessing, and scientific reproducibility', 'Removing human review', 'Skipping validation'], correctAnswer: 1, explanation: 'Archives enable audit and reprocessing.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-49-010', lessonId: 'cgei-rs-lesson-4-9-4', type: 'single-choice', prompt: 'A monitoring design is incomplete without:', options: ['A stated cadence, latency budget, and failure/review path', 'Guaranteed zero false alarms', 'Live credentials in git', 'Replacing single-source data always'], correctAnswer: 0, explanation: 'Operational completeness includes timing and failure handling.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
 
@@ -3642,6 +3720,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-48-counts', kind: 'coding-lab', title: 'Detection counting lab', instructions: 'Run unit_4_8_active_fire_check.py. Report detection records, unique cells, masked count, and confirm burned area is not derived from detections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-48-errors'] },
     { id: 'cgei-rs-a-48-interpret', kind: 'critique', title: 'Residue-burning claim', instructions: 'Rewrite a claim that “hotspots prove crop-residue burning” into a defensible statement requiring calendar and land-cover context.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-48-interpret'] },
     { id: 'cgei-rs-a-48-map', kind: 'reflection', title: 'Limitations sentence', instructions: 'Write one limitations sentence for a VIIRS hotspot map covering one week with a confidence filter.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-48-communicate'] },
+    { id: 'cgei-rs-a-49-fusion', kind: 'guided-practice', title: 'Fusion vs best single source', instructions: 'For cloudy-season surface water, argue when SAR+optical fusion is justified and what post-fusion validation you would require.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-49-fusion'] },
+    { id: 'cgei-rs-a-49-timeseries', kind: 'coding-lab', title: 'Seasonal anomaly lab', instructions: 'Run unit_4_9_advanced_eo_check.py. Report fusion vs single-source scores, anomaly value, and stratum-wise rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-49-timeseries', 'cgei-rs-o-49-validate'] },
+    { id: 'cgei-rs-a-49-validate', kind: 'critique', title: 'Overall-only validation', instructions: 'Critique a report that quotes only overall accuracy for a phenology product spanning irrigated and rainfed strata.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-49-validate'] },
+    { id: 'cgei-rs-a-49-ops', kind: 'reflection', title: 'Alert design note', instructions: 'Write cadence, latency budget, threshold rule, and human-review step for one monitoring decision.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-49-ops'] },
     { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
@@ -3892,6 +3974,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-48-errors', kind: 'formative', title: 'Errors and counts', purpose: 'Assess omission/commission and counting discipline.', objectiveIds: ['cgei-rs-o-48-errors'], questionIds: ['cgei-rs-q-48-003', 'cgei-rs-q-48-004', 'cgei-rs-q-48-005'], required: true },
     { id: 'cgei-rs-assess-48-interpret', kind: 'formative', title: 'Interpretation', purpose: 'Assess context and BA separation.', objectiveIds: ['cgei-rs-o-48-interpret'], questionIds: ['cgei-rs-q-48-006', 'cgei-rs-q-48-007'], required: true },
     { id: 'cgei-rs-assess-48-map', kind: 'formative', title: 'Metadata and limits', purpose: 'Assess map communication.', objectiveIds: ['cgei-rs-o-48-communicate'], questionIds: ['cgei-rs-q-48-008', 'cgei-rs-q-48-009', 'cgei-rs-q-48-010'], required: true },
+    { id: 'cgei-rs-assess-49-fusion', kind: 'formative', title: 'Fusion', purpose: 'Assess multi-source fusion literacy.', objectiveIds: ['cgei-rs-o-49-fusion'], questionIds: ['cgei-rs-q-49-001', 'cgei-rs-q-49-002'], required: true },
+    { id: 'cgei-rs-assess-49-timeseries', kind: 'formative', title: 'Time series', purpose: 'Assess phenology and anomaly literacy.', objectiveIds: ['cgei-rs-o-49-timeseries'], questionIds: ['cgei-rs-q-49-003', 'cgei-rs-q-49-004'], required: true },
+    { id: 'cgei-rs-assess-49-validate', kind: 'formative', title: 'Validation', purpose: 'Assess independent stratified validation.', objectiveIds: ['cgei-rs-o-49-validate'], questionIds: ['cgei-rs-q-49-005', 'cgei-rs-q-49-006'], required: true },
+    { id: 'cgei-rs-assess-49-ops', kind: 'formative', title: 'Operations', purpose: 'Assess monitoring design.', objectiveIds: ['cgei-rs-o-49-ops'], questionIds: ['cgei-rs-q-49-007', 'cgei-rs-q-49-008', 'cgei-rs-q-49-009', 'cgei-rs-q-49-010'], required: true },
     { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
