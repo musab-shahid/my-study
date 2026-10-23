@@ -253,15 +253,11 @@ export function RouterProvider({ children }: { children: ReactNode }) {
     const route = buildRoute(options);
     const prev = routeRef.current;
     const parent = options.parent !== undefined ? options.parent : prev;
-    let breadcrumb: BreadcrumbItem[];
-    if (options.breadcrumb) {
-      breadcrumb = options.breadcrumb;
-    } else if (options.parent === null) {
-      breadcrumb = [{ label: routeLabel(route), route }];
-    } else {
-      const parentCrumb = options.parent ?? prev;
-      breadcrumb = [...parentCrumb.breadcrumb, { label: routeLabel(route), route }];
-    }
+    // Breadcrumbs represent structural location; parent remains the actual
+    // Back destination. This is essential for deep curriculum hierarchies.
+    const breadcrumb: BreadcrumbItem[] = options.breadcrumb
+      ? options.breadcrumb
+      : breadcrumbForRoute(route) as BreadcrumbItem[];
     const next: RouteState = { route, parent, breadcrumb };
     setCurrentRoute(next);
     pushRouteHistory(next, 'push', spaDepthRef);
