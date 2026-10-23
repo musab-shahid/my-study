@@ -391,7 +391,7 @@ export function MobileNav() {
                 {active && (
                   <span
                     className={`absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full ${
-                      activeEnrolled === 'hat' ? 'bg-indigo-600' : 'bg-sky-500'
+                      activeIndicatorColor
                     }`}
                     aria-hidden
                   />
