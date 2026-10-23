@@ -1,6 +1,14 @@
 # Subject 5 source-traceability audit status
 
-**Status: partial semantic-audit pilot; not a declaration of Subject 5 completeness.**
+**Status: comprehensive reconciliation completed (planning baseline); Subject 5 is not complete.**
+
+**Current reconciliation:** `docs/cgei/SUBJECT_5_COMPREHENSIVE_RECONCILIATION.md`  
+**Leaf inventory:** `docs/cgei/subject-5-canonical-leaf-inventory.csv` (184 TOC leaves)  
+**Backlog:** `docs/cgei/SUBJECT_5_REMEDIATION_BACKLOG.md`
+
+**Headline counts (traceability dispositions):** 6 `mapped` · 178 `mapped_partial` · 0 `gap` across 184 leaves.
+
+Historical unit-level notes below may lag the reconciliation report; prefer the reconciliation document for programme-level decisions.
 
 ## Source-subtopic matrix status
 
