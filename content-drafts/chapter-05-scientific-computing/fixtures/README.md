@@ -124,3 +124,6 @@ c=λν; Wien peak; Planck B_λ; brightness-temperature round-trip. Blackbody tea
 
 ## unit_4_2_data_families_check.py
 Illustrative Landsat-style ST scale/offset decode; QA usable-pixel count. Not a live archive test.
+
+## unit_5_4_inference_check.py (expanded)
+ANOVA F, chi-square, n_eff, partial correlation, power sketch, SE/CI, one-sample z, Cohen d, Pearson r. Teaching arithmetic only.
