@@ -112,7 +112,12 @@ export function CGEITrackOverviewScreen() {
               <p className="font-semibold text-slate-900 mt-1">{lastLesson.title}</p>
               <p className="text-xs text-slate-600 mt-1">Resume the last opened canonical lesson.</p>
             </div>
-            <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastLesson.id, parent: currentRoute })}>
+            <Button variant="secondary" onClick={() => {
+              const result = setActiveEnrolledTrack('cgei');
+              if (!result.ok) return;
+              setActiveTrack('cgei');
+              navigate({ screen: 'curriculum-lesson', lessonId: lastLesson.id, parent: currentRoute });
+            }}>
               Resume <ArrowRight className="w-4 h-4 ml-1" />
             </Button>
           </div>
