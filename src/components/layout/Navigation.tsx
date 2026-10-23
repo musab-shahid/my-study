@@ -250,17 +250,22 @@ export function Sidebar() {
           if (!track) return null;
           const styles = trackNavStyles(trackId);
           const TrackIcon = trackIcon(trackId);
-          const landing = getLandingScreenForTrack(trackId);
+          const active = isTrackLandingActive(trackId);
           return (
             <button
               key={`explore-${trackId}`}
               type="button"
               onClick={() => navigate({ ...openTrackOptions(trackId) })}
-              className="w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-800 border-l-2 border-transparent mb-0.5"
+              aria-current={active ? 'page' : undefined}
+              className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium border-l-2 mb-0.5 transition-colors ${
+                active
+                  ? `${styles.activeBorder} text-white ${styles.activeBg}`
+                  : 'border-transparent text-slate-400 hover:text-white hover:bg-slate-800'
+              }`}
             >
-              <TrackIcon className="w-5 h-5 shrink-0" />
+              <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
               <span className="flex-1 text-left">{track.title}</span>
-              <span className="text-[10px] text-slate-500">Preview</span>
+              <span className={`text-[10px] ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
             </button>
           );
         })}
