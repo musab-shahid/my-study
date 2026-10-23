@@ -121,3 +121,6 @@ Teaching season bins vs JJA; seasonal completeness; evidence-tag discipline. Not
 
 ## unit_4_1_radiometric_physics_check.py
 c=λν; Wien peak; Planck B_λ; brightness-temperature round-trip. Blackbody teaching only.
+
+## unit_4_2_data_families_check.py
+Illustrative Landsat-style ST scale/offset decode; QA usable-pixel count. Not a live archive test.

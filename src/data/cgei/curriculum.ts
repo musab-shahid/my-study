@@ -1923,7 +1923,46 @@ const lessons41: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
+
+const outcomes42: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-42-families', statement: 'Identify major optical, thermal, SAR, DEM and land-cover product families and state what each is optimised to provide.', action: 'identify and state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rs-o-42-decode', statement: 'Apply documented scale and offset factors to decode a synthetic Landsat-style surface-temperature DN and refuse decoding without metadata.', action: 'apply and refuse', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-42-quality', statement: 'Use QA/cloud masks and product-status caveats when selecting usable observations and comparing sensors.', action: 'use and select', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+];
+
+const lessons42: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-2-1', kind: 'lesson', title: 'Optical, thermal and geostationary families', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes42[0]],
+    content: [
+      { id: 'cgei-rs-42-1-1', kind: 'prose', title: 'Workhorse optical and thermal missions', body: 'Landsat 8/9 Collection 2 Level-2 provides surface reflectance and surface temperature products for multi-decadal land monitoring. Sentinel-2 MSI supplies higher revisit optical reflectance. MODIS and VIIRS trade spatial detail for high temporal frequency and fire/thermal continuity. Geostationary platforms (e.g. INSAT-class, Meteosat IODC) sample sub-daily cloud and land-surface signals over South Asia. ECOSTRESS and ASTER extend thermal sampling with archive and coverage limits—always confirm current access status before planning.' },
+      { id: 'cgei-rs-42-1-2', kind: 'prose', title: 'Constellation status is not static', body: 'Mission composition changes (e.g. Sentinel-2C; Sentinel-1 rebuild after 1B loss; MODIS beyond design life with orbit drift; VIIRS continuity). Planning documents and early thermal missions (TRISHNA, SBG-TIR, LSTM) require status verification. Hyperspectral (EnMAP, PRISMA, EMIT) and commercial VHR optical/SAR are options with different licences. This lesson teaches status literacy, not a frozen inventory of every launch date.' },
+      { id: 'cgei-rs-42-1-3', kind: 'key-points', title: 'Family selection cues', items: ['Optical reflectance vs thermal temperature products', 'Coarse daily vs fine multi-day sensors', 'Confirm constellation status for study dates'] },
+    ],
+    activityIds: ['cgei-rs-a-42-families'], assessmentIds: ['cgei-rs-assess-42-families'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-2-2', kind: 'lesson', title: 'Radar, elevation and land products', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes42[0]],
+    content: [
+      { id: 'cgei-rs-42-2-1', kind: 'prose', title: 'SAR and elevation', body: 'Sentinel-1 supports all-weather surface and water applications; practitioner SAR basics include backscatter, calibration, terrain correction, speckle filtering, coherence and InSAR deformation concepts (processing depth is later). NISAR and other missions expand L/S-band access—verify public release status for analysis dates. DEM sources (SRTM, Copernicus DEM) differ in vertical accuracy, voids and surface-versus-terrain definition; hydrologic conditioning is a modelling choice, not automatic truth. Spaceborne lidar (GEDI, ICESat-2) samples canopy and elevation profiles.' },
+      { id: 'cgei-rs-42-2-2', kind: 'prose', title: 'Land cover, water, vegetation, fire, atmosphere', body: 'Land-cover products (Dynamic World, ESA WorldCover, annual LULC, GLC_FCS30) differ in legend, date and known errors. Night-time lights, surface-water and vegetation products support different questions. Burned-area products are not the same as active-fire detections. ET/water stacks (MODIS ET, SSEBop, WaPOR, JRC GSW, GRACE anomalies) and soil-moisture/precip (SMAP, SMOS, ESA CCI, IMERG) require fitness-for-purpose checks. Atmosphere (TROPOMI, MAIAC, CAMS) and snow/ice products add composition and cryosphere layers with latency/licence constraints.' },
+    ],
+    activityIds: ['cgei-rs-a-42-radar'], assessmentIds: ['cgei-rs-assess-42-radar'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-2-3', kind: 'lesson', title: 'QA, scale factors and cross-sensor continuity', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes42[1], outcomes42[2]],
+    content: [
+      { id: 'cgei-rs-42-3-1', kind: 'prose', title: 'Decode with metadata', body: 'Many archives store scaled integers. Landsat surface temperature is recovered as ST = DN × scale + offset using product documentation (illustrative teaching factors in the fixture; operational work must read the current USGS scale table). Decoding without scale/offset is invalid. QA bands, cloud and shadow masks, and saturation flags determine usable pixels.' },
+      { id: 'cgei-rs-42-3-lab', kind: 'worked-example', title: 'Lab: ST decode and usable mask', body: 'Fixture unit_4_2_data_families_check.py recovers ST=300 K from a synthetic DN with documented scale/offset and counts clear pixels among mixed QA flags. Cross-sensor continuity problems mean similar product names can hide calibration and algorithm differences—do not splice series without a continuity plan.' },
+      { id: 'cgei-rs-42-3-3', kind: 'checklist', title: 'Product card fields', items: ['Family and mission', 'Variable and units after decode', 'Spatial/temporal support', 'QA/mask rules', 'Licence and latency', 'Known continuity limits'] },
+    ],
+    activityIds: ['cgei-rs-a-42-qa'], assessmentIds: ['cgei-rs-assess-42-qa'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2042,11 +2081,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Unit 4.1 covers EM/radiometric basis, resolution, sensing modes, orbits and product levels. Draft slice only.',
+      overview: 'Units 4.1–4.2 cover radiometric physics and major EO data families. Draft slice only.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
-      outcomes: [...outcomes41],
+      outcomes: [...outcomes41, ...outcomes42],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -2347,6 +2386,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.1 — Remote sensing physics and sensors (Core)',
       notes: ['Blackbody teaching model only; not atmospheric correction or LST validation.'],
     },
+    {
+      id: 'cgei-rs-unit-4-2', code: '4.2', title: 'Major data families', order: 402, kind: 'unit', readiness: 'draft',
+      summary: 'Map optical, thermal, SAR, DEM and thematic product families; decode scaled archives with metadata; apply QA masks and continuity caution.',
+      estimatedHours: 8, prerequisites: ['Unit 4.1'], outcomes: outcomes42,
+      lessonIds: lessons42.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-42-families', 'cgei-rs-a-42-radar', 'cgei-rs-a-42-qa'],
+      assessmentIds: ['cgei-rs-assess-42-families', 'cgei-rs-assess-42-radar', 'cgei-rs-assess-42-qa'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.2 — Major data families (Core)',
+      notes: ['Mission status is literacy, not a live catalogue.', 'ST scale factors are illustrative teaching constants—verify USGS docs for operations.'],
+    },
+
 
 
 
@@ -2435,6 +2486,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-41-003', lessonId: 'cgei-rs-lesson-4-1-2', type: 'single-choice', prompt: 'Nominal revisit every 5 days guarantees cloud-free observations every 5 days:', options: ['True for all sensors', 'False — usable frequency depends on clouds, swath and acquisition', 'True only for SAR', 'True only at night'], correctAnswer: 1, explanation: 'Nominal revisit is not usable observation frequency under cloud and scheduling constraints.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-41-004', lessonId: 'cgei-rs-lesson-4-1-3', type: 'single-choice', prompt: 'SAR is classified as active microwave sensing because:', options: ['It only records solar reflection', 'It transmits microwave energy and measures the returned signal', 'It measures only thermal emission', 'It never interacts with the surface'], correctAnswer: 1, explanation: 'Active sensors illuminate the target; SAR interprets returned microwave energy.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-41-005', lessonId: 'cgei-rs-lesson-4-1-3', type: 'single-choice', prompt: 'A Level-2 product label always means the same atmospheric correction across agencies:', options: ['True universally', 'False — product-level definitions are mission/agency specific', 'True for all optical data only', 'True for brightness temperature only'], correctAnswer: 1, explanation: 'Processing-level nomenclature is not universal across agencies and missions.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-rs-q-42-001', lessonId: 'cgei-rs-lesson-4-2-1', type: 'single-choice', prompt: 'Landsat Collection 2 Level-2 is primarily used as:', options: ['Raw detector counts with no surface meaning', 'A surface reflectance and surface temperature product family for land monitoring', 'A SAR backscatter product', 'A GRACE gravity product'], correctAnswer: 1, explanation: 'C2 L2 targets analysis-ready surface reflectance and temperature products.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rs-q-42-002', lessonId: 'cgei-rs-lesson-4-2-1', type: 'single-choice', prompt: 'MODIS/VIIRS compared with Sentinel-2 typically offer:', options: ['Always finer spatial pixels', 'Coarser spatial resolution with higher temporal frequency', 'No thermal capability ever', 'Identical 10 m bands'], correctAnswer: 1, explanation: 'Coarse sensors trade spatial detail for frequent revisit and thermal/fire products.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-42-003', lessonId: 'cgei-rs-lesson-4-2-2', type: 'single-choice', prompt: 'A practical advantage of SAR for surface-water mapping in cloudy seasons is:', options: ['It is immune to all interpretation challenges', 'It can image through cloud and does not require sunlight', 'It directly measures chlorophyll', 'It replaces the need for DEM vertical accuracy checks'], correctAnswer: 1, explanation: 'Active microwave sensing is day/night and cloud-penetrating; interpretation still needs care.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-42-004', lessonId: 'cgei-rs-lesson-4-2-3', type: 'single-choice', prompt: 'If ST = DN × scale + offset and documentation is missing, you should:', options: ['Assume scale=1 and offset=0', 'Refuse to decode physical temperature until scale/offset are known', 'Divide DN by 10000 always', 'Treat DN as Celsius'], correctAnswer: 1, explanation: 'Physical units require documented scale factors; guessing invents false temperatures.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-42-005', lessonId: 'cgei-rs-lesson-4-2-3', type: 'single-choice', prompt: 'Cross-sensor continuity problems imply that:', options: ['Any two “surface reflectance” products can be spliced without checks', 'Similar product names can hide calibration and algorithm differences', 'QA bands are unnecessary', 'DEM voids never matter'], correctAnswer: 1, explanation: 'Continuity requires explicit comparison; names alone are insufficient.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+
 
 
 
@@ -3023,7 +3080,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-a-28-seasons', kind: 'coding-lab', title: 'Season definition lab', instructions: 'Run unit_2_8_regional_climate_literacy_check.py. Contrast PMD-style September with JJA and state why analyses must declare the season definition.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-28-seasons'] },
     { id: 'cgei-cl-a-28-multan', kind: 'guided-practice', title: 'Multan context sketch', instructions: 'In six sentences, describe arid plain + irrigation setting and why a station and a grid cell can differ without either being a coding error.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-28-multan'] },
     { id: 'cgei-cl-a-28-evidence', kind: 'critique', title: 'Regional literacy brief', instructions: 'Write a one-page brief for a Multan pre-monsoon heat question: geography, season definition, variable, evidence type, period/baseline, limits, next data need—without inventing station numbers.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-28-evidence'] },
-        { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
+            { id: 'cgei-rs-a-42-families', kind: 'guided-practice', title: 'Product family card', instructions: 'Build one product card each for Landsat C2 L2 reflectance, Sentinel-1 GRD, and a DEM source using the checklist fields.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-42-families'] },
+    { id: 'cgei-rs-a-42-radar', kind: 'critique', title: 'Cloudy-season choice', instructions: 'For a monsoon surface-water question, argue for or against relying solely on optical reflectance versus adding SAR.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-42-families'] },
+    { id: 'cgei-rs-a-42-qa', kind: 'coding-lab', title: 'ST decode and QA mask lab', instructions: 'Run unit_4_2_data_families_check.py. Report ST and usable pixel count; state why scale/offset must be documented.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-42-decode', 'cgei-rs-o-42-quality'] },
+    { id: 'cgei-rs-a-41-radiometry', kind: 'coding-lab', title: 'Planck and brightness-temperature lab', instructions: 'Run unit_4_1_radiometric_physics_check.py. Report λ_max at 300 K, confirm T_b round-trip at 10 μm, and state why T_b is not LST.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-rs-o-41-radiometry'] },
     { id: 'cgei-rs-a-41-resolution', kind: 'guided-practice', title: 'Resolution trade-off table', instructions: 'For flood mapping vs crop-type mapping, choose preferred spatial/temporal emphasis and one sacrifice you accept.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rs-o-41-resolution'] },
     { id: 'cgei-rs-a-41-sensing', kind: 'critique', title: 'Sensor selection memo', instructions: 'Write a half-page memo selecting passive optical vs SAR for a cloudy-season surface-water question; include product-level caution.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-41-sensing'] },
     { id: 'cgei-cl-a-21-baseline', kind: 'coding-lab', title: 'Normal and anomaly lab', instructions: 'Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-cl-o-21-weather-climate'] },
@@ -3244,7 +3304,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-assess-28-seasons', kind: 'formative', title: 'Seasons', purpose: 'Assess season-definition discipline.', objectiveIds: ['cgei-cl-o-28-seasons'], questionIds: ['cgei-cl-q-28-001', 'cgei-cl-q-28-002'], required: true },
     { id: 'cgei-cl-assess-28-multan', kind: 'formative', title: 'Multan context', purpose: 'Assess regional setting literacy.', objectiveIds: ['cgei-cl-o-28-multan'], questionIds: ['cgei-cl-q-28-003'], required: true },
     { id: 'cgei-cl-assess-28-evidence', kind: 'formative', title: 'Evidence practice', purpose: 'Assess institution and evidence-type awareness.', objectiveIds: ['cgei-cl-o-28-evidence'], questionIds: ['cgei-cl-q-28-004'], required: true },
-        { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
+            { id: 'cgei-rs-assess-42-families', kind: 'formative', title: 'Data families', purpose: 'Assess family literacy.', objectiveIds: ['cgei-rs-o-42-families'], questionIds: ['cgei-rs-q-42-001', 'cgei-rs-q-42-002'], required: true },
+    { id: 'cgei-rs-assess-42-radar', kind: 'formative', title: 'SAR and elevation', purpose: 'Assess SAR/DEM roles.', objectiveIds: ['cgei-rs-o-42-families'], questionIds: ['cgei-rs-q-42-003'], required: true },
+    { id: 'cgei-rs-assess-42-qa', kind: 'formative', title: 'QA and scale factors', purpose: 'Assess decode and mask discipline.', objectiveIds: ['cgei-rs-o-42-decode', 'cgei-rs-o-42-quality'], questionIds: ['cgei-rs-q-42-004', 'cgei-rs-q-42-005'], required: true },
+    { id: 'cgei-rs-assess-41-radiometry', kind: 'formative', title: 'Radiometry', purpose: 'Assess radiometric distinctions and Planck/Wien.', objectiveIds: ['cgei-rs-o-41-radiometry'], questionIds: ['cgei-rs-q-41-001', 'cgei-rs-q-41-002'], required: true },
     { id: 'cgei-rs-assess-41-resolution', kind: 'formative', title: 'Resolution', purpose: 'Assess resolution types.', objectiveIds: ['cgei-rs-o-41-resolution'], questionIds: ['cgei-rs-q-41-003'], required: true },
     { id: 'cgei-rs-assess-41-sensing', kind: 'formative', title: 'Modes and products', purpose: 'Assess sensing modes and product literacy.', objectiveIds: ['cgei-rs-o-41-sensing'], questionIds: ['cgei-rs-q-41-004', 'cgei-rs-q-41-005'], required: true },
     { id: 'cgei-cl-assess-21-baseline', kind: 'formative', title: 'Weather vs climate', purpose: 'Assess baseline and anomaly reasoning.', objectiveIds: ['cgei-cl-o-21-weather-climate'], questionIds: ['cgei-cl-q-21-001', 'cgei-cl-q-21-002'], required: true },

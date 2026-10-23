@@ -123,3 +123,5 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_8_regional_climate_literacy_check.py
       - name: Verify Unit 4.1 radiometric physics checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_1_radiometric_physics_check.py
+      - name: Verify Unit 4.2 major data-family checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_2_data_families_check.py

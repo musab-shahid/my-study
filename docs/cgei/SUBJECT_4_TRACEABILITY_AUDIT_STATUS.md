@@ -2,7 +2,8 @@
 
 | Unit | TOC title | Status |
 |------|-----------|--------|
-| 4.1 | Remote sensing physics and sensors (Core) | Draft — 3 lessons + radiometric fixture |
-| 4.2+ | Later EO units | Not started |
+| 4.1 | Remote sensing physics and sensors (Core) | Draft + radiometric fixture |
+| 4.2 | Major data families (Core) | Draft + scale/QA fixture |
+| 4.3+ | Later EO units | Not started |
 
-Blackbody teaching model only; not atmospheric correction, LST retrieval, or live mission product validation.
+Mission status statements are literacy cues — verify against agency docs for operational planning.
