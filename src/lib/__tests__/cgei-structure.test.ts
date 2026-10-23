@@ -48,7 +48,7 @@ describe('CGEI curriculum structure', () => {
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 148);
-    assert.equal(cgeiCurriculum.questions.length, 359);
+    assert.equal(cgeiCurriculum.questions.length, 362);
     const unitOrders = cgeiCurriculum.units.map((unit) => unit.order);
     assert.equal(unitOrders.length, new Set(unitOrders).size);
     assert.deepEqual(
@@ -87,7 +87,7 @@ describe('CGEI curriculum structure', () => {
     const unit510 = cgeiCurriculum.units.find((item) => item.code === '5.10');
     assert.ok(unit510);
     assert.equal(unit510.lessonIds.length, 5);
-    assert.equal(cgeiCurriculum.questions.filter((question) => unit510.lessonIds.includes(question.lessonId)).length, 12);
+    assert.equal(cgeiCurriculum.questions.filter((question) => unit510.lessonIds.includes(question.lessonId)).length, 15);
     assert.equal(unit510.readiness, 'draft');
     assert.ok(unit510.lessonIds.every((id) => (cgeiCurriculum.lessons.find((lesson) => lesson.id === id)?.content.length ?? 0) >= 4));
     const unit511 = cgeiCurriculum.units.find((item) => item.code === '5.11');

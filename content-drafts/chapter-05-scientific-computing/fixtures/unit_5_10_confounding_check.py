@@ -18,7 +18,16 @@ def mean_y(rows: list[tuple[int, int, float]], pred) -> float:
     return sum(ys) / len(ys)
 
 
+
+def pretrend_gap(pre_treated: list[float], pre_control: list[float]) -> float:
+    """Mean pre-period treated minus control path difference (toy parallel-trends check)."""
+    mt = sum(pre_treated) / len(pre_treated)
+    mc = sum(pre_control) / len(pre_control)
+    return mt - mc
+
+
 def main() -> None:
+
     rows: list[tuple[int, int, float]] = []
     # C=0: three untreated Y=10; two treated Y=12
     rows += [(0, 0, 10.0)] * 3
@@ -41,6 +50,10 @@ def main() -> None:
     adjusted = 2.0
     assert isclose(adjusted, 2.0, rel_tol=0, abs_tol=1e-12)
     assert crude > adjusted + 2.5  # confounding inflates the crude contrast here
+
+    # Parallel-trends toy: aligned pre-periods => small gap
+    assert abs(pretrend_gap([10.0, 10.1, 9.9], [10.0, 10.0, 10.05])) < 0.2
+    assert abs(pretrend_gap([10.0, 12.0, 14.0], [10.0, 10.1, 10.2])) > 1.0
 
     print(
         "Unit 5.10 confounding checks passed "
