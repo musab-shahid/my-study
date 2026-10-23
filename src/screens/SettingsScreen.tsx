@@ -49,6 +49,7 @@ export function SettingsScreen() {
   const [resetDone, setResetDone] = useState<string | null>(null);
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
+  const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
@@ -257,38 +258,59 @@ export function SettingsScreen() {
               <Button
                 variant="secondary"
                 disabled={syncBusy || !getProgressSyncAccessToken()}
-                onClick={async () => {
-                  setSyncBusy(true);
-                  setSyncMsg(null);
-                  const r = await pullProgress();
-                  if (!r.ok || !r.data) {
-                    setSyncMsg(
-                      r.error === 'auth-required'
-                        ? 'Sign in required before cloud restore.'
-                        : `Download failed: ${r.error ?? 'unknown'}`,
-                    );
-                    setSyncBusy(false);
-                    return;
-                  }
-                  // Recovery copy → write cloud payload → reload only after successful write.
-                  try {
-                    const existing = localStorage.getItem(STORAGE_KEYS.appData);
-                    const plan = planCloudRestoreWrite(STORAGE_KEYS.appData, existing, r.data);
-                    if (plan.recoveryValue != null) {
-                      localStorage.setItem(plan.recoveryKey, plan.recoveryValue);
-                    }
-                    localStorage.setItem(plan.appDataKey, plan.appDataValue);
-                    setSyncMsg('Downloaded and saved. Reloading…');
-                    window.location.reload();
-                  } catch {
-                    setSyncMsg('Download ok but could not write locally — local data unchanged.');
-                    setSyncBusy(false);
-                  }
-                }}
+                onClick={() => setConfirmCloudRestore(true)}
               >
-                Download
+                Restore from cloud
               </Button>
             </div>
+            {confirmCloudRestore && (
+              <div className="rounded-xl border border-amber-200 bg-amber-50 p-3" role="group" aria-label="Confirm cloud restore">
+                <p className="text-sm font-semibold text-amber-900">Replace local progress with the cloud backup?</p>
+                <p className="mt-1 text-xs leading-5 text-amber-800">
+                  A recovery copy of your current local data will be saved first. Restoring will replace the progress currently loaded in this browser.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    variant="danger"
+                    disabled={syncBusy}
+                    onClick={async () => {
+                      setSyncBusy(true);
+                      setSyncMsg(null);
+                      const r = await pullProgress();
+                      if (!r.ok || !r.data) {
+                        setSyncMsg(
+                          r.error === 'auth-required'
+                            ? 'Sign in required before cloud restore.'
+                            : `Download failed: ${r.error ?? 'unknown'}`,
+                        );
+                        setSyncBusy(false);
+                        setConfirmCloudRestore(false);
+                        return;
+                      }
+                      try {
+                        const existing = localStorage.getItem(STORAGE_KEYS.appData);
+                        const plan = planCloudRestoreWrite(STORAGE_KEYS.appData, existing, r.data);
+                        if (plan.recoveryValue != null) {
+                          localStorage.setItem(plan.recoveryKey, plan.recoveryValue);
+                        }
+                        localStorage.setItem(plan.appDataKey, plan.appDataValue);
+                        setSyncMsg('Downloaded and saved. Reloading…');
+                        window.location.reload();
+                      } catch {
+                        setSyncMsg('Download ok but could not write locally — local data unchanged.');
+                        setSyncBusy(false);
+                      }
+                      setConfirmCloudRestore(false);
+                    }}
+                  >
+                    Confirm restore
+                  </Button>
+                  <Button variant="secondary" disabled={syncBusy} onClick={() => setConfirmCloudRestore(false)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
             {syncMsg && <p className="text-xs text-slate-600">{syncMsg}</p>}
           </div>
         </Card>
