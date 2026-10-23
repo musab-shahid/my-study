@@ -17,6 +17,7 @@ import { MathText } from '@/components/MathText';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { cgeiOverviewTopicIdForSubject, isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { loadQuestionsForTopic } from '@/data/lazy-data';
 import type { SubjectId, Topic, Question, MethodChooser } from '@/types';
@@ -61,9 +62,18 @@ export function StudyScreen() {
     }
   }, [route, activeTrack, setActiveSubjectForScreen]);
 
-  const subjectSections = isAllSubjects ? [] : sd.sectionsFor(subjectId);
-  const subjectTopics = sd.topicsFor(subjectId);
-  const hasContent = isAllSubjects || subjectTopics.length > 0;
+  const loadedSubjectTopics = sd.topicsFor(subjectId);
+  const roadmapTopicId = isAllSubjects ? undefined : cgeiOverviewTopicIdForSubject(subjectId);
+  const roadmapTopic = roadmapTopicId
+    ? loadedSubjectTopics.find((topic) => topic.id === roadmapTopicId)
+    : undefined;
+  // Roadmap records remain addressable for legacy links, but are orientation,
+  // not lessons: keep them out of topic lists, progress, and mastery counts.
+  const subjectTopics = loadedSubjectTopics.filter((topic) => !isCgeiOverviewTopic(topic.id));
+  const subjectSections = isAllSubjects
+    ? []
+    : sd.sectionsFor(subjectId).filter((section) => subjectTopics.some((topic) => topic.sectionId === section.id));
+  const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopic);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
   const curriculumSubject = subjectId === 'cgei-data-science'
     ? cgeiCurriculum.subjects.find((item) => item.subjectId === subjectId)
@@ -105,7 +115,10 @@ export function StudyScreen() {
   if (isAllSubjects) {
     const examId = isTrackId(activeTrack) ? (trackMembership.enrollments[activeTrack]?.activeExamId ?? null) : null;
     const trackSubjects = isTrackId(activeTrack) ? subjectsForScope({ trackId: activeTrack, examId }) : [];
-    const subjectsWithContent = trackSubjects.filter((s) => sd.topicsFor(s.id as SubjectId).length > 0);
+    const subjectsWithContent = trackSubjects.filter((s) => {
+      const items = sd.topicsFor(s.id as SubjectId);
+      return items.some((topic) => !isCgeiOverviewTopic(topic.id)) || items.some((topic) => isCgeiOverviewTopic(topic.id));
+    });
     return (
       <PageContainer className="max-w-3xl">
         <ScreenHeader
@@ -117,7 +130,9 @@ export function StudyScreen() {
         </div>
         <div className="space-y-2 sm:space-y-3">
           {subjectsWithContent.map((subject) => {
-            const topics = sd.topicsFor(subject.id as SubjectId);
+            const allTopics = sd.topicsFor(subject.id as SubjectId);
+            const topics = allTopics.filter((topic) => !isCgeiOverviewTopic(topic.id));
+            const hasOverview = allTopics.some((topic) => isCgeiOverviewTopic(topic.id));
             const studied = topics.filter((t) => data.studiedTopics.includes(t.id)).length;
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
@@ -130,10 +145,10 @@ export function StudyScreen() {
                   <div className="flex-1 min-w-0">
                     <p className={`font-semibold text-sm sm:text-base truncate ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
-                      <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span>
-                      <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span>
+                      {topics.length > 0 ? <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span> : hasOverview ? <span className="text-slate-500 text-xs">Domain overview</span> : null}
+                      {topics.length > 0 ? <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span> : hasOverview ? <span className={`text-xs font-medium ${color.text}`}>Orientation</span> : null}
                     </div>
-                    <div className="mt-2"><ProgressBar value={topics.length > 0 ? Math.round((studied / topics.length) * 100) : 0} colorClass={getSubjectColor(subject.id).bar} /></div>
+                    {topics.length > 0 && <div className="mt-2"><ProgressBar value={Math.round((studied / topics.length) * 100)} colorClass={getSubjectColor(subject.id).bar} /></div>}
                   </div>
                   <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
                 </button>
@@ -210,6 +225,44 @@ export function StudyScreen() {
               </button>
             )}
           </div>
+
+          {roadmapTopic && (
+            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-sky-100 bg-sky-50/40">
+              <div className="flex items-start gap-3">
+                <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
+                  <BookOpen className="w-5 h-5 text-sky-800" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation · not a lesson</p>
+                  <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
+                  {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
+                  {roadmapTopic.explanationSections?.map((section) => (
+                    <div key={section.heading} className="mt-3">
+                      <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
+                      <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
+                    </div>
+                  ))}
+                  {roadmapTopic.keyFacts?.length ? (
+                    <div className="mt-4">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Orientation notes</h3>
+                      <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
+                    </div>
+                  ) : null}
+                  {roadmapTopic.examPoints?.length ? (
+                    <div className="mt-4">
+                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning principles</h3>
+                      <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
+                    </div>
+                  ) : null}
+                  {subjectTopics.length === 0 && (
+                    <p className="mt-4 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
+                      Structured lessons and assessments for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
+                    </p>
+                  )}
+                </div>
+              </div>
+            </Card>
+          )}
 
           {curriculumSubject && (
             <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-teal-100 bg-teal-50/40">
@@ -296,7 +349,7 @@ export function StudyScreen() {
             </div>
             <div className="space-y-2">
               {subjectSections.map((section) => {
-                const sectionTopics = topicsBySection(section.id);
+                const sectionTopics = topicsBySection(section.id).filter((topic) => !isCgeiOverviewTopic(topic.id));
                 const studiedInSection = sectionTopics.filter((t) => data.studiedTopics.includes(t.id)).length;
                 const masteredInSection = sectionTopics.filter((t) => {
                   const p = data.topicProgress[t.id];
@@ -313,7 +366,7 @@ export function StudyScreen() {
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-slate-900 text-sm break-words">{section.title}</p>
-                        <p className="text-slate-500 text-xs mt-0.5">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
+                        <p className="text-slate-500 text-xs mt-0.5">{sectionTopics.length} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
                       </div>
                       {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
                     </button>
