@@ -95,7 +95,8 @@ export function pathToRoute(pathname: string): PathRoute {
   if (parts.length === 0) return { screen: 'home' };
 
   const [head, a, b] = parts;
-  switch (head) {
+  try {
+    switch (head) {
     case 'learn': {
       if (!a) return { screen: 'learn' };
       const subjectId = decodeURIComponent(a);
@@ -165,6 +166,11 @@ export function pathToRoute(pathname: string): PathRoute {
     }
     default:
       return { screen: 'home' };
+    }
+  } catch (error) {
+    // Malformed percent-encoding must never crash cold-load or popstate routing.
+    if (error instanceof URIError) return { screen: 'home' };
+    throw error;
   }
 }
 
