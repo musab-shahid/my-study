@@ -55,6 +55,36 @@ def leave_location_out_idw(
     return rmse(errs), errs
 
 
+def empirical_semivariogram(
+    points: list[tuple[float, float, float]],
+    lags: list[tuple[float, float]],
+) -> list[tuple[float, float, int]]:
+    """Classical method-of-moments gamma for lag bins.
+
+    points: (x, y, value)
+    lags: list of (h_min, h_max) inclusive lower, exclusive upper except last
+    returns list of (h_mid, gamma, n_pairs)
+    gamma = mean 0.5 * (z_i - z_j)^2 over pairs with distance in bin
+    """
+    out = []
+    for h_min, h_max in lags:
+        pairs = []
+        n = len(points)
+        for i in range(n):
+            for j in range(i + 1, n):
+                dx = points[i][0] - points[j][0]
+                dy = points[i][1] - points[j][1]
+                d = (dx * dx + dy * dy) ** 0.5
+                if h_min <= d < h_max or (h_max == lags[-1][1] and d == h_max):
+                    dz = points[i][2] - points[j][2]
+                    pairs.append(0.5 * dz * dz)
+        if not pairs:
+            out.append(((h_min + h_max) / 2.0, float("nan"), 0))
+        else:
+            out.append(((h_min + h_max) / 2.0, sum(pairs) / len(pairs), len(pairs)))
+    return out
+
+
 def residual_spatial_structure(coords: list[tuple[float, float]], residuals: list[float]) -> float:
     """Mean absolute residual difference for nearest neighbour pairs (simple lag diagnostic)."""
     n = len(coords)
@@ -95,6 +125,22 @@ def main() -> None:
     lag = residual_spatial_structure(coords, errs)
     assert lag >= 0
 
+    # Empirical semivariogram on a smooth gradient (gamma rises with lag)
+    cloud = [
+        (0.0, 0.0, 0.0),
+        (1.0, 0.0, 1.0),
+        (2.0, 0.0, 2.0),
+        (3.0, 0.0, 3.0),
+        (4.0, 0.0, 4.0),
+        (0.0, 1.0, 0.5),
+        (1.0, 1.0, 1.5),
+    ]
+    bins = [(0.0, 1.5), (1.5, 3.0), (3.0, 5.0)]
+    svg = empirical_semivariogram(cloud, bins)
+    assert all(n > 0 for _, _, n in svg)
+    g0, g1, g2 = svg[0][1], svg[1][1], svg[2][1]
+    assert g0 < g2  # longer lags more dissimilar on a trend field
+
     # Edge: single-point set cannot LOO-IDW
     try:
         leave_location_out_idw([(0.0, 0.0, 1.0)])
@@ -109,7 +155,8 @@ def main() -> None:
     print(
         "Unit 3.9 spatial stats checks passed "
         f"(IDW={pred}, LOO_mean_RMSE={loo:.4f}, LOO_IDW_RMSE={idw_loo:.4f}, "
-        f"nn_residual_lag={lag:.4f})."
+        f"nn_residual_lag={lag:.4f}, "
+        f"semivariogram_gamma={[round(g, 4) for _, g, _ in svg]})."
     )
 
 

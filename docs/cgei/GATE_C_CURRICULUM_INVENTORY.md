@@ -151,3 +151,8 @@ Unit 4.11 nested feature-selection teaching, activity, assessment, and fixture p
 
 Unit 3.9 LOO-IDW practical mastery package.
 
+
+## C.16
+
+Unit 3.9 empirical semivariogram methodology.
+
