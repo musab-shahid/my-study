@@ -5,6 +5,7 @@ import { expect, test } from '@playwright/test';
 const routes = [
   { slug: 'home', path: '/' },
   { slug: 'learn', path: '/learn/meteo-climatology' },
+  { slug: 'learn-maths', path: '/learn/maths' },
   { slug: 'section', path: '/section/METEO-01' },
   { slug: 'topic', path: '/topic/meteo-origin-evolution' },
   { slug: 'formulas', path: '/formulas' },
@@ -27,7 +28,7 @@ const viewports = [
   { width: 1280, height: 900 },
 ] as const;
 
-test('captures visual references for every routable screen at mobile and desktop widths', async ({ page }, testInfo) => {
+test('captures visual references for representative routes at mobile and desktop widths', async ({ page }, testInfo) => {
   test.setTimeout(180_000);
   await page.emulateMedia({ reducedMotion: 'reduce' });
 
