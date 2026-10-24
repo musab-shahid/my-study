@@ -1,6 +1,7 @@
 import { afterEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { STORAGE_KEYS } from '../constants.ts';
+import { CLOUD_RESTORE_RECOVERY_SUFFIX } from '../cloud-restore.ts';
 import { consumeStorageWarning, flushPendingSave, loadData, resetData, saveData } from '../storage.ts';
 
 const BACKUP_KEY = 'examprep-data-backup';
@@ -66,6 +67,23 @@ describe('storage reset safety', () => {
       JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
       JSON.parse(validSnapshot),
     );
+  });
+
+  it('uses the pre-restore recovery snapshot if primary data is corrupt', () => {
+    const storage = installLocalStorage();
+    const validSnapshot = JSON.stringify(loadData());
+    const recoveryKey = `${STORAGE_KEYS.appData}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
+    storage.setItem(recoveryKey, validSnapshot);
+    storage.setItem(STORAGE_KEYS.appData, '{not valid json');
+
+    const loaded = loadData();
+
+    assert.deepEqual(loaded, JSON.parse(validSnapshot));
+    assert.deepEqual(
+      JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
+      JSON.parse(validSnapshot),
+    );
+    assert.equal(storage.getItem(recoveryKey), validSnapshot);
   });
 
   it('preserves malformed primary bytes for export when no valid backup exists', () => {
