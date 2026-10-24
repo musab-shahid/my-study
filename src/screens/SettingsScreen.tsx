@@ -293,7 +293,9 @@ export function SettingsScreen() {
                         setSyncMsg(
                           r.error === 'auth-required'
                             ? 'Sign in required before cloud restore.'
-                            : `Download failed: ${r.error ?? 'unknown'}`,
+                            : r.error === 'invalid-cloud-data'
+                              ? 'Cloud backup is invalid or incompatible. Local data was not changed.'
+                              : `Download failed: ${r.error ?? 'unknown'}`,
                         );
                         setSyncBusy(false);
                         setConfirmCloudRestore(false);
