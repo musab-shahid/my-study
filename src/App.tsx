@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
 import { RouterProvider, useRouter, routeLabel, type Route } from '@/router';
 import { DataProvider } from '@/data-context';
 import { useData } from '@/hooks/useData';
@@ -6,8 +6,11 @@ import { SubjectSelectionProvider, useSubjectSelection, type StageScreen } from 
 import { Sidebar, MobileNav } from '@/components/layout/Navigation';
 import { Header } from '@/components/layout/Header';
 import { DashboardScreen } from '@/screens/DashboardScreen';
-import { StudyScreen, SectionScreen, TopicScreen } from '@/screens/StudyScreen';
-import { CurriculumUnitScreen, CurriculumLessonScreen } from '@/screens/CurriculumScreens';
+const StudyScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.StudyScreen })));
+const SectionScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.SectionScreen })));
+const TopicScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.TopicScreen })));
+const CurriculumUnitScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumUnitScreen })));
+const CurriculumLessonScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumLessonScreen })));
 import { FormulaVaultScreen } from '@/screens/FormulaVaultScreen';
 import { FlashcardsScreen } from '@/screens/FlashcardsScreen';
 import { CloudAtlasScreen } from '@/screens/CloudAtlasScreen';
@@ -20,7 +23,7 @@ import { SettingsScreen } from '@/screens/SettingsScreen';
 import { HatLandingScreen } from '@/screens/hat/HatLandingScreen';
 import { FpscLandingScreen } from '@/screens/fpsc/FpscLandingScreen';
 import { TrackOverviewScreen } from '@/screens/TrackOverviewScreen';
-import { CGEITrackOverviewScreen } from '@/screens/CGEITrackOverviewScreen';
+const CGEITrackOverviewScreen = lazy(() => import('@/screens/CGEITrackOverviewScreen').then((module) => ({ default: module.CGEITrackOverviewScreen })));
 import { EnrollmentRequired } from '@/components/track/EnrollmentRequired';
 import { TopicAccessGate, SectionAccessGate } from '@/components/track/ResourceAccessGate';
 import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
@@ -280,8 +283,10 @@ function AppContent() {
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>
           <ErrorBoundary>
+            <Suspense fallback={<div className="p-6 text-sm text-slate-600" role="status" aria-live="polite">Loading study material…</div>}>
               <ScreenRouter />
-            </ErrorBoundary>
+            </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
       <MobileNav />

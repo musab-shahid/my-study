@@ -7,7 +7,7 @@ import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicSt
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
-import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index';
 
 export interface DataContextValue {
   data: AppData;
@@ -164,15 +164,9 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const subjectTopicIds = new Set(
       topics.filter((t) => subjectSectionIds.has(t.sectionId)).map((t) => t.id)
     );
-    const curriculumSubjectIds = new Set(
-      cgeiCurriculum.subjects.filter((subject) => subjectIdSet.has(subject.subjectId)).map((subject) => subject.subjectId)
-    );
-    const curriculumUnitIds = new Set(
-      cgeiCurriculum.units.filter((unit) => cgeiCurriculum.subjects.some((subject) => curriculumSubjectIds.has(subject.subjectId) && subject.unitIds.includes(unit.id))).map((unit) => unit.id)
-    );
-    const curriculumLessonIds = new Set(
-      cgeiCurriculum.lessons.filter((lesson) => curriculumUnitIds.has(cgeiCurriculum.units.find((unit) => unit.lessonIds.includes(lesson.id))?.id ?? '')).map((lesson) => lesson.id)
-    );
+    // Reset only the lightweight CGEI lesson IDs for selected subjects. The
+    // full lesson/question registry must not be loaded for synchronous reset.
+    const curriculumLessonIds = cgeiLessonIdsForSubjects(subjectIdSet);
 
     const next: AppData = {
       studiedTopics: current.studiedTopics.filter((tid) => !subjectTopicIds.has(tid)),
