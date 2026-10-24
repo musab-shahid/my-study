@@ -181,3 +181,6 @@ Confusion, FP/FN, threshold sensitivity, illustrative reliability bins, reportin
 
 ## unit_6_6_practice_check.py
 Practice report JSON: framing, synthetic flags, leakage rules, model card, pitfalls.
+
+## unit_6_7_eo_deep_learning_check.py
+Synthetic multiband patches, spatial block split, overlapping-patch leakage, majority baseline, IoU. No PyTorch in CI.

@@ -27,6 +27,8 @@ def stump_predict(r, thr=36.5, feature="lst_c"):
 
 
 def confusion(y_true, y_pred):
+    if len(y_true) != len(y_pred):
+        raise ValueError(f"y_true/y_pred length mismatch: {len(y_true)} != {len(y_pred)}")
     tp = sum(1 for a, b in zip(y_true, y_pred) if a == 1 and b == 1)
     tn = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 0)
     fp = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 1)
@@ -60,6 +62,11 @@ def main() -> None:
     thr = 36.5  # pre_specified_illustrative
     y_true = [int(r[TARGET]) for r in test]
     y_pred = [stump_predict(r, thr) for r in test]
+    try:
+        confusion([1, 0], [1])
+        raise AssertionError("mismatched lengths must raise")
+    except ValueError as exc:
+        assert "length mismatch" in str(exc)
     tp, fp, fn, tn = confusion(y_true, y_pred)
     assert tp + fp + fn + tn == len(test)
 
