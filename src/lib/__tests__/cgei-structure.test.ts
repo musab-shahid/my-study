@@ -48,7 +48,7 @@ describe('CGEI curriculum structure', () => {
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 203);
-    assert.equal(cgeiCurriculum.questions.length, 480);
+    assert.equal(cgeiCurriculum.questions.length, 481);
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id === 'cgei-geo-q-32-vertical-datum').length, 1);
     const unitOrders = cgeiCurriculum.units.map((unit) => unit.order);
     assert.equal(unitOrders.length, new Set(unitOrders).size);

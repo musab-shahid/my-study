@@ -156,3 +156,8 @@ Unit 3.9 LOO-IDW practical mastery package.
 
 Unit 3.9 empirical semivariogram methodology.
 
+
+## C.17
+
+Ordinary kriging educational system + IDW comparison for Unit 3.9.4.4.
+

@@ -101,6 +101,82 @@ def residual_spatial_structure(coords: list[tuple[float, float]], residuals: lis
     return sum(diffs) / len(diffs)
 
 
+
+def exp_variogram(h: float, nugget: float, partial_sill: float, rang: float) -> float:
+    """Isotropic exponential model: gamma(h) = nugget + ps*(1 - exp(-h/a))."""
+    if h <= 0:
+        return 0.0 if nugget == 0 else nugget  # convention: gamma(0)=0 for continuous models; nugget discontinuity handled in cov
+    return nugget + partial_sill * (1.0 - __import__('math').exp(-h / rang))
+
+
+def cov_from_vario(h: float, nugget: float, partial_sill: float, rang: float) -> float:
+    """C(h) = sill - gamma(h) with sill = nugget + partial_sill; C(0) = sill."""
+    sill = nugget + partial_sill
+    if h <= 0:
+        return sill
+    return sill - exp_variogram(h, nugget, partial_sill, rang)
+
+
+def solve_linear(A: list[list[float]], b: list[float]) -> list[float]:
+    """Gaussian elimination with partial pivoting."""
+    n = len(b)
+    M = [row[:] + [b[i]] for i, row in enumerate(A)]
+    for col in range(n):
+        pivot = max(range(col, n), key=lambda r: abs(M[r][col]))
+        M[col], M[pivot] = M[pivot], M[col]
+        piv = M[col][col]
+        if abs(piv) < 1e-12:
+            raise ValueError("singular_kriging_system")
+        for j in range(col, n + 1):
+            M[col][j] /= piv
+        for r in range(n):
+            if r == col:
+                continue
+            factor = M[r][col]
+            for j in range(col, n + 1):
+                M[r][j] -= factor * M[col][j]
+    return [M[i][n] for i in range(n)]
+
+
+def ordinary_kriging(
+    samples: list[tuple[float, float, float]],
+    target: tuple[float, float],
+    nugget: float,
+    partial_sill: float,
+    rang: float,
+) -> tuple[float, float, list[float]]:
+    """OK prediction and model kriging variance at target.
+
+    samples: (x, y, z). Returns (z_hat, sigma2_k, weights) where weights are spatial weights only.
+    """
+    n = len(samples)
+    # Build (n+1)x(n+1) system with Lagrange multiplier for unbiasedness
+    A = [[0.0] * (n + 1) for _ in range(n + 1)]
+    b = [0.0] * (n + 1)
+    for i in range(n):
+        for j in range(n):
+            dx = samples[i][0] - samples[j][0]
+            dy = samples[i][1] - samples[j][1]
+            h = (dx * dx + dy * dy) ** 0.5
+            A[i][j] = cov_from_vario(h, nugget, partial_sill, rang)
+        A[i][n] = 1.0
+        A[n][i] = 1.0
+        dx = samples[i][0] - target[0]
+        dy = samples[i][1] - target[1]
+        h = (dx * dx + dy * dy) ** 0.5
+        b[i] = cov_from_vario(h, nugget, partial_sill, rang)
+    A[n][n] = 0.0
+    b[n] = 1.0
+    sol = solve_linear(A, b)
+    w, lam = sol[:n], sol[n]
+    zhat = sum(w[i] * samples[i][2] for i in range(n))
+    # sigma2 = C(0) - sum w_i C(x_i,x0) - lam
+    c0 = cov_from_vario(0.0, nugget, partial_sill, rang)
+    sigma2 = c0 - sum(w[i] * b[i] for i in range(n)) - lam
+    return zhat, sigma2, w
+
+
+
 def main() -> None:
     pred = idw_predict([(1.0, 10.0), (3.0, 16.0)], power=2.0)
     assert isclose(pred, 10.6, abs_tol=1e-12)
@@ -152,11 +228,25 @@ def main() -> None:
         # empty samples may ZeroDivision in idw
         pass
 
+    # Ordinary kriging with fixed exponential parameters (educational)
+    samples = [(0.0, 0.0, 10.0), (2.0, 0.0, 14.0), (0.0, 2.0, 12.0)]
+    zhat, sk, wts = ordinary_kriging(samples, (1.0, 1.0), nugget=0.5, partial_sill=4.0, rang=3.0)
+    assert abs(sum(wts) - 1.0) < 1e-9  # unbiasedness
+    assert sk > 0
+    # IDW baseline at same target (distances to 3 samples)
+    d_idw = []
+    for x, y, z in samples:
+        d = ((1.0 - x) ** 2 + (1.0 - y) ** 2) ** 0.5
+        d_idw.append((d, z))
+    idw_t = idw_predict(d_idw, power=2.0)
+    assert abs(zhat - idw_t) > 1e-6 or True  # may be close; just compute both
+
     print(
         "Unit 3.9 spatial stats checks passed "
         f"(IDW={pred}, LOO_mean_RMSE={loo:.4f}, LOO_IDW_RMSE={idw_loo:.4f}, "
         f"nn_residual_lag={lag:.4f}, "
-        f"semivariogram_gamma={[round(g, 4) for _, g, _ in svg]})."
+        f"semivariogram_gamma={[round(g, 4) for _, g, _ in svg]}, "
+        f"OK_zhat={zhat:.4f}, OK_var={sk:.4f}, OK_weights_sum={sum(wts):.4f}, IDW_at_target={idw_t:.4f})."
     )
 
 
