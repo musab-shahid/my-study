@@ -66,6 +66,20 @@ describe('Phase A path mapping', () => {
     assert.equal(isAppPath('/section/not-real'), false);
   });
 
+  it('falls back safely for malformed percent-encoded route segments', () => {
+    for (const path of [
+      '/learn/%E0%A4%A',
+      '/section/%',
+      '/topic/%E0%A4%A',
+      '/flashcards/%',
+      '/curriculum/unit/%E0%A4%A',
+      '/curriculum/lesson/%',
+    ]) {
+      assert.doesNotThrow(() => pathToRoute(path), path);
+      assert.deepEqual(pathToRoute(path), { screen: 'home' }, path);
+    }
+  });
+
   it('keeps quiz deep links intentionally routed to practice', () => {
     assert.deepEqual(pathToRoute('/quiz'), { screen: 'practice' });
   });
