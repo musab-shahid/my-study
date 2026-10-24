@@ -60,4 +60,6 @@ Submit a short reproducibility note containing the grid specification, inclusion
 - 2: At least two limitations and one sensitivity risk explained.
 - 2: Evidence distinguishes the synthetic hand-check from any QGIS/GDAL execution.
 
-**Pass:** at least 8/10 and no NoData-as-zero error. A passing synthetic exercise demonstrates reasoning and arithmetic only; it does not validate a real GIS toolchain.
+**Pass:** at least 8/10 and no NoData-as-zero error. Official references for the production workflow: [QGIS Processing framework](https://docs.qgis.org/latest/en/docs/user_manual/processing/index.html) and [GDAL rasterize](https://gdal.org/en/stable/programs/gdal_rasterize.html). Check the installed version's documentation when reproducing a run.
+
+A passing synthetic exercise demonstrates reasoning and arithmetic only; it does not validate a real GIS toolchain.
