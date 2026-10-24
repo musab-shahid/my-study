@@ -27,9 +27,9 @@ describe('shared brand tokens', () => {
   it('routes Tailwind semantic palettes through RGB CSS variables with opacity support', () => {
     for (const family of ['brand', 'success', 'warning', 'danger']) {
       assert.ok(tailwind.includes(`${family}: {`), `missing Tailwind palette ${family}`);
-      assert.match(
-        tailwind,
-        new RegExp(`\\d+:\\s*'rgb\\(var\\(--color-${family}-\\d+\\) / <alpha-value>\\)'`),
+      assert.ok(
+        tailwind.includes(`'rgb(var(--color-${family}-50) / <alpha-value>)'`),
+        `palette ${family} should use shared RGB tokens with opacity support`,
       );
     }
     assert.match(css, /--focus-ring:\s*rgb\(var\(--color-brand-600\)\)/);
