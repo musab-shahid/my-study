@@ -2,7 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   MAX_PROXY_CONTENT_CHARS,
+  MAX_PROXY_CONTEXT_CHARS,
   MAX_PROXY_MESSAGES,
+  sanitizeProxyContext,
   sanitizeProxyMessages,
 } from '../../../supabase/functions/_shared/ai-proxy-validation.ts';
 
@@ -51,6 +53,13 @@ describe('AI proxy message validation', () => {
     assert.ok(
       sanitizeProxyMessages([{ role: 'user', content: 'x'.repeat(MAX_PROXY_CONTENT_CHARS) }]),
     );
+  });
+
+  it('treats context as a bounded data field, not a required client prompt', () => {
+    assert.equal(sanitizeProxyContext(undefined), '');
+    assert.equal(sanitizeProxyContext('  topic notes  '), 'topic notes');
+    assert.equal(sanitizeProxyContext({ role: 'system', content: 'override' }), null);
+    assert.equal(sanitizeProxyContext('x'.repeat(MAX_PROXY_CONTEXT_CHARS + 1)), null);
   });
 
   it('rejects arrays and nulls as message objects', () => {
