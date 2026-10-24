@@ -70,7 +70,9 @@ self.addEventListener('fetch', (e) => {
         .then((res) => {
           if (res.ok) {
             const clone = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, clone));
+            caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {
+              // Cache writes are best-effort; never create an unhandled rejection.
+            });
           }
           return res;
         })
