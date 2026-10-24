@@ -56,18 +56,35 @@ def kelvin_to_celsius(t_k: float) -> float:
     return t_k - 273.15
 
 
-def accumulation_intervals(cumulative: list[float]) -> list[float]:
-    """Non-decreasing accumulation → interval depths; negatives clamped to 0."""
+def accumulation_intervals(
+    cumulative: list[float],
+    *,
+    on_negative: str = "flag_reset",
+) -> tuple[list[float | None], list[int]]:
+    """Derive interval depths from cumulative totals.
+
+    on_negative:
+      - "flag_reset": negative delta → interval None, index in resets
+      - "clamp": negative delta → 0.0 (only if product docs allow)
+    """
+    if on_negative not in ("flag_reset", "clamp"):
+        raise ValueError("on_negative must be flag_reset or clamp")
     if not cumulative:
-        return []
-    out = []
-    prev = cumulative[0]
-    # first interval from 0 baseline if series starts at 0
-    out.append(max(cumulative[0] - 0.0, 0.0))
-    for a in cumulative[1:]:
-        out.append(max(a - prev, 0.0))
-        prev = a
-    return out
+        return [], []
+    intervals: list[float | None] = []
+    resets: list[int] = []
+    prev = 0.0
+    for i, a in enumerate(cumulative):
+        delta = a - prev
+        if delta < 0:
+            resets.append(i)
+            intervals.append(0.0 if on_negative == "clamp" else None)
+            prev = a
+        else:
+            intervals.append(delta)
+            prev = a
+    return intervals, resets
+
 
 
 def anomaly(value, baseline_mean):
@@ -103,12 +120,20 @@ def main() -> None:
     assert isclose(kelvin_to_celsius(300.0), 26.85, abs_tol=1e-12)
     assert isclose(kelvin_to_celsius(273.15), 0.0, abs_tol=1e-12)
 
-    # Accumulation intervals
-    intervals = accumulation_intervals([0.0, 1.5, 1.5, 4.0])
-    assert intervals == [0.0, 1.5, 0.0, 2.5] or (
-        isclose(intervals[0], 0.0) and isclose(intervals[1], 1.5)
-        and isclose(intervals[2], 0.0) and isclose(intervals[3], 2.5)
-    )
+    # Accumulation intervals (monotonic cycle)
+    intervals, resets = accumulation_intervals([0.0, 1.5, 1.5, 4.0], on_negative="flag_reset")
+    assert resets == []
+    assert isclose(intervals[0], 0.0) and isclose(intervals[1], 1.5)
+    assert isclose(intervals[2], 0.0) and isclose(intervals[3], 2.5)
+
+    # Negative jump = possible cycle reset — flag, do not invent rain
+    series_reset = [0.0, 1.5, 3.0, 0.2, 1.0]
+    iv, rs = accumulation_intervals(series_reset, on_negative="flag_reset")
+    assert 3 in rs and iv[3] is None
+    assert isclose(iv[4], 0.8)
+
+    iv_c, rs_c = accumulation_intervals(series_reset, on_negative="clamp")
+    assert 3 in rs_c and isclose(iv_c[3], 0.0)
 
     # Anomaly
     baseline_jul = 32.0
@@ -117,7 +142,7 @@ def main() -> None:
     print(
         "Unit 2.5 climate-data-handling checks passed "
         f"(utc0_max={utc0}, pkt_day1_max={pkt[1]}, precip_sum={total}, "
-        f"anomaly={anomaly(35.0, baseline_jul)})."
+        f"reset_indices={rs}, anomaly={anomaly(35.0, baseline_jul)})."
     )
 
 

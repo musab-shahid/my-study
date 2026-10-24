@@ -11,3 +11,7 @@ Unit 2.8 contains no fabricated PMD station statistics.
 ## Gate C.5
 
 Unit 2.5 product conventions deepened (K↔°C, accumulation differencing). Support 2.3/2.7 still not started.
+
+## Gate C.6
+
+Unit 2.5 accumulation: reset-aware differencing (not universal max clamp).
