@@ -2,7 +2,7 @@
  * Lightweight, synchronous navigation/progress metadata for CGEI.
  * Keep instructional content in curriculum.ts so route parsing and reset logic
  * never need to pull the full lesson/question registry into the initial bundle.
- * This index is intentionally metadata-only; curriculum validation tests keep it aligned.
+ * A parity test keeps this metadata aligned with the canonical registry.
  */
 export interface CgeiIndexUnit { id: string; code: string; title: string; subjectId: string; subjectTitle: string; lessonIds: readonly string[] }
 export interface CgeiIndexLesson { id: string; title: string; unitId: string; unitTitle: string; subjectId: string; subjectTitle: string }
@@ -79,46 +79,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-8-2",
       "cgei-cl-lesson-2-8-3"
     ]
-  },
-  {
-    "id": "cgei-ds-a-unit-audit",
-    "code": "",
-    "title": "Environmental units audit",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
-  },
-  {
-    "id": "cgei-ds-assess-unit-check",
-    "code": "",
-    "title": "Units and dimensional analysis checkpoint",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
-  },
-  {
-    "id": "cgei-ds-assess-unit-diagnostic",
-    "code": "",
-    "title": "Unit 5.1 entry diagnostic",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
-  },
-  {
-    "id": "cgei-ds-assess-unit-quiz",
-    "code": "",
-    "title": "Unit 5.1 concept and calculation check",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
-  },
-  {
-    "id": "cgei-ds-d-unit-sheet",
-    "code": "",
-    "title": "Environmental units and plausibility sheet",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
   },
   {
     "id": "cgei-ds-unit-5-1",
