@@ -35,7 +35,7 @@ test('update prompt Restart action is keyboard-visible and meets touch target he
   await expect(restart).toBeVisible();
 
   const height = await restart.evaluate((element) => element.getBoundingClientRect().height);
-  expect(height, 'Restart should provide a comfortable touch target').toBeGreaterThanOrEqual(44);
+  expect(height + 0.01, 'Restart should provide a comfortable 44px touch target (allowing subpixel rounding)').toBeGreaterThanOrEqual(44);
 
   let focused = false;
   for (let i = 0; i < 120; i += 1) {
