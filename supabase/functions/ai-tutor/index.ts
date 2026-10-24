@@ -19,7 +19,7 @@
  */
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
-import { MAX_PROXY_CONTENT_CHARS, MAX_PROXY_CONTEXT_CHARS, MAX_PROXY_MESSAGES, sanitizeProxyContext, sanitizeProxyMessages, type ProxyMessage } from "../_shared/ai-proxy-validation.ts";
+import { MAX_PROXY_CONTENT_CHARS, MAX_PROXY_CONTEXT_CHARS, MAX_PROXY_MESSAGES, isPlainRecord, sanitizeProxyContext, sanitizeProxyMessages, type ProxyMessage } from "../_shared/ai-proxy-validation.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -184,7 +184,11 @@ Deno.serve(async (req) => {
   }
   let body: Record<string, unknown>;
   try {
-    body = JSON.parse(rawText) as Record<string, unknown>;
+    const parsed: unknown = JSON.parse(rawText);
+    if (!isPlainRecord(parsed)) {
+      return json(400, { error: "JSON body must be an object" });
+    }
+    body = parsed;
   } catch {
     return json(400, { error: "Invalid JSON body" });
   }
