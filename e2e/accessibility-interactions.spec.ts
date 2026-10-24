@@ -109,7 +109,7 @@ test.describe('mobile tools dialog keyboard behavior', () => {
             : hex.slice(1);
           return [0, 2, 4].map((index) => parseInt(expanded.slice(index, index + 2), 16)) as [number, number, number];
         }
-        const parts = hex.match(/[\\d.]+/g);
+        const parts = hex.match(/[\d.]+/g);
         if (!parts || parts.length < 3) throw new Error(`Unparseable color: ${value}`);
         return parts.slice(0, 3).map(Number) as [number, number, number];
       };
