@@ -146,3 +146,8 @@ Referential integrity: defined 16 missing activities and 16 assessments for S3/S
 
 Unit 4.11 nested feature-selection teaching, activity, assessment, and fixture paths.
 
+
+## C.15
+
+Unit 3.9 LOO-IDW practical mastery package.
+
