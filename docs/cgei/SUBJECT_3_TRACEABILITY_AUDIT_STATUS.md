@@ -29,3 +29,10 @@ Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; ques
 - Fixture: zone 42N longitude span + categorical nearest-neighbour rule.
 - Traceability CSV expanded to 16 official leaves (all mapped_partial).
 - Still **draft** — not verified-complete (no grid-shift lab; no landmark fixture).
+
+## Gate C.3 — Unit 3.3 gap closure (layouts, RMSE, GDAL)
+
+- Lesson 3-3-8: print layout checklist; georeferencing RMSE worked example; GDAL/OGR inspection table.
+- Fixture unit_3_3_georef_rmse_check.py locks synthetic RMSE arithmetic.
+- Leaves 3.3.1.2, 3.3.2.3, 3.3.4.2 updated to mapped_partial with evidence.
+- Still **draft**. No GUI layout CI; GDAL not executed in CI; digitising practice deferred.
