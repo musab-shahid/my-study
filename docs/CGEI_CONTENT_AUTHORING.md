@@ -17,13 +17,13 @@ Use `src/types/curriculum.ts` and `src/data/cgei/curriculum.ts` for the instruct
 
 - For `validated` or `released` curriculum subjects, units, lessons, and projects, populate `readinessEvidence`: a named reviewer, a real `YYYY-MM-DD` review date, a non-empty list of completed checks, and notes/evidence references. Lesson release additionally requires substantive instructional content, observable objectives, and linked practice or assessment. CI rejects release-grade claims that lack these gates. A green CI run validates the checked commit; it does not replace the recorded human/content review.
 
-**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 is the pilot. Unit 5.1's eight lessons bridge to legacy `Topic` records to preserve navigation, quiz access and saved progress; Units 5.2–5.5 are authored directly as canonical content blocks and have lesson-linked curriculum questions rendered inline. Unit 5.5 adds an acquisition workflow, SQL, API reliability, licence/secret handling and a reproducible package. These self-checks provide immediate feedback but are not yet wired into legacy adaptive quiz scoring or spaced-repetition statistics. Units 5.2–5.5 remain `draft` until code examples, fixtures and instructional review pass. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
+**Important:** a course overview/roadmap belongs in `CurriculumSubject.overview`; it is not a `Topic`, lesson, quiz topic, or progress item. Subject 5 established the original pilot pattern, and the canonical registry now includes partial instructional content for Subjects 1–7. Use `npm run audit:cgei` to inspect current topic/question/unit/lesson counts and readiness classifications; do not infer TOC completeness from those counts. Unit 5.1's eight lessons bridge to legacy `Topic` records to preserve navigation, quiz access and saved progress; Units 5.2–5.5 are authored directly as canonical content blocks and have lesson-linked curriculum questions rendered inline. Unit 5.5 adds an acquisition workflow, SQL, API reliability, licence/secret handling and a reproducible package. These self-checks provide immediate feedback but are not yet wired into legacy adaptive quiz scoring or spaced-repetition statistics. Units 5.2–5.5 remain `draft` until code examples, fixtures and instructional review pass. Do not remove or rename a legacy `Topic.id` until progress/question migration is designed and tested.
 
 Architecture and migration decisions: [CGEI Curriculum Architecture](CGEI_CURRICULUM_ARCHITECTURE.md).
 
 ## Where content lives
 
-Each subject has a directory under `src/data/cgei/<subject-slug>/`. Subject 5's canonical unit/lesson records live in `src/data/cgei/curriculum.ts`; its remaining legacy topic/question files are compatibility layers during migration.
+Each subject has a directory under `src/data/cgei/<subject-slug>/`. Canonical unit/lesson records for Subjects 1–7 live in `src/data/cgei/curriculum.ts`; legacy topic/question files remain compatibility layers during migration. The canonical registry's populated lesson records are still mostly draft and do not prove complete source-topic/subtopic coverage.
 
 - `topics-<subject-slug>.ts` — legacy study content for sections that have not migrated to the canonical curriculum model; do not create a roadmap Topic as a substitute for a Subject overview.
 - `questions-<subject-slug>.ts` — question bank, one `Question` object per quiz item.
@@ -82,7 +82,7 @@ For the CGEI core, favour output-producing practice: a reproducible notebook, va
 
 ## Current scaffold status
 
-The registry contains 14 domains and each has at least a roadmap topic. Subjects 9–14 now have tailored roadmap outlines and empty quiz-bank files. They are structural scaffolds, not completed lessons. Continue filling the existing subject files progressively; do not try to author the entire TOC in one change.
+The registry contains 14 domains. Subjects 1–7 have partial canonical instructional content, while Subjects 8–14 are orientation-only scaffolds with no canonical lessons in the current coverage snapshot. These are not completed curricula. Continue filling the existing subject files progressively; do not try to author the entire TOC in one change. Run `npm run audit:cgei` to refresh the implementation-depth report; source-level coverage still requires a verified topic/subtopic crosswalk.
 
 ## Pull-request validation
 
