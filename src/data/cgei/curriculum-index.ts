@@ -214,6 +214,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "subjectId": "cgei-data-science",
     "subjectTitle": "Scientific Computing & Data Science",
     "lessonIds": [
+      "cgei-ds-lesson-5-4-distributions",
       "cgei-ds-lesson-5-4-1",
       "cgei-ds-lesson-5-4-2",
       "cgei-ds-lesson-5-4-3",
