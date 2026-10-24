@@ -44,40 +44,43 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Network-first for navigation requests so users always get the latest HTML
+  // Network-first for navigation requests so users always get the latest HTML.
+  // Register cache maintenance with waitUntil synchronously so the worker cannot
+  // be terminated between returning the response and finishing the cache write.
   if (req.mode === 'navigate') {
+    const networkResponse = fetch(req);
     e.respondWith(
-      fetch(req)
+      networkResponse.catch(() => caches.match(req).then((c) => c || caches.match('/')))
+    );
+    e.waitUntil(
+      networkResponse
         .then((res) => {
           // Never replace a known-good offline document with an HTTP error page.
-          if (res.ok) {
-            const clone = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {
-              // Cache writes are best-effort; the network response remains usable.
-            });
-          }
-          return res;
+          if (!res.ok) return;
+          return caches.open(CACHE).then((c) => c.put(req, res.clone()));
         })
-        .catch(() => caches.match(req).then((c) => c || caches.match('/')))
+        .catch(() => {
+          // Network/cache failures are best-effort; the response fallback remains usable.
+        })
     );
     return;
   }
 
-  // Stale-while-revalidate for everything else (hashed assets are immutable)
+  // Stale-while-revalidate for everything else (hashed assets are immutable).
+  // Keep the update alive independently of whether a cached response is returned.
+  const cachedResponse = caches.match(req);
+  const networkResponse = fetch(req);
+  e.waitUntil(
+    networkResponse
+      .then((res) => {
+        if (!res.ok) return;
+        return caches.open(CACHE).then((c) => c.put(req, res.clone()));
+      })
+      .catch(() => {
+        // Cache updates are best-effort; a cached response remains usable.
+      })
+  );
   e.respondWith(
-    caches.match(req).then((cached) => {
-      const fetchPromise = fetch(req)
-        .then((res) => {
-          if (res.ok) {
-            const clone = res.clone();
-            caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {
-              // Cache writes are best-effort; never create an unhandled rejection.
-            });
-          }
-          return res;
-        })
-        .catch(() => cached);
-      return cached || fetchPromise;
-    })
+    cachedResponse.then((cached) => cached || networkResponse.catch(() => cached))
   );
 });
