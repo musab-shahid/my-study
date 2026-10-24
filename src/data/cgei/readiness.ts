@@ -5,8 +5,21 @@ import type {
   ReadinessStatus,
 } from '@/types/curriculum';
 
+/**
+ * Reject obvious drafting markers wherever text is used as evidence of
+ * instructional substance. This is deliberately anchored to whole-text
+ * placeholders so legitimate teaching text that discusses TODOs/placeholders
+ * is not rejected merely for mentioning those words.
+ */
 function hasText(value?: string): boolean {
-  return Boolean(value?.trim());
+  const text = value?.trim();
+  if (!text) return false;
+  return !(
+    /^(?:[#/*-]\\s*)?(?:TODO|TBD|FIXME|PLACEHOLDER)\\b/i.test(text)
+    || /^lorem ipsum\\b/i.test(text)
+    || /^(?:figure|visual|example|content|text|instructions?|solution|details?)\\s+(?:to be added|coming soon|not yet written|under construction)[.!]?$/i.test(text)
+    || /^(?:add|insert|write|replace|provide)\\b.*\\bhere[.!]?$/i.test(text)
+  );
 }
 
 /**
