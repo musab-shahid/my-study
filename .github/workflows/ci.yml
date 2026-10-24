@@ -119,6 +119,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py
       - name: Verify Unit 3.3 zonal statistics aggregation
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_stats_check.py
+      - name: Verify Unit 3.3 zonal rasterization teaching fixture
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_rasterization_check.py
       - name: Verify Unit 3.3 georeferencing RMSE
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_georef_rmse_check.py
       - name: Verify Unit 3.3 reclassification and map algebra
