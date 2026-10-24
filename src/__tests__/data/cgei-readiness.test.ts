@@ -54,6 +54,11 @@ describe('CGEI readiness evidence', () => {
     assert.ok(issues.some((issue) => /review notes/.test(issue)));
   });
 
+  it('rejects review dates in the future', () => {
+    const future = { ...evidence, reviewedOn: '2999-01-01' };
+    assert.ok(validateReadinessEvidence('validated', future, 'Lesson A').some((issue) => /real YYYY-MM-DD/.test(issue)));
+  });
+
   it('accepts a lesson only when evidence, substantive content, objectives, and practice/checks exist', () => {
     assert.deepEqual(validateLessonReadiness(lesson()), []);
   });
