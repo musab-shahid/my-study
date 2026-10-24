@@ -298,10 +298,12 @@ return (
                           onClick={() => navigate({ screen: 'topic', topicId: m.topicId })}
                           className="items-start bg-danger-50/80 border border-danger-100 hover:bg-danger-50"
                         >
-                          <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
-                          <p className="text-xs text-slate-500 mt-1">
-                            {topic?.title ?? m.topicId} · {m.attempts} attempts
-                          </p>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
+                            <p className="text-xs text-slate-500 mt-1">
+                              {topic?.title ?? m.topicId} · {m.attempts} attempts
+                            </p>
+                          </div>
                         </ListRow>
                       );
                     })}
@@ -310,7 +312,7 @@ return (
               )}
               {teachOnly.length > 0 && (
                 <div className="mb-2">
-                  <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Studied, little practice</p>
+                  <p className="text-xs font-semibold text-warning-700 uppercase tracking-wide mb-2">Studied, little practice</p>
                   <div className="flex flex-wrap gap-2">
                     {teachOnly.map((g) => {
                       const topic = getTopic(g.topicId);
