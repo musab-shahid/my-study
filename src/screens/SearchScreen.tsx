@@ -163,7 +163,7 @@ export function SearchScreen() {
                       <button
                         type="button"
                         onClick={() => navigate({ screen: 'topic', topicId: result.topic.id })}
-                        className="w-full flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+                        className="w-full flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                       >
                         <div className="w-9 h-9 rounded-btn bg-slate-100 flex items-center justify-center shrink-0 mt-0.5">
                           {result.type === 'formula' ? (

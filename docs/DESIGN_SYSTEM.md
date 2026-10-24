@@ -36,7 +36,7 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - White text on color fills must meet 4.5:1 contrast for normal text.
 - Focus indicators and meaningful component boundaries must maintain at least 3:1 contrast against adjacent surfaces.
 - Design-token contrast tests run with the unit test suite.
-- Visual baselines must be captured and reviewed in a real browser before being accepted as references; do not generate expected snapshots from an unverified or broken UI.
+- Playwright captures key routes at 390px and 1280px as reviewable CI artifacts. Do not promote them to golden baselines until a human reviews them; never generate expected snapshots from an unverified or broken UI.
 
 ## Migration order
 

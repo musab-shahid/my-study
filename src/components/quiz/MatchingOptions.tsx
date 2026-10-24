@@ -35,7 +35,7 @@ export function MatchingOptions({ question, selectedIndices, checked, onSelect }
               value={selectedMatchIdx >= 0 ? selectedMatchIdx : ''}
               disabled={checked}
               onChange={(e) => onSelect(packMatchSelect(optIdx, parseInt(e.target.value, 10)))}
-              className="min-h-11 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
+              className="min-h-11 w-full min-w-0 rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-60"
               aria-label={`Match for ${opt}`}
             >
               <option value="" disabled>Choose…</option>

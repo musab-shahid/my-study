@@ -373,7 +373,7 @@ export function SettingsScreen() {
                 setUpdateMsg('Update check requested. If an update is available, you will be prompted to restart.');
                 window.dispatchEvent(new Event('examprep:check-update'));
               }}
-              className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Check for updates
@@ -400,7 +400,7 @@ export function SettingsScreen() {
                   <button
                     type="button"
                     onClick={handleInstall}
-                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-700 to-brand-800 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
                   >
                     <Download className="w-3.5 h-3.5" />
                     Install

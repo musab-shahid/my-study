@@ -1121,7 +1121,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           <div className="flex items-center gap-1 min-w-0">
             <button
               onClick={handleExit}
-              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               aria-label="Exit quiz"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -1132,7 +1132,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             <button
               type="button"
               onClick={() => setShowKeysHelp(true)}
-              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               aria-label="Keyboard shortcuts"
               title="Keyboard shortcuts"
             >
@@ -1225,7 +1225,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 role={currentQ.type === 'multi' ? 'checkbox' : 'radio'}
                 aria-checked={isSelected}
                 aria-label={`Option ${idx + 1}: ${opt}${ariaExtra}${state.checked && currentQ.type !== 'multi' ? ' — tap to continue' : ''}`}
-                className={`w-full flex items-center gap-3 p-3.5 rounded-btn border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 text-left transition-all ${bgClass} ${state.checked && currentQ.type !== 'multi' ? 'cursor-pointer' : ''}`}
+                className={`w-full flex items-center gap-3 p-3.5 rounded-btn border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 text-left transition-all ${bgClass} ${state.checked && currentQ.type !== 'multi' ? 'cursor-pointer' : ''}`}
               >
                 <div
                   className={`w-6 h-6 shrink-0 flex items-center justify-center text-xs font-bold ${
@@ -1233,10 +1233,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                   } ${
                     isSelected || (state.checked && isCorrectOption)
                       ? state.checked && isCorrectOption
-                        ? 'bg-success-500 text-white'
+                        ? 'bg-success-700 text-white'
                         : state.checked && isSelected && !isCorrectOption
-                          ? 'bg-danger-500 text-white'
-                          : 'bg-brand-500 text-white'
+                          ? 'bg-danger-700 text-white'
+                          : 'bg-brand-700 text-white'
                       : 'bg-slate-100 text-slate-500'
                   }`}
                 >
@@ -1360,7 +1360,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <Keyboard className="w-4 h-4 text-brand-600" />
                 Keyboard shortcuts
               </h2>
-              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" aria-label="Close">
+              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2" aria-label="Close">
                 <X className="w-4 h-4" />
               </button>
             </div>
@@ -1372,7 +1372,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
             </ul>
             <p className="text-xs text-slate-500 mt-3">Matching questions still use tap/click. Shortcuts are disabled while this dialog or the exit prompt is open.</p>
-            <Button className="w-full min-h-11 mt-4 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2" onClick={() => setShowKeysHelp(false)}>Got it</Button>
+            <Button className="w-full min-h-11 mt-4 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2" onClick={() => setShowKeysHelp(false)}>Got it</Button>
           </div>
         </div>
       )}
@@ -1401,7 +1401,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               You&apos;ve answered {state.answers.length} of {state.questions.length} questions. Your progress will be lost.
             </p>
             <div className="flex gap-3">
-              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+              <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                 Stay
               </Button>
               <Button
@@ -1411,7 +1411,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                   clearQuizProgress();
                   exitToOrigin();
                 }}
-                className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               >
                 Exit
               </Button>
