@@ -43,6 +43,18 @@ if (entryPoints.length === 0) {
   process.exit(1);
 }
 
+const curriculumModuleKey = Object.keys(manifest).find((key) => key.replace(/\\/g, '/').endsWith('src/data/cgei/curriculum.ts'));
+if (!curriculumModuleKey) {
+  console.error('[bundle-budget] CGEI curriculum module is missing from the Vite manifest.');
+  process.exit(1);
+}
+const initialModuleKeys = new Set(entryPoints.flatMap(([entryKey]) => [...collectInitialJs(entryKey)]));
+if (initialModuleKeys.has(curriculumModuleKey) || !manifest[curriculumModuleKey].isDynamicEntry) {
+  console.error('[bundle-budget] CGEI curriculum must remain a dynamic entry, outside the initial JavaScript graph.');
+  process.exit(1);
+}
+console.log('[bundle-budget] CGEI curriculum is excluded from the initial JavaScript graph.');
+
 const jsAssets = Object.entries(manifest).filter(([, item]) => item.file?.endsWith('.js'));
 const largest = jsAssets
   .map(([key, item]) => ({ key, file: item.file, ...fileSize(item.file) }))
