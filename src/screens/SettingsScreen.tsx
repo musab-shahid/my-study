@@ -47,7 +47,7 @@ export function SettingsScreen() {
   const sd = useSubjectData();
   const [selectedSubjects, setSelectedSubjects] = useState<Set<SubjectId>>(new Set());
   const [confirming, setConfirming] = useState(false);
-  const [resetDone, setResetDone] = useState<string | null>(null);
+  const [resetDone, setResetDone] = useState<{ message: string; kind: 'success' | 'error' } | null>(null);
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
@@ -111,26 +111,26 @@ export function SettingsScreen() {
       if (isFullReset) {
         const didReset = reset();
         if (!didReset) {
-          setResetDone('Reset cancelled because a recovery backup could not be saved. Free browser storage and try again.');
+          setResetDone({ kind: 'error', message: 'Reset cancelled because a recovery backup could not be saved. Free browser storage and try again.' });
           setConfirming(false);
           return;
         }
-        setResetDone('All data has been reset. A recovery backup was saved.');
+        setResetDone({ kind: 'success', message: 'All data has been reset. A recovery backup was saved.' });
       } else {
         const didReset = resetSubjects([...selectedSubjects]);
         if (!didReset) {
-          setResetDone('Partial reset cancelled because a recovery backup or save could not be completed. Your current progress was kept.');
+          setResetDone({ kind: 'error', message: 'Partial reset cancelled because a recovery backup or save could not be completed. Your current progress was kept.' });
           setConfirming(false);
           return;
         }
         const n = selectedSubjects.size;
-        setResetDone(`${n} subject${n !== 1 ? 's' : ''} reset successfully. A recovery backup was saved.`);
+        setResetDone({ kind: 'success', message: `${n} subject${n !== 1 ? 's' : ''} reset successfully. A recovery backup was saved.` });
       }
       setSelectedSubjects(new Set());
       setConfirming(false);
     } catch (err) {
       console.error('[settings] reset failed', err);
-      setResetDone('Reset failed — check your saved data and backup before trying again.');
+      setResetDone({ kind: 'error', message: 'Reset failed — check your saved data and backup before trying again.' });
       setConfirming(false);
     }
   };
@@ -198,9 +198,15 @@ export function SettingsScreen() {
       />
 
       {resetDone && (
-        <div className="mb-4 p-3 rounded-xl bg-success-50 border border-success-100 flex items-center gap-2 animate-fade-in-up">
-          <CheckCircle2 className="w-5 h-5 text-success-500 shrink-0" />
-          <p className="text-success-700 text-sm font-medium">{resetDone}</p>
+        <div
+          role={resetDone.kind === 'error' ? 'alert' : 'status'}
+          aria-live={resetDone.kind === 'error' ? 'assertive' : 'polite'}
+          className={`mb-4 p-3 rounded-xl border flex items-center gap-2 animate-fade-in-up ${resetDone.kind === 'error' ? 'bg-red-50 border-red-100' : 'bg-success-50 border-success-100'}`}
+        >
+          {resetDone.kind === 'error'
+            ? <AlertTriangle className="w-5 h-5 text-red-500 shrink-0" />
+            : <CheckCircle2 className="w-5 h-5 text-success-500 shrink-0" />}
+          <p className={`text-sm font-medium ${resetDone.kind === 'error' ? 'text-red-700' : 'text-success-700'}`}>{resetDone.message}</p>
         </div>
       )}
 
