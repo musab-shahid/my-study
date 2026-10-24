@@ -52,8 +52,7 @@ function shouldShowPrompt(): boolean {
   const raw = readDismissedAt();
   if (!raw) return true;
   const dismissedAt = Number(raw);
-  if (!Number.isFinite(dismissedAt) || dismissedAt <= 0) return true;
-  // A clock adjustment into the past should not suppress the prompt forever.
+  if (!Number.isFinite(dismissedAt) || dismissedAt <= 0 || dismissedAt > Date.now()) return true;
   return Date.now() - dismissedAt > DISMISS_DURATION_MS;
 }
 
