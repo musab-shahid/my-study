@@ -66,3 +66,7 @@ Core Unit 3.5 (Python geospatial stack) registered: 3 lessons, stdlib fixture, p
 ## C.8 — Units 3.5 elevation + 3.6 Cartography
 
 Core Unit 3.6 registered (2 lessons). Unit 3.5 join/integration examples added. Draft/mapped_partial.
+
+## C.11 — 3.5/3.6 deepening
+
+COG/geotransform/window raster teaching; map-type table; classification breaks fixture; web cartography trade-offs. Still draft/mapped_partial.

@@ -127,3 +127,7 @@ Core Unit 4.11 Ground truth / EO integration implemented (draft).
 ## C.10
 
 Core Unit 4.12 implemented (draft). Subject 4 Core units 4.1–4.12 now registered.
+
+## C.11
+
+Units 3.5–3.6 instructional deepening (COG, classification, map types). No new unit registry codes.

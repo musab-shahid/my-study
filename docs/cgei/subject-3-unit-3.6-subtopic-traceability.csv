@@ -1,7 +1,10 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,classification,app_lesson_id,app_content_block_ids,disposition,evidence_note
 3.6.1.2,Colour sequential diverging qualitative,3.6.1,Visual design,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-1,mapped_partial,Scheme matching taught.
-3.6.1.3,Classification methods,3.6.1,Visual design,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-2,mapped_partial,Equal/quantile/jenks/manual table.
+3.6.1.3,Classification methods,3.6.1,Visual design,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-2;cgei-geo-36-1-6,mapped_partial,Classification table + equal-interval vs quantile fixture.
 3.6.1.4,When not to use choropleth,3.6.1,Visual design,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-3,mapped_partial,Count vs rate fixture.
 3.6.3.2,Journal figure checklist,3.6.3,Publication standards,Core,cgei-geo-lesson-3-6-2,cgei-geo-36-2-2,mapped_partial,Checklist; GUI not CI.
 3.6.4.1,Showing uncertainty and gaps,3.6.4,Honesty in maps,Core,cgei-geo-lesson-3-6-2,cgei-geo-36-2-1;cgei-geo-36-2-4,mapped_partial,Uncertainty prose.
 3.6.4.3,Legends units date resolution source,3.6.4,Honesty in maps,Core,cgei-geo-lesson-3-6-2,cgei-geo-36-2-1,mapped_partial,Legend minimum fields fixture.
+3.6.2.1,Thematic map types,3.6.2,Map types,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-5,mapped_partial,Map type decision table.
+3.6.2.3,Choosing map type by data and message,3.6.2,Map types,Core,cgei-geo-lesson-3-6-1,cgei-geo-36-1-5;cgei-geo-36-1-6,mapped_partial,Linked to classification worked example.
+3.6.5.2,Web cartography tiles attribution,3.6.5,Web cartography,Core,cgei-geo-lesson-3-6-2,cgei-geo-36-2-5,mapped_partial,Trade-offs taught; no browser render.
