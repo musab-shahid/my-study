@@ -1,6 +1,6 @@
 # Overall repository audit — 24 October 2026
 
-**Baseline:** `main` at `a8a9d214a397d308b97c2bcdd3792a6e5ddf9da3` (after the responsive accessibility and readiness-evidence PRs were merged).  
+**Baseline:** `main` at `ccb43a7ed7187b2ea492cec2e307bd89e6b2d9a9` (verified after the whole-app inventory, manifest, and progress-sync RLS contract-test merges).  
 **Purpose:** Record evidence-based risks and sequence the next quality improvements. This is a working audit, not a claim that the product or curriculum is complete.
 
 ## Executive assessment
@@ -82,6 +82,18 @@ The main branch's canonical registry now contains units and lessons for Subjects
 4. Run the relevant local checks where available and CI on the exact PR head SHA.
 5. Do not merge on the strength of a prior commit's green checks. Re-check head SHA and every required job immediately before merging.
 6. After merge, verify the merge commit and its CI, then begin the next branch from updated `main`.
+
+## Post-baseline verification — 24 October 2026
+
+The initial narrative above predates the latest whole-app inventory and persistence-security test work. The following are verified additions on the current `main` baseline:
+
+- **PR #108 — whole-app data audit surfaces:** documents the data-producing/consuming areas that need review beyond CGEI.
+- **PR #109 — reproducible structural manifest:** adds `npm run audit:data-inventory`, emitting a deterministic JSON inventory with source-file SHA-256 hashes, record counts, duplicate-ID checks, reference-integrity findings, and declared-vs-actual section count comparisons. The manifest is a structural baseline, not a semantic curriculum certification.
+- **PR #110 — progress-sync migration contract tests:** strengthens static SQL assertions for owner-scoped RLS policies, grants/revocations, removal of the legacy RPC, cleanup ordering, and rerunnable guards. These are **static migration contract tests**, not proof from a live Supabase/Postgres integration run.
+- **Latest main CI:** run [#40127414099](https://github.com/musab-shahid/my-study/actions/runs/40127414099) completed successfully on `ccb43a7ed7187b2ea492cec2e307bd89e6b2d9a9`.
+- **Question authoring-quality follow-up:** PR #48 remains open on an older base/head and is not counted as merged or current-main evidence. It must be refreshed and checked at its exact proposed head before consideration.
+
+The manifest currently records a structural snapshot of 3 tracks, 1 exam profile, 24 subjects, 108 sections, 308 topic metadata records, 308 loaded topics, and 3,067 loaded questions. Its CGEI registry arrays contain 43 units, 162 lessons, 380 curriculum questions, 56 resources, 153 activities, 156 assessments, 49 deliverables, and 1 project. The current structural checks report no duplicate IDs, unresolved section/topic references, metadata-loader parity gaps, missing subject loaders, or declared section-count drift. These zero findings do **not** establish that every question is factually correct, every source node is covered, or each lesson is pedagogically complete.
 
 ## Current scope limitation
 
