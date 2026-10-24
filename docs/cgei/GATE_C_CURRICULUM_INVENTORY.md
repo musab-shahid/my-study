@@ -186,3 +186,8 @@ Core Unit 8.8 portfolio and research positioning (draft).
 
 Core Unit 8.9 proposals and professional practice (draft).
 
+
+## C.23
+
+Subject 8.D depth checks and research design mastery gates (draft).
+

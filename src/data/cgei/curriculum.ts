@@ -3242,6 +3242,44 @@ const lessons89: CurriculumLesson[] = [
   },
 ];
 
+const outcomes8d: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-8d-design', statement: 'Write a one-page research design stating estimand, unit of analysis, data, validation, and the claim not being made.', action: 'write', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-8d-methods', statement: 'Produce a methods section complete enough for a stranger to reproduce the analysis, with data and code availability statements.', action: 'produce', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-8d-review', statement: 'Review a paper’s validity dimensions (internal, external, measurement, selection) and draft constructive referee comments.', action: 'review', level: 'L4', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons8d: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-d-1', kind: 'lesson', title: 'One-page research design (estimand and non-claims)', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes8d[0]],
+    content: [
+      { id: 'cgei-rp-8d-1-1', kind: 'prose', title: 'Estimand first', body: 'An estimand is the target quantity (e.g. mean SUHII for a defined urban extent relative to a defined rural reference under stated seasons). State the unit of analysis (pixel, district, station), data sources, and the validation design. Explicitly name claims you will not make (e.g. causality from land-cover association alone; city-wide air-temperature UHI from clear-sky LST only).' },
+      { id: 'cgei-rp-8d-1-2', kind: 'worked-example', title: 'Design object fields', body: 'Fixture unit_8_d_research_design_check.py requires estimand, unit_of_analysis, data, validation, and non_claim. It rejects designs that omit non-claims or that equate synthetic teaching data with field validation.' },
+      { id: 'cgei-rp-8d-1-3', kind: 'callout', title: 'Common failures', tone: 'warning', items: ['Literature list without a gap or estimand', 'Methods as a tools inventory', 'No statement of what would falsify the conclusion'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-design'], assessmentIds: ['cgei-rp-assess-8d-design'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-d-2', kind: 'lesson', title: 'Reproducible methods and availability statements', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes8d[1]],
+    content: [
+      { id: 'cgei-rp-8d-2-1', kind: 'prose', title: 'Stranger-test methods', body: 'A methods section is complete when a competent stranger can re-run the analysis: data identifiers/versions, preprocessing, QA, parameters, software, and how outputs are produced. Include data-availability and code-availability statements that match reality (do not claim public DOIs that do not exist).' },
+      { id: 'cgei-rp-8d-2-2', kind: 'checklist', title: 'Methods completeness', items: ['Input product IDs / versions', 'QA and exclusion rules', 'Parameters and thresholds', 'Software and key package versions', 'Data and code availability statements'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-methods'], assessmentIds: ['cgei-rp-assess-8d-methods'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-d-3', kind: 'lesson', title: 'Validity review and constructive referee notes', order: 3, readiness: 'draft', level: 'L4', estimatedMinutes: 40,
+    objectives: [outcomes8d[2]],
+    content: [
+      { id: 'cgei-rp-8d-3-1', kind: 'prose', title: 'Four validity lenses', body: 'Internal validity: do the analysis steps support the causal or descriptive claims? External validity: to what settings might results transfer? Measurement validity: do instruments and products measure the stated quantity? Selection: who/what is in the sample, and who is missing? Write constructive referee comments that separate major from minor issues and propose fixes.' },
+      { id: 'cgei-rp-8d-3-2', kind: 'key-points', title: 'Referee discipline', items: ['Cite the specific claim under challenge', 'Distinguish major vs minor', 'Propose a feasible remedy', 'Avoid prestige or ad-hominem arguments'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-review'], assessmentIds: ['cgei-rp-assess-8d-review'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 
 
@@ -3715,7 +3753,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
       outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8', 'cgei-rp-unit-8-9'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8', 'cgei-rp-unit-8-9', 'cgei-rp-unit-8-d'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
@@ -4344,6 +4382,20 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
       sourceDocument: 'Master Study TOC Subject 8 Unit 8.9',
       notes: ['Core Unit 8.9. Draft; no live funding application in CI.'],
     },
+
+    {
+      id: 'cgei-rp-unit-8-d', subjectId: 'cgei-research', code: '8.D', title: 'Depth checks and research mastery gates', order: 810, kind: 'unit', readiness: 'draft',
+      summary: 'Mastery gates: research design with estimand and non-claims; reproducible methods; constructive validity review.',
+      estimatedHours: 6, prerequisites: ['Unit 8.7', 'Unit 8.8', 'Unit 8.9'], outcomes: outcomes8d,
+      lessonIds: lessons8d.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-8d-design', 'cgei-rp-a-8d-methods', 'cgei-rp-a-8d-review'],
+      assessmentIds: ['cgei-rp-assess-8d-design', 'cgei-rp-assess-8d-methods', 'cgei-rp-assess-8d-review'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Section 8.D',
+      notes: ['Core depth checks. Draft; not a full L4 referee internship.'],
+    },
+
 
 
 
@@ -5746,6 +5798,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-a-88-repo', kind: 'critique', title: 'Repository evidence audit', instructions: 'Score your project repo against: run path, README limitations, environment pin, licence, and one test. Mark each present/partial/absent. State one fix you will make first.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-repo'] },
 
     { id: 'cgei-rp-a-89-proposal', kind: 'coding-lab', title: 'Proposal object readiness', instructions: 'Complete a structured proposal outline (problem, gap, objectives, methods, feasibility, timeline, ethics, risks). Run unit_8_9_proposal_readiness_check.py on the sample and your fields.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-89-proposal'] },
+
+    { id: 'cgei-rp-a-8d-design', kind: 'coding-lab', title: 'Research design object', instructions: 'Fill estimand, unit_of_analysis, data, validation, non_claim. Run unit_8_d_research_design_check.py. Revise until the fixture accepts the structure.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-8d-design'] },
+    { id: 'cgei-rp-a-8d-methods', kind: 'critique', title: 'Stranger-test methods draft', instructions: 'Write a 200–400 word methods paragraph a stranger could follow. Include availability statements that match reality.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-methods'] },
+    { id: 'cgei-rp-a-8d-review', kind: 'critique', title: 'Constructive referee note', instructions: 'Using the four validity lenses, write three numbered referee comments on a sample SUHI methods paragraph (major/minor tagged) with a proposed fix for each.', level: 'L4', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-review'] },
+
     { id: 'cgei-rp-a-89-funding', kind: 'critique', title: 'Scope-to-resource match', instructions: 'Write five sentences matching your objectives to supervisor expertise, data access, compute, budget line items, and one criterion from a real or hypothetical scholarship call (label it clearly as hypothetical if not verified).', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-funding'] },
     { id: 'cgei-rp-a-89-practice', kind: 'critique', title: 'Milestone and risk register', instructions: 'List four milestones, three risks with mitigations, and proposed authorship roles (CRediT-style). Include one supervisor question you would raise before data collection.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-practice'] },
 
@@ -6079,6 +6136,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-assess-88-repo', kind: 'formative', title: 'Repository as evidence', purpose: 'Assess portfolio evidence literacy.', objectiveIds: ['cgei-rp-o-88-repo'], questionIds: ['cgei-rp-q-88-readme'], required: true },
 
     { id: 'cgei-rp-assess-89-proposal', kind: 'formative', title: 'Proposal structure', purpose: 'Assess proposal completeness and risk anticipation.', objectiveIds: ['cgei-rp-o-89-proposal'], questionIds: ['cgei-rp-q-89-struct'], required: true },
+
+    { id: 'cgei-rp-assess-8d-design', kind: 'formative', title: 'Research design gate', purpose: 'Assess estimand and non-claim discipline.', objectiveIds: ['cgei-rp-o-8d-design'], questionIds: ['cgei-rp-q-8d-estimand'], required: true },
+    { id: 'cgei-rp-assess-8d-methods', kind: 'formative', title: 'Methods reproducibility', purpose: 'Assess stranger-test methods literacy.', objectiveIds: ['cgei-rp-o-8d-methods'], questionIds: ['cgei-rp-q-8d-avail'], required: true },
+    { id: 'cgei-rp-assess-8d-review', kind: 'formative', title: 'Validity review', purpose: 'Assess referee validity framing.', objectiveIds: ['cgei-rp-o-8d-review'], questionIds: ['cgei-rp-q-8d-validity'], required: true },
+
     { id: 'cgei-rp-assess-89-funding', kind: 'formative', title: 'Feasibility and funding', purpose: 'Assess resource honesty.', objectiveIds: ['cgei-rp-o-89-funding'], questionIds: ['cgei-rp-q-89-scope'], required: true },
     { id: 'cgei-rp-assess-89-practice', kind: 'formative', title: 'Working practice', purpose: 'Assess collaboration and risk planning.', objectiveIds: ['cgei-rp-o-89-practice'], questionIds: ['cgei-rp-q-89-risk'], required: true },
 
