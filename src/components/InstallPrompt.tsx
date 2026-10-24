@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type ReactNode } from 'react';
 import { Download, X, Library, Share } from 'lucide-react';
+import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 
 const DISMISS_KEY = 'pwa-install-dismissed';
 const DISMISS_DURATION_MS = 14 * 24 * 60 * 60 * 1000;
@@ -93,12 +94,26 @@ export function InstallPrompt() {
       setDeferredPrompt(null);
       clearDismissal();
     };
+    const onPromptConsumed = (event: Event) => {
+      const consumedPrompt = (event as CustomEvent<Event>).detail;
+      setDeferredPrompt((current) => current === consumedPrompt ? null : current);
+      setVisible(false);
+    };
     window.addEventListener('appinstalled', onInstalled);
-    return () => window.removeEventListener('appinstalled', onInstalled);
+    window.addEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+    return () => {
+      window.removeEventListener('appinstalled', onInstalled);
+      window.removeEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+    };
   }, []);
 
   const handleInstall = useCallback(async () => {
     if (!deferredPrompt) return;
+    if (!claimInstallPrompt(deferredPrompt)) {
+      setVisible(false);
+      setDeferredPrompt(null);
+      return;
+    }
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
