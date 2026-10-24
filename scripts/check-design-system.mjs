@@ -49,6 +49,7 @@ function flushHunk() {
   checkNetNew('raw-button', rawButton, allowsNativeButton);
   checkNetNew('arbitrary-font-size', arbitraryFontSize);
   checkNetNew('raw-palette-color', rawPalette, isColorRegistry);
+  checkNetNew('arbitrary-hex-color', arbitraryColor, isColorRegistry);
   checkNetNew('white-on-mid-tone-fill', midToneFill);
   checkNetNew('non-canonical-focus-ring', nonCanonicalFocusRing);
 
@@ -87,4 +88,4 @@ if (violations.length) {
   process.exit(1);
 }
 
-console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, or non-canonical focus rings.');
+console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, non-canonical focus rings, or arbitrary hex colors outside the color registry.');
