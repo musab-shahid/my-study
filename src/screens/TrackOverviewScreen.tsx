@@ -2,6 +2,7 @@ import { useData } from '@/hooks/useData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { useRouter } from '@/router';
 import { getTrackDefinition, type TrackId } from '@/data/tracks';
+import { getSubjectStyle } from '@/data/subject-colors';
 import { resolveSubjectsForScope, type ScopeInput } from '@/lib/track-scope';
 import { getTrackCatalog, formatQuestionCountLabel } from '@/lib/track-catalog';
 import { isTrackEnrolled } from '@/lib/track-access';
@@ -116,6 +117,7 @@ export function TrackOverviewScreen({ trackId }: { trackId: TrackId }) {
                   disabled={!enrolled}
                   onOpen={() => openSubject(sid)}
                   actionLabel={enrolled ? 'Study' : 'Preview'}
+                  dotClass={getSubjectStyle(sid).dotBg}
                 />
               );
             })}

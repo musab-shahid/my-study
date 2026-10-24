@@ -14,6 +14,7 @@ import { resolveSubjectsForScope, type ScopeInput } from '@/lib/track-scope';
 import { getTrackCatalog, formatQuestionCountLabel } from '@/lib/track-catalog';
 import { getSubjectStyle } from '@/data/subject-colors';
 import { AlertCircle } from 'lucide-react';
+import { trackAccentClasses } from '@/lib/track-chrome';
 
 export function FpscLandingScreen() {
   const { navigate, currentRoute } = useRouter();
@@ -83,7 +84,7 @@ export function FpscLandingScreen() {
         if (sw.ok) setActiveTrack('fpsc');
       }}
       enrollError={enrollError}
-      accentClass="from-sky-600 to-sky-700"
+      accentClass={trackAccentClasses('fpsc').gradient}
       profileSlot={<ExamProfilePicker trackId="fpsc" enrolled={enrolled} />}
       summary={
         scopeEmpty ? (

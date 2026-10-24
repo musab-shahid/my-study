@@ -94,3 +94,13 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Sticky-miss navigation uses `ListRow`; semantic danger/warning colors describe performance signals, while primary navigation remains product-branded.
 - Formula metadata uses the shared label scale and the shared focus-ring token; opening a topic uses the common button component.
 - Cloud Atlas uses the semantic analytics content width, shared focus-ring contrast, and a 44px close target while retaining its focus-trapped dialog behavior.
+
+
+## Track landing identity rules
+
+- Every track landing uses the same layout and action hierarchy, with a restrained accent stripe derived from the track registry.
+- Track accents identify the track; the primary Begin/Continue action remains product-branded.
+- Track-specific accent gradients must be registry-derived, not hard-coded separately in FPSC, HAT, or generic overview screens.
+- Subject dots/icons come from the subject registry in every track catalog, including generic track overviews.
+- Track icon fills and text accents use darker palette steps on light surfaces to preserve non-text/text contrast; semantic enrollment status stays green.
+- Exam-profile controls use the shared product focus ring, regardless of track accent.
