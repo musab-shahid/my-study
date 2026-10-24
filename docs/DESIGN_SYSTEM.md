@@ -70,3 +70,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Primary study actions use the shared `Button` variants rather than a subject's saturated fill with white text. Subject colors remain visible in restrained icon, tint, and border treatments.
 - Curriculum assessment feedback uses semantic success, danger, and warning tokens. Track accent colors may identify the CGEI curriculum, but must not replace feedback semantics.
 - Keep lesson and activity metadata compact but readable; use `text-label` for compact metadata and shared card-padding tokens for common curriculum cards.
+
+
+## Route-group migration notes: Quiz, Practice, and Flashcards
+
+- Shared primary and secondary actions use `Button`; icon-only actions use `IconButton` with explicit accessible labels.
+- Custom quiz-option and listbox controls may remain native buttons where they implement stateful option/listbox semantics, but must keep shared focus-ring, target-size, and disabled-state behavior.
+- Practice and quiz headings use the same semantic title scale. Quiz question text uses a focused heading variant so the task remains visually prominent without borrowing dashboard sizing.
+- Flashcard filters use shared button variants with a minimum 44px target. The reveal state uses brand surface tokens, not a separate screen-local color family.

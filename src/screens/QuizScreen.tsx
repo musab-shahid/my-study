@@ -12,7 +12,7 @@ import { sectionMap } from '@/data/sections';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { subjectsByTrack, subjectMap } from '@/data/subjects';
 import { BackButton, Breadcrumbs, HomeButton } from '@/components/layout/Breadcrumbs';
-import { PageContainer, Card, ProgressBar, Button, EmptyState, LoadingSpinner } from '@/components/ui';
+import { PageContainer, Card, ProgressBar, Button, EmptyState, LoadingSpinner, IconButton } from '@/components/ui';
 import { loadAllQuestions, loadSubjectQuestions, loadQuestionsForTopic } from '@/data/lazy-data';
 import type { Question, DifficultyFilter, PracticeMode, TimeLimitSetting, SubjectId, TopicProgress } from '@/types';
 // SubjectId used for workspace scope checks
@@ -1119,25 +1119,15 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       <div className="mb-4">
         <div className="flex items-center justify-between gap-2 mb-3">
           <div className="flex items-center gap-1 min-w-0">
-            <button
-              onClick={handleExit}
-              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
-              aria-label="Exit quiz"
-            >
+            <IconButton label="Exit quiz" onClick={handleExit} className="shrink-0">
               <ArrowLeft className="w-5 h-5" />
-            </button>
+            </IconButton>
             <span className="text-sm font-medium text-slate-700 truncate hidden sm:inline">Quiz</span>
           </div>
           <div className="flex items-center gap-1">
-            <button
-              type="button"
-              onClick={() => setShowKeysHelp(true)}
-              className="hidden sm:inline-flex items-center justify-center w-9 h-9 rounded-lg text-slate-500 hover:bg-slate-100 hover:text-slate-800 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
-              aria-label="Keyboard shortcuts"
-              title="Keyboard shortcuts"
-            >
+            <IconButton label="Keyboard shortcuts" onClick={() => setShowKeysHelp(true)} className="hidden sm:inline-flex">
               <Keyboard className="w-4 h-4" />
-            </button>
+            </IconButton>
             <span className="text-slate-500 text-sm font-medium">
               Q {state.currentIdx + 1} of {state.questions.length}
             </span>
@@ -1188,8 +1178,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       )}
 
       {/* Question */}
-      <Card className="p-4 sm:p-6 mb-4">
-        <h1 className="text-slate-900 text-lg sm:text-xl font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
+      <Card className="p-card-pad sm:p-card-pad-lg mb-4">
+        <h1 className="text-slate-900 text-section-title sm:text-page-title font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
         {currentQ.type === 'matching' ? (
           <MatchingOptions question={currentQ} selectedIndices={state.selectedIndices} checked={state.checked} onSelect={toggleOption} />
         ) : (
@@ -1360,9 +1350,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <Keyboard className="w-4 h-4 text-brand-600" />
                 Keyboard shortcuts
               </h2>
-              <button type="button" onClick={() => setShowKeysHelp(false)} className="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2" aria-label="Close">
+              <IconButton label="Close" onClick={() => setShowKeysHelp(false)}>
                 <X className="w-4 h-4" />
-              </button>
+              </IconButton>
             </div>
             <ul className="space-y-2 text-sm text-slate-700">
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
