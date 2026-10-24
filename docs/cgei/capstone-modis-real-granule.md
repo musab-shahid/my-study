@@ -13,3 +13,7 @@ Acquisition and interpretation: `content-drafts/chapter-05-scientific-computing/
 
 Default CI command exercises only the miniature JSON contract. Optional:
 `python …/unit_13_modis_local_process_check.py --hdf /path/to/MOD11A2….hdf`
+
+## V21
+
+Mock-tested local HDF logic: missing LST layer, fill/range exclusion, all-fill failure, provenance source labels. Still **no** genuine NASA granule in CI.

@@ -84,3 +84,11 @@ python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_loc
 - Not operational risk ranking  
 
 See also: `docs/cgei/capstone-modis-real-granule.md`, `docs/cgei/capstone-public-data-manifest.md`.
+
+## Pixel validity policy (V21)
+
+1. Fill/nodata pixels are excluded from statistics.
+2. Scaled Kelvin values outside the **teaching** sanity range [250, 340] K are excluded and counted as `n_rejected_range` (curriculum check, not LP DAAC QC SDS).
+3. If no valid pixels remain, processing fails.
+4. Provenance records whether scale/fill/version came from the file, GDAL, or documented fallback (`scale_source`, `fill_source`, `version_source`).
+5. Statistics are for the **preview window only** (`stats_scope=preview_window_only`). No full georeferenced GeoTIFF is exported by this tool.
