@@ -15,6 +15,7 @@ import type { Question, SubjectId } from '../src/types';
 import { sections, sectionMap } from '../src/data/sections';
 import { topics } from '../src/data/topics';
 import { activeSubjects } from '../src/data/lazy-data';
+import { hasSubstantiveQuestionText, normalizeAnswerOption } from '../src/data/question-quality';
 
 // ── Loaders (same map as lazy-data, but eager for CI) ──
 const questionLoaders: Record<string, () => Promise<{ questions: Question[] }>> = {
@@ -122,8 +123,8 @@ q: Question, subjectId: string) {
   }
 
   // Text
-  if (!q.question || !String(q.question).trim()) {
-    add('critical', subjectId, id, 'MISSING_QUESTION', 'Empty question text');
+  if (!hasSubstantiveQuestionText(q.question)) {
+    add('critical', subjectId, id, 'NON_SUBSTANTIVE_QUESTION', 'Question text is empty or an obvious drafting placeholder');
   }
 
   // Section / topic refs
@@ -165,11 +166,11 @@ q: Question, subjectId: string) {
     add('critical', subjectId, id, 'BAD_OPTIONS', 'Need at least 2 options');
   } else {
     q.options.forEach((opt, i) => {
-      if (opt === undefined || opt === null || String(opt).trim() === '') {
-        add('critical', subjectId, id, 'EMPTY_OPTION', `Option index ${i} is empty`);
+      if (!hasSubstantiveQuestionText(opt)) {
+        add('critical', subjectId, id, 'NON_SUBSTANTIVE_OPTION', `Option index ${i} is empty or an obvious drafting placeholder`);
       }
     });
-    const normalized = q.options.map((o) => String(o).trim().toLowerCase());
+    const normalized = q.options.map(normalizeAnswerOption);
     const uniq = new Set(normalized);
     if (uniq.size < normalized.length) {
       add('warning', subjectId, id, 'DUPLICATE_OPTIONS', 'Duplicate option text');
@@ -223,8 +224,8 @@ q: Question, subjectId: string) {
   }
 
   // Explanation / citation
-  if (!q.explanation || !String(q.explanation).trim()) {
-    add('warning', subjectId, id, 'MISSING_EXPLANATION', 'Empty explanation');
+  if (!hasSubstantiveQuestionText(q.explanation)) {
+    add('critical', subjectId, id, 'NON_SUBSTANTIVE_EXPLANATION', 'Explanation is empty or an obvious drafting placeholder');
   } else {
     for (const { re, code } of POLICY_CRITICAL) {
       if (re.test(q.explanation)) {
