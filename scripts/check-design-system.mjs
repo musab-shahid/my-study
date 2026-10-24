@@ -29,8 +29,13 @@ function flushHunk() {
     removed = [];
     return;
   }
-  const inSharedUi = file.startsWith('src/components/ui/');
-  const inIdentityRegistry = ['src/data/subject-colors.ts', 'src/data/tracks.ts'].includes(file);
+  // Narrow, intentional exceptions only:
+  // - primitives.tsx must compose native buttons for Dialog/Tabs; its visual and
+  //   keyboard behavior is covered by accessibility tests.
+  // - subject/track registries are the single source of truth for palette mapping.
+  // Do not exempt the entire shared-UI directory: regressions there affect every screen.
+  const allowsNativeButton = file === 'src/components/ui/primitives.tsx';
+  const isColorRegistry = ['src/data/subject-colors.ts', 'src/data/tracks.ts'].includes(file);
 
   const checkNetNew = (rule, pattern, exempt = false) => {
     if (exempt) return;
@@ -41,10 +46,10 @@ function flushHunk() {
     }
   };
 
-  checkNetNew('raw-button', rawButton, inSharedUi);
-  checkNetNew('arbitrary-font-size', arbitraryFontSize, inSharedUi);
-  checkNetNew('raw-palette-color', rawPalette, inSharedUi || inIdentityRegistry);
-  checkNetNew('white-on-mid-tone-fill', midToneFill, inSharedUi);
+  checkNetNew('raw-button', rawButton, allowsNativeButton);
+  checkNetNew('arbitrary-font-size', arbitraryFontSize);
+  checkNetNew('raw-palette-color', rawPalette, isColorRegistry);
+  checkNetNew('white-on-mid-tone-fill', midToneFill);
   checkNetNew('non-canonical-focus-ring', nonCanonicalFocusRing);
 
   added = [];
