@@ -61,3 +61,11 @@ This register ranks current evidence gaps rather than the easiest files to edit.
 5. **Multan flagship empirical validation.** Keep synthetic Landsat and miniature MODIS paths explicitly synthetic. A genuine Multan product run and independent validation remain external prerequisites to empirical or operational claims.
 
 **Scope note:** Subject 2 Units 2.3 and 2.7 are marked Support in `subject-2-core-completion-audit.md`; they should not be represented as missing Core units. Their absence remains visible as deferred Support scope.
+
+
+## Gate C.7 — Unit 3.3 Core practical added (2026-10-24)
+
+- Added `content-drafts/chapter-05-scientific-computing/labs/unit-3-3-zonal-rasterization-lab.md` with explicit inputs, CRS/grid assumptions, pixel-centre inclusion rule, NoData handling, expected outputs, limitations, assessment questions, and a 10-point rubric.
+- Added `content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_rasterization_check.py`; wired it into `.github/workflows/ci.yml`.
+- Updated the Unit 3.3.3.3 traceability evidence note. The fixture is synthetic and standard-library only; it verifies stated arithmetic, not a GIS engine or genuine data.
+- Remaining G-S3-3.3-CORE work: canonical app lesson/activity/assessment linkage, GUI-based QGIS execution, robust PyQGIS/GDAL workflows, production geometry overlay/rasterization checks, and digitising/georeferencing practice. Do not upgrade the unit to complete.
