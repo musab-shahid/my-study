@@ -3,7 +3,7 @@ import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
-  Dumbbell, Layers,
+  Dumbbell, Layers, Library,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
