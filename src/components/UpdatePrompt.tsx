@@ -158,7 +158,12 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
       return (
         <div className="fixed top-0 inset-x-0 z-[60] pointer-events-none">
           <div className="mx-auto max-w-md px-4 pt-[env(safe-area-inset-top)]">
-            <div className="rounded-b-xl bg-slate-800/90 text-white px-4 py-2 text-xs font-medium text-center">
+            <div
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              className="rounded-b-xl bg-slate-800/90 text-white px-4 py-2 text-xs font-medium text-center"
+            >
               Checking for updates…
             </div>
           </div>
@@ -175,7 +180,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm">
             <BookOpen className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} />
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0" role="status" aria-live="polite" aria-atomic="true">
             <p className="font-semibold text-slate-900 text-sm">Update available</p>
             <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
               A new version of the app is ready. Restart to load it — your progress stays saved on this device.
