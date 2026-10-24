@@ -8,7 +8,7 @@ const PRECACHE_EXTENSIONS = new Set(['.js', '.css', '.woff2', '.woff', '.ttf']);
  * Lazy subject banks are huge and should load on demand, not at install.
  * Vite names those chunks from the source path (questions-*, topics-*).
  */
-function isLazyContentChunk(relPath) {
+export function isLazyContentChunk(relPath) {
   const name = basename(relPath).toLowerCase();
   return (
     name.includes('questions-') ||
@@ -20,7 +20,7 @@ function isLazyContentChunk(relPath) {
 }
 
 /** Precache app shell + vendors; exclude lazy subject packs. */
-function isShellAsset(relPath) {
+export function isShellAsset(relPath) {
   return !isLazyContentChunk(relPath);
 }
 
