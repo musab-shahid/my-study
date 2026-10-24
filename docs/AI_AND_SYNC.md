@@ -24,4 +24,6 @@ Production builds do not embed provider API keys; optional direct-provider keys 
 3. Sign in through Supabase Auth; cloud sync requires a user access token. The device ID is only a label and must never be used as an ownership secret.
 4. The hardened migration removes legacy device-only access paths and applies authenticated-user ownership policies to `app_progress`. Verify the migration was actually applied to the deployed project; repository SQL alone does not prove remote database state.
 
-Local storage remains the source of truth while offline or unauthenticated. Backup/restore should be tested against corrupt, partial, older-version and conflicting snapshots before a public launch.
+Cloud restore validates the payload shape before any destructive write. It stores a pre-restore snapshot first, and the loader can recover that snapshot if the primary write is interrupted or the restored primary is invalid; the recovery key is cleared after a valid primary save is loaded.
+
+Local storage remains the source of truth while offline or unauthenticated. Continue testing backup/restore against corrupt, partial, older-version and conflicting snapshots before a public launch.
