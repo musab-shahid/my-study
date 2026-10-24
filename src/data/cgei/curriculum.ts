@@ -2044,6 +2044,47 @@ const lessons21: CurriculumLesson[] = [
   },
 ];
 
+const outcomes23: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-23-moisture', statement: 'Relate humidity variables, wet-bulb temperature, and Clausius–Clapeyron scaling to humid-heat and extreme rainfall risk.', action: 'relate and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-23-pbl', statement: 'Explain diurnal boundary-layer evolution and why urban night-time temperatures depend on heat storage and stability.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-23-nwp', statement: 'Describe NWP resolution, parameterisation, ensembles, and the difference between initial-condition and model uncertainty.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons23: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-3-1', kind: 'lesson', title: 'Moist thermodynamics and humidity variables', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes23[0]],
+    content: [
+      { id: 'cgei-cl-23-1-1', kind: 'prose', title: 'Hydrostatics and potential temperature', body: 'The ideal-gas law and hydrostatic balance link pressure and height in the atmosphere. Potential temperature is conserved for dry adiabatic displacement; the dry adiabatic lapse rate is about 9.8 K km⁻¹. When condensation occurs, latent heat release reduces the magnitude of the moist adiabatic lapse rate. Static stability, inversions, and CAPE summarise whether a lifted parcel accelerates—conceptual literacy, not operational forecasting skill from a single CAPE value.' },
+      { id: 'cgei-cl-23-1-2', kind: 'table', title: 'Humidity variables', headers: ['Variable', 'Meaning', 'Use'], rows: [['Vapour pressure e', 'Partial pressure of water vapour', 'Saturation comparison'], ['Specific humidity q', 'Mass of vapour per mass of moist air', 'Conserved-ish in many processes'], ['Relative humidity RH', 'e / e_sat(T)', 'Near saturation, not absolute moisture'], ['Dew point Td', 'Cooling needed for saturation at constant pressure', 'Night-time condensation risk'], ['Wet-bulb Tw', 'Temperature after evaporative cooling to saturation', 'Humid-heat stress (with T and ventilation)']] },
+      { id: 'cgei-cl-23-1-3', kind: 'worked-example', title: 'Clausius–Clapeyron scaling (~7% per K)', body: 'Saturation vapour pressure rises steeply with temperature. A rule of thumb is ~6–7% more moisture capacity per 1 K warming near typical surface temperatures. Fixture unit_2_3_atmosphere_check.py computes e_sat(T+1)/e_sat(T) − 1 for T = 300 K using the August–Roche–Magnus approximation and checks the ratio is near 6–7%. This motivates intensified short-duration rainfall potential and higher humid-heat risk—not a uniform local rainfall increase everywhere.' },
+      { id: 'cgei-cl-23-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Tw is not a complete heat-stress index alone', 'CAPE is environment-dependent and model-sensitive', 'CC scaling is about saturation capacity, not realised precipitation'] },
+    ],
+    activityIds: ['cgei-cl-a-23-moisture'], assessmentIds: ['cgei-cl-assess-23-moisture'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-3-2', kind: 'lesson', title: 'Boundary layer, fluxes, and urban nights', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes23[1]],
+    content: [
+      { id: 'cgei-cl-23-2-1', kind: 'prose', title: 'Diurnal PBL', body: 'After sunrise, surface heating grows a convective mixed layer; after sunset, a stable nocturnal layer can form near the ground. Roughness length and displacement height summarise how surfaces extract momentum. In cities, the roughness sublayer and heat storage in buildings delay cooling. Night-time urban warmth is therefore not only “more energy input at noon”—geometry, materials, and stability matter.' },
+      { id: 'cgei-cl-23-2-2', kind: 'prose', title: 'Turbulent fluxes', body: 'The surface energy balance partitions net radiation into sensible heat H, latent heat LE, and ground heat G (plus storage). The Bowen ratio H/LE is high for dry surfaces and low for evaporating ones. Urban SUHI analyses (Unit 4.5) observe surface temperature patterns; atmospheric UHI is a different quantity measured in the air.' },
+      { id: 'cgei-cl-23-2-3', kind: 'key-points', title: 'Regional circulation vocabulary', items: ['Heat lows and monsoon trough structure (conceptual)', 'Western disturbances as mid-latitude intrusions', 'Blocking and jet anomalies as predictability context', 'Not a substitute for synoptic analysis training'] },
+    ],
+    activityIds: ['cgei-cl-a-23-pbl'], assessmentIds: ['cgei-cl-assess-23-pbl'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-3-3', kind: 'lesson', title: 'Clouds, precipitation, and NWP concepts', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes23[2]],
+    content: [
+      { id: 'cgei-cl-23-3-1', kind: 'prose', title: 'Precipitation processes', body: 'Convective and stratiform systems, orographic lift, and ice-phase processes produce different spatial scales and intensities. Aerosols acting as CCN can modulate cloud properties; dust also has direct radiative effects. Cloudburst-scale events remain poorly resolved by coarse models.' },
+      { id: 'cgei-cl-23-3-2', kind: 'prose', title: 'NWP literacy', body: 'Numerical weather prediction integrates approximate equations on a grid. Processes smaller than the grid (convection, turbulence, radiation details) are parameterised. Data assimilation blends observations into the model state. Chaos limits deterministic predictability; ensembles sample initial-condition and sometimes model uncertainty. Convection-permitting grids reduce—not eliminate—parameterisation needs.' },
+      { id: 'cgei-cl-23-3-3', kind: 'callout', title: 'Honest use of model output', tone: 'warning', items: ['High resolution is not automatic skill', 'Ensemble spread is not a calibrated probability without verification', 'Parameterisation choices affect surface fluxes used in impact models'] },
+    ],
+    activityIds: ['cgei-cl-a-23-nwp'], assessmentIds: ['cgei-cl-assess-23-nwp'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 const outcomes22: CurriculumOutcome[] = [
   { id: 'cgei-cl-o-22-energy', statement: 'Explain the greenhouse effect with a one-layer teaching model and show how latent heat alters the surface energy residual.', action: 'explain and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
@@ -4001,7 +4042,21 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
     },
     {
-      id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
+      
+    {
+      id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
+      summary: 'Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.',
+      estimatedHours: 10, prerequisites: ['Unit 2.1', 'Unit 2.2'], outcomes: outcomes23,
+      lessonIds: lessons23.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-23-moisture', 'cgei-cl-a-23-pbl', 'cgei-cl-a-23-nwp'],
+      assessmentIds: ['cgei-cl-assess-23-moisture', 'cgei-cl-assess-23-pbl', 'cgei-cl-assess-23-nwp'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.3',
+      notes: ['Support Unit 2.3. Synthetic Clausius–Clapeyron check; no NWP model run in CI.'],
+    },
+
+id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
       summary: 'Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.',
       estimatedHours: 8, prerequisites: ['Unit 2.4'], outcomes: outcomes25,
       lessonIds: lessons25.map((lesson) => lesson.id),
@@ -4560,6 +4615,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-28-002', lessonId: 'cgei-cl-lesson-2-8-1', type: 'single-choice', prompt: 'ENSO or IOD anomalies should be treated as:', options: ['Automatic one-line causes of every local weather event', 'Large-scale variability context that may modulate but does not by itself prove local causation', 'Proof that stations are unnecessary', 'Identical to irrigation effects'], correctAnswer: 1, explanation: 'Teleconnections provide context; local causation needs local evidence and mechanisms.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-28-003', lessonId: 'cgei-cl-lesson-2-8-2', type: 'single-choice', prompt: 'A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:', options: ['One must be a software bug', 'They sample different spatial supports and methods', 'Reanalysis always equals the station', 'Irrigation cancels all differences'], correctAnswer: 1, explanation: 'Point observations and grid estimates have different spatial support and construction (Units 2.4–2.5).', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-28-004', lessonId: 'cgei-cl-lesson-2-8-3', type: 'single-choice', prompt: 'When a local PMD series is restricted, the correct practice is to:', options: ['Invent plausible station numbers for the lesson', 'Use permitted global layers only with documented limits, request trails and licences', 'Ignore provenance', 'Treat farmer anecdotes as instrumental Tmax'], correctAnswer: 1, explanation: 'Access limits require documentation and honest use of alternative products—not fabricated observations.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
+    { id: 'cgei-cl-q-23-cc', lessonId: 'cgei-cl-lesson-2-3-1', type: 'single-choice', prompt: 'Clausius–Clapeyron scaling of ~6–7% per K near typical surface temperatures primarily describes:', options: ['A guaranteed local increase in seasonal rainfall totals of 7% per K', 'The approximate increase of saturation vapour pressure with temperature', 'The dry adiabatic lapse rate', 'The Bowen ratio of an urban canyon'], correctAnswer: 1, explanation: 'CC governs saturation vapour pressure (moisture capacity), not automatic rainfall totals.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-23-tw', lessonId: 'cgei-cl-lesson-2-3-1', type: 'single-choice', prompt: 'Wet-bulb temperature is most directly related to:', options: ['Satellite brightness temperature alone', 'Evaporative cooling of air to saturation at constant pressure', 'Geostrophic wind speed', 'Model grid spacing'], correctAnswer: 1, explanation: 'Tw reflects cooling by evaporation to saturation—central to humid-heat stress.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-23-pbl', lessonId: 'cgei-cl-lesson-2-3-2', type: 'single-choice', prompt: 'Urban night-time warmth relative to rural areas is often sustained by:', options: ['Only higher daytime insolation at the same latitude', 'Heat storage in built materials, reduced sky-view, and altered stability—not solar forcing alone', 'Always higher latent heat flux than rural wetlands', 'Geostrophic balance failure'], correctAnswer: 1, explanation: 'Storage, geometry, and stability shape nocturnal urban climates.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-23-ens', lessonId: 'cgei-cl-lesson-2-3-3', type: 'single-choice', prompt: 'Ensemble forecast spread is best interpreted as:', options: ['A calibrated probability of the event without further verification', 'A measure of diversity among members that still requires verification for probabilistic skill', 'Proof that parameterisations are unnecessary', 'The same as observation error'], correctAnswer: 1, explanation: 'Spread is uncertainty information, not automatically a calibrated probability.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
     { id: 'cgei-rs-q-41-001', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Brightness temperature is best defined as:', options: ['Air temperature at 2 m', 'The blackbody temperature that would produce the observed radiance under a stated inversion', 'Always equal to land-surface temperature', 'Digital number divided by 100'], correctAnswer: 1, explanation: 'T_b is a radiometric equivalent temperature; LST requires emissivity and atmospheric correction.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-41-002', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Using Wien’s law (wavelength form) at T=300 K, λ_max is nearest:', options: ['0.5 μm', '10 μm', '1 m', '100 μm'], correctAnswer: 1, explanation: 'λ_max ≈ 2898/300 ≈ 9.7 μm, in the thermal infrared.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-rs-q-41-003', lessonId: 'cgei-rs-lesson-4-1-2', type: 'single-choice', prompt: 'Nominal revisit every 5 days guarantees cloud-free observations every 5 days:', options: ['True for all sensors', 'False — usable frequency depends on clouds, swath and acquisition', 'True only for SAR', 'True only at night'], correctAnswer: 1, explanation: 'Nominal revisit is not usable observation frequency under cloud and scheduling constraints.', difficulty: 'easy', cognitiveLevel: 'understand' },
@@ -5516,6 +5577,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-32-crs', kind: 'guided-practice', title: 'Declare CRS and axis order', instructions: 'For a CSV of city points, write a one-paragraph CRS statement including datum and axis order.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-32-crs'], resourceIds: ['cgei-geo-r-epsg'] },
     { id: 'cgei-geo-a-32-scale', kind: 'coding-lab', title: 'Metres-per-degree check', instructions: 'Reproduce the Unit 3.2 scale fixture numbers and compare a 0.01° cell length at the equator and at 60°N.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-32-scale'], resourceIds: ['cgei-geo-r-epsg'] },
     { id: 'cgei-geo-a-32-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-projection'], resourceIds: ['cgei-geo-r-epsg'] },
+
+    { id: 'cgei-cl-a-23-moisture', kind: 'coding-lab', title: 'Clausius–Clapeyron ratio', instructions: 'Run unit_2_3_atmosphere_check.py. Record e_sat at 300 K and 301 K and the fractional increase. Explain why ~7%/K matters for humid heat and short-duration rainfall potential, and one reason local rainfall need not scale the same way.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-23-moisture'] },
+    { id: 'cgei-cl-a-23-pbl', kind: 'critique', title: 'Urban night cooling factors', instructions: 'List geometry, heat storage, and stability as factors that can keep urban nights warmer. State why LST-based SUHI is not air-temperature UHI.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-23-pbl'] },
+    { id: 'cgei-cl-a-23-nwp', kind: 'critique', title: 'Ensemble vs single forecast', instructions: 'Explain why an ensemble of convection-permitting members is preferred over one deterministic run, and what ensemble spread does not automatically provide.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-23-nwp'] },
+
     { id: 'cgei-geo-a-32-transform', kind: 'critique', title: 'Transform metadata and landmark residual', instructions: 'Record source_crs, target_crs, transform_method, and grid_available for a permanent transform; compute the synthetic landmark residual from the lesson example.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-crs'] },
     { id: 'cgei-geo-a-33-layout-georef', kind: 'coding-lab', title: 'Layout checklist and RMSE arithmetic', instructions: 'Apply the publication layout checklist and recompute RMSE from the synthetic residual pairs in unit_3_3_georef_rmse_check.py.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-layout'] },
     { id: 'cgei-geo-a-35-vector', kind: 'coding-lab', title: 'BBox predicates and join cardinality', instructions: 'Run unit_3_5_python_geospatial_stack_check.py; explain why a one-to-many spatial join changes row counts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-35-vector'] },
@@ -5827,6 +5893,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-32-crs', kind: 'formative', title: 'CRS declaration check', purpose: 'Verify learners can state datum and axis order.', objectiveIds: ['cgei-geo-o-32-crs'], questionIds: ['cgei-geo-q-32-001'], required: true },
     { id: 'cgei-geo-assess-32-scale', kind: 'formative', title: 'Scale with latitude', purpose: 'Verify scale factor reasoning.', objectiveIds: ['cgei-geo-o-32-scale'], questionIds: ['cgei-geo-q-32-002'], required: true },
     { id: 'cgei-geo-assess-32-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-32-projection'], questionIds: ['cgei-geo-q-32-003'], required: true },
+
+    { id: 'cgei-cl-assess-23-moisture', kind: 'formative', title: 'Moist thermodynamics', purpose: 'Assess humidity and CC scaling literacy.', objectiveIds: ['cgei-cl-o-23-moisture'], questionIds: ['cgei-cl-q-23-cc', 'cgei-cl-q-23-tw'], required: true },
+    { id: 'cgei-cl-assess-23-pbl', kind: 'formative', title: 'Boundary layer and urban night', purpose: 'Assess PBL and urban energy concepts.', objectiveIds: ['cgei-cl-o-23-pbl'], questionIds: ['cgei-cl-q-23-pbl'], required: true },
+    { id: 'cgei-cl-assess-23-nwp', kind: 'formative', title: 'NWP concepts', purpose: 'Assess ensemble and parameterisation literacy.', objectiveIds: ['cgei-cl-o-23-nwp'], questionIds: ['cgei-cl-q-23-ens'], required: true },
+
     { id: 'cgei-geo-assess-32-transform', kind: 'formative', title: 'Transform honesty', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-32-crs'], questionIds: ['cgei-geo-q-32-grid', 'cgei-geo-q-32-landmark'], required: true },
     { id: 'cgei-geo-assess-33-layout-georef', kind: 'formative', title: 'Layout and RMSE', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-33-layout'], questionIds: [], required: true },
     { id: 'cgei-geo-assess-35-vector', kind: 'formative', title: 'Vector stack', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-35-vector'], questionIds: ['cgei-geo-q-35-area'], required: true },
