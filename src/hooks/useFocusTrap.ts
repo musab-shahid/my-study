@@ -61,6 +61,15 @@ export function useFocusTrap(
     // Defer so dialog content is mounted.
     const t = window.setTimeout(focusInitial, 0);
 
+    // Tab trapping alone does not prevent focus from escaping through script,
+    // browser extensions, or another component calling focus(). Re-contain
+    // focus whenever it moves outside the active modal/sheet.
+    const onFocusIn = (event: FocusEvent) => {
+      const container = containerRef.current;
+      if (!container || container.contains(event.target as Node)) return;
+      focusInitial();
+    };
+
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
@@ -96,9 +105,11 @@ export function useFocusTrap(
     };
 
     document.addEventListener('keydown', onKeyDown);
+    document.addEventListener('focusin', onFocusIn);
     return () => {
       window.clearTimeout(t);
       document.removeEventListener('keydown', onKeyDown);
+      document.removeEventListener('focusin', onFocusIn);
       if (previouslyFocused?.isConnected) previouslyFocused.focus();
     };
   }, [open, containerRef, initialFocusRef]);
