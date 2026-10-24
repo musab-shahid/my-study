@@ -5,4 +5,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 3.1.1.4,Attribute tables and data types,3.1.1,Vector and raster models,Core,cgei-geo-lesson-3-1-2,cgei-geo-31-2-1;cgei-geo-31-2-2,mapped_partial,Geometry vs attributes and join diagnostics present; full type system not covered.
 3.1.2.1,Intersection containment adjacency distance,3.1.2,Spatial relationships and topology,Core,cgei-geo-lesson-3-1-3,cgei-geo-31-3-1,mapped_partial,Relationships introduced conceptually; computational geometry predicates limited to bbox lab.
 3.1.2.2,Topology rules and common validity errors,3.1.2,Spatial relationships and topology,Core,cgei-geo-lesson-3-1-3,cgei-geo-31-3-lab;cgei-geo-31-3-3,mapped_partial,Duplicate IDs and interior bbox overlap fixture; not full OGC topology.
-3.1.2.3,Geometry repair,3.1.2,Spatial relationships and topology,Core,,,mapped_partial,Identified as gap; repair workflows not implemented.
+3.1.2.3,Geometry repair,3.1.2,Spatial relationships and topology,Core,,,deferred,Identified as gap; repair workflows not implemented.
