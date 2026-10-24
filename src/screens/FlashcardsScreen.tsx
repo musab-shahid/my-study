@@ -145,9 +145,9 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
               type="button"
               onClick={() => setKindFilter(k)}
               aria-pressed={active}
-              className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
+              className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 ${
                 active
-                  ? 'bg-brand-500 text-white'
+                  ? 'bg-brand-700 text-white'
                   : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
               }`}
             >
@@ -191,7 +191,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
           <button
             type="button"
             onClick={() => setFlipped((f) => !f)}
-            className="w-full text-left mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="w-full text-left mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
             aria-label={flipped ? `Hide answer for card ${idx + 1}` : `Show answer for card ${idx + 1}`}
             aria-pressed={flipped}
           >
@@ -267,7 +267,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
               <button
                 type="button"
                 onClick={() => navigate({ screen: 'topic', topicId })}
-                className="min-h-11 inline-flex items-center text-sm text-brand-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-sm"
+                className="min-h-11 inline-flex items-center text-sm text-brand-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-sm"
               >
                 ← Back to topic
               </button>

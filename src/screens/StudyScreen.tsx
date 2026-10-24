@@ -172,7 +172,7 @@ export function StudyScreen() {
             const Icon = BookCopy;
             return (
               <Card key={subject.id} className="p-3.5 sm:p-4 transition-colors hover:border-slate-300">
-                <button type="button" onClick={() => handleSubjectChange(subject.id as SubjectId)} className="group w-full flex items-center gap-4 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                <button type="button" onClick={() => handleSubjectChange(subject.id as SubjectId)} className="group w-full flex items-center gap-4 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0 transition-transform group-hover:scale-[1.03]`}>
                     {Icon && <Icon className={`w-6 h-6 ${color.text}`} />}
                   </div>
@@ -225,7 +225,7 @@ export function StudyScreen() {
               <button
                 type="button"
                 onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}
-                className={`inline-flex min-h-touch items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2`}
+                className={`inline-flex min-h-touch items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2`}
               >
                 Continue Reading <ArrowRight className="w-4 h-4" />
               </button>
@@ -417,7 +417,7 @@ export function StudyScreen() {
                       aria-expanded={isExpanded}
                       aria-controls={`section-topics-${section.id}`}
                       onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                     >
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
@@ -438,7 +438,7 @@ export function StudyScreen() {
                               key={topic.id}
                               type="button"
                               onClick={() => navigate({ screen: 'topic', topicId: topic.id })}
-                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
                               <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{topic.title}</span>
@@ -605,7 +605,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           const status = getTopicStatusFromProgress(studied, prog);
           return (
             <Card key={topic.id} className="p-0 transition-colors hover:border-slate-300">
-              <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset">
+              <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
                 <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base leading-snug">{topic.title}</p>
@@ -1121,7 +1121,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           return (
             <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
               {prevTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <ChevronLeft className="w-5 h-5 text-slate-400 shrink-0" />
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Previous</p>
@@ -1130,7 +1130,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
               {nextTopic ? (
-                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2">
+                <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <div className="min-w-0">
                     <p className="text-xs text-slate-400 font-medium">Next</p>
                     <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{nextTopic.title}</p>

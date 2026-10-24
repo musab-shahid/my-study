@@ -63,7 +63,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     route.screen === screen && (mode === undefined || ('mode' in route && route.mode === mode));
 
   const rowClass = (active: boolean) =>
-    `w-full flex items-center gap-3 px-3 py-3 rounded-btn transition-colors duration-DEFAULT text-left min-h-touch-lg touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 ${
+    `w-full flex items-center gap-3 px-3 py-3 rounded-btn transition-colors duration-DEFAULT text-left min-h-touch-lg touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 ${
       active ? 'bg-brand-50 text-brand-700' : 'text-slate-800 hover:bg-slate-50 active:bg-slate-100'
     }`;
 
@@ -98,7 +98,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             <button
               type="button"
               onClick={onClose}
-              className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
