@@ -110,6 +110,14 @@ export function validateCloudRestoreData(value: unknown): value is AppData {
   return true;
 }
 
+/** Validate a local snapshot before any cloud-auth or network side effects. */
+export function validateLocalProgressForCloudPush(
+  value: unknown,
+): { ok: true; data: AppData } | { ok: false; error: 'invalid-local-data' } {
+  if (!validateCloudRestoreData(value)) return { ok: false, error: 'invalid-local-data' };
+  return { ok: true, data: value };
+}
+
 export function planCloudRestoreWrite(
   appDataKey: string,
   existingRaw: string | null,
