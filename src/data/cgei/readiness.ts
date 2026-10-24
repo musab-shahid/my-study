@@ -41,7 +41,7 @@ export function hasSubstantiveContentBlock(block: CurriculumContentBlock): boole
     case 'code':
       return hasSubstantiveText(block.code) || hasSubstantiveText(block.body);
     case 'table':
-      return Boolean(block.headers?.some(hasSubstantiveText && block.rows?.some((row) => row.some(hasSubstantiveText));
+      return Boolean(block.headers?.some(hasSubstantiveText) && block.rows?.some((row) => row.some(hasSubstantiveText)));
     case 'callout':
     case 'reflection':
       return hasSubstantiveText(block.body) || Boolean(block.items?.some((item) => hasSubstantiveText(item)));
@@ -84,10 +84,10 @@ export function validateReadinessEvidence(
     && date <= todayUtc;
   if (!validDate) issues.push(`${label} readiness evidence requires a real YYYY-MM-DD review date.`);
 
-  if (!evidence.checksPassed?.some(hasSubstantiveText) {
+  if (!evidence.checksPassed?.some(hasSubstantiveText)) {
     issues.push(`${label} readiness evidence must list at least one completed check.`);
   }
-  if (!evidence.notes?.some(hasSubstantiveText) {
+  if (!evidence.notes?.some(hasSubstantiveText)) {
     issues.push(`${label} readiness evidence must include review notes or evidence references.`);
   }
   return issues;
