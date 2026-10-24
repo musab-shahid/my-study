@@ -1,5 +1,4 @@
 import type { AppData, TrackEnrollmentRecord, TrackMembershipState } from '../types';
-import { STORAGE_KEYS } from './constants';
 
 export const CLOUD_RESTORE_RECOVERY_SUFFIX = '-pre-restore';
 
@@ -128,6 +127,3 @@ export function planCloudRestoreWrite(
   };
 }
 
-export function getCloudRestoreRecoveryKey(): string {
-  return `${STORAGE_KEYS.appData}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
-}
