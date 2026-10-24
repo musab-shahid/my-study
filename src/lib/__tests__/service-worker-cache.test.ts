@@ -9,6 +9,7 @@ type ResponseLike = { ok: boolean; clone: () => ResponseLike };
 function loadServiceWorker(
   fetchImpl: (request: RequestLike) => Promise<ResponseLike>,
   initialCache: Map<string, ResponseLike> = new Map(),
+  cachePutImpl?: (request: RequestLike, response: ResponseLike) => Promise<void>,
 ) {
   const handlers = new Map<string, (event: any) => void>();
   const writes: string[] = [];
@@ -16,6 +17,7 @@ function loadServiceWorker(
   const cache = {
     add: async () => undefined,
     put: async (request: RequestLike, response: ResponseLike) => {
+      if (cachePutImpl) await cachePutImpl(request, response);
       writes.push(request.url);
       initialCache.set(request.url, response);
     },
@@ -93,6 +95,28 @@ describe('service worker navigation caching', () => {
     await Promise.all(lifetimePromises);
 
     assert.deepEqual(writes, [request.url]);
+  });
+
+  it('keeps the network response usable when the cache write fails', async () => {
+    const request = navigationRequest();
+    const response: ResponseLike = { ok: true, clone: () => response };
+    const { fetchHandler, writes, lifetimePromises } = loadServiceWorker(
+      async () => response,
+      new Map(),
+      async () => { throw new Error('quota exceeded'); },
+    );
+    assert.ok(fetchHandler);
+
+    let responsePromise: Promise<ResponseLike> | undefined;
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetimePromises.push(promise),
+    });
+
+    assert.equal(await responsePromise, response);
+    await Promise.all(lifetimePromises);
+    assert.deepEqual(writes, []);
   });
 
   it('serves a cached document when the navigation network request fails', async () => {
