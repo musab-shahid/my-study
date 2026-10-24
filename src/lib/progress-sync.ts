@@ -31,16 +31,19 @@ export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
 }
 
-export function getDeviceId(): string {
+export function getDeviceId(): string | null {
   try {
     let id = localStorage.getItem(DEVICE_KEY);
     if (!id) {
+      if (typeof crypto.randomUUID !== 'function') return null;
       id = crypto.randomUUID();
       localStorage.setItem(DEVICE_KEY, id);
     }
     return id;
   } catch {
-    return 'anonymous';
+    // A shared fallback like "anonymous" can make separate browsers overwrite
+    // each other's cloud snapshots. Disable cloud sync when identity is unstable.
+    return null;
   }
 }
 
@@ -105,6 +108,8 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
   if (!userId) return { ok: false, error: 'invalid-token' };
+  const deviceId = getDeviceId();
+  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
 
   try {
     const res = await fetch(restUrl('app_progress?on_conflict=user_id,device_id'), {
@@ -115,7 +120,7 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
       },
       body: JSON.stringify({
         user_id: userId,
-        device_id: getDeviceId(),
+        device_id: deviceId,
         payload: data,
         updated_at: new Date().toISOString(),
       }),
@@ -134,9 +139,11 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
 export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; error?: string }> {
   const auth = requireAuth();
   if (!auth.ok) return auth;
+  const deviceId = getDeviceId();
+  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
 
   try {
-    const id = encodeURIComponent(getDeviceId());
+    const id = encodeURIComponent(deviceId);
     const res = await fetch(
       restUrl(`app_progress?device_id=eq.${id}&select=payload,updated_at`),
       { headers: headers(auth.token) },
