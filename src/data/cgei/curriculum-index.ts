@@ -188,7 +188,13 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "title": "Data workflow engineering",
     "subjectId": "cgei-data-science",
     "subjectTitle": "Scientific Computing & Data Science",
-    "lessonIds": []
+    "lessonIds": [
+      "cgei-ds-lesson-5-5-1",
+      "cgei-ds-lesson-5-5-2",
+      "cgei-ds-lesson-5-5-3",
+      "cgei-ds-lesson-5-5-4",
+      "cgei-ds-lesson-5-5-5"
+    ]
   },
   {
     "id": "cgei-ds-unit-5-6",
@@ -1013,6 +1019,46 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Probability models and environmental distributions",
     "unitId": "cgei-ds-unit-5-4",
     "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-1",
+    "title": "End-to-end workflows, idempotence and manifests",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-2",
+    "title": "Relational tables, SQL joins and grouped summaries",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-3",
+    "title": "HTTP APIs, retries, pagination and local caching",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-4",
+    "title": "Provenance, licences, credentials and ethical access",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-5",
+    "title": "Build a reproducible environmental-data acquisition package",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
     "subjectId": "cgei-data-science",
     "subjectTitle": "Scientific Computing & Data Science"
   },
