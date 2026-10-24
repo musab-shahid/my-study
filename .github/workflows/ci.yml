@@ -11,12 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
       - name: Install
         run: npm ci
+      - name: Design-system guard (new lines)
+        run: npm run check:design-system
       - name: Validate data
         run: npm run validate:data
       - name: Unit tests
@@ -46,6 +50,14 @@ jobs:
           CI: true
           PLAYWRIGHT_FORCE_BUNDLED: "1"
         run: npm run test:e2e
+      - name: Upload design-system visual references
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: design-system-visual-references
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 7
       - name: Upload Playwright artifacts on failure
         if: failure()
         uses: actions/upload-artifact@v4

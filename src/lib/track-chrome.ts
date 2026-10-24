@@ -32,21 +32,21 @@ export function trackAccentClasses(trackId: TrackId): {
   if (accent === "indigo") {
     return {
       gradient: "from-indigo-500 to-violet-600",
-      iconWrap: "bg-indigo-500",
-      text: "text-indigo-400",
+      iconWrap: "bg-indigo-700",
+      text: "text-indigo-700",
     };
   }
   if (accent === "teal") {
     return {
       gradient: "from-teal-500 to-cyan-600",
-      iconWrap: "bg-teal-600",
-      text: "text-teal-400",
+      iconWrap: "bg-teal-700",
+      text: "text-teal-700",
     };
   }
   return {
     gradient: "from-sky-500 to-cyan-600",
-    iconWrap: "bg-sky-500",
-    text: "text-sky-400",
+    iconWrap: "bg-sky-700",
+    text: "text-sky-700",
   };
 }
 

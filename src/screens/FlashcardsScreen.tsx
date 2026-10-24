@@ -140,19 +140,16 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
           if (k !== 'all' && count === 0) return null;
           const active = kindFilter === k;
           return (
-            <button
+            <Button
               key={k}
-              type="button"
+              size="sm"
+              variant={active ? 'primary' : 'secondary'}
               onClick={() => setKindFilter(k)}
               aria-pressed={active}
-              className={`min-h-[44px] px-3 py-1.5 rounded-full text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 ${
-                active
-                  ? 'bg-brand-500 text-white'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
+              className="min-h-[44px] rounded-full"
             >
               {k === 'all' ? 'All' : KIND_LABEL[k]} ({count})
-            </button>
+            </Button>
           );
         })}
       </div>
@@ -191,14 +188,14 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
           <button
             type="button"
             onClick={() => setFlipped((f) => !f)}
-            className="w-full text-left mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+            className="w-full text-left mb-4 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
             aria-label={flipped ? `Hide answer for card ${idx + 1}` : `Show answer for card ${idx + 1}`}
             aria-pressed={flipped}
           >
             <Card
               elevation="raised"
               className={`p-4 sm:p-6 md:p-8 min-h-[220px] flex flex-col justify-center transition-colors ${
-                flipped ? 'bg-sky-50/80 border-sky-200' : 'bg-white'
+                flipped ? 'bg-brand-50/80 border-brand-200' : 'bg-white'
               }`}
             >
               {!flipped ? (
@@ -219,7 +216,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
                 </>
               ) : (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-600 mb-2">
+                  <p className="text-caption font-semibold uppercase tracking-wide text-brand-700 mb-2">
                     Answer
                   </p>
                   <div className="text-lg sm:text-xl font-semibold text-slate-900 leading-snug">
@@ -264,13 +261,9 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
 
           {topicId && (
             <div className="mt-6 flex justify-center">
-              <button
-                type="button"
-                onClick={() => navigate({ screen: 'topic', topicId })}
-                className="min-h-11 inline-flex items-center text-sm text-brand-600 font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-sm"
-              >
+              <Button variant="ghost" onClick={() => navigate({ screen: 'topic', topicId })} className="min-h-11">
                 ← Back to topic
-              </button>
+              </Button>
             </div>
           )}
 

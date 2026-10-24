@@ -41,7 +41,9 @@ test.describe('Mobile More sheet accessibility', () => {
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
   });
+});
 
+test.describe('Mobile More sheet accessibility', () => {
   test('ignores visibility-hidden and disabled-fieldset controls when wrapping focus', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
@@ -127,7 +129,7 @@ test.describe('Mobile More menu consistency', () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
 
-    const sidebar = page.locator('aside').filter({ hasText: 'ExamPrep Hub' });
+    const sidebar = page.locator('aside').filter({ hasText: 'My Study' });
     await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
     await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
   });
@@ -141,7 +143,11 @@ test.describe('Mobile More menu consistency', () => {
     await expect(header.getByRole('button', { name: 'Home', exact: true })).toBeVisible();
     await expect(header.getByRole('button', { name: 'Search', exact: true })).toHaveCount(0);
     await expect(header.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(0);
-    await expect(header.getByRole('heading', { name: 'Settings' })).toBeVisible();
+    await expect(header.getByRole('heading')).toHaveCount(0);
+    await expect(header.getByText('My Study', { exact: true })).toBeVisible();
+    await expect(page.locator('main').getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
+    await expect(page.locator('main h1')).toHaveCount(1);
+    await expect(page).toHaveTitle(/Settings.*My Study/);
   });
 });
 

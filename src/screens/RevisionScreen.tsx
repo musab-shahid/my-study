@@ -87,7 +87,7 @@ export function RevisionScreen() {
         </Card>
       ) : (
         <>
-          <Card className="p-4 sm:p-5 mb-5 border-brand-100 bg-brand-50/50">
+          <Card className="p-card-pad sm:p-card-pad-lg mb-5 border-brand-100 bg-brand-50/50">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">Ready for review</p>

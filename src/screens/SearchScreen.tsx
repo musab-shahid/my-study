@@ -6,7 +6,8 @@ import { useSubjectData } from '@/hooks/useSubjectData';
 import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/SubjectSelector';
 import { sectionMap } from '@/data/sections';
 import { subjectMap } from '@/data/subjects';
-import { PageContainer, Card, EmptyState, LoadingSpinner, Button, ScreenHeader } from '@/components/ui';
+import { PageContainer, Card, EmptyState, LoadingSpinner, Button, ScreenHeader, ListRow } from '@/components/ui';
+import { getSubjectColor } from '@/data/subject-colors';
 import type { SubjectId } from '@/types';
 
 export function SearchScreen() {
@@ -158,18 +159,18 @@ export function SearchScreen() {
               <div className="space-y-2">
                 {results.map((result, i) => {
                   const section = sectionMap[result.topic.sectionId];
+                  const subjectColor = getSubjectColor(result.subjectId);
                   return (
                     <Card key={`${i}-${result.type}-${result.topic.id}`} elevation="flat" className="p-0 border-b border-slate-200 rounded-none first:rounded-t-card last:rounded-b-card">
-                      <button
-                        type="button"
+                      <ListRow
                         onClick={() => navigate({ screen: 'topic', topicId: result.topic.id })}
-                        className="w-full flex items-start gap-3 p-4 hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+                        className="items-start p-card-pad rounded-none hover:bg-slate-50 focus-visible:ring-inset"
                       >
-                        <div className="w-9 h-9 rounded-btn bg-slate-100 flex items-center justify-center shrink-0 mt-0.5">
+                        <div className={`w-9 h-9 rounded-btn ${subjectColor.tint} flex items-center justify-center shrink-0 mt-0.5`}>
                           {result.type === 'formula' ? (
-                            <Calculator className="w-4 h-4 text-slate-600" />
+                            <Calculator className={`w-4 h-4 ${subjectColor.text}`} aria-hidden />
                           ) : (
-                            <BookOpen className="w-4 h-4 text-slate-600" />
+                            <BookOpen className={`w-4 h-4 ${subjectColor.text}`} aria-hidden />
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
@@ -182,8 +183,8 @@ export function SearchScreen() {
                             {result.match}
                           </p>
                         </div>
-                        <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" />
-                      </button>
+                        <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 mt-0.5" aria-hidden />
+                      </ListRow>
                     </Card>
                   );
                 })}

@@ -182,14 +182,14 @@ export function SettingsScreen() {
       <WorkspaceSettingsCard />
 
       {/* App info — global inventory (catalog size, not workspace progress) */}
-      <Card className="p-3.5 sm:p-5 mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+      <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
+          <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
             <Library className="w-7 h-7 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-slate-900 text-base leading-tight">ExamPrep Hub</p>
-            <p className="text-slate-500 text-sm leading-tight">FPSC &amp; HAT Study Hub · v{__APP_VERSION__}</p>
+            <p className="font-bold text-slate-900 text-base leading-tight">My Study</p>
+            <p className="text-slate-500 text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
@@ -232,7 +232,7 @@ export function SettingsScreen() {
 
       {/* Cloud backup (Supabase) */}
       {isProgressSyncConfigured() && (
-        <Card className="p-4 mb-4">
+        <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">
             <div>
               <p className="font-semibold text-slate-900 text-sm">Cloud backup</p>
@@ -329,7 +329,7 @@ export function SettingsScreen() {
       )}
 
       {/* Export progress */}
-      <Card className="p-4 mb-4">
+      <Card className="p-card-pad mb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
             <p className="font-semibold text-slate-900 text-sm">Export progress</p>
@@ -353,9 +353,9 @@ export function SettingsScreen() {
       </Card>
 
       {/* Check for content / app updates */}
-      <Card className="p-4 mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
+      <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm">
             <RefreshCw className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1 min-w-0">
@@ -363,8 +363,9 @@ export function SettingsScreen() {
             <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
               Check if a new version of the app is available. If an update was downloaded in the background, you will be asked to restart to apply it.
             </p>
-            <button
-              type="button"
+            <Button
+              variant="secondary"
+              size="sm"
               onClick={() => {
                 if (!navigator.onLine) {
                   setUpdateMsg('You are offline. Reconnect to the internet before checking for updates.');
@@ -373,11 +374,11 @@ export function SettingsScreen() {
                 setUpdateMsg('Update check requested. If an update is available, you will be prompted to restart.');
                 window.dispatchEvent(new Event('examprep:check-update'));
               }}
-              className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg border border-slate-200 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="mt-3 min-h-11"
             >
               <RefreshCw className="w-3.5 h-3.5" />
               Check for updates
-            </button>
+            </Button>
             {updateMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{updateMsg}</p>}
           </div>
         </div>
@@ -385,7 +386,7 @@ export function SettingsScreen() {
 
       {/* Install app — fallback for users who never saw the banner (audit I2) */}
       {showInstall && (
-        <Card className="p-4 mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
+        <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm">
               <Download className="w-5 h-5 text-white" />
@@ -397,14 +398,10 @@ export function SettingsScreen() {
                   <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
                     Install the app on your device for a home-screen icon and faster access. It works offline and your progress is saved on this device.
                   </p>
-                  <button
-                    type="button"
-                    onClick={handleInstall}
-                    className="mt-3 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
-                  >
+                  <Button size="sm" onClick={handleInstall} className="mt-3 min-h-11">
                     <Download className="w-3.5 h-3.5" />
                     Install
-                  </button>
+                  </Button>
                 </>
               ) : isIOS() ? (
                 <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
@@ -422,18 +419,15 @@ export function SettingsScreen() {
       )}
 
       {/* Per-subject data management — grouped by exam track */}
-      <Card className="p-4 mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
+      <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Database className="w-4 h-4 text-brand-500" />
             <h3 className="font-semibold text-slate-900">Subject Data</h3>
           </div>
-          <button
-            onClick={toggleAll}
-            className="text-sm font-medium text-sky-600 hover:text-sky-700 transition-colors"
-          >
+          <Button variant="ghost" size="sm" onClick={toggleAll} aria-pressed={allSelected}>
             {allSelected ? 'Clear all' : 'Select all'}
-          </button>
+          </Button>
         </div>
 
         {examTracks.map((track) => {
@@ -448,8 +442,10 @@ export function SettingsScreen() {
             <div key={track.id} className="mb-4 last:mb-0">
               {/* Track sub-header */}
               <button
+                type="button"
                 onClick={() => toggleTrack(track.id)}
-                className="w-full flex items-center justify-between mb-2 px-1 group"
+                aria-pressed={allTrackSelected}
+                className="w-full flex items-center justify-between mb-2 px-1 group rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
               >
                 <div className="flex items-center gap-2">
                   <span className={`w-6 h-6 rounded-md bg-gradient-to-br ${getTrackStyle(track.id).gradient} flex items-center justify-center shrink-0`}>
@@ -458,7 +454,7 @@ export function SettingsScreen() {
                   <span className="text-sm font-semibold text-slate-700">{trackMeta.title}</span>
                   <span className="text-slate-500 text-xs">({trackSubjects.length})</span>
                 </div>
-                <span className={`text-xs font-medium transition-colors ${allTrackSelected ? 'text-sky-600' : 'text-slate-500 group-hover:text-slate-600'}`}>
+                <span className={`text-xs font-medium transition-colors ${allTrackSelected ? 'text-brand-700' : 'text-slate-500 group-hover:text-slate-600'}`}>
                   {allTrackSelected ? 'Clear track' : 'Select track'}
                 </span>
               </button>
@@ -482,14 +478,16 @@ export function SettingsScreen() {
                   return (
                     <button
                       key={subject.id}
+                      type="button"
                       onClick={() => toggleSubject(subject.id as SubjectId)}
-                      className={`w-full grid grid-cols-[1fr_50px_50px_50px_24px] gap-2 items-center px-2 py-2 rounded-lg transition-colors text-left ${
-                        selected ? 'bg-sky-50 ring-1 ring-sky-200' : 'hover:bg-slate-50'
+                      aria-pressed={selected}
+                      className={`w-full grid grid-cols-[1fr_50px_50px_50px_24px] gap-2 items-center px-2 py-2 rounded-lg transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset ${
+                        selected ? 'bg-brand-50 ring-1 ring-brand-300' : 'hover:bg-slate-50'
                       }`}
                     >
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-7 h-7 rounded-md ${colors.bg} flex items-center justify-center shrink-0`}>
-                          {Icon && <Icon className="w-4 h-4 text-white" />}
+                        <span className={`w-7 h-7 rounded-md ${colors.tint} flex items-center justify-center shrink-0`}>
+                          {Icon && <Icon className={`w-4 h-4 ${colors.text}`} aria-hidden /> }
                         </span>
                         <span className="text-sm font-medium text-slate-800 truncate">{subject.title}</span>
                       </div>
@@ -508,7 +506,7 @@ export function SettingsScreen() {
                       </span>
                       <span className="flex items-center justify-center">
                         {selected
-                          ? <Check className="w-4 h-4 text-sky-600" />
+                          ? <Check className="w-4 h-4 text-brand-700" />
                           : <Minus className="w-4 h-4 text-slate-300" />}
                       </span>
                     </button>
@@ -562,7 +560,7 @@ export function SettingsScreen() {
       </Card>
 
       {/* Global totals */}
-      <Card className="p-4 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+      <Card className="p-card-pad animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
         <h3 className="font-semibold text-slate-900 mb-3">All Data</h3>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <MiniStat icon={<BookOpen className="w-4 h-4 text-brand-500" />} label="Studied" value={`${globalStudied}`} />

@@ -159,12 +159,12 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     case 'fpsc':
       return { title: 'FPSC Exam', subtitle: 'Federal Public Service Commission' };
     default:
-      return { title: 'Exam Prep' };
+      return { title: 'My Study' };
   }
 }
 
 function AppContent() {
-  const { route } = useRouter();
+  const { route, currentRoute } = useRouter();
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
   const { title, subtitle } = getHeaderTitle(route);
@@ -199,7 +199,7 @@ function AppContent() {
   useEffect(() => {
     const parts = [title];
     if (finalSubtitle) parts.push(finalSubtitle);
-    parts.push('ExamPrep Hub');
+    parts.push('My Study');
     document.title = parts.join(' · ');
   }, [title, finalSubtitle]);
 
@@ -239,7 +239,7 @@ function AppContent() {
     <div className="min-h-screen bg-[var(--surface-page)]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-btn focus:text-sm focus:font-medium"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-700 focus:text-white focus:rounded-btn focus:text-sm focus:font-medium"
       >
         Skip to content
       </a>
@@ -273,8 +273,9 @@ function AppContent() {
         )}
         {showHeader && (
           <Header
-            title={title}
-            subtitle={finalSubtitle}
+            context={finalSubtitle}
+            desktopVisible={route.screen !== 'home' || Boolean(finalSubtitle)}
+            showMobileMeta={Boolean(finalSubtitle) || (Array.isArray(currentRoute.breadcrumb) && currentRoute.breadcrumb.length > 1)}
           />
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>

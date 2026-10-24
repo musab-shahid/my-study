@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
-  Search, Clock, Settings as SettingsIcon, Trophy, Library,
+  Search, Clock, Settings as SettingsIcon, Trophy,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
-  Dumbbell, Layers,
+  Dumbbell, Layers, Library,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
 import { listTrackDefinitions, isTrackId } from '@/data/tracks';
-import { enrolledTrackIds, trackIcon, trackAccentClasses, allTrackIds } from '@/lib/track-chrome';
+import { enrolledTrackIds, trackIcon, allTrackIds } from '@/lib/track-chrome';
 import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
 import { useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
 import { useSubjectData } from '@/hooks/useSubjectData';
@@ -16,12 +16,12 @@ import { useData } from '@/hooks/useData';
 import { ToolsTray } from '@/components/layout/ToolsTray';
 import {
   getLandingScreenForTrack,
-  getTrackMeta,
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
 import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
+import { AppBrand } from '@/components/ui';
 
 const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
 
@@ -35,24 +35,12 @@ const stageIcons: Record<StageScreen, typeof BookCopy> = {
 };
 
 function trackNavStyles(trackId: ExamTrack) {
-  const a = trackAccentClasses(trackId);
-  const isIndigo = a.text.includes('indigo');
-  const isTeal = a.text.includes('teal');
-  const border = isIndigo
-    ? 'border-l-indigo-600'
-    : isTeal
-      ? 'border-l-teal-500'
-      : 'border-l-sky-500';
-  const bg = isIndigo
-    ? 'bg-indigo-600/10'
-    : isTeal
-      ? 'bg-teal-500/10'
-      : 'bg-sky-500/10';
+  const trackStyle = getTrackStyle(trackId);
   return {
-    activeBorder: border,
-    activeBg: bg,
-    iconColor: a.text,
-    stageActive: `${a.text} bg-slate-800`,
+    activeBorder: trackStyle.navBorder,
+    activeBg: trackStyle.navActiveBg,
+    iconColor: trackStyle.accent,
+    stageActive: `${trackStyle.accent} bg-slate-800`,
   };
 }
 
@@ -103,15 +91,7 @@ export function Sidebar() {
     <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-64 bg-slate-950 flex-col z-40 border-r border-slate-800/80">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-btn bg-brand-700 flex items-center justify-center shrink-0">
-            <Library className="w-5 h-5 text-white" aria-hidden />
-          </div>
-          <div className="min-w-0">
-            <h1 className="text-white font-bold text-lg leading-tight">ExamPrep Hub</h1>
-            <p className="text-slate-400 text-xs">FPSC & HAT Study Hub</p>
-          </div>
-        </div>
+        <AppBrand inverse />
       </div>
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         {/* Home */}
@@ -121,7 +101,7 @@ export function Sidebar() {
           aria-current={currentScreen === 'home' ? 'page' : undefined}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
-              ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/20'
+              ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/25'
               : 'text-slate-400 hover:text-white hover:bg-slate-800'
           }`}
         >
@@ -130,7 +110,7 @@ export function Sidebar() {
         </button>
         {/* My Tracks — enrolled only */}
         {enrolledIds.length > 0 && (
-          <p className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
             My Tracks
           </p>
         )}
@@ -167,7 +147,7 @@ export function Sidebar() {
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
                 <span className="flex-1 text-left">{track.title}</span>
                 {trackMembership.activeTrackId === trackId && (
-                  <span className="text-[10px] text-emerald-400 font-semibold">Active</span>
+                  <span className="text-label text-emerald-400 font-semibold">Active</span>
                 )}
               </button>
               {trackMembership.activeTrackId === trackId && (
@@ -241,7 +221,7 @@ export function Sidebar() {
 
         {/* Explore Tracks — not yet enrolled */}
         {exploreIds.length > 0 && (
-          <p className="px-4 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
             Explore · not started
           </p>
         )}
@@ -265,7 +245,7 @@ export function Sidebar() {
             >
               <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
               <span className="flex-1 text-left">{track.title}</span>
-              <span className={`text-[10px] ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
+              <span className={`text-label ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
             </button>
           );
         })}
@@ -370,12 +350,10 @@ export function MobileNav() {
   };
   const { trackMembership } = useData();
   const activeEnrolled = trackMembership.activeTrackId;
-  const activeTrackAccent =
-    activeEnrolled && isTrackId(activeEnrolled) ? getTrackMeta(activeEnrolled).accent : 'sky';
   const activeIndicatorColor =
-    activeTrackAccent === 'indigo' ? 'bg-indigo-600' :
-    activeTrackAccent === 'teal' ? 'bg-teal-500' :
-    'bg-sky-500';
+    activeEnrolled && isTrackId(activeEnrolled)
+      ? getTrackStyle(activeEnrolled).navIndicator
+      : 'bg-brand-400';
   const tracksClick = () => {
     if (activeEnrolled && isTrackId(activeEnrolled)) {
       navigate({ ...openTrackOptions(activeEnrolled) });
@@ -431,7 +409,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-                  active ? activeColor : 'text-slate-400 hover:text-slate-300'
+                  active ? activeColor : 'text-slate-500 hover:text-slate-300'
                 }`}
               >
                 {active && (
@@ -443,7 +421,7 @@ export function MobileNav() {
                   />
                 )}
                 <Icon className="w-5 h-5" strokeWidth={active ? 2.25 : 2} />
-                <span className="text-[11px] font-medium leading-tight">{item.label}</span>
+                <span className="text-caption font-medium leading-tight">{item.label}</span>
               </button>
             );
           })}
@@ -464,12 +442,12 @@ export function MobileNav() {
             <span className="relative">
               <MoreHorizontal className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} />
               {reviewDue > 0 && (
-                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-500 text-white text-[9px] font-bold leading-4 text-center">
+                <span className="absolute -top-1.5 -right-2 min-w-5 h-5 px-1 rounded-full bg-warning-700 text-white text-caption font-bold leading-5 text-center">
                   {reviewDue > 9 ? '9+' : reviewDue}
                 </span>
               )}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-medium leading-tight">More</span>
+            <span className="text-caption font-medium leading-tight">More</span>
           </button>
         </div>
       </nav>

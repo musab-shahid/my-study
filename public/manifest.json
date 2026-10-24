@@ -1,11 +1,11 @@
 {
-  "name": "ExamPrep Hub — FPSC & HAT Study",
-  "short_name": "ExamPrep",
-  "description": "Comprehensive exam preparation for FPSC and competitive exams: Mathematics, Physics, Earth Science, Meteorology, Environmental Studies, Research & Analysis, and English.",
+  "name": "My Study — Learning and assessment",
+  "short_name": "My Study",
+  "description": "My Study helps learners study, practice, revise, and assess their progress across focused learning tracks.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#0284c7",
-  "theme_color": "#0284c7",
+  "background_color": "#f4f6f8",
+  "theme_color": "#0369a1",
   "orientation": "portrait-primary",
   "categories": ["education", "productivity"],
   "icons": [
