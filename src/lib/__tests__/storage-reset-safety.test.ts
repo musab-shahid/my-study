@@ -69,6 +69,32 @@ describe('storage reset safety', () => {
     );
   });
 
+  it('restores a pre-restore snapshot if the primary key is missing', () => {
+    const storage = installLocalStorage();
+    const validSnapshot = JSON.stringify(loadData());
+    const recoveryKey = `${STORAGE_KEYS.appData}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
+    storage.setItem(recoveryKey, validSnapshot);
+
+    const loaded = loadData();
+
+    assert.deepEqual(loaded, JSON.parse(validSnapshot));
+    assert.ok(storage.getItem(STORAGE_KEYS.appData));
+    assert.equal(storage.getItem(recoveryKey), null);
+  });
+
+  it('does not undo an intentional reset by restoring the ordinary backup when primary is absent', () => {
+    const storage = installLocalStorage();
+    const validSnapshot = JSON.stringify(loadData());
+    storage.setItem(BACKUP_KEY, validSnapshot);
+
+    const loaded = loadData();
+
+    assert.deepEqual(loaded, JSON.parse(validSnapshot));
+    // No primary and no cloud-recovery key: ordinary reset semantics remain intact.
+    assert.equal(storage.getItem(STORAGE_KEYS.appData), null);
+    assert.equal(storage.getItem(BACKUP_KEY), validSnapshot);
+  });
+
   it('uses the pre-restore recovery snapshot if primary data is corrupt', () => {
     const storage = installLocalStorage();
     const validSnapshot = JSON.stringify(loadData());
