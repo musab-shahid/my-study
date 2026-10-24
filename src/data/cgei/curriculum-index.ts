@@ -1849,8 +1849,8 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Earth Observation & Remote Sensing"
   }
 ] as const;
-export const cgeiIndexUnitById: ReadonlyMap<string, CgeiIndexUnit> = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit]));
-export const cgeiIndexLessonById: ReadonlyMap<string, CgeiIndexLesson> = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson]));
+export const cgeiIndexUnitById: ReadonlyMap<string, CgeiIndexUnit> = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
+export const cgeiIndexLessonById: ReadonlyMap<string, CgeiIndexLesson> = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));
 export function cgeiLessonIdsForSubjects(subjectIds: ReadonlySet<string>): ReadonlySet<string> {
   return new Set(cgeiIndexLessons.filter((lesson) => subjectIds.has(lesson.subjectId)).map((lesson) => lesson.id));
 }
