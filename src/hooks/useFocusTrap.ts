@@ -29,7 +29,9 @@ export function useFocusTrap(
   const { initialFocusRef, onEscape } = options ?? {};
   // Keep the latest callback without restarting the trap when callers render inline handlers.
   const onEscapeRef = useRef(onEscape);
-  onEscapeRef.current = onEscape;
+  useEffect(() => {
+    onEscapeRef.current = onEscape;
+  }, [onEscape]);
 
   useEffect(() => {
     if (!open) return;
