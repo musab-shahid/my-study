@@ -3092,7 +3092,28 @@ const lessons136: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136];
+
+const outcomes133: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-133-portfolio', statement: 'Assemble a portfolio package with problem–method–evidence–limitation narrative, data inventory and offline reproduction steps.', action: 'assemble', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-133-story', statement: 'Select only metrics that answer the project question and separate synthetic, teaching-extract and genuine-remote evidence.', action: 'select', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons133: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-3-1', kind: 'lesson', title: 'Portfolio engineering for the heat-screening capstone', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes133[0], outcomes133[1]],
+    content: [
+      { id: 'cgei-cap-133-1-1', kind: 'prose', title: 'Portfolio structure', body: 'A credible portfolio package includes a clear research question, study-area label, data inventory (source, version, coverage, units, licence, retrieval date), method summary, selected results, limitations, reproduction steps and licence note. Separate public code from large or restricted data. For collaborative work, state individual contributions explicitly.' },
+      { id: 'cgei-cap-133-1-2', kind: 'prose', title: 'Evidence paths must not be collapsed', body: 'Path A (synthetic ranks), Path B (MOD11A2-schema teaching extract) and Path C (miniature scale/fill logic) answer different claims. Labelling a teaching extract as a genuine Multan granule is a portfolio failure. Genuine remote claims require granule ID and checksum evidence.' },
+      { id: 'cgei-cap-133-1-3', kind: 'prose', title: 'Technical storytelling', body: 'Use problem–method–evidence–limitation form. Show only metrics that answer the question. Report errors, sensitivity (e.g. weight changes) and negative results—not only best-case maps. A short non-specialist summary should still carry the main limitations.' },
+      { id: 'cgei-cap-133-1-lab', kind: 'worked-example', title: 'Portfolio evidence card', body: 'Fixture unit_13_portfolio_check.py validates labs/portfolio/capstone_portfolio_evidence.json: required fields, inventory labels (synthetic/teaching_extract/genuine_remote), Paths A–C links, non-claims set, and blocks genuine-granule claims without checksum.' },
+      { id: 'cgei-cap-133-1-4', kind: 'checklist', title: 'Distribution hygiene', items: ['README with reproduction steps', 'requirements/environment note', 'data dictionary or inventory', 'figures with product/date labels', 'licence and citations', 'no secrets or signed URLs'] },
+    ],
+    activityIds: ['cgei-cap-a-133-portfolio'], assessmentIds: ['cgei-cap-assess-133-portfolio'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136, ...lessons133];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -3303,11 +3324,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners integrating CGEI methods into one defensible project.',
       purpose: 'Demonstrate end-to-end research and decision-support workflow with tests, provenance and explicit non-claims.',
-      overview: 'Core Units 13.1, 13.2 and 13.6. Portfolio/career Units 13.3–13.5 and 13.7 deferred. Synthetic heat screening only. Draft.',
+      overview: 'Core Units 13.1–13.3 and 13.6. Units 13.4–13.5 and 13.7 deferred. Synthetic + offline public-data pathways. Draft.',
       prerequisites: ['Subjects 5–12 draft Core paths as applicable'],
-      outcomes: [...outcomes131, ...outcomes132, ...outcomes136],
+      outcomes: [...outcomes131, ...outcomes132, ...outcomes133, ...outcomes136],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-cap-unit-13-1', 'cgei-cap-unit-13-2', 'cgei-cap-unit-13-6'],
+      unitIds: ['cgei-cap-unit-13-1', 'cgei-cap-unit-13-2', 'cgei-cap-unit-13-3', 'cgei-cap-unit-13-6'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
@@ -3905,6 +3926,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Core vertical slice; not empirical Multan validation.'],
     },
     {
+      id: 'cgei-cap-unit-13-3', code: '13.3', title: 'Portfolio engineering and project presentation', order: 1303, kind: 'unit', readiness: 'draft',
+      summary: 'Package the heat-screening capstone as a reproducible portfolio with inventory, narrative, non-claims and offline reproduction.',
+      estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes133,
+      lessonIds: lessons133.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-133-portfolio'],
+      assessmentIds: ['cgei-cap-assess-133-portfolio'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.3 — Portfolio engineering and project presentation (Core)',
+      notes: ['Core; example card uses Paths A–C; no genuine Multan granule claimed.'],
+    },
+
+    {
       id: 'cgei-cap-unit-13-6', code: '13.6', title: 'Project assessment and revision', order: 1306, kind: 'unit', readiness: 'draft',
       summary: 'Prioritise revisions from validation and review; re-run cleanly; log decisions.',
       estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes136,
@@ -4157,6 +4190,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cap-q-132-002', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'Weight sensitivity in the H/E/V index is important because:', options: ['Weights never matter', 'Value judgements can change priority rankings', 'It replaces baselines', 'It proves causation'], correctAnswer: 1, explanation: 'Ranks can change with weights.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-cap-q-132-003', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'A capstone decision card should require human review because:', options: ['Software tests already prove policy impact', 'Screening outputs need contextual judgement before action', 'Review is optional for synthetic data only', 'Provenance replaces review'], correctAnswer: 1, explanation: 'Human review is part of responsible delivery.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cap-q-132-004', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'MODIS LST_Day in the public-data pathway should be interpreted as:', options: ['Identical to 2 m air temperature', 'Land-surface temperature (not air temperature), with documented composite and resolution limits', 'A calibrated mortality risk', 'Proof of causal urban design effects'], correctAnswer: 1, explanation: 'LST is surface temperature; air temperature and health risk require additional evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-133-001', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'A portfolio data inventory should:', options: ['Omit licences to save space', 'Label each source as synthetic, teaching extract, or genuine remote with coverage and role', 'Treat all CSV files as satellite truth', 'Hide limitations'], correctAnswer: 1, explanation: 'Inventory must distinguish evidence types and document role/coverage.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-133-002', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'Collapsing Path A synthetic ranks and a MODIS teaching extract into one “Multan validated result” is:', options: ['Best practice', 'A serious evidence-integrity failure', 'Required for CI', 'Equivalent to a DOI'], correctAnswer: 1, explanation: 'Distinct paths answer distinct claims and must not be merged.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-133-003', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'Claiming a genuine Multan granule was processed requires at minimum:', options: ['A colourful map only', 'Granule identification evidence such as checksum (and related metadata) plus honest QA labelling', 'Only a higher lesson count', 'Deleting limitations'], correctAnswer: 1, explanation: 'Genuine-remote claims need verifiable file evidence.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
     { id: 'cgei-cap-q-136-001', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'After fixing validation failures, best practice is to:', options: ['Skip re-running tests', 'Re-run from a clean environment and record what changed', 'Delete the risk log', 'Remove limitations from the report'], correctAnswer: 1, explanation: 'Clean re-run and decision logging close the loop.', difficulty: 'easy', cognitiveLevel: 'apply' },
 
@@ -4942,6 +4979,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-cap-a-133-portfolio', kind: 'coding-lab', title: 'Portfolio evidence card lab', instructions: 'Run unit_13_portfolio_check.py. Adapt labs/portfolio/capstone_portfolio_evidence.json narrative fields without collapsing Paths A–C or claiming a genuine Multan granule without checksum.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'] },
     { id: 'cgei-cap-a-131-scope', kind: 'guided-practice', title: 'Capstone scope card', instructions: 'Write question, estimand, intended use, exclusions, MVP and one feasibility risk for a heat-screening project.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'] },
     { id: 'cgei-cap-a-132-workflow', kind: 'coding-lab', title: 'Capstone pipeline lab', instructions: 'Run unit_13_capstone_heat_risk_check.py. Report baseline means, rank change under heat-heavy weights, and decision-card non-claims.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'] },
     { id: 'cgei-cap-a-136-revise', kind: 'guided-practice', title: 'Revision list', instructions: 'From a failed validation message, write a prioritised revision list and clean-rerun steps.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-cap-o-136-revise'] },
@@ -5227,6 +5265,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-cap-assess-133-portfolio', kind: 'formative', title: 'Portfolio engineering', purpose: 'Assess portfolio structure and evidence discipline.', objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'], questionIds: ['cgei-cap-q-133-001', 'cgei-cap-q-133-002', 'cgei-cap-q-133-003'], required: true },
     { id: 'cgei-cap-assess-131-scope', kind: 'formative', title: 'Scoping', purpose: 'Assess project scoping discipline.', objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'], questionIds: ['cgei-cap-q-131-001', 'cgei-cap-q-131-002'], required: true },
     { id: 'cgei-cap-assess-132-workflow', kind: 'formative', title: 'Integrated workflow', purpose: 'Assess workflow and limitation literacy.', objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'], questionIds: ['cgei-cap-q-132-001', 'cgei-cap-q-132-002', 'cgei-cap-q-132-003', 'cgei-cap-q-132-004'], required: true },
     { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001'], required: true },

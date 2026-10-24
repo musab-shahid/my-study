@@ -154,3 +154,6 @@ Offline public-data pathway: MOD11A2 manifest validation, teaching extract QA, L
 
 ## unit_13_modis_local_process_check.py
 MOD11A2 scale 0.02 / fill 0 / K→C on miniature JSON fixture. Not a real HDF.
+
+## unit_13_portfolio_check.py
+Portfolio evidence-card required fields, inventory labels, Paths A–C links, non-claims, genuine-granule checksum rule.

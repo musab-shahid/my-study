@@ -18,3 +18,7 @@ Added offline MOD11A2-documented pathway (`unit_13_public_data_pathway_check.py`
 ## V3 real-granule path
 
 Miniature scale/fill processor + learner acquisition lab. **No** genuine HDF processed in CI.
+
+## Unit 13.3 Portfolio engineering
+
+Draft Core lesson + evidence card template + `unit_13_portfolio_check.py`. Paths A–C remain distinct. Units 13.4–13.5, 13.7 still deferred.
