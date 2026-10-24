@@ -41,6 +41,12 @@ updates:
       - dependency-name: "react-dom"
         update-types:
           - "version-update:semver-major"
+      - dependency-name: "@types/react"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@types/react-dom"
+        update-types:
+          - "version-update:semver-major"
       # Lucide 1.x is a breaking major from the current 0.x icon API; defer it
       # until an explicit icon-package compatibility pass.
       - dependency-name: "lucide-react"
