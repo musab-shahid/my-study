@@ -106,3 +106,8 @@ Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic f
 | 5 | G-MULTAN-REAL — genuine heat-product validation | `docs/cgei/PROGRAMME_BASELINE_AND_BACKLOG.md`; `content-drafts/capstones/multan-uhi/RESEARCH_DESIGN.md` | Synthetic SUHII and miniature MODIS fixtures are not evidence about Multan or a calibrated health-risk product. | Record genuine product identifiers, acquisition/provenance, QA and scale handling, study-area masks, coverage, uncertainty/sensitivity, and independent validation before any empirical claim. | External-data blocker; no real Multan Landsat/MODIS result claimed. |
 
 **Scope correction:** Subject 2 Units 2.3 and 2.7 are Support in `docs/cgei/subject-2-core-completion-audit.md`; their absence from the Core registry is a deferred scope choice, not a high-priority missing-Core defect. Subject 2 Core is itself still draft / mapped-partial.
+
+
+## Gate C.7 — implementation delta
+
+A self-contained Unit 3.3 zonal-statistics practical and deterministic arithmetic fixture were added at the live PR branch head. The CI workflow now invokes the fixture; its execution status must be checked against the resulting commit, not inferred from workflow configuration. The lesson specifies a synthetic raster, pixel-centre rule, NoData exclusion, valid-cell coverage, expected means and rubric. This improves practice evidence but does not close the unit: the canonical app linkage, real QGIS/GDAL execution, production geometry behavior and real-data validation remain incomplete.
