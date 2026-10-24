@@ -54,8 +54,7 @@ function navigationRequest(path = '/study'): RequestLike {
 describe('service worker navigation caching', () => {
   it('does not cache an HTTP error response over a known-good navigation document', async () => {
     const request = navigationRequest();
-    const cached = { ok: true, clone: () => cachedResponse };
-    const cachedResponse: ResponseLike = cached;
+    const cachedResponse: ResponseLike = { ok: true, clone: () => cachedResponse };
     const { fetchHandler, writes, initialCache } = loadServiceWorker(
       async () => ({ ok: false, clone: () => { throw new Error('error responses must not be cloned'); } }),
       new Map([[request.url, cachedResponse]]),
