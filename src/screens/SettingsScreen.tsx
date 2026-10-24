@@ -292,6 +292,8 @@ export function SettingsScreen() {
                       ? 'Uploaded to cloud.'
                       : r.error === 'auth-required'
                         ? 'Sign in required before cloud backup.'
+                        : r.error === 'device-id-unavailable'
+                        ? 'This browser cannot create a stable device ID, so cloud backup is unavailable. Your local data remains on this device.'
                         : `Upload failed: ${r.error}`,
                   );
                   setSyncBusy(false);
@@ -327,7 +329,9 @@ export function SettingsScreen() {
                             ? 'Sign in required before cloud restore.'
                             : r.error === 'invalid-cloud-data'
                               ? 'Cloud backup is invalid or incompatible. Local data was not changed.'
-                              : `Download failed: ${r.error ?? 'unknown'}`,
+                              : r.error === 'device-id-unavailable'
+                                ? 'This browser cannot create a stable device ID, so cloud restore is unavailable. Local data was not changed.'
+                                : `Download failed: ${r.error ?? 'unknown'}`,
                         );
                         setSyncBusy(false);
                         setConfirmCloudRestore(false);
@@ -357,7 +361,7 @@ export function SettingsScreen() {
                 </div>
               </div>
             )}
-            {syncMsg && <p className="text-xs text-slate-600">{syncMsg}</p>}
+            {syncMsg && <p className="text-xs text-slate-600" role="status" aria-live="polite" aria-atomic="true">{syncMsg}</p>}
           </div>
         </Card>
       )}
