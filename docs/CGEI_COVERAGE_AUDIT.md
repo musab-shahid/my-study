@@ -1,5 +1,8 @@
 # CGEI Curriculum Coverage Audit
 
+> **Historical snapshot — not current main-branch status.** This audit was written against `feat/cgei-full-curriculum-skeleton` (PR #3, not merged) and predates the canonical Subject 5 curriculum. Do not reuse its counts as current coverage. For the current 14-domain inventory, run `npm run audit:cgei`; for the broader findings and priorities, see [Overall repository audit](OVERALL_AUDIT_2026-10-24.md).
+
+
 **Audit date:** 21 October 2026  
 **Repository:** `musab-shahid/my-study`  
 **Audited ref:** `feat/cgei-full-curriculum-skeleton` (PR #3; not merged)  
