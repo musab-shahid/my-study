@@ -112,3 +112,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Contrast tests compute WCAG contrast ratios from the actual CSS RGB tokens. They cover primary/muted text on page, raised, and muted surfaces; semantic foregrounds on tinted surfaces; white text on approved action fills; and the canonical focus ring on every shared surface.
 - The muted text token is deliberately darker than Slate 500 so small labels have enough contrast. Do not lighten it without updating the measured acceptance tests.
 - Exceptions must be narrow and documented in the shared UI or identity registry, not added screen by screen.
+
+
+## Visual regression review
+
+- CI captures full-page PNG references for the routable screens at 390px and 1280px and uploads them with each E2E run.
+- The capture test also checks that each route has exactly one main-content H1 and no document-level horizontal overflow at either viewport.
+- These captures are review artifacts, not yet pixel-diff golden baselines. Golden snapshots must be created only from an explicitly reviewed reference set; never auto-update them as part of an ordinary CI run.
+- The active quiz is not a shareable URL state by design, so it requires a separate seeded interaction flow before it can be added as a stable visual baseline.
