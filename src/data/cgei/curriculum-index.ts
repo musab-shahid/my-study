@@ -1050,8 +1050,8 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   {
     "id": "cgei-ds-lesson-5-4-distributions",
     "title": "Probability models and environmental distributions",
-    "unitId": "",
-    "unitTitle": "",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
     "subjectId": "cgei-data-science",
     "subjectTitle": "Scientific Computing & Data Science"
   },
