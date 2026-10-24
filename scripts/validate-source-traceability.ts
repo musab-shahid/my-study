@@ -157,7 +157,7 @@ const expectedSubtopicPaths = (topics: Array<[string, number]>): string[] =>
 audit('docs/cgei/subject-5-unit-5.1-subtopic-traceability.csv', 'Subject 5.1', expectedSubtopicPaths([
   ['5.1.1', 3], ['5.1.2', 3], ['5.1.3', 3], ['5.1.4', 3],
 ]));
-audit('docs/cgei/subject-5-unit-5.6-subtopic-traceability.csv', 'Subject 5.6', expectedSubtopicPaths([
+audit('docs/cgei/subject-5-unit-5-6-subtopic-traceability.csv', 'Subject 5.6', expectedSubtopicPaths([
   ['5.6.1', 4], ['5.6.2', 3], ['5.6.3', 4], ['5.6.4', 5],
 ]));
 audit('docs/cgei/subject-5-unit-5.7-subtopic-traceability.csv', 'Subject 5.7', expectedSubtopicPaths([
@@ -172,7 +172,7 @@ audit('docs/cgei/subject-5-unit-5.9-subtopic-traceability.csv', 'Subject 5.9', e
 audit('docs/cgei/subject-5-unit-5.10-subtopic-traceability.csv', 'Subject 5.10', expectedSubtopicPaths([
   ['5.10.1', 3], ['5.10.2', 3], ['5.10.3', 3],
 ]));
-audit('docs/cgei/subject-5-unit-5.11-subtopic-traceability.csv', 'Subject 5.11', expectedSubtopicPaths([
+audit('docs/cgei/subject-5-unit-5-11-subtopic-traceability.csv', 'Subject 5.11', expectedSubtopicPaths([
   ['5.11.1', 4], ['5.11.2', 3], ['5.11.3', 4], ['5.11.4', 4], ['5.11.5', 3], ['5.11.6', 6],
 ]));
 audit('docs/cgei/subject-5-unit-5.12-subtopic-traceability.csv', 'Subject 5.12', expectedSubtopicPaths([
