@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { mkdirSync } from 'node:fs';
+import { dirname } from 'node:path';
 
 const routes = [
   { name: 'home', path: '/' },
@@ -26,8 +28,10 @@ test('capture design-system reference screenshots at mobile and desktop widths',
       await page.goto(route.path);
       await expect(page.locator('#root').locator(':scope > *').first()).toBeVisible({ timeout: 20_000 });
       const filename = viewport.width + '-' + route.name + '.png';
+      const outputPath = testInfo.outputPath(filename);
+      mkdirSync(dirname(outputPath), { recursive: true });
       await page.screenshot({
-        path: testInfo.outputPath(filename),
+        path: outputPath,
         fullPage: true,
         animations: 'disabled',
       });
