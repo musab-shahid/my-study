@@ -135,3 +135,9 @@ Units 3.5–3.6 instructional deepening (COG, classification, map types). No new
 ## C.12
 
 Core Unit 3.9 implemented (draft). Subject 3 Core registry: 3.1–3.3, 3.5–3.6, 3.9 present; Support 3.4 registered earlier; 3.7–3.8/3.10 Support absent.
+
+
+
+## C.13
+
+Referential integrity: defined 16 missing activities and 16 assessments for S3/S4 lessons. Integrity fixture added.
