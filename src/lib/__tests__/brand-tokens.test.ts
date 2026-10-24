@@ -26,11 +26,14 @@ function contrastAgainstWhite([r, g, b]: [number, number, number]): number {
 describe('shared brand tokens', () => {
   it('routes Tailwind semantic palettes through RGB CSS variables with opacity support', () => {
     for (const family of ['brand', 'success', 'warning', 'danger']) {
-      assert.match(tailwind, new RegExp(`${family}: \\\\{[\\s\\S]*?rgb\\\\(var\\\\(--color-${family}-\\\\d+\\\\) / <alpha-value>\\\\)`));
+      assert.ok(tailwind.includes(`${family}: {`), `missing Tailwind palette ${family}`);
+      assert.match(
+        tailwind,
+        new RegExp(`\\\\d+:\\\\s*'rgb\\\\(var\\\\(--color-${family}-\\\\d+\\\\) / <alpha-value>\\\\)'`),
+      );
     }
     assert.match(css, /--focus-ring:\\s*rgb\\(var\\(--color-brand-600\\)\\)/);
   });
-
   it('keeps selected white-text action colors at WCAG AA contrast', () => {
     const actionColors = [
       ['brand', 700],
