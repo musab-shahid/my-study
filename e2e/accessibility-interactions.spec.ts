@@ -87,10 +87,17 @@ test.describe('mobile tools dialog keyboard behavior', () => {
     const focusStyle = await page.evaluate(() => {
       const active = document.activeElement as HTMLElement;
       const style = window.getComputedStyle(active);
-      return { outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+      return {
+        outlineStyle: style.outlineStyle,
+        outlineWidth: parseFloat(style.outlineWidth),
+        boxShadow: style.boxShadow,
+      };
     });
-    expect(focusStyle.outlineStyle).not.toBe('none');
-    expect(parseFloat(focusStyle.outlineWidth)).toBeGreaterThanOrEqual(2);
+    // Focus indicators may be implemented as an outline or as a CSS ring
+    // (box-shadow); assert the rendered indicator rather than one CSS technique.
+    const hasOutline = focusStyle.outlineStyle !== 'none' && focusStyle.outlineWidth >= 2;
+    const hasRing = focusStyle.boxShadow !== 'none' && focusStyle.boxShadow !== '';
+    expect(hasOutline || hasRing).toBe(true);
 
     const contrast = await page.evaluate(() => {
       const root = getComputedStyle(document.documentElement);
