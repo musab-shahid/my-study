@@ -171,3 +171,8 @@ Support Unit 2.3 atmosphere registered (draft).
 
 Prerequisite effectiveness: Unit 2.3 linked into Unit 4.5 SUHI vs humid-heat interpretation.
 
+
+## C.20
+
+Core Unit 8.7 first-paper research practice registered (draft).
+

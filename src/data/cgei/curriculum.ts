@@ -3130,6 +3130,44 @@ const lessons86: CurriculumLesson[] = [
   },
 ];
 
+const outcomes87: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-87-contrib', statement: 'State a single primary contribution (methods sensitivity, validation, or new regional evidence) and position it against close prior work.', action: 'state and position', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-87-evidence', statement: 'List evidence required before submission: independent validation, sensitivity, uncertainty/coverage, and reproducible repository statements.', action: 'list and justify', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-87-ms', statement: 'Outline a manuscript structure and figure/table set that match the claimed contribution without overclaiming.', action: 'outline', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons87: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-7-1', kind: 'lesson', title: 'One contribution, clear questions', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[0]],
+    content: [
+      { id: 'cgei-rp-87-1-1', kind: 'prose', title: 'Pick one primary contribution', body: 'A first paper from a final-year project usually cannot claim methods innovation, independent validation, and new regional evidence with equal strength. Choose one primary contribution—methods sensitivity, validation design, or regional evidence (e.g. Multan-scale SUHI with honest limits)—and treat the others as supporting or deferred. State research questions whose answers could change your conclusions.' },
+      { id: 'cgei-rp-87-1-2', kind: 'prose', title: 'Position against close prior work', body: 'Survey 10–15 close studies (South Asian UHI, Landsat LST, LCZ-based urban climate). Name what they already established and the specific gap your contribution addresses. Fixture unit_8_7_paper_readiness_check.py rejects a contribution statement that claims all three pillars as primary.' },
+      { id: 'cgei-rp-87-1-3', kind: 'callout', title: 'Overclaim risk', tone: 'warning', items: ['Regional case study ≠ general physical law', 'Synthetic fixtures ≠ field validation', 'Sensitivity analysis ≠ causal identification'] },
+    ],
+    activityIds: ['cgei-rp-a-87-contrib'], assessmentIds: ['cgei-rp-assess-87-contrib'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-7-2', kind: 'lesson', title: 'Evidence before submission', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[1]],
+    content: [
+      { id: 'cgei-rp-87-2-1', kind: 'checklist', title: 'Pre-submission evidence', items: ['Independent temperature or alternative LST product comparison where feasible', 'Sensitivity: composites, seasons, rural references, scale', 'Uncertainty or valid-observation coverage maps', 'Repository with DOI (or clear path) plus data- and code-availability statements'] },
+      { id: 'cgei-rp-87-2-2', kind: 'prose', title: 'Honesty when evidence is incomplete', body: 'If independent validation data are unavailable, say so and narrow claims. Do not substitute a synthetic teaching fixture for external validation language in a manuscript.' },
+    ],
+    activityIds: ['cgei-rp-a-87-evidence'], assessmentIds: ['cgei-rp-assess-87-evidence'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-7-3', kind: 'lesson', title: 'Manuscript, figures, venue, and review', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[2]],
+    content: [
+      { id: 'cgei-rp-87-3-1', kind: 'prose', title: 'Structure and figures', body: 'Standard structure: abstract; introduction with gap; study area; data; methods; results; discussion with limitations; conclusion. Figure set should include study area, workflow, LST (or target) maps with valid-observation masks, driver relationships if claimed, sensitivity, and validation panels. Tables: data inventory, comparisons, sensitivity results.' },
+      { id: 'cgei-rp-87-3-2', kind: 'prose', title: 'Venue and process', body: 'Shortlist venues by scope, rigour, and fees; check national recognition rules where relevant. Preprint policy, cover letter, ethics/data statements, and point-by-point review responses are part of professional practice—not afterthoughts.' },
+    ],
+    activityIds: ['cgei-rp-a-87-ms'], assessmentIds: ['cgei-rp-assess-87-ms'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 const outcomes91: CurriculumOutcome[] = [
   { id: 'cgei-dspt-o-91-audience', statement: 'Match product message, figure and language to audience and the decision the product must support.', action: 'match', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
@@ -3600,7 +3638,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
       outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
@@ -4190,6 +4228,20 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
       sourceDocument: 'Master Study TOC Subject 8 Unit 8.6 — Scientific reporting (Core)',
       notes: ['Units 8.7–8.9 (paper, portfolio, proposals) deferred.'],
     },
+
+    {
+      id: 'cgei-rp-unit-8-7', subjectId: 'cgei-research', code: '8.7', title: 'Turning the FYP into a first paper', order: 807, kind: 'unit', readiness: 'draft',
+      summary: 'Frame one contribution, assemble pre-submission evidence, and structure a manuscript and submission process without overclaiming.',
+      estimatedHours: 6, prerequisites: ['Unit 8.1', 'Unit 8.6'], outcomes: outcomes87,
+      lessonIds: lessons87.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-87-contrib', 'cgei-rp-a-87-evidence', 'cgei-rp-a-87-ms'],
+      assessmentIds: ['cgei-rp-assess-87-contrib', 'cgei-rp-assess-87-evidence', 'cgei-rp-assess-87-ms'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.7',
+      notes: ['Core Unit 8.7. Draft research-practice unit; no actual journal submission in CI.'],
+    },
+
     {
       id: 'cgei-dspt-unit-9-1', code: '9.1', title: 'Communicating for decisions', order: 901, kind: 'unit', readiness: 'draft',
       summary: 'Match messages to audiences; encode uncertainty; require definition, time, resolution, source, version and confidence on products.',
@@ -5583,6 +5635,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-geo-a-32-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-projection'], resourceIds: ['cgei-geo-r-epsg'] },
 
     { id: 'cgei-cl-a-23-moisture', kind: 'coding-lab', title: 'Clausius–Clapeyron ratio', instructions: 'Run unit_2_3_atmosphere_check.py. Record e_sat at 300 K and 301 K and the fractional increase. Explain why ~7%/K matters for humid heat and short-duration rainfall potential, and one reason local rainfall need not scale the same way.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-23-moisture'] },
+
+    { id: 'cgei-rp-a-87-contrib', kind: 'critique', title: 'Single-contribution statement', instructions: 'Write a ≤120-word contribution statement naming exactly one primary pillar (methods sensitivity OR validation OR regional evidence). List three close prior study themes. Run unit_8_7_paper_readiness_check.py to check the structured JSON form of your statement.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-87-contrib'] },
+    { id: 'cgei-rp-a-87-evidence', kind: 'critique', title: 'Pre-submission evidence gap list', instructions: 'For your contribution, mark each of: independent validation, sensitivity, coverage/uncertainty, repo+availability statements as present, partial, or absent. State one claim you must narrow if validation is absent.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-evidence'] },
+    { id: 'cgei-rp-a-87-ms', kind: 'critique', title: 'Figure and venue shortlist', instructions: 'List six figure panels required for your contribution and two candidate venues with one-sentence scope fit. Note preprint policy as known or unknown.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-ms'] },
+
     { id: 'cgei-rs-a-45-humid', kind: 'coding-lab', title: 'SUHII vs wet-bulb interpretation', instructions: 'Run unit_4_5_humid_heat_bridge_check.py. Record SUHII and the two Tw contrasts. Write three sentences: (1) what SUHII measures; (2) why Tw needs humidity; (3) when using only LST would mis-rank humid-heat risk.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-45-define'] },
 
     { id: 'cgei-cl-a-23-pbl', kind: 'critique', title: 'Urban night cooling factors', instructions: 'List geometry, heat storage, and stability as factors that can keep urban nights warmer. State why LST-based SUHI is not air-temperature UHI.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-23-pbl'] },
@@ -5901,6 +5958,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-geo-assess-32-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-32-projection'], questionIds: ['cgei-geo-q-32-003'], required: true },
 
     { id: 'cgei-cl-assess-23-moisture', kind: 'formative', title: 'Moist thermodynamics', purpose: 'Assess humidity and CC scaling literacy.', objectiveIds: ['cgei-cl-o-23-moisture'], questionIds: ['cgei-cl-q-23-cc', 'cgei-cl-q-23-tw'], required: true },
+
+    { id: 'cgei-rp-assess-87-contrib', kind: 'formative', title: 'Contribution framing', purpose: 'Assess single-contribution discipline.', objectiveIds: ['cgei-rp-o-87-contrib'], questionIds: ['cgei-rp-q-87-one'], required: true },
+    { id: 'cgei-rp-assess-87-evidence', kind: 'formative', title: 'Evidence readiness', purpose: 'Assess pre-submission evidence literacy.', objectiveIds: ['cgei-rp-o-87-evidence'], questionIds: ['cgei-rp-q-87-val'], required: true },
+    { id: 'cgei-rp-assess-87-ms', kind: 'formative', title: 'Manuscript process', purpose: 'Assess structure and venue awareness.', objectiveIds: ['cgei-rp-o-87-ms'], questionIds: ['cgei-rp-q-87-fig'], required: true },
+
     { id: 'cgei-rs-assess-45-humid', kind: 'formative', title: 'SUHI vs humid heat', purpose: 'Assess prerequisite use of Unit 2.3 humidity concepts in SUHI interpretation.', objectiveIds: ['cgei-rs-o-45-define'], questionIds: ['cgei-rs-q-45-humid'], required: true },
 
     { id: 'cgei-cl-assess-23-pbl', kind: 'formative', title: 'Boundary layer and urban night', purpose: 'Assess PBL and urban energy concepts.', objectiveIds: ['cgei-cl-o-23-pbl'], questionIds: ['cgei-cl-q-23-pbl'], required: true },
