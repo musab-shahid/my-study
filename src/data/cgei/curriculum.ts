@@ -3495,6 +3495,44 @@ const lessons121: CurriculumLesson[] = [
   },
 ];
 
+const outcomes123: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-123-eval', statement: 'Design rolling-origin evaluation with persistence and climatology baselines and report whether a model beats them.', action: 'design and compare', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-123-leak', statement: 'Identify temporal and spatial leakage pathways from lagged features, windows, and random splits.', action: 'identify', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-123-fm', statement: 'State when foundation-model embeddings should be benchmarked against simple spectral and tree baselines and what transfer claims require.', action: 'state and justify', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons123: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-3-1', kind: 'lesson', title: 'Rolling-origin evaluation and baselines', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes123[0]],
+    content: [
+      { id: 'cgei-ai-123-1-1', kind: 'prose', title: 'Time-dependent learning needs time-aware eval', body: 'Forecast horizons define what is predicted and when information is allowed. Rolling-origin (walk-forward) evaluation trains only on past origins and tests future folds. Persistence (last observation) and climatology (seasonal mean) are mandatory baselines—complex models that fail to beat them are not useful for that task.' },
+      { id: 'cgei-ai-123-1-2', kind: 'worked-example', title: 'Synthetic series: model vs persistence', body: 'Fixture unit_12_3_spatiotemporal_eval_check.py builds a synthetic series with seasonality, computes persistence and climatology MAE under rolling origin, and verifies that a leaky random-split MAE is optimistically lower than honest rolling-origin MAE for a lag-using predictor.' },
+      { id: 'cgei-ai-123-1-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Beating persistence on one synthetic series is not general skill', 'No foundation-model weights are downloaded in CI', 'Probabilistic calibration is introduced, not fully scored here'] },
+    ],
+    activityIds: ['cgei-ai-a-123-eval'], assessmentIds: ['cgei-ai-assess-123-eval'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-ai-lesson-12-3-2', kind: 'lesson', title: 'Lagged features and leakage across time and space', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes123[1]],
+    content: [
+      { id: 'cgei-ai-123-2-1', kind: 'prose', title: 'Leakage pathways', body: 'Lagged predictors and rolling windows must respect the forecast origin: future values cannot enter training features. Random spatial splits of gridded fields leak through spatial autocorrelation; blocked or region-based splits are safer for spatial generalization tests. Temporal covariates that encode the target period must be justified.' },
+      { id: 'cgei-ai-123-2-2', kind: 'key-points', title: 'Sequence-model concepts', items: ['Temporal CNNs and RNNs/transformers process ordered inputs', 'Architecture choice does not remove the need for honest splits', 'Long-range attention is not automatic scientific validity'] },
+    ],
+    activityIds: ['cgei-ai-a-123-leak'], assessmentIds: ['cgei-ai-assess-123-leak'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-ai-lesson-12-3-3', kind: 'lesson', title: 'Foundation models and physical consistency checks', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes123[2]],
+    content: [
+      { id: 'cgei-ai-123-3-1', kind: 'prose', title: 'Pretrained geospatial encoders', body: 'Foundation-model embeddings can transfer across sensors and regions, but pretraining coverage, licensing, and possible hidden leakage (e.g. test scenes in pretraining) must be assessed. Always benchmark against simple spectral indices, climatology, and tree-based models on the same split.' },
+      { id: 'cgei-ai-123-3-2', kind: 'prose', title: 'Probabilistic and physical checks', body: 'Ensembles and probabilistic scores matter for forecasts. Physical constraints (e.g. non-negative precipitation, rough energy-balance sanity) catch gross errors. Comparison to physical-model or post-processed baselines keeps claims honest.' },
+    ],
+    activityIds: ['cgei-ai-a-123-fm'], assessmentIds: ['cgei-ai-assess-123-fm'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 const lessons122: CurriculumLesson[] = [
   {
     id: 'cgei-ai-lesson-12-2-1', kind: 'lesson', title: 'EO computer vision tasks and leakage-safe evaluation', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
@@ -3825,7 +3863,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Subject 6 ML & GeoAI', 'Subject 11 software engineering tests'],
       outcomes: [...outcomes121, ...outcomes122, ...outcomes127],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-ai-unit-12-1', 'cgei-ai-unit-12-2', 'cgei-ai-unit-12-7'],
+      unitIds: ['cgei-ai-unit-12-1', 'cgei-ai-unit-12-2', 'cgei-ai-unit-12-3', 'cgei-ai-unit-12-7'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 12,
@@ -4520,6 +4558,20 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
       sourceDocument: 'Master Study TOC Subject 12 Unit 12.2 — Computer vision for EO (Core)',
       notes: ['Core; no GPU training required for this draft.'],
     },
+
+    {
+      id: 'cgei-ai-unit-12-3', subjectId: 'cgei-ai', code: '12.3', title: 'Spatiotemporal ML, forecasting, and foundation models', order: 1203, kind: 'unit', readiness: 'draft',
+      summary: 'Rolling-origin evaluation, temporal/spatial leakage control, baselines, and honest use of geospatial foundation models.',
+      estimatedHours: 8, prerequisites: ['Unit 6.4', 'Unit 5.7'], outcomes: outcomes123,
+      lessonIds: lessons123.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-123-eval', 'cgei-ai-a-123-leak', 'cgei-ai-a-123-fm'],
+      assessmentIds: ['cgei-ai-assess-123-eval', 'cgei-ai-assess-123-leak', 'cgei-ai-assess-123-fm'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.3',
+      notes: ['Core Unit 12.3. Draft; synthetic evaluation only; no FM weights in CI.'],
+    },
+
     {
       id: 'cgei-ai-unit-12-7', code: '12.7', title: 'Evaluating and governing AI systems', order: 1207, kind: 'unit', readiness: 'draft',
       summary: 'Evaluation design, model cards, baselines and human review before decision use.',
@@ -5800,6 +5852,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-a-89-proposal', kind: 'coding-lab', title: 'Proposal object readiness', instructions: 'Complete a structured proposal outline (problem, gap, objectives, methods, feasibility, timeline, ethics, risks). Run unit_8_9_proposal_readiness_check.py on the sample and your fields.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-89-proposal'] },
 
     { id: 'cgei-rp-a-8d-design', kind: 'coding-lab', title: 'Research design object', instructions: 'Fill estimand, unit_of_analysis, data, validation, non_claim. Run unit_8_d_research_design_check.py. Revise until the fixture accepts the structure.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-8d-design'] },
+
+    { id: 'cgei-ai-a-123-eval', kind: 'coding-lab', title: 'Rolling-origin vs leaky split', instructions: 'Run unit_12_3_spatiotemporal_eval_check.py. Record persistence MAE, climatology MAE, rolling-origin model MAE, and leaky-split MAE. Explain in three sentences why the leaky number is not deployable skill.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-123-eval'] },
+    { id: 'cgei-ai-a-123-leak', kind: 'critique', title: 'Leakage case diagnosis', instructions: 'Given: gridded LST with random 80/20 pixel split and a model using same-day neighbouring pixels. Identify two leakage pathways and propose a blocked evaluation alternative.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-ai-o-123-leak'] },
+    { id: 'cgei-ai-a-123-fm', kind: 'critique', title: 'Foundation-model claim audit', instructions: 'List three checks before claiming FM transfer success: pretraining coverage, same-split baseline comparison, and one possible hidden leakage source.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-123-fm'] },
+
     { id: 'cgei-rp-a-8d-methods', kind: 'critique', title: 'Stranger-test methods draft', instructions: 'Write a 200–400 word methods paragraph a stranger could follow. Include availability statements that match reality.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-methods'] },
     { id: 'cgei-rp-a-8d-review', kind: 'critique', title: 'Constructive referee note', instructions: 'Using the four validity lenses, write three numbered referee comments on a sample SUHI methods paragraph (major/minor tagged) with a proposed fix for each.', level: 'L4', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-review'] },
 
@@ -6138,6 +6195,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-assess-89-proposal', kind: 'formative', title: 'Proposal structure', purpose: 'Assess proposal completeness and risk anticipation.', objectiveIds: ['cgei-rp-o-89-proposal'], questionIds: ['cgei-rp-q-89-struct'], required: true },
 
     { id: 'cgei-rp-assess-8d-design', kind: 'formative', title: 'Research design gate', purpose: 'Assess estimand and non-claim discipline.', objectiveIds: ['cgei-rp-o-8d-design'], questionIds: ['cgei-rp-q-8d-estimand'], required: true },
+
+    { id: 'cgei-ai-assess-123-eval', kind: 'formative', title: 'Rolling-origin evaluation', purpose: 'Assess baseline and walk-forward literacy.', objectiveIds: ['cgei-ai-o-123-eval'], questionIds: ['cgei-ai-q-123-persist'], required: true },
+    { id: 'cgei-ai-assess-123-leak', kind: 'formative', title: 'Spatiotemporal leakage', purpose: 'Assess leakage identification.', objectiveIds: ['cgei-ai-o-123-leak'], questionIds: ['cgei-ai-q-123-leak'], required: true },
+    { id: 'cgei-ai-assess-123-fm', kind: 'formative', title: 'Foundation model honesty', purpose: 'Assess FM evaluation discipline.', objectiveIds: ['cgei-ai-o-123-fm'], questionIds: ['cgei-ai-q-123-fm'], required: true },
+
     { id: 'cgei-rp-assess-8d-methods', kind: 'formative', title: 'Methods reproducibility', purpose: 'Assess stranger-test methods literacy.', objectiveIds: ['cgei-rp-o-8d-methods'], questionIds: ['cgei-rp-q-8d-avail'], required: true },
     { id: 'cgei-rp-assess-8d-review', kind: 'formative', title: 'Validity review', purpose: 'Assess referee validity framing.', objectiveIds: ['cgei-rp-o-8d-review'], questionIds: ['cgei-rp-q-8d-validity'], required: true },
 

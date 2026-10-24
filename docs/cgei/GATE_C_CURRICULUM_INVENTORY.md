@@ -191,3 +191,8 @@ Core Unit 8.9 proposals and professional practice (draft).
 
 Subject 8.D depth checks and research design mastery gates (draft).
 
+
+## C.24
+
+Core Unit 12.3 spatiotemporal ML evaluation and leakage (draft).
+
