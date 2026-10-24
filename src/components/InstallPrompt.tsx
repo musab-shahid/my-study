@@ -115,7 +115,7 @@ export function InstallPrompt() {
 
   const handleDismiss = useCallback(() => {
     setVisible(false);
-    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    rememberDismissal();
   }, []);
 
   if (!visible) return null;
