@@ -7,4 +7,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 7.5.4.1,Validation against historical events,7.5.4,Validation and loss data,Core,,,mapped_partial,Deferred.
 7.5.4.2,Danger of fitting stories to incomplete loss databases,7.5.4,Validation and loss data,Core,cgei-risk-lesson-7-5-1,cgei-risk-75-1-1,mapped_partial,Warned.
 7.5.4.3,Validation against event inventories reporting bias,7.5.4,Validation and loss data,Core,,,mapped_partial,Deferred.
-7.5.norm-capacity,Normalisation and capacity directionality,7.5,Risk assessment methods,Core,cgei-risk-lesson-7-5-1,cgei-risk-75-1-lab,mapped_partial,Synthetic min-max and capacity invert in fixture.
+7.5.norm-capacity,Normalisation and capacity directionality,7.5,Risk assessment methods,Core,cgei-risk-lesson-7-5-1,cgei-risk-75-1-lab,mapped_partial,Synthetic teaching example only; not external validation or calibrated risk product.

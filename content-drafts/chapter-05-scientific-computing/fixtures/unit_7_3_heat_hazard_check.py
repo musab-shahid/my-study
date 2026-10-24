@@ -5,13 +5,13 @@ not a calibrated damage probability.
 
 Hazard score combines:
   - intensity: excess of mean daily Tmax over a threshold (°C-days style mean)
-  - likelihood: stated event frequency over a fixed period (e.g. seasons/decade)
+  - likelihood: integer count of threshold-exceeding heat spells over PERIOD
 
 Exposure and vulnerability are NOT folded into the hazard score.
 """
 from __future__ import annotations
 
-from math import isclose
+from math import isclose, isfinite
 
 
 THRESHOLD_C = 40.0  # illustrative Tmax threshold (°C); pre-specified teaching value
@@ -25,6 +25,8 @@ def mean_excess_intensity(tmax_series: list[float], threshold: float = THRESHOLD
     for t in tmax_series:
         if t is None or not isinstance(t, (int, float)):
             raise ValueError("tmax values must be numeric")
+        if not isfinite(float(t)):
+            raise ValueError("tmax must be finite")
         if t < -90 or t > 70:
             raise ValueError(f"tmax out of plausible range: {t}")
     excesses = [max(0.0, float(t) - threshold) for t in tmax_series]
@@ -42,15 +44,20 @@ def intensity_class(mean_excess: float) -> str:
     return "high"
 
 
-def likelihood_class(events_per_period: float) -> str:
-    """Ordinal likelihood from count of threshold-exceeding spells in PERIOD."""
-    if events_per_period is None:
-        raise ValueError("events_per_period required")
-    if events_per_period < 0:
-        raise ValueError("events_per_period cannot be negative")
-    if events_per_period < 1:
+def likelihood_class(spell_count: int) -> str:
+    """Ordinal likelihood from integer count of threshold-exceeding spells in PERIOD.
+
+    Boundaries (inclusive lower): 0 => rare; 1–3 => occasional; >=4 => frequent.
+    """
+    if spell_count is None:
+        raise ValueError("spell_count required")
+    if isinstance(spell_count, bool) or not isinstance(spell_count, int):
+        raise ValueError("spell_count must be a non-negative integer")
+    if spell_count < 0:
+        raise ValueError("spell_count cannot be negative")
+    if spell_count == 0:
         return "rare"
-    if events_per_period < 4:
+    if spell_count <= 3:
         return "occasional"
     return "frequent"
 
@@ -70,10 +77,10 @@ SCREEN_MATRIX = {
 }
 
 
-def hazard_screen_score(tmax_series: list[float], events_per_period: float) -> dict:
+def hazard_screen_score(tmax_series: list[float], spell_count: int) -> dict:
     inten = mean_excess_intensity(tmax_series)
     i_cls = intensity_class(inten)
-    l_cls = likelihood_class(events_per_period)
+    l_cls = likelihood_class(spell_count)
     score = SCREEN_MATRIX[(i_cls, l_cls)]
     return {
         "mean_excess_c": inten,
@@ -93,10 +100,10 @@ def main() -> None:
     hot = [42.0, 43.0, 41.0, 44.0]  # clear excess
     hotter = [45.0, 46.0, 44.5, 47.0]
 
-    r_mild = hazard_screen_score(mild, events_per_period=0.5)
-    r_hot = hazard_screen_score(hot, events_per_period=2.0)
-    r_hot_freq = hazard_screen_score(hot, events_per_period=5.0)
-    r_hotter = hazard_screen_score(hotter, events_per_period=2.0)
+    r_mild = hazard_screen_score(mild, spell_count=0)
+    r_hot = hazard_screen_score(hot, spell_count=2)
+    r_hot_freq = hazard_screen_score(hot, spell_count=5)
+    r_hotter = hazard_screen_score(hotter, spell_count=2)
 
     # Greater intensity raises score when likelihood held fixed
     assert r_hotter["screen_score"] >= r_hot["screen_score"]
@@ -129,6 +136,22 @@ def main() -> None:
         raise AssertionError("negative events must fail")
     except ValueError:
         pass
+    try:
+        likelihood_class(1.5)  # type: ignore
+        raise AssertionError("non-integer count must fail")
+    except ValueError:
+        pass
+    try:
+        mean_excess_intensity([40.0, float("nan")])
+        raise AssertionError("NaN tmax must fail")
+    except ValueError:
+        pass
+    # Class boundaries for integer counts
+    assert likelihood_class(0) == "rare"
+    assert likelihood_class(1) == "occasional"
+    assert likelihood_class(3) == "occasional"
+    assert likelihood_class(4) == "frequent"
+
 
     # Hazard must not silently absorb exposure population counts
     # (API has no exposure argument — regression guard via signature keys)

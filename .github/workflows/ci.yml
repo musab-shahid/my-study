@@ -157,6 +157,10 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_3_heat_hazard_check.py
       - name: Verify Unit 8 research-protocol checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_research_protocol_check.py
+      - name: Verify unit_8_2_measurement_sampling_check.py
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_2_measurement_sampling_check.py
+      - name: Verify unit_8_3_validity_ethics_check.py
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_3_validity_ethics_check.py
       - name: Verify Unit 9 decision-product checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_9_decision_product_check.py
       - name: Verify Unit 10 policy-appraisal checks

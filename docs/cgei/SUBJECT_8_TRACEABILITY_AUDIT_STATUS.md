@@ -1,13 +1,14 @@
-# Subject 8 traceability status
+# Subject 8 Core pathway audit status
 
-**Status: Core draft path (Units 8.1, 8.2, 8.3, 8.6). Not complete.**
+Canonical Core units: **8.1**, **8.2**, **8.3**, **8.6**.
 
-| Unit | Priority | Status |
-|------|----------|--------|
-| 8.1 Research questions and design | Core | Draft + protocol fixture |
-| 8.2 Measurement and sampling | Core | Draft overview |
-| 8.3 Validity, ethics, integrity | Core | Draft overview |
-| 8.6 Scientific reporting | Core | Draft checklist |
-| 8.4–8.5, 8.7–8.9 | Support/Optional/Core FYP track | Deferred |
+| Unit | Teaching evidence | Fixture | Status |
+|------|-------------------|---------|--------|
+| 8.1 Research questions & design | Lessons + protocol fields | `unit_8_research_protocol_check.py` | implemented (draft) |
+| 8.2 Measurement & sampling | Lesson + design card lab | `unit_8_2_measurement_sampling_check.py` | implemented (draft); psychometrics/GUM deferred |
+| 8.3 Validity, ethics, integrity | Lesson + checklist lab | `unit_8_3_validity_ethics_check.py` | implemented (draft); **not IRB approval** |
+| 8.6 Scientific reporting | Lesson + availability norms | linked to 8.1 protocol | mapped_partial |
 
-Fixture: `unit_8_research_protocol_check.py` — protocol completeness only.
+**Progression:** estimand (8.1) → measurement/sampling (8.2) → validity/ethics (8.3) → report (8.6).
+
+Synthetic fixtures test teaching invariants only.

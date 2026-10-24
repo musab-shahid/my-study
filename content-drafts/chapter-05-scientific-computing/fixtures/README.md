@@ -190,3 +190,6 @@ Asserts Units 6.1–6.7 fixtures exist and practice report lists full Core comma
 
 ## unit_7_3_heat_hazard_check.py
 Synthetic heat intensity–likelihood screening; not exposure/vulnerability; not damage probability.
+
+## unit_8_2_measurement_sampling_check.py / unit_8_3_validity_ethics_check.py
+Measurement design card and validity/ethics rules (not IRB).

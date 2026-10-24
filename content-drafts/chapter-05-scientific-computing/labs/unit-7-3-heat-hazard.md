@@ -11,7 +11,7 @@ python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_3_heat_haz
 | Term | Definition in this lab |
 |------|------------------------|
 | Intensity | Mean positive excess of daily Tmax above **40°C** (°C) |
-| Likelihood | Count of heat spells per **10 seasons** (stated, not fitted) |
+| Likelihood | **Integer count** of heat spells over **10 seasons** (0 = rare; 1–3 = occasional; ≥4 = frequent) |
 | Screen score | Ordinal 1–5 from intensity × likelihood matrix |
 | Not included | Population exposure, vulnerability, health outcomes |
 
