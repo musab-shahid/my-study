@@ -169,3 +169,6 @@ Unified Subject 13 Core protocol references all path scripts; self-review record
 
 ## unit_6_4_leakage_split_check.py
 Synthetic region-blocked vs mixed split MAE; chronological holdout; scale fit on train only.
+
+## unit_6_2_feature_prep_check.py
+Synthetic parcel feature contract: schema/ranges, year split, train-only scaling, leakage column rejection, rain anomaly.
