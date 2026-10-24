@@ -9,6 +9,21 @@ import type { SubjectId } from '@/types';
 
 export type CurriculumLevel = 'L1' | 'L2' | 'L3' | 'L4';
 export type ReadinessStatus = 'planned' | 'outlined' | 'draft' | 'review' | 'validated' | 'released';
+
+/**
+ * Auditable evidence required before a curriculum node may claim validation
+ * or release. This records human review and the checks actually completed;
+ * it is not a substitute for running CI on the current commit.
+ */
+export interface CurriculumReadinessEvidence {
+  reviewer: string;
+  /** Calendar date of the human review, in YYYY-MM-DD format. */
+  reviewedOn: string;
+  /** Concrete checks completed for this node (content, scientific, UX, etc.). */
+  checksPassed: string[];
+  /** Caveats, scope limits, and evidence links or paths for future reviewers. */
+  notes: string[];
+}
 export type CurriculumNodeKind = 'orientation' | 'unit' | 'lesson' | 'review' | 'lab' | 'project' | 'capstone';
 export type ResourceKind = 'documentation' | 'paper' | 'book' | 'dataset' | 'notebook' | 'video' | 'tool' | 'reference' | 'other';
 export type ActivityKind = 'guided-practice' | 'independent-practice' | 'coding-lab' | 'data-lab' | 'reflection' | 'critique' | 'debugging' | 'field-task' | 'project-milestone';
@@ -146,6 +161,7 @@ export interface CurriculumProject {
   problemStatement: string;
   purpose: string;
   readiness: ReadinessStatus;
+  readinessEvidence?: CurriculumReadinessEvidence;
   level: CurriculumLevel;
   prerequisiteUnitIds?: string[];
   objectiveIds: string[];
@@ -167,6 +183,7 @@ export interface CurriculumLesson {
   title: string;
   order: number;
   readiness: ReadinessStatus;
+  readinessEvidence?: CurriculumReadinessEvidence;
   level: CurriculumLevel;
   estimatedMinutes?: number;
   objectives: CurriculumOutcome[];
@@ -187,6 +204,7 @@ export interface CurriculumUnit {
   order: number;
   kind: 'unit' | 'orientation' | 'review' | 'project';
   readiness: ReadinessStatus;
+  readinessEvidence?: CurriculumReadinessEvidence;
   summary: string;
   estimatedHours?: number;
   prerequisites: string[];
@@ -209,6 +227,7 @@ export interface CurriculumSubject {
   subtitle: string;
   version: number;
   readiness: ReadinessStatus;
+  readinessEvidence?: CurriculumReadinessEvidence;
   audience: string;
   purpose: string;
   overview: string;
