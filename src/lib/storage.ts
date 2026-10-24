@@ -338,6 +338,48 @@ function normalizeLoaded(parsed: AppData): AppData {
   return merged;
 }
 
+function isValidBackupRaw(raw: string | null): boolean {
+  if (!raw) return false;
+  try {
+    return validateAppData(JSON.parse(raw));
+  } catch {
+    return false;
+  }
+}
+
+/** Never replace a known-good recovery snapshot with the corrupt primary save. */
+function preserveCorruptPrimaryIfNoValidBackup(raw: string): void {
+  try {
+    const existingBackup = localStorage.getItem(BACKUP_KEY);
+    if (!isValidBackupRaw(existingBackup)) {
+      // With no usable backup, preserve the original bytes for manual export.
+      localStorage.setItem(BACKUP_KEY, raw);
+    }
+  } catch {
+    /* storage may be unavailable or full */
+  }
+}
+
+function recoverCorruptPrimary(raw: string): AppData {
+  const fromBackup = tryRestoreBackup();
+  if (fromBackup) {
+    lastStorageWarning =
+      'Primary save was invalid; restored progress from the last valid backup.';
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromBackup)));
+    } catch { /* keep the in-memory recovery available */ }
+    return fromBackup;
+  }
+
+  preserveCorruptPrimaryIfNoValidBackup(raw);
+  lastStorageWarning =
+    'Your saved progress was corrupt and no valid backup could be restored. A copy of the original data may be available to export.';
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(emptyData)));
+  } catch { /* if storage is unavailable, defaults remain in memory */ }
+  return { ...emptyData };
+}
+
 export function loadData(): AppData {
   try {
     let raw = localStorage.getItem(STORAGE_KEY);
@@ -355,28 +397,13 @@ export function loadData(): AppData {
     try {
       parsed = JSON.parse(raw);
     } catch {
-      console.warn('[storage] JSON parse failed, backing up corrupt blob');
-      try { localStorage.setItem(BACKUP_KEY, raw); } catch { /* ignore */ }
-      lastStorageWarning =
-        'Your saved progress looked corrupt and was reset to defaults. A backup is available to download.';
-      return tryRestoreBackup() ?? { ...emptyData };
+      console.warn('[storage] JSON parse failed; attempting recovery before preserving corrupt data');
+      return recoverCorruptPrimary(raw);
     }
 
     if (!validateAppData(parsed)) {
-      console.warn('[storage] Stored data failed validation, backing up and resetting');
-      try { localStorage.setItem(BACKUP_KEY, raw); } catch { /* ignore */ }
-      const fromBackup = tryRestoreBackup();
-      if (fromBackup) {
-        lastStorageWarning =
-          'Primary save was invalid; restored from the last good backup. You can still download a copy.';
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromBackup)));
-        } catch { /* ignore */ }
-        return fromBackup;
-      }
-      lastStorageWarning =
-        'Your saved progress looked corrupt and was reset to defaults. A backup is available to download.';
-      return { ...emptyData };
+      console.warn('[storage] Stored data failed validation; attempting recovery before preserving corrupt data');
+      return recoverCorruptPrimary(raw);
     }
 
     return normalizeLoaded(parsed as AppData);
