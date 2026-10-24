@@ -17,7 +17,7 @@ export interface DataContextValue {
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
   reset: () => boolean;
-  resetSubjects: (subjectIds: SubjectId[]) => void;
+  resetSubjects: (subjectIds: SubjectId[]) => boolean;
   /** Explicit track enrollment; sets track active on success */
   enrollInTrack: (trackId: TrackId) => { ok: boolean; reason?: string };
   /** Switch active focus among enrolled tracks only */
