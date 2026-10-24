@@ -9,7 +9,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 2.4.2.4,Gridded precipitation product families,2.4.2,Satellite and gridded observational products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-1,mapped_partial,Named; no download lab.
 2.4.3.1,Reanalysis data assimilation ERA5,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Concept taught.
 2.4.3.2,Reanalysis comparison uncertainty,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Spread as uncertainty indicator.
-2.4.3.3,Agro-climate POWER HEAT CAMS,2.4.3,Reanalysis products,Core,,,mapped_partial,Not detailed in this slice.
+2.4.3.3,Agro-climate POWER HEAT CAMS,2.4.3,Reanalysis products,Core,,,deferred,Not detailed in this slice.
 2.4.3.4,ERA6 successor planning,2.4.3,Reanalysis products,Core,cgei-cl-lesson-2-4-2,cgei-cl-24-2-2,mapped_partial,Product-agnostic code note.
 2.4.4.1,What each product is optimised for,2.4.4,Choosing and comparing products,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-1,mapped_partial,Checklist.
 2.4.4.2,Comparing products limits of agreement,2.4.4,Choosing and comparing products,Core,cgei-cl-lesson-2-4-3,cgei-cl-24-3-2,mapped_partial,Agreement≠validation.
