@@ -123,6 +123,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_9_spatial_stats_check.py
       - name: Verify Unit 2.3 atmosphere checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_3_atmosphere_check.py
+      - name: Verify Unit 4.5 humid-heat bridge
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_humid_heat_bridge_check.py
       - name: Curriculum activity/assessment integrity
         run: python content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py
       - name: Verify unit_3_5_climate_spatial_integration_check.py

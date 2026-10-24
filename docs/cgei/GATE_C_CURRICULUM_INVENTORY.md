@@ -166,3 +166,8 @@ Ordinary kriging educational system + IDW comparison for Unit 3.9.4.4.
 
 Support Unit 2.3 atmosphere registered (draft).
 
+
+## C.19
+
+Prerequisite effectiveness: Unit 2.3 linked into Unit 4.5 SUHI vs humid-heat interpretation.
+
