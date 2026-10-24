@@ -44,7 +44,8 @@ const sampleData: AppData = {
 
 describe('partial reset recovery backup', () => {
   it('stores the current progress snapshot before destructive changes', () => {
-    const values = installLocalStorage((key, value) => values.set(key, value));
+    const values = new Map<string, string>();
+    installLocalStorage((key, value) => values.set(key, value));
     assert.equal(createRecoveryBackup(sampleData), true);
     const saved = values.get('examprep-data-backup');
     assert.ok(saved);
