@@ -22,24 +22,31 @@ jobs:
       - name: Report dependency audit findings
         run: |
           npm audit --json > "$RUNNER_TEMP/npm-audit.json" || true
-          node --input-type=module - "$RUNNER_TEMP/npm-audit.json" <<'NODE'
+          npm audit --omit=dev --json > "$RUNNER_TEMP/npm-audit-production.json" || true
+          node --input-type=module - "$RUNNER_TEMP/npm-audit.json" "$RUNNER_TEMP/npm-audit-production.json" <<'NODE'
           import fs from 'node:fs';
-          const raw = fs.readFileSync(process.argv[2], 'utf8').trim();
-          if (!raw) {
-            console.log('npm audit report unavailable; no JSON output was returned.');
-            process.exit(0);
-          }
-          let audit;
-          try {
-            audit = JSON.parse(raw);
-          } catch {
-            console.log('npm audit report unavailable; output was not valid JSON.');
-            process.exit(0);
-          }
-          console.log('npm audit summary:', JSON.stringify(audit.metadata?.vulnerabilities ?? {}));
-          for (const [name, item] of Object.entries(audit.vulnerabilities ?? {})) {
-            const via = (item.via ?? []).map((entry) => typeof entry === 'string' ? entry : entry.title).join('; ');
-            console.log(`${String(item.severity).toUpperCase()} ${name} (direct=${item.isDirect}; range=${item.range}; fix=${JSON.stringify(item.fixAvailable)}): ${via}`);
+          const reports = [
+            ['all dependencies', process.argv[2]],
+            ['production dependencies (--omit=dev)', process.argv[3]],
+          ];
+          for (const [label, file] of reports) {
+            const raw = fs.readFileSync(file, 'utf8').trim();
+            if (!raw) {
+              console.log(`npm audit report unavailable for ${label}; no JSON output was returned.`);
+              continue;
+            }
+            let audit;
+            try {
+              audit = JSON.parse(raw);
+            } catch {
+              console.log(`npm audit report unavailable for ${label}; output was not valid JSON.`);
+              continue;
+            }
+            console.log(`npm audit summary (${label}):`, JSON.stringify(audit.metadata?.vulnerabilities ?? {}));
+            for (const [name, item] of Object.entries(audit.vulnerabilities ?? {})) {
+              const via = (item.via ?? []).map((entry) => typeof entry === 'string' ? entry : entry.title).join('; ');
+              console.log(`[${label}] ${String(item.severity).toUpperCase()} ${name} (direct=${item.isDirect}; range=${item.range}; fix=${JSON.stringify(item.fixAvailable)}): ${via}`);
+            }
           }
           NODE
       - name: Design-system guard (new lines)
