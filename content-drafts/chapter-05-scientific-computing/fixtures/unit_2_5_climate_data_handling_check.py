@@ -52,6 +52,24 @@ def monthly_mean(values, min_complete=0.8):
     return sum(valid) / len(valid)
 
 
+def kelvin_to_celsius(t_k: float) -> float:
+    return t_k - 273.15
+
+
+def accumulation_intervals(cumulative: list[float]) -> list[float]:
+    """Non-decreasing accumulation → interval depths; negatives clamped to 0."""
+    if not cumulative:
+        return []
+    out = []
+    prev = cumulative[0]
+    # first interval from 0 baseline if series starts at 0
+    out.append(max(cumulative[0] - 0.0, 0.0))
+    for a in cumulative[1:]:
+        out.append(max(a - prev, 0.0))
+        prev = a
+    return out
+
+
 def anomaly(value, baseline_mean):
     return value - baseline_mean
 
@@ -80,6 +98,17 @@ def main() -> None:
     assert monthly_mean(sparse, 0.8) is None
     dense = [float(i) for i in range(10)]
     assert isclose(monthly_mean(dense, 0.8), 4.5, abs_tol=1e-12)
+
+    # Kelvin → Celsius
+    assert isclose(kelvin_to_celsius(300.0), 26.85, abs_tol=1e-12)
+    assert isclose(kelvin_to_celsius(273.15), 0.0, abs_tol=1e-12)
+
+    # Accumulation intervals
+    intervals = accumulation_intervals([0.0, 1.5, 1.5, 4.0])
+    assert intervals == [0.0, 1.5, 0.0, 2.5] or (
+        isclose(intervals[0], 0.0) and isclose(intervals[1], 1.5)
+        and isclose(intervals[2], 0.0) and isclose(intervals[3], 2.5)
+    )
 
     # Anomaly
     baseline_jul = 32.0
