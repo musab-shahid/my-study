@@ -16,6 +16,7 @@
  */
 import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
+import { validateCloudRestoreData } from './cloud-restore.ts';
 
 export {
   planCloudRestoreWrite,
@@ -147,7 +148,11 @@ export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; err
     if (!Array.isArray(rows) || rows.length === 0) {
       return { ok: false, error: 'empty' };
     }
-    return { ok: true, data: rows[0].payload as AppData };
+    const payload: unknown = rows[0]?.payload;
+    if (!validateCloudRestoreData(payload)) {
+      return { ok: false, error: 'invalid-cloud-data' };
+    }
+    return { ok: true, data: payload };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : 'pull-failed' };
   }
