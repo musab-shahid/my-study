@@ -86,6 +86,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
       <div
         id="mobile-tools-tray"
         role="dialog"
+        tabIndex={-1}
         aria-modal="true"
         aria-labelledby="mobile-tools-title"
         ref={sheetRef}
