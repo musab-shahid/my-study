@@ -1,68 +1,86 @@
-# Unit 13.2 — Path C: Real MODIS/Terra MOD11A2 granule (learner-side)
+# Capstone Path C — Local MOD11A2 processing
 
-**CI does not download NASA data.** Paths A/B remain the offline regression suite.
+## What this path is
 
-## Official product
+| Mode | What runs | When |
+|------|-----------|------|
+| **CI / default** | Miniature JSON scale/fill/K→°C contract | `python …/unit_13_modis_local_process_check.py` |
+| **Learner local HDF** | Optional GDAL open of a **learner-supplied** MOD11A2/MYD11A2 `.hdf` | `--hdf /path/to/file.hdf` or `MODIS_HDF_PATH` |
 
-| Field | Value |
+| Claim | Status |
 |-------|--------|
-| Product | MODIS/Terra Land Surface Temperature/Emissivity 8-Day L3 Global 1 km |
-| Short name | **MOD11A2** |
-| Version | **061** |
+| Synthetic Path A tests | Automated in CI |
+| Offline public-data Path B | Automated in CI |
+| Miniature scale/fill Path C logic | Automated in CI |
+| Local HDF processing code path | Implemented (requires GDAL + learner file) |
+| Genuine NASA granule downloaded in CI | **No** |
+| Multan empirical LST validated | **No** |
+
+## Product parameters (MOD11A2 v061)
+
+Documented at https://lpdaac.usgs.gov/products/mod11a2v061/
+
+| Parameter | Teaching value |
+|-----------|----------------|
 | Layer | `LST_Day_1km` |
-| Scale factor | **0.02** (DN × 0.02 → Kelvin) |
-| Fill value | **0** |
-| Docs | https://lpdaac.usgs.gov/products/mod11a2v061/ |
+| Scale factor | **0.02** (DN → Kelvin) |
+| Fill / nodata | **0** |
+| Units after scale | Kelvin; curriculum converts to °C via \(T_{°C} = T_K - 273.15\) |
+| Composite | 8-day; **not** a climatology |
 
-## Acquisition (manual — credentials never committed)
+## Dependencies
 
-1. Create a free [NASA Earthdata Login](https://urs.earthdata.nasa.gov/) if required.
-2. Open the [MOD11A2 v061 product page](https://lpdaac.usgs.gov/products/mod11a2v061/) or Earthdata Search.
-3. Select a granule covering **your** study area and 8-day period (for Multan-oriented work, choose a tile/window that intersects southern Punjab and record the exact granule ID).
-4. Download the HDF to a **local** directory outside Git (e.g. `~/data/modis/`).
-5. Record in a local manifest (do not commit secrets):
-   - granule ID / filename
-   - product version
-   - temporal coverage (8-day range)
-   - download date (UTC)
-   - source URL or Earthdata order ID
-   - SHA-256 of the downloaded file
-   - documentation URL above
+- **Miniature path:** Python 3 stdlib only.
+- **Local HDF path:** GDAL with Python bindings, e.g.:
+  - `conda install -c conda-forge gdal`
+  - or system GDAL + `pip install gdal` matching the library version  
+  If GDAL is missing, the tool exits with a clear error and does **not** pretend the file was processed.
 
-**Do not** commit Earthdata passwords, tokens, cookies, or temporary signed URLs.
+## How to obtain a granule (manual; not performed by this repo)
 
-## Local processing sketch (after download)
+1. Create a free **NASA Earthdata** account if required by the distributor.
+2. Use NASA Earthdata Search or LP DAAC tools (e.g. AppEEARS) to select product **MOD11A2** version **061**.
+3. Choose a tile/date for **your** study design (this curriculum does not ship a Multan granule).
+4. Download the `.hdf` to your machine. **Do not commit large HDF files to git.**
 
-Dependencies (learner machine): GDAL with HDF4 support, or `pyhdf` / NASA tools — **not required for CI**.
+## How to run local processing
 
 ```bash
-# Inspect subdatasets (example)
-gdalinfo MOD11A2.A2023161.h24v06.061.*.hdf
-
-# Extract LST_Day_1km subdataset (name varies by GDAL build — confirm with gdalinfo)
-# Apply scale 0.02 and set 0 to NoData per product guide.
-```
-
-Then:
-
-1. Confirm layer identity, dimensions, georeferencing, fill value.
-2. Apply **scale_factor 0.02** before interpreting Kelvin.
-3. Convert to °C only after scale: `C = K - 273.15`.
-4. Optionally crop to a documented study boundary with explicit CRS handling.
-5. Export GeoTIFF/CSV summary **with** product, date range, scale, fill, QA treatment, CRS.
-6. Label outputs: **not quality-screened** unless you apply official QC bit rules from the product user guide.
-
-## Offline CI analogue (Path C logic)
-
-```bash
+# Contract tests only (CI-safe, miniature JSON):
 python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py
+
+# Learner-supplied file (requires GDAL):
+python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py \
+  --hdf /absolute/path/to/MOD11A2.AYYYYDDD.hXXvYY.061.*.hdf
+
+# Or:
+export MODIS_HDF_PATH=/absolute/path/to/MOD11A2....hdf
+python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py --hdf "$MODIS_HDF_PATH"
 ```
 
-Uses `fixtures/data/modis_miniature/lst_day_miniature.json` to lock scale/fill/Celsius maths. **Not a real granule.**
+**Filename rule:** the basename must contain `MOD11A2` or `MYD11A2` and use a `.hdf` / `.hdf4` / `.h4` extension. Arbitrary HDF files are rejected.
 
-## Scientific non-claims
+## Outputs
 
-- A processed raster is **not** a climatology, trend, or attribution study.
-- LST ≠ 2 m air temperature; hazard ≠ exposure ≠ vulnerability ≠ risk.
-- Neighbourhood rankings need documented aggregation and still require human review.
-- This exercise was **not** executed against a Multan granule in the repository CI environment.
+- Provenance JSON under `fixtures/data/modis_miniature/outputs/local_hdf_preview_*.json` when HDF mode succeeds.
+- Fields include source path, SHA-256, scale/fill, preview size, mean/min/max °C, and explicit limitations.
+- Preview is a **corner window** (default ≤32×32) for memory safety—not full-granule analysis.
+
+## Failures you should see
+
+| Condition | Behaviour |
+|-----------|-----------|
+| Missing path | `missing_file:…` |
+| Name without MOD11A2/MYD11A2 | `filename_must_contain_MOD11A2_or_MYD11A2` |
+| Wrong extension | `unexpected_extension` |
+| No GDAL | `gdal_python_not_available` |
+| No LST_Day layer | `missing_required_layer_LST_Day_1km` |
+
+## What success does **not** mean
+
+- Not air temperature or validated human heat exposure  
+- Not Multan (or any city) scientific validation unless **you** document study-area provenance  
+- Not QC-bit screening unless you extend the pipeline  
+- Not operational risk ranking  
+
+See also: `docs/cgei/capstone-modis-real-granule.md`, `docs/cgei/capstone-public-data-manifest.md`.

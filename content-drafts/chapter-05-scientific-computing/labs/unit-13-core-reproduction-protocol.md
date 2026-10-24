@@ -19,11 +19,20 @@ Single entry point for reviewers and learners. **Offline CI paths do not require
 |------|---------|---------|
 | **A** Synthetic ranks | Full H/E/V + decision card | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_capstone_heat_risk_check.py` |
 | **B** Public offline extract | MOD11A2-schema QA + anomaly + proxy merge | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_public_data_pathway_check.py` |
-| **C** MODIS process logic | Scale 0.02, fill 0, K→°C on miniature JSON | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py` |
+| **C** MODIS process logic | Miniature JSON in CI; optional local MOD11A2 HDF via `--hdf` (GDAL) | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py` (± `--hdf PATH`) |
 | **Portfolio** | Evidence-card structure | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_portfolio_check.py` |
 | **Research fit** | Fit card structure | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_research_fit_check.py` |
 | **Review packet** | Illustrative review dispositions | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_external_review_check.py` |
 | **This protocol** | Meta-check of paths & files | `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_core_repro_protocol_check.py` |
+
+
+## 1b. Path C — local HDF (optional)
+
+1. Install GDAL Python bindings (see `labs/unit-13-modis-real-granule.md`).
+2. Download a MOD11A2/MYD11A2 `.hdf` manually (Earthdata); do not commit it.
+3. Run: `python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py --hdf /path/to/file.hdf`
+4. Inspect provenance JSON under `fixtures/data/modis_miniature/outputs/`.
+5. Without a file, the same script’s default mode remains the miniature contract (CI).
 
 ## 2. Expected offline behaviour
 

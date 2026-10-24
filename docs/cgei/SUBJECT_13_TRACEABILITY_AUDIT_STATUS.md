@@ -39,3 +39,7 @@ Per-unit internal gap closures:
 - 13.6 independent reproducibility checklist with pass/fail table
 
 All Core leaves remain mapped_partial where external evidence is required. Optional 13.4 and Support 13.7 untouched.
+
+## V20 local HDF path
+
+Optional GDAL-based processing of learner-supplied MOD11A2/MYD11A2 HDF is implemented in `unit_13_modis_local_process_check.py` (`--hdf`). CI still runs the miniature JSON contract only. **No** genuine Multan granule is processed in CI. Status remains draft / mapped_partial for scientific validation outcomes.

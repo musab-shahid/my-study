@@ -87,3 +87,10 @@ They **cannot**, from this repo alone: process a real MOD11A2 HDF in CI, obtain 
 3. This audit document  
 
 No readiness promotions. PR #9 left open.
+
+## V20 update — local MODIS HDF path
+
+- Implemented optional `--hdf` / `MODIS_HDF_PATH` processing via GDAL in `unit_13_modis_local_process_check.py`.
+- Filename must contain MOD11A2/MYD11A2; missing layer / missing GDAL fail clearly.
+- CI still uses miniature JSON only; **no** genuine Multan HDF processed in this environment.
+- Major item M1 reduced for *code path availability*; remains major for *study-area scientific validation*.
