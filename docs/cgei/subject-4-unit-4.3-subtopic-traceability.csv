@@ -9,7 +9,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 4.3.2.4,NDBI bare-soil irrigated failure,4.3.2,Built-up soil albedo,Core,cgei-rs-lesson-4-3-2,cgei-rs-43-2-fail;cgei-rs-43-2-checklist,mapped_partial,Explicit failure modes.
 4.3.3.1,RTE single-channel split-window TES,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-rte,mapped_partial,Approach families named; not full derivation.
 4.3.3.2,Landsat 8 Band 11 stray light Band 10,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-tirs,mapped_partial,Band discipline taught.
-4.3.3.3,Emissivity estimation error,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-rte;cgei-rs-43-2-albedo,mapped_partial,Error contribution named.
+4.3.3.3,Emissivity estimation error,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-rte,mapped_partial,Error contribution named.
 4.3.3.4,Official ST and SR scaling factors,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale;cgei-rs-43-3-eq,mapped_partial,Teaching constants + verify USGS.
 4.3.3.5,Collection 2 ST ancillary bands,4.3.3,LST retrieval,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale;cgei-rs-43-3-points,mapped_partial,ST_QA and friends required.
 4.3.4.1,C2 ST scale offset official only,4.3.4,LST discipline,Core,cgei-rs-lesson-4-3-3,cgei-rs-43-3-scale,mapped_partial,Same as 4.3.3.4 evidence.
