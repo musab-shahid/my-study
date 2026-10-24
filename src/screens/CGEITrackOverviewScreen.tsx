@@ -6,7 +6,7 @@ import { getTrackDefinition } from '@/data/tracks';
 import { subjectsByTrack } from '@/data/subjects';
 import { topicsBySubject } from '@/data/topics';
 import { isCgeiOverviewTopic } from '@/data/cgei/overview';
-import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { useCgeiCurriculum } from '@/hooks/useCgeiCurriculum';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { isTrackEnrolled } from '@/lib/track-access';
 import { trackAccentClasses } from '@/lib/track-chrome';
@@ -51,12 +51,14 @@ export function CGEITrackOverviewScreen() {
   const { data, enrollInTrack, setActiveEnrolledTrack, trackMembership } = useData();
   const { setActiveTrack } = useSubjectSelection();
   const { navigate, currentRoute } = useRouter();
+  const curriculumState = useCgeiCurriculum();
+  const cgeiCurriculum = curriculumState.status === 'ready' ? curriculumState.curriculum : undefined;
   const enrolled = isTrackEnrolled(data, 'cgei');
   const isActive = trackMembership.activeTrackId === 'cgei';
   const accent = trackAccentClasses('cgei');
   const subjects = subjectsByTrack('cgei');
   const lastLesson = data.lastOpenedCurriculumLesson
-    ? cgeiCurriculum.lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
+    ? cgeiCurriculum?.lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
     : undefined;
 
   const begin = () => {
@@ -76,6 +78,8 @@ export function CGEITrackOverviewScreen() {
     setActiveTrack('cgei');
     navigate({ screen: 'learn', subjectId, parent: currentRoute });
   };
+
+  if (!cgeiCurriculum) return <PageContainer width="wide"><p role={curriculumState.status === 'error' ? 'alert' : 'status'} className="text-sm text-slate-600">{curriculumState.status === 'error' ? 'Unable to load the curriculum. Refresh the page to try again.' : 'Loading curriculum…'}</p></PageContainer>;
 
   return (
     <PageContainer width="wide">
