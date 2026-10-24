@@ -52,6 +52,38 @@ describe('storage reset safety', () => {
     assert.equal(saved?.lastOpenedTopic, 'pending-topic');
   });
 
+  it('restores a valid backup without overwriting it with malformed primary JSON', () => {
+    const storage = installLocalStorage();
+    const validSnapshot = JSON.stringify(loadData());
+    storage.setItem(BACKUP_KEY, validSnapshot);
+    storage.setItem(STORAGE_KEYS.appData, '{not valid json');
+
+    const loaded = loadData();
+
+    assert.deepEqual(loaded, JSON.parse(validSnapshot));
+    assert.equal(storage.getItem(BACKUP_KEY), validSnapshot);
+    assert.deepEqual(
+      JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
+      JSON.parse(validSnapshot),
+    );
+  });
+
+  it('restores a valid backup when the primary JSON has an invalid schema', () => {
+    const storage = installLocalStorage();
+    const validSnapshot = JSON.stringify(loadData());
+    storage.setItem(BACKUP_KEY, validSnapshot);
+    storage.setItem(STORAGE_KEYS.appData, JSON.stringify({ version: 999, topicProgress: [] }));
+
+    const loaded = loadData();
+
+    assert.deepEqual(loaded, JSON.parse(validSnapshot));
+    assert.equal(storage.getItem(BACKUP_KEY), validSnapshot);
+    assert.deepEqual(
+      JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
+      JSON.parse(validSnapshot),
+    );
+  });
+
   it('backs up existing saved data before removing app and preference keys', () => {
     const raw = JSON.stringify({ saved: true });
     const storage = installLocalStorage({
