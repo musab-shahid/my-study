@@ -289,7 +289,7 @@ export function DashboardScreen() {
       )}
 
       {/* Primary next action — resume unfinished quiz when draft is valid */}
-      <Card className="relative overflow-hidden p-5 sm:p-6 mb-6 border-brand-200 bg-gradient-to-br from-white via-white to-sky-50/80 shadow-card">
+      <Card className="relative overflow-hidden p-5 sm:p-6 mb-6 border-brand-200 bg-gradient-to-br from-white via-white to-brand-50/80 shadow-card">
         {resumableDraft ? (
           <>
             <p className="text-label font-bold uppercase tracking-[0.12em] text-brand-700 mb-2">Pick up where you left off</p>
@@ -310,7 +310,7 @@ export function DashboardScreen() {
           </>
         ) : (
           <>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Your next best step</p>
+            <p className="text-label font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Your next best step</p>
             <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">{recHeadline}</p>
             <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">{recSubtext}</p>
             <div className="flex flex-wrap gap-2">
@@ -365,14 +365,14 @@ export function DashboardScreen() {
               <Flame className="w-5 h-5 text-orange-500" aria-hidden />
               {streakInfo.streak}
             </p>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-label text-slate-400 mt-1">
               {streakInfo.atRisk ? 'At risk today' : 'Keep it going'}
             </p>
           </div>
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
             <p className="text-xs text-slate-500">Reviews due</p>
             <p className="text-xl font-semibold text-slate-900 mt-0.5">{reviewDue.length}</p>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-label text-slate-400 mt-1">
               {reviewDue.length === 0 ? 'You\'re caught up' : 'In your active scope'}
             </p>
           </div>
