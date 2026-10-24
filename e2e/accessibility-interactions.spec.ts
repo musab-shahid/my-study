@@ -19,7 +19,6 @@ test.describe('mobile tools dialog keyboard behavior', () => {
     await expect(dialog).toContainText('Search');
     await expect(dialog).toContainText('Settings');
     await expect(dialog).toContainText('More');
-    await expect(dialog).toBeFocused().catch(() => undefined);
 
     await page.keyboard.press('Escape');
     await expect(dialog).toHaveCount(0);
