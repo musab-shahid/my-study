@@ -1869,6 +1869,48 @@ const lessons36: CurriculumLesson[] = [
   },
 ];
 
+const outcomes39: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-39-auto', statement: 'Explain spatial autocorrelation and why random train/test splits of spatial data can leak structure.', action: 'explain and diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-39-interp', statement: 'Compare deterministic interpolation and kriging concepts, including variogram parameters and when data are too sparse to krige.', action: 'compare and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-39-val', statement: 'Design leave-location-out or spatial-block evaluation and interpret residual spatial pattern as a diagnostic.', action: 'design and interpret', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons39: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-9-1', kind: 'lesson', title: 'Spatial dependence, weights and clusters', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes39[0]],
+    content: [
+      { id: 'cgei-geo-39-1-1', kind: 'prose', title: 'Nearby values are often not independent', body: 'Spatial autocorrelation means observations near each other tend to be more similar (or dissimilar) than expected under independence. Global Moran’s I summarises this pattern; local indicators (LISA) locate clusters and outliers. Neighbourhoods may be defined by contiguity or distance weights—results depend on that choice. Edge effects and multiple testing matter for local statistics. Hotspot maps (Getis–Ord Gi*, kernel density) also depend on bandwidth: narrow kernels invent speckles; wide kernels smooth real structure.' },
+      { id: 'cgei-geo-39-1-2', kind: 'prose', title: 'Point patterns and null models', body: 'Complete spatial randomness (CSR) is a null, not a default truth. Quadrat counts, nearest-neighbour statistics and Ripley’s K compare observed patterns to CSR or other nulls. Rejecting CSR is not the same as proving a specific generative process.' },
+      { id: 'cgei-geo-39-1-3', kind: 'worked-example', title: 'Why random splits leak', body: 'If site A and site B are close and share environmental conditions, putting A in train and B in test is not an independent evaluation (Units 4.11–4.12). Fixture unit_3_9_spatial_stats_check.py demonstrates leave-location-out error for a smooth spatial field versus a random split that looks artificially good.' },
+      { id: 'cgei-geo-39-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No PySAL execution in CI', 'Moran’s I formula taught conceptually; fixture uses a simplified lag diagnostic', 'Cluster labels are not land-cover classes'] },
+    ],
+    activityIds: ['cgei-geo-a-39-auto'], assessmentIds: ['cgei-geo-assess-39-auto'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-9-2', kind: 'lesson', title: 'Interpolation, variograms and kriging limits', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes39[1]],
+    content: [
+      { id: 'cgei-geo-39-2-1', kind: 'table', title: 'Interpolation families', headers: ['Method', 'Idea', 'Risk'], rows: [['Nearest neighbour', 'Assign nearest sample', 'Blocky surfaces'], ['IDW', 'Inverse-distance weighted average', 'No uncertainty surface; power parameter arbitrary'], ['Splines', 'Smooth surface', 'Can overshoot'], ['Ordinary kriging', 'BLUP under variogram model', 'Needs enough pairs; stationarity assumptions']] },
+      { id: 'cgei-geo-39-2-2', kind: 'prose', title: 'Variogram language', body: 'An empirical variogram summarises dissimilarity versus lag distance: nugget (micro-scale + measurement noise), sill (variance level), range (distance beyond which correlation is weak), and possible anisotropy. Ordinary kriging yields predictions and a model-based prediction variance—not a free pass when samples are few. If data are too sparse or the variogram is unstable, prefer simpler methods and honest uncertainty statements.' },
+      { id: 'cgei-geo-39-2-3', kind: 'worked-example', title: 'IDW at a target point (synthetic)', body: 'Two samples at distances 1 and 3 from a target, values 10 and 16, power=2. IDW weights ∝ 1/d² give prediction 11.8. Fixture locks this arithmetic. IDW does not estimate kriging variance.' },
+      { id: 'cgei-geo-39-2-4', kind: 'callout', title: 'Regression on spatial data', tone: 'warning', items: ['OLS residuals may still be spatially structured', 'Spatial lag/error and GWR need careful interpretation', 'Coefficients are not automatically causal'] },
+    ],
+    activityIds: ['cgei-geo-a-39-interp'], assessmentIds: ['cgei-geo-assess-39-interp'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-9-3', kind: 'lesson', title: 'Spatial validation and change of support', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes39[2]],
+    content: [
+      { id: 'cgei-geo-39-3-1', kind: 'prose', title: 'Blocks, buffers and residual maps', body: 'Spatial block cross-validation and buffered holdouts reduce leakage relative to random folds. Leave-location-out evaluates transfer to new sites. Residual maps should be inspected for remaining spatial structure. Block size can be informed by the dependence range—not by convenience alone.' },
+      { id: 'cgei-geo-39-3-2', kind: 'prose', title: 'Change of support', body: 'Aggregating point predictions to districts (or downscaling counts) changes the support of the data. Area-weighted and dasymetric approaches make different assumptions. Uncertainty in inputs propagates; Monte Carlo schemes make that explicit when feasible. Spatially balanced sampling improves reference designs for validation (Unit 4.11).' },
+      { id: 'cgei-geo-39-3-3', kind: 'key-points', title: 'Reporting checklist', items: ['Neighbourhood / bandwidth definition', 'Null model for point patterns', 'Interpolation method and parameters', 'Validation design (not only R²)', 'Support of predictions vs decisions'] },
+    ],
+    activityIds: ['cgei-geo-a-39-val'], assessmentIds: ['cgei-geo-assess-39-val'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 
 
@@ -3466,7 +3508,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.6 form the Core geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.6 and Core 3.9 form the geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
       outcomes: [...outcomes31, ...outcomes32, ...outcomes33, ...outcomes34],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
@@ -3877,6 +3919,20 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.6 — Cartography',
       notes: ['Core Unit 3.6. Classification honesty fixture is stdlib; no GUI map export in CI.'],
     },
+
+    {
+      id: 'cgei-geo-unit-3-9', subjectId: 'cgei-geospatial', code: '3.9', title: 'Spatial statistics and geostatistics', order: 39, kind: 'unit', readiness: 'draft',
+      summary: 'Analyse spatial dependence, choose interpolation methods carefully, and validate spatial predictions without leaking nearby structure.',
+      estimatedHours: 10, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 2.6'], outcomes: outcomes39,
+      lessonIds: lessons39.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-39-auto', 'cgei-geo-a-39-interp', 'cgei-geo-a-39-val'],
+      assessmentIds: ['cgei-geo-assess-39-auto', 'cgei-geo-assess-39-interp', 'cgei-geo-assess-39-val'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.9 — Spatial statistics and geostatistics',
+      notes: ['Core Unit 3.9. Synthetic IDW and LOO spatial checks; no PySAL/kriging library in CI.'],
+    },
+
 
 
     {
@@ -4433,6 +4489,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
 
     { id: 'cgei-geo-q-36-choro', lessonId: 'cgei-geo-lesson-3-6-1', type: 'single-choice', prompt: 'A choropleth of raw station counts by district without normalisation is problematic because:', options: ['Choropleths cannot use sequential colours', 'Counts confound area/population with intensity of the phenomenon', 'Legends cannot show counts', 'CRS is irrelevant to choropleths'], correctAnswer: 1, explanation: 'Rates or densities are usually required for honest choropleths of intensity.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-36-legend', lessonId: 'cgei-geo-lesson-3-6-2', type: 'single-choice', prompt: 'An honest climate map legend or caption should include at least:', options: ['Only a colour bar with no units', 'Variable, units, date/period, and source or product version', 'Web Mercator zoom level as the only scale', 'A rainbow scale for all variables'], correctAnswer: 1, explanation: 'Units, time, and source are minimum interpretability metadata.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-39-loo', lessonId: 'cgei-geo-lesson-3-9-1', type: 'single-choice', prompt: 'Random train/test splits of nearby spatial sites are risky because:', options: ['Spatial data cannot be modelled', 'Spatial dependence can leak structure into the test set and inflate apparent skill', 'Moran’s I forbids prediction', 'IDW requires random splits'], correctAnswer: 1, explanation: 'Nearby sites are not independent evaluation units.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-39-idw', lessonId: 'cgei-geo-lesson-3-9-2', type: 'single-choice', prompt: 'IDW interpolation differs from ordinary kriging mainly in that IDW:', options: ['Always estimates a full prediction variance surface from a variogram', 'Uses distance-based weights without a variogram-based uncertainty model', 'Requires a Gaussian process prior by definition', 'Cannot use more than two sample points'], correctAnswer: 1, explanation: 'IDW is deterministic weighting; kriging uses a covariance/variogram model.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-39-block', lessonId: 'cgei-geo-lesson-3-9-3', type: 'single-choice', prompt: 'Spatial block or leave-location-out validation is preferred when:', options: ['The goal is the highest possible training R²', 'The deployment claim is prediction at new locations', 'Edge effects do not exist', 'All samples are independent by assumption'], correctAnswer: 1, explanation: 'Validation design should match the generalization claim.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
 
 

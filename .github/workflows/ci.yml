@@ -119,6 +119,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_python_geospatial_stack_check.py
       - name: Verify Unit 3.5 COG/raster invariants
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_cog_raster_check.py
+      - name: Verify Unit 3.9 spatial stats
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_9_spatial_stats_check.py
       - name: Verify unit_3_5_climate_spatial_integration_check.py
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_climate_spatial_integration_check.py
       - name: Verify unit_3_6_cartography_check.py

@@ -70,3 +70,7 @@ Core Unit 3.6 registered (2 lessons). Unit 3.5 join/integration examples added. 
 ## C.11 — 3.5/3.6 deepening
 
 COG/geotransform/window raster teaching; map-type table; classification breaks fixture; web cartography trade-offs. Still draft/mapped_partial.
+
+## C.12 — Unit 3.9
+
+Core Unit 3.9 Spatial statistics registered (3 lessons, IDW+LOO fixture). Support 3.7/3.8/3.10 not started. Optional 3.11 not started.

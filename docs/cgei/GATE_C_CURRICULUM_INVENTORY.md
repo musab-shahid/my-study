@@ -131,3 +131,7 @@ Core Unit 4.12 implemented (draft). Subject 4 Core units 4.1–4.12 now register
 ## C.11
 
 Units 3.5–3.6 instructional deepening (COG, classification, map types). No new unit registry codes.
+
+## C.12
+
+Core Unit 3.9 implemented (draft). Subject 3 Core registry: 3.1–3.3, 3.5–3.6, 3.9 present; Support 3.4 registered earlier; 3.7–3.8/3.10 Support absent.
