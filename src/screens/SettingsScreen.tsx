@@ -361,7 +361,7 @@ export function SettingsScreen() {
                 </div>
               </div>
             )}
-            {syncMsg && <p className="text-xs text-slate-600" role="status" aria-live="polite">{syncMsg}</p>}
+            {syncMsg && <p className="text-xs text-slate-600" role="status" aria-live="polite" aria-atomic="true">{syncMsg}</p>}
           </div>
         </Card>
       )}
