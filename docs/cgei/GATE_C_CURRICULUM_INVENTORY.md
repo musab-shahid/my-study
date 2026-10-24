@@ -78,3 +78,7 @@ Unit 3.2: fourth lesson + UTM/resampling fixture checks; CSV 16 leaves all mappe
 ## Gate C.3
 
 Unit 3.3: verified gaps filled (print layouts, RMSE, GDAL CLI literacy) without new zonal/reclass lessons. Coverage matrix remains partial; unit draft.
+
+## Gate C.4
+
+Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic fixture added. Real-world validation protocol documented; not executed with Multan control points.

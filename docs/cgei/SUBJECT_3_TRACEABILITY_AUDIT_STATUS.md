@@ -36,3 +36,9 @@ Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; ques
 - Fixture unit_3_3_georef_rmse_check.py locks synthetic RMSE arithmetic.
 - Leaves 3.3.1.2, 3.3.2.3, 3.3.4.2 updated to mapped_partial with evidence.
 - Still **draft**. No GUI layout CI; GDAL not executed in CI; digitising practice deferred.
+
+## Gate C.4 — Unit 3.2 acceptance criteria
+
+- Grid-shift honesty + landmark residual teaching and fixture.
+- Acceptance criteria doc: `docs/cgei/UNIT_3_2_ACCEPTANCE_CRITERIA.md`.
+- Still **draft / mapped_partial** — synthetic landmarks ≠ geographic validation.
