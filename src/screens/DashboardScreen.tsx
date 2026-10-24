@@ -10,7 +10,7 @@ import { enrolledTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chr
 import type { SubjectId, PracticeMode } from '@/types';
 import { getTopic } from '@/data/topics';
 import { sectionMap } from '@/data/sections';
-import { PageContainer, Card, ProgressBar, ScreenHeader } from '@/components/ui';
+import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from '@/components/ui';
 import { computeStreak, getWeakTopics } from '@/lib/streak';
 import { openTrackOptions } from '@/router/openTrack';
 import {
@@ -199,14 +199,14 @@ export function DashboardScreen() {
                       <h2 className="font-semibold text-slate-900 text-sm sm:text-base">{track.title}</h2>
                       <p className="text-xs sm:text-sm text-slate-600 mt-0.5 line-clamp-2">{track.description}</p>
                     </div>
-                    <button
-                      type="button"
+                    <Button
+                      size="sm"
                       onClick={() => navigate({ ...openTrackOptions(track.id) })}
-                      className="shrink-0 inline-flex items-center gap-1 px-3 py-2 rounded-btn bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800"
+                      className="shrink-0"
                     >
                       Explore
                       <ChevronRight className="w-4 h-4" aria-hidden />
-                    </button>
+                    </Button>
                   </div>
                 </Card>
               );
@@ -292,28 +292,20 @@ export function DashboardScreen() {
       <Card className="relative overflow-hidden p-5 sm:p-6 mb-6 border-brand-200 bg-gradient-to-br from-white via-white to-sky-50/80 shadow-card">
         {resumableDraft ? (
           <>
-            <p className="text-[11px] font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Pick up where you left off</p>
+            <p className="text-label font-bold uppercase tracking-[0.12em] text-brand-700 mb-2">Pick up where you left off</p>
             <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">Resume your quiz</p>
             <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">
               You have a saved attempt ({resumableDraft.answers?.length ?? 0} answered of{' '}
               {resumableDraft.questionIds?.length ?? 0}). Continue where you left off — same questions and answers.
             </p>
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={resumeQuizFromHome}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-btn bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800"
-              >
+              <Button size="lg" onClick={resumeQuizFromHome}>
                 Resume quiz
                 <ChevronRight className="w-4 h-4" aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={recNavigate}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-btn border border-slate-200 bg-white text-slate-700 text-sm font-medium hover:bg-slate-50"
-              >
+              </Button>
+              <Button variant="secondary" onClick={recNavigate}>
                 {recAction}
-              </button>
+              </Button>
             </div>
           </>
         ) : (
@@ -322,23 +314,15 @@ export function DashboardScreen() {
             <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">{recHeadline}</p>
             <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">{recSubtext}</p>
             <div className="flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={recNavigate}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-btn bg-brand-700 text-white text-sm font-semibold hover:bg-brand-800"
-              >
+              <Button size="lg" onClick={recNavigate}>
                 {recAction}
                 <ChevronRight className="w-4 h-4" aria-hidden />
-              </button>
+              </Button>
               {dailyTopicIds.length > 0 && (
-                <button
-                  type="button"
-                  onClick={startDailyReview}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-btn border border-slate-200 bg-white text-slate-700 text-sm font-medium hover:bg-slate-50"
-                >
+                <Button variant="secondary" onClick={startDailyReview}>
                   <Zap className="w-4 h-4 text-brand-600" aria-hidden />
                   3-min review
-                </button>
+                </Button>
               )}
             </div>
           </>
@@ -369,7 +353,7 @@ export function DashboardScreen() {
                 ? '—'
                 : `${globalStats.accuracy}%`}
             </p>
-            <p className="text-[11px] text-slate-400 mt-1">
+            <p className="text-caption text-slate-500 mt-1">
               {globalStats.questionsAnswered === 0
                 ? 'No quiz attempts yet'
                 : `${globalStats.questionsAnswered} answered`}
@@ -410,46 +394,40 @@ export function DashboardScreen() {
             {reviewDue.slice(0, 3).map((item) => {
               const topic = getTopic(item.topicId);
               return (
-                <button
+                <ListRow
                   key={item.topicId}
-                  type="button"
                   onClick={() => navigate({ screen: 'topic', topicId: item.topicId })}
-                  className="w-full flex items-center justify-between gap-2 text-left px-2 py-2 rounded-btn hover:bg-slate-50"
+                  className="justify-between"
                 >
                   <span className="text-sm text-slate-800 truncate">
                     {topic?.title ?? item.topicId}
                   </span>
-                  <span className="text-xs font-medium text-amber-700 shrink-0">Due</span>
-                </button>
+                  <span className="text-caption font-medium text-warning-700 shrink-0">Due</span>
+                </ListRow>
               );
             })}
             {weakTopics.slice(0, 2).map((w) => {
               const topic = getTopic(w.topicId);
               return (
-                <button
+                <ListRow
                   key={`w-${w.topicId}`}
-                  type="button"
                   onClick={() => navigate({ screen: 'topic', topicId: w.topicId })}
-                  className="w-full flex items-center justify-between gap-2 text-left px-2 py-2 rounded-btn hover:bg-slate-50"
+                  className="justify-between"
                 >
                   <span className="text-sm text-slate-800 truncate">
                     {topic?.title ?? w.topicId}
                   </span>
-                  <span className="text-xs font-medium text-slate-500 shrink-0">
+                  <span className="text-caption font-medium text-slate-600 shrink-0">
                     {w.accuracy}%
                   </span>
-                </button>
+                </ListRow>
               );
             })}
           </div>
           {reviewDue.length > 0 && (
-            <button
-              type="button"
-              onClick={() => navigate({ screen: 'review' })}
-              className="mt-3 text-sm font-semibold text-brand-700 hover:text-brand-800"
-            >
+            <Button variant="ghost" size="sm" onClick={() => navigate({ screen: 'review' })} className="mt-3">
               Open review queue
-            </button>
+            </Button>
           )}
         </Card>
       )}
@@ -476,35 +454,13 @@ export function DashboardScreen() {
 
       {/* Secondary destinations — low visual weight */}
       <div className="flex flex-wrap gap-2">
-        <button
-          type="button"
-          onClick={() => navigate({ screen: 'practice' })}
-          className="px-3 py-2 rounded-btn border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50"
-        >
-          Practice
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate({ screen: 'progress' })}
-          className="px-3 py-2 rounded-btn border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50"
-        >
-          Progress
-        </button>
-        <button
-          type="button"
-          onClick={() => navigate({ screen: 'learn' })}
-          className="px-3 py-2 rounded-btn border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50"
-        >
-          Learn
-        </button>
+        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'practice' })}>Practice</Button>
+        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'progress' })}>Progress</Button>
+        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'learn' })}>Learn</Button>
         {activeId && (
-          <button
-            type="button"
-            onClick={() => navigate({ ...openTrackOptions(activeId as TrackId) })}
-            className="px-3 py-2 rounded-btn border border-slate-200 bg-white text-sm text-slate-700 hover:bg-slate-50"
-          >
+          <Button variant="secondary" size="sm" onClick={() => navigate({ ...openTrackOptions(activeId as TrackId) })}>
             Track catalog
-          </button>
+          </Button>
         )}
       </div>
     </PageContainer>

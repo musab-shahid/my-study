@@ -12,6 +12,7 @@ import { isTrackEnrolled } from '@/lib/track-access';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
+import { getSubjectStyle } from '@/data/subject-colors';
 import type { SubjectId } from '@/types';
 
 const DOMAIN_GROUPS = [
@@ -78,7 +79,7 @@ export function CGEITrackOverviewScreen() {
 
   return (
     <PageContainer width="wide">
-      <div className="rounded-2xl border border-slate-200 bg-white p-4 sm:p-6 mb-6">
+      <div className="rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
         <ScreenHeader title={def.title} subtitle={def.description} />
         <TrackEnrollmentBanner
           trackTitle={def.title}
@@ -89,31 +90,31 @@ export function CGEITrackOverviewScreen() {
           accentClass={accent.gradient}
         />
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
-          <div className="rounded-xl bg-teal-50 border border-teal-100 p-3">
-            <Compass className="w-5 h-5 text-teal-800 mb-2" aria-hidden />
+          <div className="rounded-card bg-brand-50 border border-brand-100 p-card-pad">
+            <Compass className="w-5 h-5 text-brand-800 mb-2" aria-hidden />
             <p className="font-semibold text-sm text-slate-900">14 connected domains</p>
-            <p className="text-xs leading-relaxed text-slate-600 mt-1">A pathway from environmental foundations to applied intelligence and research.</p>
+            <p className="text-caption leading-relaxed text-slate-600 mt-1">A pathway from environmental foundations to applied intelligence and research.</p>
           </div>
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-3">
             <Layers3 className="w-5 h-5 text-slate-700 mb-2" aria-hidden />
             <p className="font-semibold text-sm text-slate-900">Overview → units → lessons</p>
-            <p className="text-xs leading-relaxed text-slate-600 mt-1">Orientation material is separate from lessons and assessment progress.</p>
+            <p className="text-caption leading-relaxed text-slate-600 mt-1">Orientation material is separate from lessons and assessment progress.</p>
           </div>
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-3">
             <FlaskConical className="w-5 h-5 text-slate-700 mb-2" aria-hidden />
             <p className="font-semibold text-sm text-slate-900">Evidence over checkmarks</p>
-            <p className="text-xs leading-relaxed text-slate-600 mt-1">The long-term goal is validated analysis, code, maps, reports, and projects.</p>
+            <p className="text-caption leading-relaxed text-slate-600 mt-1">The long-term goal is validated analysis, code, maps, reports, and projects.</p>
           </div>
         </div>
       </div>
 
       {enrolled && lastLesson && (
-        <Card className="p-4 mb-6 border border-teal-200 bg-teal-50/50">
+        <Card className="p-4 mb-6 border border-brand-200 bg-brand-50/50">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-xs font-bold uppercase tracking-wide text-teal-800 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Continue curriculum</p>
+              <p className="text-caption font-bold uppercase tracking-wide text-teal-800 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Continue curriculum</p>
               <p className="font-semibold text-slate-900 mt-1">{lastLesson.title}</p>
-              <p className="text-xs text-slate-600 mt-1">Resume the last opened canonical lesson.</p>
+              <p className="text-caption text-slate-600 mt-1">Resume the last opened canonical lesson.</p>
             </div>
             <Button variant="secondary" onClick={() => {
               const result = setActiveEnrolledTrack('cgei');
@@ -162,41 +163,42 @@ export function CGEITrackOverviewScreen() {
                   .map((status) => `${lessonReadiness[status] ?? 0} ${status}`)
                   .join(' · ');
                 const Icon = subject.lucideIcon ?? BookOpen;
+                const subjectStyle = getSubjectStyle(subject.id);
                 return (
-                  <Card key={subject.id} className="p-4 border border-slate-200 hover:border-teal-300 transition-colors">
+                  <Card key={subject.id} className={`p-card-pad border ${subjectStyle.border} ${subjectStyle.hoverBorder} transition-colors`}>
                     <div className="flex items-start gap-3">
-                      <div className="rounded-xl bg-slate-100 p-2.5 shrink-0">
-                        <Icon className="w-5 h-5 text-slate-700" aria-hidden />
+                      <div className={`rounded-btn ${subjectStyle.tint} p-2.5 shrink-0`}>
+                        <Icon className={`w-5 h-5 ${subjectStyle.text}`} aria-hidden />
                       </div>
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-slate-900 leading-snug">{subject.title}</h4>
                         {canonical ? (
                           <>
-                            <p className="text-xs text-teal-800 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
-                            <p className="text-xs text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
-                            <p className="text-xs text-slate-500 mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
+                            <p className="text-caption text-slate-700 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
+                            <p className="text-caption text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
+                            <p className="text-caption text-slate-500 mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
                           </>
                         ) : hasTopicContent ? (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Legacy topic content · release status not tracked</p>
-                            <p className="text-xs text-slate-500 mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
+                            <p className="text-caption text-slate-600 font-semibold mt-1">Legacy topic content · release status not tracked</p>
+                            <p className="text-caption text-slate-500 mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
                           </>
                         ) : hasTopicOutlines ? (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Partial topic outline</p>
-                            <p className="text-xs text-slate-500 mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
+                            <p className="text-caption text-slate-600 font-semibold mt-1">Partial topic outline</p>
+                            <p className="text-caption text-slate-500 mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
                           </>
                         ) : (
                           <>
-                            <p className="text-xs text-slate-600 font-semibold mt-1">Orientation only</p>
-                            <p className="text-xs text-slate-500 mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
+                            <p className="text-caption text-slate-600 font-semibold mt-1">Orientation only</p>
+                            <p className="text-caption text-slate-500 mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
                           </>
                         )}
                       </div>
                     </div>
                     <div className="mt-4 flex items-center justify-between gap-3">
-                      <span className="text-xs text-slate-500 flex items-center gap-1">
-                        {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-teal-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
+                      <span className="text-caption text-slate-500 flex items-center gap-1">
+                        {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-success-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
                         {canonical ? 'Structured pathway' : hasTopicContent ? 'Legacy topic content' : hasTopicOutlines ? 'Partial topic outline' : 'Orientation only'}
                       </span>
                       <Button size="sm" variant="secondary" disabled={!enrolled} onClick={() => openSubject(subject.id as SubjectId)}>
@@ -211,7 +213,7 @@ export function CGEITrackOverviewScreen() {
         ))}
       </div>
 
-      <p className="text-xs text-slate-500 mt-6 leading-relaxed">
+      <p className="text-caption text-slate-500 mt-6 leading-relaxed">
         Coverage is intentionally shown by implementation stage, not as a single completion percentage: roadmap entries, drafted lessons, validated lessons, and demonstrated competencies are different kinds of progress.
       </p>
     </PageContainer>

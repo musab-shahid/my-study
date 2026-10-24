@@ -39,7 +39,7 @@ export function TrackLandingShell({
 }: Props) {
   return (
     <PageContainer width="wide">
-      <div className="rounded-card border border-slate-200 bg-white p-4 sm:p-5 mb-6">
+      <div className="rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
         <ScreenHeader title={title} subtitle={description} />
         <TrackEnrollmentBanner
           trackTitle={title}
@@ -60,7 +60,7 @@ export function TrackLandingShell({
       </div>
 
       <section className="mb-6" aria-label="Subjects">
-        <h2 className="text-sm font-medium text-slate-600 mb-3">Subjects</h2>
+        <h2 className="text-section-title font-medium text-slate-700 mb-3">Subjects</h2>
         {catalog}
       </section>
 
@@ -94,8 +94,8 @@ export function TrackSubjectRow({
     >
       {dotClass && <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} aria-hidden />}
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-slate-900 break-words">{title}</p>
-        <p className="text-xs text-slate-500 mt-0.5 break-words leading-relaxed">{meta}</p>
+        <p className="text-card-title font-semibold text-slate-900 break-words">{title}</p>
+        <p className="text-caption text-slate-600 mt-0.5 break-words leading-relaxed">{meta}</p>
         {typeof progressPct === 'number' && (
           <div className="mt-1.5 h-1 w-full max-w-[12rem] rounded-full bg-slate-200 overflow-hidden">
             <div

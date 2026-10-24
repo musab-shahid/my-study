@@ -54,3 +54,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Breadcrumbs can hide the current item when used beside a page heading; ancestor links remain navigable.
 - Page content should use the shared PageContainer width variants instead of inventing a new maximum width or page padding for each screen. Full-bleed track landing pages may retain a documented hero exception.
 - Track-specific navigation colors come from the typed track style registry; subject-specific accents come from the subject style registry. Do not branch on color-name substrings in UI components.
+
+
+## Route-group migration notes: dashboard and tracks
+
+- Dashboard primary and secondary actions use the shared `Button` variants. Keep custom buttons only for controls whose state semantics need a bespoke treatment (for example, the active-workspace switcher).
+- Focus-area rows use `ListRow` so pointer, keyboard, target size, and focus behavior stay aligned with other list navigation.
+- Track identity should be visible but restrained. Track landing pages use the track registry for the overall accent; subject cards use `getSubjectStyle(subjectId)` for the icon/tint/border identity.
+- Use semantic spacing and typography tokens for shared track cards and supporting labels. Subject accent colors do not replace status colors or the product's primary action color.
