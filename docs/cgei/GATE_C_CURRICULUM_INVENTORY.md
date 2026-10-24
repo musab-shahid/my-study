@@ -119,3 +119,7 @@ Implemented missing Core Unit 3.5 (Python geospatial stack). Registry units incr
 ## C.8
 
 Core Unit 3.6 Cartography added; 3.5 elevated; synthetic climate–spatial integration fixture.
+
+## C.9
+
+Core Unit 4.11 Ground truth / EO integration implemented (draft).

@@ -2788,6 +2788,49 @@ const lessons410: CurriculumLesson[] = [
   },
 ];
 
+const outcomes411: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-411-sample', statement: 'Design paired field–satellite sampling matched to footprint, overpass timing and sub-pixel replication, with documented units and detection limits.', action: 'design and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-411-proxy', statement: 'Distinguish laboratory targets EO can retrieve only indirectly from those requiring local calibration or that are not directly observable.', action: 'distinguish and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-411-validate', statement: 'Validate small-sample EO–field relationships with spatial block or leave-one-site-out designs, report uncertainty, and avoid leakage from feature selection.', action: 'validate and report', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
+
+const lessons411: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-11-1', kind: 'lesson', title: 'Paired field–satellite sampling design', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes411[0]],
+    content: [
+      { id: 'cgei-rs-411-1-1', kind: 'prose', title: 'Match the sample to the pixel', body: 'Ground truth is never error-free: field and laboratory measurements have their own uncertainty, detection limits and handling artefacts. Sampling units should match the satellite footprint or a documented sub-pixel design. Stratify across the gradient of interest (e.g. salinity, moisture) rather than clustering all points in one field. For dynamic variables, sample within days of the overpass and record GNSS accuracy. Replicate within pixels to quantify sub-pixel variability—one grab sample is not the pixel mean.' },
+      { id: 'cgei-rs-411-1-2', kind: 'checklist', title: 'Campaign metadata minimum', items: ['Analyte, method, units, detection limit', 'Sample time (UTC and local) vs overpass', 'GNSS accuracy and CRS', 'Depth/height of measurement', 'Number of within-pixel replicates'] },
+      { id: 'cgei-rs-411-1-3', kind: 'worked-example', title: 'Sample size humility', body: 'With n=12 sites and strong spatial correlation, effective sample size is smaller than 12. Complex multi-index models will overfit. Plan complexity from expected effect size and spatial correlation; prefer simple baselines until more independent sites exist.' },
+      { id: 'cgei-rs-411-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Field labels are reference data with error, not absolute truth', 'Sub-pixel heterogeneity can dominate agreement metrics', 'This unit does not replace a formal survey-sampling course'] },
+    ],
+    activityIds: ['cgei-rs-a-411-sample'], assessmentIds: ['cgei-rs-assess-411-sample'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-11-2', kind: 'lesson', title: 'What laboratory variables EO can and cannot support', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes411[1]],
+    content: [
+      { id: 'cgei-rs-411-2-1', kind: 'table', title: 'Laboratory targets vs EO support', headers: ['Target', 'EO support', 'Caveat'], rows: [['EC / salinity', 'Indirect (stress, crusts, indices)', 'Strong soil-moisture and cover confounding'], ['Soil moisture / SOM', 'Optical, thermal, microwave proxies', 'Depth mismatch vs lab core'], ['N, P, K', 'Indirect via canopy vigour/chlorophyll', 'Not direct in broadband multispectral'], ['Heavy metals', 'Generally not direct', 'Hyperspectral claims need careful validation'], ['Water quality (chl, turbidity)', 'Possible in optical waters with local calibration', 'Dissolved chemistry often not direct']] },
+      { id: 'cgei-rs-411-2-2', kind: 'prose', title: 'Proxy ≠ analyte', body: 'An index correlated with laboratory EC is not a salinity measurement. Local calibration can be useful and still fail outside the calibration domain. Treat hyperspectral metal claims as research-grade until validation design is transparent.' },
+      { id: 'cgei-rs-411-2-3', kind: 'callout', title: 'Decision use', tone: 'warning', items: ['Screening ≠ regulatory compliance testing', 'State depth and timing mismatches explicitly', 'Do not replace laboratory QA with an R² from a small sample'] },
+    ],
+    activityIds: ['cgei-rs-a-411-proxy'], assessmentIds: ['cgei-rs-assess-411-proxy'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-11-3', kind: 'lesson', title: 'Small-sample validation and reporting', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes411[2]],
+    content: [
+      { id: 'cgei-rs-411-3-1', kind: 'prose', title: 'Baselines before complexity', body: 'Start with the sample mean and a single physically motivated index before multi-feature models. Feature selection must stay inside the validation loop—selecting indices on the full dataset then cross-validating leaks information and inflates apparent skill.' },
+      { id: 'cgei-rs-411-3-2', kind: 'prose', title: 'Spatial independence', body: 'Random train/test splits of nearby points often leak spatial structure. Prefer leave-one-site-out or spatial block validation when sites are the independent unit. Report confidence intervals or at least the distribution of fold errors. Area of applicability: predictions far from the training covariate space are extrapolations.' },
+      { id: 'cgei-rs-411-3-3', kind: 'worked-example', title: 'Leave-one-site-out RMSE (synthetic)', body: 'Synthetic pairs (index, lab_value) at 5 sites. A constant-mean baseline and a one-slope index model are compared with leave-one-site-out RMSE. Fixture unit_4_11_eo_validation_check.py locks arithmetic and rejects a protocol that tunes the slope on all sites before evaluating the same sites. Correlation alone is not agreement; bias can remain with high r.' },
+      { id: 'cgei-rs-411-3-4', kind: 'checklist', title: 'Validation report fields', items: ['Reference method, units, detection limit', 'Matching rule (space/time)', 'Partitioning design', 'Metrics with population definition', 'Lab QA/QC summary', 'Association vs mechanism language', 'Data/code availability statement'] },
+      { id: 'cgei-rs-411-3-5', kind: 'callout', title: 'What synthetic tests do not prove', tone: 'warning', items: ['Not Multan field validity', 'Not sensor calibration truth', 'Not fitness for every management decision'] },
+    ],
+    activityIds: ['cgei-rs-a-411-validate'], assessmentIds: ['cgei-rs-assess-411-validate'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 const outcomes71: CurriculumOutcome[] = [
   { id: 'cgei-risk-o-71-vocab', statement: 'Distinguish hazard, exposure, vulnerability, capacity, risk and residual risk without treating hazard maps as risk maps.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
@@ -3558,7 +3601,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.10 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
+      overview: 'Units 4.1–4.11 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
       outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49, ...outcomes410],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
@@ -4265,6 +4308,20 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Support unit: application literacy across themes.', 'Synthetic method-selection fixture—not operational flood/AQ processing.'],
     },
 
+    {
+      id: 'cgei-rs-unit-4-11', subjectId: 'cgei-remote-sensing', code: '4.11', title: 'Ground truth, laboratory data, and EO integration', order: 411, kind: 'unit', readiness: 'draft',
+      summary: 'Design paired field–satellite sampling, judge which lab variables EO can support, and validate small-sample relationships without spatial leakage.',
+      estimatedHours: 8, prerequisites: ['Unit 4.2', 'Unit 4.4', 'Unit 3.2', 'Unit 2.5'], outcomes: outcomes411,
+      lessonIds: lessons411.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-411-sample', 'cgei-rs-a-411-proxy', 'cgei-rs-a-411-validate'],
+      assessmentIds: ['cgei-rs-assess-411-sample', 'cgei-rs-assess-411-proxy', 'cgei-rs-assess-411-validate'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.11 — Ground truth, laboratory data, and EO integration',
+      notes: ['Core Unit 4.11. Synthetic leave-one-site-out fixture only; not field campaign validation.'],
+    },
+
+
 
 
 
@@ -4786,6 +4843,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-410-008', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'NDSI snow-cover maps measure:', options: ['Snow-water equivalent storage', 'Snow-covered area under algorithm assumptions—not automatically SWE or depth', 'Glacier mass balance directly', 'InSAR coherence'], correctAnswer: 1, explanation: 'Cover ≠ SWE/depth.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-410-009', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'InSAR displacement is fundamentally:', options: ['Always vertical centimetres at every building', 'Line-of-sight change under coherence and atmospheric constraints', 'Identical to GRACE mascon trends', 'Proof of a single causal mechanism'], correctAnswer: 1, explanation: 'LOS geometry and error sources limit interpretation.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-410-010', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'Before attributing InSAR subsidence to groundwater pumping, add:', options: ['Only a red colour ramp', 'Groundwater levels, land-use context, and awareness of alternative drivers', 'Nothing—maps are self-explanatory', 'AOD columns'], correctAnswer: 1, explanation: 'Causal attribution needs independent evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-411-leak', lessonId: 'cgei-rs-lesson-4-11-3', type: 'single-choice', prompt: 'Selecting the best spectral index on all field sites and then reporting cross-validated skill on the same sites is problematic because:', options: ['Cross-validation is never allowed', 'Feature selection outside the validation loop leaks information and inflates apparent skill', 'RMSE cannot be computed for continuous variables', 'Laboratory data cannot be used with EO'], correctAnswer: 1, explanation: 'Feature selection must be nested inside validation folds.', difficulty: 'hard', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-411-proxy', lessonId: 'cgei-rs-lesson-4-11-2', type: 'single-choice', prompt: 'Broadband multispectral EO typically supports laboratory soil nitrogen most accurately as:', options: ['A direct elemental measurement equivalent to lab digestion', 'An indirect proxy via canopy chlorophyll/vigour requiring local interpretation', 'A replacement for detection limits', 'A GNSS accuracy metric'], correctAnswer: 1, explanation: 'N is not directly observed in broadband multispectral data.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-411-sample', lessonId: 'cgei-rs-lesson-4-11-1', type: 'single-choice', prompt: 'A single grab sample at one GPS point inside a 30 m pixel is insufficient as the sole pixel reference because:', options: ['GNSS is always wrong', 'Sub-pixel variability is unquantified without replication', 'Satellites cannot be paired with field data', 'Detection limits do not apply'], correctAnswer: 1, explanation: 'Within-pixel replication helps quantify sub-pixel variability.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
 
 
