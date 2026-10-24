@@ -49,8 +49,13 @@ self.addEventListener('fetch', (e) => {
     e.respondWith(
       fetch(req)
         .then((res) => {
-          const clone = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, clone));
+          // Never replace a known-good offline document with an HTTP error page.
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE).then((c) => c.put(req, clone)).catch(() => {
+              // Cache writes are best-effort; the network response remains usable.
+            });
+          }
           return res;
         })
         .catch(() => caches.match(req).then((c) => c || caches.match('/')))
