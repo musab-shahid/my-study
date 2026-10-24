@@ -20,7 +20,7 @@
 | Unique unit codes in registry | **65** | `code: 'X.Y'` in live registry at audit start |
 | Unique lesson IDs | **189** | `cgeiCurriculum.lessons.length` asserted by `cgei-structure.test.ts` |
 | Unique question IDs | **459** | `cgeiCurriculum.questions.length` asserted by `cgei-structure.test.ts`; includes one new Unit 3.2 assessment item in this audit commit |
-| TOC units (Subjects 1–14) | **125** | Unit headings in TOC (13+13+11+12+12+9+10+9+6+9+7+7+7+5) |
+| TOC units (Subjects 1–14) | **Unreconciled: 125 vs 130** | This file's prior extraction reports 125; `TOC_TO_APP_COVERAGE_AUDIT.md` reports 130. The referenced source DOCX is not tracked at this branch head, so the denominator needs re-extraction. |
 
 ## TOC units vs registry (by subject)
 
