@@ -44,24 +44,33 @@ if (entryPoints.length === 0) {
 }
 
 let failed = false;
-const curriculumManifestKeys = Object.keys(manifest).filter((key) =>
-  key.includes('src/data/cgei/curriculum.ts'),
-);
-if (curriculumManifestKeys.length === 0) {
-  console.error('[bundle-budget] Canonical CGEI curriculum module is missing from the Vite manifest.');
+const jsAssets = Object.entries(manifest).filter(([, item]) => item.file?.endsWith('.js'));
+const curriculumMarker = 'cgei-ds-q-51-001';
+const curriculumAssets = jsAssets.filter(([, item]) => {
+  const absolutePath = path.join(outDir, item.file);
+  return fs.existsSync(absolutePath) && fs.readFileSync(absolutePath, 'utf8').includes(curriculumMarker);
+});
+if (curriculumAssets.length === 0) {
+  console.error('[bundle-budget] Canonical CGEI curriculum marker is missing from all production JS assets.');
   process.exit(1);
 }
 for (const [entryKey, entry] of entryPoints) {
   const initialKeys = collectInitialJs(entryKey);
-  if (curriculumManifestKeys.some((key) => initialKeys.has(key))) {
+  const initialFiles = [...initialKeys]
+    .map((key) => manifest[key]?.file)
+    .filter((file) => file?.endsWith('.js'));
+  const initialContainsCurriculum = initialFiles.some((file) => {
+    const absolutePath = path.join(outDir, file);
+    return fs.existsSync(absolutePath) && fs.readFileSync(absolutePath, 'utf8').includes(curriculumMarker);
+  });
+  if (initialContainsCurriculum) {
     console.error(
-      `[bundle-budget] Canonical CGEI curriculum is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind a lazy screen boundary.`,
+      `[bundle-budget] Canonical CGEI curriculum content is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind a lazy screen boundary.`,
     );
     failed = true;
   }
 }
 
-const jsAssets = Object.entries(manifest).filter(([, item]) => item.file?.endsWith('.js'));
 const largest = jsAssets
   .map(([key, item]) => ({ key, file: item.file, ...fileSize(item.file) }))
   .sort((a, b) => b.gzip - a.gzip)[0];
