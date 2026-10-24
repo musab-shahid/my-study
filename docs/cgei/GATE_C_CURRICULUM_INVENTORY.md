@@ -34,7 +34,7 @@
 | 6–13 | (see TOC) | partial Core slices | Support/Optional often deferred |
 | 14 | 5 | 0 | Optional advanced |
 
-**Interpretation:** Registry counts ≠ TOC completion. Many TOC Support/Optional units are intentionally absent. Core gaps still exist (e.g. Subject 2/3 later units).
+**Interpretation:** Registry counts ≠ TOC completion. Many TOC Support/Optional units are intentionally absent. Subject 2's audit explicitly classifies Units 2.3 and 2.7 as Support, so their absence is not a Core gap. The TOC unit total is unresolved (125 vs 130 across existing audit documents) until the source DOCX is available for a reproducible recount.
 
 ## Subject 1.1 review (Gate C.1)
 
@@ -63,7 +63,7 @@
 | ID | Gap | Priority | Status |
 |----|-----|----------|--------|
 | G-S3-CRS | Explicit projected CRS for planar metrics (Multan/UTM) | High | improved C.1 |
-| G-S2-missing | TOC 2.3/2.7/2.9+ absent | High | open |
+| G-S2-support | Units 2.3, 2.7 and 2.9+ not in current registry | Low / scope-tracked | Support/Optional units are explicitly outside Subject 2 Core; do not classify as missing Core. Revisit only when Support scope is scheduled. |
 | G-S1-support | 1.2–1.9 Support not started | Medium | deferred |
 | G-Multan-real | No genuine Multan Landsat | Capstone | external |
 
@@ -93,3 +93,16 @@ Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic f
 **Unit 3.2 correction:** added substantive teaching on ellipsoid vs geodetic reference frame, horizontal vs vertical CRS, the conventional height relation `h = H + N`, and checks for coordinate-operation grids and control-point validation. Added a linked single-choice question. The unit remains **draft / mapped_partial**: this does not supply a local geoid model, a complete coordinate-operation calculation, independent Multan control points, or a learner-tested GIS lab. The existing CRS traceability rows remain partial.
 
 **Verification boundary:** CI must run against the resulting commit SHA before this change can be called verified. No genuine field survey, independent control-point dataset, or local geoid transformation was executed as part of this audit.
+
+
+## Ranked programme gaps — Gate C.6 (evidence-based correction)
+
+| Rank | Gap / stable ID | Exact evidence location | Impact | Acceptance criterion | Status |
+|---:|---|---|---|---|---|
+| 1 | G-TOC-COUNT — authoritative TOC inventory mismatch | `docs/cgei/GATE_C_CURRICULUM_INVENTORY.md`; `docs/cgei/TOC_TO_APP_COVERAGE_AUDIT.md` | Full subject/unit/topic/subtopic denominators cannot be trusted while prior audit counts disagree (125 vs 130 units) and the referenced DOCX is not tracked. | Restore or identify the authoritative TOC source; re-extract counts deterministically; record source revision and compare every source row with current traceability CSVs. | Open; source artifact unavailable in current tree. |
+| 2 | G-S3-CRS — Unit 3.2 real-world coordinate validation | `docs/cgei/UNIT_3_2_ACCEPTANCE_CRITERIA.md`; `content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py` | Synthetic residuals and metadata rules cannot establish accuracy for local legacy datums or a real study area. | Execute documented transform with an identified compatible grid and independent control point(s); report source/target CRS, operation, grid availability, residual and use-case tolerance. | Blocked on external grid/control data; synthetic teaching remains only. |
+| 3 | G-S3-3.3-CORE — remaining GIS instructional depth | `docs/cgei/SUBJECT_3_TRACEABILITY_AUDIT_STATUS.md`; `docs/cgei/subject-3-unit-3.3-subtopic-traceability.csv` | Print layout, robust PyQGIS/GDAL workflow, geometry overlays and digitising/georeferencing remain partial; learners may know commands without completing a reproducible GIS task. | A runnable, fully specified exercise with inputs, CRS/geometry assumptions, expected outputs, error checks and assessment criteria; GUI-only claims clearly separated from CI fixtures. | Open; next internal vertical slice after Unit 3.2 external blocker. |
+| 4 | G-CORE-TRACE — mapped-partial Core coverage | Subject-specific traceability CSVs and status records under `docs/cgei/` | Structural mappings can be mistaken for teaching coverage; outcomes, activities, assessments and evidence may not align. | For each Core leaf, verify actual lesson blocks and a usable practice/assessment path; retain partial status for any unsupported link and validate both directions. | Ongoing; not programme-complete. |
+| 5 | G-MULTAN-REAL — genuine heat-product validation | `docs/cgei/PROGRAMME_BASELINE_AND_BACKLOG.md`; `content-drafts/capstones/multan-uhi/RESEARCH_DESIGN.md` | Synthetic SUHII and miniature MODIS fixtures are not evidence about Multan or a calibrated health-risk product. | Record genuine product identifiers, acquisition/provenance, QA and scale handling, study-area masks, coverage, uncertainty/sensitivity, and independent validation before any empirical claim. | External-data blocker; no real Multan Landsat/MODIS result claimed. |
+
+**Scope correction:** Subject 2 Units 2.3 and 2.7 are Support in `docs/cgei/subject-2-core-completion-audit.md`; their absence from the Core registry is a deferred scope choice, not a high-priority missing-Core defect. Subject 2 Core is itself still draft / mapped-partial.

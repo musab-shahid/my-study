@@ -48,3 +48,16 @@ Subjects 1–13 exist in varying draft depth. **None** are release-complete. Tra
 - Synthetic Landsat C2 L2 ST JSON raster pathway with scale 0.00341802, offset 149, QA filter, zonal SUHII.
 - Optional GDAL GeoTIFF path for learner files (not run in CI without inputs).
 - Real Multan Landsat scene: **not processed** in this environment.
+
+
+## Gate C.6 — ranked curriculum work (2026-10-24)
+
+This register ranks current evidence gaps rather than the easiest files to edit.
+
+1. **Resolve the source-of-truth inventory denominator.** `GATE_C_CURRICULUM_INVENTORY.md` records 125 TOC units, while `TOC_TO_APP_COVERAGE_AUDIT.md` records 130. The cited Master Study TOC DOCX is not in the tracked tree at the audited head. Do not claim a verified complete TOC inventory until the source artifact is located and the extraction rerun.
+2. **Subject 3 Unit 3.2 real transform evidence (external blocker).** Teaching now distinguishes ellipsoid/reference-frame/vertical-datum concepts and the conventional `h = H + N` relationship. The unit remains draft/mapped_partial until compatible grid resources and independent control data can be used; synthetic residual tests validate only the arithmetic and metadata rules.
+3. **Subject 3 Unit 3.3 Core instructional closure (next internal slice).** Current status identifies print-layout depth, PyQGIS/GDAL workflow depth, geometry-overlay/zonal-rasterization assumptions, and digitising/georeferencing practice as remaining partial areas. Implement a learner-completable task with inputs, outputs, validation, and assessment; do not claim a GUI operation was tested by a command-line fixture.
+4. **Core traceability and teaching depth across Subjects 1–8.** Existing source-to-app CSVs are largely mapped_partial; structural ID joins are not evidence of substantive instruction. Review each Core leaf against real blocks, activity, assessment and expected evidence.
+5. **Multan flagship empirical validation.** Keep synthetic Landsat and miniature MODIS paths explicitly synthetic. A genuine Multan product run and independent validation remain external prerequisites to empirical or operational claims.
+
+**Scope note:** Subject 2 Units 2.3 and 2.7 are marked Support in `subject-2-core-completion-audit.md`; they should not be represented as missing Core units. Their absence remains visible as deferred Support scope.
