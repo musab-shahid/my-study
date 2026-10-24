@@ -141,3 +141,8 @@ Core Unit 3.9 implemented (draft). Subject 3 Core registry: 3.1–3.3, 3.5–3.6
 ## C.13
 
 Referential integrity: defined 16 missing activities and 16 assessments for S3/S4 lessons. Integrity fixture added.
+
+## C.14
+
+Unit 4.11 nested feature-selection teaching, activity, assessment, and fixture paths.
+

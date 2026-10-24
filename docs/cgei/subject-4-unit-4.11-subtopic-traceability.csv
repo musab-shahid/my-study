@@ -11,7 +11,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 4.11.2.5,Water quality optical,4.11.2,Lab variables vs EO,Core,cgei-rs-lesson-4-11-2,cgei-rs-411-2-1,mapped_partial,Table row.
 4.11.3.1,Simple baselines first,4.11.3,Small samples,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-1,mapped_partial,Baseline principle.
 4.11.3.2,Leave-one-site-out spatial block,4.11.3,Small samples,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-2;cgei-rs-411-3-3,mapped_partial,LOO fixture.
-4.11.3.3,Feature selection inside validation,4.11.3,Small samples,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-1,mapped_partial,Leakage question + guard.
+4.11.3.3,Feature selection inside validation,4.11.3,Small samples,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-1;cgei-rs-411-3-3b,mapped_partial,Nested vs leaky feature selection worked example + fixture paths + activity.
 4.11.3.4,Prediction uncertainty applicability,4.11.3,Small samples,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-2,mapped_partial,Area of applicability named.
 4.11.4.1,Lab QA with EO metrics,4.11.4,Reporting,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-4,mapped_partial,Report checklist.
 4.11.4.2,Association vs mechanism,4.11.4,Reporting,Core,cgei-rs-lesson-4-11-3,cgei-rs-411-3-4,mapped_partial,Checklist item.
