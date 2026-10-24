@@ -17,7 +17,7 @@ function hasText(value?: string): boolean {
   return !(
     /^(?:[#/*-]\s*)?(?:TODO|TBD|FIXME|PLACEHOLDER)\b/i.test(text)
     || /^lorem ipsum\b/i.test(text)
-    || /^(?:figure|visual|example|content|text|instructions?|solution|details?)\s+(?:to be added|coming soon|not yet written|under construction)[.!]?$/i.test(text)
+    || /^(?:(?:figure|visual)(?:\s+resource)?|example|content|text|instructions?|solution|details?)\s+(?:to be added|coming soon|not yet written|under construction)[.!]?$/i.test(text)
     || /^(?:add|insert|write|replace|provide)\b.*\bhere[.!]?$/i.test(text)
   );
 }
