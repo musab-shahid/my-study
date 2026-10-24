@@ -1478,10 +1478,10 @@ const lessons66: CurriculumLesson[] = [
 ];
 
 const mlUnits: CurriculumUnit[] = [
-  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
+  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:['cgei-ml-a-61-problem'],assessmentIds:['cgei-ml-assess-61'],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
   {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:62,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
   {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:63,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:64,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:64,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:['cgei-ml-a-64-leakage'],assessmentIds:['cgei-ml-assess-64'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_4_leakage_split_check.py']},
   {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:65,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
   {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:66,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
 ];
@@ -3725,28 +3725,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Mission status is literacy, not a live catalogue.', 'ST scale factors are illustrative teaching constants—verify USGS docs for operations.'],
     },
     
-    {
-      id: 'cgei-ml-unit-6-1', code: '6.1', title: 'Learning problem formulation', order: 601, kind: 'unit', readiness: 'draft',
-      summary: 'Define target, unit of analysis, horizon, decision context, task family and baselines before complex models.',
-      estimatedHours: 4, prerequisites: ['Subject 5 statistics'], outcomes: outcomes61,
-      lessonIds: lessons61.map((lesson) => lesson.id),
-      activityIds: ['cgei-ml-a-61-problem'],
-      assessmentIds: ['cgei-ml-assess-61'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 6 Unit 6.1 — Learning problem formulation (Core)',
-      notes: ['Core; baselines-first fixture unit_6_1_learning_problem_check.py'],
-    },
-    {
-      id: 'cgei-ml-unit-6-4', code: '6.4', title: 'Pipelines, evaluation, and leakage control', order: 604, kind: 'unit', readiness: 'draft',
-      summary: 'Train/val/test discipline, blocked spatial and chronological splits, metrics matched to decisions.',
-      estimatedHours: 4.5, prerequisites: ['Unit 6.1'], outcomes: outcomes64,
-      lessonIds: lessons64.map((lesson) => lesson.id),
-      activityIds: ['cgei-ml-a-64-leakage'],
-      assessmentIds: ['cgei-ml-assess-64'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 6 Unit 6.4 — Pipelines, evaluation, and leakage control (Core)',
-      notes: ['Core; leakage fixture unit_6_4_leakage_split_check.py'],
-    },
 {
       id: 'cgei-risk-unit-7-1', code: '7.1', title: 'Risk and resilience concepts', order: 701, kind: 'unit', readiness: 'draft',
       summary: 'Define hazard, exposure, vulnerability, capacity and risk; apply IPCC and Sendai framings without reading social vulnerability from physical maps alone.',
