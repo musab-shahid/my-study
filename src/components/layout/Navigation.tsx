@@ -16,7 +16,6 @@ import { useData } from '@/hooks/useData';
 import { ToolsTray } from '@/components/layout/ToolsTray';
 import {
   getLandingScreenForTrack,
-  getTrackMeta,
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
@@ -111,7 +110,7 @@ export function Sidebar() {
         </button>
         {/* My Tracks — enrolled only */}
         {enrolledIds.length > 0 && (
-          <p className="px-4 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
             My Tracks
           </p>
         )}
@@ -148,7 +147,7 @@ export function Sidebar() {
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
                 <span className="flex-1 text-left">{track.title}</span>
                 {trackMembership.activeTrackId === trackId && (
-                  <span className="text-[10px] text-emerald-400 font-semibold">Active</span>
+                  <span className="text-label text-emerald-400 font-semibold">Active</span>
                 )}
               </button>
               {trackMembership.activeTrackId === trackId && (
@@ -222,7 +221,7 @@ export function Sidebar() {
 
         {/* Explore Tracks — not yet enrolled */}
         {exploreIds.length > 0 && (
-          <p className="px-4 pt-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
             Explore · not started
           </p>
         )}
@@ -246,7 +245,7 @@ export function Sidebar() {
             >
               <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
               <span className="flex-1 text-left">{track.title}</span>
-              <span className={`text-[10px] ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
+              <span className={`text-label ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
             </button>
           );
         })}
@@ -351,12 +350,10 @@ export function MobileNav() {
   };
   const { trackMembership } = useData();
   const activeEnrolled = trackMembership.activeTrackId;
-  const activeTrackAccent =
-    activeEnrolled && isTrackId(activeEnrolled) ? getTrackMeta(activeEnrolled).accent : 'sky';
   const activeIndicatorColor =
-    activeTrackAccent === 'indigo' ? 'bg-indigo-600' :
-    activeTrackAccent === 'teal' ? 'bg-teal-500' :
-    'bg-sky-500';
+    activeEnrolled && isTrackId(activeEnrolled)
+      ? getTrackStyle(activeEnrolled).navIndicator
+      : 'bg-brand-400';
   const tracksClick = () => {
     if (activeEnrolled && isTrackId(activeEnrolled)) {
       navigate({ ...openTrackOptions(activeEnrolled) });
@@ -424,7 +421,7 @@ export function MobileNav() {
                   />
                 )}
                 <Icon className="w-5 h-5" strokeWidth={active ? 2.25 : 2} />
-                <span className="text-[11px] font-medium leading-tight">{item.label}</span>
+                <span className="text-caption font-medium leading-tight">{item.label}</span>
               </button>
             );
           })}
@@ -445,12 +442,12 @@ export function MobileNav() {
             <span className="relative">
               <MoreHorizontal className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} />
               {reviewDue > 0 && (
-                <span className="absolute -top-1.5 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-warning-500 text-white text-[9px] font-bold leading-4 text-center">
+                <span className="absolute -top-1.5 -right-2 min-w-5 h-5 px-1 rounded-full bg-warning-700 text-white text-caption font-bold leading-5 text-center">
                   {reviewDue > 9 ? '9+' : reviewDue}
                 </span>
               )}
             </span>
-            <span className="text-[10px] sm:text-[11px] font-medium leading-tight">More</span>
+            <span className="text-caption font-medium leading-tight">More</span>
           </button>
         </div>
       </nav>

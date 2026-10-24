@@ -143,7 +143,11 @@ test.describe('Mobile More menu consistency', () => {
     await expect(header.getByRole('button', { name: 'Home', exact: true })).toBeVisible();
     await expect(header.getByRole('button', { name: 'Search', exact: true })).toHaveCount(0);
     await expect(header.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(0);
-    await expect(header.getByRole('heading', { name: 'Settings' })).toBeVisible();
+    await expect(header.getByRole('heading')).toHaveCount(0);
+    await expect(header.getByText('My Study', { exact: true })).toBeVisible();
+    await expect(page.locator('main').getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
+    await expect(page.locator('main h1')).toHaveCount(1);
+    await expect(page).toHaveTitle(/Settings.*My Study/);
   });
 });
 

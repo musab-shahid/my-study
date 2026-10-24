@@ -35,7 +35,7 @@ import { STAGE_SCREENS } from '@/lib/constants';
 import { flushPendingSave, consumeStorageWarning, downloadBackupFile, getBackupRaw } from '@/lib/storage';
 
 function ScreenRouter() {
-  const { route } = useRouter();
+  const { route, currentRoute } = useRouter();
   switch (route.screen) {
     case 'home':
       return <DashboardScreen />;
@@ -159,7 +159,7 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     case 'fpsc':
       return { title: 'FPSC Exam', subtitle: 'Federal Public Service Commission' };
     default:
-      return { title: 'Exam Prep' };
+      return { title: 'My Study' };
   }
 }
 
@@ -199,7 +199,7 @@ function AppContent() {
   useEffect(() => {
     const parts = [title];
     if (finalSubtitle) parts.push(finalSubtitle);
-    parts.push('ExamPrep Hub');
+    parts.push('My Study');
     document.title = parts.join(' · ');
   }, [title, finalSubtitle]);
 
@@ -273,8 +273,9 @@ function AppContent() {
         )}
         {showHeader && (
           <Header
-            title={title}
-            subtitle={finalSubtitle}
+            context={finalSubtitle}
+            desktopVisible={route.screen !== 'home' || Boolean(finalSubtitle)}
+            showMobileMeta={Boolean(finalSubtitle) || (Array.isArray(currentRoute.breadcrumb) && currentRoute.breadcrumb.length > 1)}
           />
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>
