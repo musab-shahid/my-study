@@ -20,11 +20,39 @@ function isIOS(): boolean {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as unknown as { MSStream?: unknown }).MSStream;
 }
 
+/**
+ * Installation is an optional enhancement: restricted storage must never stop
+ * the user from installing or dismissing the prompt for the current session.
+ */
+function readDismissedAt(): string | null {
+  try {
+    return localStorage.getItem(DISMISS_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function rememberDismissal(): void {
+  try {
+    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+  } catch {
+    // Best effort only; dismissal still applies to the current render/session.
+  }
+}
+
+function clearDismissal(): void {
+  try {
+    localStorage.removeItem(DISMISS_KEY);
+  } catch {
+    // Installation succeeded; inability to clear a preference is non-fatal.
+  }
+}
+
 function shouldShowPrompt(): boolean {
-  const raw = localStorage.getItem(DISMISS_KEY);
+  const raw = readDismissedAt();
   if (!raw) return true;
   const dismissedAt = Number(raw);
-  if (Number.isNaN(dismissedAt)) return true;
+  if (!Number.isFinite(dismissedAt) || dismissedAt <= 0 || dismissedAt > Date.now()) return true;
   return Date.now() - dismissedAt > DISMISS_DURATION_MS;
 }
 
@@ -63,7 +91,7 @@ export function InstallPrompt() {
     const onInstalled = () => {
       setVisible(false);
       setDeferredPrompt(null);
-      localStorage.removeItem(DISMISS_KEY);
+      clearDismissal();
     };
     window.addEventListener('appinstalled', onInstalled);
     return () => window.removeEventListener('appinstalled', onInstalled);
@@ -77,7 +105,7 @@ export function InstallPrompt() {
       setVisible(false);
       setDeferredPrompt(null);
       if (outcome === 'dismissed') {
-        localStorage.setItem(DISMISS_KEY, String(Date.now()));
+        rememberDismissal();
       }
     } catch {
       setVisible(false);
