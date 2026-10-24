@@ -23,29 +23,16 @@ export {
   CLOUD_RESTORE_RECOVERY_SUFFIX,
 } from './cloud-restore.ts';
 
-const DEVICE_KEY = 'examprep-device-id';
 /** Supabase Auth access_token after sign-in (not the anon key). */
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
+
+export { getDeviceId } from './device-id.ts';
+import { getDeviceId } from './device-id.ts';
 
 export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
 }
 
-export function getDeviceId(): string | null {
-  try {
-    let id = localStorage.getItem(DEVICE_KEY);
-    if (!id) {
-      if (typeof crypto.randomUUID !== 'function') return null;
-      id = crypto.randomUUID();
-      localStorage.setItem(DEVICE_KEY, id);
-    }
-    return id;
-  } catch {
-    // A shared fallback like "anonymous" can make separate browsers overwrite
-    // each other's cloud snapshots. Disable cloud sync when identity is unstable.
-    return null;
-  }
-}
 
 /** Persist session access token after Supabase Auth login. */
 export function setProgressSyncAccessToken(token: string | null): void {
