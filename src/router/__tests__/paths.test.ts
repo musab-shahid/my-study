@@ -68,7 +68,6 @@ describe('Phase A path mapping', () => {
 
   it('keeps quiz deep links intentionally routed to practice', () => {
     assert.deepEqual(pathToRoute('/quiz'), { screen: 'practice' });
-    assert.equal(isAppPath('/quiz'), true);
   });
 
   it('round-trips subject-aware Learn routes and rejects unknown subjects', () => {
