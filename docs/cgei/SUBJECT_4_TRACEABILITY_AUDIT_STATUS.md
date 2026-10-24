@@ -11,3 +11,7 @@ Proxy ≠ target: extent≠depth, VI≠yield, column≠exposure, NDSI≠SWE, InS
 ## C.9 — Unit 4.11
 
 Core Unit 4.11 registered (3 lessons, LOO validation fixture). All leaves mapped_partial. Synthetic only.
+
+## C.10 — Unit 4.12
+
+Core Unit 4.12 Emerging EO/GeoAI registered (3 lessons, method-selection fixture). mapped_partial; no GPU training.

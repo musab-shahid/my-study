@@ -123,3 +123,7 @@ Core Unit 3.6 Cartography added; 3.5 elevated; synthetic climate–spatial integ
 ## C.9
 
 Core Unit 4.11 Ground truth / EO integration implemented (draft).
+
+## C.10
+
+Core Unit 4.12 implemented (draft). Subject 4 Core units 4.1–4.12 now registered.

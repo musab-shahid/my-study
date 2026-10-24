@@ -209,6 +209,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_suhi_analysis_check.py
       - name: Verify Unit 4.11 EO validation
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_11_eo_validation_check.py
+      - name: Verify Unit 4.12 GeoAI method selection
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_12_geoai_method_selection_check.py
       - name: Verify Unit 4.6 pipeline and platform checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_6_pipeline_platform_check.py
       - name: Verify Unit 4.7 classification and change checks

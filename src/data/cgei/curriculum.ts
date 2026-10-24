@@ -2830,6 +2830,47 @@ const lessons411: CurriculumLesson[] = [
   },
 ];
 
+const outcomes412: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-412-select', statement: 'Judge when deep or foundation EO models are justified relative to classical baselines under sample-size, label-quality and validation constraints.', action: 'judge and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-412-validate', statement: 'Require classical baselines, spatial validation and label-quality evidence before accepting GeoAI benchmark or embedding claims.', action: 'require and evaluate', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-412-ops', statement: 'State verification, provenance and licence requirements before using foundation models, embeddings or vision–language outputs in measurement workflows.', action: 'state requirements', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons412: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-12-1', kind: 'lesson', title: 'Deep learning on EO: baselines and labels first', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes412[0]],
+    content: [
+      { id: 'cgei-rs-412-1-1', kind: 'prose', title: 'Complexity is not a substitute for design', body: 'Semantic segmentation and change-detection networks can capture spatial context that pixel-wise classifiers miss. They do not remove the need for independent reference data (Unit 4.11). Label quality is usually the binding constraint: noisy or spatially clustered labels produce optimistic maps that fail under transfer. Classical baselines (index thresholds, random forests on hand-crafted features) belong in the same comparison table—not as straw men, but as evidence that extra capacity buys real skill.' },
+      { id: 'cgei-rs-412-1-2', kind: 'table', title: 'When a deeper model is more defensible', headers: ['Condition', 'Prefer', 'Caution'], rows: [['Few labels, strong spatial correlation', 'Simple regularised or physical baseline', 'Deep nets overfit folds'], ['Large well-labelled corpus, clear task', 'Deep model with spatial CV', 'Still need domain-shift tests'], ['Weak labels / SAM-style masks', 'Annotation aid only', 'Not a validation substitute'], ['Operational monitoring', 'Maintained baseline + monitored model', 'Unversioned weights']] },
+      { id: 'cgei-rs-412-1-3', kind: 'worked-example', title: 'Synthetic baseline vs “complex” features under leakage', body: 'Fixture unit_4_12_geoai_method_selection_check.py compares a mean baseline and a multi-feature linear score under (a) leave-one-site-out and (b) a leakage protocol that selects features on all sites first. Leakage can make the complex score look better while LOO shows little gain—illustrating Unit 4.11’s selection-inside-validation rule for GeoAI feature sets.' },
+      { id: 'cgei-rs-412-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GPU training in CI', 'Synthetic scores are not TorchGeo benchmarks', 'Deep learning is not inherently superior'] },
+    ],
+    activityIds: ['cgei-rs-a-412-dl'], assessmentIds: ['cgei-rs-assess-412-dl'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-12-2', kind: 'lesson', title: 'Benchmarks, foundation models and embeddings', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes412[1]],
+    content: [
+      { id: 'cgei-rs-412-2-1', kind: 'prose', title: 'Read what benchmarks omit', body: 'Tooling ecosystems (TorchGeo, segmentation_models_pytorch, Raster Vision) accelerate experiments; common benchmarks have domain limits (geography, resolution, class schema). GEO-Bench and similar suites should be read for task coverage and omitted regions/sensors. Segment Anything–style tools (e.g. SAMGeo) can speed annotation; they do not replace independent accuracy assessment (Olofsson-style practices remain relevant).' },
+      { id: 'cgei-rs-412-2-2', kind: 'prose', title: 'Transfer is a claim, not a download', body: 'Pretrained EO models and self-supervised archives (examples named in the TOC such as Prithvi-EO, Clay, SatMAE, DOFA, SSL4EO) may transfer—or may not. Evaluate on tasks and regions similar to the intended use. Learned embeddings (including published global embedding layers) are features, not validated maps: probe with simple linear classifiers and test geographic and sensor domain shift before operational reliance.' },
+      { id: 'cgei-rs-412-2-3', kind: 'key-points', title: 'Method-selection checklist', items: ['Classical baseline in the same table', 'Spatial or temporal validation design stated', 'Label source and quality documented', 'Domain-shift test or explicit extrapolation warning', 'Weights, data licence and version pinned'] },
+    ],
+    activityIds: ['cgei-rs-a-412-bench'], assessmentIds: ['cgei-rs-assess-412-bench'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-12-3', kind: 'lesson', title: 'Multimodal systems and operational verification', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes412[2]],
+    content: [
+      { id: 'cgei-rs-412-3-1', kind: 'prose', title: 'Promising is not verified', body: 'Vision–language and agentic geospatial systems can help search documentation and draft code. Generated maps, code, or interpretations are unverified for measurement until checked against independent data and Unit 4.11 validation design. Provenance and licence of pretrained weights and training data are part of the evidence trail—not optional footnotes.' },
+      { id: 'cgei-rs-412-3-2', kind: 'checklist', title: 'Before using an emerging method in analysis', items: ['Baseline comparison recorded', 'Validation matches the deployment claim', 'Failure cases inspected', 'Uncertainty and applicability stated', 'Licence and citation of weights/data', 'Human review of generated artefacts'] },
+      { id: 'cgei-rs-412-3-3', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Feature importance ≠ causal effect', 'Benchmark rank ≠ operational fitness', 'Foundation model ≠ free of spatial leakage'] },
+    ],
+    activityIds: ['cgei-rs-a-412-ops'], assessmentIds: ['cgei-rs-assess-412-ops'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 
 const outcomes71: CurriculumOutcome[] = [
@@ -3601,7 +3642,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.11 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
+      overview: 'Units 4.1–4.12 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
       outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49, ...outcomes410],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
@@ -4321,6 +4362,20 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Core Unit 4.11. Synthetic leave-one-site-out fixture only; not field campaign validation.'],
     },
 
+    {
+      id: 'cgei-rs-unit-4-12', subjectId: 'cgei-remote-sensing', code: '4.12', title: 'Emerging EO / GeoAI directions', order: 412, kind: 'unit', readiness: 'draft',
+      summary: 'Judge when deep and foundation EO models are justified; require baselines, spatial validation, label quality and provenance before operational claims.',
+      estimatedHours: 8, prerequisites: ['Unit 4.11', 'Unit 4.7', 'Unit 4.4'], outcomes: outcomes412,
+      lessonIds: lessons412.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-412-dl', 'cgei-rs-a-412-bench', 'cgei-rs-a-412-ops'],
+      assessmentIds: ['cgei-rs-assess-412-dl', 'cgei-rs-assess-412-bench', 'cgei-rs-assess-412-ops'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.12 — Emerging EO / GeoAI directions',
+      notes: ['Core Unit 4.12. Critical method selection; no GPU training; synthetic leakage demo only.'],
+    },
+
+
 
 
 
@@ -4846,6 +4901,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-411-leak', lessonId: 'cgei-rs-lesson-4-11-3', type: 'single-choice', prompt: 'Selecting the best spectral index on all field sites and then reporting cross-validated skill on the same sites is problematic because:', options: ['Cross-validation is never allowed', 'Feature selection outside the validation loop leaks information and inflates apparent skill', 'RMSE cannot be computed for continuous variables', 'Laboratory data cannot be used with EO'], correctAnswer: 1, explanation: 'Feature selection must be nested inside validation folds.', difficulty: 'hard', cognitiveLevel: 'apply' },
     { id: 'cgei-rs-q-411-proxy', lessonId: 'cgei-rs-lesson-4-11-2', type: 'single-choice', prompt: 'Broadband multispectral EO typically supports laboratory soil nitrogen most accurately as:', options: ['A direct elemental measurement equivalent to lab digestion', 'An indirect proxy via canopy chlorophyll/vigour requiring local interpretation', 'A replacement for detection limits', 'A GNSS accuracy metric'], correctAnswer: 1, explanation: 'N is not directly observed in broadband multispectral data.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-411-sample', lessonId: 'cgei-rs-lesson-4-11-1', type: 'single-choice', prompt: 'A single grab sample at one GPS point inside a 30 m pixel is insufficient as the sole pixel reference because:', options: ['GNSS is always wrong', 'Sub-pixel variability is unquantified without replication', 'Satellites cannot be paired with field data', 'Detection limits do not apply'], correctAnswer: 1, explanation: 'Within-pixel replication helps quantify sub-pixel variability.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-412-base', lessonId: 'cgei-rs-lesson-4-12-1', type: 'single-choice', prompt: 'A deep EO model comparison is incomplete without:', options: ['A GPU utilization chart only', 'Classical baselines evaluated under the same validation design', 'Discarding all hand-crafted features permanently', 'Using training pixels as the only accuracy sample'], correctAnswer: 1, explanation: 'Baselines under the same design show whether capacity buys skill.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-412-sam', lessonId: 'cgei-rs-lesson-4-12-2', type: 'single-choice', prompt: 'Segment Anything–style EO tools are most appropriately treated as:', options: ['A replacement for independent accuracy assessment', 'An annotation aid that still requires validation design', 'Proof of causal land-cover change', 'A licence exemption for pretrained weights'], correctAnswer: 1, explanation: 'Promptable models help label; they are not validation substitutes.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-412-vlm', lessonId: 'cgei-rs-lesson-4-12-3', type: 'single-choice', prompt: 'Vision–language geospatial outputs used in measurement workflows require:', options: ['No checks if the model is large', 'Verification against independent data and documented provenance/licence', 'Only a qualitative screenshot', 'Replacement of Unit 4.11 sampling design'], correctAnswer: 1, explanation: 'Generated artefacts need verification and provenance.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
 
 
