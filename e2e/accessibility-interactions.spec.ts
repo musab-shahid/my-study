@@ -25,6 +25,21 @@ test.describe('mobile tools dialog keyboard behavior', () => {
     await expect(trigger).toBeFocused();
   });
 
+  test('programmatic focus changes cannot escape the open dialog', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.focus();
+    await page.keyboard.press('Enter');
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await expect(dialog).toBeVisible();
+
+    // The primary navigation is outside the modal. Even an explicit focus()
+    // call from another component must not leave focus behind the open sheet.
+    await page.getByRole('button', { name: 'Home', exact: true }).focus();
+    await expect.poll(async () =>
+      dialog.evaluate((node) => node.contains(document.activeElement)),
+    ).toBe(true);
+  });
+
   test('Tab and Shift+Tab keep sequential focus inside the open dialog', async ({ page }) => {
     const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.focus();
