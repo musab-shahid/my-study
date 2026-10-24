@@ -179,6 +179,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py
       - name: Verify Multan UHI foundation contrast
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_foundation_check.py
+      - name: Verify Multan UHI Landsat ST pathway
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_landsat_st_check.py
       - name: Verify Unit 13 portfolio checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_portfolio_check.py
       - name: Verify Unit 13 research-fit checks

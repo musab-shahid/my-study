@@ -42,3 +42,9 @@ Subjects 1–13 exist in varying draft depth. **None** are release-complete. Tra
 | Synthetic SUHII contrast tests | Executed in local + CI when wired |
 | Genuine Multan Landsat/MODIS analysis | **Not executed** |
 | Independent scientific validation | **Not available** |
+
+## Gate B (Landsat ST path)
+
+- Synthetic Landsat C2 L2 ST JSON raster pathway with scale 0.00341802, offset 149, QA filter, zonal SUHII.
+- Optional GDAL GeoTIFF path for learner files (not run in CI without inputs).
+- Real Multan Landsat scene: **not processed** in this environment.

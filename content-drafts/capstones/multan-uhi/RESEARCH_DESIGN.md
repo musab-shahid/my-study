@@ -68,3 +68,32 @@ For a **defined study area and temporal window**, what is the **surface urban he
 python content-drafts/capstones/multan-uhi/analysis/uhi_contrast.py
 python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_foundation_check.py
 ```
+
+## 9. Landsat C2 L2 ST local pathway (Gate B)
+
+**Script:** `analysis/landsat_st_local.py`
+
+| Mode | Input | CI |
+|------|-------|-----|
+| Synthetic | `data/synthetic_landsat_st_scene.json` | Yes |
+| Learner GeoTIFF | `--st-tif` + `--zone-tif` [+ `--qa-tif`] | No (needs GDAL + files) |
+
+**Product conversion (USGS C2 L2 ST):**  
+\(T_K = DN \times 0.00341802 + 149.0\); fill DN = 0; output contrasts in °C.
+
+**Zones:** raster codes 1=urban, 2=rural reference, 3=peri-urban reference, 0=ignore.  
+Means are **valid-pixel averages** within each code (not area-weighted polygons unless weights are supplied upstream).  
+Rural and peri-urban SUHII are reported **separately**.
+
+**Coverage:** default minimum 30% valid among zone-labeled pixels.
+
+**QA:** optional array; simplified clear-pixel rule (reject dilated-cloud/cloud bits). Full QA_PIXEL bitfields must be verified against the current USGS handbook.
+
+### Commands
+
+```bash
+python content-drafts/capstones/multan-uhi/analysis/landsat_st_local.py
+python content-drafts/capstones/multan-uhi/analysis/landsat_st_local.py \
+  --st-tif /path/to/LC08_ST.tif --zone-tif /path/to/zones.tif --qa-tif /path/to/QA_PIXEL.tif
+python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_landsat_st_check.py
+```

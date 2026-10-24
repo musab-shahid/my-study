@@ -1,6 +1,6 @@
 {
   "project": "multan-uhi-foundation",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "datasets": [
     {
       "id": "synthetic_lst_zones",
@@ -11,6 +11,17 @@
       "is_synthetic": true,
       "disclaimer": "NOT observed Multan Landsat or MODIS. Zone labels are pedagogical.",
       "licence": "Curriculum teaching data; not for scientific citation as observations"
+    },
+    {
+      "id": "synthetic_landsat_st_scene",
+      "path": "synthetic_landsat_st_scene.json",
+      "role": "teaching_st_dn_qa_zone_grid",
+      "is_synthetic": true,
+      "disclaimer": "NOT a Landsat granule. DN uses C2 L2 ST scale/offset for teaching.",
+      "scale": 0.00341802,
+      "offset": 149.0,
+      "fill": 0,
+      "documentation_url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products"
     }
   ],
   "target_real_products": [
