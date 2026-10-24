@@ -42,7 +42,20 @@ def wien_peak_um(t_k: float) -> float:
     return WIEN_UM_K / t_k
 
 
+def surface_energy_balance(
+    rn: float, h: float, le: float, g: float
+) -> float:
+    """Residual of Rn = H + LE + G (W m^-2). Zero means closed budget.
+
+    Sign convention (teaching): Rn net radiation into the surface; H, LE, G
+    leave the surface into atmosphere / ground. Residual near zero is a
+    closure check — not proof of instrument accuracy.
+    """
+    return rn - (h + le + g)
+
+
 def main() -> None:
+
     m288 = blackbody_exitance(288.0)
     # Hand: 288^2=82944; 288^4=6.8797e9; *σ ≈ 390.1 W/m^2
     assert 389.0 < m288 < 391.0
@@ -69,6 +82,10 @@ def main() -> None:
         raise AssertionError("expected albedo failure")
     except ValueError:
         pass
+
+    # Surface energy balance residual (teaching numbers)
+    assert abs(surface_energy_balance(450.0, 120.0, 280.0, 50.0)) < 1e-9
+    assert surface_energy_balance(450.0, 100.0, 280.0, 50.0) == 20.0  # open budget
 
     print(
         "Unit 1.1 energy-budget checks passed "
