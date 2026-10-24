@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
-  Search, Clock, Settings as SettingsIcon, Trophy, Library,
+  Search, Clock, Settings as SettingsIcon, Trophy,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
   Dumbbell, Layers,
 } from 'lucide-react';
@@ -22,6 +22,7 @@ import {
 import { openTrackOptions } from '@/router/openTrack';
 import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
+import { AppBrand } from '@/components/ui';
 
 const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
 
@@ -103,15 +104,7 @@ export function Sidebar() {
     <aside className="hidden lg:flex fixed left-0 top-0 h-screen w-64 bg-slate-950 flex-col z-40 border-r border-slate-800/80">
       {/* Logo */}
       <div className="px-6 py-5 border-b border-slate-800">
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-btn bg-brand-700 flex items-center justify-center shrink-0">
-            <Library className="w-5 h-5 text-white" aria-hidden />
-          </div>
-          <div className="min-w-0">
-            <h1 className="text-white font-bold text-lg leading-tight">ExamPrep Hub</h1>
-            <p className="text-slate-400 text-xs">FPSC & HAT Study Hub</p>
-          </div>
-        </div>
+        <AppBrand inverse />
       </div>
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         {/* Home */}

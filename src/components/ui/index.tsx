@@ -1,5 +1,5 @@
 import type { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
-import { CheckCircle2, Circle, Star, Lock, Flame } from 'lucide-react';
+import { BookOpenCheck, CheckCircle2, Circle, Star, Lock, Flame } from 'lucide-react';
 import { getSubjectColor } from '@/data/subject-colors';
 
 export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
@@ -55,7 +55,7 @@ export function PageContainer({
 }) {
   return (
     <div
-      className={`px-4 sm:px-6 lg:px-8 py-4 sm:py-6 ${PAGE_WIDTH_CLASS[width]} mx-auto w-full ${className}`}
+      className={`px-page-x sm:px-page-x-sm lg:px-page-x-lg py-page-y sm:py-page-y-sm ${PAGE_WIDTH_CLASS[width]} mx-auto w-full ${className}`}
     >
       {children}
     </div>
@@ -80,7 +80,7 @@ export function ScreenHeader({
     <div className={`mb-5 sm:mb-8 ${className}`}>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-2xl sm:text-[1.75rem] font-semibold text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-page-title sm:text-page-title-lg text-slate-900">
             {title}
           </h1>
           {subtitle && (
@@ -114,7 +114,7 @@ const CARD_ELEVATION = {
   raised: 'shadow-card',
   /** Clickable / selectable — lifts on hover */
   interactive:
-    'shadow-card cursor-pointer transition-all duration-medium hover:border-slate-300 hover:shadow-card-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+    'shadow-card cursor-pointer transition-all duration-medium hover:border-slate-300 hover:shadow-card-hover active:scale-[0.99] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2',
   /** Featured / CTA cards */
   hero: 'shadow-card-hover ring-1 ring-brand-100/80',
 } as const;
@@ -178,7 +178,7 @@ export function ListRow({
         'w-full flex items-center gap-3 px-3 py-2 rounded-btn text-left',
         'transition-colors duration-DEFAULT',
         'hover:bg-slate-50 active:bg-slate-100',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent',
         'min-h-touch',
         className,
@@ -306,10 +306,10 @@ export function Button({
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'onClick' | 'disabled' | 'className'>) {
   const variants: Record<ButtonVariant, string> = {
-    primary: 'bg-brand-500 text-white hover:bg-brand-600 active:bg-brand-700 shadow-sm shadow-brand-500/20', // button chrome, not card elevation
+    primary: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900 shadow-sm shadow-brand-700/20', // button chrome, not card elevation
     secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100',
     ghost: 'text-slate-600 hover:bg-slate-100 active:bg-slate-200',
-    danger: 'bg-danger-500 text-white hover:bg-danger-600 active:bg-danger-700 shadow-sm shadow-danger-500/20',
+    danger: 'bg-danger-700 text-white hover:bg-danger-800 active:bg-danger-900 shadow-sm shadow-danger-700/20',
   };
   const sizes: Record<ButtonSize, string> = {
     sm: 'px-3 py-2 text-xs rounded-lg min-h-[32px]',
@@ -323,7 +323,7 @@ export function Button({
       disabled={disabled}
       className={[
         'inline-flex items-center justify-center gap-1.5 font-medium transition-all duration-DEFAULT touch-manipulation',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
         variants[variant],
         sizes[size],
@@ -473,11 +473,42 @@ export function IconButton({
         'flex items-center justify-center w-11 h-11 rounded-btn',
         'text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200',
         'transition-colors duration-DEFAULT touch-manipulation',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1',
         className,
       ].join(' ')}
     >
       {children}
     </button>
+  );
+}
+
+
+/** Canonical product wordmark. Track and subject accents belong to their own identity layer. */
+export function AppBrand({
+  compact = false,
+  inverse = false,
+  className = '',
+}: {
+  compact?: boolean;
+  inverse?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`inline-flex min-w-0 items-center gap-3 ${className}`}>
+      <span
+        aria-hidden="true"
+        className={`inline-flex shrink-0 items-center justify-center rounded-btn bg-brand-700 text-white ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
+      >
+        <BookOpenCheck className={compact ? 'h-4 w-4' : 'h-5 w-5'} />
+      </span>
+      <span className="min-w-0">
+        <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-slate-900'}`}>My Study</span>
+        {!compact && (
+          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-slate-400' : 'text-slate-500'}`}>
+            Learning and assessment
+          </span>
+        )}
+      </span>
+    </div>
   );
 }
