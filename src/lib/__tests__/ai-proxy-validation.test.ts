@@ -4,11 +4,19 @@ import {
   MAX_PROXY_CONTENT_CHARS,
   MAX_PROXY_CONTEXT_CHARS,
   MAX_PROXY_MESSAGES,
+  isPlainRecord,
   sanitizeProxyContext,
   sanitizeProxyMessages,
 } from '../../../supabase/functions/_shared/ai-proxy-validation.ts';
 
 describe('AI proxy message validation', () => {
+  it('accepts only plain JSON record shapes for request/message objects', () => {
+    assert.equal(isPlainRecord({ provider: 'openai' }), true);
+    assert.equal(isPlainRecord(null), false);
+    assert.equal(isPlainRecord([]), false);
+    assert.equal(isPlainRecord('not-an-object'), false);
+  });
+
   it('accepts and normalizes valid user/assistant turns', () => {
     const result = sanitizeProxyMessages([
       { role: 'user', content: 'Explain this concept.' , ignored: 'not forwarded' },
