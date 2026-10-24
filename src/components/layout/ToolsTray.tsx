@@ -57,8 +57,6 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
-
   const isCurrent = (screen: string, mode?: string) =>
     route.screen === screen && (mode === undefined || ('mode' in route && route.mode === mode));
 
@@ -77,7 +75,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
   };
 
   return (
-    <>
+    <div hidden={!isOpen}>
       <div
         className="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]"
         onClick={onClose}
@@ -175,6 +173,6 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
         </div>
       </div>
-    </>
+    </div>
   );
 }
