@@ -43,6 +43,23 @@ if (entryPoints.length === 0) {
   process.exit(1);
 }
 
+const curriculumManifestKeys = Object.keys(manifest).filter((key) =>
+  key.replaceAll('\\\\', '/').includes('src/data/cgei/curriculum.ts'),
+);
+if (curriculumManifestKeys.length === 0) {
+  console.error('[bundle-budget] Canonical CGEI curriculum module is missing from the Vite manifest.');
+  process.exit(1);
+}
+for (const [entryKey, entry] of entryPoints) {
+  const initialKeys = collectInitialJs(entryKey);
+  if (curriculumManifestKeys.some((key) => initialKeys.has(key))) {
+    console.error(
+      `[bundle-budget] Canonical CGEI curriculum is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind a lazy screen boundary.`,
+    );
+    failed = true;
+  }
+}
+
 const jsAssets = Object.entries(manifest).filter(([, item]) => item.file?.endsWith('.js'));
 const largest = jsAssets
   .map(([key, item]) => ({ key, file: item.file, ...fileSize(item.file) }))
