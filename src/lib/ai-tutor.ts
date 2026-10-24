@@ -512,12 +512,12 @@ export function consumePendingExplain(topicId: string): PendingExplainPayload | 
   }
 }
 
-function buildPreamble(
+function buildContext(
   topicTitle?: string,
   topicContext?: string,
   studentContext?: string,
 ): string {
-  const parts = [SYSTEM_PROMPT];
+  const parts: string[] = [];
   if (topicTitle) {
     parts.push(`The student is currently studying: ${topicTitle}`);
   }
@@ -528,6 +528,15 @@ function buildPreamble(
     parts.push(`Topic context:\n${topicContext.trim()}`);
   }
   return parts.join('\n\n');
+}
+
+function buildPreamble(
+  topicTitle?: string,
+  topicContext?: string,
+  studentContext?: string,
+): string {
+  const context = buildContext(topicTitle, topicContext, studentContext);
+  return context ? `${SYSTEM_PROMPT}\n\n${context}` : SYSTEM_PROMPT;
 }
 
 export interface TutorMessage {
@@ -776,7 +785,7 @@ async function callViaProxy(
   provider: ProviderKey,
   model: string,
   messages: TutorMessage[],
-  preamble: string,
+  context: string,
   signal?: AbortSignal,
 ): Promise<{ text: string; truncated: boolean }> {
   const url = `${env.SUPABASE_URL.replace(/\/$/, '')}/functions/v1/ai-tutor`;
@@ -799,7 +808,7 @@ async function callViaProxy(
       Authorization: `Bearer ${userJwt}`,
       apikey: env.SUPABASE_ANON_KEY,
     },
-    body: JSON.stringify({ provider, model, messages, preamble }),
+    body: JSON.stringify({ provider, model, messages, context: context.slice(0, 4000) }),
     signal,
   });
   if (!res.ok) {
@@ -1109,6 +1118,7 @@ export async function askTutor(
   }
 
   const modelOption = available.find((m) => m.id === modelId) ?? available[0];
+  const context = buildContext(topicTitle, topicContext, studentContext);
   const preamble = buildPreamble(topicTitle, topicContext, studentContext);
 
   const timeoutMs = 90_000;
@@ -1131,7 +1141,7 @@ export async function askTutor(
         modelOption.provider,
         modelOption.model,
         messages,
-        preamble,
+        context,
         controller.signal,
       );
       return { reply: result.text, modelLabel: modelOption.label, truncated: result.truncated };
