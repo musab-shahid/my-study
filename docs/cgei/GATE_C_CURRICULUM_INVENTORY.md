@@ -10,16 +10,16 @@
 | **Question** | Unique `id` matching `*q-*` curriculum questions |
 | **TOC unit** | `Unit X.Y` heading in Master Study TOC docx |
 
-**Counting date:** Gate C.1 reconciliation against live `curriculum.ts` + TOC docx.
+**Counting date:** Reconciled at audit start on PR #9 head `64e679f9e7b3485aa4ff7f08ee59ce2011bab534`, then updated for the Unit 3.2 instructional/assessment addition in this commit. The TOC DOCX is referenced by prior audit notes but is not tracked in the current repository tree, so the 125-unit TOC figure below remains a previously recorded count, not independently re-extracted during this pass.
 
 ## Exact counts
 
 | Metric | Exact count | Source |
 |--------|-------------|--------|
 | Registry subjects | **13** | `subjects[]` |
-| Unique unit codes in registry | **58** | `code: 'X.Y'` |
-| Unique lesson IDs | **182** | lesson id pattern |
-| Unique question IDs | **402** | question id pattern |
+| Unique unit codes in registry | **65** | `code: 'X.Y'` in live registry at audit start |
+| Unique lesson IDs | **189** | `cgeiCurriculum.lessons.length` asserted by `cgei-structure.test.ts` |
+| Unique question IDs | **459** | `cgeiCurriculum.questions.length` asserted by `cgei-structure.test.ts`; includes one new Unit 3.2 assessment item in this audit commit |
 | TOC units (Subjects 1–14) | **125** | Unit headings in TOC (13+13+11+12+12+9+10+9+6+9+7+7+7+5) |
 
 ## TOC units vs registry (by subject)
@@ -82,3 +82,14 @@ Unit 3.3: verified gaps filled (print layouts, RMSE, GDAL CLI literacy) without 
 ## Gate C.4
 
 Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic fixture added. Real-world validation protocol documented; not executed with Multan control points.
+
+
+## Gate C.5 — live-head reconciliation and Unit 3.2 vertical slice
+
+**Starting PR head:** `64e679f9e7b3485aa4ff7f08ee59ce2011bab534` (the earlier reported `bea07859bca0e2d300303f14ccebe4486c851943` is stale). The branch has 536 tracked files at this audit point. The latest visible PR workflow run was for the older `bea07859bca0e2d300303f14ccebe4486c851943` commit; the exact starting HEAD had no check runs returned by GitHub's commit check-runs endpoint. Do not treat that earlier green run as verification of the live head.
+
+**Verified from the current registry and structural test:** 13 canonical curriculum subjects, 65 distinct unit codes, 189 lessons, and 458 questions before this pass. The app track registers 14 domains, while the canonical registry has 13 subject records; this is a known representation difference, not a count to silently collapse. After adding one Unit 3.2 question, the expected question total is 459. Unit codes/lesson/question counts do not measure instructional completeness.
+
+**Unit 3.2 correction:** added substantive teaching on ellipsoid vs geodetic reference frame, horizontal vs vertical CRS, the conventional height relation `h = H + N`, and checks for coordinate-operation grids and control-point validation. Added a linked single-choice question. The unit remains **draft / mapped_partial**: this does not supply a local geoid model, a complete coordinate-operation calculation, independent Multan control points, or a learner-tested GIS lab. The existing CRS traceability rows remain partial.
+
+**Verification boundary:** CI must run against the resulting commit SHA before this change can be called verified. No genuine field survey, independent control-point dataset, or local geoid transformation was executed as part of this audit.
