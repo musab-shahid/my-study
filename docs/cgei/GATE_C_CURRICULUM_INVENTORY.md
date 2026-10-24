@@ -181,3 +181,8 @@ Core Unit 8.7 first-paper research practice registered (draft).
 
 Core Unit 8.8 portfolio and research positioning (draft).
 
+
+## C.22
+
+Core Unit 8.9 proposals and professional practice (draft).
+

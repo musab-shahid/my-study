@@ -3205,6 +3205,44 @@ const lessons88: CurriculumLesson[] = [
   },
 ];
 
+const outcomes89: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-89-proposal', statement: 'Draft a proposal outline with problem, gap, objectives, methods, feasibility, timeline, outputs, ethics, and anticipated reviewer risks.', action: 'draft', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-89-funding', statement: 'Match scope to supervisor expertise, data/compute feasibility, and funding or scholarship criteria without inventing resources.', action: 'match and justify', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-89-practice', statement: 'Plan milestones, risks, authorship, and feedback loops for professional research collaboration.', action: 'plan', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons89: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-9-1', kind: 'lesson', title: 'Proposal structure and reviewer risks', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes89[0]],
+    content: [
+      { id: 'cgei-rp-89-1-1', kind: 'prose', title: 'Proposal anatomy', body: 'A fundable outline states the problem, literature gap, objectives, methods, feasibility (data and compute), timeline, outputs, ethics, and references. Match scope to supervisor expertise and available data—do not invent field campaigns or proprietary datasets you cannot access.' },
+      { id: 'cgei-rp-89-1-2', kind: 'checklist', title: 'Anticipate reviewer questions', items: ['What is novel relative to close prior work?', 'Is the timeline feasible?', 'What is the main risk and mitigation?', 'How will results be validated?', 'What claim will you not make?'] },
+      { id: 'cgei-rp-89-1-3', kind: 'worked-example', title: 'Structured proposal object (synthetic)', body: 'Fixture unit_8_9_proposal_readiness_check.py requires non-empty problem, gap, objectives, methods, feasibility, timeline, ethics, and at least one named risk. It rejects a proposal that lists tools without a methods paragraph or omits validation language when empirical claims are present.' },
+    ],
+    activityIds: ['cgei-rp-a-89-proposal'], assessmentIds: ['cgei-rp-assess-89-proposal'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-9-2', kind: 'lesson', title: 'Applications, budgets, and funding literacy', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes89[1]],
+    content: [
+      { id: 'cgei-rp-89-2-1', kind: 'prose', title: 'Applications and small budgets', body: 'Statements of purpose and CVs should align with stated criteria. Small-project budgets need line items, in-kind support, and data-access letters where relevant. Funding landscapes change—verify current calls; do not treat a teaching list as an open call.' },
+      { id: 'cgei-rp-89-2-2', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Do not invent institutional support', 'Do not promise deliverables beyond the timeline', 'Scholarship criteria must be read closely, not paraphrased generically'] },
+    ],
+    activityIds: ['cgei-rp-a-89-funding'], assessmentIds: ['cgei-rp-assess-89-funding'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-9-3', kind: 'lesson', title: 'Working practice and professional ethics', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes89[2]],
+    content: [
+      { id: 'cgei-rp-89-3-1', kind: 'prose', title: 'Milestones, risks, authorship', body: 'Use milestones and a risk register. Version-control collaboration. Agree authorship early (CRediT-style roles). Supervisor reports should include questions and blockers, not only results. For consultancy/agency assessment practice (IEE/EIA-style), structure deliverables to client constraints and professional ethics—without treating coursework as licensed practice.' },
+      { id: 'cgei-rp-89-3-2', kind: 'key-points', title: 'Failure modes to avoid', items: ['Literature as unconnected summaries without a gap', 'Selective reporting and undocumented analytic changes', 'Field data without metadata, timestamps, or calibration'] },
+    ],
+    activityIds: ['cgei-rp-a-89-practice'], assessmentIds: ['cgei-rp-assess-89-practice'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 
 
@@ -3677,7 +3715,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
       outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8', 'cgei-rp-unit-8-9'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
@@ -4293,6 +4331,20 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
       sourceDocument: 'Master Study TOC Subject 8 Unit 8.8',
       notes: ['Core Unit 8.8. Draft; no ORCID or DOI creation in CI.'],
     },
+
+    {
+      id: 'cgei-rp-unit-8-9', subjectId: 'cgei-research', code: '8.9', title: 'Research proposals, funding, and professional practice', order: 809, kind: 'unit', readiness: 'draft',
+      summary: 'Write a fundable proposal outline, match scope to resources, and plan professional research collaboration.',
+      estimatedHours: 5, prerequisites: ['Unit 8.7', 'Unit 8.8'], outcomes: outcomes89,
+      lessonIds: lessons89.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-89-proposal', 'cgei-rp-a-89-funding', 'cgei-rp-a-89-practice'],
+      assessmentIds: ['cgei-rp-assess-89-proposal', 'cgei-rp-assess-89-funding', 'cgei-rp-assess-89-practice'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.9',
+      notes: ['Core Unit 8.9. Draft; no live funding application in CI.'],
+    },
+
 
 
     {
@@ -5692,6 +5744,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-a-87-contrib', kind: 'critique', title: 'Single-contribution statement', instructions: 'Write a ≤120-word contribution statement naming exactly one primary pillar (methods sensitivity OR validation OR regional evidence). List three close prior study themes. Run unit_8_7_paper_readiness_check.py to check the structured JSON form of your statement.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-87-contrib'] },
 
     { id: 'cgei-rp-a-88-repo', kind: 'critique', title: 'Repository evidence audit', instructions: 'Score your project repo against: run path, README limitations, environment pin, licence, and one test. Mark each present/partial/absent. State one fix you will make first.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-repo'] },
+
+    { id: 'cgei-rp-a-89-proposal', kind: 'coding-lab', title: 'Proposal object readiness', instructions: 'Complete a structured proposal outline (problem, gap, objectives, methods, feasibility, timeline, ethics, risks). Run unit_8_9_proposal_readiness_check.py on the sample and your fields.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-89-proposal'] },
+    { id: 'cgei-rp-a-89-funding', kind: 'critique', title: 'Scope-to-resource match', instructions: 'Write five sentences matching your objectives to supervisor expertise, data access, compute, budget line items, and one criterion from a real or hypothetical scholarship call (label it clearly as hypothetical if not verified).', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-funding'] },
+    { id: 'cgei-rp-a-89-practice', kind: 'critique', title: 'Milestone and risk register', instructions: 'List four milestones, three risks with mitigations, and proposed authorship roles (CRediT-style). Include one supervisor question you would raise before data collection.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-practice'] },
+
     { id: 'cgei-rp-a-88-revise', kind: 'critique', title: 'FYP revision plan', instructions: 'List three claim-language or method corrections from your FYP (scale, QA, validation, or overclaim). Name the single paper-quality question for the revised version.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-identity'] },
     { id: 'cgei-rp-a-88-position', kind: 'coding-lab', title: 'Positioning object check', instructions: 'Fill a positioning JSON with place, hazard_family, methods_gap, data_feasibility, supervision_need. Run unit_8_8_portfolio_positioning_check.py against the sample and your structure.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-position'] },
 
@@ -6020,6 +6077,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-rp-assess-87-contrib', kind: 'formative', title: 'Contribution framing', purpose: 'Assess single-contribution discipline.', objectiveIds: ['cgei-rp-o-87-contrib'], questionIds: ['cgei-rp-q-87-one'], required: true },
 
     { id: 'cgei-rp-assess-88-repo', kind: 'formative', title: 'Repository as evidence', purpose: 'Assess portfolio evidence literacy.', objectiveIds: ['cgei-rp-o-88-repo'], questionIds: ['cgei-rp-q-88-readme'], required: true },
+
+    { id: 'cgei-rp-assess-89-proposal', kind: 'formative', title: 'Proposal structure', purpose: 'Assess proposal completeness and risk anticipation.', objectiveIds: ['cgei-rp-o-89-proposal'], questionIds: ['cgei-rp-q-89-struct'], required: true },
+    { id: 'cgei-rp-assess-89-funding', kind: 'formative', title: 'Feasibility and funding', purpose: 'Assess resource honesty.', objectiveIds: ['cgei-rp-o-89-funding'], questionIds: ['cgei-rp-q-89-scope'], required: true },
+    { id: 'cgei-rp-assess-89-practice', kind: 'formative', title: 'Working practice', purpose: 'Assess collaboration and risk planning.', objectiveIds: ['cgei-rp-o-89-practice'], questionIds: ['cgei-rp-q-89-risk'], required: true },
+
     { id: 'cgei-rp-assess-88-revise', kind: 'formative', title: 'Coursework to study', purpose: 'Assess revision and question focus.', objectiveIds: ['cgei-rp-o-88-identity'], questionIds: ['cgei-rp-q-88-revise'], required: true },
     { id: 'cgei-rp-assess-88-position', kind: 'formative', title: 'Graduate positioning', purpose: 'Assess focused research positioning.', objectiveIds: ['cgei-rp-o-88-position'], questionIds: ['cgei-rp-q-88-focus'], required: true },
 
