@@ -62,6 +62,10 @@ def validate_card(card: dict) -> list[str]:
     if len(enquiry) < 3:
         errs.append("enquiry_checklist_too_short")
 
+    actions = card.get("next_actions") or []
+    if len(actions) < 1:
+        errs.append("next_actions_missing")
+
     return errs
 
 

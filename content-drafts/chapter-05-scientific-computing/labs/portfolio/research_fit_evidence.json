@@ -25,7 +25,7 @@
     },
     {
       "skill": "spatial statistics / uncertainty",
-      "evidence": "Subject 5–6 coursework references; rank sensitivity",
+      "evidence": "Subject 5\u20136 coursework references; rank sensitivity",
       "gap": "formal spatial dependence models",
       "priority": "medium"
     },
@@ -53,7 +53,7 @@
     "language_test_plan": "verify current requirements on official pages only"
   },
   "supervisor_enquiry_checklist": [
-    "Read 3–5 recent papers from the target group",
+    "Read 3\u20135 recent papers from the target group",
     "State one specific methodological question tied to those papers",
     "Attach a one-page project summary with your contribution",
     "Do not claim supervisor interest or funding commitment",
@@ -70,5 +70,44 @@
     "not_a_funding_award",
     "not_supervisor_commitment",
     "not_verified_against_live_programme_pages_in_ci"
+  ],
+  "evidence_chain": [
+    {
+      "step": "interest",
+      "artifact": "research_interest_statement"
+    },
+    {
+      "step": "demonstrated_skills",
+      "artifact": "skill_map.evidence + capstone_evidence.methods_demonstrated"
+    },
+    {
+      "step": "portfolio_pointer",
+      "artifact": "labs/portfolio/capstone_portfolio_evidence.json"
+    },
+    {
+      "step": "gaps",
+      "artifact": "skill_map.gap"
+    },
+    {
+      "step": "next_actions",
+      "artifact": "next_actions"
+    }
+  ],
+  "next_actions": [
+    {
+      "action": "Complete official QC-bit study for MOD11A2 using product user guide",
+      "supports_gap": "thermal remote sensing interpretation",
+      "done_in_repo": false
+    },
+    {
+      "action": "Keep portfolio non-claims when drafting any application summary",
+      "supports_gap": "communication discipline",
+      "done_in_repo": true
+    },
+    {
+      "action": "Verify any target programme rules only on official pages before applying",
+      "supports_gap": "application process",
+      "done_in_repo": false
+    }
   ]
 }

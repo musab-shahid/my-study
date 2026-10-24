@@ -64,6 +64,13 @@ def validate_portfolio(card: dict) -> list[str]:
         if not card.get("genuine_granule_sha256"):
             errs.append("genuine_granule_claim_without_checksum")
 
+
+    rel = card.get("related_projects")
+    if isinstance(rel, dict):
+        for slot in ("geospatial_or_remote_sensing_slot", "ml_or_geoai_slot"):
+            s = rel.get(slot) or {}
+            if s.get("status") == "completed" and not s.get("repo_or_path"):
+                errs.append(f"related_project_completed_without_path:{slot}")
     return errs
 
 

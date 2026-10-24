@@ -163,3 +163,6 @@ Research-fit evidence card: skill map, application checklist, enquiry steps, fun
 
 ## unit_13_external_review_check.py
 Illustrative external-review packet structure, dispositions, release decision; blocks genuine-review claims.
+
+## unit_13_core_repro_protocol_check.py
+Unified Subject 13 Core protocol references all path scripts; self-review record must stay labelled non-independent.

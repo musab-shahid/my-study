@@ -9,7 +9,7 @@
       "version_or_label": "unit_13_capstone_heat_risk_check.py embedded rows",
       "spatial_coverage": "3 synthetic neighbourhoods",
       "temporal_coverage": "synthetic summer snapshot",
-      "units": "lst_anomaly_c (°C-sized anomaly); pop_density (relative); vuln_index [0,1]",
+      "units": "lst_anomaly_c (\u00b0C-sized anomaly); pop_density (relative); vuln_index [0,1]",
       "licence": "Teaching fixture in repository",
       "retrieval_date_utc": "n/a (generated)",
       "role": "Primary screening inputs for Path A",
@@ -18,7 +18,7 @@
     {
       "source": "MOD11A2-schema teaching extract (Path B)",
       "version_or_label": "capstone_lst_extract_sample.csv + capstone_public_manifest.json",
-      "spatial_coverage": "tabular points labelled N1–N5",
+      "spatial_coverage": "tabular points labelled N1\u2013N5",
       "temporal_coverage": "2023-06-10/2023-06-17 (label only)",
       "units": "lst_day_k (Kelvin)",
       "licence": "Teaching extract; product docs at LP DAAC MOD11A2 v061",
@@ -31,10 +31,10 @@
       "version_or_label": "modis_miniature/lst_day_miniature.json",
       "spatial_coverage": "3x3 miniature grid",
       "temporal_coverage": "none (logic fixture)",
-      "units": "raw DN; scale 0.02 → Kelvin",
+      "units": "raw DN; scale 0.02 \u2192 Kelvin",
       "licence": "Teaching fixture",
       "retrieval_date_utc": "n/a",
-      "role": "Scale/fill/Kelvin→°C processing logic",
+      "role": "Scale/fill/Kelvin\u2192\u00b0C processing logic",
       "synthetic_or_real": "synthetic"
     }
   ],
@@ -42,7 +42,7 @@
   "key_results": [
     "Path A: equal-weight top neighbourhoods N2, N3 under synthetic inputs (fixture-locked).",
     "Path B: QA filter retains 4 rows; weight sensitivity can change top rank (N2 vs N1).",
-    "Path C: miniature grid yields n_valid=6, mean ≈ 36.35 °C after scale and conversion; qa_screened=false."
+    "Path C: miniature grid yields n_valid=6, mean \u2248 36.35 \u00b0C after scale and conversion; qa_screened=false."
   ],
   "limitations": [
     "No genuine Multan MODIS granule was processed in CI.",
@@ -77,5 +77,19 @@
     "Rank table under heat-heavy weights",
     "One limitations callout figure or box"
   ],
-  "environment_note": "Stdlib Python 3 for fixtures; optional GDAL/pyhdf only for learner-side real HDF (outside CI)."
+  "environment_note": "Stdlib Python 3 for fixtures; optional GDAL/pyhdf only for learner-side real HDF (outside CI).",
+  "related_projects": {
+    "flagship": "This heat-screening package (Paths A\u2013C + portfolio + review packet)",
+    "geospatial_or_remote_sensing_slot": {
+      "status": "planned_not_built",
+      "intended_theme": "Neighbourhood zonal LST summary from a genuine MOD11A2 granule after learner download",
+      "evidence_today": "Path C logic fixture + real-granule lab instructions only"
+    },
+    "ml_or_geoai_slot": {
+      "status": "planned_not_built",
+      "intended_theme": "Leakage-safe baseline comparison using Subject 12 split/baseline practices",
+      "evidence_today": "Cross-reference Subject 12 fixture unit_12_ai_split_baseline_check.py \u2014 not a second completed project repo"
+    },
+    "honesty_note": "Do not list planned slots as completed portfolio projects."
+  }
 }

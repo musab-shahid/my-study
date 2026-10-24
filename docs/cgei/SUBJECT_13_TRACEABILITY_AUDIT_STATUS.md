@@ -26,3 +26,16 @@ Draft Core lesson + evidence card template + `unit_13_portfolio_check.py`. Paths
 ## Unit 13.6 deepened (V6)
 
 Illustrative external-review packet + fixture. Release decision `ready_with_limitations` for teaching package only. Core units 13.1–13.3, 13.5–13.6 all draft-present; Optional 13.4 and Support 13.7 deferred.
+
+## Core completion pass (V7)
+
+Added `labs/unit-13-core-reproduction-protocol.md` + `unit_13_core_repro_protocol_check.py` and `independent_repro_record.json` (self-review only).
+
+Per-unit internal gap closures:
+- 13.1 operational scope card in protocol §0
+- 13.2 unified path run table / IO contracts in protocol
+- 13.3 related_projects planned_not_built slots (no fake completed projects)
+- 13.5 evidence_chain + next_actions required by fixture
+- 13.6 independent reproducibility checklist with pass/fail table
+
+All Core leaves remain mapped_partial where external evidence is required. Optional 13.4 and Support 13.7 untouched.

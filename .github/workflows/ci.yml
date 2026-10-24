@@ -161,6 +161,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_research_fit_check.py
       - name: Verify Unit 13 external-review checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_external_review_check.py
+      - name: Verify Unit 13 Core reproduction protocol
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_core_repro_protocol_check.py
       - name: Verify Unit 4.3 spectral indices and LST checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
       - name: Verify Unit 4.4 preprocessing and harmonisation checks
