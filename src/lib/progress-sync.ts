@@ -17,6 +17,7 @@
 import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
 import { validateCloudRestoreData } from './cloud-restore.ts';
+import { getDeviceId } from './device-id.ts';
 
 export {
   planCloudRestoreWrite,
@@ -26,7 +27,6 @@ export {
 /** Supabase Auth access_token after sign-in (not the anon key). */
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
 
-import { getDeviceId } from './device-id.ts';
 export { getDeviceId };
 
 export function isProgressSyncConfigured(): boolean {
