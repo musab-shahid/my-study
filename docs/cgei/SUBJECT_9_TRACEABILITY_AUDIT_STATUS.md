@@ -10,3 +10,5 @@
 | 9.2, 9.5, 9.6 | Support/Optional | Deferred |
 
 Fixture: `unit_9_decision_product_check.py`
+
+V19: Product-card fixture requires `non_claims` (bridge to Unit 8.6). Still draft.

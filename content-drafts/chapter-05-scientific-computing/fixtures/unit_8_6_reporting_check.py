@@ -1,6 +1,8 @@
 """Unit 8.6 scientific reporting section checks (stdlib)."""
 from __future__ import annotations
 
+from typing import Any
+
 REQUIRED_SECTIONS = (
     "research_question",
     "estimand",
@@ -12,19 +14,46 @@ REQUIRED_SECTIONS = (
 )
 
 
+def _is_nonempty_str(value: Any) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
+def validate_non_claims(value: Any) -> list[str]:
+    """Accept a non-empty string or a non-empty list of non-empty strings.
+
+    Reject missing/blank values, empty lists, lists with blank entries, and
+    unsupported types (numbers, bools, dicts, None). Does not require specific
+    vocabulary—only structural presence of meaningful text.
+    """
+    errs: list[str] = []
+    if value is None:
+        errs.append("non_claims_missing")
+        return errs
+    if isinstance(value, str):
+        if not value.strip():
+            errs.append("non_claims_blank")
+        return errs
+    if isinstance(value, list):
+        if len(value) < 1:
+            errs.append("non_claims_empty_list")
+            return errs
+        for i, item in enumerate(value):
+            if not _is_nonempty_str(item):
+                errs.append(f"non_claims_invalid_item:{i}")
+        return errs
+    errs.append(f"non_claims_unsupported_type:{type(value).__name__}")
+    return errs
+
+
 def validate_report(report: dict) -> list[str]:
     errs: list[str] = []
     for k in REQUIRED_SECTIONS:
+        if k == "non_claims":
+            continue
         v = report.get(k)
         if v is None or (isinstance(v, str) and not str(v).strip()):
             errs.append(f"missing_section:{k}")
-    nc = report.get("non_claims")
-    if isinstance(nc, list):
-        if len(nc) < 1:
-            errs.append("non_claims_empty")
-    elif isinstance(nc, str) and "causal" not in nc.lower() and "not" not in nc.lower():
-        # soft: still require non-empty handled above
-        pass
+    errs.extend(validate_non_claims(report.get("non_claims")))
     if report.get("claims_external_validation") is True:
         errs.append("must_not_claim_external_validation_without_evidence")
     return errs
@@ -34,7 +63,7 @@ def main() -> None:
     bare = {"research_question": "Heat patterns?"}
     e = validate_report(bare)
     assert "missing_section:estimand" in e
-    assert "missing_section:non_claims" in e
+    assert "non_claims_missing" in e
 
     ok = {
         "research_question": "How do summer parcel LST values differ by roof type in City X industrial belt?",
@@ -47,6 +76,20 @@ def main() -> None:
         "claims_external_validation": False,
     }
     assert validate_report(ok) == []
+
+    ok_str = {**ok, "non_claims": "Does not claim causal policy effect or external validation."}
+    assert validate_report(ok_str) == []
+
+    # non_claims structural negatives
+    assert "non_claims_missing" in validate_non_claims(None)
+    assert "non_claims_blank" in validate_non_claims("")
+    assert "non_claims_blank" in validate_non_claims("   ")
+    assert "non_claims_empty_list" in validate_non_claims([])
+    assert "non_claims_invalid_item:1" in validate_non_claims(["ok", "  "])
+    assert "non_claims_invalid_item:0" in validate_non_claims([42])
+    assert "non_claims_unsupported_type:int" in validate_non_claims(3)
+    assert "non_claims_unsupported_type:bool" in validate_non_claims(True)
+    assert "non_claims_unsupported_type:dict" in validate_non_claims({"a": 1})
 
     bad = {**ok, "claims_external_validation": True}
     assert "must_not_claim_external_validation_without_evidence" in validate_report(bad)

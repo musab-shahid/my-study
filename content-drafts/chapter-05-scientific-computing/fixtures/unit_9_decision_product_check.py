@@ -43,6 +43,21 @@ def validate_product_card(card: dict) -> list[str]:
     if not conf or not str(conf).strip():
         errors.append("missing_confidence_note")
 
+    # Bridge to Unit 8.6 reporting discipline: products must state non-claims
+    nc = card.get("non_claims")
+    if nc is None:
+        errors.append("missing_non_claims")
+    elif isinstance(nc, str):
+        if not nc.strip():
+            errors.append("blank_non_claims")
+    elif isinstance(nc, list):
+        if len(nc) < 1:
+            errors.append("empty_non_claims_list")
+        elif any(not isinstance(x, str) or not x.strip() for x in nc):
+            errors.append("invalid_non_claims_item")
+    else:
+        errors.append("unsupported_non_claims_type")
+
     return errors
 
 
@@ -95,8 +110,12 @@ def main() -> None:
         "reviewer": "A. Analyst",
         "review_date": "2024-01-15",
         "confidence_note": "Ranks places; not calibrated health risk",
+        "non_claims": ["Not calibrated health risk", "Not an operational forecast"],
     }
     assert validate_product_card(good) == []
+
+    no_nc = {k: v for k, v in good.items() if k != "non_claims"}
+    assert "missing_non_claims" in validate_product_card(no_nc)
 
     # Weight sensitivity (Unit 9.3 link)
     opt_a = {"cost": 0.8, "equity": 0.4, "feasibility": 0.7}
