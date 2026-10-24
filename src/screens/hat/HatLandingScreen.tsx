@@ -8,6 +8,7 @@ import { useData } from '@/hooks/useData';
 import { getSubjectsForTrack } from '@/lib/exam-track';
 import { getHatSectionStyle } from '@/data/subject-colors';
 import type { Topic, Question, SubjectId } from '@/types';
+import { trackAccentClasses } from '@/lib/track-chrome';
 import {
   TrackLandingShell,
   TrackSubjectList,
@@ -98,7 +99,7 @@ export function HatLandingScreen() {
         if (sw.ok) setActiveTrack('hat');
       }}
       enrollError={enrollError}
-      accentClass="from-slate-700 to-slate-800"
+      accentClass={trackAccentClasses('hat').gradient}
       summary={
         loadError ? (
           <p className="text-danger-200" role="alert">

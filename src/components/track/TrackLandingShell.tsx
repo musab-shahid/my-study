@@ -39,7 +39,8 @@ export function TrackLandingShell({
 }: Props) {
   return (
     <PageContainer width="wide">
-      <div className="rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
+      <div className="relative overflow-hidden rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
+        <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accentClass ?? 'from-brand-700 to-brand-500'}`} aria-hidden />
         <ScreenHeader title={title} subtitle={description} />
         <TrackEnrollmentBanner
           trackTitle={title}
@@ -48,7 +49,6 @@ export function TrackLandingShell({
           enrolling={enrolling}
           onBegin={onBegin}
           onContinue={onContinue}
-          accentClass={accentClass}
         />
         {enrollError && (
           <p className="text-sm text-danger-600 mt-3" role="alert">
