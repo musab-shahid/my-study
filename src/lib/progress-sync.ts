@@ -91,6 +91,11 @@ function userIdFromAccessToken(token: string): string | null {
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
 export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {
+  // Do not persist a malformed local snapshot to cloud storage where it could
+  // later become an unusable restore source. Keep this check independent of auth
+  // configuration so invalid payloads fail deterministically before any request.
+  if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
+
   const auth = requireAuth();
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
