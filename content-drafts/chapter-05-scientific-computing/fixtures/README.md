@@ -175,3 +175,6 @@ Synthetic parcel feature contract: schema/ranges, year split, train-only scaling
 
 ## unit_6_3_core_algorithms_check.py
 Majority vs logistic vs LST stump on synthetic parcels; train-only scale; precision/recall/F1.
+
+## unit_6_5_interpretation_check.py
+Confusion, FP/FN, threshold sensitivity, illustrative reliability bins, reporting limitations.

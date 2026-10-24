@@ -141,6 +141,24 @@ def main() -> None:
     pred_tree = [predict_stump(r, "lst_c", thr, direction) for r in test]
     m_tree = metrics(test_y, pred_tree)
 
+
+    # Known confusion-matrix arithmetic on a fixed 4-vector
+    yt_ex = [1, 0, 1, 0]
+    yp_ex = [1, 1, 0, 0]
+    m_ex = metrics(yt_ex, yp_ex)
+    assert m_ex["tp"] == 1 and m_ex["fp"] == 1 and m_ex["fn"] == 1 and m_ex["tn"] == 1
+    assert abs(m_ex["precision"] - 0.5) < 1e-9
+    assert abs(m_ex["recall"] - 0.5) < 1e-9
+
+    # Stump threshold from train only: refitting on test must not be used for selection
+    thr_train, dir_train = fit_stump(train, "lst_c")
+    thr_test, _ = fit_stump(test, "lst_c")
+    # Predictions use train-selected threshold
+    pred_tree = [predict_stump(r, "lst_c", thr_train, dir_train) for r in test]
+    m_tree = metrics(test_y, pred_tree)
+    # All models share chronological holdout
+    assert all(int(r["year"]) >= 2021 for r in test)
+
     # Fair comparison: same split; at least one model should beat pure chance structure
     assert len(test_y) == 4
     # Logistic or stump should not be worse than majority on F1 in this synthetic design
