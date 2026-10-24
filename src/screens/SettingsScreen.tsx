@@ -116,9 +116,14 @@ export function SettingsScreen() {
         }
         setResetDone('All data has been reset. A recovery backup was saved.');
       } else {
-        resetSubjects([...selectedSubjects]);
+        const didReset = resetSubjects([...selectedSubjects]);
+        if (!didReset) {
+          setResetDone('Partial reset cancelled because a recovery backup or save could not be completed. Your current progress was kept.');
+          setConfirming(false);
+          return;
+        }
         const n = selectedSubjects.size;
-        setResetDone(`${n} subject${n !== 1 ? 's' : ''} reset successfully`);
+        setResetDone(`${n} subject${n !== 1 ? 's' : ''} reset successfully. A recovery backup was saved.`);
       }
       setSelectedSubjects(new Set());
       setConfirming(false);
