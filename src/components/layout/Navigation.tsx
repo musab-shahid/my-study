@@ -8,7 +8,7 @@ import {
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
 import { listTrackDefinitions, isTrackId } from '@/data/tracks';
-import { enrolledTrackIds, trackIcon, trackAccentClasses, allTrackIds } from '@/lib/track-chrome';
+import { enrolledTrackIds, trackIcon, allTrackIds } from '@/lib/track-chrome';
 import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
 import { useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
 import { useSubjectData } from '@/hooks/useSubjectData';
@@ -36,24 +36,12 @@ const stageIcons: Record<StageScreen, typeof BookCopy> = {
 };
 
 function trackNavStyles(trackId: ExamTrack) {
-  const a = trackAccentClasses(trackId);
-  const isIndigo = a.text.includes('indigo');
-  const isTeal = a.text.includes('teal');
-  const border = isIndigo
-    ? 'border-l-indigo-600'
-    : isTeal
-      ? 'border-l-teal-500'
-      : 'border-l-sky-500';
-  const bg = isIndigo
-    ? 'bg-indigo-600/10'
-    : isTeal
-      ? 'bg-teal-500/10'
-      : 'bg-sky-500/10';
+  const trackStyle = getTrackStyle(trackId);
   return {
-    activeBorder: border,
-    activeBg: bg,
-    iconColor: a.text,
-    stageActive: `${a.text} bg-slate-800`,
+    activeBorder: trackStyle.navBorder,
+    activeBg: trackStyle.navActiveBg,
+    iconColor: trackStyle.accent,
+    stageActive: `${trackStyle.accent} bg-slate-800`,
   };
 }
 
