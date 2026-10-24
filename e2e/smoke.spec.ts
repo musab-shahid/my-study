@@ -41,6 +41,37 @@ test.describe('Mobile More sheet accessibility', () => {
     await expect(dialog).toBeHidden();
     await expect(trigger).toBeFocused();
   });
+
+  test('ignores visibility-hidden and disabled-fieldset controls when wrapping focus', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    const close = dialog.getByRole('button', { name: 'Close' });
+    const lastVisible = dialog.getByRole('button', { name: 'HAT Prep', exact: true });
+
+    await dialog.evaluate((node) => {
+      const hidden = document.createElement('button');
+      hidden.type = 'button';
+      hidden.textContent = 'Hidden trap regression control';
+      hidden.style.visibility = 'hidden';
+      node.append(hidden);
+
+      const fieldset = document.createElement('fieldset');
+      fieldset.disabled = true;
+      const disabled = document.createElement('button');
+      disabled.type = 'button';
+      disabled.textContent = 'Disabled trap regression control';
+      fieldset.append(disabled);
+      node.append(fieldset);
+    });
+
+    await lastVisible.focus();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+  });
 });
 
 test.describe('Mobile More menu consistency', () => {

@@ -6,10 +6,19 @@ const FOCUSABLE =
 /** Return visible, enabled elements that can participate in sequential keyboard focus. */
 function getFocusableElements(container: HTMLElement): HTMLElement[] {
   return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => {
-    if (el.hasAttribute('disabled') || el.getAttribute('aria-hidden') === 'true') return false;
+    if (el.matches(':disabled') || el.getAttribute('aria-hidden') === 'true') return false;
     if (el.closest('[inert], [aria-hidden="true"]')) return false;
     if (el.tabIndex < 0) return false;
-    return el.getClientRects().length > 0;
+
+    // getClientRects alone includes visibility:hidden elements and descendants of
+    // visibility-hidden containers, which must not become trap boundaries.
+    if (el.getClientRects().length === 0) return false;
+    let current: HTMLElement | null = el;
+    while (current && current !== container) {
+      if (window.getComputedStyle(current).visibility === 'hidden') return false;
+      current = current.parentElement;
+    }
+    return true;
   });
 }
 
@@ -40,8 +49,14 @@ export function useFocusTrap(
     const node = containerRef.current;
 
     const focusInitial = () => {
-      const target = initialFocusRef?.current ?? (node ? getFocusableElements(node)[0] : undefined);
-      (target ?? node)?.focus();
+      const requested = initialFocusRef?.current;
+      const target =
+        requested && node && getFocusableElements(node).includes(requested)
+          ? requested
+          : node
+            ? getFocusableElements(node)[0] ?? node
+            : undefined;
+      target?.focus();
     };
     // Defer so dialog content is mounted.
     const t = window.setTimeout(focusInitial, 0);
@@ -64,11 +79,17 @@ export function useFocusTrap(
 
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      const focusEscaped = !container.contains(document.activeElement);
-      if (focusEscaped || (e.shiftKey && document.activeElement === first)) {
+      const active = document.activeElement;
+      const focusEscaped = !container.contains(active);
+      const activeIsNotFocusable = active !== container && !focusable.includes(active as HTMLElement);
+
+      if (focusEscaped || activeIsNotFocusable) {
         e.preventDefault();
         (e.shiftKey ? last : first).focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
+      } else if (e.shiftKey && (active === first || active === container)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
         e.preventDefault();
         first.focus();
       }
