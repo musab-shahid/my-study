@@ -35,7 +35,7 @@ import { STAGE_SCREENS } from '@/lib/constants';
 import { flushPendingSave, consumeStorageWarning, downloadBackupFile, getBackupRaw } from '@/lib/storage';
 
 function ScreenRouter() {
-  const { route, currentRoute } = useRouter();
+  const { route } = useRouter();
   switch (route.screen) {
     case 'home':
       return <DashboardScreen />;
@@ -164,7 +164,7 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
 }
 
 function AppContent() {
-  const { route } = useRouter();
+  const { route, currentRoute } = useRouter();
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
   const { title, subtitle } = getHeaderTitle(route);
