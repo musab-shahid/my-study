@@ -3,6 +3,7 @@ import { ensureTrackMembership, normalizeTrackMembership, emptyTrackMembership, 
 import { STORAGE_KEYS, getEffectiveQuizStats, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
 import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/lib/adaptive-select';
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
+import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
 import { resolveQuestionId } from '@/lib/question-id-aliases';
@@ -415,16 +416,20 @@ export function loadData(): AppData {
 }
 
 function tryRestoreBackup(): AppData | null {
-  try {
-    const backup = localStorage.getItem(BACKUP_KEY);
-    if (!backup) return null;
-    const parsed = JSON.parse(backup);
-    if (!validateAppData(parsed)) return null;
-    // Do not write during restore read — caller (loadData) owns persistence.
-    return normalizeLoaded(parsed as AppData);
-  } catch {
-    return null;
+  const recoveryKeys = [BACKUP_KEY, `${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`];
+  for (const key of recoveryKeys) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const parsed = JSON.parse(raw);
+      if (!validateAppData(parsed)) continue;
+      // Do not write during restore read — caller (loadData) owns persistence.
+      return normalizeLoaded(parsed as AppData);
+    } catch {
+      // Try the next recovery source; one corrupt backup must not block another.
+    }
   }
+  return null;
 }
 
 export function saveData(data: AppData): void {
