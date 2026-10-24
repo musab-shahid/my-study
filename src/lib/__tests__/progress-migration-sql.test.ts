@@ -11,8 +11,7 @@ describe('progress sync hardening migration SQL', () => {
   const normalized = sql.replace(/--[^\n]*/g, '').replace(/\s+/g, ' ').toLowerCase();
 
   function policy(name: string): string {
-    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const match = sql.match(new RegExp(`create policy "\${escaped}"[\\s\\S]*?;`, 'i'));
+    const match = sql.match(new RegExp('create policy "' + name + '"[\\s\\S]*?;', 'i'));
     assert.ok(match, `expected policy "${name}" to be created`);
     return match[0].replace(/\s+/g, ' ').toLowerCase();
   }
