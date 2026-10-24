@@ -156,8 +156,10 @@ export function InstallPrompt() {
             {icon}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
-            <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{body}</div>
+            <div role="status" aria-live="polite" aria-atomic="true">
+              <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
+              <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{body}</div>
+            </div>
             <div className="flex items-center gap-2 mt-3">{actions}</div>
           </div>
         </div>
