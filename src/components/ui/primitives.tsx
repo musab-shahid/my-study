@@ -252,15 +252,22 @@ export function Tabs({
           );
         })}
       </div>
-      <div
-        role="tabpanel"
-        id={id + '-panel-' + selected.id}
-        aria-labelledby={id + '-tab-' + selected.id}
-        tabIndex={0}
-        className="py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
-      >
-        {selected.content}
-      </div>
+      {items.map((item) => {
+        const active = item.id === selected.id;
+        return (
+          <div
+            key={item.id}
+            role="tabpanel"
+            id={id + '-panel-' + item.id}
+            aria-labelledby={id + '-tab-' + item.id}
+            hidden={!active}
+            tabIndex={active ? 0 : -1}
+            className="py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
+          >
+            {active ? item.content : null}
+          </div>
+        );
+      })}
     </div>
   );
 }

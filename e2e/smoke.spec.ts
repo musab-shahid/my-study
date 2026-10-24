@@ -96,7 +96,7 @@ test.describe('Mobile More menu consistency', () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
 
-    const sidebar = page.locator('aside').filter({ hasText: 'ExamPrep Hub' });
+    const sidebar = page.locator('aside').filter({ hasText: 'My Study' });
     await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
     await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
   });
