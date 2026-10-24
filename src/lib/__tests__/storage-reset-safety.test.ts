@@ -68,6 +68,20 @@ describe('storage reset safety', () => {
     );
   });
 
+  it('preserves malformed primary bytes for export when no valid backup exists', () => {
+    const storage = installLocalStorage();
+    const corruptRaw = '{not valid json';
+    storage.setItem(STORAGE_KEYS.appData, corruptRaw);
+
+    const loaded = loadData();
+
+    assert.equal(storage.getItem(BACKUP_KEY), corruptRaw);
+    assert.deepEqual(
+      JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
+      JSON.parse(JSON.stringify(loaded)),
+    );
+  });
+
   it('restores a valid backup when the primary JSON has an invalid schema', () => {
     const storage = installLocalStorage();
     const validSnapshot = JSON.stringify(loadData());
