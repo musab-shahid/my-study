@@ -19,6 +19,7 @@
  */
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
+import { MAX_PROXY_CONTENT_CHARS, MAX_PROXY_MESSAGES, sanitizeProxyMessages, type ProxyMessage } from "../_shared/ai-proxy-validation.ts";
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -28,7 +29,7 @@ const cors = {
   "Access-Control-Max-Age": "86400",
 };
 
-type Msg = { role: string; content: string };
+type Msg = ProxyMessage;
 
 const ALLOWED_PROVIDERS = new Set([
   "gemini",
@@ -91,8 +92,6 @@ const ALLOWED_MODELS = new Set([
   "nvidia/nemotron-3.5-lightning:free",
 ]);
 
-const MAX_MESSAGES = 24;
-const MAX_CONTENT_CHARS = 6000;
 const MAX_PREAMBLE_CHARS = 4000;
 const MAX_TOKENS_OUT = 2048;
 const UPSTREAM_TIMEOUT_MS = 45_000;
@@ -128,20 +127,6 @@ function checkRateLimit(userId: string): boolean {
   return true;
 }
 
-function sanitizeMessages(raw: unknown): Msg[] | null {
-  if (!Array.isArray(raw)) return null;
-  if (raw.length === 0 || raw.length > MAX_MESSAGES) return null;
-  const out: Msg[] = [];
-  for (const item of raw) {
-    if (!item || typeof item !== "object") return null;
-    const role = String((item as Msg).role || "");
-    const content = String((item as Msg).content || "");
-    if (role !== "user" && role !== "assistant" && role !== "system") return null;
-    if (content.length > MAX_CONTENT_CHARS) return null;
-    out.push({ role, content });
-  }
-  return out;
-}
 
 async function requireUser(req: Request): Promise<{ id: string } | Response> {
   const authHeader = req.headers.get("Authorization") || "";
@@ -202,7 +187,7 @@ Deno.serve(async (req) => {
   const provider = String(body.provider || "");
   const model = String(body.model || "");
   const preamble = String(body.preamble || "").slice(0, MAX_PREAMBLE_CHARS);
-  const messages = sanitizeMessages(body.messages);
+  const messages = sanitizeProxyMessages(body.messages);
 
   if (!ALLOWED_PROVIDERS.has(provider)) {
     return json(400, { error: "Provider not allowed" });
@@ -212,7 +197,7 @@ Deno.serve(async (req) => {
   }
   if (!messages) {
     return json(400, {
-      error: `messages required (1–${MAX_MESSAGES} items, ≤${MAX_CONTENT_CHARS} chars each)`,
+      error: `messages required (1–${MAX_PROXY_MESSAGES} user/assistant items, ≤${MAX_PROXY_CONTENT_CHARS} non-empty chars each)`,
     });
   }
 
@@ -220,7 +205,7 @@ Deno.serve(async (req) => {
     const { text, truncated } = await routeProvider(provider, model, preamble, messages);
     return json(200, { text, truncated });
   } catch (e) {
-    console.error("ai-tutor upstream error", userId, provider, model, e);
+    console.error("ai-tutor upstream error", { provider, model, error: e instanceof Error ? e.message : "unknown error" });
     return json(502, { error: clientErrorMessage(502) });
   }
 });
