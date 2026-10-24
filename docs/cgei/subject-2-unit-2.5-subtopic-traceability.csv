@@ -9,7 +9,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 2.5.3.1,Zarr chunking Parquet,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Named only.
 2.5.3.2,CDS API request cache cite,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,No live CDS in CI.
 2.5.3.3,CDS platform migration pin client,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Pinning noted.
-2.5.3.4,CMIP6 ESGF access checks,2.5.3,Cloud-optimised storage,Core,,,mapped_partial,Not labbed.
+2.5.3.4,CMIP6 ESGF access checks,2.5.3,Cloud-optimised storage,Core,,,deferred,Not labbed.
 2.5.4.1,xarray labelled arrays groupby resample,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-3,mapped_partial,Pointer; stdlib fixture only.
 2.5.4.2,Climatologies and anomalies,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-1;cgei-cl-25-2-lab,mapped_partial,Anomaly formula + fixture.
 2.5.4.3,Area-weighting cosine latitude,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-3,mapped_partial,Named principle.
