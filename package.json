@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/check-bundle-budget.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.node.json --noEmit",
     "validate:data": "tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts && tsx scripts/validate-question-bank.ts && tsx --tsconfig tsconfig.app.json scripts/validate-source-traceability.ts && npm run audit:cgei && npm run validate:traceability:all",
