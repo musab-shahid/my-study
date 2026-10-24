@@ -1,51 +1,42 @@
-import { afterEach, describe, it } from 'node:test';
+import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { pushProgress } from '../progress-sync.ts';
+import { validateLocalProgressForCloudPush } from '../cloud-restore.ts';
 import type { AppData } from '../../types.ts';
 
-const originalFetch = globalThis.fetch;
+const validData: AppData = {
+  studiedTopics: [],
+  topicProgress: {},
+  questionResults: {},
+  quizHistory: [],
+  lastOpenedTopic: '',
+  trackMembership: { schemaVersion: 1, enrollments: {}, activeTrackId: null },
+};
 
-afterEach(() => {
-  globalThis.fetch = originalFetch;
-});
-
-describe('pushProgress payload integrity', () => {
-  it('rejects malformed local progress before auth checks or network requests', async () => {
-    let fetchCalled = false;
-    globalThis.fetch = (async () => {
-      fetchCalled = true;
-      throw new Error('fetch must not be called for invalid data');
-    }) as typeof fetch;
-
-    const result = await pushProgress({
-      studiedTopics: [],
-      topicProgress: {},
-      questionResults: [],
-      quizHistory: [],
-      lastOpenedTopic: '',
-    } as unknown as AppData);
-
-    assert.deepEqual(result, { ok: false, error: 'invalid-local-data' });
-    assert.equal(fetchCalled, false);
+describe('validateLocalProgressForCloudPush', () => {
+  it('accepts a valid local snapshot for cloud persistence', () => {
+    assert.deepEqual(validateLocalProgressForCloudPush(validData), { ok: true, data: validData });
   });
 
-  it('rejects invalid nested records before attempting cloud persistence', async () => {
-    let fetchCalled = false;
-    globalThis.fetch = (async () => {
-      fetchCalled = true;
-      throw new Error('fetch must not be called for invalid data');
-    }) as typeof fetch;
+  it('rejects malformed top-level data with a stable error', () => {
+    assert.deepEqual(
+      validateLocalProgressForCloudPush({
+        studiedTopics: [],
+        topicProgress: {},
+        questionResults: [],
+        quizHistory: [],
+        lastOpenedTopic: '',
+      }),
+      { ok: false, error: 'invalid-local-data' },
+    );
+  });
 
-    const result = await pushProgress({
-      studiedTopics: [],
-      topicProgress: { 'topic-a': { quizCorrect: 'many' } },
-      questionResults: {},
-      quizHistory: [],
-      lastOpenedTopic: '',
-      trackMembership: { schemaVersion: 1, enrollments: {}, activeTrackId: null },
-    } as unknown as AppData);
-
-    assert.deepEqual(result, { ok: false, error: 'invalid-local-data' });
-    assert.equal(fetchCalled, false);
+  it('rejects malformed nested progress records', () => {
+    assert.deepEqual(
+      validateLocalProgressForCloudPush({
+        ...validData,
+        topicProgress: { 'topic-a': { quizCorrect: 'many' } },
+      }),
+      { ok: false, error: 'invalid-local-data' },
+    );
   });
 });
