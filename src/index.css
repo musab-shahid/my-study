@@ -17,12 +17,12 @@
   }
 
   ::selection {
-    background: #bae6fd;
-    color: #0c4a6e;
+    background: rgb(var(--color-brand-200));
+    color: rgb(var(--color-brand-900));
   }
 
   :focus-visible {
-    outline: 2px solid #0284c7;
+    outline: 2px solid var(--focus-ring);
     outline-offset: 3px;
   }
 
@@ -51,14 +51,14 @@
 
 .bg-pattern-dots,
 .bg-pattern-topo {
-  background-color: #f4f6f8;
+  background-color: var(--surface-page);
   background-image: none;
 }
 
 .hero-glow {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #ffffff 0%, #f4f6f8 100%);
+  background: linear-gradient(180deg, var(--surface-raised) 0%, var(--surface-page) 100%);
 }
 .hero-glow::before,
 .hero-glow::after {
@@ -66,13 +66,44 @@
 }
 
 :root {
+  /* RGB channels let Tailwind apply opacity modifiers consistently. */
+  --color-brand-50: 240 249 255;
+  --color-brand-100: 224 242 254;
+  --color-brand-200: 186 230 253;
+  --color-brand-300: 125 211 252;
+  --color-brand-400: 56 189 248;
+  --color-brand-500: 14 165 233;
+  --color-brand-600: 2 132 199;
+  --color-brand-700: 3 105 161;
+  --color-brand-800: 7 89 133;
+  --color-brand-900: 12 74 110;
+
+  --color-success-50: 236 253 245;
+  --color-success-100: 209 250 229;
+  --color-success-500: 16 185 129;
+  --color-success-600: 5 150 105;
+  --color-success-700: 4 120 87;
+
+  --color-warning-50: 255 251 235;
+  --color-warning-100: 254 243 199;
+  --color-warning-500: 245 158 11;
+  --color-warning-600: 217 119 6;
+  --color-warning-700: 180 83 9;
+
+  --color-danger-50: 254 242 242;
+  --color-danger-100: 254 226 226;
+  --color-danger-500: 239 68 68;
+  --color-danger-600: 220 38 38;
+  --color-danger-700: 185 28 28;
+
   --surface-page: #f4f6f8;
   --surface-raised: #ffffff;
   --surface-muted: #eef1f4;
   --text-primary: #0f172a;
   --text-muted: #64748b;
   --border-subtle: #e2e8f0;
-  --brand: #0369a1;
+  --brand: rgb(var(--color-brand-700));
+  --focus-ring: rgb(var(--color-brand-600));
   --radius-card: 12px;
   --radius-btn: 10px;
   --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04);
@@ -142,7 +173,7 @@
 }
 
 .formula-display {
-  color: #0f172a;
+  color: var(--text-primary);
 }
 .formula-display .katex,
 .formula-display .katex * {
