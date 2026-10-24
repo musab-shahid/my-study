@@ -8,7 +8,7 @@ const tailwind = readFileSync(new URL('../../../tailwind.config.js', import.meta
 function rgbToken(family: string, shade: number): [number, number, number] {
   const match = css.match(new RegExp(`--color-${family}-${shade}:\\s*([\\d\\s]+);`));
   assert.ok(match, `missing --color-${family}-${shade} token`);
-  const channels = match[1].trim().split(/\\s+/).map(Number);
+  const channels = match[1].trim().split(/\s+/).map(Number);
   assert.equal(channels.length, 3, `expected three RGB channels for ${family}-${shade}`);
   return channels as [number, number, number];
 }
@@ -32,7 +32,7 @@ describe('shared brand tokens', () => {
         new RegExp(`\\\\d+:\\\\s*'rgb\\\\(var\\\\(--color-${family}-\\\\d+\\\\) / <alpha-value>\\\\)'`),
       );
     }
-    assert.match(css, /--focus-ring:\\s*rgb\\(var\\(--color-brand-600\\)\\)/);
+    assert.match(css, /--focus-ring:\s*rgb\(var\(--color-brand-600\)\)/);
   });
   it('keeps selected white-text action colors at WCAG AA contrast', () => {
     const actionColors = [
