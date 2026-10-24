@@ -1,6 +1,6 @@
 import { afterEach, describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { getDeviceId } from '../progress-sync.ts';
+import { getDeviceId } from '../device-id.ts';
 
 const originalLocalStorage = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
 
