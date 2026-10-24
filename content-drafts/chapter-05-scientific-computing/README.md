@@ -29,10 +29,10 @@ These are the primary manuscript files for Units 5.1–5.12:
 | 5.8 | `units/05.8-multivariate.md` |
 | 5.9 | `units/05.9-glm-mixed-bayesian.md` |
 | 5.10 | `units/05.10-causal-inference.md` |
-| 5.11 | `units/05.11-research-software.md` |
-| 5.12 | `units/05.12-xarray-pipelines.md` |
+| 5.11 | `units/05.11-research-software-engineering.md` |
+| 5.12 | `units/05.12-xarray-scalable-environmental-pipelines.md` |
 
-`units/05.11-research-software-engineering.md` and `units/05.12-xarray-scalable-environmental-pipelines.md` are supplemental expanded drafts, **not additional units or independent readiness evidence**. Reconcile useful material into the canonical files before promoting either unit; do not count duplicate files as extra coverage.
+`units/05.11-research-software.md` and `units/05.12-xarray-pipelines.md` are shorter legacy outlines, **not additional units or independent readiness evidence**. The expanded files are the sources referenced by the current Unit 5.11/5.12 app coverage maps. Reconcile any useful material from the shorter outlines into the expanded canonical files; do not count duplicate files as extra coverage.
 
 ## Audit and validation resources
 
