@@ -136,6 +136,32 @@ async function main() {
     });
   }
 
+  // Detect orphaned or multiply-owned canonical records instead of silently
+  // excluding them from the per-domain counts above.
+  const unitOwners = new Map<string, string[]>();
+  for (const subject of cgeiCurriculum.subjects) {
+    for (const unitId of subject.unitIds) {
+      unitOwners.set(unitId, [...(unitOwners.get(unitId) ?? []), subject.id]);
+    }
+  }
+  for (const unit of cgeiCurriculum.units) {
+    const owners = unitOwners.get(unit.id) ?? [];
+    if (owners.length === 0) errors.push(`Canonical unit ${unit.id} is not assigned to a subject`);
+    if (owners.length > 1) errors.push(`Canonical unit ${unit.id} is assigned to multiple subjects: ${owners.join(', ')}`);
+  }
+
+  const lessonOwners = new Map<string, string[]>();
+  for (const unit of cgeiCurriculum.units) {
+    for (const lessonId of unit.lessonIds) {
+      lessonOwners.set(lessonId, [...(lessonOwners.get(lessonId) ?? []), unit.id]);
+    }
+  }
+  for (const lesson of cgeiCurriculum.lessons) {
+    const owners = lessonOwners.get(lesson.id) ?? [];
+    if (owners.length === 0) errors.push(`Canonical lesson ${lesson.id} is not assigned to a unit`);
+    if (owners.length > 1) errors.push(`Canonical lesson ${lesson.id} is assigned to multiple units: ${owners.join(', ')}`);
+  }
+
   console.log('# CGEI coverage snapshot');
   console.log('');
   console.log('Generated from the current registry and lazy-loaded modules. This is an implementation-depth snapshot, not a source-TOC completeness claim.');
