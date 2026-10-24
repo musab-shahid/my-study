@@ -29,7 +29,7 @@ describe('shared brand tokens', () => {
       assert.ok(tailwind.includes(`${family}: {`), `missing Tailwind palette ${family}`);
       assert.match(
         tailwind,
-        new RegExp(`\\\\d+:\\\\s*'rgb\\\\(var\\\\(--color-${family}-\\\\d+\\\\) / <alpha-value>\\\\)'`),
+        new RegExp(`\\d+:\\s*'rgb\\(var\\(--color-${family}-\\d+\\) / <alpha-value>\\)'`),
       );
     }
     assert.match(css, /--focus-ring:\s*rgb\(var\(--color-brand-600\)\)/);
