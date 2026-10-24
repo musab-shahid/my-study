@@ -1,0 +1,10 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+10.2.1.1,IPCC inventory sectors Tier methods,10.2.1,Inventories and metrics,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-1,mapped_partial,Literacy only.
+10.2.1.2,GWP100 CO2-equivalents methane metrics,10.2.1,Inventories and metrics,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-1,mapped_partial,Taught.
+10.2.1.3,Inventory uncertainty MRV,10.2.1,Inventories and metrics,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-1,mapped_partial,Named.
+10.2.1.4,Emission factors default vs country-specific,10.2.1,Inventories and metrics,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-1,mapped_partial,Named.
+10.2.2.1,GHG Protocol Scopes 1 2 3,10.2.2,Organisational and product accounting,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-2,mapped_partial,Taught.
+10.2.2.2,Verification greenwashing patterns,10.2.2,Organisational and product accounting,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-2,mapped_partial,Named.
+10.2.2.3,Boundary operational vs financial control,10.2.2,Organisational and product accounting,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-2,mapped_partial,Light.
+10.2.3,Life-cycle assessment,10.2.3,Life-cycle assessment,Optional,,,mapped_partial,Deferred.
+10.2.4,Top-down satellite inversion evidence,10.2.4,Top-down evidence,Optional,cgei-pol-lesson-10-2-1,cgei-pol-102-1-3,mapped_partial,Awareness only.

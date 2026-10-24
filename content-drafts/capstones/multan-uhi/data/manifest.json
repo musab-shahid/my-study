@@ -1,0 +1,41 @@
+{
+  "project": "multan-uhi-foundation",
+  "version": "0.2.0",
+  "datasets": [
+    {
+      "id": "synthetic_lst_zones",
+      "path": "synthetic_lst_zones.csv",
+      "role": "teaching_lst_by_zone",
+      "units": "Celsius",
+      "crs": "none (tabular zones)",
+      "is_synthetic": true,
+      "disclaimer": "NOT observed Multan Landsat or MODIS. Zone labels are pedagogical.",
+      "licence": "Curriculum teaching data; not for scientific citation as observations"
+    },
+    {
+      "id": "synthetic_landsat_st_scene",
+      "path": "synthetic_landsat_st_scene.json",
+      "role": "teaching_st_dn_qa_zone_grid",
+      "is_synthetic": true,
+      "disclaimer": "NOT a Landsat granule. DN uses C2 L2 ST scale/offset for teaching.",
+      "scale": 0.00341802,
+      "offset": 149.0,
+      "fill": 0,
+      "documentation_url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products"
+    }
+  ],
+  "target_real_products": [
+    {
+      "name": "MODIS MOD11A2 LST_Day_1km",
+      "version": "061",
+      "url": "https://lpdaac.usgs.gov/products/mod11a2v061/",
+      "scale_factor_dn_to_k": 0.02,
+      "fill_value": 0
+    },
+    {
+      "name": "Landsat Collection 2 Level-2 Surface Temperature",
+      "url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products",
+      "note": "Verify band-specific scale, offset, and QA bits before use; do not assume shared formulas across sensors"
+    }
+  ]
+}

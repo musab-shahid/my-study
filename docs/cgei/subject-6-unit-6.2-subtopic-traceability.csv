@@ -1,0 +1,11 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+6.2.1.1,Spectral indices texture temporal topography distance,6.2.1,Constructing features,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-1,mapped_partial,NDVI LST built rain distance named; texture/harmonics deferred.
+6.2.1.2,Neighbourhood multi-scale lagged rolling,6.2.1,Constructing features,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-1,mapped_partial,Leakage warning; not implemented in fixture.
+6.2.1.3,Cyclical encodings categoricals,6.2.1,Constructing features,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2,mapped_partial,Named only.
+6.2.1.4,Feature documentation definition source units,6.2.1,Constructing features,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2;cgei-ml-62-1-lab,mapped_partial,Lab acceptance + fixture schema.
+6.2.2.1,Missing data cloud gaps imputation,6.2.2,Cleaning and scaling,Core,cgei-ml-lesson-6-2-2,cgei-ml-62-2-2,mapped_partial,Conceptual.
+6.2.2.2,Normalisation per band region sensor,6.2.2,Cleaning and scaling,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2;cgei-ml-62-1-lab,mapped_partial,Train-only z-score on LST.
+6.2.2.3,Scale mismatch pixel point polygon alignment,6.2.2,Cleaning and scaling,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-0,mapped_partial,Named.
+6.2.3.1,Target construction leakage sample design,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-2,cgei-ml-62-2-1;cgei-ml-62-1-lab,mapped_partial,Target separation + year split.
+6.2.3.2,Class imbalance weighting resampling,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-2,cgei-ml-62-2-2,mapped_partial,Named.
+6.2.3.3,Fit scalers encoders selectors on train only,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2;cgei-ml-62-1-lab,mapped_partial,Fixture enforced.

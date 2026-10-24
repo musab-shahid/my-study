@@ -130,3 +130,66 @@ ANOVA F, chi-square, n_eff, partial correlation, power sketch, SE/CI, one-sample
 
 ## unit_7_risk_index_check.py
 Synthetic H/E/V weighted index; ranking sensitivity to weights; no silent zero-fill. Not observed loss validation.
+
+## unit_8_research_protocol_check.py
+Protocol completeness contract for research questions/estimands. Not ethics-board approval.
+
+## unit_9_decision_product_check.py
+Product-card provenance contract + MCA weight sensitivity. Not a deployed dashboard.
+
+## unit_10_policy_appraisal_check.py
+Instrument-card completeness + discount-rate PV sensitivity. Not official SCC or NDC verification.
+
+## unit_11_env_pipeline_check.py
+Validate→summarise→provenance environmental pipeline. Synthetic stations only.
+
+## unit_12_ai_split_baseline_check.py
+Disjoint splits, spatial adjacency leakage, linear baseline vs overfit lookup, model-card fields. No GPU training.
+
+## unit_13_capstone_heat_risk_check.py
+Synthetic neighbourhood heat screening E2E: protocol, baseline, H/E/V ranks, decision card, provenance. Not Multan validation.
+
+## unit_13_public_data_pathway_check.py
+Offline public-data pathway: MOD11A2 manifest validation, teaching extract QA, LST anomaly, synthetic E/V merge, rank sensitivity, claim rejection.
+
+## unit_13_modis_local_process_check.py
+MOD11A2 scale 0.02 / fill 0 / K→C on miniature JSON fixture. Not a real HDF.
+
+## unit_13_portfolio_check.py
+Portfolio evidence-card required fields, inventory labels, Paths A–C links, non-claims, genuine-granule checksum rule.
+
+## unit_13_research_fit_check.py
+Research-fit evidence card: skill map, application checklist, enquiry steps, funding process notes, non-claims.
+
+## unit_13_external_review_check.py
+Illustrative external-review packet structure, dispositions, release decision; blocks genuine-review claims.
+
+## unit_13_core_repro_protocol_check.py
+Unified Subject 13 Core protocol references all path scripts; self-review record must stay labelled non-independent.
+
+## unit_6_4_leakage_split_check.py
+Synthetic region-blocked vs mixed split MAE; chronological holdout; scale fit on train only.
+
+## unit_6_2_feature_prep_check.py
+Synthetic parcel feature contract: schema/ranges, year split, train-only scaling, leakage column rejection, rain anomaly.
+
+## unit_6_3_core_algorithms_check.py
+Majority vs logistic vs LST stump on synthetic parcels; train-only scale; precision/recall/F1.
+
+## unit_6_5_interpretation_check.py
+Confusion, FP/FN, threshold sensitivity, illustrative reliability bins, reporting limitations.
+
+## unit_6_6_practice_check.py
+Practice report JSON: framing, synthetic flags, leakage rules, model card, pitfalls.
+
+## unit_6_7_eo_deep_learning_check.py
+Synthetic multiband patches, spatial block split, overlapping-patch leakage, majority baseline, IoU. No PyTorch in CI.
+
+## unit_6_core_pathway_check.py
+Asserts Units 6.1–6.7 fixtures exist and practice report lists full Core command spine; 6.8–6.9 deferred.
+
+## unit_7_3_heat_hazard_check.py
+Synthetic heat intensity–likelihood screening; not exposure/vulnerability; not damage probability.
+
+## unit_8_2_measurement_sampling_check.py / unit_8_3_validity_ethics_check.py
+Measurement design card and validity/ethics rules (not IRB).

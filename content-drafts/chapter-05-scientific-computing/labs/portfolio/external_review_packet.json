@@ -1,0 +1,97 @@
+{
+  "review_type": "illustrative_scenario",
+  "disclaimer": "Simulated reviewer comments for teaching. NOT a genuine external review, endorsement, or scientific validation.",
+  "review_brief": {
+    "research_question": "Which synthetic neighbourhoods rank highest for heat screening under stated H/E/V weights?",
+    "intended_audience": "Technical supervisor reviewing reproducibility",
+    "intended_use": "Teaching screening ranks only",
+    "non_claims": [
+      "not_calibrated_health_risk",
+      "not_operational_forecast",
+      "lst_not_air_temperature",
+      "not_multan_empirical_validation"
+    ]
+  },
+  "evidence_package": {
+    "data_inventory_ref": "labs/portfolio/capstone_portfolio_evidence.json",
+    "paths": {
+      "A_synthetic": "fixtures/unit_13_capstone_heat_risk_check.py",
+      "B_public_extract": "fixtures/unit_13_public_data_pathway_check.py",
+      "C_modis_logic": "fixtures/unit_13_modis_local_process_check.py"
+    },
+    "reproduction_offline": true
+  },
+  "review_criteria": [
+    "data_suitability",
+    "spatial_temporal_consistency",
+    "validation_design",
+    "uncertainty_communication",
+    "sensitivity_to_assumptions",
+    "decision_relevance_vs_overclaim"
+  ],
+  "feedback_items": [
+    {
+      "id": "R1",
+      "comment": "Equal-weight ranks are presented without stating that alternative weights reorder priorities.",
+      "affected_claim_or_artifact": "Path A decision card / rank tables",
+      "severity": "major",
+      "evidence_required": "Show rank tables under at least two weight schemes",
+      "response": "Document equal vs heat-heavy ranks in portfolio results",
+      "disposition": "accepted_change"
+    },
+    {
+      "id": "R2",
+      "comment": "Title risks implying Multan empirical risk.",
+      "affected_claim_or_artifact": "Project title / study_area_label",
+      "severity": "major",
+      "evidence_required": "Explicit synthetic study-area label and non-claims",
+      "response": "Retain synthetic_city_grid label and non_claims list",
+      "disposition": "accepted_change"
+    },
+    {
+      "id": "R3",
+      "comment": "Request full official MODIS QC bit decoding before any map release.",
+      "affected_claim_or_artifact": "Path C miniature outputs",
+      "severity": "minor",
+      "evidence_required": "Either implement official QC or label not quality-screened",
+      "response": "Keep qa_screened=false; QC decoding deferred",
+      "disposition": "documented_limitation"
+    },
+    {
+      "id": "R4",
+      "comment": "Software tests prove epidemiological validity.",
+      "affected_claim_or_artifact": "Interpretation of CI green status",
+      "severity": "critical",
+      "evidence_required": "Separate software correctness from scientific validation",
+      "response": "Reject: tests do not imply health-risk validation",
+      "disposition": "justified_rejection"
+    }
+  ],
+  "revision_log": [
+    {
+      "feedback_id": "R1",
+      "action": "Added dual weight rank comparison to portfolio key_results",
+      "retest": "unit_13_capstone_heat_risk_check.py"
+    },
+    {
+      "feedback_id": "R4",
+      "action": "No code change; strengthened non-claims and lesson callout",
+      "retest": "unit_13_portfolio_check.py"
+    }
+  ],
+  "release_decision": {
+    "status": "ready_with_limitations",
+    "criteria_met": [
+      "offline reproduction documented",
+      "paths A/B/C distinguished",
+      "non_claims present",
+      "illustrative review dispositions recorded"
+    ],
+    "criteria_not_met": [
+      "genuine external reviewer not engaged",
+      "no Multan granule processed",
+      "not decision-ready for policy"
+    ],
+    "rationale": "Teaching package is reproducible under stated limits; not operationally released."
+  }
+}

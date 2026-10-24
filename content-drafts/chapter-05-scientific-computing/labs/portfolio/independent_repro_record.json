@@ -1,0 +1,18 @@
+{
+  "reviewer_mode": "self_review",
+  "disclaimer": "Self-executed reproducibility checklist. NOT an independent external review.",
+  "checks": [
+    {"id": "scope_card", "status": "pass", "notes": "See unit-13-core-reproduction-protocol.md §0"},
+    {"id": "path_a", "status": "pass", "command": "unit_13_capstone_heat_risk_check.py"},
+    {"id": "path_b", "status": "pass", "command": "unit_13_public_data_pathway_check.py"},
+    {"id": "path_c", "status": "pass", "command": "unit_13_modis_local_process_check.py"},
+    {"id": "portfolio", "status": "pass", "command": "unit_13_portfolio_check.py"},
+    {"id": "review_packet_illustrative", "status": "pass", "command": "unit_13_external_review_check.py"},
+    {"id": "release_honesty", "status": "pass", "notes": "ready_with_limitations for teaching only"}
+  ],
+  "unresolved": [
+    "No independent human reviewer executed this checklist in CI",
+    "No genuine Multan granule processed",
+    "Not scientific validation of urban heat risk"
+  ]
+}

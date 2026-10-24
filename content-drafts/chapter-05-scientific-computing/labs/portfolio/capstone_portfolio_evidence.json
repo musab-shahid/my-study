@@ -1,0 +1,95 @@
+{
+  "project_title": "Synthetic urban heat screening ranks under explicit H/E/V assumptions",
+  "research_question": "Which synthetic neighbourhoods rank highest for heat screening when hazard (LST anomaly), exposure (population density proxy), and vulnerability are combined under stated weights?",
+  "study_area_label": "synthetic_city_grid (teaching stand-in; not verified Multan admin units)",
+  "audience": "Technical employer / research supervisor reviewing reproducibility and scientific caution",
+  "data_inventory": [
+    {
+      "source": "Synthetic neighbourhood table (Path A fixture)",
+      "version_or_label": "unit_13_capstone_heat_risk_check.py embedded rows",
+      "spatial_coverage": "3 synthetic neighbourhoods",
+      "temporal_coverage": "synthetic summer snapshot",
+      "units": "lst_anomaly_c (\u00b0C-sized anomaly); pop_density (relative); vuln_index [0,1]",
+      "licence": "Teaching fixture in repository",
+      "retrieval_date_utc": "n/a (generated)",
+      "role": "Primary screening inputs for Path A",
+      "synthetic_or_real": "synthetic"
+    },
+    {
+      "source": "MOD11A2-schema teaching extract (Path B)",
+      "version_or_label": "capstone_lst_extract_sample.csv + capstone_public_manifest.json",
+      "spatial_coverage": "tabular points labelled N1\u2013N5",
+      "temporal_coverage": "2023-06-10/2023-06-17 (label only)",
+      "units": "lst_day_k (Kelvin)",
+      "licence": "Teaching extract; product docs at LP DAAC MOD11A2 v061",
+      "retrieval_date_utc": "n/a (committed teaching file)",
+      "role": "Offline public-product pathway demonstration",
+      "synthetic_or_real": "teaching_extract"
+    },
+    {
+      "source": "MODIS miniature DN array (Path C logic)",
+      "version_or_label": "modis_miniature/lst_day_miniature.json",
+      "spatial_coverage": "3x3 miniature grid",
+      "temporal_coverage": "none (logic fixture)",
+      "units": "raw DN; scale 0.02 \u2192 Kelvin",
+      "licence": "Teaching fixture",
+      "retrieval_date_utc": "n/a",
+      "role": "Scale/fill/Kelvin\u2192\u00b0C processing logic",
+      "synthetic_or_real": "synthetic"
+    }
+  ],
+  "method_summary": "Validate protocol and row contracts; compute baseline means; build equal-weight and heat-heavy min-max H/E/V composites; emit decision card with human-review flag; separately validate MOD11A2 scale/fill logic on a miniature array.",
+  "key_results": [
+    "Path A: equal-weight top neighbourhoods N2, N3 under synthetic inputs (fixture-locked).",
+    "Path B: QA filter retains 4 rows; weight sensitivity can change top rank (N2 vs N1).",
+    "Path C: miniature grid yields n_valid=6, mean \u2248 36.35 \u00b0C after scale and conversion; qa_screened=false."
+  ],
+  "limitations": [
+    "No genuine Multan MODIS granule was processed in CI.",
+    "LST is not near-surface air temperature.",
+    "Synthetic exposure/vulnerability proxies are not census ground truth.",
+    "Ranks are relative prioritisation under stated weights, not calibrated health risk or expected loss.",
+    "Single 8-day composite labelling does not establish climatology, trend, or attribution."
+  ],
+  "reproduction_steps": [
+    "python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_capstone_heat_risk_check.py",
+    "python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_public_data_pathway_check.py",
+    "python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py",
+    "python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_portfolio_check.py"
+  ],
+  "evidence_paths": {
+    "path_a_synthetic": "fixtures/unit_13_capstone_heat_risk_check.py",
+    "path_b_public_extract": "fixtures/unit_13_public_data_pathway_check.py",
+    "path_c_modis_logic": "fixtures/unit_13_modis_local_process_check.py"
+  },
+  "non_claims": [
+    "not_calibrated_health_risk",
+    "not_operational_forecast",
+    "lst_not_air_temperature",
+    "not_intervention_effectiveness",
+    "not_multan_empirical_validation"
+  ],
+  "licence_note": "Repository teaching materials under project licence; NASA product use subject to current EOSDIS/LP DAAC policy.",
+  "claims_genuine_multan_granule_processed": false,
+  "genuine_granule_sha256": null,
+  "figures_to_include": [
+    "Rank table under equal weights",
+    "Rank table under heat-heavy weights",
+    "One limitations callout figure or box"
+  ],
+  "environment_note": "Stdlib Python 3 for fixtures; optional GDAL/pyhdf only for learner-side real HDF (outside CI).",
+  "related_projects": {
+    "flagship": "This heat-screening package (Paths A\u2013C + portfolio + review packet)",
+    "geospatial_or_remote_sensing_slot": {
+      "status": "planned_not_built",
+      "intended_theme": "Neighbourhood zonal LST summary from a genuine MOD11A2 granule after learner download",
+      "evidence_today": "Path C logic fixture + real-granule lab instructions only"
+    },
+    "ml_or_geoai_slot": {
+      "status": "planned_not_built",
+      "intended_theme": "Leakage-safe baseline comparison using Subject 12 split/baseline practices",
+      "evidence_today": "Cross-reference Subject 12 fixture unit_12_ai_split_baseline_check.py \u2014 not a second completed project repo"
+    },
+    "honesty_note": "Do not list planned slots as completed portfolio projects."
+  }
+}

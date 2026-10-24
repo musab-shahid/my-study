@@ -1,0 +1,20 @@
+{
+  "product_name": "MODIS/Terra Land Surface Temperature/Emissivity 8-Day L3 Global 1km (MOD11A2)",
+  "product_version": "061",
+  "documentation_url": "https://lpdaac.usgs.gov/products/mod11a2v061/",
+  "provider": "NASA LP DAAC",
+  "licence_note": "NASA EOSDIS data are generally available for research and education; verify current LP DAAC/NASA data-use policy before redistribution.",
+  "variable": "LST_Day_1km",
+  "native_units": "Kelvin (scaled in HDF; this teaching extract stores Kelvin already)",
+  "spatial_resolution": "approx. 1 km",
+  "temporal_resolution": "8-day composite",
+  "crs": "EPSG:4326 (teaching extract tabular points; native product is sinusoidal grid)",
+  "access_method": "LP DAAC / Earthdata Search (account may be required for bulk download)",
+  "teaching_extract_path": "fixtures/data/capstone_lst_extract_sample.csv",
+  "teaching_extract_disclaimer": "CSV values are a small offline teaching extract matching the schema and unit conventions of MOD11A2 LST_Day for CI. They are NOT a verified Multan download and MUST NOT be cited as observed Multan LST.",
+  "distinctions": [
+    "LST is land-surface temperature, not near-surface air temperature",
+    "Daytime 8-day composites are not hourly heatwave meteorology",
+    "Point/neighbourhood means require documented aggregation from native grid"
+  ]
+}

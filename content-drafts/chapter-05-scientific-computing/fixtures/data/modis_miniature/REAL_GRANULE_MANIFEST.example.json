@@ -1,0 +1,22 @@
+{
+  "product": "MOD11A2",
+  "version": "061",
+  "layer": "LST_Day_1km",
+  "granule_id": "REPLACE_WITH_EARTHDATA_GRANULE_ID",
+  "filename": "MOD11A2.AYYYYDDD.hXXvYY.061.XXXXXXXXXXXXX.hdf",
+  "temporal_coverage": "YYYY-MM-DD/YYYY-MM-DD",
+  "download_date_utc": "YYYY-MM-DD",
+  "source_reference": "Earthdata Search order or LP DAAC URL (no signed secrets)",
+  "sha256": "REPLACE_AFTER_DOWNLOAD",
+  "scale_factor": 0.02,
+  "fill_value": 0,
+  "documentation_url": "https://lpdaac.usgs.gov/products/mod11a2v061/",
+  "qa_applied": false,
+  "qa_note": "Set true only if official QC bits decoded per product user guide",
+  "study_area_note": "Describe crop/mask; Multan work must use a granule that actually intersects the AOI",
+  "limitations": [
+    "LST is not air temperature",
+    "8-day composite is not climatology",
+    "Nominal 1 km is not validated ranking accuracy"
+  ]
+}
