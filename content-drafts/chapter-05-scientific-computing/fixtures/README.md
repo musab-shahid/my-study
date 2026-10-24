@@ -166,3 +166,6 @@ Illustrative external-review packet structure, dispositions, release decision; b
 
 ## unit_13_core_repro_protocol_check.py
 Unified Subject 13 Core protocol references all path scripts; self-review record must stay labelled non-independent.
+
+## unit_6_4_leakage_split_check.py
+Synthetic region-blocked vs mixed split MAE; chronological holdout; scale fit on train only.

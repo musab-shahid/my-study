@@ -1432,7 +1432,7 @@ const lessons61: CurriculumLesson[] = [
  {id:'cgei-ml-lesson-6-1-3',kind:'lesson',title:'Task types and baselines first',order:3,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes61[1]],content:[
  {id:'cgei-ml-61-3-1',kind:'prose',title:'Match task type to the estimand',body:'Regression predicts continuous quantities; classification predicts categories; clustering finds structure without labels; anomaly detection flags unusual cases; probabilistic prediction reports distributions or quantiles. Choosing the wrong task type silently changes the scientific question.'},
  {id:'cgei-ml-61-3-2',kind:'prose',title:'Baselines before complexity',body:'Always report climatology and persistence where temporal structure exists, plus a transparent linear or logistic model and simple threshold rules when relevant. A complex model must beat these baselines under the same chronological or spatial split. Winning on a shuffled random split is not evidence of operational skill.'},
- {id:'cgei-ml-61-3-3',kind:'worked-example',title:'Synthetic baseline comparison (conceptual)',body:'Hold out the last 20% of a time-ordered series. Persistence MAE and climatology MAE set the bar. A gradient-boosted model that loses to persistence under that split is not deployable—regardless of cross-validated R² on random folds.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-61-3-3',kind:'worked-example',title:'Synthetic baseline comparison (conceptual)',body:'Hold out the last 20% of a time-ordered series. Persistence MAE and climatology MAE set the bar. A gradient-boosted model that loses to persistence under that split is not deployable—regardless of cross-validated R² on random folds.'}],activityIds:['cgei-ml-a-61-problem'],assessmentIds:['cgei-ml-assess-61'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes62: CurriculumOutcome[] = [
   {id:'cgei-ml-o-62-features',statement:'Document features with definition, units, and availability at prediction time; fit scalers only on training data.',action:'document and fit',level:'L3',competencyIds:['cgei-comp-reproducibility']},
@@ -1459,7 +1459,7 @@ const lessons64: CurriculumLesson[] = [
  {id:'cgei-ml-lesson-6-4-1',kind:'lesson',title:'Leakage-safe spatial and temporal validation',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes64[0]],content:[
  {id:'cgei-ml-64-1-1',kind:'prose',title:'Why random splits fail geospatial ML',body:'Nearby pixels and consecutive times are dependent. Random row splits leak spatial or temporal structure into the test set and inflate skill. Prefer blocked spatial CV, hold-out regions, and chronological or rolling-origin splits matched to the decision horizon.'},
  {id:'cgei-ml-64-1-2',kind:'prose',title:'Metrics and operational prevalence',body:'Choose metrics that match the decision (e.g. precision at a recall target for rare events). Accuracy alone is misleading under imbalance. Calibration matters for probabilistic alerts.'},
- {id:'cgei-ml-64-1-3',kind:'worked-example',title:'Blocked hold-out beats random shuffle (principle)',body:'Train on years 1–8, test on years 9–10; or train on region A, test on region B. If skill collapses relative to a random 80/20 split, the random split was optimistic—not the blocked protocol overly harsh.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-64-1-3',kind:'worked-example',title:'Blocked hold-out beats random shuffle (principle)',body:'Train on years 1–8, test on years 9–10; or train on region A, test on region B. If skill collapses relative to a random 80/20 split, the random split was optimistic—not the blocked protocol overly harsh.'}],activityIds:['cgei-ml-a-64-leakage'],assessmentIds:['cgei-ml-assess-64'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes65: CurriculumOutcome[] = [
   {id:'cgei-ml-o-65-interpret',statement:'Explain model behaviour with limitations and stress tests; avoid overclaiming.',action:'explain and stress-test',level:'L3',competencyIds:['cgei-comp-uncertainty']},
@@ -3724,7 +3724,30 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.2 — Major data families (Core)',
       notes: ['Mission status is literacy, not a live catalogue.', 'ST scale factors are illustrative teaching constants—verify USGS docs for operations.'],
     },
+    
     {
+      id: 'cgei-ml-unit-6-1', code: '6.1', title: 'Learning problem formulation', order: 601, kind: 'unit', readiness: 'draft',
+      summary: 'Define target, unit of analysis, horizon, decision context, task family and baselines before complex models.',
+      estimatedHours: 4, prerequisites: ['Subject 5 statistics'], outcomes: outcomes61,
+      lessonIds: lessons61.map((lesson) => lesson.id),
+      activityIds: ['cgei-ml-a-61-problem'],
+      assessmentIds: ['cgei-ml-assess-61'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 6 Unit 6.1 — Learning problem formulation (Core)',
+      notes: ['Core; baselines-first fixture unit_6_1_learning_problem_check.py'],
+    },
+    {
+      id: 'cgei-ml-unit-6-4', code: '6.4', title: 'Pipelines, evaluation, and leakage control', order: 604, kind: 'unit', readiness: 'draft',
+      summary: 'Train/val/test discipline, blocked spatial and chronological splits, metrics matched to decisions.',
+      estimatedHours: 4.5, prerequisites: ['Unit 6.1'], outcomes: outcomes64,
+      lessonIds: lessons64.map((lesson) => lesson.id),
+      activityIds: ['cgei-ml-a-64-leakage'],
+      assessmentIds: ['cgei-ml-assess-64'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 6 Unit 6.4 — Pipelines, evaluation, and leakage control (Core)',
+      notes: ['Core; leakage fixture unit_6_4_leakage_split_check.py'],
+    },
+{
       id: 'cgei-risk-unit-7-1', code: '7.1', title: 'Risk and resilience concepts', order: 701, kind: 'unit', readiness: 'draft',
       summary: 'Define hazard, exposure, vulnerability, capacity and risk; apply IPCC and Sendai framings without reading social vulnerability from physical maps alone.',
       estimatedHours: 4, prerequisites: ['Subject 2 climate literacy'], outcomes: outcomes71,
@@ -5030,6 +5053,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
     { id: 'cgei-cap-a-135-fit', kind: 'coding-lab', title: 'Research-fit card lab', instructions: 'Run unit_13_research_fit_check.py. Adapt research_fit_evidence.json with your interest statement and skill gaps; keep non-claims and do not invent programmes or deadlines.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-135-fit', 'cgei-cap-o-135-process'] },
     { id: 'cgei-cap-a-133-portfolio', kind: 'coding-lab', title: 'Portfolio evidence card lab', instructions: 'Run unit_13_portfolio_check.py. Adapt labs/portfolio/capstone_portfolio_evidence.json narrative fields without collapsing Paths A–C or claiming a genuine Multan granule without checksum.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'] },
+    { id: 'cgei-ml-a-61-problem', kind: 'coding-lab', title: 'Baselines-first lab', instructions: 'Run unit_6_1_learning_problem_check.py. Write target, unit of analysis, horizon and decision for a heat or LST screening problem; report persistence and climatology MAE.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ml-o-baselines'] },
+    { id: 'cgei-ml-a-64-leakage', kind: 'coding-lab', title: 'Blocked vs random split lab', instructions: 'Run unit_6_4_leakage_split_check.py. Explain why blocked MAE is higher and when random splits overstate skill for gridded data.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ml-o-leakage-safe'] },
     { id: 'cgei-cap-a-131-scope', kind: 'guided-practice', title: 'Capstone scope card', instructions: 'Write question, estimand, intended use, exclusions, MVP and one feasibility risk for a heat-screening project.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'] },
     { id: 'cgei-cap-a-132-workflow', kind: 'coding-lab', title: 'Capstone pipeline lab', instructions: 'Run unit_13_capstone_heat_risk_check.py. Report baseline means, rank change under heat-heavy weights, and decision-card non-claims.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'] },
         { id: 'cgei-cap-a-136-review', kind: 'coding-lab', title: 'External-review packet lab', instructions: 'Run unit_13_external_review_check.py. Walk one feedback item from comment to disposition and justify the release status without claiming genuine peer review.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-cap-o-136-review'] },
@@ -5318,6 +5343,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
     { id: 'cgei-cap-assess-135-fit', kind: 'formative', title: 'Research fit preparation', purpose: 'Assess research-fit and application process literacy.', objectiveIds: ['cgei-cap-o-135-fit', 'cgei-cap-o-135-process'], questionIds: ['cgei-cap-q-135-001', 'cgei-cap-q-135-002', 'cgei-cap-q-135-003'], required: true },
     { id: 'cgei-cap-assess-133-portfolio', kind: 'formative', title: 'Portfolio engineering', purpose: 'Assess portfolio structure and evidence discipline.', objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'], questionIds: ['cgei-cap-q-133-001', 'cgei-cap-q-133-002', 'cgei-cap-q-133-003'], required: true },
+    { id: 'cgei-ml-assess-61', kind: 'formative', title: 'Learning problem formulation', purpose: 'Assess problem statement and baselines.', objectiveIds: ['cgei-ml-o-baselines'], questionIds: ['cgei-ml-q-61-001', 'cgei-ml-q-61-002'], required: true },
+    { id: 'cgei-ml-assess-64', kind: 'formative', title: 'Leakage-safe evaluation', purpose: 'Assess spatial/temporal leakage awareness.', objectiveIds: ['cgei-ml-o-leakage-safe'], questionIds: ['cgei-ml-q-64-001'], required: true },
     { id: 'cgei-cap-assess-131-scope', kind: 'formative', title: 'Scoping', purpose: 'Assess project scoping discipline.', objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'], questionIds: ['cgei-cap-q-131-001', 'cgei-cap-q-131-002'], required: true },
     { id: 'cgei-cap-assess-132-workflow', kind: 'formative', title: 'Integrated workflow', purpose: 'Assess workflow and limitation literacy.', objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'], questionIds: ['cgei-cap-q-132-001', 'cgei-cap-q-132-002', 'cgei-cap-q-132-003', 'cgei-cap-q-132-004'], required: true },
     { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001', 'cgei-cap-q-136-002', 'cgei-cap-q-136-003'], required: true },

@@ -91,6 +91,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_12_multidim_contract_check.py
       - name: Verify Unit 6.1 learning-problem checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_1_learning_problem_check.py
+      - name: Verify Unit 6.4 leakage-split checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_4_leakage_split_check.py
       - name: Verify Unit 5.1 numerical foundations
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_1_foundations_check.py
       - name: Verify Unit 5.2 python scientific checks
