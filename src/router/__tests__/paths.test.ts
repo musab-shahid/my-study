@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack } from '../paths.ts';
+import { routeToPath, pathToRoute, breadcrumbForRoute, shouldUseBrowserHistoryBack, isAppPath } from '../paths.ts';
 
 describe('Phase A path mapping', () => {
   it('round-trips static screens', () => {
@@ -26,6 +26,49 @@ describe('Phase A path mapping', () => {
         assert.equal((parsed as { mode?: string }).mode, route.mode);
       }
     }
+  });
+
+
+  it('covers canonical route families, optional segments, and registered track IDs', () => {
+    const cases = [
+      ['/', { screen: 'home' }],
+      ['/learn', { screen: 'learn' }],
+      ['/formulas', { screen: 'formulas' }],
+      ['/flashcards', { screen: 'flashcards' }],
+      ['/flashcards/meteo-origin-evolution', { screen: 'flashcards', topicId: 'meteo-origin-evolution' }],
+      ['/cloud-atlas', { screen: 'cloud-atlas' }],
+      ['/practice/topic', { screen: 'practice', mode: 'topic' }],
+      ['/practice/quick', { screen: 'practice', mode: 'quick' }],
+      ['/practice/mock', { screen: 'practice', mode: 'mock' }],
+      ['/review', { screen: 'review' }],
+      ['/progress', { screen: 'progress' }],
+      ['/search', { screen: 'search' }],
+      ['/settings', { screen: 'settings' }],
+      ['/hat', { screen: 'hat' }],
+      ['/fpsc', { screen: 'fpsc' }],
+      ['/track/fpsc', { screen: 'track', trackId: 'fpsc' }],
+      ['/track/hat', { screen: 'track', trackId: 'hat' }],
+      ['/track/cgei', { screen: 'track', trackId: 'cgei' }],
+    ] as const;
+
+    for (const [path, expected] of cases) {
+      assert.deepEqual(pathToRoute(path), expected, path);
+      assert.equal(isAppPath(path), true, path);
+    }
+  });
+
+  it('treats invalid parameterized paths as fallbacks rather than valid deep links', () => {
+    assert.deepEqual(pathToRoute('/track/not-a-track'), { screen: 'home' });
+    assert.equal(isAppPath('/track/not-a-track'), false);
+    assert.deepEqual(pathToRoute('/curriculum/unit/not-real'), { screen: 'learn' });
+    assert.equal(isAppPath('/curriculum/unit/not-real'), false);
+    assert.deepEqual(pathToRoute('/section/not-real'), { screen: 'learn' });
+    assert.equal(isAppPath('/section/not-real'), false);
+  });
+
+  it('keeps quiz deep links intentionally routed to practice', () => {
+    assert.deepEqual(pathToRoute('/quiz'), { screen: 'practice' });
+    assert.equal(isAppPath('/quiz'), true);
   });
 
   it('round-trips subject-aware Learn routes and rejects unknown subjects', () => {
