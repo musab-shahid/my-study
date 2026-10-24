@@ -1233,10 +1233,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                   } ${
                     isSelected || (state.checked && isCorrectOption)
                       ? state.checked && isCorrectOption
-                        ? 'bg-success-500 text-white'
+                        ? 'bg-success-700 text-white'
                         : state.checked && isSelected && !isCorrectOption
-                          ? 'bg-danger-500 text-white'
-                          : 'bg-brand-500 text-white'
+                          ? 'bg-danger-700 text-white'
+                          : 'bg-brand-700 text-white'
                       : 'bg-slate-100 text-slate-500'
                   }`}
                 >

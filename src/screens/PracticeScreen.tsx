@@ -199,7 +199,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                             }}
                             className={`px-3 py-2 rounded-lg text-sm font-medium transition-all flex items-center gap-1.5 ${
                               selected
-                                ? 'bg-brand-500 text-white'
+                                ? 'bg-brand-700 text-white'
                                 : isMastered
                                   ? 'bg-success-50 border border-success-100 text-success-700 hover:bg-success-100'
                                   : isAttempted
@@ -225,7 +225,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                 navigate({ screen: 'quiz', mode: 'quick', topicIds: topicIdsArr, scope: activeSubject === 'all' ? 'all' : 'subject', subjectId: activeSubject === 'all' ? undefined : subjectId, count: 'all', difficulty: 'any', timeLimit: 'none' });
               }}
               disabled={selectedFocusTopics.size === 0}
-              className="w-full py-3 rounded-btn bg-brand-500 text-white font-semibold hover:bg-brand-600 transition-colors disabled:opacity-50"
+              className="w-full py-3 rounded-btn bg-brand-700 text-white font-semibold hover:bg-brand-800 transition-colors disabled:opacity-50"
             >
               Start Focus Practice — all questions ({selectedFocusTopics.size} topic{selectedFocusTopics.size !== 1 ? 's' : ''})
             </button>
