@@ -1806,6 +1806,7 @@ const lessons35: CurriculumLesson[] = [
       { id: 'cgei-geo-35-1-1', kind: 'prose', title: 'Roles in the vector stack', body: 'GeoPandas provides tabular vector layers with a geometry column and CRS metadata; Shapely supplies geometry objects and spatial predicates (intersects, within, touches). Read/write typically uses pyogrio or fiona under the hood. Spatial joins and overlays must use a CRS appropriate to the predicate: angular degrees are not metres. Area and length require a projected (or geodesic) method—never compute polygon area in EPSG:4326 and treat the number as hectares without conversion.' },
       { id: 'cgei-geo-35-1-2', kind: 'table', title: 'Common operations', headers: ['Task', 'Typical tools', 'CRS caution'], rows: [['Filter by location', 'Shapely predicates / sjoin', 'Same CRS both sides'], ['Overlay / dissolve', 'overlay, dissolve', 'Projected for metric buffers'], ['Area / length', 'geodesic or projected CRS', 'Unit 3.2 decision rules'], ['Large vectors', 'GeoParquet, spatial index, DuckDB spatial', 'Index invalid if CRS mixed']] },
       { id: 'cgei-geo-35-1-3', kind: 'worked-example', title: 'Axis-aligned bbox predicate (stdlib teaching)', body: 'Fixture unit_3_5_python_geospatial_stack_check.py implements intersects for axis-aligned boxes only—teaching the predicate logic without requiring GEOS. Production code should use Shapely/GEOS. A point in geographic CRS is still not a planar metre offset without a projection.' },
+      { id: 'cgei-geo-35-1-5', kind: 'worked-example', title: 'Spatial join cardinality trap', body: 'A one-to-many spatial join (stations to districts) multiplies station rows when multiple stations fall in one district—or duplicates district attributes onto each station. Always inspect row counts before and after joins. Buffer distances inherit CRS units: a “500” buffer in EPSG:4326 is 500 degrees, not metres.' },
       { id: 'cgei-geo-35-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GeoPandas install required for CI fixture', 'H3/S2 and dask-geopandas are named, not implemented here', 'Topology validity still requires GEOS-backed tools'] },
     ],
     activityIds: ['cgei-geo-a-35-vector'], assessmentIds: ['cgei-geo-assess-35-vector'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
@@ -1827,10 +1828,43 @@ const lessons35: CurriculumLesson[] = [
       { id: 'cgei-geo-35-3-1', kind: 'prose', title: 'Match library to task', body: 'Zonal statistics (rasterstats, exactextract) must account for partial pixel coverage at polygon edges when area fractions matter. STAC clients (pystac-client, odc-stac, stackstac) load EO assets lazily—still require CRS and cloud QA discipline from Subject 4. Spatial statistics (PySAL, PyKrige) assume a defined neighbour structure; they do not replace data QC. R (sf, terra, stars) remains strong for some geostatistics; exchange via open formats rather than opaque binary dumps.' },
       { id: 'cgei-geo-35-3-2', kind: 'callout', title: 'Binary dependency risk', tone: 'warning', items: ['Pin GDAL, PROJ, GEOS versions in environments', 'Wheel mismatches break CRS transforms silently or loudly', 'Interactive maps (folium, geemap) are exploration—not analysis provenance'] },
       { id: 'cgei-geo-35-3-3', kind: 'checklist', title: 'Before trusting a stack output', items: ['CRS recorded on inputs and outputs', 'Nodata handled', 'Resampling method documented', 'Library and GDAL versions pinned'] },
+      { id: 'cgei-geo-35-3-4', kind: 'worked-example', title: 'Synthetic climate–spatial integration (stdlib)', body: 'Join a station table (id, lon, lat, tmax_c) to district polygons only after confirming both use the same CRS. Aggregate district mean Tmax excluding missing values—never coerce missing to zero (Unit 2.5). Fixture unit_3_5_climate_spatial_integration_check.py locks: (1) CRS mismatch rejected; (2) point-in-bbox assignment; (3) mean ignores None. Synthetic only—not Multan observations.' },
+
     ],
     activityIds: ['cgei-geo-a-35-stack'], assessmentIds: ['cgei-geo-assess-35-stack'], resourceIds: [], deliverableIds: [],
   },
 ];
+
+const outcomes36: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-36-visual', statement: 'Select sequential, diverging or qualitative colour schemes and a classification method matched to data type and message.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-36-honesty', statement: 'Design map legends and uncertainty treatments that state units, date, resolution and source without false precision.', action: 'design and critique', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons36: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-6-1', kind: 'lesson', title: 'Colour, classification and choropleth honesty', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes36[0]],
+    content: [
+      { id: 'cgei-geo-36-1-1', kind: 'prose', title: 'Match symbolisation to data type', body: 'Sequential schemes suit ordered magnitudes (temperature anomaly °C). Diverging schemes suit values around a meaningful midpoint (anomaly about zero). Qualitative schemes suit unordered categories (land-cover class). Rainbow schemes often invent perceptual order and harm colour-blind readers—prefer tested palettes (e.g. ColorBrewer-style sequential/diverging sets).' },
+      { id: 'cgei-geo-36-1-2', kind: 'table', title: 'Classification methods', headers: ['Method', 'Behaviour', 'Risk'], rows: [['Equal interval', 'Equal width bins', 'Empty bins if skewed'], ['Quantiles', 'Equal count bins', 'Exaggerates small differences in flat data'], ['Natural breaks', 'Cluster-seeking breaks', 'Breaks change when data update'], ['Manual', 'Analyst-set thresholds', 'Must justify thresholds']] },
+      { id: 'cgei-geo-36-1-3', kind: 'worked-example', title: 'When not to use a choropleth', body: 'Choropleths shade areas by a rate or density. Mapping raw counts of stations by district without normalising by area or population misleads. For sparse events, proportional symbols or dot density may be more honest. Fixture unit_3_6_cartography_check.py rejects a “count choropleth” claim when the attribute is an absolute count without a rate field.' },
+      { id: 'cgei-geo-36-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GUI map composer in CI', 'Colour-blind simulation not automated here', 'Classification choice is part of the analysis story'] },
+    ],
+    activityIds: ['cgei-geo-a-36-colour'], assessmentIds: ['cgei-geo-assess-36-colour'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-6-2', kind: 'lesson', title: 'Legends, uncertainty and reproducible figures', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes36[1]],
+    content: [
+      { id: 'cgei-geo-36-2-1', kind: 'prose', title: 'Legends carry metadata', body: 'A defensible legend or caption states the variable, units, date or period, spatial resolution or administrative level, classification method, and source/product version. Smooth interpolated surfaces can imply false precision—pair them with station density, uncertainty bands, or gap masks when the data support it.' },
+      { id: 'cgei-geo-36-2-2', kind: 'checklist', title: 'Publication figure checklist', items: ['Scale bar with linear units (not degree ticks as km)', 'North arrow if orientation is nonstandard', 'Panel labels for multi-panel figures', 'Colour-blind-safe palette check', 'CRS and data source in caption', 'Export resolution recorded for print'] },
+      { id: 'cgei-geo-36-2-3', kind: 'prose', title: 'Sensitive boundaries and attribution', body: 'Disputed boundaries require applicable national mapping rules and clear disclaimers. Web maps need tile attribution and licence statements. Reproducible map styling belongs in version-controlled scripts—not only in a one-off GUI session.' },
+      { id: 'cgei-geo-36-2-4', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Missing data should be visible, not filled with decorative colour', 'Do not imply continuous coverage where stations are sparse', 'Web Mercator is for tiles, not hectare legends (Unit 3.2)'] },
+    ],
+    activityIds: ['cgei-geo-a-36-honesty'], assessmentIds: ['cgei-geo-assess-36-honesty'], resourceIds: [], deliverableIds: [],
+  },
+];
+
 
 
 
@@ -3344,7 +3378,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.5 form the Core geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.6 form the Core geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
       outcomes: [...outcomes31, ...outcomes32, ...outcomes33, ...outcomes34],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
@@ -3742,6 +3776,20 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.5 — Python geospatial stack',
       notes: ['Core Unit 3.5. CI uses stdlib bbox/nodata fixtures; GeoPandas/rasterio not required at runtime.'],
     },
+
+    {
+      id: 'cgei-geo-unit-3-6', subjectId: 'cgei-geospatial', code: '3.6', title: 'Cartography', order: 36, kind: 'unit', readiness: 'draft',
+      summary: 'Design honest thematic maps with appropriate colour, classification, legends and uncertainty treatment.',
+      estimatedHours: 6, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 3.3'], outcomes: outcomes36,
+      lessonIds: lessons36.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-36-colour', 'cgei-geo-a-36-honesty'],
+      assessmentIds: ['cgei-geo-assess-36-colour', 'cgei-geo-assess-36-honesty'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.6 — Cartography',
+      notes: ['Core Unit 3.6. Classification honesty fixture is stdlib; no GUI map export in CI.'],
+    },
+
 
     {
       id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 101, kind: 'unit', readiness: 'draft',
@@ -4264,6 +4312,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-35-area', lessonId: 'cgei-geo-lesson-3-5-1', type: 'single-choice', prompt: 'Computing polygon area for hectare statistics should use:', options: ['EPSG:4326 degree coordinates treated as metres', 'A projected or geodesic method with documented CRS', 'Any Web Mercator tile zoom level', 'Unprojected lon/lat differences multiplied by 111 only for all latitudes equally'], correctAnswer: 1, explanation: 'Area requires projected/geodesic methods; degree cells are not hectares.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-35-nodata', lessonId: 'cgei-geo-lesson-3-5-2', type: 'single-choice', prompt: 'When averaging a raster window, nodata values should be:', options: ['Treated as zero', 'Excluded from the mean', 'Replaced by the global maximum', 'Ignored only if positive'], correctAnswer: 1, explanation: 'Nodata must be excluded; zero substitution biases means.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-35-pin', lessonId: 'cgei-geo-lesson-3-5-3', type: 'single-choice', prompt: 'Pinning GDAL/PROJ/GEOS versions matters because:', options: ['It makes maps prettier', 'Binary mismatches can break or alter CRS transforms', 'It removes the need for nodata', 'It replaces STAC catalogues'], correctAnswer: 1, explanation: 'Geospatial binaries affect transform correctness and reproducibility.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-36-choro', lessonId: 'cgei-geo-lesson-3-6-1', type: 'single-choice', prompt: 'A choropleth of raw station counts by district without normalisation is problematic because:', options: ['Choropleths cannot use sequential colours', 'Counts confound area/population with intensity of the phenomenon', 'Legends cannot show counts', 'CRS is irrelevant to choropleths'], correctAnswer: 1, explanation: 'Rates or densities are usually required for honest choropleths of intensity.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-36-legend', lessonId: 'cgei-geo-lesson-3-6-2', type: 'single-choice', prompt: 'An honest climate map legend or caption should include at least:', options: ['Only a colour bar with no units', 'Variable, units, date/period, and source or product version', 'Web Mercator zoom level as the only scale', 'A rainbow scale for all variables'], correctAnswer: 1, explanation: 'Units, time, and source are minimum interpretability metadata.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
 
 
     { id: 'cgei-geo-q-34-001', lessonId: 'cgei-geo-lesson-3-4-1', type: 'single-choice', prompt: 'Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:', options: ['Correcting vertical datums automatically', 'Biased slopes and flow paths in vegetated or urban areas', 'Removing all NoData cells', 'Converting degrees to metres'], correctAnswer: 1, explanation: 'DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.', difficulty: 'medium', cognitiveLevel: 'understand' },

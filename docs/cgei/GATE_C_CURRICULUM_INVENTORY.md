@@ -115,3 +115,7 @@ A self-contained Unit 3.3 zonal-statistics practical and deterministic arithmeti
 ## Acceleration batch
 
 Implemented missing Core Unit 3.5 (Python geospatial stack). Registry units increase; Support gaps remain.
+
+## C.8
+
+Core Unit 3.6 Cartography added; 3.5 elevated; synthetic climate–spatial integration fixture.

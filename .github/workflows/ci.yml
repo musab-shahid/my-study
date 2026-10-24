@@ -117,6 +117,10 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_scale_check.py
       - name: Verify Unit 3.5 Python geospatial stack
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_python_geospatial_stack_check.py
+      - name: Verify unit_3_5_climate_spatial_integration_check.py
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_climate_spatial_integration_check.py
+      - name: Verify unit_3_6_cartography_check.py
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_6_cartography_check.py
       - name: Verify Unit 3.2 transform validation
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py
       - name: Verify Unit 3.3 zonal statistics aggregation

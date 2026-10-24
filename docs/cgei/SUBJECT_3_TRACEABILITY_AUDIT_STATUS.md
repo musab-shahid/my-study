@@ -62,3 +62,7 @@ Unit 3.2 lesson `cgei-geo-lesson-3-2-1` now explicitly distinguishes an ellipsoi
 ## Acceleration batch — Unit 3.5
 
 Core Unit 3.5 (Python geospatial stack) registered: 3 lessons, stdlib fixture, partial leaf mapping. Draft.
+
+## C.8 — Units 3.5 elevation + 3.6 Cartography
+
+Core Unit 3.6 registered (2 lessons). Unit 3.5 join/integration examples added. Draft/mapped_partial.

@@ -1,7 +1,7 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,classification,app_lesson_id,app_content_block_ids,disposition,evidence_note
 3.5.1.1,GeoPandas read/write CRS plot,3.5.1,Vector in Python,Core,cgei-geo-lesson-3-5-1,cgei-geo-35-1-1,mapped_partial,Roles taught; runtime GeoPandas not required in CI.
 3.5.1.2,Shapely geometries and predicates,3.5.1,Vector in Python,Core,cgei-geo-lesson-3-5-1,cgei-geo-35-1-1;cgei-geo-35-1-3,mapped_partial,Predicate concept + stdlib bbox fixture.
-3.5.1.3,Spatial joins overlays dissolve,3.5.1,Vector in Python,Core,cgei-geo-lesson-3-5-1,cgei-geo-35-1-2,mapped_partial,Table-level coverage; not GEOS engine.
+3.5.1.3,Spatial joins overlays dissolve,3.5.1,Vector in Python,Core,cgei-geo-lesson-3-5-1,cgei-geo-35-1-2;cgei-geo-35-1-5,mapped_partial,Join cardinality + buffer CRS units trap taught.
 3.5.1.4,Area and length in appropriate CRS,3.5.1,Vector in Python,Core,cgei-geo-lesson-3-5-1,cgei-geo-35-1-1,mapped_partial,Links Unit 3.2; question on hectares.
 3.5.2.1,Rasterio and GDAL bindings,3.5.2,Raster in Python,Core,cgei-geo-lesson-3-5-2,cgei-geo-35-2-1,mapped_partial,Conceptual stack; GDAL not executed in CI.
 3.5.2.2,Windowed reading masks nodata,3.5.2,Raster in Python,Core,cgei-geo-lesson-3-5-2,cgei-geo-35-2-2;cgei-geo-35-2-3,mapped_partial,Nodata mean fixture.
