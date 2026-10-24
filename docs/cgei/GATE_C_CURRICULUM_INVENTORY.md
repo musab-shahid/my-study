@@ -1,48 +1,72 @@
-# Gate C — Curriculum inventory and Subject 1 progress
+# Gate C — Curriculum inventory (reconciled)
 
-**HEAD baseline:** see git at commit time · PR #9 open
+**Definitions used here**
 
-## Inventory (from `src/data/cgei/curriculum.ts`)
+| Term | Definition for counts |
+|------|------------------------|
+| **Subject** | Entry in `cgeiCurriculum.subjects` with a `subjectId` |
+| **Unit code** | Unique `code: 'X.Y'` on a curriculum unit record |
+| **Lesson** | Unique `id` matching `*lesson*` in the registry |
+| **Question** | Unique `id` matching `*q-*` curriculum questions |
+| **TOC unit** | `Unit X.Y` heading in Master Study TOC docx |
 
-| Level | Count (approx.) | Notes |
-|-------|-----------------|-------|
-| Registry subjects | 13 | draft/review mix |
-| Unit codes | 58 unique | Not all TOC units present |
-| Lessons | ~182 | Includes ES, DS, RS, risk, etc. |
-| Questions | ~400+ | Structure test tracks total |
+**Counting date:** Gate C.1 reconciliation against live `curriculum.ts` + TOC docx.
 
-## Subject 1 (Environmental systems)
+## Exact counts
 
-| Unit | TOC role | State after this cycle |
-|------|----------|------------------------|
-| 1.1 | Core | **Strengthened** SEB + residence-time teaching; still draft overall |
-| 1.2–1.9 | Support | Not started (by design priority) |
-| 1.10 | Core | Unchanged draft |
+| Metric | Exact count | Source |
+|--------|-------------|--------|
+| Registry subjects | **13** | `subjects[]` |
+| Unique unit codes in registry | **58** | `code: 'X.Y'` |
+| Unique lesson IDs | **182** | lesson id pattern |
+| Unique question IDs | **402** | question id pattern |
+| TOC units (Subjects 1–14) | **125** | Unit headings in TOC (13+13+11+12+12+9+10+9+6+9+7+7+7+5) |
 
-### Unit 1.1 gaps closed (partial)
+## TOC units vs registry (by subject)
 
-- 1.1.2.5 / 1.1.2.6: SEB form Rn=H+LE+G, residual worked example, fixture residual check
-- 1.1.4.4: residence time τ≈M/F worked example
+| Subject | TOC units | Registry units | Missing registry codes (examples) |
+|---------|-----------|----------------|-----------------------------------|
+| 1 | 13 | 2 | 1.2–1.9, 1.11–1.13 (mostly Support/Optional) |
+| 2 | 13 | 6 | 2.3, 2.7, 2.9–2.13 |
+| 3 | 11 | 4 | 3.5–3.11 |
+| 4 | 12 | 10 | 4.11–4.12 |
+| 5 | 12 | 12 | — |
+| 6–13 | (see TOC) | partial Core slices | Support/Optional often deferred |
+| 14 | 5 | 0 | Optional advanced |
 
-### Unit 1.1 gaps remaining
+**Interpretation:** Registry counts ≠ TOC completion. Many TOC Support/Optional units are intentionally absent. Core gaps still exist (e.g. Subject 2/3 later units).
 
-- Deep BGC numerical budgets
-- Full TOA cloud/aerosol quantification
-- Time/scale hierarchy (1.1.5) depth
+## Subject 1.1 review (Gate C.1)
 
-## Gap register (priority)
+| Item | Finding |
+|------|---------|
+| SEB form Rn=H+LE+G | Teaching simplification; residual = closure check |
+| Omitted terms | Storage/advection/anthropogenic noted in Gate C.1 text update |
+| Residence time τ≈M/F | Steady-state / well-mixed caveats present |
+| Fixture | Stefan–Boltzmann, Te, Wien, SEB residual arithmetic |
+| Status | Remains **draft / mapped_partial** (24/24 rows partial) |
+
+## Next-subject selection matrix
+
+| Criterion | Subject 2 (Climate) | Subject 3 (Geospatial) | Winner |
+|-----------|---------------------|-------------------------|--------|
+| Downstream / EO & Multan zones | High | **Higher** (CRS, raster/vector before LST) | S3 |
+| Prerequisite for Subject 4 | Medium | **Required** | S3 |
+| Missing Core instructional risk | Medium | CRS misuse is high technical risk | S3 |
+| Capstone readiness | Climate context | Spatial correctness of zones/metrics | S3 |
+| Feasibility of slice | Partial units exist | 3.1–3.4 exist; deepen CRS | S3 |
+
+**Selected next vertical focus: Subject 3 — Unit 3.2 CRS (deepen Multan-relevant projected CRS practice).**
+
+## Gap register (active)
 
 | ID | Gap | Priority | Status |
 |----|-----|----------|--------|
-| G1 | Subject 1 Support units 1.2–1.9 absent | Medium (Support) | deferred |
-| G2 | Subject 3 later GIS units thin | High for EO path | next candidates |
-| G3 | Subject 2 Core depth uneven | High | backlog |
-| G4 | Multan real Landsat | Capstone | external data |
+| G-S3-CRS | Explicit projected CRS for planar metrics (Multan/UTM) | High | improved C.1 |
+| G-S2-missing | TOC 2.3/2.7/2.9+ absent | High | open |
+| G-S1-support | 1.2–1.9 Support not started | Medium | deferred |
+| G-Multan-real | No genuine Multan Landsat | Capstone | external |
 
-## Multan UHI evidence boundary (unchanged)
+## Multan evidence boundary (unchanged)
 
-Synthetic Landsat ST SUHII ≈4.5 °C is **not** Multan validation. No genuine Multan scene processed.
-
-## Next subject priority
-
-**Subject 3 (Geospatial)** or **Subject 2 Core climate data** — foundational for EO and Multan pathway. Subject 1 Support units remain lower priority than Core climate/geospatial depth.
+Synthetic Landsat ST pathway only; not Multan observations; SUHII ≠ air-temperature UHI.

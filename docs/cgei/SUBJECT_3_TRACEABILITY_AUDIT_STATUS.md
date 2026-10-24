@@ -18,3 +18,7 @@
 - 3.4.2 network: Dijkstra distance vs time fixture; accessibility threshold
 - 3.4.3 geocoding: synthetic match-rate fixture (0.6) + positional offset case
 - 3.4.4 field collection: data-contract fixture (unique IDs, vocab, GNSS accuracy); mobile apps documented only
+
+## Gate C.1
+
+Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; question on explicit projected CRS for planar metrics. Still **draft**.
