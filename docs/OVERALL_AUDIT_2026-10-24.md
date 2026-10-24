@@ -1,6 +1,6 @@
 # Overall repository audit — 24 October 2026
 
-**Baseline:** `main` at `c401f358af867518d5ab605c82384a74268bd611` (after the responsive accessibility regression PR was merged).  
+**Baseline:** `main` at `a8a9d214a397d308b97c2bcdd3792a6e5ddf9da3` (after the responsive accessibility and readiness-evidence PRs were merged).  
 **Purpose:** Record evidence-based risks and sequence the next quality improvements. This is a working audit, not a claim that the product or curriculum is complete.
 
 ## Executive assessment
@@ -12,7 +12,7 @@ The repository has useful foundations: automated data/question validation, unit 
 | Build and engineering checks | CI runs data validation, unit tests, TypeScript checks, lint, build, Playwright E2E, and scientific Python fixtures. | Strong baseline; continue testing the latest commit, not historical runs. |
 | Accessibility | Focus containment/restoration and responsive sheet tests are in CI; text-token and focus-indicator regressions were added and passed on PR #38 before merge. | Improving; next audit must cover all dialogs, menus, forms, route changes, and keyboard paths rather than one mobile sheet. |
 | Domain catalogue | The CGEI track registers 14 domains and lazy topic/question modules for each. | Registration is not curriculum coverage. |
-| Canonical instruction | `src/data/cgei/curriculum.ts` is explicitly the Subject 5 pilot. The structure test reports 162 canonical lessons and 380 curriculum questions in that registry. | Substantial Subject 5 draft material exists; the other 13 domains must not be described as having equivalent canonical lesson coverage. |
+| Canonical instruction | The current registry links canonical units and lessons across Subjects 1–7: 162 lessons and 380 curriculum questions; the current audit helper classifies all 162 lesson records as substantive. | Seven domains have partial canonical content, but their readiness is not review-ready/released; Subjects 8–14 remain orientation-only scaffolds. Do not equate populated lessons with complete TOC coverage. |
 | Readiness claims | The registry uses `planned`, `outlined`, `draft`, `review`, `validated`, and `released`. Before this audit branch, CI did not generally require dated human-review evidence for every validated/released node. | High-risk process gap. This branch adds evidence-backed readiness gates and adversarial tests. |
 | Source traceability | Existing audit notes inventory 14 subjects, 130 units, 567 topics, and 2,052 subtopics (2,763 source nodes); the complete extracted CSV described in the audit is not committed as a CI input. Subject 5 has a separate 184-leaf inventory. | Coverage cannot be certified across all source nodes yet. Preserve unresolved/candidate statuses; never infer coverage from titles or parent topics. |
 | Scientific validity | Many computational examples have dedicated Python smoke fixtures; content readiness remains draft/review in the canonical registry. | Arithmetic/software smoke checks are necessary but do not replace semantic review, source checking, or real-data validation. |
@@ -21,24 +21,24 @@ The repository has useful foundations: automated data/question validation, unit 
 
 ## Evidence-based CGEI domain status
 
-The main branch's canonical registry is a Subject 5 pilot, not a complete 14-domain canonical curriculum. The feature PRs that are still open are not counted as main-branch evidence.
+The main branch's canonical registry now contains units and lessons for Subjects 1–7, but this is still not a complete 14-domain canonical curriculum. The feature PRs that are still open are not counted as main-branch evidence.
 
 | Domain | Main-branch status | What would justify a higher status |
 |---|---|---|
-| 1. Environmental systems and Earth processes | Orientation/scaffold | Canonical units and substantive lessons, mapped practice, and reviewed evidence |
-| 2. Climate science and climate data | Partial legacy teaching sample | Broader TOC-aligned unit coverage, source traceability, and validated assessments |
-| 3. Geospatial science, GIS, and cartography | Orientation/scaffold | Teachable CRS, raster/vector, analysis, cartography, and validation sequences |
-| 4. Remote sensing and Earth observation | Orientation/scaffold | Sensor/preprocessing/QA lessons with reproducible examples and product-specific caveats |
-| 5. Scientific computing and data science | Substantive canonical pilot; predominantly draft/review | Complete verified topic/subtopic mapping, executed examples, instructional review, and release evidence |
-| 6. Machine learning and GeoAI | Orientation/scaffold on main | Baselines, leakage-safe spatial/temporal validation, uncertainty, and reproducible applied lessons |
-| 7. Climate/disaster risk and resilience | Orientation/scaffold on main | Hazard/exposure/vulnerability methods, validation, uncertainty, and claim-boundary checks |
-| 8. Research design and scientific communication | Orientation/scaffold on main | Research design, sampling, ethics, validity, uncertainty, writing, and review practice |
-| 9. Decision support and environmental intelligence | Orientation/scaffold on main | Decision framing, indicators, MCDA, sensitivity, provenance, and user evaluation |
-| 10. Climate policy, mitigation, sustainability, and economics | Orientation/scaffold on main | Policy instruments, accounting, appraisal, uncertainty, and applied exercises |
-| 11. Software engineering for environmental systems | Orientation/scaffold on main | Tested, documented, reproducible workflows and integration checks |
-| 12. Advanced AI | Orientation/scaffold on main | Clear prerequisites, responsible-use boundaries, evaluation, and substantive applied lessons |
-| 13. Capstone | Orientation/scaffold on main | Reproducible project milestones, data provenance, independent validation, and reviewable artefacts |
-| 14. Advanced/specialist branches | Orientation/scaffold on main | Explicit optional scope and prerequisite gates; do not represent branches as core completion |
+| 1. Environmental systems and Earth processes | Partially authored: 2 canonical units, 6 substantive lessons, 8 curriculum questions | Complete TOC mapping, stronger practice/assessment depth, and reviewed evidence |
+| 2. Climate science and climate data | Partially authored: 6 canonical units, 19 substantive lessons, 25 curriculum questions; 3 legacy topics and 37 legacy questions | Broader TOC-aligned coverage, verified source traceability, and independently reviewed assessments |
+| 3. Geospatial science, GIS, and cartography | Partially authored: 4 canonical units, 19 substantive lessons, 24 curriculum questions | Complete CRS, raster/vector, analysis, cartography, and validation coverage with verified mappings |
+| 4. Remote sensing and Earth observation | Partially authored: 10 canonical units, 40 substantive lessons, 93 curriculum questions | Product-specific QA/preprocessing evidence, real-data validation, and verified source mapping |
+| 5. Scientific computing and data science | Partially authored: 12 canonical units, 64 substantive lessons, 218 curriculum questions; 8 legacy topics and 35 legacy questions | Complete verified topic/subtopic mapping, executed examples, instructional review, and release evidence |
+| 6. Machine learning and GeoAI | Partially authored: 6 canonical units, 9 substantive lessons, 4 curriculum questions | Baselines, leakage-safe spatial/temporal validation, uncertainty, and adequate applied assessment coverage |
+| 7. Climate/disaster risk and resilience | Partially authored: 3 canonical units, 5 substantive lessons, 8 curriculum questions | Hazard/exposure/vulnerability methods, validation, uncertainty, and claim-boundary checks |
+| 8. Research design and scientific communication | Orientation-only scaffold | Research design, sampling, ethics, validity, uncertainty, writing, and review practice |
+| 9. Decision support and environmental intelligence | Orientation-only scaffold | Decision framing, indicators, MCDA, sensitivity, provenance, and user evaluation |
+| 10. Climate policy, mitigation, sustainability, and economics | Orientation-only scaffold | Policy instruments, accounting, appraisal, uncertainty, and applied exercises |
+| 11. Software engineering for environmental systems | Orientation-only scaffold | Tested, documented, reproducible workflows and integration checks |
+| 12. Advanced AI | Orientation-only scaffold | Clear prerequisites, responsible-use boundaries, evaluation, and substantive applied lessons |
+| 13. Capstone | Orientation-only scaffold | Reproducible project milestones, data provenance, independent validation, and reviewable artefacts |
+| 14. Advanced/specialist branches | Orientation-only scaffold | Explicit optional scope and prerequisite gates; do not represent branches as core completion |
 
 **Status vocabulary:** “Orientation/scaffold” means the domain is discoverable but does not yet have accepted canonical lesson coverage. “Partial” means a limited teaching sample exists, not that the domain is complete. “Draft/review” is not release-ready. A subject must not be called complete from topic counts alone.
 
