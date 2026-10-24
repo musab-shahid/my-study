@@ -42,3 +42,10 @@ Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; ques
 - Grid-shift honesty + landmark residual teaching and fixture.
 - Acceptance criteria doc: `docs/cgei/UNIT_3_2_ACCEPTANCE_CRITERIA.md`.
 - Still **draft / mapped_partial** — synthetic landmarks ≠ geographic validation.
+
+
+## Gate C.5 — datum and height concepts (2026-10-24)
+
+Unit 3.2 lesson `cgei-geo-lesson-3-2-1` now explicitly distinguishes an ellipsoid from a geodetic reference frame and a vertical datum. It introduces the conventional relationship `h = H + N` (ellipsoidal height, orthometric height, geoid undulation) with a warning that numerical conversion requires a compatible geoid model and documented conventions. A new single-choice assessment checks the distinctions.
+
+**Evidence and remaining limits:** the registry structure test expects 189 lessons and 459 questions and asserts the new question ID is unique. Unit 3.2 and all 16 source leaves remain draft / mapped_partial. No local geoid model, high-accuracy national datum transformation, independent survey control, or GUI GIS lab was run. Automated structural checks cannot establish that a learner can execute a real coordinate transformation.
