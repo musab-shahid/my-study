@@ -17,7 +17,7 @@ import { computeStreak, getWeakTopics, getWeeklyAccuracy, type WeeklyAccuracyPoi
 import { computeMasteryScore } from '@/lib/constants';
 import { countMasteredTopics } from '@/lib/attention';
 import { getSubjectColor } from '@/data/subject-colors';
-import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader } from '@/components/ui';
+import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader, ListRow } from '@/components/ui';
 import type { SubjectId } from '@/types';
 
 /** Honesty label when filter is All Subjects — stats are not bank-wide. */
@@ -281,7 +281,7 @@ return (
 
           {/* Item analytics — sticky misses & teach-without-test */}
           {(stickyMisses.length > 0 || teachOnly.length > 0 || fragileWins.length > 0) && (
-            <Card className="p-5">
+            <Card className="p-card-pad-lg">
               <h3 className="font-semibold text-slate-900 mb-1">From your practice history</h3>
               <p className="text-xs text-slate-500 mb-4">
                 Sticky misses and topics you studied but barely tested — not official scores.
@@ -293,17 +293,18 @@ return (
                     {stickyMisses.map((m) => {
                       const topic = getTopic(m.topicId);
                       return (
-                        <button
+                        <ListRow
                           key={m.questionId}
-                          type="button"
                           onClick={() => navigate({ screen: 'topic', topicId: m.topicId })}
-                          className="w-full text-left p-3 rounded-lg bg-red-50/80 border border-red-100 hover:bg-red-50 transition-colors"
+                          className="items-start bg-danger-50/80 border border-danger-100 hover:bg-danger-50"
                         >
-                          <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
-                          <p className="text-xs text-slate-500 mt-1">
-                            {topic?.title ?? m.topicId} · {m.attempts} attempts
-                          </p>
-                        </button>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
+                            <p className="text-xs text-slate-500 mt-1">
+                              {topic?.title ?? m.topicId} · {m.attempts} attempts
+                            </p>
+                          </div>
+                        </ListRow>
                       );
                     })}
                   </div>
@@ -311,7 +312,7 @@ return (
               )}
               {teachOnly.length > 0 && (
                 <div className="mb-2">
-                  <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Studied, little practice</p>
+                  <p className="text-xs font-semibold text-warning-700 uppercase tracking-wide mb-2">Studied, little practice</p>
                   <div className="flex flex-wrap gap-2">
                     {teachOnly.map((g) => {
                       const topic = getTopic(g.topicId);
@@ -326,10 +327,10 @@ return (
                               topicId: g.topicId,
                             })
                           }
-                          className="px-3 py-1.5 rounded-lg text-sm font-medium bg-amber-50 border border-amber-200 text-amber-900 hover:bg-amber-100"
+                          className="px-3 py-1.5 rounded-lg text-sm font-medium bg-warning-50 border border-warning-200 text-warning-900 hover:bg-warning-100"
                         >
                           {topic?.title ?? g.topicId}
-                          <span className="text-amber-600/80 text-xs ml-1">
+                          <span className="text-warning-700 text-xs ml-1">
                             ({g.questionsTouched}/{g.questionsInBank})
                           </span>
                         </button>
@@ -347,7 +348,7 @@ return (
           )}
 
           {/* Achievements */}
-          <Card className="p-5">
+          <Card className="p-card-pad-lg">
             <h3 className="font-semibold text-slate-900 mb-4">Achievements</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {achievements.map((a) => (
@@ -535,7 +536,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: React.ReactNode; l
     green: 'bg-success-100 text-success-600',
   };
   return (
-    <Card className="p-4">
+    <Card className="p-card-pad">
       <div className={`w-9 h-9 rounded-btn ${colors[color]} flex items-center justify-center mb-2`}>{icon}</div>
       <p className="text-slate-500 text-xs font-medium">{label}</p>
       <div className="flex items-baseline gap-0.5 mt-1">
