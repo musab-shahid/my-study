@@ -34,7 +34,7 @@ function readDismissedAt(): string | null {
 
 function rememberDismissal(): void {
   try {
-    rememberDismissal();
+    localStorage.setItem(DISMISS_KEY, String(Date.now()));
   } catch {
     // Best effort only; dismissal still applies to the current render/session.
   }
