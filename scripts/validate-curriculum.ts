@@ -155,7 +155,10 @@ for (const subject of cgeiCurriculum.subjects) {
     if (subject.unitIds.length === 0) errors.push(`Subject ${subject.title} cannot be ${subject.readiness} without instructional units`);
     for (const unitId of subject.unitIds) {
       const unit = cgeiCurriculum.units.find((item) => item.id === unitId);
-      if (unit && unit.readiness !== 'released') errors.push(`Subject ${subject.title} cannot be ${subject.readiness}: unit ${unit.code} is not released`);
+      const acceptedUnitStatuses = subject.readiness === 'released' ? ['released'] : ['validated', 'released'];
+      if (unit && !acceptedUnitStatuses.includes(unit.readiness)) {
+        errors.push(`Subject ${subject.title} cannot be ${subject.readiness}: unit ${unit.code} has readiness ${unit.readiness}`);
+      }
     }
   }
 }
@@ -164,7 +167,12 @@ for (const unit of cgeiCurriculum.units) {
   if (['validated', 'released'].includes(unit.readiness)) {
     if (unit.outcomes.length === 0) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without learning outcomes`);
     if (unit.kind !== 'orientation' && unit.lessonIds.length === 0) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without lessons`);
-    if (unit.activityIds.length === 0 && unit.assessmentIds.length === 0) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without linked practice or assessment`);
+    const hasLinkedPracticeOrAssessment = unit.activityIds.length > 0 || unit.assessmentIds.length > 0
+      || unit.lessonIds.some((lessonId) => {
+        const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
+        return Boolean(lesson && (lesson.activityIds.length > 0 || lesson.assessmentIds.length > 0));
+      });
+    if (!hasLinkedPracticeOrAssessment) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without linked practice or assessment`);
     for (const lessonId of unit.lessonIds) {
       const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
       if (lesson && !['validated', 'released'].includes(lesson.readiness)) {
