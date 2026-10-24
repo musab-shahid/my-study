@@ -51,13 +51,7 @@ export function useFocusTrap(
     const focusInitial = () => {
       const requested = initialFocusRef?.current;
       const target =
-        requested && requested.isConnected && node?.contains(requested) &&
-        !requested.matches(':disabled') &&
-        requested.getAttribute('aria-hidden') !== 'true' &&
-        !requested.closest('[inert], [aria-hidden="true"]') &&
-        requested.tabIndex >= 0 &&
-        requested.getClientRects().length > 0 &&
-        window.getComputedStyle(requested).visibility !== 'hidden'
+        requested && node && getFocusableElements(node).includes(requested)
           ? requested
           : node
             ? getFocusableElements(node)[0] ?? node
