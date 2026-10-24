@@ -167,9 +167,10 @@ export function pathToRoute(pathname: string): PathRoute {
     default:
       return { screen: 'home' };
     }
-  } catch {
+  } catch (error) {
     // Malformed percent-encoding must never crash cold-load or popstate routing.
-    return { screen: 'home' };
+    if (error instanceof URIError) return { screen: 'home' };
+    throw error;
   }
 }
 
