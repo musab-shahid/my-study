@@ -268,8 +268,9 @@ export function SettingsScreen() {
             <div>
               <p className="font-semibold text-slate-900 text-sm">Cloud backup</p>
               <p className="text-slate-500 text-xs mt-0.5">
-                Optional sync of local progress to your Supabase project. Requires network and a signed-in
-                account (device id alone is not enough). Rows are isolated per user under RLS.
+                Optional per-device backup of local progress to your Supabase project. Requires network
+                and a signed-in account (device id alone is not enough). Restoring replaces progress in this
+                browser; backups are not shared across devices. Rows are isolated per user under RLS.
                 {!getProgressSyncAccessToken() && (
                   <span className="block mt-1 text-amber-700">
                     No session token found — cloud upload/download will stay disabled until Auth sign-in is
