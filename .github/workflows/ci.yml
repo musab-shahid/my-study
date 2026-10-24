@@ -93,6 +93,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_1_learning_problem_check.py
       - name: Verify Unit 6.2 feature-prep checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_2_feature_prep_check.py
+      - name: Verify Unit 6.3 core-algorithm checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_3_core_algorithms_check.py
       - name: Verify Unit 6.4 leakage-split checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_4_leakage_split_check.py
       - name: Verify Unit 5.1 numerical foundations

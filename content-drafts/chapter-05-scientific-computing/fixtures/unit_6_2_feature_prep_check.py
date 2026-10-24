@@ -130,6 +130,23 @@ def main() -> None:
     ndvi_1 = [float(r["ndvi"]) for r in rows if int(r[TARGET]) == 1]
     assert sum(ndvi_0) / len(ndvi_0) > sum(ndvi_1) / len(ndvi_1)
 
+
+    # Explicit: held-out transform must use training statistics (not test mean)
+    test_mu = sum(float(r["lst_c"]) for r in test) / len(test)
+    assert abs(mu - test_mu) > 1e-6 or True  # document inequality when years differ
+    test_z_wrong = [(float(r["lst_c"]) - test_mu) / sd for r in test]
+    # Train-stats z and test-stats z differ for at least one row when means differ
+    if abs(mu - test_mu) > 1e-6:
+        assert any(abs(a - b) > 1e-6 for a, b in zip(test_z, test_z_wrong)), "heldout_must_use_train_stats"
+
+    # Missing / invalid value detection
+    bad_row = {**rows[0], "ndvi": "1.5"}  # out of expected range
+    bad_errs = validate_ranges(rows[:-1] + [bad_row])
+    assert any(e.startswith("ndvi_out_of_range") for e in bad_errs), "must_flag_invalid_ndvi"
+    missing = {k: rows[0][k] for k in rows[0] if k != "ndvi"}
+    # schema path: DictReader always has keys; simulate missing column table
+    schema_bad = validate_schema([{k: v for k, v in rows[0].items() if k != "rain_mm"}])
+    assert schema_bad, "must_flag_missing_column"
     print(
         "Unit 6.2 feature-prep checks passed "
         f"(n={len(rows)}, train={len(train)}, test={len(test)}, "

@@ -172,3 +172,6 @@ Synthetic region-blocked vs mixed split MAE; chronological holdout; scale fit on
 
 ## unit_6_2_feature_prep_check.py
 Synthetic parcel feature contract: schema/ranges, year split, train-only scaling, leakage column rejection, rain anomaly.
+
+## unit_6_3_core_algorithms_check.py
+Majority vs logistic vs LST stump on synthetic parcels; train-only scale; precision/recall/F1.
