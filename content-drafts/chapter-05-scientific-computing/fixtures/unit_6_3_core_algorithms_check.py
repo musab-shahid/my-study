@@ -106,6 +106,10 @@ def predict_stump(r: dict, feature: str, threshold: float, direction: str) -> in
 
 
 def metrics(y_true: list[int], y_pred: list[int]) -> dict:
+    if len(y_true) != len(y_pred):
+        raise ValueError(
+            f"y_true/y_pred length mismatch: {len(y_true)} != {len(y_pred)}"
+        )
     tp = sum(1 for a, b in zip(y_true, y_pred) if a == 1 and b == 1)
     tn = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 0)
     fp = sum(1 for a, b in zip(y_true, y_pred) if a == 0 and b == 1)
@@ -142,6 +146,11 @@ def main() -> None:
     m_tree = metrics(test_y, pred_tree)
 
 
+    try:
+        metrics([1, 0], [1])
+        raise AssertionError("mismatched lengths must raise")
+    except ValueError as exc:
+        assert "length mismatch" in str(exc)
     # Known confusion-matrix arithmetic on a fixed 4-vector
     yt_ex = [1, 0, 1, 0]
     yp_ex = [1, 1, 0, 0]

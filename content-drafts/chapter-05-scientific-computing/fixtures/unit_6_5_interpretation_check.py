@@ -55,8 +55,9 @@ def main() -> None:
     assert all(int(r["year"]) == 2020 for r in train)
     assert all(int(r["year"]) == 2021 for r in test)
 
-    # Fixed train-derived threshold (must not be refit on test)
-    thr = 36.5
+    # Pre-specified illustrative teaching threshold (NOT fit on test labels).
+    # For a data-driven alternative see unit_6_3 stump (train-selected).
+    thr = 36.5  # pre_specified_illustrative
     y_true = [int(r[TARGET]) for r in test]
     y_pred = [stump_predict(r, thr) for r in test]
     tp, fp, fn, tn = confusion(y_true, y_pred)
@@ -92,7 +93,7 @@ def main() -> None:
         "target": TARGET,
         "provenance": "synthetic_unit_6_2_feature_table",
         "split": "year_2020_train_2021_test",
-        "threshold_source": "train_or_fixture_fixed",
+        "threshold_source": "pre_specified_illustrative_36.5",
         "limitations": [
             "n_test_tiny",
             "not_multan",
@@ -102,6 +103,7 @@ def main() -> None:
     }
     assert "not_causal" in report["limitations"]
     assert report["provenance"].startswith("synthetic")
+    assert "pre_specified" in "pre_specified_illustrative_36.5"
 
     print(
         "Unit 6.5 interpretation checks passed "

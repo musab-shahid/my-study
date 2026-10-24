@@ -178,3 +178,6 @@ Majority vs logistic vs LST stump on synthetic parcels; train-only scale; precis
 
 ## unit_6_5_interpretation_check.py
 Confusion, FP/FN, threshold sensitivity, illustrative reliability bins, reporting limitations.
+
+## unit_6_6_practice_check.py
+Practice report JSON: framing, synthetic flags, leakage rules, model card, pitfalls.

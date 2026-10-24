@@ -1,0 +1,49 @@
+{
+  "problem_framing": {
+    "target": "heat_exceed (binary)",
+    "spatial_scale": "synthetic parcel",
+    "temporal_scale": "annual labels 2020–2021",
+    "intended_users": "teaching supervisors",
+    "decision_consequences": "screening ranks only; no intervention authority"
+  },
+  "data": {
+    "provenance": "fixtures/data/unit_6_2_feature_table.csv",
+    "synthetic": true,
+    "not_multan": true,
+    "features": ["lst_c", "ndvi", "rain_mm", "dist_water_km", "built_frac"],
+    "excluded_from_features": ["heat_exceed", "parcel_id"],
+    "split": "chronological_2020_train_2021_test",
+    "proxy_notes": ["LST is not 2m air temperature"]
+  },
+  "baseline": {
+    "name": "majority_class",
+    "holdout_f1": null
+  },
+  "models_compared": ["majority", "logistic", "lst_stump"],
+  "evaluation": {
+    "metrics": ["precision", "recall", "f1", "confusion"],
+    "holdout_used_for_selection": false,
+    "train_only_preprocessing": true
+  },
+  "reproducibility": {
+    "commands": [
+      "python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_2_feature_prep_check.py",
+      "python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_3_core_algorithms_check.py",
+      "python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_5_interpretation_check.py",
+      "python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_6_practice_check.py"
+    ],
+    "threshold_policy": "pre_specified_illustrative_36.5_or_train_selected_stump"
+  },
+  "model_card": {
+    "intended_use": "teach leakage-safe environmental ML workflow",
+    "out_of_scope": ["causal policy claims", "operational heat-health alerts", "Multan deployment"],
+    "limitations": ["n_tiny", "synthetic", "no spatial CV on real grids", "probabilities not calibrated"],
+    "next_validation_steps": ["blocked spatial CV on real study area", "independent labels", "reliability assessment with adequate n"]
+  },
+  "pitfalls_acknowledged": [
+    "random_pixel_cv_inflation",
+    "target_proxy_leakage",
+    "overclaiming_transferability",
+    "clustering_as_labels"
+  ]
+}
