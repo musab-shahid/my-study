@@ -49,6 +49,8 @@ jobs:
             }
           }
           NODE
+      - name: Enforce production dependency security gate
+        run: npm audit --omit=dev --audit-level=high
       - name: Design-system guard (new lines)
         run: npm run check:design-system
       - name: Validate data
