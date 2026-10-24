@@ -9,8 +9,8 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 1.1.2.2,Albedo absorption emission greenhouse conceptual,1.1.2,Energy and radiation,Core,cgei-es-lesson-1-1-2,cgei-es-11-2-1;cgei-es-11-2-3,mapped_partial,Conceptual greenhouse distinction.
 1.1.2.3,Stefan-Boltzmann and Wien laws,1.1.2,Energy and radiation,Core,cgei-es-lesson-1-1-2,cgei-es-11-2-lab,mapped_partial,Fixture locks M(288) and λ_max.
 1.1.2.4,TOA vs surface budgets clouds aerosols,1.1.2,Energy and radiation,Core,cgei-es-lesson-1-1-2,cgei-es-11-2-3,mapped_partial,Named limits only.
-1.1.2.5,Sensible latent heat diurnal seasonal,1.1.2,Energy and radiation,Core,,,mapped_partial,Not yet taught numerically.
-1.1.2.6,Surface energy balance equation,1.1.2,Energy and radiation,Core,,,mapped_partial,Deferred; Subject 5 had related SEB practice.
+1.1.2.5,Sensible latent heat diurnal seasonal,1.1.2,Energy and radiation,Core,,,deferred,Not yet taught numerically.
+1.1.2.6,Surface energy balance equation,1.1.2,Energy and radiation,Core,,,deferred,Deferred; Subject 5 had related SEB practice.
 1.1.3.1,Feedbacks ice-albedo water-vapour,1.1.3,Feedbacks forcing sensitivity,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-1,mapped_partial,Polarity overview.
 1.1.3.2,Radiative forcing climate sensitivity concepts,1.1.3,Feedbacks forcing sensitivity,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-1;cgei-es-11-3-3,mapped_partial,Defined conceptually; no numeric ECS.
 1.1.3.3,Tipping elements overview,1.1.3,Feedbacks forcing sensitivity,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-3,mapped_partial,Explicitly not quantified.
@@ -18,8 +18,8 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 1.1.4.2,Carbon cycle overview,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Overview only.
 1.1.4.3,Nitrogen phosphorus human amplification,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Qualitative.
 1.1.4.4,Mass balance residence time,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Residence time definition only.
-1.1.4.5,Sulphur methane N2O overview,1.1.4,Biogeochemical cycles,Core,,,mapped_partial,Not taught in this slice.
-1.1.4.6,Ocean carbon acidification overview,1.1.4,Biogeochemical cycles,Core,,,mapped_partial,Not taught in this slice.
-1.1.5.1,Time and length scales,1.1.5,Time and scale,Core,,,mapped_partial,Deferred.
+1.1.4.5,Sulphur methane N2O overview,1.1.4,Biogeochemical cycles,Core,,,deferred,Not taught in this slice.
+1.1.4.6,Ocean carbon acidification overview,1.1.4,Biogeochemical cycles,Core,,,deferred,Not taught in this slice.
+1.1.5.1,Time and length scales,1.1.5,Time and scale,Core,,,deferred,Deferred.
 1.1.5.2,Equilibrium vs transient lags,1.1.5,Time and scale,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-1,mapped_partial,Mentioned with sensitivity concepts.
 1.1.5.3,Stocks flows system diagrams,1.1.5,Time and scale,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Stock-flow language introduced.
