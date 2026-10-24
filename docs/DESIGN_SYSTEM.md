@@ -78,3 +78,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Custom quiz-option and listbox controls may remain native buttons where they implement stateful option/listbox semantics, but must keep shared focus-ring, target-size, and disabled-state behavior.
 - Practice and quiz headings use the same semantic title scale. Quiz question text uses a focused heading variant so the task remains visually prominent without borrowing dashboard sizing.
 - Flashcard filters use shared button variants with a minimum 44px target. The reveal state uses brand surface tokens, not a separate screen-local color family.
+
+
+## Route-group migration notes: Settings and Search
+
+- Settings displays the canonical product name and tagline; installation and update actions use shared button variants.
+- Selection controls expose their pressed state to assistive technology. Track and subject colors remain contextual accents, while selected-state treatment uses the product brand tokens.
+- Search results use the shared list-row interaction and the subject's registered accent for the result icon/tint. Search scope, loading, retry, and navigation behavior remain unchanged.
+- Remove third-party placeholder social-preview metadata. Do not reintroduce template-brand assets into product metadata; a purpose-designed social image can be added when a verified image asset is available.
