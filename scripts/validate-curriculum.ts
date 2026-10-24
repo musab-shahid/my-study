@@ -6,6 +6,7 @@ import { readFileSync } from 'node:fs';
 import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { topicMetadata } from '../src/data/topic-metadata';
 import { sections } from '../src/data/sections';
+import { validateLessonReadiness, validateReadinessEvidence } from '../src/data/cgei/readiness';
 
 const errors: string[] = [];
 const warnings: string[] = [];
@@ -88,6 +89,7 @@ for (const unit of cgeiCurriculum.units) {
 const contentBlockIds = new Set<string>();
 const bridgedTopicIds = new Set<string>();
 for (const lesson of cgeiCurriculum.lessons) {
+  errors.push(...validateLessonReadiness(lesson));
   if (lesson.sourceTopicId && !topicIds.has(lesson.sourceTopicId)) errors.push(`Lesson ${lesson.id} references missing legacy topic ${lesson.sourceTopicId}`);
   if (lesson.sourceTopicId && bridgedTopicIds.has(lesson.sourceTopicId)) errors.push(`More than one lesson bridges to legacy topic ${lesson.sourceTopicId}`);
   if (lesson.sourceTopicId) bridgedTopicIds.add(lesson.sourceTopicId);
@@ -143,6 +145,51 @@ for (const project of cgeiCurriculum.projects) {
   if (project.rubricId && !rubricIds.has(project.rubricId)) errors.push(`Project ${project.id} has missing rubric ${project.rubricId}`);
   for (const milestone of project.milestones) checkRefs(`Milestone ${milestone.id} deliverables`, milestone.deliverableIds, deliverableIds);
 }
+// Readiness is an evidence claim. Keep draft/review work flexible, but do not
+// allow a subject, unit, lesson, or project to be validated/released without
+// dated review evidence and appropriate instructional artefacts.
+for (const subject of cgeiCurriculum.subjects) {
+  errors.push(...validateReadinessEvidence(subject.readiness, subject.readinessEvidence, `Subject ${subject.title}`));
+  if (['validated', 'released'].includes(subject.readiness)) {
+    if (subject.outcomes.length === 0) errors.push(`Subject ${subject.title} cannot be ${subject.readiness} without learning outcomes`);
+    if (subject.unitIds.length === 0) errors.push(`Subject ${subject.title} cannot be ${subject.readiness} without instructional units`);
+    for (const unitId of subject.unitIds) {
+      const unit = cgeiCurriculum.units.find((item) => item.id === unitId);
+      const acceptedUnitStatuses = subject.readiness === 'released' ? ['released'] : ['validated', 'released'];
+      if (unit && !acceptedUnitStatuses.includes(unit.readiness)) {
+        errors.push(`Subject ${subject.title} cannot be ${subject.readiness}: unit ${unit.code} has readiness ${unit.readiness}`);
+      }
+    }
+  }
+}
+for (const unit of cgeiCurriculum.units) {
+  errors.push(...validateReadinessEvidence(unit.readiness, unit.readinessEvidence, `Unit ${unit.code}`));
+  if (['validated', 'released'].includes(unit.readiness)) {
+    if (unit.outcomes.length === 0) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without learning outcomes`);
+    if (unit.kind !== 'orientation' && unit.lessonIds.length === 0) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without lessons`);
+    const hasLinkedPracticeOrAssessment = unit.activityIds.length > 0 || unit.assessmentIds.length > 0
+      || unit.lessonIds.some((lessonId) => {
+        const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
+        return Boolean(lesson && (lesson.activityIds.length > 0 || lesson.assessmentIds.length > 0));
+      });
+    if (!hasLinkedPracticeOrAssessment) errors.push(`Unit ${unit.code} cannot be ${unit.readiness} without linked practice or assessment`);
+    for (const lessonId of unit.lessonIds) {
+      const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
+      if (lesson && !['validated', 'released'].includes(lesson.readiness)) {
+        errors.push(`Unit ${unit.code} cannot be ${unit.readiness}: lesson ${lesson.id} is not validated/released`);
+      }
+    }
+  }
+}
+for (const project of cgeiCurriculum.projects) {
+  errors.push(...validateReadinessEvidence(project.readiness, project.readinessEvidence, `Project ${project.title}`));
+  if (['validated', 'released'].includes(project.readiness)) {
+    if (project.objectiveIds.length === 0) errors.push(`Project ${project.title} cannot be ${project.readiness} without objectives`);
+    if (project.milestones.length === 0) errors.push(`Project ${project.title} cannot be ${project.readiness} without milestones`);
+    if (project.deliverables.length === 0) errors.push(`Project ${project.title} cannot be ${project.readiness} without deliverables`);
+  }
+}
+
 for (const rubric of cgeiCurriculum.rubrics) {
   const weight = rubric.criteria.reduce((sum, criterion) => sum + criterion.weight, 0);
   if (Math.abs(weight - 100) > 1e-9) errors.push(`Rubric ${rubric.id} weights sum to ${weight}, not 100`);
