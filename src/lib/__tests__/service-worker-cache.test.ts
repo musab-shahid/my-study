@@ -12,6 +12,7 @@ function loadServiceWorker(
 ) {
   const handlers = new Map<string, (event: any) => void>();
   const writes: string[] = [];
+  const lifetimePromises: Promise<unknown>[] = [];
   const cache = {
     add: async () => undefined,
     put: async (request: RequestLike, response: ResponseLike) => {
@@ -44,7 +45,7 @@ function loadServiceWorker(
     Promise,
     console,
   });
-  return { fetchHandler: handlers.get('fetch'), writes, initialCache };
+  return { fetchHandler: handlers.get('fetch'), writes, initialCache, lifetimePromises };
 }
 
 function navigationRequest(path = '/study'): RequestLike {
@@ -55,15 +56,20 @@ describe('service worker navigation caching', () => {
   it('does not cache an HTTP error response over a known-good navigation document', async () => {
     const request = navigationRequest();
     const cachedResponse: ResponseLike = { ok: true, clone: () => cachedResponse };
-    const { fetchHandler, writes, initialCache } = loadServiceWorker(
+    const { fetchHandler, writes, initialCache, lifetimePromises } = loadServiceWorker(
       async () => ({ ok: false, clone: () => { throw new Error('error responses must not be cloned'); } }),
       new Map([[request.url, cachedResponse]]),
     );
     assert.ok(fetchHandler);
 
     let responsePromise: Promise<ResponseLike> | undefined;
-    fetchHandler!({ request, respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; } });
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetimePromises.push(promise),
+    });
     const response = await responsePromise;
+    await Promise.all(lifetimePromises);
 
     assert.equal(response?.ok, false);
     assert.deepEqual(writes, []);
@@ -73,14 +79,18 @@ describe('service worker navigation caching', () => {
   it('caches a successful navigation response on a best-effort basis', async () => {
     const request = navigationRequest();
     const response: ResponseLike = { ok: true, clone: () => ({ ok: true, clone: () => response }) };
-    const { fetchHandler, writes } = loadServiceWorker(async () => response);
+    const { fetchHandler, writes, lifetimePromises } = loadServiceWorker(async () => response);
     assert.ok(fetchHandler);
 
     let responsePromise: Promise<ResponseLike> | undefined;
-    fetchHandler!({ request, respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; } });
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetimePromises.push(promise),
+    });
     assert.equal(await responsePromise, response);
-    await Promise.resolve();
-    await Promise.resolve();
+    assert.equal(lifetimePromises.length, 1, 'cache update must extend the fetch event lifetime');
+    await Promise.all(lifetimePromises);
 
     assert.deepEqual(writes, [request.url]);
   });
@@ -88,11 +98,16 @@ describe('service worker navigation caching', () => {
   it('serves a cached document when the navigation network request fails', async () => {
     const request = navigationRequest();
     const cachedResponse: ResponseLike = { ok: true, clone: () => cachedResponse };
-    const { fetchHandler } = loadServiceWorker(async () => { throw new Error('offline'); }, new Map([[request.url, cachedResponse]]));
+    const { fetchHandler, lifetimePromises } = loadServiceWorker(async () => { throw new Error('offline'); }, new Map([[request.url, cachedResponse]]));
     assert.ok(fetchHandler);
 
     let responsePromise: Promise<ResponseLike> | undefined;
-    fetchHandler!({ request, respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; } });
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetimePromises.push(promise),
+    });
     assert.equal(await responsePromise, cachedResponse);
+    await Promise.all(lifetimePromises);
   });
 });
