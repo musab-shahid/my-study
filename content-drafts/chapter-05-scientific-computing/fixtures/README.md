@@ -157,3 +157,6 @@ MOD11A2 scale 0.02 / fill 0 / K→C on miniature JSON fixture. Not a real HDF.
 
 ## unit_13_portfolio_check.py
 Portfolio evidence-card required fields, inventory labels, Paths A–C links, non-claims, genuine-granule checksum rule.
+
+## unit_13_research_fit_check.py
+Research-fit evidence card: skill map, application checklist, enquiry steps, funding process notes, non-claims.
