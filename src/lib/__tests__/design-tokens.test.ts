@@ -64,4 +64,48 @@ describe('design system tokens', () => {
     assert.match(tailwind, /caption:\s*\['0\.75rem'/);
     assert.match(tailwind, /label:\s*\['0\.75rem'/);
   });
+
+  it('keeps primary and muted text readable on every shared surface', () => {
+    const primary = hexToken('text-primary');
+    const muted = hexToken('text-muted');
+    const surfaces = [
+      ['surface-page', hexToken('surface-page')],
+      ['surface-raised', hexToken('surface-raised')],
+      ['surface-muted', hexToken('surface-muted')],
+    ] as const;
+
+    for (const [name, surface] of surfaces) {
+      const primaryRatio = contrast(primary, surface);
+      assert.ok(primaryRatio >= 7, 'Primary text on ' + name + ' should meet 7:1; got ' + primaryRatio.toFixed(2) + ':1');
+
+      const mutedRatio = contrast(muted, surface);
+      assert.ok(mutedRatio >= 4.5, 'Muted text on ' + name + ' should meet 4.5:1; got ' + mutedRatio.toFixed(2) + ':1');
+    }
+  });
+
+  it('keeps semantic foregrounds readable on their intended tinted surfaces', () => {
+    const pairs = [
+      ['brand', rgbToken('color-brand-700'), rgbToken('color-brand-50')],
+      ['success', rgbToken('color-success-700'), rgbToken('color-success-50')],
+      ['warning', rgbToken('color-warning-700'), rgbToken('color-warning-50')],
+      ['danger', rgbToken('color-danger-700'), rgbToken('color-danger-50')],
+    ] as const;
+
+    for (const [name, foreground, surface] of pairs) {
+      const ratio = contrast(foreground, surface);
+      assert.ok(ratio >= 4.5, name + ' foreground on its tinted surface must meet 4.5:1; got ' + ratio.toFixed(2) + ':1');
+    }
+  });
+
+  it('keeps the canonical focus ring distinguishable on every shared surface', () => {
+    const focus = rgbToken('color-brand-700');
+    for (const [name, surface] of [
+      ['surface-page', hexToken('surface-page')],
+      ['surface-raised', hexToken('surface-raised')],
+      ['surface-muted', hexToken('surface-muted')],
+    ] as const) {
+      const ratio = contrast(focus, surface);
+      assert.ok(ratio >= 3, 'Focus ring against ' + name + ' must meet 3:1; got ' + ratio.toFixed(2) + ':1');
+    }
+  });
 });

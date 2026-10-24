@@ -104,3 +104,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Subject dots/icons come from the subject registry in every track catalog, including generic track overviews.
 - Track icon fills and text accents use darker palette steps on light surfaces to preserve non-text/text contrast; semantic enrollment status stays green.
 - Exam-profile controls use the shared product focus ring, regardless of track accent.
+
+
+## Enforcement and contrast acceptance
+
+- CI runs the design-system guard on each pull request. New UI code may not add raw buttons outside the shared UI layer, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, or non-canonical 500-level focus rings.
+- Contrast tests compute WCAG contrast ratios from the actual CSS RGB tokens. They cover primary/muted text on page, raised, and muted surfaces; semantic foregrounds on tinted surfaces; white text on approved action fills; and the canonical focus ring on every shared surface.
+- The muted text token is deliberately darker than Slate 500 so small labels have enough contrast. Do not lighten it without updating the measured acceptance tests.
+- Exceptions must be narrow and documented in the shared UI or identity registry, not added screen by screen.
