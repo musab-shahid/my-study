@@ -1248,6 +1248,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           className={`rounded-card border bg-white shadow-card p-3.5 sm:p-5 mb-4 cursor-pointer select-none ${correctAns ? 'border-success-100 hover:border-success-100' : 'border-danger-100 hover:border-danger-100'}`}
           role="button"
           tabIndex={0}
+          aria-live="polite"
+          aria-atomic="true"
           aria-label="Tap or press Enter to continue to next question"
           onClick={handleNext}
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNext(); } }}
@@ -1265,7 +1267,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <span className="font-semibold text-danger-700">Incorrect</span>
               </>
             )}
-            <span className="ml-auto text-xs text-slate-400 font-medium">Tap or press Enter to continue →</span>
+            <span className="ml-auto text-xs text-slate-500 font-medium">Tap or press Enter to continue →</span>
           </div>
           {!correctAns && (currentQ.type === 'multi') && (
             <div className="mb-3 space-y-1">

@@ -16,7 +16,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
     <Card className="p-card-pad border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-label uppercase tracking-wide font-semibold text-slate-500">{question.difficulty} · {question.cognitiveLevel}</span>
-        <span className="text-label text-slate-400">Unrecorded knowledge check</span>
+        <span className="text-label text-slate-500">Unrecorded knowledge check</span>
       </div>
       <p className="font-medium text-sm sm:text-base text-slate-900 leading-relaxed">{question.prompt}</p>
       <p className="text-xs text-slate-500 mt-1">Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
@@ -40,7 +40,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
       </div>
       {!submitted ? <div className="mt-3"><Button variant="secondary" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button></div> : (
         <div className={`mt-3 rounded-lg border p-3 ${isCorrect ? 'border-success-200 bg-success-50' : 'border-warning-200 bg-warning-50'}`}>
-          <p className={`font-semibold text-sm ${isCorrect ? 'text-success-800' : 'text-warning-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
+          <p role="status" aria-live="polite" aria-atomic="true" className={`font-semibold text-sm ${isCorrect ? 'text-success-800' : 'text-warning-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
           <p className="text-sm text-slate-700 leading-relaxed mt-1">{question.explanation}</p>
           {question.sourceCitation ? <p className="text-label text-slate-500 mt-2">Source: {question.sourceCitation}</p> : null}
           <button type="button" onClick={() => { setSelected(null); setSubmitted(false); }} className="mt-2 text-xs font-semibold text-teal-800 hover:underline">Try again</button>
