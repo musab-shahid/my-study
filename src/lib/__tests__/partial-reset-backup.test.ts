@@ -22,7 +22,7 @@ afterEach(() => {
   if (originalLocalStorage) {
     Object.defineProperty(globalThis, 'localStorage', originalLocalStorage);
   } else {
-    delete (globalThis as { localStorage?: unknown }).localStorage;
+    Reflect.deleteProperty(globalThis, 'localStorage');
   }
 });
 
