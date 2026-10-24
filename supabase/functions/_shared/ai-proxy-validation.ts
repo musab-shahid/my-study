@@ -10,6 +10,14 @@ export type ProxyMessage = {
 
 export const MAX_PROXY_MESSAGES = 24;
 export const MAX_PROXY_CONTENT_CHARS = 6000;
+export const MAX_PROXY_CONTEXT_CHARS = 4000;
+
+/** Context is data, never a client-authored system instruction. */
+export function sanitizeProxyContext(raw: unknown): string | null {
+  if (raw === undefined) return '';
+  if (typeof raw !== 'string' || raw.length > MAX_PROXY_CONTEXT_CHARS) return null;
+  return raw.trim();
+}
 
 export function sanitizeProxyMessages(raw: unknown): ProxyMessage[] | null {
   if (!Array.isArray(raw) || raw.length === 0 || raw.length > MAX_PROXY_MESSAGES) {
