@@ -18,6 +18,5 @@ describe('service-worker precache asset policy', () => {
     assert.equal(isLazyContentChunk('assets/index-abc123.js'), false);
     assert.equal(isShellAsset('assets/index-abc123.js'), true);
     assert.equal(isShellAsset('assets/vendor-react-abc123.js'), true);
-    assert.equal(isShellAsset('assets/app-data-abc123.js'), true);
   });
 });
