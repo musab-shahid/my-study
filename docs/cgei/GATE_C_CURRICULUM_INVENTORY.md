@@ -70,3 +70,7 @@
 ## Multan evidence boundary (unchanged)
 
 Synthetic Landsat ST pathway only; not Multan observations; SUHII ≠ air-temperature UHI.
+
+## Gate C.2
+
+Unit 3.2: fourth lesson + UTM/resampling fixture checks; CSV 16 leaves all mapped_partial. Unit 3.3 not expanded this cycle (await dependency/coverage evidence after 3.2).

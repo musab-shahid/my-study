@@ -1551,6 +1551,7 @@ const outcomes32: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-32-crs', statement: 'Distinguish geographic coordinates, projected coordinates and when units are angular versus linear.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-32-scale', statement: 'Estimate order-of-magnitude ground distances from degree differences using latitude-dependent scale factors.', action: 'estimate and check', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-32-projection', statement: 'State that map projections trade area, shape and distance properties and name the property prioritised by a chosen projection class.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-32-transform', statement: 'Distinguish on-the-fly display projection from permanent transformation; choose resampling for categorical vs continuous rasters; document CRS and verify landmarks after reprojection.', action: 'distinguish and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
 ];
 
 const lessons32: CurriculumLesson[] = [
@@ -1586,6 +1587,19 @@ const lessons32: CurriculumLesson[] = [
     ],
     activityIds: ['cgei-geo-a-32-projection'], assessmentIds: ['cgei-geo-assess-32-projection'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
+  {
+    id: 'cgei-geo-lesson-3-2-4', kind: 'lesson', title: 'Transforms, Multan practice and CRS documentation', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes32[3]],
+    content: [
+      { id: 'cgei-geo-32-4-1', kind: 'prose', title: 'On-the-fly display is not a permanent transform', body: 'Desktop GIS often reprojects layers on the fly for display in a project CRS. That does not rewrite source files. Analytical distances, areas, buffers, and zonal overlays must use a documented CRS with known units. Prefer an explicit permanent transform when writing analysis outputs so downstream steps do not depend on a forgotten project CRS.' },
+      { id: 'cgei-geo-32-4-2', kind: 'table', title: 'Resampling when transforming rasters', headers: ['Data type', 'Prefer', 'Why'], rows: [['Categorical land cover / masks', 'Nearest neighbour', 'Preserves class codes; avoids synthetic intermediate classes'], ['Continuous temperature / elevation', 'Bilinear or cubic', 'Smoother field interpolation; still alters values—document method'], ['Quality/bit flags', 'Nearest neighbour', 'Bitfields must not be averaged']] },
+      { id: 'cgei-geo-32-4-3', kind: 'worked-example', title: 'Multan and UTM zone 42N boundaries', body: 'UTM zone 42N spans longitudes 66°E to 72°E (EPSG:32642). Multan city lies inside that zone. A Punjab-wide layer that crosses 72°E enters zone 43N (EPSG:32643). Using a single UTM zone for all of Punjab distorts metrics near the edge; for province-wide area totals prefer an equal-area CRS or product-native cell areas. Fixture unit_3_2_crs_scale_check.py locks the 66–72°E zone rule as a decision check.' },
+      { id: 'cgei-geo-32-4-4', kind: 'key-points', title: 'Documentation and verification', items: ['Record EPSG (or WKT) on every dataset and map', 'Legacy Survey of Pakistan or cadastral layers may use local datums—identify before overlay', 'After reprojection, check known landmarks (e.g. city coordinates) land where expected', 'Vertical: distinguish ellipsoidal height from orthometric (geoid) height; DEM product docs state which'] },
+      { id: 'cgei-geo-32-4-5', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No grid-shift file accuracy model is fitted here', 'No claim that EPSG:32642 is mandatory for every Multan study', 'Spherical scale factors are instructional, not survey-grade geodesics'] },
+    ],
+    activityIds: ['cgei-geo-a-32-transform'], assessmentIds: ['cgei-geo-assess-32-transform'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+
 ];
 
 
@@ -3618,8 +3632,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
       estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes32,
       lessonIds: lessons32.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-32-crs', 'cgei-geo-a-32-scale', 'cgei-geo-a-32-projection'],
-      assessmentIds: ['cgei-geo-assess-32-crs', 'cgei-geo-assess-32-scale', 'cgei-geo-assess-32-projection'],
+      activityIds: ['cgei-geo-a-32-crs', 'cgei-geo-a-32-scale', 'cgei-geo-a-32-projection', 'cgei-geo-a-32-transform'],
+      assessmentIds: ['cgei-geo-assess-32-crs', 'cgei-geo-assess-32-scale', 'cgei-geo-assess-32-projection', 'cgei-geo-assess-32-transform'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master_Study_TOC Subject 3 — Geospatial Science, GIS & Cartography',
@@ -4314,6 +4328,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-32-002', lessonId: 'cgei-geo-lesson-3-2-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-32-003', lessonId: 'cgei-geo-lesson-3-2-3', type: 'single-choice', prompt: 'Which choice best matches computing global land-area totals?', options: ['Web Mercator for convenience', 'An equal-area projection or true cell areas from the native grid', 'Any conformal projection', 'Unprojected pixel counts in a screen screenshot'], correctAnswer: 1, explanation: 'Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-32-utm', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'For metre-based area or distance in a Multan regional study, the safest practice is to:', options: ['Treat 0.01° cells as 1 km squares everywhere', 'Rely only on on-the-fly map display without recording the analysis CRS', 'Document and use an explicit projected CRS appropriate to the region (e.g. a UTM zone) for planar metrics', 'Swap latitude and longitude to fix scale'], correctAnswer: 2, explanation: 'Planar metrics need an explicit projected CRS; display transforms are not documentation.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-otf', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'On-the-fly reprojection in a GIS project primarily means:', options: ['Source files are permanently rewritten to the project CRS', 'Layers are displayed in a common CRS without necessarily rewriting source files', 'All area statistics become equal-area automatically', 'Axis order is fixed to lat/lon'], correctAnswer: 1, explanation: 'OTF is for display; permanent transform is required for documented analysis outputs.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-32-resample', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'When transforming a categorical land-cover raster, the preferred resampling method is usually:', options: ['Bilinear', 'Cubic', 'Nearest neighbour', 'Average of all neighbours'], correctAnswer: 2, explanation: 'Nearest neighbour preserves class codes; averaging creates invalid intermediate classes.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-zonebound', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'UTM zone 42N (EPSG:32642) longitude span used in this curriculum is:', options: ['60–66°E', '66–72°E', '72–78°E', 'Entire Pakistan'], correctAnswer: 1, explanation: 'Zone 42N spans 66–72°E; Multan is inside; Punjab-wide layers may cross into 43N.', difficulty: 'medium', cognitiveLevel: 'remember' },
+
 
 
     { id: 'cgei-ds-q-51-003', lessonId: 'cgei-ds-lesson-5-1-5', type: 'single-choice', prompt: 'Euler update with V in m³, Q in m³ s⁻¹, and Δt=1 h written as 1 without converting to seconds will:', options: ['Always improve stability', 'Understate the volume change by a factor of 3600 relative to SI-consistent units', 'Convert Celsius to Kelvin', 'Remove mass conservation'], correctAnswer: 1, explanation: 'Flow rates in m³ s⁻¹ must be paired with Δt in seconds. Using 1 hour as the number 1 leaves a 3600× unit error.', difficulty: 'medium', cognitiveLevel: 'apply' },

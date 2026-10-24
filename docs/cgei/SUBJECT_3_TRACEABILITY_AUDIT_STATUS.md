@@ -22,3 +22,10 @@
 ## Gate C.1
 
 Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; question on explicit projected CRS for planar metrics. Still **draft**.
+
+## Gate C.2 — Unit 3.2 vertical slice
+
+- Lesson 3-2-4: OTF vs permanent transform, resampling table, Multan/UTM 42N boundaries, CRS documentation.
+- Fixture: zone 42N longitude span + categorical nearest-neighbour rule.
+- Traceability CSV expanded to 16 official leaves (all mapped_partial).
+- Still **draft** — not verified-complete (no grid-shift lab; no landmark fixture).
