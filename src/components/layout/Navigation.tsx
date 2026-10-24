@@ -121,7 +121,7 @@ export function Sidebar() {
           aria-current={currentScreen === 'home' ? 'page' : undefined}
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
-              ? 'bg-brand-500 text-white shadow-lg shadow-brand-500/25'
+              ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/20'
               : 'text-slate-400 hover:text-white hover:bg-slate-800'
           }`}
         >
@@ -431,7 +431,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation ${
-                  active ? activeColor : 'text-slate-500 hover:text-slate-300'
+                  active ? activeColor : 'text-slate-400 hover:text-slate-300'
                 }`}
               >
                 {active && (

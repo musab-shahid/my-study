@@ -1121,7 +1121,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           <div className="flex items-center gap-1 min-w-0">
             <button
               onClick={handleExit}
-              className="flex items-center justify-center w-10 h-10 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+              className="flex items-center justify-center w-11 h-11 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               aria-label="Exit quiz"
             >
               <ArrowLeft className="w-5 h-5" />
@@ -1258,6 +1258,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           className={`rounded-card border bg-white shadow-card p-3.5 sm:p-5 mb-4 cursor-pointer select-none ${correctAns ? 'border-success-100 hover:border-success-100' : 'border-danger-100 hover:border-danger-100'}`}
           role="button"
           tabIndex={0}
+          aria-live="polite"
+          aria-atomic="true"
           aria-label="Tap or press Enter to continue to next question"
           onClick={handleNext}
           onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNext(); } }}
@@ -1275,7 +1277,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <span className="font-semibold text-danger-700">Incorrect</span>
               </>
             )}
-            <span className="ml-auto text-xs text-slate-400 font-medium">Tap or press Enter to continue →</span>
+            <span className="ml-auto text-xs text-slate-500 font-medium">Tap or press Enter to continue →</span>
           </div>
           {!correctAns && (currentQ.type === 'multi') && (
             <div className="mb-3 space-y-1">

@@ -1,7 +1,17 @@
-import { useEffect, type RefObject } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 
 const FOCUSABLE =
-  'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  'a[href], area[href], button, input:not([type="hidden"]), select, textarea, iframe, object, embed, [contenteditable="true"], [tabindex]';
+
+/** Return visible, enabled elements that can participate in sequential keyboard focus. */
+function getFocusableElements(container: HTMLElement): HTMLElement[] {
+  return Array.from(container.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => {
+    if (el.hasAttribute('disabled') || el.getAttribute('aria-hidden') === 'true') return false;
+    if (el.closest('[inert], [aria-hidden="true"]')) return false;
+    if (el.tabIndex < 0) return false;
+    return el.getClientRects().length > 0;
+  });
+}
 
 /**
  * Trap focus inside a container while open; restore focus to the prior element on close.
@@ -17,6 +27,11 @@ export function useFocusTrap(
   },
 ): void {
   const { initialFocusRef, onEscape } = options ?? {};
+  // Keep the latest callback without restarting the trap when callers render inline handlers.
+  const onEscapeRef = useRef(onEscape);
+  useEffect(() => {
+    onEscapeRef.current = onEscape;
+  }, [onEscape]);
 
   useEffect(() => {
     if (!open) return;
@@ -25,24 +40,28 @@ export function useFocusTrap(
     const node = containerRef.current;
 
     const focusInitial = () => {
-      const target = initialFocusRef?.current ?? node?.querySelector<HTMLElement>(FOCUSABLE);
-      target?.focus();
+      const target = initialFocusRef?.current ?? (node ? getFocusableElements(node)[0] : undefined);
+      (target ?? node)?.focus();
     };
-    // Defer so dialog content is mounted
+    // Defer so dialog content is mounted.
     const t = window.setTimeout(focusInitial, 0);
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         e.preventDefault();
-        onEscape?.();
+        onEscapeRef.current?.();
         return;
       }
       if (e.key !== 'Tab' || !containerRef.current) return;
+
       const container = containerRef.current;
-      const focusable = Array.from(
-        container.querySelectorAll<HTMLElement>(FOCUSABLE),
-      ).filter((el) => el.getClientRects().length > 0 || el === document.activeElement);
-      if (focusable.length === 0) return;
+      const focusable = getFocusableElements(container);
+      if (focusable.length === 0) {
+        e.preventDefault();
+        container.focus();
+        return;
+      }
+
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
       const focusEscaped = !container.contains(document.activeElement);
@@ -59,8 +78,7 @@ export function useFocusTrap(
     return () => {
       window.clearTimeout(t);
       document.removeEventListener('keydown', onKeyDown);
-      previouslyFocused?.focus();
+      if (previouslyFocused?.isConnected) previouslyFocused.focus();
     };
-  }, [open, containerRef, initialFocusRef, onEscape]);
+  }, [open, containerRef, initialFocusRef]);
 }
-
