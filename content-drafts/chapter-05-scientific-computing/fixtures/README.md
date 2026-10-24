@@ -184,3 +184,6 @@ Practice report JSON: framing, synthetic flags, leakage rules, model card, pitfa
 
 ## unit_6_7_eo_deep_learning_check.py
 Synthetic multiband patches, spatial block split, overlapping-patch leakage, majority baseline, IoU. No PyTorch in CI.
+
+## unit_6_core_pathway_check.py
+Asserts Units 6.1–6.7 fixtures exist and practice report lists full Core command spine; 6.8–6.9 deferred.

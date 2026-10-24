@@ -101,6 +101,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_6_practice_check.py
       - name: Verify Unit 6.7 EO deep-learning prep checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_7_eo_deep_learning_check.py
+      - name: Verify Subject 6 Core pathway
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_core_pathway_check.py
       - name: Verify Unit 6.4 leakage-split checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_4_leakage_split_check.py
       - name: Verify Unit 5.1 numerical foundations

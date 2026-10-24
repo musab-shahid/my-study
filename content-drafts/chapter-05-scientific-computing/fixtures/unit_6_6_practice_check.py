@@ -44,6 +44,11 @@ def validate(report: dict) -> list[str]:
     cmds = (report.get("reproducibility") or {}).get("commands") or []
     if len(cmds) < 3:
         errs.append("repro_commands_incomplete")
+    # Prefer full Core spine when present
+    joined = "\n".join(cmds)
+    for must in ("unit_6_1_learning_problem", "unit_6_4_leakage", "unit_6_7_eo_deep"):
+        if must not in joined:
+            errs.append(f"core_spine_incomplete:{must}")
     return errs
 
 
