@@ -79,7 +79,8 @@ export function CGEITrackOverviewScreen() {
 
   return (
     <PageContainer width="wide">
-      <div className="rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
+      <div className="relative overflow-hidden rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
+        <div className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${accent.gradient}`} aria-hidden />
         <ScreenHeader title={def.title} subtitle={def.description} />
         <TrackEnrollmentBanner
           trackTitle={def.title}
@@ -87,7 +88,6 @@ export function CGEITrackOverviewScreen() {
           isActiveFocus={isActive}
           onBegin={begin}
           onContinue={continueTrack}
-          accentClass={accent.gradient}
         />
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
           <div className="rounded-card bg-brand-50 border border-brand-100 p-card-pad">
