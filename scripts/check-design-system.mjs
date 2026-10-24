@@ -15,7 +15,8 @@ try {
 const violations = [];
 const rawButton = /<button\b/;
 const arbitraryFontSize = /\btext-\[(?:\d+(?:\.\d+)?(?:px|rem)?)\]/;
-const rawPalette = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-(?:sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-\d{2,3}\b/;
+const rawPalette = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-(?:sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|pink|yellow)-\d{2,3}\b/;
+const arbitraryColor = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-\[\s*#(?:[0-9a-fA-F]{3,8})\s*\]/;
 const midToneFill = /(?:\btext-white\b.*\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b|\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b.*\btext-white\b)/;
 const nonCanonicalFocusRing = /\bfocus(?:-visible)?:ring-(?:brand|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b/;
 
