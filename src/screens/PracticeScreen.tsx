@@ -150,7 +150,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
           <button onClick={() => setView('modes')} className="flex items-center gap-1 text-slate-500 text-sm hover:text-slate-700 mb-2">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
-          <h1 className="text-xl sm:text-3xl font-bold text-slate-900">Focus Practice</h1>
+          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900">Focus Practice</h1>
           <p className="text-slate-500 mt-1">Select topics to drill — {selectedFocusTopics.size} selected</p>
         </div>
 
@@ -218,17 +218,18 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                 );
               })}
             </div>
-            <button
+            <Button
+              size="lg"
               onClick={() => {
                 const topicIdsArr = [...selectedFocusTopics];
                 if (topicIdsArr.length === 0) return;
                 navigate({ screen: 'quiz', mode: 'quick', topicIds: topicIdsArr, scope: activeSubject === 'all' ? 'all' : 'subject', subjectId: activeSubject === 'all' ? undefined : subjectId, count: 'all', difficulty: 'any', timeLimit: 'none' });
               }}
               disabled={selectedFocusTopics.size === 0}
-              className="w-full py-3 rounded-btn bg-brand-700 text-white font-semibold hover:bg-brand-800 transition-colors disabled:opacity-50"
+              className="w-full"
             >
               Start Focus Practice — all questions ({selectedFocusTopics.size} topic{selectedFocusTopics.size !== 1 ? 's' : ''})
-            </button>
+            </Button>
           </>
         )}
       </PageContainer>
@@ -529,7 +530,7 @@ function SimpleModeCard({ icon, iconBg, title, description, bestFor, onClick, di
     <button
       onClick={onClick}
       disabled={disabled}
-      className="w-full flex items-start gap-2.5 sm:gap-4 p-3.5 sm:p-5 rounded-card bg-white border border-slate-200 hover:border-slate-300 hover:shadow-card-hover transition-all text-left disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+      className="w-full flex items-start gap-2.5 sm:gap-4 p-card-pad sm:p-card-pad-lg rounded-card bg-white border border-slate-200 hover:border-slate-300 hover:shadow-card-hover transition-all text-left disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
     >
       <div className={`w-12 h-12 rounded-btn ${iconBg} flex items-center justify-center shrink-0`}>
         {icon}
@@ -565,7 +566,7 @@ function ExpandableModeCard({ icon, iconBg, title, description, bestFor, expande
         disabled={disabled}
         aria-expanded={expanded}
         aria-controls={`practice-options-${title.toLowerCase().replace(/\s+/g, '-')}`}
-        className="w-full flex items-start gap-2.5 sm:gap-4 p-3.5 sm:p-5 text-left disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-inset"
+        className="w-full flex items-start gap-2.5 sm:gap-4 p-card-pad sm:p-card-pad-lg text-left disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
       >
         <div className={`w-12 h-12 rounded-btn ${iconBg} flex items-center justify-center shrink-0`}>
           {icon}
@@ -584,13 +585,10 @@ function ExpandableModeCard({ icon, iconBg, title, description, bestFor, expande
         <div id={`practice-options-${title.toLowerCase().replace(/\s+/g, '-')}`} className="px-5 pb-5">
           <div className="border-t border-slate-100 pt-4">
             {children}
-            <button
-              onClick={onStart}
-              className="w-full mt-4 py-2 rounded-btn bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5"
-            >
+            <Button onClick={onStart} className="w-full mt-4">
               {startLabel}
               <ChevronRight className="w-4 h-4" />
-            </button>
+            </Button>
           </div>
         </div>
       )}
