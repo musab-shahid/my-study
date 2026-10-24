@@ -1792,6 +1792,47 @@ const lessons34: CurriculumLesson[] = [
   },
 ];
 
+const outcomes35: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-35-vector', statement: 'Describe GeoPandas/Shapely roles for vector CRS, predicates, joins and area/length in projected CRS.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-35-raster', statement: 'Describe rasterio/GDAL workflows for windowed read, nodata, reproject/resample and COG access patterns.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-35-stack', statement: 'Match analysis libraries (zonal stats, STAC loaders, spatial stats) to tasks and state dependency/pinning risks for GDAL/PROJ.', action: 'match and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons35: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-5-1', kind: 'lesson', title: 'Python vector stack (GeoPandas and Shapely)', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes35[0]],
+    content: [
+      { id: 'cgei-geo-35-1-1', kind: 'prose', title: 'Roles in the vector stack', body: 'GeoPandas provides tabular vector layers with a geometry column and CRS metadata; Shapely supplies geometry objects and spatial predicates (intersects, within, touches). Read/write typically uses pyogrio or fiona under the hood. Spatial joins and overlays must use a CRS appropriate to the predicate: angular degrees are not metres. Area and length require a projected (or geodesic) method—never compute polygon area in EPSG:4326 and treat the number as hectares without conversion.' },
+      { id: 'cgei-geo-35-1-2', kind: 'table', title: 'Common operations', headers: ['Task', 'Typical tools', 'CRS caution'], rows: [['Filter by location', 'Shapely predicates / sjoin', 'Same CRS both sides'], ['Overlay / dissolve', 'overlay, dissolve', 'Projected for metric buffers'], ['Area / length', 'geodesic or projected CRS', 'Unit 3.2 decision rules'], ['Large vectors', 'GeoParquet, spatial index, DuckDB spatial', 'Index invalid if CRS mixed']] },
+      { id: 'cgei-geo-35-1-3', kind: 'worked-example', title: 'Axis-aligned bbox predicate (stdlib teaching)', body: 'Fixture unit_3_5_python_geospatial_stack_check.py implements intersects for axis-aligned boxes only—teaching the predicate logic without requiring GEOS. Production code should use Shapely/GEOS. A point in geographic CRS is still not a planar metre offset without a projection.' },
+      { id: 'cgei-geo-35-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GeoPandas install required for CI fixture', 'H3/S2 and dask-geopandas are named, not implemented here', 'Topology validity still requires GEOS-backed tools'] },
+    ],
+    activityIds: ['cgei-geo-a-35-vector'], assessmentIds: ['cgei-geo-assess-35-vector'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-5-2', kind: 'lesson', title: 'Python raster stack (rasterio and friends)', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes35[1]],
+    content: [
+      { id: 'cgei-geo-35-2-1', kind: 'prose', title: 'Rasterio sits on GDAL', body: 'Rasterio exposes GDAL datasets with Pythonic windowed reading, masks, and nodata handling. Reproject and resample must state the resampling method (nearest for classes; bilinear/cubic for continuous fields—Unit 3.2). Cloud-Optimized GeoTIFF (COG) enables range requests and overviews for large rasters. rioxarray attaches rasterio CRS/transform metadata to xarray objects for labelled workflows.' },
+      { id: 'cgei-geo-35-2-2', kind: 'key-points', title: 'Operational checklist', items: ['Always read nodata and valid range from metadata', 'Windowed reads for large files', 'Document resampling when warping', 'COG does not fix wrong CRS'] },
+      { id: 'cgei-geo-35-2-3', kind: 'worked-example', title: 'Nodata exclusion in a window mean', body: 'Given values [10, 12, nodata, 14] with nodata=-9999, the mean of valid cells is 12. Fixture locks nodata exclusion. Treating nodata as zero biases climate and EO means—especially sparse masks.' },
+    ],
+    activityIds: ['cgei-geo-a-35-raster'], assessmentIds: ['cgei-geo-assess-35-raster'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-5-3', kind: 'lesson', title: 'Analysis libraries, STAC and R complement', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes35[2]],
+    content: [
+      { id: 'cgei-geo-35-3-1', kind: 'prose', title: 'Match library to task', body: 'Zonal statistics (rasterstats, exactextract) must account for partial pixel coverage at polygon edges when area fractions matter. STAC clients (pystac-client, odc-stac, stackstac) load EO assets lazily—still require CRS and cloud QA discipline from Subject 4. Spatial statistics (PySAL, PyKrige) assume a defined neighbour structure; they do not replace data QC. R (sf, terra, stars) remains strong for some geostatistics; exchange via open formats rather than opaque binary dumps.' },
+      { id: 'cgei-geo-35-3-2', kind: 'callout', title: 'Binary dependency risk', tone: 'warning', items: ['Pin GDAL, PROJ, GEOS versions in environments', 'Wheel mismatches break CRS transforms silently or loudly', 'Interactive maps (folium, geemap) are exploration—not analysis provenance'] },
+      { id: 'cgei-geo-35-3-3', kind: 'checklist', title: 'Before trusting a stack output', items: ['CRS recorded on inputs and outputs', 'Nodata handled', 'Resampling method documented', 'Library and GDAL versions pinned'] },
+    ],
+    activityIds: ['cgei-geo-a-35-stack'], assessmentIds: ['cgei-geo-assess-35-stack'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 const outcomes11: CurriculumOutcome[] = [
   { id: 'cgei-es-o-11-spheres', statement: 'Identify the major Earth-system spheres and describe one coupling relevant to climate or water resources.', action: 'identify and describe', level: 'L1', competencyIds: ['cgei-comp-quantitative-reasoning'] },
@@ -3303,7 +3344,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.5 form the Core geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
       outcomes: [...outcomes31, ...outcomes32, ...outcomes33, ...outcomes34],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
@@ -3688,6 +3729,20 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
       notes: ['Support unit: DEM/slope/flow/network/geocoding/field QC fixtures.', 'Mobile apps documented only—not CI-deployed.'],
     },
+
+    {
+      id: 'cgei-geo-unit-3-5', subjectId: 'cgei-geospatial', code: '3.5', title: 'Python geospatial stack', order: 35, kind: 'unit', readiness: 'draft',
+      summary: 'Use Python vector and raster libraries with correct CRS, nodata and resampling discipline; match analysis tools to tasks.',
+      estimatedHours: 8, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 3.3'], outcomes: outcomes35,
+      lessonIds: lessons35.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-35-vector', 'cgei-geo-a-35-raster', 'cgei-geo-a-35-stack'],
+      assessmentIds: ['cgei-geo-assess-35-vector', 'cgei-geo-assess-35-raster', 'cgei-geo-assess-35-stack'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.5 — Python geospatial stack',
+      notes: ['Core Unit 3.5. CI uses stdlib bbox/nodata fixtures; GeoPandas/rasterio not required at runtime.'],
+    },
+
     {
       id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 101, kind: 'unit', readiness: 'draft',
       summary: 'Describe Earth-system spheres, apply blackbody radiation and a simple planetary energy budget, and distinguish climate feedbacks at overview level.',
@@ -4206,6 +4261,10 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-33-rmse', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'RMSE for georeferencing control points is best described as:', options: ['Proof the entire map is accurate everywhere', 'The square root of the mean of squared residual distances of the control points', 'Always equal to the map scale denominator', 'A replacement for documenting CRS'], correctAnswer: 1, explanation: 'RMSE summarises control residuals; it does not validate the whole map surface.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-layout', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'A decision map layout should include at minimum:', options: ['Only a colourful ramp with no scale', 'Scale bar with correct units, legend, and CRS/source notes', 'Degree ticks labeled as kilometres without conversion', 'An export at any dpi without recording settings'], correctAnswer: 1, explanation: 'Scale, legend, and source/CRS notes support interpretation; dpi is a production parameter.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-gdalinfo', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'The primary teaching purpose of gdalinfo on a raster is to:', options: ['Automatically correct the CRS', 'Inspect metadata such as CRS, size, geotransform, and bands before analysis', 'Compute zonal statistics', 'Replace QGIS entirely'], correctAnswer: 1, explanation: 'gdalinfo is inspection; analysis still requires correct methods and verification.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-35-area', lessonId: 'cgei-geo-lesson-3-5-1', type: 'single-choice', prompt: 'Computing polygon area for hectare statistics should use:', options: ['EPSG:4326 degree coordinates treated as metres', 'A projected or geodesic method with documented CRS', 'Any Web Mercator tile zoom level', 'Unprojected lon/lat differences multiplied by 111 only for all latitudes equally'], correctAnswer: 1, explanation: 'Area requires projected/geodesic methods; degree cells are not hectares.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-35-nodata', lessonId: 'cgei-geo-lesson-3-5-2', type: 'single-choice', prompt: 'When averaging a raster window, nodata values should be:', options: ['Treated as zero', 'Excluded from the mean', 'Replaced by the global maximum', 'Ignored only if positive'], correctAnswer: 1, explanation: 'Nodata must be excluded; zero substitution biases means.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-35-pin', lessonId: 'cgei-geo-lesson-3-5-3', type: 'single-choice', prompt: 'Pinning GDAL/PROJ/GEOS versions matters because:', options: ['It makes maps prettier', 'Binary mismatches can break or alter CRS transforms', 'It removes the need for nodata', 'It replaces STAC catalogues'], correctAnswer: 1, explanation: 'Geospatial binaries affect transform correctness and reproducibility.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
 
     { id: 'cgei-geo-q-34-001', lessonId: 'cgei-geo-lesson-3-4-1', type: 'single-choice', prompt: 'Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:', options: ['Correcting vertical datums automatically', 'Biased slopes and flow paths in vegetated or urban areas', 'Removing all NoData cells', 'Converting degrees to metres'], correctAnswer: 1, explanation: 'DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-34-002', lessonId: 'cgei-geo-lesson-3-4-2', type: 'single-choice', prompt: 'With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:', options: ['1.0', '0.5', '30', '0.0833'], correctAnswer: 1, explanation: 'dz/dx = (130−100)/(2×30) = 30/60 = 0.5 (dimensionless rise/run).', difficulty: 'medium', cognitiveLevel: 'apply' },

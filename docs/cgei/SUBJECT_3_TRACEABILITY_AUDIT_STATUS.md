@@ -58,3 +58,7 @@ Unit 3.2 lesson `cgei-geo-lesson-3-2-1` now explicitly distinguishes an ellipsoi
 - Example covers a stated 1×1 grid, pixel-centre rule, NoData exclusion, per-zone valid counts, coverage, means, and contrast arithmetic. Expected synthetic means: urban 16.0, reference 38.4; contrast −22.4 unspecified raster units.
 - Traceability row 3.3.3.3 now points to the practical evidence in its note.
 - **Status remains draft / mapped_partial.** This fixture is not a QGIS/GDAL execution, geometry-engine test, GUI lab, or empirical environmental result. PyQGIS, digitising, production polygon rasterization and real-data validation remain open.
+
+## Acceleration batch — Unit 3.5
+
+Core Unit 3.5 (Python geospatial stack) registered: 3 lessons, stdlib fixture, partial leaf mapping. Draft.

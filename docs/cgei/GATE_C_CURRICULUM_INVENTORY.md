@@ -111,3 +111,7 @@ Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic f
 ## Gate C.7 — implementation delta
 
 A self-contained Unit 3.3 zonal-statistics practical and deterministic arithmetic fixture were added at the live PR branch head. The CI workflow now invokes the fixture; its execution status must be checked against the resulting commit, not inferred from workflow configuration. The lesson specifies a synthetic raster, pixel-centre rule, NoData exclusion, valid-cell coverage, expected means and rubric. This improves practice evidence but does not close the unit: the canonical app linkage, real QGIS/GDAL execution, production geometry behavior and real-data validation remain incomplete.
+
+## Acceleration batch
+
+Implemented missing Core Unit 3.5 (Python geospatial stack). Registry units increase; Support gaps remain.
