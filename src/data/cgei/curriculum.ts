@@ -3049,6 +3049,7 @@ const outcomes132: CurriculumOutcome[] = [
 
 const outcomes136: CurriculumOutcome[] = [
   { id: 'cgei-cap-o-136-revise', statement: 'Produce a prioritised revision list from validation failures and re-run from a clean environment after fixes.', action: 'revise', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-136-review', statement: 'Run an illustrative external-review packet with dispositions and a release decision that separates tests from scientific validation.', action: 'review', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
 ];
 
 const lessons131: CurriculumLesson[] = [
@@ -3082,13 +3083,16 @@ const lessons132: CurriculumLesson[] = [
 
 const lessons136: CurriculumLesson[] = [
   {
-    id: 'cgei-cap-lesson-13-6-1', kind: 'lesson', title: 'Assessment, revision and reproducibility audit', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
-    objectives: [outcomes136[0]],
+    id: 'cgei-cap-lesson-13-6-1', kind: 'lesson', title: 'Assessment, external review and revision', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes136[0], outcomes136[1]],
     content: [
-      { id: 'cgei-cap-136-1-1', kind: 'prose', title: 'Prioritised revision', body: 'Turn validation failures and reviewer comments into a prioritised revision list. Re-run from a clean environment after changes. Record main limitations and the next realistic improvement. Keep a decision log of what changed and why.' },
-      { id: 'cgei-cap-136-1-2', kind: 'checklist', title: 'Capstone exit checks', items: ['Protocol complete', 'Fixture/tests pass', 'Ranks sensitive to weights documented', 'Decision card exclusions present', 'Clean-environment rerun documented', 'Human review required flag set'] },
+      { id: 'cgei-cap-136-1-1', kind: 'prose', title: 'Quality rubric', body: 'Assess problem definition, data provenance, technical reproducibility, scientific caution (baselines, uncertainty, sensitivity) and communication fit for the audience. Portfolio readiness means an external reader can understand limits—not that the product is operational.' },
+      { id: 'cgei-cap-136-1-2', kind: 'prose', title: 'Illustrative external review', body: 'A structured review brief states question, audience, intended use and non-claims. The evidence package cites data inventory and Paths A/B/C with offline reproduction. Feedback items log comment, affected artifact, severity, evidence required, response and disposition (accepted change, justified rejection, documented limitation, or deferred). Simulated packets must be labelled illustrative—not genuine peer review.' },
+      { id: 'cgei-cap-136-1-lab', kind: 'worked-example', title: 'Review packet lab', body: 'Fixture unit_13_external_review_check.py validates labs/portfolio/external_review_packet.json: illustrative_scenario type, disclaimer, ≥2 feedback items with allowed dispositions, and release status ready | ready_with_limitations | not_ready. Blocks claims of genuine external review or scientific validation.' },
+      { id: 'cgei-cap-136-1-3', kind: 'prose', title: 'Revision and release', body: 'Each disposition links to a retest command or explicit no-change rationale. Release decisions list criteria met and not met. Passing CI remains distinct from scientific validation and from operational fitness.' },
+      { id: 'cgei-cap-136-1-4', kind: 'checklist', title: 'Capstone exit checks', items: ['Protocol complete', 'Fixture/tests pass', 'Weight sensitivity documented', 'Non-claims present', 'Illustrative review dispositions recorded', 'Release status justified', 'Clean-environment rerun documented'] },
     ],
-    activityIds: ['cgei-cap-a-136-revise'], assessmentIds: ['cgei-cap-assess-136-revise'], resourceIds: [], deliverableIds: [],
+    activityIds: ['cgei-cap-a-136-revise', 'cgei-cap-a-136-review'], assessmentIds: ['cgei-cap-assess-136-revise'], resourceIds: [], deliverableIds: [],
   },
 ];
 
@@ -3975,7 +3979,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Prioritise revisions from validation and review; re-run cleanly; log decisions.',
       estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes136,
       lessonIds: lessons136.map((lesson) => lesson.id),
-      activityIds: ['cgei-cap-a-136-revise'],
+      activityIds: ['cgei-cap-a-136-revise', 'cgei-cap-a-136-review'],
       assessmentIds: ['cgei-cap-assess-136-revise'],
       resourceIds: [], deliverableIds: [],
       sourceDocument: 'Master Study TOC Subject 13 Unit 13.6 — Project assessment and revision (Core)',
@@ -4233,6 +4237,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
 
 
     { id: 'cgei-cap-q-136-001', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'After fixing validation failures, best practice is to:', options: ['Skip re-running tests', 'Re-run from a clean environment and record what changed', 'Delete the risk log', 'Remove limitations from the report'], correctAnswer: 1, explanation: 'Clean re-run and decision logging close the loop.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-136-002', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'An illustrative external-review packet must:', options: ['Be presented as a signed peer review', 'Carry an explicit disclaimer that it is not a genuine external review', 'Omit dispositions', 'Equate CI success with scientific validation'], correctAnswer: 1, explanation: 'Simulated review is teaching-only and must be labelled.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-136-003', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'A justified rejection disposition is appropriate when:', options: ['The reviewer asks to hide limitations', 'A requested claim (e.g. epidemiological validity from unit tests) is unsupported', 'All code is deleted', 'Release status is ignored'], correctAnswer: 1, explanation: 'Unsupported claims should be rejected with rationale.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
 
 
 
@@ -5020,6 +5027,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cap-a-133-portfolio', kind: 'coding-lab', title: 'Portfolio evidence card lab', instructions: 'Run unit_13_portfolio_check.py. Adapt labs/portfolio/capstone_portfolio_evidence.json narrative fields without collapsing Paths A–C or claiming a genuine Multan granule without checksum.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'] },
     { id: 'cgei-cap-a-131-scope', kind: 'guided-practice', title: 'Capstone scope card', instructions: 'Write question, estimand, intended use, exclusions, MVP and one feasibility risk for a heat-screening project.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'] },
     { id: 'cgei-cap-a-132-workflow', kind: 'coding-lab', title: 'Capstone pipeline lab', instructions: 'Run unit_13_capstone_heat_risk_check.py. Report baseline means, rank change under heat-heavy weights, and decision-card non-claims.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'] },
+        { id: 'cgei-cap-a-136-review', kind: 'coding-lab', title: 'External-review packet lab', instructions: 'Run unit_13_external_review_check.py. Walk one feedback item from comment to disposition and justify the release status without claiming genuine peer review.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-cap-o-136-review'] },
     { id: 'cgei-cap-a-136-revise', kind: 'guided-practice', title: 'Revision list', instructions: 'From a failed validation message, write a prioritised revision list and clean-rerun steps.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-cap-o-136-revise'] },
     { id: 'cgei-ai-a-121-nn', kind: 'coding-lab', title: 'Baseline and leakage lab', instructions: 'Run unit_12_ai_split_baseline_check.py. Report baseline vs overfit MSE and one adjacency leakage flag.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-121-nn'] },
     { id: 'cgei-ai-a-122-cv', kind: 'guided-practice', title: 'EO split design', instructions: 'Propose a spatially independent split for a city tile grid and name one metric for segmentation evaluation.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'] },
@@ -5307,7 +5315,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cap-assess-133-portfolio', kind: 'formative', title: 'Portfolio engineering', purpose: 'Assess portfolio structure and evidence discipline.', objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'], questionIds: ['cgei-cap-q-133-001', 'cgei-cap-q-133-002', 'cgei-cap-q-133-003'], required: true },
     { id: 'cgei-cap-assess-131-scope', kind: 'formative', title: 'Scoping', purpose: 'Assess project scoping discipline.', objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'], questionIds: ['cgei-cap-q-131-001', 'cgei-cap-q-131-002'], required: true },
     { id: 'cgei-cap-assess-132-workflow', kind: 'formative', title: 'Integrated workflow', purpose: 'Assess workflow and limitation literacy.', objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'], questionIds: ['cgei-cap-q-132-001', 'cgei-cap-q-132-002', 'cgei-cap-q-132-003', 'cgei-cap-q-132-004'], required: true },
-    { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001'], required: true },
+    { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001', 'cgei-cap-q-136-002', 'cgei-cap-q-136-003'], required: true },
     { id: 'cgei-ai-assess-121-nn', kind: 'formative', title: 'DL foundations', purpose: 'Assess baselines and split discipline.', objectiveIds: ['cgei-ai-o-121-nn', 'cgei-ai-o-121-cost'], questionIds: ['cgei-ai-q-121-001', 'cgei-ai-q-121-002', 'cgei-ai-q-121-003'], required: true },
     { id: 'cgei-ai-assess-122-cv', kind: 'formative', title: 'EO vision evaluation', purpose: 'Assess spatial leakage and metrics literacy.', objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'], questionIds: ['cgei-ai-q-122-001', 'cgei-ai-q-122-002'], required: true },
     { id: 'cgei-ai-assess-127-gov', kind: 'formative', title: 'AI governance', purpose: 'Assess model-card and human-review requirements.', objectiveIds: ['cgei-ai-o-127-gov'], questionIds: ['cgei-ai-q-127-001', 'cgei-ai-q-127-002'], required: true },

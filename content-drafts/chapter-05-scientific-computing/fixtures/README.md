@@ -160,3 +160,6 @@ Portfolio evidence-card required fields, inventory labels, Paths A–C links, no
 
 ## unit_13_research_fit_check.py
 Research-fit evidence card: skill map, application checklist, enquiry steps, funding process notes, non-claims.
+
+## unit_13_external_review_check.py
+Illustrative external-review packet structure, dispositions, release decision; blocks genuine-review claims.

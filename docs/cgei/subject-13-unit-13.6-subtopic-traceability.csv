@@ -1,6 +1,13 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-13.6.1,Assessment criteria for project quality,13.6,Project assessment and revision,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-2,mapped_partial,Exit checklist.
-13.6.2.1,Prioritized revision list from validation,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Taught.
-13.6.2.2,Re-run from clean environment,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1;cgei-cap-136-1-2,mapped_partial,Taught.
-13.6.2.3,Record limitations next improvement,13.6.2,Revision workflow,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Taught.
-13.6.3,External assessment peer reproducibility audit,13.6.3,External assessment,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Named; not executed with external reviewer.
+13.6.1.1,Problem definition scoped question method choice,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Rubric prose.
+13.6.1.2,Data quality provenance licences units limitations,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Linked to portfolio inventory.
+13.6.1.3,Technical quality tested reproducible outputs,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1;cgei-cap-136-1-4,mapped_partial,Exit checks.
+13.6.1.4,Scientific quality baseline uncertainty interpretation,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1;cgei-cap-136-1-3,mapped_partial,Caution emphasized; not empirical validation.
+13.6.1.5,Communication figures report oral explanation,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Named.
+13.6.1.6,Portfolio readiness external reader assessment,13.6.1,Quality rubric,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-1,mapped_partial,Tied to Unit 13.3 package.
+13.6.2.1,Prioritized revision list from feedback,13.6.2,Revision loop,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-lab;cgei-cap-136-1-3,mapped_partial,Feedback dispositions + revision_log.
+13.6.2.2,Re-run from clean environment,13.6.2,Revision loop,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-3;cgei-cap-136-1-4,mapped_partial,Retest commands in packet.
+13.6.2.3,Record limitations next improvement,13.6.2,Revision loop,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-3,mapped_partial,Release criteria_not_met.
+13.6.3.1,Peer or supervisor review structured checklist,13.6.3,External assessment,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-2;cgei-cap-136-1-lab,mapped_partial,Illustrative packet only.
+13.6.3.2,Reproducibility audit independent person,13.6.3,External assessment,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-2,mapped_partial,Process named; not executed with independent human in CI.
+13.6.3.3,Decision log changes after review,13.6.3,External assessment,Core,cgei-cap-lesson-13-6-1,cgei-cap-136-1-lab;cgei-cap-136-1-3,mapped_partial,revision_log + dispositions.

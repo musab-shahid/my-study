@@ -22,3 +22,7 @@ Miniature scale/fill processor + learner acquisition lab. **No** genuine HDF pro
 ## Unit 13.3 Portfolio engineering
 
 Draft Core lesson + evidence card template + `unit_13_portfolio_check.py`. Paths A–C remain distinct. Units 13.4–13.5, 13.7 still deferred.
+
+## Unit 13.6 deepened (V6)
+
+Illustrative external-review packet + fixture. Release decision `ready_with_limitations` for teaching package only. Core units 13.1–13.3, 13.5–13.6 all draft-present; Optional 13.4 and Support 13.7 deferred.
