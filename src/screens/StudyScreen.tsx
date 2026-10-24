@@ -94,6 +94,7 @@ export function StudyScreen() {
   const hasContent = isAllSubjects || subjectTopics.length > 0 || Boolean(roadmapTopicId) || Boolean(curriculumSubject);
   const subjectTitle = isAllSubjects ? 'All Subjects' : (subjectMap[subjectId]?.title ?? 'Subject');
   const showFormulaVault = Boolean(subjectMap[subjectId] && getTrackDefinition(subjectMap[subjectId].track).capabilities.formulas);
+  const meteoColor = getSubjectColor('meteo-climatology');
   const curriculumUnits = curriculumSubject
     ? curriculumSubject.unitIds
         .map((id) => cgeiCurriculum.units.find((unit) => unit.id === id))
@@ -222,13 +223,9 @@ export function StudyScreen() {
               <p className="text-slate-400 text-xs mb-4">
                 {data.studiedTopics.includes(continueTopic.id) ? '100% read' : '0% read'}
               </p>
-              <button
-                type="button"
-                onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}
-                className={`inline-flex min-h-touch items-center gap-2 px-4 py-2.5 sm:px-5 sm:py-3 rounded-xl ${contColor.bar} text-white text-sm font-semibold hover:opacity-90 active:scale-[0.99] transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2`}
-              >
+              <Button size="lg" onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}>
                 Continue Reading <ArrowRight className="w-4 h-4" />
-              </button>
+              </Button>
             </ActionCard>
             );
           })()}
@@ -236,15 +233,16 @@ export function StudyScreen() {
           {/* Featured links */}
           {subjectId === 'meteo-climatology' && (
             <button
+              type="button"
               onClick={() => navigate({ screen: 'section', sectionId: 'METEO-09' })}
-              className="w-full flex items-center gap-4 p-5 rounded-2xl bg-gradient-to-r from-sky-500 to-sky-600 text-white hover:from-sky-600 hover:to-sky-700 transition-colors text-left mb-4"
+              className={`w-full flex items-center gap-4 p-card-pad rounded-card border ${meteoColor.borderLeft} ${meteoColor.tint} hover:bg-brand-50 transition-colors text-left mb-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2`}
             >
-              <div className="w-12 h-12 rounded-xl bg-white/20 flex items-center justify-center shrink-0"><MapIcon className="w-6 h-6 text-white" /></div>
+              <div className={`w-12 h-12 rounded-btn bg-white flex items-center justify-center shrink-0 ${meteoColor.text}`}><MapIcon className="w-6 h-6" aria-hidden /></div>
               <div className="flex-1">
-                <p className="font-semibold text-lg">Pakistan Climate</p>
-                <p className="text-sky-100 text-sm">7 topics covering climate zones, monsoon patterns, and climate change</p>
+                <p className="font-semibold text-card-title text-slate-900">Pakistan Climate</p>
+                <p className="text-slate-700 text-body-sm">7 topics covering climate zones, monsoon patterns, and climate change</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-white/70 shrink-0" />
+              <ChevronRight className="w-5 h-5 text-slate-500 shrink-0" aria-hidden />
             </button>
           )}
 
@@ -272,7 +270,7 @@ export function StudyScreen() {
           )}
 
           {roadmapTopic && (
-            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-sky-100 bg-sky-50/40">
+            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-sky-100 bg-sky-50/40">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-sky-800" />
@@ -310,7 +308,7 @@ export function StudyScreen() {
           )}
 
           {curriculumSubject && (
-            <Card className="mb-4 sm:mb-6 p-4 sm:p-5 border border-teal-100 bg-teal-50/40">
+            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-teal-100 bg-teal-50/40">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-teal-800" />
@@ -331,7 +329,7 @@ export function StudyScreen() {
                   </div>
                   {lastCurriculumLesson && (
                     <button onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 p-3 text-left transition-colors">
-                      <span className="text-[10px] font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
+                      <span className="text-label font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
                       <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
                     </button>
                   )}
@@ -356,7 +354,7 @@ export function StudyScreen() {
                             <span className="min-w-0 flex-1">
                               <span className="flex flex-wrap items-center gap-2">
                                 <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
-                                <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
+                                <span className={`rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
                               </span>
                               <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
                               <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons currently mapped` : 'Lessons not yet integrated'}</span>
@@ -379,7 +377,7 @@ export function StudyScreen() {
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2">
                               <h3 className="font-semibold text-sm text-slate-900">{project.title}</h3>
-                              <span className="rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-violet-100 text-violet-800">{project.readiness}</span>
+                              <span className="rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide bg-violet-100 text-violet-800">{project.readiness}</span>
                             </div>
                             <p className="text-xs text-slate-700 leading-relaxed mt-1">{project.purpose}</p>
                             <p className="text-xs text-slate-500 mt-2">{project.milestones.length} milestones · assessed with a portfolio rubric</p>
@@ -510,11 +508,11 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
         <div className="flex items-center gap-2 mb-1">
           <SectionBadge section={section} />
         </div>
-        <h1 className="text-2xl sm:text-[1.75rem] font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
-        <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem]">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
+        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
+        <p className="text-slate-600 mt-1 text-body-sm">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
       {curriculumUnit && (
-        <Card className="mb-5 p-4 sm:p-5 border border-teal-100 bg-teal-50/30">
+        <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-teal-100 bg-teal-50/30">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
             <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-teal-800 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
@@ -526,7 +524,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
               <ul className="space-y-2">
                 {curriculumUnit.outcomes.map((outcome) => (
                   <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
-                    <span className="rounded-md bg-white border border-teal-100 px-1.5 py-0.5 text-[10px] font-bold text-teal-800 shrink-0">{outcome.level}</span>
+                    <span className="rounded-md bg-white border border-teal-100 px-1.5 py-0.5 text-label font-bold text-teal-800 shrink-0">{outcome.level}</span>
                     <span>{outcome.statement}</span>
                   </li>
                 ))}
@@ -541,8 +539,8 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                   <div key={activity.id} className="rounded-lg border border-slate-200 bg-white p-3">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="font-semibold text-sm text-slate-900">{activity.title}</span>
-                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
-                      {activity.estimatedMinutes && <span className="text-[10px] text-slate-500">~{activity.estimatedMinutes} min</span>}
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes && <span className="text-label text-slate-500">~{activity.estimatedMinutes} min</span>}
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed mt-1">{activity.instructions}</p>
                     {activity.expectedEvidence?.length ? <p className="text-xs text-teal-800 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
@@ -589,7 +587,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                         <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a>
                       ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
                       <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
-                      {resource.authorOrPublisher && <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
+                      {resource.authorOrPublisher && <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
                     </li>
                   ))}
                 </ul>
@@ -736,7 +734,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
       <PageContainer>
           <div className="mb-4">
           <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
-          <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
           <EmptyState title="Content Coming Soon" message="This topic hasn't been authored yet." icon={<BookOpen className="w-12 h-12" />} />
@@ -753,7 +751,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
         <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
-        <h1 className="text-xl sm:text-3xl font-bold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         {curriculumLesson && (
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
             <span className="rounded-full bg-sky-50 text-sky-800 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
@@ -766,7 +764,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <h2 className="text-xs font-semibold uppercase tracking-wide text-sky-900 mb-2">By the end of this lesson, you should be able to</h2>
             <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
               <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="rounded bg-white border border-sky-100 px-1.5 py-0.5 text-[10px] font-bold text-sky-800 shrink-0">{outcome.level}</span>
+                <span className="rounded bg-white border border-sky-100 px-1.5 py-0.5 text-label font-bold text-sky-800 shrink-0">{outcome.level}</span>
                 <span>{outcome.statement}</span>
               </li>
             ))}</ul>
@@ -825,7 +823,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 <Calculator className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Formula{formulas.length > 1 ? ` ${fi + 1} of ${formulas.length}` : ''}</p>
+                <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Formula{formulas.length > 1 ? ` ${fi + 1} of ${formulas.length}` : ''}</p>
                 <h3 className="font-semibold text-slate-900 text-sm leading-snug">{f.name}</h3>
                 <p className="text-xs text-slate-500 mt-0.5">From this topic · {topic.title}</p>
               </div>
@@ -835,7 +833,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </div>
             {(f.variables?.length ?? 0) > 0 && (
               <div className="space-y-2">
-                <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
+                <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
                 {f.variables.map((v, i) => (
                   <div key={i} className="flex items-baseline gap-3 text-sm">
                     <span className="text-slate-900 font-semibold shrink-0 min-w-[3rem]">
@@ -1042,7 +1040,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                 Prerequisites not mastered yet
               </h3>
-              <p className="text-amber-800/70 text-[11px] mb-2">
+              <p className="text-amber-800/70 text-label mb-2">
                 Review these first so this topic sticks.
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -1072,7 +1070,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               <div className="space-y-2">
                 {groups.map((g) => (
                   <div key={g.label}>
-                    <p className="text-slate-400 text-[11px] font-medium mb-1">{g.label}</p>
+                    <p className="text-slate-400 text-label font-medium mb-1">{g.label}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {g.ids.map((rid) => { const t = getTopic(rid); if (!t) return null; return (
                         <button key={rid} onClick={() => navigate({ screen: 'topic', topicId: rid })} className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${g.chipClass}`}>{t.title}</button>
@@ -1084,7 +1082,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </Card>
           );
         })()}
-        <div className="rounded-2xl border border-sky-100 bg-sky-50/70 p-4 sm:p-5">
+        <div className="rounded-2xl border border-sky-100 bg-sky-50/70 p-card-pad sm:p-card-pad-lg">
           <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
           <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
           <div className="mt-3 flex flex-col sm:flex-row gap-2">
@@ -1151,7 +1149,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                   <Card key={activity.id} className="p-4 border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2">
                       <h3 className="font-medium text-slate-900 text-sm">{activity.title}</h3>
-                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-[10px] font-semibold">{activity.level}</span>
+                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label font-semibold">{activity.level}</span>
                       {activity.estimatedMinutes ? <span className="text-xs text-slate-500">~{activity.estimatedMinutes} min</span> : null}
                     </div>
                     <p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>
@@ -1180,7 +1178,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                   <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
                     {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-sky-800 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
                     <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
-                    {resource.authorOrPublisher ? <p className="text-[10px] text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
+                    {resource.authorOrPublisher ? <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
                   </li>
                 ))}</ul>
               </div>

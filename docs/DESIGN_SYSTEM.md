@@ -62,3 +62,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Focus-area rows use `ListRow` so pointer, keyboard, target size, and focus behavior stay aligned with other list navigation.
 - Track identity should be visible but restrained. Track landing pages use the track registry for the overall accent; subject cards use `getSubjectStyle(subjectId)` for the icon/tint/border identity.
 - Use semantic spacing and typography tokens for shared track cards and supporting labels. Subject accent colors do not replace status colors or the product's primary action color.
+
+
+## Route-group migration notes: Study and Curriculum
+
+- Learn and curriculum pages use the shared page-title scale for their primary heading, and avoid metadata labels below 12px.
+- Primary study actions use the shared `Button` variants rather than a subject's saturated fill with white text. Subject colors remain visible in restrained icon, tint, and border treatments.
+- Curriculum assessment feedback uses semantic success, danger, and warning tokens. Track accent colors may identify the CGEI curriculum, but must not replace feedback semantics.
+- Keep lesson and activity metadata compact but readable; use `text-label` for compact metadata and shared card-padding tokens for common curriculum cards.
