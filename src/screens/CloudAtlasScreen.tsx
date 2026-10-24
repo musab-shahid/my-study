@@ -31,7 +31,7 @@ export function CloudAtlasScreen() {
   }, []);
 
   return (
-    <PageContainer className="max-w-[72rem]">
+    <PageContainer width="analytics">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <ScreenHeader
         title="Cloud Atlas"
@@ -54,7 +54,7 @@ export function CloudAtlasScreen() {
                     <button
                       type="button"
                       onClick={(e) => openCloud(cloud, e.currentTarget)}
-                      className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded-btn"
+                      className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-btn"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-semibold text-slate-900">{cloud.name}</p>
@@ -108,8 +108,9 @@ function CloudModal({ cloud, levelColors, onClose }: {
             </div>
             <button
               ref={closeButtonRef}
+              type="button"
               onClick={onClose}
-              className="text-slate-400 hover:text-slate-600 rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+              className="flex min-h-11 min-w-11 items-center justify-center text-slate-500 hover:text-slate-700 rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               aria-label="Close"
             >
               <X className="w-5 h-5" />

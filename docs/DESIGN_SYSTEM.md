@@ -86,3 +86,11 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 - Selection controls expose their pressed state to assistive technology. Track and subject colors remain contextual accents, while selected-state treatment uses the product brand tokens.
 - Search results use the shared list-row interaction and the subject's registered accent for the result icon/tint. Search scope, loading, retry, and navigation behavior remain unchanged.
 - Remove third-party placeholder social-preview metadata. Do not reintroduce template-brand assets into product metadata; a purpose-designed social image can be added when a verified image asset is available.
+
+
+## Route-group migration notes: Progress, Revision, Formula Vault, and Cloud Atlas
+
+- Analytics, revision, and formula cards use shared spacing tokens instead of screen-local padding choices.
+- Sticky-miss navigation uses `ListRow`; semantic danger/warning colors describe performance signals, while primary navigation remains product-branded.
+- Formula metadata uses the shared label scale and the shared focus-ring token; opening a topic uses the common button component.
+- Cloud Atlas uses the semantic analytics content width, shared focus-ring contrast, and a 44px close target while retaining its focus-trapped dialog behavior.
