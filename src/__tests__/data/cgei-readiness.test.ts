@@ -71,6 +71,30 @@ describe('CGEI readiness evidence', () => {
     assert.ok(validateLessonReadiness(placeholder).some((issue) => /without substantive instructional content/.test(issue)));
   });
 
+  it('rejects common drafting markers across content block types', () => {
+    const placeholders: CurriculumLesson['content'] = [
+      { id: 'todo', kind: 'prose', body: 'TODO: write the explanation.' },
+      { id: 'tbd', kind: 'worked-example', body: 'TBD' },
+      { id: 'insert', kind: 'callout', body: 'Insert the safety note here.' },
+      { id: 'lorem', kind: 'code', code: 'lorem ipsum dolor sit amet' },
+      { id: 'future', kind: 'figure', caption: 'Visual resource to be added.' },
+    ];
+    for (const block of placeholders) {
+      assert.equal(hasSubstantiveLessonContent(lesson({ content: [block] })), false, block.id);
+    }
+  });
+
+  it('does not reject substantive teaching text that discusses placeholders', () => {
+    const substantive = lesson({
+      content: [{
+        id: 'real-explanation',
+        kind: 'prose',
+        body: 'In a code review, TODO comments identify unfinished work and should be resolved before release.',
+      }],
+    });
+    assert.equal(hasSubstantiveLessonContent(substantive), true);
+  });
+
   it('rejects validated lessons with missing objectives or practice/checks', () => {
     const invalid = lesson({ objectives: [], activityIds: [], assessmentIds: [] });
     const issues = validateLessonReadiness(invalid);
