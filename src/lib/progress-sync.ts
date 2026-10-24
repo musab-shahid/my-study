@@ -16,7 +16,7 @@
  */
 import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
-import { validateCloudRestoreData } from './cloud-restore.ts';
+import { validateCloudRestoreData, validateLocalProgressForCloudPush } from './cloud-restore.ts';
 import { getDeviceId } from './device-id.ts';
 
 export {
