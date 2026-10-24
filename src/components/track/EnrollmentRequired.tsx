@@ -52,8 +52,8 @@ export function EnrollmentRequired({ children, requiredTrack, purpose, purposeTi
     const enrolled = Object.keys(getMembership(data).enrollments).filter(isTrackId) as TrackId[];
     return (
       <PageContainer>
-        <Card className="p-3.5 sm:p-5 max-w-lg">
-          <h2 className="text-lg font-semibold text-slate-900">Choose an active workspace</h2>
+        <Card className="p-card-pad sm:p-card-pad-lg max-w-lg">
+          <h1 className="text-page-title sm:text-page-title-lg text-slate-900">Choose an active workspace</h1>
           <p className="text-sm text-slate-600 mt-2 leading-relaxed">
             You are enrolled, but no track is active. Switch to a workspace to open Study and Practice.
           </p>
@@ -93,7 +93,7 @@ export function EnrollmentRequired({ children, requiredTrack, purpose, purposeTi
   return (
     <PageContainer>
       <Card className="p-3.5 sm:p-5 max-w-lg">
-        <h2 className="text-lg font-semibold text-slate-900">{title}</h2>
+        <h1 className="text-page-title sm:text-page-title-lg text-slate-900">{title}</h1>
         <p className="text-sm text-slate-600 mt-2 leading-relaxed">{body}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {exploreTrack ? (
