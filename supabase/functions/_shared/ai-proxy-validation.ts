@@ -8,6 +8,10 @@ export type ProxyMessage = {
   content: string;
 };
 
+export function isPlainRecord(value: unknown): value is Record<string, unknown> {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
 export const MAX_PROXY_MESSAGES = 24;
 export const MAX_PROXY_CONTENT_CHARS = 6000;
 export const MAX_PROXY_CONTEXT_CHARS = 4000;
@@ -26,9 +30,9 @@ export function sanitizeProxyMessages(raw: unknown): ProxyMessage[] | null {
 
   const messages: ProxyMessage[] = [];
   for (const item of raw) {
-    if (!item || typeof item !== 'object' || Array.isArray(item)) return null;
+    if (!isPlainRecord(item)) return null;
 
-    const candidate = item as Record<string, unknown>;
+    const candidate = item;
     if (candidate.role !== 'user' && candidate.role !== 'assistant') return null;
     if (typeof candidate.content !== 'string') return null;
     if (!candidate.content.trim() || candidate.content.length > MAX_PROXY_CONTENT_CHARS) return null;
