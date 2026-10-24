@@ -52,8 +52,11 @@ def main():
     assert isclose(reference["coverage"], 5 / 6)
     assert isclose(reference["mean"], 38.4)
     assert isclose(urban["mean"] - reference["mean"], -22.4)
-    # Guard against a common error: including the NoData sentinel or zero.
-    assert not isclose(reference["mean"], sum(v for row in RASTER for v in row if v != NODATA) / 10)
+    # Treating the one NoData cell as zero would yield 192 / 6 = 32.0,
+    # which is not the valid-cell mean and must not be silently accepted.
+    nodata_as_zero_mean = sum(v for row in RASTER[0:3] for v in row[2:4] if v != NODATA) / 6
+    assert isclose(nodata_as_zero_mean, 32.0)
+    assert not isclose(reference["mean"], nodata_as_zero_mean)
     print("PASS: synthetic zonal counts, NoData exclusion, coverage and means")
     print("LIMIT: arithmetic fixture only; no GIS engine or real dataset executed")
 
