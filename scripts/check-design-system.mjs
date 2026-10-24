@@ -33,7 +33,8 @@ for (const line of diff.split('\n')) {
   if (arbitraryFontSize.test(added)) {
     violations.push({ file, rule: 'arbitrary-font-size', line: added.trim() });
   }
-  if (rawPalette.test(added)) {
+  // The central subject/track registry is the approved home for identity palette classes.
+  if (rawPalette.test(added) && !['src/data/subject-colors.ts', 'src/data/tracks.ts'].includes(file)) {
     violations.push({ file, rule: 'raw-palette-color', line: added.trim() });
   }
 }
