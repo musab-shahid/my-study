@@ -25,9 +25,30 @@ test('install prompt announces guidance while keeping actions separately navigab
   const announcement = banner.locator('[role="status"][aria-live="polite"][aria-atomic="true"]');
   await expect(announcement).toBeVisible();
   await expect(announcement.getByRole('button')).toHaveCount(0);
-  await expect(banner.getByRole('button', { name: 'Install' })).toBeVisible();
-  await expect(banner.getByRole('button', { name: 'Not now' })).toBeVisible();
+  const install = banner.getByRole('button', { name: 'Install' });
+  const notNow = banner.getByRole('button', { name: 'Not now' });
+  const dismiss = banner.getByRole('button', { name: 'Dismiss' });
+  await expect(install).toBeVisible();
+  await expect(notNow).toBeVisible();
+  await expect(dismiss).toBeVisible();
 
-  await banner.getByRole('button', { name: 'Not now' }).click();
+  for (const action of [install, notNow, dismiss]) {
+    const height = await action.evaluate((element) => element.getBoundingClientRect().height);
+    expect(height, `${await action.getAttribute('aria-label') ?? await action.textContent()} should have a comfortable touch target`).toBeGreaterThanOrEqual(44);
+  }
+
+  let focused = false;
+  for (let i = 0; i < 120; i += 1) {
+    await page.keyboard.press('Tab');
+    if (await notNow.evaluate((element) => element === document.activeElement)) {
+      focused = true;
+      break;
+    }
+  }
+  expect(focused, 'Not now should be reachable by keyboard').toBe(true);
+  const boxShadow = await notNow.evaluate((element) => getComputedStyle(element).boxShadow);
+  expect(boxShadow, 'keyboard focus should render a visible ring').not.toBe('none');
+
+  await notNow.click();
   await expect(announcement).toHaveCount(0);
 });
