@@ -1,30 +1,39 @@
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { AppBrand } from '@/components/ui';
 
-export function Header({ title, subtitle }: { title?: string; subtitle?: string }) {
+export function Header({
+  context,
+  desktopVisible = true,
+  showMobileMeta = false,
+}: {
+  context?: string;
+  desktopVisible?: boolean;
+  showMobileMeta?: boolean;
+}) {
   return (
-    <header className="sticky top-0 z-30 glass-surface border-b border-slate-200/80 supports-[backdrop-filter]:bg-white/85">
-      <div className="flex items-center justify-between gap-2 px-3 sm:px-6 py-2 sm:py-3 min-h-[60px]">
-        <div className="flex items-center gap-1 min-w-0 flex-1">
-          <BackButton />
-          <div className="min-w-0 flex-1">
-            <h2 className="font-bold text-slate-900 text-base sm:text-lg leading-tight truncate tracking-tight">
-              {title || 'ExamPrep Hub'}
-            </h2>
-            <div className="flex items-center gap-2 mt-0.5 min-w-0">
-              {subtitle && (
-                <p className="text-slate-500 text-[11px] sm:text-sm truncate">{subtitle}</p>
-              )}
-              <div className="hidden sm:block min-w-0">
-                <Breadcrumbs />
-              </div>
-            </div>
-          </div>
+    <header
+      className={`sticky top-0 z-30 border-b border-slate-200/80 bg-white/95 backdrop-blur ${desktopVisible ? '' : 'lg:hidden'}`}
+    >
+      <div className="flex min-h-[60px] items-center gap-3 px-page-x sm:px-page-x-sm lg:px-page-x-lg">
+        <BackButton />
+        <div className="min-w-0 lg:hidden">
+          <AppBrand compact />
         </div>
+        <div className="hidden min-w-0 flex-1 lg:block">
+          <Breadcrumbs showCurrent={false} />
+        </div>
+        {context && (
+          <p title={context} className="ml-auto hidden max-w-[45%] truncate text-caption text-slate-500 sm:block">
+            {context}
+          </p>
+        )}
       </div>
-      {/* Mobile breadcrumbs row */}
-      <div className="px-4 sm:px-6 pb-2 sm:hidden">
-        <Breadcrumbs />
-      </div>
+      {showMobileMeta && (
+        <div className="flex flex-col gap-1 px-page-x pb-2 sm:hidden">
+          {context && <p title={context} className="truncate text-caption text-slate-500">{context}</p>}
+          <Breadcrumbs showCurrent={false} />
+        </div>
+      )}
     </header>
   );
 }

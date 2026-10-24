@@ -27,6 +27,7 @@ export interface TrackStyle {
   /** Active track treatment used by shared navigation; keeps accent mapping centralized. */
   navBorder: string;
   navActiveBg: string;
+  navIndicator: string;
   gradient: string;
   heroGradient: string;
   heroOrb: string;
@@ -359,6 +360,7 @@ export const trackStyles: Record<string, TrackStyle> = {
     accent: 'text-sky-400',
     navBorder: 'border-l-sky-500',
     navActiveBg: 'bg-sky-500/10',
+    navIndicator: 'bg-sky-500',
     gradient: 'from-sky-500 to-cyan-600',
     heroGradient: 'from-slate-950 via-slate-900 to-sky-950',
     heroOrb: 'bg-sky-400/20',
@@ -382,6 +384,7 @@ export const trackStyles: Record<string, TrackStyle> = {
     accent: 'text-indigo-400',
     navBorder: 'border-l-indigo-600',
     navActiveBg: 'bg-indigo-600/10',
+    navIndicator: 'bg-indigo-600',
     gradient: 'from-indigo-500 to-blue-600',
     heroGradient: 'from-slate-950 via-slate-900 to-indigo-950',
     heroOrb: 'bg-indigo-400/20',
@@ -405,6 +408,7 @@ export const trackStyles: Record<string, TrackStyle> = {
     accent: 'text-teal-400',
     navBorder: 'border-l-teal-600',
     navActiveBg: 'bg-teal-500/10',
+    navIndicator: 'bg-teal-500',
     gradient: 'from-teal-500 to-cyan-600',
     heroGradient: 'from-slate-950 via-slate-900 to-teal-950',
     heroOrb: 'bg-teal-400/20',

@@ -44,3 +44,13 @@ Prefer the shared components in `src/components/ui` for common controls and layo
 2. Product shell and canonical branding.
 3. Route-group migrations, preserving behavior and using screenshots at 390px and 1280px.
 4. Tighten lint enforcement as legacy raw buttons, palette classes, and arbitrary sizes are migrated.
+
+
+## Shell and page-heading rules
+
+- The application shell owns navigation, product identity, breadcrumb ancestors, and optional workspace/subject context. It does not render a second page title.
+- The screen owns its page-level heading. Keep one H1 in the main content region; use H2/H3 for sections.
+- The mobile header uses the compact My Study wordmark. Desktop branding remains in the sidebar.
+- Breadcrumbs can hide the current item when used beside a page heading; ancestor links remain navigable.
+- Page content should use the shared PageContainer width variants instead of inventing a new maximum width or page padding for each screen. Full-bleed track landing pages may retain a documented hero exception.
+- Track-specific navigation colors come from the typed track style registry; subject-specific accents come from the subject style registry. Do not branch on color-name substrings in UI components.
