@@ -5,18 +5,23 @@ import { expect, test } from '@playwright/test';
 const routes = [
   { slug: 'home', path: '/' },
   { slug: 'learn', path: '/learn/meteo-climatology' },
+  { slug: 'learn-index', path: '/learn' },
+  { slug: 'learn-maths', path: '/learn/maths' },
   { slug: 'section', path: '/section/METEO-01' },
   { slug: 'topic', path: '/topic/meteo-origin-evolution' },
   { slug: 'formulas', path: '/formulas' },
   { slug: 'flashcards', path: '/flashcards/meteo-origin-evolution' },
   { slug: 'cloud-atlas', path: '/cloud-atlas' },
   { slug: 'practice', path: '/practice' },
+  { slug: 'practice-mock', path: '/practice/mock' },
   { slug: 'review', path: '/review' },
   { slug: 'progress', path: '/progress' },
   { slug: 'search', path: '/search' },
   { slug: 'settings', path: '/settings' },
   { slug: 'hat-landing', path: '/hat' },
   { slug: 'fpsc-landing', path: '/fpsc' },
+  { slug: 'fpsc-track', path: '/track/fpsc' },
+  { slug: 'hat-track', path: '/track/hat' },
   { slug: 'cgei-track', path: '/track/cgei' },
   { slug: 'curriculum-unit', path: '/curriculum/unit/cgei-ds-unit-5-8' },
   { slug: 'curriculum-lesson', path: '/curriculum/lesson/cgei-ds-lesson-5-1-1' },
@@ -27,7 +32,7 @@ const viewports = [
   { width: 1280, height: 900 },
 ] as const;
 
-test('captures visual references for every routable screen at mobile and desktop widths', async ({ page }, testInfo) => {
+test('captures visual references for representative routes at mobile and desktop widths', async ({ page }, testInfo) => {
   test.setTimeout(180_000);
   await page.emulateMedia({ reducedMotion: 'reduce' });
 

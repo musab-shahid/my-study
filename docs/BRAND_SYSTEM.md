@@ -1,4 +1,4 @@
-# ExamPrep Hub Brand System
+# My Study Brand System
 
 This document records the shared visual tokens so UI work stays coherent and accessible.
 

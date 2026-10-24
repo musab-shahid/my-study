@@ -15,7 +15,8 @@ try {
 const violations = [];
 const rawButton = /<button\b/;
 const arbitraryFontSize = /\btext-\[(?:\d+(?:\.\d+)?(?:px|rem)?)\]/;
-const rawPalette = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-(?:sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-\d{2,3}\b/;
+const rawPalette = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-(?:sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|pink|yellow)-\d{2,3}\b/;
+const arbitraryColor = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-\[\s*#(?:[0-9a-fA-F]{3,8})\s*\]/;
 const midToneFill = /(?:\btext-white\b.*\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b|\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b.*\btext-white\b)/;
 const nonCanonicalFocusRing = /\bfocus(?:-visible)?:ring-(?:brand|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b/;
 
@@ -29,8 +30,13 @@ function flushHunk() {
     removed = [];
     return;
   }
-  const inSharedUi = file.startsWith('src/components/ui/');
-  const inIdentityRegistry = ['src/data/subject-colors.ts', 'src/data/tracks.ts'].includes(file);
+  // Narrow, intentional exceptions only:
+  // - primitives.tsx must compose native buttons for Dialog/Tabs; its visual and
+  //   keyboard behavior is covered by accessibility tests.
+  // - subject/track registries are the single source of truth for palette mapping.
+  // Do not exempt the entire shared-UI directory: regressions there affect every screen.
+  const allowsNativeButton = file === 'src/components/ui/primitives.tsx';
+  const isColorRegistry = ['src/data/subject-colors.ts', 'src/data/tracks.ts'].includes(file);
 
   const checkNetNew = (rule, pattern, exempt = false) => {
     if (exempt) return;
@@ -41,10 +47,11 @@ function flushHunk() {
     }
   };
 
-  checkNetNew('raw-button', rawButton, inSharedUi);
-  checkNetNew('arbitrary-font-size', arbitraryFontSize, inSharedUi);
-  checkNetNew('raw-palette-color', rawPalette, inSharedUi || inIdentityRegistry);
-  checkNetNew('white-on-mid-tone-fill', midToneFill, inSharedUi);
+  checkNetNew('raw-button', rawButton, allowsNativeButton);
+  checkNetNew('arbitrary-font-size', arbitraryFontSize);
+  checkNetNew('raw-palette-color', rawPalette, isColorRegistry);
+  checkNetNew('arbitrary-hex-color', arbitraryColor, isColorRegistry);
+  checkNetNew('white-on-mid-tone-fill', midToneFill);
   checkNetNew('non-canonical-focus-ring', nonCanonicalFocusRing);
 
   added = [];
@@ -82,4 +89,4 @@ if (violations.length) {
   process.exit(1);
 }
 
-console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, or non-canonical focus rings.');
+console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, non-canonical focus rings, or arbitrary hex colors outside the color registry.');
