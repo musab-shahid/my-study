@@ -109,7 +109,7 @@ describe('storage reset safety', () => {
       JSON.parse(storage.getItem(STORAGE_KEYS.appData) ?? 'null'),
       JSON.parse(validSnapshot),
     );
-    assert.equal(storage.getItem(recoveryKey), validSnapshot);
+    assert.equal(storage.getItem(recoveryKey), null);
   });
 
   it('preserves malformed primary bytes for export when no valid backup exists', () => {
