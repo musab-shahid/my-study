@@ -81,8 +81,18 @@ test.describe('mobile tools dialog keyboard behavior', () => {
 
   test('keyboard focus has a visible outline and core text tokens meet contrast targets', async ({ page }) => {
     const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
-    await trigger.focus();
+    // Start on the preceding mobile-nav item so Tab lands on More (the final
+    // nav control) instead of leaving the document and focusing the browser chrome.
+    await page.evaluate(() => {
+      const more = Array.from(document.querySelectorAll('button')).find((button) =>
+        button.getAttribute('aria-label') === 'More',
+      );
+      const previous = more?.previousElementSibling;
+      if (!(previous instanceof HTMLButtonElement)) throw new Error('Expected a preceding mobile navigation button');
+      previous.focus();
+    });
     await page.keyboard.press('Tab');
+    await expect(trigger).toBeFocused();
 
     const focusStyle = await page.evaluate(() => {
       const active = document.activeElement as HTMLElement;
