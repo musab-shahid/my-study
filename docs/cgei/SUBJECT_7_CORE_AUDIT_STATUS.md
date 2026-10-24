@@ -19,3 +19,9 @@ Support/Optional (deferred): 7.2, 7.4, 7.6–7.10.
 ## Downstream
 
 Subjects 9, 10, and 13 may reuse H–E–V separation and weight-sensitivity discipline; they must not treat the synthetic index as calibrated loss.
+
+## Unit 7.3 heat module (V16)
+
+- **Implemented (synthetic):** intensity = mean Tmax excess above 40°C; likelihood = stated events/10 seasons; ordinal 1–5 screen matrix.
+- **Fixture:** `unit_7_3_heat_hazard_check.py`
+- **Still mapped_partial / deferred:** WBGT/UTCI, heat–mortality curves, flood/drought modules, operational HAP triggers, Multan validation.

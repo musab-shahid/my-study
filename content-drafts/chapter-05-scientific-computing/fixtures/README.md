@@ -187,3 +187,6 @@ Synthetic multiband patches, spatial block split, overlapping-patch leakage, maj
 
 ## unit_6_core_pathway_check.py
 Asserts Units 6.1–6.7 fixtures exist and practice report lists full Core command spine; 6.8–6.9 deferred.
+
+## unit_7_3_heat_hazard_check.py
+Synthetic heat intensity–likelihood screening; not exposure/vulnerability; not damage probability.

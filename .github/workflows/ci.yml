@@ -153,6 +153,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_2_data_families_check.py
       - name: Verify Unit 7 risk-index checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_risk_index_check.py
+      - name: Verify Unit 7.3 heat-hazard checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_3_heat_hazard_check.py
       - name: Verify Unit 8 research-protocol checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_research_protocol_check.py
       - name: Verify Unit 9 decision-product checks
