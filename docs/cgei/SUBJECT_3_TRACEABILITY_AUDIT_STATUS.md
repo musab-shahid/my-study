@@ -49,3 +49,12 @@ Unit 3.2: Multan-region EPSG:4326 vs UTM 42N (EPSG:32642) teaching example; ques
 Unit 3.2 lesson `cgei-geo-lesson-3-2-1` now explicitly distinguishes an ellipsoid from a geodetic reference frame and a vertical datum. It introduces the conventional relationship `h = H + N` (ellipsoidal height, orthometric height, geoid undulation) with a warning that numerical conversion requires a compatible geoid model and documented conventions. A new single-choice assessment checks the distinctions.
 
 **Evidence and remaining limits:** the registry structure test expects 189 lessons and 459 questions and asserts the new question ID is unique. Unit 3.2 and all 16 source leaves remain draft / mapped_partial. No local geoid model, high-accuracy national datum transformation, independent survey control, or GUI GIS lab was run. Automated structural checks cannot establish that a learner can execute a real coordinate transformation.
+
+
+## Gate C.6 — Unit 3.3 zonal-rasterization practical (2026-10-24)
+
+- Added learner-facing practical: `content-drafts/chapter-05-scientific-computing/labs/unit-3-3-zonal-rasterization-lab.md`.
+- Added standard-library synthetic fixture: `content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_rasterization_check.py`; CI now invokes it.
+- Example covers a stated 1×1 grid, pixel-centre rule, NoData exclusion, per-zone valid counts, coverage, means, and contrast arithmetic. Expected synthetic means: urban 16.0, reference 38.4; contrast −22.4 unspecified raster units.
+- Traceability row 3.3.3.3 now points to the practical evidence in its note.
+- **Status remains draft / mapped_partial.** This fixture is not a QGIS/GDAL execution, geometry-engine test, GUI lab, or empirical environmental result. PyQGIS, digitising, production polygon rasterization and real-data validation remain open.
