@@ -368,7 +368,8 @@ function recoverCorruptPrimary(raw: string): AppData {
       'Primary save was invalid; restored progress from the last valid backup.';
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromBackup)));
-    } catch { /* keep the in-memory recovery available */ }
+      localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`);
+    } catch { /* keep the in-memory recovery and recovery key available */ }
     return fromBackup;
   }
 
@@ -392,7 +393,16 @@ export function loadData(): AppData {
         raw = legacy;
       }
     }
-    if (!raw) return { ...emptyData };
+    if (!raw) {
+      const fromRecovery = tryRestoreBackup(true);
+      if (!fromRecovery) return { ...emptyData };
+      lastStorageWarning = 'Restored the pre-cloud-restore recovery snapshot because the primary save was missing.';
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromRecovery)));
+        localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`);
+      } catch { /* retain the recovery snapshot if persistence fails */ }
+      return fromRecovery;
+    }
 
     let parsed: unknown;
     try {
@@ -407,7 +417,10 @@ export function loadData(): AppData {
       return recoverCorruptPrimary(raw);
     }
 
-    return normalizeLoaded(parsed as AppData);
+    const normalized = normalizeLoaded(parsed as AppData);
+    // A valid primary save means any pre-restore snapshot is no longer needed.
+    try { localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`); } catch { /* ignore */ }
+    return normalized;
   } catch {
     lastStorageWarning =
       'Could not read saved progress. Starting fresh. If you had data, try downloading the backup.';
@@ -415,8 +428,9 @@ export function loadData(): AppData {
   }
 }
 
-function tryRestoreBackup(): AppData | null {
-  const recoveryKeys = [BACKUP_KEY, `${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`];
+function tryRestoreBackup(recoveryOnly = false): AppData | null {
+  const cloudRecoveryKey = `${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
+  const recoveryKeys = recoveryOnly ? [cloudRecoveryKey] : [cloudRecoveryKey, BACKUP_KEY];
   for (const key of recoveryKeys) {
     try {
       const raw = localStorage.getItem(key);
