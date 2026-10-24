@@ -25,6 +25,7 @@ import {
 } from '@/lib/progress-sync';
 import { planCloudRestoreWrite } from '@/lib/cloud-restore';
 import { sections } from '@/data/sections';
+import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 import type { SubjectId } from '@/types';
 
 function isStandalone(): boolean {
@@ -146,12 +147,31 @@ export function SettingsScreen() {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
+    const onPromptConsumed = (event: Event) => {
+      const consumedPrompt = (event as CustomEvent<Event>).detail;
+      setDeferredPrompt((current) => current === consumedPrompt ? null : current);
+    };
+    const onInstalled = () => {
+      setDeferredPrompt(null);
+      setShowInstall(false);
+    };
     window.addEventListener('beforeinstallprompt', handler);
-    return () => window.removeEventListener('beforeinstallprompt', handler);
+    window.addEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+    window.addEventListener('appinstalled', onInstalled);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
   }, []);
 
   const handleInstall = async () => {
     if (!deferredPrompt) return;
+    if (!claimInstallPrompt(deferredPrompt)) {
+      setDeferredPrompt(null);
+      setInstallMsg('The install prompt was already used. You can use your browser menu to install the app later.');
+      return;
+    }
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
