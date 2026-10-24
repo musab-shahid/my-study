@@ -16,6 +16,8 @@ const violations = [];
 const rawButton = /<button\b/;
 const arbitraryFontSize = /\btext-\[(?:\d+(?:\.\d+)?(?:px|rem)?)\]/;
 const rawPalette = /\b(?:bg|text|border(?:-[lrtbxy])?|ring(?:-offset)?|from|to|via)-(?:sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-\d{2,3}\b/;
+const midToneFill = /(?:\btext-white\b.*\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b|\b(?:bg|from|to|via)-(?:brand|success|warning|danger|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b.*\btext-white\b)/;
+const nonCanonicalFocusRing = /\bfocus(?:-visible)?:ring-(?:brand|sky|teal|emerald|amber|rose|indigo|cyan|violet|lime|orange|red|green|blue|purple|fuchsia|yellow)-500\b/;
 
 let file = '';
 let added = [];
@@ -42,6 +44,8 @@ function flushHunk() {
   checkNetNew('raw-button', rawButton, inSharedUi);
   checkNetNew('arbitrary-font-size', arbitraryFontSize, inSharedUi);
   checkNetNew('raw-palette-color', rawPalette, inSharedUi || inIdentityRegistry);
+  checkNetNew('white-on-mid-tone-fill', midToneFill, inSharedUi);
+  checkNetNew('non-canonical-focus-ring', nonCanonicalFocusRing);
 
   added = [];
   removed = [];
@@ -74,8 +78,8 @@ if (violations.length) {
   for (const violation of violations) {
     console.error('- [' + violation.rule + '] ' + violation.file + ': ' + violation.line);
   }
-  console.error('\nUse shared UI components, semantic color/subject-track mappings, and typography tokens. If a raw control is truly necessary, document why and add a narrow, reviewed exception.');
+  console.error('\nUse shared UI components, semantic color/subject-track mappings, readable text/fill pairs, the canonical focus ring, and typography tokens. If a raw control is truly necessary, document why and add a narrow, reviewed exception.');
   process.exit(1);
 }
 
-console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, or raw track/subject palette colors outside approved shared layers.');
+console.log('Design-system guard passed: no net-new raw buttons, arbitrary font sizes, raw track/subject palette colors, white text on mid-tone fills, or non-canonical focus rings.');
