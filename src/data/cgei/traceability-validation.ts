@@ -1,3 +1,6 @@
+import type { CurriculumContentBlock } from '@/types/curriculum';
+import { hasSubstantiveContentBlock } from './readiness';
+
 export type TraceabilityDisposition = 'mapped' | 'mapped_partial' | 'gap' | 'deferred' | 'candidate';
 
 export interface TraceabilityRow {
@@ -10,7 +13,7 @@ export interface TraceabilityRow {
 
 export interface TraceabilityLesson {
   id: string;
-  content: Array<{ id: string }>;
+  content: CurriculumContentBlock[];
 }
 
 export interface TraceabilityIssue {
@@ -60,6 +63,15 @@ export function validateTraceabilityRow(
       issues.push({ code: 'UNKNOWN_BLOCK', message: `Unknown content-block ID ${blockId}`, sourcePath: path });
     } else if (lesson && !lesson.content.some((block) => block.id === blockId)) {
       issues.push({ code: 'BLOCK_WRONG_LESSON', message: `Block ${blockId} does not belong to declared lesson ${lesson.id}`, sourcePath: path });
+    } else if (lesson && ['mapped', 'mapped_partial'].includes(row.disposition)) {
+      const block = lesson.content.find((candidate) => candidate.id === blockId);
+      if (block && !hasSubstantiveContentBlock(block)) {
+        issues.push({
+          code: 'NON_SUBSTANTIVE_BLOCK',
+          message: `Block ${blockId} is only a placeholder or has no substantive instructional content`,
+          sourcePath: path,
+        });
+      }
     }
   }
   if (['mapped', 'mapped_partial', 'gap', 'deferred', 'candidate'].includes(row.disposition) && !row.evidence_note.trim()) {
