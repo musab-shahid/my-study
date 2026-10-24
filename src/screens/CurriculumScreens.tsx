@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { ArrowLeft, CheckCircle2, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
-import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { useCgeiCurriculum } from '@/hooks/useCgeiCurriculum';
 import type { CurriculumQuestion } from '@/types/curriculum';
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { PageContainer, Card, EmptyState, Button } from '@/components/ui';
@@ -53,13 +53,17 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
 export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
   const { navigate } = useRouter();
   const { data } = useData();
-  const unit = cgeiCurriculum.units.find((item) => item.id === unitId);
-  const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
-  const lessons = unit?.lessonIds.map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)).sort((a, b) => a.order - b.order) ?? [];
-  const activities = unit?.activityIds.map((id) => cgeiCurriculum.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const assessments = unit?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const resources = unit?.resourceIds.map((id) => cgeiCurriculum.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const deliverables = unit?.deliverableIds.map((id) => cgeiCurriculum.deliverables.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const curriculumState = useCgeiCurriculum();
+  const cgeiCurriculum = curriculumState.status === 'ready' ? curriculumState.curriculum : undefined;
+  const unit = cgeiCurriculum?.units.find((item) => item.id === unitId);
+  const subject = unit ? cgeiCurriculum?.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
+  const lessons = unit?.lessonIds.map((id) => cgeiCurriculum?.lessons.find((lesson) => lesson.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)).sort((a, b) => a.order - b.order) ?? [];
+  const activities = unit?.activityIds.map((id) => cgeiCurriculum?.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const assessments = unit?.assessmentIds.map((id) => cgeiCurriculum?.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const resources = unit?.resourceIds.map((id) => cgeiCurriculum?.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const deliverables = unit?.deliverableIds.map((id) => cgeiCurriculum?.deliverables.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+
+  if (!cgeiCurriculum) return <PageContainer><BackButton /><p role={curriculumState.status === 'error' ? 'alert' : 'status'} className="text-sm text-slate-600">{curriculumState.status === 'error' ? 'Unable to load the curriculum. Refresh the page to try again.' : 'Loading curriculum…'}</p></PageContainer>;
 
   if (!unit) return <PageContainer><BackButton /><EmptyState title="Curriculum unit not found" message="This unit is not registered in the current curriculum." action={<Button variant="secondary" onClick={() => navigate({ screen: 'learn' })}>Back to Learn</Button>} /></PageContainer>;
 
@@ -116,11 +120,13 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const { navigate } = useRouter();
   const { data, markStudied, setLastTopic, markCurriculumLessonStudied, setLastCurriculumLesson } = useData();
-  const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
-  const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
-  const resources = lesson?.resourceIds.map((id) => cgeiCurriculum.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const activities = lesson?.activityIds.map((id) => cgeiCurriculum.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
-  const assessments = lesson?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const curriculumState = useCgeiCurriculum();
+  const cgeiCurriculum = curriculumState.status === 'ready' ? curriculumState.curriculum : undefined;
+  const lesson = cgeiCurriculum?.lessons.find((item) => item.id === lessonId);
+  const unit = lesson ? cgeiCurriculum?.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
+  const resources = lesson?.resourceIds.map((id) => cgeiCurriculum?.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const activities = lesson?.activityIds.map((id) => cgeiCurriculum?.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const assessments = lesson?.assessmentIds.map((id) => cgeiCurriculum?.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const isLessonStudied = lesson?.sourceTopicId
     ? data.studiedTopics.includes(lesson.sourceTopicId)
     : Boolean(lesson && (data.studiedCurriculumLessons ?? []).includes(lesson.id));
@@ -130,6 +136,8 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
     if (lesson.sourceTopicId) setLastTopic(lesson.sourceTopicId);
     else setLastCurriculumLesson(lesson.id);
   }, [lesson?.id, lesson?.sourceTopicId, setLastTopic, setLastCurriculumLesson]);
+
+  if (!cgeiCurriculum) return <PageContainer><BackButton /><p role={curriculumState.status === 'error' ? 'alert' : 'status'} className="text-sm text-slate-600">{curriculumState.status === 'error' ? 'Unable to load the curriculum. Refresh the page to try again.' : 'Loading curriculum…'}</p></PageContainer>;
 
   if (!lesson) return <PageContainer><BackButton /><EmptyState title="Curriculum lesson not found" message="This lesson is not registered in the current curriculum." action={<Button variant="secondary" onClick={() => navigate({ screen: 'learn' })}>Back to Learn</Button>} /></PageContainer>;
 
