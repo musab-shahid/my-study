@@ -62,9 +62,12 @@ export function validateReadinessEvidence(
   if (!hasText(evidence.reviewer)) issues.push(`${label} readiness evidence requires a reviewer.`);
 
   const date = evidence.reviewedOn;
+  const parsedReviewDate = Date.parse(`${date}T00:00:00Z`);
+  const todayUtc = new Date().toISOString().slice(0, 10);
   const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date)
-    && !Number.isNaN(Date.parse(`${date}T00:00:00Z`))
-    && new Date(`${date}T00:00:00Z`).toISOString().slice(0, 10) === date;
+    && !Number.isNaN(parsedReviewDate)
+    && new Date(parsedReviewDate).toISOString().slice(0, 10) === date
+    && date <= todayUtc;
   if (!validDate) issues.push(`${label} readiness evidence requires a real YYYY-MM-DD review date.`);
 
   if (!evidence.checksPassed?.some(hasText)) {
