@@ -144,7 +144,7 @@ export function InstallPrompt() {
     <div
       className="fixed z-30 w-[calc(100%-2rem)] max-w-sm animate-fade-in-up left-1/2 -translate-x-1/2 lg:left-auto lg:right-4 lg:translate-x-0 lg:top-20 lg:bottom-auto"
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 6.25rem)' }}
-      role="dialog"
+      role="region"
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
