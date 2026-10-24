@@ -3167,6 +3167,45 @@ const lessons87: CurriculumLesson[] = [
   },
 ];
 
+const outcomes88: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-88-repo', statement: 'Present a research repository as evidence: runnable path, README with limitations, manifests, tests, and licences.', action: 'present', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-88-identity', statement: 'Link public identity records (ORCID, profiles, DOI/preprint practice) without overstating impact.', action: 'link and document', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-88-position', statement: 'Position graduate research with one place, one hazard family, one methods gap, and feasible data/compute.', action: 'position', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+];
+
+const lessons88: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-8-1', kind: 'lesson', title: 'Repository as evidence', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes88[0]],
+    content: [
+      { id: 'cgei-rp-88-1-1', kind: 'prose', title: 'Runnable and documented', body: 'A portfolio repository is evidence only if someone else can run a documented path (one-command script or notebook with pinned dependencies). The README must state data sources, methods, outputs, and limitations. Manifests, tests, and licences complete the package. A private zip without instructions is not a public research record.' },
+      { id: 'cgei-rp-88-1-2', kind: 'checklist', title: 'Repository evidence checklist', items: ['Documented run path', 'README: data, methods, outputs, limitations', 'Environment pin or lockfile', 'Licence for code and note for data', 'At least one automated test or verification script'] },
+      { id: 'cgei-rp-88-1-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Passing CI is not peer review', 'Open code does not imply correct science', 'Do not claim DOI if none exists'] },
+    ],
+    activityIds: ['cgei-rp-a-88-repo'], assessmentIds: ['cgei-rp-assess-88-repo'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-8-2', kind: 'lesson', title: 'Public record and coursework to study', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes88[1]],
+    content: [
+      { id: 'cgei-rp-88-2-1', kind: 'prose', title: 'Identity hygiene', body: 'ORCID and public profiles should use a consistent name, affiliation, and links to code and data. Preprint and DOI practice for code, data, and reports creates a verifiable timeline—when policies allow. Avoid padding profiles with unfinished claims.' },
+      { id: 'cgei-rp-88-2-2', kind: 'prose', title: 'Revise the FYP, do not hide it', body: 'Treat the UHI (or other) FYP as a draft to correct: scale factors, QA, validation, and claim language (Unit 8.7). Produce one paper-quality output on a single clear question. Reproduce one published method exactly, then extend; keep the pure replication as an appendix when useful.' },
+      { id: 'cgei-rp-88-2-3', kind: 'key-points', title: 'Question selection', items: ['Falsifiable', 'Feasible with open data where possible', 'Sharpened by a methods or sensitivity contribution', 'Pilot analysis before full commitment'] },
+    ],
+    activityIds: ['cgei-rp-a-88-revise'], assessmentIds: ['cgei-rp-assess-88-revise'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-8-3', kind: 'lesson', title: 'Graduate research positioning', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes88[2]],
+    content: [
+      { id: 'cgei-rp-88-3-1', kind: 'prose', title: 'One place, one hazard, one methods gap', body: 'Positioning is sharper when limited: one geographic focus, one hazard family (e.g. urban heat, flood, air quality), and one primary methods gap (e.g. validation design, scale sensitivity). Supervision needs should name methods depth, not a tool shopping list. Data access and compute must be feasible.' },
+      { id: 'cgei-rp-88-3-2', kind: 'worked-example', title: 'Positioning statement structure (synthetic)', body: 'Fixture unit_8_8_portfolio_positioning_check.py validates a structured positioning object: place, hazard_family, methods_gap, data_feasibility, and rejects empty fields or tool-list-only supervision statements.' },
+    ],
+    activityIds: ['cgei-rp-a-88-position'], assessmentIds: ['cgei-rp-assess-88-position'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
 
 
 const outcomes91: CurriculumOutcome[] = [
@@ -3638,7 +3677,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
       outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 14,
@@ -4241,6 +4280,20 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
       sourceDocument: 'Master Study TOC Subject 8 Unit 8.7',
       notes: ['Core Unit 8.7. Draft research-practice unit; no actual journal submission in CI.'],
     },
+
+    {
+      id: 'cgei-rp-unit-8-8', subjectId: 'cgei-research', code: '8.8', title: 'Portfolio and research positioning', order: 808, kind: 'unit', readiness: 'draft',
+      summary: 'Present a verifiable research portfolio and position graduate work with one place, one hazard family, and one methods gap.',
+      estimatedHours: 5, prerequisites: ['Unit 8.7'], outcomes: outcomes88,
+      lessonIds: lessons88.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-88-repo', 'cgei-rp-a-88-revise', 'cgei-rp-a-88-position'],
+      assessmentIds: ['cgei-rp-assess-88-repo', 'cgei-rp-assess-88-revise', 'cgei-rp-assess-88-position'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.8',
+      notes: ['Core Unit 8.8. Draft; no ORCID or DOI creation in CI.'],
+    },
+
 
     {
       id: 'cgei-dspt-unit-9-1', code: '9.1', title: 'Communicating for decisions', order: 901, kind: 'unit', readiness: 'draft',
@@ -5637,6 +5690,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-cl-a-23-moisture', kind: 'coding-lab', title: 'Clausius–Clapeyron ratio', instructions: 'Run unit_2_3_atmosphere_check.py. Record e_sat at 300 K and 301 K and the fractional increase. Explain why ~7%/K matters for humid heat and short-duration rainfall potential, and one reason local rainfall need not scale the same way.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-23-moisture'] },
 
     { id: 'cgei-rp-a-87-contrib', kind: 'critique', title: 'Single-contribution statement', instructions: 'Write a ≤120-word contribution statement naming exactly one primary pillar (methods sensitivity OR validation OR regional evidence). List three close prior study themes. Run unit_8_7_paper_readiness_check.py to check the structured JSON form of your statement.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-87-contrib'] },
+
+    { id: 'cgei-rp-a-88-repo', kind: 'critique', title: 'Repository evidence audit', instructions: 'Score your project repo against: run path, README limitations, environment pin, licence, and one test. Mark each present/partial/absent. State one fix you will make first.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-repo'] },
+    { id: 'cgei-rp-a-88-revise', kind: 'critique', title: 'FYP revision plan', instructions: 'List three claim-language or method corrections from your FYP (scale, QA, validation, or overclaim). Name the single paper-quality question for the revised version.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-identity'] },
+    { id: 'cgei-rp-a-88-position', kind: 'coding-lab', title: 'Positioning object check', instructions: 'Fill a positioning JSON with place, hazard_family, methods_gap, data_feasibility, supervision_need. Run unit_8_8_portfolio_positioning_check.py against the sample and your structure.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-position'] },
+
     { id: 'cgei-rp-a-87-evidence', kind: 'critique', title: 'Pre-submission evidence gap list', instructions: 'For your contribution, mark each of: independent validation, sensitivity, coverage/uncertainty, repo+availability statements as present, partial, or absent. State one claim you must narrow if validation is absent.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-evidence'] },
     { id: 'cgei-rp-a-87-ms', kind: 'critique', title: 'Figure and venue shortlist', instructions: 'List six figure panels required for your contribution and two candidate venues with one-sentence scope fit. Note preprint policy as known or unknown.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-ms'] },
 
@@ -5960,6 +6018,11 @@ id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205,
     { id: 'cgei-cl-assess-23-moisture', kind: 'formative', title: 'Moist thermodynamics', purpose: 'Assess humidity and CC scaling literacy.', objectiveIds: ['cgei-cl-o-23-moisture'], questionIds: ['cgei-cl-q-23-cc', 'cgei-cl-q-23-tw'], required: true },
 
     { id: 'cgei-rp-assess-87-contrib', kind: 'formative', title: 'Contribution framing', purpose: 'Assess single-contribution discipline.', objectiveIds: ['cgei-rp-o-87-contrib'], questionIds: ['cgei-rp-q-87-one'], required: true },
+
+    { id: 'cgei-rp-assess-88-repo', kind: 'formative', title: 'Repository as evidence', purpose: 'Assess portfolio evidence literacy.', objectiveIds: ['cgei-rp-o-88-repo'], questionIds: ['cgei-rp-q-88-readme'], required: true },
+    { id: 'cgei-rp-assess-88-revise', kind: 'formative', title: 'Coursework to study', purpose: 'Assess revision and question focus.', objectiveIds: ['cgei-rp-o-88-identity'], questionIds: ['cgei-rp-q-88-revise'], required: true },
+    { id: 'cgei-rp-assess-88-position', kind: 'formative', title: 'Graduate positioning', purpose: 'Assess focused research positioning.', objectiveIds: ['cgei-rp-o-88-position'], questionIds: ['cgei-rp-q-88-focus'], required: true },
+
     { id: 'cgei-rp-assess-87-evidence', kind: 'formative', title: 'Evidence readiness', purpose: 'Assess pre-submission evidence literacy.', objectiveIds: ['cgei-rp-o-87-evidence'], questionIds: ['cgei-rp-q-87-val'], required: true },
     { id: 'cgei-rp-assess-87-ms', kind: 'formative', title: 'Manuscript process', purpose: 'Assess structure and venue awareness.', objectiveIds: ['cgei-rp-o-87-ms'], questionIds: ['cgei-rp-q-87-fig'], required: true },
 

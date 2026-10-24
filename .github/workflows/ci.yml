@@ -127,6 +127,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_humid_heat_bridge_check.py
       - name: Verify Unit 8.7 paper readiness
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_7_paper_readiness_check.py
+      - name: Verify Unit 8.8 portfolio positioning
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_8_portfolio_positioning_check.py
       - name: Curriculum activity/assessment integrity
         run: python content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py
       - name: Verify unit_3_5_climate_spatial_integration_check.py
