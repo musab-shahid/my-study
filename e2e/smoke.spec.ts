@@ -386,3 +386,45 @@ test.describe('CGEI Unit 5.12 lesson rendering', () => {
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
 });
+
+test.describe('Settings reset failure feedback', () => {
+  test('announces backup failure as an error and keeps local progress unchanged', async ({ page }) => {
+    await page.addInitScript(() => {
+      const originalSetItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (key: string, value: string) {
+        if (key === 'examprep-data-backup') {
+          throw new DOMException('Storage quota exceeded', 'QuotaExceededError');
+        }
+        return originalSetItem.call(this, key, value);
+      };
+      originalSetItem.call(localStorage, 'examprep-data', JSON.stringify({
+        studiedTopics: ['meteo-origin-evolution'],
+        studiedCurriculumLessons: [],
+        lastOpenedCurriculumLesson: '',
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: 'meteo-origin-evolution',
+        trackMembership: { schemaVersion: 1, enrollments: {}, activeTrackId: null },
+      }));
+    });
+
+    await page.goto('/settings');
+    const localDataBefore = await page.evaluate(() => localStorage.getItem('examprep-data'));
+
+    await page.getByRole('button', { name: 'Select all' }).click();
+    await page.getByRole('button', { name: 'Reset All' }).click();
+    await page.getByRole('button', { name: 'Yes, Delete' }).click();
+
+    const resetAlert = page.getByRole('alert').filter({
+      hasText: 'Reset cancelled because a recovery backup could not be saved.',
+    });
+    await expect(resetAlert).toBeVisible();
+    await expect(resetAlert).toHaveClass(/bg-danger-50/);
+    await expect(page.getByRole('status').filter({
+      hasText: 'All data has been reset.',
+    })).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('examprep-data'))).toBe(localDataBefore);
+  });
+});
