@@ -30,6 +30,17 @@ export function getBackupRaw(): string | null {
   }
 }
 
+/** Save a known-good snapshot before a destructive partial reset. */
+export function createRecoveryBackup(data: AppData): boolean {
+  try {
+    localStorage.setItem(BACKUP_KEY, JSON.stringify(sanitizeForSave(data)));
+    return true;
+  } catch {
+    lastStorageWarning = 'Could not create a recovery backup before reset (storage full). Reset cancelled so your data is not lost.';
+    return false;
+  }
+}
+
 export function downloadBackupFile(data?: AppData): boolean {
   // Settings exports the live in-memory state; recovery actions may still export
   // the last known-good raw backup when no state is supplied.
