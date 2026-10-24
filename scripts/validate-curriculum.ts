@@ -7,6 +7,7 @@ import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { topicMetadata } from '../src/data/topic-metadata';
 import { sections } from '../src/data/sections';
 import { validateLessonReadiness, validateReadinessEvidence } from '../src/data/cgei/readiness';
+import { validateCurriculumQuestion } from '../src/data/cgei/assessment-validation';
 
 const errors: string[] = [];
 const warnings: string[] = [];
