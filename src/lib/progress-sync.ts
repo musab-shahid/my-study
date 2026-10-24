@@ -26,8 +26,8 @@ export {
 /** Supabase Auth access_token after sign-in (not the anon key). */
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
 
-export { getDeviceId } from './device-id.ts';
 import { getDeviceId } from './device-id.ts';
+export { getDeviceId };
 
 export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
