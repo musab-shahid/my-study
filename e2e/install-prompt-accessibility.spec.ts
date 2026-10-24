@@ -20,13 +20,14 @@ test('install prompt announces guidance while keeping actions separately navigab
     window.dispatchEvent(event);
   });
 
-  const announcement = page.locator('[role="status"][aria-live="polite"][aria-atomic="true"]')
-    .filter({ hasText: 'Install App' });
+  const banner = page.getByRole('region', { name: 'Install App' });
+  await expect(banner).toBeVisible();
+  const announcement = banner.locator('[role="status"][aria-live="polite"][aria-atomic="true"]');
   await expect(announcement).toBeVisible();
   await expect(announcement.getByRole('button')).toHaveCount(0);
-  await expect(page.getByRole('button', { name: 'Install' })).toBeVisible();
-  await expect(page.getByRole('button', { name: 'Not now' })).toBeVisible();
+  await expect(banner.getByRole('button', { name: 'Install' })).toBeVisible();
+  await expect(banner.getByRole('button', { name: 'Not now' })).toBeVisible();
 
-  await page.getByRole('button', { name: 'Not now' }).click();
+  await banner.getByRole('button', { name: 'Not now' }).click();
   await expect(announcement).toHaveCount(0);
 });
