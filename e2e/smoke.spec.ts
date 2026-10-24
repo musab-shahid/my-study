@@ -397,6 +397,17 @@ test.describe('Settings reset failure feedback', () => {
         }
         return originalSetItem.call(this, key, value);
       };
+      originalSetItem.call(localStorage, 'examprep-data', JSON.stringify({
+        studiedTopics: ['meteo-origin-evolution'],
+        studiedCurriculumLessons: [],
+        lastOpenedCurriculumLesson: '',
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: 'meteo-origin-evolution',
+        trackMembership: { schemaVersion: 1, enrollments: {}, activeTrackId: null },
+      }));
     });
 
     await page.goto('/settings');
