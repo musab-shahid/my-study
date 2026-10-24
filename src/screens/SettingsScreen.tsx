@@ -201,12 +201,12 @@ export function SettingsScreen() {
         <div
           role={resetDone.kind === 'error' ? 'alert' : 'status'}
           aria-live={resetDone.kind === 'error' ? 'assertive' : 'polite'}
-          className={`mb-4 p-3 rounded-xl border flex items-center gap-2 animate-fade-in-up ${resetDone.kind === 'error' ? 'bg-red-50 border-red-100' : 'bg-success-50 border-success-100'}`}
+          className={`mb-4 p-3 rounded-xl border flex items-center gap-2 animate-fade-in-up ${resetDone.kind === 'error' ? 'bg-danger-50 border-danger-100' : 'bg-success-50 border-success-100'}`}
         >
           {resetDone.kind === 'error'
-            ? <AlertTriangle className="w-5 h-5 text-red-500 shrink-0" />
+            ? <AlertTriangle className="w-5 h-5 text-danger-600 shrink-0" />
             : <CheckCircle2 className="w-5 h-5 text-success-500 shrink-0" />}
-          <p className={`text-sm font-medium ${resetDone.kind === 'error' ? 'text-red-700' : 'text-success-700'}`}>{resetDone.message}</p>
+          <p className={`text-sm font-medium ${resetDone.kind === 'error' ? 'text-danger-700' : 'text-success-700'}`}>{resetDone.message}</p>
         </div>
       )}
 
