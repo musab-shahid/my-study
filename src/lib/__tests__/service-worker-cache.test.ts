@@ -97,6 +97,29 @@ describe('service worker navigation caching', () => {
     assert.deepEqual(writes, [request.url]);
   });
 
+  it('keeps stale-while-revalidate asset caching alive through the fetch event', async () => {
+    const request: RequestLike = {
+      method: 'GET',
+      url: 'https://app.test/assets/app.js',
+      mode: 'cors',
+    };
+    const response: ResponseLike = { ok: true, clone: () => response };
+    const { fetchHandler, writes, lifetimePromises } = loadServiceWorker(async () => response);
+    assert.ok(fetchHandler);
+
+    let responsePromise: Promise<ResponseLike> | undefined;
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetimePromises.push(promise),
+    });
+
+    assert.equal(await responsePromise, response);
+    assert.equal(lifetimePromises.length, 1, 'asset cache refresh must extend the fetch event lifetime');
+    await Promise.all(lifetimePromises);
+    assert.deepEqual(writes, [request.url]);
+  });
+
   it('keeps the network response usable when the cache write fails', async () => {
     const request = navigationRequest();
     const response: ResponseLike = { ok: true, clone: () => response };
