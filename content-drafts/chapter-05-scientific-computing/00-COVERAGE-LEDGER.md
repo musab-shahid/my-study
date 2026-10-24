@@ -1,80 +1,76 @@
-# Chapter 5 Coverage Ledger
-## Scientific Computing and Data Science
-**Authoritative source:** Master Study TOC · 19 October 2026  
-**Branch:** `feat/cgei-full-curriculum-skeleton`  
-**Audit date:** 21 October 2026 (**v4** — all twelve units at teaching depth; supporting parts expanded)
+# Chapter 5 Coverage Ledger — Current Evidence Snapshot
 
-### Unit-level status
+**Source authority:** Master Study TOC · 19 October 2026  
+**Audit snapshot:** 24 October 2026  
+**Scope:** Manuscript depth, canonical app registry, and source-to-app traceability. This ledger distinguishes those layers; none implies the others.
 
-| Unit | Coverage | Quality | App readiness |
-|------|----------|---------|---------------|
-| 5.1 Foundations | Taught with examples | Pedagogically reviewed; smoke coverage exists | Eight app lessons via legacy-ID bridge; rendering/CI checks pending |
-| 5.2 Scientific Python | Taught with examples | Manuscript review plus new app examples; smoke checks added, execution pending | Five canonical app lessons in draft state |
-| 5.3 EDA & visualisation | Taught with examples | Manuscript mapped; examples illustrative and not yet fully compute-verified | Five canonical app lessons in draft state |
-| 5.4 Intro statistics | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.5 Data workflow | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.6 Intermediate inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.7 Time series | Taught with examples | Synthetic decomposition, anomaly, HAC and chronological-split checks pass; broader methods remain gaps | Five canonical lessons integrated; draft pending UI and instructional review |
-| 5.8 Multivariate / EOF | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.9 GLM / mixed / Bayesian | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.10 Causal inference | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.11 Research software | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| 5.12 xarray & pipelines | Taught with examples | Pedagogically reviewed (not fully compute-verified) | Structured for conversion |
-| Orientation | Partially taught | Adequate for entry | Structured |
-| Integration | Taught (narrative + checklist) | Adequate | Structured |
-| Capstone | Specified with rubric & tracks | Adequate for launch | Structured |
-| Assessment toolkit | Diagnostic, debug, critique, formula sheet, checklist | Adequate for launch | Structured |
+## 1. Canonical app status
 
-### Exit competencies
-All four teachable via unit deliverables; capstone requires software gate and integrates optional advanced gates.
+| Unit | Canonical lessons | Current readiness | Interpretation |
+|---|---:|---|---|
+| 5.1 Mathematical and physical foundations | 8 | review | Content is present; required independent review/verification remains. |
+| 5.2 Scientific Python | 5 | draft | Substantive lesson records exist; source-level and instructional review remains. |
+| 5.3 EDA and visualisation | 5 | draft | Substantive lesson records exist; full source-item and rendering review remains. |
+| 5.4 Introductory statistics | 6 | draft | Substantive lesson records exist; source-level and instructional review remains. |
+| 5.5 Data workflow engineering | 5 | draft | Substantive lesson records exist; source-level and instructional review remains. |
+| 5.6 Intermediate inference and modelling | 5 | draft | App lessons exist; they are not release-ready by registry presence alone. |
+| 5.7 Time-series analysis | 5 | draft | App lessons and synthetic checks exist; broader methods and instructional review remain. |
+| 5.8 Multivariate analysis / EOF | 5 | draft | App lessons exist; scientific and source-level review remains. |
+| 5.9 GLM, mixed and Bayesian models | 5 | draft | App lessons exist; model-specific diagnostics and source-level review remain. |
+| 5.10 Causal inference | 5 | draft | App lessons exist; design reasoning and source-level review remain. |
+| 5.11 Research software practice | 5 | draft | App lessons exist; reproducibility and source-level review remain. |
+| 5.12 xarray and scalable pipelines | 5 | draft | App lessons exist; array semantics, scaling and source-level review remain. |
 
-### Remaining gaps (not blockers for standalone study start)
-1. Full worked **solution keys** for every Level B/C exercise (selected notes only).  
-2. Executed/verified code against real Multan datasets in-repo.  
-3. **App Topic conversion** + quiz bank (separate stage; schemas in `src/data/cgei/`).  
-4. Orientation diagnostic answer key polished as instructor sheet.  
-5. Optional deepening (MCA/CCA, full MCMC labs, container recipes).
+**Readiness verdict:** Unit 5.1 is `review`; Units 5.2–5.12 are `draft`. No Subject 5 unit is currently `validated` or `released`. Do not call these units complete or production-ready.
 
-### Honest summary
-**v4.1:** All twelve units remain at teaching depth. Audit (`05-QUALITY-AUDIT.md`) found no critical scientific errors; high-priority gaps were missing B/C keys, unexecuted code, and over-strong verification language. Remediation added fixtures/smoke_check, EOF clarification, safer decode_st, and solution keys/rubrics. Still **not** app-integrated; live product pipelines not executed in-repo.
+## 2. Repository-wide implementation snapshot
 
-### Computational checks actually run (v4.1+)
+The latest successful CI audit available during this review reported:
 
-| Check | Command / method | Result |
-|-------|------------------|--------|
-| Eigen, Bayes, Euler, PKT max, EOF synthetic | `fixtures/smoke_check.py` | Passed |
-| Logistic GLM coefficients + pred A/B | `check_logistic_glm` in same script; independent inverse-logit recompute | Passed (locked coefficients in solution keys) |
-| Full `npm run check` / app Topic conversion | Not part of manuscript GLM milestone | Not claimed |
+- **14 domains**
+- **23 legacy topics** and **72 legacy questions**
+- **162 canonical lessons**, all 162 passing the current substantive-content heuristic
+- **380 canonical curriculum questions**
+- **38 traceability matrices**, containing **660 unique source-subtopic paths**
 
-### App integration (Units 5.1–5.12; canonical curriculum migration in progress)
+Traceability dispositions:
 
-| Item | Status |
-|------|--------|
-| Source-to-app coverage maps | `07-UNIT-5.1-APP-COVERAGE-MAP.md`; `08-UNIT-5.2-APP-COVERAGE-MAP.md`; `09-UNIT-5.3-APP-COVERAGE-MAP.md` |
-| Course orientation | **Moved out of the topic bank** into the Subject 5 curriculum overview; excluded from topic progress/counts |
-| Unit 5.1 lessons | **8 substantive lessons** under `CGEI-051`, mapped one-to-one to stable legacy Topic IDs |
-| Assessment questions | **146 canonical questions**: 35 migrated from Unit 5.1, 41 for Units 5.2–5.5, and 10 each for Units 5.6–5.12; explanations preserved, and legacy Unit 5.1 source citations retained |
-| Canonical curriculum schema | Added typed contracts for subjects, units, lessons, content blocks, outcomes/competencies, activities, resources, assessments, rubrics, deliverables, and projects/capstones |
-| Subject 5 UI | Course overview and unit readiness displayed separately; Unit 5.1 shows outcomes, activities, assessments and portfolio evidence |
-| Lesson rendering | Unit 5.1 uses the canonical block renderer through a compatibility bridge, with 16 additional worked-calculation/code/checklist blocks; Units 5.2–5.5 are authored directly as typed content blocks |
-| Unit 5.2 | Five lessons, five practice activities, five assessment records, eleven interactive knowledge checks, six official/research references, three portfolio deliverables; readiness remains **draft** |
-| Unit 5.3 | Five canonical lessons, five practice activities, five assessment records, ten interactive checks, seven references and three portfolio deliverables; readiness remains **draft** |
-| Unit 5.4 | Five lessons, five practice activities, five assessment records and ten interactive knowledge checks; readiness remains **draft** |
-| Unit 5.5 | Five lessons, five practice activities, five formative assessments, ten interactive checks, five verified supporting references and three portfolio deliverables; readiness remains **draft** |
-| Unit 5.6 | Five lessons, five practice activities, five formative assessments, ten lesson-linked knowledge checks, three official references and three portfolio deliverables; readiness remains **draft** pending executed examples and review |
-| Unit 5.7 | Five lessons, five practice activities, five formative assessments, ten lesson-linked knowledge checks, three supporting references and five portfolio artefacts; readiness remains **draft** pending UI and instructional review |
-| Unit 5.8 | Five canonical lessons, five activities, five formative assessments, ten linked knowledge checks, six references and four portfolio deliverables; remains draft pending scientific/UI review |
-| Unit 5.9 | Five canonical lessons covering GLMs, mixed models, Bayesian workflow, diagnostics and reporting; five activities, five formative assessments, ten linked knowledge checks, six references and four deliverables; remains draft pending executed examples and review |
-| Unit 5.9 app map | `14-UNIT-5.9-APP-COVERAGE-MAP.md` records manuscript mapping, app evidence, computational gaps and explicit release gates |
-| Unit 5.10 | Five canonical causal-inference lessons, five linked activities/assessments, ten knowledge checks and five portfolio artefacts; remains draft pending scientific review and executable design examples |
-| Unit 5.10 source | `units/05.10-causal-inference.md` records learning sequence, causal assumptions, design-specific diagnostics and worked environmental cases |
-| Unit 5.10 app map | `15-UNIT-5.10-APP-COVERAGE-MAP.md` records registry evidence, source-to-app gaps, scientific cautions and release gates |
-| Unit 5.11 | Five canonical lessons on version control, data contracts, scientific tests, clean environments and releases; five activities/assessments, ten linked checks and five deliverables; remains draft |
-| Unit 5.11 source | `units/05.11-research-software-engineering.md` defines the manuscript-first learning sequence and release boundaries |
-| Unit 5.11 app map | `16-UNIT-5.11-APP-COVERAGE-MAP.md` records source-to-app mapping, registry/test evidence and clean-environment release gates |
-| Unit 5.12 | Five canonical lessons on labeled arrays, alignment, lazy computation, pipelines and validation; five activities/assessments, ten linked checks and five deliverables; remains draft |
-| Unit 5.12 source | `units/05.12-xarray-scalable-environmental-pipelines.md` defines the multidimensional data and scalable pipeline learning sequence |
-| Unit 5.12 app map | `17-UNIT-5.12-APP-COVERAGE-MAP.md` records source-to-app coverage, computational gaps and release gates |
-| Units 5.10–5.12 | Registered as **planned** and linked to manuscript sources; not claimed as app-integrated lessons |
-| Data validation | `scripts/validate-curriculum.ts` checks registry/reference integrity, lesson-to-question links, assessment question IDs and block shape; Unit 5.6–5.11 validation rules added; the latest schema/content changes require a fresh CI run |
-| Scientific verification | `fixtures/smoke_check.py` includes synthetic scientific checks for Units 5.2–5.6, including Unit 5.5 SQLite aggregation, unmatched keys, and Unit 5.6 interaction/interval/VIF/grouped-validation checks, Unit 5.7 temporal checks, and the synthetic EOF known-mode recovery check. Unit 5.8 remains draft pending fresh CI and explicit lesson UI review; Unit 5.9 remains draft pending GLM/mixed/Bayesian example execution and review; Unit 5.10 remains draft pending causal-design examples and scientific/UI review; Unit 5.11 remains draft pending clean-environment execution and rendered UI review; Unit 5.12 remains draft pending eager/lazy comparison, metadata/alignment checks and scientific/UI review. No claim of causal identification from synthetic smoke checks or live-data validation |
+| Disposition | Rows | Meaning |
+|---|---:|---|
+| `mapped` | 6 | Current mapping claim with block-level evidence |
+| `mapped_partial` | 634 | A related mapping exists, but coverage is incomplete or not yet fully verified |
+| `deferred` | 20 | Explicitly deferred by priority |
+| **Total** | **660** | Unique source paths |
+
+The content heuristic is a screening gate, not a semantic judgement. A non-empty or substantive block may still omit a required subtopic, use an unverified method, or fail to teach a learner how to apply it. The traceability validator now checks that every referenced block in a `mapped` or `mapped_partial` row is substantive; it does not claim to automate human semantic review.
+
+## 3. Manuscript quality and verification limits
+
+The historical `05-QUALITY-AUDIT.md` (v4) identified useful remaining gaps. Treat its results as scoped historical evidence, not as a current blanket certification:
+
+1. Some Level B/C exercises still need complete worked solutions or explicit scoring rubrics.
+2. Synthetic fixtures verify selected arithmetic and workflow contracts; they do not prove all manuscript examples or live Multan/environmental data pipelines work.
+3. Bibliographic records require source-level verification before formal citation.
+4. App lesson records and manuscript coverage are different artefacts; each source subtopic must be checked against the actual instructional blocks and learner evidence.
+5. UI rendering, accessibility, and instructional usability require checks beyond data validation.
+
+## 4. Required evidence before readiness promotion
+
+- **Draft → review:** complete teaching sequence, meaningful worked examples, learner practice, linked assessment, and a defined review plan.
+- **Review → validated:** source-to-app mapping checked item by item; scientific calculations/code executed against stated fixtures; objectives, links, and assessment integrity checked; dated reviewer evidence recorded.
+- **Validated → released:** learner route verified, keyboard/mobile/accessibility/usability checks passed, limitations documented, and release CI evidence recorded.
+
+A registry record, manuscript file, question count, placeholder-filter pass, or green build alone is never sufficient evidence for release.
+
+## 5. Reproducible audit commands
+
+Run from the repository root:
+
+- `npm run audit:cgei` — domain/module and canonical-registry coverage snapshot.
+- `npm run validate:traceability:all` — all committed subtopic matrices and referenced lesson/block integrity.
+- `npm run validate:data` — curriculum, question-bank, source traceability and data invariants.
+- `npm test` — unit and data-integrity regression tests.
+- `npm run typecheck`, `npm run lint`, `npm run build`, and `npm run test:e2e` — code and learner-flow checks.
+- The CI `scientific-smoke` job — selected synthetic numerical/workflow fixtures.
+
+Re-run these commands against the current commit; snapshots in this file should be refreshed when the registry or traceability inventory changes.

@@ -45,6 +45,12 @@ Legacy Topic records may remain as a compatibility bridge, but must not make a r
 
 This table is the working inventory for implementation. A status is deliberately conservative where the manuscript-to-app relationship has not yet been checked at source-item granularity.
 
+### Current implementation snapshot (24 October 2026)
+
+The canonical registry contains 12 units and 64 lessons: Unit 5.1 is `review`; Units 5.2–5.12 are `draft`. The all-domain traceability inventory contains 660 unique source paths, of which only 6 are `mapped`, 634 are `mapped_partial`, and 20 are `deferred`. The existence of a canonical lesson does not make its source subtopics fully mapped. No Subject 5 unit is currently `validated` or `released`.
+
+The CI traceability gate now rejects mappings that reference empty or placeholder-only content blocks. This establishes minimum block-level substance, not full semantic coverage; each source row still needs a human comparison against the source TOC and actual teaching sequence.
+
 | Source item | Priority | App target / evidence | Disposition | Readiness interpretation |
 |---|---|---|---|---|
 | Subject 5 overview and purpose | Core context | `CurriculumSubject.overview`; must not be registered as a lesson | not-a-lesson | Orientation only |
@@ -61,13 +67,13 @@ This table is the working inventory for implementation. A status is deliberately
 | Unit 5.3 — Exploration and visualisation | Core | Existing draft lessons in canonical registry; inspect every manuscript subsection against lesson blocks before promoting | mapped-partial | Require EDA diagnostics, honest figures, map/time support, and non-claims |
 | Unit 5.4 — Introductory statistics | Core | Existing draft lessons in canonical registry; inspect every manuscript subsection against lesson blocks before promoting | mapped-partial | Require sampling, intervals/tests, effect sizes and regression diagnostics coverage |
 | Unit 5.5 — Data workflow and engineering basics | Core | Existing draft lessons in canonical registry; inspect every manuscript subsection against lesson blocks before promoting | mapped-partial | Require workflow, SQL/joins, APIs, provenance and reproducible evidence |
-| Unit 5.6 — Intermediate inference and modelling | Core | No evidence of full app integration in the reviewed coverage map | source-only | Keep manuscript-first until lesson-by-lesson mapping is done |
-| Unit 5.7 — Time-series analysis | Core for climate track | No evidence of full app integration in the reviewed coverage map | source-only | High priority for ERA5/climate path; must include temporal validation and dependence-aware interpretation |
-| Unit 5.8 — Multivariate analysis / EOF | Support / exit competency | No verified app mapping recorded | source-only | Requires explicit area-weighting, sign ambiguity, reconstruction and synthetic validation |
-| Unit 5.9 — GLM, mixed and Bayesian models | Support / exit competency | No verified app mapping recorded | source-only | Requires numeric examples and appropriate diagnostics, not only method descriptions |
-| Unit 5.10 — Causal inference | Support / exit competency | No verified app mapping recorded | source-only | Requires design reasoning, DAGs and disciplined claim language |
-| Unit 5.11 — Research software practice | Core | No verified lesson-by-lesson mapping recorded in this ledger | source-only | Prioritise reproducibility, tests, environment, provenance and clean rerun |
-| Unit 5.12 — Multidimensional and pipeline computing | Support | No verified app mapping recorded | source-only | Defer until Core foundations and project need are established |
+| Unit 5.6 — Intermediate inference and modelling | Core | Five canonical lessons exist in the app registry; 5.6 source rows are in the all-domain traceability matrices | mapped-partial | Keep draft; verify sampling, inference, model diagnostics, assumptions and worked practice against every source item |
+| Unit 5.7 — Time-series analysis | Core for climate track | Five canonical lessons and synthetic time-series fixtures exist; source rows are traceability-mapped | mapped-partial | Keep draft; verify chronological validation, dependence-aware uncertainty, anomaly/baseline choices and forecasting limits |
+| Unit 5.8 — Multivariate analysis / EOF | Support / exit competency | Five canonical lessons exist; source-item coverage is not yet certified | mapped-partial | Keep draft; verify area weighting, sign ambiguity, reconstruction, interpretation and synthetic validation |
+| Unit 5.9 — GLM, mixed and Bayesian models | Support / exit competency | Five canonical lessons exist; source-item coverage is not yet certified | mapped-partial | Keep draft; verify numeric examples, model assumptions, diagnostics and uncertainty interpretation |
+| Unit 5.10 — Causal inference | Support / exit competency | Five canonical lessons exist; source-item coverage is not yet certified | mapped-partial | Keep draft; verify design reasoning, DAGs, identification assumptions and disciplined claim language |
+| Unit 5.11 — Research software practice | Core | Five canonical lessons exist; the app coverage map cites `05.11-research-software-engineering.md`; a shorter legacy outline remains supplemental (see README) | mapped-partial | Keep draft; verify reproducibility, tests, environments, provenance, licensing and clean reruns |
+| Unit 5.12 — Multidimensional and pipeline computing | Support | Five canonical lessons exist; the app coverage map cites `05.12-xarray-scalable-environmental-pipelines.md`; a shorter legacy outline remains supplemental (see README) | mapped-partial | Keep draft; verify xarray semantics, alignment, chunking, idempotence, provenance and scale limits |
 | Unit 5.D — Depth checks, failure modes, anchor references, exit deliverable | Cross-cutting assessment metadata | Map checks to assessments/rubrics/resources/deliverables; do not turn the whole D section into one lesson | candidate-match | Every check needs a traceable assessment or deliverable; references need verification state |
 
 **Important:** the current labels above are the initial evidence-backed disposition for the implementation pass, not a claim that every row has been automatically validated by CI. Re-review each row against the actual source manuscript and registry before changing it to `mapped-and-taught` or `validated`.
