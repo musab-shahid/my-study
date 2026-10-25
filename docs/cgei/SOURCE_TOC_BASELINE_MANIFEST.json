@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "status": "baseline_identified_counts_reconciled_row_level_crosswalk_incomplete",
+  "source_artifact": {
+    "filename": "Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx",
+    "sha256": "3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb",
+    "source_kind": "user_supplied_upload",
+    "repository_copy": false,
+    "provenance_independently_authenticated": false,
+    "immutable_baseline_policy": "preserve exact original bytes; never edit in place; propose approved revisions as separately versioned artifacts"
+  },
+  "extraction": {
+    "extracted_on": "2026-10-25",
+    "method": "python-docx paragraph text and numbering-pattern extraction; source paragraph order preserved for counts",
+    "version_or_script_committed": false,
+    "counts": {
+      "subjects": 14,
+      "units": 130,
+      "numbered_topics": 567,
+      "numbered_subtopics": 2052,
+      "total_rows_across_these_four_levels": 2763
+    },
+    "subject_5": {
+      "units": 12,
+      "numbered_topics": 51,
+      "numbered_subtopics": 184,
+      "total_rows_across_these_three_levels": 247,
+      "crosswalk_file": "docs/cgei/subject-5-canonical-leaf-inventory.csv",
+      "crosswalk_leaf_row_count_matches_source_count": true,
+      "exact_title_parentage_order_verified": false
+    }
+  },
+  "implementation_context": {
+    "authoring_pull_request": 9,
+    "branch": "feat/cgei-full-curriculum-skeleton",
+    "latest_head_when_manifest_created": "0b7e777921fc20d983801caa088569c7b3526f2e",
+    "merged_to_main": false
+  },
+  "known_limits": [
+    "A hash identifies the supplied file bytes but does not prove external approval or provenance.",
+    "The original DOCX is not stored in this repository; the hash alone cannot recover it.",
+    "Counts do not prove row-by-row source-to-app mapping or instructional completeness.",
+    "Subject 5's leaf row count matches, but exact title, parent, order, and app-side rearrangement review is incomplete.",
+    "The extraction method/script is not yet committed as a reproducible source-generation tool."
+  ],
+  "control_documents": [
+    "docs/cgei/SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md",
+    "docs/cgei/CURRICULUM_CHANGE_REGISTER.csv"
+  ]
+}
