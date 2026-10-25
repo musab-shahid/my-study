@@ -13,4 +13,6 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 11.2.3.3,Dependency pinning virtualenvs lockfiles,11.2.3,Version control and releases,Core,cgei-se-lesson-11-2-2,cgei-se-112-2-3,mapped_partial,Named.
 11.2.3.4,CI workflows automated tests,11.2.3,Version control and releases,Core,cgei-se-lesson-11-2-2,cgei-se-112-2-3,mapped_partial,Named.
 11.2.3.5,Releasing and archiving versioned snapshots,11.2.3,Version control and releases,Core,cgei-se-lesson-11-2-2,cgei-se-112-2-3,mapped_partial,Named.
-11.2.4,Documentation and collaboration,11.2,Documentation and collaboration,Core,cgei-se-lesson-11-2-1,cgei-se-112-1-2,mapped_partial,README/stranger-rerun emphasis.
+11.2.4.1,"README, docstrings, and architecture notes that let a stranger rerun the work",11.2.4,Documentation and collaboration,Core,cgei-se-lesson-11-2-1,cgei-se-112-1-2;cgei-se-112-2-3,mapped_partial,README/docstrings/stranger-rerun and release README; architecture notes thin.
+11.2.4.2,Issue tracking and code review as quality control for solo and small-team projects,11.2.4,Documentation and collaboration,Core,cgei-se-lesson-11-2-2,cgei-se-112-2-3,mapped_partial,Code review / issue / PR / technical debt light in Git-CI prose; solo QC workflow not practised.
+11.2.4.3,Recording design decisions and known limitations,11.2.4,Documentation and collaboration,Core,cgei-se-lesson-11-2-1,cgei-se-112-1-2,mapped_partial,Known-limitations emphasis via readable interfaces; formal ADR log not taught.

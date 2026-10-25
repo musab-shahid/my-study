@@ -913,9 +913,9 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 11.2.3.3,"Dependency pinning, virtual environments, and lockfiles where appropriate.",11.2.3,Core,mapped_partial,cgei-se-lesson-11-2-2,subject-11-unit-11.2-subtopic-traceability.csv,Named.
 11.2.3.4,CI workflows for automated tests and basic quality checks.,11.2.3,Core,mapped_partial,cgei-se-lesson-11-2-2,subject-11-unit-11.2-subtopic-traceability.csv,Named.
 11.2.3.5,Releasing stable research code and archiving a versioned snapshot.,11.2.3,Core,mapped_partial,cgei-se-lesson-11-2-2,subject-11-unit-11.2-subtopic-traceability.csv,Named.
-11.2.4.1,"README, docstrings, and architecture notes that let a stranger rerun the work",11.2.4,Core,unmapped,,,No traceability row
-11.2.4.2,Issue tracking and code review as quality control for solo and small-team projects,11.2.4,Core,unmapped,,,No traceability row
-11.2.4.3,Recording design decisions and known limitations,11.2.4,Core,unmapped,,,No traceability row
+11.2.4.1,"README, docstrings, and architecture notes that let a stranger rerun the work",11.2.4,Core,mapped_partial,cgei-se-lesson-11-2-1,subject-11-unit-11.2-subtopic-traceability.csv,README/docstrings/stranger-rerun and release README; architecture notes thin.
+11.2.4.2,Issue tracking and code review as quality control for solo and small-team projects,11.2.4,Core,mapped_partial,cgei-se-lesson-11-2-2,subject-11-unit-11.2-subtopic-traceability.csv,Code review / issue / PR / technical debt light in Git-CI prose; solo QC workflow not practised.
+11.2.4.3,Recording design decisions and known limitations,11.2.4,Core,mapped_partial,cgei-se-lesson-11-2-1,subject-11-unit-11.2-subtopic-traceability.csv,Known-limitations emphasis via readable interfaces; formal ADR log not taught.
 12.1.1.1,"Tensors, layers, activations, loss functions, gradients, backpropagation, and optimizers.",12.1.1,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Conceptual.
 12.1.1.2,"Training/validation/test separation, mini-batches, learning rate, epochs, and early stopping.",12.1.1,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Split discipline in fixture.
 12.1.1.3,"Regularization, dropout, weight decay, normalization, and overfitting diagnostics.",12.1.1,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Named.
@@ -925,9 +925,9 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 12.1.2.3,Sequence models and attention/transformer concepts for time-dependent data.,12.1.2,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Named.
 12.1.2.4,Transfer learning and pretrained models; prerequisites and failure modes.,12.1.2,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Named.
 12.1.2.5,When tree-based models or statistical baselines remain preferable.,12.1.2,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Baseline fixture.
-12.1.3.1,"Estimating parameters, memory, and training time before starting",12.1.3,Core,unmapped,,,No traceability row
+12.1.3.1,"Estimating parameters, memory, and training time before starting",12.1.3,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,"Key-point: estimate parameters, memory, time before large runs; no estimation worksheet."
 12.1.3.2,"Data loaders, batching, and I/O bottlenecks for raster data",12.1.3,Core,unmapped,,,No traceability row
-12.1.3.3,Energy and cost reporting for training runs,12.1.3,Core,unmapped,,,No traceability row
+12.1.3.3,Energy and cost reporting for training runs,12.1.3,Core,mapped_partial,cgei-ai-lesson-12-1-1,subject-12-unit-12.1-subtopic-traceability.csv,Report energy/cost when relevant; no measurement protocol.
 12.2.1.1,"Image classification, object detection, semantic segmentation, and change detection.",12.2.1,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Named.
 12.2.1.2,"Annotation protocols, label uncertainty, class imbalance, and inter-annotator agreement.",12.2.1,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Named.
 12.2.1.3,Spatially independent data splits to avoid leakage between adjacent image tiles.,12.2.1,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Fixture adjacency leakage.
@@ -937,20 +937,20 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 12.2.2.3,"Class-wise precision/recall, IoU, Dice, object metrics, and confusion matrices as appropriate.",12.2.2,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Named.
 12.2.2.4,"Edge effects, tiling, overlaps, mosaicking, and inference across large rasters.",12.2.2,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Named.
 12.2.2.5,"Accuracy by geography, season, sensor, and land-cover class.",12.2.2,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Named.
-12.2.3.1,"Tiled inference at scale: overlap, blending, and edge effects",12.2.3,Core,unmapped,,,No traceability row
+12.2.3.1,"Tiled inference at scale: overlap, blending, and edge effects",12.2.3,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Callout: tiled inference needs overlap/blending plans; procedure not practised.
 12.2.3.2,Post-processing predictions into vector layers with topology checks,12.2.3,Core,unmapped,,,No traceability row
-12.2.3.3,"Monitoring drift across seasons, sensors, and regions",12.2.3,Core,unmapped,,,No traceability row
+12.2.3.3,"Monitoring drift across seasons, sensors, and regions",12.2.3,Core,mapped_partial,cgei-ai-lesson-12-2-1,subject-12-unit-12.2-subtopic-traceability.csv,Domain shift across sensors/seasons named; monitoring protocol not taught.
 12.3.1.1,"Forecast horizons, rolling-origin evaluation, persistence, climatology, and seasonal baselines.",12.3.1,Core,mapped_partial,cgei-ai-lesson-12-3-1,subject-12-unit-12.3-subtopic-traceability.csv,Fixture compares baselines.
 12.3.1.2,"Lagged predictors, rolling windows, temporal covariates, and data leakage across time.",12.3.1,Core,mapped_partial,cgei-ai-lesson-12-3-2,subject-12-unit-12.3-subtopic-traceability.csv,Leakage pathways taught.
 12.3.1.3,"Sequence models, temporal CNNs, recurrent models, and transformer concepts.",12.3.1,Core,mapped_partial,cgei-ai-lesson-12-3-2,subject-12-unit-12.3-subtopic-traceability.csv,Conceptual only.
 12.3.1.4,"Probabilistic forecasts, calibration, event-based evaluation, and prediction uncertainty.",12.3.1,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Gaussian CRPS + 80% coverage fixture; synthetic only.
 12.3.2.1,"Pretrained geospatial encoders, embeddings, and their intended use cases.",12.3.2,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Conceptual; no weights.
-12.3.2.2,"Transfer to new regions, sensors, seasons, and environmental regimes.",12.3.2,Core,unmapped,,,No traceability row
-12.3.2.3,"Assess pretraining data, licensing, spatial/temporal coverage, and possible hidden leakage.",12.3.2,Core,unmapped,,,No traceability row
+12.3.2.2,"Transfer to new regions, sensors, seasons, and environmental regimes.",12.3.2,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Transfer across sensors/regions stated; no transfer experiment.
+12.3.2.3,"Assess pretraining data, licensing, spatial/temporal coverage, and possible hidden leakage.",12.3.2,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,"Pretraining coverage, licensing, hidden leakage assessment required; checklist not graded."
 12.3.2.4,"Benchmark foundation-model representations against simple spectral, statistical, and tree-based baselines.",12.3.2,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Baseline discipline.
 12.3.3.1,"Ensembles, calibration, and probabilistic scores for spatiotemporal forecasts",12.3.3,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Introduced.
 12.3.3.2,Physical constraints and conservation checks on predicted fields,12.3.3,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Sanity checks named.
-12.3.3.3,Comparison against physical models and post-processed baselines,12.3.3,Core,unmapped,,,No traceability row
+12.3.3.3,Comparison against physical models and post-processed baselines,12.3.3,Core,mapped_partial,cgei-ai-lesson-12-3-3,subject-12-unit-12.3-subtopic-traceability.csv,Benchmark vs climatology/persistence/tabular; explicit physical-model comparison light.
 13.1.1.1,"Choose one coherent problem: environmental data analysis, GIS, remote sensing, climate analytics, or GeoAI.",13.1.1,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Taught.
 13.1.1.2,"Define the user or scientific audience, research question, study area, dates, target variables, and output.",13.1.1,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Taught.
 13.1.1.3,"Check data availability, quality, permissions, compute requirements, and feasibility before committing.",13.1.1,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Checklist.
@@ -959,9 +959,9 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 13.1.2.2,"Create a risk log covering unavailable data, failed methods, resource limits, and timeline slippage.",13.1.2,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Named.
 13.1.2.3,Define acceptance criteria and a minimum viable result before adding advanced features.,13.1.2,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Taught.
 13.1.2.4,"Record decisions, changes, and reasons for dropping an approach.",13.1.2,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Named.
-13.1.3.1,"Data access, licence, and compute checks before the first line of code",13.1.3,Core,unmapped,,,No traceability row
-13.1.3.2,Methodological risks and fallback plans,13.1.3,Core,unmapped,,,No traceability row
-13.1.3.3,Ethics and privacy screening,13.1.3,Core,unmapped,,,No traceability row
+13.1.3.1,"Data access, licence, and compute checks before the first line of code",13.1.3,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Data/licence/compute feasibility in scope gate; live access not executed.
+13.1.3.2,Methodological risks and fallback plans,13.1.3,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,"Risk log (missing data, failed methods, resources); fallback plans not templated."
+13.1.3.3,Ethics and privacy screening,13.1.3,Core,mapped_partial,cgei-cap-lesson-13-1-1,subject-13-unit-13.1-subtopic-traceability.csv,Ethics/privacy screen checklist item; formal IRB workflow not taught.
 13.2.1.1,"Write a project brief, hypothesis or analytical question, and method-selection rationale.",13.2.1,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Taught.
 13.2.1.2,"Audit data, build a clean data inventory, and preserve provenance.",13.2.1,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Fixture provenance.
 13.2.1.3,Create a simple baseline before applying complex methods.,13.2.1,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Baseline means in fixture.
@@ -971,8 +971,8 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 13.2.2.2,Prepare a reproducible repository and clean environment instructions.,13.2.2,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Lab instructions.
 13.2.2.3,Write a technical report and a plain-language summary.,13.2.2,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Named.
 13.2.2.4,Present the project in a short talk and answer questions about assumptions and limitations.,13.2.2,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Named.
-13.2.3.1,"Review checkpoints: data audit, baseline, validation, write-up",13.2.3,Core,unmapped,,,No traceability row
-13.2.3.2,Reproduction from a clean environment before sharing,13.2.3,Core,unmapped,,,No traceability row
+13.2.3.1,"Review checkpoints: data audit, baseline, validation, write-up",13.2.3,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Workflow: data audit → baseline → validation → decision card in fixture sequence.
+13.2.3.2,Reproduction from a clean environment before sharing,13.2.3,Core,mapped_partial,cgei-cap-lesson-13-2-1,subject-13-unit-13.2-subtopic-traceability.csv,Reproduce from clean environment before sharing; protocol run table.
 13.2.3.3,External feedback and revision tracking,13.2.3,Core,unmapped,,,No traceability row
 13.3.1.1,"Maintain one flagship analysis, one geospatial/remote-sensing project, and one ML/GeoAI project.",13.3.1,Core,mapped_partial,cgei-cap-lesson-13-3-1,subject-13-unit-13.3-subtopic-traceability.csv,Single flagship heat-screening package; multi-project portfolio deferred.
 13.3.1.2,"Write a README with problem, data, method, results, limitations, and reproduction steps.",13.3.1,Core,mapped_partial,cgei-cap-lesson-13-3-1,subject-13-unit-13.3-subtopic-traceability.csv,Evidence card + lab README skeleton.
