@@ -179,6 +179,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_d_research_design_check.py
       - name: Verify Unit 12.3 spatiotemporal eval
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_3_spatiotemporal_eval_check.py
+      - name: Verify Unit 12.3 probabilistic forecast checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_3_prob_forecast_check.py
       - name: Curriculum activity/assessment integrity
         run: python content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py
       - name: Verify unit_3_5_climate_spatial_integration_check.py

@@ -193,3 +193,6 @@ Synthetic heat intensity–likelihood screening; not exposure/vulnerability; not
 
 ## unit_8_2_measurement_sampling_check.py / unit_8_3_validity_ethics_check.py
 Measurement design card and validity/ethics rules (not IRB).
+
+## unit_12_3_prob_forecast_check.py
+Gaussian CRPS and 80% coverage for climatology predictive distributions (synthetic).
