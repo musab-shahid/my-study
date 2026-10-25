@@ -123,3 +123,8 @@ The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated 
 **Scope:** all 18 Unit 5.4 Core leaves (1 `mapped`, 17 `mapped_partial`, 0 `gap`). I checked the 35 distinct referenced content-block IDs against the live registry definitions; all exist, and no clearly unrelated block link was found in this slice. No traceability row was changed. Partial dispositions remain appropriate where simulation, comparative fit exercises, design-weight calculations, dependence-aware inference, or fully executed diagnostics are still absent.
 
 **Independent arithmetic spot-check:** the lesson's three-group ANOVA example reproduces (SS_B=38), (SS_W=6), and (F=(38/2)/(6/6)=19). The 2×2 contingency example reproduces expected counts 15.2, 24.8, 22.8 and 37.2, with Pearson χ² ≈ 38.738 (reported as ≈ 38.74). This is an arithmetic recheck of synthetic examples, not execution of the application fixture or proof of broader lesson readiness.
+
+
+## 11. Unit 5.5 Core traceability spot-check — 2026-10-25
+
+A targeted review of Unit 5.5 Core evidence links found one clear mismatch: leaf **5.5.2.1** (data management plans, FAIR principles and metadata) pointed to `cgei-ds-55-4-core`, whose actual title/body concern dataset access and licence/redistribution rights. The CSV now points to `cgei-ds-55-4-fair`, which directly explains FAIR metadata. The leaf remains `mapped_partial`: a completed data-management plan and detailed DataCite/ISO 19115 metadata exercise are still not supplied. No Unit 5.5 Core leaf was promoted as part of this correction.
