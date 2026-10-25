@@ -74,3 +74,11 @@ COG/geotransform/window raster teaching; map-type table; classification breaks f
 ## C.12 — Unit 3.9
 
 Core Unit 3.9 Spatial statistics registered (3 lessons, IDW+LOO fixture). Support 3.7/3.8/3.10 not started. Optional 3.11 not started.
+
+
+## C.13 — Source-leaf reconciliation pilot (2026-10-25)
+
+- Added explicit Core dispositions for baseline leaves **3.1.1.5** (TIN, point clouds, voxels, space–time cubes, network data models) and **3.1.1.6** (raster pyramids/tiling and pixel-is-area/point conventions).
+- Both are **deferred**, not mapped: the current Unit 3.1 evidence does not teach these outcomes. The traceability rows retain that limitation and identify the absence of lesson/content-block evidence.
+- Updated the repository-backed coverage report to point to subject-3-unit-3.1-subtopic-traceability.csv; no app lesson IDs were fabricated.
+- This is a narrow reconciliation pilot, not proof that the remaining unmapped leaves are absent from the app. Next, inspect each source unit's existing traceability rows and actual lesson blocks before choosing mapped_partial versus deferred.
