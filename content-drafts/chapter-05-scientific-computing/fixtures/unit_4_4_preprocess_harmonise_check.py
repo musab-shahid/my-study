@@ -17,6 +17,7 @@ def dn_to_radiance(dn: float, gain: float, bias: float) -> float:
 
 
 def omission_commission(tp: int, fp: int, fn: int) -> tuple[float, float]:
+    """Pedagogical rates. Empty denominator -> 0.0 by convention (not 'perfect')."""
     omit = fn / (tp + fn) if (tp + fn) else 0.0
     comm = fp / (tp + fp) if (tp + fp) else 0.0
     return omit, comm

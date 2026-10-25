@@ -6,6 +6,9 @@
 - Refuse to treat a single sample rate as product-wide accuracy.
 
 ## Definitions
+
+**Empty-denominator convention (this package):** if `(TP+FN)=0` or `(TP+FP)=0`, the corresponding rate is defined as **0.0** in the teaching fixture. That is a *software convention for the empty set*, not a measured error rate of zero and not evidence of perfect classification. Report “not estimable” in prose when the denominator class is empty.
+
 - **Omission** (missed cloud) = FN / (TP + FN)
 - **Commission** (false cloud) = FP / (TP + FP)
 - Reference labels are a **protocol**, not ground truth without documentation.

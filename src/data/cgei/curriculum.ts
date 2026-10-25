@@ -2573,6 +2573,7 @@ const lessons44: CurriculumLesson[] = [
       { id: 'cgei-rs-44-3-eq', kind: 'equation', title: 'Omission and commission (reference sample)', expression: 'O = FN / (TP + FN),\\quad C = FP / (TP + FP)', caption: 'TP/FP/FN from mask vs reference labels on sampled pixels or chips. State the reference protocol.' },
       { id: 'cgei-rs-44-3-work', kind: 'worked-example', title: 'Mask rates from a 100-pixel sample', body: 'Reference cloud=40, clear=60. Mask predicts cloud=45 with TP=35, FP=10, FN=5. Omission=5/40=0.125; commission=10/45≈0.222. The mask over-flags clear pixels more than it misses cloud in this sample—document whether that trade-off is acceptable for the analysis.' },
       { id: 'cgei-rs-44-3-indep', kind: 'callout', title: 'Independent sample B', tone: 'info', items: ['TP=20, FP=2, FN=15 → higher omission, lower commission', 'Compare to Sample A before choosing a mask for greenness vs water', 'Rates are sample-specific; do not generalise without a protocol'] },
+      { id: 'cgei-rs-44-3-empty', kind: 'callout', title: 'Empty denominators', tone: 'warning', items: ['If TP+FN=0, omission is not estimable from data; the fixture returns 0.0 by convention only', 'If TP+FP=0, commission is not estimable; fixture returns 0.0 by convention only', 'Never report convention zeros as measured perfect accuracy'] },
     ],
     activityIds: ['cgei-rs-a-44-masks'], assessmentIds: ['cgei-rs-assess-44-masks'], resourceIds: [], deliverableIds: [],
   },
