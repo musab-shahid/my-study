@@ -128,3 +128,13 @@ The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated 
 ## 11. Unit 5.5 Core traceability spot-check — 2026-10-25
 
 A targeted review of Unit 5.5 Core evidence links found one clear mismatch: leaf **5.5.2.1** (data management plans, FAIR principles and metadata) pointed to `cgei-ds-55-4-core`, whose actual title/body concern dataset access and licence/redistribution rights. The CSV now points to `cgei-ds-55-4-fair`, which directly explains FAIR metadata. The leaf remains `mapped_partial`: a completed data-management plan and detailed DataCite/ISO 19115 metadata exercise are still not supplied. No Unit 5.5 Core leaf was promoted as part of this correction.
+
+
+## 12. Unit 5.6 inference evidence-link spot-check — 2026-10-25
+
+A targeted review of Unit 5.6 Core mappings produced two clarifications in addition to the earlier CI-versus-prediction-interval correction:
+
+- **5.6.1.2 Interactions and nonlinear terms:** the CSV linked only to the worked interpretation example. It now links to both `cgei-ds-56-1-equation` and `cgei-ds-56-1-example`, which respectively show the interaction equation and explain the conditional slope. The row remains `mapped_partial` because broader nonlinear basis expansions remain light.
+- **5.6.4.4 Effective degrees of freedom under autocorrelation:** the current block only gives a rough AR(1)-like effective-sample-size heuristic. The evidence note now explicitly says that effective degrees of freedom and significance adjustment are not taught. The row remains `mapped_partial`; the heuristic is not treated as a substitute for the requested method.
+
+Unit 5.6 still has 3 Core rows marked `mapped` and 13 `mapped_partial`; these changes repair evidence alignment and scope language, not lesson readiness.
