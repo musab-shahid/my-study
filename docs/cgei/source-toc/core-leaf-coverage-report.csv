@@ -797,19 +797,19 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 8.1.6.1,Systematic and scoping reviews (PRISMA-style reporting); screening records; bibliometric mapping,8.1.6,Core,deferred,,subject-8-unit-8.1-subtopic-traceability.csv,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
 8.1.6.2,"Evidence synthesis: effect sizes, heterogeneity, and why meta-analysis needs comparable designs",8.1.6,Core,deferred,,subject-8-unit-8.1-subtopic-traceability.csv,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
 8.1.6.3,Reference managers (e.g. Zotero),8.1.6,Core,deferred,,subject-8-unit-8.1-subtopic-traceability.csv,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
-8.2.1.1,Construct validity: does the measure match the concept,8.2.1,Core,unmapped,,,No traceability row
-8.2.1.2,"Precision, accuracy, bias",8.2.1,Core,unmapped,,,No traceability row
-8.2.1.3,Instrument calibration ideas,8.2.1,Core,unmapped,,,No traceability row
-8.2.2.1,Measurement uncertainty and budgets (GUM-style thinking); limits of detection and quantification; reference materials,8.2.2,Core,unmapped,,,No traceability row
-8.2.2.2,Scale development and reliability (e.g. Cronbach’s alpha) for survey instruments,8.2.2,Core,unmapped,,,No traceability row
-8.2.2.3,"Reference materials, blanks, and detection limits as measurement controls",8.2.2,Core,unmapped,,,No traceability row
-8.2.3.1,Target population and sampling frame,8.2.3,Core,unmapped,,,No traceability row
-8.2.3.2,Probability versus convenience samples,8.2.3,Core,unmapped,,,No traceability row
-8.2.3.3,Stratification; sample size intuition,8.2.3,Core,unmapped,,,No traceability row
-8.2.3.4,Sample-size determination; design effect; stratified and cluster sampling; spatially balanced sampling,8.2.3,Core,unmapped,,,No traceability row
-8.2.4.1,What one GPS point means inside a 30 m or 100 m pixel,8.2.4,Core,unmapped,,,No traceability row
-8.2.4.2,Coordinate error versus pixel size when pairing field points with imagery,8.2.4,Core,unmapped,,,No traceability row
-8.2.4.3,Representativeness of a sampling location within a heterogeneous footprint,8.2.4,Core,unmapped,,,No traceability row
+8.2.1.1,Construct validity: does the measure match the concept,8.2.1,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,"Construct vs operational definition in prose, heat example, and design card."
+8.2.1.2,"Precision, accuracy, bias",8.2.1,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Definitions stated; quantitative error examples not developed.
+8.2.1.3,Instrument calibration ideas,8.2.1,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Calibration listed as measurement control; calibration procedures not taught.
+8.2.2.1,Measurement uncertainty and budgets (GUM-style thinking); limits of detection and quantification; reference materials,8.2.2,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Detection limits and controls named; formal GUM uncertainty budget not taught.
+8.2.2.2,Scale development and reliability (e.g. Cronbach’s alpha) for survey instruments,8.2.2,Core,deferred,,subject-8-unit-8.2-subtopic-traceability.csv,Only a callout that survey scales need reliability checks; psychometrics not taught.
+8.2.2.3,"Reference materials, blanks, and detection limits as measurement controls",8.2.2,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Named as controls; lab rejects missing detection limits; protocols not operationalised.
+8.2.3.1,Target population and sampling frame,8.2.3,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,"Population vs frame in example, prose, and design card."
+8.2.3.2,Probability versus convenience samples,8.2.3,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Non-probability availability sample cannot support unbiased population inference.
+8.2.3.3,Stratification; sample size intuition,8.2.3,Core,deferred,,subject-8-unit-8.2-subtopic-traceability.csv,Stratification and sample-size intuition not taught.
+8.2.3.4,Sample-size determination; design effect; stratified and cluster sampling; spatially balanced sampling,8.2.3,Core,deferred,,subject-8-unit-8.2-subtopic-traceability.csv,Not taught.
+8.2.4.1,What one GPS point means inside a 30 m or 100 m pixel,8.2.4,Core,deferred,,subject-8-unit-8.2-subtopic-traceability.csv,Pixel-scale GPS support not taught (spatial dependence is).
+8.2.4.2,Coordinate error versus pixel size when pairing field points with imagery,8.2.4,Core,deferred,,subject-8-unit-8.2-subtopic-traceability.csv,Not taught.
+8.2.4.3,Representativeness of a sampling location within a heterogeneous footprint,8.2.4,Core,mapped_partial,cgei-rp-lesson-8-2-1,subject-8-unit-8.2-subtopic-traceability.csv,Spatial dependence and generalisation beyond frame; formal footprint representativeness protocol not taught.
 8.3.1.1,Internal validity and confounding,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Confounding example + internal validity definition.
 8.3.1.2,External validity and generalisation,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Industrial-belt vs coastal transfer example + external validity prose.
 8.3.1.3,Selection bias and missing data mechanisms,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Selection validity and document missingness; MAR/MNAR taxonomy not taught.
