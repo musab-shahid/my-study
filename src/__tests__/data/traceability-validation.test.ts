@@ -1,10 +1,10 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { validateTraceabilityRow } from '../../data/cgei/traceability-validation.ts';
+import { validateTraceabilityRow, type TraceabilityLesson } from '../../data/cgei/traceability-validation.ts';
 
-const lessons = new Map([
-  ['lesson-a', { id: 'lesson-a', content: [{ id: 'block-a' }] }],
-  ['lesson-b', { id: 'lesson-b', content: [{ id: 'block-b' }] }],
+const lessons = new Map<string, TraceabilityLesson>([
+  ['lesson-a', { id: 'lesson-a', content: [{ id: 'block-a', kind: 'prose', body: 'A substantive explanation of the source concept.' }] }],
+  ['lesson-b', { id: 'lesson-b', content: [{ id: 'block-b', kind: 'worked-example', body: 'A worked numerical example with interpretation.' }] }],
 ]);
 
 const row = (overrides: Partial<{
@@ -51,6 +51,33 @@ describe('source traceability row validation', () => {
   it('rejects mapped_partial rows with no content-block evidence', () => {
     const issues = validateTraceabilityRow(row({ app_content_block_ids: '' }), lessons);
     assert.ok(issues.some((issue) => issue.code === 'MAPPED_WITHOUT_BLOCKS'));
+  });
+
+  it('rejects mapped rows whose referenced block is only a drafting placeholder', () => {
+    const placeholderLessons = new Map<string, TraceabilityLesson>([
+      ['lesson-a', { id: 'lesson-a', content: [{ id: 'block-a', kind: 'prose', body: 'TODO: write the real explanation.' }] }],
+    ]);
+    const issues = validateTraceabilityRow(row({ disposition: 'mapped' }), placeholderLessons);
+    assert.ok(issues.some((issue) => issue.code === 'NON_SUBSTANTIVE_BLOCK'));
+  });
+
+  it('checks every referenced block rather than allowing one substantive block to mask a placeholder', () => {
+    const mixedLessons = new Map<string, TraceabilityLesson>([
+      ['lesson-a', {
+        id: 'lesson-a',
+        content: [
+          { id: 'block-a', kind: 'prose', body: 'A substantive explanation.' },
+          { id: 'block-placeholder', kind: 'figure', body: 'Figure or visual resource to be added.' },
+        ],
+      }],
+    ]);
+    const issues = validateTraceabilityRow(row({ app_content_block_ids: 'block-a;block-placeholder' }), mixedLessons);
+    assert.ok(issues.some((issue) => issue.code === 'NON_SUBSTANTIVE_BLOCK'));
+  });
+
+  it('accepts mapped coverage when every referenced block is substantive', () => {
+    const issues = validateTraceabilityRow(row({ disposition: 'mapped' }), lessons);
+    assert.deepEqual(issues, []);
   });
 
   it('allows an explicitly unassigned candidate row in a source inventory', () => {

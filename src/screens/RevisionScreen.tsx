@@ -87,7 +87,7 @@ export function RevisionScreen() {
         </Card>
       ) : (
         <>
-          <Card className="p-4 sm:p-5 mb-5 border-brand-100 bg-brand-50/50">
+          <Card className="p-card-pad sm:p-card-pad-lg mb-5 border-brand-100 bg-brand-50/50">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">Ready for review</p>
@@ -147,9 +147,9 @@ function RevisionGroup({
             <ListRow key={item.topicId} onClick={() => onOpen(item.topicId)} className="border-b border-slate-100 last:border-0">
               <span className={`w-1 self-stretch rounded-full ${subjectColor?.bar ?? 'bg-slate-300'}`} aria-hidden />
               <span className="min-w-0 flex-1">
-                <span className="block font-medium text-sm text-slate-900 truncate">{topic.title}</span>
+                <span className="block min-w-0 font-medium text-sm text-slate-900 break-words whitespace-normal">{topic.title}</span>
                 <span className="flex flex-wrap items-center gap-2 mt-1 text-xs text-slate-500">
-                  <span>Due {new Date(item.dateStr).toLocaleDateString()}</span>
+                  <span>Due {parseLocalDate(item.dateStr).toLocaleDateString()}</span>
                   {item.accuracy === null ? <Badge color="slate">Not attempted</Badge> : <span>{item.accuracy}% recent accuracy</span>}
                 </span>
               </span>

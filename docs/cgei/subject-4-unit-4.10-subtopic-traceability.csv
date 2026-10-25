@@ -1,19 +1,19 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-4.10.1.1,SAR flood mapping thresholds change limits,4.10.1,Unit 4.10 Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-sar,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.1.2,Optical MNDWI cloud Dynamic Surface Water,4.10.1,Unit 4.10 Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-opt,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.1.3,Flood validation depth DEM operational services,4.10.1,Unit 4.10 Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-ops,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.2.1,VCI TCI VHI NDDI irrigated limits,4.10.2,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-drought,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.2.2,ET energy and water balance scales,4.10.2,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-et,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.2.3,Soil moisture root-zone caveats,4.10.2,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-et,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.3.1,Crop calendar type area yield proxies,4.10.3,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.3.2,Irrigated area canal water productivity,4.10.3,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.3.3,Crop condition baseline VI not yield,4.10.3,Unit 4.10 Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag;cgei-rs-410-2-callout,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.4.1,AOD to PM2.5 meteorology ML spatial CV,4.10.4,Unit 4.10 Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-aod,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.4.2,TROPOMI columns vs surface exposure,4.10.4,Unit 4.10 Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-tropomi,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.4.3,PM2.5 evaluation spatial blocking,4.10.4,Unit 4.10 Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-val,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.5.1,Chlorophyll turbidity sediment limits,4.10.5,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-wq,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.5.2,NDSI snow debris glaciers Upper Indus,4.10.5,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-snow,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.5.3,Validation in-situ snow glacier records,4.10.5,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-wq;cgei-rs-410-4-snow,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.6.1,InSAR subsidence coherence atmosphere,4.10.6,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-insar,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.6.2,GRACE groundwater storage scale limits,4.10.6,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-grace,mapped_partial,Support application literacy; synthetic method-selection fixture.
-4.10.6.3,Deformation to levels land-use before cause,4.10.6,Unit 4.10 Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-insar;cgei-rs-410-4-points,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.1.1,SAR flood mapping thresholds change limits,4.10.1,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-sar,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.1.2,Optical MNDWI cloud Dynamic Surface Water,4.10.1,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-opt,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.1.3,Flood validation depth DEM operational services,4.10.1,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-1,cgei-rs-410-1-ops,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.2.1,VCI TCI VHI NDDI irrigated limits,4.10.2,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-drought,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.2.2,ET energy and water balance scales,4.10.2,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-et,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.2.3,Soil moisture root-zone caveats,4.10.2,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-et,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.3.1,Crop calendar type area yield proxies,4.10.3,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.3.2,Irrigated area canal water productivity,4.10.3,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.3.3,Crop condition baseline VI not yield,4.10.3,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-2,cgei-rs-410-2-ag;cgei-rs-410-2-callout,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.4.1,AOD to PM2.5 meteorology ML spatial CV,4.10.4,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-aod,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.4.2,TROPOMI columns vs surface exposure,4.10.4,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-tropomi,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.4.3,PM2.5 evaluation spatial blocking,4.10.4,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-3,cgei-rs-410-3-val,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.5.1,Chlorophyll turbidity sediment limits,4.10.5,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-wq,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.5.2,NDSI snow debris glaciers Upper Indus,4.10.5,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-snow,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.5.3,Validation in-situ snow glacier records,4.10.5,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-wq;cgei-rs-410-4-snow,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.6.1,InSAR subsidence coherence atmosphere,4.10.6,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-insar,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.6.2,GRACE groundwater storage scale limits,4.10.6,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-grace,mapped_partial,Support application literacy; synthetic method-selection fixture.
+4.10.6.3,Deformation to levels land-use before cause,4.10.6,Unit 4.10 Support,Support,cgei-rs-lesson-4-10-4,cgei-rs-410-4-insar;cgei-rs-410-4-points,mapped_partial,Support application literacy; synthetic method-selection fixture.

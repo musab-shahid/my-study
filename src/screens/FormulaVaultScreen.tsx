@@ -136,16 +136,19 @@ export function FormulaVaultScreen() {
                     const key = `${f.topicId}:${f.name}`;
                     const isOpen = expanded === key;
                     return (
-                    <Card key={key} className="p-4 border border-slate-200">
+                    <Card key={key} className="p-card-pad border border-slate-200">
                       <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-controls={`formula-details-${key}`}
                         onClick={() => setExpanded(isOpen ? null : key)}
-                        className="w-full text-left"
+                        className="w-full text-left rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2 mb-1">
                               <p className="font-semibold text-slate-900 text-sm">{f.name}</p>
-                              <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600">
+                              <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-label font-semibold uppercase tracking-wide text-slate-600">
                                 {cat}
                               </span>
                             </div>
@@ -160,26 +163,23 @@ export function FormulaVaultScreen() {
                         </div>
                       </button>
                       {isOpen && (
-                        <div className="mt-4 pt-4 border-t border-slate-100">
+                        <div id={`formula-details-${key}`} className="mt-4 pt-4 border-t border-slate-100">
                           {(f.variables?.length ?? 0) > 0 && (
                             <div className="space-y-2 mb-4">
-                              <p className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
+                              <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
                               {f.variables.map((v, i) => (
-                                <div key={i} className="flex items-baseline gap-3 text-sm">
+                                <div key={i} className="flex items-start gap-3 text-sm">
                                   <span className="text-slate-900 font-semibold shrink-0 min-w-[3rem]">
                                     <MathText text={`$${v.symbol}$`} />
                                   </span>
-                                  <span className="text-slate-600">= {v.meaning}</span>
+                                  <span className="min-w-0 flex-1 break-words text-slate-600">= {v.meaning}</span>
                                 </div>
                               ))}
                             </div>
                           )}
-                          <button
-                            onClick={() => navigate({ screen: 'topic', topicId: f.topicId })}
-                            className="text-sm font-semibold text-slate-800 hover:text-slate-950 underline-offset-2 hover:underline"
-                          >
+                          <Button variant="ghost" onClick={() => navigate({ screen: 'topic', topicId: f.topicId })} className="min-h-11">
                             Open full topic — {f.topicTitle} →
-                          </button>
+                          </Button>
                         </div>
                       )}
                     </Card>

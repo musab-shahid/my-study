@@ -20,6 +20,137 @@ test.describe('App shell & navigation', () => {
   });
 });
 
+test.describe('Mobile More sheet accessibility', () => {
+  test('contains keyboard focus, closes on Escape, and restores trigger focus', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await expect(dialog).toBeVisible();
+
+    const close = dialog.getByRole('button', { name: 'Close' });
+    await expect(close).toBeFocused();
+    await page.keyboard.press('Shift+Tab');
+    await expect(dialog.getByRole('button', { name: 'HAT Prep', exact: true })).toBeFocused();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+
+    await page.keyboard.press('Escape');
+    await expect(dialog).toBeHidden();
+    await expect(trigger).toBeFocused();
+  });
+});
+
+test.describe('Mobile More sheet accessibility', () => {
+  test('ignores visibility-hidden and disabled-fieldset controls when wrapping focus', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    const close = dialog.getByRole('button', { name: 'Close' });
+    const lastVisible = dialog.getByRole('button', { name: 'HAT Prep', exact: true });
+
+    await dialog.evaluate((node) => {
+      const hidden = document.createElement('button');
+      hidden.type = 'button';
+      hidden.textContent = 'Hidden trap regression control';
+      hidden.style.visibility = 'hidden';
+      node.append(hidden);
+
+      const fieldset = document.createElement('fieldset');
+      fieldset.disabled = true;
+      const disabled = document.createElement('button');
+      disabled.type = 'button';
+      disabled.textContent = 'Disabled trap regression control';
+      fieldset.append(disabled);
+      node.append(fieldset);
+    });
+
+    await lastVisible.focus();
+    await page.keyboard.press('Tab');
+    await expect(close).toBeFocused();
+  });
+});
+
+test.describe('Mobile More menu consistency', () => {
+  test('contains secondary destinations without duplicating primary Learn and Practice tabs', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+
+    await expect(dialog.getByRole('button', { name: 'Learn', exact: true })).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
+    await expect(dialog.getByRole('region', { name: 'Study tools' })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Tools', exact: true })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Exam tracks' })).toBeVisible();
+  });
+
+  test('marks the current secondary destination and returns focus after closing', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await dialog.getByRole('button', { name: 'Review', exact: true }).click();
+    await expect(dialog).toBeHidden();
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveClass(/bg-brand-50/);
+  });
+
+  test('marks Mock Exam current without duplicating the primary Practice destination', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await dialog.getByRole('button', { name: 'Mock Exam', exact: true }).click();
+    await expect(dialog).toBeHidden();
+
+    await trigger.click();
+    await expect(dialog).toBeVisible();
+    await expect(dialog.getByRole('button', { name: /Mock Exam/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
+  });
+
+  test('desktop sidebar exposes Flashcards and Cloud Atlas as global tools', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto('/');
+
+    const sidebar = page.locator('aside').filter({ hasText: 'My Study' });
+    await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
+    await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
+  });
+
+  test('header stays contextual while retaining its back navigation control', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/settings');
+
+    const header = page.locator('header').first();
+    // The Home-labelled control is contextual back navigation, not a global shortcut.
+    await expect(header.getByRole('button', { name: 'Home', exact: true })).toBeVisible();
+    await expect(header.getByRole('button', { name: 'Search', exact: true })).toHaveCount(0);
+    await expect(header.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(0);
+    await expect(header.getByRole('heading')).toHaveCount(0);
+    await expect(header.getByText('My Study', { exact: true })).toBeVisible();
+    await expect(page.locator('main').getByRole('heading', { name: 'Settings', exact: true })).toBeVisible();
+    await expect(page.locator('main h1')).toHaveCount(1);
+    await expect(page).toHaveTitle(/Settings.*My Study/);
+  });
+});
+
 test.describe('Track enrollment surface', () => {
   test('FPSC landing shows Begin or enrolled workspace actions', async ({ page }) => {
     await page.goto('/');
@@ -253,5 +384,47 @@ test.describe('CGEI Unit 5.12 lesson rendering', () => {
     await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) await expect(page.getByRole('button', { name: lesson.title })).toBeVisible();
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
+  });
+});
+
+test.describe('Settings reset failure feedback', () => {
+  test('announces backup failure as an error and keeps local progress unchanged', async ({ page }) => {
+    await page.addInitScript(() => {
+      const originalSetItem = Storage.prototype.setItem;
+      Storage.prototype.setItem = function (key: string, value: string) {
+        if (key === 'examprep-data-backup') {
+          throw new DOMException('Storage quota exceeded', 'QuotaExceededError');
+        }
+        return originalSetItem.call(this, key, value);
+      };
+      originalSetItem.call(localStorage, 'examprep-data', JSON.stringify({
+        studiedTopics: ['meteo-origin-evolution'],
+        studiedCurriculumLessons: [],
+        lastOpenedCurriculumLesson: '',
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: 'meteo-origin-evolution',
+        trackMembership: { schemaVersion: 1, enrollments: {}, activeTrackId: null },
+      }));
+    });
+
+    await page.goto('/settings');
+    const localDataBefore = await page.evaluate(() => localStorage.getItem('examprep-data'));
+
+    await page.getByRole('button', { name: 'Select all' }).click();
+    await page.getByRole('button', { name: 'Reset All' }).click();
+    await page.getByRole('button', { name: 'Yes, Delete' }).click();
+
+    const resetAlert = page.getByRole('alert').filter({
+      hasText: 'Reset cancelled because a recovery backup could not be saved.',
+    });
+    await expect(resetAlert).toBeVisible();
+    await expect(resetAlert).toHaveClass(/bg-danger-50/);
+    await expect(page.getByRole('status').filter({
+      hasText: 'All data has been reset.',
+    })).toHaveCount(0);
+    await expect.poll(() => page.evaluate(() => localStorage.getItem('examprep-data'))).toBe(localDataBefore);
   });
 });

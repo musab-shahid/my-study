@@ -16,32 +16,23 @@
  */
 import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
+import { validateCloudRestoreData, validateLocalProgressForCloudPush } from './cloud-restore.ts';
+import { getDeviceId } from './device-id.ts';
 
 export {
   planCloudRestoreWrite,
   CLOUD_RESTORE_RECOVERY_SUFFIX,
 } from './cloud-restore.ts';
 
-const DEVICE_KEY = 'examprep-device-id';
 /** Supabase Auth access_token after sign-in (not the anon key). */
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
+
+export { getDeviceId };
 
 export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
 }
 
-export function getDeviceId(): string {
-  try {
-    let id = localStorage.getItem(DEVICE_KEY);
-    if (!id) {
-      id = crypto.randomUUID();
-      localStorage.setItem(DEVICE_KEY, id);
-    }
-    return id;
-  } catch {
-    return 'anonymous';
-  }
-}
 
 /** Persist session access token after Supabase Auth login. */
 export function setProgressSyncAccessToken(token: string | null): void {
@@ -100,10 +91,17 @@ function userIdFromAccessToken(token: string): string | null {
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
 export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {
+  // Do not persist a malformed local snapshot to cloud storage where it could
+  // later become an unusable restore source. Keep this check independent of auth
+  // configuration so invalid payloads fail deterministically before any request.
+  if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
+
   const auth = requireAuth();
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
   if (!userId) return { ok: false, error: 'invalid-token' };
+  const deviceId = getDeviceId();
+  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
 
   try {
     const res = await fetch(restUrl('app_progress?on_conflict=user_id,device_id'), {
@@ -114,7 +112,7 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
       },
       body: JSON.stringify({
         user_id: userId,
-        device_id: getDeviceId(),
+        device_id: deviceId,
         payload: data,
         updated_at: new Date().toISOString(),
       }),
@@ -133,9 +131,11 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
 export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; error?: string }> {
   const auth = requireAuth();
   if (!auth.ok) return auth;
+  const deviceId = getDeviceId();
+  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
 
   try {
-    const id = encodeURIComponent(getDeviceId());
+    const id = encodeURIComponent(deviceId);
     const res = await fetch(
       restUrl(`app_progress?device_id=eq.${id}&select=payload,updated_at`),
       { headers: headers(auth.token) },
@@ -147,7 +147,11 @@ export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; err
     if (!Array.isArray(rows) || rows.length === 0) {
       return { ok: false, error: 'empty' };
     }
-    return { ok: true, data: rows[0].payload as AppData };
+    const payload: unknown = rows[0]?.payload;
+    if (!validateCloudRestoreData(payload)) {
+      return { ok: false, error: 'invalid-cloud-data' };
+    }
+    return { ok: true, data: payload };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : 'pull-failed' };
   }

@@ -6,7 +6,7 @@ import { getTopic, topicsBySection } from '../data/topics';
 import { getTrackDefinition, isTrackId } from '../data/tracks';
 import { subjectMap } from '../data/subjects';
 import { sectionMap } from '../data/sections';
-import { cgeiCurriculum } from '../data/cgei/curriculum';
+import { cgeiIndexLessonById, cgeiIndexUnitById } from '../data/cgei/curriculum-index';
 import { cgeiSubjectIdForOverviewTopic, isCgeiOverviewTopic } from '../data/cgei/overview';
 import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 
@@ -95,7 +95,8 @@ export function pathToRoute(pathname: string): PathRoute {
   if (parts.length === 0) return { screen: 'home' };
 
   const [head, a, b] = parts;
-  switch (head) {
+  try {
+    switch (head) {
     case 'learn': {
       if (!a) return { screen: 'learn' };
       const subjectId = decodeURIComponent(a);
@@ -159,12 +160,17 @@ export function pathToRoute(pathname: string): PathRoute {
       return { screen: 'home' };
     case 'curriculum': {
       const id = b ? decodeURIComponent(b) : '';
-      if (a === 'unit' && cgeiCurriculum.units.some((unit) => unit.id === id)) return { screen: 'curriculum-unit', unitId: id };
-      if (a === 'lesson' && cgeiCurriculum.lessons.some((lesson) => lesson.id === id)) return { screen: 'curriculum-lesson', lessonId: id };
+      if (a === 'unit' && cgeiIndexUnitById.has(id)) return { screen: 'curriculum-unit', unitId: id };
+      if (a === 'lesson' && cgeiIndexLessonById.has(id)) return { screen: 'curriculum-lesson', lessonId: id };
       return { screen: 'learn' };
     }
     default:
       return { screen: 'home' };
+    }
+  } catch (error) {
+    // Malformed percent-encoding must never crash cold-load or popstate routing.
+    if (error instanceof URIError) return { screen: 'home' };
+    throw error;
   }
 }
 
@@ -186,12 +192,11 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
       return [home, { label: 'Learn', route }];
     }
     case 'curriculum-unit': {
-      const unit = cgeiCurriculum.units.find((item) => item.id === route.unitId);
-      const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
+      const unit = cgeiIndexUnitById.get(route.unitId);
       const crumbs: { label: string; route: PathRoute }[] = [home];
-      if (subject) {
+      if (unit?.subjectId) {
         crumbs.push({ label: getTrackDefinition('cgei').shortTitle, route: { screen: 'track', trackId: 'cgei' } });
-        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.subjectId } });
+        crumbs.push({ label: unit.subjectTitle, route: { screen: 'learn', subjectId: unit.subjectId } });
       } else {
         crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
       }
@@ -199,13 +204,12 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
       return crumbs;
     }
     case 'curriculum-lesson': {
-      const lesson = cgeiCurriculum.lessons.find((item) => item.id === route.lessonId);
-      const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
-      const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
+      const lesson = cgeiIndexLessonById.get(route.lessonId);
+      const unit = lesson ? cgeiIndexUnitById.get(lesson.unitId) : undefined;
       const crumbs: { label: string; route: PathRoute }[] = [home];
-      if (subject) {
+      if (lesson?.subjectId) {
         crumbs.push({ label: getTrackDefinition('cgei').shortTitle, route: { screen: 'track', trackId: 'cgei' } });
-        crumbs.push({ label: subject.title, route: { screen: 'learn', subjectId: subject.subjectId } });
+        crumbs.push({ label: lesson.subjectTitle, route: { screen: 'learn', subjectId: lesson.subjectId } });
       } else {
         crumbs.push({ label: 'Learn', route: { screen: 'learn' } });
       }

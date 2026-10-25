@@ -58,14 +58,14 @@ export class ErrorBoundary extends Component<Props, State> {
               <button
                 type="button"
                 onClick={this.handleReset}
-                className="px-4 py-2 rounded-btn text-sm font-medium bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="px-4 py-2 rounded-btn text-sm font-medium bg-white border border-slate-300 text-slate-700 hover:bg-slate-50 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               >
                 Try again
               </button>
               <button
                 type="button"
                 onClick={this.handleReload}
-                className="px-4 py-2 rounded-btn text-sm font-medium bg-brand-500 text-white hover:bg-brand-600 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                className="px-4 py-2 rounded-btn text-sm font-medium bg-brand-700 text-white hover:bg-brand-800 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
               >
                 Reload app
               </button>

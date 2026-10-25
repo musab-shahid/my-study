@@ -1,14 +1,14 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-4.9.1.1,Optical thermal SAR fusion use cases,4.9.1,Unit 4.9 Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-use,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.1.2,STARFM-family SAR-optical gap-filled validation,4.9.1,Unit 4.9 Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-methods,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.1.3,Fusion vs best single source,4.9.1,Unit 4.9 Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-test,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.2.1,Time-series monitoring transitions,4.9.2,Unit 4.9 Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-ts,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.2.2,Phenology TIMESAT-style crop irrigation,4.9.2,Unit 4.9 Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-phen,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.2.3,Gap filling and seasonal anomaly,4.9.2,Unit 4.9 Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-anom;cgei-rs-49-2-work,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.3.1,Independent reference data,4.9.3,Unit 4.9 Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-ref,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.3.2,Reference-sample design time-series,4.9.3,Unit 4.9 Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-design,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.3.3,Validation by stratum,4.9.3,Unit 4.9 Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-stratum,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.4.1,Update cadence latency user need,4.9.4,Unit 4.9 Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-cadence,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.4.2,Alert thresholds vs exploratory mapping,4.9.4,Unit 4.9 Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-alert,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.4.3,Latency budgets QA flags human review,4.9.4,Unit 4.9 Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-ops,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
-4.9.4.4,Archiving inputs outputs audit,4.9.4,Unit 4.9 Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-ops;cgei-rs-49-4-check,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.1.1,Optical thermal SAR fusion use cases,4.9.1,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-use,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.1.2,STARFM-family SAR-optical gap-filled validation,4.9.1,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-methods,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.1.3,Fusion vs best single source,4.9.1,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-1,cgei-rs-49-1-test,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.2.1,Time-series monitoring transitions,4.9.2,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-ts,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.2.2,Phenology TIMESAT-style crop irrigation,4.9.2,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-phen,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.2.3,Gap filling and seasonal anomaly,4.9.2,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-2,cgei-rs-49-2-anom;cgei-rs-49-2-work,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.3.1,Independent reference data,4.9.3,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-ref,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.3.2,Reference-sample design time-series,4.9.3,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-design,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.3.3,Validation by stratum,4.9.3,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-3,cgei-rs-49-3-stratum,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.4.1,Update cadence latency user need,4.9.4,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-cadence,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.4.2,Alert thresholds vs exploratory mapping,4.9.4,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-alert,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.4.3,Latency budgets QA flags human review,4.9.4,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-ops,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.
+4.9.4.4,Archiving inputs outputs audit,4.9.4,Unit 4.9 Support,Support,cgei-rs-lesson-4-9-4,cgei-rs-49-4-ops;cgei-rs-49-4-check,mapped_partial,Support teaching; synthetic fusion/anomaly/stratum/ops checks.

@@ -17,7 +17,7 @@ import { computeStreak, getWeakTopics, getWeeklyAccuracy, type WeeklyAccuracyPoi
 import { computeMasteryScore } from '@/lib/constants';
 import { countMasteredTopics } from '@/lib/attention';
 import { getSubjectColor } from '@/data/subject-colors';
-import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader } from '@/components/ui';
+import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader, ListRow } from '@/components/ui';
 import type { SubjectId } from '@/types';
 
 /** Honesty label when filter is All Subjects — stats are not bank-wide. */
@@ -152,12 +152,16 @@ return (
             <StatCard icon={<Target className="w-5 h-5" />} label="Accuracy" value={currentStats.questionsAnswered === 0 || currentStats.accuracy === null ? '—' : `${currentStats.accuracy}%`} color="amber" />
             <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Mastery" value={String(masteryScore)} color="green" sub="/100" />
           </div>
+          <p className="text-xs leading-5 text-slate-500 mb-4">
+            Accuracy is the percentage of attempted questions answered correctly. Mastery combines topic coverage (50%) and quiz accuracy (50%); before you attempt quizzes, the accuracy half counts as zero.
+          </p>
 
           {/* Accuracy chart */}
           <Card className="p-3.5 sm:p-5 mb-4">
             <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
               <div>
                 <h3 className="font-semibold text-slate-900">Accuracy over time</h3>
+                <p className="text-xs text-slate-500 mt-1">Weekly percentage of attempted questions answered correctly.</p>
                 <p className="text-slate-400 text-xs mt-0.5">
                   Last {weeklyData.length} weeks · {totalQuestionsThisPeriod} questions answered
                   {practicedSubjectsNote(isAllSubjects) ? ` · ${practicedSubjectsNote(isAllSubjects)}` : ''}
@@ -205,7 +209,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{subject.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{subject.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{mScore}/100</span>
                       </div>
@@ -229,7 +233,7 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <SectionBadge section={section} />
-                          <span className="text-slate-700 text-sm font-medium truncate">{section.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{section.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
@@ -262,7 +266,7 @@ return (
                       <div className="flex items-center gap-2 min-w-0">
                         <span className="text-slate-400 text-xs font-bold w-4 shrink-0">{i + 1}</span>
                         {color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />}
-                        <span className="text-slate-700 text-sm truncate">{topic.title}</span>
+                        <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm">{topic.title}</span>
                       </div>
                       <span className={`text-sm font-bold shrink-0 ml-2 ${w.accuracy < 60 ? 'text-danger-500' : 'text-warning-500'}`}>{w.accuracy}%</span>
                     </div>
@@ -277,7 +281,7 @@ return (
 
           {/* Item analytics — sticky misses & teach-without-test */}
           {(stickyMisses.length > 0 || teachOnly.length > 0 || fragileWins.length > 0) && (
-            <Card className="p-5">
+            <Card className="p-card-pad-lg">
               <h3 className="font-semibold text-slate-900 mb-1">From your practice history</h3>
               <p className="text-xs text-slate-500 mb-4">
                 Sticky misses and topics you studied but barely tested — not official scores.
@@ -289,17 +293,18 @@ return (
                     {stickyMisses.map((m) => {
                       const topic = getTopic(m.topicId);
                       return (
-                        <button
+                        <ListRow
                           key={m.questionId}
-                          type="button"
                           onClick={() => navigate({ screen: 'topic', topicId: m.topicId })}
-                          className="w-full text-left p-3 rounded-lg bg-red-50/80 border border-red-100 hover:bg-red-50 transition-colors"
+                          className="items-start bg-danger-50/80 border border-danger-100 hover:bg-danger-50"
                         >
-                          <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
-                          <p className="text-xs text-slate-500 mt-1">
-                            {topic?.title ?? m.topicId} · {m.attempts} attempts
-                          </p>
-                        </button>
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
+                            <p className="text-xs text-slate-500 mt-1">
+                              {topic?.title ?? m.topicId} · {m.attempts} attempts
+                            </p>
+                          </div>
+                        </ListRow>
                       );
                     })}
                   </div>
@@ -307,7 +312,7 @@ return (
               )}
               {teachOnly.length > 0 && (
                 <div className="mb-2">
-                  <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-2">Studied, little practice</p>
+                  <p className="text-xs font-semibold text-warning-700 uppercase tracking-wide mb-2">Studied, little practice</p>
                   <div className="flex flex-wrap gap-2">
                     {teachOnly.map((g) => {
                       const topic = getTopic(g.topicId);
@@ -322,10 +327,10 @@ return (
                               topicId: g.topicId,
                             })
                           }
-                          className="px-3 py-1.5 rounded-lg text-sm font-medium bg-amber-50 border border-amber-200 text-amber-900 hover:bg-amber-100"
+                          className="px-3 py-1.5 rounded-lg text-sm font-medium bg-warning-50 border border-warning-200 text-warning-900 hover:bg-warning-100"
                         >
                           {topic?.title ?? g.topicId}
-                          <span className="text-amber-600/80 text-xs ml-1">
+                          <span className="text-warning-700 text-xs ml-1">
                             ({g.questionsTouched}/{g.questionsInBank})
                           </span>
                         </button>
@@ -343,7 +348,7 @@ return (
           )}
 
           {/* Achievements */}
-          <Card className="p-5">
+          <Card className="p-card-pad-lg">
             <h3 className="font-semibold text-slate-900 mb-4">Achievements</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {achievements.map((a) => (
@@ -413,7 +418,10 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
   return (
     <div className="w-full overflow-x-auto">
+      <p className="text-xs text-slate-400 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
       <svg
+        role="img"
+        aria-label={`Weekly accuracy chart with ${validPoints.length} weeks containing quiz attempts.`}
         viewBox={`0 0 ${width} ${height}`}
         className="w-full"
         style={{ minWidth: 480 }}
@@ -528,7 +536,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: React.ReactNode; l
     green: 'bg-success-100 text-success-600',
   };
   return (
-    <Card className="p-4">
+    <Card className="p-card-pad">
       <div className={`w-9 h-9 rounded-btn ${colors[color]} flex items-center justify-center mb-2`}>{icon}</div>
       <p className="text-slate-500 text-xs font-medium">{label}</p>
       <div className="flex items-baseline gap-0.5 mt-1">

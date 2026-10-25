@@ -9,7 +9,6 @@ type Props = {
   onBegin: () => void;
   /** Explicit switch/continue — not triggered by merely viewing the page */
   onContinue?: () => void;
-  accentClass?: string;
 };
 
 /** Preview vs enrolled CTA for track landings. Preview never enrolls; only Begin does. */
@@ -20,22 +19,21 @@ export function TrackEnrollmentBanner({
   enrolling,
   onBegin,
   onContinue,
-  accentClass = 'from-sky-500 to-cyan-600',
 }: Props) {
   if (enrolled) {
     return (
-      <div className="rounded-card border border-emerald-200 bg-emerald-50 px-3.5 py-3 sm:px-5 sm:py-4 mb-4 sm:mb-6">
-        <p className="text-sm font-semibold text-emerald-900">
+      <div className="rounded-card border border-success-200 bg-success-50 px-3.5 py-3 sm:px-5 sm:py-4 mb-4 sm:mb-6">
+        <p className="text-sm font-semibold text-success-800">
           {isActiveFocus ? 'Enrolled · Active workspace' : 'Enrolled'}
         </p>
-        <p className="text-xs text-emerald-800 mt-0.5">
+        <p className="text-xs text-success-700 mt-0.5">
           {isActiveFocus
             ? `${trackTitle} is your active study context. Study, practice, and review use this track's subjects.`
             : `${trackTitle} is in My Tracks but not the active focus. Use Continue to switch here without losing the other track.`}
         </p>
         {!isActiveFocus && onContinue && (
           <div className="mt-3">
-            <Button type="button" className="bg-brand-700 text-white border-0 hover:bg-brand-800" onClick={onContinue}>
+            <Button type="button" onClick={onContinue}>
               Continue {trackTitle}
             </Button>
           </div>
@@ -54,7 +52,6 @@ export function TrackEnrollmentBanner({
       <div className="mt-3 flex flex-wrap gap-2">
         <Button
           type="button"
-          className="bg-brand-700 text-white border-0 hover:bg-brand-800"
           disabled={enrolling}
           onClick={onBegin}
         >

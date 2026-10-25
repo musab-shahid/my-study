@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type ReactNode } from 'react';
 import { Download, X, Library, Share } from 'lucide-react';
+import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 
 const DISMISS_KEY = 'pwa-install-dismissed';
 const DISMISS_DURATION_MS = 14 * 24 * 60 * 60 * 1000;
@@ -20,11 +21,39 @@ function isIOS(): boolean {
   return /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as unknown as { MSStream?: unknown }).MSStream;
 }
 
+/**
+ * Installation is an optional enhancement: restricted storage must never stop
+ * the user from installing or dismissing the prompt for the current session.
+ */
+function readDismissedAt(): string | null {
+  try {
+    return localStorage.getItem(DISMISS_KEY);
+  } catch {
+    return null;
+  }
+}
+
+function rememberDismissal(): void {
+  try {
+    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+  } catch {
+    // Best effort only; dismissal still applies to the current render/session.
+  }
+}
+
+function clearDismissal(): void {
+  try {
+    localStorage.removeItem(DISMISS_KEY);
+  } catch {
+    // Installation succeeded; inability to clear a preference is non-fatal.
+  }
+}
+
 function shouldShowPrompt(): boolean {
-  const raw = localStorage.getItem(DISMISS_KEY);
+  const raw = readDismissedAt();
   if (!raw) return true;
   const dismissedAt = Number(raw);
-  if (Number.isNaN(dismissedAt)) return true;
+  if (!Number.isFinite(dismissedAt) || dismissedAt <= 0 || dismissedAt > Date.now()) return true;
   return Date.now() - dismissedAt > DISMISS_DURATION_MS;
 }
 
@@ -63,21 +92,35 @@ export function InstallPrompt() {
     const onInstalled = () => {
       setVisible(false);
       setDeferredPrompt(null);
-      localStorage.removeItem(DISMISS_KEY);
+      clearDismissal();
+    };
+    const onPromptConsumed = (event: Event) => {
+      const consumedPrompt = (event as CustomEvent<Event>).detail;
+      setDeferredPrompt((current) => current === consumedPrompt ? null : current);
+      setVisible(false);
     };
     window.addEventListener('appinstalled', onInstalled);
-    return () => window.removeEventListener('appinstalled', onInstalled);
+    window.addEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+    return () => {
+      window.removeEventListener('appinstalled', onInstalled);
+      window.removeEventListener(INSTALL_PROMPT_CONSUMED_EVENT, onPromptConsumed);
+    };
   }, []);
 
   const handleInstall = useCallback(async () => {
     if (!deferredPrompt) return;
+    if (!claimInstallPrompt(deferredPrompt)) {
+      setVisible(false);
+      setDeferredPrompt(null);
+      return;
+    }
     try {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       setVisible(false);
       setDeferredPrompt(null);
       if (outcome === 'dismissed') {
-        localStorage.setItem(DISMISS_KEY, String(Date.now()));
+        rememberDismissal();
       }
     } catch {
       setVisible(false);
@@ -87,7 +130,7 @@ export function InstallPrompt() {
 
   const handleDismiss = useCallback(() => {
     setVisible(false);
-    localStorage.setItem(DISMISS_KEY, String(Date.now()));
+    rememberDismissal();
   }, []);
 
   if (!visible) return null;
@@ -101,11 +144,11 @@ export function InstallPrompt() {
     <div
       className="fixed z-30 w-[calc(100%-2rem)] max-w-sm animate-fade-in-up left-1/2 -translate-x-1/2 lg:left-auto lg:right-4 lg:translate-x-0 lg:top-20 lg:bottom-auto"
       style={{ bottom: 'calc(env(safe-area-inset-bottom, 0px) + 6.25rem)' }}
-      role="dialog"
+      role="region"
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <button type="button" onClick={handleDismiss} className="absolute top-2 right-2 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100" aria-label="Dismiss">
+        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
           <X className="w-4 h-4" />
         </button>
         <div className="flex items-start gap-3">
@@ -113,8 +156,10 @@ export function InstallPrompt() {
             {icon}
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
-            <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{body}</div>
+            <div role="status" aria-live="polite" aria-atomic="true">
+              <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
+              <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{body}</div>
+            </div>
             <div className="flex items-center gap-2 mt-3">{actions}</div>
           </div>
         </div>
@@ -130,7 +175,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleDismiss}
-        className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors"
+        className="inline-flex min-h-[44px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <X className="w-3.5 h-3.5" />
         Not now
@@ -148,7 +193,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleInstall}
-        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm"
+        className="inline-flex min-h-[44px] items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <Download className="w-3.5 h-3.5" />
         Install
@@ -156,7 +201,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleDismiss}
-        className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors"
+        className="inline-flex min-h-[44px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <X className="w-3.5 h-3.5" />
         Not now

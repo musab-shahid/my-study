@@ -3,13 +3,40 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    text-rendering: optimizeLegibility;
+    -webkit-text-size-adjust: 100%;
+  }
+
   body {
+    min-width: 320px;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background-color: var(--surface-page, #f4f6f8);
   }
 
-  /* Respect user motion preferences */
+  ::selection {
+    background: rgb(var(--color-brand-200));
+    color: rgb(var(--color-brand-900));
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  button,
+  a,
+  [role='button'] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button:disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -22,14 +49,12 @@
   }
 }
 
-/* App canvas — calm academic workspace (no busy dot/topo noise) */
 .bg-pattern-dots,
 .bg-pattern-topo {
   background-color: #f4f6f8;
   background-image: none;
 }
 
-/* Optional soft hero accent — used sparingly */
 .hero-glow {
   position: relative;
   overflow: hidden;
@@ -40,29 +65,59 @@
   display: none;
 }
 
-/* Design tokens as CSS variables for non-Tailwind consumers */
 :root {
+  /* RGB palette tokens are the source of truth for Tailwind and contrast tests. */
+  --color-brand-50: 240 249 255;
+  --color-brand-100: 224 242 254;
+  --color-brand-200: 186 230 253;
+  --color-brand-300: 125 211 252;
+  --color-brand-400: 56 189 248;
+  --color-brand-500: 14 165 233;
+  --color-brand-600: 2 132 199;
+  --color-brand-700: 3 105 161;
+  --color-brand-800: 7 89 133;
+  --color-brand-900: 12 74 110;
+
+  --color-success-50: 236 253 245;
+  --color-success-100: 209 250 229;
+  --color-success-500: 16 185 129;
+  --color-success-600: 5 150 105;
+  --color-success-700: 4 120 87;
+
+  --color-warning-50: 255 251 235;
+  --color-warning-100: 254 243 199;
+  --color-warning-500: 245 158 11;
+  --color-warning-600: 217 119 6;
+  --color-warning-700: 180 83 9;
+
+  --color-danger-50: 254 242 242;
+  --color-danger-100: 254 226 226;
+  --color-danger-500: 239 68 68;
+  --color-danger-600: 220 38 38;
+  --color-danger-700: 185 28 28;
+  --color-danger-800: 153 27 27;
+  --color-danger-900: 127 29 29;
+
   --surface-page: #f4f6f8;
   --surface-raised: #ffffff;
   --surface-muted: #eef1f4;
   --text-primary: #0f172a;
-  --text-muted: #64748b;
+  --text-muted: #475569;
   --border-subtle: #e2e8f0;
-  --brand: #0369a1;
+  --brand: rgb(var(--color-brand-700));
+  --focus-ring: rgb(var(--color-brand-700));
   --radius-card: 12px;
   --radius-btn: 10px;
   --shadow-card: 0 1px 2px rgb(15 23 42 / 0.04);
   --content-max: 56rem;
 }
 
-/* Shimmer effect for loading or premium accents */
 .shimmer-bg {
   background: linear-gradient(90deg, transparent 25%, rgba(255,255,255,0.08) 50%, transparent 75%);
   background-size: 200% 100%;
   animation: shimmer 3s ease-in-out infinite;
 }
 
-/* Line clamp utility (kept for broader browser support) */
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -77,13 +132,11 @@
   overflow: hidden;
 }
 
-/* Glass surfaces */
 .glass {
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
-/* Light sticky chrome (header) */
 .glass-surface {
   background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(14px) saturate(1.2);
@@ -94,19 +147,16 @@
     background: rgba(255, 255, 255, 0.96);
   }
 }
-/* Dark sticky chrome (mobile nav / sidebar accents) */
 .glass-dark {
   background: rgba(15, 23, 42, 0.88);
   backdrop-filter: blur(14px) saturate(1.15);
   -webkit-backdrop-filter: blur(14px) saturate(1.15);
 }
 
-/* Safe area for mobile bottom nav */
 .safe-area {
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
-/* Bottom padding so content clears the fixed mobile nav (+ iOS home indicator) */
 .pb-mobile-nav {
   padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
 }
@@ -116,8 +166,6 @@
   }
 }
 
-
-/* Hide scrollbar but keep scroll functionality */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -126,9 +174,8 @@
   display: none;
 }
 
-/* Formula / KaTeX display — high contrast, inherit parent color */
 .formula-display {
-  color: #0f172a; /* slate-900 */
+  color: #0f172a;
 }
 .formula-display .katex,
 .formula-display .katex * {

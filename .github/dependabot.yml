@@ -1,0 +1,75 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 10
+    groups:
+      production-minor-patch:
+        dependency-type: production
+        update-types:
+          - minor
+          - patch
+      development-minor-patch:
+        dependency-type: development
+        update-types:
+          - minor
+          - patch
+      production-major:
+        dependency-type: production
+        update-types:
+          - major
+      development-major:
+        dependency-type: development
+        update-types:
+          - major
+        exclude-patterns:
+          - "vite"
+          - "@vitejs/plugin-react"
+      development-vite-major:
+        patterns:
+          - "vite"
+          - "@vitejs/plugin-react"
+        update-types:
+          - major
+    ignore:
+      # Major toolchain/framework migrations need a dedicated compatibility pass.
+      - dependency-name: "react"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "react-dom"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@types/react"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@types/react-dom"
+        update-types:
+          - "version-update:semver-major"
+      # Lucide 1.x is a breaking major from the current 0.x icon API; defer it
+      # until an explicit icon-package compatibility pass.
+      - dependency-name: "lucide-react"
+      - dependency-name: "tailwindcss"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "eslint"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "@eslint/js"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "eslint-plugin-react-hooks"
+        update-types:
+          - "version-update:semver-major"
+      - dependency-name: "globals"
+        update-types:
+          - "version-update:semver-major"
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5

@@ -3,11 +3,11 @@ import type { AppData, Question, DifficultyFilter, PracticeMode, SubjectId, Trac
 import { emptyTrackMembership, normalizeTrackMembership, setActiveExamProfile as setActiveExamProfilePure, leaveTrack as leaveTrackPure } from '@/lib/track-membership';
 import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
 import { isTrackId, type TrackId } from '@/data/tracks';
-import { loadData, saveData, flushPendingSave, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
+import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
-import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index';
 
 export interface DataContextValue {
   data: AppData;
@@ -16,8 +16,8 @@ export interface DataContextValue {
   recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
-  reset: () => void;
-  resetSubjects: (subjectIds: SubjectId[]) => void;
+  reset: () => boolean;
+  resetSubjects: (subjectIds: SubjectId[]) => boolean;
   /** Explicit track enrollment; sets track active on success */
   enrollInTrack: (trackId: TrackId) => { ok: boolean; reason?: string };
   /** Switch active focus among enrolled tracks only */
@@ -90,13 +90,14 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const reset = useCallback(() => {
-    resetData();
+    if (!resetData()) return false;
     const fresh = loadData();
     setData(fresh);
     dataRef.current = fresh;
     try {
       window.dispatchEvent(new CustomEvent('examprep-subject-selection-reset'));
     } catch { /* ignore */ }
+    return true;
   }, []);
 
   /**
@@ -151,49 +152,58 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
 
   const resetSubjects = useCallback((subjectIds: SubjectId[]) => {
-    setData((prev) => {
-      const subjectIdSet = new Set(subjectIds);
-      const subjectSectionIds = new Set(
-        sections.filter((s) => subjectIdSet.has(s.subjectId)).map((s) => s.id)
-      );
-      const subjectTopicIds = new Set(
-        topics.filter((t) => subjectSectionIds.has(t.sectionId)).map((t) => t.id)
-      );
-      const curriculumSubjectIds = new Set(
-        cgeiCurriculum.subjects.filter((subject) => subjectIdSet.has(subject.subjectId)).map((subject) => subject.subjectId)
-      );
-      const curriculumUnitIds = new Set(
-        cgeiCurriculum.units.filter((unit) => cgeiCurriculum.subjects.some((subject) => curriculumSubjectIds.has(subject.subjectId) && subject.unitIds.includes(unit.id))).map((unit) => unit.id)
-      );
-      const curriculumLessonIds = new Set(
-        cgeiCurriculum.lessons.filter((lesson) => curriculumUnitIds.has(cgeiCurriculum.units.find((unit) => unit.lessonIds.includes(lesson.id))?.id ?? '')).map((lesson) => lesson.id)
-      );
+    const current = dataRef.current;
+    // A partial reset is destructive too: do not mutate state unless its recovery
+    // snapshot can be written first.
+    if (!createRecoveryBackup(current)) return false;
 
-      return {
-        studiedTopics: prev.studiedTopics.filter((tid) => !subjectTopicIds.has(tid)),
-        studiedCurriculumLessons: (prev.studiedCurriculumLessons ?? []).filter((id) => !curriculumLessonIds.has(id)),
-        lastOpenedCurriculumLesson: curriculumLessonIds.has(prev.lastOpenedCurriculumLesson ?? '') ? '' : (prev.lastOpenedCurriculumLesson ?? ''),
-        topicProgress: Object.fromEntries(
-          Object.entries(prev.topicProgress).filter(([tid]) => !subjectTopicIds.has(tid))
-        ),
-        questionResults: Object.fromEntries(
-          Object.entries(prev.questionResults).filter(([, r]) => {
-            if (r.subjectId) return !subjectIdSet.has(r.subjectId as SubjectId);
-            return true;
-          })
-        ),
-        quizHistory: prev.quizHistory.filter((q) => {
-          if (q.subjectId && subjectIdSet.has(q.subjectId as SubjectId)) return false;
-          if (q.topicId && subjectTopicIds.has(q.topicId)) return false;
+    const subjectIdSet = new Set(subjectIds);
+    const subjectSectionIds = new Set(
+      sections.filter((s) => subjectIdSet.has(s.subjectId)).map((s) => s.id)
+    );
+    const subjectTopicIds = new Set(
+      topics.filter((t) => subjectSectionIds.has(t.sectionId)).map((t) => t.id)
+    );
+    // Reset only the lightweight CGEI lesson IDs for selected subjects. The
+    // full lesson/question registry must not be loaded for synchronous reset.
+    const curriculumLessonIds = cgeiLessonIdsForSubjects(subjectIdSet);
+
+    const next: AppData = {
+      studiedTopics: current.studiedTopics.filter((tid) => !subjectTopicIds.has(tid)),
+      studiedCurriculumLessons: (current.studiedCurriculumLessons ?? []).filter((id) => !curriculumLessonIds.has(id)),
+      lastOpenedCurriculumLesson: curriculumLessonIds.has(current.lastOpenedCurriculumLesson ?? '') ? '' : (current.lastOpenedCurriculumLesson ?? ''),
+      topicProgress: Object.fromEntries(
+        Object.entries(current.topicProgress).filter(([tid]) => !subjectTopicIds.has(tid))
+      ),
+      questionResults: Object.fromEntries(
+        Object.entries(current.questionResults).filter(([, r]) => {
+          if (r.subjectId) return !subjectIdSet.has(r.subjectId as SubjectId);
           return true;
-        }),
-        revisionDates: Object.fromEntries(
-          Object.entries(prev.revisionDates ?? {}).filter(([tid]) => !subjectTopicIds.has(tid))
-        ),
-        lastOpenedTopic: subjectTopicIds.has(prev.lastOpenedTopic) ? '' : prev.lastOpenedTopic,
-        trackMembership: prev.trackMembership,
-      };
-    });
+        })
+      ),
+      quizHistory: current.quizHistory.filter((q) => {
+        if (q.subjectId && subjectIdSet.has(q.subjectId as SubjectId)) return false;
+        if (q.topicId && subjectTopicIds.has(q.topicId)) return false;
+        return true;
+      }),
+      revisionDates: Object.fromEntries(
+        Object.entries(current.revisionDates ?? {}).filter(([tid]) => !subjectTopicIds.has(tid))
+      ),
+      lastOpenedTopic: subjectTopicIds.has(current.lastOpenedTopic) ? '' : current.lastOpenedTopic,
+      trackMembership: current.trackMembership,
+    };
+
+    // Persist synchronously before committing the destructive in-memory change.
+    saveData(next);
+    if (!flushPendingSave()) {
+      // Keep the current view unchanged; the recovery snapshot remains available.
+      saveData(current);
+      flushPendingSave();
+      return false;
+    }
+    setData(next);
+    dataRef.current = next;
+    return true;
   }, []);
 
   return (

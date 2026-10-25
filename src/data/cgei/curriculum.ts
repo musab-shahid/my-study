@@ -1,10 +1,15 @@
 /**
- * Canonical curriculum registry — Subject 5 pilot.
+ * Canonical CGEI curriculum registry.
+ *
+ * Subject 5 established the original pilot pattern; the registry now includes
+ * partial canonical instructional content for Subjects 1–7. Per-domain depth
+ * and readiness differ; use scripts/audit-cgei-coverage.ts for the current
+ * implementation snapshot, not as proof of complete source-TOC coverage.
  *
  * Unit/lesson entities are authoritative for instructional hierarchy.
- * sourceTopicId temporarily bridges each lesson to legacy rendering and saved
- * progress. The roadmap is represented in CurriculumSubject.overview, never as
- * a Topic or a lesson.
+ * sourceTopicId temporarily bridges selected lessons to legacy rendering and
+ * saved progress. Roadmaps belong in CurriculumSubject.overview, never as
+ * normal lessons or mastery items.
  */
 import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, CurriculumOutcome, CurriculumLesson, CurriculumUnit } from '@/types/curriculum';
 import { questions as legacyDataScienceQuestions } from './data-science/questions-data-science';

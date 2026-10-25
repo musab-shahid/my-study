@@ -158,7 +158,12 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
       return (
         <div className="fixed top-0 inset-x-0 z-[60] pointer-events-none">
           <div className="mx-auto max-w-md px-4 pt-[env(safe-area-inset-top)]">
-            <div className="rounded-b-xl bg-slate-800/90 text-white px-4 py-2 text-xs font-medium text-center">
+            <div
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+              className="rounded-b-xl bg-slate-800/90 text-white px-4 py-2 text-xs font-medium text-center"
+            >
               Checking for updates…
             </div>
           </div>
@@ -175,7 +180,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
           <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm">
             <BookOpen className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} />
           </div>
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0" role="status" aria-live="polite" aria-atomic="true">
             <p className="font-semibold text-slate-900 text-sm">Update available</p>
             <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
               A new version of the app is ready. Restart to load it — your progress stays saved on this device.
@@ -185,7 +190,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
             type="button"
             onClick={handleUpdate}
             disabled={restarting}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm shrink-0 disabled:opacity-70"
+            className="inline-flex min-h-[44px] items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-70"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${restarting ? 'animate-spin' : ''}`} />
             {restarting ? 'Updating…' : 'Restart'}

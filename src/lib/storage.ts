@@ -3,6 +3,7 @@ import { ensureTrackMembership, normalizeTrackMembership, emptyTrackMembership, 
 import { STORAGE_KEYS, getEffectiveQuizStats, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
 import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/lib/adaptive-select';
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
+import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
 import { resolveQuestionId } from '@/lib/question-id-aliases';
@@ -29,19 +30,37 @@ export function getBackupRaw(): string | null {
   }
 }
 
-export function downloadBackupFile(): boolean {
-  const raw = getBackupRaw();
+/** Save a known-good snapshot before a destructive partial reset. */
+export function createRecoveryBackup(data: AppData): boolean {
+  try {
+    localStorage.setItem(BACKUP_KEY, JSON.stringify(sanitizeForSave(data)));
+    return true;
+  } catch {
+    lastStorageWarning = 'Could not create a recovery backup before reset (storage full). Reset cancelled so your data is not lost.';
+    return false;
+  }
+}
+
+export function downloadBackupFile(data?: AppData): boolean {
+  // Settings exports the live in-memory state; recovery actions may still export
+  // the last known-good raw backup when no state is supplied.
+  const raw = data ? JSON.stringify(sanitizeForSave(data)) : getBackupRaw();
   if (!raw) return false;
+  let url: string | null = null;
   try {
     const blob = new Blob([raw], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
+    url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = `examprep-backup-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
-    URL.revokeObjectURL(url);
+    // Give the browser time to begin consuming the blob before releasing it.
+    window.setTimeout(() => {
+      if (url) URL.revokeObjectURL(url);
+    }, 1000);
     return true;
   } catch {
+    if (url) URL.revokeObjectURL(url);
     return false;
   }
 }
@@ -331,6 +350,49 @@ function normalizeLoaded(parsed: AppData): AppData {
   return merged;
 }
 
+function isValidBackupRaw(raw: string | null): boolean {
+  if (!raw) return false;
+  try {
+    return validateAppData(JSON.parse(raw));
+  } catch {
+    return false;
+  }
+}
+
+/** Never replace a known-good recovery snapshot with the corrupt primary save. */
+function preserveCorruptPrimaryIfNoValidBackup(raw: string): void {
+  try {
+    const existingBackup = localStorage.getItem(BACKUP_KEY);
+    if (!isValidBackupRaw(existingBackup)) {
+      // With no usable backup, preserve the original bytes for manual export.
+      localStorage.setItem(BACKUP_KEY, raw);
+    }
+  } catch {
+    /* storage may be unavailable or full */
+  }
+}
+
+function recoverCorruptPrimary(raw: string): AppData {
+  const fromBackup = tryRestoreBackup();
+  if (fromBackup) {
+    lastStorageWarning =
+      'Primary save was invalid; restored progress from the last valid backup.';
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromBackup)));
+      localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`);
+    } catch { /* keep the in-memory recovery and recovery key available */ }
+    return fromBackup;
+  }
+
+  preserveCorruptPrimaryIfNoValidBackup(raw);
+  lastStorageWarning =
+    'Your saved progress was corrupt and no valid backup could be restored. A copy of the original data may be available to export.';
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(emptyData)));
+  } catch { /* if storage is unavailable, defaults remain in memory */ }
+  return { ...emptyData };
+}
+
 export function loadData(): AppData {
   try {
     let raw = localStorage.getItem(STORAGE_KEY);
@@ -342,37 +404,34 @@ export function loadData(): AppData {
         raw = legacy;
       }
     }
-    if (!raw) return { ...emptyData };
+    if (!raw) {
+      const fromRecovery = tryRestoreBackup(true);
+      if (!fromRecovery) return { ...emptyData };
+      lastStorageWarning = 'Restored the pre-cloud-restore recovery snapshot because the primary save was missing.';
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromRecovery)));
+        localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`);
+      } catch { /* retain the recovery snapshot if persistence fails */ }
+      return fromRecovery;
+    }
 
     let parsed: unknown;
     try {
       parsed = JSON.parse(raw);
     } catch {
-      console.warn('[storage] JSON parse failed, backing up corrupt blob');
-      try { localStorage.setItem(BACKUP_KEY, raw); } catch { /* ignore */ }
-      lastStorageWarning =
-        'Your saved progress looked corrupt and was reset to defaults. A backup is available to download.';
-      return tryRestoreBackup() ?? { ...emptyData };
+      console.warn('[storage] JSON parse failed; attempting recovery before preserving corrupt data');
+      return recoverCorruptPrimary(raw);
     }
 
     if (!validateAppData(parsed)) {
-      console.warn('[storage] Stored data failed validation, backing up and resetting');
-      try { localStorage.setItem(BACKUP_KEY, raw); } catch { /* ignore */ }
-      const fromBackup = tryRestoreBackup();
-      if (fromBackup) {
-        lastStorageWarning =
-          'Primary save was invalid; restored from the last good backup. You can still download a copy.';
-        try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(fromBackup)));
-        } catch { /* ignore */ }
-        return fromBackup;
-      }
-      lastStorageWarning =
-        'Your saved progress looked corrupt and was reset to defaults. A backup is available to download.';
-      return { ...emptyData };
+      console.warn('[storage] Stored data failed validation; attempting recovery before preserving corrupt data');
+      return recoverCorruptPrimary(raw);
     }
 
-    return normalizeLoaded(parsed as AppData);
+    const normalized = normalizeLoaded(parsed as AppData);
+    // A valid primary save means any pre-restore snapshot is no longer needed.
+    try { localStorage.removeItem(`${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`); } catch { /* ignore */ }
+    return normalized;
   } catch {
     lastStorageWarning =
       'Could not read saved progress. Starting fresh. If you had data, try downloading the backup.';
@@ -380,17 +439,22 @@ export function loadData(): AppData {
   }
 }
 
-function tryRestoreBackup(): AppData | null {
-  try {
-    const backup = localStorage.getItem(BACKUP_KEY);
-    if (!backup) return null;
-    const parsed = JSON.parse(backup);
-    if (!validateAppData(parsed)) return null;
-    // Do not write during restore read — caller (loadData) owns persistence.
-    return normalizeLoaded(parsed as AppData);
-  } catch {
-    return null;
+function tryRestoreBackup(recoveryOnly = false): AppData | null {
+  const cloudRecoveryKey = `${STORAGE_KEY}${CLOUD_RESTORE_RECOVERY_SUFFIX}`;
+  const recoveryKeys = recoveryOnly ? [cloudRecoveryKey] : [cloudRecoveryKey, BACKUP_KEY];
+  for (const key of recoveryKeys) {
+    try {
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const parsed = JSON.parse(raw);
+      if (!validateAppData(parsed)) continue;
+      // Do not write during restore read — caller (loadData) owns persistence.
+      return normalizeLoaded(parsed as AppData);
+    } catch {
+      // Try the next recovery source; one corrupt backup must not block another.
+    }
   }
+  return null;
 }
 
 export function saveData(data: AppData): void {
@@ -409,39 +473,40 @@ export function flushPendingSave(): boolean {
   return flushSave();
 }
 
-export function resetData(): void {
-  // Persist any in-flight debounced write into primary before backup/reset.
+export function resetData(): boolean {
+  // Keep the latest in-memory state available for recovery even if the primary
+  // write failed because storage is full.
   if (saveTimer !== null) {
     clearTimeout(saveTimer);
     saveTimer = null;
   }
-  if (pendingData !== null) {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sanitizeForSave(pendingData)));
-    } catch {
-      /* still attempt backup of whatever is on disk */
-    }
-    pendingData = null;
-  }
+
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = pendingData !== null
+      ? JSON.stringify(sanitizeForSave(pendingData))
+      : localStorage.getItem(STORAGE_KEY);
     if (raw) {
       try {
         localStorage.setItem(BACKUP_KEY, raw);
       } catch {
         lastStorageWarning =
           'Could not create a backup before reset (storage full). Reset cancelled so your data is not lost.';
-        return;
+        return false;
       }
     }
+
+    pendingData = null;
+    saveRetryCount = 0;
     localStorage.removeItem(STORAGE_KEY);
     localStorage.removeItem(LEGACY_KEY);
     localStorage.removeItem(STORAGE_KEYS.subjectSelection);
     localStorage.removeItem(STORAGE_KEYS.practicePrefs);
     localStorage.removeItem(STORAGE_KEYS.quizProgress);
     localStorage.removeItem(STORAGE_KEYS.sidebarExpanded);
+    return true;
   } catch {
-    lastStorageWarning = 'Reset failed. Your existing progress was left unchanged.';
+    lastStorageWarning = 'Reset failed. Check your saved data and backup before trying again.';
+    return false;
   }
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
 import { RouterProvider, useRouter, routeLabel, type Route } from '@/router';
 import { DataProvider } from '@/data-context';
 import { useData } from '@/hooks/useData';
@@ -6,8 +6,11 @@ import { SubjectSelectionProvider, useSubjectSelection, type StageScreen } from 
 import { Sidebar, MobileNav } from '@/components/layout/Navigation';
 import { Header } from '@/components/layout/Header';
 import { DashboardScreen } from '@/screens/DashboardScreen';
-import { StudyScreen, SectionScreen, TopicScreen } from '@/screens/StudyScreen';
-import { CurriculumUnitScreen, CurriculumLessonScreen } from '@/screens/CurriculumScreens';
+const StudyScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.StudyScreen })));
+const SectionScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.SectionScreen })));
+const TopicScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.TopicScreen })));
+const CurriculumUnitScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumUnitScreen })));
+const CurriculumLessonScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumLessonScreen })));
 import { FormulaVaultScreen } from '@/screens/FormulaVaultScreen';
 import { FlashcardsScreen } from '@/screens/FlashcardsScreen';
 import { CloudAtlasScreen } from '@/screens/CloudAtlasScreen';
@@ -20,7 +23,7 @@ import { SettingsScreen } from '@/screens/SettingsScreen';
 import { HatLandingScreen } from '@/screens/hat/HatLandingScreen';
 import { FpscLandingScreen } from '@/screens/fpsc/FpscLandingScreen';
 import { TrackOverviewScreen } from '@/screens/TrackOverviewScreen';
-import { CGEITrackOverviewScreen } from '@/screens/CGEITrackOverviewScreen';
+const CGEITrackOverviewScreen = lazy(() => import('@/screens/CGEITrackOverviewScreen').then((module) => ({ default: module.CGEITrackOverviewScreen })));
 import { EnrollmentRequired } from '@/components/track/EnrollmentRequired';
 import { TopicAccessGate, SectionAccessGate } from '@/components/track/ResourceAccessGate';
 import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
@@ -133,7 +136,8 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     }
     case 'topic': {
       const t = getTopic(route.topicId);
-      return { title: t?.title ?? 'Topic', subtitle: t ? `Section ${t.sectionId}` : undefined };
+      // Keep the global header as navigation chrome; the reader owns the page title.
+      return { title: 'Study', subtitle: t ? (sectionMap[t.sectionId]?.title ?? `Section ${t.sectionId}`) : undefined };
     }
     case 'formulas':
       return { title: 'Formulas' };
@@ -158,12 +162,12 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
     case 'fpsc':
       return { title: 'FPSC Exam', subtitle: 'Federal Public Service Commission' };
     default:
-      return { title: 'Exam Prep' };
+      return { title: 'My Study' };
   }
 }
 
 function AppContent() {
-  const { route } = useRouter();
+  const { route, currentRoute } = useRouter();
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
   const { title, subtitle } = getHeaderTitle(route);
@@ -198,7 +202,7 @@ function AppContent() {
   useEffect(() => {
     const parts = [title];
     if (finalSubtitle) parts.push(finalSubtitle);
-    parts.push('ExamPrep Hub');
+    parts.push('My Study');
     document.title = parts.join(' · ');
   }, [title, finalSubtitle]);
 
@@ -238,7 +242,7 @@ function AppContent() {
     <div className="min-h-screen bg-[var(--surface-page)]">
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-500 focus:text-white focus:rounded-btn focus:text-sm focus:font-medium"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-[100] focus:px-4 focus:py-2 focus:bg-brand-700 focus:text-white focus:rounded-btn focus:text-sm focus:font-medium"
       >
         Skip to content
       </a>
@@ -272,15 +276,17 @@ function AppContent() {
         )}
         {showHeader && (
           <Header
-            title={title}
-            subtitle={finalSubtitle}
-            screen={route.screen}
+            context={finalSubtitle}
+            desktopVisible={route.screen !== 'home' || Boolean(finalSubtitle)}
+            showMobileMeta={Boolean(finalSubtitle) || (Array.isArray(currentRoute.breadcrumb) && currentRoute.breadcrumb.length > 1)}
           />
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>
           <ErrorBoundary>
+            <Suspense fallback={<div className="p-6 text-sm text-slate-600" role="status" aria-live="polite">Loading study material…</div>}>
               <ScreenRouter />
-            </ErrorBoundary>
+            </Suspense>
+          </ErrorBoundary>
         </main>
       </div>
       <MobileNav />

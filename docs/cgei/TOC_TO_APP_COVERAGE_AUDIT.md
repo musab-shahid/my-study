@@ -1,5 +1,8 @@
 # CGEI TOC-to-App Coverage Audit (first-pass inventory)
 
+> **Historical mapping baseline — not current main-branch status.** This inventory targets PR #3 and an older registry revision. Its source-node counts describe the extracted TOC, but its app-mapping counts are not a current-main snapshot. Run `npm run audit:cgei` for current implementation counts; this script intentionally does not claim source-subtopic completeness. See [Overall repository audit](../OVERALL_AUDIT_2026-10-24.md).
+
+
 **Status:** Inventory generated; mapping is deliberately incomplete.  
 **Authority:** `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path.docx`  
 **Repository target:** PR #3, `feat/cgei-full-curriculum-skeleton`  

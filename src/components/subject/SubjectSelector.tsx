@@ -82,7 +82,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={label ?? 'Select subject'}
-        className={`flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors duration-DEFAULT min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-1 ${open ? 'border-brand-300 ring-2 ring-brand-500/20' : ''} ${compact ? 'min-w-[160px]' : 'w-full sm:w-[240px]'}`}
+        className={`flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors duration-DEFAULT min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 ${open ? 'border-brand-300 ring-2 ring-brand-500/20' : ''} ${compact ? 'min-w-[160px]' : 'w-full sm:w-[240px]'}`}
       >
         <span className="flex items-center gap-2 truncate">
           {value !== 'all' && valueStyle && (
