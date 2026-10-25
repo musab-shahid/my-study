@@ -94,3 +94,18 @@ The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated 
 | 5.6.4.3 Why IID assumptions fail for climate and EO data | Direct match | `cgei-ds-56-4-core` names dependence across stations, satellite pixels and neighbouring grid cells and explains the risks to standard errors and random splits. |
 
 **Interpretation limit:** the six block mappings now have direct semantic support, but this does not promote their lessons beyond their current draft readiness. It also does not imply that the remaining 111 Core leaves marked `mapped_partial` are complete. Learner practice, assessment quality, runnable evidence, and full source-to-app coverage still need separate review.
+
+
+## 8. Unit 5.2 Core traceability spot-check — 2026-10-25
+
+**Scope:** all 23 Core leaves in Unit 5.2 in `docs/cgei/subject-5-canonical-leaf-inventory.csv` (2 marked `mapped`, 21 marked `mapped_partial`, none marked `gap`). The audit compared each row's claimed evidence against the actual content-block definitions in the live registry. Five rows had evidence-link mismatches; their block IDs and audit notes were corrected in the CSV without promoting any partial row to mapped.
+
+| Leaf | Correction | Why status remains partial |
+|---|---|---|
+| 5.2.2.4 NaN handling and numerical precision | Added `cgei-ds-52-2-code` and `cgei-ds-52-2-points` alongside the dtype block. The previous links covered shape/dtype but not the claimed NaN-safe summaries. | Systematic missingness and precision treatment are not exhaustive. |
+| 5.2.3.1 Series and DataFrame | Changed evidence link from timezone-focused `cgei-ds-52-3-core` to `cgei-ds-52-3-code`, which uses a DataFrame and Series selection. | Systematic Series API coverage remains deferred. |
+| 5.2.3.3 Joins/merges, groupby, aggregate | Added `cgei-ds-52-3-code` for the groupby demonstration; retained `cgei-ds-52-3-points` for join-key and row-count cautions. | A worked merge example remains absent. |
+| 5.2.3.4 Reshape: melt, pivot, stack | Replaced the join/resample key-points block with `cgei-ds-52-3-reshape` and `cgei-ds-52-3-reshape-code`. | Melt/pivot are demonstrated; stack/unstack variants remain light. |
+| 5.2.3.7 Tidy data principles | Replaced the join/resample key-points block with the reshape explanation and code blocks, where tidy-data structure is explicitly defined and applied. | A multi-table tidy case study remains deferred. |
+
+**No scope inflation:** these fixes repair traceability evidence, not missing teaching. Unit 5.2 remains 2 mapped / 21 mapped-partial Core leaves. The 21 partial dispositions are retained honestly; a block link is not proof that the entire subtopic is taught to L3 or that the associated activity and assessment are sufficient.
