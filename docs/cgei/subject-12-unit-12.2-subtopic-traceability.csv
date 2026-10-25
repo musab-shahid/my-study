@@ -8,4 +8,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 12.2.2.3,Precision recall IoU Dice confusion matrices,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-2,mapped_partial,Named.
 12.2.2.4,Tiling overlaps mosaicking,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Named.
 12.2.2.5,Accuracy by geography season sensor class,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-2,mapped_partial,Named.
-12.2.3,Operational inference QC,12.2.3,Operational inference and quality control,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Light.
+12.2.3,Operational inference QC,12.2,Operational inference and quality control,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Light.

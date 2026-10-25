@@ -18,8 +18,8 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 1.1.4.2,Carbon cycle overview,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Overview only.
 1.1.4.3,Nitrogen phosphorus human amplification,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Qualitative.
 1.1.4.4,Mass balance residence time,1.1.4,Biogeochemical cycles,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2;cgei-es-11-3-4,mapped_partial,Residence time worked example τ≈M/F; steady-state assumption stated.
-1.1.4.5,Sulphur methane N2O overview,1.1.4,Biogeochemical cycles,Core,,,mapped_partial,Not taught in this slice.
-1.1.4.6,Ocean carbon acidification overview,1.1.4,Biogeochemical cycles,Core,,,mapped_partial,Not taught in this slice.
-1.1.5.1,Time and length scales,1.1.5,Time and scale,Core,,,mapped_partial,Deferred.
+1.1.4.5,Sulphur methane N2O overview,1.1.4,Biogeochemical cycles,Core,,,deferred,Not taught in this slice. Demoted: no app lesson ID after merge integrity pass.
+1.1.4.6,Ocean carbon acidification overview,1.1.4,Biogeochemical cycles,Core,,,deferred,Not taught in this slice. Demoted: no app lesson ID after merge integrity pass.
+1.1.5.1,Time and length scales,1.1.5,Time and scale,Core,,,deferred,Deferred. Demoted: no app lesson ID after merge integrity pass.
 1.1.5.2,Equilibrium vs transient lags,1.1.5,Time and scale,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-1,mapped_partial,Mentioned with sensitivity concepts.
 1.1.5.3,Stocks flows system diagrams,1.1.5,Time and scale,Core,cgei-es-lesson-1-1-3,cgei-es-11-3-2,mapped_partial,Stock-flow language introduced.
