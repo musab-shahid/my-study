@@ -865,21 +865,21 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 8.7.4.2,Post a preprint (for example EarthArXiv) at or before submission if the journal allows,8.7.4,Core,mapped_partial,cgei-rp-lesson-8-7-3,subject-8-unit-8.7-subtopic-traceability.csv,Preprint policy named; no posting exercise.
 8.7.4.3,"Cover letter, suggested reviewers, and ethics and data statements",8.7.4,Core,mapped_partial,cgei-rp-lesson-8-7-3,subject-8-unit-8.7-subtopic-traceability.csv,Named as professional practice; templates not taught.
 8.7.4.4,Handling reviews: point-by-point responses and tracked revisions,8.7.4,Core,mapped_partial,cgei-rp-lesson-8-7-3,subject-8-unit-8.7-subtopic-traceability.csv,Point-by-point responses named; no sample response letter.
-8.8.1.1,Runnable environment and one-command or documented notebook path,8.8.1,Core,mapped_partial,cgei-rp-lesson-8-8-1,subject-8-unit-8.8-subtopic-traceability.csv,Run path taught.
+8.8.1.1,Runnable environment and one-command or documented notebook path,8.8.1,Core,mapped_partial,cgei-rp-lesson-8-8-1,subject-8-unit-8.8-subtopic-traceability.csv,Run path and pinned dependencies; no enforced one-command lab.
 8.8.1.2,"README: data, methods, outputs, limitations",8.8.1,Core,mapped_partial,cgei-rp-lesson-8-8-1,subject-8-unit-8.8-subtopic-traceability.csv,README checklist.
-8.8.1.3,"Manifests, tests, licences",8.8.1,Core,unmapped,,,No traceability row
-8.8.2.1,"ORCID, public profiles, preprint, and DOI for code and data as a verifiable record",8.8.2,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Identity hygiene.
-8.8.2.2,"Public profile hygiene: consistent name, affiliation, and links to code and data",8.8.2,Core,unmapped,,,No traceability row
-8.8.2.3,"Preprint and DOI practice for code, data, and reports",8.8.2,Core,unmapped,,,No traceability row
-8.8.3.1,"UHI FYP as draft to revise, not archive to hide",8.8.3,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Revision not archive.
-8.8.3.2,"What the new version corrects: scale factors, QA, validation, claim language",8.8.3,Core,unmapped,,,No traceability row
-8.8.3.3,One paper-quality output on a single clear question,8.8.3,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Single question focus.
-8.8.4.1,"Reproduce one published method exactly, then extend; keep the replication as an appendix",8.8.4,Core,unmapped,,,No traceability row
-8.8.4.2,"Choose a question that is falsifiable, feasible with open data, and sharpened by a methods contribution — for example, a sensitivity study of how compositing rules, rural-reference choice, and LCZ stratification change a city’s surface heat estimate (illustrative template only)",8.8.4,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Question criteria.
-8.8.4.3,Pilot analysis to test feasibility before committing to a question,8.8.4,Core,unmapped,,,No traceability row
-8.8.5.1,"One place, one hazard family, one primary methods gap",8.8.5,Core,mapped_partial,cgei-rp-lesson-8-8-3,subject-8-unit-8.8-subtopic-traceability.csv,Positioning fixture.
-8.8.5.2,"Supervision need stated as methods depth, not tool list",8.8.5,Core,mapped_partial,cgei-rp-lesson-8-8-3,subject-8-unit-8.8-subtopic-traceability.csv,Reject tool-list-only.
-8.8.5.3,Feasible data and compute,8.8.5,Core,unmapped,,,No traceability row
+8.8.1.3,"Manifests, tests, licences",8.8.1,Core,mapped_partial,cgei-rp-lesson-8-8-1,subject-8-unit-8.8-subtopic-traceability.csv,Named in prose and checklist; no sample LICENSE/manifest exercise.
+8.8.2.1,"ORCID, public profiles, preprint, and DOI for code and data as a verifiable record",8.8.2,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Identity hygiene; no account-setup lab.
+8.8.2.2,"Public profile hygiene: consistent name, affiliation, and links to code and data",8.8.2,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Consistent name/affiliation/links taught.
+8.8.2.3,"Preprint and DOI practice for code, data, and reports",8.8.2,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Preprint/DOI practice named; posting not executed.
+8.8.3.1,"UHI FYP as draft to revise, not archive to hide",8.8.3,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Revision framing.
+8.8.3.2,"What the new version corrects: scale factors, QA, validation, claim language",8.8.3,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Correction targets listed; no before/after revision exercise.
+8.8.3.3,One paper-quality output on a single clear question,8.8.3,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Single-question focus.
+8.8.4.1,"Reproduce one published method exactly, then extend; keep the replication as an appendix",8.8.4,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Replication-then-extend guidance; replication not performed.
+8.8.4.2,"Choose a question that is falsifiable, feasible with open data, and sharpened by a methods contribution — for example, a sensitivity study of how compositing rules, rural-reference choice, and LCZ stratification change a city’s surface heat estimate (illustrative template only)",8.8.4,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Key-points criteria.
+8.8.4.3,Pilot analysis to test feasibility before committing to a question,8.8.4,Core,mapped_partial,cgei-rp-lesson-8-8-2,subject-8-unit-8.8-subtopic-traceability.csv,Pilot named; pilot not required as graded artifact.
+8.8.5.1,"One place, one hazard family, one primary methods gap",8.8.5,Core,mapped_partial,cgei-rp-lesson-8-8-3,subject-8-unit-8.8-subtopic-traceability.csv,Prose + positioning fixture.
+8.8.5.2,"Supervision need stated as methods depth, not tool list",8.8.5,Core,mapped_partial,cgei-rp-lesson-8-8-3,subject-8-unit-8.8-subtopic-traceability.csv,Fixture rejects tool-list-only supervision.
+8.8.5.3,Feasible data and compute,8.8.5,Core,mapped_partial,cgei-rp-lesson-8-8-3,subject-8-unit-8.8-subtopic-traceability.csv,Feasibility required in prose and fixture field.
 8.9.1.1,"Structure: problem, gap, objectives, methods, feasibility, timeline, outputs, ethics, references",8.9.1,Core,mapped_partial,cgei-rp-lesson-8-9-1,subject-8-unit-8.9-subtopic-traceability.csv,Structure taught.
 8.9.1.2,Matching scope to supervisor expertise and available data and compute,8.9.1,Core,mapped_partial,cgei-rp-lesson-8-9-1,subject-8-unit-8.9-subtopic-traceability.csv,Feasibility match.
 8.9.1.3,"Anticipating reviewer questions: novelty, feasibility, risk, and validation",8.9.1,Core,mapped_partial,cgei-rp-lesson-8-9-1,subject-8-unit-8.9-subtopic-traceability.csv,Risk checklist.
