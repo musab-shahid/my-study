@@ -237,6 +237,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_etccdi_r10mm_check.py
       - name: Verify Unit 2.6 CDD spell checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_etccdi_cdd_check.py
+      - name: Verify Unit 2.6 extremes batch checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_extremes_batch_check.py
       - name: Verify Unit 2.8 regional climate literacy checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_8_regional_climate_literacy_check.py
       - name: Verify Unit 4.1 radiometric physics checks
