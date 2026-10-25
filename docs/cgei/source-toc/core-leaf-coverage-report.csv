@@ -729,36 +729,36 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 7.1.5.1,"Key risks, reasons for concern, adaptation limits (hard and soft), and maladaptation",7.1.5,Core,mapped_partial,cgei-risk-lesson-7-1-2,subject-7-unit-7.1-subtopic-traceability.csv,Named.
 7.1.5.2,Disaster risk management cycle; structural versus non-structural measures; convergence of DRR and climate adaptation,7.1.5,Core,mapped_partial,cgei-risk-lesson-7-1-1,subject-7-unit-7.1-subtopic-traceability.csv,Light coverage.
 7.1.5.3,Loss and damage: economic and non-economic losses; terminology and politics,7.1.5,Core,mapped_partial,cgei-risk-lesson-7-1-2,subject-7-unit-7.1-subtopic-traceability.csv,Named only.
-7.3.1.1,"Temperature metrics: daily max/min, apparent temperature concepts",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Overview.
-7.3.1.2,"Duration, intensity, timing; night-time recovery",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Named.
-7.3.1.3,"LST versus air temperature versus heat-stress indices (UTCI, WBGT) — data requirements",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Distinctions taught.
-7.3.1.4,Exposure metrics: population-weighted person-days above a threshold; personal-sensor evidence,7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Named; not computed.
-7.3.2.1,"Exposure modifiers: outdoor work, housing, age, access to cooling/shade/green space",7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Overview.
-7.3.2.2,Occupational heat standards (e.g. WBGT-based) and outdoor and informal-sector workers,7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Named.
-7.3.2.3,Indoor heat and electricity reliability: outages and load-shedding as risk amplifiers,7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Named.
-7.3.3.1,"Heat physiology and illness: core temperature, thermoregulation, heat exhaustion versus heat stroke; vulnerable groups",7.3.3,Core,unmapped,,,No traceability row
-7.3.3.2,Heat–mortality and heat–morbidity analysis: exposure–response curves and distributed-lag models; data constraints,7.3.3,Core,unmapped,,,No traceability row
-7.3.3.3,"Heat Action Plan components: triggers, communication, cooling spaces, work-hour rules, health-system readiness, evaluation (Ahmedabad-style plans as references)",7.3.3,Core,unmapped,,,No traceability row
-7.3.4.1,Rainfall intensity–duration–frequency concepts,7.3.4,Core,unmapped,,,No traceability row
-7.3.4.2,Rainfall-runoff; antecedent wetness,7.3.4,Core,unmapped,,,No traceability row
-7.3.4.3,"Multi-source precipitation: gauges, satellites, reanalysis",7.3.4,Core,unmapped,,,No traceability row
-7.3.4.4,"Terrain, DEM, flow accumulation, drainage, floodplain",7.3.4,Core,unmapped,,,No traceability row
-7.3.5.1,"Flood types: river, flash, urban pluvial, canal or embankment breach, barrage and dam operation, glacial-lake outburst",7.3.5,Core,unmapped,,,No traceability row
-7.3.5.2,"Hydraulic modelling at overview level: HEC-RAS 1D/2D, LISFLOOD-FP, HAND-based screening; global flood forecasting (e.g. GloFAS) and national flood forecasting",7.3.5,Core,unmapped,,,No traceability row
-7.3.5.3,Inundation maps versus susceptibility indices — limits,7.3.5,Core,unmapped,,,No traceability row
-7.3.6.1,Depth–damage functions and flood inventories; SAR and gauge-based event mapping,7.3.6,Core,unmapped,,,No traceability row
-7.3.6.2,"Embankments, breaching, and operational releases as part of the hazard, not external to it",7.3.6,Core,unmapped,,,No traceability row
-7.3.6.3,"Flood warning information: forecast sources, gauge networks, and communication gaps",7.3.6,Core,unmapped,,,No traceability row
-7.3.7.1,"Meteorological, agricultural, hydrological drought",7.3.7,Core,unmapped,,,No traceability row
-7.3.7.2,SPI/SPEI and timescale choice,7.3.7,Core,unmapped,,,No traceability row
-7.3.7.3,Vegetation and soil-moisture indicators,7.3.7,Core,unmapped,,,No traceability row
-7.3.7.4,"Hydrological drought: river flows, reservoir storage, groundwater levels",7.3.7,Core,unmapped,,,No traceability row
-7.3.8.1,"Demand, irrigation, and exposure of crops/ecosystems",7.3.8,Core,unmapped,,,No traceability row
-7.3.8.2,"Irrigated-plain caveat: rainfall-based indices (SPI/SPEI) can understate or overstate crop stress where canal supply and groundwater control water availability — combine with canal-supply, groundwater, and vegetation anomalies",7.3.8,Core,unmapped,,,No traceability row
-7.3.8.3,"Water-supply indicators: canal flows, reservoir storage, and groundwater levels",7.3.8,Core,unmapped,,,No traceability row
-7.3.9.1,Active fire detections versus burned area products,7.3.9,Core,unmapped,,,No traceability row
-7.3.9.2,"Confidence, seasonality, land-cover context",7.3.9,Core,unmapped,,,No traceability row
-7.3.9.3,Weather and fuel conditions as context,7.3.9,Core,unmapped,,,No traceability row
+7.3.1.1,"Temperature metrics: daily max/min, apparent temperature concepts",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Daily max/min and related metrics; apparent temperature not expanded.
+7.3.1.2,"Duration, intensity, timing; night-time recovery",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Spell duration/intensity and night-time recovery named; lab uses excess and spell count.
+7.3.1.3,"LST versus air temperature versus heat-stress indices (UTCI, WBGT) — data requirements",7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,LST/air/UTCI/WBGT not interchangeable; different inputs and decisions.
+7.3.1.4,Exposure metrics: population-weighted person-days above a threshold; personal-sensor evidence,7.3.1,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Named; not computed in lab.
+7.3.2.1,"Exposure modifiers: outdoor work, housing, age, access to cooling/shade/green space",7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Modifiers listed conceptually.
+7.3.2.2,Occupational heat standards (e.g. WBGT-based) and outdoor and informal-sector workers,7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,"WBGT-type standards as policy instruments, not universal predictions from LST."
+7.3.2.3,Indoor heat and electricity reliability: outages and load-shedding as risk amplifiers,7.3.2,Core,mapped_partial,cgei-risk-lesson-7-3-1,subject-7-unit-7.3-subtopic-traceability.csv,Load-shedding amplifies indoor heat risk.
+7.3.3.1,"Heat physiology and illness: core temperature, thermoregulation, heat exhaustion versus heat stroke; vulnerable groups",7.3.3,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught in 7-3-1/2.
+7.3.3.2,Heat–mortality and heat–morbidity analysis: exposure–response curves and distributed-lag models; data constraints,7.3.3,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Epidemiological methods not taught.
+7.3.3.3,"Heat Action Plan components: triggers, communication, cooling spaces, work-hour rules, health-system readiness, evaluation (Ahmedabad-style plans as references)",7.3.3,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,HAP components not taught; lab is screening rank only.
+7.3.4.1,Rainfall intensity–duration–frequency concepts,7.3.4,Core,mapped_partial,cgei-risk-lesson-7-3-2,subject-7-unit-7.3-subtopic-traceability.csv,Intensity/duration language; formal IDF curves not taught.
+7.3.4.2,Rainfall-runoff; antecedent wetness,7.3.4,Core,mapped_partial,cgei-risk-lesson-7-3-2,subject-7-unit-7.3-subtopic-traceability.csv,Saturated soils and blocked drainage can turn moderate rainfall into high impact.
+7.3.4.3,"Multi-source precipitation: gauges, satellites, reanalysis",7.3.4,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.4.4,"Terrain, DEM, flow accumulation, drainage, floodplain",7.3.4,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.5.1,"Flood types: river, flash, urban pluvial, canal or embankment breach, barrage and dam operation, glacial-lake outburst",7.3.5,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Flood typology not enumerated.
+7.3.5.2,"Hydraulic modelling at overview level: HEC-RAS 1D/2D, LISFLOOD-FP, HAND-based screening; global flood forecasting (e.g. GloFAS) and national flood forecasting",7.3.5,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Models not taught.
+7.3.5.3,Inundation maps versus susceptibility indices — limits,7.3.5,Core,mapped_partial,cgei-risk-lesson-7-3-2,subject-7-unit-7.3-subtopic-traceability.csv,Declare metric/threshold; separate intensity from exposed assets; no map-type comparison lab.
+7.3.6.1,Depth–damage functions and flood inventories; SAR and gauge-based event mapping,7.3.6,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.6.2,"Embankments, breaching, and operational releases as part of the hazard, not external to it",7.3.6,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.6.3,"Flood warning information: forecast sources, gauge networks, and communication gaps",7.3.6,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.7.1,"Meteorological, agricultural, hydrological drought",7.3.7,Core,mapped_partial,cgei-risk-lesson-7-3-2,subject-7-unit-7.3-subtopic-traceability.csv,Three drought classes named with timescale discipline.
+7.3.7.2,SPI/SPEI and timescale choice,7.3.7,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Timescales named; SPI/SPEI calculation not taught.
+7.3.7.3,Vegetation and soil-moisture indicators,7.3.7,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.7.4,"Hydrological drought: river flows, reservoir storage, groundwater levels",7.3.7,Core,mapped_partial,cgei-risk-lesson-7-3-2,subject-7-unit-7.3-subtopic-traceability.csv,Hydrological drought class named; indicators not operationalised.
+7.3.8.1,"Demand, irrigation, and exposure of crops/ecosystems",7.3.8,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.8.2,"Irrigated-plain caveat: rainfall-based indices (SPI/SPEI) can understate or overstate crop stress where canal supply and groundwater control water availability — combine with canal-supply, groundwater, and vegetation anomalies",7.3.8,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.8.3,"Water-supply indicators: canal flows, reservoir storage, and groundwater levels",7.3.8,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.9.1,Active fire detections versus burned area products,7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught in 7-3 lessons.
+7.3.9.2,"Confidence, seasonality, land-cover context",7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
+7.3.9.3,Weather and fuel conditions as context,7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
 7.5.1.1,"Selecting indicators for hazard, exposure, vulnerability",7.5.1,Core,unmapped,,,No traceability row
 7.5.1.2,Normalisation and weighting — transparency required,7.5.1,Core,unmapped,,,No traceability row
 7.5.1.3,Sensitivity analysis on weights and indicators,7.5.1,Core,unmapped,,,No traceability row
