@@ -7,6 +7,7 @@ import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { topicMetadata } from '../src/data/topic-metadata';
 import { sections } from '../src/data/sections';
 import { validateLessonReadiness, validateReadinessEvidence } from '../src/data/cgei/readiness';
+import { validateCurriculumQuestion } from '../src/data/cgei/assessment-validation';
 
 const errors: string[] = [];
 const warnings: string[] = [];
@@ -86,18 +87,6 @@ for (const unit of cgeiCurriculum.units) {
   const presentOrders = orders.filter((order): order is number => order !== undefined);
   if (new Set(presentOrders).size !== presentOrders.length) errors.push(`Unit ${unit.id} has duplicate lesson order values`);
 }
-// Each lesson may belong to at most one unit (exclusive membership).
-const lessonOwner = new Map<string, string>();
-for (const unit of cgeiCurriculum.units) {
-  for (const lessonId of unit.lessonIds) {
-    const previous = lessonOwner.get(lessonId);
-    if (previous && previous !== unit.id) {
-      errors.push(`Lesson ${lessonId} is claimed by both unit ${previous} and unit ${unit.id}`);
-    } else {
-      lessonOwner.set(lessonId, unit.id);
-    }
-  }
-}
 const contentBlockIds = new Set<string>();
 const bridgedTopicIds = new Set<string>();
 for (const lesson of cgeiCurriculum.lessons) {
@@ -127,9 +116,7 @@ for (const lesson of cgeiCurriculum.lessons) {
 
 for (const question of cgeiCurriculum.questions) {
   checkRefs(`Curriculum question ${question.id} lesson`, [question.lessonId], lessonIds);
-  if (question.options.length < 2) errors.push(`Curriculum question ${question.id} needs at least two options`);
-  if (!Number.isInteger(question.correctAnswer) || question.correctAnswer < 0 || question.correctAnswer >= question.options.length) errors.push(`Curriculum question ${question.id} has an invalid correctAnswer index`);
-  if (!question.explanation.trim()) errors.push(`Curriculum question ${question.id} requires an explanation`);
+  errors.push(...validateCurriculumQuestion(question));
 }
 for (const activity of cgeiCurriculum.activities) {
   checkRefs(`Activity ${activity.id} objectives`, activity.objectiveIds, new Set([

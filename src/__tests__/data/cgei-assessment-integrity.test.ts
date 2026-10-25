@@ -4,8 +4,46 @@ import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
 import { subjectsByTrack } from '../../data/subjects.ts';
 import { topicMap } from '../../data/topics.ts';
 import { hasSubstantiveLessonContent } from '../../data/cgei/readiness.ts';
+import { validateCurriculumQuestion } from '../../data/cgei/assessment-validation.ts';
 
 describe('CGEI assessment and evidence integrity', () => {
+  it('rejects placeholder, duplicate, or metadata-invalid curriculum questions', () => {
+    const valid = {
+      id: 'test-question',
+      lessonId: 'test-lesson',
+      type: 'single-choice' as const,
+      prompt: 'Which process transports heat by fluid motion?',
+      options: ['Conduction', 'Convection', 'Radiation', 'Reflection'],
+      correctAnswer: 1,
+      explanation: 'Convection transfers heat through the bulk movement of a fluid.',
+      difficulty: 'medium' as const,
+      cognitiveLevel: 'understand' as const,
+    };
+    assert.deepEqual(validateCurriculumQuestion(valid), []);
+
+    assert.ok(validateCurriculumQuestion({
+      ...valid,
+      prompt: 'TODO',
+      options: ['Conduction', ' conduction ', '', 'Reflection'],
+      explanation: 'TBD',
+    }).some((issue) => issue.includes('substantive prompt')));
+    const defects = validateCurriculumQuestion({
+      ...valid,
+      options: ['Conduction', ' conduction ', 'TODO', 'Reflection'],
+      difficulty: 'impossible' as typeof valid.difficulty,
+      cognitiveLevel: 'memorize' as typeof valid.cognitiveLevel,
+    });
+    assert.ok(defects.some((issue) => issue.includes('duplicate answer options')));
+    assert.ok(defects.some((issue) => issue.includes('drafting placeholder')));
+    assert.ok(defects.some((issue) => issue.includes('invalid difficulty')));
+    assert.ok(defects.some((issue) => issue.includes('invalid cognitive level')));
+  });
+
+  it('validates every registered curriculum question against authoring-quality rules', () => {
+    const defects = cgeiCurriculum.questions.flatMap((question) => validateCurriculumQuestion(question));
+    assert.deepEqual(defects, [], defects.slice(0, 20).join('\\n'));
+  });
+
   it('keeps lesson source-topic bridges valid and readiness claims evidence-based', () => {
     const topicIds = new Set(Object.keys(topicMap));
     for (const lesson of cgeiCurriculum.lessons) {
