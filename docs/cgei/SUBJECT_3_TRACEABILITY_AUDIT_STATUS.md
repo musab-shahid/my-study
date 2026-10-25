@@ -82,3 +82,12 @@ Core Unit 3.9 Spatial statistics registered (3 lessons, IDW+LOO fixture). Suppor
 - Both are **deferred**, not mapped: the current Unit 3.1 evidence does not teach these outcomes. The traceability rows retain that limitation and identify the absence of lesson/content-block evidence.
 - Updated the repository-backed coverage report to point to subject-3-unit-3.1-subtopic-traceability.csv; no app lesson IDs were fabricated.
 - This is a narrow reconciliation pilot, not proof that the remaining unmapped leaves are absent from the app. Next, inspect each source unit's existing traceability rows and actual lesson blocks before choosing mapped_partial versus deferred.
+
+## Gate C.49 — Unit 3.9 Core-leaf evidence reconciliation (2026-10-25)
+
+- Reconciled the 12 previously unmapped Unit 3.9 leaves against existing lesson/fixture evidence.
+- 3.9.4.2 is `mapped_partial` only: nonstationarity is cautioned in semivariogram teaching, but regionalised-variable assumptions are not developed or assessed.
+- The other 11 leaves are explicitly `deferred` because current Unit 3.9 evidence does not teach the specified outcomes; see `docs/cgei/C49_UNIT_3_9_RECONCILIATION.md`.
+- Updated the traceability registry and coverage report. Current report: 1,015 Core leaves; 6 mapped, 781 mapped_partial, 44 deferred, 184 unmapped, 0 stale.
+- Strict gate remains blocking on 184 genuinely unmapped Core leaves. No lessons or fixtures were added, and Unit 3.9 remains draft / partially mapped.
+
