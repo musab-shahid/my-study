@@ -44,3 +44,8 @@ python content-drafts/.../unit_3_5_python_geospatial_stack_check.py  # PASS
 
 ## Next single dependency
 Maintainer refresh of PR #118 base onto current #117 tip (or merge stack) so coverage-gate and SQL slice CI evaluate the same ancestry—without force-push.
+
+## Current pointer (C.71)
+Instructional content lives on PR #118 (`feat/cgei-subject5-sql-vertical-slice`), stacked on #117 tip `33d3fe3e…`.
+Review and acceptance tracking: `docs/cgei/C69_INTEGRATION_AND_REVIEW_PACKET.md`.
+Remote CI for stacked base enabled via PR #120 + cherry-pick on #118.

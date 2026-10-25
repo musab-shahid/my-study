@@ -1,64 +1,76 @@
-# C.69 — Integration decision + instructional review packet
+# C.69 / C.71 — SQL + geospatial instructional review packet
 
-## Verified live state (2026-10-25)
+## Current state (verified 2026-10-25)
 
-| PR | Head | Base SHA | CI @ head |
-|----|------|----------|-----------|
-| #117 | `33d3fe3e2a574a838d3e5a38bd8fe757cc8ebf49` | main `03ace174…` | check / scientific-smoke / e2e **success** |
-| #118 | `9986100e05bc78f0e4114984404def4c81ad8e72` | `1ee98551c84626710e90132361479b803a503fec` | **no workflow runs** |
-| #119 | `390ebe9c5d1d…` | main | isolated; not modified |
+| PR | Head | Base | CI @ exact head |
+|----|------|------|-----------------|
+| **#117** | `33d3fe3e2a574a838d3e5a38bd8fe757cc8ebf49` | `main` | check / scientific-smoke / e2e **success** |
+| **#118** | see Git tip after C.71 commits | `feat/cgei-core-leaf-coverage-gate` @ `33d3fe3e…` | was green @ `f6cc2cb…`; re-verify after C.71 push |
+| **#119** | `390ebe9c5d1d…` | `main` | isolated; not modified |
+| **#120** | `3a4a83d9edbe…` | `main` | check / scientific-smoke / e2e **success** (workflow policy) |
 
-- Merge-base(#118, #117 tip) = `1ee98551` = current #118 base.
-- Commits on #118 not in #117 tip: **8** (SQL slice + C.68).
-- Commits on #117 tip not in #118: **42** (coverage-gate mapping through C.65/C.66-era tip).
-- C.68 content markers present on #118 head (fan-out, integrity habit, SQL→geo bridge).
+**Ancestry:** #118 contains #117 tip (authorized rebase completed in C.70).  
+**Recovery ref (pre-rebase):** `eb81dbe989216d15d55e1b26ed2d167a6c978be5`.
 
-## Integration decision
+### Coverage gate
+Strict audit on integrated stack: **OK** — mapped=6, mapped_partial=887, deferred=122, unmapped=0, stale=0.  
+Zero unmapped ≠ mastery of every mapped leaf.
 
-| Option | Verdict |
-|--------|---------|
-| Retarget only | **Insufficient** — changing GitHub base ref does not replay 8 commits onto the 42 missing #117 commits. |
-| **Rebase #118 onto #117 tip** | **Required** for combined ancestry and trustworthy coverage-gate evaluation. |
-| Merge #117→#118 | Would create a merge commit; possible but less clean than rebase for a stacked draft PR. |
+### Status labels
+| Gate | Status |
+|------|--------|
+| automated_checks | passed (local fixtures + strict gate; re-confirm CI on C.71 head) |
+| instructional_review | **pending** |
+| accessibility_review (#115 manual keyboard/SR) | **pending** |
+| readiness | **draft** |
 
-### Authorization
-**No maintainer authorization** was granted in this cycle for force-push / history rewrite.  
-Therefore **no rebase, retarget, or force-push was performed**.
+---
 
-### Proposed maintainer operation (not executed)
-```bash
-git fetch origin
-git checkout feat/cgei-subject5-sql-vertical-slice
-git rebase origin/feat/cgei-core-leaf-coverage-gate
-# resolve any conflicts preserving C.68 blocks and fixtures
-git push --force-with-lease origin feat/cgei-subject5-sql-vertical-slice
-# optional: ensure PR base remains feat/cgei-core-leaf-coverage-gate
-```
-Risks: force-with-lease rewrites public branch history; collaborators must reset; conflict risk in `curriculum.ts` and coverage CSVs.
+## Instructional scope for review
 
-## Local validation on #118 head `9986100…` (stale ancestry)
-```
-python3 …/unit_5_5_sql_practice_check.py          → PASS
-python3 …/unit_3_5_python_geospatial_stack_check.py → PASS
-python3 scripts/audit_core_leaf_coverage.py       → FAIL (exit 1)
-  deferred=27 mapped=6 mapped_partial=754 stale=19 unmapped=209
-```
-This FAIL is **expected on the obsolete base** (pre–C.49–C.65 mapping). It is **not** evidence that the SQL slice regressed. After rebase onto `33d3fe3e…`, re-run the strict gate; #117 tip previously reported **0 unmapped**.
+### Subject 5.5 SQL — `cgei-ds-lesson-5-5-2`
+- **Outcome:** `cgei-ds-o-55-sql`
+- **Activity:** `cgei-ds-a-55-sql`
+- **Assessment:** `cgei-ds-assess-55-sql` → questions `q-55-003`, `q-55-004`, `q-55-013`
+- **Fixture:** `content-drafts/chapter-05-scientific-computing/fixtures/unit_5_5_sql_practice_check.py`
+- **Key blocks:** half-open June SQL, LEFT JOIN + ON vs WHERE, orphan diagnostic, fan-out, integrity habit, guided/independent practice
 
-## Human review checklist (authorized reviewer)
-1. [ ] SQL half-open June bounds and AVG/COUNT(tmax) semantics match the fixture.
-2. [ ] INNER vs LEFT JOIN and ON vs WHERE date placement are teachable and correct.
-3. [ ] Fan-out example and COUNT(*) vs distinct entity-day diagnostic are clear.
-4. [ ] Independent task requires transfer, not pure copy of worked SQL.
-5. [ ] Assessment items align with `cgei-ds-o-55-sql`.
-6. [ ] Geo bridge correctly separates attribute vs spatial joins and CRS assign vs transform.
-7. [ ] Synthetic limits disclosed (SQLite / bbox ≠ production DB / GEOS).
+### Subject 3 geo bridge — `cgei-geo-lesson-3-5-1`
+- **Blocks:** `cgei-geo-35-1-sql-bridge`, `cgei-geo-35-1-bridge-lab` (+ existing cardinality trap)
+- **Fixture:** `unit_3_5_python_geospatial_stack_check.py` (bbox + predicted counts {North:2,South:1}; mixed CRS fails closed)
 
-**Readiness:** remains **draft**. No human approval recorded in this cycle.
+---
 
-## Separate obligations
-- Manual keyboard/screen-reader verification from PR #115: **still outstanding**.
-- CI on integrated SHA: **pending** until rebase + push triggers workflows.
+## C.71 expert review findings
 
-## Next single dependency
-**Maintainer-authorized rebase** of `feat/cgei-subject5-sql-vertical-slice` onto `33d3fe3e2a574a838d3e5a38bd8fe757cc8ebf49`, then CI on the new head.
+| Severity | Finding | Action |
+|----------|---------|--------|
+| **Major** | Assessment included `q-55-011` (PDF extraction / lesson 5-5-3), not testing SQL join outcome | Replaced with `q-55-013` (LEFT JOIN / n_valid=0 semantics) |
+| **Moderate** | Column name `tmax_c` vs `tmax` inconsistency across advanced SQL, questions, and fixture | Aligned primary path and assessment to `tmax` |
+| **Moderate** | Advanced SQL CTE named `daily` while selecting FROM `station_daily` | Rewrote to `WITH ranked AS … FROM daily` |
+| Minor | Synthetic fixture limits must stay explicit | Retained; not production validation |
+
+---
+
+## Human-review checklist
+1. [ ] Half-open June bounds and AVG/COUNT(tmax) match the fixture numbers (A:42.0/3, B:35.0/2).
+2. [ ] INNER vs LEFT JOIN and ON vs WHERE are teachable and correct.
+3. [ ] Fan-out example tests diagnosis (COUNT(*) vs distinct entity-days), not memorization.
+4. [ ] Independent task requires transfer beyond the worked query.
+5. [ ] Assessment items map to `cgei-ds-o-55-sql` (date filter, join diagnostics, LEFT JOIN semantics).
+6. [ ] Geo bridge: attribute vs spatial joins; CRS assign ≠ transform; count prediction habit.
+7. [ ] Feedback/explanations help correct errors, not only reveal the option letter.
+8. [ ] Scope limits clear: SQLite + bbox only.
+
+---
+
+## Historical notes (not current instructions)
+- C.69 originally recommended rebase; **completed in C.70** under explicit authorization.
+- C.70 authorization blocker doc described a pre-authorization state; rebase **done**.
+- Pre-integration strict gate FAIL (209 unmapped) was **stale-base artifact**, not an SQL regression.
+
+## Outstanding maintainer decisions
+1. Human instructional accept / changes-requested on this packet.
+2. Merge policy for #120 (CI trigger) and later #117 / #118.
+3. #115 manual accessibility sign-off.
+4. Do **not** treat automated green as instructional acceptance.

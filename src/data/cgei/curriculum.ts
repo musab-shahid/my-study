@@ -748,7 +748,7 @@ const lesson55Definitions = [
         "title": "Check a join before trusting the aggregate",
         "body": "Suppose daily has 3,000 rows and stations has 25 unique station IDs. An inner join returning 2,700 rows may mean 300 observations refer to missing station IDs, or the filters excluded rows. Check unmatched keys, duplicate metadata IDs, and counts before and after the join. Never assume a plausible-looking mean proves the join was correct."
       },
-      {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH daily AS (\n  SELECT station_id, date, tmax_c,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM station_daily\n  WHERE tmax_c IS NOT NULL\n)\nSELECT station_id, date, tmax_c,\n       AVG(tmax_c) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM daily\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."},
+      {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH ranked AS (\n  SELECT station_id, date, tmax,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM daily\n  WHERE tmax IS NOT NULL\n)\nSELECT station_id, date, tmax,\n       AVG(tmax) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM ranked\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."},
       {"id":"cgei-ds-55-2-null-dates","kind":"worked-example","title":"NULL handling and date filters change who is counted","body":"In SQL, comparisons with NULL are unknown, not true. WHERE tmax > 40 drops rows where tmax IS NULL, which can silently shrink a heat-day sample if missingness is informative. Prefer explicit filters such as WHERE tmax IS NOT NULL AND date >= DATE '2024-06-01' AND date < DATE '2024-07-01', document the missing-data rule, and check counts before and after filtering. Date functions and formats are dialect-specific; store UTC instants or unambiguous local calendar dates with a stated time zone policy."},
       {"id":"cgei-ds-55-2-schema","kind":"prose","title":"Keys, normalisation and indexes as design choices","body":"Put each entity at a clear grain: stations (station_id) separate from daily observations (station_id, date). First normal form avoids repeating groups; further normalisation reduces update anomalies when metadata change. Indexes speed selective predicates and joins but cost write time and storage—index measured access patterns (for example station_id, date ranges), not every column. Denormalised analysis tables are acceptable as derived products when lineage from the normalised source remains auditable."},
       {
@@ -5476,8 +5476,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "prompt": "You need mean June maximum temperature by station for 2024. Which SQL pattern is appropriate?",
     "options": [
       "SELECT station_id FROM daily;",
-      "SELECT station_id, AVG(tmax_c) FROM daily WHERE date >= '2024-06-01' AND date < '2024-07-01' GROUP BY station_id;",
-      "SELECT AVG(tmax_c) FROM daily ORDER BY station_id;",
+      "SELECT station_id, AVG(tmax) FROM daily WHERE date >= '2024-06-01' AND date < '2024-07-01' GROUP BY station_id;",
+      "SELECT AVG(tmax) FROM daily ORDER BY station_id;",
       "SELECT * FROM stations WHERE date = 'June';"
     ],
     "correctAnswer": 1,
@@ -5502,7 +5502,23 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "cognitiveLevel": "analyze"
   },
   {
-    "id": "cgei-ds-q-55-005",
+      {
+    "id": "cgei-ds-q-55-013",
+    "lessonId": "cgei-ds-lesson-5-5-2",
+    "type": "single-choice",
+    "prompt": "After LEFT JOIN stations to daily with the June date filter in the ON clause, Station C has mean_june_tmax NULL and n_valid 0. What does that mean?",
+    "options": [
+      "Station C failed the temperature sensor calibration check",
+      "Station C matched June rows but all tmax values were null",
+      "Station C has no matching June daily rows; the LEFT JOIN retained the station",
+      "The query used WHERE on d.date and dropped Station C"
+    ],
+    "correctAnswer": 2,
+    "explanation": "With the date predicate in ON, unmatched stations remain. NULL mean and n_valid=0 indicate zero matching June observations, not a sensor calibration story. Putting the date filter in WHERE would have removed Station C entirely.",
+    "difficulty": "medium",
+    "cognitiveLevel": "analyze"
+  },
+"id": "cgei-ds-q-55-005",
     "lessonId": "cgei-ds-lesson-5-5-3",
     "type": "single-choice",
     "prompt": "A public API responds with HTTP 429. What is the safest general response for an idempotent GET request?",
@@ -6411,7 +6427,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "questionIds": [
       "cgei-ds-q-55-003",
       "cgei-ds-q-55-004",
-      "cgei-ds-q-55-011"
+      "cgei-ds-q-55-013"
     ],
     "required": true
   },
