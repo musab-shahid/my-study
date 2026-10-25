@@ -1,6 +1,6 @@
 {
   "schema_version": "1.0",
-  "status": "baseline_identified_counts_reconciled_row_level_crosswalk_incomplete",
+  "status": "baseline_identified_subject5_leaf_id_title_order_verified",
   "source_artifact": {
     "filename": "Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx",
     "sha256": "3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb",
@@ -27,7 +27,17 @@
       "total_rows_across_these_three_levels": 247,
       "crosswalk_file": "docs/cgei/subject-5-canonical-leaf-inventory.csv",
       "crosswalk_leaf_row_count_matches_source_count": true,
-      "exact_title_parentage_order_verified": false
+      "exact_title_parentage_order_verified": true,
+      "verification": {
+        "verified_on": "2026-10-25",
+        "commit": "d7484eb682c08a7d1e7a43eee59700abd4ca5b50",
+        "method": "scripts/audit-cgei-toc-source.py + independent csv row compare",
+        "leaf_match_rate": "184/184",
+        "limitations": [
+          "Does not prove instructional depth or readiness",
+          "Does not authenticate external DOCX approval"
+        ]
+      }
     }
   },
   "implementation_context": {
@@ -39,9 +49,8 @@
   "known_limits": [
     "A hash identifies the supplied file bytes but does not prove external approval or provenance.",
     "The original DOCX is not stored in this repository; the hash alone cannot recover it.",
-    "Counts do not prove row-by-row source-to-app mapping or instructional completeness.",
-    "Subject 5's leaf row count matches, but exact title, parent, order, and app-side rearrangement review is incomplete.",
-    "The extraction method/script is not yet committed as a reproducible source-generation tool."
+    "Subject 5 leaf ID, exact title, and order match the baseline (184/184) as of C.28 reconciliation.",
+    "Match does not prove instructional completeness, assessment quality, or app lesson semantics."
   ],
   "control_documents": [
     "docs/cgei/SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md",
