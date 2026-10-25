@@ -26,6 +26,28 @@
 | TOC numbered subtopics | **2,052** | Exact numbered `X.Y.Z.W` subtopic headings in Part II |
 | TOC traceability rows (subjects + units + topics + subtopics) | **2,763** | Sum of the four source-level row classes above; not a count of app mappings |
 
+## Source TOC unit counts by subject
+
+| Subject | Total units | Core | Support | Optional |
+|---------|------------:|-----:|--------:|---------:|
+| 1 | 13 | 2 | 8 | 3 |
+| 2 | 13 | 6 | 5 | 2 |
+| 3 | 11 | 6 | 4 | 1 |
+| 4 | 12 | 9 | 3 | 0 |
+| 5 | 12 | 6 | 5 | 1 |
+| 6 | 9 | 7 | 2 | 0 |
+| 7 | 10 | 3 | 5 | 2 |
+| 8 | 9 | 7 | 1 | 1 |
+| 9 | 6 | 1 | 4 | 1 |
+| 10 | 9 | 0 | 2 | 7 |
+| 11 | 7 | 1 | 4 | 2 |
+| 12 | 7 | 3 | 3 | 1 |
+| 13 | 7 | 5 | 1 | 1 |
+| 14 | 5 | 0 | 0 | 5 |
+| **Total** | **130** | **56** | **47** | **27** |
+
+These are source-document counts, not app-registry coverage. A Core tag is a priority label, not proof that a corresponding app lesson is complete.
+
 ## TOC units vs registry (by subject)
 
 | Subject | TOC units | Registry units | Missing registry codes (examples) |
