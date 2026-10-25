@@ -40,4 +40,10 @@ Expanded activity/assessment integrity check across full `cgei-*-a-*` / `*assess
 
 ## Review-ready contract (not auto-promoted)
 A lesson is **review-ready** only with: explanation+limits, worked reasoning, guided practice, independent practice, assessment criteria/key, source-leaf traceability, and human readiness evidence. `hasSubstantiveLessonContent` alone is insufficient.
-\n\n### C.47 strict-gate verification and reconciliation pilot\n\nThe Subject 3.1 traceability registry now explicitly records source leaves 3.1.1.5 and 3.1.1.6 as deferred because the current lesson evidence does not teach the stated data-model and raster-grid conventions. The generated report links both rows to `subject-3-unit-3.1-subtopic-traceability.csv`.\n\nCI runs the transitional audit to regenerate the report, then runs the strict audit against the same repository data and asserts the expected blocking result: exit code 1, 207 unmapped Core leaves, and 0 stale lesson-ID references. This is an expected-failure assertion, not a waiver; strict coverage remains blocked until unmapped leaves receive evidence-based dispositions. The report artifact is uploaded after both runs.\n
+
+
+### C.47 strict-gate verification and reconciliation pilot
+
+The Subject 3.1 traceability registry now explicitly records source leaves 3.1.1.5 and 3.1.1.6 as deferred because the current lesson evidence does not teach the stated data-model and raster-grid conventions. The generated report links both rows to `subject-3-unit-3.1-subtopic-traceability.csv`.
+
+CI runs the transitional audit to regenerate the report, then runs the strict audit against the same repository data and asserts the expected blocking result: exit code 1, 207 unmapped Core leaves, and 0 stale lesson-ID references. This is an expected-failure assertion, not a waiver; strict coverage remains blocked until unmapped leaves receive evidence-based dispositions. The report artifact is uploaded after both runs.
