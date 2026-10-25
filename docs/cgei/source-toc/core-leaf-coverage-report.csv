@@ -810,25 +810,25 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 8.2.4.1,What one GPS point means inside a 30 m or 100 m pixel,8.2.4,Core,unmapped,,,No traceability row
 8.2.4.2,Coordinate error versus pixel size when pairing field points with imagery,8.2.4,Core,unmapped,,,No traceability row
 8.2.4.3,Representativeness of a sampling location within a heterogeneous footprint,8.2.4,Core,unmapped,,,No traceability row
-8.3.1.1,Internal validity and confounding,8.3.1,Core,unmapped,,,No traceability row
-8.3.1.2,External validity and generalisation,8.3.1,Core,unmapped,,,No traceability row
-8.3.1.3,Selection bias and missing data mechanisms,8.3.1,Core,unmapped,,,No traceability row
-8.3.1.4,Reproducibility as a validity concern,8.3.1,Core,unmapped,,,No traceability row
-8.3.2.1,Pre-specified analysis when confirmatory,8.3.2,Core,unmapped,,,No traceability row
-8.3.2.2,Sensitivity checks; reporting null results,8.3.2,Core,unmapped,,,No traceability row
-8.3.2.3,Multiple testing and selective reporting,8.3.2,Core,unmapped,,,No traceability row
-8.3.2.4,Transparent deviation logs,8.3.2,Core,unmapped,,,No traceability row
-8.3.3.1,"Researcher degrees of freedom, p-hacking, and HARKing; forking-paths documentation",8.3.3,Core,unmapped,,,No traceability row
-8.3.3.2,Preprints and open peer review as transparency tools,8.3.3,Core,unmapped,,,No traceability row
-8.3.3.3,"Registered analysis plans, open code, and data availability statements",8.3.3,Core,unmapped,,,No traceability row
-8.3.4.1,Consent and purpose limitation for survey/household data,8.3.4,Core,unmapped,,,No traceability row
-8.3.4.2,Location privacy; aggregation choices,8.3.4,Core,unmapped,,,No traceability row
-8.3.4.3,Dual-use and sensitive infrastructure awareness at overview level,8.3.4,Core,unmapped,,,No traceability row
-8.3.4.4,"University ethics approval: when needed, what to prepare",8.3.4,Core,unmapped,,,No traceability row
-8.3.4.5,"Local and traditional knowledge: consent, credit, and benefit sharing",8.3.4,Core,unmapped,,,No traceability row
-8.3.5.1,Data licences and attribution,8.3.5,Core,unmapped,,,No traceability row
-8.3.5.2,Authorship criteria and contribution statements (ICMJE/CRediT-style); plagiarism and self-plagiarism; similarity-check policies,8.3.5,Core,unmapped,,,No traceability row
-8.3.5.3,Predatory publishers and journal checking (e.g. Think–Check–Submit; national recognition lists such as HEC’s journal recognition system),8.3.5,Core,unmapped,,,No traceability row
+8.3.1.1,Internal validity and confounding,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Confounding example + internal validity definition.
+8.3.1.2,External validity and generalisation,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Industrial-belt vs coastal transfer example + external validity prose.
+8.3.1.3,Selection bias and missing data mechanisms,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Selection validity and document missingness; MAR/MNAR taxonomy not taught.
+8.3.1.4,Reproducibility as a validity concern,8.3.1,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Leakage and selective reporting as validity threats; full reproducibility framework not developed.
+8.3.2.1,Pre-specified analysis when confirmatory,8.3.2,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Pre-specify primary contrast; separate exploratory from confirmatory.
+8.3.2.2,Sensitivity checks; reporting null results,8.3.2,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Sensitivity analyses and null-result reporting not taught in 8-3-1.
+8.3.2.3,Multiple testing and selective reporting,8.3.2,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Selective reporting named; formal multiple-testing corrections not taught.
+8.3.2.4,Transparent deviation logs,8.3.2,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Log deviations / no silent switches; no deviation-log template exercise.
+8.3.3.1,"Researcher degrees of freedom, p-hacking, and HARKing; forking-paths documentation",8.3.3,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Silent analytic switches and exploratory/confirmatory separation; HARKing term not explicit.
+8.3.3.2,Preprints and open peer review as transparency tools,8.3.3,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Not taught.
+8.3.3.3,"Registered analysis plans, open code, and data availability statements",8.3.3,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Pre-specification emphasized; full registered-report/open-code workflow not taught (see also Unit 8.6).
+8.3.4.1,Consent and purpose limitation for survey/household data,8.3.4,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Survey/household consent not taught.
+8.3.4.2,Location privacy; aggregation choices,8.3.4,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,GPS minimisation and re-identification assessment; aggregation rules not formalized.
+8.3.4.3,Dual-use and sensitive infrastructure awareness at overview level,8.3.4,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Not taught.
+8.3.4.4,"University ethics approval: when needed, what to prepare",8.3.4,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,Automated checks ≠ IRB; obtain required approvals; preparation checklist not taught.
+8.3.4.5,"Local and traditional knowledge: consent, credit, and benefit sharing",8.3.4,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Communities mentioned generically; TK protocol not taught.
+8.3.5.1,Data licences and attribution,8.3.5,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Not taught in 8-3-1 (availability in Unit 8.6).
+8.3.5.2,Authorship criteria and contribution statements (ICMJE/CRediT-style); plagiarism and self-plagiarism; similarity-check policies,8.3.5,Core,mapped_partial,cgei-rp-lesson-8-3-1,subject-8-unit-8.3-subtopic-traceability.csv,CRediT-style contribution and plagiarism named; full authorship criteria not operationalised.
+8.3.5.3,Predatory publishers and journal checking (e.g. Think–Check–Submit; national recognition lists such as HEC’s journal recognition system),8.3.5,Core,deferred,,subject-8-unit-8.3-subtopic-traceability.csv,Not taught.
 8.6.1.1,IMRaD for papers,8.6.1,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,IMRaD structure not taught in 8-6-1.
 8.6.1.2,Methods completeness checklist,8.6.1,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,Minimum reporting checklist + lab section keys; not a full methods completeness standard.
 8.6.1.3,Data and code availability statements,8.6.1,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,"Prose, checklist, and lab require availability statements."

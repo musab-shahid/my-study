@@ -1,6 +1,20 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-8.3.validity-types,Four validity types,8.3,Validity ethics integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-lab,mapped_partial,Worked threats and checklist fixture.
-8.3.bias-leakage-causal,Confounding bias leakage causal limits,8.3,Validity ethics integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example,mapped_partial,Scenario lab.
-8.3.sensitive-geo,Sensitive geospatial minimisation,8.3,Validity ethics integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-lab,mapped_partial,Fixture rules.
-8.3.integrity-reporting,Preanalysis deviations selective reporting,8.3,Validity ethics integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-lab,mapped_partial,Linked to 8.1 protocol.
-8.3.institutional-ethics,Institutional ethics approval,8.3,Validity ethics integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-lab,mapped_partial,Explicitly NOT claimed by fixture.
+8.3.1.1,Internal validity and confounding,8.3.1,Validity types,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-1,mapped_partial,Confounding example + internal validity definition.
+8.3.1.2,External validity and generalisation,8.3.1,Validity types,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-1,mapped_partial,Industrial-belt vs coastal transfer example + external validity prose.
+8.3.1.3,Selection bias and missing data mechanisms,8.3.1,Validity types,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-1;cgei-rp-83-1-3,mapped_partial,Selection validity and document missingness; MAR/MNAR taxonomy not taught.
+8.3.1.4,Reproducibility as a validity concern,8.3.1,Validity types,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-lab,mapped_partial,Leakage and selective reporting as validity threats; full reproducibility framework not developed.
+8.3.2.1,Pre-specified analysis when confirmatory,8.3.2,Analytic integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-3,mapped_partial,Pre-specify primary contrast; separate exploratory from confirmatory.
+8.3.2.2,Sensitivity checks; reporting null results,8.3.2,Analytic integrity,Core,,,deferred,Sensitivity analyses and null-result reporting not taught in 8-3-1.
+8.3.2.3,Multiple testing and selective reporting,8.3.2,Analytic integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-2;cgei-rp-83-1-3,mapped_partial,Selective reporting named; formal multiple-testing corrections not taught.
+8.3.2.4,Transparent deviation logs,8.3.2,Analytic integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-3,mapped_partial,Log deviations / no silent switches; no deviation-log template exercise.
+8.3.3.1,"Researcher degrees of freedom, p-hacking, HARKing",8.3.3,Transparency tools,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-3,mapped_partial,Silent analytic switches and exploratory/confirmatory separation; HARKing term not explicit.
+8.3.3.2,Preprints and open peer review,8.3.3,Transparency tools,Core,,,deferred,Not taught.
+8.3.3.3,"Registered analysis plans, open code, and data availability",8.3.3,Transparency tools,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-3,mapped_partial,Pre-specification emphasized; full registered-report/open-code workflow not taught (see also Unit 8.6).
+8.3.4.1,Consent and purpose limitation for survey/household data,8.3.4,Ethics and privacy,Core,,,deferred,Survey/household consent not taught.
+8.3.4.2,Location privacy; aggregation choices,8.3.4,Ethics and privacy,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-lab,mapped_partial,GPS minimisation and re-identification assessment; aggregation rules not formalized.
+8.3.4.3,Dual-use and sensitive infrastructure awareness,8.3.4,Ethics and privacy,Core,,,deferred,Not taught.
+8.3.4.4,"University ethics approval: when needed, what to prepare",8.3.4,Ethics and privacy,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-example;cgei-rp-83-1-lab;cgei-rp-83-1-2,mapped_partial,Automated checks ≠ IRB; obtain required approvals; preparation checklist not taught.
+8.3.4.5,"Local and traditional knowledge: consent, credit, benefit sharing",8.3.4,Ethics and privacy,Core,,,deferred,Communities mentioned generically; TK protocol not taught.
+8.3.5.1,Data licences and attribution,8.3.5,Publication integrity,Core,,,deferred,Not taught in 8-3-1 (availability in Unit 8.6).
+8.3.5.2,Authorship criteria and contribution statements; plagiarism,8.3.5,Publication integrity,Core,cgei-rp-lesson-8-3-1,cgei-rp-83-1-2,mapped_partial,CRediT-style contribution and plagiarism named; full authorship criteria not operationalised.
+8.3.5.3,Predatory publishers and journal checking,8.3.5,Publication integrity,Core,,,deferred,Not taught.
