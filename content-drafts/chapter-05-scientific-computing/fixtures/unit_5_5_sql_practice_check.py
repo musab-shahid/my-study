@@ -65,7 +65,10 @@ def main() -> None:
     ).fetchall()
     assert orphan_keys == [], f"unexpected orphan station keys: {orphan_keys!r}"
 
-    # Prove the diagnostic catches an intentionally unmatched key.
+    # Simulate a legacy/imported table with an orphan key despite the declared FK.
+    # SQLite only enforces foreign keys when enabled, so disable enforcement for this
+    # deliberate corruption fixture; the diagnostic itself must still detect it.
+    con.execute("PRAGMA foreign_keys = OFF")
     con.execute("INSERT INTO daily VALUES (999, '2024-06-04', 50.0)")
     orphan_keys = con.execute(
         """
