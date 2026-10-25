@@ -2580,9 +2580,9 @@ const lessons45: CurriculumLesson[] = [
       { id: 'cgei-rs-45-1-time', kind: 'prose', title: 'Matched dates before casual composites', body: 'Prefer same-date urban and reference contrasts when comparing intensity. Multi-date seasonal or annual summaries need stated windows, cloud/QA rules, and valid-observation counts. Clear-sky LST is not a random sample of all weather; composites often run warm (Unit 4.3–4.4). Do not subtract unrelated dates or mix incompatible temporal support without disclosure.' },
       { id: 'cgei-rs-45-1-work', kind: 'worked-example', title: 'Two references, two intensities', body: 'Valid urban mean LST = 312.0 K. Reference A (dry cropland, elevation-matched) mean = 308.5 K → SUHII = 3.5 K. Reference B (irrigated fringe) mean = 310.0 K → SUHII = 2.0 K. The 1.5 K swing is a reference-design effect, not a change in the city. Report both and the inclusion rules.' },
       { id: 'cgei-rs-45-1-points', kind: 'key-points', title: 'Definition discipline', items: ['SUHII uses LST; air UHI uses air temperature', 'State sign convention and units', 'Reference and date protocol belong in the estimand', 'LCZ is an alternative to binary urban–rural'] },
-    ],
-          { id: 'cgei-rs-45-humid-bridge', kind: 'prose', title: 'SUHI is not humid-heat stress (Unit 2.3 link)', body: 'Surface urban heat island intensity (SUHII) is a surface-temperature contrast. Humid-heat stress depends on air temperature and humidity—often summarised with wet-bulb temperature Tw or related indices (Unit 2.3). A strong SUHII does not prove high Tw; a moist rural reference can have lower LST yet higher humidity. Clausius–Clapeyron (~6–7%/K saturation capacity) explains why warmer air can hold more moisture, but local humid-heat risk still needs humidity observations or model fields, not LST alone. Prerequisite Unit 2.3 supplies Tw, humidity variables, and CC scaling before interpreting urban thermal products as health-relevant stress.' },
+      { id: 'cgei-rs-45-humid-bridge', kind: 'prose', title: 'SUHI is not humid-heat stress (Unit 2.3 link)', body: 'Surface urban heat island intensity (SUHII) is a surface-temperature contrast. Humid-heat stress depends on air temperature and humidity—often summarised with wet-bulb temperature Tw or related indices (Unit 2.3). A strong SUHII does not prove high Tw; a moist rural reference can have lower LST yet higher humidity. Clausius–Clapeyron (~6–7%/K saturation capacity) explains why warmer air can hold more moisture, but local humid-heat risk still needs humidity observations or model fields, not LST alone. Prerequisite Unit 2.3 supplies Tw, humidity variables, and CC scaling before interpreting urban thermal products as health-relevant stress.' },
       { id: 'cgei-rs-45-humid-bridge-ex', kind: 'worked-example', title: 'Same SUHII, different stress narrative', body: 'Synthetic case: urban LST − rural LST = +4 K (SUHII positive). Scenario A: rural RH high, urban RH low → rural Tw can approach urban Tw despite cooler surface. Scenario B: both dry → SUHII may align better with air-temperature contrast. Fixture unit_4_5_humid_heat_bridge_check.py checks that a positive SUHII is not treated as a sufficient condition for higher urban Tw when humidity inputs differ.' },
+    ],
     activityIds: ['cgei-rs-a-45-suhii', 'cgei-rs-a-45-humid'], assessmentIds: ['cgei-rs-assess-45-define'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -4240,8 +4240,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
     },
     {
-      
-    {
       id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
       summary: 'Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.',
       estimatedHours: 10, prerequisites: ['Unit 2.1', 'Unit 2.2'], outcomes: outcomes23,
@@ -4253,8 +4251,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 2 Unit 2.3',
       notes: ['Support Unit 2.3. Synthetic Clausius–Clapeyron check; no NWP model run in CI.'],
     },
-
-id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
+    {
+      id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
       summary: 'Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.',
       estimatedHours: 8, prerequisites: ['Unit 2.4'], outcomes: outcomes25,
       lessonIds: lessons25.map((lesson) => lesson.id),
