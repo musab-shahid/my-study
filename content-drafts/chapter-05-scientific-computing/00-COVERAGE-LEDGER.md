@@ -78,3 +78,19 @@ Re-run these commands against the current commit; snapshots in this file should 
 ## 6. Traceability filename continuity
 
 The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated unit segments in their filenames (`5-5`, `5-6`, and `5-11`). The older dot-segment filenames (`5.5`, `5.6`, and `5.11`) were renamed, not content-deleted: each current file body has the same Git blob SHA as its pre-sync backup counterpart. Their source paths, dispositions, lesson IDs, and content-block IDs are therefore preserved byte-for-byte; do not restore duplicate files under the old names.
+
+
+## 7. Follow-up semantic spot-check — 2026-10-25
+
+**Scope:** the six Subject 5 Core leaves currently marked `mapped` in `docs/cgei/subject-5-canonical-leaf-inventory.csv`. This is a targeted block-to-leaf check, not a full review of all 117 Core leaves. The live registry source reviewed was `src/data/cgei/curriculum.ts` (blob SHA `8cffe3ac4fbe37a681f32ac57918798666d638bb`).
+
+| TOC leaf | Result | Evidence |
+|---|---|---|
+| 5.2.1.4 Readable naming and docstrings | Direct match | `cgei-ds-52-1-principles` explicitly requires meaningful names, units, and docstrings. |
+| 5.2.2.2 Vectorisation and broadcasting | Direct match | `cgei-ds-52-2-code` demonstrates a time offset broadcast across a spatial grid and asserts the resulting shape; the companion example adds context. |
+| 5.4.4.2 ANOVA, chi-square and contingency tables | Direct match | The mapped blocks explain the omnibus ANOVA result, calculate F, build a forecast contingency table, and calculate expected counts and Pearson chi-square. Sampling dependence caveats are present. |
+| 5.6.1.1 Multiple linear regression | Direct match | `cgei-ds-56-1-core` defines conditional-mean interpretation; `cgei-ds-56-1-example` gives a units-based slope interpretation and avoids causal overclaim. |
+| 5.6.3.2 Prediction versus confidence intervals | **Mapping corrected** | The CSV previously pointed only to `cgei-ds-56-3-table`, which classifies uncertainty sources but does not directly establish the CI-versus-PI distinction. The mapping now points to `cgei-ds-56-3-core` and `cgei-ds-56-3-example`, which define the distinction and show illustrative ranges. |
+| 5.6.4.3 Why IID assumptions fail for climate and EO data | Direct match | `cgei-ds-56-4-core` names dependence across stations, satellite pixels and neighbouring grid cells and explains the risks to standard errors and random splits. |
+
+**Interpretation limit:** the six block mappings now have direct semantic support, but this does not promote their lessons beyond their current draft readiness. It also does not imply that the remaining 111 Core leaves marked `mapped_partial` are complete. Learner practice, assessment quality, runnable evidence, and full source-to-app coverage still need separate review.
