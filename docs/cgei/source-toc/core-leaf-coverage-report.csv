@@ -209,7 +209,7 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 3.3.1.3,Vector and raster geoprocessing tools,3.3.1,Core,mapped_partial,cgei-geo-lesson-3-3-1,subject-3-unit-3.3-subtopic-traceability.csv,Operation semantics taught; GUI menus practice outside CI.
 3.3.1.4,Graphical models / processing models for repeatability,3.3.1,Core,mapped_partial,cgei-geo-lesson-3-3-5,subject-3-unit-3.3-subtopic-traceability.csv,Processing log required; Model Designer not stepped through.
 3.3.2.1,PyQGIS scripting and plugins; processing from the command line; project templates,3.3.2,Core,deferred,,subject-3-unit-3.3-subtopic-traceability.csv,Named in TOC; not implemented in this unit slice. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
-3.3.2.2,"ArcGIS Pro and ModelBuilder as the dominant commercial alternative: concepts transfer, interface differs; file geodatabase versus GeoPackage",3.3.2,Core,unmapped,,,No traceability row
+3.3.2.2,"ArcGIS Pro and ModelBuilder as the dominant commercial alternative: concepts transfer, interface differs; file geodatabase versus GeoPackage",3.3.2,Core,deferred,,subject-3-unit-3.3-subtopic-traceability.csv,No ArcGIS/ModelBuilder instruction in cgei-geo-lesson-3-3-*; curriculum is QGIS/GDAL/Python oriented. Concepts-transfer claim not taught.
 3.3.2.3,Command-line GDAL/OGR for batch inspection and conversion,3.3.2,Core,mapped_partial,cgei-geo-lesson-3-3-8,subject-3-unit-3.3-subtopic-traceability.csv,GDAL/OGR command intents taught; commands not executed in CI.
 3.3.3.1,"Buffer, dissolve, clip, intersection, union, difference",3.3.3,Core,mapped_partial,cgei-geo-lesson-3-3-1,subject-3-unit-3.3-subtopic-traceability.csv,Conceptual teaching of all six operations; not a geometry engine.
 3.3.3.2,Spatial join and attribute join,3.3.3,Core,mapped_partial,cgei-geo-lesson-3-3-2,subject-3-unit-3.3-subtopic-traceability.csv,Join types and row counts taught.
@@ -623,22 +623,22 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 6.2.3.1,Target construction and leakage-prone definitions; sample design under spatial autocorrelation; effective sample size,6.2.3,Core,deferred,,subject-6-unit-6.2-subtopic-traceability.csv,Deferred: block/lesson ownership mismatch; not claiming mapped coverage.
 6.2.3.2,"Class imbalance: weighting and resampling, and why resampling can mislead evaluation",6.2.3,Core,mapped_partial,cgei-ml-lesson-6-2-2,subject-6-unit-6.2-subtopic-traceability.csv,Named. C.36: class imbalance majority/minority ratio.
 6.2.3.3,"Fitting scalers, encoders, and selectors only on training data, after the split",6.2.3,Core,mapped_partial,cgei-ml-lesson-6-2-1,subject-6-unit-6.2-subtopic-traceability.csv,Fixture enforced.
-6.3.1.1,Linear and regularised regression,6.3.1,Core,unmapped,,,No traceability row
-6.3.1.2,Logistic regression,6.3.1,Core,unmapped,,,No traceability row
-6.3.1.3,Feature scaling and encoding needs,6.3.1,Core,unmapped,,,No traceability row
-6.3.1.4,"Support vector machines, k-nearest neighbours, naive Bayes, Gaussian processes: when each is appropriate",6.3.1,Core,unmapped,,,No traceability row
-6.3.2.1,"Decision trees: split criteria, depth, overfitting",6.3.2,Core,unmapped,,,No traceability row
-6.3.2.2,"Random Forest: bagging, feature randomness, out-of-bag ideas",6.3.2,Core,unmapped,,,No traceability row
-6.3.2.3,Gradient boosting / XGBoost-style methods: sequential residuals,6.3.2,Core,unmapped,,,No traceability row
-6.3.2.4,LightGBM and CatBoost alongside XGBoost; quantile regression forests for prediction intervals,6.3.2,Core,unmapped,,,No traceability row
-6.3.2.5,Hyperparameter defaults versus tuning: what matters most for tree ensembles,6.3.2,Core,unmapped,,,No traceability row
-6.3.3.1,"K-means: objective, initialization, limitations",6.3.3,Core,unmapped,,,No traceability row
-6.3.3.2,Distance metrics and scaling dependence,6.3.3,Core,unmapped,,,No traceability row
-6.3.3.3,Hierarchical clustering concepts,6.3.3,Core,unmapped,,,No traceability row
-6.3.3.4,Cluster validity ideas; stability,6.3.3,Core,unmapped,,,No traceability row
-6.3.4.1,Dimension reduction for exploration: PCA; t-SNE and UMAP for visualisation only,6.3.4,Core,unmapped,,,No traceability row
-6.3.4.2,"Gaussian mixture models, DBSCAN, self-organising maps; isolation-forest-style anomaly detection",6.3.4,Core,unmapped,,,No traceability row
-6.3.4.3,"Choosing an unsupervised method by data type, noise, and the question",6.3.4,Core,unmapped,,,No traceability row
+6.3.1.1,Linear and regularised regression,6.3.1,Core,mapped_partial,cgei-ml-lesson-6-3-1,subject-6-unit-6.3-subtopic-traceability.csv,Linear regression and regularisation named; no ridge/lasso worked example.
+6.3.1.2,Logistic regression,6.3.1,Core,mapped_partial,cgei-ml-lesson-6-3-1,subject-6-unit-6.3-subtopic-traceability.csv,Logistic as binary baseline + synthetic GD lab.
+6.3.1.3,Feature scaling and encoding needs,6.3.1,Core,mapped_partial,cgei-ml-lesson-6-3-1,subject-6-unit-6.3-subtopic-traceability.csv,Train-only scaling in fixture; encoding schemes not taught.
+6.3.1.4,"Support vector machines, k-nearest neighbours, naive Bayes, Gaussian processes: when each is appropriate",6.3.1,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught in lesson 6-3-1 body or fixture.
+6.3.2.1,"Decision trees: split criteria, depth, overfitting",6.3.2,Core,mapped_partial,cgei-ml-lesson-6-3-1,subject-6-unit-6.3-subtopic-traceability.csv,Depth-1 stump lab; split criteria not formalized.
+6.3.2.2,"Random Forest: bagging, feature randomness, out-of-bag ideas",6.3.2,Core,mapped_partial,cgei-ml-lesson-6-3-1,subject-6-unit-6.3-subtopic-traceability.csv,Forests named; bagging/OOB not implemented.
+6.3.2.3,Gradient boosting / XGBoost-style methods: sequential residuals,6.3.2,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.2.4,LightGBM and CatBoost alongside XGBoost; quantile regression forests for prediction intervals,6.3.2,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.2.5,Hyperparameter defaults versus tuning: what matters most for tree ensembles,6.3.2,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.3.1,"K-means: objective, initialization, limitations",6.3.3,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Unsupervised methods not taught in 6-3-1 (only name-drop risk avoided).
+6.3.3.2,Distance metrics and scaling dependence,6.3.3,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.3.3,Hierarchical clustering concepts,6.3.3,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.3.4,Cluster validity ideas; stability,6.3.3,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.4.1,Dimension reduction for exploration: PCA; t-SNE and UMAP for visualisation only,6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.4.2,"Gaussian mixture models, DBSCAN, self-organising maps; isolation-forest-style anomaly detection",6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
+6.3.4.3,"Choosing an unsupervised method by data type, noise, and the question",6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
 6.4.1.1,Train / validation / test separation,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Taught.
 6.4.1.2,Cross-validation schemes,6.4.1,Core,unmapped,,,No traceability row
 6.4.1.3,Preprocessing fitted on training data only,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Fixture scale-on-train.
