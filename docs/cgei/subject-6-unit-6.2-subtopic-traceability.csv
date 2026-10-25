@@ -7,5 +7,5 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 6.2.2.2,Normalisation per band region sensor,6.2.2,Cleaning and scaling,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2;cgei-ml-62-1-lab,mapped_partial,Train-only z-score on LST.
 6.2.2.3,Scale mismatch pixel point polygon alignment,6.2.2,Cleaning and scaling,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-0,mapped_partial,Named.
 6.2.3.1,Target construction leakage sample design,6.2.3,Samples and targets,Core,,,deferred,Deferred: block/lesson ownership mismatch; not claiming mapped coverage.
-6.2.3.2,Class imbalance weighting resampling,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-2,cgei-ml-62-2-2,mapped_partial,Named.
+6.2.3.2,Class imbalance weighting resampling,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-2,cgei-ml-62-2-2,mapped_partial,Named. C.36: class imbalance majority/minority ratio.
 6.2.3.3,Fit scalers encoders selectors on train only,6.2.3,Samples and targets,Core,cgei-ml-lesson-6-2-1,cgei-ml-62-1-2;cgei-ml-62-1-lab,mapped_partial,Fixture enforced.

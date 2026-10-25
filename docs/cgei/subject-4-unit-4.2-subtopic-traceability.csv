@@ -26,5 +26,5 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 4.2.7.2,Snow ice products,4.2.7,Atmosphere snow ice,Core,cgei-rs-lesson-4-2-2,cgei-rs-42-2-2,mapped_partial,Named.
 4.2.7.3,Coverage latency licence,4.2.7,Atmosphere snow ice,Core,cgei-rs-lesson-4-2-2,cgei-rs-42-2-2,mapped_partial,Constraint named.
 4.2.8.1,QA cloud shadow saturation,4.2.8,Quality and compatibility,Core,cgei-rs-lesson-4-2-3,cgei-rs-42-3-qa;cgei-rs-42-3-lab,mapped_partial,QA mask fixture + product-defined clear.
-4.2.8.2,Scale factors offsets Landsat ST,4.2.8,Quality and compatibility,Core,cgei-rs-lesson-4-2-3,cgei-rs-42-3-1;cgei-rs-42-3-equation;cgei-rs-42-3-lab,mapped_partial,Synthetic ST decode fixture; USGS table required for ops.
+4.2.8.2,Scale factors offsets Landsat ST,4.2.8,Quality and compatibility,Core,cgei-rs-lesson-4-2-3,cgei-rs-42-3-1;cgei-rs-42-3-equation;cgei-rs-42-3-lab,mapped_partial,Synthetic ST decode fixture; USGS table required for ops. C.36: scale/offset DN→physical units fixture.
 4.2.8.3,Cross-sensor continuity,4.2.8,Quality and compatibility,Core,cgei-rs-lesson-4-2-3,cgei-rs-42-3-lab,mapped_partial,Principle taught.
