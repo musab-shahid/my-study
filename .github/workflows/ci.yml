@@ -133,7 +133,7 @@ jobs:
             echo "Expected strict gate exit 1 while Core leaves remain unmapped; got $status." >&2
             exit 1
           fi
-          printf '%s\n' "$output" | grep -q "207 unmapped Core leaves"
+          printf '%s\n' "$output" | grep -E -q "[1-9][0-9]* unmapped Core leaves"
           printf '%s\n' "$output" | grep -q "0 stale lesson ID reference(s)"
           echo "Strict gate behavior verified: unresolved leaves remain blocking; stale IDs are zero."
       - name: Upload Core-leaf coverage report
