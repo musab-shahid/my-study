@@ -116,3 +116,10 @@ The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated 
 **Scope:** all 17 Unit 5.3 Core leaf rows (all currently `mapped_partial`). I compared their evidence IDs and notes with the actual lesson-block definitions in `src/data/cgei/curriculum.ts`. No clearly unrelated block link was confirmed in this slice, so no CSV row was changed. The current partial dispositions are consistent with the documented limits: full distribution catalogues, deeper time-series/spatial diagnostics, live plotting-tool practice, and complete publication-ready visualisation exercises are not all supplied by the linked blocks.
 
 **Not a readiness pass:** this check only assessed whether the cited blocks plausibly support each leaf and whether partial scope is honestly stated. It did not execute plotting code, test rendered figures, inspect every activity/question for validity, or promote any lesson from draft. Keep all 17 rows `mapped_partial` pending the deeper teaching/practice/assessment review.
+
+
+## 10. Unit 5.4 Core traceability and arithmetic spot-check — 2026-10-25
+
+**Scope:** all 18 Unit 5.4 Core leaves (1 `mapped`, 17 `mapped_partial`, 0 `gap`). I checked the 35 distinct referenced content-block IDs against the live registry definitions; all exist, and no clearly unrelated block link was found in this slice. No traceability row was changed. Partial dispositions remain appropriate where simulation, comparative fit exercises, design-weight calculations, dependence-aware inference, or fully executed diagnostics are still absent.
+
+**Independent arithmetic spot-check:** the lesson's three-group ANOVA example reproduces (SS_B=38), (SS_W=6), and (F=(38/2)/(6/6)=19). The 2×2 contingency example reproduces expected counts 15.2, 24.8, 22.8 and 37.2, with Pearson χ² ≈ 38.738 (reported as ≈ 38.74). This is an arithmetic recheck of synthetic examples, not execution of the application fixture or proof of broader lesson readiness.
