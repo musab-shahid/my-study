@@ -18,7 +18,7 @@
 | Numbered subtopics | 2,052 |
 | **Total traceability rows** | **2,763** |
 
-Counts were extracted from the DOCX Part II knowledge map using unit-header priority tags and numbered paths. A companion CSV was generated as a working artifact; it preserves each item's source title and zero-based paragraph index for back-checking. The CSV is not yet committed to the repository, so do not use it as a CI input until it is added and reviewed.
+The source inventory was re-extracted on 2026-10-25 from the user-supplied authoritative file `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx` (SHA-256 `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`). Counting the numbered subject headings and Part II `Unit X.Y`, `X.Y.Z`, and `X.Y.Z.W` headings confirms 14 subjects, 130 units, 567 numbered topics, and 2,052 numbered subtopics (2,763 source traceability rows total). This resolves the prior 125-versus-130 unit discrepancy: 125 was the stale count. A companion row-level CSV has not been committed to the repository; do not use an untracked working artifact as a CI input.
 
 ## Current app mapping evidence
 
