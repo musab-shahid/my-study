@@ -3,8 +3,8 @@
 
 Exit codes:
   0 — report written; no unmapped Core leaves and no stale app lesson IDs
-  1 — unmapped Core leaves and/or stale lesson ID references
-  2 — usage / IO / source parse error
+  1 — unmapped Core leaves and/or stale app lesson ID references
+  2 — usage, input, duplicate-disposition, or curriculum-parse error
 
 This gate measures traceability dispositions only. It does not certify mastery,
 pedagogy, or scientific validity.
@@ -19,22 +19,38 @@ from collections import Counter
 from pathlib import Path
 
 VALID = {"mapped", "mapped_partial", "deferred"}
+LESSON_ID = re.compile(r"""id:\s*['"](cgei-[^'"]*lesson[^'"]*)['"]""")
 
 
 def load_source_core(path: Path) -> list[dict[str, str]]:
-    rows = list(csv.DictReader(path.open(encoding="utf-8")))
-    return [
-        r
-        for r in rows
+    with path.open(encoding="utf-8-sig", newline="") as fh:
+        reader = csv.DictReader(fh)
+        required = {"node_type", "priority", "source_id"}
+        if not reader.fieldnames or not required.issubset(reader.fieldnames):
+            raise ValueError(
+                f"source rows missing required columns {sorted(required)}: {path}"
+            )
+        rows = list(reader)
+    core = [
+        r for r in rows
         if r.get("node_type") == "subtopic" and r.get("priority") == "Core"
     ]
+    missing_ids = [str(i + 2) for i, row in enumerate(core) if not row.get("source_id", "").strip()]
+    if missing_ids:
+        raise ValueError(f"Core source rows have blank source_id at CSV lines {', '.join(missing_ids)}")
+    ids = [row["source_id"].strip() for row in core]
+    duplicates = sorted({sid for sid in ids if ids.count(sid) > 1})
+    if duplicates:
+        raise ValueError(f"duplicate Core source IDs in source rows: {duplicates[:20]}")
+    return core
 
 
 def load_dispositions(docs_cgei: Path) -> dict[str, dict[str, str]]:
     out: dict[str, dict[str, str]] = {}
-    for p in sorted(docs_cgei.glob("subject-*-unit-*-subtopic-traceability.csv")):
-        with p.open(encoding="utf-8-sig", newline="") as fh:
-            for row in csv.DictReader(fh):
+    origins: dict[str, str] = {}
+    for path in sorted(docs_cgei.glob("subject-*-unit-*-subtopic-traceability.csv")):
+        with path.open(encoding="utf-8-sig", newline="") as fh:
+            for line_number, row in enumerate(csv.DictReader(fh), start=2):
                 sid = (
                     row.get("source_subtopic_path")
                     or row.get("source_topic_path")
@@ -44,143 +60,165 @@ def load_dispositions(docs_cgei: Path) -> dict[str, dict[str, str]]:
                 ).strip()
                 if not sid:
                     continue
+                origin = f"{path.name}:{line_number}"
+                if sid in out:
+                    raise ValueError(
+                        f"duplicate disposition for source ID {sid!r}: "
+                        f"{origins[sid]} and {origin}"
+                    )
                 raw = (
                     row.get("disposition")
                     or row.get("mapping_status")
                     or row.get("subtopic_coverage_status")
-                    or "mapped_partial"
+                    or ""
+                ).strip().lower()
+                lesson_ids = (
+                    row.get("app_lesson_id") or row.get("app_lesson_ids") or ""
                 ).strip()
-                # normalize legacy vocabulary into gate vocabulary
+                notes = (row.get("evidence_note") or row.get("notes") or "").strip()
+
                 if raw in ("mapped", "complete"):
-                    disp = "mapped"
-                elif raw in ("deferred",):
-                    disp = "deferred"
-                elif raw in ("gap", "unresolved", "candidate"):
-                    # candidate/gap without lesson evidence stays visible as partial/unmapped later
-                    disp = "mapped_partial" if (row.get("app_lesson_id") or row.get("app_lesson_ids")) else "mapped_partial"
+                    disposition = "mapped"
+                elif raw == "deferred":
+                    disposition = "deferred"
+                elif raw in ("mapped_partial", "partial"):
+                    disposition = "mapped_partial"
+                elif raw in ("gap", "unresolved", "candidate", ""):
+                    # A legacy gap/candidate is not a mapping unless it points to
+                    # an actual lesson. Without that evidence, keep it unresolved.
+                    disposition = "mapped_partial" if lesson_ids else "unmapped"
                 else:
-                    disp = "mapped_partial"
+                    raise ValueError(
+                        f"unknown disposition {raw!r} for {sid!r} at {origin}"
+                    )
+
+                if disposition in ("mapped", "mapped_partial") and not lesson_ids:
+                    disposition = "unmapped"
+                    notes = (
+                        "No app lesson ID supplied for mapping disposition. "
+                        + notes
+                    ).strip()
                 out[sid] = {
-                    "disposition": disp if disp in VALID else "mapped_partial",
-                    "app_lesson_ids": (
-                        row.get("app_lesson_id") or row.get("app_lesson_ids") or ""
-                    ).strip(),
-                    "notes": (row.get("evidence_note") or row.get("notes") or "").strip(),
-                    "source_file": p.name,
+                    "disposition": disposition,
+                    "app_lesson_ids": lesson_ids,
+                    "notes": notes,
+                    "source_file": path.name,
                 }
+                origins[sid] = origin
     return out
 
 
-def lesson_ids_in_curriculum(curriculum_ts: Path) -> set[str]:
-    text = curriculum_ts.read_text(encoding="utf-8")
-    return set(re.findall(r"id:\s*['\"](cgei-[^'\"]*lesson[^'\"]*)['\"]", text))
+def lesson_ids_in_curriculum(path: Path) -> set[str]:
+    if not path.is_file():
+        raise ValueError(f"missing curriculum input: {path}")
+    text = path.read_text(encoding="utf-8")
+    ids = set(LESSON_ID.findall(text))
+    if not ids:
+        raise ValueError(
+            f"curriculum input is empty or unparseable: no CGEI lesson IDs found in {path}"
+        )
+    return ids
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--source-rows",
-        type=Path,
+        "--source-rows", type=Path,
         default=Path("docs/cgei/source-toc/priority-path-source-rows.csv"),
     )
     parser.add_argument("--docs-cgei", type=Path, default=Path("docs/cgei"))
     parser.add_argument(
-        "--curriculum",
-        type=Path,
-        default=Path("src/data/cgei/curriculum.ts"),
+        "--curriculum", type=Path, default=Path("src/data/cgei/curriculum.ts"),
     )
     parser.add_argument(
-        "--report",
-        type=Path,
+        "--report", type=Path,
         default=Path("docs/cgei/source-toc/core-leaf-coverage-report.csv"),
     )
     parser.add_argument(
-        "--allow-unmapped",
-        action="store_true",
+        "--allow-unmapped", action="store_true",
         help="Exit 0 even if unmapped Core leaves remain (report still written).",
     )
     args = parser.parse_args()
 
-    if not args.source_rows.is_file():
-        print(f"ERROR: missing source rows {args.source_rows}", file=sys.stderr)
+    try:
+        if not args.source_rows.is_file():
+            raise ValueError(f"missing source rows: {args.source_rows}")
+        core = load_source_core(args.source_rows)
+        if not core:
+            raise ValueError(f"no Core subtopic leaves found in {args.source_rows}")
+        dispositions = load_dispositions(args.docs_cgei)
+        lessons = lesson_ids_in_curriculum(args.curriculum)
+    except (OSError, UnicodeError, csv.Error, ValueError) as exc:
+        print(f"ERROR: {exc}", file=sys.stderr)
         return 2
-
-    core = load_source_core(args.source_rows)
-    dispositions = load_dispositions(args.docs_cgei)
-    lessons = lesson_ids_in_curriculum(args.curriculum) if args.curriculum.is_file() else set()
 
     report_rows = []
     counts: Counter[str] = Counter()
     stale = 0
     for leaf in core:
-        sid = leaf["source_id"]
-        title = leaf.get("title", "")
-        d = dispositions.get(sid)
-        if not d:
+        sid = leaf["source_id"].strip()
+        disposition = dispositions.get(sid)
+        if not disposition:
             status = "unmapped"
             lesson_ids = ""
             notes = "No traceability row"
             source_file = ""
         else:
-            status = d["disposition"]
-            lesson_ids = d["app_lesson_ids"]
-            notes = d["notes"]
-            source_file = d["source_file"]
-            for lid in re.split(r"[;,\s]+", lesson_ids):
-                if lid and lessons and lid not in lessons:
-                    status = "stale_mapping"
-                    notes = f"Unknown lesson ID {lid}; {notes}".strip()
-                    stale += 1
-                    break
-        counts[status] += 1
-        report_rows.append(
-            {
-                "source_id": sid,
-                "title": title,
-                "unit": leaf.get("parent_id", ""),
-                "priority": "Core",
-                "disposition": status,
-                "app_lesson_ids": lesson_ids,
-                "traceability_file": source_file,
-                "notes": notes,
-            }
-        )
+            status = disposition["disposition"]
+            lesson_ids = disposition["app_lesson_ids"]
+            notes = disposition["notes"]
+            source_file = disposition["source_file"]
+            unknown = [
+                lesson_id for lesson_id in re.split(r"[;,\s]+", lesson_ids)
+                if lesson_id and lesson_id not in lessons
+            ]
+            if unknown:
+                status = "stale_mapping"
+                notes = f"Unknown lesson ID(s): {', '.join(unknown)}. {notes}".strip()
+                stale += len(unknown)
 
-    args.report.parent.mkdir(parents=True, exist_ok=True)
-    with args.report.open("w", encoding="utf-8", newline="") as fh:
-        writer = csv.DictWriter(
-            fh,
-            fieldnames=[
-                "source_id",
-                "title",
-                "unit",
-                "priority",
-                "disposition",
-                "app_lesson_ids",
-                "traceability_file",
-                "notes",
-            ],
-        )
-        writer.writeheader()
-        writer.writerows(report_rows)
+        counts[status] += 1
+        report_rows.append({
+            "source_id": sid,
+            "title": leaf.get("title", ""),
+            "unit": leaf.get("parent_id", ""),
+            "priority": "Core",
+            "disposition": status,
+            "app_lesson_ids": lesson_ids,
+            "traceability_file": source_file,
+            "notes": notes,
+        })
+
+    try:
+        args.report.parent.mkdir(parents=True, exist_ok=True)
+        with args.report.open("w", encoding="utf-8", newline="") as fh:
+            writer = csv.DictWriter(
+                fh,
+                fieldnames=[
+                    "source_id", "title", "unit", "priority", "disposition",
+                    "app_lesson_ids", "traceability_file", "notes",
+                ],
+            )
+            writer.writeheader()
+            writer.writerows(report_rows)
+    except OSError as exc:
+        print(f"ERROR: cannot write report {args.report}: {exc}", file=sys.stderr)
+        return 2
 
     unmapped = counts.get("unmapped", 0)
     print(f"Core leaves: {len(core)}")
-    print(
-        "Disposition counts: "
-        + ", ".join(f"{k}={counts[k]}" for k in sorted(counts))
-    )
+    print("Disposition counts: " + ", ".join(
+        f"{key}={counts[key]}" for key in sorted(counts)
+    ))
     print(f"Report: {args.report}")
-    if unmapped and not args.allow_unmapped:
+    if (unmapped or stale) and not args.allow_unmapped:
         print(
-            f"FAIL: {unmapped} unmapped Core leaves (and {stale} stale mapping issues).",
+            f"FAIL: {unmapped} unmapped Core leaves; {stale} stale lesson ID reference(s).",
             file=sys.stderr,
         )
         return 1
-    if stale and not args.allow_unmapped:
-        print(f"FAIL: {stale} stale mapping issues.", file=sys.stderr)
-        return 1
-    print("Core-leaf coverage gate: OK (or unmapped allowed).")
+    print("Core-leaf coverage gate: OK (unmapped allowed)." if args.allow_unmapped
+          else "Core-leaf coverage gate: OK.")
     return 0
 
 
