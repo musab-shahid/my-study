@@ -5305,7 +5305,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-q-54-021', lessonId: 'cgei-ds-lesson-5-4-4', type: 'single-choice', prompt: 'A featureless residual-versus-fitted plot alone:', options: ['Proves all regression assumptions hold', 'Does not rule out residual temporal or spatial dependence', 'Implies the slope is causal', 'Removes the need for units'], correctAnswer: 1, explanation: 'Dependence and other issues need their own checks.', difficulty: 'easy', cognitiveLevel: 'understand' },
 
 
-    { id: 'cgei-ds-q-55-013', lessonId: 'cgei-ds-lesson-5-5-2', type: 'single-choice', prompt: 'A heat-day query uses WHERE tmax_c > 40 without handling NULLs. What is a likely consequence?', options: ['NULL temperatures are treated as greater than 40', 'Rows with missing tmax_c are dropped from the result without an explicit missing-data rule', 'SQL raises an error and forces imputation', 'Date filters become unnecessary'], correctAnswer: 1, explanation: 'Comparisons with NULL are unknown, so those rows fail the WHERE predicate and vanish from counts unless handled explicitly.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ds-q-55-013', lessonId: 'cgei-ds-lesson-5-5-2', type: 'single-choice', prompt: 'A heat-day query uses WHERE tmax > 40 without handling NULLs. What is a likely consequence?', options: ['NULL temperatures are treated as greater than 40', 'Rows with missing tmax are dropped from the result without an explicit missing-data rule', 'SQL raises an error and forces imputation', 'Date filters become unnecessary'], correctAnswer: 1, explanation: 'Comparisons with NULL are unknown, so those rows fail the WHERE predicate and vanish from counts unless handled explicitly.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ds-q-55-018', lessonId: 'cgei-ds-lesson-5-5-2', type: 'single-choice', prompt: 'After LEFT JOIN stations to daily with the June date filter in ON, Station C has mean_june_tmax NULL and n_valid 0. What does that mean?', options: ['Station C failed sensor calibration', 'Station C matched June rows but all tmax values were null', 'Station C has no matching June daily rows; the LEFT JOIN retained the station', 'WHERE on d.date dropped Station C'], correctAnswer: 2, explanation: 'With the date predicate in ON, unmatched stations remain. NULL mean and n_valid=0 mean zero matching June observations. A WHERE filter on d.date would have removed Station C.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-ds-q-55-014', lessonId: 'cgei-ds-lesson-5-5-4', type: 'single-choice', prompt: 'Where should a CDS API key live in a shared analysis repository?', options: ['Hard-coded in a notebook cell for convenience', 'Committed in .env.example with the real secret', 'In a local .env or secret store, referenced via environment variables, never printed', 'In the git commit message'], correctAnswer: 2, explanation: 'Secrets belong outside version control. Commit only templates with placeholder names.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-ds-q-55-015', lessonId: 'cgei-ds-lesson-5-5-1', type: 'single-choice', prompt: 'A variable catalogue should be written:', options: ['Only after the paper is accepted', 'Before bulk download, specifying quantities, units, support and QA needs', 'Only inside the API provider dashboard', 'Never, if SQL is used'], correctAnswer: 1, explanation: 'Catalogue-first avoids collecting unfit data.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-ds-q-55-016', lessonId: 'cgei-ds-lesson-5-5-3', type: 'single-choice', prompt: 'Bounded retries with backoff are appropriate for:', options: ['Permanent 404 responses', 'Transient rate limits or 5xx failures, within a fixed attempt budget', 'Skipping checksum verification', 'Storing API keys in git'], correctAnswer: 1, explanation: 'Retries help transient failures; they must be bounded.', difficulty: 'medium', cognitiveLevel: 'understand' },
@@ -5500,25 +5501,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "explanation": "A join can drop unmatched rows or multiply rows when keys are duplicated. Inspect key uniqueness, unmatched records and row counts before interpreting grouped summaries.",
     "difficulty": "hard",
     "cognitiveLevel": "analyze"
-  },
   {
-      {
-    "id": "cgei-ds-q-55-013",
-    "lessonId": "cgei-ds-lesson-5-5-2",
-    "type": "single-choice",
-    "prompt": "After LEFT JOIN stations to daily with the June date filter in the ON clause, Station C has mean_june_tmax NULL and n_valid 0. What does that mean?",
-    "options": [
-      "Station C failed the temperature sensor calibration check",
-      "Station C matched June rows but all tmax values were null",
-      "Station C has no matching June daily rows; the LEFT JOIN retained the station",
-      "The query used WHERE on d.date and dropped Station C"
-    ],
-    "correctAnswer": 2,
-    "explanation": "With the date predicate in ON, unmatched stations remain. NULL mean and n_valid=0 indicate zero matching June observations, not a sensor calibration story. Putting the date filter in WHERE would have removed Station C entirely.",
-    "difficulty": "medium",
-    "cognitiveLevel": "analyze"
-  },
-"id": "cgei-ds-q-55-005",
+    "id": "cgei-ds-q-55-005",
     "lessonId": "cgei-ds-lesson-5-5-3",
     "type": "single-choice",
     "prompt": "A public API responds with HTTP 429. What is the safest general response for an idempotent GET request?",
@@ -6427,7 +6411,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "questionIds": [
       "cgei-ds-q-55-003",
       "cgei-ds-q-55-004",
-      "cgei-ds-q-55-013"
+      "cgei-ds-q-55-018"
     ],
     "required": true
   },
