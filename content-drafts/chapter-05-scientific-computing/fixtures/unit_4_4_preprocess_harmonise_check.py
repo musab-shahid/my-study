@@ -17,6 +17,7 @@ def dn_to_radiance(dn: float, gain: float, bias: float) -> float:
 
 
 def omission_commission(tp: int, fp: int, fn: int) -> tuple[float, float]:
+    """Pedagogical rates. Empty denominator -> 0.0 by convention (not 'perfect')."""
     omit = fn / (tp + fn) if (tp + fn) else 0.0
     comm = fp / (tp + fp) if (tp + fp) else 0.0
     return omit, comm
@@ -50,6 +51,16 @@ def main() -> None:
     omit, comm = omission_commission(tp=35, fp=10, fn=5)
     assert isclose(omit, 0.125, abs_tol=1e-9)
     assert isclose(comm, 10 / 45, abs_tol=1e-9)
+
+    # Independent sample B (different trade-off)
+    omit_b, comm_b = omission_commission(tp=20, fp=2, fn=15)
+    assert isclose(omit_b, 15 / 35, abs_tol=1e-9)
+    assert isclose(comm_b, 2 / 22, abs_tol=1e-9)
+    # Empty denominators -> 0.0 (defined pedagogical convention)
+    assert omission_commission(0, 0, 0) == (0.0, 0.0)
+    # All true cloud missed
+    o_all, c_all = omission_commission(tp=0, fp=0, fn=10)
+    assert isclose(o_all, 1.0, abs_tol=1e-9)
 
     # Independent control residuals (pixels)
     rmse = residual_rmse([0.2, -0.1, 0.3, 0.0], [0.1, 0.2, -0.2, 0.1])

@@ -7,7 +7,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 4.4.2.3,Co-registration residual reporting,4.4.2,Geometric processing,Core,cgei-rs-lesson-4-4-2,cgei-rs-44-2-qc,mapped_partial,Independent controls; fixture RMSE.
 4.4.3.1,Fmask s2cloudless Cloud Score+ QA,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-masks,mapped_partial,Trade-offs omission/commission.
 4.4.3.2,Haze cirrus snow vs cloud rules before composite,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-rules,mapped_partial,Pre-declare rules.
-4.4.3.3,Validate mask omission commission,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-val;cgei-rs-44-3-eq;cgei-rs-44-3-work,mapped_partial,Worked rates + fixture.
+4.4.3.3,Validate mask omission commission,4.4.3,Cloud shadow quality masks,Core,cgei-rs-lesson-4-4-3,cgei-rs-44-3-val;cgei-rs-44-3-eq;cgei-rs-44-3-work;cgei-rs-44-3-indep,mapped_partial,"O/C formulas, samples A/B, independent lab, assessment 44-masks; synthetic only; status mapped_partial per policy."
 4.4.4.1,Landsat Sentinel harmonisation HLS,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-hls,mapped_partial,Band-pass residual caveat.
 4.4.4.2,Landsat 5-9 continuity overlap,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-landsat,mapped_partial,Overlap-period requirement.
 4.4.4.3,Gap filling smoothing harmonic SG signal loss,4.4.4,Cross-sensor harmonisation,Core,cgei-rs-lesson-4-4-4,cgei-rs-44-4-smooth;cgei-rs-44-4-callout,mapped_partial,Fixture peak damping illustration.
