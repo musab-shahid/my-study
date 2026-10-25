@@ -740,7 +740,7 @@ const lesson55Definitions = [
         "kind": "code",
         "title": "Mean June maximum temperature by station",
         "language": "sql",
-        "code": "SELECT\n  s.id AS station_id,\n  s.name,\n  AVG(d.tmax_c) AS mean_tmax_c,\n  COUNT(d.tmax_c) AS n_valid_days\nFROM stations AS s\nJOIN daily AS d ON d.station_id = s.id\nWHERE d.date >= '2024-06-01'\n  AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;"
+        "code": "SELECT\n  s.id AS station_id,\n  s.name,\n  AVG(d.tmax) AS mean_june_tmax,\n  COUNT(d.tmax) AS n_valid\nFROM stations AS s\nJOIN daily AS d ON d.station_id = s.id\nWHERE d.date >= '2024-06-01'\n  AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;"
       },
       {
         "id": "cgei-ds-55-2-example",
@@ -750,7 +750,50 @@ const lesson55Definitions = [
       },
       {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH daily AS (\n  SELECT station_id, date, tmax_c,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM station_daily\n  WHERE tmax_c IS NOT NULL\n)\nSELECT station_id, date, tmax_c,\n       AVG(tmax_c) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM daily\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."},
       {"id":"cgei-ds-55-2-null-dates","kind":"worked-example","title":"NULL handling and date filters change who is counted","body":"In SQL, comparisons with NULL are unknown, not true. WHERE tmax_c > 40 drops rows where tmax_c IS NULL, which can silently shrink a heat-day sample if missingness is informative. Prefer explicit filters such as WHERE tmax_c IS NOT NULL AND date >= DATE '2024-06-01' AND date < DATE '2024-07-01', document the missing-data rule, and check counts before and after filtering. Date functions and formats are dialect-specific; store UTC instants or unambiguous local calendar dates with a stated time zone policy."},
-      {"id":"cgei-ds-55-2-schema","kind":"prose","title":"Keys, normalisation and indexes as design choices","body":"Put each entity at a clear grain: stations (station_id) separate from daily observations (station_id, date). First normal form avoids repeating groups; further normalisation reduces update anomalies when metadata change. Indexes speed selective predicates and joins but cost write time and storage—index measured access patterns (for example station_id, date ranges), not every column. Denormalised analysis tables are acceptable as derived products when lineage from the normalised source remains auditable."}
+      {"id":"cgei-ds-55-2-schema","kind":"prose","title":"Keys, normalisation and indexes as design choices","body":"Put each entity at a clear grain: stations (station_id) separate from daily observations (station_id, date). First normal form avoids repeating groups; further normalisation reduces update anomalies when metadata change. Indexes speed selective predicates and joins but cost write time and storage—index measured access patterns (for example station_id, date ranges), not every column. Denormalised analysis tables are acceptable as derived products when lineage from the normalised source remains auditable."},
+      {
+        "id": "cgei-ds-55-2-worked-june",
+        "kind": "worked-example",
+        "title": "Synthetic June means (locked fixture)",
+        "body": "Teaching tables: stations A/B/C; daily tmax for A on 2024-06-01..03 (40,42,44), B on 2024-06-01..02 (34,36), A on 2024-07-01 (99) outside the window, and C with no June rows. Half-open filter date >= 2024-06-01 AND date < 2024-07-01 excludes July. INNER JOIN aggregation yields Station A mean 42.0 with n_valid=3 and Station B mean 35.0 with n_valid=2. Station C does not appear. COUNT(tmax) ignores null measurements; COUNT(*) would count joined rows even when tmax is null."
+      },
+      {
+        "id": "cgei-ds-55-2-left-join",
+        "kind": "code",
+        "title": "LEFT JOIN retaining stations with no June observations",
+        "language": "sql",
+        "code": "SELECT s.id, s.name, AVG(d.tmax) AS mean_june_tmax, COUNT(d.tmax) AS n_valid\nFROM stations AS s\nLEFT JOIN daily AS d\n  ON d.station_id = s.id\n AND d.date >= '2024-06-01'\n AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;\n-- Expected: A 42.0 (3), B 35.0 (2), C NULL mean with n_valid=0"
+      },
+      {
+        "id": "cgei-ds-55-2-on-vs-where",
+        "kind": "callout",
+        "title": "Date predicates in ON versus WHERE",
+        "tone": "warning",
+        "items": [
+          "With LEFT JOIN, put the observation-date filter in the ON clause so unmatched stations remain.",
+          "A WHERE filter on d.date after LEFT JOIN removes the unmatched station rows and behaves like an INNER JOIN.",
+          "Always state whether stations with zero valid days should appear in the product table."
+        ]
+      },
+      {
+        "id": "cgei-ds-55-2-orphan",
+        "kind": "prose",
+        "title": "Referential integrity diagnostic",
+        "body": "Orphan observation keys are daily.station_id values with no matching stations.id. Diagnose with a LEFT JOIN from daily to stations and WHERE stations.id IS NULL. Foreign keys help when enforced; imports can still introduce orphans if enforcement was off. Do not silently drop orphans—count them and decide repair or exclusion explicitly."
+      },
+      {
+        "id": "cgei-ds-55-2-guided",
+        "kind": "prose",
+        "title": "Guided practice",
+        "body": "Using the same synthetic schema, compute mean June tmax and n_valid for stations that have at least two valid June days only (HAVING COUNT(d.tmax) >= 2). Compare row count to the unrestricted INNER JOIN result. Hint: filter dates in WHERE or ON consistently with an INNER JOIN; use HAVING after aggregation."
+      },
+      {
+        "id": "cgei-ds-55-2-independent",
+        "kind": "prose",
+        "title": "Independent practice",
+        "body": "Add station D with two June tmax values (30.0, 32.0) and one null tmax on 2024-06-03. Report mean June tmax and n_valid for every station with a LEFT JOIN date-bounded ON clause. Expected for D: mean 31.0 and n_valid=2 (null day excluded from AVG/COUNT of tmax). Submit the SQL and a one-sentence integrity check for orphan keys."
+      }
+
     ]
   },
   {
@@ -6000,7 +6043,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "id": "cgei-ds-a-55-sql",
     "kind": "guided-practice",
     "title": "Query and validate station observations",
-    "instructions": "Write SQL for mean June tmax by station, then state checks for key uniqueness, unmatched station IDs, valid-day counts and row counts before/after joins.",
+    "instructions": "1) Run unit_5_5_sql_practice_check.py and reproduce the INNER JOIN June means (A=42.0 n=3, B=35.0 n=2). 2) Write the LEFT JOIN form with date predicates in ON; confirm Station C appears with NULL mean and n_valid=0. 3) Explain why moving d.date filters to WHERE would drop Station C. 4) Report the orphan-key diagnostic query result after the deliberate station_id=999 insert.",
     "level": "L3",
     "estimatedMinutes": 30,
     "objectiveIds": [
@@ -6348,7 +6391,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     ],
     "questionIds": [
       "cgei-ds-q-55-003",
-      "cgei-ds-q-55-004"
+      "cgei-ds-q-55-004",
+      "cgei-ds-q-55-011"
     ],
     "required": true
   },
