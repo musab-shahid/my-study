@@ -18,6 +18,17 @@ GROUP BY s.id, s.name
 ORDER BY s.id;
 """
 
+LEFT_JOIN_QUERY = """
+SELECT s.id, s.name, AVG(d.tmax) AS mean_june_tmax, COUNT(d.tmax) AS n_valid
+FROM stations AS s
+LEFT JOIN daily AS d
+  ON d.station_id = s.id
+ AND d.date >= '2024-06-01'
+ AND d.date <  '2024-07-01'
+GROUP BY s.id, s.name
+ORDER BY s.id;
+"""
+
 
 def main() -> None:
     con = sqlite3.connect(":memory:")
@@ -31,7 +42,7 @@ def main() -> None:
             tmax REAL,
             FOREIGN KEY (station_id) REFERENCES stations(id)
         );
-        INSERT INTO stations VALUES (1, 'Station A'), (2, 'Station B');
+        INSERT INTO stations VALUES (1, 'Station A'), (2, 'Station B'), (3, 'Station C');
         INSERT INTO daily VALUES
           (1, '2024-06-01', 40.0),
           (1, '2024-06-02', 42.0),
@@ -45,6 +56,19 @@ def main() -> None:
     rows = con.execute(QUERY).fetchall()
     expected = [(1, "Station A", 42.0, 3), (2, "Station B", 35.0, 2)]
     assert rows == expected, f"unexpected June aggregation: {rows!r}"
+
+    # The INNER JOIN excludes Station C because it has no observations.
+    assert all(row[0] != 3 for row in rows), "INNER JOIN should omit no-observation station"
+
+    # The LEFT JOIN retains Station C. Put date predicates in ON, not WHERE,
+    # otherwise the unmatched row would be filtered out and behave like an INNER JOIN.
+    left_rows = con.execute(LEFT_JOIN_QUERY).fetchall()
+    expected_left = [
+        (1, "Station A", 42.0, 3),
+        (2, "Station B", 35.0, 2),
+        (3, "Station C", None, 0),
+    ]
+    assert left_rows == expected_left, f"unexpected LEFT JOIN result: {left_rows!r}"
 
     june_count = con.execute(
         """
