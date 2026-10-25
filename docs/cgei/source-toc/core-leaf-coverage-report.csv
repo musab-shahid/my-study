@@ -639,32 +639,32 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 6.3.4.1,Dimension reduction for exploration: PCA; t-SNE and UMAP for visualisation only,6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
 6.3.4.2,"Gaussian mixture models, DBSCAN, self-organising maps; isolation-forest-style anomaly detection",6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
 6.3.4.3,"Choosing an unsupervised method by data type, noise, and the question",6.3.4,Core,deferred,,subject-6-unit-6.3-subtopic-traceability.csv,Not taught.
-6.4.1.1,Train / validation / test separation,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Taught.
-6.4.1.2,Cross-validation schemes,6.4.1,Core,unmapped,,,No traceability row
-6.4.1.3,Preprocessing fitted on training data only,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Fixture scale-on-train.
-6.4.1.4,"Imputation, scaling, encoding, feature selection in a pipeline",6.4.1,Core,unmapped,,,No traceability row
-6.4.1.5,Hyperparameter tuning without contaminating the test set,6.4.1,Core,unmapped,,,No traceability row
-6.4.2.1,"Regression: MAE, RMSE, bias, R² and its limits",6.4.2,Core,unmapped,,,No traceability row
-6.4.2.2,"Classification: accuracy, precision, recall, F1, ROC/PR curves",6.4.2,Core,unmapped,,,No traceability row
-6.4.2.3,Calibration and Brier score concepts,6.4.2,Core,unmapped,,,No traceability row
-6.4.2.4,Task-specific environmental metrics when needed,6.4.2,Core,unmapped,,,No traceability row
-6.4.2.5,"Imbalanced and segmentation metrics: PR-AUC, MCC, IoU, Dice; kappa caveats",6.4.2,Core,unmapped,,,No traceability row
-6.4.3.1,"Probabilistic and ensemble metrics: CRPS, rank histograms, spread–skill ratio; skill scores relative to a baseline",6.4.3,Core,unmapped,,,No traceability row
-6.4.3.2,"Hydrology metrics: Nash–Sutcliffe efficiency, Kling–Gupta efficiency, volume bias",6.4.3,Core,unmapped,,,No traceability row
-6.4.3.3,Block-bootstrap confidence intervals and paired comparisons between models; nested cross-validation,6.4.3,Core,unmapped,,,No traceability row
-6.4.3.4,Choosing metrics before modelling and matching them to the decision,6.4.3,Core,unmapped,,,No traceability row
-6.4.4.1,Why random pixel splits leak,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Fixture.
-6.4.4.2,Spatial blocks; buffered holdouts; leave-location-out,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Region block demo.
-6.4.4.3,Temporal holdouts and future information in features,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Chronological assert.
-6.4.4.4,Duplicated or near-duplicate samples,6.4.4,Core,unmapped,,,No traceability row
-6.4.5.1,Cross-validation for dependent data (Roberts et al.); target-oriented validation (Meyer et al.); area-of-applicability estimation (Meyer and Pebesma),6.4.5,Core,unmapped,,,No traceability row
-6.4.5.2,Tooling: GroupKFold with spatial block IDs; block cross-validators in Verde; CAST in R,6.4.5,Core,unmapped,,,No traceability row
-6.4.5.3,Report the distance between training and test locations; performance decay with distance,6.4.5,Core,unmapped,,,No traceability row
-6.4.6.1,"Fit the same model with random, spatially blocked, and temporally blocked cross-validation and report the performance gap",6.4.6,Core,unmapped,,,No traceability row
-6.4.6.2,Choose block size from the range of residual spatial autocorrelation and report sensitivity to it,6.4.6,Core,unmapped,,,No traceability row
-6.4.6.3,"Compare against climatology or the mean, persistence, and a regularised linear baseline",6.4.6,Core,unmapped,,,No traceability row
-6.4.6.4,"Produce error maps, residual diagnostics, and calibration plots; identify the regions and conditions where the model fails",6.4.6,Core,unmapped,,,No traceability row
-6.4.6.5,Report predictions only inside the area of applicability and state the extrapolation limit,6.4.6,Core,unmapped,,,No traceability row
+6.4.1.1,Train / validation / test separation,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Train/test and blocked protocols; formal three-way train/val/test not expanded.
+6.4.1.2,Cross-validation schemes,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Blocked spatial CV and chronological/rolling-origin named; k-fold variants not catalogued.
+6.4.1.3,Preprocessing fitted on training data only,6.4.1,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Principle of non-leaking evaluation; scale-on-train referenced via blocked-holdout workflow context.
+6.4.1.4,"Imputation, scaling, encoding, feature selection in a pipeline",6.4.1,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Pipeline composition and selection steps not taught in 6-4-1.
+6.4.1.5,Hyperparameter tuning without contaminating the test set,6.4.1,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Nested tuning / model-selection bias not taught.
+6.4.2.1,"Regression: MAE, RMSE, bias, R² and its limits",6.4.2,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Regression metric suite not listed in 6-4-1 (classification-focused metric prose).
+6.4.2.2,"Classification: accuracy, precision, recall, F1, ROC/PR curves",6.4.2,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Accuracy under imbalance and precision/recall targets; ROC/PR curves not developed.
+6.4.2.3,Calibration and Brier score concepts,6.4.2,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Calibration named for probabilistic alerts; Brier score absent.
+6.4.2.4,Task-specific environmental metrics when needed,6.4.2,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.2.5,"Imbalanced and segmentation metrics: PR-AUC, MCC, IoU, Dice; kappa caveats",6.4.2,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Imbalance addressed via precision/recall framing; PR-AUC/MCC/IoU/Dice/kappa not taught.
+6.4.3.1,"Probabilistic and ensemble metrics: CRPS, rank histograms, spread–skill ratio; skill scores relative to a baseline",6.4.3,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.3.2,"Hydrology metrics: Nash–Sutcliffe efficiency, Kling–Gupta efficiency, volume bias",6.4.3,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.3.3,Block-bootstrap confidence intervals and paired comparisons between models; nested cross-validation,6.4.3,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.3.4,Choosing metrics before modelling and matching them to the decision,6.4.3,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Decision-matched metric selection stated; no formal pre-registration workflow.
+6.4.4.1,Why random pixel splits leak,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Explicit teaching + blocked vs random principle.
+6.4.4.2,Spatial blocks; buffered holdouts; leave-location-out,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Region hold-out example; buffer geometry not formalized.
+6.4.4.3,Temporal holdouts and future information in features,6.4.4,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Chronological / years 1–8 vs 9–10 example.
+6.4.4.4,Duplicated or near-duplicate samples,6.4.4,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Near-duplicate leakage not taught.
+6.4.5.1,Cross-validation for dependent data (Roberts et al.); target-oriented validation (Meyer et al.); area-of-applicability estimation (Meyer and Pebesma),6.4.5,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Literature-specific protocols (Roberts/Meyer) not taught; blocked CV only.
+6.4.5.2,Tooling: GroupKFold with spatial block IDs; block cross-validators in Verde; CAST in R,6.4.5,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Tooling not taught.
+6.4.5.3,Report the distance between training and test locations; performance decay with distance,6.4.5,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.6.1,"Fit the same model with random, spatially blocked, and temporally blocked cross-validation and report the performance gap",6.4.6,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Principle that skill may collapse under blocked protocol vs random split; no multi-scheme lab table.
+6.4.6.2,Choose block size from the range of residual spatial autocorrelation and report sensitivity to it,6.4.6,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught.
+6.4.6.3,"Compare against climatology or the mean, persistence, and a regularised linear baseline",6.4.6,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,"Baselines taught in Unit 6.3 lesson, not in 6-4-1."
+6.4.6.4,"Produce error maps, residual diagnostics, and calibration plots; identify the regions and conditions where the model fails",6.4.6,Core,deferred,,subject-6-unit-6.4-subtopic-traceability.csv,Not taught in 6-4-1.
+6.4.6.5,Report predictions only inside the area of applicability and state the extrapolation limit,6.4.6,Core,mapped_partial,cgei-ml-lesson-6-4-1,subject-6-unit-6.4-subtopic-traceability.csv,Extrapolation risk implied by blocked spatial/temporal design; formal AOA index not taught.
 6.5.1.1,Permutation importance,6.5.1,Core,mapped_partial,cgei-ml-lesson-6-5-1,subject-6-unit-6.5-subtopic-traceability.csv,Named; not computed in fixture.
 6.5.1.2,Partial dependence and ICE plots,6.5.1,Core,mapped_partial,cgei-ml-lesson-6-5-1,subject-6-unit-6.5-subtopic-traceability.csv,Named.
 6.5.1.3,SHAP values at conceptual/practical level,6.5.1,Core,mapped_partial,cgei-ml-lesson-6-5-1,subject-6-unit-6.5-subtopic-traceability.csv,Named.

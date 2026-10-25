@@ -1,8 +1,27 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-6.4.1.1,Train validation test separation,6.4.1,Workflow,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1,mapped_partial,Taught.
-6.4.1.3,Preprocessing fit on train only,6.4.1,Workflow,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-3,mapped_partial,Fixture scale-on-train.
-6.4.2,Metrics overview,6.4,Metrics for regression and classification,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Decision-matched metrics named.
-6.4.4.1,Why random pixel splits leak,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1;cgei-ml-64-1-3,mapped_partial,Fixture.
-6.4.4.2,Spatial blocks buffered holdouts,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-3,mapped_partial,Region block demo.
-6.4.4.3,Temporal holdouts future information,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-3,mapped_partial,Chronological assert.
-6.4.6,Reporting area of applicability,6.4,Reporting and applicability,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Named; full applicability index deferred.
+6.4.1.1,Train validation test separation,6.4.1,Workflow,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1,mapped_partial,Train/test and blocked protocols; formal three-way train/val/test not expanded.
+6.4.1.2,Cross-validation schemes,6.4.1,Workflow,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1,mapped_partial,Blocked spatial CV and chronological/rolling-origin named; k-fold variants not catalogued.
+6.4.1.3,Preprocessing fit on train only,6.4.1,Workflow,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-3,mapped_partial,Principle of non-leaking evaluation; scale-on-train referenced via blocked-holdout workflow context.
+6.4.1.4,"Imputation, scaling, encoding, feature selection in a pipeline",6.4.1,Workflow,Core,,,deferred,Pipeline composition and selection steps not taught in 6-4-1.
+6.4.1.5,Hyperparameter tuning without contaminating the test set,6.4.1,Workflow,Core,,,deferred,Nested tuning / model-selection bias not taught.
+6.4.2.1,"Regression: MAE, RMSE, bias, R² and its limits",6.4.2,Metrics,Core,,,deferred,Regression metric suite not listed in 6-4-1 (classification-focused metric prose).
+6.4.2.2,"Classification: accuracy, precision, recall, F1, ROC/PR curves",6.4.2,Metrics,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Accuracy under imbalance and precision/recall targets; ROC/PR curves not developed.
+6.4.2.3,Calibration and Brier score concepts,6.4.2,Metrics,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Calibration named for probabilistic alerts; Brier score absent.
+6.4.2.4,Task-specific environmental metrics when needed,6.4.2,Metrics,Core,,,deferred,Not taught.
+6.4.2.5,"Imbalanced and segmentation metrics: PR-AUC, MCC, IoU, Dice; kappa caveats",6.4.2,Metrics,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Imbalance addressed via precision/recall framing; PR-AUC/MCC/IoU/Dice/kappa not taught.
+6.4.3.1,"Probabilistic and ensemble metrics: CRPS, rank histograms, spread–skill",6.4.3,Advanced metrics,Core,,,deferred,Not taught.
+6.4.3.2,"Hydrology metrics: NSE, KGE, volume bias",6.4.3,Advanced metrics,Core,,,deferred,Not taught.
+6.4.3.3,Block-bootstrap CIs; nested cross-validation,6.4.3,Advanced metrics,Core,,,deferred,Not taught.
+6.4.3.4,Choosing metrics before modelling and matching them to the decision,6.4.3,Advanced metrics,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-2,mapped_partial,Decision-matched metric selection stated; no formal pre-registration workflow.
+6.4.4.1,Why random pixel splits leak,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1;cgei-ml-64-1-3,mapped_partial,Explicit teaching + blocked vs random principle.
+6.4.4.2,Spatial blocks buffered holdouts,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1;cgei-ml-64-1-3,mapped_partial,Region hold-out example; buffer geometry not formalized.
+6.4.4.3,Temporal holdouts future information,6.4.4,Spatial and temporal leakage,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1;cgei-ml-64-1-3,mapped_partial,Chronological / years 1–8 vs 9–10 example.
+6.4.4.4,Duplicated or near-duplicate samples,6.4.4,Spatial and temporal leakage,Core,,,deferred,Near-duplicate leakage not taught.
+6.4.5.1,CV for dependent data; target-oriented validation; AOA literature,6.4.5,Dependent-data validation,Core,,,deferred,Literature-specific protocols (Roberts/Meyer) not taught; blocked CV only.
+6.4.5.2,"Tooling: GroupKFold, Verde, CAST",6.4.5,Dependent-data validation,Core,,,deferred,Tooling not taught.
+6.4.5.3,Report distance between train and test; performance decay with distance,6.4.5,Dependent-data validation,Core,,,deferred,Not taught.
+6.4.6.1,Compare random vs spatially vs temporally blocked CV performance,6.4.6,Reporting and applicability,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-3,mapped_partial,Principle that skill may collapse under blocked protocol vs random split; no multi-scheme lab table.
+6.4.6.2,Choose block size from residual spatial autocorrelation; sensitivity,6.4.6,Reporting and applicability,Core,,,deferred,Not taught.
+6.4.6.3,"Compare against climatology, persistence, regularised linear baseline",6.4.6,Reporting and applicability,Core,,,deferred,"Baselines taught in Unit 6.3 lesson, not in 6-4-1."
+6.4.6.4,"Error maps, residual diagnostics, calibration plots",6.4.6,Reporting and applicability,Core,,,deferred,Not taught in 6-4-1.
+6.4.6.5,Report only inside area of applicability; state extrapolation limit,6.4.6,Reporting and applicability,Core,cgei-ml-lesson-6-4-1,cgei-ml-64-1-1,mapped_partial,Extrapolation risk implied by blocked spatial/temporal design; formal AOA index not taught.
