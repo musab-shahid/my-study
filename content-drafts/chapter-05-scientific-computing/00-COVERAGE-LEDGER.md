@@ -109,3 +109,10 @@ The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated 
 | 5.2.3.7 Tidy data principles | Replaced the join/resample key-points block with the reshape explanation and code blocks, where tidy-data structure is explicitly defined and applied. | A multi-table tidy case study remains deferred. |
 
 **No scope inflation:** these fixes repair traceability evidence, not missing teaching. Unit 5.2 remains 2 mapped / 21 mapped-partial Core leaves. The 21 partial dispositions are retained honestly; a block link is not proof that the entire subtopic is taught to L3 or that the associated activity and assessment are sufficient.
+
+
+## 9. Unit 5.3 Core traceability spot-check — 2026-10-25
+
+**Scope:** all 17 Unit 5.3 Core leaf rows (all currently `mapped_partial`). I compared their evidence IDs and notes with the actual lesson-block definitions in `src/data/cgei/curriculum.ts`. No clearly unrelated block link was confirmed in this slice, so no CSV row was changed. The current partial dispositions are consistent with the documented limits: full distribution catalogues, deeper time-series/spatial diagnostics, live plotting-tool practice, and complete publication-ready visualisation exercises are not all supplied by the linked blocks.
+
+**Not a readiness pass:** this check only assessed whether the cited blocks plausibly support each leaf and whether partial scope is honestly stated. It did not execute plotting code, test rendered figures, inspect every activity/question for validity, or promote any lesson from draft. Keep all 17 rows `mapped_partial` pending the deeper teaching/practice/assessment review.
