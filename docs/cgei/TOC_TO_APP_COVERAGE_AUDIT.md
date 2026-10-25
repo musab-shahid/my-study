@@ -1,10 +1,10 @@
 # CGEI TOC-to-App Coverage Audit (first-pass inventory)
 
-> **Historical mapping baseline — not current main-branch status.** This inventory targets PR #3 and an older registry revision. Its source-node counts describe the extracted TOC, but its app-mapping counts are not a current-main snapshot. Run `npm run audit:cgei` for current implementation counts; this script intentionally does not claim source-subtopic completeness. See [Overall repository audit](../OVERALL_AUDIT_2026-10-24.md).
+> **Historical mapping baseline — not current main-branch status.** This inventory targets PR #3 and an older registry revision. Its source-node counts describe the extracted TOC, but its app-mapping counts are not a current-main snapshot. Run `npm run audit:cgei` for current implementation counts; this script intentionally does not claim source-subtopic completeness. For current authority rules, source fingerprint limitations, and TOC-change workflow, see [Source of truth and change control](SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md) and [Curriculum change register](CURRICULUM_CHANGE_REGISTER.csv).
 
 
 **Status:** Inventory generated; mapping is deliberately incomplete.  
-**Authority:** `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path.docx`  
+**Baseline source used:** user-supplied `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx`; external provenance/approval is not independently authenticated. See source-control document.  
 **Repository target:** PR #3, `feat/cgei-full-curriculum-skeleton`  
 **Audited registry revision:** `7d1d0b809c1e78c11d7e03687c4eb57230b0b49b`
 
@@ -18,7 +18,7 @@
 | Numbered subtopics | 2,052 |
 | **Total traceability rows** | **2,763** |
 
-Counts were extracted from the DOCX Part II knowledge map using unit-header priority tags and numbered paths. A companion CSV was generated as a working artifact; it preserves each item's source title and zero-based paragraph index for back-checking. The CSV is not yet committed to the repository, so do not use it as a CI input until it is added and reviewed.
+The source inventory was re-extracted on 2026-10-25 from the user-supplied baseline file `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx` (SHA-256 `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`). Counting the numbered subject headings and Part II `Unit X.Y`, `X.Y.Z`, and `X.Y.Z.W` headings confirms 14 subjects, 130 units, 567 numbered topics, and 2,052 numbered subtopics (2,763 source traceability rows total). This resolves the prior 125-versus-130 unit discrepancy: 125 was the stale count. The full source DOCX is not tracked in the repository, and a complete 2,763-row source-to-app crosswalk has not been completed. These counts are a baseline fingerprint/reconciliation, not proof of source authenticity or implementation coverage.
 
 ## Current app mapping evidence
 
@@ -50,3 +50,8 @@ The source document's numbered topics and subtopics remain unchanged. A roadmap/
 3. Record combine/split/defer rationale and actual app IDs; keep candidate IDs separate until reviewed.
 4. Add automated checks that reject missing Core topic mappings and reject `validated` readiness without content, practice/check, validator pass, and human review evidence.
 5. Expand canonical mappings to other subjects only after the Subject 5 mapping rules are proven.
+
+
+## Source authority and change-control clarification — 2026-10-25
+
+The uploaded DOCX fingerprint is recorded in [Source of truth and change control](SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md). The original DOCX is not currently tracked in this repository, so its fingerprint identifies the supplied bytes but does not independently establish official approval or preserve the bytes for future recovery. Treat this file as a historical mapping baseline. Subject 5's 184 lowest-level rows match the extracted source count, but exact row order, parentage, titles, and any app-side reorganization still require explicit row-by-row verification. Do not update the source TOC silently to match implementation.

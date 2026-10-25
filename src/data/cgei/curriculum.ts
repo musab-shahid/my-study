@@ -1437,25 +1437,31 @@ const lessons61: CurriculumLesson[] = [
  {id:'cgei-ml-lesson-6-1-3',kind:'lesson',title:'Task types and baselines first',order:3,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes61[1]],content:[
  {id:'cgei-ml-61-3-1',kind:'prose',title:'Match task type to the estimand',body:'Regression predicts continuous quantities; classification predicts categories; clustering finds structure without labels; anomaly detection flags unusual cases; probabilistic prediction reports distributions or quantiles. Choosing the wrong task type silently changes the scientific question.'},
  {id:'cgei-ml-61-3-2',kind:'prose',title:'Baselines before complexity',body:'Always report climatology and persistence where temporal structure exists, plus a transparent linear or logistic model and simple threshold rules when relevant. A complex model must beat these baselines under the same chronological or spatial split. Winning on a shuffled random split is not evidence of operational skill.'},
- {id:'cgei-ml-61-3-3',kind:'worked-example',title:'Synthetic baseline comparison (conceptual)',body:'Hold out the last 20% of a time-ordered series. Persistence MAE and climatology MAE set the bar. A gradient-boosted model that loses to persistence under that split is not deployable—regardless of cross-validated R² on random folds.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-61-3-3',kind:'worked-example',title:'Synthetic baseline comparison (conceptual)',body:'Hold out the last 20% of a time-ordered series. Persistence MAE and climatology MAE set the bar. A gradient-boosted model that loses to persistence under that split is not deployable—regardless of cross-validated R² on random folds.'}],activityIds:['cgei-ml-a-61-problem'],assessmentIds:['cgei-ml-assess-61'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes62: CurriculumOutcome[] = [
   {id:'cgei-ml-o-62-features',statement:'Document features with definition, units, and availability at prediction time; fit scalers only on training data.',action:'document and fit',level:'L3',competencyIds:['cgei-comp-reproducibility']},
 ];
 const lessons62: CurriculumLesson[] = [
- {id:'cgei-ml-lesson-6-2-1',kind:'lesson',title:'Feature construction without leakage',order:1,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes62[0]],content:[
- {id:'cgei-ml-62-1-1',kind:'prose',title:'Environmental feature families',body:'Spectral indices, texture, temporal percentiles, harmonic terms, topography, and distance-to features are common. Neighbourhood and multi-scale focal statistics can leak if computed using future labels or the full dataset before splitting. Lagged and rolling features must respect time order.'},
- {id:'cgei-ml-62-1-2',kind:'prose',title:'Fit transforms after the split',body:'Scalers, encoders, and feature selectors are fit on training data only. Applying a global scaler fit on all rows before splitting is a classic leakage path. Document definition, source, scale, units, and whether each feature is available at prediction time.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
- {id:'cgei-ml-lesson-6-2-2',kind:'lesson',title:'Samples, targets, and imbalance',order:2,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes62[0]],content:[
- {id:'cgei-ml-62-2-1',kind:'prose',title:'Targets and spatial dependence',body:'Target construction can embed leakage (e.g. using future observations). Spatial autocorrelation reduces effective sample size; random point splits overstate accuracy. Class imbalance needs care: resampling changes prevalence and can mislead metrics if evaluation is not stratified by the operational prior.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-2-1',kind:'lesson',title:'Inspection, alignment and feature construction',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes62[0]],content:[
+ {id:'cgei-ml-62-1-0',kind:'prose',title:'Inspect before you engineer',body:'Record schema, types, missingness, duplicate keys, invalid ranges, units, CRS, spatial resolution, temporal coverage and provenance. Synthetic teaching tables must be labelled synthetic. Mismatched resolution or time periods require explicit aggregation rules—never silent joins.'},
+ {id:'cgei-ml-62-1-1',kind:'prose',title:'Environmental feature families',body:'Spectral indices (e.g. NDVI), land-surface temperature, built-up fractions, rainfall anomalies, topography and distance-to-water are common predictors. Each has limits: NDVI saturates in dense canopy; LST is not 2 m air temperature; distance features depend on the water mask quality. Neighbourhood focal stats and rolling windows must respect the train/test temporal cut (see Unit 6.4).'},
+ {id:'cgei-ml-62-1-2',kind:'prose',title:'Fit transforms after the split',body:'Imputation, scaling, encoding and feature selection are fit on training data only. A global scaler fit on all rows before splitting leaks test information. Document definition, source, scale, units and availability at prediction time for every feature.'},
+ {id:'cgei-ml-62-1-lab',kind:'worked-example',title:'Synthetic parcel feature contract',body:'Fixture unit_6_2_feature_prep_check.py loads fixtures/data/unit_6_2_feature_table.csv (synthetic parcels). It checks schema and ranges, chronological year split (2020 train / 2021 test), train-only LST z-scores, rejects heat_exceed and parcel_id as predictors, and builds rain anomaly using the training mean only.'}],activityIds:['cgei-ml-a-62-features'],assessmentIds:['cgei-ml-assess-62'],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-2-2',kind:'lesson',title:'Targets, leakage and sample design',order:2,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes62[0]],content:[
+ {id:'cgei-ml-62-2-1',kind:'prose',title:'Targets vs predictors',body:'Separate target, predictors, identifiers and metadata. Post-outcome variables and pure IDs are not features. Target definitions that use future information leak. Spatial autocorrelation reduces effective sample size; prefer blocked designs from Unit 6.4.'},
+ {id:'cgei-ml-62-2-2',kind:'prose',title:'Missingness and imbalance',body:'Cloud gaps and missing sensors need explicit masks or imputation with uncertainty notes. Resampling for class imbalance changes prevalence—evaluate against the operational prior, not only resampled accuracy.'}],activityIds:['cgei-ml-a-62-features'],assessmentIds:['cgei-ml-assess-62'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes63: CurriculumOutcome[] = [
   {id:'cgei-ml-o-63-models',statement:'Select linear, tree, or clustering methods with stated assumptions and a baseline comparison.',action:'select and justify',level:'L3',competencyIds:['cgei-comp-uncertainty']},
 ];
 const lessons63: CurriculumLesson[] = [
- {id:'cgei-ml-lesson-6-3-1',kind:'lesson',title:'Linear models and tree ensembles',order:1,readiness:'draft',level:'L3',estimatedMinutes:40,objectives:[outcomes63[0]],content:[
- {id:'cgei-ml-63-1-1',kind:'prose',title:'Start simple, then ensembles',body:'Linear and regularised regression remain strong baselines for continuous environmental targets. Logistic regression is the classification baseline. Tree ensembles capture interactions but still require leakage-safe evaluation and can be poorly calibrated. Dimension reduction is exploratory, not automatic feature truth.'},
- {id:'cgei-ml-63-1-2',kind:'prose',title:'Assumptions and limits',body:'State linearity, independence, and support assumptions. Tree models do not remove confounding or spatial dependence. Report variable importance as association under the training design, not causation.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-3-1',kind:'lesson',title:'Baselines, linear models and simple trees',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes63[0]],content:[
+ {id:'cgei-ml-63-1-0',kind:'prose',title:'Baselines first',body:'Before complex models, report a simple reference: climatology/persistence (regression) or majority / prevalence-matched rules (classification). A complex model must beat the baseline under the same leakage-safe split and feature contract (Units 6.2 and 6.4).'},
+ {id:'cgei-ml-63-1-1',kind:'prose',title:'Linear and logistic models',body:'Linear regression suits continuous targets when relationships are approximately linear and residuals are checked. Logistic regression is the binary classification baseline; coefficients are associations on the log-odds scale under the training design—not causal effects. Regularisation and collinearity still matter for environmental predictors.'},
+ {id:'cgei-ml-63-1-2',kind:'prose',title:'Trees and interactions',body:'Decision trees and forests capture nonlinear thresholds and interactions but overfit small samples and can be poorly calibrated. Feature importance is predictive association given the sample design—not proof of an environmental mechanism. Prefer blocked spatial/temporal evaluation over random splits.'},
+ {id:'cgei-ml-63-1-3',kind:'prose',title:'Metrics and imbalance',body:'Regression: MAE and RMSE (and bias). Classification: precision, recall, F1 and the confusion matrix; accuracy alone misleads under imbalance. Choose metrics before modelling to match the decision (Unit 6.1).'},
+ {id:'cgei-ml-63-1-lab',kind:'worked-example',title:'Synthetic comparison lab',body:'Fixture unit_6_3_core_algorithms_check.py uses the Unit 6.2 parcel table, chronological split, train-only scaling, majority baseline, logistic regression (gradient descent), and a depth-1 LST stump. Reports precision/recall/F1 on the holdout. Synthetic only—not Multan validation.'}],activityIds:['cgei-ml-a-63-models'],assessmentIds:['cgei-ml-assess-63'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes64: CurriculumOutcome[] = [
   {id:'cgei-ml-o-64-validate',statement:'Design spatial and temporal validation that blocks leakage and reports honest skill.',action:'design and evaluate',level:'L3',competencyIds:['cgei-comp-uncertainty','cgei-comp-reproducibility']},
@@ -1464,31 +1470,51 @@ const lessons64: CurriculumLesson[] = [
  {id:'cgei-ml-lesson-6-4-1',kind:'lesson',title:'Leakage-safe spatial and temporal validation',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes64[0]],content:[
  {id:'cgei-ml-64-1-1',kind:'prose',title:'Why random splits fail geospatial ML',body:'Nearby pixels and consecutive times are dependent. Random row splits leak spatial or temporal structure into the test set and inflate skill. Prefer blocked spatial CV, hold-out regions, and chronological or rolling-origin splits matched to the decision horizon.'},
  {id:'cgei-ml-64-1-2',kind:'prose',title:'Metrics and operational prevalence',body:'Choose metrics that match the decision (e.g. precision at a recall target for rare events). Accuracy alone is misleading under imbalance. Calibration matters for probabilistic alerts.'},
- {id:'cgei-ml-64-1-3',kind:'worked-example',title:'Blocked hold-out beats random shuffle (principle)',body:'Train on years 1–8, test on years 9–10; or train on region A, test on region B. If skill collapses relative to a random 80/20 split, the random split was optimistic—not the blocked protocol overly harsh.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-64-1-3',kind:'worked-example',title:'Blocked hold-out beats random shuffle (principle)',body:'Train on years 1–8, test on years 9–10; or train on region A, test on region B. If skill collapses relative to a random 80/20 split, the random split was optimistic—not the blocked protocol overly harsh.'}],activityIds:['cgei-ml-a-64-leakage'],assessmentIds:['cgei-ml-assess-64'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes65: CurriculumOutcome[] = [
   {id:'cgei-ml-o-65-interpret',statement:'Explain model behaviour with limitations and stress tests; avoid overclaiming.',action:'explain and stress-test',level:'L3',competencyIds:['cgei-comp-uncertainty']},
 ];
 const lessons65: CurriculumLesson[] = [
- {id:'cgei-ml-lesson-6-5-1',kind:'lesson',title:'Interpretation, robustness, and misuse zones',order:1,readiness:'draft',level:'L3',estimatedMinutes:35,objectives:[outcomes65[0]],content:[
- {id:'cgei-ml-65-1-1',kind:'prose',title:'Explanation is not causation',body:'Feature attributions and partial dependence describe the fitted model under the training distribution. They do not identify causal effects. Stress-test with shifted years, sensors, and regions; document where predictions must not be used.'}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-5-1',kind:'lesson',title:'Interpretation, calibration and robustness',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes65[0]],content:[
+ {id:'cgei-ml-65-1-1',kind:'prose',title:'Association is not causation',body:'Coefficients, tree thresholds, permutation importance and SHAP-style attributions describe the fitted predictor under the training design. Confounding, correlated predictors, spatial autocorrelation and proxy variables (e.g. LST for heat stress) break causal readings. Interpret feature groups when predictors move together.'},
+ {id:'cgei-ml-65-1-2',kind:'prose',title:'Calibration versus discrimination',body:'A model may rank cases well (discrimination) while producing unreliable probabilities (calibration). Reliability diagrams compare mean predicted probability to observed frequency. On tiny holdouts, such plots are illustrative only—not operational calibration evidence.'},
+ {id:'cgei-ml-65-1-3',kind:'prose',title:'Robustness and failure analysis',body:'Sensitivity checks ask whether ranks or alerts change under threshold shifts or feature drops. Inspect false positives and false negatives and link them to decision costs. Subgroup or year splits describe heterogeneity; they do not prove spatial generalisation from a synthetic micro-table.'},
+ {id:'cgei-ml-65-1-4',kind:'prose',title:'Reporting and model cards',body:'Document target, provenance, split, features, metrics, assumptions, limitations and intended use. State misuse zones (e.g. causal policy claims, air-temperature substitution, deployment outside training support).'},
+ {id:'cgei-ml-65-1-lab',kind:'worked-example',title:'Synthetic interpretation lab',body:'Fixture unit_6_5_interpretation_check.py reuses the Unit 6.2 parcel table and pre-specified illustrative LST threshold (36.5; not fit on test): confusion counts, FP/FN IDs, threshold sensitivity, illustrative reliability bins, and a reporting contract with explicit synthetic/non-causal limitations.'}],activityIds:['cgei-ml-a-65-interpret'],assessmentIds:['cgei-ml-assess-65'],resourceIds:[],deliverableIds:[]},
 ];
 const outcomes66: CurriculumOutcome[] = [
   {id:'cgei-ml-o-66-pitfalls',statement:'Recognise common environmental ML validation failures and required documentation.',action:'recognise and document',level:'L3',competencyIds:['cgei-comp-uncertainty']},
 ];
 const lessons66: CurriculumLesson[] = [
- {id:'cgei-ml-lesson-6-6-1',kind:'lesson',title:'Common pitfalls in environmental ML',order:1,readiness:'draft',level:'L3',estimatedMinutes:30,objectives:[outcomes66[0]],content:[
- {id:'cgei-ml-66-1-1',kind:'prose',title:'Literature failure modes',body:'Typical failures: spatial leakage, unreported baselines, test-set tuning, ignoring label bias, and treating cluster labels as validated classes. Urban heat clustering studies are a recurring example where correlation maps are over-read as causal cooling strategies.'},
- {id:'cgei-ml-66-1-2',kind:'checklist',title:'Minimum honest ML report',items:['Problem statement and horizon','Leakage-safe split described','Baselines reported','Metrics matched to decision','Applicability limits stated']}],activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[]},
+ {id:'cgei-ml-lesson-6-6-1',kind:'lesson',title:'Environmental ML practice and honest reporting',order:1,readiness:'draft',level:'L3',estimatedMinutes:45,objectives:[outcomes66[0]],content:[
+ {id:'cgei-ml-66-1-0',kind:'prose',title:'End-to-end practice path',body:'Carry a screening problem from framing through provenance, baseline, leakage-safe split, model comparison, interpretation and a model card. The synthetic parcel table is a workflow trainer—not Multan evidence and not validation of interventions.'},
+ {id:'cgei-ml-66-1-1',kind:'prose',title:'Applications and pitfalls',body:'Typical tasks include land-cover mapping, spatial-CV prediction, anomaly detection, PM2.5/LST proxies and species models. Recurring failures: inventory bias, random pixel CV inflation, target proxies in features, overclaiming transferability, and recycling unsupervised clusters as supervised labels on the same image.'},
+ {id:'cgei-ml-66-1-2',kind:'checklist',title:'Minimum honest ML report',items:['Problem, scale, users, decision consequences','Provenance and synthetic/real label','Leakage-safe split and train-only preprocessing','Baseline before complex models','Metrics matched to FP/FN costs','Model card: intended use, out-of-scope, limits, next validation']},
+ {id:'cgei-ml-66-1-lab',kind:'worked-example',title:'Practice report pack',body:'Fixture unit_6_6_practice_check.py validates labs/portfolio/env_ml_practice_report.json: framing, synthetic/not-Multan flags, target excluded from features, holdout not used for selection, train-only preprocessing, reproducibility commands, model-card fields and named pitfalls.'}],activityIds:['cgei-ml-a-66-practice'],assessmentIds:['cgei-ml-assess-66'],resourceIds:[],deliverableIds:[]},
+];
+
+const outcomes67: CurriculumOutcome[] = [
+  {id:'cgei-ml-o-67-eo-dl',statement:'Design leakage-aware patch/tile workflows for EO deep learning and justify when simpler baselines suffice.',action:'design and justify',level:'L3',competencyIds:['cgei-comp-uncertainty','cgei-comp-reproducibility']},
+];
+const lessons67: CurriculumLesson[] = [
+ {id:'cgei-ml-lesson-6-7-1',kind:'lesson',title:'Deep learning for spatial and EO data',order:1,readiness:'draft',level:'L3',estimatedMinutes:50,objectives:[outcomes67[0]],content:[
+ {id:'cgei-ml-67-1-1',kind:'prose',title:'Foundations and when to use DL',body:'Tensors, layers, activations, losses and gradient-based optimisation extend classical ML. Deep models can learn hierarchical spatial features from patches or sequences, but they need more labels, compute and careful evaluation. Prefer linear/tree baselines (Unit 6.3) when tables are small or labels are weak—refuse deep models on tiny, weak label sets.'},
+ {id:'cgei-ml-67-1-2',kind:'prose',title:'EO tensors and alignment',body:'Inputs are multiband stacks, patches, tiles, time series or cubes. Document bands, resolution, CRS, nodata/masks, scaling and temporal composites. Align inputs and targets in space and time. LST is not near-surface air temperature; land-cover labels and indices have different error structures.'},
+ {id:'cgei-ml-67-1-3',kind:'prose',title:'Architectures and transfer',body:'CNNs classify patches; U-Net-style encoder–decoders map pixels (segmentation) with IoU/Dice metrics; temporal CNNs/ConvLSTM/transformers model sequences with stricter temporal holdouts. Transfer learning helps when labels are scarce but domain shift (sensor, region, season) remains. Pretrained weights carry licence and provenance obligations.'},
+ {id:'cgei-ml-67-1-4',kind:'prose',title:'Training, leakage and reporting',body:'Separate train/val/test; never tune on the final holdout. Overlapping patches across a spatial cut leak. Compare against Random Forest/boosting baselines. Report class-specific precision/recall, confusion matrices, IoU for segmentation, seeds, compute budget and failure cases. Predictive skill is not causal proof.'},
+ {id:'cgei-ml-67-1-lab',kind:'worked-example',title:'Synthetic tile split lab (no GPU required)',body:'Fixture unit_6_7_eo_deep_learning_check.py builds a synthetic 3-band 8×8 scene and label mask, extracts 2×2 patches, shows non-overlapping spatial block splits, detects leakage under stride-1 overlap, scores a majority baseline and pixel IoU. Optional PyTorch training is documented in the lab but not required for CI.'}],activityIds:['cgei-ml-a-67-eo'],assessmentIds:['cgei-ml-assess-67'],resourceIds:[],deliverableIds:[]},
 ];
 
 const mlUnits: CurriculumUnit[] = [
-  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
-  {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:62,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:63,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:64,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:65,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
-  {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:66,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:[],assessmentIds:[],resourceIds:[],deliverableIds:[],notes:['Core. Draft.']},
+  {id:'cgei-ml-unit-6-1',code:'6.1',title:'Learning problem formulation',order:61,kind:'unit',readiness:'draft',summary:'Define target, unit, horizon, decision context, task type, and baselines before complex models.',estimatedHours:5,prerequisites:['Unit 5.4 introductory statistics','Unit 5.7 time series awareness'],outcomes:outcomes61,lessonIds:lessons61.map((l)=>l.id),activityIds:['cgei-ml-a-61-problem'],assessmentIds:['cgei-ml-assess-61'],resourceIds:[],deliverableIds:[],notes:['Core. Draft Subject 6 foundation.']},
+  {id:'cgei-ml-unit-6-2',code:'6.2',title:'Data preparation and feature engineering for environmental ML',order:62,kind:'unit',readiness:'draft',summary:'Build documented, leakage-safe features and targets with train-only transforms.',estimatedHours:6,prerequisites:['Unit 6.1'],outcomes:outcomes62,lessonIds:lessons62.map((l)=>l.id),activityIds:['cgei-ml-a-62-features'],assessmentIds:['cgei-ml-assess-62'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_2_feature_prep_check.py']},
+  {id:'cgei-ml-unit-6-3',code:'6.3',title:'Core algorithms',order:63,kind:'unit',readiness:'draft',summary:'Linear models, ensembles, and unsupervised methods with explicit assumptions.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.2'],outcomes:outcomes63,lessonIds:lessons63.map((l)=>l.id),activityIds:['cgei-ml-a-63-models'],assessmentIds:['cgei-ml-assess-63'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_3_core_algorithms_check.py']},
+  {id:'cgei-ml-unit-6-4',code:'6.4',title:'Validation design for spatial and temporal ML',order:64,kind:'unit',readiness:'draft',summary:'Blocked spatial and chronological validation that prevents leakage.',estimatedHours:6,prerequisites:['Unit 6.1','Unit 6.3'],outcomes:outcomes64,lessonIds:lessons64.map((l)=>l.id),activityIds:['cgei-ml-a-64-leakage'],assessmentIds:['cgei-ml-assess-64'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_4_leakage_split_check.py']},
+  {id:'cgei-ml-unit-6-5',code:'6.5',title:'Interpretation, robustness, and limits of use',order:65,kind:'unit',readiness:'draft',summary:'Explain models without causal overclaim and document misuse zones.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes65,lessonIds:lessons65.map((l)=>l.id),activityIds:['cgei-ml-a-65-interpret'],assessmentIds:['cgei-ml-assess-65'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_5_interpretation_check.py']},
+  {id:'cgei-ml-unit-6-6',code:'6.6',title:'Environmental ML applications and common failures',order:66,kind:'unit',readiness:'draft',summary:'Recognise literature pitfalls and minimum honest reporting standards.',estimatedHours:4,prerequisites:['Unit 6.4'],outcomes:outcomes66,lessonIds:lessons66.map((l)=>l.id),activityIds:['cgei-ml-a-66-practice'],assessmentIds:['cgei-ml-assess-66'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Fixture: unit_6_6_practice_check.py']},
+  {id:'cgei-ml-unit-6-7',code:'6.7',title:'Deep learning for spatial and EO data',order:67,kind:'unit',readiness:'draft',summary:'EO tensors, CNN/U-Net families, leakage-aware tiles, and when baselines beat deep models.',estimatedHours:6,prerequisites:['Unit 6.4','Unit 6.6'],outcomes:outcomes67,lessonIds:lessons67.map((l)=>l.id),activityIds:['cgei-ml-a-67-eo'],assessmentIds:['cgei-ml-assess-67'],resourceIds:[],deliverableIds:[],notes:['Core. Draft. Stdlib patch/split fixture; optional PyTorch path outside CI.']},
+
 ];
 
 const lessons31: CurriculumLesson[] = [
@@ -1530,6 +1556,7 @@ const outcomes32: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-32-crs', statement: 'Distinguish geographic coordinates, projected coordinates and when units are angular versus linear.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-32-scale', statement: 'Estimate order-of-magnitude ground distances from degree differences using latitude-dependent scale factors.', action: 'estimate and check', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
   { id: 'cgei-geo-o-32-projection', statement: 'State that map projections trade area, shape and distance properties and name the property prioritised by a chosen projection class.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-32-transform', statement: 'Distinguish on-the-fly display projection from permanent transformation; choose resampling for categorical vs continuous rasters; document CRS and verify landmarks after reprojection.', action: 'distinguish and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
 ];
 
 const lessons32: CurriculumLesson[] = [
@@ -1539,7 +1566,11 @@ const lessons32: CurriculumLesson[] = [
     content: [
       { id: 'cgei-geo-32-1-1', kind: 'prose', title: 'Latitude and longitude are angles', body: 'Geographic coordinates locate positions on a reference surface using angular measures. Latitude and longitude are not planar metres. A CRS statement must include the geodetic datum (for example WGS 84) and axis order convention. Swapping axis order is a common GIS integration failure.' },
       { id: 'cgei-geo-32-1-2', kind: 'key-points', title: 'Minimum CRS declaration', items: ['Datum / geographic CRS name', 'Axis order (lon/lat vs lat/lon)', 'Units (degrees versus metres)', 'Vertical datum when elevations matter', 'Epoch when plate motion or time-dependent frames matter'] },
+      { id: 'cgei-geo-32-1-5', kind: 'prose', title: 'Ellipsoid, datum and reference frame are different', body: 'An ellipsoid is a mathematical surface used to approximate Earth’s shape; its semi-major and semi-minor axes define the model. A geodetic datum or reference frame specifies how that model is positioned and oriented relative to Earth and how coordinates are realised. Two datasets can both report latitude and longitude but still disagree if their datum/reference frame or coordinate epoch differs. An EPSG code identifies a coordinate reference system, not a guarantee that every transformation grid is installed or that the source coordinates are accurate.' },
+      { id: 'cgei-geo-32-1-6', kind: 'worked-example', title: 'Height requires a vertical reference', body: 'Ellipsoidal height h is measured relative to the reference ellipsoid; orthometric height H is approximately height above the geoid-based mean-sea-level reference. Under the conventional geoid-undulation definition, h = H + N, where N is geoid undulation. Do not apply this relationship numerically unless the height conventions, compatible geoid model, units and sign convention are documented. A horizontal CRS alone does not specify a vertical datum.' },
+      { id: 'cgei-geo-32-1-7', kind: 'checklist', title: 'Before combining coordinate datasets', items: ['Record the full source CRS and axis order, not only a label such as “WGS84”.', 'Check datum/reference-frame and coordinate-epoch compatibility for high-accuracy work.', 'Record the vertical datum and geoid model when using elevations.', 'Choose a documented coordinate operation and confirm required grid files are available.', 'Validate transformed coordinates against independent control points when accuracy matters.'] },
       { id: 'cgei-geo-32-1-3', kind: 'worked-example', title: 'Why 70, 30 is ambiguous without a CRS note', body: 'The pair (70, 30) could be (lon, lat) in Pakistan’s longitude range or (lat, lon) near the Arctic. Always document axis order and CRS when exchanging coordinates between tools.' },
+      { id: 'cgei-geo-32-1-4', kind: 'worked-example', title: 'Multan-region CRS choice (teaching)', body: 'For regional Multan analysis, store source data in their native CRS and transform explicitly. Geographic WGS 84 (EPSG:4326) is common for lon/lat exchange; planar analysis often uses a UTM zone (e.g. WGS 84 / UTM zone 42N, EPSG:32642) for metre units. On-the-fly display transforms are not a substitute for documenting the CRS used in area, distance, or zonal calculations. Never assume degree cells are square metres without a scale factor or equal-area projection.' },
     ],
     activityIds: ['cgei-geo-a-32-crs'], assessmentIds: ['cgei-geo-assess-32-crs'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
@@ -1564,6 +1595,23 @@ const lessons32: CurriculumLesson[] = [
     ],
     activityIds: ['cgei-geo-a-32-projection'], assessmentIds: ['cgei-geo-assess-32-projection'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
+  {
+    id: 'cgei-geo-lesson-3-2-4', kind: 'lesson', title: 'Transforms, Multan practice and CRS documentation', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes32[3]],
+    content: [
+      { id: 'cgei-geo-32-4-1', kind: 'prose', title: 'On-the-fly display is not a permanent transform', body: 'Desktop GIS often reprojects layers on the fly for display in a project CRS. That does not rewrite source files. Analytical distances, areas, buffers, and zonal overlays must use a documented CRS with known units. Prefer an explicit permanent transform when writing analysis outputs so downstream steps do not depend on a forgotten project CRS.' },
+      { id: 'cgei-geo-32-4-2', kind: 'table', title: 'Resampling when transforming rasters', headers: ['Data type', 'Prefer', 'Why'], rows: [['Categorical land cover / masks', 'Nearest neighbour', 'Preserves class codes; avoids synthetic intermediate classes'], ['Continuous temperature / elevation', 'Bilinear or cubic', 'Smoother field interpolation; still alters values—document method'], ['Quality/bit flags', 'Nearest neighbour', 'Bitfields must not be averaged']] },
+      { id: 'cgei-geo-32-4-3', kind: 'worked-example', title: 'Multan and UTM zone 42N boundaries', body: 'UTM zone 42N spans longitudes 66°E to 72°E (EPSG:32642). Multan city lies inside that zone. A Punjab-wide layer that crosses 72°E enters zone 43N (EPSG:32643). Using a single UTM zone for all of Punjab distorts metrics near the edge; for province-wide area totals prefer an equal-area CRS or product-native cell areas. Fixture unit_3_2_crs_scale_check.py locks the 66–72°E zone rule as a decision check.' },
+      { id: 'cgei-geo-32-4-4', kind: 'key-points', title: 'Documentation and verification', items: ['Record EPSG (or WKT) on every dataset and map', 'Legacy Survey of Pakistan or cadastral layers may use local datums—identify before overlay', 'After reprojection, check known landmarks (e.g. city coordinates) land where expected', 'Vertical: distinguish ellipsoidal height from orthometric (geoid) height; DEM product docs state which'] },
+      { id: 'cgei-geo-32-4-5a', kind: 'prose', title: 'Datum transforms and grid-shift accuracy', body: 'Changing geographic CRS (e.g. a local datum to WGS 84) may require a datum transformation. Some pipelines use a three- or seven-parameter transform; higher accuracy often depends on a national grid-shift file (NTv2 or equivalent). The accuracy of that transformation is part of the positional error budget—not free. If the required grid file is missing, software may silently fall back to a lower-accuracy method or fail. Acceptance criterion: name the transformation method, state whether a grid file was available, and do not report centimetre-level positional claims without documented transform accuracy.' },
+      { id: 'cgei-geo-32-4-5b', kind: 'worked-example', title: 'Missing grid-shift resource (decision rule)', body: 'Given: source CRS = local legacy geographic; target = EPSG:4326; required grid file = not found. Correct actions: (1) do not claim survey-grade fit; (2) record transform_method=unknown_or_fallback and grid_available=false; (3) widen positional uncertainty or stop the pipeline for high-stakes cadastral overlay. Fixture unit_3_2_transform_validation_check.py rejects a “high_accuracy” claim when grid_available is false.' },
+      { id: 'cgei-geo-32-4-5c', kind: 'prose', title: 'Landmark validation protocol', body: 'After any permanent transform, check known landmarks: independent points with documented coordinates in the target CRS (survey marks, verified open data, or published control). Report residual distance for each check point and a summary (e.g. RMSE or max residual). Synthetic teaching points test the residual arithmetic only—they are not Multan geographic validation. Acceptance criterion: at least one independent check point with residual reported; residuals outside a pre-stated tolerance trigger investigation before publishing overlays.' },
+      { id: 'cgei-geo-32-4-5d', kind: 'worked-example', title: 'Landmark residual (synthetic)', body: 'Expected target coordinates (metres): (500000, 3340000). Observed after transform: (500012, 3340005). Residual = sqrt(12²+5²) = 13 m. Fixture locks this calculation. A 13 m residual may be acceptable for regional climate raster overlays and unacceptable for parcel boundaries—state the use case.' },
+      { id: 'cgei-geo-32-4-5', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No national grid-shift file is shipped or fitted in this repository', 'Synthetic landmarks are not Multan survey control', 'Spherical scale factors are instructional, not survey-grade geodesics', 'EPSG:32642 is not mandatory for every Multan study'] },
+    ],
+    activityIds: ['cgei-geo-a-32-transform'], assessmentIds: ['cgei-geo-assess-32-transform'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+
 ];
 
 
@@ -1575,6 +1623,7 @@ const outcomes33: CurriculumOutcome[] = [
   { id: 'cgei-geo-o-33-qgis', statement: 'Document a reproducible QGIS project workflow including CRS checks, tool parameters and output verification against known tables.', action: 'document and verify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
   { id: 'cgei-geo-o-33-formats', statement: 'Select exchange, analysis and archive formats and state shapefile, GeoPackage and GeoJSON limitations including CRS tagging versus reprojection.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
   { id: 'cgei-geo-o-33-admin', statement: 'Validate synthetic administrative hierarchies and joins using stable IDs, detecting duplicates, missing parents and unmatched observation codes.', action: 'validate and diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-33-layout-georef', statement: 'Specify map layout elements and export settings; compute RMSE from control-point residuals; state representative GDAL/OGR inspection commands and verification steps.', action: 'specify compute and verify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
 ];
 
 const lessons33: CurriculumLesson[] = [
@@ -1653,6 +1702,21 @@ const lessons33: CurriculumLesson[] = [
     ],
     activityIds: ['cgei-geo-a-33-admin'], assessmentIds: ['cgei-geo-assess-33-admin'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
   },
+  {
+    id: 'cgei-geo-lesson-3-3-8', kind: 'lesson', title: 'Print layouts, georeferencing RMSE and GDAL CLI basics', order: 8, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes33[7]],
+    content: [
+      { id: 'cgei-geo-33-8-1', kind: 'prose', title: 'Print layouts communicate scale and source', body: 'A map for decision readers needs a scale bar (in linear units matching the map CRS), legend, north arrow when orientation is not obvious, optional inset for location context, and a note of CRS, data sources, and date. Export resolution (e.g. 300 dpi for print) is a production parameter: higher dpi does not fix incorrect analysis. This is layout literacy—not a substitute for correct CRS or statistics.' },
+      { id: 'cgei-geo-33-8-2', kind: 'checklist', title: 'Minimum layout checklist', items: ['Page size and orientation chosen for the audience', 'Scale bar with correct units (not degree ticks as metres)', 'Legend readable at export size', 'CRS and source citation on the map or caption', 'Export format and resolution recorded'] },
+      { id: 'cgei-geo-33-8-3', kind: 'prose', title: 'Georeferencing and RMSE', body: 'Georeferencing ties a scanned map or unreferenced image to a CRS using control points (GCPs) with known map coordinates. Each control point has a residual (predicted minus observed location after the transform). Root-mean-square error (RMSE) summarises residuals: RMSE = sqrt(mean(dx² + dy²)) in map units. Low RMSE does not prove the map is correct everywhere—especially outside the control-point convex hull—or that the historical source was accurate.' },
+      { id: 'cgei-geo-33-8-4', kind: 'worked-example', title: 'RMSE numerical example', body: 'Four control residuals (metres): (2,1), (−1,2), (0,−2), (1,0). Squared distances: 5, 5, 4, 1. Mean = 3.75. RMSE = sqrt(3.75) ≈ 1.94 m. Fixture unit_3_3_georef_rmse_check.py locks this arithmetic. Do not treat RMSE as a universal “acceptable error” threshold without stating map scale and use case.' },
+      { id: 'cgei-geo-33-8-5', kind: 'prose', title: 'GDAL/OGR for inspection and conversion', body: 'Command-line GDAL/OGR supports batch inspection without opening a desktop project. Representative teaching commands: gdalinfo raster.tif (driver, size, CRS, geotransform, bands); ogrinfo -al -so vector.gpkg (layers, feature counts, CRS); gdal_translate or gdalwarp for format/CRS conversion with an explicit resampling method for rasters. Always verify output CRS and a known landmark after conversion. This curriculum does not execute GDAL inside CI—document commands and expected verification steps.' },
+      { id: 'cgei-geo-33-8-6', kind: 'table', title: 'GDAL command intent (teaching)', headers: ['Command pattern', 'Intent', 'Verify'], rows: [['gdalinfo path', 'Inspect raster metadata', 'CRS, size, nodata, bands'], ['ogrinfo -al -so path', 'Inspect vector layers', 'Layer names, geom type, CRS, counts'], ['gdalwarp -t_srs EPSG:… -r near|bilinear', 'Reproject raster', 'Output CRS + sample value/landmark'], ['ogr2ogr -t_srs EPSG:…', 'Reproject vector', 'Output CRS + feature count']] },
+      { id: 'cgei-geo-33-8-7', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No full GUI print-composer click-path is graded in CI', 'RMSE is not spatial uncertainty of the whole map', 'GDAL version flags differ; check local --help', 'Does not replace Unit 3.2 CRS decision rules'] },
+    ],
+    activityIds: ['cgei-geo-a-33-layout-georef'], assessmentIds: ['cgei-geo-assess-33-layout-georef'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+
 ];
 
 
@@ -1733,6 +1797,137 @@ const lessons34: CurriculumLesson[] = [
   },
 ];
 
+const outcomes35: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-35-vector', statement: 'Describe GeoPandas/Shapely roles for vector CRS, predicates, joins and area/length in projected CRS.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-35-raster', statement: 'Describe rasterio/GDAL workflows for windowed read, nodata, reproject/resample and COG access patterns.', action: 'describe and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-geo-o-35-stack', statement: 'Match analysis libraries (zonal stats, STAC loaders, spatial stats) to tasks and state dependency/pinning risks for GDAL/PROJ.', action: 'match and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons35: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-5-1', kind: 'lesson', title: 'Python vector stack (GeoPandas and Shapely)', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes35[0]],
+    content: [
+      { id: 'cgei-geo-35-1-1', kind: 'prose', title: 'Roles in the vector stack', body: 'GeoPandas provides tabular vector layers with a geometry column and CRS metadata; Shapely supplies geometry objects and spatial predicates (intersects, within, touches). Read/write typically uses pyogrio or fiona under the hood. Spatial joins and overlays must use a CRS appropriate to the predicate: angular degrees are not metres. Area and length require a projected (or geodesic) method—never compute polygon area in EPSG:4326 and treat the number as hectares without conversion.' },
+      { id: 'cgei-geo-35-1-2', kind: 'table', title: 'Common operations', headers: ['Task', 'Typical tools', 'CRS caution'], rows: [['Filter by location', 'Shapely predicates / sjoin', 'Same CRS both sides'], ['Overlay / dissolve', 'overlay, dissolve', 'Projected for metric buffers'], ['Area / length', 'geodesic or projected CRS', 'Unit 3.2 decision rules'], ['Large vectors', 'GeoParquet, spatial index, DuckDB spatial', 'Index invalid if CRS mixed']] },
+      { id: 'cgei-geo-35-1-3', kind: 'worked-example', title: 'Axis-aligned bbox predicate (stdlib teaching)', body: 'Fixture unit_3_5_python_geospatial_stack_check.py implements intersects for axis-aligned boxes only—teaching the predicate logic without requiring GEOS. Production code should use Shapely/GEOS. A point in geographic CRS is still not a planar metre offset without a projection.' },
+      { id: 'cgei-geo-35-1-5', kind: 'worked-example', title: 'Spatial join cardinality trap', body: 'A one-to-many spatial join (stations to districts) multiplies station rows when multiple stations fall in one district—or duplicates district attributes onto each station. Always inspect row counts before and after joins. Buffer distances inherit CRS units: a “500” buffer in EPSG:4326 is 500 degrees, not metres.' },
+      { id: 'cgei-geo-35-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GeoPandas install required for CI fixture', 'H3/S2 and dask-geopandas are named, not implemented here', 'Topology validity still requires GEOS-backed tools'] },
+    ],
+    activityIds: ['cgei-geo-a-35-vector'], assessmentIds: ['cgei-geo-assess-35-vector'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-5-2', kind: 'lesson', title: 'Python raster stack (rasterio and friends)', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes35[1]],
+    content: [
+      { id: 'cgei-geo-35-2-1', kind: 'prose', title: 'Rasterio sits on GDAL', body: 'Rasterio exposes GDAL datasets with Pythonic windowed reading, masks, and nodata handling. Reproject and resample must state the resampling method (nearest for classes; bilinear/cubic for continuous fields—Unit 3.2). Cloud-Optimized GeoTIFF (COG) enables range requests and overviews for large rasters. rioxarray attaches rasterio CRS/transform metadata to xarray objects for labelled workflows.' },
+      { id: 'cgei-geo-35-2-2', kind: 'key-points', title: 'Operational checklist', items: ['Always read nodata and valid range from metadata', 'Windowed reads for large files', 'Document resampling when warping', 'COG does not fix wrong CRS'] },
+      { id: 'cgei-geo-35-2-3', kind: 'worked-example', title: 'Nodata exclusion in a window mean', body: 'Given values [10, 12, nodata, 14] with nodata=-9999, the mean of valid cells is 12. Fixture locks nodata exclusion. Treating nodata as zero biases climate and EO means—especially sparse masks.' },
+    ],
+    activityIds: ['cgei-geo-a-35-raster'], assessmentIds: ['cgei-geo-assess-35-raster'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-5-3', kind: 'lesson', title: 'Analysis libraries, STAC and R complement', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes35[2]],
+    content: [
+      { id: 'cgei-geo-35-3-1', kind: 'prose', title: 'Match library to task', body: 'Zonal statistics (rasterstats, exactextract) must account for partial pixel coverage at polygon edges when area fractions matter. STAC clients (pystac-client, odc-stac, stackstac) load EO assets lazily—still require CRS and cloud QA discipline from Subject 4. Spatial statistics (PySAL, PyKrige) assume a defined neighbour structure; they do not replace data QC. R (sf, terra, stars) remains strong for some geostatistics; exchange via open formats rather than opaque binary dumps.' },
+      { id: 'cgei-geo-35-3-2', kind: 'callout', title: 'Binary dependency risk', tone: 'warning', items: ['Pin GDAL, PROJ, GEOS versions in environments', 'Wheel mismatches break CRS transforms silently or loudly', 'Interactive maps (folium, geemap) are exploration—not analysis provenance'] },
+      { id: 'cgei-geo-35-3-3', kind: 'checklist', title: 'Before trusting a stack output', items: ['CRS recorded on inputs and outputs', 'Nodata handled', 'Resampling method documented', 'Library and GDAL versions pinned'] },
+      { id: 'cgei-geo-35-3-4', kind: 'worked-example', title: 'Synthetic climate–spatial integration (stdlib)', body: 'Join a station table (id, lon, lat, tmax_c) to district polygons only after confirming both use the same CRS. Aggregate district mean Tmax excluding missing values—never coerce missing to zero (Unit 2.5). Fixture unit_3_5_climate_spatial_integration_check.py locks: (1) CRS mismatch rejected; (2) point-in-bbox assignment; (3) mean ignores None. Synthetic only—not Multan observations.' },
+
+    ],
+    activityIds: ['cgei-geo-a-35-stack'], assessmentIds: ['cgei-geo-assess-35-stack'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes36: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-36-visual', statement: 'Select sequential, diverging or qualitative colour schemes and a classification method matched to data type and message.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-36-honesty', statement: 'Design map legends and uncertainty treatments that state units, date, resolution and source without false precision.', action: 'design and critique', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons36: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-6-1', kind: 'lesson', title: 'Colour, classification and choropleth honesty', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes36[0]],
+    content: [
+      { id: 'cgei-geo-36-1-1', kind: 'prose', title: 'Match symbolisation to data type', body: 'Sequential schemes suit ordered magnitudes (temperature anomaly °C). Diverging schemes suit values around a meaningful midpoint (anomaly about zero). Qualitative schemes suit unordered categories (land-cover class). Rainbow schemes often invent perceptual order and harm colour-blind readers—prefer tested palettes (e.g. ColorBrewer-style sequential/diverging sets).' },
+      { id: 'cgei-geo-36-1-2', kind: 'table', title: 'Classification methods', headers: ['Method', 'Behaviour', 'Risk'], rows: [['Equal interval', 'Equal width bins', 'Empty bins if skewed'], ['Quantiles', 'Equal count bins', 'Exaggerates small differences in flat data'], ['Natural breaks', 'Cluster-seeking breaks', 'Breaks change when data update'], ['Manual', 'Analyst-set thresholds', 'Must justify thresholds']] },
+      { id: 'cgei-geo-36-1-3', kind: 'worked-example', title: 'When not to use a choropleth', body: 'Choropleths shade areas by a rate or density. Mapping raw counts of stations by district without normalising by area or population misleads. For sparse events, proportional symbols or dot density may be more honest. Fixture unit_3_6_cartography_check.py rejects a “count choropleth” claim when the attribute is an absolute count without a rate field.' },
+      { id: 'cgei-geo-36-1-5', kind: 'table', title: 'Map types by question', headers: ['Map type', 'Best for', 'Avoid when'], rows: [['Choropleth', 'Rates/densities by area', 'Raw counts; unequal areas without normalisation'], ['Proportional symbol', 'Magnitudes at points or centroids', 'Dense overlapping symbols without transparency'], ['Dot density', 'Counts with spatial dispersion', 'Dots read as exact locations if randomised'], ['Classified raster', 'Continuous fields (LST, precip)', 'Too many classes without legend units'], ['Bivariate / small multiples', 'Two variables or time slices', 'Overplotting without shared scales']] },
+      { id: 'cgei-geo-36-1-6', kind: 'worked-example', title: 'Equal-interval vs quantiles change the story', body: 'Synthetic district rates [0.1, 0.12, 0.15, 0.5, 0.9]. Equal-interval (3 classes) isolates the upper tail; quantiles put roughly equal counts per class and can make the map look more uniform. Fixture unit_3_6_cartography_check.py locks both break sets. Report the classification method—neither scheme is uniquely “true”.' },
+      { id: 'cgei-geo-36-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GUI map composer in CI', 'Colour-blind simulation not automated here', 'Classification choice is part of the analysis story'] },
+    ],
+    activityIds: ['cgei-geo-a-36-colour'], assessmentIds: ['cgei-geo-assess-36-colour'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-6-2', kind: 'lesson', title: 'Legends, uncertainty and reproducible figures', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes36[1]],
+    content: [
+      { id: 'cgei-geo-36-2-1', kind: 'prose', title: 'Legends carry metadata', body: 'A defensible legend or caption states the variable, units, date or period, spatial resolution or administrative level, classification method, and source/product version. Smooth interpolated surfaces can imply false precision—pair them with station density, uncertainty bands, or gap masks when the data support it.' },
+      { id: 'cgei-geo-36-2-2', kind: 'checklist', title: 'Publication figure checklist', items: ['Scale bar with linear units (not degree ticks as km)', 'North arrow if orientation is nonstandard', 'Panel labels for multi-panel figures', 'Colour-blind-safe palette check', 'CRS and data source in caption', 'Export resolution recorded for print'] },
+      { id: 'cgei-geo-36-2-3', kind: 'prose', title: 'Sensitive boundaries and attribution', body: 'Disputed boundaries require applicable national mapping rules and clear disclaimers. Web maps need tile attribution and licence statements. Reproducible map styling belongs in version-controlled scripts—not only in a one-off GUI session.' },
+      { id: 'cgei-geo-36-2-4', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Missing data should be visible, not filled with decorative colour', 'Do not imply continuous coverage where stations are sparse', 'Web Mercator is for tiles, not hectare legends (Unit 3.2)'] },
+      { id: 'cgei-geo-36-2-5', kind: 'prose', title: 'Web cartography trade-offs', body: 'Vector tiles and interactive clients enable scale-dependent rendering, but caching, attribution, and accessibility still apply. Zoom-dependent generalisation can hide or invent patterns. CI does not render a browser map; design rules are library-independent.' },
+
+    ],
+    activityIds: ['cgei-geo-a-36-honesty'], assessmentIds: ['cgei-geo-assess-36-honesty'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes39: CurriculumOutcome[] = [
+  { id: 'cgei-geo-o-39-auto', statement: 'Explain spatial autocorrelation and why random train/test splits of spatial data can leak structure.', action: 'explain and diagnose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-39-interp', statement: 'Compare deterministic interpolation and kriging concepts, including variogram parameters and when data are too sparse to krige.', action: 'compare and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-geo-o-39-val', statement: 'Design leave-location-out or spatial-block evaluation and interpret residual spatial pattern as a diagnostic.', action: 'design and interpret', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+];
+
+const lessons39: CurriculumLesson[] = [
+  {
+    id: 'cgei-geo-lesson-3-9-1', kind: 'lesson', title: 'Spatial dependence, weights and clusters', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes39[0]],
+    content: [
+      { id: 'cgei-geo-39-1-1', kind: 'prose', title: 'Nearby values are often not independent', body: 'Spatial autocorrelation means observations near each other tend to be more similar (or dissimilar) than expected under independence. Global Moran’s I summarises this pattern; local indicators (LISA) locate clusters and outliers. Neighbourhoods may be defined by contiguity or distance weights—results depend on that choice. Edge effects and multiple testing matter for local statistics. Hotspot maps (Getis–Ord Gi*, kernel density) also depend on bandwidth: narrow kernels invent speckles; wide kernels smooth real structure.' },
+      { id: 'cgei-geo-39-1-2', kind: 'prose', title: 'Point patterns and null models', body: 'Complete spatial randomness (CSR) is a null, not a default truth. Quadrat counts, nearest-neighbour statistics and Ripley’s K compare observed patterns to CSR or other nulls. Rejecting CSR is not the same as proving a specific generative process.' },
+      { id: 'cgei-geo-39-1-3', kind: 'worked-example', title: 'Why random splits leak', body: 'If site A and site B are close and share environmental conditions, putting A in train and B in test is not an independent evaluation (Units 4.11–4.12). Fixture unit_3_9_spatial_stats_check.py demonstrates leave-location-out error for a smooth spatial field versus a random split that looks artificially good.' },
+      { id: 'cgei-geo-39-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No PySAL execution in CI', 'Moran’s I formula taught conceptually; fixture uses a simplified lag diagnostic', 'Cluster labels are not land-cover classes'] },
+    ],
+    activityIds: ['cgei-geo-a-39-auto'], assessmentIds: ['cgei-geo-assess-39-auto'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-9-2', kind: 'lesson', title: 'Interpolation, variograms and kriging limits', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes39[1]],
+    content: [
+      { id: 'cgei-geo-39-2-1', kind: 'table', title: 'Interpolation families', headers: ['Method', 'Idea', 'Risk'], rows: [['Nearest neighbour', 'Assign nearest sample', 'Blocky surfaces'], ['IDW', 'Inverse-distance weighted average', 'No uncertainty surface; power parameter arbitrary'], ['Splines', 'Smooth surface', 'Can overshoot'], ['Ordinary kriging', 'BLUP under variogram model', 'Needs enough pairs; stationarity assumptions']] },
+      { id: 'cgei-geo-39-2-2', kind: 'prose', title: 'Variogram language', body: 'An empirical variogram summarises dissimilarity versus lag distance: nugget (micro-scale + measurement noise), sill (variance level), range (distance beyond which correlation is weak), and possible anisotropy. Ordinary kriging yields predictions and a model-based prediction variance—not a free pass when samples are few. If data are too sparse or the variogram is unstable, prefer simpler methods and honest uncertainty statements.' },
+      { id: 'cgei-geo-39-2-3', kind: 'worked-example', title: 'IDW at a target point (synthetic)', body: 'Two samples at distances 1 and 3 from a target, values 10 and 16, power=2. IDW weights ∝ 1/d² give prediction 11.8. Fixture locks this arithmetic. IDW does not estimate kriging variance.' },
+            { id: 'cgei-geo-39-2-select', kind: 'worked-example', title: 'Method selection under sparse or noisy samples', body: 'Not every point set should be interpolated. Fixture unit_3_9_method_selection_check.py applies teaching heuristics: n<4 or insufficient near/far pairs → do_not_interpolate; no spatial structure (near dissimilarity ≥ far) → do_not_interpolate; structured fields with n≥8 may be ok_candidate for ordinary kriging under a stated variogram; otherwise idw_ok still requires leave-location-out checks. Limits: heuristic only—not automated model selection or operational map QA.' },
+      { id: 'cgei-geo-39-2-select-callout', kind: 'callout', title: 'When not to interpolate', tone: 'warning', items: ['Fewer than four well-distributed samples', 'Values look like spatial white noise', 'Support change or areal aggregation is the real task', 'Decisions need uncertainty the method cannot provide'] },
+      { id: 'cgei-geo-39-2-4', kind: 'callout', title: 'Regression on spatial data', tone: 'warning', items: ['OLS residuals may still be spatially structured', 'Spatial lag/error and GWR need careful interpretation', 'Coefficients are not automatically causal'] },
+      { id: 'cgei-geo-39-2-5', kind: 'worked-example', title: 'Leave-location-out IDW (synthetic line)', body: 'Five points along x with values 1…5. For each held-out location, predict with IDW (power=2) from the other four; report LOO RMSE and inspect nearest-neighbour residual differences as a simple spatial residual diagnostic. Fixture unit_3_9_spatial_stats_check.py locks LOO-IDW and residual-lag computation. If residuals remain smoothly structured, the interpolator (or covariates) is incomplete—not a licence to claim the surface is validated.' },
+      { id: 'cgei-geo-39-2-6', kind: 'prose', title: 'Reading an empirical semivariogram', body: 'For pairs of sites, the classical semivariogram estimator averages γ̂(h) = ½(zᵢ − zⱼ)² over pairs whose separation falls in lag bin h. As lag increases on a smoothly varying field, γ̂ typically rises toward a sill; the range is the lag beyond which pairs are effectively uncorrelated under a fitted model; the nugget captures micro-scale variation and measurement noise (γ̂ does not have to be zero at the smallest lag). A pure trend without second-order stationarity can inflate γ̂ at long lags—do not force a spherical model when the cloud is empty or unstable. Fixture unit_3_9_spatial_stats_check.py computes bin-wise γ̂ on a synthetic cloud and checks that longer lags are more dissimilar than short lags on a gradient field.' },
+      { id: 'cgei-geo-39-2-7', kind: 'callout', title: 'What γ̂ does not prove', tone: 'warning', items: ['A pretty variogram does not validate a map product', 'Few pairs per bin → unstable γ̂', 'Anisotropy can hide in omnidirectional bins', 'Kriging variance is model-based, not field truth'] },
+      { id: 'cgei-geo-39-2-8', kind: 'prose', title: 'Ordinary kriging (OK) in brief', body: 'OK predicts at an unsampled location as a weighted average of observed values with weights that sum to one (unbiasedness under a constant unknown mean). Weights come from a spatial-covariance model implied by a valid variogram (here an exponential model with nugget, partial sill, and range). The system solves for weights and a Lagrange multiplier; the model also yields a kriging variance that is smaller near data and larger in extrapolation—but that variance is only as trustworthy as the variogram model and stationarity assumptions. Fixture unit_3_9_spatial_stats_check.py solves a 3-sample OK system at a target and checks weight sum = 1.' },
+      { id: 'cgei-geo-39-2-9', kind: 'worked-example', title: 'OK vs IDW at one target (synthetic)', body: 'Samples (0,0)=10, (2,0)=14, (0,2)=12; target (1,1); exponential parameters nugget=0.5, partial sill=4, range=3. OK yields a prediction and positive model variance; IDW (power=2) yields another number. They need not agree: IDW ignores the covariance model. Neither result is a field campaign validation. Report both and state which assumptions each method makes.' },
+
+
+
+    ],
+    activityIds: ['cgei-geo-a-39-interp'], assessmentIds: ['cgei-geo-assess-39-interp'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-geo-lesson-3-9-3', kind: 'lesson', title: 'Spatial validation and change of support', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes39[2]],
+    content: [
+      { id: 'cgei-geo-39-3-1', kind: 'prose', title: 'Blocks, buffers and residual maps', body: 'Spatial block cross-validation and buffered holdouts reduce leakage relative to random folds. Leave-location-out evaluates transfer to new sites. Residual maps should be inspected for remaining spatial structure. Block size can be informed by the dependence range—not by convenience alone.' },
+      { id: 'cgei-geo-39-3-2', kind: 'prose', title: 'Change of support', body: 'Aggregating point predictions to districts (or downscaling counts) changes the support of the data. Area-weighted and dasymetric approaches make different assumptions. Uncertainty in inputs propagates; Monte Carlo schemes make that explicit when feasible. Spatially balanced sampling improves reference designs for validation (Unit 4.11).' },
+      { id: 'cgei-geo-39-3-3', kind: 'key-points', title: 'Reporting checklist', items: ['Neighbourhood / bandwidth definition', 'Null model for point patterns', 'Interpolation method and parameters', 'Validation design (not only R²)', 'Support of predictions vs decisions'] },
+    ],
+    activityIds: ['cgei-geo-a-39-val'], assessmentIds: ['cgei-geo-assess-39-val'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+
+
 
 const outcomes11: CurriculumOutcome[] = [
   { id: 'cgei-es-o-11-spheres', statement: 'Identify the major Earth-system spheres and describe one coupling relevant to climate or water resources.', action: 'identify and describe', level: 'L1', competencyIds: ['cgei-comp-quantitative-reasoning'] },
@@ -1758,6 +1953,8 @@ const lessons11: CurriculumLesson[] = [
       { id: 'cgei-es-11-2-1', kind: 'prose', title: 'Energy in, energy out', body: 'Solar irradiance at TOA (solar constant S ≈ 1361 W m⁻²) is distributed over the Earth’s cross-section versus surface area, giving a factor 1/4. Absorbed power per unit area is S(1−A)/4 with planetary albedo A. In equilibrium a blackbody planet emits σ Te⁴ = S(1−A)/4. Real surface temperatures exceed Te because of the greenhouse effect—this lesson stops at the conceptual distinction.' },
       { id: 'cgei-es-11-2-lab', kind: 'worked-example', title: 'Lab: Stefan–Boltzmann, Wien and Te', body: 'σ = 5.670374419×10⁻⁸ W m⁻² K⁻⁴. At T=288 K, exitance M=σT⁴ ≈ 390.1 W m⁻². Wien peak λ_max ≈ 2897.8/T ≈ 10.06 μm (thermal IR). With S=1361 W m⁻² and A=0.30, Te ≈ 254.6 K. Fixture unit_1_1_energy_budget_check.py locks these values. Teaching model only—not a GCM.' },
       { id: 'cgei-es-11-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Blackbody idealisation', 'Global mean balance hides regional contrasts', 'Te is not surface air temperature', 'Clouds and aerosols change both albedo and longwave'] },
+      { id: 'cgei-es-11-2-4', kind: 'prose', title: 'Surface energy balance (SEB)', body: 'At the land surface a common teaching form is Rn = H + LE + G, where Rn is net radiation, H sensible heat flux, LE latent heat flux (evapotranspiration), and G ground heat flux (all in W m⁻²). Sign conventions must be stated: here Rn is into the surface and H, LE, G leave the surface. Residual Rn − (H+LE+G) is a closure diagnostic, not proof of instrument truth. Real sites may include storage, advective, or anthropogenic flux terms omitted from this simplified form—state which terms are measured. Diurnal peaks in H and LE differ over wet vs dry land—relevant to urban vs rural heat (Unit 1.10, Unit 4.5).' },
+      { id: 'cgei-es-11-2-5', kind: 'worked-example', title: 'SEB residual check', body: 'Given Rn=450, H=120, LE=280, G=50 W m⁻², residual = 450−(120+280+50)=0 (closed). If H is reported as 100 with the same Rn, LE, G, residual=+20 W m⁻² and the budget is open—do not invent fluxes to force closure without measurement justification.' },
     ],
     activityIds: ['cgei-es-a-11-radiation'], assessmentIds: ['cgei-es-assess-11-radiation'], resourceIds: [], deliverableIds: [],
   },
@@ -1768,6 +1965,7 @@ const lessons11: CurriculumLesson[] = [
       { id: 'cgei-es-11-3-1', kind: 'prose', title: 'Positive versus negative feedbacks', body: 'A positive feedback amplifies an initial change (ice melt → lower albedo → more absorption → more melt). A negative feedback damps change. Water-vapour feedback is positive at overview level; Planck response (hotter surface emits more) is stabilising. Radiative forcing and climate sensitivity are defined concepts here, not numerically fitted.' },
       { id: 'cgei-es-11-3-2', kind: 'prose', title: 'Cycles as stocks and flows', body: 'Water and carbon cycles are organised by reservoirs and fluxes. Residence time = stock/flux at steady state is an organising idea, not a claim that the Earth system is steady. Human amplification of nitrogen and phosphorus cycles is noted qualitatively.' },
       { id: 'cgei-es-11-3-3', kind: 'key-points', title: 'What this unit does not claim', items: ['No equilibrium climate sensitivity number fitted here', 'No tipping-element quantification', 'Biogeochemical detail deferred to later units'] },
+      { id: 'cgei-es-11-3-4', kind: 'worked-example', title: 'Residence time', body: 'Residence time τ ≈ mass M / throughput F for a well-mixed store at steady state. Example: if a reservoir holds M=100 units and the steady outflow is F=20 units/year, τ≈5 years. This organises water and carbon stock–flow thinking; it does not assume the climate system is well mixed or at steady state globally.' },
     ],
     activityIds: ['cgei-es-a-11-feedback'], assessmentIds: ['cgei-es-assess-11-feedback'], resourceIds: [], deliverableIds: [],
   },
@@ -1838,7 +2036,12 @@ const lessons21: CurriculumLesson[] = [
       { id: 'cgei-cl-21-2-1', kind: 'prose', title: 'Mean, variance, extremes, stationarity', body: 'Climate description needs central tendency, spread and extremes (percentiles, threshold exceedances). Temperature is often roughly unimodal; precipitation is skewed. Stationarity is an assumption, not a guarantee—nonstationarity matters for return periods. Time horizons span synoptic to multi-decadal; mixing them without saying so confuses weather noise with climate signals.' },
       { id: 'cgei-cl-21-2-lab', kind: 'worked-example', title: 'Lab: window-dependent slopes', body: 'On the synthetic series, the OLS slope over 36 months is positive and small per month; the slope over the first 12 months differs because seasonality dominates the short window. Missing values must be dropped from means, not treated as zero. Fixture unit_2_1_weather_climate_timescales_check.py asserts both behaviours.' },
       { id: 'cgei-cl-21-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Linear slope ≠ attribution', 'Short records exaggerate sampling noise', 'Subject 5 covers formal time-series inference in more depth'] },
-    ],
+      { id: 'cgei-cl-21-2-stationarity', kind: 'prose', title: 'Stationarity is an assumption, not a default', body: 'A series is mean-stationary in a working sense when the expected level does not change over the period of interest; variance-stationarity requires stable spread. Climate series often violate both through trends, step changes (e.g. instrument moves), and heteroskedasticity. Treating a nonstationary series as stationary biases baselines, percentiles, and trend tests. Always state the window and the assumption.' },
+      { id: 'cgei-cl-21-2-stat-ex', kind: 'worked-example', title: 'Two-window mean difference on synthetic series', body: 'Fixture unit_2_1_stationarity_check.py compares (1) stationary noise, (2) an abrupt mean shift, and (3) a linear trend using |mean(second half) − mean(first half)|. The shift and trend exceed a threshold set from the stationary series; the stationary series does not. This is a teaching screen, not an Augmented Dickey–Fuller test and not attribution.' },
+      { id: 'cgei-cl-21-2-stat-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Synthetic series only', 'Two-window mean difference is not a formal unit-root test', 'Does not homogenise station records', 'Does not attribute warming to forcings'] },
+      { id: 'cgei-cl-21-2-percentile', kind: 'prose', title: 'Percentiles are sample ranks; return periods need a rate', body: 'An empirical percentile answers: what value has a given fraction of the sample at or below it? A return period answers a different question: for a defined event on a stated time unit (often years), how long between exceedances on average if the process is stationary? The elementary link is T = 1/AEP where AEP is the annual exceedance probability. Small samples make both unstable; nonstationarity breaks the interpretation.' },
+      { id: 'cgei-cl-21-2-rp-ex', kind: 'worked-example', title: 'Synthetic annual maxima: percentile vs return period', body: 'Fixture unit_2_1_percentiles_return_periods_check.py uses ten annual maxima. The 90th percentile is 22, but only one year exceeds 22 (AEP=0.1 so T is about 10 years), not a 90-year event. Threshold 20 is exceeded twice (AEP=0.2 so T=5 years). Nearest-rank percentiles and T=1/AEP are locked. Limits: synthetic, not GEV, not design flood guidance.' },
+      { id: 'cgei-cl-21-2-rp-callout', kind: 'callout', title: 'Common errors', tone: 'warning', items: ['Treating the p-th percentile as a p-year return level', 'Ignoring event definition and time unit', 'Using T=1/AEP under strong nonstationarity without stating the assumption', 'Over-interpreting n=10 as a reliable extreme estimate'] }],
     activityIds: ['cgei-cl-a-21-stats'], assessmentIds: ['cgei-cl-assess-21-stats'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -1852,6 +2055,47 @@ const lessons21: CurriculumLesson[] = [
     activityIds: ['cgei-cl-a-21-evidence'], assessmentIds: ['cgei-cl-assess-21-evidence'], resourceIds: [], deliverableIds: [],
   },
 ];
+
+const outcomes23: CurriculumOutcome[] = [
+  { id: 'cgei-cl-o-23-moisture', statement: 'Relate humidity variables, wet-bulb temperature, and Clausius–Clapeyron scaling to humid-heat and extreme rainfall risk.', action: 'relate and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-23-pbl', statement: 'Explain diurnal boundary-layer evolution and why urban night-time temperatures depend on heat storage and stability.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-cl-o-23-nwp', statement: 'Describe NWP resolution, parameterisation, ensembles, and the difference between initial-condition and model uncertainty.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons23: CurriculumLesson[] = [
+  {
+    id: 'cgei-cl-lesson-2-3-1', kind: 'lesson', title: 'Moist thermodynamics and humidity variables', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes23[0]],
+    content: [
+      { id: 'cgei-cl-23-1-1', kind: 'prose', title: 'Hydrostatics and potential temperature', body: 'The ideal-gas law and hydrostatic balance link pressure and height in the atmosphere. Potential temperature is conserved for dry adiabatic displacement; the dry adiabatic lapse rate is about 9.8 K km⁻¹. When condensation occurs, latent heat release reduces the magnitude of the moist adiabatic lapse rate. Static stability, inversions, and CAPE summarise whether a lifted parcel accelerates—conceptual literacy, not operational forecasting skill from a single CAPE value.' },
+      { id: 'cgei-cl-23-1-2', kind: 'table', title: 'Humidity variables', headers: ['Variable', 'Meaning', 'Use'], rows: [['Vapour pressure e', 'Partial pressure of water vapour', 'Saturation comparison'], ['Specific humidity q', 'Mass of vapour per mass of moist air', 'Conserved-ish in many processes'], ['Relative humidity RH', 'e / e_sat(T)', 'Near saturation, not absolute moisture'], ['Dew point Td', 'Cooling needed for saturation at constant pressure', 'Night-time condensation risk'], ['Wet-bulb Tw', 'Temperature after evaporative cooling to saturation', 'Humid-heat stress (with T and ventilation)']] },
+      { id: 'cgei-cl-23-1-3', kind: 'worked-example', title: 'Clausius–Clapeyron scaling (~7% per K)', body: 'Saturation vapour pressure rises steeply with temperature. A rule of thumb is ~6–7% more moisture capacity per 1 K warming near typical surface temperatures. Fixture unit_2_3_atmosphere_check.py computes e_sat(T+1)/e_sat(T) − 1 for T = 300 K using the August–Roche–Magnus approximation and checks the ratio is near 6–7%. This motivates intensified short-duration rainfall potential and higher humid-heat risk—not a uniform local rainfall increase everywhere.' },
+      { id: 'cgei-cl-23-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Tw is not a complete heat-stress index alone', 'CAPE is environment-dependent and model-sensitive', 'CC scaling is about saturation capacity, not realised precipitation'] },
+    ],
+    activityIds: ['cgei-cl-a-23-moisture'], assessmentIds: ['cgei-cl-assess-23-moisture'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-3-2', kind: 'lesson', title: 'Boundary layer, fluxes, and urban nights', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes23[1]],
+    content: [
+      { id: 'cgei-cl-23-2-1', kind: 'prose', title: 'Diurnal PBL', body: 'After sunrise, surface heating grows a convective mixed layer; after sunset, a stable nocturnal layer can form near the ground. Roughness length and displacement height summarise how surfaces extract momentum. In cities, the roughness sublayer and heat storage in buildings delay cooling. Night-time urban warmth is therefore not only “more energy input at noon”—geometry, materials, and stability matter.' },
+      { id: 'cgei-cl-23-2-2', kind: 'prose', title: 'Turbulent fluxes', body: 'The surface energy balance partitions net radiation into sensible heat H, latent heat LE, and ground heat G (plus storage). The Bowen ratio H/LE is high for dry surfaces and low for evaporating ones. Urban SUHI analyses (Unit 4.5) observe surface temperature patterns; atmospheric UHI is a different quantity measured in the air.' },
+      { id: 'cgei-cl-23-2-3', kind: 'key-points', title: 'Regional circulation vocabulary', items: ['Heat lows and monsoon trough structure (conceptual)', 'Western disturbances as mid-latitude intrusions', 'Blocking and jet anomalies as predictability context', 'Not a substitute for synoptic analysis training'] },
+    ],
+    activityIds: ['cgei-cl-a-23-pbl'], assessmentIds: ['cgei-cl-assess-23-pbl'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-cl-lesson-2-3-3', kind: 'lesson', title: 'Clouds, precipitation, and NWP concepts', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes23[2]],
+    content: [
+      { id: 'cgei-cl-23-3-1', kind: 'prose', title: 'Precipitation processes', body: 'Convective and stratiform systems, orographic lift, and ice-phase processes produce different spatial scales and intensities. Aerosols acting as CCN can modulate cloud properties; dust also has direct radiative effects. Cloudburst-scale events remain poorly resolved by coarse models.' },
+      { id: 'cgei-cl-23-3-2', kind: 'prose', title: 'NWP literacy', body: 'Numerical weather prediction integrates approximate equations on a grid. Processes smaller than the grid (convection, turbulence, radiation details) are parameterised. Data assimilation blends observations into the model state. Chaos limits deterministic predictability; ensembles sample initial-condition and sometimes model uncertainty. Convection-permitting grids reduce—not eliminate—parameterisation needs.' },
+      { id: 'cgei-cl-23-3-3', kind: 'callout', title: 'Honest use of model output', tone: 'warning', items: ['High resolution is not automatic skill', 'Ensemble spread is not a calibrated probability without verification', 'Parameterisation choices affect surface fluxes used in impact models'] },
+    ],
+    activityIds: ['cgei-cl-a-23-nwp'], assessmentIds: ['cgei-cl-assess-23-nwp'], resourceIds: [], deliverableIds: [],
+  },
+];
+
 
 
 const outcomes22: CurriculumOutcome[] = [
@@ -1955,8 +2199,13 @@ const lessons25: CurriculumLesson[] = [
     objectives: [outcomes25[0]],
     content: [
       { id: 'cgei-cl-25-1-1', kind: 'prose', title: 'Structure before arithmetic', body: 'NetCDF/GRIB and CF conventions encode coordinates, units and standard names. Model calendars may be non-Gregorian. Accumulated fields (e.g. precipitation over a forecast step) differ from instantaneous temperatures. Longitude conventions and time zones matter: PKT = UTC+5. Deriving Tmax on UTC days versus local days can reassign a nocturnal spike across calendar dates—biasing heat-day counts if ignored.' },
+      { id: 'cgei-cl-25-1-netcdf', kind: 'prose', title: 'NetCDF-like cubes: dimensions, variables, attributes', body: 'A multidimensional climate array is not just a matrix: named dimensions (time, lat, lon) fix axis lengths; variables bind data to those dimensions; attributes carry units, standard_name/long_name, and provenance. Shape must match the product of dimension sizes. Missing units or unknown dimension names are structural defects—catch them before analysis.' },
+      { id: 'cgei-cl-25-1-netcdf-ex', kind: 'worked-example', title: 'Validate a synthetic CF-style cube', body: 'Fixture unit_2_5_netcdf_structure_check.py builds a dict cube with dimensions time=3, lat=2 and variable tas[time,lat] in kelvin with standard_name. It rejects shape mismatches, missing units, and unknown dimensions. This teaches the data model offline—it does not parse binary NetCDF/GRIB and does not require the netCDF4 library.' },
+      { id: 'cgei-cl-25-1-netcdf-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No binary NetCDF or GRIB I/O in CI', 'Not a full CF Convention compliance suite', 'Calendars and packed data types are only named elsewhere', 'Always read product documentation for accumulation rules'] },
       { id: 'cgei-cl-25-1-lab', kind: 'worked-example', title: 'Lab: UTC vs PKT daily max', body: 'A synthetic hourly series places a 42°C spike at UTC hour 22. Under PKT (UTC+5) that hour belongs to the next local calendar day. Fixture unit_2_5_climate_data_handling_check.py demonstrates local-day grouping. Product accumulation rules (ERA5 vs ERA5-Land) must be read before differencing—not guessed.' },
-      { id: 'cgei-cl-25-1-3', kind: 'key-points', title: 'Metadata checklist', items: ['Variable, units, standard_name', 'Time coordinate and calendar', 'Accumulated vs instantaneous', 'UTC vs local day definition'] },
+      { id: 'cgei-cl-25-1-3a', kind: 'prose', title: 'Units: Kelvin versus Celsius', body: 'Many reanalysis fields (e.g. ERA5 2 m temperature) are stored in kelvin. Convert with T°C = TK − 273.15. Never mix kelvin series with Celsius baselines when computing anomalies. Precipitation products use kg m⁻² or mm with product-specific accumulation periods—read the variable documentation before converting units.' },
+      { id: 'cgei-cl-25-1-3b', kind: 'worked-example', title: 'Accumulated precipitation differencing (product-conditioned)', body: 'Some model/reanalysis fields accumulate over a forecast or analysis cycle. Within a cycle, interval depth is A_i − A_{i−1} when A is non-decreasing. A negative difference is not automatically zero rain: it often marks a cycle reset or a data fault and must be recorded. Prefer flagging resets (interval missing for that step, new baseline) over silent max(Δ,0) clamps unless product documentation defines clamp behaviour. Synthetic monotonic series [0, 1.5, 1.5, 4.0] → [0, 1.5, 0, 2.5]. Series with reset [0, 1.5, 3.0, 0.2, 1.0] flags the drop. Fixture unit_2_5_climate_data_handling_check.py locks both. ERA5 vs ERA5-Land step definitions still require product docs.' },
+      { id: 'cgei-cl-25-1-3', kind: 'key-points', title: 'Metadata checklist', items: ['Variable, units, standard_name', 'Time coordinate and calendar', 'Accumulated vs instantaneous', 'UTC vs local day definition', 'Kelvin vs Celsius for temperature fields'] },
     ],
     activityIds: ['cgei-cl-a-25-time'], assessmentIds: ['cgei-cl-assess-25-time'], resourceIds: [], deliverableIds: [],
   },
@@ -1995,6 +2244,17 @@ const lessons26: CurriculumLesson[] = [
     objectives: [outcomes26[0]],
     content: [
       { id: 'cgei-cl-26-1-1', kind: 'prose', title: 'Defining an extreme', body: 'Extremes need a threshold: absolute (e.g. 40°C) or percentile-based (e.g. 90th percentile of a reference period). Frequency, intensity, duration, timing and spatial extent answer different questions. Changing the baseline changes percentile thresholds and therefore counts. Heat metrics (percentile spells, tropical nights, heat index, UTCI, WBGT) require different inputs. ETCCDI rainfall indices (Rx1day, R95pTOT, CDD, …) are resolution-sensitive. Daily data cannot resolve sub-daily intensities.' },
+      { id: 'cgei-cl-26-1-r10mm', kind: 'prose', title: 'R10mm: heavy precipitation days (pedagogical)', body: 'ETCCDI-style R10mm counts days with precipitation at least 10 mm. Units are days over the stated period. Comparison is inclusive (>= 10). Missing observations must not be coerced to 0 mm (that would invent dry days and bias rates if you later divide by period length). This teaching implementation uses a short synthetic daily series—it is not a complete ETCCDI software stack and is not station-validated.' },
+      { id: 'cgei-cl-26-1-r10mm-ex', kind: 'worked-example', title: 'Synthetic 10-day series', body: 'Series mm/day: [0, 5, 10, 12.5, 9.9, missing, 20, 0, 10, 3]. Qualifying days: 10, 12.5, 20, 10 → R10mm = 4. The value 9.9 does not qualify. Missing is skipped. Fixture unit_2_6_etccdi_r10mm_check.py locks the count, the inclusive boundary at 10, rejection of negatives, and empty-series failure.' },
+      { id: 'cgei-cl-26-1-r10mm-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Pedagogical R10mm only — not full ETCCDI compliance', 'Synthetic daily values only', 'Not a precipitation climate-change attribution', 'Resolution and gauge density affect real indices'] },
+      { id: 'cgei-cl-26-1-r10mm-complete', kind: 'prose', title: 'Completeness: a count needs a denominator', body: 'R10mm from available days can look identical for two periods that differ sharply in observation coverage. Completeness = observed_valid / expected_n for a declared period. A project teaching rule warns when completeness < 0.80; that threshold is pedagogical, not an official ETCCDI requirement. Zero mm is an observation (dry day), not missing. List-level checks do not detect calendar gaps or duplicate dates.' },
+      { id: 'cgei-cl-26-1-r10mm-complete-ex', kind: 'worked-example', title: 'Same R10mm, different coverage', body: 'Series A (10 slots, 1 missing): R10mm=4, completeness=0.90, warning off. Series B with four wet days and six missing: R10mm=4, completeness=0.40, warning on. Fixture unit_2_6_etccdi_r10mm_check.py locks both cases, the 0.80 boundary, and zero-vs-missing.' },
+      { id: 'cgei-cl-26-1-cdd', kind: 'prose', title: 'CDD: consecutive dry days (pedagogical)', body: 'A dry day is precipitation strictly below 1.0 mm. A wet day is a valid observation at or above 1.0 mm. Missing is neither dry nor wet and ends a confirmed dry run. CDD_confirmed is the longest consecutive sequence of observed dry days. When any day is missing, the true period maximum may exceed CDD_confirmed—report incomplete rather than inventing zeros to bridge gaps.' },
+      { id: 'cgei-cl-26-1-cdd-ex', kind: 'worked-example', title: 'Spells, gaps, and the zero-fill error', body: 'Complete series [0, 0.5, 2, 0, 0.2, 0] has CDD_confirmed=3. Series [0, 0, missing, 0, 0] has two runs of length 2 → CDD_confirmed=2 and incomplete=true. Filling the missing day with 0 mm would falsely yield 5. Fixture unit_2_6_etccdi_cdd_check.py locks these results and the 1.0 mm boundary.' },
+      { id: 'cgei-cl-26-1-cdd-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Pedagogical CDD — not verified full ETCCDI/ClimPACT', 'List-level only; not calendar-aware', 'Incomplete records: true maximum may be larger', 'Synthetic data only'] },
+      { id: 'cgei-cl-26-1-batch', kind: 'prose', title: 'Extremes package: multiple indices, one discipline', body: 'Rainfall and heat extremes share rules: define the threshold and units, skip missing rather than invent zeros, and separate confirmed spells from unknown true maxima. Complementary pedagogical indices—Rx1day (max daily precip), CWD (wet spells), SU25/TR (absolute temperature counts), and simple heatwave spell-days—answer different questions. Baseline choice changes percentile thresholds. Bootstrap SE and Cohen d are descriptive aids, not attribution. Always report baseline, product, period, index, units, and limitations.' },
+      { id: 'cgei-cl-26-1-batch-ex', kind: 'worked-example', title: 'Batch fixture locks', body: 'Fixture unit_2_6_extremes_batch_check.py locks Rx1day=40 on a synthetic series, tropical nights (Tmin>20) = 2, summer days (Tmax>25) = 2, CWD_confirmed=2 with incomplete=true when a gap exists, two-half 90th percentiles 13 vs 23, bootstrap SE > 0, Cohen d for shifted groups, heatwave spell-days=3 for a 3-day run above 35°C, and one compound hot-dry day. Reporting helper flags missing metadata keys.' },
+      { id: 'cgei-cl-26-1-batch-callout', kind: 'callout', title: 'Batch limits', tone: 'warning', items: ['All series synthetic', 'Not full ETCCDI/ClimPACT suite', 'Bootstrap LCG is pedagogical not production RNG', 'Compound count is co-occurrence only — not dynamical dependence', 'No real-station validation'] },
       { id: 'cgei-cl-26-1-lab', kind: 'worked-example', title: 'Lab: percentile exceedance and spell length', body: 'On a 10-year synthetic annual series 30, 30.2, …, 31.8°C, the nearest-rank 90th percentile is 31.6°C with one exceedance. A binary spell pattern 0,1,1,1,0,1,0 has max duration 3. Fixture unit_2_6_extremes_trend_analysis_check.py locks these results. Consecutive days in one heatwave are not independent events for return-period counting without declustering.' },
       { id: 'cgei-cl-26-1-3', kind: 'key-points', title: 'Extreme-definition cautions', items: ['Declare baseline and percentile convention', 'Duration ≠ number of threshold crossings', 'Drought indices SPI/SPEI answer timescale-specific questions'] },
     ],
@@ -2341,8 +2601,10 @@ const lessons45: CurriculumLesson[] = [
       { id: 'cgei-rs-45-1-time', kind: 'prose', title: 'Matched dates before casual composites', body: 'Prefer same-date urban and reference contrasts when comparing intensity. Multi-date seasonal or annual summaries need stated windows, cloud/QA rules, and valid-observation counts. Clear-sky LST is not a random sample of all weather; composites often run warm (Unit 4.3–4.4). Do not subtract unrelated dates or mix incompatible temporal support without disclosure.' },
       { id: 'cgei-rs-45-1-work', kind: 'worked-example', title: 'Two references, two intensities', body: 'Valid urban mean LST = 312.0 K. Reference A (dry cropland, elevation-matched) mean = 308.5 K → SUHII = 3.5 K. Reference B (irrigated fringe) mean = 310.0 K → SUHII = 2.0 K. The 1.5 K swing is a reference-design effect, not a change in the city. Report both and the inclusion rules.' },
       { id: 'cgei-rs-45-1-points', kind: 'key-points', title: 'Definition discipline', items: ['SUHII uses LST; air UHI uses air temperature', 'State sign convention and units', 'Reference and date protocol belong in the estimand', 'LCZ is an alternative to binary urban–rural'] },
+      { id: 'cgei-rs-45-humid-bridge', kind: 'prose', title: 'SUHI is not humid-heat stress (Unit 2.3 link)', body: 'Surface urban heat island intensity (SUHII) is a surface-temperature contrast. Humid-heat stress depends on air temperature and humidity—often summarised with wet-bulb temperature Tw or related indices (Unit 2.3). A strong SUHII does not prove high Tw; a moist rural reference can have lower LST yet higher humidity. Clausius–Clapeyron (~6–7%/K saturation capacity) explains why warmer air can hold more moisture, but local humid-heat risk still needs humidity observations or model fields, not LST alone. Prerequisite Unit 2.3 supplies Tw, humidity variables, and CC scaling before interpreting urban thermal products as health-relevant stress.' },
+      { id: 'cgei-rs-45-humid-bridge-ex', kind: 'worked-example', title: 'Same SUHII, different stress narrative', body: 'Synthetic case: urban LST − rural LST = +4 K (SUHII positive). Scenario A: rural RH high, urban RH low → rural Tw can approach urban Tw despite cooler surface. Scenario B: both dry → SUHII may align better with air-temperature contrast. Fixture unit_4_5_humid_heat_bridge_check.py checks that a positive SUHII is not treated as a sufficient condition for higher urban Tw when humidity inputs differ.' },
     ],
-    activityIds: ['cgei-rs-a-45-suhii'], assessmentIds: ['cgei-rs-assess-45-define'], resourceIds: [], deliverableIds: [],
+    activityIds: ['cgei-rs-a-45-suhii', 'cgei-rs-a-45-humid'], assessmentIds: ['cgei-rs-assess-45-define'], resourceIds: [], deliverableIds: [],
   },
   {
     id: 'cgei-rs-lesson-4-5-2', kind: 'lesson', title: 'Drivers, models, scale and hotspots', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
@@ -2649,6 +2911,91 @@ const lessons410: CurriculumLesson[] = [
   },
 ];
 
+const outcomes411: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-411-sample', statement: 'Design paired field–satellite sampling matched to footprint, overpass timing and sub-pixel replication, with documented units and detection limits.', action: 'design and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-rs-o-411-proxy', statement: 'Distinguish laboratory targets EO can retrieve only indirectly from those requiring local calibration or that are not directly observable.', action: 'distinguish and justify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-411-validate', statement: 'Validate small-sample EO–field relationships with spatial block or leave-one-site-out designs, report uncertainty, and avoid leakage from feature selection.', action: 'validate and report', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
+
+const lessons411: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-11-1', kind: 'lesson', title: 'Paired field–satellite sampling design', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes411[0]],
+    content: [
+      { id: 'cgei-rs-411-1-1', kind: 'prose', title: 'Match the sample to the pixel', body: 'Ground truth is never error-free: field and laboratory measurements have their own uncertainty, detection limits and handling artefacts. Sampling units should match the satellite footprint or a documented sub-pixel design. Stratify across the gradient of interest (e.g. salinity, moisture) rather than clustering all points in one field. For dynamic variables, sample within days of the overpass and record GNSS accuracy. Replicate within pixels to quantify sub-pixel variability—one grab sample is not the pixel mean.' },
+      { id: 'cgei-rs-411-1-2', kind: 'checklist', title: 'Campaign metadata minimum', items: ['Analyte, method, units, detection limit', 'Sample time (UTC and local) vs overpass', 'GNSS accuracy and CRS', 'Depth/height of measurement', 'Number of within-pixel replicates'] },
+      { id: 'cgei-rs-411-1-3', kind: 'worked-example', title: 'Sample size humility', body: 'With n=12 sites and strong spatial correlation, effective sample size is smaller than 12. Complex multi-index models will overfit. Plan complexity from expected effect size and spatial correlation; prefer simple baselines until more independent sites exist.' },
+      { id: 'cgei-rs-411-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Field labels are reference data with error, not absolute truth', 'Sub-pixel heterogeneity can dominate agreement metrics', 'This unit does not replace a formal survey-sampling course'] },
+    ],
+    activityIds: ['cgei-rs-a-411-sample'], assessmentIds: ['cgei-rs-assess-411-sample'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-11-2', kind: 'lesson', title: 'What laboratory variables EO can and cannot support', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes411[1]],
+    content: [
+      { id: 'cgei-rs-411-2-1', kind: 'table', title: 'Laboratory targets vs EO support', headers: ['Target', 'EO support', 'Caveat'], rows: [['EC / salinity', 'Indirect (stress, crusts, indices)', 'Strong soil-moisture and cover confounding'], ['Soil moisture / SOM', 'Optical, thermal, microwave proxies', 'Depth mismatch vs lab core'], ['N, P, K', 'Indirect via canopy vigour/chlorophyll', 'Not direct in broadband multispectral'], ['Heavy metals', 'Generally not direct', 'Hyperspectral claims need careful validation'], ['Water quality (chl, turbidity)', 'Possible in optical waters with local calibration', 'Dissolved chemistry often not direct']] },
+      { id: 'cgei-rs-411-2-2', kind: 'prose', title: 'Proxy ≠ analyte', body: 'An index correlated with laboratory EC is not a salinity measurement. Local calibration can be useful and still fail outside the calibration domain. Treat hyperspectral metal claims as research-grade until validation design is transparent.' },
+      { id: 'cgei-rs-411-2-3', kind: 'callout', title: 'Decision use', tone: 'warning', items: ['Screening ≠ regulatory compliance testing', 'State depth and timing mismatches explicitly', 'Do not replace laboratory QA with an R² from a small sample'] },
+    ],
+    activityIds: ['cgei-rs-a-411-proxy'], assessmentIds: ['cgei-rs-assess-411-proxy'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-11-3', kind: 'lesson', title: 'Small-sample validation and reporting', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
+    objectives: [outcomes411[2]],
+    content: [
+      { id: 'cgei-rs-411-3-1', kind: 'prose', title: 'Baselines before complexity', body: 'Start with the sample mean and a single physically motivated index before multi-feature models. Feature selection must stay inside the validation loop—selecting indices on the full dataset then cross-validating leaks information and inflates apparent skill.' },
+      { id: 'cgei-rs-411-3-2', kind: 'prose', title: 'Spatial independence', body: 'Random train/test splits of nearby points often leak spatial structure. Prefer leave-one-site-out or spatial block validation when sites are the independent unit. Report confidence intervals or at least the distribution of fold errors. Area of applicability: predictions far from the training covariate space are extrapolations.' },
+      { id: 'cgei-rs-411-3-3', kind: 'worked-example', title: 'Leave-one-site-out RMSE (synthetic)', body: 'Synthetic pairs (index, lab_value) at 5 sites. A constant-mean baseline and a one-slope index model are compared with leave-one-site-out RMSE. Fixture unit_4_11_eo_validation_check.py locks arithmetic and rejects a protocol that tunes the slope on all sites before evaluating the same sites. Correlation alone is not agreement; bias can remain with high r.' },
+      { id: 'cgei-rs-411-3-3b', kind: 'worked-example', title: 'Nested feature selection (synthetic)', body: 'Two candidate features per site: one tracks the laboratory target, one is noise. Nested protocol: on each leave-one-site-out fold, choose the feature with higher |correlation| on the *training sites only*, fit the slope on train, score the held-out site. Leaky protocol: choose the “best” feature using *all* sites first, then run LOO fits—the selection step already saw the holdout’s relationships. Fixture unit_4_11_eo_validation_check.py computes both paths. Rule: every selection and tuning step that uses labels must sit inside the outer validation loop.' },
+      { id: 'cgei-rs-411-3-4', kind: 'checklist', title: 'Validation report fields', items: ['Reference method, units, detection limit', 'Matching rule (space/time)', 'Partitioning design', 'Metrics with population definition', 'Lab QA/QC summary', 'Association vs mechanism language', 'Data/code availability statement'] },
+      { id: 'cgei-rs-411-3-5', kind: 'callout', title: 'What synthetic tests do not prove', tone: 'warning', items: ['Not Multan field validity', 'Not sensor calibration truth', 'Not fitness for every management decision'] },
+    ],
+    activityIds: ['cgei-rs-a-411-validate'], assessmentIds: ['cgei-rs-assess-411-validate'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes412: CurriculumOutcome[] = [
+  { id: 'cgei-rs-o-412-select', statement: 'Judge when deep or foundation EO models are justified relative to classical baselines under sample-size, label-quality and validation constraints.', action: 'judge and select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-412-validate', statement: 'Require classical baselines, spatial validation and label-quality evidence before accepting GeoAI benchmark or embedding claims.', action: 'require and evaluate', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rs-o-412-ops', statement: 'State verification, provenance and licence requirements before using foundation models, embeddings or vision–language outputs in measurement workflows.', action: 'state requirements', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons412: CurriculumLesson[] = [
+  {
+    id: 'cgei-rs-lesson-4-12-1', kind: 'lesson', title: 'Deep learning on EO: baselines and labels first', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes412[0]],
+    content: [
+      { id: 'cgei-rs-412-1-1', kind: 'prose', title: 'Complexity is not a substitute for design', body: 'Semantic segmentation and change-detection networks can capture spatial context that pixel-wise classifiers miss. They do not remove the need for independent reference data (Unit 4.11). Label quality is usually the binding constraint: noisy or spatially clustered labels produce optimistic maps that fail under transfer. Classical baselines (index thresholds, random forests on hand-crafted features) belong in the same comparison table—not as straw men, but as evidence that extra capacity buys real skill.' },
+      { id: 'cgei-rs-412-1-2', kind: 'table', title: 'When a deeper model is more defensible', headers: ['Condition', 'Prefer', 'Caution'], rows: [['Few labels, strong spatial correlation', 'Simple regularised or physical baseline', 'Deep nets overfit folds'], ['Large well-labelled corpus, clear task', 'Deep model with spatial CV', 'Still need domain-shift tests'], ['Weak labels / SAM-style masks', 'Annotation aid only', 'Not a validation substitute'], ['Operational monitoring', 'Maintained baseline + monitored model', 'Unversioned weights']] },
+      { id: 'cgei-rs-412-1-3', kind: 'worked-example', title: 'Synthetic baseline vs “complex” features under leakage', body: 'Fixture unit_4_12_geoai_method_selection_check.py compares a mean baseline and a multi-feature linear score under (a) leave-one-site-out and (b) a leakage protocol that selects features on all sites first. Leakage can make the complex score look better while LOO shows little gain—illustrating Unit 4.11’s selection-inside-validation rule for GeoAI feature sets.' },
+      { id: 'cgei-rs-412-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GPU training in CI', 'Synthetic scores are not TorchGeo benchmarks', 'Deep learning is not inherently superior'] },
+    ],
+    activityIds: ['cgei-rs-a-412-dl'], assessmentIds: ['cgei-rs-assess-412-dl'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-12-2', kind: 'lesson', title: 'Benchmarks, foundation models and embeddings', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes412[1]],
+    content: [
+      { id: 'cgei-rs-412-2-1', kind: 'prose', title: 'Read what benchmarks omit', body: 'Tooling ecosystems (TorchGeo, segmentation_models_pytorch, Raster Vision) accelerate experiments; common benchmarks have domain limits (geography, resolution, class schema). GEO-Bench and similar suites should be read for task coverage and omitted regions/sensors. Segment Anything–style tools (e.g. SAMGeo) can speed annotation; they do not replace independent accuracy assessment (Olofsson-style practices remain relevant).' },
+      { id: 'cgei-rs-412-2-2', kind: 'prose', title: 'Transfer is a claim, not a download', body: 'Pretrained EO models and self-supervised archives (examples named in the TOC such as Prithvi-EO, Clay, SatMAE, DOFA, SSL4EO) may transfer—or may not. Evaluate on tasks and regions similar to the intended use. Learned embeddings (including published global embedding layers) are features, not validated maps: probe with simple linear classifiers and test geographic and sensor domain shift before operational reliance.' },
+      { id: 'cgei-rs-412-2-3', kind: 'key-points', title: 'Method-selection checklist', items: ['Classical baseline in the same table', 'Spatial or temporal validation design stated', 'Label source and quality documented', 'Domain-shift test or explicit extrapolation warning', 'Weights, data licence and version pinned'] },
+    ],
+    activityIds: ['cgei-rs-a-412-bench'], assessmentIds: ['cgei-rs-assess-412-bench'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rs-lesson-4-12-3', kind: 'lesson', title: 'Multimodal systems and operational verification', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes412[2]],
+    content: [
+      { id: 'cgei-rs-412-3-1', kind: 'prose', title: 'Promising is not verified', body: 'Vision–language and agentic geospatial systems can help search documentation and draft code. Generated maps, code, or interpretations are unverified for measurement until checked against independent data and Unit 4.11 validation design. Provenance and licence of pretrained weights and training data are part of the evidence trail—not optional footnotes.' },
+      { id: 'cgei-rs-412-3-2', kind: 'checklist', title: 'Before using an emerging method in analysis', items: ['Baseline comparison recorded', 'Validation matches the deployment claim', 'Failure cases inspected', 'Uncertainty and applicability stated', 'Licence and citation of weights/data', 'Human review of generated artefacts'] },
+      { id: 'cgei-rs-412-3-3', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Feature importance ≠ causal effect', 'Benchmark rank ≠ operational fitness', 'Foundation model ≠ free of spatial leakage'] },
+    ],
+    activityIds: ['cgei-rs-a-412-ops'], assessmentIds: ['cgei-rs-assess-412-ops'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+
 
 const outcomes71: CurriculumOutcome[] = [
   { id: 'cgei-risk-o-71-vocab', statement: 'Distinguish hazard, exposure, vulnerability, capacity, risk and residual risk without treating hazard maps as risk maps.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
@@ -2694,6 +3041,7 @@ const lessons73: CurriculumLesson[] = [
     objectives: [outcomes73[0]],
     content: [
       { id: 'cgei-risk-73-1-1', kind: 'prose', title: 'What heat metric answers which question', body: 'Daily maximum and minimum temperatures, spell duration, intensity and night-time recovery answer different questions. Land-surface temperature (LST), near-surface air temperature and heat-stress indices (e.g. UTCI, WBGT) are not interchangeable: they require different inputs and support different decisions. Population-weighted person-days above a threshold link hazard to exposure; personal-sensor evidence may differ from station or satellite fields.' },
+      { id: 'cgei-risk-73-1-lab', kind: 'worked-example', title: 'Lab: heat intensity–likelihood screen', body: 'Synthetic daily Tmax series and a integer spell count over 10 seasons feed an illustrative screen: mean excess above 40°C (intensity) × ordinal likelihood from spell count over 10 seasons. Output is a 1–5 screening rank, not a damage probability and not Multan validation. Exposure and vulnerability stay outside the hazard score. Fixture unit_7_3_heat_hazard_check.py locks directionality and invalid-input failures.' },
       { id: 'cgei-risk-73-1-2', kind: 'prose', title: 'Exposure modifiers', body: 'Outdoor work, housing quality, age structure, access to cooling, shade and green space modify who is affected. Electricity reliability and load-shedding can amplify indoor heat risk. Occupational standards based on WBGT-type metrics are policy instruments, not universal health predictions from LST alone.' },
     ],
     activityIds: ['cgei-risk-a-73-heat'], assessmentIds: ['cgei-risk-assess-73-heat'], resourceIds: [], deliverableIds: [],
@@ -2715,14 +3063,640 @@ const lessons75: CurriculumLesson[] = [
     objectives: [outcomes75[0], outcomes75[1]],
     content: [
       { id: 'cgei-risk-75-1-1', kind: 'prose', title: 'Keep components visible', body: 'A defensible screening index keeps hazard, exposure and vulnerability (and capacity where used) as separate documented layers. Normalisation, weights and spatial aggregation are design choices that can change rankings. A composite score is not automatically a calibrated probability of loss. Fitting stories to incomplete loss databases is a common failure mode.' },
-      { id: 'cgei-risk-75-1-lab', kind: 'worked-example', title: 'Lab: equal weights versus hazard-heavy weights', body: 'Three synthetic districts with (H,E,V): A=(0.90,0.40,0.20), B=(0.50,0.50,0.90), C=(0.30,0.95,0.40). Equal weights yield scores ≈ 0.500, 0.633, 0.550. Hazard-heavy weights (0.70,0.15,0.15) rank A first; vulnerability-heavy weights (0.15,0.15,0.70) rank B first. Missing V returns incomplete risk—not zero. Fixture unit_7_risk_index_check.py locks these invariants.' },
+      { id: 'cgei-risk-75-1-lab', kind: 'worked-example', title: 'Lab: equal weights versus hazard-heavy weights', body: 'Three synthetic districts with (H,E,V): A=(0.90,0.40,0.20), B=(0.50,0.50,0.90), C=(0.30,0.95,0.40). Equal weights yield scores ≈ 0.500, 0.633, 0.550. Hazard-heavy weights (0.70,0.15,0.15) rank A first; vulnerability-heavy weights (0.15,0.15,0.70) rank B first. Missing V returns incomplete risk—not zero. Raw indicators are min–max normalised before aggregation; capacity/access is inverted so higher access lowers the vulnerability term. Fixture unit_7_risk_index_check.py locks these invariants.' },
       { id: 'cgei-risk-75-1-3', kind: 'checklist', title: 'Index card requirements', items: ['Separate H, E, V (and capacity) layers', 'Document normalisation and weights', 'Sensitivity test on rankings', 'State that the index ranks places rather than measures harm', 'No silent zero-fill of missing components'] },
     ],
     activityIds: ['cgei-risk-a-75-index'], assessmentIds: ['cgei-risk-assess-75-index'], resourceIds: [], deliverableIds: [],
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons71, ...lessons73, ...lessons75];
+
+const outcomes81: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-81-question', statement: 'Turn a broad interest into a focused research question with a distinct estimand, unit of analysis, population and time horizon.', action: 'formulate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-rp-o-81-design', statement: 'Classify exploratory versus confirmatory designs and state when pre-analysis plans and deviation logs are required.', action: 'classify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes82: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-82-measure', statement: 'Distinguish construct validity, accuracy, precision and bias, and state why the measure must match the concept.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-82-sample', statement: 'Define target population, sampling frame and basic design choices that affect generalisation.', action: 'define', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes83: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-83-validity', statement: 'Identify threats to internal, external, measurement and selection validity in environmental studies.', action: 'identify', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-83-ethics', statement: 'State core research-integrity and ethics obligations including authorship, data stewardship and avoiding selective reporting.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes86: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-86-report', statement: 'Structure scientific reporting with transparent methods, uncertainty language and data/code availability statements.', action: 'structure', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons81: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-1-1', kind: 'lesson', title: 'From interest to research question and estimand', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes81[0]],
+    content: [
+      { id: 'cgei-rp-81-1-1', kind: 'prose', title: 'Focus the question', body: 'A broad interest (“urban heat”) is not a research question. A usable question names the population, place, time horizon and the quantity of interest. Separate the research question from the estimand: the estimand is the precise target quantity (for example mean difference in summer peak LST between treated and matched untreated parcels), not a restatement of the topic title.' },
+      { id: 'cgei-rp-81-1-2', kind: 'prose', title: 'Unit of analysis and contribution', body: 'Declare the unit of analysis (pixel, parcel, household, district-year), the population, and the time horizon. State the intended contribution (empirical, methodological or contextual) without overclaiming causation when the design is observational.' },
+      { id: 'cgei-rp-81-1-lab', kind: 'worked-example', title: 'Protocol completeness lab', body: 'Fixture unit_8_research_protocol_check.py rejects protocols that omit estimand or unit of analysis, that set estimand equal to a vague question, that claim confirmatory certainty for exploratory designs, or that omit a pre-analysis plan and deviation log for confirmatory work.' },
+    ],
+    activityIds: ['cgei-rp-a-81-question'], assessmentIds: ['cgei-rp-assess-81-question'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-1-2', kind: 'lesson', title: 'Design types and pre-analysis planning', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes81[1]],
+    content: [
+      { id: 'cgei-rp-81-2-1', kind: 'prose', title: 'Exploratory versus confirmatory', body: 'Exploratory analyses generate hypotheses and describe patterns; confirmatory analyses test pre-specified claims. Observational designs (cross-sectional, longitudinal, comparative) dominate environmental systems; experiments are often impossible or unethical. Quasi-experimental ideas (matching, difference-in-differences concepts) require explicit assumptions and are not automatic causal proof.' },
+      { id: 'cgei-rp-81-2-2', kind: 'prose', title: 'Plans and deviations', body: 'Confirmatory work benefits from pre-registration or a written pre-analysis plan and a data-management plan before collection. Document deviations from the plan; selective reporting of only favourable specifications is a primary integrity failure.' },
+      { id: 'cgei-rp-81-2-3', kind: 'key-points', title: 'Literature discipline', items: ['Search and screening criteria before summarising', 'Evidence tables over narrative cherry-picking', 'Gap statements that name what remains unknown'] },
+    ],
+    activityIds: ['cgei-rp-a-81-design'], assessmentIds: ['cgei-rp-assess-81-design'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons82: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-2-1', kind: 'lesson', title: 'Measurement validity and sampling frames', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes82[0], outcomes82[1]],
+    content: [
+      { id: 'cgei-rp-82-1-1', kind: 'prose', title: 'Does the measure match the concept?', body: 'Construct validity asks whether the indicator matches the intended concept. Precision is repeatability; accuracy is closeness to the true value; bias is systematic error. Calibration, blanks, detection limits and reference materials are measurement controls—not optional metadata.' },
+      { id: 'cgei-rp-82-1-example', kind: 'worked-example', title: 'Worked example: summer neighbourhood heat exposure', body: 'Construct: outdoor heat exposure of residents. Operational definition: mean JJA daytime LST (°C) over residential parcel polygons. Indicator: MODIS LST_Day_1km seasonal mean. Unit: °C. Scale: interval. Target population: all residential parcels in City X. Sampling frame: parcels with ≥80% cloud-free composites. Sampling unit: parcel; observation unit: parcel-season; unit of analysis: parcel. Method: non-probability (availability sample)—cannot support unbiased city-wide population inference without further design. Spatial dependence: neighbouring parcels share atmosphere and land-cover; report spatial structure or use blocked evaluation.' },
+      { id: 'cgei-rp-82-1-lab', kind: 'worked-example', title: 'Lab: measurement and sampling design card', body: 'Complete a design card: construct, operational definition, indicator, unit, scale, target population, frame, sampling/observation/analysis units, probability vs non-probability method, spatial/temporal support. Non-probability designs cannot claim population inference. Fixture unit_8_2_measurement_sampling_check.py rejects missing fields, unjustified generalisation, ignored spatial dependence and missing detection limits.' },
+      { id: 'cgei-rp-82-1-2', kind: 'prose', title: 'Sampling and generalisation', body: 'Distinguish target population from sampling frame. Convenience samples of well-instrumented sites rarely represent informal settlements or rural stations. Spatial and temporal dependence reduce effective sample size; treating autocorrelated observations as independent inflates certainty.' },
+      { id: 'cgei-rp-82-1-3', kind: 'callout', title: 'Common failure', tone: 'warning', items: ['Using LST as a direct substitute for human heat stress without justification', 'Reporting survey scales without reliability checks when claims depend on them', 'Generalising beyond the sampling frame'] },
+    ],
+    activityIds: ['cgei-rp-a-82-measure'], assessmentIds: ['cgei-rp-assess-82-measure'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons83: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-3-1', kind: 'lesson', title: 'Validity threats, ethics and integrity', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes83[0], outcomes83[1]],
+    content: [
+      { id: 'cgei-rp-83-1-example', kind: 'worked-example', title: 'Worked threats: heat and green space', body: 'Construct validity: LST is a surface proxy, not core body temperature. Internal validity: green-roof parcels may differ in building age and industry—confounding. External validity: one industrial belt may not transfer to coastal suburbs. Statistical-conclusion validity: spatial dependence inflates effective sample size if ignored. Predictive leakage: using post-outcome cloud masks or same-year labels in features. Ethics: fine GPS traces of informal settlements need minimisation and re-identification assessment. Selective reporting: pre-specify primary LST contrast; log deviations. Automated checks ≠ IRB approval.' },
+      { id: 'cgei-rp-83-1-lab', kind: 'worked-example', title: 'Lab: validity and ethics checklist', body: 'Address construct, internal, external and statistical-conclusion validity; ban causal claims without design justification; acknowledge leakage in predictive studies; require data minimisation for sensitive locations. This fixture is not institutional ethics approval. unit_8_3_validity_ethics_check.py encodes these rules.' },
+      { id: 'cgei-rp-83-1-1', kind: 'prose', title: 'Validity families', body: 'Internal validity concerns whether the study supports its causal or associative claims. External validity concerns generalisation. Measurement validity concerns indicators. Selection validity concerns who enters the sample. Environmental studies commonly face confounding, spatial spillover, changing instruments and incomplete loss databases.' },
+      { id: 'cgei-rp-83-1-2', kind: 'prose', title: 'Ethics and integrity', body: 'Respect persons, communities and sensitive locations; obtain required approvals; steward data with access controls when needed. Authorship should follow contribution (e.g. CRediT-style thinking). Avoid fabrication, falsification, plagiarism and selective reporting. Field data without timestamps, siting metadata or calibration records are weak evidence.' },
+      { id: 'cgei-rp-83-1-3', kind: 'key-points', title: 'Integrity checklist', items: ['No silent analytic switches after seeing results', 'Document exclusions and missingness', 'Separate exploratory findings from confirmatory claims'] },
+    ],
+    activityIds: ['cgei-rp-a-83-ethics'], assessmentIds: ['cgei-rp-assess-83-ethics'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons86: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-6-1', kind: 'lesson', title: 'Scientific reporting and availability statements', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes86[0]],
+    content: [
+      { id: 'cgei-rp-86-1-lab', kind: 'worked-example', title: 'Lab: methods-and-limits report block', body: 'Write a short report block covering: research question and estimand; measurement and sampling design; validity/ethics notes; uncertainty and limitations; data/code availability; explicit non-claims (no causal policy effect, no Multan validation from synthetic demos). Fixture unit_8_6_reporting_check.py checks required section keys.' },
+      { id: 'cgei-rp-86-1-1', kind: 'prose', title: 'Report so a stranger can evaluate the claim', body: 'Methods must state data sources, processing, units, sample construction and limitations. Results should include uncertainty language appropriate to the design. Discussion must not upgrade associations to causal certainty without design support. Data and code availability statements are part of the evidence, not optional footnotes.' },
+      { id: 'cgei-rp-86-1-2', kind: 'checklist', title: 'Minimum reporting elements', items: ['Question and estimand', 'Data provenance and versions', 'Analysis steps a stranger can follow', 'Uncertainty and limitations', 'Data/code availability statement'] },
+    ],
+    activityIds: ['cgei-rp-a-86-report'], assessmentIds: ['cgei-rp-assess-86-report'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes87: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-87-contrib', statement: 'State a single primary contribution (methods sensitivity, validation, or new regional evidence) and position it against close prior work.', action: 'state and position', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-87-evidence', statement: 'List evidence required before submission: independent validation, sensitivity, uncertainty/coverage, and reproducible repository statements.', action: 'list and justify', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-87-ms', statement: 'Outline a manuscript structure and figure/table set that match the claimed contribution without overclaiming.', action: 'outline', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons87: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-7-1', kind: 'lesson', title: 'One contribution, clear questions', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[0]],
+    content: [
+      { id: 'cgei-rp-87-1-1', kind: 'prose', title: 'Pick one primary contribution', body: 'A first paper from a final-year project usually cannot claim methods innovation, independent validation, and new regional evidence with equal strength. Choose one primary contribution—methods sensitivity, validation design, or regional evidence (e.g. Multan-scale SUHI with honest limits)—and treat the others as supporting or deferred. State research questions whose answers could change your conclusions.' },
+      { id: 'cgei-rp-87-1-2', kind: 'prose', title: 'Position against close prior work', body: 'Survey 10–15 close studies (South Asian UHI, Landsat LST, LCZ-based urban climate). Name what they already established and the specific gap your contribution addresses. Fixture unit_8_7_paper_readiness_check.py rejects a contribution statement that claims all three pillars as primary.' },
+      { id: 'cgei-rp-87-1-3', kind: 'callout', title: 'Overclaim risk', tone: 'warning', items: ['Regional case study ≠ general physical law', 'Synthetic fixtures ≠ field validation', 'Sensitivity analysis ≠ causal identification'] },
+    ],
+    activityIds: ['cgei-rp-a-87-contrib'], assessmentIds: ['cgei-rp-assess-87-contrib'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-7-2', kind: 'lesson', title: 'Evidence before submission', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[1]],
+    content: [
+      { id: 'cgei-rp-87-2-1', kind: 'checklist', title: 'Pre-submission evidence', items: ['Independent temperature or alternative LST product comparison where feasible', 'Sensitivity: composites, seasons, rural references, scale', 'Uncertainty or valid-observation coverage maps', 'Repository with DOI (or clear path) plus data- and code-availability statements'] },
+      { id: 'cgei-rp-87-2-2', kind: 'prose', title: 'Honesty when evidence is incomplete', body: 'If independent validation data are unavailable, say so and narrow claims. Do not substitute a synthetic teaching fixture for external validation language in a manuscript.' },
+    ],
+    activityIds: ['cgei-rp-a-87-evidence'], assessmentIds: ['cgei-rp-assess-87-evidence'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-7-3', kind: 'lesson', title: 'Manuscript, figures, venue, and review', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes87[2]],
+    content: [
+      { id: 'cgei-rp-87-3-1', kind: 'prose', title: 'Structure and figures', body: 'Standard structure: abstract; introduction with gap; study area; data; methods; results; discussion with limitations; conclusion. Figure set should include study area, workflow, LST (or target) maps with valid-observation masks, driver relationships if claimed, sensitivity, and validation panels. Tables: data inventory, comparisons, sensitivity results.' },
+      { id: 'cgei-rp-87-3-2', kind: 'prose', title: 'Venue and process', body: 'Shortlist venues by scope, rigour, and fees; check national recognition rules where relevant. Preprint policy, cover letter, ethics/data statements, and point-by-point review responses are part of professional practice—not afterthoughts.' },
+    ],
+    activityIds: ['cgei-rp-a-87-ms'], assessmentIds: ['cgei-rp-assess-87-ms'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes88: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-88-repo', statement: 'Present a research repository as evidence: runnable path, README with limitations, manifests, tests, and licences.', action: 'present', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-88-identity', statement: 'Link public identity records (ORCID, profiles, DOI/preprint practice) without overstating impact.', action: 'link and document', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-88-position', statement: 'Position graduate research with one place, one hazard family, one methods gap, and feasible data/compute.', action: 'position', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+];
+
+const lessons88: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-8-1', kind: 'lesson', title: 'Repository as evidence', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes88[0]],
+    content: [
+      { id: 'cgei-rp-88-1-1', kind: 'prose', title: 'Runnable and documented', body: 'A portfolio repository is evidence only if someone else can run a documented path (one-command script or notebook with pinned dependencies). The README must state data sources, methods, outputs, and limitations. Manifests, tests, and licences complete the package. A private zip without instructions is not a public research record.' },
+      { id: 'cgei-rp-88-1-2', kind: 'checklist', title: 'Repository evidence checklist', items: ['Documented run path', 'README: data, methods, outputs, limitations', 'Environment pin or lockfile', 'Licence for code and note for data', 'At least one automated test or verification script'] },
+      { id: 'cgei-rp-88-1-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Passing CI is not peer review', 'Open code does not imply correct science', 'Do not claim DOI if none exists'] },
+    ],
+    activityIds: ['cgei-rp-a-88-repo'], assessmentIds: ['cgei-rp-assess-88-repo'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-8-2', kind: 'lesson', title: 'Public record and coursework to study', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes88[1]],
+    content: [
+      { id: 'cgei-rp-88-2-1', kind: 'prose', title: 'Identity hygiene', body: 'ORCID and public profiles should use a consistent name, affiliation, and links to code and data. Preprint and DOI practice for code, data, and reports creates a verifiable timeline—when policies allow. Avoid padding profiles with unfinished claims.' },
+      { id: 'cgei-rp-88-2-2', kind: 'prose', title: 'Revise the FYP, do not hide it', body: 'Treat the UHI (or other) FYP as a draft to correct: scale factors, QA, validation, and claim language (Unit 8.7). Produce one paper-quality output on a single clear question. Reproduce one published method exactly, then extend; keep the pure replication as an appendix when useful.' },
+      { id: 'cgei-rp-88-2-3', kind: 'key-points', title: 'Question selection', items: ['Falsifiable', 'Feasible with open data where possible', 'Sharpened by a methods or sensitivity contribution', 'Pilot analysis before full commitment'] },
+    ],
+    activityIds: ['cgei-rp-a-88-revise'], assessmentIds: ['cgei-rp-assess-88-revise'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-8-3', kind: 'lesson', title: 'Graduate research positioning', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes88[2]],
+    content: [
+      { id: 'cgei-rp-88-3-1', kind: 'prose', title: 'One place, one hazard, one methods gap', body: 'Positioning is sharper when limited: one geographic focus, one hazard family (e.g. urban heat, flood, air quality), and one primary methods gap (e.g. validation design, scale sensitivity). Supervision needs should name methods depth, not a tool shopping list. Data access and compute must be feasible.' },
+      { id: 'cgei-rp-88-3-2', kind: 'worked-example', title: 'Positioning statement structure (synthetic)', body: 'Fixture unit_8_8_portfolio_positioning_check.py validates a structured positioning object: place, hazard_family, methods_gap, data_feasibility, and rejects empty fields or tool-list-only supervision statements.' },
+    ],
+    activityIds: ['cgei-rp-a-88-position'], assessmentIds: ['cgei-rp-assess-88-position'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes89: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-89-proposal', statement: 'Draft a proposal outline with problem, gap, objectives, methods, feasibility, timeline, outputs, ethics, and anticipated reviewer risks.', action: 'draft', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-89-funding', statement: 'Match scope to supervisor expertise, data/compute feasibility, and funding or scholarship criteria without inventing resources.', action: 'match and justify', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-89-practice', statement: 'Plan milestones, risks, authorship, and feedback loops for professional research collaboration.', action: 'plan', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons89: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-9-1', kind: 'lesson', title: 'Proposal structure and reviewer risks', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes89[0]],
+    content: [
+      { id: 'cgei-rp-89-1-1', kind: 'prose', title: 'Proposal anatomy', body: 'A fundable outline states the problem, literature gap, objectives, methods, feasibility (data and compute), timeline, outputs, ethics, and references. Match scope to supervisor expertise and available data—do not invent field campaigns or proprietary datasets you cannot access.' },
+      { id: 'cgei-rp-89-1-2', kind: 'checklist', title: 'Anticipate reviewer questions', items: ['What is novel relative to close prior work?', 'Is the timeline feasible?', 'What is the main risk and mitigation?', 'How will results be validated?', 'What claim will you not make?'] },
+      { id: 'cgei-rp-89-1-3', kind: 'worked-example', title: 'Structured proposal object (synthetic)', body: 'Fixture unit_8_9_proposal_readiness_check.py requires non-empty problem, gap, objectives, methods, feasibility, timeline, ethics, and at least one named risk. It rejects a proposal that lists tools without a methods paragraph or omits validation language when empirical claims are present.' },
+    ],
+    activityIds: ['cgei-rp-a-89-proposal'], assessmentIds: ['cgei-rp-assess-89-proposal'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-9-2', kind: 'lesson', title: 'Applications, budgets, and funding literacy', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes89[1]],
+    content: [
+      { id: 'cgei-rp-89-2-1', kind: 'prose', title: 'Applications and small budgets', body: 'Statements of purpose and CVs should align with stated criteria. Small-project budgets need line items, in-kind support, and data-access letters where relevant. Funding landscapes change—verify current calls; do not treat a teaching list as an open call.' },
+      { id: 'cgei-rp-89-2-2', kind: 'callout', title: 'Honesty', tone: 'warning', items: ['Do not invent institutional support', 'Do not promise deliverables beyond the timeline', 'Scholarship criteria must be read closely, not paraphrased generically'] },
+    ],
+    activityIds: ['cgei-rp-a-89-funding'], assessmentIds: ['cgei-rp-assess-89-funding'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-9-3', kind: 'lesson', title: 'Working practice and professional ethics', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 35,
+    objectives: [outcomes89[2]],
+    content: [
+      { id: 'cgei-rp-89-3-1', kind: 'prose', title: 'Milestones, risks, authorship', body: 'Use milestones and a risk register. Version-control collaboration. Agree authorship early (CRediT-style roles). Supervisor reports should include questions and blockers, not only results. For consultancy/agency assessment practice (IEE/EIA-style), structure deliverables to client constraints and professional ethics—without treating coursework as licensed practice.' },
+      { id: 'cgei-rp-89-3-2', kind: 'key-points', title: 'Failure modes to avoid', items: ['Literature as unconnected summaries without a gap', 'Selective reporting and undocumented analytic changes', 'Field data without metadata, timestamps, or calibration'] },
+    ],
+    activityIds: ['cgei-rp-a-89-practice'], assessmentIds: ['cgei-rp-assess-89-practice'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes8d: CurriculumOutcome[] = [
+  { id: 'cgei-rp-o-8d-design', statement: 'Write a one-page research design stating estimand, unit of analysis, data, validation, and the claim not being made.', action: 'write', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-rp-o-8d-methods', statement: 'Produce a methods section complete enough for a stranger to reproduce the analysis, with data and code availability statements.', action: 'produce', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-rp-o-8d-review', statement: 'Review a paper’s validity dimensions (internal, external, measurement, selection) and draft constructive referee comments.', action: 'review', level: 'L4', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons8d: CurriculumLesson[] = [
+  {
+    id: 'cgei-rp-lesson-8-d-1', kind: 'lesson', title: 'One-page research design (estimand and non-claims)', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes8d[0]],
+    content: [
+      { id: 'cgei-rp-8d-1-1', kind: 'prose', title: 'Estimand first', body: 'An estimand is the target quantity (e.g. mean SUHII for a defined urban extent relative to a defined rural reference under stated seasons). State the unit of analysis (pixel, district, station), data sources, and the validation design. Explicitly name claims you will not make (e.g. causality from land-cover association alone; city-wide air-temperature UHI from clear-sky LST only).' },
+      { id: 'cgei-rp-8d-1-2', kind: 'worked-example', title: 'Design object fields', body: 'Fixture unit_8_d_research_design_check.py requires estimand, unit_of_analysis, data, validation, and non_claim. It rejects designs that omit non-claims or that equate synthetic teaching data with field validation.' },
+      { id: 'cgei-rp-8d-1-exit', kind: 'worked-example', title: 'Integrated exit package (design + methods + validity + reproducibility)', body: 'Fixture unit_8_d_exit_package_check.py requires one package object with design, methods (data id/version, preprocessing, software, parameters), validity (construct/internal/external/statistical-conclusion), and reproducibility (code and data availability). It rejects synthetic-labelled-as-field, DOI claims without identifiers, and causal claims without bounding non-claims. Lab: content-drafts/chapter-05-scientific-computing/labs/unit-8-d-exit-package.md. This check is not institutional ethics approval or peer review.' },
+      { id: 'cgei-rp-8d-1-3', kind: 'callout', title: 'Common failures', tone: 'warning', items: ['Literature list without a gap or estimand', 'Methods as a tools inventory', 'No statement of what would falsify the conclusion', 'Availability statements that claim DOIs that do not exist'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-design'], assessmentIds: ['cgei-rp-assess-8d-design'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-d-2', kind: 'lesson', title: 'Reproducible methods and availability statements', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes8d[1]],
+    content: [
+      { id: 'cgei-rp-8d-2-1', kind: 'prose', title: 'Stranger-test methods', body: 'A methods section is complete when a competent stranger can re-run the analysis: data identifiers/versions, preprocessing, QA, parameters, software, and how outputs are produced. Include data-availability and code-availability statements that match reality (do not claim public DOIs that do not exist).' },
+      { id: 'cgei-rp-8d-2-2', kind: 'checklist', title: 'Methods completeness', items: ['Input product IDs / versions', 'QA and exclusion rules', 'Parameters and thresholds', 'Software and key package versions', 'Data and code availability statements'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-methods'], assessmentIds: ['cgei-rp-assess-8d-methods'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-rp-lesson-8-d-3', kind: 'lesson', title: 'Validity review and constructive referee notes', order: 3, readiness: 'draft', level: 'L4', estimatedMinutes: 40,
+    objectives: [outcomes8d[2]],
+    content: [
+      { id: 'cgei-rp-8d-3-1', kind: 'prose', title: 'Four validity lenses', body: 'Internal validity: do the analysis steps support the causal or descriptive claims? External validity: to what settings might results transfer? Measurement validity: do instruments and products measure the stated quantity? Selection: who/what is in the sample, and who is missing? Write constructive referee comments that separate major from minor issues and propose fixes.' },
+      { id: 'cgei-rp-8d-3-2', kind: 'key-points', title: 'Referee discipline', items: ['Cite the specific claim under challenge', 'Distinguish major vs minor', 'Propose a feasible remedy', 'Avoid prestige or ad-hominem arguments'] },
+    ],
+    activityIds: ['cgei-rp-a-8d-review'], assessmentIds: ['cgei-rp-assess-8d-review'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+
+
+
+
+const outcomes91: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-91-audience', statement: 'Match product message, figure and language to audience and the decision the product must support.', action: 'match', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-dspt-o-91-uncertainty', statement: 'Display uncertainty and required metadata (definition, time, resolution, source, version, confidence) on decision products.', action: 'display', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const outcomes93: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-93-criteria', statement: 'Compare options with explicit criteria and stakeholder weights, and test ranking sensitivity to value judgements.', action: 'compare', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-dspt-o-93-layers', statement: 'Prefer separate inspectable layers over one opaque decision score.', action: 'prefer', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const outcomes94: CurriculumOutcome[] = [
+  { id: 'cgei-dspt-o-94-provenance', statement: 'Design provenance-first products with source citation, version stamps, review states and confidence notes.', action: 'design', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-dspt-o-94-usability', statement: 'State local usability requirements including plain-language briefs and correction channels for non-specialist users.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons91: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-1-1', kind: 'lesson', title: 'Audience, risk communication and product metadata', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes91[0], outcomes91[1]],
+    content: [
+      { id: 'cgei-dspt-91-1-1', kind: 'prose', title: 'Who decides what?', body: 'A methods reader, a planner and the public need different detail. Start from the question the product must answer and what the audience can act on. Risk communication states what is known, what is not, and what to do—avoid fear-only messaging. Test wording with a non-specialist before release.' },
+      { id: 'cgei-dspt-91-1-2', kind: 'prose', title: 'Visual encoding and uncertainty', body: 'Match chart and map types to the question. Avoid misleading scales. Accessibility includes colour vision, type size and mobile readability. Uncertainty may be shown with intervals, hatching, bivariate maps, ensembles or confidence labels—silence is not neutral.' },
+      { id: 'cgei-dspt-91-1-3', kind: 'checklist', title: 'Required product metadata', items: ['Variable definition and units', 'Date/time of observation or model validity', 'Spatial resolution and coverage', 'Source and version', 'Uncertainty or confidence indication'] },
+    ],
+    activityIds: ['cgei-dspt-a-91-comms'], assessmentIds: ['cgei-dspt-assess-91-comms'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons93: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-3-1', kind: 'lesson', title: 'Multi-criteria options and weight sensitivity', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes93[0], outcomes93[1]],
+    content: [
+      { id: 'cgei-dspt-93-1-1', kind: 'prose', title: 'From analysis to options', body: 'Decision logic ties indicators and thresholds to actions. Compare scenarios with feasibility, cost concepts, co-benefits and equity—not technical performance alone. Plan monitoring metrics after intervention. Value of information asks whether more data would change the decision.' },
+      { id: 'cgei-dspt-93-1-2', kind: 'prose', title: 'Weights are value judgements', body: 'Multi-criteria methods (weighted sum and related approaches) require documented criteria and weights. Rankings can reverse when weights change. Report dispersion of elicited weights. Prefer separate inspectable layers over one opaque score. Fixture unit_9_decision_product_check.py demonstrates cost-heavy versus equity-heavy rank changes.' },
+      { id: 'cgei-dspt-93-1-3', kind: 'callout', title: 'Do not hide the value judgements', tone: 'warning', items: ['Document criteria selection', 'Sensitivity-test rankings', 'Link to deep-uncertainty framing when weights are contested'] },
+    ],
+    activityIds: ['cgei-dspt-a-93-mca'], assessmentIds: ['cgei-dspt-assess-93-mca'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons94: CurriculumLesson[] = [
+  {
+    id: 'cgei-dspt-lesson-9-4-1', kind: 'lesson', title: 'Provenance-first product design', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes94[0], outcomes94[1]],
+    content: [
+      { id: 'cgei-dspt-94-1-1', kind: 'prose', title: 'Interface requirements', body: 'Source citation belongs on or adjacent to the map. Time and confidence controls matter when validity is time-limited. Layer lists should separate hazard, exposure, vulnerability and options—not collapse them into a single unexplained colour ramp.' },
+      { id: 'cgei-dspt-94-1-2', kind: 'prose', title: 'Review states and lineage', body: 'Provenance-first design uses lineage notes (PROV-style thinking), dataset/model cards, changelogs and version stamps. Consequential content should carry review states (draft, reviewed, published) with named reviewer and date. Public changelogs support correction.' },
+      { id: 'cgei-dspt-94-1-lab', kind: 'worked-example', title: 'Product-card lab', body: 'Fixture unit_9_decision_product_check.py requires metadata, separate H/E/V layers, confidence notes, and reviewer+date when review_state is published. Opaque composite-only products fail validation.' },
+      { id: 'cgei-dspt-94-1-4', kind: 'prose', title: 'Local usability', body: 'Provide bilingual or plain-language briefs when users are not specialists. Run one usability pass with a non-author reader. Profile language, literacy, device and connectivity; consider offline or low-bandwidth modes. Make feedback and correction policy visible on the product.' },
+    ],
+    activityIds: ['cgei-dspt-a-94-prov'], assessmentIds: ['cgei-dspt-assess-94-prov'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes101: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-101-governance', statement: 'Explain UNFCCC/Paris architecture (NDCs, transparency, stocktake) and relate it to national/provincial implementation roles.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-pol-o-101-instruments', statement: 'Classify policy instruments and separate ex-ante appraisal from ex-post evaluation with indicators, baselines and uncertainty notes.', action: 'classify', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+];
+
+const outcomes102: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-102-ghg', statement: 'Distinguish inventory sectors, GWP metrics and organisational Scope 1/2/3 boundaries at literacy level without claiming verified national inventory skill.', action: 'distinguish', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes106: CurriculumOutcome[] = [
+  { id: 'cgei-pol-o-106-econ', statement: 'State how discount rates and equity weights change climate-economic rankings, and refuse benefit-transfer without documented error bounds.', action: 'state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const lessons101: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-1-1', kind: 'lesson', title: 'Climate governance architecture and national roles', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes101[0]],
+    content: [
+      { id: 'cgei-pol-101-1-1', kind: 'prose', title: 'UNFCCC to Paris', body: 'The UNFCCC sets the cooperative frame; the Kyoto Protocol pioneered binding targets for some parties; the Paris Agreement centres nationally determined contributions (NDCs), an ambition cycle, the global stocktake and an enhanced transparency framework. NDCs state content, base years, conditionality and update cycles—they are political commitments, not automatic physical outcomes.' },
+      { id: 'cgei-pol-101-1-2', kind: 'prose', title: 'Finance, Article 6 and related regimes', body: 'Climate finance goals, adaptation and loss-and-damage arrangements, and Article 6 market provisions shape implementation capacity. Related regimes (Sendai, SDGs, CBD, Montreal/Kigali) create shared indicators and reporting burdens. Always check the current UNFCCC record before citing the latest COP outcome.' },
+      { id: 'cgei-pol-101-1-3', kind: 'prose', title: 'Pakistan institutional interface (teaching frame)', body: 'After the 18th Amendment, climate and environment roles are shared across federal and provincial institutions. Policy documents such as the Pakistan Climate Change Act (2017), National Climate Change Policy (2021), National Adaptation Plan and the latest NDC submission are starting points—verify the current official text and version before operational use. Energy-policy interfaces (renewables policy, net-metering) illustrate how climate goals meet grid and distributional constraints.' },
+    ],
+    activityIds: ['cgei-pol-a-101-gov'], assessmentIds: ['cgei-pol-assess-101-gov'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-pol-lesson-10-1-2', kind: 'lesson', title: 'Policy instruments and evaluation discipline', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes101[1]],
+    content: [
+      { id: 'cgei-pol-101-2-1', kind: 'prose', title: 'Instrument menu', body: 'Climate policy uses regulation and standards, taxes, trading schemes, subsidies, public investment, information and voluntary measures. Instrument choice depends on market failures, administrative capacity, political feasibility and distributional effects—not only technical optimality.' },
+      { id: 'cgei-pol-101-2-2', kind: 'prose', title: 'Ex-ante versus ex-post', body: 'Ex-ante appraisal designs options before implementation; ex-post evaluation tests what changed after. Both need indicators, baselines and uncertainty notes. Cost-effectiveness and co-benefits matter, but so do coherence across sectors and who gains, loses or can veto. Ex-ante cards must not claim causal impact already achieved.' },
+      { id: 'cgei-pol-101-2-lab', kind: 'worked-example', title: 'Adaptation instrument card (synthetic heat example)', body: 'Fixture unit_10_policy_appraisal_check.py requires instrument type, objective, sector, authority, indicator, baseline and uncertainty note; blocks causal-impact claims at ex-ante stage; requires a distribution note when equity benefits are claimed. Example objective: expand shaded rest areas for outdoor workers with access metrics—not unverified hospitalisation causation.' },
+    ],
+    activityIds: ['cgei-pol-a-101-instruments'], assessmentIds: ['cgei-pol-assess-101-instruments'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons102: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-2-1', kind: 'lesson', title: 'GHG accounting literacy for policy readers', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes102[0]],
+    content: [
+      { id: 'cgei-pol-102-1-1', kind: 'prose', title: 'Inventories and metrics', body: 'National inventories follow IPCC Guidelines sectors (energy, IPPU, AFOLU, waste) with Tier 1–3 methods combining activity data and emission factors. Warming metrics such as GWP100 convert gases to CO2-equivalents; metric choice changes the relative weight of methane. Uncertainty and MRV limits are part of the evidence, not footnotes.' },
+      { id: 'cgei-pol-102-1-2', kind: 'prose', title: 'Organisational scopes', body: 'The GHG Protocol distinguishes Scope 1 (direct), Scope 2 (purchased energy; location- vs market-based) and Scope 3 (value chain). Boundary choices and double-counting risks matter for policy claims about corporate or city targets. Greenwashing patterns include selective boundaries and unverifiable offsets—literacy, not full inventory production, is the outcome here.' },
+      { id: 'cgei-pol-102-1-3', kind: 'key-points', title: 'Limits of this lesson', items: ['Does not produce a verified national inventory', 'Does not certify organisational GHG reports', 'Satellite/inversion reconciliation is awareness-level only'] },
+    ],
+    activityIds: ['cgei-pol-a-102-ghg'], assessmentIds: ['cgei-pol-assess-102-ghg'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons106: CurriculumLesson[] = [
+  {
+    id: 'cgei-pol-lesson-10-6-1', kind: 'lesson', title: 'Environmental economics for climate decisions', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes106[0]],
+    content: [
+      { id: 'cgei-pol-106-1-1', kind: 'prose', title: 'Externalities and policy prices', body: 'Climate damages are classic externalities. Pigouvian taxes, subsidies and quantity instruments are conceptual responses. Distributional incidence matters: who pays and who benefits can dominate political feasibility. Equity weights and vulnerability targeting change which options rank highest.' },
+      { id: 'cgei-pol-106-1-2', kind: 'prose', title: 'Discounting and social cost of carbon (conceptual)', body: 'Present-value calculations weight future damages by a discount rate. Higher discount rates shrink long-horizon damages in present-value terms. The social cost of carbon aggregates discounted damages with deep uncertainty—fixture unit_10_policy_appraisal_check.py shows PV sensitivity for a synthetic stream at 2% versus 7%. This is teaching arithmetic, not an official SCC.' },
+      { id: 'cgei-pol-106-1-3', kind: 'callout', title: 'Valuation caution', tone: 'warning', items: ['Benefit transfer can be large-error', 'VSL and ecosystem valuations embed ethical choices', 'Risk finance (insurance, parametric triggers) is complementary, not a substitute for risk reduction'] },
+    ],
+    activityIds: ['cgei-pol-a-106-econ'], assessmentIds: ['cgei-pol-assess-106-econ'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes111: CurriculumOutcome[] = [
+  { id: 'cgei-se-o-111-cs', statement: 'Describe files, processes, encodings and CLI basics needed to run environmental analysis code reliably.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-se-o-111-decomp', statement: 'Decompose an environmental data problem into inputs, transformations, outputs and checks before coding.', action: 'decompose', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes112: CurriculumOutcome[] = [
+  { id: 'cgei-se-o-112-structure', statement: 'Separate acquisition, validation, transformation, analysis and reporting modules and avoid hidden notebook state.', action: 'structure', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-se-o-112-test', statement: 'Write tests for edge cases (missing fields, units, ranges) and distinguish software correctness from scientific validity.', action: 'test', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+  { id: 'cgei-se-o-112-vcs', statement: 'Use focused commits, environments/lockfiles and CI smoke checks for research code releases.', action: 'use', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes115: CurriculumOutcome[] = [
+  { id: 'cgei-se-o-115-pipeline', statement: 'Design idempotent pipeline steps with schema validation, provenance manifests and actionable failure messages.', action: 'design', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const lessons111: CurriculumLesson[] = [
+  {
+    id: 'cgei-se-lesson-11-1-1', kind: 'lesson', title: 'Computing foundations for environmental workflows', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes111[0], outcomes111[1]],
+    content: [
+      { id: 'cgei-se-111-1-1', kind: 'prose', title: 'Runtime reality', body: 'Environmental analysis runs on files, processes, memory and storage. Text encodings, numeric types and floating-point limits affect temperature and precipitation series. The command line, paths, permissions and environment variables determine whether a pipeline is portable or machine-specific.' },
+      { id: 'cgei-se-111-1-2', kind: 'prose', title: 'Decompose before optimising', body: 'Split a problem into inputs, transformations, outputs and checks. Estimate data size and run time before choosing tools. Prefer a simple, readable method before performance tuning. Read error messages and documentation as primary debugging skills.' },
+      { id: 'cgei-se-111-1-3', kind: 'key-points', title: 'Analyst CS checklist', items: ['Know where code, data and environments live', 'Prefer relative paths and config over hard-coded machine paths', 'Estimate memory/runtime before scaling claims'] },
+    ],
+    activityIds: ['cgei-se-a-111-cs'], assessmentIds: ['cgei-se-assess-111-cs'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons112: CurriculumLesson[] = [
+  {
+    id: 'cgei-se-lesson-11-2-1', kind: 'lesson', title: 'Modular structure and maintainable analysis code', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes112[0]],
+    content: [
+      { id: 'cgei-se-112-1-1', kind: 'prose', title: 'Separate the stages', body: 'Separate data acquisition, validation, transformation, analysis, visualisation and reporting. Use functions, modules, packages and configuration files with clear interfaces. Avoid hidden notebook state, hard-coded paths, duplicated logic and one giant script.' },
+      { id: 'cgei-se-112-1-2', kind: 'prose', title: 'Readable interfaces', body: 'Apply consistent naming, formatting, type hints, docstrings and concise comments. Configuration belongs in files or environment variables—not scattered magic numbers. A stranger should find the entry point in the README.' },
+    ],
+    activityIds: ['cgei-se-a-112-structure'], assessmentIds: ['cgei-se-assess-112-structure'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-se-lesson-11-2-2', kind: 'lesson', title: 'Testing, version control and CI for research code', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes112[1], outcomes112[2]],
+    content: [
+      { id: 'cgei-se-112-2-1', kind: 'prose', title: 'Tests protect behaviour', body: 'Unit, integration, regression and smoke tests catch different failures. Assertions, fixtures and tolerance-based numeric comparisons lock invariants. Always test missing data, empty inputs, units, CRS and coordinate order when geospatial. Passing tests prove software behaviour—not that the science is true.' },
+      { id: 'cgei-se-112-2-lab', kind: 'worked-example', title: 'Pipeline test lab', body: 'Fixture unit_11_env_pipeline_check.py validates required fields, rejects out-of-range temperatures and non-Celsius units, computes a deterministic mean temperature, and emits provenance with source, config, software version and row counts. Re-running yields the same fingerprint.' },
+      { id: 'cgei-se-112-2-3', kind: 'prose', title: 'Git, environments and CI', body: 'Use focused commits, branches and tags. Pin dependencies with virtual environments and lockfiles where appropriate. CI should run tests and basic quality checks on every change. Release with a README, changelog and versioned archive so results can be cited.' },
+    ],
+    activityIds: ['cgei-se-a-112-test'], assessmentIds: ['cgei-se-assess-112-test'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons115: CurriculumLesson[] = [
+  {
+    id: 'cgei-se-lesson-11-5-1', kind: 'lesson', title: 'Reliable environmental data pipelines', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes115[0]],
+    content: [
+      { id: 'cgei-se-115-1-1', kind: 'prose', title: 'Pipeline patterns', body: 'ETL/ELT stages move data from raw to staging, curated and presentation layers. Steps should be idempotent where possible, with dependency awareness, checkpoints and recovery from partial failure. Schema validation, freshness checks, duplicate detection and anomaly alerts belong in the pipeline—not only in slide decks.' },
+      { id: 'cgei-se-115-1-2', kind: 'prose', title: 'Observability and provenance', body: 'Structured logs, run identifiers and actionable errors make failures diagnosable. Manifests, checksums, configuration capture and provenance records connect outputs to inputs. Distinguish code version, data version and experiment settings. Orchestrators (Snakemake, Prefect, Airflow, Dagster) are optional tools—not simultaneous requirements.' },
+      { id: 'cgei-se-115-1-3', kind: 'checklist', title: 'Minimum reliable pipeline', items: ['Validate schema and units before analysis', 'Fail loudly with actionable messages', 'Record provenance on every successful run', 'Document how to rerun and recover'] },
+    ],
+    activityIds: ['cgei-se-a-115-pipeline'], assessmentIds: ['cgei-se-assess-115-pipeline'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes121: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-121-nn', statement: 'Explain tensors, loss, train/val/test separation, overfitting controls and when tree/statistical baselines remain preferable.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ai-o-121-cost', statement: 'Estimate data/compute cost concerns and require experiment tracking before large training runs.', action: 'estimate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes122: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-122-cv', statement: 'Define EO vision tasks and require spatially independent splits to avoid tile leakage.', action: 'define', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-122-eval', statement: 'Select class-wise and overlap metrics appropriate to the task and report geography/season failure modes.', action: 'select', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+];
+
+const outcomes127: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-127-gov', statement: 'Write intended-use, exclusions, baseline comparison and human-review requirements before deploying AI for decisions.', action: 'document', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons121: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-1-1', kind: 'lesson', title: 'Neural network practice and baseline discipline', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
+    objectives: [outcomes121[0], outcomes121[1]],
+    content: [
+      { id: 'cgei-ai-121-1-1', kind: 'prose', title: 'Core training concepts', body: 'Deep learning systems compose tensors, layers, activations, losses, gradients and optimisers. Training requires train/validation/test separation, mini-batches, learning-rate choices, epochs and early stopping. Regularisation (dropout, weight decay, normalisation) and overfitting diagnostics are mandatory, not optional polish.' },
+      { id: 'cgei-ai-121-1-2', kind: 'prose', title: 'Architecture selection and baselines', body: 'MLPs suit tabular baselines; CNNs suit image/raster structure; sequence and attention models address time-dependent signals. Transfer learning needs matched domain assumptions. Tree-based models and statistical baselines often remain preferable for small tabular environmental datasets—compare before claiming deep-learning necessity.' },
+      { id: 'cgei-ai-121-1-lab', kind: 'worked-example', title: 'Baseline vs overfit lookup', body: 'Fixture unit_12_ai_split_baseline_check.py fits a linear baseline and an overfit lookup on synthetic features. On held-out points the baseline generalises better. The fixture also rejects train/val/test ID overlap and flags spatial adjacency leakage between train and test tiles.' },
+      { id: 'cgei-ai-121-1-4', kind: 'key-points', title: 'Cost and determinism', items: ['Estimate parameters, memory and time before large runs', 'Track seeds, hardware and experiment settings', 'Report energy/cost for training when relevant'] },
+    ],
+    activityIds: ['cgei-ai-a-121-nn'], assessmentIds: ['cgei-ai-assess-121-nn'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const outcomes123: CurriculumOutcome[] = [
+  { id: 'cgei-ai-o-123-eval', statement: 'Design rolling-origin evaluation with persistence and climatology baselines and report whether a model beats them.', action: 'design and compare', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-123-leak', statement: 'Identify temporal and spatial leakage pathways from lagged features, windows, and random splits.', action: 'identify', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ai-o-123-fm', statement: 'State when foundation-model embeddings should be benchmarked against simple spectral and tree baselines and what transfer claims require.', action: 'state and justify', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons123: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-3-1', kind: 'lesson', title: 'Rolling-origin evaluation and baselines', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes123[0]],
+    content: [
+      { id: 'cgei-ai-123-1-1', kind: 'prose', title: 'Time-dependent learning needs time-aware eval', body: 'Forecast horizons define what is predicted and when information is allowed. Rolling-origin (walk-forward) evaluation trains only on past origins and tests future folds. Persistence (last observation) and climatology (seasonal mean) are mandatory baselines—complex models that fail to beat them are not useful for that task.' },
+      { id: 'cgei-ai-123-1-2', kind: 'worked-example', title: 'Synthetic series: model vs persistence', body: 'Fixture unit_12_3_spatiotemporal_eval_check.py builds a synthetic series with seasonality, computes persistence and climatology MAE under rolling origin, and verifies that a leaky random-split MAE is optimistically lower than honest rolling-origin MAE for a lag-using predictor.' },
+      { id: 'cgei-ai-123-1-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Beating persistence on one synthetic series is not general skill', 'No foundation-model weights are downloaded in CI', 'Probabilistic calibration is introduced, not fully scored here'] },
+    ],
+    activityIds: ['cgei-ai-a-123-eval'], assessmentIds: ['cgei-ai-assess-123-eval'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-ai-lesson-12-3-2', kind: 'lesson', title: 'Lagged features and leakage across time and space', order: 2, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes123[1]],
+    content: [
+      { id: 'cgei-ai-123-2-1', kind: 'prose', title: 'Leakage pathways', body: 'Lagged predictors and rolling windows must respect the forecast origin: future values cannot enter training features. Random spatial splits of gridded fields leak through spatial autocorrelation; blocked or region-based splits are safer for spatial generalization tests. Temporal covariates that encode the target period must be justified.' },
+      { id: 'cgei-ai-123-2-2', kind: 'key-points', title: 'Sequence-model concepts', items: ['Temporal CNNs and RNNs/transformers process ordered inputs', 'Architecture choice does not remove the need for honest splits', 'Long-range attention is not automatic scientific validity'] },
+    ],
+    activityIds: ['cgei-ai-a-123-leak'], assessmentIds: ['cgei-ai-assess-123-leak'], resourceIds: [], deliverableIds: [],
+  },
+  {
+    id: 'cgei-ai-lesson-12-3-3', kind: 'lesson', title: 'Foundation models and physical consistency checks', order: 3, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes123[2]],
+    content: [
+      { id: 'cgei-ai-123-3-1', kind: 'prose', title: 'Pretrained geospatial encoders', body: 'Foundation-model embeddings can transfer across sensors and regions, but pretraining coverage, licensing, and possible hidden leakage (e.g. test scenes in pretraining) must be assessed. Always benchmark against simple spectral indices, climatology, and tree-based models on the same split.' },
+      { id: 'cgei-ai-123-3-2', kind: 'prose', title: 'Probabilistic forecasts are distributions, not single numbers', body: 'A forecast distribution assigns probability to possible outcomes. Point MAE alone cannot tell whether intervals are reliable. Continuous ranked probability score (CRPS) rewards sharpness and calibration together; for a Gaussian predictive law N(μ,σ²) it has a closed form. Nominal interval coverage checks whether stated 80% intervals contain the verifying observation about 80% of the time. Overconfident intervals (σ too small) under-cover and inflate CRPS when outcomes vary.' },
+      { id: 'cgei-ai-123-3-crps', kind: 'worked-example', title: 'Climatology predictive distribution vs overconfidence', body: 'Fixture unit_12_3_prob_forecast_check.py builds a synthetic seasonal series with deterministic month-scale noise. At each rolling origin, climatology mean and residual σ define N(μ,σ²). Central 80% intervals achieve coverage near the design rate; intervals with σ=0.05 under-cover; mean CRPS is lower for residual-based σ than for the overconfident σ. Commands: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_3_prob_forecast_check.py. Limits: synthetic DGP only; not station-calibrated; not a foundation-model eval.' },
+      { id: 'cgei-ai-123-3-phys', kind: 'prose', title: 'Physical consistency and foundation-model honesty', body: 'Physical constraints (non-negative precipitation, rough energy-balance sanity) catch gross errors. Pretrained geospatial encoders need leakage and licensing review. Always benchmark against climatology, persistence, and simple tabular models on the same rolling-origin protocol before claiming transfer gains.' },
+      { id: 'cgei-ai-123-3-callout', kind: 'callout', title: 'What this unit does not claim', tone: 'warning', items: ['Synthetic coverage is not Multan station validation', 'CRPS here uses Gaussian predictive laws only', 'No foundation-model weights are downloaded in CI', 'Beating persistence on one series is not operational skill'] },
+    ],
+    activityIds: ['cgei-ai-a-123-fm'], assessmentIds: ['cgei-ai-assess-123-fm'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const lessons122: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-2-1', kind: 'lesson', title: 'EO computer vision tasks and leakage-safe evaluation', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
+    objectives: [outcomes122[0], outcomes122[1]],
+    content: [
+      { id: 'cgei-ai-122-1-1', kind: 'prose', title: 'Tasks and labels', body: 'EO vision problems include classification, detection, semantic segmentation and change detection. Labels carry annotation protocols, inter-annotator uncertainty and class imbalance. Augmentations must preserve physical meaning—do not invent impossible reflectance or temperature values.' },
+      { id: 'cgei-ai-122-1-2', kind: 'prose', title: 'Spatial independence', body: 'Random pixel splits leak information across adjacent tiles. Prefer spatially independent splits and test for adjacency leakage. Report precision/recall, IoU/Dice or confusion matrices by class, and stratify errors by geography, season, sensor and land-cover when data allow.' },
+      { id: 'cgei-ai-122-1-3', kind: 'callout', title: 'Operational caveats', tone: 'warning', items: ['Tiled inference needs overlap/blending plans', 'Domain shift across sensors and seasons is common', 'High overall accuracy can hide rare-class failure'] },
+    ],
+    activityIds: ['cgei-ai-a-122-cv'], assessmentIds: ['cgei-ai-assess-122-cv'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons127: CurriculumLesson[] = [
+  {
+    id: 'cgei-ai-lesson-12-7-1', kind: 'lesson', title: 'Evaluating and governing environmental AI', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
+    objectives: [outcomes127[0]],
+    content: [
+      { id: 'cgei-ai-127-1-1', kind: 'prose', title: 'Evaluation design', body: 'Define success criteria and representative test sets before selecting a system. Measure factuality/groundedness (for generative tools), robustness, calibration, latency and cost as relevant. Always compare against a no-AI or simpler deterministic baseline.' },
+      { id: 'cgei-ai-127-1-2', kind: 'prose', title: 'Risk and documentation', body: 'Document intended use, exclusions, data sources, known risks and human review. Assess privacy, bias, licensing and environmental cost. Separate research prototypes from systems that guide real decisions. Fixture unit_12_ai_split_baseline_check.py requires model-card fields including baseline and human review.' },
+      { id: 'cgei-ai-127-1-3', kind: 'checklist', title: 'Release discipline', items: ['Staged rollout criteria', 'Feedback and incident reporting', 'User docs: intended use and known failures', 'Retire systems that drift without monitoring'] },
+    ],
+    activityIds: ['cgei-ai-a-127-gov'], assessmentIds: ['cgei-ai-assess-127-gov'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes131: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-131-scope', statement: 'Scope a coherent environmental project with audience, question, study area, estimand, feasibility checks and minimum viable result.', action: 'scope', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-131-controls', statement: 'Maintain milestones, risk log, acceptance criteria and decision records for scope changes.', action: 'control', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+];
+
+const outcomes132: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-132-workflow', statement: 'Execute protocol → data audit → baseline → H/E/V screening → sensitivity → decision card with provenance on synthetic data.', action: 'execute', level: 'L3', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-132-limits', statement: 'State uncertainty, exclusions and human-review requirements; refuse calibrated health-risk or operational-forecast claims without evidence.', action: 'state limits', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
+];
+
+const outcomes136: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-136-revise', statement: 'Produce a prioritised revision list from validation failures and re-run from a clean environment after fixes.', action: 'revise', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-136-review', statement: 'Run an illustrative external-review packet with dispositions and a release decision that separates tests from scientific validation.', action: 'review', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons131: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-1-1', kind: 'lesson', title: 'Scoping the environmental capstone', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes131[0], outcomes131[1]],
+    content: [
+      { id: 'cgei-cap-131-1-1', kind: 'prose', title: 'One coherent problem', body: 'Choose one coherent environmental problem—not a catalogue of tools. Define audience, research question, study area, dates, target variables and output type. Check data availability, licences, quality, compute and permissions before committing. Distinguish class exercise, portfolio project, operational prototype and publishable study.' },
+      { id: 'cgei-cap-131-1-2', kind: 'prose', title: 'Plan and controls', body: 'Set milestones, dependencies and a minimum viable result before advanced methods. Maintain a risk log (missing data, failed methods, resource limits). Record decisions and reasons for dropping approaches. Capstone teaching example: synthetic neighbourhood heat screening—not an operational Multan forecast.' },
+      { id: 'cgei-cap-131-1-protocol', kind: 'prose', title: 'Operational scope card', body: 'Unit 13 Core reproduction protocol (§0) freezes question, spatial/temporal bounds, intended decision, data requirements and non-claims for the teaching package. See labs/unit-13-core-reproduction-protocol.md.' },
+      { id: 'cgei-cap-131-1-3', kind: 'checklist', title: 'Scope gate', items: ['Question and estimand written', 'Intended use and exclusions stated', 'Data/licence/compute feasible', 'MVP defined', 'Ethics/privacy screen done'] },
+    ],
+    activityIds: ['cgei-cap-a-131-scope'], assessmentIds: ['cgei-cap-assess-131-scope'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons132: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-2-1', kind: 'lesson', title: 'Integrated heat-risk screening workflow', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 50,
+    objectives: [outcomes132[0], outcomes132[1]],
+    content: [
+      { id: 'cgei-cap-132-1-1', kind: 'prose', title: 'From question to evidence', body: 'Write the brief and method rationale. Audit data and preserve provenance. Build a simple baseline (mean LST anomaly, mean vulnerability) before composites. Construct transparent H/E/V layers, test weight sensitivity, and emit a decision card that keeps components visible and requires human review.' },
+      { id: 'cgei-cap-132-1-lab', kind: 'worked-example', title: 'Synthetic neighbourhood capstone lab', body: 'Fixture unit_13_capstone_heat_risk_check.py runs protocol validation → row contracts → baseline → equal-weight and heat-heavy ranks → decision card → fingerprint. It rejects calibrated health-risk and operational-forecast claims. Neighbourhoods N1–N3 are synthetic—not Multan observations.' },
+      { id: 'cgei-cap-132-1-3', kind: 'prose', title: 'Outputs and delivery', body: 'Deliver maps/tables (or ranked tables), metrics, executive summary, reproducible repository instructions, technical report and plain-language summary. Present assumptions and limitations explicitly. Reproduce from a clean environment before sharing.' },
+      { id: 'cgei-cap-132-1-modis-local', kind: 'prose', title: 'Real granule path (outside CI)', body: 'Learners may download a genuine MOD11A2 v061 granule via Earthdata/LP DAAC, record granule ID, checksum and retrieval date locally, and process LST_Day_1km with documented scale 0.02 and fill 0. CI exercises the same scale/fill logic on fixtures/data/modis_miniature/lst_day_miniature.json via unit_13_modis_local_process_check.py. Outputs without official QC bit decoding must be labelled not quality-screened. No credentials or live downloads in CI.' },
+      { id: 'cgei-cap-132-1-repro', kind: 'prose', title: 'Unified run table', body: 'All offline path commands and expected PASS behaviour are listed in labs/unit-13-core-reproduction-protocol.md. Path contracts: A synthetic ranks; B extract QA/anomaly; C miniature scale/fill — do not collapse claims.' },
+      { id: 'cgei-cap-132-1-public', kind: 'prose', title: 'Public-data pathway (offline teaching extract)', body: 'Documented public product: NASA MODIS/Terra MOD11A2 v061 LST_Day (LP DAAC). Manifest at fixtures/data/capstone_public_manifest.json records documentation URL, licence note, units (Kelvin), ~1 km / 8-day resolution, and acquisition method. Offline CI uses a schema-matched teaching extract—not a verified Multan download. Pathway: validate manifest → QA-filter extract → LST anomaly vs extract mean → merge explicitly labelled synthetic E/V proxies (never silent zeros) → equal vs heat-heavy ranks → reject LST=air-temp and calibrated-health claims. Fixture: unit_13_public_data_pathway_check.py.' },
+      { id: 'cgei-cap-132-1-4', kind: 'callout', title: 'What this vertical slice does not prove', tone: 'warning', items: ['Not empirical Multan heat epidemiology', 'Not calibrated expected loss', 'Not proof that interventions work', 'Software correctness ≠ scientific validity'] },
+    ],
+    activityIds: ['cgei-cap-a-132-workflow'], assessmentIds: ['cgei-cap-assess-132-workflow'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons136: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-6-1', kind: 'lesson', title: 'Assessment, external review and revision', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 45,
+    objectives: [outcomes136[0], outcomes136[1]],
+    content: [
+      { id: 'cgei-cap-136-1-1', kind: 'prose', title: 'Quality rubric', body: 'Assess problem definition, data provenance, technical reproducibility, scientific caution (baselines, uncertainty, sensitivity) and communication fit for the audience. Portfolio readiness means an external reader can understand limits—not that the product is operational.' },
+      { id: 'cgei-cap-136-1-2', kind: 'prose', title: 'Illustrative external review', body: 'A structured review brief states question, audience, intended use and non-claims. The evidence package cites data inventory and Paths A/B/C with offline reproduction. Feedback items log comment, affected artifact, severity, evidence required, response and disposition (accepted change, justified rejection, documented limitation, or deferred). Simulated packets must be labelled illustrative—not genuine peer review.' },
+      { id: 'cgei-cap-136-1-lab', kind: 'worked-example', title: 'Review packet lab', body: 'Fixture unit_13_external_review_check.py validates labs/portfolio/external_review_packet.json: illustrative_scenario type, disclaimer, ≥2 feedback items with allowed dispositions, and release status ready | ready_with_limitations | not_ready. Blocks claims of genuine external review or scientific validation.' },
+      { id: 'cgei-cap-136-1-3', kind: 'prose', title: 'Revision and release', body: 'Each disposition links to a retest command or explicit no-change rationale. Release decisions list criteria met and not met. Passing CI remains distinct from scientific validation and from operational fitness.' },
+      { id: 'cgei-cap-136-1-indep', kind: 'prose', title: 'Independent reproducibility checklist', body: 'A self-review checklist with pass/fail criteria lives in the Core reproduction protocol and labs/portfolio/independent_repro_record.json. reviewer_mode=self_review must remain labelled; it does not replace an independent human reviewer.' },
+      { id: 'cgei-cap-136-1-4', kind: 'checklist', title: 'Capstone exit checks', items: ['Protocol complete', 'Fixture/tests pass', 'Weight sensitivity documented', 'Non-claims present', 'Illustrative review dispositions recorded', 'Release status justified', 'Clean-environment rerun documented'] },
+    ],
+    activityIds: ['cgei-cap-a-136-revise', 'cgei-cap-a-136-review'], assessmentIds: ['cgei-cap-assess-136-revise'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes133: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-133-portfolio', statement: 'Assemble a portfolio package with problem–method–evidence–limitation narrative, data inventory and offline reproduction steps.', action: 'assemble', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-133-story', statement: 'Select only metrics that answer the project question and separate synthetic, teaching-extract and genuine-remote evidence.', action: 'select', level: 'L3', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
+];
+
+const lessons133: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-3-1', kind: 'lesson', title: 'Portfolio engineering for the heat-screening capstone', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes133[0], outcomes133[1]],
+    content: [
+      { id: 'cgei-cap-133-1-1', kind: 'prose', title: 'Portfolio structure', body: 'A credible portfolio package includes a clear research question, study-area label, data inventory (source, version, coverage, units, licence, retrieval date), method summary, selected results, limitations, reproduction steps and licence note. Separate public code from large or restricted data. For collaborative work, state individual contributions explicitly.' },
+      { id: 'cgei-cap-133-1-2', kind: 'prose', title: 'Evidence paths must not be collapsed', body: 'Path A (synthetic ranks), Path B (MOD11A2-schema teaching extract) and Path C (miniature scale/fill logic) answer different claims. Labelling a teaching extract as a genuine Multan granule is a portfolio failure. Genuine remote claims require granule ID and checksum evidence.' },
+      { id: 'cgei-cap-133-1-3', kind: 'prose', title: 'Technical storytelling', body: 'Use problem–method–evidence–limitation form. Show only metrics that answer the question. Report errors, sensitivity (e.g. weight changes) and negative results—not only best-case maps. A short non-specialist summary should still carry the main limitations.' },
+      { id: 'cgei-cap-133-1-lab', kind: 'worked-example', title: 'Portfolio evidence card', body: 'Fixture unit_13_portfolio_check.py validates labs/portfolio/capstone_portfolio_evidence.json: required fields, inventory labels (synthetic/teaching_extract/genuine_remote), Paths A–C links, non-claims set, and blocks genuine-granule claims without checksum.' },
+      { id: 'cgei-cap-133-1-slots', kind: 'prose', title: 'Flagship vs planned slots', body: 'Canonical portfolio guidance mentions multiple project types. This package treats heat screening as the flagship. Geospatial/RS and ML slots are recorded as planned_not_built in the portfolio evidence card—do not list them as completed repositories.' },
+      { id: 'cgei-cap-133-1-4', kind: 'checklist', title: 'Distribution hygiene', items: ['README with reproduction steps', 'requirements/environment note', 'data dictionary or inventory', 'figures with product/date labels', 'licence and citations', 'no secrets or signed URLs'] },
+    ],
+    activityIds: ['cgei-cap-a-133-portfolio'], assessmentIds: ['cgei-cap-assess-133-portfolio'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+
+const outcomes135: CurriculumOutcome[] = [
+  { id: 'cgei-cap-o-135-fit', statement: 'Map capstone evidence and skill gaps to a research-interest statement without fabricating group fit.', action: 'map', level: 'L3', competencyIds: ['cgei-comp-reproducibility'] },
+  { id: 'cgei-cap-o-135-process', statement: 'Prepare application and supervisor-enquiry checklists that require official sources for programme and funding rules.', action: 'prepare', level: 'L3', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-uncertainty'] },
+];
+
+const lessons135: CurriculumLesson[] = [
+  {
+    id: 'cgei-cap-lesson-13-5-1', kind: 'lesson', title: 'Research fit, applications and funding process literacy', order: 1, readiness: 'draft', level: 'L3', estimatedMinutes: 40,
+    objectives: [outcomes135[0], outcomes135[1]],
+    content: [
+      { id: 'cgei-cap-135-1-1', kind: 'prose', title: 'Research fit', body: 'Read recent work from prospective groups before claiming alignment. Map your evidenced methods (e.g. heat-screening protocol, LST product literacy, weight sensitivity, reproducibility tests) to their questions and datasets. List prerequisites still needed in maths, statistics, computing or domain science. Write a concise interest statement with evidence—not only broad ambition.' },
+      { id: 'cgei-cap-135-1-2', kind: 'prose', title: 'Application documents and contact', body: 'Maintain a research CV, one-page project summary with your contribution, transcripts checklist and referee plan. Assess programme requirements, funding terms, deadlines and language tests only from official pages. Supervisor enquiries should be concise, reference specific papers, pose one concrete question and attach a one-page summary—never mass-mailed generics or implied commitments.' },
+      { id: 'cgei-cap-135-1-3', kind: 'prose', title: 'Funding process discipline', body: 'Treat scholarship names as categories to research on primary sources. Record eligibility, tests, referees and deadlines only after verification. Keep Plan B and Plan C with different timelines. CI and coursework cannot certify admission or awards.' },
+      { id: 'cgei-cap-135-1-lab', kind: 'worked-example', title: 'Research-fit evidence card', body: 'Fixture unit_13_research_fit_check.py validates labs/portfolio/research_fit_evidence.json: interest statement length, skill map completeness, capstone methods/limitations, supervisor-enquiry checklist, funding process notes and non-claims (not admission, not funding, not supervisor commitment).' },
+      { id: 'cgei-cap-135-1-chain', kind: 'prose', title: 'Evidence chain', body: 'Interest statement → demonstrated methods → portfolio pointer → skill gaps → next_actions. The research-fit card requires next_actions entries so gaps do not stop at description.' },
+      { id: 'cgei-cap-135-1-4', kind: 'callout', title: 'Hard non-claims', tone: 'warning', items: ['No fabricated deadlines or professor interest', 'No ranking of programmes as “best” without cited official criteria', 'Capstone synthetic results remain labelled synthetic', 'Official rules change—re-check before applying'] },
+    ],
+    activityIds: ['cgei-cap-a-135-fit'], assessmentIds: ['cgei-cap-assess-135-fit'], resourceIds: [], deliverableIds: [],
+  },
+];
+
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons67, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136, ...lessons133, ...lessons135, ...lessons123, ...lessons23, ...lessons35, ...lessons36, ...lessons39, ...lessons411, ...lessons412, ...lessons87, ...lessons88, ...lessons89, ...lessons8d];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -2794,7 +3768,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
         { id: 'cgei-ml-o-baselines', statement: 'Beat transparent baselines before claiming value from complex models.', action: 'compare', level: 'L3', competencyIds: ['cgei-comp-uncertainty'] },
       ],
       competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'],
-      unitIds: ['cgei-ml-unit-6-1','cgei-ml-unit-6-2','cgei-ml-unit-6-3','cgei-ml-unit-6-4','cgei-ml-unit-6-5','cgei-ml-unit-6-6'],
+      unitIds: ['cgei-ml-unit-6-1','cgei-ml-unit-6-2','cgei-ml-unit-6-3','cgei-ml-unit-6-4','cgei-ml-unit-6-5','cgei-ml-unit-6-6', 'cgei-ml-unit-6-7'],
       projectIds: [],
       resourceIds: [],
     },
@@ -2807,11 +3781,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will analyse climate and environmental data on maps and grids.',
       purpose: 'Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.',
-      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. This first slice is draft: three lessons and a scale fixture; it is not a complete GIS curriculum.',
+      overview: 'Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.6 and Core 3.9 form the geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.',
       prerequisites: ['Basic geometry', 'Unit conversions', 'Subject 5 quantitative habits recommended'],
       outcomes: [...outcomes31, ...outcomes32, ...outcomes33, ...outcomes34],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2', 'cgei-geo-unit-3-3', 'cgei-geo-unit-3-4'],
+      unitIds: ['cgei-geo-unit-3-1', 'cgei-geo-unit-3-2', 'cgei-geo-unit-3-3', 'cgei-geo-unit-3-4', 'cgei-geo-unit-3-5', 'cgei-geo-unit-3-6', 'cgei-geo-unit-3-9'],
       projectIds: [],
       resourceIds: ['cgei-geo-r-epsg'],
       estimatedHours: 6,
@@ -2833,6 +3807,114 @@ export const cgeiCurriculum: CurriculumRegistry = {
       projectIds: [],
       resourceIds: [],
       estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-8-research-practice',
+      subjectId: 'cgei-research-practice',
+      title: 'Research Practice & Scientific Integrity',
+      subtitle: 'Research questions, measurement, validity, ethics and transparent reporting',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Students and analysts who must design, critique and report environmental research.',
+      purpose: 'Build research-question discipline, measurement and validity literacy, and integrity habits before FYP and publication tracks.',
+      overview: 'Core draft path: Units 8.1, 8.2, 8.3 and 8.6. Units 8.4–8.5 and 8.7–8.9 (field methods, FYP paper, portfolio, proposals) are deferred. Draft only.',
+      prerequisites: ['Subject 5 scientific computing foundations', 'Subject 2 climate evidence literacy'],
+      outcomes: [...outcomes81, ...outcomes82, ...outcomes83, ...outcomes86],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-rp-unit-8-1', 'cgei-rp-unit-8-2', 'cgei-rp-unit-8-3', 'cgei-rp-unit-8-6', 'cgei-rp-unit-8-7', 'cgei-rp-unit-8-8', 'cgei-rp-unit-8-9', 'cgei-rp-unit-8-d'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 14,
+    },
+    {
+      id: 'cgei-subject-9-decision-support',
+      subjectId: 'cgei-decision-support',
+      title: 'Decision Support & Intelligence Products',
+      subtitle: 'Decision communication, multi-criteria options and provenance-first products',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts who turn environmental evidence into decision-facing products.',
+      purpose: 'Communicate uncertainty, compare options transparently and design products with provenance and review states.',
+      overview: 'Core Unit 9.4 plus Support Units 9.1 and 9.3 form the draft decision-support path. Units 9.2, 9.5 and 9.6 are deferred. Draft only.',
+      prerequisites: ['Subject 7 climate risk concepts', 'Subject 8 research integrity basics'],
+      outcomes: [...outcomes91, ...outcomes93, ...outcomes94],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-dspt-unit-9-1', 'cgei-dspt-unit-9-3', 'cgei-dspt-unit-9-4'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 10,
+    },
+    {
+      id: 'cgei-subject-10-climate-policy',
+      subjectId: 'cgei-climate-policy',
+      title: 'Climate Policy & Governance',
+      subtitle: 'Governance architecture, instruments, GHG literacy and climate-economic judgement',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts connecting climate evidence to policy instruments and evaluation.',
+      purpose: 'Build policy-architecture literacy and appraisal discipline without claiming inventory certification or official economic modelling.',
+      overview: 'TOC marks Units 10.1 and 10.6 as Support and 10.2 as Optional (no Core units in Subject 10). Draft path implements 10.1, 10.2 and 10.6. Other optional units deferred.',
+      prerequisites: ['Subject 7 climate risk concepts', 'Subject 9 decision-support communication'],
+      outcomes: [...outcomes101, ...outcomes102, ...outcomes106],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-pol-unit-10-1', 'cgei-pol-unit-10-2', 'cgei-pol-unit-10-6'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 11,
+    },
+    {
+      id: 'cgei-subject-11-software-engineering',
+      subjectId: 'cgei-software-engineering',
+      title: 'Software Engineering for Environmental Systems',
+      subtitle: 'Maintainable modules, tests, version control and reliable environmental pipelines',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts turning environmental workflows into testable, reproducible software.',
+      purpose: 'Establish modular design, testing discipline and pipeline reliability without requiring cloud platforms.',
+      overview: 'Core Unit 11.2 plus Support Units 11.1 and 11.5. Units 11.3–11.4 and Optional 11.6–11.7 deferred. Draft only.',
+      prerequisites: ['Subject 5 scientific Python', 'Subject 8 research integrity'],
+      outcomes: [...outcomes111, ...outcomes112, ...outcomes115],
+      competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'],
+      unitIds: ['cgei-se-unit-11-1', 'cgei-se-unit-11-2', 'cgei-se-unit-11-5'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-12-advanced-ai',
+      subjectId: 'cgei-advanced-ai',
+      title: 'Advanced AI for Environmental Intelligence',
+      subtitle: 'Deep-learning foundations, EO vision evaluation and AI governance',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Analysts who may use neural methods after stronger baselines and leakage-safe evaluation.',
+      purpose: 'Teach when deep learning is warranted, how to evaluate EO vision tasks without spatial leakage, and how to govern AI claims.',
+      overview: 'Core Units 12.1–12.2 plus Support 12.7. Unit 12.3 and generative/agent units deferred. No production deep-net training in fixtures. Draft only.',
+      prerequisites: ['Subject 6 ML & GeoAI', 'Subject 11 software engineering tests'],
+      outcomes: [...outcomes121, ...outcomes122, ...outcomes127],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-ai-unit-12-1', 'cgei-ai-unit-12-2', 'cgei-ai-unit-12-3', 'cgei-ai-unit-12-7'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 12,
+    },
+    {
+      id: 'cgei-subject-13-capstone',
+      subjectId: 'cgei-capstone',
+      title: 'Capstone: Integrated Environmental Intelligence Project',
+      subtitle: 'Scope, execute, and revise a reproducible heat-risk screening project with honest limits',
+      version: 1,
+      readiness: 'draft',
+      audience: 'Learners integrating CGEI methods into one defensible project.',
+      purpose: 'Demonstrate end-to-end research and decision-support workflow with tests, provenance and explicit non-claims.',
+      overview: 'Core Units 13.1–13.3, 13.5–13.6. Optional 13.4 and Support 13.7 deferred. Draft.',
+      prerequisites: ['Subjects 5–12 draft Core paths as applicable'],
+      outcomes: [...outcomes131, ...outcomes132, ...outcomes133, ...outcomes135, ...outcomes136],
+      competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
+      unitIds: ['cgei-cap-unit-13-1', 'cgei-cap-unit-13-2', 'cgei-cap-unit-13-3', 'cgei-cap-unit-13-5', 'cgei-cap-unit-13-6'],
+      projectIds: [],
+      resourceIds: [],
+      estimatedHours: 14,
     },
     {
       id: 'cgei-subject-1-earth-system',
@@ -2865,7 +3947,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
       outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25, ...outcomes26, ...outcomes28],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6', 'cgei-cl-unit-2-8'],
+      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-3', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6', 'cgei-cl-unit-2-8'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 6,
@@ -2879,11 +3961,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will select and interpret satellite products for climate and environmental analysis.',
       purpose: 'Establish radiometric and sensor literacy so product selection and later processing are physically grounded.',
-      overview: 'Units 4.1–4.10 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
+      overview: 'Units 4.1–4.12 complete Subject 4 draft slice: radiometry through thematic EO applications beyond heat.',
       prerequisites: ['Unit 2.2 radiation vocabulary', 'Subject 3 geospatial foundations recommended'],
       outcomes: [...outcomes41, ...outcomes42, ...outcomes43, ...outcomes44, ...outcomes45, ...outcomes46, ...outcomes47, ...outcomes48, ...outcomes49, ...outcomes410],
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility'],
-      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8', 'cgei-rs-unit-4-9', 'cgei-rs-unit-4-10'],
+      unitIds: ['cgei-rs-unit-4-1', 'cgei-rs-unit-4-2', 'cgei-rs-unit-4-3', 'cgei-rs-unit-4-4', 'cgei-rs-unit-4-5', 'cgei-rs-unit-4-6', 'cgei-rs-unit-4-7', 'cgei-rs-unit-4-8', 'cgei-rs-unit-4-9', 'cgei-rs-unit-4-10', 'cgei-rs-unit-4-11', 'cgei-rs-unit-4-12'],
       projectIds: [],
       resourceIds: [],
       estimatedHours: 8,
@@ -3053,8 +4135,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       summary: 'Use geographic coordinates correctly, estimate ground scale from degree spacing, and choose projections according to the property that must be preserved.',
       estimatedHours: 6, prerequisites: ['Unit conversions', 'Basic geometry'], outcomes: outcomes32,
       lessonIds: lessons32.map((lesson) => lesson.id),
-      activityIds: ['cgei-geo-a-32-crs', 'cgei-geo-a-32-scale', 'cgei-geo-a-32-projection'],
-      assessmentIds: ['cgei-geo-assess-32-crs', 'cgei-geo-assess-32-scale', 'cgei-geo-assess-32-projection'],
+      activityIds: ['cgei-geo-a-32-crs', 'cgei-geo-a-32-scale', 'cgei-geo-a-32-projection', 'cgei-geo-a-32-transform'],
+      assessmentIds: ['cgei-geo-assess-32-crs', 'cgei-geo-assess-32-scale', 'cgei-geo-assess-32-projection', 'cgei-geo-assess-32-transform'],
       resourceIds: ['cgei-geo-r-epsg'],
       deliverableIds: [],
       sourceDocument: 'Master_Study_TOC Subject 3 — Geospatial Science, GIS & Cartography',
@@ -3084,6 +4166,48 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 3 Unit 3.4 — Terrain, network, and field-mapping workflows (Support)',
       notes: ['Support unit: DEM/slope/flow/network/geocoding/field QC fixtures.', 'Mobile apps documented only—not CI-deployed.'],
     },
+
+    {
+      id: 'cgei-geo-unit-3-5', subjectId: 'cgei-geospatial', code: '3.5', title: 'Python geospatial stack', order: 35, kind: 'unit', readiness: 'draft',
+      summary: 'Use Python vector and raster libraries with correct CRS, nodata and resampling discipline; match analysis tools to tasks.',
+      estimatedHours: 8, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 3.3'], outcomes: outcomes35,
+      lessonIds: lessons35.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-35-vector', 'cgei-geo-a-35-raster', 'cgei-geo-a-35-stack'],
+      assessmentIds: ['cgei-geo-assess-35-vector', 'cgei-geo-assess-35-raster', 'cgei-geo-assess-35-stack'],
+      resourceIds: ['cgei-geo-r-epsg'],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.5 — Python geospatial stack',
+      notes: ['Core Unit 3.5. CI uses stdlib bbox/nodata fixtures; GeoPandas/rasterio not required at runtime.'],
+    },
+
+    {
+      id: 'cgei-geo-unit-3-6', subjectId: 'cgei-geospatial', code: '3.6', title: 'Cartography', order: 36, kind: 'unit', readiness: 'draft',
+      summary: 'Design honest thematic maps with appropriate colour, classification, legends and uncertainty treatment.',
+      estimatedHours: 6, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 3.3'], outcomes: outcomes36,
+      lessonIds: lessons36.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-36-colour', 'cgei-geo-a-36-honesty'],
+      assessmentIds: ['cgei-geo-assess-36-colour', 'cgei-geo-assess-36-honesty'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.6 — Cartography',
+      notes: ['Core Unit 3.6. Classification honesty fixture is stdlib; no GUI map export in CI.'],
+    },
+
+    {
+      id: 'cgei-geo-unit-3-9', subjectId: 'cgei-geospatial', code: '3.9', title: 'Spatial statistics and geostatistics', order: 39, kind: 'unit', readiness: 'draft',
+      summary: 'Analyse spatial dependence, choose interpolation methods carefully, and validate spatial predictions without leaking nearby structure.',
+      estimatedHours: 10, prerequisites: ['Unit 3.1', 'Unit 3.2', 'Unit 2.6'], outcomes: outcomes39,
+      lessonIds: lessons39.map((lesson) => lesson.id),
+      activityIds: ['cgei-geo-a-39-auto', 'cgei-geo-a-39-interp', 'cgei-geo-a-39-val'],
+      assessmentIds: ['cgei-geo-assess-39-auto', 'cgei-geo-assess-39-interp', 'cgei-geo-assess-39-val'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 3 Unit 3.9 — Spatial statistics and geostatistics',
+      notes: ['Core Unit 3.9. Synthetic IDW and LOO spatial checks; no PySAL/kriging library in CI.'],
+    },
+
+
+
     {
       id: 'cgei-es-unit-1-1', code: '1.1', title: 'Earth system components', order: 101, kind: 'unit', readiness: 'draft',
       summary: 'Describe Earth-system spheres, apply blackbody radiation and a simple planetary energy budget, and distinguish climate feedbacks at overview level.',
@@ -3141,6 +4265,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
     },
     {
+      id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
+      summary: 'Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.',
+      estimatedHours: 10, prerequisites: ['Unit 2.1', 'Unit 2.2'], outcomes: outcomes23,
+      lessonIds: lessons23.map((lesson) => lesson.id),
+      activityIds: ['cgei-cl-a-23-moisture', 'cgei-cl-a-23-pbl', 'cgei-cl-a-23-nwp'],
+      assessmentIds: ['cgei-cl-assess-23-moisture', 'cgei-cl-assess-23-pbl', 'cgei-cl-assess-23-nwp'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 2 Unit 2.3',
+      notes: ['Support Unit 2.3. Synthetic Clausius–Clapeyron check; no NWP model run in CI.'],
+    },
+    {
       id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
       summary: 'Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.',
       estimatedHours: 8, prerequisites: ['Unit 2.4'], outcomes: outcomes25,
@@ -3195,7 +4331,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 4 Unit 4.2 — Major data families (Core)',
       notes: ['Mission status is literacy, not a live catalogue.', 'ST scale factors are illustrative teaching constants—verify USGS docs for operations.'],
     },
-    {
+    
+{
       id: 'cgei-risk-unit-7-1', code: '7.1', title: 'Risk and resilience concepts', order: 701, kind: 'unit', readiness: 'draft',
       summary: 'Define hazard, exposure, vulnerability, capacity and risk; apply IPCC and Sendai framings without reading social vulnerability from physical maps alone.',
       estimatedHours: 4, prerequisites: ['Subject 2 climate literacy'], outcomes: outcomes71,
@@ -3228,6 +4365,315 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 7 Unit 7.5 — Risk assessment methods (Core)',
       notes: ['Synthetic index lab only; not catastrophe model validation.'],
     },
+    {
+      id: 'cgei-rp-unit-8-1', code: '8.1', title: 'Research questions and design', order: 801, kind: 'unit', readiness: 'draft',
+      summary: 'Formulate focused questions and estimands; separate exploratory from confirmatory designs; plan analyses and document deviations.',
+      estimatedHours: 4, prerequisites: ['Subject 5 introductory statistics'], outcomes: outcomes81,
+      lessonIds: lessons81.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-81-question', 'cgei-rp-a-81-design'],
+      assessmentIds: ['cgei-rp-assess-81-question', 'cgei-rp-assess-81-design'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.1 — Research questions and design (Core)',
+      notes: ['Protocol completeness fixture only; not institutional review board training.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-2', code: '8.2', title: 'Measurement and sampling foundations', order: 802, kind: 'unit', readiness: 'draft',
+      summary: 'Link constructs to measures; distinguish accuracy, precision and bias; define populations and sampling frames.',
+      estimatedHours: 3.5, prerequisites: ['Unit 8.1'], outcomes: outcomes82,
+      lessonIds: lessons82.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-82-measure'],
+      assessmentIds: ['cgei-rp-assess-82-measure'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.2 — Measurement and sampling foundations (Core)',
+      notes: ['Survey scale psychometrics and full GUM budgets deferred.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-3', code: '8.3', title: 'Validity, ethics, and integrity', order: 803, kind: 'unit', readiness: 'draft',
+      summary: 'Identify validity threats and practice research integrity, authorship and anti-selective-reporting norms.',
+      estimatedHours: 3.5, prerequisites: ['Unit 8.1'], outcomes: outcomes83,
+      lessonIds: lessons83.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-83-ethics'],
+      assessmentIds: ['cgei-rp-assess-83-ethics'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.3 — Validity, ethics, and integrity (Core)',
+      notes: ['Not a substitute for local ethics board procedures.'],
+    },
+    {
+      id: 'cgei-rp-unit-8-6', code: '8.6', title: 'Scientific reporting', order: 806, kind: 'unit', readiness: 'draft',
+      summary: 'Report methods and uncertainty so claims can be evaluated; include data and code availability statements.',
+      estimatedHours: 3, prerequisites: ['Unit 8.1', 'Unit 8.3'], outcomes: outcomes86,
+      lessonIds: lessons86.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-86-report'],
+      assessmentIds: ['cgei-rp-assess-86-report'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.6 — Scientific reporting (Core)',
+      notes: ['Units 8.7–8.9 (paper, portfolio, proposals) deferred.'],
+    },
+
+    {
+      id: 'cgei-rp-unit-8-7', subjectId: 'cgei-research', code: '8.7', title: 'Turning the FYP into a first paper', order: 807, kind: 'unit', readiness: 'draft',
+      summary: 'Frame one contribution, assemble pre-submission evidence, and structure a manuscript and submission process without overclaiming.',
+      estimatedHours: 6, prerequisites: ['Unit 8.1', 'Unit 8.6'], outcomes: outcomes87,
+      lessonIds: lessons87.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-87-contrib', 'cgei-rp-a-87-evidence', 'cgei-rp-a-87-ms'],
+      assessmentIds: ['cgei-rp-assess-87-contrib', 'cgei-rp-assess-87-evidence', 'cgei-rp-assess-87-ms'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.7',
+      notes: ['Core Unit 8.7. Draft research-practice unit; no actual journal submission in CI.'],
+    },
+
+    {
+      id: 'cgei-rp-unit-8-8', subjectId: 'cgei-research', code: '8.8', title: 'Portfolio and research positioning', order: 808, kind: 'unit', readiness: 'draft',
+      summary: 'Present a verifiable research portfolio and position graduate work with one place, one hazard family, and one methods gap.',
+      estimatedHours: 5, prerequisites: ['Unit 8.7'], outcomes: outcomes88,
+      lessonIds: lessons88.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-88-repo', 'cgei-rp-a-88-revise', 'cgei-rp-a-88-position'],
+      assessmentIds: ['cgei-rp-assess-88-repo', 'cgei-rp-assess-88-revise', 'cgei-rp-assess-88-position'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.8',
+      notes: ['Core Unit 8.8. Draft; no ORCID or DOI creation in CI.'],
+    },
+
+    {
+      id: 'cgei-rp-unit-8-9', subjectId: 'cgei-research', code: '8.9', title: 'Research proposals, funding, and professional practice', order: 809, kind: 'unit', readiness: 'draft',
+      summary: 'Write a fundable proposal outline, match scope to resources, and plan professional research collaboration.',
+      estimatedHours: 5, prerequisites: ['Unit 8.7', 'Unit 8.8'], outcomes: outcomes89,
+      lessonIds: lessons89.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-89-proposal', 'cgei-rp-a-89-funding', 'cgei-rp-a-89-practice'],
+      assessmentIds: ['cgei-rp-assess-89-proposal', 'cgei-rp-assess-89-funding', 'cgei-rp-assess-89-practice'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Unit 8.9',
+      notes: ['Core Unit 8.9. Draft; no live funding application in CI.'],
+    },
+
+    {
+      id: 'cgei-rp-unit-8-d', subjectId: 'cgei-research', code: '8.D', title: 'Depth checks and research mastery gates', order: 810, kind: 'unit', readiness: 'draft',
+      summary: 'Mastery gates: research design with estimand and non-claims; reproducible methods; constructive validity review.',
+      estimatedHours: 6, prerequisites: ['Unit 8.7', 'Unit 8.8', 'Unit 8.9'], outcomes: outcomes8d,
+      lessonIds: lessons8d.map((lesson) => lesson.id),
+      activityIds: ['cgei-rp-a-8d-design', 'cgei-rp-a-8d-methods', 'cgei-rp-a-8d-review'],
+      assessmentIds: ['cgei-rp-assess-8d-design', 'cgei-rp-assess-8d-methods', 'cgei-rp-assess-8d-review'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 8 Section 8.D',
+      notes: ['Core depth checks. Draft; not a full L4 referee internship.'],
+    },
+
+
+
+
+    {
+      id: 'cgei-dspt-unit-9-1', code: '9.1', title: 'Communicating for decisions', order: 901, kind: 'unit', readiness: 'draft',
+      summary: 'Match messages to audiences; encode uncertainty; require definition, time, resolution, source, version and confidence on products.',
+      estimatedHours: 3, prerequisites: ['Subject 8 scientific reporting'], outcomes: outcomes91,
+      lessonIds: lessons91.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-91-comms'],
+      assessmentIds: ['cgei-dspt-assess-91-comms'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.1 — Communicating for decisions (Support)',
+      notes: ['Support unit included for coherent decision-support path; Urdu/RTL layout practice deferred.'],
+    },
+    {
+      id: 'cgei-dspt-unit-9-3', code: '9.3', title: 'Decision logic and multi-criteria thinking', order: 903, kind: 'unit', readiness: 'draft',
+      summary: 'Compare options with explicit criteria and weights; sensitivity-test rankings; keep layers inspectable.',
+      estimatedHours: 3.5, prerequisites: ['Unit 9.1', 'Subject 7 risk indices'], outcomes: outcomes93,
+      lessonIds: lessons93.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-93-mca'],
+      assessmentIds: ['cgei-dspt-assess-93-mca'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.3 — Decision logic and multi-criteria thinking (Support)',
+      notes: ['AHP/TOPSIS software workflows deferred; weight sensitivity taught.'],
+    },
+    {
+      id: 'cgei-dspt-unit-9-4', code: '9.4', title: 'Provenance-first product design', order: 904, kind: 'unit', readiness: 'draft',
+      summary: 'Require source citation, versioning, review states, separate H/E/V layers and local usability on decision products.',
+      estimatedHours: 3.5, prerequisites: ['Unit 9.1', 'Unit 9.3'], outcomes: outcomes94,
+      lessonIds: lessons94.map((lesson) => lesson.id),
+      activityIds: ['cgei-dspt-a-94-prov'],
+      assessmentIds: ['cgei-dspt-assess-94-prov'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 9 Unit 9.4 — Provenance-first product design (Core)',
+      notes: ['Core unit; fixture validates product-card contract only.'],
+    },
+    {
+      id: 'cgei-pol-unit-10-1', code: '10.1', title: 'Climate governance and policy architecture', order: 1001, kind: 'unit', readiness: 'draft',
+      summary: 'Map UNFCCC/Paris architecture, national–provincial roles and instrument evaluation discipline.',
+      estimatedHours: 4.5, prerequisites: ['Subject 9 decision communication'], outcomes: outcomes101,
+      lessonIds: lessons101.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-101-gov', 'cgei-pol-a-101-instruments'],
+      assessmentIds: ['cgei-pol-assess-101-gov', 'cgei-pol-assess-101-instruments'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.1 — Climate governance and policy architecture (Support)',
+      notes: ['Support unit; verify current NDC/COP texts before operational citation.'],
+    },
+    {
+      id: 'cgei-pol-unit-10-2', code: '10.2', title: 'Greenhouse-gas fundamentals and carbon accounting', order: 1002, kind: 'unit', readiness: 'draft',
+      summary: 'GHG inventory and Scope 1/2/3 literacy for policy readers—not verified inventory production.',
+      estimatedHours: 3, prerequisites: ['Unit 10.1'], outcomes: outcomes102,
+      lessonIds: lessons102.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-102-ghg'],
+      assessmentIds: ['cgei-pol-assess-102-ghg'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.2 — Greenhouse-gas fundamentals and carbon accounting (Optional)',
+      notes: ['Optional unit included for pathway coherence; LCA depth deferred.'],
+    },
+    {
+      id: 'cgei-pol-unit-10-6', code: '10.6', title: 'Environmental economics and valuation', order: 1006, kind: 'unit', readiness: 'draft',
+      summary: 'Externalities, discount-rate sensitivity and valuation cautions for climate decisions.',
+      estimatedHours: 3.5, prerequisites: ['Unit 10.1'], outcomes: outcomes106,
+      lessonIds: lessons106.map((lesson) => lesson.id),
+      activityIds: ['cgei-pol-a-106-econ'],
+      assessmentIds: ['cgei-pol-assess-106-econ'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 10 Unit 10.6 — Environmental economics and valuation (Support)',
+      notes: ['Support unit; synthetic PV only—not official SCC.'],
+    },
+    {
+      id: 'cgei-se-unit-11-1', code: '11.1', title: 'Computer science foundations for analysts and researchers', order: 1101, kind: 'unit', readiness: 'draft',
+      summary: 'Files, processes, encodings, CLI basics and problem decomposition for environmental workflows.',
+      estimatedHours: 3, prerequisites: ['Subject 5 Python basics'], outcomes: outcomes111,
+      lessonIds: lessons111.map((lesson) => lesson.id),
+      activityIds: ['cgei-se-a-111-cs'],
+      assessmentIds: ['cgei-se-assess-111-cs'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 11 Unit 11.1 — Computer science foundations (Support)',
+      notes: ['Support unit; algorithm complexity is introductory only.'],
+    },
+    {
+      id: 'cgei-se-unit-11-2', code: '11.2', title: 'Software design and maintainable code', order: 1102, kind: 'unit', readiness: 'draft',
+      summary: 'Modular analysis code, tests for environmental edge cases, Git/environments and CI smoke checks.',
+      estimatedHours: 5, prerequisites: ['Unit 11.1'], outcomes: outcomes112,
+      lessonIds: lessons112.map((lesson) => lesson.id),
+      activityIds: ['cgei-se-a-112-structure', 'cgei-se-a-112-test'],
+      assessmentIds: ['cgei-se-assess-112-structure', 'cgei-se-assess-112-test'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 11 Unit 11.2 — Software design and maintainable code (Core)',
+      notes: ['Core unit; pipeline fixture anchors testing lessons.'],
+    },
+    {
+      id: 'cgei-se-unit-11-5', code: '11.5', title: 'Data pipelines, orchestration, and reliable updates', order: 1105, kind: 'unit', readiness: 'draft',
+      summary: 'Idempotent stages, schema validation, provenance manifests and recovery-minded operations.',
+      estimatedHours: 4, prerequisites: ['Unit 11.2'], outcomes: outcomes115,
+      lessonIds: lessons115.map((lesson) => lesson.id),
+      activityIds: ['cgei-se-a-115-pipeline'],
+      assessmentIds: ['cgei-se-assess-115-pipeline'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 11 Unit 11.5 — Data pipelines, orchestration, and reliable updates (Support)',
+      notes: ['Orchestrators named as options; not required simultaneously.'],
+    },
+    {
+      id: 'cgei-ai-unit-12-1', code: '12.1', title: 'Deep-learning foundations and neural-network practice', order: 1201, kind: 'unit', readiness: 'draft',
+      summary: 'Training concepts, architecture selection, baselines-first discipline and compute/cost awareness.',
+      estimatedHours: 4.5, prerequisites: ['Subject 6 supervised learning'], outcomes: outcomes121,
+      lessonIds: lessons121.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-121-nn'],
+      assessmentIds: ['cgei-ai-assess-121-nn'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.1 — Deep-learning foundations (Core)',
+      notes: ['Core; fixture uses linear baseline not a trained deep net.'],
+    },
+    {
+      id: 'cgei-ai-unit-12-2', code: '12.2', title: 'Computer vision and image understanding for Earth observation', order: 1202, kind: 'unit', readiness: 'draft',
+      summary: 'EO vision tasks, spatially independent splits and task-appropriate metrics.',
+      estimatedHours: 4, prerequisites: ['Unit 12.1', 'Subject 4 remote sensing literacy'], outcomes: outcomes122,
+      lessonIds: lessons122.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-122-cv'],
+      assessmentIds: ['cgei-ai-assess-122-cv'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.2 — Computer vision for EO (Core)',
+      notes: ['Core; no GPU training required for this draft.'],
+    },
+
+    {
+      id: 'cgei-ai-unit-12-3', subjectId: 'cgei-ai', code: '12.3', title: 'Spatiotemporal ML, forecasting, and foundation models', order: 1203, kind: 'unit', readiness: 'draft',
+      summary: 'Rolling-origin evaluation, temporal/spatial leakage control, baselines, and honest use of geospatial foundation models.',
+      estimatedHours: 8, prerequisites: ['Unit 6.4', 'Unit 5.7'], outcomes: outcomes123,
+      lessonIds: lessons123.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-123-eval', 'cgei-ai-a-123-leak', 'cgei-ai-a-123-fm'],
+      assessmentIds: ['cgei-ai-assess-123-eval', 'cgei-ai-assess-123-leak', 'cgei-ai-assess-123-fm'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.3',
+      notes: ['Core Unit 12.3. Draft; synthetic evaluation only; no FM weights in CI.'],
+    },
+
+    {
+      id: 'cgei-ai-unit-12-7', code: '12.7', title: 'Evaluating and governing AI systems', order: 1207, kind: 'unit', readiness: 'draft',
+      summary: 'Evaluation design, model cards, baselines and human review before decision use.',
+      estimatedHours: 3.5, prerequisites: ['Unit 12.1'], outcomes: outcomes127,
+      lessonIds: lessons127.map((lesson) => lesson.id),
+      activityIds: ['cgei-ai-a-127-gov'],
+      assessmentIds: ['cgei-ai-assess-127-gov'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 12 Unit 12.7 — Evaluating and governing AI systems (Support)',
+      notes: ['Support unit included for responsible-use path.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-1', code: '13.1', title: 'Choosing and scoping a project', order: 1301, kind: 'unit', readiness: 'draft',
+      summary: 'Select one coherent problem; define question, estimand, feasibility, MVP and project controls.',
+      estimatedHours: 4, prerequisites: ['Subject 8 research questions'], outcomes: outcomes131,
+      lessonIds: lessons131.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-131-scope'],
+      assessmentIds: ['cgei-cap-assess-131-scope'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.1 — Choosing and scoping a project (Core)',
+      notes: ['Core; synthetic heat screening is the teaching anchor.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-2', code: '13.2', title: 'Integrated project workflow', order: 1302, kind: 'unit', readiness: 'draft',
+      summary: 'Run protocol, data audit, baseline, H/E/V screening, sensitivity and decision-card delivery with provenance.',
+      estimatedHours: 6, prerequisites: ['Unit 13.1', 'Subject 7 risk concepts', 'Subject 11 pipelines'], outcomes: outcomes132,
+      lessonIds: lessons132.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-132-workflow'],
+      assessmentIds: ['cgei-cap-assess-132-workflow'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.2 — Integrated project workflow (Core)',
+      notes: ['Core vertical slice; not empirical Multan validation.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-3', code: '13.3', title: 'Portfolio engineering and project presentation', order: 1303, kind: 'unit', readiness: 'draft',
+      summary: 'Package the heat-screening capstone as a reproducible portfolio with inventory, narrative, non-claims and offline reproduction.',
+      estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes133,
+      lessonIds: lessons133.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-133-portfolio'],
+      assessmentIds: ['cgei-cap-assess-133-portfolio'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.3 — Portfolio engineering and project presentation (Core)',
+      notes: ['Core; example card uses Paths A–C; no genuine Multan granule claimed.'],
+    },
+    {
+      id: 'cgei-cap-unit-13-5', code: '13.5', title: 'Graduate study, research groups, and funding preparation', order: 1305, kind: 'unit', readiness: 'draft',
+      summary: 'Research-fit mapping, application checklists and funding-process literacy grounded in capstone evidence.',
+      estimatedHours: 4, prerequisites: ['Unit 13.3'], outcomes: outcomes135,
+      lessonIds: lessons135.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-135-fit'],
+      assessmentIds: ['cgei-cap-assess-135-fit'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.5 — Graduate study, research groups, and funding preparation (Core)',
+      notes: ['Core process unit; no live applications or funding verification in CI.'],
+    },
+
+
+    {
+      id: 'cgei-cap-unit-13-6', code: '13.6', title: 'Project assessment and revision', order: 1306, kind: 'unit', readiness: 'draft',
+      summary: 'Prioritise revisions from validation and review; re-run cleanly; log decisions.',
+      estimatedHours: 4, prerequisites: ['Unit 13.2'], outcomes: outcomes136,
+      lessonIds: lessons136.map((lesson) => lesson.id),
+      activityIds: ['cgei-cap-a-136-revise', 'cgei-cap-a-136-review'],
+      assessmentIds: ['cgei-cap-assess-136-revise'],
+      resourceIds: [], deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 13 Unit 13.6 — Project assessment and revision (Core)',
+      notes: ['Core assessment loop.'],
+    },
+
+
+
+
+
+
 
     {
       id: 'cgei-rs-unit-4-3', code: '4.3', title: 'Spectral indices and thermal products', order: 403, kind: 'unit', readiness: 'draft',
@@ -3318,6 +4764,34 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Support unit: application literacy across themes.', 'Synthetic method-selection fixture—not operational flood/AQ processing.'],
     },
 
+    {
+      id: 'cgei-rs-unit-4-11', subjectId: 'cgei-remote-sensing', code: '4.11', title: 'Ground truth, laboratory data, and EO integration', order: 411, kind: 'unit', readiness: 'draft',
+      summary: 'Design paired field–satellite sampling, judge which lab variables EO can support, and validate small-sample relationships without spatial leakage.',
+      estimatedHours: 8, prerequisites: ['Unit 4.2', 'Unit 4.4', 'Unit 3.2', 'Unit 2.5'], outcomes: outcomes411,
+      lessonIds: lessons411.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-411-sample', 'cgei-rs-a-411-proxy', 'cgei-rs-a-411-validate'],
+      assessmentIds: ['cgei-rs-assess-411-sample', 'cgei-rs-assess-411-proxy', 'cgei-rs-assess-411-validate'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.11 — Ground truth, laboratory data, and EO integration',
+      notes: ['Core Unit 4.11. Synthetic leave-one-site-out fixture only; not field campaign validation.'],
+    },
+
+    {
+      id: 'cgei-rs-unit-4-12', subjectId: 'cgei-remote-sensing', code: '4.12', title: 'Emerging EO / GeoAI directions', order: 412, kind: 'unit', readiness: 'draft',
+      summary: 'Judge when deep and foundation EO models are justified; require baselines, spatial validation, label quality and provenance before operational claims.',
+      estimatedHours: 8, prerequisites: ['Unit 4.11', 'Unit 4.7', 'Unit 4.4'], outcomes: outcomes412,
+      lessonIds: lessons412.map((lesson) => lesson.id),
+      activityIds: ['cgei-rs-a-412-dl', 'cgei-rs-a-412-bench', 'cgei-rs-a-412-ops'],
+      assessmentIds: ['cgei-rs-assess-412-dl', 'cgei-rs-assess-412-bench', 'cgei-rs-assess-412-ops'],
+      resourceIds: [],
+      deliverableIds: [],
+      sourceDocument: 'Master Study TOC Subject 4 Unit 4.12 — Emerging EO / GeoAI directions',
+      notes: ['Core Unit 4.12. Critical method selection; no GPU training; synthetic leakage demo only.'],
+    },
+
+
+
 
 
 
@@ -3359,6 +4833,30 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-q-33-006', lessonId: 'cgei-geo-lesson-3-3-1', type: 'single-choice', prompt: 'Which operation keeps the part of layer A that lies outside layer B?', options: ['Dissolve', 'Union', 'Difference (A−B)', 'Attribute join'], correctAnswer: 2, explanation: 'Difference retains A outside B; union keeps all pieces; dissolve merges by attribute.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-007', lessonId: 'cgei-geo-lesson-3-3-6', type: 'single-choice', prompt: 'Which statement about shapefiles is correct for analysis workflows?', options: ['They support unlimited field name length', 'Field names are limited to about 10 characters and the format is multi-file', 'They always store project styling', 'They force equal-area projection'], correctAnswer: 1, explanation: 'Shapefile field names are limited (~10 characters) and data span multiple files; prefer GeoPackage for multi-layer analysis.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-33-008', lessonId: 'cgei-geo-lesson-3-3-7', type: 'single-choice', prompt: 'In the Unit 3.3 admin fixture, which defect must be fixed before trusting a district aggregation?', options: ['Duplicate unit_id T1 and missing parent D9', 'Using GeoPackage instead of shapefile', 'Setting NoData to −9999', 'Buffering in metres'], correctAnswer: 0, explanation: 'Duplicate IDs and missing parents break hierarchical joins and inflate or drop aggregates.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-geo-q-33-rmse', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'RMSE for georeferencing control points is best described as:', options: ['Proof the entire map is accurate everywhere', 'The square root of the mean of squared residual distances of the control points', 'Always equal to the map scale denominator', 'A replacement for documenting CRS'], correctAnswer: 1, explanation: 'RMSE summarises control residuals; it does not validate the whole map surface.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-33-layout', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'A decision map layout should include at minimum:', options: ['Only a colourful ramp with no scale', 'Scale bar with correct units, legend, and CRS/source notes', 'Degree ticks labeled as kilometres without conversion', 'An export at any dpi without recording settings'], correctAnswer: 1, explanation: 'Scale, legend, and source/CRS notes support interpretation; dpi is a production parameter.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-33-gdalinfo', lessonId: 'cgei-geo-lesson-3-3-8', type: 'single-choice', prompt: 'The primary teaching purpose of gdalinfo on a raster is to:', options: ['Automatically correct the CRS', 'Inspect metadata such as CRS, size, geotransform, and bands before analysis', 'Compute zonal statistics', 'Replace QGIS entirely'], correctAnswer: 1, explanation: 'gdalinfo is inspection; analysis still requires correct methods and verification.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-35-area', lessonId: 'cgei-geo-lesson-3-5-1', type: 'single-choice', prompt: 'Computing polygon area for hectare statistics should use:', options: ['EPSG:4326 degree coordinates treated as metres', 'A projected or geodesic method with documented CRS', 'Any Web Mercator tile zoom level', 'Unprojected lon/lat differences multiplied by 111 only for all latitudes equally'], correctAnswer: 1, explanation: 'Area requires projected/geodesic methods; degree cells are not hectares.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-35-nodata', lessonId: 'cgei-geo-lesson-3-5-2', type: 'single-choice', prompt: 'When averaging a raster window, nodata values should be:', options: ['Treated as zero', 'Excluded from the mean', 'Replaced by the global maximum', 'Ignored only if positive'], correctAnswer: 1, explanation: 'Nodata must be excluded; zero substitution biases means.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-35-pin', lessonId: 'cgei-geo-lesson-3-5-3', type: 'single-choice', prompt: 'Pinning GDAL/PROJ/GEOS versions matters because:', options: ['It makes maps prettier', 'Binary mismatches can break or alter CRS transforms', 'It removes the need for nodata', 'It replaces STAC catalogues'], correctAnswer: 1, explanation: 'Geospatial binaries affect transform correctness and reproducibility.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-35-cog', lessonId: 'cgei-geo-lesson-3-5-2', type: 'single-choice', prompt: 'A Cloud-Optimized GeoTIFF differs from a generic GeoTIFF primarily by:', options: ['Using a different EPSG code automatically', 'Internal tiling, overviews, and layout suited to HTTP range requests', 'Removing the need for nodata', 'Guaranteeing survey-grade positional accuracy'], correctAnswer: 1, explanation: 'COG is about access layout, not CRS correctness by itself.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-36-breaks', lessonId: 'cgei-geo-lesson-3-6-1', type: 'single-choice', prompt: 'Equal-interval and quantile class breaks on the same skewed rates can differ because:', options: ['Quantiles always use equal-width bins', 'Break algorithms group values differently and change which areas share a class', 'Legends cannot show class breaks', 'CRS determines class breaks uniquely'], correctAnswer: 1, explanation: 'Classification is a communication choice with interpretive consequences.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+    { id: 'cgei-geo-q-36-choro', lessonId: 'cgei-geo-lesson-3-6-1', type: 'single-choice', prompt: 'A choropleth of raw station counts by district without normalisation is problematic because:', options: ['Choropleths cannot use sequential colours', 'Counts confound area/population with intensity of the phenomenon', 'Legends cannot show counts', 'CRS is irrelevant to choropleths'], correctAnswer: 1, explanation: 'Rates or densities are usually required for honest choropleths of intensity.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-36-legend', lessonId: 'cgei-geo-lesson-3-6-2', type: 'single-choice', prompt: 'An honest climate map legend or caption should include at least:', options: ['Only a colour bar with no units', 'Variable, units, date/period, and source or product version', 'Web Mercator zoom level as the only scale', 'A rainbow scale for all variables'], correctAnswer: 1, explanation: 'Units, time, and source are minimum interpretability metadata.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-39-loo', lessonId: 'cgei-geo-lesson-3-9-1', type: 'single-choice', prompt: 'Random train/test splits of nearby spatial sites are risky because:', options: ['Spatial data cannot be modelled', 'Spatial dependence can leak structure into the test set and inflate apparent skill', 'Moran’s I forbids prediction', 'IDW requires random splits'], correctAnswer: 1, explanation: 'Nearby sites are not independent evaluation units.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-39-idw', lessonId: 'cgei-geo-lesson-3-9-2', type: 'single-choice', prompt: 'IDW interpolation differs from ordinary kriging mainly in that IDW:', options: ['Always estimates a full prediction variance surface from a variogram', 'Uses distance-based weights without a variogram-based uncertainty model', 'Requires a Gaussian process prior by definition', 'Cannot use more than two sample points'], correctAnswer: 1, explanation: 'IDW is deterministic weighting; kriging uses a covariance/variogram model.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-39-block', lessonId: 'cgei-geo-lesson-3-9-3', type: 'single-choice', prompt: 'Spatial block or leave-location-out validation is preferred when:', options: ['The goal is the highest possible training R²', 'The deployment claim is prediction at new locations', 'Edge effects do not exist', 'All samples are independent by assumption'], correctAnswer: 1, explanation: 'Validation design should match the generalization claim.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-39-looidw', lessonId: 'cgei-geo-lesson-3-9-2', type: 'single-choice', prompt: 'Leave-location-out IDW evaluation is more informative than reporting only in-sample fit because it:', options: ['Always produces zero RMSE', 'Scores each site without using that site’s value in the interpolator for that prediction', 'Removes the need for a power parameter', 'Proves the variogram model is correct'], correctAnswer: 1, explanation: 'LOO withholds the target site so the prediction is not trivially interpolating itself.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-39-variogram', lessonId: 'cgei-geo-lesson-3-9-2', type: 'single-choice', prompt: 'In an empirical semivariogram, the nugget primarily reflects:', options: ['The maximum lag distance in the study area', 'Micro-scale variation and measurement error not resolved by the sampling design', 'The number of classes in a choropleth', 'The EPSG code of the coordinate system'], correctAnswer: 1, explanation: 'Nugget captures unresolved short-range variation and measurement noise.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-39-ok', lessonId: 'cgei-geo-lesson-3-9-2', type: 'single-choice', prompt: 'In ordinary kriging, requiring spatial weights to sum to one primarily enforces:', options: ['Zero prediction variance everywhere', 'Unbiasedness under a constant unknown mean', 'That the nugget is zero', 'That IDW and OK always agree'], correctAnswer: 1, explanation: 'The unbiasedness constraint (weights sum to 1) is the ordinary-kriging Lagrange condition for a constant mean.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
+
+
+
+
+
+
     { id: 'cgei-geo-q-34-001', lessonId: 'cgei-geo-lesson-3-4-1', type: 'single-choice', prompt: 'Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:', options: ['Correcting vertical datums automatically', 'Biased slopes and flow paths in vegetated or urban areas', 'Removing all NoData cells', 'Converting degrees to metres'], correctAnswer: 1, explanation: 'DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-34-002', lessonId: 'cgei-geo-lesson-3-4-2', type: 'single-choice', prompt: 'With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:', options: ['1.0', '0.5', '30', '0.0833'], correctAnswer: 1, explanation: 'dz/dx = (130−100)/(2×30) = 30/60 = 0.5 (dimensionless rise/run).', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-geo-q-34-003', lessonId: 'cgei-geo-lesson-3-4-3', type: 'single-choice', prompt: 'On the Unit 3.4 teaching grid, under D8 steepest descent, the centre cell flows which direction (Esri code)?', options: ['E (1)', 'SE (2)', 'S (4)', 'No downslope (0)'], correctAnswer: 2, explanation: 'Centre elevation 5: south to 2 has slope 3, steeper than SE to 1 (~2.83), so code 4 (S).', difficulty: 'medium', cognitiveLevel: 'apply' },
@@ -3373,6 +4871,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-es-q-11-002', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'Using σT⁴ at T=288 K, blackbody exitance is about:', options: ['1361 W m⁻²', '390 W m⁻²', '240 W m⁻²', '5.67×10⁻⁸ W m⁻²'], correctAnswer: 1, explanation: 'σ(288)⁴ ≈ 390 W m⁻² under the Stefan–Boltzmann law.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-11-003', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'With S=1361 W m⁻² and A=0.30, the planetary effective temperature Te is nearest:', options: ['288 K', '255 K', '373 K', '0 K'], correctAnswer: 1, explanation: 'σTe⁴ = S(1−A)/4 yields Te ≈ 255 K; surface air temperature is warmer due to the greenhouse effect.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-11-004', lessonId: 'cgei-es-lesson-1-1-3', type: 'single-choice', prompt: 'Ice–albedo feedback is classified as positive because:', options: ['Melting increases albedo and cools the surface', 'Melting decreases albedo, increases absorption and amplifies warming', 'It always stabilises climate', 'It equals climate sensitivity'], correctAnswer: 1, explanation: 'Lower ice cover reduces albedo, increasing absorbed solar radiation and reinforcing the initial warming.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-11-seb', lessonId: 'cgei-es-lesson-1-1-2', type: 'single-choice', prompt: 'In the teaching SEB form Rn = H + LE + G, a residual Rn − (H+LE+G) of +20 W m⁻² means:', options: ['The surface temperature is exactly 20 °C', 'The reported fluxes do not close the budget under the stated sign convention', 'Albedo must be 0.2', 'Effective temperature Te increased by 20 K'], correctAnswer: 1, explanation: 'Residual diagnoses closure under the stated convention; it is not a temperature.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-es-q-11-tau', lessonId: 'cgei-es-lesson-1-1-3', type: 'single-choice', prompt: 'Residence time τ ≈ M/F is best described as:', options: ['A universal climate sensitivity number', 'A stock–flow ratio for a store under the stated assumptions', 'Proof the Earth system is well mixed', 'The same as radiative forcing'], correctAnswer: 1, explanation: 'τ organises stock–flow thinking; global climate is not assumed well mixed.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
     { id: 'cgei-es-q-110-001', lessonId: 'cgei-es-lesson-1-10-1', type: 'single-choice', prompt: 'With Q*=450, Q_F=30, Q_H=280, Q_E=80 W m⁻², storage ΔQ_S equals:', options: ['120 W m⁻²', '450 W m⁻²', '30 W m⁻²', '0 W m⁻²'], correctAnswer: 0, explanation: 'ΔQ_S = Q* + Q_F − Q_H − Q_E = 450+30−280−80 = 120 W m⁻².', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-110-002', lessonId: 'cgei-es-lesson-1-10-1', type: 'single-choice', prompt: 'Urban heat intensity for T_u=38.5°C and T_r=35.0°C is:', options: ['73.5 K', '3.5 K', '0 K', '−3.5 K'], correctAnswer: 1, explanation: 'UHI = T_urban − T_rural = 3.5 K for this synthetic pair.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-es-q-110-003', lessonId: 'cgei-es-lesson-1-10-2', type: 'single-choice', prompt: 'Urban expansion most directly tends to:', options: ['Increase infiltration everywhere', 'Increase runoff and heat-storage exposure of assets', 'Eliminate the need for irrigation data', 'Remove compound climate risk'], correctAnswer: 1, explanation: 'Impervious growth raises runoff and heat storage while concentrating assets and people.', difficulty: 'medium', cognitiveLevel: 'understand' },
@@ -3394,6 +4895,9 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-25-002', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'Before differencing accumulated precipitation fields from two products, you should first:', options: ['Assume identical accumulation windows', 'Read each product’s accumulation and time conventions', 'Convert all values to anomalies automatically', 'Drop all missing as zeros'], correctAnswer: 1, explanation: 'Accumulation windows and time encodings differ by product (e.g. ERA5 vs ERA5-Land documentation).', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-25-003', lessonId: 'cgei-cl-lesson-2-5-2', type: 'single-choice', prompt: 'With baseline July mean 32°C, an observed July value of 35°C has anomaly:', options: ['35°C', '+3°C', '−3°C', '32°C'], correctAnswer: 1, explanation: 'A = X − baseline = 35 − 32 = +3°C.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-cl-q-25-004', lessonId: 'cgei-cl-lesson-2-5-3', type: 'single-choice', prompt: 'A complete processing record for climate data handling should include at least:', options: ['Only the final plot colours', 'Source version, extent, time rule, baseline, completeness rule, licence', 'Solely the programming language version', 'No baseline if anomalies are used'], correctAnswer: 1, explanation: 'Reproducibility requires provenance of source, spatial/temporal extent, aggregation rules, baseline and licence.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-25-kelvin', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'ERA5 2 m temperature is often stored in kelvin. The correct conversion to Celsius is:', options: ['T°C = TK + 273.15', 'T°C = TK − 273.15', 'T°C = TK × 273.15', 'No conversion is ever needed'], correctAnswer: 1, explanation: 'Celsius = kelvin − 273.15; mixing units corrupts anomalies.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-25-accum', lessonId: 'cgei-cl-lesson-2-5-1', type: 'single-choice', prompt: 'A negative jump in a precipitation accumulation series most carefully indicates:', options: ['Always zero rainfall for that step', 'A possible forecast-cycle reset or data problem that should be flagged before inventing an interval', 'That Celsius conversion failed', 'That UTC and PKT are identical'], correctAnswer: 1, explanation: 'Negative deltas often mark resets or faults; silent clamps hide product structure.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
     { id: 'cgei-cl-q-26-001', lessonId: 'cgei-cl-lesson-2-6-1', type: 'single-choice', prompt: 'Changing the baseline period for a percentile threshold will typically:', options: ['Leave all exceedance counts unchanged', 'Change the threshold and therefore the exceedance counts', 'Convert the series to precipitation', 'Eliminate the need for units'], correctAnswer: 1, explanation: 'Percentile thresholds are baseline-dependent; different baselines yield different thresholds and counts.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-26-002', lessonId: 'cgei-cl-lesson-2-6-1', type: 'single-choice', prompt: 'Three consecutive days above a heat threshold are best treated as:', options: ['Three fully independent 1-day events by default', 'One multi-day spell for duration metrics unless declustered for event counts', 'Proof of a 3-year return period', 'Evidence against autocorrelation'], correctAnswer: 1, explanation: 'Duration metrics treat consecutive exceedances as one spell; independence must be justified before counting separate events.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-26-003', lessonId: 'cgei-cl-lesson-2-6-2', type: 'single-choice', prompt: 'For T_t = 30 + 0.2 t (°C), t = 0…9, the OLS slope is:', options: ['0.2°C/year', '2°C/year', '30°C', '0°C/year'], correctAnswer: 0, explanation: 'The designed series has slope 0.2°C per year; Sen’s slope matches on this noise-free series.', difficulty: 'easy', cognitiveLevel: 'apply' },
@@ -3402,6 +4906,12 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-cl-q-28-002', lessonId: 'cgei-cl-lesson-2-8-1', type: 'single-choice', prompt: 'ENSO or IOD anomalies should be treated as:', options: ['Automatic one-line causes of every local weather event', 'Large-scale variability context that may modulate but does not by itself prove local causation', 'Proof that stations are unnecessary', 'Identical to irrigation effects'], correctAnswer: 1, explanation: 'Teleconnections provide context; local causation needs local evidence and mechanisms.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-cl-q-28-003', lessonId: 'cgei-cl-lesson-2-8-2', type: 'single-choice', prompt: 'A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:', options: ['One must be a software bug', 'They sample different spatial supports and methods', 'Reanalysis always equals the station', 'Irrigation cancels all differences'], correctAnswer: 1, explanation: 'Point observations and grid estimates have different spatial support and construction (Units 2.4–2.5).', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-cl-q-28-004', lessonId: 'cgei-cl-lesson-2-8-3', type: 'single-choice', prompt: 'When a local PMD series is restricted, the correct practice is to:', options: ['Invent plausible station numbers for the lesson', 'Use permitted global layers only with documented limits, request trails and licences', 'Ignore provenance', 'Treat farmer anecdotes as instrumental Tmax'], correctAnswer: 1, explanation: 'Access limits require documentation and honest use of alternative products—not fabricated observations.', difficulty: 'easy', cognitiveLevel: 'understand' },
+
+    { id: 'cgei-cl-q-23-cc', lessonId: 'cgei-cl-lesson-2-3-1', type: 'single-choice', prompt: 'Clausius–Clapeyron scaling of ~6–7% per K near typical surface temperatures primarily describes:', options: ['A guaranteed local increase in seasonal rainfall totals of 7% per K', 'The approximate increase of saturation vapour pressure with temperature', 'The dry adiabatic lapse rate', 'The Bowen ratio of an urban canyon'], correctAnswer: 1, explanation: 'CC governs saturation vapour pressure (moisture capacity), not automatic rainfall totals.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-23-tw', lessonId: 'cgei-cl-lesson-2-3-1', type: 'single-choice', prompt: 'Wet-bulb temperature is most directly related to:', options: ['Satellite brightness temperature alone', 'Evaporative cooling of air to saturation at constant pressure', 'Geostrophic wind speed', 'Model grid spacing'], correctAnswer: 1, explanation: 'Tw reflects cooling by evaporation to saturation—central to humid-heat stress.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cl-q-23-pbl', lessonId: 'cgei-cl-lesson-2-3-2', type: 'single-choice', prompt: 'Urban night-time warmth relative to rural areas is often sustained by:', options: ['Only higher daytime insolation at the same latitude', 'Heat storage in built materials, reduced sky-view, and altered stability—not solar forcing alone', 'Always higher latent heat flux than rural wetlands', 'Geostrophic balance failure'], correctAnswer: 1, explanation: 'Storage, geometry, and stability shape nocturnal urban climates.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cl-q-23-ens', lessonId: 'cgei-cl-lesson-2-3-3', type: 'single-choice', prompt: 'Ensemble forecast spread is best interpreted as:', options: ['A calibrated probability of the event without further verification', 'A measure of diversity among members that still requires verification for probabilistic skill', 'Proof that parameterisations are unnecessary', 'The same as observation error'], correctAnswer: 1, explanation: 'Spread is uncertainty information, not automatically a calibrated probability.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
     { id: 'cgei-rs-q-41-001', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Brightness temperature is best defined as:', options: ['Air temperature at 2 m', 'The blackbody temperature that would produce the observed radiance under a stated inversion', 'Always equal to land-surface temperature', 'Digital number divided by 100'], correctAnswer: 1, explanation: 'T_b is a radiometric equivalent temperature; LST requires emissivity and atmospheric correction.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-41-002', lessonId: 'cgei-rs-lesson-4-1-1', type: 'single-choice', prompt: 'Using Wien’s law (wavelength form) at T=300 K, λ_max is nearest:', options: ['0.5 μm', '10 μm', '1 m', '100 μm'], correctAnswer: 1, explanation: 'λ_max ≈ 2898/300 ≈ 9.7 μm, in the thermal infrared.', difficulty: 'medium', cognitiveLevel: 'apply' },
     { id: 'cgei-rs-q-41-003', lessonId: 'cgei-rs-lesson-4-1-2', type: 'single-choice', prompt: 'Nominal revisit every 5 days guarantees cloud-free observations every 5 days:', options: ['True for all sensors', 'False — usable frequency depends on clouds, swath and acquisition', 'True only for SAR', 'True only at night'], correctAnswer: 1, explanation: 'Nominal revisit is not usable observation frequency under cloud and scheduling constraints.', difficulty: 'easy', cognitiveLevel: 'understand' },
@@ -3420,6 +4930,69 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-risk-q-75-001', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'Changing indicator weights in a composite risk index can:', options: ['Never change district rankings', 'Change rankings even when input layers are fixed', 'Convert the index into a loss probability automatically', 'Eliminate uncertainty'], correctAnswer: 1, explanation: 'Weighting is a design choice that can reorder rankings; the fixture demonstrates this.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-risk-q-75-002', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'If vulnerability data are missing for a district, a transparent workflow should:', options: ['Treat missing V as zero risk', 'Mark risk incomplete rather than silently zero-filling', 'Replace V with hazard', 'Drop the district without documentation'], correctAnswer: 1, explanation: 'Silent zero-fill fabricates false safety; incomplete components must remain visible.', difficulty: 'easy', cognitiveLevel: 'apply' },
     { id: 'cgei-risk-q-75-003', lessonId: 'cgei-risk-lesson-7-5-1', type: 'single-choice', prompt: 'A composite risk index primarily:', options: ['Measures calibrated expected loss for every household', 'Ranks places under stated assumptions and should keep components visible', 'Replaces the need for hazard characterisation', 'Proves intervention effectiveness'], correctAnswer: 1, explanation: 'Indices rank under assumptions; they are not automatic calibrated loss models or impact evaluations.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-81-001', lessonId: 'cgei-rp-lesson-8-1-1', type: 'single-choice', prompt: 'An estimand is best described as:', options: ['A restatement of the broad topic title', 'The precise target quantity the study aims to estimate', 'Any p-value threshold', 'A journal name'], correctAnswer: 1, explanation: 'The estimand is the target quantity, distinct from a vague interest statement.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-81-002', lessonId: 'cgei-rp-lesson-8-1-1', type: 'single-choice', prompt: 'A protocol that sets estimand equal to a vague research question should be:', options: ['Accepted as confirmatory', 'Revised so the estimand names a specific target quantity', 'Ignored if the code runs', 'Converted automatically into causal proof'], correctAnswer: 1, explanation: 'Fixture and teaching require distinct estimands.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-rp-q-81-003', lessonId: 'cgei-rp-lesson-8-1-2', type: 'single-choice', prompt: 'Confirmatory environmental analyses should typically include:', options: ['Only figures that look significant', 'A pre-analysis plan (or equivalent) and documentation of deviations', 'No methods section', 'Automatic causal claims'], correctAnswer: 1, explanation: 'Pre-specification and deviation logs protect against selective reporting.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-82-001', lessonId: 'cgei-rp-lesson-8-2-1', type: 'single-choice', prompt: 'Construct validity primarily asks:', options: ['Whether the sample size is large', 'Whether the measure matches the intended concept', 'Whether Git is used', 'Whether the map is red'], correctAnswer: 1, explanation: 'Construct validity links concept and measure.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-82-002', lessonId: 'cgei-rp-lesson-8-2-1', type: 'single-choice', prompt: 'Generalising beyond the sampling frame without justification threatens:', options: ['File naming only', 'External validity', 'Git commit messages', 'Colour palettes'], correctAnswer: 1, explanation: 'External validity concerns generalisation limits.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-83-001', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Reporting only the model specifications that look favourable after seeing results is primarily:', options: ['Good exploratory practice always', 'Selective reporting and a research-integrity failure', 'Required by Sendai', 'A sampling-frame issue only'], correctAnswer: 1, explanation: 'Selective reporting undermines confirmatory claims.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rp-q-83-002', lessonId: 'cgei-rp-lesson-8-3-1', type: 'single-choice', prompt: 'Internal validity concerns:', options: ['Whether the journal is open access', 'Whether the study design supports the causal or associative claims made', 'Whether the abstract is short', 'Whether the colour scale is sequential'], correctAnswer: 1, explanation: 'Internal validity is about support for the claimed relationship.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-86-001', lessonId: 'cgei-rp-lesson-8-6-1', type: 'single-choice', prompt: 'Data and code availability statements in environmental research reports are:', options: ['Optional decoration', 'Part of making claims evaluable and reproducible', 'Required only for machine learning', 'A substitute for methods'], correctAnswer: 1, explanation: 'Availability statements support evaluation and reuse.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-91-001', lessonId: 'cgei-dspt-lesson-9-1-1', type: 'single-choice', prompt: 'A decision-facing product should primarily start from:', options: ['The longest methods appendix', 'The question the audience can act on', 'The reddest colour ramp', 'The highest model complexity'], correctAnswer: 1, explanation: 'Audience and actionable question drive product design.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-91-002', lessonId: 'cgei-dspt-lesson-9-1-1', type: 'single-choice', prompt: 'Omitting units, valid time, source, version and confidence from a map product:', options: ['Is acceptable for planners', 'Removes information users need to interpret the product', 'Improves accessibility', 'Is required by Sendai'], correctAnswer: 1, explanation: 'Metadata and confidence are required interpretation aids.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-93-001', lessonId: 'cgei-dspt-lesson-9-3-1', type: 'single-choice', prompt: 'Changing multi-criteria weights can:', options: ['Never change option rankings', 'Change rankings because weights encode value judgements', 'Convert screening scores into causal proof', 'Remove the need for monitoring'], correctAnswer: 1, explanation: 'Weight sensitivity is expected and must be reported.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-dspt-q-93-002', lessonId: 'cgei-dspt-lesson-9-3-1', type: 'single-choice', prompt: 'Relative to one opaque composite score, separate inspectable layers are preferred because:', options: ['They always look prettier', 'Users can see which component drives the result', 'They hide uncertainty', 'They remove equity concerns'], correctAnswer: 1, explanation: 'Inspectable components reduce false precision.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-94-001', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A published consequential product should include:', options: ['Only a screenshot', 'Named reviewer and review date in addition to source/version metadata', 'No confidence note', 'A single unexplained red class'], correctAnswer: 1, explanation: 'Review state requires accountable review metadata.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-dspt-q-94-002', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'Provenance-first design requires that hazard, exposure and vulnerability:', options: ['Always be multiplied into one hidden score', 'Remain separable in the layer list where used', 'Never appear on maps', 'Replace options analysis'], correctAnswer: 1, explanation: 'Separate layers preserve interpretability.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-dspt-q-94-003', lessonId: 'cgei-dspt-lesson-9-4-1', type: 'single-choice', prompt: 'A non-author usability pass is valuable because:', options: ['It replaces peer review of methods', 'It surfaces language and interpretation failures specialists miss', 'It proves causal impact', 'It is only for printed atlases'], correctAnswer: 1, explanation: 'Usability testing catches communication failures.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-101-001', lessonId: 'cgei-pol-lesson-10-1-1', type: 'single-choice', prompt: 'Nationally determined contributions (NDCs) under Paris are best described as:', options: ['Guaranteed physical emission pathways', 'Nationally stated contributions subject to ambition cycles and transparency', 'Only Kyoto-style top-down allocations for all parties', 'Private corporate pledges'], correctAnswer: 1, explanation: 'NDCs are nationally determined political contributions, not automatic physical outcomes.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-101-002', lessonId: 'cgei-pol-lesson-10-1-1', type: 'single-choice', prompt: 'Before citing the “latest COP outcome” in coursework, learners should:', options: ['Rely on memory of headlines only', 'Check the current UNFCCC record and official decision text', 'Use only secondary social posts', 'Ignore transparency frameworks'], correctAnswer: 1, explanation: 'COP outcomes change; primary records must be checked.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-101-003', lessonId: 'cgei-pol-lesson-10-1-2', type: 'single-choice', prompt: 'An ex-ante policy appraisal should not:', options: ['State indicators and baselines', 'Claim causal impact already demonstrated by the future policy', 'Note uncertainty', 'Identify responsible authorities'], correctAnswer: 1, explanation: 'Causal impact claims belong to evaluation designs, not ex-ante cards.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-101-004', lessonId: 'cgei-pol-lesson-10-1-2', type: 'single-choice', prompt: 'When a policy card claims equity benefits, transparent practice requires:', options: ['No further documentation', 'A distribution note on who is prioritised or affected', 'Only a cost figure', 'Hiding losers'], correctAnswer: 1, explanation: 'Equity claims need distributional documentation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-102-001', lessonId: 'cgei-pol-lesson-10-2-1', type: 'single-choice', prompt: 'Scope 2 emissions under the GHG Protocol primarily concern:', options: ['Direct on-site combustion only', 'Purchased energy, with location-based and market-based accounting options', 'Only employee commuting', 'Only land-use change'], correctAnswer: 1, explanation: 'Scope 2 is purchased energy with dual accounting approaches.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-pol-q-102-002', lessonId: 'cgei-pol-lesson-10-2-1', type: 'single-choice', prompt: 'Choosing GWP100 versus alternative methane metrics can:', options: ['Never affect policy rankings', 'Change the relative weight of methane versus CO2 in CO2-equivalent totals', 'Eliminate inventory uncertainty', 'Replace activity data'], correctAnswer: 1, explanation: 'Metric choice changes gas weighting.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-pol-q-106-001', lessonId: 'cgei-pol-lesson-10-6-1', type: 'single-choice', prompt: 'Raising the discount rate in a present-value damage calculation typically:', options: ['Increases the present value of distant damages', 'Decreases the present value of distant damages', 'Has no effect by construction', 'Proves equity automatically'], correctAnswer: 1, explanation: 'Higher discount rates shrink distant future values in present terms.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-pol-q-106-002', lessonId: 'cgei-pol-lesson-10-6-1', type: 'single-choice', prompt: 'Benefit transfer of valuation estimates should be treated as:', options: ['Always error-free', 'Potentially useful but error-prone and requiring documented limits', 'A substitute for risk reduction', 'Mandatory for all NDCs'], correctAnswer: 1, explanation: 'Benefit transfer has well-known pitfalls and error magnitudes.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-se-q-111-001', lessonId: 'cgei-se-lesson-11-1-1', type: 'single-choice', prompt: 'Hard-coding absolute machine-specific paths in analysis scripts primarily harms:', options: ['Only plot colours', 'Portability and reproducibility across machines', 'Git commit messages', 'CRS definitions automatically'], correctAnswer: 1, explanation: 'Machine-specific paths break reruns elsewhere.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-se-q-111-002', lessonId: 'cgei-se-lesson-11-1-1', type: 'single-choice', prompt: 'Before writing code for a large EO workflow, computational thinking recommends:', options: ['Optimising assembly first', 'Decomposing inputs, transformations, outputs and checks and estimating data size/runtime', 'Skipping error handling', 'Storing all intermediates only in notebook cells'], correctAnswer: 1, explanation: 'Decomposition and sizing come before optimisation.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-se-q-112-001', lessonId: 'cgei-se-lesson-11-2-1', type: 'single-choice', prompt: 'Hidden notebook state is risky because:', options: ['It always speeds CI', 'Results may depend on execution order not visible in the saved cells', 'It replaces unit tests', 'It enforces semantic versioning'], correctAnswer: 1, explanation: 'Hidden state breaks reproducibility.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-se-q-112-002', lessonId: 'cgei-se-lesson-11-2-2', type: 'single-choice', prompt: 'A unit test that checks temperature range rejection primarily demonstrates:', options: ['That the climate model is true', 'Software contract enforcement for invalid inputs', 'That CI is unnecessary', 'That provenance is optional'], correctAnswer: 1, explanation: 'Tests lock software behaviour, not scientific truth.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-se-q-112-003', lessonId: 'cgei-se-lesson-11-2-2', type: 'single-choice', prompt: 'Passing software tests implies:', options: ['Full scientific validity of all conclusions', 'Checked behavioural invariants under the tested conditions', 'Production deployment approval', 'That uncertainty is zero'], correctAnswer: 1, explanation: 'Correctness of code paths ≠ scientific validity.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-se-q-112-004', lessonId: 'cgei-se-lesson-11-2-2', type: 'single-choice', prompt: 'Dependency pinning and CI smoke tests primarily support:', options: ['Faster random results', 'Reproducible environments and early detection of breakages', 'Hiding failures', 'Removing README files'], correctAnswer: 1, explanation: 'Pinning and CI stabilise research software.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-se-q-115-001', lessonId: 'cgei-se-lesson-11-5-1', type: 'single-choice', prompt: 'An idempotent pipeline step is one that:', options: ['Can be re-run safely without corrupting results through uncontrolled duplication', 'Must never be logged', 'Requires three orchestrators at once', 'Skips schema validation'], correctAnswer: 0, explanation: 'Idempotency supports reliable recovery and reruns.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-se-q-115-002', lessonId: 'cgei-se-lesson-11-5-1', type: 'single-choice', prompt: 'Provenance manifests in environmental pipelines should typically record:', options: ['Only the plot colour palette', 'Source, configuration, software version and input/output counts (as applicable)', 'Only the developer username', 'Nothing if tests pass'], correctAnswer: 1, explanation: 'Provenance connects outputs to inputs and settings.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-121-001', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'Before adopting a deep neural network for a small tabular environmental dataset, best practice is to:', options: ['Skip baselines to save time', 'Compare against simpler statistical or tree-based baselines with leakage-safe evaluation', 'Use only training accuracy', 'Ignore compute cost'], correctAnswer: 1, explanation: 'Baselines-first is required; deep models are not automatically better.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ai-q-121-002', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'Train/validation/test separation primarily helps:', options: ['Increase training loss only', 'Estimate generalisation and control overfitting decisions such as early stopping', 'Remove the need for baselines', 'Guarantee causal identification'], correctAnswer: 1, explanation: 'Held-out sets estimate generalisation.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-121-003', lessonId: 'cgei-ai-lesson-12-1-1', type: 'single-choice', prompt: 'An overfit model that memorises training points but fails on new inputs illustrates:', options: ['Perfect scientific validity', 'Why test-set evaluation and simpler baselines matter', 'That adjacency leakage is desirable', 'That model cards are optional'], correctAnswer: 1, explanation: 'Fixture demonstrates poor generalisation of memorisation.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-ai-q-122-001', lessonId: 'cgei-ai-lesson-12-2-1', type: 'single-choice', prompt: 'Random pixel-level splits of EO imagery often fail because:', options: ['They are always slower', 'Adjacent pixels/tiles leak spatial information across splits', 'They require GPUs', 'They eliminate class imbalance'], correctAnswer: 1, explanation: 'Spatial dependence causes leakage under random splits.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-122-002', lessonId: 'cgei-ai-lesson-12-2-1', type: 'single-choice', prompt: 'For semantic segmentation evaluation, IoU/Dice metrics are useful because they:', options: ['Ignore class structure', 'Summarise overlap quality beyond simple pixel accuracy', 'Prove operational readiness alone', 'Replace spatial independence'], correctAnswer: 1, explanation: 'Overlap metrics better match segmentation goals.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ai-q-127-001', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'A model card for decision-facing environmental AI should include:', options: ['Only the architecture name', 'Intended use, exclusions, data sources, baseline, limitations and human review', 'Only training loss curves', 'No mention of failure cases'], correctAnswer: 1, explanation: 'Governance requires explicit use boundaries and review.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ai-q-127-002', lessonId: 'cgei-ai-lesson-12-7-1', type: 'single-choice', prompt: 'Comparing an AI system only to itself without a simpler baseline is problematic because:', options: ['Baselines are illegal', 'Relative value and necessity of AI remain untested', 'It always reduces latency', 'It guarantees calibration'], correctAnswer: 1, explanation: 'No-AI or deterministic baselines test necessity.', difficulty: 'medium', cognitiveLevel: 'analyze' },
+    { id: 'cgei-cap-q-131-001', lessonId: 'cgei-cap-lesson-13-1-1', type: 'single-choice', prompt: 'A defensible capstone scope should primarily start from:', options: ['Every tool in the curriculum', 'One coherent question, audience, estimand and feasible MVP', 'Only deep learning', 'Operational deployment without exclusions'], correctAnswer: 1, explanation: 'Scope one problem with feasibility and MVP.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-131-002', lessonId: 'cgei-cap-lesson-13-1-1', type: 'single-choice', prompt: 'Before coding, learners should check:', options: ['Only plot styles', 'Data access, licence, quality and compute feasibility', 'Nothing if synthetic data will be used later', 'Only GPU availability'], correctAnswer: 1, explanation: 'Feasibility checks precede commitment.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-132-001', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'In the teaching capstone, synthetic neighbourhood ranks should be interpreted as:', options: ['Calibrated Multan health risk', 'Screening ranks under stated assumptions, not empirical city findings', 'Operational forecasts', 'Proof of intervention effectiveness'], correctAnswer: 1, explanation: 'Synthetic screening only.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-132-002', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'Weight sensitivity in the H/E/V index is important because:', options: ['Weights never matter', 'Value judgements can change priority rankings', 'It replaces baselines', 'It proves causation'], correctAnswer: 1, explanation: 'Ranks can change with weights.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-132-003', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'A capstone decision card should require human review because:', options: ['Software tests already prove policy impact', 'Screening outputs need contextual judgement before action', 'Review is optional for synthetic data only', 'Provenance replaces review'], correctAnswer: 1, explanation: 'Human review is part of responsible delivery.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-132-004', lessonId: 'cgei-cap-lesson-13-2-1', type: 'single-choice', prompt: 'MODIS LST_Day in the public-data pathway should be interpreted as:', options: ['Identical to 2 m air temperature', 'Land-surface temperature (not air temperature), with documented composite and resolution limits', 'A calibrated mortality risk', 'Proof of causal urban design effects'], correctAnswer: 1, explanation: 'LST is surface temperature; air temperature and health risk require additional evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-133-001', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'A portfolio data inventory should:', options: ['Omit licences to save space', 'Label each source as synthetic, teaching extract, or genuine remote with coverage and role', 'Treat all CSV files as satellite truth', 'Hide limitations'], correctAnswer: 1, explanation: 'Inventory must distinguish evidence types and document role/coverage.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-133-002', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'Collapsing Path A synthetic ranks and a MODIS teaching extract into one “Multan validated result” is:', options: ['Best practice', 'A serious evidence-integrity failure', 'Required for CI', 'Equivalent to a DOI'], correctAnswer: 1, explanation: 'Distinct paths answer distinct claims and must not be merged.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-133-003', lessonId: 'cgei-cap-lesson-13-3-1', type: 'single-choice', prompt: 'Claiming a genuine Multan granule was processed requires at minimum:', options: ['A colourful map only', 'Granule identification evidence such as checksum (and related metadata) plus honest QA labelling', 'Only a higher lesson count', 'Deleting limitations'], correctAnswer: 1, explanation: 'Genuine-remote claims need verifiable file evidence.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-135-001', lessonId: 'cgei-cap-lesson-13-5-1', type: 'single-choice', prompt: 'A research-interest statement should primarily:', options: ['List every tool name available', 'Link evidenced methods and project limitations to a specific research direction', 'Guarantee supervisor acceptance', 'Omit skill gaps'], correctAnswer: 1, explanation: 'Fit is evidenced alignment, not aspiration alone.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-135-002', lessonId: 'cgei-cap-lesson-13-5-1', type: 'single-choice', prompt: 'Programme deadlines and funding eligibility should be taken from:', options: ['Social media summaries only', 'Official programme and funder pages, re-checked before applying', 'CI test output', 'Unverified secondary blogs exclusively'], correctAnswer: 1, explanation: 'Primary official sources are required; rules change.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-135-003', lessonId: 'cgei-cap-lesson-13-5-1', type: 'single-choice', prompt: 'A respectful supervisor enquiry should include:', options: ['A demand for funding', 'Evidence of reading specific work, one concrete question and a concise project summary', 'Only a request to “join the lab” with no context', 'Claims that synthetic capstone results are validated Multan epidemiology'], correctAnswer: 1, explanation: 'Specific, evidence-based contact beats generic appeals.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+
+
+    { id: 'cgei-cap-q-136-001', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'After fixing validation failures, best practice is to:', options: ['Skip re-running tests', 'Re-run from a clean environment and record what changed', 'Delete the risk log', 'Remove limitations from the report'], correctAnswer: 1, explanation: 'Clean re-run and decision logging close the loop.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-cap-q-136-002', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'An illustrative external-review packet must:', options: ['Be presented as a signed peer review', 'Carry an explicit disclaimer that it is not a genuine external review', 'Omit dispositions', 'Equate CI success with scientific validation'], correctAnswer: 1, explanation: 'Simulated review is teaching-only and must be labelled.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-cap-q-136-003', lessonId: 'cgei-cap-lesson-13-6-1', type: 'single-choice', prompt: 'A justified rejection disposition is appropriate when:', options: ['The reviewer asks to hide limitations', 'A requested claim (e.g. epidemiological validity from unit tests) is unsupported', 'All code is deleted', 'Release status is ignored'], correctAnswer: 1, explanation: 'Unsupported claims should be rejected with rationale.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+
+
+
+
+
+
 
 
 
@@ -3440,8 +5013,18 @@ export const cgeiCurriculum: CurriculumRegistry = {
 
 
     { id: 'cgei-geo-q-32-001', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'Why is the coordinate pair (70, 30) ambiguous without metadata?', options: ['Because Kelvin conversion is required', 'Because axis order and CRS/datum are unspecified', 'Because SHA-256 is missing', 'Because Euler integration failed'], correctAnswer: 1, explanation: 'Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-32-vertical-datum', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'Which statement correctly distinguishes an ellipsoid, a geodetic datum/reference frame, and a vertical datum?', options: ['They are interchangeable names for EPSG:4326', 'An ellipsoid models Earth mathematically, a reference frame locates coordinates relative to Earth, and a vertical datum defines the height reference', 'An ellipsoid defines height above mean sea level, while a vertical datum sets longitude axis order', 'A datum is only a raster resolution setting and has no effect on coordinate interpretation'], correctAnswer: 1, explanation: 'The ellipsoid is a geometric model; the geodetic datum/reference frame anchors horizontal coordinates, while the vertical datum defines the reference for heights. A horizontal CRS alone does not specify height semantics.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-32-002', lessonId: 'cgei-geo-lesson-3-2-2', type: 'single-choice', prompt: 'At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:', options: ['Longitude degrees shrink by approximately cos(latitude) on a sphere', 'EPSG codes forbid longitude', 'Mercator always expands longitude', 'NaNs fill polar cells'], correctAnswer: 0, explanation: 'Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-geo-q-32-003', lessonId: 'cgei-geo-lesson-3-2-3', type: 'single-choice', prompt: 'Which choice best matches computing global land-area totals?', options: ['Web Mercator for convenience', 'An equal-area projection or true cell areas from the native grid', 'Any conformal projection', 'Unprojected pixel counts in a screen screenshot'], correctAnswer: 1, explanation: 'Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-utm', lessonId: 'cgei-geo-lesson-3-2-1', type: 'single-choice', prompt: 'For metre-based area or distance in a Multan regional study, the safest practice is to:', options: ['Treat 0.01° cells as 1 km squares everywhere', 'Rely only on on-the-fly map display without recording the analysis CRS', 'Document and use an explicit projected CRS appropriate to the region (e.g. a UTM zone) for planar metrics', 'Swap latitude and longitude to fix scale'], correctAnswer: 2, explanation: 'Planar metrics need an explicit projected CRS; display transforms are not documentation.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-otf', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'On-the-fly reprojection in a GIS project primarily means:', options: ['Source files are permanently rewritten to the project CRS', 'Layers are displayed in a common CRS without necessarily rewriting source files', 'All area statistics become equal-area automatically', 'Axis order is fixed to lat/lon'], correctAnswer: 1, explanation: 'OTF is for display; permanent transform is required for documented analysis outputs.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-geo-q-32-resample', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'When transforming a categorical land-cover raster, the preferred resampling method is usually:', options: ['Bilinear', 'Cubic', 'Nearest neighbour', 'Average of all neighbours'], correctAnswer: 2, explanation: 'Nearest neighbour preserves class codes; averaging creates invalid intermediate classes.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-zonebound', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'UTM zone 42N (EPSG:32642) longitude span used in this curriculum is:', options: ['60–66°E', '66–72°E', '72–78°E', 'Entire Pakistan'], correctAnswer: 1, explanation: 'Zone 42N spans 66–72°E; Multan is inside; Punjab-wide layers may cross into 43N.', difficulty: 'medium', cognitiveLevel: 'remember' },
+    { id: 'cgei-geo-q-32-grid', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'If a required datum grid-shift file is missing, the curriculum acceptance rule is to:', options: ['Claim centimetre accuracy anyway', 'Record that the grid was unavailable and avoid high-accuracy positional claims', 'Ignore CRS metadata', 'Switch to Web Mercator for all distances'], correctAnswer: 1, explanation: 'Missing grids must be disclosed; accuracy claims require documented transform resources.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-geo-q-32-landmark', lessonId: 'cgei-geo-lesson-3-2-4', type: 'single-choice', prompt: 'Landmark validation after reprojection means:', options: ['The map looks roughly correct at screen scale', 'Independent known points are compared to transformed coordinates and residuals reported', 'RMSE of georeferencing GCPs on a scan replaces all checks', 'Only the EPSG code string is verified'], correctAnswer: 1, explanation: 'Independent check points with residual reporting test the transform in the target CRS.', difficulty: 'medium', cognitiveLevel: 'understand' },
+
+
+
 
     { id: 'cgei-ds-q-51-003', lessonId: 'cgei-ds-lesson-5-1-5', type: 'single-choice', prompt: 'Euler update with V in m³, Q in m³ s⁻¹, and Δt=1 h written as 1 without converting to seconds will:', options: ['Always improve stability', 'Understate the volume change by a factor of 3600 relative to SI-consistent units', 'Convert Celsius to Kelvin', 'Remove mass conservation'], correctAnswer: 1, explanation: 'Flow rates in m³ s⁻¹ must be paired with Δt in seconds. Using 1 hour as the number 1 leaves a 3600× unit error.', difficulty: 'medium', cognitiveLevel: 'apply' },
 
@@ -3552,6 +5135,25 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ml-q-61-002', lessonId: 'cgei-ml-lesson-6-1-3', type: 'single-choice', prompt: 'Before deploying a complex environmental model you should:', options: ['Skip baselines if R² is high on a random split', 'Show it beats climatology/persistence/simple linear baselines under a leakage-safe split', 'Tune on the final test year', 'Ignore label sampling bias'], correctAnswer: 1, explanation: 'Complex models must beat transparent baselines under honest splits.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ml-q-64-001', lessonId: 'cgei-ml-lesson-6-4-1', type: 'single-choice', prompt: 'Random row splits for gridded climate data often:', options: ['Fully block spatial leakage', 'Inflate skill by leaking spatial/temporal dependence into the test set', 'Replace the need for baselines', 'Guarantee area of applicability'], correctAnswer: 1, explanation: 'Dependent neighbours in train and test inflate accuracy.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-ml-q-62-001', lessonId: 'cgei-ml-lesson-6-2-1', type: 'single-choice', prompt: 'Scalers and encoders should be fit:', options: ['On the full dataset before splitting', 'On training data only, after the split', 'On the test set to maximise accuracy', 'Only inside deep networks'], correctAnswer: 1, explanation: 'Fitting on all rows leaks test information.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-62-002', lessonId: 'cgei-ml-lesson-6-2-1', type: 'single-choice', prompt: 'Fitting a standard scaler on all rows before a chronological split:', options: ['Is required for NDVI', 'Leaks holdout information into preprocessing', 'Removes the need for Unit 6.4 blocked validation', 'Converts LST into air temperature'], correctAnswer: 1, explanation: 'Learned transforms must be fit on training data only.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ml-q-62-003', lessonId: 'cgei-ml-lesson-6-2-2', type: 'single-choice', prompt: 'In the synthetic parcel contract, heat_exceed should be treated as:', options: ['A predictor like NDVI', 'The prediction target (not a feature)', 'A CRS code', 'Proof of Multan risk'], correctAnswer: 1, explanation: 'Targets are separated from predictors to avoid leakage.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-63-001', lessonId: 'cgei-ml-lesson-6-3-1', type: 'single-choice', prompt: 'A fair algorithm comparison requires:', options: ['Different secret test sets per model', 'The same leakage-safe split and documented feature contract', 'Only deep learning libraries', 'Hiding the baseline'], correctAnswer: 1, explanation: 'Otherwise gains may come from leakage or unequal features.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ml-q-63-002', lessonId: 'cgei-ml-lesson-6-3-1', type: 'single-choice', prompt: 'Logistic regression coefficients in an environmental classifier primarily indicate:', options: ['Causal drivers of the environment', 'Predictive associations under the training design and features used', 'Proof of policy impact', 'That LST equals air temperature'], correctAnswer: 1, explanation: 'Association under a design is not causation.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-63-003', lessonId: 'cgei-ml-lesson-6-3-1', type: 'single-choice', prompt: 'Under class imbalance, reporting only accuracy is risky because:', options: ['Accuracy is never defined for binary tasks', 'A majority-class predictor can score well while missing rare events', 'Trees cannot overfit', 'MAE replaces all classification metrics'], correctAnswer: 1, explanation: 'Precision, recall and F1 expose rare-event failures.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-65-001', lessonId: 'cgei-ml-lesson-6-5-1', type: 'single-choice', prompt: 'Feature importance from a heat classifier primarily supports:', options: ['Causal proof of which land covers cause hospitalisations', 'Predictive association under the training design and features used', 'That LST is air temperature', 'Operational calibration without reliability checks'], correctAnswer: 1, explanation: 'Attribution is not causal mechanism.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-65-002', lessonId: 'cgei-ml-lesson-6-5-1', type: 'single-choice', prompt: 'A model with strong ranking skill but poor calibration:', options: ['Always has useless F1', 'May order cases well while producing unreliable probabilities', 'Cannot have false negatives', 'Proves spatial generalisation'], correctAnswer: 1, explanation: 'Discrimination and calibration are distinct.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-65-003', lessonId: 'cgei-ml-lesson-6-5-1', type: 'single-choice', prompt: 'On a four-row synthetic holdout, reliability bins should be treated as:', options: ['Operational calibration certificates', 'Illustrative teaching aids only', 'Proof of Multan readiness', 'Causal identification'], correctAnswer: 1, explanation: 'Tiny n cannot support reliable calibration claims.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ml-q-66-001', lessonId: 'cgei-ml-lesson-6-6-1', type: 'single-choice', prompt: 'An honest environmental ML practice report must:', options: ['Hide the baseline to look novel', 'State provenance, leakage-safe split, baseline, metrics and out-of-scope uses', 'Tune on the final holdout until F1 is perfect', 'Treat synthetic parcels as Multan validation'], correctAnswer: 1, explanation: 'Minimum honest reporting is the unit standard.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ml-q-66-002', lessonId: 'cgei-ml-lesson-6-6-1', type: 'single-choice', prompt: 'Random pixel cross-validation on mapped EO products often:', options: ['Eliminates all spatial dependence', 'Inflates accuracy relative to spatial block holdouts', 'Replaces the need for a baseline', 'Proves causal cooling effects'], correctAnswer: 1, explanation: 'Spatial leakage is a documented literature pitfall.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-66-003', lessonId: 'cgei-ml-lesson-6-6-1', type: 'single-choice', prompt: 'Recycling k-means clusters as supervised labels on the same image is problematic because:', options: ['Clusters are always ground truth', 'It confuses exploratory grouping with independently labelled accuracy', 'It is required by Unit 6.4', 'It removes class imbalance'], correctAnswer: 1, explanation: 'Unsupervised groups are not validated classes.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-67-001', lessonId: 'cgei-ml-lesson-6-7-1', type: 'single-choice', prompt: 'Overlapping image patches that straddle a spatial train/test cut primarily risk:', options: ['Faster convergence only', 'Spatial leakage that inflates test scores', 'Mandatory use of transformers', 'Converting LST into air temperature'], correctAnswer: 1, explanation: 'Shared pixels/neighborhoods leak spatial information.', difficulty: 'easy', cognitiveLevel: 'apply' },
+    { id: 'cgei-ml-q-67-002', lessonId: 'cgei-ml-lesson-6-7-1', type: 'single-choice', prompt: 'A U-Net-style model is most associated with:', options: ['Tabular linear regression only', 'Dense pixel-level mapping / semantic segmentation', 'Replacing all baselines permanently', 'Causal identification of policy effects'], correctAnswer: 1, explanation: 'Encoder–decoders target dense prediction maps.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-ml-q-67-003', lessonId: 'cgei-ml-lesson-6-7-1', type: 'single-choice', prompt: 'On a tiny weak label set, best practice is to:', options: ['Always train a large vision transformer', 'Prefer strong classical baselines and refuse unjustified deep models', 'Tune on the final spatial holdout until IoU is perfect', 'Ignore class imbalance'], correctAnswer: 1, explanation: 'Deep models need adequate labels and still need baselines.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+
+
+
+
 
 
 
@@ -3680,6 +5282,8 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-45-008', lessonId: 'cgei-rs-lesson-4-5-4', type: 'single-choice', prompt: 'Calling a pixel “vulnerable” from mean LST alone is problematic because:', options: ['LST maps are never useful', 'Vulnerability requires people, housing, and adaptive capacity layers—not temperature alone', 'Gi* forbids overlays', 'NDVI equals vulnerability'], correctAnswer: 1, explanation: 'Exposure and vulnerability are multi-factor concepts (see Subject 7).', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-45-009', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'A responsible SUHI methods section should include:', options: ['Only the final pretty map', 'Estimand, reference alternatives, date/mask protocol, n_valid, and sensitivity results', 'A guarantee of zero uncertainty', 'Causal policy recommendations from OLS alone'], correctAnswer: 1, explanation: 'Protocol transparency is the Core skill.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-45-010', lessonId: 'cgei-rs-lesson-4-5-5', type: 'single-choice', prompt: 'Clear-sky satellite composites of LST often:', options: ['Sample all weather equally', 'Bias toward clearer conditions and can run warm relative to all-sky climate', 'Remove the need for references', 'Equal air-temperature climatologies'], correctAnswer: 1, explanation: 'Sampling bias must be reported (Units 4.3–4.5).', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-45-humid', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'A positive SUHII (urban LST warmer than the rural reference) is sufficient to conclude higher urban wet-bulb temperature Tw:', options: ['Always, because surface and air temperatures are interchangeable', 'Never as a general rule—Tw depends on air temperature and humidity, which LST contrast alone does not determine', 'Only when the rural reference is water', 'Only when Clausius–Clapeyron is ignored'], correctAnswer: 1, explanation: 'SUHII is a surface contrast; humid-heat requires humidity information (Unit 2.3).', difficulty: 'medium', cognitiveLevel: 'apply' },
+
     { id: 'cgei-rs-q-46-001', lessonId: 'cgei-rs-lesson-4-6-1', type: 'single-choice', prompt: 'An ImageCollection in Earth Engine is best described as:', options: ['A single static PNG', 'A filtered, stackable set of Images (often over time or products)', 'A vector-only database', 'A GPU driver'], correctAnswer: 1, explanation: 'Collections are the primary unit for multi-temporal / multi-product raster work.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-46-002', lessonId: 'cgei-rs-lesson-4-6-1', type: 'single-choice', prompt: 'Before computing a median composite you should typically:', options: ['Skip metadata filters', 'Filter by space, time, and relevant metadata and apply cloud/QA masks with stated rules', 'Always download the global archive first', 'Disable all logging'], correctAnswer: 1, explanation: 'Filter and mask discipline precede compositing.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-46-003', lessonId: 'cgei-rs-lesson-4-6-2', type: 'single-choice', prompt: 'Calling getInfo on a very large server-side object is risky because:', options: ['It is always faster than exports', 'It forces large results onto the client and can fail or stall', 'It permanently deletes assets', 'It only works for FeatureCollections of size one'], correctAnswer: 1, explanation: 'Prefer reducers and exports for bulk results.', difficulty: 'medium', cognitiveLevel: 'understand' },
@@ -3730,6 +5334,16 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-q-410-008', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'NDSI snow-cover maps measure:', options: ['Snow-water equivalent storage', 'Snow-covered area under algorithm assumptions—not automatically SWE or depth', 'Glacier mass balance directly', 'InSAR coherence'], correctAnswer: 1, explanation: 'Cover ≠ SWE/depth.', difficulty: 'easy', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-410-009', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'InSAR displacement is fundamentally:', options: ['Always vertical centimetres at every building', 'Line-of-sight change under coherence and atmospheric constraints', 'Identical to GRACE mascon trends', 'Proof of a single causal mechanism'], correctAnswer: 1, explanation: 'LOS geometry and error sources limit interpretation.', difficulty: 'medium', cognitiveLevel: 'understand' },
     { id: 'cgei-rs-q-410-010', lessonId: 'cgei-rs-lesson-4-10-4', type: 'single-choice', prompt: 'Before attributing InSAR subsidence to groundwater pumping, add:', options: ['Only a red colour ramp', 'Groundwater levels, land-use context, and awareness of alternative drivers', 'Nothing—maps are self-explanatory', 'AOD columns'], correctAnswer: 1, explanation: 'Causal attribution needs independent evidence.', difficulty: 'easy', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-411-leak', lessonId: 'cgei-rs-lesson-4-11-3', type: 'single-choice', prompt: 'Selecting the best spectral index on all field sites and then reporting cross-validated skill on the same sites is problematic because:', options: ['Cross-validation is never allowed', 'Feature selection outside the validation loop leaks information and inflates apparent skill', 'RMSE cannot be computed for continuous variables', 'Laboratory data cannot be used with EO'], correctAnswer: 1, explanation: 'Feature selection must be nested inside validation folds.', difficulty: 'hard', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-411-proxy', lessonId: 'cgei-rs-lesson-4-11-2', type: 'single-choice', prompt: 'Broadband multispectral EO typically supports laboratory soil nitrogen most accurately as:', options: ['A direct elemental measurement equivalent to lab digestion', 'An indirect proxy via canopy chlorophyll/vigour requiring local interpretation', 'A replacement for detection limits', 'A GNSS accuracy metric'], correctAnswer: 1, explanation: 'N is not directly observed in broadband multispectral data.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-411-sample', lessonId: 'cgei-rs-lesson-4-11-1', type: 'single-choice', prompt: 'A single grab sample at one GPS point inside a 30 m pixel is insufficient as the sole pixel reference because:', options: ['GNSS is always wrong', 'Sub-pixel variability is unquantified without replication', 'Satellites cannot be paired with field data', 'Detection limits do not apply'], correctAnswer: 1, explanation: 'Within-pixel replication helps quantify sub-pixel variability.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-411-nested', lessonId: 'cgei-rs-lesson-4-11-3', type: 'single-choice', prompt: 'In nested leave-one-site-out feature selection, the feature chosen for predicting a held-out site must be selected using:', options: ['Correlations computed on all sites including the holdout', 'Only the training sites for that fold', 'Only the held-out site', 'A fixed ranking published without data'], correctAnswer: 1, explanation: 'Selection on training folds only prevents the holdout from influencing which feature is used.', difficulty: 'hard', cognitiveLevel: 'apply' },
+
+    { id: 'cgei-rs-q-412-base', lessonId: 'cgei-rs-lesson-4-12-1', type: 'single-choice', prompt: 'A deep EO model comparison is incomplete without:', options: ['A GPU utilization chart only', 'Classical baselines evaluated under the same validation design', 'Discarding all hand-crafted features permanently', 'Using training pixels as the only accuracy sample'], correctAnswer: 1, explanation: 'Baselines under the same design show whether capacity buys skill.', difficulty: 'medium', cognitiveLevel: 'apply' },
+    { id: 'cgei-rs-q-412-sam', lessonId: 'cgei-rs-lesson-4-12-2', type: 'single-choice', prompt: 'Segment Anything–style EO tools are most appropriately treated as:', options: ['A replacement for independent accuracy assessment', 'An annotation aid that still requires validation design', 'Proof of causal land-cover change', 'A licence exemption for pretrained weights'], correctAnswer: 1, explanation: 'Promptable models help label; they are not validation substitutes.', difficulty: 'medium', cognitiveLevel: 'understand' },
+    { id: 'cgei-rs-q-412-vlm', lessonId: 'cgei-rs-lesson-4-12-3', type: 'single-choice', prompt: 'Vision–language geospatial outputs used in measurement workflows require:', options: ['No checks if the model is large', 'Verification against independent data and documented provenance/licence', 'Only a qualitative screenshot', 'Replacement of Unit 4.11 sampling design'], correctAnswer: 1, explanation: 'Generated artefacts need verification and provenance.', difficulty: 'medium', cognitiveLevel: 'apply' },
+
+
 
 
 
@@ -3909,8 +5523,25 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "explanation": "A reusable package externalises secrets and paths, documents dependencies and inputs, and can be run and checked from a clean environment without changing the source data.",
     "difficulty": "hard",
     "cognitiveLevel": "evaluate"
-  }
-  ],
+  },
+    { id: 'cgei-rp-q-87-one', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-one (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-87-val', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-val (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-87-fig', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-fig (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-88-readme', lessonId: 'cgei-rp-lesson-8-8-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-88-readme (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-88-revise', lessonId: 'cgei-rp-lesson-8-8-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-88-revise (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-88-focus', lessonId: 'cgei-rp-lesson-8-8-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-88-focus (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-89-struct', lessonId: 'cgei-rp-lesson-8-9-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-89-struct (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-89-scope', lessonId: 'cgei-rp-lesson-8-9-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-89-scope (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-89-risk', lessonId: 'cgei-rp-lesson-8-9-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-89-risk (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-8d-estimand', lessonId: 'cgei-rp-lesson-8-d-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-8d-estimand (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-8d-avail', lessonId: 'cgei-rp-lesson-8-d-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-8d-avail (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-rp-q-8d-validity', lessonId: 'cgei-rp-lesson-8-d-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-8d-validity (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-ai-q-123-persist', lessonId: 'cgei-ai-lesson-12-3-1', type: 'single-choice', prompt: 'Draft check for cgei-ai-q-123-persist (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-ai-q-123-leak', lessonId: 'cgei-ai-lesson-12-3-1', type: 'single-choice', prompt: 'Draft check for cgei-ai-q-123-leak (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+    { id: 'cgei-ai-q-123-fm', lessonId: 'cgei-ai-lesson-12-3-1', type: 'single-choice', prompt: 'Draft check for cgei-ai-q-123-fm (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
+
+
+],
   competencies: [
     { id: 'cgei-comp-quantitative-reasoning', title: 'Quantitative reasoning', description: 'Use mathematical representations and units to reason about environmental systems.', level: 'L3', evidenceCriteria: ['Correct units and dimensional checks', 'Calculation independently reproduced', 'Plausibility and limitations stated'] },
     { id: 'cgei-comp-mathematical-modeling', title: 'Mathematical modelling', description: 'Represent environmental processes and analyse the assumptions of a mathematical model.', level: 'L3', evidenceCriteria: ['Model terms and units defined', 'Method assumptions stated', 'Numerical or analytical result checked'] },
@@ -4197,6 +5828,38 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-a-410-ag', kind: 'coding-lab', title: 'Proxy guardrail lab', instructions: 'Run unit_4_10_thematic_eo_check.py. Report rejected overclaims and valid method selections.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-410-ag', 'cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-air', kind: 'critique', title: 'Column vs exposure', instructions: 'Rewrite “TROPOMI NO2 shows unsafe neighbourhood air” into a defensible statement.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-air-snow'] },
     { id: 'cgei-rs-a-410-deform', kind: 'reflection', title: 'Subsidence attribution', instructions: 'List evidence beyond an InSAR velocity map needed before blaming groundwater pumping.', level: 'L2', estimatedMinutes: 10, objectiveIds: ['cgei-rs-o-410-deform'] },
+    { id: 'cgei-cap-a-135-fit', kind: 'coding-lab', title: 'Research-fit card lab', instructions: 'Run unit_13_research_fit_check.py. Adapt research_fit_evidence.json with your interest statement and skill gaps; keep non-claims and do not invent programmes or deadlines.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-135-fit', 'cgei-cap-o-135-process'] },
+    { id: 'cgei-cap-a-133-portfolio', kind: 'coding-lab', title: 'Portfolio evidence card lab', instructions: 'Run unit_13_portfolio_check.py. Adapt labs/portfolio/capstone_portfolio_evidence.json narrative fields without collapsing Paths A–C or claiming a genuine Multan granule without checksum.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'] },
+                        { id: 'cgei-ml-a-67-eo', kind: 'coding-lab', title: 'EO patch split and baseline lab', instructions: 'Run unit_6_7_eo_deep_learning_check.py. Explain why stride-1 patches leak across a spatial cut and when a CNN is not justified versus the Unit 6.3 baseline.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ml-o-67-eo-dl'] },
+    { id: 'cgei-ml-a-66-practice', kind: 'coding-lab', title: 'Environmental ML practice report lab', instructions: 'Complete or adapt env_ml_practice_report.json. Run unit_6_6_practice_check.py. Ensure synthetic/not-Multan flags, excluded target, and model-card out-of-scope list are honest.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ml-o-66-pitfalls'] },
+    { id: 'cgei-ml-a-65-interpret', kind: 'coding-lab', title: 'Interpretation and sensitivity lab', instructions: 'Run unit_6_5_interpretation_check.py. List FP/FN parcel IDs, describe a threshold sensitivity result, and write a three-line limitation statement (synthetic, non-causal, not calibrated).', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-ml-o-65-interpret'] },
+    { id: 'cgei-ml-a-63-models', kind: 'coding-lab', title: 'Baseline vs logistic vs stump lab', instructions: 'Run unit_6_3_core_algorithms_check.py. Compare majority, logistic and LST-stump F1 on the 2021 holdout. State why coefficients are not causal and why the same split/features are required for fair comparison.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-ml-o-63-models'] },
+    { id: 'cgei-ml-a-62-features', kind: 'coding-lab', title: 'Feature contract and train-only scaling lab', instructions: 'Run unit_6_2_feature_prep_check.py. Document each column as target, feature, or metadata. State why heat_exceed cannot be a predictor and why scaling uses 2020 only.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-ml-o-62-features'] },
+    { id: 'cgei-ml-a-61-problem', kind: 'coding-lab', title: 'Baselines-first lab', instructions: 'Run unit_6_1_learning_problem_check.py. Write target, unit of analysis, horizon and decision for a heat or LST screening problem; report persistence and climatology MAE.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ml-o-baselines'] },
+    { id: 'cgei-ml-a-64-leakage', kind: 'coding-lab', title: 'Blocked vs random split lab', instructions: 'Run unit_6_4_leakage_split_check.py. Explain why blocked MAE is higher and when random splits overstate skill for gridded data.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ml-o-leakage-safe'] },
+    { id: 'cgei-cap-a-131-scope', kind: 'guided-practice', title: 'Capstone scope card', instructions: 'Write question, estimand, intended use, exclusions, MVP and one feasibility risk for a heat-screening project.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'] },
+    { id: 'cgei-cap-a-132-workflow', kind: 'coding-lab', title: 'Capstone pipeline lab', instructions: 'Run unit_13_capstone_heat_risk_check.py. Report baseline means, rank change under heat-heavy weights, and decision-card non-claims.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'] },
+        { id: 'cgei-cap-a-136-review', kind: 'coding-lab', title: 'External-review packet lab', instructions: 'Run unit_13_external_review_check.py. Walk one feedback item from comment to disposition and justify the release status without claiming genuine peer review.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-cap-o-136-review'] },
+    { id: 'cgei-cap-a-136-revise', kind: 'guided-practice', title: 'Revision list', instructions: 'From a failed validation message, write a prioritised revision list and clean-rerun steps.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-cap-o-136-revise'] },
+    { id: 'cgei-ai-a-121-nn', kind: 'coding-lab', title: 'Baseline and leakage lab', instructions: 'Run unit_12_ai_split_baseline_check.py. Report baseline vs overfit MSE and one adjacency leakage flag.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-121-nn'] },
+    { id: 'cgei-ai-a-122-cv', kind: 'guided-practice', title: 'EO split design', instructions: 'Propose a spatially independent split for a city tile grid and name one metric for segmentation evaluation.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'] },
+    { id: 'cgei-ai-a-127-gov', kind: 'guided-practice', title: 'Model card draft', instructions: 'Complete intended use, exclusions, baseline, limitations and human-review fields for a synthetic EO classifier.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-127-gov'] },
+    { id: 'cgei-se-a-111-cs', kind: 'guided-practice', title: 'Decompose a pipeline', instructions: 'For a station temperature workflow, list inputs, transformations, outputs and checks before writing code.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-se-o-111-decomp'] },
+    { id: 'cgei-se-a-112-structure', kind: 'guided-practice', title: 'Module boundary sketch', instructions: 'Sketch modules for acquire/validate/transform/analyse/report and list what belongs in config versus code.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-se-o-112-structure'] },
+    { id: 'cgei-se-a-112-test', kind: 'coding-lab', title: 'Pipeline fixture lab', instructions: 'Run unit_11_env_pipeline_check.py. Document one invalid input the fixture rejects and the provenance fields emitted on success.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-se-o-112-test'] },
+    { id: 'cgei-se-a-115-pipeline', kind: 'guided-practice', title: 'Idempotency and recovery note', instructions: 'Write three bullets: how a step is made idempotent, what is logged on failure, and how to rerun from a checkpoint.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-se-o-115-pipeline'] },
+    { id: 'cgei-pol-a-101-gov', kind: 'guided-practice', title: 'NDC architecture card', instructions: 'In five bullets, link Paris NDC, transparency and stocktake to one national implementation task.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-101-governance'] },
+    { id: 'cgei-pol-a-101-instruments', kind: 'coding-lab', title: 'Instrument appraisal lab', instructions: 'Run unit_10_policy_appraisal_check.py and complete an ex-ante adaptation instrument card with distribution and uncertainty notes.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-pol-o-101-instruments'] },
+    { id: 'cgei-pol-a-102-ghg', kind: 'guided-practice', title: 'Scope boundary critique', instructions: 'Critique a claim that omits Scope 3 while advertising “net zero operations”.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-102-ghg'] },
+    { id: 'cgei-pol-a-106-econ', kind: 'guided-practice', title: 'Discount-rate sensitivity note', instructions: 'Using the fixture PV results, explain how 2% vs 7% changes the present value of a long damage stream.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-pol-o-106-econ'] },
+    { id: 'cgei-dspt-a-91-comms', kind: 'guided-practice', title: 'Audience message card', instructions: 'Rewrite one technical result for a planner: knowns, unknowns, action, and required metadata fields.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'] },
+    { id: 'cgei-dspt-a-93-mca', kind: 'guided-practice', title: 'Weight sensitivity note', instructions: 'Compare two options under cost-heavy and equity-heavy weights; report whether ranking changes.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-dspt-o-93-criteria'] },
+    { id: 'cgei-dspt-a-94-prov', kind: 'coding-lab', title: 'Product-card fixture lab', instructions: 'Run unit_9_decision_product_check.py and produce a product card with layers, version, review state and confidence note.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'] },
+    { id: 'cgei-rp-a-81-question', kind: 'guided-practice', title: 'Question and estimand card', instructions: 'Write a focused question, distinct estimand, unit of analysis, population and time horizon for an environmental study.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-81-question'] },
+    { id: 'cgei-rp-a-81-design', kind: 'critique', title: 'Exploratory vs confirmatory critique', instructions: 'Label a short study abstract as exploratory or confirmatory and list one required planning control.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-81-design'] },
+    { id: 'cgei-rp-a-82-measure', kind: 'guided-practice', title: 'Measure–construct match', instructions: 'For LST used as “heat stress,” state construct, measure, one validity threat and one sampling-frame limit.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'] },
+    { id: 'cgei-rp-a-83-ethics', kind: 'critique', title: 'Selective reporting case', instructions: 'Identify the integrity failure when only favourable specifications are reported after seeing results.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-rp-o-83-ethics'] },
+    { id: 'cgei-rp-a-86-report', kind: 'coding-lab', title: 'Protocol fixture lab', instructions: 'Run unit_8_research_protocol_check.py and produce a one-page reporting checklist including data/code availability.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-86-report'] },
     { id: 'cgei-risk-a-71-vocab', kind: 'guided-practice', title: 'Vocabulary card', instructions: 'For a flood example, write one sentence each for hazard, exposure, vulnerability and residual risk.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-71-vocab'] },
     { id: 'cgei-risk-a-71-framework', kind: 'critique', title: 'Hazard map critique', instructions: 'Critique a statement that equates a red hazard zone with “high risk” for all residents.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-71-framework'] },
     { id: 'cgei-risk-a-73-heat', kind: 'guided-practice', title: 'Metric selection', instructions: 'Choose LST vs air temperature vs a heat-stress index for outdoor worker guidance and justify data needs.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-risk-o-73-heat'] },
@@ -4224,6 +5887,54 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-a-32-crs', kind: 'guided-practice', title: 'Declare CRS and axis order', instructions: 'For a CSV of city points, write a one-paragraph CRS statement including datum and axis order.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-geo-o-32-crs'], resourceIds: ['cgei-geo-r-epsg'] },
     { id: 'cgei-geo-a-32-scale', kind: 'coding-lab', title: 'Metres-per-degree check', instructions: 'Reproduce the Unit 3.2 scale fixture numbers and compare a 0.01° cell length at the equator and at 60°N.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-geo-o-32-scale'], resourceIds: ['cgei-geo-r-epsg'] },
     { id: 'cgei-geo-a-32-projection', kind: 'critique', title: 'Projection property match', instructions: 'Given a task (global biomass density map vs harbour navigation chart), choose a projection class and justify which property is prioritised.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-projection'], resourceIds: ['cgei-geo-r-epsg'] },
+
+    { id: 'cgei-cl-a-23-moisture', kind: 'coding-lab', title: 'Clausius–Clapeyron ratio', instructions: 'Run unit_2_3_atmosphere_check.py. Record e_sat at 300 K and 301 K and the fractional increase. Explain why ~7%/K matters for humid heat and short-duration rainfall potential, and one reason local rainfall need not scale the same way.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-cl-o-23-moisture'] },
+
+    { id: 'cgei-rp-a-87-contrib', kind: 'critique', title: 'Single-contribution statement', instructions: 'Write a ≤120-word contribution statement naming exactly one primary pillar (methods sensitivity OR validation OR regional evidence). List three close prior study themes. Run unit_8_7_paper_readiness_check.py to check the structured JSON form of your statement.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-87-contrib'] },
+
+    { id: 'cgei-rp-a-88-repo', kind: 'critique', title: 'Repository evidence audit', instructions: 'Score your project repo against: run path, README limitations, environment pin, licence, and one test. Mark each present/partial/absent. State one fix you will make first.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-repo'] },
+
+    { id: 'cgei-rp-a-89-proposal', kind: 'coding-lab', title: 'Proposal object readiness', instructions: 'Complete a structured proposal outline (problem, gap, objectives, methods, feasibility, timeline, ethics, risks). Run unit_8_9_proposal_readiness_check.py on the sample and your fields.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-89-proposal'] },
+
+    { id: 'cgei-rp-a-8d-design', kind: 'coding-lab', title: 'Research design object', instructions: 'Fill estimand, unit_of_analysis, data, validation, non_claim. Run unit_8_d_research_design_check.py. Revise until the fixture accepts the structure.', level: 'L3', estimatedMinutes: 30, objectiveIds: ['cgei-rp-o-8d-design'] },
+
+    { id: 'cgei-ai-a-123-eval', kind: 'coding-lab', title: 'Rolling-origin vs leaky split', instructions: 'Run unit_12_3_spatiotemporal_eval_check.py. Record persistence MAE, climatology MAE, rolling-origin model MAE, and leaky-split MAE. Explain in three sentences why the leaky number is not deployable skill.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-ai-o-123-eval'] },
+    { id: 'cgei-ai-a-123-leak', kind: 'critique', title: 'Leakage case diagnosis', instructions: 'Given: gridded LST with random 80/20 pixel split and a model using same-day neighbouring pixels. Identify two leakage pathways and propose a blocked evaluation alternative.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-ai-o-123-leak'] },
+    { id: 'cgei-ai-a-123-fm', kind: 'critique', title: 'Foundation-model claim audit', instructions: 'List three checks before claiming FM transfer success: pretraining coverage, same-split baseline comparison, and one possible hidden leakage source.', level: 'L3', estimatedMinutes: 15, objectiveIds: ['cgei-ai-o-123-fm'] },
+
+    { id: 'cgei-rp-a-8d-methods', kind: 'critique', title: 'Stranger-test methods draft', instructions: 'Write a 200–400 word methods paragraph a stranger could follow. Include availability statements that match reality.', level: 'L3', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-methods'] },
+    { id: 'cgei-rp-a-8d-review', kind: 'critique', title: 'Constructive referee note', instructions: 'Using the four validity lenses, write three numbered referee comments on a sample SUHI methods paragraph (major/minor tagged) with a proposed fix for each.', level: 'L4', estimatedMinutes: 25, objectiveIds: ['cgei-rp-o-8d-review'] },
+
+    { id: 'cgei-rp-a-89-funding', kind: 'critique', title: 'Scope-to-resource match', instructions: 'Write five sentences matching your objectives to supervisor expertise, data access, compute, budget line items, and one criterion from a real or hypothetical scholarship call (label it clearly as hypothetical if not verified).', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-funding'] },
+    { id: 'cgei-rp-a-89-practice', kind: 'critique', title: 'Milestone and risk register', instructions: 'List four milestones, three risks with mitigations, and proposed authorship roles (CRediT-style). Include one supervisor question you would raise before data collection.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-89-practice'] },
+
+    { id: 'cgei-rp-a-88-revise', kind: 'critique', title: 'FYP revision plan', instructions: 'List three claim-language or method corrections from your FYP (scale, QA, validation, or overclaim). Name the single paper-quality question for the revised version.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-identity'] },
+    { id: 'cgei-rp-a-88-position', kind: 'coding-lab', title: 'Positioning object check', instructions: 'Fill a positioning JSON with place, hazard_family, methods_gap, data_feasibility, supervision_need. Run unit_8_8_portfolio_positioning_check.py against the sample and your structure.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-88-position'] },
+
+    { id: 'cgei-rp-a-87-evidence', kind: 'critique', title: 'Pre-submission evidence gap list', instructions: 'For your contribution, mark each of: independent validation, sensitivity, coverage/uncertainty, repo+availability statements as present, partial, or absent. State one claim you must narrow if validation is absent.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-evidence'] },
+    { id: 'cgei-rp-a-87-ms', kind: 'critique', title: 'Figure and venue shortlist', instructions: 'List six figure panels required for your contribution and two candidate venues with one-sentence scope fit. Note preprint policy as known or unknown.', level: 'L3', estimatedMinutes: 20, objectiveIds: ['cgei-rp-o-87-ms'] },
+
+    { id: 'cgei-rs-a-45-humid', kind: 'coding-lab', title: 'SUHII vs wet-bulb interpretation', instructions: 'Run unit_4_5_humid_heat_bridge_check.py. Record SUHII and the two Tw contrasts. Write three sentences: (1) what SUHII measures; (2) why Tw needs humidity; (3) when using only LST would mis-rank humid-heat risk.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-45-define'] },
+
+    { id: 'cgei-cl-a-23-pbl', kind: 'critique', title: 'Urban night cooling factors', instructions: 'List geometry, heat storage, and stability as factors that can keep urban nights warmer. State why LST-based SUHI is not air-temperature UHI.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-23-pbl'] },
+    { id: 'cgei-cl-a-23-nwp', kind: 'critique', title: 'Ensemble vs single forecast', instructions: 'Explain why an ensemble of convection-permitting members is preferred over one deterministic run, and what ensemble spread does not automatically provide.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-cl-o-23-nwp'] },
+
+    { id: 'cgei-geo-a-32-transform', kind: 'critique', title: 'Transform metadata and landmark residual', instructions: 'Record source_crs, target_crs, transform_method, and grid_available for a permanent transform; compute the synthetic landmark residual from the lesson example.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-32-crs'] },
+    { id: 'cgei-geo-a-33-layout-georef', kind: 'coding-lab', title: 'Layout checklist and RMSE arithmetic', instructions: 'Apply the publication layout checklist and recompute RMSE from the synthetic residual pairs in unit_3_3_georef_rmse_check.py.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-33-layout-georef'] },
+    { id: 'cgei-geo-a-35-vector', kind: 'coding-lab', title: 'BBox predicates and join cardinality', instructions: 'Run unit_3_5_python_geospatial_stack_check.py; explain why a one-to-many spatial join changes row counts.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-35-vector'] },
+    { id: 'cgei-geo-a-35-raster', kind: 'coding-lab', title: 'Nodata window mean and COG flags', instructions: 'Run unit_3_5_cog_raster_check.py; distinguish valid zero from nodata and state COG layout requirements.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-35-raster'] },
+    { id: 'cgei-geo-a-35-stack', kind: 'critique', title: 'Stack selection and pinning', instructions: 'Given a zonal-stats task and a STAC browse task, choose libraries and list GDAL/PROJ pins you would record.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-35-stack'] },
+    { id: 'cgei-geo-a-36-colour', kind: 'critique', title: 'Classification and choropleth honesty', instructions: 'Compare equal-interval vs quantile breaks on the synthetic rates; reject a count choropleth without rates.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-36-visual'] },
+    { id: 'cgei-geo-a-36-honesty', kind: 'critique', title: 'Legend and uncertainty checklist', instructions: 'Draft a legend/caption with variable, units, period, and source; mark missing data explicitly.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-36-honesty'] },
+    { id: 'cgei-geo-a-39-auto', kind: 'coding-lab', title: 'Leave-location-out vs random skill', instructions: 'Run unit_3_9_spatial_stats_check.py; explain why random splits of nearby sites inflate skill.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-39-auto'] },
+    { id: 'cgei-geo-a-39-interp', kind: 'coding-lab', title: 'IDW prediction arithmetic', instructions: 'Run unit_3_9_spatial_stats_check.py. Record γ̂ bins, OK prediction, OK variance, OK weight sum, and IDW at the same target. Explain: (1) why weights sum to one in OK; (2) what OK variance does and does not mean; (3) one reason OK and IDW can disagree; (4) why a fitted model on sparse bins is not external validation.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-39-interp'] },
+    { id: 'cgei-geo-a-39-val', kind: 'critique', title: 'Spatial validation design', instructions: 'Propose leave-location-out or block CV for a new-site deployment claim and list residual-map diagnostics.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-geo-o-39-val'] },
+    { id: 'cgei-rs-a-411-sample', kind: 'critique', title: 'Paired sampling plan', instructions: 'Write a minimum metadata list for a field–satellite pair (units, detection limit, GNSS, overpass timing, within-pixel replicates).', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-411-sample'] },
+    { id: 'cgei-rs-a-411-proxy', kind: 'critique', title: 'Lab target vs EO support', instructions: 'Classify EC, NPK, and heavy metals as direct/indirect/not-observable in broadband multispectral EO.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-411-proxy'] },
+    { id: 'cgei-rs-a-411-validate', kind: 'coding-lab', title: 'LOO validation and leakage guard', instructions: 'Run unit_4_11_eo_validation_check.py. Record LOO baseline RMSE, single-index LOO RMSE, nested feature-selection LOO RMSE, and leaky selection LOO RMSE. In 3–5 sentences explain which steps used only training sites, which steps leaked, and what would change if you selected among ten spectral indices on all sites before cross-validation.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-411-validate'] },
+    { id: 'cgei-rs-a-412-dl', kind: 'critique', title: 'Baseline before deep model', instructions: 'List conditions under which a classical baseline must appear in the same table as a deep EO model.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-412-select'] },
+    { id: 'cgei-rs-a-412-bench', kind: 'critique', title: 'Benchmark domain limits', instructions: 'Explain why SAM-style tools are annotation aids, not validation substitutes.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-412-validate'] },
+    { id: 'cgei-rs-a-412-ops', kind: 'critique', title: 'VLM verification checklist', instructions: 'Draft verification and licence checks before using a vision–language map or code snippet in analysis.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-rs-o-412-ops'] },
 
     { id: 'cgei-ds-a-unit-audit', kind: 'independent-practice', title: 'Environmental units audit', instructions: 'Create a short units sheet for temperature, precipitation, land-surface temperature and energy flux. Convert at least two values, distinguish a depth from a rate, and record one plausibility check.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-quantities'], expectedEvidence: ['Units sheet', 'Two checked conversions', 'One order-of-magnitude note'], required: true },
     { id: 'cgei-ds-a-rate-gradient', kind: 'guided-practice', title: 'Rates and gradients in a spatial field', instructions: 'Calculate a finite difference for a short temperature series, then interpret the gradient of a simple two-dimensional temperature field with coordinate units.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-calculus'], expectedEvidence: ['Calculation with units', 'One-sentence directional interpretation'], required: true },
@@ -4460,6 +6171,37 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-410-ag', kind: 'formative', title: 'Drought and agriculture', purpose: 'Assess drought/ag proxy limits.', objectiveIds: ['cgei-rs-o-410-ag'], questionIds: ['cgei-rs-q-410-003', 'cgei-rs-q-410-004', 'cgei-rs-q-410-005'], required: true },
     { id: 'cgei-rs-assess-410-air', kind: 'formative', title: 'Air quality', purpose: 'Assess column vs surface exposure.', objectiveIds: ['cgei-rs-o-410-air-snow'], questionIds: ['cgei-rs-q-410-006', 'cgei-rs-q-410-007'], required: true },
     { id: 'cgei-rs-assess-410-deform', kind: 'formative', title: 'Snow and deformation', purpose: 'Assess snow and InSAR/GRACE limits.', objectiveIds: ['cgei-rs-o-410-air-snow', 'cgei-rs-o-410-deform'], questionIds: ['cgei-rs-q-410-008', 'cgei-rs-q-410-009', 'cgei-rs-q-410-010'], required: true },
+    { id: 'cgei-cap-assess-135-fit', kind: 'formative', title: 'Research fit preparation', purpose: 'Assess research-fit and application process literacy.', objectiveIds: ['cgei-cap-o-135-fit', 'cgei-cap-o-135-process'], questionIds: ['cgei-cap-q-135-001', 'cgei-cap-q-135-002', 'cgei-cap-q-135-003'], required: true },
+    { id: 'cgei-cap-assess-133-portfolio', kind: 'formative', title: 'Portfolio engineering', purpose: 'Assess portfolio structure and evidence discipline.', objectiveIds: ['cgei-cap-o-133-portfolio', 'cgei-cap-o-133-story'], questionIds: ['cgei-cap-q-133-001', 'cgei-cap-q-133-002', 'cgei-cap-q-133-003'], required: true },
+                        { id: 'cgei-ml-assess-67', kind: 'formative', title: 'EO deep learning foundations', purpose: 'Assess EO tensors, architectures, leakage-aware tiles and baseline discipline.', objectiveIds: ['cgei-ml-o-67-eo-dl'], questionIds: ['cgei-ml-q-67-001', 'cgei-ml-q-67-002', 'cgei-ml-q-67-003'], required: true },
+    { id: 'cgei-ml-assess-66', kind: 'formative', title: 'Environmental ML practice', purpose: 'Assess end-to-end reporting and pitfall recognition.', objectiveIds: ['cgei-ml-o-66-pitfalls'], questionIds: ['cgei-ml-q-66-001', 'cgei-ml-q-66-002', 'cgei-ml-q-66-003'], required: true },
+    { id: 'cgei-ml-assess-65', kind: 'formative', title: 'Interpretation and robustness', purpose: 'Assess non-causal interpretation, calibration literacy and reporting.', objectiveIds: ['cgei-ml-o-65-interpret'], questionIds: ['cgei-ml-q-65-001', 'cgei-ml-q-65-002', 'cgei-ml-q-65-003'], required: true },
+    { id: 'cgei-ml-assess-63', kind: 'formative', title: 'Core algorithms', purpose: 'Assess baselines, linear/tree trade-offs and non-causal interpretation.', objectiveIds: ['cgei-ml-o-63-models'], questionIds: ['cgei-ml-q-63-001', 'cgei-ml-q-63-002', 'cgei-ml-q-63-003'], required: true },
+    { id: 'cgei-ml-assess-62', kind: 'formative', title: 'Feature preparation', purpose: 'Assess feature contracts and train-only transforms.', objectiveIds: ['cgei-ml-o-62-features'], questionIds: ['cgei-ml-q-62-001', 'cgei-ml-q-62-002', 'cgei-ml-q-62-003'], required: true },
+    { id: 'cgei-ml-assess-61', kind: 'formative', title: 'Learning problem formulation', purpose: 'Assess problem statement and baselines.', objectiveIds: ['cgei-ml-o-baselines'], questionIds: ['cgei-ml-q-61-001', 'cgei-ml-q-61-002'], required: true },
+    { id: 'cgei-ml-assess-64', kind: 'formative', title: 'Leakage-safe evaluation', purpose: 'Assess spatial/temporal leakage awareness.', objectiveIds: ['cgei-ml-o-leakage-safe'], questionIds: ['cgei-ml-q-64-001'], required: true },
+    { id: 'cgei-cap-assess-131-scope', kind: 'formative', title: 'Scoping', purpose: 'Assess project scoping discipline.', objectiveIds: ['cgei-cap-o-131-scope', 'cgei-cap-o-131-controls'], questionIds: ['cgei-cap-q-131-001', 'cgei-cap-q-131-002'], required: true },
+    { id: 'cgei-cap-assess-132-workflow', kind: 'formative', title: 'Integrated workflow', purpose: 'Assess workflow and limitation literacy.', objectiveIds: ['cgei-cap-o-132-workflow', 'cgei-cap-o-132-limits'], questionIds: ['cgei-cap-q-132-001', 'cgei-cap-q-132-002', 'cgei-cap-q-132-003', 'cgei-cap-q-132-004'], required: true },
+    { id: 'cgei-cap-assess-136-revise', kind: 'formative', title: 'Revision', purpose: 'Assess revision and clean-rerun practice.', objectiveIds: ['cgei-cap-o-136-revise'], questionIds: ['cgei-cap-q-136-001', 'cgei-cap-q-136-002', 'cgei-cap-q-136-003'], required: true },
+    { id: 'cgei-ai-assess-121-nn', kind: 'formative', title: 'DL foundations', purpose: 'Assess baselines and split discipline.', objectiveIds: ['cgei-ai-o-121-nn', 'cgei-ai-o-121-cost'], questionIds: ['cgei-ai-q-121-001', 'cgei-ai-q-121-002', 'cgei-ai-q-121-003'], required: true },
+    { id: 'cgei-ai-assess-122-cv', kind: 'formative', title: 'EO vision evaluation', purpose: 'Assess spatial leakage and metrics literacy.', objectiveIds: ['cgei-ai-o-122-cv', 'cgei-ai-o-122-eval'], questionIds: ['cgei-ai-q-122-001', 'cgei-ai-q-122-002'], required: true },
+    { id: 'cgei-ai-assess-127-gov', kind: 'formative', title: 'AI governance', purpose: 'Assess model-card and human-review requirements.', objectiveIds: ['cgei-ai-o-127-gov'], questionIds: ['cgei-ai-q-127-001', 'cgei-ai-q-127-002'], required: true },
+    { id: 'cgei-se-assess-111-cs', kind: 'formative', title: 'CS foundations', purpose: 'Assess decomposition and runtime literacy.', objectiveIds: ['cgei-se-o-111-cs', 'cgei-se-o-111-decomp'], questionIds: ['cgei-se-q-111-001', 'cgei-se-q-111-002'], required: true },
+    { id: 'cgei-se-assess-112-structure', kind: 'formative', title: 'Modular design', purpose: 'Assess modular structure habits.', objectiveIds: ['cgei-se-o-112-structure'], questionIds: ['cgei-se-q-112-001'], required: true },
+    { id: 'cgei-se-assess-112-test', kind: 'formative', title: 'Testing and releases', purpose: 'Assess testing and VCS/CI literacy.', objectiveIds: ['cgei-se-o-112-test', 'cgei-se-o-112-vcs'], questionIds: ['cgei-se-q-112-002', 'cgei-se-q-112-003', 'cgei-se-q-112-004'], required: true },
+    { id: 'cgei-se-assess-115-pipeline', kind: 'formative', title: 'Reliable pipelines', purpose: 'Assess pipeline reliability concepts.', objectiveIds: ['cgei-se-o-115-pipeline'], questionIds: ['cgei-se-q-115-001', 'cgei-se-q-115-002'], required: true },
+    { id: 'cgei-pol-assess-101-gov', kind: 'formative', title: 'Governance architecture', purpose: 'Assess Paris/NDC literacy.', objectiveIds: ['cgei-pol-o-101-governance'], questionIds: ['cgei-pol-q-101-001', 'cgei-pol-q-101-002'], required: true },
+    { id: 'cgei-pol-assess-101-instruments', kind: 'formative', title: 'Instruments and evaluation', purpose: 'Assess instrument and evaluation discipline.', objectiveIds: ['cgei-pol-o-101-instruments'], questionIds: ['cgei-pol-q-101-003', 'cgei-pol-q-101-004'], required: true },
+    { id: 'cgei-pol-assess-102-ghg', kind: 'formative', title: 'GHG literacy', purpose: 'Assess inventory/scope literacy.', objectiveIds: ['cgei-pol-o-102-ghg'], questionIds: ['cgei-pol-q-102-001', 'cgei-pol-q-102-002'], required: true },
+    { id: 'cgei-pol-assess-106-econ', kind: 'formative', title: 'Climate economics judgement', purpose: 'Assess discounting and valuation cautions.', objectiveIds: ['cgei-pol-o-106-econ'], questionIds: ['cgei-pol-q-106-001', 'cgei-pol-q-106-002'], required: true },
+    { id: 'cgei-dspt-assess-91-comms', kind: 'formative', title: 'Decision communication', purpose: 'Assess audience and metadata discipline.', objectiveIds: ['cgei-dspt-o-91-audience', 'cgei-dspt-o-91-uncertainty'], questionIds: ['cgei-dspt-q-91-001', 'cgei-dspt-q-91-002'], required: true },
+    { id: 'cgei-dspt-assess-93-mca', kind: 'formative', title: 'Multi-criteria thinking', purpose: 'Assess criteria, weights and inspectable layers.', objectiveIds: ['cgei-dspt-o-93-criteria', 'cgei-dspt-o-93-layers'], questionIds: ['cgei-dspt-q-93-001', 'cgei-dspt-q-93-002'], required: true },
+    { id: 'cgei-dspt-assess-94-prov', kind: 'formative', title: 'Provenance-first products', purpose: 'Assess provenance and review-state requirements.', objectiveIds: ['cgei-dspt-o-94-provenance', 'cgei-dspt-o-94-usability'], questionIds: ['cgei-dspt-q-94-001', 'cgei-dspt-q-94-002', 'cgei-dspt-q-94-003'], required: true },
+    { id: 'cgei-rp-assess-81-question', kind: 'formative', title: 'Question/estimand', purpose: 'Assess focused questions and estimands.', objectiveIds: ['cgei-rp-o-81-question'], questionIds: ['cgei-rp-q-81-001', 'cgei-rp-q-81-002'], required: true },
+    { id: 'cgei-rp-assess-81-design', kind: 'formative', title: 'Design planning', purpose: 'Assess exploratory/confirmatory planning controls.', objectiveIds: ['cgei-rp-o-81-design'], questionIds: ['cgei-rp-q-81-003'], required: true },
+    { id: 'cgei-rp-assess-82-measure', kind: 'formative', title: 'Measurement', purpose: 'Assess measurement and sampling literacy.', objectiveIds: ['cgei-rp-o-82-measure', 'cgei-rp-o-82-sample'], questionIds: ['cgei-rp-q-82-001', 'cgei-rp-q-82-002'], required: true },
+    { id: 'cgei-rp-assess-83-ethics', kind: 'formative', title: 'Validity and integrity', purpose: 'Assess validity threats and integrity norms.', objectiveIds: ['cgei-rp-o-83-validity', 'cgei-rp-o-83-ethics'], questionIds: ['cgei-rp-q-83-001', 'cgei-rp-q-83-002'], required: true },
+    { id: 'cgei-rp-assess-86-report', kind: 'formative', title: 'Reporting', purpose: 'Assess transparent reporting requirements.', objectiveIds: ['cgei-rp-o-86-report'], questionIds: ['cgei-rp-q-86-001'], required: true },
     { id: 'cgei-risk-assess-71-vocab', kind: 'formative', title: 'Risk vocabulary', purpose: 'Assess H/E/V/risk distinctions.', objectiveIds: ['cgei-risk-o-71-vocab'], questionIds: ['cgei-risk-q-71-001', 'cgei-risk-q-71-002'], required: true },
     { id: 'cgei-risk-assess-71-framework', kind: 'formative', title: 'Frameworks', purpose: 'Assess IPCC/Sendai and social vulnerability literacy.', objectiveIds: ['cgei-risk-o-71-framework'], questionIds: ['cgei-risk-q-71-003'], required: true },
     { id: 'cgei-risk-assess-73-heat', kind: 'formative', title: 'Heat metrics', purpose: 'Assess heat metric selection.', objectiveIds: ['cgei-risk-o-73-heat'], questionIds: ['cgei-risk-q-73-001'], required: true },
@@ -4488,6 +6230,54 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-geo-assess-32-crs', kind: 'formative', title: 'CRS declaration check', purpose: 'Verify learners can state datum and axis order.', objectiveIds: ['cgei-geo-o-32-crs'], questionIds: ['cgei-geo-q-32-001'], required: true },
     { id: 'cgei-geo-assess-32-scale', kind: 'formative', title: 'Scale with latitude', purpose: 'Verify scale factor reasoning.', objectiveIds: ['cgei-geo-o-32-scale'], questionIds: ['cgei-geo-q-32-002'], required: true },
     { id: 'cgei-geo-assess-32-projection', kind: 'formative', title: 'Projection trade-offs', purpose: 'Match projection class to analytic need.', objectiveIds: ['cgei-geo-o-32-projection'], questionIds: ['cgei-geo-q-32-003'], required: true },
+
+    { id: 'cgei-cl-assess-23-moisture', kind: 'formative', title: 'Moist thermodynamics', purpose: 'Assess humidity and CC scaling literacy.', objectiveIds: ['cgei-cl-o-23-moisture'], questionIds: ['cgei-cl-q-23-cc', 'cgei-cl-q-23-tw'], required: true },
+
+    { id: 'cgei-rp-assess-87-contrib', kind: 'formative', title: 'Contribution framing', purpose: 'Assess single-contribution discipline.', objectiveIds: ['cgei-rp-o-87-contrib'], questionIds: ['cgei-rp-q-87-one'], required: true },
+
+    { id: 'cgei-rp-assess-88-repo', kind: 'formative', title: 'Repository as evidence', purpose: 'Assess portfolio evidence literacy.', objectiveIds: ['cgei-rp-o-88-repo'], questionIds: ['cgei-rp-q-88-readme'], required: true },
+
+    { id: 'cgei-rp-assess-89-proposal', kind: 'formative', title: 'Proposal structure', purpose: 'Assess proposal completeness and risk anticipation.', objectiveIds: ['cgei-rp-o-89-proposal'], questionIds: ['cgei-rp-q-89-struct'], required: true },
+
+    { id: 'cgei-rp-assess-8d-design', kind: 'formative', title: 'Research design gate', purpose: 'Assess estimand and non-claim discipline.', objectiveIds: ['cgei-rp-o-8d-design'], questionIds: ['cgei-rp-q-8d-estimand'], required: true },
+
+    { id: 'cgei-ai-assess-123-eval', kind: 'formative', title: 'Rolling-origin evaluation', purpose: 'Assess baseline and walk-forward literacy.', objectiveIds: ['cgei-ai-o-123-eval'], questionIds: ['cgei-ai-q-123-persist'], required: true },
+    { id: 'cgei-ai-assess-123-leak', kind: 'formative', title: 'Spatiotemporal leakage', purpose: 'Assess leakage identification.', objectiveIds: ['cgei-ai-o-123-leak'], questionIds: ['cgei-ai-q-123-leak'], required: true },
+    { id: 'cgei-ai-assess-123-fm', kind: 'formative', title: 'Foundation model honesty', purpose: 'Assess FM evaluation discipline.', objectiveIds: ['cgei-ai-o-123-fm'], questionIds: ['cgei-ai-q-123-fm'], required: true },
+
+    { id: 'cgei-rp-assess-8d-methods', kind: 'formative', title: 'Methods reproducibility', purpose: 'Assess stranger-test methods literacy.', objectiveIds: ['cgei-rp-o-8d-methods'], questionIds: ['cgei-rp-q-8d-avail'], required: true },
+    { id: 'cgei-rp-assess-8d-review', kind: 'formative', title: 'Validity review', purpose: 'Assess referee validity framing.', objectiveIds: ['cgei-rp-o-8d-review'], questionIds: ['cgei-rp-q-8d-validity'], required: true },
+
+    { id: 'cgei-rp-assess-89-funding', kind: 'formative', title: 'Feasibility and funding', purpose: 'Assess resource honesty.', objectiveIds: ['cgei-rp-o-89-funding'], questionIds: ['cgei-rp-q-89-scope'], required: true },
+    { id: 'cgei-rp-assess-89-practice', kind: 'formative', title: 'Working practice', purpose: 'Assess collaboration and risk planning.', objectiveIds: ['cgei-rp-o-89-practice'], questionIds: ['cgei-rp-q-89-risk'], required: true },
+
+    { id: 'cgei-rp-assess-88-revise', kind: 'formative', title: 'Coursework to study', purpose: 'Assess revision and question focus.', objectiveIds: ['cgei-rp-o-88-identity'], questionIds: ['cgei-rp-q-88-revise'], required: true },
+    { id: 'cgei-rp-assess-88-position', kind: 'formative', title: 'Graduate positioning', purpose: 'Assess focused research positioning.', objectiveIds: ['cgei-rp-o-88-position'], questionIds: ['cgei-rp-q-88-focus'], required: true },
+
+    { id: 'cgei-rp-assess-87-evidence', kind: 'formative', title: 'Evidence readiness', purpose: 'Assess pre-submission evidence literacy.', objectiveIds: ['cgei-rp-o-87-evidence'], questionIds: ['cgei-rp-q-87-val'], required: true },
+    { id: 'cgei-rp-assess-87-ms', kind: 'formative', title: 'Manuscript process', purpose: 'Assess structure and venue awareness.', objectiveIds: ['cgei-rp-o-87-ms'], questionIds: ['cgei-rp-q-87-fig'], required: true },
+
+    { id: 'cgei-rs-assess-45-humid', kind: 'formative', title: 'SUHI vs humid heat', purpose: 'Assess prerequisite use of Unit 2.3 humidity concepts in SUHI interpretation.', objectiveIds: ['cgei-rs-o-45-define'], questionIds: ['cgei-rs-q-45-humid'], required: true },
+
+    { id: 'cgei-cl-assess-23-pbl', kind: 'formative', title: 'Boundary layer and urban night', purpose: 'Assess PBL and urban energy concepts.', objectiveIds: ['cgei-cl-o-23-pbl'], questionIds: ['cgei-cl-q-23-pbl'], required: true },
+    { id: 'cgei-cl-assess-23-nwp', kind: 'formative', title: 'NWP concepts', purpose: 'Assess ensemble and parameterisation literacy.', objectiveIds: ['cgei-cl-o-23-nwp'], questionIds: ['cgei-cl-q-23-ens'], required: true },
+
+    { id: 'cgei-geo-assess-32-transform', kind: 'formative', title: 'Transform honesty', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-32-crs'], questionIds: ['cgei-geo-q-32-grid', 'cgei-geo-q-32-landmark'], required: true },
+    { id: 'cgei-geo-assess-33-layout-georef', kind: 'formative', title: 'Layout and RMSE', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-33-layout-georef'], questionIds: [], required: true },
+    { id: 'cgei-geo-assess-35-vector', kind: 'formative', title: 'Vector stack', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-35-vector'], questionIds: ['cgei-geo-q-35-area'], required: true },
+    { id: 'cgei-geo-assess-35-raster', kind: 'formative', title: 'Raster and COG', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-35-raster'], questionIds: ['cgei-geo-q-35-nodata', 'cgei-geo-q-35-cog'], required: true },
+    { id: 'cgei-geo-assess-35-stack', kind: 'formative', title: 'Stack selection', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-35-stack'], questionIds: ['cgei-geo-q-35-pin'], required: true },
+    { id: 'cgei-geo-assess-36-colour', kind: 'formative', title: 'Colour and classification', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-36-visual'], questionIds: ['cgei-geo-q-36-choro', 'cgei-geo-q-36-breaks'], required: true },
+    { id: 'cgei-geo-assess-36-honesty', kind: 'formative', title: 'Legend honesty', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-36-honesty'], questionIds: ['cgei-geo-q-36-legend'], required: true },
+    { id: 'cgei-geo-assess-39-auto', kind: 'formative', title: 'Spatial dependence', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-39-auto'], questionIds: ['cgei-geo-q-39-loo'], required: true },
+    { id: 'cgei-geo-assess-39-interp', kind: 'formative', title: 'Interpolation', purpose: 'Assess IDW and leave-location-out evaluation.', objectiveIds: ['cgei-geo-o-39-interp'], questionIds: ['cgei-geo-q-39-idw', 'cgei-geo-q-39-looidw', 'cgei-geo-q-39-variogram', 'cgei-geo-q-39-ok'], required: true },
+    { id: 'cgei-geo-assess-39-val', kind: 'formative', title: 'Spatial validation', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-geo-o-39-val'], questionIds: ['cgei-geo-q-39-block'], required: true },
+    { id: 'cgei-rs-assess-411-sample', kind: 'formative', title: 'Sampling design', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-411-sample'], questionIds: ['cgei-rs-q-411-sample'], required: true },
+    { id: 'cgei-rs-assess-411-proxy', kind: 'formative', title: 'EO support limits', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-411-proxy'], questionIds: ['cgei-rs-q-411-proxy'], required: true },
+    { id: 'cgei-rs-assess-411-validate', kind: 'formative', title: 'LOO validation', purpose: 'Assess nested selection and leakage control.', objectiveIds: ['cgei-rs-o-411-validate'], questionIds: ['cgei-rs-q-411-leak', 'cgei-rs-q-411-nested'], required: true },
+    { id: 'cgei-rs-assess-412-dl', kind: 'formative', title: 'GeoAI baselines', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-412-select'], questionIds: ['cgei-rs-q-412-base'], required: true },
+    { id: 'cgei-rs-assess-412-bench', kind: 'formative', title: 'Benchmarks and SAM', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-412-validate'], questionIds: ['cgei-rs-q-412-sam'], required: true },
+    { id: 'cgei-rs-assess-412-ops', kind: 'formative', title: 'Operational verification', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-412-ops'], questionIds: ['cgei-rs-q-412-vlm'], required: true },
 
     { id: 'cgei-ds-assess-unit-diagnostic', kind: 'diagnostic', title: 'Unit 5.1 entry diagnostic', purpose: 'Identify prerequisite gaps in algebra, units, rates and probability before the unit.', objectiveIds: outcomes51.map((o) => o.id), required: false },
     { id: 'cgei-ds-assess-unit-quiz', kind: 'quiz', title: 'Unit 5.1 concept and calculation check', purpose: 'Check conceptual understanding and short calculations across the eight substantive lessons.', objectiveIds: outcomes51.map((o) => o.id), questionIds: Array.from({ length: 35 }, (_, i) => `CGEI-05-Q${String(i + 1).padStart(3, '0')}`), passThreshold: 0.8, required: true },

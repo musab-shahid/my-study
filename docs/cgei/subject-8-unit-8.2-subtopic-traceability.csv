@@ -1,0 +1,8 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+8.2.construct-indicator,Construct operational definition indicator,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-example;cgei-rp-82-1-lab,mapped_partial,Worked heat-exposure example and design-card lab.
+8.2.units-scale,Unit and measurement scale,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-example,mapped_partial,Taught in example.
+8.2.population-frame,Population frame sampling units,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-example;cgei-rp-82-1-lab,mapped_partial,Fixture enforces required fields.
+8.2.probability-sampling,Probability vs nonprobability inference limits,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-lab,mapped_partial,Fixture rejects overclaim.
+8.2.spatial-temporal,Spatial temporal representativeness,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-example,mapped_partial,Cloud-free frame example.
+8.2.detection-limits,Detection limits measurement error,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-lab,mapped_partial,Zero valid; missing/NaN/negative rejected.
+8.2.psychometrics-gum,Survey psychometrics full GUM budget,8.2,Measurement and sampling,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.

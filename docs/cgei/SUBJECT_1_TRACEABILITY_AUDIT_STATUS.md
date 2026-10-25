@@ -11,3 +11,7 @@
 - Full surface-energy-balance term depth (beyond Unit 1.10 urban teaching form)
 - Deeper biogeochemical cycles
 - Time and scale (1.1.5) depth
+
+## Gate C update
+
+Unit 1.1: SEB equation + residual teaching; residence-time example; energy-budget fixture residual checks. Still **draft** / mapped_partial — not verified-complete.

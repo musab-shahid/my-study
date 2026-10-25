@@ -7,3 +7,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 7.3.2.2,Occupational heat standards WBGT informal sector,7.3.2,Heat exposure and vulnerability,Core,cgei-risk-lesson-7-3-1,cgei-risk-73-1-2,mapped_partial,Named.
 7.3.2.3,Indoor heat and electricity reliability,7.3.2,Heat exposure and vulnerability,Core,cgei-risk-lesson-7-3-1,cgei-risk-73-1-2,mapped_partial,Named.
 7.3.3,Flood and drought modules (broader 7.3 hydro content),7.3,Hazard modules,Core,cgei-risk-lesson-7-3-2,cgei-risk-73-2-1;cgei-risk-73-2-2,mapped_partial,Characterisation discipline; full flood/drought leaf set not exhaustively enumerated in this draft CSV.
+7.3.heat-screen,Heat intensity-likelihood screening example,7.3,Heat hazard,Core,cgei-risk-lesson-7-3-1,cgei-risk-73-1-lab,mapped_partial,Synthetic Tmax excess and ordinal screen; not calibrated HAP.

@@ -16,7 +16,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 4.5.5.2,Heat maps to exposure Subject 7,4.5.5,Validation exposure,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-exposure,mapped_partial,Exposure layers required.
 4.5.5.3,Confidence vs data quality,4.5.5,Validation exposure,Core,cgei-rs-lesson-4-5-4,cgei-rs-45-4-exposure,mapped_partial,n_valid and validation coverage.
 4.5.6.1,Question and estimand,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand,mapped_partial,Estimand-first.
-4.5.6.2,Data plan L2 masks n_valid,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand;cgei-rs-45-5-check,mapped_partial,Data plan checklist.
+4.5.6.2,Data plan L2 masks n_valid,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand;cgei-rs-45-5-check,mapped_partial,Data plan checklist. C.36: n_valid under boolean mask.
 4.5.6.3,Reference design multiple rural LCZ,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand,mapped_partial,Multi-reference.
 4.5.6.4,Statistics plan pre-analysis,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-estimand;cgei-rs-45-5-check,mapped_partial,Pre-write stats plan.
 4.5.6.5,Deliverables workflow manifest,4.5.6,Worked study design,Core,cgei-rs-lesson-4-5-5,cgei-rs-45-5-check,mapped_partial,Deliverable checklist.

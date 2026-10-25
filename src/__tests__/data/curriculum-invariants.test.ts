@@ -79,4 +79,22 @@ describe('CGEI curriculum invariants', () => {
       for (const id of lesson.deliverableIds ?? []) assert.ok(deliverables.has(id), `missing deliverable ${id} for lesson ${lesson.id}`);
     }
   });
+
+
+  it('assigns each lesson to at most one unit (exclusive membership)', () => {
+    const owners = new Map<string, string>();
+    for (const unit of cgeiCurriculum.units) {
+      for (const lessonId of unit.lessonIds) {
+        const previous = owners.get(lessonId);
+        assert.ok(
+          previous === undefined,
+          previous
+            ? `Lesson ${lessonId} is claimed by both unit ${previous} and unit ${unit.id}`
+            : `unexpected ownership failure for ${lessonId}`,
+        );
+        owners.set(lessonId, unit.id);
+      }
+    }
+  });
+
 });

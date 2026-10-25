@@ -1,0 +1,17 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+9.1.1.1,Methods reader versus planner versus public,9.1.1,Audience and purpose,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-1,mapped_partial,Audience framing taught.
+9.1.1.2,Question the product must answer,9.1.1,Audience and purpose,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-1,mapped_partial,Taught.
+9.1.1.3,What the audience can act on,9.1.1,Audience and purpose,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-1,mapped_partial,Taught.
+9.1.2.1,Risk-communication principles,9.1.2,Risk communication and storytelling,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-1,mapped_partial,Known/unknown/do taught.
+9.1.2.2,Storytelling with data,9.1.2,Risk communication and storytelling,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-2,mapped_partial,Light coverage.
+9.1.2.3,Testing message with non-specialist,9.1.2,Risk communication and storytelling,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-1,mapped_partial,Named.
+9.1.3.1,Chart and map types matched to question,9.1.3,Visual encoding,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-2,mapped_partial,Overview.
+9.1.3.2,Colour size position misleading scales,9.1.3,Visual encoding,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-2,mapped_partial,Named.
+9.1.3.3,Accessibility,9.1.3,Visual encoding,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-2,mapped_partial,Named.
+9.1.3.4,Uncertainty display options,9.1.3,Visual encoding,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-2,mapped_partial,Options listed.
+9.1.4,Language and script local communication,9.1,Language and script,Support,,,deferred,Urdu/RTL practice deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
+9.1.5.1,Variable definition and units,9.1.5,Required metadata in the product,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-3,mapped_partial,Checklist.
+9.1.5.2,Date/time validity,9.1.5,Required metadata in the product,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-3,mapped_partial,Checklist.
+9.1.5.3,Spatial resolution and coverage,9.1.5,Required metadata in the product,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-3,mapped_partial,Checklist.
+9.1.5.4,Source and version,9.1.5,Required metadata in the product,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-3,mapped_partial,Checklist.
+9.1.5.5,Uncertainty or confidence indication,9.1.5,Required metadata in the product,Support,cgei-dspt-lesson-9-1-1,cgei-dspt-91-1-3,mapped_partial,Checklist.

@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "product": "Landsat_C2_L2_ST",
+    "note": "SYNTHETIC teaching grid \u2014 not a Landsat scene",
+    "scale": 0.00341802,
+    "offset": 149.0,
+    "fill": 0,
+    "apply_qa": true,
+    "documentation_url": "https://www.usgs.gov/landsat-missions/landsat-collection-2-level-2-science-products"
+  },
+  "st_dn": [
+    [
+      47688,
+      47396,
+      46518,
+      46226
+    ],
+    [
+      47981,
+      0,
+      46811,
+      45933
+    ],
+    [
+      47396,
+      47103,
+      46518,
+      46226
+    ],
+    [
+      47688,
+      47396,
+      46811,
+      58806
+    ]
+  ],
+  "qa": [
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      8,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      0
+    ]
+  ],
+  "zone": [
+    [
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      1,
+      1,
+      2,
+      2
+    ],
+    [
+      3,
+      3,
+      2,
+      2
+    ],
+    [
+      1,
+      3,
+      3,
+      0
+    ]
+  ]
+}

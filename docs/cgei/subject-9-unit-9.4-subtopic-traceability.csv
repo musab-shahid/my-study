@@ -1,0 +1,11 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
+9.4.1.1,Source citation on or adjacent to the map,9.4.1,Interface requirements,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-1,mapped_partial,Taught; fixture requires source.
+9.4.1.2,Time and confidence controls,9.4.1,Interface requirements,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-1,mapped_partial,Named.
+9.4.1.3,Layer list separates hazard exposure vulnerability options,9.4.1,Interface requirements,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-1;cgei-dspt-94-1-lab,mapped_partial,Fixture requires H/E/V layers.
+9.4.2.1,Provenance standards PROV model cards changelogs,9.4.2,Provenance and review states,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-2,mapped_partial,Conceptual.
+9.4.2.2,Review states draft reviewed published,9.4.2,Provenance and review states,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-2;cgei-dspt-94-1-lab,mapped_partial,Published requires reviewer+date in fixture.
+9.4.2.3,Public changelog and versioned releases,9.4.2,Provenance and review states,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-2,mapped_partial,Named.
+9.4.3.1,Bilingual or plain-language brief,9.4.3,Local usability,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-4,mapped_partial,Named.
+9.4.3.2,Usability pass with non-author reader,9.4.3,Local usability,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-4,mapped_partial,Taught.
+9.4.3.3,Language literacy device connectivity offline modes,9.4.3,Local usability,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-4,mapped_partial,Named.
+9.4.3.4,Feedback channel and correction policy,9.4.3,Local usability,Core,cgei-dspt-lesson-9-4-1,cgei-dspt-94-1-4,mapped_partial,Named.

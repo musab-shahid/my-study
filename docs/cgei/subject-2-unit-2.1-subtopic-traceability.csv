@@ -7,8 +7,8 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 2.1.2.2,Variables observation standards,2.1.2,Standards normals observing practice,Core,cgei-cl-lesson-2-1-1,cgei-cl-21-1-2,mapped_partial,Named variables; siting classes not labbed.
 2.1.2.3,Metadata for climate values,2.1.2,Standards normals observing practice,Core,cgei-cl-lesson-2-1-1,cgei-cl-21-1-2,mapped_partial,Checklist in evidence lesson.
 2.1.3.1,Mean variance extremes,2.1.3,Describing climate statistically,Core,cgei-cl-lesson-2-1-2,cgei-cl-21-2-1,mapped_partial,Mean/spread/extremes language; percentiles conceptual.
-2.1.3.2,Stationarity and nonstationarity,2.1.3,Describing climate statistically,Core,cgei-cl-lesson-2-1-2,cgei-cl-21-2-1,mapped_partial,Conceptual only.
-2.1.3.3,Distributions percentiles return periods,2.1.3,Describing climate statistically,Core,cgei-cl-lesson-2-1-2,cgei-cl-21-2-1,mapped_partial,Overview; formal EVA is later units.
+2.1.3.2,Stationarity and nonstationarity,2.1.3,Describing climate statistically,Core,cgei-cl-lesson-2-1-2,cgei-cl-21-2-stationarity;cgei-cl-21-2-stat-ex,mapped_partial,Two-window mean-diff fixture for stationary vs shift vs trend; not ADF/homogenisation.
+2.1.3.3,Distributions percentiles return periods,2.1.3,Describing climate statistically,Core,cgei-cl-lesson-2-1-2,cgei-cl-21-2-percentile;cgei-cl-21-2-rp-ex,mapped_partial,Nearest-rank percentile + T=1/AEP fixture; misconception check vs 90-year; not GEV.
 2.1.3.4,Climate classification overview,2.1.3,Describing climate statistically,Core,,,deferred,Not taught in this slice.
 2.1.4.1,Teleconnection indices definitions,2.1.4,Climate indices and teleconnections,Core,cgei-cl-lesson-2-1-3,cgei-cl-21-3-1,mapped_partial,Named indices; no index download lab.
 2.1.4.2,Index construction standardisation,2.1.4,Climate indices and teleconnections,Core,cgei-cl-lesson-2-1-3,cgei-cl-21-3-1,mapped_partial,Mentioned.

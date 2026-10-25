@@ -1,0 +1,6 @@
+nbhd_id,lst_day_k,qa_ok,crs,source_product,period
+N1,312.5,1,EPSG:4326,MOD11A2.061_teaching_extract,2023-06-10/2023-06-17
+N2,309.1,1,EPSG:4326,MOD11A2.061_teaching_extract,2023-06-10/2023-06-17
+N3,311.0,1,EPSG:4326,MOD11A2.061_teaching_extract,2023-06-10/2023-06-17
+N4,308.0,0,EPSG:4326,MOD11A2.061_teaching_extract,2023-06-10/2023-06-17
+N5,310.2,1,EPSG:4326,MOD11A2.061_teaching_extract,2023-06-10/2023-06-17

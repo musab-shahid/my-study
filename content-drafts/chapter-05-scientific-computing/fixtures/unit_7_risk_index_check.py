@@ -38,6 +38,41 @@ def ranks(scores):
     return r
 
 
+
+
+def invert_0_1(values):
+    """Higher raw capacity/safety => lower contribution to risk after invert."""
+    normed = normalize_0_1(values)
+    return [1.0 - v for v in normed]
+
+
+def main_normalization_and_capacity() -> None:
+    # Raw indicators (different units) — must normalise before aggregation
+    raw_depth_m = [0.2, 1.5, 0.8]  # higher = more hazard
+    raw_pop_density = [100, 500, 800]
+    raw_poverty_share = [0.1, 0.4, 0.25]
+    raw_clinic_access = [0.9, 0.3, 0.6]  # higher = more capacity => invert into vulnerability-like term
+
+    H = normalize_0_1(raw_depth_m)
+    E = normalize_0_1(raw_pop_density)
+    V_social = normalize_0_1(raw_poverty_share)
+    # Simple teaching combine: vulnerability rises with poverty and falls with access
+    lack_access = invert_0_1(raw_clinic_access)
+    V = [(a + b) / 2 for a, b in zip(V_social, lack_access)]
+
+    assert H[1] == max(H)  # deepest flood = highest H after norm
+    scores = [risk_index(H[i], E[i], V[i], (1 / 3, 1 / 3, 1 / 3)) for i in range(3)]
+    assert all(s is not None for s in scores)
+    # Changing only capacity (access) while holding others fixed should change risk
+    V_low_access = [(V_social[0] + 1.0) / 2, V[1], V[2]]  # district 0 loses access
+    s0_better = risk_index(H[0], E[0], V[0])
+    s0_worse = risk_index(H[0], E[0], V_low_access[0])
+    assert s0_worse > s0_better
+
+    # Equal raw values => all zeros after min-max (document scale dependence)
+    flat = normalize_0_1([3.0, 3.0, 3.0])
+    assert flat == [0.0, 0.0, 0.0]
+
 def main() -> None:
     # Three synthetic districts: raw component scores already on 0–1 teaching scale
     # A: high hazard, low vulnerability
@@ -83,6 +118,8 @@ def main() -> None:
         raise AssertionError("expected weight sum failure")
     except ValueError:
         pass
+
+    main_normalization_and_capacity()
 
     print(
         "Unit 7 risk-index checks passed "

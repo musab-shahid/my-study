@@ -1,0 +1,9 @@
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note,classification
+12.3.1.1,Rolling-origin baselines,12.3.1,Time-dependent,Core,cgei-ai-lesson-12-3-1,cgei-ai-123-1-1;cgei-ai-123-1-2,mapped_partial,Fixture compares baselines.,Core
+12.3.1.2,Lagged predictors leakage,12.3.1,Time-dependent,Core,cgei-ai-lesson-12-3-2,cgei-ai-123-2-1,mapped_partial,Leakage pathways taught.,Core
+12.3.1.3,Sequence model concepts,12.3.1,Time-dependent,Core,cgei-ai-lesson-12-3-2,cgei-ai-123-2-2,mapped_partial,Conceptual only.,Core
+12.3.1.4,Probabilistic forecasts,12.3.1,Time-dependent,Core,cgei-ai-lesson-12-3-3,cgei-ai-123-3-2;cgei-ai-123-3-crps,mapped_partial,Gaussian CRPS + 80% coverage fixture; synthetic only.,Core
+12.3.2.1,Geospatial FM encoders,12.3.2,Foundation models,Core,cgei-ai-lesson-12-3-3,cgei-ai-123-3-1,mapped_partial,Conceptual; no weights.,Core
+12.3.2.4,Benchmark vs baselines,12.3.2,Foundation models,Core,cgei-ai-lesson-12-3-3,cgei-ai-123-3-1,mapped_partial,Baseline discipline.,Core
+12.3.3.1,Ensembles calibration,12.3.3,Consistency,Core,cgei-ai-lesson-12-3-3,cgei-ai-123-3-2,mapped_partial,Introduced.,Core
+12.3.3.2,Physical constraints,12.3.3,Consistency,Core,cgei-ai-lesson-12-3-3,cgei-ai-123-3-2,mapped_partial,Sanity checks named.,Core
