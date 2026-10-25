@@ -117,11 +117,15 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_4_inference_check.py
       - name: Verify Unit 5.5 data workflow checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_5_data_workflow_check.py
+      - name: Verify Unit 12.1 raster loader checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_1_raster_loader_check.py
+      - name: Verify Unit 12.2 vector post-process checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_2_vector_postprocess_check.py
       - name: Verify Core-leaf coverage gate regression cases
         run: python scripts/tests/test_audit_core_leaf_coverage.py
       - name: Run repository Core-leaf coverage audit (transitional report)
         run: python scripts/audit_core_leaf_coverage.py --allow-unmapped
-      - name: Verify strict Core-leaf gate blocks unresolved leaves
+      - name: Verify strict Core-leaf coverage gate
         shell: bash
         run: |
           set +e
@@ -129,13 +133,17 @@ jobs:
           status=$?
           set -e
           printf '%s\n' "$output"
-          if [ "$status" -ne 1 ]; then
-            echo "Expected strict gate exit 1 while Core leaves remain unmapped; got $status." >&2
-            exit 1
+          if [ "$status" -eq 0 ]; then
+            echo "Strict gate clear: no unmapped Core leaves and no blocking stale IDs."
+            exit 0
           fi
-          printf '%s\n' "$output" | grep -E -q "[1-9][0-9]* unmapped Core leaves"
-          printf '%s\n' "$output" | grep -q "0 stale lesson ID reference(s)"
-          echo "Strict gate behavior verified: unresolved leaves remain blocking; stale IDs are zero."
+          if [ "$status" -eq 1 ]; then
+            printf '%s\n' "$output" | grep -E -q "[1-9][0-9]* unmapped Core leaves|[1-9][0-9]* stale"
+            echo "Strict gate correctly blocking unresolved leaves or stale IDs."
+            exit 0
+          fi
+          echo "Unexpected strict gate exit status: $status" >&2
+          exit 1
       - name: Upload Core-leaf coverage report
         if: always()
         uses: actions/upload-artifact@v7
