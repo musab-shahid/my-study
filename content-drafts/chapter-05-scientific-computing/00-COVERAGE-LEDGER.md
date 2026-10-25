@@ -74,3 +74,7 @@ Run from the repository root:
 - The CI `scientific-smoke` job — selected synthetic numerical/workflow fixtures.
 
 Re-run these commands against the current commit; snapshots in this file should be refreshed when the registry or traceability inventory changes.
+
+## 6. Traceability filename continuity
+
+The Subject 5 traceability matrices for Units 5.5, 5.6, and 5.11 use hyphenated unit segments in their filenames (`5-5`, `5-6`, and `5-11`). The older dot-segment filenames (`5.5`, `5.6`, and `5.11`) were renamed, not content-deleted: each current file body has the same Git blob SHA as its pre-sync backup counterpart. Their source paths, dispositions, lesson IDs, and content-block IDs are therefore preserved byte-for-byte; do not restore duplicate files under the old names.
