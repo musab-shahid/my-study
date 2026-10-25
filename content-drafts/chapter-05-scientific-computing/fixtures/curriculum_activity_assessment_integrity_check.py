@@ -47,10 +47,13 @@ def main() -> int:
     # Prefer explicit id: lines for CGEI activity/assessment namespaces
     defs_act = set(re.findall(r"id:\s*['\"](cgei-[^'\"]+-a-[^'\"]+)['\"]", ct))
     defs_act |= set(re.findall(r"id:\s*['\"](cgei-[^'\"]*a-[^'\"]+)['\"]", ct))
+    defs_act |= set(re.findall(r'"id"\s*:\s*"(cgei-[^"]+-a-[^"]+)"', ct))
+    defs_act |= set(re.findall(r'"id"\s*:\s*"(cgei-[^"]*a-[^"]+)"', ct))
     # Narrow to IDs that look like activities (contain -a-)
     defs_act = {i for i in defs_act if re.search(r"-a-\d|-a-[a-z]", i) or "-a-" in i}
 
     defs_as = set(re.findall(r"id:\s*['\"](cgei-[^'\"]*assess[^'\"]+)['\"]", ct))
+    defs_as |= set(re.findall(r'"id"\s*:\s*"(cgei-[^"]*assess[^"]+)"', ct))
 
     # Definitions must appear as object records; filter refs that are only in arrays
     # Keep only defs that also appear near a kind field or in activity registry sections.
