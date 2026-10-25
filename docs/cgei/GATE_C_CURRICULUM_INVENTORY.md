@@ -10,7 +10,7 @@
 | **Question** | Unique `id` matching `*q-*` curriculum questions |
 | **TOC unit** | `Unit X.Y` heading in Master Study TOC docx |
 
-**Counting date:** Source inventory re-extracted on 2026-10-25 from the user-supplied authoritative DOCX `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx` (SHA-256 `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`). The source file is not tracked in this repository; these counts are now independently reconciled against the document rather than carried forward from a prior audit.
+**Counting date:** Source inventory re-extracted on 2026-10-25 from the user-supplied baseline DOCX (external provenance not independently authenticated) `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx` (SHA-256 `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`). The source file is not tracked in this repository; these counts are now independently reconciled against the document rather than carried forward from a prior audit.
 
 ## Exact counts
 
@@ -125,7 +125,7 @@ Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic f
 
 | Rank | Gap / stable ID | Exact evidence location | Impact | Acceptance criterion | Status |
 |---:|---|---|---|---|---|
-| 1 | G-TOC-COUNT — authoritative TOC inventory mismatch (count component resolved) | `docs/cgei/GATE_C_CURRICULUM_INVENTORY.md`; `docs/cgei/TOC_TO_APP_COVERAGE_AUDIT.md`; user-supplied DOCX SHA-256 recorded above | Prior audit records disagreed (125 vs 130 units), making the denominator unreliable. | Re-extract subject/unit/topic/subtopic counts from the authoritative DOCX, record its source hash, and keep source inventory counts distinct from app-mapping counts. Full row-by-row source-to-traceability reconciliation remains tracked under G-CORE-TRACE. | Count mismatch resolved: 14 subjects, 130 units, 567 topics, 2,052 subtopics. Source DOCX is not yet tracked in the repository; row-level mapping audit remains open. |
+| 1 | G-TOC-COUNT — authoritative TOC inventory mismatch (count component resolved) | `docs/cgei/GATE_C_CURRICULUM_INVENTORY.md`; `docs/cgei/TOC_TO_APP_COVERAGE_AUDIT.md`; user-supplied DOCX SHA-256 recorded above | Prior audit records disagreed (125 vs 130 units), making the denominator unreliable. | Re-extract subject/unit/topic/subtopic counts from the user-supplied baseline DOCX, record its source hash, and keep source inventory counts distinct from app-mapping counts. Full row-by-row source-to-traceability reconciliation remains tracked under G-CORE-TRACE. | Count mismatch resolved: 14 subjects, 130 units, 567 topics, 2,052 subtopics. Source DOCX is not yet tracked in the repository; row-level mapping audit remains open. |
 | 2 | G-S3-CRS — Unit 3.2 real-world coordinate validation | `docs/cgei/UNIT_3_2_ACCEPTANCE_CRITERIA.md`; `content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py` | Synthetic residuals and metadata rules cannot establish accuracy for local legacy datums or a real study area. | Execute documented transform with an identified compatible grid and independent control point(s); report source/target CRS, operation, grid availability, residual and use-case tolerance. | Blocked on external grid/control data; synthetic teaching remains only. |
 | 3 | G-S3-3.3-CORE — remaining GIS instructional depth | `docs/cgei/SUBJECT_3_TRACEABILITY_AUDIT_STATUS.md`; `docs/cgei/subject-3-unit-3.3-subtopic-traceability.csv` | Print layout, robust PyQGIS/GDAL workflow, geometry overlays and digitising/georeferencing remain partial; learners may know commands without completing a reproducible GIS task. | A runnable, fully specified exercise with inputs, CRS/geometry assumptions, expected outputs, error checks and assessment criteria; GUI-only claims clearly separated from CI fixtures. | Open; next internal vertical slice after Unit 3.2 external blocker. |
 | 4 | G-CORE-TRACE — mapped-partial Core coverage | Subject-specific traceability CSVs and status records under `docs/cgei/` | Structural mappings can be mistaken for teaching coverage; outcomes, activities, assessments and evidence may not align. | For each Core leaf, verify actual lesson blocks and a usable practice/assessment path; retain partial status for any unsupported link and validate both directions. | Ongoing; not programme-complete. |
@@ -222,3 +222,8 @@ Subject 8.D depth checks and research design mastery gates (draft).
 
 Core Unit 12.3 spatiotemporal ML evaluation and leakage (draft).
 
+
+
+## Source-of-truth status clarification — 2026-10-25
+
+This inventory reconciles the source counts but does not itself establish official provenance or complete row-level source-to-app coverage. The source DOCX is not tracked in the repository; its SHA-256 is a fingerprint, not proof of external approval. Follow [Source of truth and change control](SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md) and log proposed source changes in [Curriculum change register](CURRICULUM_CHANGE_REGISTER.csv). Subject 5 has 12 units, 51 numbered topics, and 184 numbered subtopics in the supplied baseline; the matching leaf count alone does not verify exact titles, order, parentage, or rearrangements. Preserve the original TOC and treat any genuine additions as proposals for a separately versioned revision.
