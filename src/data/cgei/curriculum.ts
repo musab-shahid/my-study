@@ -5501,6 +5501,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "explanation": "A join can drop unmatched rows or multiply rows when keys are duplicated. Inspect key uniqueness, unmatched records and row counts before interpreting grouped summaries.",
     "difficulty": "hard",
     "cognitiveLevel": "analyze"
+  },
   {
     "id": "cgei-ds-q-55-005",
     "lessonId": "cgei-ds-lesson-5-5-3",
