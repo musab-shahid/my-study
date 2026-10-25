@@ -1,3 +1,8 @@
+# C.68 — SQL integrity + geo bridge (**HISTORICAL implementation note**)
+
+> Current review state: see `C69_INTEGRATION_AND_REVIEW_PACKET.md`.
+> Stack integration completed in C.70; do not use the stale base table below as current.
+
 # C.68 — SQL integrity deepening + Subject 3 join bridge
 
 ## Live PR state (inspected)
