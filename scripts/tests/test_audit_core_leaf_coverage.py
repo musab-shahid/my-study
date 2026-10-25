@@ -67,6 +67,22 @@ def test_unmapped_fails_and_report_is_written():
         assert report.is_file()
 
 
+def test_json_style_lesson_ids_are_recognized():
+    with tempfile.TemporaryDirectory() as td:
+        source, docs, curriculum, report = setup_case(
+            td,
+            trace_rows=[{
+                "source_subtopic_path": "1.1.1.1",
+                "disposition": "mapped_partial",
+                "app_lesson_id": "cgei-es-lesson-1-1-1",
+                "evidence_note": "JSON-style registry record",
+            }],
+            curriculum_text='export const lessons = [{ "id": "cgei-es-lesson-1-1-1" }];',
+        )
+        proc = run_gate(source, docs, curriculum, report)
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+
+
 def test_mapped_partial_with_real_lesson_id_passes():
     with tempfile.TemporaryDirectory() as td:
         source, docs, curriculum, report = setup_case(td, trace_rows=[{
@@ -172,6 +188,7 @@ def test_allow_unmapped_does_not_hide_stale_ids():
 def main():
     tests = [
         test_unmapped_fails_and_report_is_written,
+        test_json_style_lesson_ids_are_recognized,
         test_mapped_partial_with_real_lesson_id_passes,
         test_partial_without_lesson_id_is_unmapped,
         test_duplicate_source_disposition_is_fatal,
