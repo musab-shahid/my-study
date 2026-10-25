@@ -23,6 +23,7 @@
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
     "test:e2e:ui": "playwright test --ui",
+    "audit:core-leaves": "python3 scripts/audit_core_leaf_coverage.py --allow-unmapped",
     "audit:cgei": "tsx --tsconfig tsconfig.app.json scripts/audit-cgei-coverage.ts",
     "validate:traceability:all": "tsx --tsconfig tsconfig.app.json scripts/validate-all-traceability.ts"
   },

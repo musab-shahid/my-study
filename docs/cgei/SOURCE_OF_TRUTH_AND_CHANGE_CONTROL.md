@@ -112,3 +112,9 @@ python scripts/audit-cgei-toc-source.py \
 ```
 
 The script refuses to proceed if the SHA-256 differs from the pinned baseline or if the extracted 14/130/567/2,052 counts differ. It reports Subject 5 missing/extra IDs, exact title mismatches, and sequence differences. It does not alter the source document, current crosswalk, TOC, or app registry. Review the generated CSV before deciding whether to commit a normalized baseline snapshot. A new source fingerprint requires an explicit reviewed baseline-version change; do not casually override the expected hash.
+
+## C.45 tooling
+
+- Normalized source rows: `docs/cgei/source-toc/priority-path-source-rows.csv` (regenerate via `scripts/audit-cgei-toc-source.py`).
+- Core-leaf disposition gate: `scripts/audit_core_leaf_coverage.py` → `docs/cgei/source-toc/core-leaf-coverage-report.csv`.
+- Activity/assessment referential integrity: `content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py`.
