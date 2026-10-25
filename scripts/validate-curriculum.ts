@@ -86,6 +86,18 @@ for (const unit of cgeiCurriculum.units) {
   const presentOrders = orders.filter((order): order is number => order !== undefined);
   if (new Set(presentOrders).size !== presentOrders.length) errors.push(`Unit ${unit.id} has duplicate lesson order values`);
 }
+// Each lesson may belong to at most one unit (exclusive membership).
+const lessonOwner = new Map<string, string>();
+for (const unit of cgeiCurriculum.units) {
+  for (const lessonId of unit.lessonIds) {
+    const previous = lessonOwner.get(lessonId);
+    if (previous && previous !== unit.id) {
+      errors.push(`Lesson ${lessonId} is claimed by both unit ${previous} and unit ${unit.id}`);
+    } else {
+      lessonOwner.set(lessonId, unit.id);
+    }
+  }
+}
 const contentBlockIds = new Set<string>();
 const bridgedTopicIds = new Set<string>();
 for (const lesson of cgeiCurriculum.lessons) {
