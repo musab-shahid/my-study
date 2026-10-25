@@ -98,3 +98,17 @@ For future sessions, resume from the latest PR #9 head and these control documen
 - [ ] Documentation and checks have been reviewed on the exact PR #9 head before any merge decision.
 
 Until these gates are satisfied, the correct status is **baseline identified and count-reconciled; full source-to-app authority and change history not yet established**.
+
+
+## 8. Reproduce the source extraction and Subject 5 check
+
+Install `python-docx`, then run from the repository root while supplying the exact original DOCX:
+
+```bash
+python scripts/audit-cgei-toc-source.py \
+  --toc "/path/to/Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx" \
+  --output /tmp/cgei-source-toc-baseline.csv \
+  --subject5-crosswalk docs/cgei/subject-5-canonical-leaf-inventory.csv
+```
+
+The script refuses to proceed if the SHA-256 differs from the pinned baseline or if the extracted 14/130/567/2,052 counts differ. It reports Subject 5 missing/extra IDs, exact title mismatches, and sequence differences. It does not alter the source document, current crosswalk, TOC, or app registry. Review the generated CSV before deciding whether to commit a normalized baseline snapshot. A new source fingerprint requires an explicit reviewed baseline-version change; do not casually override the expected hash.
