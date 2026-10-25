@@ -25,13 +25,13 @@ python3 scripts/tests/test_audit_core_leaf_coverage.py
 | Core subtopic leaves | 1015 |
 | mapped | 6 |
 | mapped_partial | 773 |
-| deferred | 27 |
+| deferred | 29 |
 | stale_mapping | 0 |
-| unmapped | 209 |
+| unmapped | 207 |
 
 ### C.46 audit correction
 
-The first real-data run found 19 apparent stale mappings, all in Subject 5.5. They were false positives: the canonical curriculum registry stores lesson records with JSON-style `"id"` keys, while the classifier initially recognized only unquoted TypeScript `id:` keys. The classifier now recognizes both forms, with a regression test for JSON-style records. Re-running the audit against the checked-out repository succeeds in transitional mode with **0 stale lesson-ID references**; the 19 rows are correctly `mapped_partial`, not `stale_mapping`. The **209 unmapped Core leaves remain real unresolved traceability gaps** and are not suppressed by this correction.
+The first real-data run found 19 apparent stale mappings, all in Subject 5.5. They were false positives: the canonical curriculum registry stores lesson records with JSON-style `"id"` keys, while the classifier initially recognized only unquoted TypeScript `id:` keys. The classifier now recognizes both forms, with a regression test for JSON-style records. Re-running the audit against the checked-out repository succeeds in transitional mode with **0 stale lesson-ID references**; the 19 rows are correctly `mapped_partial`, not `stale_mapping`. The **207 unmapped Core leaves remain unresolved traceability gaps** after two Subject 3.1 leaves were explicitly dispositioned as deferred; no coverage was inferred from similar wording.
 
 Traceability ≠ mastery. Synthetic fixtures ≠ field validation.
 
@@ -40,3 +40,4 @@ Expanded activity/assessment integrity check across full `cgei-*-a-*` / `*assess
 
 ## Review-ready contract (not auto-promoted)
 A lesson is **review-ready** only with: explanation+limits, worked reasoning, guided practice, independent practice, assessment criteria/key, source-leaf traceability, and human readiness evidence. `hasSubstantiveLessonContent` alone is insufficient.
+\n\n### C.47 strict-gate verification and reconciliation pilot\n\nThe Subject 3.1 traceability registry now explicitly records source leaves 3.1.1.5 and 3.1.1.6 as deferred because the current lesson evidence does not teach the stated data-model and raster-grid conventions. The generated report links both rows to `subject-3-unit-3.1-subtopic-traceability.csv`.\n\nCI runs the transitional audit to regenerate the report, then runs the strict audit against the same repository data and asserts the expected blocking result: exit code 1, 207 unmapped Core leaves, and 0 stale lesson-ID references. This is an expected-failure assertion, not a waiver; strict coverage remains blocked until unmapped leaves receive evidence-based dispositions. The report artifact is uploaded after both runs.\n
