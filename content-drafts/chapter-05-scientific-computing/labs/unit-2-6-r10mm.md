@@ -1,12 +1,15 @@
-# Unit 2.6 — R10mm (ETCCDI-style) lab
+# Unit 2.6 — R10mm with observation completeness
 
-## Definition (pedagogical)
+## Definitions (pedagogical)
 
-**R10mm** = number of days with precipitation **>= 10.0 mm** over a stated period.
-
-- Units: days (report the period length separately if computing a rate)
-- Missing values: skip (do **not** treat as 0 mm)
-- Negative precipitation: invalid
+| Quantity | Definition |
+|----------|------------|
+| **R10mm** | Days with precipitation **>= 10.0 mm** (missing skipped, not zeroed) |
+| **expected_n** | Declared number of daily slots in the analysis period |
+| **observed_n** | Count of non-missing, non-negative numeric values |
+| **missing_n** | expected_n − observed_n |
+| **completeness** | observed_n / expected_n |
+| **completeness_ok** | completeness >= **0.80** (project teaching rule, not official ETCCDI) |
 
 ## Commands
 
@@ -16,20 +19,20 @@ python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_etccdi_r
 
 ## Tasks
 
-1. Reproduce R10mm = 4 on the worked 10-day series.
-2. Change 9.9 to 10.0 and report the new count (should increase by 1).
-3. Explain why filling missing with 0 would be a methodological error when computing a wet-day rate.
-4. State one reason this is not a full ETCCDI operational product.
+1. For series A `[0, 5, 10, 12.5, 9.9, missing, 20, 0, 10, 3]` with expected_n=10, report R10mm, completeness, and whether a warning applies.
+2. Construct series B with the **same** R10mm but completeness < 0.80. Explain which result is weaker evidence.
+3. Why is observed 0.0 mm not counted as missing?
+4. State one limitation of list-level completeness vs calendar-aware QC.
 
 ## Acceptance criteria
 
 | Criterion | Pass |
 |-----------|------|
-| Count | Inclusive threshold applied correctly |
-| Missing | Not coerced to zero |
-| Boundary | 10.0 counts; 9.999 does not |
-| Non-claim | No ETCCDI-compliance or attribution claim |
+| Separation | R10mm count reported separately from completeness |
+| Zero vs missing | Distinguished correctly |
+| Warning | Triggered only when completeness < 0.80 under the teaching rule |
+| Non-claim | No ETCCDI-official threshold or attribution claim |
 
 ## Non-claims
 
-Synthetic only. Not ClimPACT/climpact validation. Not design rainfall. Not attribution.
+Synthetic only. Completeness threshold is pedagogical. Not calendar-aware. Not ClimPACT validation.

@@ -5,7 +5,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 2.6.2.1,Heatwave and heat-stress metrics,2.6.2,Heat extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-1,mapped_partial,Named metrics; no UTCI/WBGT compute.
 2.6.2.2,Hot nights night-time recovery,2.6.2,Heat extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-1,mapped_partial,Named.
 2.6.2.3,Sensitivity of heatwave counts,2.6.2,Heat extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-1,mapped_partial,Principle stated.
-2.6.3.1,ETCCDI rainfall indices,2.6.3,Rainfall extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-r10mm;cgei-cl-26-1-r10mm-ex,mapped_partial,Pedagogical R10mm (>=10 mm) on synthetic daily series; missing not zero; not full ETCCDI suite.
+2.6.3.1,ETCCDI rainfall indices,2.6.3,Rainfall extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-r10mm;cgei-cl-26-1-r10mm-ex;cgei-cl-26-1-r10mm-complete;cgei-cl-26-1-r10mm-complete-ex,mapped_partial,"R10mm + list-level completeness (expected/observed/missing, 0.80 teaching warning); missing≠zero; not full ETCCDI."
 2.6.3.2,Daily versus sub-daily rainfall,2.6.3,Rainfall extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-1,mapped_partial,Limitation stated.
 2.6.3.3,Sensitivity gauge density resolution,2.6.3,Rainfall extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-1,mapped_partial,Named.
 2.6.4.1,Drought SPI SPEI,2.6.4,Drought and other extremes,Core,cgei-cl-lesson-2-6-1,cgei-cl-26-1-3,mapped_partial,Named timescales.
