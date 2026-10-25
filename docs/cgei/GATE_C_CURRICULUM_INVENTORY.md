@@ -10,7 +10,7 @@
 | **Question** | Unique `id` matching `*q-*` curriculum questions |
 | **TOC unit** | `Unit X.Y` heading in Master Study TOC docx |
 
-**Counting date:** Reconciled at audit start on PR #9 head `64e679f9e7b3485aa4ff7f08ee59ce2011bab534`, then updated for the Unit 3.2 instructional/assessment addition in this commit. The TOC DOCX is referenced by prior audit notes but is not tracked in the current repository tree, so the 125-unit TOC figure below remains a previously recorded count, not independently re-extracted during this pass.
+**Counting date:** Source inventory re-extracted on 2026-10-25 from the user-supplied authoritative DOCX `Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx` (SHA-256 `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`). The source file is not tracked in this repository; these counts are now independently reconciled against the document rather than carried forward from a prior audit.
 
 ## Exact counts
 
@@ -20,7 +20,11 @@
 | Unique unit codes in registry | **65** | `code: 'X.Y'` in live registry at audit start |
 | Unique lesson IDs | **189** | `cgeiCurriculum.lessons.length` asserted by `cgei-structure.test.ts` |
 | Unique question IDs | **459** | `cgeiCurriculum.questions.length` asserted by `cgei-structure.test.ts`; includes one new Unit 3.2 assessment item in this audit commit |
-| TOC units (Subjects 1–14) | **Unreconciled: 125 vs 130** | This file's prior extraction reports 125; `TOC_TO_APP_COVERAGE_AUDIT.md` reports 130. The referenced source DOCX is not tracked at this branch head, so the denominator needs re-extraction. |
+| TOC subjects | **14** | Numbered subject headings in the supplied Master Study TOC DOCX |
+| TOC units (Subjects 1–14) | **130** | Exact `Unit X.Y` headings with Core/Support/Optional priority tags |
+| TOC numbered topics | **567** | Exact numbered `X.Y.Z` topic headings in Part II |
+| TOC numbered subtopics | **2,052** | Exact numbered `X.Y.Z.W` subtopic headings in Part II |
+| TOC traceability rows (subjects + units + topics + subtopics) | **2,763** | Sum of the four source-level row classes above; not a count of app mappings |
 
 ## TOC units vs registry (by subject)
 
@@ -34,7 +38,7 @@
 | 6–13 | (see TOC) | partial Core slices | Support/Optional often deferred |
 | 14 | 5 | 0 | Optional advanced |
 
-**Interpretation:** Registry counts ≠ TOC completion. Many TOC Support/Optional units are intentionally absent. Subject 2's audit explicitly classifies Units 2.3 and 2.7 as Support, so their absence is not a Core gap. The TOC unit total is unresolved (125 vs 130 across existing audit documents) until the source DOCX is available for a reproducible recount.
+**Source denominator is reconciled:** the supplied DOCX contains 130 units, 567 numbered topics, and 2,052 numbered subtopics across 14 subjects. The earlier 125 figure was a stale/inconsistent inventory count, not a different scope. Registry counts still do not equal TOC completion: many Support/Optional units are intentionally absent, and source counts alone do not establish instructional coverage. Subject 2's audit explicitly classifies Units 2.3 and 2.7 as Support, so their absence is not automatically a Core gap.
 
 ## Subject 1.1 review (Gate C.1)
 
@@ -99,7 +103,7 @@ Unit 3.2: grid-shift and landmark acceptance criteria specified; deterministic f
 
 | Rank | Gap / stable ID | Exact evidence location | Impact | Acceptance criterion | Status |
 |---:|---|---|---|---|---|
-| 1 | G-TOC-COUNT — authoritative TOC inventory mismatch | `docs/cgei/GATE_C_CURRICULUM_INVENTORY.md`; `docs/cgei/TOC_TO_APP_COVERAGE_AUDIT.md` | Full subject/unit/topic/subtopic denominators cannot be trusted while prior audit counts disagree (125 vs 130 units) and the referenced DOCX is not tracked. | Restore or identify the authoritative TOC source; re-extract counts deterministically; record source revision and compare every source row with current traceability CSVs. | Open; source artifact unavailable in current tree. |
+| 1 | G-TOC-COUNT — authoritative TOC inventory mismatch (count component resolved) | `docs/cgei/GATE_C_CURRICULUM_INVENTORY.md`; `docs/cgei/TOC_TO_APP_COVERAGE_AUDIT.md`; user-supplied DOCX SHA-256 recorded above | Prior audit records disagreed (125 vs 130 units), making the denominator unreliable. | Re-extract subject/unit/topic/subtopic counts from the authoritative DOCX, record its source hash, and keep source inventory counts distinct from app-mapping counts. Full row-by-row source-to-traceability reconciliation remains tracked under G-CORE-TRACE. | Count mismatch resolved: 14 subjects, 130 units, 567 topics, 2,052 subtopics. Source DOCX is not yet tracked in the repository; row-level mapping audit remains open. |
 | 2 | G-S3-CRS — Unit 3.2 real-world coordinate validation | `docs/cgei/UNIT_3_2_ACCEPTANCE_CRITERIA.md`; `content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py` | Synthetic residuals and metadata rules cannot establish accuracy for local legacy datums or a real study area. | Execute documented transform with an identified compatible grid and independent control point(s); report source/target CRS, operation, grid availability, residual and use-case tolerance. | Blocked on external grid/control data; synthetic teaching remains only. |
 | 3 | G-S3-3.3-CORE — remaining GIS instructional depth | `docs/cgei/SUBJECT_3_TRACEABILITY_AUDIT_STATUS.md`; `docs/cgei/subject-3-unit-3.3-subtopic-traceability.csv` | Print layout, robust PyQGIS/GDAL workflow, geometry overlays and digitising/georeferencing remain partial; learners may know commands without completing a reproducible GIS task. | A runnable, fully specified exercise with inputs, CRS/geometry assumptions, expected outputs, error checks and assessment criteria; GUI-only claims clearly separated from CI fixtures. | Open; next internal vertical slice after Unit 3.2 external blocker. |
 | 4 | G-CORE-TRACE — mapped-partial Core coverage | Subject-specific traceability CSVs and status records under `docs/cgei/` | Structural mappings can be mistaken for teaching coverage; outcomes, activities, assessments and evidence may not align. | For each Core leaf, verify actual lesson blocks and a usable practice/assessment path; retain partial status for any unsupported link and validate both directions. | Ongoing; not programme-complete. |
