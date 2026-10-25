@@ -726,7 +726,7 @@ const lesson55Definitions = [
           [
             "daily",
             "One row per station per local date; composite key station_id + date",
-            "station_id, date, tmax_c, n_valid_hours"
+            "station_id, date, tmax, n_valid_hours"
           ],
           [
             "daily.station_id",
@@ -749,7 +749,7 @@ const lesson55Definitions = [
         "body": "Suppose daily has 3,000 rows and stations has 25 unique station IDs. An inner join returning 2,700 rows may mean 300 observations refer to missing station IDs, or the filters excluded rows. Check unmatched keys, duplicate metadata IDs, and counts before and after the join. Never assume a plausible-looking mean proves the join was correct."
       },
       {"id":"cgei-ds-55-2-advanced-sql","kind":"code","title":"Use a CTE and window function for a transparent time-series query","language":"sql","code":"WITH daily AS (\n  SELECT station_id, date, tmax_c,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM station_daily\n  WHERE tmax_c IS NOT NULL\n)\nSELECT station_id, date, tmax_c,\n       AVG(tmax_c) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM daily\nORDER BY station_id, date;","body":"Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex."},
-      {"id":"cgei-ds-55-2-null-dates","kind":"worked-example","title":"NULL handling and date filters change who is counted","body":"In SQL, comparisons with NULL are unknown, not true. WHERE tmax_c > 40 drops rows where tmax_c IS NULL, which can silently shrink a heat-day sample if missingness is informative. Prefer explicit filters such as WHERE tmax_c IS NOT NULL AND date >= DATE '2024-06-01' AND date < DATE '2024-07-01', document the missing-data rule, and check counts before and after filtering. Date functions and formats are dialect-specific; store UTC instants or unambiguous local calendar dates with a stated time zone policy."},
+      {"id":"cgei-ds-55-2-null-dates","kind":"worked-example","title":"NULL handling and date filters change who is counted","body":"In SQL, comparisons with NULL are unknown, not true. WHERE tmax > 40 drops rows where tmax IS NULL, which can silently shrink a heat-day sample if missingness is informative. Prefer explicit filters such as WHERE tmax IS NOT NULL AND date >= DATE '2024-06-01' AND date < DATE '2024-07-01', document the missing-data rule, and check counts before and after filtering. Date functions and formats are dialect-specific; store UTC instants or unambiguous local calendar dates with a stated time zone policy."},
       {"id":"cgei-ds-55-2-schema","kind":"prose","title":"Keys, normalisation and indexes as design choices","body":"Put each entity at a clear grain: stations (station_id) separate from daily observations (station_id, date). First normal form avoids repeating groups; further normalisation reduces update anomalies when metadata change. Indexes speed selective predicates and joins but cost write time and storage—index measured access patterns (for example station_id, date ranges), not every column. Denormalised analysis tables are acceptable as derived products when lineage from the normalised source remains auditable."},
       {
         "id": "cgei-ds-55-2-worked-june",
@@ -788,10 +788,27 @@ const lesson55Definitions = [
         "body": "Using the same synthetic schema, compute mean June tmax and n_valid for stations that have at least two valid June days only (HAVING COUNT(d.tmax) >= 2). Compare row count to the unrestricted INNER JOIN result. Hint: filter dates in WHERE or ON consistently with an INNER JOIN; use HAVING after aggregation."
       },
       {
+        "id": "cgei-ds-55-2-fanout",
+        "kind": "worked-example",
+        "title": "Duplicate keys inflate aggregates (join fan-out)",
+        "body": "Expected relationship: stations.id is unique; daily has at most one row per (station_id, date). If stations is accidentally duplicated (two rows with id=1), an INNER JOIN multiplies every matching daily row. Row count after join rises while COUNT(DISTINCT station_id) stays the same—AVG may still look plausible. Diagnostic: compare COUNT(*) to COUNT(DISTINCT station_id || '-' || date) on the joined result, and assert uniqueness of the parent key before joining. Fixture unit_5_5_sql_practice_check.py injects a duplicate station row and requires the fan-out detector to fire."
+      },
+      {
+        "id": "cgei-ds-55-2-integrity-habit",
+        "kind": "key-points",
+        "title": "Trust pipeline before interpretation",
+        "items": [
+          "State expected grain and key uniqueness",
+          "Predict row counts for INNER vs LEFT JOIN",
+          "Compare actual vs expected counts and distinct entities",
+          "Check orphans, duplicates, and date bounds before reading the mean"
+        ]
+      },
+      {
         "id": "cgei-ds-55-2-independent",
         "kind": "prose",
         "title": "Independent practice",
-        "body": "Add station D with two June tmax values (30.0, 32.0) and one null tmax on 2024-06-03. Report mean June tmax and n_valid for every station with a LEFT JOIN date-bounded ON clause. Expected for D: mean 31.0 and n_valid=2 (null day excluded from AVG/COUNT of tmax). Submit the SQL and a one-sentence integrity check for orphan keys."
+        "body": "Add station D with two June tmax values (30.0, 32.0) and one null tmax on 2024-06-03. Report mean June tmax and n_valid for every station with a LEFT JOIN date-bounded ON clause. Expected for D: mean 31.0 and n_valid=2 (null day excluded from AVG/COUNT of tmax). Submit the SQL and a one-sentence integrity check for orphan keys. Bonus: explain how a duplicated stations.id would change COUNT(*) without changing the scientific target quantity."
       }
 
     ]
@@ -1855,6 +1872,8 @@ const lessons35: CurriculumLesson[] = [
       { id: 'cgei-geo-35-1-2', kind: 'table', title: 'Common operations', headers: ['Task', 'Typical tools', 'CRS caution'], rows: [['Filter by location', 'Shapely predicates / sjoin', 'Same CRS both sides'], ['Overlay / dissolve', 'overlay, dissolve', 'Projected for metric buffers'], ['Area / length', 'geodesic or projected CRS', 'Unit 3.2 decision rules'], ['Large vectors', 'GeoParquet, spatial index, DuckDB spatial', 'Index invalid if CRS mixed']] },
       { id: 'cgei-geo-35-1-3', kind: 'worked-example', title: 'Axis-aligned bbox predicate (stdlib teaching)', body: 'Fixture unit_3_5_python_geospatial_stack_check.py implements intersects for axis-aligned boxes only—teaching the predicate logic without requiring GEOS. Production code should use Shapely/GEOS. A point in geographic CRS is still not a planar metre offset without a projection.' },
       { id: 'cgei-geo-35-1-5', kind: 'worked-example', title: 'Spatial join cardinality trap', body: 'A one-to-many spatial join (stations to districts) multiplies station rows when multiple stations fall in one district—or duplicates district attributes onto each station. Always inspect row counts before and after joins. Buffer distances inherit CRS units: a “500” buffer in EPSG:4326 is 500 degrees, not metres.' },
+      { id: 'cgei-geo-35-1-sql-bridge', kind: 'prose', title: 'Same integrity habit as SQL joins', body: 'Transfer the Subject 5.5 habit: (1) state the expected relationship (point→district many-to-one); (2) predict row counts; (3) execute the spatial or attribute join; (4) compare COUNT(*) vs COUNT(DISTINCT station_id); (5) diagnose CRS mismatch, duplicate geometries, or boundary ties before interpreting a district mean. Assigning a CRS code without transforming coordinates is not a reprojection—spatial predicates on mixed CRS are invalid. Fixture unit_3_5_python_geospatial_stack_check.py checks predicted vs actual assignment counts and rejects mixed-CRS joins.' },
+      { id: 'cgei-geo-35-1-bridge-lab', kind: 'worked-example', title: 'Predict counts then join (synthetic)', body: 'Three station points and two district boxes: two points fall in district North, one in South. Attribute join of stations to a one-row-per-station metadata table keeps three rows. Spatial assignment yields three rows with district labels; district-level COUNT of stations is {North:2, South:1}. Swapping CRS labels without transforming coordinates must fail closed. Not a GEOS/GeoPandas proof.' },
       { id: 'cgei-geo-35-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GeoPandas install required for CI fixture', 'H3/S2 and dask-geopandas are named, not implemented here', 'Topology validity still requires GEOS-backed tools'] },
     ],
     activityIds: ['cgei-geo-a-35-vector'], assessmentIds: ['cgei-geo-assess-35-vector'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],

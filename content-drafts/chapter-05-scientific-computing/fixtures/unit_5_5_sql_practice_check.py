@@ -105,8 +105,31 @@ def main() -> None:
     ).fetchall()
     assert orphan_keys == [(999, 1)], f"orphan diagnostic failed: {orphan_keys!r}"
 
+    # Fan-out: a denormalised/bad parent table with duplicate ids multiplies joined rows.
+    # Use a staging table without PRIMARY KEY to model imported duplicates.
+    con.execute("CREATE TABLE stations_dup (id INTEGER NOT NULL, name TEXT NOT NULL)")
+    con.execute("INSERT INTO stations_dup SELECT id, name FROM stations WHERE id = 1")
+    con.execute("INSERT INTO stations_dup VALUES (1, 'Station A duplicate')")
+    joined = con.execute(
+        """
+        SELECT COUNT(*) AS n_rows,
+               COUNT(DISTINCT d.station_id || '-' || d.date) AS n_entity
+        FROM stations_dup AS s
+        JOIN daily AS d ON d.station_id = s.id
+        WHERE d.date >= '2024-06-01' AND d.date < '2024-07-01'
+          AND d.station_id = 1
+        """
+    ).fetchone()
+    n_rows, n_entity = joined
+    assert n_entity == 3, f"expected 3 distinct June entity-days for station 1, got {n_entity}"
+    assert n_rows == 6, f"duplicate parent should double join rows (3*2=6), got {n_rows}"
+    assert n_rows > n_entity, "fan-out detector: row count must exceed distinct entity count"
+
     con.close()
-    print("Subject 5.5 SQL check passed (synthetic aggregation, date bounds, counts, orphan-key diagnostic).")
+    print(
+        "Subject 5.5 SQL check passed "
+        "(synthetic aggregation, date bounds, counts, orphan-key, join fan-out)."
+    )
 
 
 if __name__ == "__main__":
