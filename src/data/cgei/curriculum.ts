@@ -5498,8 +5498,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     "explanation": "A reusable package externalises secrets and paths, documents dependencies and inputs, and can be run and checked from a clean environment without changing the source data.",
     "difficulty": "hard",
     "cognitiveLevel": "evaluate"
-  }
-  
+  },
     { id: 'cgei-rp-q-87-one', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-one (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
     { id: 'cgei-rp-q-87-val', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-val (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
     { id: 'cgei-rp-q-87-fig', lessonId: 'cgei-rp-lesson-8-7-1', type: 'single-choice', prompt: 'Draft check for cgei-rp-q-87-fig (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Placeholder question registered so assessment IDs resolve after main merge; replace with substantive item.', difficulty: 'easy', cognitiveLevel: 'remember' },
