@@ -759,24 +759,24 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 7.3.9.1,Active fire detections versus burned area products,7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught in 7-3 lessons.
 7.3.9.2,"Confidence, seasonality, land-cover context",7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
 7.3.9.3,Weather and fuel conditions as context,7.3.9,Core,deferred,,subject-7-unit-7.3-subtopic-traceability.csv,Not taught.
-7.5.1.1,"Selecting indicators for hazard, exposure, vulnerability",7.5.1,Core,unmapped,,,No traceability row
-7.5.1.2,Normalisation and weighting — transparency required,7.5.1,Core,unmapped,,,No traceability row
-7.5.1.3,Sensitivity analysis on weights and indicators,7.5.1,Core,unmapped,,,No traceability row
-7.5.1.4,Composite indices: use carefully; keep components inspectable,7.5.1,Core,unmapped,,,No traceability row
-7.5.2.1,"Existing frameworks and their construction: INFORM Risk, WorldRiskIndex — dimensions, normalisation, and aggregation choices",7.5.2,Core,unmapped,,,No traceability row
-7.5.2.2,"Census and survey variables as vulnerability proxies: what is public at which unit, and ecological-fallacy limits",7.5.2,Core,unmapped,,,No traceability row
-7.5.2.3,"Adapting a global index to local data: what to keep, drop, and re-weight",7.5.2,Core,unmapped,,,No traceability row
-7.5.3.1,Overlay and multi-criteria combination,7.5.3,Core,unmapped,,,No traceability row
-7.5.3.2,Uncertainty and data-quality registers,7.5.3,Core,unmapped,,,No traceability row
-7.5.3.3,"Exposure datasets: population grids, building footprints, critical facilities (hospitals, schools), land use; their resolution and completeness",7.5.3,Core,unmapped,,,No traceability row
-7.5.4.1,Validation against historical events and independent records,7.5.4,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Deferred.
-7.5.4.2,Danger of fitting stories to incomplete loss databases,7.5.4,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Warned.
-7.5.4.3,"Validation against event inventories (EM-DAT, DesInventar, official loss data) with attention to under-reporting and reporting bias",7.5.4,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
-7.5.5.1,"Separate hazard (LST, humid-heat metrics), exposure (population density, outdoor workers), sensitivity (age, health, housing), and adaptive capacity (green access, income proxies, cooling access)",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,H/E/V separation taught; capacity layer light.
-7.5.5.2,"Source each indicator transparently (for example population grids, census tables at the finest public unit, OSM facilities) and record its resolution and year",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Checklist; no live data sources.
-7.5.5.3,"Normalise, weight, and aggregate with documented choices; test sensitivity to weights and aggregation method",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Weight sensitivity locked in fixture.
+7.5.1.1,"Selecting indicators for hazard, exposure, vulnerability",7.5.1,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,H/E/V layer selection and synthetic indicators; formal indicator-selection criteria limited.
+7.5.1.2,Normalisation and weighting — transparency required,7.5.1,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Min–max normalisation and documented weights; checklist requires transparency.
+7.5.1.3,Sensitivity analysis on weights and indicators,7.5.1,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Equal vs hazard-heavy vs vulnerability-heavy ranking changes; indicator drop sensitivity not fully explored.
+7.5.1.4,Composite indices: use carefully; keep components inspectable,7.5.1,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Composite is not calibrated loss probability; keep H/E/V visible.
+7.5.2.1,"Existing frameworks and their construction: INFORM Risk, WorldRiskIndex — dimensions, normalisation, and aggregation choices",7.5.2,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Named frameworks not taught; construction principles general.
+7.5.2.2,"Census and survey variables as vulnerability proxies: what is public at which unit, and ecological-fallacy limits",7.5.2,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Not taught in 7-5-1.
+7.5.2.3,"Adapting a global index to local data: what to keep, drop, and re-weight",7.5.2,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Not taught.
+7.5.3.1,Overlay and multi-criteria combination,7.5.3,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Weighted aggregation of normalised H/E/V; spatial overlay workflows not taught.
+7.5.3.2,Uncertainty and data-quality registers,7.5.3,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Missing V → incomplete risk not zero; formal data-quality register not taught.
+7.5.3.3,"Exposure datasets: population grids, building footprints, critical facilities (hospitals, schools), land use; their resolution and completeness",7.5.3,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Dataset catalogue not taught.
+7.5.4.1,Validation against historical events and independent records,7.5.4,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,No historical-event validation lab.
+7.5.4.2,Danger of fitting stories to incomplete loss databases,7.5.4,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Explicit warning in prose.
+7.5.4.3,"Validation against event inventories (EM-DAT, DesInventar, official loss data) with attention to under-reporting and reporting bias",7.5.4,Core,deferred,,subject-7-unit-7.5-subtopic-traceability.csv,Inventories not taught.
+7.5.5.1,"Separate hazard (LST, humid-heat metrics), exposure (population density, outdoor workers), sensitivity (age, health, housing), and adaptive capacity (green access, income proxies, cooling access)",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,H/E/V separation; capacity light.
+7.5.5.2,"Source each indicator transparently (for example population grids, census tables at the finest public unit, OSM facilities) and record its resolution and year",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Checklist; no live sources.
+7.5.5.3,"Normalise, weight, and aggregate with documented choices; test sensitivity to weights and aggregation method",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Weight sensitivity in fixture.
 7.5.5.4,Keep the components visible in maps rather than showing only a composite score,7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Taught.
-7.5.5.5,"Validate against heat-health or service-demand data where possible, and state that an index ranks places rather than measuring harm",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Limit stated; no health validation performed.
+7.5.5.5,"Validate against heat-health or service-demand data where possible, and state that an index ranks places rather than measuring harm",7.5.5,Core,mapped_partial,cgei-risk-lesson-7-5-1,subject-7-unit-7.5-subtopic-traceability.csv,Index ranks places rather than measures harm; no health validation.
 8.1.1.1,Broad interest → focused question,8.1.1,Core,mapped_partial,cgei-rp-lesson-8-1-1,subject-8-unit-8.1-subtopic-traceability.csv,Taught with protocol lab.
 8.1.1.2,Problem statement and contribution,8.1.1,Core,mapped_partial,cgei-rp-lesson-8-1-1,subject-8-unit-8.1-subtopic-traceability.csv,Contribution types named.
 8.1.1.3,"Research gap types: empirical, methodological, contextual; stating contribution without overclaiming",8.1.1,Core,mapped_partial,cgei-rp-lesson-8-1-1,subject-8-unit-8.1-subtopic-traceability.csv,Overclaiming caution.
