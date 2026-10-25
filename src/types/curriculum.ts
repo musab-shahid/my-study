@@ -214,6 +214,8 @@ export interface CurriculumUnit {
   assessmentIds: string[];
   resourceIds: string[];
   deliverableIds: string[];
+  /** Optional parent subject id when a unit is authored before subject membership is finalized. */
+  subjectId?: string;
   /** Optional legacy section route while the old navigation is retained. */
   legacySectionId?: string;
   sourceDocument?: string;
