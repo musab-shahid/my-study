@@ -19,7 +19,7 @@ from collections import Counter
 from pathlib import Path
 
 VALID = {"mapped", "mapped_partial", "deferred"}
-LESSON_ID = re.compile(r"""id:\s*['"](cgei-[^'"]*lesson[^'"]*)['"]""")
+LESSON_ID = re.compile(r"""(?:\bid\b|['"]id['"])\s*:\s*['"](cgei-[^'"]*lesson[^'"]*)['"]""")
 
 
 def load_source_core(path: Path) -> list[dict[str, str]]:
