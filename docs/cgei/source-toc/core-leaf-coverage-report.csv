@@ -829,27 +829,27 @@ source_id,title,unit,priority,disposition,app_lesson_ids,traceability_file,notes
 8.3.5.1,Data licences and attribution,8.3.5,Core,unmapped,,,No traceability row
 8.3.5.2,Authorship criteria and contribution statements (ICMJE/CRediT-style); plagiarism and self-plagiarism; similarity-check policies,8.3.5,Core,unmapped,,,No traceability row
 8.3.5.3,Predatory publishers and journal checking (e.g. Think–Check–Submit; national recognition lists such as HEC’s journal recognition system),8.3.5,Core,unmapped,,,No traceability row
-8.6.1.1,IMRaD for papers,8.6.1,Core,unmapped,,,No traceability row
-8.6.1.2,Methods completeness checklist,8.6.1,Core,unmapped,,,No traceability row
-8.6.1.3,Data and code availability statements,8.6.1,Core,unmapped,,,No traceability row
-8.6.1.4,Reproducibility appendix,8.6.1,Core,unmapped,,,No traceability row
-8.6.1.5,Limitations and contribution statements,8.6.1,Core,unmapped,,,No traceability row
-8.6.2.1,Technical reports and methods notes,8.6.2,Core,unmapped,,,No traceability row
-8.6.2.2,Scientific posters and talks,8.6.2,Core,unmapped,,,No traceability row
-8.6.2.3,"Policy / decision briefs (different audience, same evidence)",8.6.2,Core,unmapped,,,No traceability row
-8.6.2.4,"Conference abstracts, talks, and posters; scholarship and admission statements with a research proposal",8.6.2,Core,unmapped,,,No traceability row
-8.6.3.1,Preprints and peer-review response,8.6.3,Core,unmapped,,,No traceability row
-8.6.3.2,Data papers (e.g. data-journal formats) and software papers; supplementary materials,8.6.3,Core,unmapped,,,No traceability row
-8.6.3.3,"Choosing venues: remote sensing, climatology, urban climate, hazards, and applied-environment journals; scope, impact, and cost (open-access fees and waivers)",8.6.3,Core,unmapped,,,No traceability row
-8.6.4.1,Calibrated uncertainty language (e.g. IPCC likelihood terms),8.6.4,Core,unmapped,,,No traceability row
-8.6.4.2,Figure and table quality; map citations,8.6.4,Core,unmapped,,,No traceability row
-8.6.4.3,"Writing limitations: specific, honest, and linked to the claim",8.6.4,Core,unmapped,,,No traceability row
-8.6.5.1,"AI assistance: disclosure, verification of citations and code",8.6.5,Core,unmapped,,,No traceability row
-8.6.5.2,No invented references,8.6.5,Core,unmapped,,,No traceability row
-8.6.5.3,"Citation verification routine: open each source and check the quote, number, and context",8.6.5,Core,unmapped,,,No traceability row
-8.6.6.1,"Writing process: outline, figure-first drafting, revision for argument and concision; response-to-reviewers letters",8.6.6,Core,unmapped,,,No traceability row
-8.6.6.2,Reference styles and managers; LaTeX/Overleaf and Quarto for reproducible manuscripts,8.6.6,Core,unmapped,,,No traceability row
-8.6.6.3,"Revision passes: argument first, then structure, then sentences, then references and figures",8.6.6,Core,unmapped,,,No traceability row
+8.6.1.1,IMRaD for papers,8.6.1,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,IMRaD structure not taught in 8-6-1.
+8.6.1.2,Methods completeness checklist,8.6.1,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,Minimum reporting checklist + lab section keys; not a full methods completeness standard.
+8.6.1.3,Data and code availability statements,8.6.1,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,"Prose, checklist, and lab require availability statements."
+8.6.1.4,Reproducibility appendix,8.6.1,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Separate reproducibility appendix format not taught.
+8.6.1.5,Limitations and contribution statements,8.6.1,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,Limitations and explicit non-claims in lab; contribution statements limited.
+8.6.2.1,Technical reports and methods notes,8.6.2,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.2.2,Scientific posters and talks,8.6.2,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.2.3,"Policy / decision briefs (different audience, same evidence)",8.6.2,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.2.4,"Conference abstracts, talks, and posters; scholarship and admission statements with a research proposal",8.6.2,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.3.1,Preprints and peer-review response,8.6.3,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.3.2,Data papers (e.g. data-journal formats) and software papers; supplementary materials,8.6.3,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.3.3,"Choosing venues: remote sensing, climatology, urban climate, hazards, and applied-environment journals; scope, impact, and cost (open-access fees and waivers)",8.6.3,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.4.1,Calibrated uncertainty language (e.g. IPCC likelihood terms),8.6.4,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,Uncertainty language appropriate to design; IPCC likelihood terms not taught.
+8.6.4.2,Figure and table quality; map citations,8.6.4,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught in 8-6-1.
+8.6.4.3,"Writing limitations: specific, honest, and linked to the claim",8.6.4,Core,mapped_partial,cgei-rp-lesson-8-6-1,subject-8-unit-8.6-subtopic-traceability.csv,Limitations and non-overclaim guidance; no multi-draft writing exercise.
+8.6.5.1,"AI assistance: disclosure, verification of citations and code",8.6.5,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.5.2,No invented references,8.6.5,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.5.3,"Citation verification routine: open each source and check the quote, number, and context",8.6.5,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.6.1,"Writing process: outline, figure-first drafting, revision for argument and concision; response-to-reviewers letters",8.6.6,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.6.2,Reference styles and managers; LaTeX/Overleaf and Quarto for reproducible manuscripts,8.6.6,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
+8.6.6.3,"Revision passes: argument first, then structure, then sentences, then references and figures",8.6.6,Core,deferred,,subject-8-unit-8.6-subtopic-traceability.csv,Not taught.
 8.7.1.1,"Identify the single contribution: methods sensitivity, validation, or new regional evidence for Multan — not all three",8.7.1,Core,mapped_partial,cgei-rp-lesson-8-7-1,subject-8-unit-8.7-subtopic-traceability.csv,One primary pillar taught.
 8.7.1.2,"Position the work against 10–15 close prior studies (South Asian UHI, Landsat LST, LCZ studies)",8.7.1,Core,mapped_partial,cgei-rp-lesson-8-7-1,subject-8-unit-8.7-subtopic-traceability.csv,10-15 close studies guidance.
 8.7.1.3,State research questions and what result would change your conclusions,8.7.1,Core,unmapped,,,No traceability row
