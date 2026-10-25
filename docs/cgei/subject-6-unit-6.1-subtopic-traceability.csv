@@ -15,4 +15,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 6.1.4.2,Linear / logistic regression,6.1.4,Baselines first,Core,cgei-ml-lesson-6-1-3,cgei-ml-61-3-1;cgei-ml-61-3-2,mapped_partial,Subject 6 Core draft: teaching present; executable model training deferred.
 6.1.4.3,Simple threshold rules and transparent heuristic maps,6.1.4,Baselines first,Core,cgei-ml-lesson-6-1-3,cgei-ml-61-3-1;cgei-ml-61-3-2,mapped_partial,Subject 6 Core draft: teaching present; executable model training deferred.
 6.1.4.4,A complex model must beat a simple baseline,6.1.4,Baselines first,Core,cgei-ml-lesson-6-1-3,cgei-ml-61-3-1;cgei-ml-61-3-2,mapped_partial,Subject 6 Core draft: teaching present; executable model training deferred.
-6.1.4,Baselines first climatology persistence,6.1.4,Baselines first,Core,cgei-ml-lesson-6-1-3,cgei-ml-61-3-related,mapped_partial,Fixture unit_6_1_learning_problem_check.py
+6.1.4,Baselines first climatology persistence,6.1,Baselines first,Core,,,deferred,Deferred: unknown block cgei-ml-61-3-related.

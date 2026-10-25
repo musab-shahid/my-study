@@ -11,11 +11,11 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 8.1.3.4,When experiments are impossible,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Named.
 8.1.4.1,Pre-registration and registered reports,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Plan requirement for confirmatory.
 8.1.4.2,Data-management and analysis plan before collection,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Named.
-8.1.4.3,Documenting deviations from the plan,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2;cgei-rp-81-1-lab,mapped_partial,Fixture requires deviation log field.
+8.1.4.3,Documenting deviations from the plan,8.1.4,Pre-registration and planning,Core,,,deferred,Deferred: block/lesson ownership mismatch; not claiming mapped coverage.
 8.1.5.1,Search strategies and screening criteria,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Checklist only.
 8.1.5.2,Evidence tables and research gap statements,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Named.
 8.1.5.3,Avoiding cherry-picking,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Named.
-8.1.5.4,Open scholarly sources reference managers,8.1.5,Literature search and screening,Core,,,mapped_partial,Deferred.
-8.1.6.1,Systematic and scoping reviews PRISMA-style,8.1.6,Reviews and synthesis,Core,,,mapped_partial,Deferred.
-8.1.6.2,Evidence synthesis effect sizes heterogeneity,8.1.6,Reviews and synthesis,Core,,,mapped_partial,Deferred.
-8.1.6.3,Reference managers Zotero,8.1.6,Reviews and synthesis,Core,,,mapped_partial,Deferred.
+8.1.5.4,Open scholarly sources reference managers,8.1.5,Literature search and screening,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
+8.1.6.1,Systematic and scoping reviews PRISMA-style,8.1.6,Reviews and synthesis,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
+8.1.6.2,Evidence synthesis effect sizes heterogeneity,8.1.6,Reviews and synthesis,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
+8.1.6.3,Reference managers Zotero,8.1.6,Reviews and synthesis,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.

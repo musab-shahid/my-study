@@ -9,11 +9,11 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 2.5.3.1,Zarr chunking Parquet,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Named only.
 2.5.3.2,CDS API request cache cite,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,No live CDS in CI.
 2.5.3.3,CDS platform migration pin client,2.5.3,Cloud-optimised storage,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Pinning noted.
-2.5.3.4,CMIP6 ESGF access checks,2.5.3,Cloud-optimised storage,Core,,,mapped_partial,Not labbed.
+2.5.3.4,CMIP6 ESGF access checks,2.5.3,Cloud-optimised storage,Core,,,deferred,Not labbed. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
 2.5.4.1,xarray labelled arrays groupby resample,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-3,mapped_partial,Pointer; stdlib fixture only.
 2.5.4.2,Climatologies and anomalies,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-1;cgei-cl-25-2-lab,mapped_partial,Anomaly formula + fixture.
 2.5.4.3,Area-weighting cosine latitude,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-3,mapped_partial,Named principle.
-2.5.4.4,Unit and sign conventions,2.5.4,Analysis workflow,Core,cgei-cl-lesson-2-5-2,cgei-cl-25-2-1;cgei-cl-25-1-3a,mapped_partial,Kelvin→Celsius conversion taught and fixture-locked.
+2.5.4.4,Unit and sign conventions,2.5.4,Analysis workflow,Core,,,deferred,Deferred: block/lesson ownership mismatch; not claiming mapped coverage.
 2.5.5.1,Tool ecosystem xarray dask xclim,2.5.5,Tools and reproducibility,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Named stack.
 2.5.5.2,Manifests version extent licence checksum,2.5.5,Tools and reproducibility,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-3,mapped_partial,Checklist.
 2.5.5.3,Pinning tool versions request parameters,2.5.5,Tools and reproducibility,Core,cgei-cl-lesson-2-5-3,cgei-cl-25-3-1,mapped_partial,Principle stated.

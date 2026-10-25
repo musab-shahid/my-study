@@ -5,9 +5,9 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 9.3.1.4,Monitoring metrics after intervention,9.3.1,From analysis to options,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-1,mapped_partial,Named.
 9.3.2.1,Decision analysis basics,9.3.2,Decision analysis,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-1,mapped_partial,Conceptual only.
 9.3.2.2,Value of information,9.3.2,Decision analysis,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-1,mapped_partial,Named.
-9.3.2.3,Adaptive management thresholds triggers,9.3.2,Decision analysis,Support,,,mapped_partial,Deferred.
+9.3.2.3,Adaptive management thresholds triggers,9.3.2,Decision analysis,Support,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
 9.3.3.1,Criteria selection and stakeholder weights,9.3.3,Multi-criteria approaches,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-2,mapped_partial,Taught with fixture.
 9.3.3.2,Sensitivity to subjective choices,9.3.3,Multi-criteria approaches,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-2,mapped_partial,Fixture locks rank change.
 9.3.3.3,Documenting value judgements,9.3.3,Multi-criteria approaches,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-3,mapped_partial,Taught.
 9.3.3.4,Prefer separate inspectable layers,9.3.3,Multi-criteria approaches,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-2,mapped_partial,Taught.
-9.3.4,Methods AHP TOPSIS robustness,9.3.4,Methods and robustness,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-2,mapped_partial,Named; software deferred.
+9.3.4,Methods AHP TOPSIS robustness,9.3,Methods and robustness,Support,cgei-dspt-lesson-9-3-1,cgei-dspt-93-1-2,mapped_partial,Named; software deferred.

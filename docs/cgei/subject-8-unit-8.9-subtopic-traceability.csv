@@ -1,9 +1,9 @@
-source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,classification,app_lesson_id,app_content_block_ids,disposition,evidence_note
-8.9.1.1,Proposal structure,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-1,mapped_partial,Structure taught.
-8.9.1.2,Scope to expertise data,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-1,mapped_partial,Feasibility match.
-8.9.1.3,Reviewer questions,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-2,mapped_partial,Risk checklist.
-8.9.2.1,SOP CV scholarships,8.9.2,Funding,Core,cgei-rp-lesson-8-9-2,cgei-rp-89-2-1,mapped_partial,Application literacy.
-8.9.2.2,Small budgets,8.9.2,Funding,Core,cgei-rp-lesson-8-9-2,cgei-rp-89-2-1,mapped_partial,Budget honesty.
-8.9.3.1,Milestones risks authorship,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Working practice.
-8.9.3.2,Technical feedback reports,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Supervisor questions.
-8.9.3.3,Consultancy ethics,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Professional boundaries.
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note,classification
+8.9.1.1,Proposal structure,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-1,mapped_partial,Structure taught.,Core
+8.9.1.2,Scope to expertise data,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-1,mapped_partial,Feasibility match.,Core
+8.9.1.3,Reviewer questions,8.9.1,Proposal,Core,cgei-rp-lesson-8-9-1,cgei-rp-89-1-2,mapped_partial,Risk checklist.,Core
+8.9.2.1,SOP CV scholarships,8.9.2,Funding,Core,cgei-rp-lesson-8-9-2,cgei-rp-89-2-1,mapped_partial,Application literacy.,Core
+8.9.2.2,Small budgets,8.9.2,Funding,Core,cgei-rp-lesson-8-9-2,cgei-rp-89-2-1,mapped_partial,Budget honesty.,Core
+8.9.3.1,Milestones risks authorship,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Working practice.,Core
+8.9.3.2,Technical feedback reports,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Supervisor questions.,Core
+8.9.3.3,Consultancy ethics,8.9.3,Practice,Core,cgei-rp-lesson-8-9-3,cgei-rp-89-3-1,mapped_partial,Professional boundaries.,Core

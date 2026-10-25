@@ -1,13 +1,13 @@
-source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,classification,app_lesson_id,app_content_block_ids,disposition,evidence_note
-3.9.1.1,Spatial autocorrelation concept,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Concept taught.
-3.9.1.2,Global local Moran LISA,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Named; no PySAL.
-3.9.2.1,Hotspot KDE,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Bandwidth caution.
-3.9.2.3,Point pattern CSR null,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-2,mapped_partial,CSR as null.
-3.9.4.1,Deterministic interpolation,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-1;cgei-geo-39-2-3,mapped_partial,IDW fixture. LOO-IDW practical + residual lag diagnostic (C.15).
-3.9.4.3,Empirical variogram parameters,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-2;cgei-geo-39-2-6;cgei-geo-39-2-7,mapped_partial,"Empirical semivariogram definition, interpretation, fixture γ̂ bins (C.16)."
-3.9.4.4,Ordinary kriging variance,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-8;cgei-geo-39-2-9,mapped_partial,"OK system, weights sum=1, model variance, IDW comparison (C.17). Fixed exponential params—not automated fit search."
-3.9.4.5,Sparse data cross-validation,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-2,mapped_partial,Sparse caution.
-3.9.5.1,Spatial blocks buffered holdouts,3.9.5,Validation,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-1,mapped_partial,Block CV taught.
-3.9.5.2,Leave-location-out,3.9.5,Validation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-3,mapped_partial,LOO fixture. LOO-IDW practical + residual lag diagnostic (C.15).
-3.9.5.3,Residual spatial pattern,3.9.5,Validation,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-1,mapped_partial,Diagnostic named.
-3.9.6.1,Areal interpolation change of support,3.9.6,Support,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-2,mapped_partial,Support change taught.
+source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note,classification
+3.9.1.1,Spatial autocorrelation concept,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Concept taught.,Core
+3.9.1.2,Global local Moran LISA,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Named; no PySAL.,Core
+3.9.2.1,Hotspot KDE,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Bandwidth caution.,Core
+3.9.2.3,Point pattern CSR null,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-2,mapped_partial,CSR as null.,Core
+3.9.4.1,Deterministic interpolation,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-1;cgei-geo-39-2-3,mapped_partial,IDW fixture. LOO-IDW practical + residual lag diagnostic (C.15).,Core
+3.9.4.3,Empirical variogram parameters,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-2;cgei-geo-39-2-6;cgei-geo-39-2-7,mapped_partial,"Empirical semivariogram definition, interpretation, fixture γ̂ bins (C.16).",Core
+3.9.4.4,Ordinary kriging variance,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-8;cgei-geo-39-2-9,mapped_partial,"OK system, weights sum=1, model variance, IDW comparison (C.17). Fixed exponential params—not automated fit search.",Core
+3.9.4.5,Sparse data cross-validation,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-2,mapped_partial,Sparse caution.,Core
+3.9.5.1,Spatial blocks buffered holdouts,3.9.5,Validation,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-1,mapped_partial,Block CV taught.,Core
+3.9.5.2,Leave-location-out,3.9.5,Validation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-3,mapped_partial,LOO fixture. LOO-IDW practical + residual lag diagnostic (C.15).,Core
+3.9.5.3,Residual spatial pattern,3.9.5,Validation,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-1,mapped_partial,Diagnostic named.,Core
+3.9.6.1,Areal interpolation change of support,3.9.6,Support,Core,cgei-geo-lesson-3-9-3,cgei-geo-39-3-2,mapped_partial,Support change taught.,Core

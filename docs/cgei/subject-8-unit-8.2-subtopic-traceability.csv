@@ -5,4 +5,4 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 8.2.probability-sampling,Probability vs nonprobability inference limits,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-lab,mapped_partial,Fixture rejects overclaim.
 8.2.spatial-temporal,Spatial temporal representativeness,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-example,mapped_partial,Cloud-free frame example.
 8.2.detection-limits,Detection limits measurement error,8.2,Measurement and sampling,Core,cgei-rp-lesson-8-2-1,cgei-rp-82-1-lab,mapped_partial,Zero valid; missing/NaN/negative rejected.
-8.2.psychometrics-gum,Survey psychometrics full GUM budget,8.2,Measurement and sampling,Core,,,mapped_partial,Deferred.
+8.2.psychometrics-gum,Survey psychometrics full GUM budget,8.2,Measurement and sampling,Core,,,deferred,Deferred. Demoted to deferred: mapped status requires lesson ID and content-block evidence.
