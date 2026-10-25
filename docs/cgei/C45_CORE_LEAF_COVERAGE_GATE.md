@@ -24,10 +24,14 @@ python3 scripts/tests/test_audit_core_leaf_coverage.py
 |--------|------:|
 | Core subtopic leaves | 1015 |
 | mapped | 6 |
-| mapped_partial | 754 |
+| mapped_partial | 773 |
 | deferred | 27 |
-| stale_mapping | 19 |
+| stale_mapping | 0 |
 | unmapped | 209 |
+
+### C.46 audit correction
+
+The first real-data run found 19 apparent stale mappings, all in Subject 5.5. They were false positives: the canonical curriculum registry stores lesson records with JSON-style `"id"` keys, while the classifier initially recognized only unquoted TypeScript `id:` keys. The classifier now recognizes both forms, with a regression test for JSON-style records. Re-running the audit against the checked-out repository succeeds in transitional mode with **0 stale lesson-ID references**; the 19 rows are correctly `mapped_partial`, not `stale_mapping`. The **209 unmapped Core leaves remain real unresolved traceability gaps** and are not suppressed by this correction.
 
 Traceability ≠ mastery. Synthetic fixtures ≠ field validation.
 
