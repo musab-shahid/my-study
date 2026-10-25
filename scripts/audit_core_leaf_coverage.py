@@ -211,7 +211,7 @@ def main() -> int:
         f"{key}={counts[key]}" for key in sorted(counts)
     ))
     print(f"Report: {args.report}")
-    if (unmapped or stale) and not args.allow_unmapped:
+    if stale or (unmapped and not args.allow_unmapped):
         print(
             f"FAIL: {unmapped} unmapped Core leaves; {stale} stale lesson ID reference(s).",
             file=sys.stderr,
