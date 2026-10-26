@@ -78,8 +78,10 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
       </div>
 
       {unit.outcomes.length > 0 && <Card className="p-card-pad sm:p-card-pad-lg mb-5 border border-teal-100">
-        <h2 className="font-semibold text-slate-900 mb-3">Learning outcomes</h2>
-        <ul className="space-y-2">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-teal-50 text-teal-800 border border-teal-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
+        <details>
+          <summary className="cursor-pointer font-semibold text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700 focus-visible:ring-offset-2 rounded-sm">Learning outcomes</summary>
+          <ul className="space-y-2 mt-3">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-teal-50 text-teal-800 border border-teal-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
+        </details>
       </Card>}
 
       <section className="mb-6">
