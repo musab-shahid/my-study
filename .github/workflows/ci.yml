@@ -153,12 +153,22 @@ jobs:
           fi
           echo "Unexpected strict gate exit status: $status" >&2
           exit 1
+      - name: Core-leaf substantive-evidence gate
+        run: npm run audit:core-leaf-evidence
       - name: Upload Core-leaf coverage report
         if: always()
         uses: actions/upload-artifact@v7
         with:
           name: core-leaf-coverage-report
           path: docs/cgei/source-toc/core-leaf-coverage-report.csv
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Upload Core-leaf evidence report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: core-leaf-evidence-report
+          path: docs/cgei/source-toc/core-leaf-evidence-report.csv
           if-no-files-found: warn
           retention-days: 14
       - name: Verify Unit 5.11 research software checks

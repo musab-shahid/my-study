@@ -25,6 +25,7 @@
     "test:e2e:ui": "playwright test --ui",
     "audit:core-leaves": "python3 scripts/audit_core_leaf_coverage.py --allow-unmapped",
     "audit:cgei": "tsx --tsconfig tsconfig.app.json scripts/audit-cgei-coverage.ts",
+    "audit:core-leaf-evidence": "tsx --tsconfig tsconfig.app.json scripts/audit-core-leaf-evidence.ts",
     "validate:traceability:all": "tsx --tsconfig tsconfig.app.json scripts/validate-all-traceability.ts",
     "audit:full-source": "python3 scripts/audit_full_source_disposition.py",
     "scan:secrets": "python3 scripts/scan_repo_secrets.py"
