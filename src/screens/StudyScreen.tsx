@@ -278,7 +278,7 @@ export function StudyScreen() {
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">
                     Domain orientation
-                    <span className="ml-2 font-medium normal-case tracking-normal text-sky-700/80">· context only · not a study lesson</span>
+                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· context only · not a study lesson</span>
                   </p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
@@ -319,7 +319,7 @@ export function StudyScreen() {
                 <div className="min-w-0 flex-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">
                     Course orientation
-                    <span className="ml-2 font-medium normal-case tracking-normal text-teal-700/80">· onboarding · not a study lesson</span>
+                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· onboarding · not a study lesson</span>
                   </p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
