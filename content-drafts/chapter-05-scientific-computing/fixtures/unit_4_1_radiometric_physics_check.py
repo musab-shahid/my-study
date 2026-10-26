@@ -66,6 +66,8 @@ def main() -> None:
     # Wien at 300 K ≈ 9.66 μm
     peak = wien_peak_um(300.0)
     assert 9.5 < peak < 9.8
+    # Hotter peak shifts shorter (Wien)
+    assert wien_peak_um(310.0) < peak < wien_peak_um(290.0)
 
     # Planck at 10 μm, 300 K
     b = planck_B_lambda(lam, 300.0)
