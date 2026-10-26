@@ -270,16 +270,19 @@ export function StudyScreen() {
           )}
 
           {roadmapTopic && (
-            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-sky-100 bg-sky-50/40">
+            <Card className="mb-3 p-3 sm:p-4 border border-sky-100 bg-sky-50/40">
+              <details>
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-sky-900">Domain orientation</span><span className="block text-xs text-slate-600 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
+                  <ChevronDown className="w-4 h-4 shrink-0 text-sky-700" aria-hidden />
+                </summary>
+                <div className="pt-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-sky-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">
-                    Domain orientation
-                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· context only · not a study lesson</span>
-                  </p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Context</p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
                   {roadmapTopic.explanationSections?.map((section) => (
@@ -307,20 +310,26 @@ export function StudyScreen() {
                   )}
                 </div>
               </div>
+                </div>
+                </div>
+              </details>
             </Card>
           )}
 
           {curriculumSubject && (
-            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-teal-100 bg-teal-50/40">
+            <Card className="mb-3 p-3 sm:p-4 border border-teal-100 bg-teal-50/40">
+              <details>
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-teal-900">Course orientation</span><span className="block text-xs text-slate-600 mt-0.5">Brief introduction · not a lesson</span></span>
+                  <ChevronDown className="w-4 h-4 shrink-0 text-teal-700" aria-hidden />
+                </summary>
+                <div className="pt-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-teal-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">
-                    Course orientation
-                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· onboarding · not a study lesson</span>
-                  </p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Introduction</p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
                   <div className="mt-4">
@@ -339,6 +348,14 @@ export function StudyScreen() {
                       <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
                     </button>
                   )}
+                </div>
+              </div>
+                </div>
+              </details>
+            </Card>
+
+          {curriculumSubject && (
+            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Curriculum units</h3>
@@ -371,6 +388,13 @@ export function StudyScreen() {
                       ))}
                     </div>
                   </div>
+            </Card>
+          )}
+
+          {curriculumSubject && curriculumSubject.projectIds.length > 0 && (
+            <Card className="mb-3 p-3.5 sm:p-5 border border-violet-200">
+              <h2 className="font-semibold text-slate-900 mb-3">Projects & capstones</h2>
+              <div className="space-y-3">
                   {curriculumSubject.projectIds.map((projectId) => {
                     const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
                     if (!project) return null;
@@ -392,12 +416,11 @@ export function StudyScreen() {
                       </div>
                     );
                   })}
-                </div>
               </div>
             </Card>
           )}
 
-          {/* Sections accordion */}
+{/* Sections accordion */}
           {subjectSections.length > 0 && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
