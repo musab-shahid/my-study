@@ -6469,7 +6469,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ai-assess-123-fm', kind: 'formative', title: 'Foundation model honesty', purpose: 'Assess FM evaluation discipline.', objectiveIds: ['cgei-ai-o-123-fm'], questionIds: ['cgei-ai-q-123-fm'], required: true },
 
     { id: 'cgei-rp-assess-8d-methods', kind: 'formative', title: 'Methods reproducibility', purpose: 'Assess stranger-test methods literacy.', objectiveIds: ['cgei-rp-o-8d-methods'], questionIds: ['cgei-rp-q-8d-avail'], required: true },
-    { id: 'cgei-rp-assess-8d-review', kind: 'formative', title: 'Validity review', purpose: 'Assess referee validity framing.', objectiveIds: ['cgei-rp-o-8d-review'], questionIds: ['cgei-rp-q-8d-validity'], required: true },
+    { id: 'cgei-rp-assess-8d-review', kind: 'formative', title: 'Validity review', purpose: 'Assess referee validity framing.', objectiveIds: ['cgei-rp-o-8d-review'], questionIds: ['cgei-rp-q-8d-validity', 'cgei-rp-q-8d-package'], required: true },
 
     { id: 'cgei-rp-assess-89-funding', kind: 'formative', title: 'Feasibility and funding', purpose: 'Assess resource honesty.', objectiveIds: ['cgei-rp-o-89-funding'], questionIds: ['cgei-rp-q-89-scope'], required: true },
     { id: 'cgei-rp-assess-89-practice', kind: 'formative', title: 'Working practice', purpose: 'Assess collaboration and risk planning.', objectiveIds: ['cgei-rp-o-89-practice'], questionIds: ['cgei-rp-q-89-risk'], required: true },
