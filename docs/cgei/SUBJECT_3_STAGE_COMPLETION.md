@@ -1,82 +1,77 @@
-# Subject 3 — Stage completion report (C.73)
+# Subject 3 — Stage completion report (C.73 / C.74 repair)
 
-**Date:** 2026-10-26  
-**Main baseline before this PR:** `6270b5ea6341` (merge #127)  
-**Authoritative TOC baseline SHA-256:** `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb`  
-**TOC file:** Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path.docx (unchanged)
+**Authoritative TOC:** Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path.docx  
+**TOC baseline SHA-256:** `3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb` (unchanged)  
+**Source inventory:** `docs/cgei/source-toc/priority-path-source-rows.csv`  
+**Main at stage start:** `6270b5ea6341` (PR #127 merged; post-merge required checks green)
+
+## C.74 repair note
+
+PR #128 initially failed `check`/`e2e` because new Unit 3.1 content blocks were inserted **outside** the lesson `content: [...]` array (premature `],`). Fixed by moving blocks inside the array. Hierarchy and neighbourhood inserts were already inside their arrays.
 
 ## Exit criteria
 
 | Criterion | Status |
 |-----------|--------|
-| Integration stable (#127 merged; required checks) | Precondition: #127 merged to main; post-merge e2e was in progress at stage start—verify on final main after this PR |
-| Every Subject 3 source leaf dispositioned | **Yes** — 128 leaves; 0 unmapped |
-| Major workflows coherent | **Yes** — CRS, joins/integrity, raster-vector ops, terrain/networks, cartography, spatial dependence intro |
-| Quality gates | Targeted fixtures + structure count; full CI on PR head |
-| Formal stage closure document | **This file** |
+| Integration (#127) stable | **Yes** — main green on check / scientific-smoke / e2e after #127 |
+| Full Subject 3 TOC leaf inventory | **Yes** — **172** source subtopics; 0 missing, 0 extra vs `priority-path-source-rows.csv` |
+| Major Core workflows coherent | **Yes** for implemented units 3.1–3.6 and 3.9 (draft / mapped_partial) |
+| Quality gates on PR #128 | See live CI on exact head after C.74 push |
+| Formal closure document | **This file** (corrected inventory) |
 
-## Inventory (traceability CSVs)
+## Full TOC reconciliation (subtopic leaves only)
 
-| Disposition | Count |
-|-------------|------:|
-| mapped_partial | 112 |
-| deferred | 16 |
-| mapped (full) | 0 |
-| unmapped | 0 |
-| **Total** | **128** |
+| Unit | Title (TOC) | Priority | Leaves | mapped_partial | deferred |
+|------|-------------|----------|-------:|---------------:|---------:|
+| 3.1 | Spatial data models | Core | 20 | 17 | 3 |
+| 3.2 | Coordinate reference systems | Core | 16 | 16 | 0 |
+| 3.3 | Desktop GIS and spatial operations | Core | 17 | 15 | 2 |
+| 3.4 | Terrain, network, and field-mapping workflows | Core | 13 | 13 | 0 |
+| 3.5 | Python geospatial stack | Core | 22 | 20 | 2 |
+| 3.6 | Cartography | Core | 16 | 16 | 0 |
+| 3.7 | Spatial databases | **Support** | 13 | 0 | 13 |
+| 3.8 | Open geospatial data, standards, and interoperability | **Support** | 9 | 0 | 9 |
+| 3.9 | Spatial statistics and geostatistics | Core | 24 | 15 | 9 |
+| 3.10 | Cloud-native and large-scale geospatial | **Support** | 13 | 0 | 13 |
+| 3.11 | Lidar, photogrammetry, UAV mapping, and 3D urban form | **Optional** | 9 | 0 | 9 |
+| **Total** | | | **172** | **112** | **60** |
 
-Units covered in registry: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.9 (no 3.7/3.8 CSV in repo—if TOC defines them, they are outside current registry files and must be checked in a later inventory pass).
+Traceability files: `docs/cgei/subject-3-unit-3.{1–11}-subtopic-traceability.csv` (including newly registered **3.7, 3.8, 3.10, 3.11** as explicit deferrals).
 
-## Workflows learners can follow
+**Previous 128-leaf claim was incomplete** — it omitted Support/Optional units 3.7, 3.8, 3.10, 3.11 (44 leaves). C.74 registers them as deferred with reasons.
 
-1. **CRS handling** — assign vs transform, OTF vs permanent, residual fitness-for-use, documentation log (#126–#127 + Unit 3.2).
-2. **Spatial integrity & joins** — fan-out, orphans, CRS precondition for spatial predicates (#126).
-3. **Vector/raster operations** — buffers, overlays, zonal stats, reclass/map algebra, formats, admin hierarchy (Unit 3.3).
-4. **Terrain / network / field QC** — DEM concepts, flow, accessibility, geocoding quality, field schema (Unit 3.4).
-5. **Python geospatial path** — GeoPandas/rasterio-oriented lessons at draft depth (Unit 3.5); advanced libs deferred.
-6. **Cartographic honesty** — classification, colour, figure–ground (Unit 3.6).
-7. **Spatial dependence intro** — autocorrelation awareness, neighbourhood rules, edge/multiplicity caution (Unit 3.9); advanced models deferred.
+## Core vs Support stage meaning
 
-## Leaves promoted in C.73 (deferred → mapped_partial)
+- **Core path taught at draft depth:** 3.1–3.6, 3.9 (with honest `mapped_partial` and listed Core deferrals inside those units).
+- **Support/Optional units 3.7, 3.8, 3.10, 3.11:** not implemented; disposition **deferred** for every leaf — not silent omissions.
 
-| Leaf | Evidence |
-|------|----------|
-| 3.1.3.1 Cartographic vs process scale | `cgei-geo-31-3-scale` |
-| 3.1.3.5 Ecological fallacy | `cgei-geo-31-3-eco` + `cgei-geo-q-31-scale` |
-| 3.1.2.3 Geometry repair | Conceptual triage checklist |
-| 3.1.4.3 Error propagation | Qualitative overlay guidance |
-| 3.2.3.2 UTM 42N Multan | Remapped to existing lesson 3-2-4 zone teaching |
-| 3.6.1.1 Figure–ground | `cgei-geo-36-1-hierarchy` + assessment |
-| 3.9.1.3 Neighbourhood weights | Worked example + `unit_3_9_neighbourhood_weights_check.py` |
-| 3.9.1.4 Edge / multiple testing | Awareness prose |
+### Remaining Core deferrals (inside 3.1–3.6, 3.9)
 
-## Explicit deferrals (stage-exit, not silent gaps)
+Examples: beyond-2D models (3.1.1.5), pyramids/tiling (3.1.1.6), ISO 19115 in Unit 3.1 (3.1.4.2), PyQGIS (3.3.2.1), ArcGIS/ModelBuilder (3.3.2.2), dask-geopandas (3.5.1.7), xarray-spatial/ndimage (3.5.3.1), advanced spatial stats / GWR / Bayesian spatial (3.9.2–3.9.6 subset). Full list lives in the unit CSVs.
 
-| Leaf | Reason |
-|------|--------|
-| 3.1.1.5 TIN / point clouds / voxels / STC / networks | Beyond 2D data models not taught |
-| 3.1.1.6 Pyramids / tiling / half-pixel | Not taught |
-| 3.1.4.2 ISO 19115 / FAIR in Unit 3.1 | Covered elsewhere or not in spatial lessons |
-| 3.3.2.1 PyQGIS | No scripting lab in CI |
-| 3.3.2.2 ArcGIS / ModelBuilder | Commercial GUI alternative; QGIS-oriented curriculum |
-| 3.5.1.7 dask-geopandas | Named only |
-| 3.5.3.1 xarray-spatial / ndimage filters | Not implemented |
-| 3.9.2.2–3.9.3.3, 3.9.5.4, 3.9.6.x | Advanced spatial stats / Bayesian / MC — require dedicated tooling and assessment |
+## Workflows learners can follow (implemented Core)
 
-All deferrals remain **Core** priority in the TOC where so labelled; deferral means *not taught in this stage*, not *optional forever*.
+1. CRS assign vs transform → residual → spatial CRS guard → document  
+2. Join integrity (fan-out, orphans, CRS precondition)  
+3. Vector/raster operations, formats, admin hierarchy  
+4. Terrain / network / geocoding / field QC  
+5. Python geospatial stack (draft)  
+6. Cartographic honesty including figure–ground  
+7. Spatial dependence intro and neighbourhood definitions (conceptual)
 
 ## Scientific honesty
 
-- Synthetic fixtures (join integrity, CRS affine, rook weights) are **not** PROJ/GDAL/GeoPandas/GEOS validation.
-- No Multan survey control or national grid-shift files.
-- **No leaf is marked fully `mapped`** in this stage; `mapped_partial` is the honest ceiling without production GIS execution.
+- Synthetic fixtures ≠ PROJ / GDAL / GeoPandas / PostGIS / production topology engines  
+- **No leaf marked fully `mapped`**  
+- Support/Optional units deferred, not claimed taught  
 
-## Follow-up stages (not this stage)
+## Criteria to start Subject 4
 
-1. Subject **4** Core remote-sensing path (programme priority).
-2. Optional later: PyQGIS lab, real PROJ transforms in CI if deps allow, spatial regression package.
-3. Accessibility PR #119 remains separate.
+1. PR #128 required checks green on its exact head  
+2. Maintainer merge authorization for #128  
+3. Post-merge main still green  
+4. Accept that Subject 3 **stage** closure means Core path reconciled + Support/Optional explicitly deferred — not “every Support leaf taught”
 
 ## Stage decision
 
-**Subject 3 curriculum-completion stage: CLOSED for new batch implementation**, subject to green CI on this PR and post-merge main. Residual work is the explicit deferral list above—not open-ended leaf polishing.
+**Subject 3 Core curriculum-completion stage may close** after #128 is green and merged, with Support/Optional units carried as documented backlog—not as open unmapped inventory gaps.
