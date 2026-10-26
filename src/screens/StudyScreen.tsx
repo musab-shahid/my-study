@@ -274,7 +274,7 @@ export function StudyScreen() {
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Domain orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
-                  <ChevronDown className="w-4 h-4 shrink-0 text-sky-700" aria-hidden />
+                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
                 </summary>
                 <div className="pt-3">
               <div className="flex items-start gap-3">
@@ -282,7 +282,7 @@ export function StudyScreen() {
                   <BookOpen className="w-5 h-5 text-sky-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Context</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1">Context</p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
                   {roadmapTopic.explanationSections?.map((section) => (
