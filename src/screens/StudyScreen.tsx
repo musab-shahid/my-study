@@ -12,7 +12,7 @@ import { topicsBySection, getTopic, topicsBySubject } from '@/data/topics';
 import { sectionMap, sections } from '@/data/sections';
 import { SectionBadge } from '@/components/SectionBadge';
 import { getSubjectColor } from '@/data/subject-colors';
-import { PageContainer, Card, EmptyState, ProgressBar, ActionCard, TopicStatusIcon, LoadingSpinner, Button, ScreenHeader } from '@/components/ui';
+import { PageContainer, Card, EmptyState, ProgressBar, ActionCard, TopicStatusIcon, LoadingSpinner, Button, Badge, ScreenHeader } from '@/components/ui';
 import { MathText } from '@/components/MathText';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
@@ -289,7 +289,7 @@ export function StudyScreen() {
                 <div className="pt-4 space-y-5 border-t border-slate-200 mt-3">
                   {curriculumSubject && (
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">This subject</p>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-success-700 mb-1">This subject</p>
                       <h2 className="text-base font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                       <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
                       {curriculumSubject.purpose ? (
@@ -325,7 +325,7 @@ export function StudyScreen() {
                           <ul className="space-y-1.5">
                             {curriculumSubject.outcomes.slice(0, 12).map((outcome) => (
                               <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
-                                <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
+                                <span className="text-success-700 font-bold">•</span><span>{outcome.statement}</span>
                               </li>
                             ))}
                             {curriculumSubject.outcomes.length > 12 ? (
@@ -340,10 +340,10 @@ export function StudyScreen() {
                   {roadmapTopic && (
                     <div className={curriculumSubject ? 'pt-2 border-t border-slate-100' : ''}>
                       {curriculumSubject ? (
-                        <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-2">Domain context</p>
+                        <p className="text-xs font-semibold uppercase tracking-wide text-brand-700 mb-2">Domain context</p>
                       ) : (
                         <>
-                          <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation</p>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-brand-700 mb-1">Domain orientation</p>
                           <h2 className="text-base font-bold text-slate-900">{subjectTitle}</h2>
                         </>
                       )}
@@ -357,17 +357,17 @@ export function StudyScreen() {
                       {roadmapTopic.keyFacts?.length ? (
                         <div className="mt-3">
                           <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Orientation notes</h3>
-                          <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
+                          <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
                         </div>
                       ) : null}
                       {roadmapTopic.examPoints?.length ? (
                         <div className="mt-3">
                           <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Learning principles</h3>
-                          <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
+                          <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{point}</span></li>)}</ul>
                         </div>
                       ) : null}
                       {!curriculumSubject && subjectTopics.length === 0 && (
-                        <p className="mt-3 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
+                        <p className="mt-3 rounded-lg border border-brand-100 bg-white/80 p-3 text-xs text-slate-600">
                           Structured lessons for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
                         </p>
                       )}
@@ -380,7 +380,7 @@ export function StudyScreen() {
 
           {/* Primary learning path: canonical units */}
           {curriculumSubject && (
-            <Card className="mb-3 p-3.5 sm:p-5 border border-teal-200 bg-white">
+            <Card className="mb-3 p-3.5 sm:p-5 border border-success-200 bg-white">
               <div className="flex items-center justify-between gap-3 mb-3">
                 <div>
                   <h3 className="text-sm font-semibold text-slate-900">Learning path</h3>
@@ -393,25 +393,26 @@ export function StudyScreen() {
               </div>
               <div className="space-y-2">
                 {curriculumUnits.map((unit) => (
-                  <button
+                  <Button
                     key={unit.id}
                     type="button"
+                    variant="secondary"
                     onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
-                    className="w-full rounded-xl border border-slate-200 bg-slate-50/80 hover:bg-teal-50 hover:border-teal-200 p-3 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
+                    className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left"
                   >
                     <div className="flex items-start gap-3">
-                      <span className="text-xs font-bold text-teal-800 w-10 shrink-0 pt-0.5">{unit.code}</span>
+                      <span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span>
                       <span className="min-w-0 flex-1">
                         <span className="flex flex-wrap items-center gap-2">
                           <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
-                          <span className={`rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
+                          <Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge>
                         </span>
                         <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
                         <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
                       </span>
-                      <ChevronRight className="w-4 h-4 text-teal-700 shrink-0 mt-1" />
+                      <ChevronRight className="w-4 h-4 text-success-700 shrink-0 mt-1" />
                     </div>
-                  </button>
+                  </Button>
                 ))}
               </div>
               {curriculumSubject.projectIds.map((projectId) => {
@@ -430,10 +431,10 @@ export function StudyScreen() {
                 );
               })}
               {lastCurriculumLesson && (
-                <button type="button" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-sky-50/50 hover:bg-sky-50 p-3 text-left transition-colors">
-                  <span className="text-label font-semibold uppercase tracking-wide text-sky-800">Resume</span>
-                  <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
-                </button>
+                <Button type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 justify-start rounded-xl border-brand-200 bg-brand-50 p-3 text-left">
+                  <span className="text-label font-semibold uppercase tracking-wide text-brand-700">Resume</span>
+                  <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-brand-700 shrink-0" /></span>
+                </Button>
               )}
             </Card>
           )}
@@ -561,10 +562,10 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
         <p className="text-slate-600 mt-1 text-body-sm">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
       {curriculumUnit && (
-        <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-teal-100 bg-teal-50/30">
+        <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-success-100 bg-teal-50/30">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
-            <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-teal-800 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
+            <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-success-700 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
           </div>
           <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
           {curriculumUnit.outcomes.length > 0 && (
@@ -573,7 +574,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
               <ul className="space-y-2">
                 {curriculumUnit.outcomes.map((outcome) => (
                   <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
-                    <span className="rounded-md bg-white border border-teal-100 px-1.5 py-0.5 text-label font-bold text-teal-800 shrink-0">{outcome.level}</span>
+                    <span className="rounded-md bg-white border border-success-100 px-1.5 py-0.5 text-label font-bold text-success-700 shrink-0">{outcome.level}</span>
                     <span>{outcome.statement}</span>
                   </li>
                 ))}
@@ -592,7 +593,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                       {activity.estimatedMinutes && <span className="text-label text-slate-500">~{activity.estimatedMinutes} min</span>}
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed mt-1">{activity.instructions}</p>
-                    {activity.expectedEvidence?.length ? <p className="text-xs text-teal-800 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-success-700 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
                   </div>
                 ))}
               </div>
@@ -633,7 +634,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                   {unitResources.map((resource) => (
                     <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
                       {resource.url ? (
-                        <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-teal-800 hover:underline">{resource.title}</a>
+                        <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-success-700 hover:underline">{resource.title}</a>
                       ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
                       <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
                       {resource.authorOrPublisher && <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
@@ -803,17 +804,17 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         {curriculumLesson && (
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
-            <span className="rounded-full bg-sky-50 text-sky-800 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
+            <span className="rounded-full bg-sky-50 text-brand-700 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
             {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
             <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
           </div>
         )}
         {curriculumLesson?.objectives.length ? (
-          <section className="mt-4 rounded-xl border border-sky-100 bg-sky-50/50 p-4">
+          <section className="mt-4 rounded-xl border border-brand-100 bg-brand-50 p-4">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-sky-900 mb-2">By the end of this lesson, you should be able to</h2>
             <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
               <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
-                <span className="rounded bg-white border border-sky-100 px-1.5 py-0.5 text-label font-bold text-sky-800 shrink-0">{outcome.level}</span>
+                <span className="rounded bg-white border border-brand-100 px-1.5 py-0.5 text-label font-bold text-brand-700 shrink-0">{outcome.level}</span>
                 <span>{outcome.statement}</span>
               </li>
             ))}</ul>
@@ -825,7 +826,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {curriculumLesson ? <CurriculumLessonContent lesson={curriculumLesson} /> : (<>
         {topic.definition && (
           <section>
-            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-sky-700 mb-2.5">Definition</h2>
+            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-brand-700 mb-2.5">Definition</h2>
             <p className="text-slate-800 text-base sm:text-lg leading-7 sm:leading-8"><MathText text={topic.definition} /></p>
           </section>
         )}
@@ -958,9 +959,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                     const use = step.use ?? step.recommendation ?? '';
                     return (
                       <li key={i} className="text-sm text-slate-800 leading-relaxed">
-                        <span className="font-medium text-sky-800">If </span>
+                        <span className="font-medium text-brand-700">If </span>
                         <MathText text={when} />
-                        <span className="font-medium text-sky-800"> → </span>
+                        <span className="font-medium text-brand-700"> → </span>
                         <MathText text={use} />
                         {step.notes && <span className="block text-slate-500 text-xs mt-0.5"><MathText text={step.notes} /></span>}
                       </li>
@@ -975,9 +976,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             const renderBranches = (branches: Array<{ condition: string; result?: string; branches?: any[] }>, depth: number) =>
               branches.map((b, i) => (
                 <li key={`${depth}-${i}`} className={depth > 0 ? 'pl-4' : ''}>
-                  <span className="font-medium text-sky-800">{b.condition}</span>
+                  <span className="font-medium text-brand-700">{b.condition}</span>
                   {b.result && <span className="text-slate-700"> → <MathText text={b.result} /></span>}
-                  {b.branches && <ul className="space-y-1 mt-1 pl-4 border-l border-sky-200">{renderBranches(b.branches, depth + 1)}</ul>}
+                  {b.branches && <ul className="space-y-1 mt-1 pl-4 border-l border-brand-200">{renderBranches(b.branches, depth + 1)}</ul>}
                 </li>
               ));
             return (
@@ -997,13 +998,13 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               <div className="space-y-2 sm:space-y-3">
                 {mc.options.map((opt, i) => (
                   <div key={i} className="space-y-1">
-                    {opt.name && <p className="text-sm font-semibold text-sky-800"><MathText text={opt.name} /></p>}
+                    {opt.name && <p className="text-sm font-semibold text-brand-700"><MathText text={opt.name} /></p>}
                     {opt.when && <p className="text-xs text-slate-500 leading-relaxed"><span className="font-medium">When: </span><MathText text={opt.when} /></p>}
                     {opt.steps && <ul className="space-y-1 pl-4">{opt.steps.map((s, si) => <li key={si} className="text-xs text-slate-700 leading-relaxed list-disc"><MathText text={s} /></li>)}</ul>}
                   </div>
                 ))}
               </div>
-              {mc.recommendation && <p className="mt-3 pt-2 border-t border-sky-200 text-xs text-slate-600 leading-relaxed"><span className="font-medium text-sky-800">Recommendation: </span><MathText text={mc.recommendation} /></p>}
+              {mc.recommendation && <p className="mt-3 pt-2 border-t border-brand-200 text-xs text-slate-600 leading-relaxed"><span className="font-medium text-brand-700">Recommendation: </span><MathText text={mc.recommendation} /></p>}
             </Card>
           );
         })()}
@@ -1131,7 +1132,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </Card>
           );
         })()}
-        <div className="rounded-2xl border border-sky-100 bg-sky-50/70 p-card-pad sm:p-card-pad-lg">
+        <div className="rounded-2xl border border-brand-100 bg-sky-50/70 p-card-pad sm:p-card-pad-lg">
           <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
           <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
           <div className="mt-3 flex flex-col sm:flex-row gap-2">
@@ -1203,7 +1204,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                     </div>
                     <p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>
                     {activity.expectedEvidence?.length ? <p className="text-xs text-slate-600 mt-2"><span className="font-semibold">Evidence to save:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
-                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-sky-800">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-600">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
+                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-700">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-600">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
                   </Card>
                 ))}</div>
               </div>
@@ -1225,7 +1226,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 <h2 className="font-semibold text-slate-900 mb-2">Further reading and tools</h2>
                 <ul className="space-y-2">{lessonResources.map((resource) => (
                   <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
-                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-sky-800 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
+                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-brand-700 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
                     <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
                     {resource.authorOrPublisher ? <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
                   </li>
