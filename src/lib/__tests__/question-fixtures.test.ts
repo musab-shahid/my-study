@@ -56,3 +56,22 @@ describe('question fixtures (structural)', () => {
     assert.equal(new Set(ids).size, ids.length);
   });
 });
+
+/** Regression: HAT items that previously shipped duplicate options */
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+describe('HAT verbal option integrity regressions', () => {
+  it('keeps fixed items free of duplicate option text', () => {
+    const src = readFileSync(resolve('src/data/hat/verbal/questions-verbal.ts'), 'utf8');
+    for (const id of ['HATV-06-Q030', 'HATV-03-Q011']) {
+      const idx = src.indexOf(`id: '${id}'`);
+      assert.ok(idx >= 0, `missing ${id}`);
+      const slice = src.slice(idx, idx + 500);
+      const m = slice.match(/options:\s*\[([^\]]+)\]/);
+      assert.ok(m, `options not found for ${id}`);
+      const parts = m[1].split(',').map((s) => s.trim().replace(/^['"]|['"]$/g, '').toLowerCase());
+      assert.equal(new Set(parts).size, parts.length, `${id} has duplicate options: ${parts.join(' | ')}`);
+    }
+  });
+});
