@@ -73,11 +73,11 @@ for (const unit of cgeiCurriculum.units) {
       errors.push(`Unit ${unit.code} has order ${unit.order}; expected ${expectedOrder}`);
     }
   }
-  checkRefs(`Unit ${unit.id} lessons`, unit.lessonIds, lessonIds);
-  checkRefs(`Unit ${unit.id} activities`, unit.activityIds, activityIds);
-  checkRefs(`Unit ${unit.id} assessments`, unit.assessmentIds, assessmentIds);
-  checkRefs(`Unit ${unit.id} resources`, unit.resourceIds, resourceIds);
-  checkRefs(`Unit ${unit.id} deliverables`, unit.deliverableIds, deliverableIds);
+  checkRefs(`Unit ${unit.id} lessons`, unit.lessonIds ?? [], lessonIds);
+  checkRefs(`Unit ${unit.id} activities`, unit.activityIds ?? [], activityIds);
+  checkRefs(`Unit ${unit.id} assessments`, unit.assessmentIds ?? [], assessmentIds);
+  checkRefs(`Unit ${unit.id} resources`, unit.resourceIds ?? [], resourceIds);
+  checkRefs(`Unit ${unit.id} deliverables`, unit.deliverableIds ?? [], deliverableIds);
   if (unit.legacySectionId && !sectionIds.has(unit.legacySectionId)) errors.push(`Unit ${unit.id} maps to missing legacy section ${unit.legacySectionId}`);
   if (unit.lessonIds.length === 0 && unit.readiness !== 'planned' && unit.kind !== 'orientation') {
     warnings.push(`Unit ${unit.code} has no lessons but readiness is ${unit.readiness}`);
@@ -107,9 +107,9 @@ for (const lesson of cgeiCurriculum.lessons) {
     if (['callout', 'reflection'].includes(block.kind) && !block.body?.trim() && !block.items?.length) errors.push(`Content block ${block.id} (${block.kind}) requires body text or items`);
     if (block.kind === 'figure' && !block.body?.trim() && !block.caption?.trim()) errors.push(`Figure block ${block.id} requires a description or caption`);
   }
-  checkRefs(`Lesson ${lesson.id} activities`, lesson.activityIds, activityIds);
-  checkRefs(`Lesson ${lesson.id} assessments`, lesson.assessmentIds, assessmentIds);
-  checkRefs(`Lesson ${lesson.id} resources`, lesson.resourceIds, resourceIds);
+  checkRefs(`Lesson ${lesson.id} activities`, lesson.activityIds ?? [], activityIds);
+  checkRefs(`Lesson ${lesson.id} assessments`, lesson.assessmentIds ?? [], assessmentIds);
+  checkRefs(`Lesson ${lesson.id} resources`, lesson.resourceIds ?? [], resourceIds);
   checkRefs(`Lesson ${lesson.id} deliverables`, lesson.deliverableIds ?? [], deliverableIds);
   for (const outcome of lesson.objectives) checkRefs(`Lesson ${lesson.id} objective competencies`, outcome.competencyIds ?? [], competencyIds);
 }
@@ -119,7 +119,7 @@ for (const question of cgeiCurriculum.questions) {
   errors.push(...validateCurriculumQuestion(question));
 }
 for (const activity of cgeiCurriculum.activities) {
-  checkRefs(`Activity ${activity.id} objectives`, activity.objectiveIds, new Set([
+  checkRefs(`Activity ${activity.id} objectives`, activity.objectiveIds ?? [], new Set([
     ...cgeiCurriculum.subjects.flatMap((subject) => subject.outcomes.map((outcome) => outcome.id)),
     ...cgeiCurriculum.units.flatMap((unit) => unit.outcomes.map((outcome) => outcome.id)),
     ...cgeiCurriculum.lessons.flatMap((lesson) => lesson.objectives.map((outcome) => outcome.id)),
@@ -128,7 +128,7 @@ for (const activity of cgeiCurriculum.activities) {
   if (activity.solutionResourceId && !resourceIds.has(activity.solutionResourceId)) errors.push(`Activity ${activity.id} has missing solution resource ${activity.solutionResourceId}`);
 }
 for (const assessment of cgeiCurriculum.assessments) {
-  checkRefs(`Assessment ${assessment.id} objectives`, assessment.objectiveIds, new Set([
+  checkRefs(`Assessment ${assessment.id} objectives`, assessment.objectiveIds ?? [], new Set([
     ...cgeiCurriculum.subjects.flatMap((subject) => subject.outcomes.map((outcome) => outcome.id)),
     ...cgeiCurriculum.units.flatMap((unit) => unit.outcomes.map((outcome) => outcome.id)),
   ]));
