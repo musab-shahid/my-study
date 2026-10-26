@@ -78,7 +78,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
       </div>
 
       {unit.outcomes.length > 0 && <Card className="p-0 mb-5 border border-teal-100 overflow-hidden">
-        <details open>
+        <details>
           <summary className="flex items-center justify-between gap-3 cursor-pointer list-none p-card-pad sm:p-card-pad-lg select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
             <h2 className="font-semibold text-slate-900">Learning outcomes</h2>
             <span className="flex items-center gap-2 text-xs text-slate-500">
