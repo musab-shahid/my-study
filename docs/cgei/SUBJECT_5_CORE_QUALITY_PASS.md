@@ -32,3 +32,8 @@ Units remain **draft / mapped_partial** where they were partial. Synthetic fixtu
 | Assessments | `cgei-ds-q-56-020`, `511-020`, `512-020` |
 
 Questions array placement fixed so new items sit **inside** `questions: [...]` before the closing bracket.
+
+## Pass 3
+- Fixed duplicate content-block ID `cgei-ds-56-4-guided` (renamed station-transfer guided block).
+- Units 5.4 and 5.7: SE scaling and time-series metadata worked examples + questions.
+- Fixtures 5.4 / 5.6 / 5.7 re-verified locally.
