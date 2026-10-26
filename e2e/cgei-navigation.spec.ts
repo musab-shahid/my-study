@@ -76,31 +76,33 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     }
 
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/0 of \d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/0 of \\d+ lessons marked studied/)).toBeVisible();
     await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
-    await expect(page).toHaveURL(/curriculum\/unit\/cgei-ds-unit-5-1$/);
+    await expect(page).toHaveURL(/curriculum\\/unit\\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
-    await expect(page).toHaveURL(/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
+    await expect(page).toHaveURL(/curriculum\\/lesson\\/cgei-ds-lesson-5-1-1$/);
     await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
     await expect(page.getByText('Unrecorded knowledge check', { exact: true }).first()).toBeVisible();
     await expect(page.getByText(/does not establish mastery/).first()).toBeVisible();
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toBeVisible();
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/1 of \d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/1 of \\d+ lessons marked studied/)).toBeVisible();
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/topic/cgei-env-systems-roadmap');
 
-    await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
-    await expect(page.getByText('Domain orientation · context only · not a study lesson', { exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page).toHaveURL(/\\/learn\\/cgei-env-systems$/);
+    // The wording is rendered across a parent paragraph and nested span; assert on the paragraph.
+    const orientationLabel = page.locator('p').filter({ hasText: 'Domain orientation' }).filter({ hasText: 'not a study lesson' });
+    await expect(orientationLabel).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText(/Structured lessons and assessments for this domain are being migrated progressively/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Sections', exact: true })).toHaveCount(0);
-    await expect(page.getByText(/0 \/ 1 topics studied/)).toHaveCount(0);
+    await expect(page.getByText(/0 \\/ 1 topics studied/)).toHaveCount(0);
   });
 });
