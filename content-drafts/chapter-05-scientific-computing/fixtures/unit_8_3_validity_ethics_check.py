@@ -30,6 +30,9 @@ def validate_validity_ethics(record: dict) -> list[str]:
         errs.append("preanalysis_requires_deviation_documentation")
     if record.get("selective_outcome_reporting") is True:
         errs.append("selective_outcome_reporting_not_allowed")
+    # Confirmatory claims should plan sensitivity or multiplicity handling
+    if record.get("design_type") == "confirmatory" and record.get("reports_sensitivity_or_multiplicity") is not True:
+        errs.append("confirmatory_requires_sensitivity_or_multiplicity_plan")
     # Fixture is not IRB
     if record.get("claims_ethics_approval_via_this_check") is True:
         errs.append("fixture_is_not_institutional_ethics_approval")
@@ -73,6 +76,15 @@ def main() -> None:
         "claims_ethics_approval_via_this_check": True,
     }
     assert "fixture_is_not_institutional_ethics_approval" in validate_validity_ethics(irb_bad)
+
+    conf_bad = {
+        **{f"addresses_{v}_validity": True for v in VALIDITY_TYPES},
+        "design_type": "confirmatory",
+        "reports_sensitivity_or_multiplicity": False,
+    }
+    assert "confirmatory_requires_sensitivity_or_multiplicity_plan" in validate_validity_ethics(conf_bad)
+    conf_ok = {**conf_bad, "reports_sensitivity_or_multiplicity": True}
+    assert validate_validity_ethics(conf_ok) == []
 
     ok = {
         **{f"addresses_{v}_validity": True for v in VALIDITY_TYPES},
