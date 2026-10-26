@@ -1,57 +1,92 @@
 import { test, expect } from '@playwright/test';
 
 const APP_DATA_KEY = 'examprep-data';
+const SUBJECT_SELECTION_KEY = 'examprep-subject-selection';
 
 async function seedCgeiWorkspace(page: import('@playwright/test').Page) {
-  await page.addInitScript((key) => {
-    const payload = {
-      version: 1,
-      activeTrack: 'cgei',
-      trackMembership: {
-        enrollments: {
-          cgei: { enrolledAt: new Date().toISOString(), activeExamId: null },
+  const now = new Date().toISOString();
+  await page.goto('/');
+  await page.evaluate(
+    ({ appKey, subjectKey, enrolledAt }) => {
+      localStorage.setItem(appKey, JSON.stringify({
+        studiedTopics: [],
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: '',
+        trackMembership: {
+          schemaVersion: 1,
+          enrollments: {
+            cgei: {
+              enrolledAt,
+              source: 'explicit',
+              lastOpenedAt: enrolledAt,
+              activeExamId: null,
+            },
+          },
+          activeTrackId: 'cgei',
         },
-      },
-      studiedTopics: [],
-      studiedCurriculumLessons: [],
-      topicProgress: {},
-      quizHistory: [],
-      bookmarks: [],
-      lastOpenedTopic: null,
-      lastOpenedCurriculumLesson: null,
-    };
-    localStorage.setItem(key, JSON.stringify(payload));
-  }, APP_DATA_KEY);
+      }));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'cgei',
+        byTrack: { cgei: { perScreen: {}, lastSelected: '', prefersAll: true } },
+      }));
+    },
+    { appKey: APP_DATA_KEY, subjectKey: SUBJECT_SELECTION_KEY, enrolledAt: now },
+  );
+  await page.reload();
+  await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
 }
 
 test.describe('CGEI curriculum navigation and orientation', () => {
-  test('subject Learn route shows course orientation and units for data science', async ({ page }) => {
+  test('shows the grouped 14-domain pathway and its implementation stages', async ({ page }) => {
     await seedCgeiWorkspace(page);
-    await page.goto('/learn/cgei-data-science');
+    await page.goto('/track/cgei');
 
-    await expect(page.getByText('Course orientation')).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText(/onboarding/)).toBeVisible();
-    await expect(page.getByText(/not a study lesson/)).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Sections', exact: true })).toHaveCount(0);
+    await expect(page.getByText('14 connected domains', { exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('heading', { name: 'Explore the pathway', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Foundations & Earth systems' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Applied environmental intelligence' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Research & professional practice' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(14);
+    await expect(page.getByText(/Canonical curriculum · subject readiness:/).first()).toBeVisible();
+    await expect(page.getByText('Orientation only', { exact: true }).first()).toBeVisible();
   });
 
-  test('canonical curriculum lesson route marks studied and reflects count', async ({ page }) => {
+  test('all registered canonical subjects expose their unit hierarchy', async ({ page }) => {
     await seedCgeiWorkspace(page);
+
+    const subjects = [
+      { id: 'cgei-env-systems', firstUnit: '1.1', lastUnit: '1.10' },
+      { id: 'cgei-climate-science', firstUnit: '2.1', lastUnit: '2.8' },
+      { id: 'cgei-geospatial', firstUnit: '3.1', lastUnit: '3.4' },
+      { id: 'cgei-remote-sensing', firstUnit: '4.1', lastUnit: '4.10' },
+      { id: 'cgei-data-science', firstUnit: '5.1', lastUnit: '5.12' },
+      { id: 'cgei-ml-geoai', firstUnit: '6.1', lastUnit: '6.6' },
+      { id: 'cgei-climate-risk', firstUnit: '7.1', lastUnit: '7.5' },
+    ];
+
+    for (const subject of subjects) {
+      await page.goto(`/learn/${subject.id}`);
+      await expect(page.getByRole('heading', { name: 'Curriculum units', exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText(subject.firstUnit, { exact: true }).first()).toBeVisible();
+      await expect(page.getByText(subject.lastUnit, { exact: true }).first()).toBeVisible();
+    }
+
     await page.goto('/learn/cgei-data-science');
+    await expect(page.getByText(/0 of \d+ lessons marked studied/)).toBeVisible();
+    await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
+    await expect(page).toHaveURL(/curriculum\/unit\/cgei-ds-unit-5-1$/);
+    await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
 
-    const unitLink = page.getByRole('link').filter({ hasText: /5\.1|Mathematical/ }).first();
-    if (await unitLink.count()) {
-      await unitLink.click();
-    } else {
-      await page.goto('/curriculum/unit/cgei-ds-unit-5-1');
-    }
-
-    const lessonLink = page.getByRole('link').filter({ hasText: /lesson|5\.1/i }).first();
-    if (await lessonLink.count()) {
-      await lessonLink.click();
-    }
-
-    await expect(page.getByRole('button', { name: /Mark lesson studied/ })).toBeVisible({ timeout: 20_000 });
+    await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
+    await expect(page).toHaveURL(/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
+    await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+    await expect(page.getByText('Unrecorded knowledge check', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText(/does not establish mastery/).first()).toBeVisible();
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toBeVisible();
     await page.goto('/learn/cgei-data-science');
@@ -63,7 +98,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/topic/cgei-env-systems-roadmap');
 
     await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
-    // Label is split across the heading text and a muted span; match the composed accessible string.
+    // Label is split across the heading text and a muted span; do not exact-match a single string.
     const orientationLabel = page.locator('p').filter({ hasText: 'Domain orientation' }).filter({ hasText: 'not a study lesson' });
     await expect(orientationLabel).toBeVisible({ timeout: 20_000 });
     await expect(orientationLabel).toContainText('context only');
