@@ -1,17 +1,19 @@
-/** Badge for a section or subject short code (suffix after last hyphen). */
-export function shortCode(id: string): string {
-  const i = id.lastIndexOf('-');
-  return i >= 0 ? id.slice(i + 1) : id;
+import type { Section } from '@/types';
+import { subjectMap } from '@/data/subjects';
+import { getSubjectStyle } from '@/data/subject-colors';
+/** Display suffix after the last hyphen (e.g. CGEI-024 → 024). Not a separate canonical ID. */
+function shortCode(sectionId: string): string {
+  const idx = sectionId.lastIndexOf('-');
+  return idx >= 0 ? sectionId.slice(idx + 1) : sectionId;
 }
-
-/**
- * Visual badge for section IDs (e.g. CGEI-024 → "024").
- * Legacy CGEI section IDs are intentional compatibility keys, not truncated unit codes.
- */
-export function SectionBadge({ id, className = '' }: { id: string; className?: string }) {
+export function SectionBadge({ section, className = '' }: { section: Section; className?: string }) {
+  const subject = subjectMap[section.subjectId];
+  const Icon = subject?.lucideIcon;
+  const color = getSubjectStyle(section.subjectId);
   return (
-    <span className={`inline-flex items-center rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 ${className}`}>
-      {shortCode(id)}
+    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-bold ${color.tint} ${color.text} ${className}`}>
+      {Icon && <Icon className="w-3 h-3 shrink-0" />}
+      {shortCode(section.id)}
     </span>
   );
 }
