@@ -242,6 +242,9 @@ jobs:
 
       - name: Verify Unit 3.2 assign CRS vs transform
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_assign_vs_transform_check.py
+
+      - name: Verify Unit 3.2 CRS workflow chain
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_workflow_check.py
       - name: Verify Unit 3.3 join integrity and CRS guard
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_join_integrity_check.py
       - name: Verify Unit 3.3 zonal statistics aggregation
