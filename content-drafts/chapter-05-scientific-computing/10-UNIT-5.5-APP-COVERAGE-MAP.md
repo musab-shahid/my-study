@@ -21,9 +21,16 @@
 - Five supporting references are linked to the lessons and unit.
 - Assessment IDs are `cgei-ds-assess-55-workflow`, `cgei-ds-assess-55-sql`, `cgei-ds-assess-55-api`, `cgei-ds-assess-55-provenance`, and `cgei-ds-assess-55-package`.
 
+
+## C.46 bounded vertical-slice update
+
+- Expanded the existing 5.5.2 SQL practice in `units/05.5-data-workflow-engineering.md` with a worked query, intermediate arithmetic, synthetic fixture, independent row-count and orphan-key checks, guided practice, independent transfer task, and a 10-point rubric.
+- Added a stdlib SQLite check for the worked example. This validates the small synthetic SQL example only; it does not validate any live provider data or the complete lesson.
+- Canonical lesson ID remains `cgei-ds-lesson-5-5-2`; readiness remains `draft`. No curriculum IDs, saved-progress keys, or readiness states were changed.
+
 ## Review criteria before changing readiness
 
-1. A deterministic SQLite smoke check now executes the June aggregation query and checks unmatched keys. Extend it if the schema or query changes.
+1. The Subject 5.5 SQL worked example has a deterministic SQLite check at `fixtures/unit_5_5_sql_practice_check.py`. Run `python3 content-drafts/chapter-05-scientific-computing/fixtures/unit_5_5_sql_practice_check.py`; it checks June bounds, expected means/counts, and that the orphan-key diagnostic detects an injected unmatched key. All data are synthetic.
 2. Deterministic smoke checks now cover mocked 200, 429, repeated 500 and timeout cases; do not make tests depend on a live provider.
 3. Bounded retry behaviour is smoke-tested. Provider-specific pagination termination and live cache behaviour remain unverified because no live endpoint is called by CI.
 4. The lesson now includes a chunked SHA-256 file-hash example; the fixture verifies it against the known digest for `abc`. Before release, verify it on an actual synthetic or permitted data file.

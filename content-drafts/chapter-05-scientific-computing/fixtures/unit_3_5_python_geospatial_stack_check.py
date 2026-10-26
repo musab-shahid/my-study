@@ -48,9 +48,35 @@ def main() -> None:
     except ValueError:
         pass
 
+    # --- SQL→spatial bridge: predict counts, then assign ---
+    stations = [
+        {"id": 1, "x": 0.5, "y": 0.5, "crs": "EPSG:4326"},
+        {"id": 2, "x": 0.8, "y": 0.2, "crs": "EPSG:4326"},
+        {"id": 3, "x": 5.5, "y": 5.5, "crs": "EPSG:4326"},
+    ]
+    districts = [
+        {"name": "North", "bbox": (0.0, 0.0, 2.0, 2.0), "crs": "EPSG:4326"},
+        {"name": "South", "bbox": (5.0, 5.0, 6.0, 6.0), "crs": "EPSG:4326"},
+    ]
+    expected_counts = {"North": 2, "South": 1}
+    assignments = []
+    for s in stations:
+        hits = [d["name"] for d in districts if d["crs"] == s["crs"] and point_in_bbox(s["x"], s["y"], d["bbox"])]
+        assert len(hits) == 1, f"expected unique district for station {s['id']}, got {hits}"
+        assignments.append(hits[0])
+    from collections import Counter
+    got = Counter(assignments)
+    assert dict(got) == expected_counts, f"count mismatch: {got} vs {expected_counts}"
+    assert len(assignments) == len(stations) == sum(expected_counts.values())
+
+    # Mixed CRS must fail closed (do not silently join).
+    mixed = {"id": 9, "x": 0.5, "y": 0.5, "crs": "EPSG:3857"}
+    mixed_hits = [d["name"] for d in districts if d["crs"] == mixed["crs"] and point_in_bbox(mixed["x"], mixed["y"], d["bbox"])]
+    assert mixed_hits == [], "mixed CRS must not assign via naive coordinate compare"
+
     print(
         "Unit 3.5 python geospatial stack checks passed "
-        "(bbox predicates + nodata-safe mean)."
+        "(bbox predicates + nodata-safe mean + join count bridge)."
     )
 
 
