@@ -14,3 +14,8 @@ Learners can inspect mean/variance stability, compute lag-1 ACF before/after dif
 
 ## Limits
 Synthetic series only. Illustrative critical value −2.93 is teaching scaffolding. No claim of climate stationarity or production econometric software parity.
+
+
+## Follow-up fix
+- Linked  and  into .
+- Updated structure-test question counts (506 total; Unit 5.7 = 20).
