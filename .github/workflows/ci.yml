@@ -62,6 +62,8 @@ jobs:
         run: npm run check:design-system
       - name: Validate data
         run: npm run validate:data
+      - name: Core-leaf substantive-evidence gate
+        run: npm run audit:core-leaf-evidence
       - name: Unit tests
         run: npm test
       - name: Typecheck
@@ -153,8 +155,6 @@ jobs:
           fi
           echo "Unexpected strict gate exit status: $status" >&2
           exit 1
-      - name: Core-leaf substantive-evidence gate
-        run: npm run audit:core-leaf-evidence
       - name: Upload Core-leaf coverage report
         if: always()
         uses: actions/upload-artifact@v7
