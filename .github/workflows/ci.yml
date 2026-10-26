@@ -239,6 +239,9 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_6_cartography_check.py
       - name: Verify Unit 3.2 transform validation
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py
+
+      - name: Verify Unit 3.2 assign CRS vs transform
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_assign_vs_transform_check.py
       - name: Verify Unit 3.3 join integrity and CRS guard
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_join_integrity_check.py
       - name: Verify Unit 3.3 zonal statistics aggregation
