@@ -1,13 +1,14 @@
-"""Subject 8 research-protocol teaching checks (stdlib).
+"""Subject 8 Unit 8.1 research-protocol teaching checks (stdlib).
 
-Validates a minimal protocol completeness contract used in Unit 8.1/8.6 teaching:
+Validates a minimal protocol completeness contract:
 - required fields present
-- estimand distinct from vague interest
-- unit of analysis declared
-- confirmatory work requires pre-analysis plan flag
-- deviations must be logged when plan exists
+- estimand distinct from vague interest / question
+- unit of analysis, population, time horizon declared
+- confirmatory work requires pre-analysis plan and deviation-log field
+- non-empty deviation entries must name what changed
+- exploratory work must not claim confirmatory certainty
 
-Synthetic protocol records only — not institutional ethics review.
+Synthetic protocol records only — not institutional ethics review or preregistration authority.
 """
 from __future__ import annotations
 
@@ -40,7 +41,21 @@ def validate_protocol(protocol: dict) -> list[str]:
         if protocol.get("plan_deviations") is None:
             errors.append("confirmatory_requires_deviation_log_field")
 
-    # selective reporting guardrail: exploratory claims must not claim confirmatory certainty
+    # Deviation entries: list of non-empty strings or dicts with "change"
+    devs = protocol.get("plan_deviations")
+    if isinstance(devs, list):
+        for i, d in enumerate(devs):
+            if isinstance(d, str):
+                if not d.strip():
+                    errors.append(f"deviation_blank:{i}")
+            elif isinstance(d, dict):
+                if not str(d.get("change") or "").strip():
+                    errors.append(f"deviation_missing_change:{i}")
+            else:
+                errors.append(f"deviation_bad_type:{i}")
+    elif devs is not None:
+        errors.append("plan_deviations_must_be_list_or_none")
+
     if protocol.get("design_type") == "exploratory" and protocol.get("claims_confirmatory_certainty") is True:
         errors.append("exploratory_cannot_claim_confirmatory_certainty")
 
@@ -70,11 +85,22 @@ def main() -> None:
         "population": "parcels in City X industrial belt",
         "time_horizon": "2018–2023",
         "design_type": "confirmatory",
-        # missing preanalysis_plan and deviation log field
     }
     e2 = validate_protocol(confirmatory_bad)
     assert "confirmatory_requires_preanalysis_plan" in e2
     assert "confirmatory_requires_deviation_log_field" in e2
+
+    blank_dev = {
+        "research_question": "Does a green-roof programme associate with lower peak LST?",
+        "estimand": "Difference in mean summer peak LST (°C) between treated and matched untreated parcels",
+        "unit_of_analysis": "parcel",
+        "population": "parcels in City X industrial belt",
+        "time_horizon": "2018–2023",
+        "design_type": "confirmatory",
+        "preanalysis_plan": "pap_v1.md",
+        "plan_deviations": [""],
+    }
+    assert "deviation_blank:0" in validate_protocol(blank_dev)
 
     exploratory_overclaim = {
         "research_question": "Patterns of drought indices across districts",
@@ -95,7 +121,9 @@ def main() -> None:
         "time_horizon": "2018–2023",
         "design_type": "confirmatory",
         "preanalysis_plan": "pap_v1.md",
-        "plan_deviations": [],
+        "plan_deviations": [
+            {"change": "Excluded 12 parcels with missing 2021 LST after QA failure; documented before unblinding outcomes."}
+        ],
         "claims_confirmatory_certainty": False,
     }
     assert validate_protocol(good) == []

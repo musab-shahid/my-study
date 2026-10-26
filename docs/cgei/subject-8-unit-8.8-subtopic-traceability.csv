@@ -1,7 +1,7 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-8.8.1.1,Runnable environment and documented path,8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,Run path and pinned dependencies; no enforced one-command lab.
-8.8.1.2,"README: data, methods, outputs, limitations",8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,README checklist.
-8.8.1.3,"Manifests, tests, licences",8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,Named in prose and checklist; no sample LICENSE/manifest exercise.
+8.8.1.1,Runnable environment and documented path,8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,Run path and pinned dependencies; no enforced one-command lab. C.80: guided repository evidence + independent zip critique; fixture unit_8_8_portfolio_positioning_check.py.
+8.8.1.2,"README: data, methods, outputs, limitations",8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,README checklist. C.80: guided repository evidence + independent zip critique; fixture unit_8_8_portfolio_positioning_check.py.
+8.8.1.3,"Manifests, tests, licences",8.8.1,Repository,Core,cgei-rp-lesson-8-8-1,cgei-rp-88-1-1;cgei-rp-88-1-2,mapped_partial,Named in prose and checklist; no sample LICENSE/manifest exercise. C.80: guided repository evidence + independent zip critique; fixture unit_8_8_portfolio_positioning_check.py.
 8.8.2.1,"ORCID, profiles, preprint, DOI as verifiable record",8.8.2,Identity,Core,cgei-rp-lesson-8-8-2,cgei-rp-88-2-1,mapped_partial,Identity hygiene; no account-setup lab.
 8.8.2.2,"Public profile hygiene: name, affiliation, links",8.8.2,Identity,Core,cgei-rp-lesson-8-8-2,cgei-rp-88-2-1,mapped_partial,Consistent name/affiliation/links taught.
 8.8.2.3,"Preprint and DOI practice for code, data, reports",8.8.2,Identity,Core,cgei-rp-lesson-8-8-2,cgei-rp-88-2-1,mapped_partial,Preprint/DOI practice named; posting not executed.

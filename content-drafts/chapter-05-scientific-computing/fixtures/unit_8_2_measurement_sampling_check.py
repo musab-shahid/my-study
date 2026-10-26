@@ -71,6 +71,9 @@ def validate_measurement_design(d: dict) -> list[str]:
         errs.extend(validate_detection_limit_value(d.get("detection_limit_value")))
     if d.get("spatial_support") == "continuous_field" and d.get("ignores_spatial_dependence") is True:
         errs.append("spatial_dependence_not_addressed")
+    # GPS / field point to raster pixel alignment must be documented when claimed
+    if d.get("uses_gps_or_field_points") is True and d.get("documents_gps_pixel_alignment") is not True:
+        errs.append("gps_pixel_alignment_not_documented")
     return errs
 
 
@@ -118,6 +121,11 @@ def main() -> None:
     assert validate_measurement_design(dl_ok) == []
     dl_missing = {**ok, "has_detection_limit": True, "detection_limit_value": None}
     assert "detection_limit_missing_value" in validate_measurement_design(dl_missing)
+
+    gps_bad = {**ok, "uses_gps_or_field_points": True, "documents_gps_pixel_alignment": False}
+    assert "gps_pixel_alignment_not_documented" in validate_measurement_design(gps_bad)
+    gps_ok = {**ok, "uses_gps_or_field_points": True, "documents_gps_pixel_alignment": True}
+    assert validate_measurement_design(gps_ok) == []
 
     print("Unit 8.2 measurement/sampling checks passed.")
 

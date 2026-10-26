@@ -1,17 +1,17 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-8.1.1.1,Broad interest → focused question,8.1.1,From interest to research question,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-1,mapped_partial,Taught with protocol lab.
-8.1.1.2,Problem statement and contribution,8.1.1,From interest to research question,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2,mapped_partial,Contribution types named.
+8.1.1.1,Broad interest → focused question,8.1.1,From interest to research question,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-1,mapped_partial,Taught with protocol lab. C.79: guided/independent practice and strengthened protocol fixture.
+8.1.1.2,Problem statement and contribution,8.1.1,From interest to research question,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2,mapped_partial,Contribution types named. C.79: guided/independent practice and strengthened protocol fixture.
 8.1.1.3,Research gap types without overclaiming,8.1.1,From interest to research question,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2,mapped_partial,Overclaiming caution.
-8.1.2.1,Estimands what quantity is targeted,8.1.2,Estimands units and definitions,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-1;cgei-rp-81-1-lab,mapped_partial,Fixture enforces distinct estimand.
-8.1.2.2,"Unit of analysis, time horizon, place, population",8.1.2,Estimands units and definitions,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2;cgei-rp-81-1-lab,mapped_partial,Required protocol fields.
+8.1.2.1,Estimands what quantity is targeted,8.1.2,Estimands units and definitions,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-1;cgei-rp-81-1-lab,mapped_partial,Fixture enforces distinct estimand. C.79: guided/independent practice and strengthened protocol fixture.
+8.1.2.2,"Unit of analysis, time horizon, place, population",8.1.2,Estimands units and definitions,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2;cgei-rp-81-1-lab,mapped_partial,Required protocol fields. C.79: guided/independent practice and strengthened protocol fixture.
 8.1.2.3,Conceptual framework operational definitions,8.1.2,Estimands units and definitions,Core,cgei-rp-lesson-8-1-1,cgei-rp-81-1-2,mapped_partial,Light coverage.
-8.1.3.1,Exploratory versus confirmatory,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Taught.
+8.1.3.1,Exploratory versus confirmatory,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Taught. C.79: guided/independent practice and strengthened protocol fixture.
 8.1.3.2,Observational designs,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Named.
 8.1.3.3,Quasi-experimental ideas conceptual,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Conceptual only.
 8.1.3.4,When experiments are impossible,8.1.3,Design types,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-1,mapped_partial,Named.
-8.1.4.1,Pre-registration and registered reports,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Plan requirement for confirmatory.
-8.1.4.2,Data-management and analysis plan before collection,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Named.
-8.1.4.3,Documenting deviations from the plan,8.1.4,Pre-registration and planning,Core,,,deferred,Deferred: block/lesson ownership mismatch; not claiming mapped coverage.
+8.1.4.1,Pre-registration and registered reports,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Plan requirement for confirmatory. C.79: guided/independent practice and strengthened protocol fixture.
+8.1.4.2,Data-management and analysis plan before collection,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2,mapped_partial,Named. C.79: guided/independent practice and strengthened protocol fixture.
+8.1.4.3,Documenting deviations from the plan,8.1.4,Pre-registration and planning,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-2;cgei-rp-81-2-worked;cgei-rp-81-2-independent,mapped_partial,Deviation logging taught with worked example and fixture rejection of blank entries; not institutional pre-registration.
 8.1.5.1,Search strategies and screening criteria,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Checklist only.
 8.1.5.2,Evidence tables and research gap statements,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Named.
 8.1.5.3,Avoiding cherry-picking,8.1.5,Literature search and screening,Core,cgei-rp-lesson-8-1-2,cgei-rp-81-2-3,mapped_partial,Named.
