@@ -1719,6 +1719,7 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-1-6', kind: 'table', title: 'Overlay operation checklist', headers: ['Need', 'Prefer', 'Watch'], rows: [['Combine same-class parcels', 'Dissolve by attribute', 'Null group fields create many classes'], ['All combinations of two layers', 'Union', 'Attribute nulls outside overlaps'], ['Area of A outside B', 'Difference (A−B)', 'CRS must match'], ['Only overlap of A and B', 'Intersect', 'Splits input features']] },
     ],
     activityIds: ['cgei-geo-a-33-ops'], assessmentIds: ['cgei-geo-assess-33-ops'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
+    activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
   },
   {
     id: 'cgei-geo-lesson-3-3-2', kind: 'lesson', title: 'Attribute joins versus spatial joins', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
@@ -2591,11 +2592,11 @@ const lessons43: CurriculumLesson[] = [
       { id: 'cgei-rs-43-1-soil', kind: 'prose', title: 'Soil-background and moisture indices', body: 'SAVI/MSAVI introduce a soil-adjustment factor for sparse vegetation. NDMI/NDII/LSWI use NIR–SWIR contrasts as moisture-sensitive proxies—not volumetric soil-moisture percentage. Bare-soil and built-up indices (BSI, IBI, NDBI−NDVI combinations) require the same proxy honesty as NDBI alone.' },
       { id: 'cgei-rs-43-1-work', kind: 'worked-example', title: 'NDVI from two reflectance samples', body: 'Sparse soil-influenced pixel: ρ_NIR=0.25, ρ_Red=0.18 → NDVI=(0.25−0.18)/(0.25+0.18)=0.07/0.43≈0.163. Dense canopy: ρ_NIR=0.45, ρ_Red=0.05 → NDVI=0.40/0.50=0.80. The dense case can still saturate relative to biomass; EVI or alternative indices may be preferred for high LAI.' },
       { id: 'cgei-rs-43-1-points', kind: 'key-points', title: 'Index discipline', items: ['Use surface reflectance when the product provides it', 'Saturation and soil background limit NDVI', 'Water and burn indices need independent checks', 'Moisture indices are proxies, not lab soil moisture'] },
-    ],
       { id: 'cgei-rs-43-1-worked', kind: 'worked-example', title: 'Predict → execute → compare: NDVI from reflectance', body: 'Given synthetic surface reflectance ρ_NIR=0.40, ρ_Red=0.10 (unitless). Predict: NDVI should be positive and moderate. Execute: NDVI = (0.40−0.10)/(0.40+0.10) = 0.30/0.50 = 0.60. Fixture unit_4_3_indices_lst_check.py locks this arithmetic and rejects a zero denominator. Compare: 0.60 is not “60% vegetation cover” and is not transferable across sensors without band-response caveats.' },
       { id: 'cgei-rs-43-1-limits', kind: 'callout', title: 'Index non-claims', tone: 'warning', items: ['NDVI/EVI are unitless spectral indices, not biomass (Mg/ha) or yield', 'Thresholds for water or burn are local and product-dependent', 'Soil background and saturation change interpretation in sparse/dense canopies', 'Never splice indices from different sensors as one continuous series without a continuity plan'] },
       { id: 'cgei-rs-43-1-guided', kind: 'prose', title: 'Guided practice', body: 'Compute NDVI for (ρ_NIR, ρ_Red) = (0.25, 0.20) and (0.45, 0.05). Which pixel is greener spectrally? State one reason a bright roof could still produce a misleading intermediate NDVI.' },
 
+    ],
     activityIds: ['cgei-rs-a-43-indices'], assessmentIds: ['cgei-rs-assess-43-indices'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2625,10 +2626,10 @@ const lessons43: CurriculumLesson[] = [
       { id: 'cgei-rs-43-3-eq', kind: 'equation', title: 'Surface temperature decode (teaching form)', expression: 'T_{ST} = DN \\times 0.00341802 + 149.0', caption: 'Kelvin. Teaching constants from common Collection-2 documentation; verify before operational use.' },
       { id: 'cgei-rs-43-3-discipline', kind: 'prose', title: 'LST interpretation discipline', body: 'QA_PIXEL cloud, shadow, and fill rules must be written before compositing. Morning Landsat overpass LST is not afternoon air temperature and is not a heat-stress index. Landsat 8 vs 9 continuity needs explicit checks when merging series. Seasonal composites depend on median/mean/percentile and season window; clear-sky sampling removes cloudy cooler days, so composites often run warm—report valid observation counts per pixel.' },
       { id: 'cgei-rs-43-3-points', kind: 'key-points', title: 'Before publishing an LST map', items: ['Document scale/offset source', 'Apply cloud/shadow/fill masks first', 'Use ST_QA or equivalent uncertainty layers', 'State overpass time vs air-temperature products', 'Report valid observation counts for composites'] },
-    ],
       { id: 'cgei-rs-43-3-worked', kind: 'worked-example', title: 'LST vs brightness temperature (decision)', body: 'Product A reports band brightness temperature. Product B reports land-surface temperature after emissivity and atmospheric steps documented by the agency. Task: urban heat pattern maps for neighbourhood ranking. Prefer B when the ST/LST algorithm and QA are understood; still do not treat LST as 2 m air temperature. Clear-sky composites bias warm-season means if cloudy (often cooler) days are dropped—fixture unit_4_3_indices_lst_check.py demonstrates clear-sky mean shift on a synthetic series.' },
       { id: 'cgei-rs-43-3-guided', kind: 'prose', title: 'Guided practice', body: 'A summer mean “LST” is computed only on days flagged clear. List two interpretation risks for heat exposure studies and one mitigation (e.g. report sample size per pixel, use all-sky methods, or pair with station air temperature carefully).' },
 
+    ],
     activityIds: ['cgei-rs-a-43-lst'], assessmentIds: ['cgei-rs-assess-43-lst'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2656,11 +2657,11 @@ const lessons44: CurriculumLesson[] = [
       { id: 'cgei-rs-44-1-brdf', kind: 'prose', title: 'BRDF and topographic correction', body: 'Surface reflectance still depends on view and illumination angles (BRDF). Nadir-normalisation products reduce but do not eliminate angular effects. In rugged terrain, topographic correction adjusts for slope and aspect illumination; poor DEMs or cast shadows create artefacts. Apply and document these steps only when the analysis and landscape justify them.' },
       { id: 'cgei-rs-44-1-work', kind: 'worked-example', title: 'Why processing level matters for NDVI', body: 'Suppose Red_TOA and NIR_TOA still carry haze that inflates both bands unevenly. NDVI from TOA can shift relative to NDVI from surface reflectance. A defensible multi-date greenness series states the processing level, processor version, and cloud/QA rules—not only “NDVI from Landsat”.' },
       { id: 'cgei-rs-44-1-points', kind: 'key-points', title: 'Radiometric discipline', items: ['DN is not a physical reflectance', 'TOA ≠ surface reflectance', 'Atmospheric processors need stated inputs and versions', 'BRDF and topography matter in rugged or multi-angle series'] },
-    ],
       { id: 'cgei-rs-44-1-worked', kind: 'worked-example', title: 'Cloud-mask omission and commission', body: 'Confusion counts from a teaching sample: TP=35 (true cloud), FP=10 (clear called cloud), FN=5 (cloud called clear). Omission = FN/(TP+FN) = 5/40 = 0.125. Commission = FP/(TP+FP) = 10/45 ≈ 0.222. Fixture unit_4_4_preprocess_harmonise_check.py locks these rates and the empty-denominator convention (0.0, not “perfect”). High commission removes valid land pixels; high omission leaves cloud contamination in composites.' },
       { id: 'cgei-rs-44-1-guided', kind: 'prose', title: 'Guided practice', body: 'If your science question is “maximum summer LST,” which error is more damaging—omission or commission of cloud—and why? State how you would report mask performance alongside the map.' },
       { id: 'cgei-rs-44-1-harmonise', kind: 'prose', title: 'Harmonisation is not automatic comparability', body: 'Co-registration residuals, spectral response differences, and BRDF/view-angle effects remain after each sensor’s standard processing. A small control-point RMSE (fixture residual_rmse) supports geometric fitness for a stated use case; it does not prove spectral continuity between Landsat and Sentinel-2 reflectance.' },
 
+    ],
     activityIds: ['cgei-rs-a-44-radiometric'], assessmentIds: ['cgei-rs-assess-44-radiometric'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2717,12 +2718,12 @@ const lessons45: CurriculumLesson[] = [
       { id: 'cgei-rs-45-1-points', kind: 'key-points', title: 'Definition discipline', items: ['SUHII uses LST; air UHI uses air temperature', 'State sign convention and units', 'Reference and date protocol belong in the estimand', 'LCZ is an alternative to binary urban–rural'] },
       { id: 'cgei-rs-45-humid-bridge', kind: 'prose', title: 'SUHI is not humid-heat stress (Unit 2.3 link)', body: 'Surface urban heat island intensity (SUHII) is a surface-temperature contrast. Humid-heat stress depends on air temperature and humidity—often summarised with wet-bulb temperature Tw or related indices (Unit 2.3). A strong SUHII does not prove high Tw; a moist rural reference can have lower LST yet higher humidity. Clausius–Clapeyron (~6–7%/K saturation capacity) explains why warmer air can hold more moisture, but local humid-heat risk still needs humidity observations or model fields, not LST alone. Prerequisite Unit 2.3 supplies Tw, humidity variables, and CC scaling before interpreting urban thermal products as health-relevant stress.' },
       { id: 'cgei-rs-45-humid-bridge-ex', kind: 'worked-example', title: 'Same SUHII, different stress narrative', body: 'Synthetic case: urban LST − rural LST = +4 K (SUHII positive). Scenario A: rural RH high, urban RH low → rural Tw can approach urban Tw despite cooler surface. Scenario B: both dry → SUHII may align better with air-temperature contrast. Fixture unit_4_5_humid_heat_bridge_check.py checks that a positive SUHII is not treated as a sufficient condition for higher urban Tw when humidity inputs differ.' },
-    ],
       { id: 'cgei-rs-45-1-worked', kind: 'worked-example', title: 'Predict → execute → compare: two references', body: 'Synthetic urban LST (K): 311, 312, 313, 312.5 → mean 312.125. Reference A (dry fringe): 308, 308.5, 309, 308.5 → mean 308.5; SUHII_A = 3.625 K. Reference B (irrigated fringe): 309.5, 310, 310.5, 310 → mean 310.0; SUHII_B = 2.125 K. Predict: a warmer reference shrinks intensity. Fixture unit_4_5_suhi_analysis_check.py locks both values and the ordering SUHII_A > SUHII_B. Compare: neither result is Multan air-temperature UHI, nor a causal attribution of heat drivers.' },
       { id: 'cgei-rs-45-1-protocol', kind: 'callout', title: 'Protocol and non-claims', tone: 'warning', items: ['Report urban mask, reference design, dates, QA/cloud rules, and valid-pixel coverage', 'SUHII ≠ canopy-layer UHI or heat index', 'Changing the reference can change the number more than the “true” city effect', 'Clear-sky composites can bias seasonal means (Units 4.3–4.4)', 'Do not rank neighbourhoods for adaptation funding from one unvalidated scene'] },
       { id: 'cgei-rs-45-1-guided', kind: 'prose', title: 'Guided practice', body: 'Using the same urban sample mean 312.125 K, compute SUHII if the reference mean is 309.0 K. Then state whether a 1 km MODIS-based SUHII can diagnose street-tree cooling at 10 m scale, and why or why not.' },
       { id: 'cgei-rs-45-1-independent', kind: 'prose', title: 'Independent practice', body: 'Draft a one-paragraph methods note for a Multan surface-heat screening map: sensors/products, urban and reference definitions, time window, mask rules, SUHII formula, and three explicit non-claims (air temperature, causality, operational heat warning).' },
 
+    ],
     activityIds: ['cgei-rs-a-45-suhii', 'cgei-rs-a-45-humid'], assessmentIds: ['cgei-rs-assess-45-define'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2734,9 +2735,9 @@ const lessons45: CurriculumLesson[] = [
       { id: 'cgei-rs-45-2-maup', kind: 'prose', title: 'MAUP and aggregation', body: 'Pixel, block, grid, and administrative units can reverse apparent relationships (modifiable areal unit problem). Report the support of every summary. Thousands of pixels are not thousands of independent observations when fields are spatially autocorrelated.' },
       { id: 'cgei-rs-45-2-hotspot', kind: 'prose', title: 'Hotspot detection', body: 'Getis–Ord Gi* and related cluster tests flag local concentrations of high or low values. Edge effects, masks, and unequal n_valid distort clusters—inspect boundaries and do not equate a Gi* hotspot with a health-priority zone without exposure layers.' },
       { id: 'cgei-rs-45-2-callout', kind: 'callout', title: 'Association ≠ intervention effect', tone: 'warning', items: ['LST–NDVI slopes are associational unless designed for causality', 'Spatial ML importance is not a policy elasticity', 'Hotspots need exposure context before vulnerability language', 'State scale of analysis explicitly'] },
-    ],
       { id: 'cgei-rs-45-2-worked', kind: 'worked-example', title: 'Association is not causation', body: 'A synthetic city shows higher mean LST in high-impervious parcels and lower LST near irrigated vegetation. That association supports hypothesis generation for cooling strategies; it does not alone prove that planting trees will lower air temperature or reduce heat mortality. Confounding (irrigation, building height, local climate zone, elevation) must be addressed before causal claims.' },
 
+    ],
     activityIds: ['cgei-rs-a-45-drivers'], assessmentIds: ['cgei-rs-assess-45-drivers'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2784,11 +2785,11 @@ const lessons46: CurriculumLesson[] = [
       { id: 'cgei-rs-46-1-ops', kind: 'prose', title: 'Mask, composite, reduce, zonal', body: 'Cloud masking, temporal compositing (median, mean, percentile), reducers, and zonal statistics are core operations. Reducers aggregate over time, bands, or regions. Zonal statistics summarise an Image over Feature geometries. Always state scale (metres), CRS, and region—defaults can silently change results.' },
       { id: 'cgei-rs-46-1-apis', kind: 'prose', title: 'Code Editor, Python API, geemap', body: 'The JavaScript Code Editor is interactive; the Python API supports scripts and notebooks; geemap wraps common mapping patterns. Concepts transfer; syntax and authentication differ. This curriculum emphasises transferable contracts (parameters, logs, exports)—not a single vendor IDE tutorial.' },
       { id: 'cgei-rs-46-1-points', kind: 'key-points', title: 'Data-model literacy', items: ['Image vs ImageCollection; Feature vs FeatureCollection', 'Filter space, time, metadata before heavy compute', 'Mask and composite with stated rules', 'Record collection/asset IDs and versions'] },
-    ],
       { id: 'cgei-rs-46-1-worked', kind: 'worked-example', title: 'Reproducible pipeline manifest (synthetic)', body: 'A teaching pipeline records: collection_id, date window, geometry source, scale_m, CRS, cloud/QA rule, and the list of pixel values used for a zonal mean. Fixture unit_4_6_pipeline_platform_check.py validates the manifest, computes zonal_mean, and hashes the config so two runs with the same inputs share a config_hash. This is not a live Earth Engine job—it trains the habit of logging parameters before claiming reproducibility.' },
       { id: 'cgei-rs-46-1-guided', kind: 'prose', title: 'Guided practice', body: 'List six fields you would put in a Multan LST zonal-mean processing log. Mark which ones, if omitted, make two “same map” claims non-comparable.' },
       { id: 'cgei-rs-46-1-limits', kind: 'callout', title: 'Platform non-claims', tone: 'warning', items: ['Code Editor success ≠ peer-reviewed validation', 'Default scale/CRS can silently change zonal statistics', 'getInfo on large objects is a client-side trap', 'Export tiles still need product-level QA and ethics review for public maps'] },
 
+    ],
     activityIds: ['cgei-rs-a-46-model'], assessmentIds: ['cgei-rs-assess-46-model'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2843,11 +2844,11 @@ const lessons47: CurriculumLesson[] = [
       { id: 'cgei-rs-47-1-indep', kind: 'prose', title: 'Independent validation', body: 'Validation samples must not overlap training units spatially or share the same biased label generation process. Spatial blocks or geographic holdouts reduce leakage from autocorrelation. Random pixel splits often leak when neighbours share labels and predictors.' },
       { id: 'cgei-rs-47-1-feat', kind: 'prose', title: 'Features and algorithms', body: 'Features may include spectral bands, indices, GLCM texture, temporal percentiles or harmonic terms, topography, and SAR backscatter—each with units and processing level (Unit 4.4). Random Forest is a common baseline; alternatives exist. Object-based (superpixel/segment) approaches trade segment purity against mixed-pixel honesty; pixel-based methods remain standard for many moderate-resolution maps.' },
       { id: 'cgei-rs-47-1-points', kind: 'key-points', title: 'Before the algorithm', items: ['Legend and MMU first', 'Stratify and size samples per class', 'Hold out independent reference samples', 'Prevent spatial/temporal leakage in splits', 'Feature processing level is part of the model'] },
-    ],
       { id: 'cgei-rs-47-1-worked', kind: 'worked-example', title: 'Confusion matrix and rare-class F1', body: 'Synthetic reference/prediction labels (binary: majority class 0, rare class 1) yield overall accuracy that can look high while rare-class producer’s accuracy is weak. Fixture unit_4_7_classification_change_check.py locks OA/UA/PA/F1 arithmetic and requires train/test spatial blocks to be disjoint. Random pixel splits overstate accuracy when neighbours are dependent—prefer block or time-held-out designs for EO maps.' },
       { id: 'cgei-rs-47-1-change', kind: 'prose', title: 'Post-classification change is not ground truth', body: 'A change matrix from two classified maps compounds classification error at both dates. “False change” counts rise when labels flip without real surface change. Always report independent validation and avoid claiming land-use conversion from a single unsupervised cluster ID set.' },
       { id: 'cgei-rs-47-1-guided', kind: 'prose', title: 'Guided practice', body: 'OA is 0.92 but the rare class has PA = 0.40. Explain to a non-specialist why the map may still fail for monitoring that rare class, and name one split strategy that reduces spatial leakage relative to pure random pixels.' },
 
+    ],
     activityIds: ['cgei-rs-a-47-labels'], assessmentIds: ['cgei-rs-assess-47-labels'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2907,10 +2908,10 @@ const lessons48: CurriculumLesson[] = [
       { id: 'cgei-rs-48-1-firms', kind: 'prose', title: 'FIRMS-style product fields', body: 'NASA FIRMS-style feeds commonly expose pixel location, detection time, satellite/sensor, confidence, day/night flag, and often fire radiative power (FRP). Always read the product user guide for the exact field definitions and units. Confidence classes are product-specific—do not treat “nominal” on one sensor as identical to another without documentation.' },
       { id: 'cgei-rs-48-1-sensors', kind: 'prose', title: 'MODIS and VIIRS characteristics', body: 'MODIS active-fire products are often discussed at ~1 km class resolution; VIIRS 375 m products resolve finer footprints. Near-real-time latency is typically hours, not instantaneous truth. FRP is an intensity proxy for radiant energy release rate under retrieval assumptions—not hectares burned, not severity class, and not emissions by itself.' },
       { id: 'cgei-rs-48-1-points', kind: 'key-points', title: 'Product literacy', items: ['Detection ≠ perimeter ≠ burned area', 'Record sensor, time, confidence, product version', 'FRP is intensity proxy, not area', 'Counts need a defined unit (records, cells, events)'] },
-    ],
       { id: 'cgei-rs-48-1-worked', kind: 'worked-example', title: 'Detection ≠ burned area', body: 'A synthetic day produces three hotspot detections near the same agricultural field at successive overpasses. That is three detections, not three independent fires and not a perimeter. Fixture unit_4_8_active_fire_check.py enforces counting and confidence filtering rules on synthetic records—not a FIRMS API download.' },
       { id: 'cgei-rs-48-1-guided', kind: 'prose', title: 'Guided practice', body: 'An NGO map labels FIRMS points as “hectares burned.” Write one sentence correcting the claim and one data field you would require before any area estimate.' },
 
+    ],
     activityIds: ['cgei-rs-a-48-detect'], assessmentIds: ['cgei-rs-assess-48-detect'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -2957,9 +2958,9 @@ const lessons49: CurriculumLesson[] = [
       { id: 'cgei-rs-49-1-methods', kind: 'prose', title: 'Spatio-temporal and SAR–optical fusion', body: 'STARFM-family methods blend dense coarse and sparse fine optical time series under stated assumptions; SAR–optical fusion and gap-filled series need the same honesty. Validate after fusion against independent reference—not only visual smoothness. Ask whether the fused product beats the best single source on a held-out metric.' },
       { id: 'cgei-rs-49-1-test', kind: 'prose', title: 'Does fusion add information?', body: 'Compare fused output to the best single-source baseline using the same validation sample. If fusion does not improve (or harms) skill, prefer the simpler product. Document scale, date support, and preprocessing for each source.' },
       { id: 'cgei-rs-49-1-points', kind: 'key-points', title: 'Fusion discipline', items: ['Complementarity is a hypothesis, not a guarantee', 'Validate after fusion', 'Benchmark against best single source', 'Geometry and temporal support matter'] },
-    ],
       { id: 'cgei-rs-49-1-worked', kind: 'worked-example', title: 'Fusion must beat a baseline', body: 'Fixture unit_4_9_advanced_eo_check.py requires a fused synthetic score to be compared against the best single-source baseline under a held-out rule. Smooth-looking fusion without a metric win is not evidence of skill.' },
 
+    ],
     activityIds: ['cgei-rs-a-49-fusion'], assessmentIds: ['cgei-rs-assess-49-fusion'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -3007,9 +3008,9 @@ const lessons410: CurriculumLesson[] = [
       { id: 'cgei-rs-410-1-opt', kind: 'prose', title: 'Optical water indices', body: 'MNDWI and related indices highlight open water in clear-sky optical data. Monsoon cloud often blocks the critical days. Dynamic surface-water products provide multi-date extent layers—still not water depth or quality. Extent ≠ volume or safe drinking water.' },
       { id: 'cgei-rs-410-1-ops', kind: 'prose', title: 'Validation and operational services', body: 'Validate flood extent against independent high-resolution interpretation or field reports. Depth estimation from DEM plus extent is model-based and inherits DEM error. Operational activations (Copernicus EMS, UNOSAT-type) have stated products and timelines—cite the actual service product, not a generic “satellite flood map.”' },
       { id: 'cgei-rs-410-1-points', kind: 'key-points', title: 'Water extent literacy', items: ['SAR and optical have different failure modes', 'Cloud vs urban/vegetation limits', 'Extent ≠ depth or potability', 'Name the operational product version'] },
-    ],
       { id: 'cgei-rs-410-1-worked', kind: 'worked-example', title: 'Extent is not depth or safety', body: 'SAR flood extent flags open water under stated thresholds. Fixture unit_4_10_thematic_eo_check.py checks synthetic extent logic and non-claims. Extent maps do not measure water depth, velocity, or drinking-water safety—pair with independent validation before operational response language.' },
 
+    ],
     activityIds: ['cgei-rs-a-410-water'], assessmentIds: ['cgei-rs-assess-410-water'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -3062,10 +3063,10 @@ const lessons411: CurriculumLesson[] = [
       { id: 'cgei-rs-411-1-2', kind: 'checklist', title: 'Campaign metadata minimum', items: ['Analyte, method, units, detection limit', 'Sample time (UTC and local) vs overpass', 'GNSS accuracy and CRS', 'Depth/height of measurement', 'Number of within-pixel replicates'] },
       { id: 'cgei-rs-411-1-3', kind: 'worked-example', title: 'Sample size humility', body: 'With n=12 sites and strong spatial correlation, effective sample size is smaller than 12. Complex multi-index models will overfit. Plan complexity from expected effect size and spatial correlation; prefer simple baselines until more independent sites exist.' },
       { id: 'cgei-rs-411-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Field labels are reference data with error, not absolute truth', 'Sub-pixel heterogeneity can dominate agreement metrics', 'This unit does not replace a formal survey-sampling course'] },
-    ],
       { id: 'cgei-rs-411-1-worked-loo', kind: 'worked-example', title: 'Leave-one-site-out vs leakage', body: 'Fixture unit_4_11_eo_validation_check.py compares a mean baseline and an index–lab slope under leave-one-site-out RMSE on synthetic sites. Fitting on all sites then scoring the same sites is leakage—it understates error. Prefer site-held-out or spatial block designs when reporting EO–field agreement. Field measurements remain uncertain references, not perfect truth.' },
       { id: 'cgei-rs-411-1-guided', kind: 'prose', title: 'Guided practice', body: 'You have 10 soil EC sites, all in one irrigated block. A model predicts EC from a spectral index with R² = 0.85 using random pixel folds. Name two design flaws and one reporting change you would require before accepting the claim.' },
 
+    ],
     activityIds: ['cgei-rs-a-411-sample'], assessmentIds: ['cgei-rs-assess-411-sample'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -3108,11 +3109,11 @@ const lessons412: CurriculumLesson[] = [
       { id: 'cgei-rs-412-1-2', kind: 'table', title: 'When a deeper model is more defensible', headers: ['Condition', 'Prefer', 'Caution'], rows: [['Few labels, strong spatial correlation', 'Simple regularised or physical baseline', 'Deep nets overfit folds'], ['Large well-labelled corpus, clear task', 'Deep model with spatial CV', 'Still need domain-shift tests'], ['Weak labels / SAM-style masks', 'Annotation aid only', 'Not a validation substitute'], ['Operational monitoring', 'Maintained baseline + monitored model', 'Unversioned weights']] },
       { id: 'cgei-rs-412-1-3', kind: 'worked-example', title: 'Synthetic baseline vs “complex” features under leakage', body: 'Fixture unit_4_12_geoai_method_selection_check.py compares a mean baseline and a multi-feature linear score under (a) leave-one-site-out and (b) a leakage protocol that selects features on all sites first. Leakage can make the complex score look better while LOO shows little gain—illustrating Unit 4.11’s selection-inside-validation rule for GeoAI feature sets.' },
       { id: 'cgei-rs-412-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No GPU training in CI', 'Synthetic scores are not TorchGeo benchmarks', 'Deep learning is not inherently superior'] },
-    ],
       { id: 'cgei-rs-412-1-worked', kind: 'worked-example', title: 'Baseline vs index model under LOO', body: 'Fixture unit_4_12_geoai_method_selection_check.py runs leave-one-site-out RMSE for a mean baseline and a single-feature linear score on five synthetic sites, and shows that fitting weights on all sites before scoring them (leakage) is invalid for model selection. Prefer the simpler model when LOO does not improve; never report leaked scores as generalisation.' },
       { id: 'cgei-rs-412-1-guided', kind: 'prose', title: 'Guided practice', body: 'A vendor claims a deep segmentation model is “state of the art” using random 80/20 pixel splits on one city. List three questions you must ask before replacing a maintained index baseline in an operational Multan monitoring workflow.' },
       { id: 'cgei-rs-412-1-nonclaim', kind: 'callout', title: 'GeoAI non-claims', tone: 'warning', items: ['Higher capacity is not automatic skill under domain shift', 'Foundation-model demos are not validated local products', 'SAM-style masks assist annotation; they do not replace independent reference', 'This curriculum does not train production deep models in CI'] },
 
+    ],
     activityIds: ['cgei-rs-a-412-dl'], assessmentIds: ['cgei-rs-assess-412-dl'], resourceIds: [], deliverableIds: [],
   },
   {
@@ -5713,12 +5714,11 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ai-q-123-fm', lessonId: 'cgei-ai-lesson-12-3-1', type: 'single-choice', prompt: 'Draft check for cgei-ai-q-123-fm (curriculum integrity stub).', options: ['Correct teaching statement', 'Unsupported causal claim', 'Silent zero-fill of missing data', 'Skip documentation'], correctAnswer: 0, explanation: 'Foundation-model outputs still need task-specific evaluation and calibration; zero-shot scores are not automatic operational skill.', difficulty: 'easy', cognitiveLevel: 'remember' },
 
 
-],
     { id: 'cgei-rs-q-43-011', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Clear-sky-only seasonal mean LST maps are risky for heat exposure because:', options: ['Clear days are always colder than cloudy days', 'Dropping cloudy observations can bias the mean when cloudiness correlates with cooler conditions', 'LST equals air temperature on clear days only', 'QA masks are never needed for thermal data'], correctAnswer: 1, explanation: 'Sampling only clear observations can bias warm-season means; report sampling and consider all-sky or station pairing.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-rs-q-45-011', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'Using a warmer irrigated fringe as the reference instead of a dry fringe typically:', options: ['Increases SUHII', 'Decreases SUHII', 'Leaves SUHII unchanged by definition', 'Converts SUHII into air-temperature UHI'], correctAnswer: 1, explanation: 'Warmer reference mean reduces the urban−reference difference.', difficulty: 'medium', cognitiveLevel: 'analyze' },
     { id: 'cgei-rs-q-45-012', lessonId: 'cgei-rs-lesson-4-5-2', type: 'single-choice', prompt: 'Higher LST in high-impervious parcels in a single-city map is strongest evidence for:', options: ['Proof that pavement caused all excess heat mortality', 'A spatial association that may inform hypotheses after confounding is considered', 'Equality of LST and 2 m air temperature', 'That buffer distance does not matter'], correctAnswer: 1, explanation: 'Cross-sectional LST–impervious associations are not alone causal proof of health or air-temperature effects.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
     { id: 'cgei-rs-q-47-011', lessonId: 'cgei-rs-lesson-4-7-1', type: 'single-choice', prompt: 'Train and test spatial blocks must be disjoint primarily to:', options: ['Increase OA artificially', 'Reduce leakage from spatial autocorrelation between neighbouring pixels', 'Guarantee causal identification of land-cover drivers', 'Replace the need for a confusion matrix'], correctAnswer: 1, explanation: 'Nearby pixels are dependent; overlapping train/test blocks leak information and overstate accuracy.', difficulty: 'medium', cognitiveLevel: 'understand' },
-
+  ],
   competencies: [
     { id: 'cgei-comp-quantitative-reasoning', title: 'Quantitative reasoning', description: 'Use mathematical representations and units to reason about environmental systems.', level: 'L3', evidenceCriteria: ['Correct units and dimensional checks', 'Calculation independently reproduced', 'Plausibility and limitations stated'] },
     { id: 'cgei-comp-mathematical-modeling', title: 'Mathematical modelling', description: 'Represent environmental processes and analyse the assumptions of a mathematical model.', level: 'L3', evidenceCriteria: ['Model terms and units defined', 'Method assumptions stated', 'Numerical or analytical result checked'] },
@@ -6291,10 +6291,6 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-512-chunking', kind: 'coding-lab', title: 'Benchmark eager and lazy computation', instructions: 'Compare a bounded NumPy/xarray calculation with a Dask-backed version. Check numerical agreement and record data size, chunk sizes, scheduler, runtime and environment.', level: 'L3', estimatedMinutes: 45, objectiveIds: ['cgei-ds-o-512-chunking'], expectedEvidence: ['Comparison notebook', 'Tolerance rationale', 'Performance context'], required: true },
     { id: 'cgei-ds-a-512-pipeline', kind: 'coding-lab', title: 'Build a validated spatiotemporal feature pipeline', instructions: 'Build a synthetic time × y × x pipeline with coordinate checks, a declared seasonal baseline, anomaly calculation, regional aggregation and metadata-preserving output.', level: 'L3', estimatedMinutes: 45, objectiveIds: ['cgei-ds-o-512-pipeline'], expectedEvidence: ['Runnable pipeline', 'Coordinate/missingness checks', 'Output metadata'], required: true },
     { id: 'cgei-ds-a-512-validation', kind: 'project-milestone', title: 'Prepare a pipeline validation report', instructions: 'Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-512-release'], expectedEvidence: ['Validation report', 'Performance table', 'Limitations and provenance'], required: true },
-    { id: 'cgei-rs-q-43-011', lessonId: 'cgei-rs-lesson-4-3-3', type: 'single-choice', prompt: 'Clear-sky-only seasonal mean LST maps are risky for heat exposure because:', options: ['Clear days are always colder than cloudy days', 'Dropping cloudy observations can bias the mean when cloudiness correlates with cooler conditions', 'LST equals air temperature on clear days only', 'QA masks are never needed for thermal data'], correctAnswer: 1, explanation: 'Sampling only clear observations can bias warm-season means; report sampling and consider all-sky or station pairing.', difficulty: 'medium', cognitiveLevel: 'analyze' },
-    { id: 'cgei-rs-q-45-011', lessonId: 'cgei-rs-lesson-4-5-1', type: 'single-choice', prompt: 'Using a warmer irrigated fringe as the reference instead of a dry fringe typically:', options: ['Increases SUHII', 'Decreases SUHII', 'Leaves SUHII unchanged by definition', 'Converts SUHII into air-temperature UHI'], correctAnswer: 1, explanation: 'Warmer reference mean reduces the urban−reference difference.', difficulty: 'medium', cognitiveLevel: 'analyze' },
-    { id: 'cgei-rs-q-45-012', lessonId: 'cgei-rs-lesson-4-5-2', type: 'single-choice', prompt: 'Higher LST in high-impervious parcels in a single-city map is strongest evidence for:', options: ['Proof that pavement caused all excess heat mortality', 'A spatial association that may inform hypotheses after confounding is considered', 'Equality of LST and 2 m air temperature', 'That buffer distance does not matter'], correctAnswer: 1, explanation: 'Cross-sectional LST–impervious associations are not alone causal proof of health or air-temperature effects.', difficulty: 'medium', cognitiveLevel: 'evaluate' },
-    { id: 'cgei-rs-q-47-011', lessonId: 'cgei-rs-lesson-4-7-1', type: 'single-choice', prompt: 'Train and test spatial blocks must be disjoint primarily to:', options: ['Increase OA artificially', 'Reduce leakage from spatial autocorrelation between neighbouring pixels', 'Guarantee causal identification of land-cover drivers', 'Replace the need for a confusion matrix'], correctAnswer: 1, explanation: 'Nearby pixels are dependent; overlapping train/test blocks leak information and overstate accuracy.', difficulty: 'medium', cognitiveLevel: 'understand' },
 
   ],
   assessments: [
