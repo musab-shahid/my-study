@@ -148,7 +148,7 @@ export function InstallPrompt() {
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
+        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex h-12 min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 box-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
           <X className="w-4 h-4" />
         </button>
         <div className="flex items-start gap-3">
@@ -175,7 +175,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleDismiss}
-        className="inline-flex min-h-[44px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="inline-flex h-12 min-h-[48px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <X className="w-3.5 h-3.5" />
         Not now
@@ -193,7 +193,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleInstall}
-        className="inline-flex min-h-[44px] items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="inline-flex h-12 min-h-[48px] items-center gap-1.5 px-4 py-2 rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 text-white text-xs font-semibold hover:opacity-90 transition-opacity shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <Download className="w-3.5 h-3.5" />
         Install
@@ -201,7 +201,7 @@ export function InstallPrompt() {
       <button
         type="button"
         onClick={handleDismiss}
-        className="inline-flex min-h-[44px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        className="inline-flex h-12 min-h-[48px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
       >
         <X className="w-3.5 h-3.5" />
         Not now
