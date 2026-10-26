@@ -24,6 +24,8 @@ jobs:
           cache: npm
       - name: Install
         run: npm ci
+      - name: Lightweight secret pattern scan
+        run: python3 scripts/scan_repo_secrets.py
       - name: Report dependency audit findings
         run: |
           npm audit --json > "$RUNNER_TEMP/npm-audit.json" || true
@@ -130,6 +132,8 @@ jobs:
         run: python scripts/tests/test_audit_core_leaf_coverage.py
       - name: Run repository Core-leaf coverage audit (transitional report)
         run: python scripts/audit_core_leaf_coverage.py --allow-unmapped
+      - name: Verify full-source disposition gate
+        run: python3 scripts/audit_full_source_disposition.py
       - name: Verify strict Core-leaf coverage gate
         shell: bash
         run: |

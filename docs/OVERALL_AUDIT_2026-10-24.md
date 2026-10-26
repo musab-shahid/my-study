@@ -125,3 +125,11 @@ This is a first-pass repository and curriculum-quality audit based on checked-in
 - Factual correctness of every assessment item beyond schema/option integrity.
 - Live cloud recovery certification.
 - Comprehensive security certification.
+
+
+### C.80b follow-up (issue #105 residual automation)
+
+- CI: full-source disposition gate step added to scientific-smoke.
+- CI: lightweight tracked-file secret pattern scan added to check.
+- Regression: HATV-06-Q030 / HATV-03-Q011 duplicate-option guard in unit tests.
+- Still **out of agent scope** for full #105 closure: live Supabase/RLS, production restore, manual screen-reader certification, branch-protection admin UI assertion.
