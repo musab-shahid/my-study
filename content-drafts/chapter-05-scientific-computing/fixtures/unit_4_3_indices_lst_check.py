@@ -40,6 +40,13 @@ def usable_clear(flags):
 
 
 def main() -> None:
+    assert isclose(ndvi(0.40, 0.10), 0.60, abs_tol=1e-12)
+    try:
+        ndvi(0.0, 0.0)
+        raise AssertionError("expected zero-denominator failure")
+    except ValueError:
+        pass
+
     sparse = ndvi(0.25, 0.18)
     dense = ndvi(0.45, 0.05)
     assert isclose(sparse, 0.1627906976744186, rel_tol=1e-9)
