@@ -569,9 +569,11 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           </div>
           <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
           {curriculumUnit.outcomes.length > 0 && (
-            <div className="mt-4">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning outcomes</h3>
-              <ul className="space-y-2">
+            <details className="mt-4">
+              <summary className="cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-sm">
+                Learning outcomes
+              </summary>
+              <ul className="space-y-2 mt-2">
                 {curriculumUnit.outcomes.map((outcome) => (
                   <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
                     <span className="rounded-md bg-white border border-success-100 px-1.5 py-0.5 text-label font-bold text-success-700 shrink-0">{outcome.level}</span>
@@ -579,7 +581,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </details>
           )}
           {unitActivities.length > 0 && (
             <div className="mt-4">
