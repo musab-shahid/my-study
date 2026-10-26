@@ -76,7 +76,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     }
 
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/0 of \\d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/0 of \d+ lessons marked studied/)).toBeVisible();
     await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
     await expect(page).toHaveURL(/curriculum\/unit\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
@@ -90,7 +90,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toBeVisible();
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/1 of \\d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/1 of \d+ lessons marked studied/)).toBeVisible();
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
