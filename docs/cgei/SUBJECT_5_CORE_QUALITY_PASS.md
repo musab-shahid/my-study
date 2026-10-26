@@ -21,3 +21,14 @@ Units remain **draft / mapped_partial** where they were partial. Synthetic fixtu
 - No Multan field validation
 - No statsmodels re-fit inside the 5.8/5.10 fixtures
 - No claim of complete Subject 5 TOC closure
+
+## Pass 2 — content continuation
+
+| Unit | Added |
+|------|--------|
+| 5.6 | Blocked-split vs random-split worked example + guided practice |
+| 5.11 | Manifest/checksum provenance worked example |
+| 5.12 | Dimension-contract worked example; fixture rejects all-NaN mean and documents zero-fill bias |
+| Assessments | `cgei-ds-q-56-020`, `511-020`, `512-020` |
+
+Questions array placement fixed so new items sit **inside** `questions: [...]` before the closing bracket.
