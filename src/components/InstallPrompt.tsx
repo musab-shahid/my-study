@@ -148,7 +148,7 @@ export function InstallPrompt() {
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
+        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
           <X className="w-4 h-4" />
         </button>
         <div className="flex items-start gap-3">
