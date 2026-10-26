@@ -1,5 +1,6 @@
 import { useState, FormEvent } from 'react';
 import { Card, Button } from '@/components/ui';
+import { getSupabaseEnvStatus } from '@/lib/runtime-env';
 import {
   isAuthConfigured,
   isSignedIn,
@@ -11,7 +12,7 @@ import {
 
 /**
  * Email + password account card for cloud backup and cloud AI tutor.
- * Always visible: if Supabase env is missing, shows setup steps instead of hiding.
+ * Always visible: if Supabase env is missing, shows setup steps + load status.
  */
 export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => void }) {
   const [email, setEmail] = useState(getStoredUserEmail() ?? '');
@@ -23,6 +24,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
 
   const configured = isAuthConfigured();
+  const envStatus = getSupabaseEnvStatus();
 
   const refresh = () => {
     setSignedIn(isSignedIn());
@@ -81,15 +83,31 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
           <div className="rounded-btn border border-amber-200 bg-amber-50 p-3" role="status">
             <p className="text-sm font-semibold text-amber-900">Supabase is not connected in this preview</p>
             <p className="text-xs text-amber-800 mt-1 leading-relaxed">
-              Add these two values in Bolt (project secrets / env), then restart the preview:
+              The preview did not receive both env values. Check this status (values are never shown):
             </p>
-            <ul className="mt-2 text-xs text-amber-900 list-disc pl-4 space-y-1 font-mono">
-              <li>VITE_SUPABASE_URL</li>
-              <li>VITE_SUPABASE_ANON_KEY</li>
+            <ul className="mt-2 text-xs text-amber-900 space-y-1">
+              <li>
+                <span className="font-mono">VITE_SUPABASE_URL</span>:{' '}
+                {envStatus.urlPresent
+                  ? envStatus.urlLooksValid
+                    ? 'loaded'
+                    : 'loaded but looks wrong (use https://xxxx.supabase.co only, no /rest/v1)'
+                  : 'missing'}
+              </li>
+              <li>
+                <span className="font-mono">VITE_SUPABASE_ANON_KEY</span>:{' '}
+                {envStatus.keyPresent ? 'loaded' : 'missing'}
+              </li>
             </ul>
             <p className="text-xs text-amber-800 mt-2 leading-relaxed">
-              Get them from the Supabase dashboard → Project Settings → API. Enable Authentication → Providers → Email
-              (for quick testing you can turn off “Confirm email”).
+              In Bolt, create a file named <span className="font-mono">.env</span> next to{' '}
+              <span className="font-mono">package.json</span> with exactly:
+            </p>
+            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-amber-100 rounded-btn p-2 overflow-x-auto text-slate-800">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
+VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
+            <p className="text-xs text-amber-800 mt-2 leading-relaxed">
+              No quotes, no spaces around <span className="font-mono">=</span>, then fully restart the preview (stop and run again).
+              Database → Secrets is for server keys and will not fill these client vars.
             </p>
           </div>
         ) : signedIn ? (
