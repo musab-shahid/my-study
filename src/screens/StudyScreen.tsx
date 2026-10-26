@@ -270,33 +270,21 @@ export function StudyScreen() {
           )}
 
           {roadmapTopic && (
-            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-sky-100 bg-sky-50/40">
+            <Card className="mb-3 p-3 sm:p-4 border border-sky-100 bg-sky-50/40">
+              <details>
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Domain orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
+                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
+                </summary>
+                <div className="pt-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-sky-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation · not a lesson</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1">Context</p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
-                  {roadmapTopic.explanationSections?.map((section) => (
-                    <div key={section.heading} className="mt-3">
-                      <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
-                      <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
-                    </div>
-                  ))}
-                  {roadmapTopic.keyFacts?.length ? (
-                    <div className="mt-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Orientation notes</h3>
-                      <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
-                    </div>
-                  ) : null}
-                  {roadmapTopic.examPoints?.length ? (
-                    <div className="mt-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning principles</h3>
-                      <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
-                    </div>
-                  ) : null}
                   {subjectTopics.length === 0 && (
                     <p className="mt-4 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
                       Structured lessons and assessments for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
@@ -304,35 +292,36 @@ export function StudyScreen() {
                   )}
                 </div>
               </div>
+                </div>
+              </details>
             </Card>
           )}
 
           {curriculumSubject && (
-            <Card className="mb-4 sm:mb-6 p-card-pad sm:p-card-pad-lg border border-teal-100 bg-teal-50/40">
+            <Card className="mb-3 p-3 sm:p-4 border border-teal-100 bg-teal-50/40">
+              <details>
+                <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Course orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief introduction · not a lesson</span></span>
+                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
+                </summary>
+                <div className="pt-3">
               <div className="flex items-start gap-3">
                 <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
                   <BookOpen className="w-5 h-5 text-teal-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Course orientation · not a lesson</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Introduction</p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
-                  <div className="mt-4">
-                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">What you will learn</h3>
-                    <ul className="space-y-1.5">
-                      {curriculumSubject.outcomes.map((outcome) => (
-                        <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
-                          <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {lastCurriculumLesson && (
-                    <button onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 p-3 text-left transition-colors">
-                      <span className="text-label font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
-                      <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
-                    </button>
-                  )}
+                </div>
+              </div>
+                </div>
+              </details>
+            </Card>
+          )}
+
+          {curriculumSubject && (
+            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
                   <div className="mt-4">
                     <div className="flex items-center justify-between gap-3 mb-2">
                       <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Curriculum units</h3>
@@ -365,6 +354,13 @@ export function StudyScreen() {
                       ))}
                     </div>
                   </div>
+            </Card>
+          )}
+
+          {curriculumSubject && curriculumSubject.projectIds.length > 0 && (
+            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
+              <h2 className="font-semibold text-slate-900 mb-3">Projects & capstones</h2>
+              <div className="space-y-3">
                   {curriculumSubject.projectIds.map((projectId) => {
                     const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
                     if (!project) return null;
@@ -386,16 +382,21 @@ export function StudyScreen() {
                       </div>
                     );
                   })}
-                </div>
               </div>
             </Card>
           )}
 
-          {/* Sections accordion */}
+{/* Sections accordion */}
           {subjectSections.length > 0 && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-slate-900">Sections</h3>
+              <h3 className="font-semibold text-slate-900">
+                {curriculumSubject && curriculumUnits.length > 0
+                  ? 'Legacy topic groups'
+                  : subjectId?.startsWith('cgei-')
+                    ? 'Topic groups'
+                    : 'Sections'}
+              </h3>
               <span className="text-slate-400 text-sm">{subjectSections.length}</span>
             </div>
             <div className="space-y-2">

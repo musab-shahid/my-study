@@ -98,7 +98,12 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/topic/cgei-env-systems-roadmap');
 
     await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
-    await expect(page.getByText('Domain orientation · not a lesson', { exact: true })).toBeVisible({ timeout: 20_000 });
+    const orientation = page.locator('details').filter({ hasText: 'Domain orientation' });
+    await expect(orientation).toBeVisible({ timeout: 20_000 });
+    await expect(orientation.locator('summary')).toContainText('Brief context');
+    await expect(orientation).not.toHaveAttribute('open', '');
+    await orientation.locator('summary').click();
+    await expect(orientation).toHaveAttribute('open', '');
     await expect(page.getByText(/Structured lessons and assessments for this domain are being migrated progressively/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Sections', exact: true })).toHaveCount(0);
     await expect(page.getByText(/0 \/ 1 topics studied/)).toHaveCount(0);

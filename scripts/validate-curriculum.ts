@@ -23,6 +23,7 @@ const questionIds = new Set(cgeiCurriculum.questions.map((question) => question.
 const topicIds = new Set(topicMetadata.map((topic) => topic.id));
 const sectionIds = new Set(sections.map((section) => section.id));
 const unitIds = new Set(cgeiCurriculum.units.map((unit) => unit.id));
+const subjectIds = new Set(cgeiCurriculum.subjects.map((subject) => subject.subjectId));
 const lessonIds = new Set(cgeiCurriculum.lessons.map((lesson) => lesson.id));
 const competencyIds = new Set(cgeiCurriculum.competencies.map((item) => item.id));
 const resourceIds = new Set(cgeiCurriculum.resources.map((item) => item.id));
@@ -66,6 +67,16 @@ for (const subject of cgeiCurriculum.subjects) {
 const unitOrderValues = cgeiCurriculum.units.map((unit) => unit.order);
 if (new Set(unitOrderValues).size !== unitOrderValues.length) errors.push('Curriculum units must have unique order values');
 for (const unit of cgeiCurriculum.units) {
+  const parentSubjects = cgeiCurriculum.subjects.filter((subject) => subject.unitIds.includes(unit.id));
+  if (parentSubjects.length !== 1) {
+    errors.push(`Unit ${unit.id} must belong to exactly one subject; found ${parentSubjects.map((subject) => subject.subjectId).join(',') || 'none'}`);
+  }
+  if (unit.subjectId !== undefined) {
+    if (!subjectIds.has(unit.subjectId)) errors.push(`Unit ${unit.id} references unknown subjectId ${unit.subjectId}`);
+    if (parentSubjects.length === 1 && unit.subjectId !== parentSubjects[0].subjectId) {
+      errors.push(`Unit ${unit.id} subjectId ${unit.subjectId} disagrees with parent subject ${parentSubjects[0].subjectId}`);
+    }
+  }
   // Subject 5 pilot: order equals the minor component of "5.N". Other subjects use unique global orders.
   if (unit.code.startsWith('5.')) {
     const expectedOrder = Number(unit.code.slice(2));

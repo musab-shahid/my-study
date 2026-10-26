@@ -4442,7 +4442,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
     },
     {
-      id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
+      id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate-science', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
       summary: 'Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.',
       estimatedHours: 10, prerequisites: ['Unit 2.1', 'Unit 2.2'], outcomes: outcomes23,
       lessonIds: lessons23.map((lesson) => lesson.id),
@@ -4588,7 +4588,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
 
     {
-      id: 'cgei-rp-unit-8-7', subjectId: 'cgei-research', code: '8.7', title: 'Turning the FYP into a first paper', order: 807, kind: 'unit', readiness: 'draft',
+      id: 'cgei-rp-unit-8-7', subjectId: 'cgei-research-practice', code: '8.7', title: 'Turning the FYP into a first paper', order: 807, kind: 'unit', readiness: 'draft',
       summary: 'Frame one contribution, assemble pre-submission evidence, and structure a manuscript and submission process without overclaiming.',
       estimatedHours: 6, prerequisites: ['Unit 8.1', 'Unit 8.6'], outcomes: outcomes87,
       lessonIds: lessons87.map((lesson) => lesson.id),
@@ -4601,7 +4601,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
 
     {
-      id: 'cgei-rp-unit-8-8', subjectId: 'cgei-research', code: '8.8', title: 'Portfolio and research positioning', order: 808, kind: 'unit', readiness: 'draft',
+      id: 'cgei-rp-unit-8-8', subjectId: 'cgei-research-practice', code: '8.8', title: 'Portfolio and research positioning', order: 808, kind: 'unit', readiness: 'draft',
       summary: 'Present a verifiable research portfolio and position graduate work with one place, one hazard family, and one methods gap.',
       estimatedHours: 5, prerequisites: ['Unit 8.7'], outcomes: outcomes88,
       lessonIds: lessons88.map((lesson) => lesson.id),
@@ -4614,7 +4614,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
 
     {
-      id: 'cgei-rp-unit-8-9', subjectId: 'cgei-research', code: '8.9', title: 'Research proposals, funding, and professional practice', order: 809, kind: 'unit', readiness: 'draft',
+      id: 'cgei-rp-unit-8-9', subjectId: 'cgei-research-practice', code: '8.9', title: 'Research proposals, funding, and professional practice', order: 809, kind: 'unit', readiness: 'draft',
       summary: 'Write a fundable proposal outline, match scope to resources, and plan professional research collaboration.',
       estimatedHours: 5, prerequisites: ['Unit 8.7', 'Unit 8.8'], outcomes: outcomes89,
       lessonIds: lessons89.map((lesson) => lesson.id),
@@ -4627,7 +4627,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
 
     {
-      id: 'cgei-rp-unit-8-d', subjectId: 'cgei-research', code: '8.D', title: 'Depth checks and research mastery gates', order: 810, kind: 'unit', readiness: 'draft',
+      id: 'cgei-rp-unit-8-d', subjectId: 'cgei-research-practice', code: '8.D', title: 'Depth checks and research mastery gates', order: 810, kind: 'unit', readiness: 'draft',
       summary: 'Mastery gates: research design with estimand and non-claims; reproducible methods; constructive validity review.',
       estimatedHours: 6, prerequisites: ['Unit 8.7', 'Unit 8.8', 'Unit 8.9'], outcomes: outcomes8d,
       lessonIds: lessons8d.map((lesson) => lesson.id),
@@ -4765,7 +4765,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     },
 
     {
-      id: 'cgei-ai-unit-12-3', subjectId: 'cgei-ai', code: '12.3', title: 'Spatiotemporal ML, forecasting, and foundation models', order: 1203, kind: 'unit', readiness: 'draft',
+      id: 'cgei-ai-unit-12-3', subjectId: 'cgei-advanced-ai', code: '12.3', title: 'Spatiotemporal ML, forecasting, and foundation models', order: 1203, kind: 'unit', readiness: 'draft',
       summary: 'Rolling-origin evaluation, temporal/spatial leakage control, baselines, and honest use of geospatial foundation models.',
       estimatedHours: 8, prerequisites: ['Unit 6.4', 'Unit 5.7'], outcomes: outcomes123,
       lessonIds: lessons123.map((lesson) => lesson.id),
