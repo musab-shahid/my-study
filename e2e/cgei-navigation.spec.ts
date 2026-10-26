@@ -98,7 +98,9 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/topic/cgei-env-systems-roadmap');
 
     await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
-    await expect(page.getByText('Domain orientation · not a lesson', { exact: true })).toBeVisible({ timeout: 20_000 });
+    // The wording is rendered across a parent paragraph and nested span; assert on the paragraph.
+    const orientationLabel = page.locator('p').filter({ hasText: 'Domain orientation' }).filter({ hasText: 'not a study lesson' });
+    await expect(orientationLabel).toBeVisible({ timeout: 20_000 });
     await expect(page.getByText(/Structured lessons and assessments for this domain are being migrated progressively/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Sections', exact: true })).toHaveCount(0);
     await expect(page.getByText(/0 \/ 1 topics studied/)).toHaveCount(0);

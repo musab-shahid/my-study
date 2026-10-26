@@ -276,7 +276,10 @@ export function StudyScreen() {
                   <BookOpen className="w-5 h-5 text-sky-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation · not a lesson</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">
+                    Domain orientation
+                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· context only · not a study lesson</span>
+                  </p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
                   {roadmapTopic.explanationSections?.map((section) => (
@@ -314,7 +317,10 @@ export function StudyScreen() {
                   <BookOpen className="w-5 h-5 text-teal-800" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Course orientation · not a lesson</p>
+                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">
+                    Course orientation
+                    <span className="ml-2 font-medium normal-case tracking-normal text-slate-600">· onboarding · not a study lesson</span>
+                  </p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
                   <div className="mt-4">
@@ -395,9 +401,20 @@ export function StudyScreen() {
           {subjectSections.length > 0 && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-slate-900">Sections</h3>
+              <h3 className="font-semibold text-slate-900">
+                {curriculumSubject && curriculumUnits.length > 0
+                  ? 'Legacy topic groups'
+                  : subjectId?.startsWith('cgei-')
+                    ? 'Topic groups'
+                    : 'Sections'}
+              </h3>
               <span className="text-slate-400 text-sm">{subjectSections.length}</span>
             </div>
+            {curriculumSubject && curriculumUnits.length > 0 ? (
+              <p className="text-xs text-slate-500 mb-3">
+                Canonical learning units appear under Course orientation above. These groups retain legacy topic routes during migration and are not additional curriculum units.
+              </p>
+            ) : null}
             <div className="space-y-2">
               {subjectSections.map((section) => {
                 const sectionTopics = topicsBySection(section.id).filter((topic) => !isCgeiOverviewTopic(topic.id));

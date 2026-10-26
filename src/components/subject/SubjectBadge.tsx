@@ -1,6 +1,7 @@
 import type { Section } from '@/types';
 import { subjectMap } from '@/data/subjects';
 import { getSubjectStyle } from '@/data/subject-colors';
+/** Display suffix after the last hyphen (e.g. CGEI-024 → 024). Not a separate canonical ID. */
 function shortCode(sectionId: string): string {
   const idx = sectionId.lastIndexOf('-');
   return idx >= 0 ? sectionId.slice(idx + 1) : sectionId;
