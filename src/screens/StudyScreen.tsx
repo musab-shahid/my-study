@@ -313,7 +313,6 @@ export function StudyScreen() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Introduction</p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
-}
                 </div>
               </div>
                 </div>
