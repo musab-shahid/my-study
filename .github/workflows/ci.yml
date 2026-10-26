@@ -9,6 +9,7 @@ on:
       - feature/ui-ux-overhaul
       - feat/cgei-core-leaf-coverage-gate
       - feat/cgei-subject5-sql-vertical-slice
+      - feat/cgei-subject5-next-slice
 
 jobs:
   check:
