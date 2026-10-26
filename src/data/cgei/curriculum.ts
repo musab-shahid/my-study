@@ -1719,7 +1719,6 @@ const lessons33: CurriculumLesson[] = [
       { id: 'cgei-geo-33-1-6', kind: 'table', title: 'Overlay operation checklist', headers: ['Need', 'Prefer', 'Watch'], rows: [['Combine same-class parcels', 'Dissolve by attribute', 'Null group fields create many classes'], ['All combinations of two layers', 'Union', 'Attribute nulls outside overlaps'], ['Area of A outside B', 'Difference (A−B)', 'CRS must match'], ['Only overlap of A and B', 'Intersect', 'Splits input features']] },
     ],
     activityIds: ['cgei-geo-a-33-ops'], assessmentIds: ['cgei-geo-assess-33-ops'], resourceIds: ['cgei-geo-r-epsg'], deliverableIds: [],
-    activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
   },
   {
     id: 'cgei-geo-lesson-3-3-2', kind: 'lesson', title: 'Attribute joins versus spatial joins', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
