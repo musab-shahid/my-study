@@ -1,4 +1,22 @@
 source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,priority,app_lesson_id,app_content_block_ids,disposition,evidence_note
-8.6.methods-limits,Methods sampling uncertainty limitations,8.6,Scientific reporting,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-lab,mapped_partial,Report-block lab and fixture.
-8.6.availability,Data code availability,8.6,Scientific reporting,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-lab,mapped_partial,Required section.
-8.6.non-claims,Non-overclaiming,8.6,Scientific reporting,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-lab,mapped_partial,Required non_claims section.
+8.6.1.1,IMRaD for papers,8.6.1,Paper structure,Core,,,deferred,IMRaD structure not taught in 8-6-1.
+8.6.1.2,Methods completeness checklist,8.6.1,Paper structure,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-2;cgei-rp-86-1-lab,mapped_partial,Minimum reporting checklist + lab section keys; not a full methods completeness standard.
+8.6.1.3,Data and code availability statements,8.6.1,Paper structure,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-1;cgei-rp-86-1-lab;cgei-rp-86-1-2,mapped_partial,"Prose, checklist, and lab require availability statements."
+8.6.1.4,Reproducibility appendix,8.6.1,Paper structure,Core,,,deferred,Separate reproducibility appendix format not taught.
+8.6.1.5,Limitations and contribution statements,8.6.1,Paper structure,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-lab;cgei-rp-86-1-1,mapped_partial,Limitations and explicit non-claims in lab; contribution statements limited.
+8.6.2.1,Technical reports and methods notes,8.6.2,Other formats,Core,,,deferred,Not taught.
+8.6.2.2,Scientific posters and talks,8.6.2,Other formats,Core,,,deferred,Not taught.
+8.6.2.3,Policy / decision briefs,8.6.2,Other formats,Core,,,deferred,Not taught.
+8.6.2.4,Conference abstracts; scholarship statements,8.6.2,Other formats,Core,,,deferred,Not taught.
+8.6.3.1,Preprints and peer-review response,8.6.3,Publication pathway,Core,,,deferred,Not taught.
+8.6.3.2,Data papers and software papers; supplements,8.6.3,Publication pathway,Core,,,deferred,Not taught.
+8.6.3.3,Choosing venues,8.6.3,Publication pathway,Core,,,deferred,Not taught.
+8.6.4.1,Calibrated uncertainty language (e.g. IPCC likelihood),8.6.4,Uncertainty and presentation,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-1,mapped_partial,Uncertainty language appropriate to design; IPCC likelihood terms not taught.
+8.6.4.2,Figure and table quality; map citations,8.6.4,Uncertainty and presentation,Core,,,deferred,Not taught in 8-6-1.
+8.6.4.3,"Writing limitations: specific, honest, linked to the claim",8.6.4,Uncertainty and presentation,Core,cgei-rp-lesson-8-6-1,cgei-rp-86-1-lab;cgei-rp-86-1-1,mapped_partial,Limitations and non-overclaim guidance; no multi-draft writing exercise.
+8.6.5.1,"AI assistance: disclosure, verification of citations and code",8.6.5,Integrity tools,Core,,,deferred,Not taught.
+8.6.5.2,No invented references,8.6.5,Integrity tools,Core,,,deferred,Not taught.
+8.6.5.3,Citation verification routine,8.6.5,Integrity tools,Core,,,deferred,Not taught.
+8.6.6.1,"Writing process: outline, figure-first, revision",8.6.6,Writing craft,Core,,,deferred,Not taught.
+8.6.6.2,Reference styles; LaTeX/Overleaf and Quarto,8.6.6,Writing craft,Core,,,deferred,Not taught.
+8.6.6.3,"Revision passes: argument, structure, sentences, references",8.6.6,Writing craft,Core,,,deferred,Not taught.

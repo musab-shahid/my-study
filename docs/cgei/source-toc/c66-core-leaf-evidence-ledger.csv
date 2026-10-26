@@ -1,0 +1,1016 @@
+source_id,title,unit,original_disposition,app_lesson_ids,lesson_ids_exist,evidence_strength,practice_signal,gaps,recommended_disposition,action
+1.1.1.1,"Atmosphere: composition, layers, circulation cells, pressure systems",1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.1.2,"Hydrosphere: oceans, freshwater, ice, atmospheric water",1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.1.3,"Cryosphere: glaciers, seasonal snow, permafrost, sea ice; mass balance; the Hindu Kush–Karakoram–Himalaya as the water tower feeding the Indus",1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.1.4,"Lithosphere / geosphere: rock cycle, soils, landforms",1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.1.5,Biosphere: living systems and feedbacks on climate and chemistry,1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.1.6,Anthroposphere: human modification of fluxes and surfaces,1.1.1,mapped_partial,cgei-es-lesson-1-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.2.1,"Solar radiation, wavelength bands, and the planetary energy budget",1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.2.2,"Albedo, absorption, emission, and greenhouse effect at conceptual level",1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.2.3,Blackbody radiation: Stefan–Boltzmann and Wien laws — the quantitative basis of thermal remote sensing,1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_with_practice,yes,,mapped_partial,retain
+1.1.2.4,Top-of-atmosphere versus surface budgets; the roles of clouds and aerosols,1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.2.5,Sensible and latent heat; diurnal and seasonal cycles,1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.2.6,Surface energy balance equation and its terms,1.1.2,mapped_partial,cgei-es-lesson-1-1-2,yes,partial_with_practice,yes,,mapped_partial,retain
+1.1.3.1,"Feedbacks: positive versus negative, fast versus slow; ice–albedo, water-vapour, and vegetation–climate feedbacks at overview level",1.1.3,mapped_partial,cgei-es-lesson-1-1-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.3.2,Radiative forcing and effective radiative forcing; equilibrium and transient climate sensitivity as concepts,1.1.3,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.3.3,"Tipping elements, thresholds, and irreversibility at overview level",1.1.3,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_with_practice,unclear,,mapped_partial,retain
+1.1.4.1,"Water cycle: evaporation, condensation, precipitation, runoff, storage",1.1.4,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.4.2,"Carbon cycle: reservoirs, fluxes, photosynthesis, respiration, fossil carbon",1.1.4,mapped_partial,cgei-es-lesson-1-1-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.1.4.3,Nitrogen and phosphorus cycles; human amplification,1.1.4,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.4.4,Mass balance and residence time as organising ideas,1.1.4,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_with_practice,yes,,mapped_partial,retain
+1.1.4.5,Sulphur cycle and the aerosol link; methane and nitrous oxide sources and sinks,1.1.4,deferred,,yes,deferred,unclear,,deferred,retain
+1.1.4.6,Ocean carbon uptake and acidification at overview level,1.1.4,deferred,,yes,deferred,unclear,,deferred,retain
+1.1.5.1,Characteristic time and length scales of processes (turbulence → storm → synoptic → planetary; hours → millennia),1.1.5,deferred,,yes,deferred,unclear,,deferred,retain
+1.1.5.2,"Equilibrium versus transient response; lags, inertia, and committed change",1.1.5,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.1.5.3,"Stocks, flows, and system diagrams as a shared modelling language",1.1.5,mapped_partial,cgei-es-lesson-1-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.1.1,"Urban ecosystems: modified energy, water, and material fluxes",1.10.1,mapped_partial,cgei-es-lesson-1-10-1,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.1.2,Urban surface energy balance and heat storage,1.10.1,mapped_partial,cgei-es-lesson-1-10-1,yes,partial_with_practice,yes,,mapped_partial,retain
+1.10.1.3,Urban metabolism and material-flow analysis; food–energy–water nexus,1.10.1,mapped_partial,cgei-es-lesson-1-10-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.10.1.4,Urban heat and energy-demand interactions,1.10.1,mapped_partial,cgei-es-lesson-1-10-1,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.2.1,"Agricultural systems, soil multifunctionality, fertiliser and irrigation dependence",1.10.2,mapped_partial,cgei-es-lesson-1-10-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.2.2,Cereal–legume and intercropping ideas (from applied training exposure),1.10.2,mapped_partial,cgei-es-lesson-1-10-2,yes,partial_with_practice,yes,,mapped_partial,retain
+1.10.2.3,Cropping-system diversity and ecosystem services in agricultural landscapes,1.10.2,mapped_partial,cgei-es-lesson-1-10-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.10.3.1,"Land-use and land-cover change drivers; urban expansion, informality, and peri-urban agriculture",1.10.3,mapped_partial,cgei-es-lesson-1-10-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.3.2,"Drivers: population, economy, policy, markets, and infrastructure",1.10.3,mapped_partial,cgei-es-lesson-1-10-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.3.3,"Consequences for hydrology, climate, biodiversity, and exposure",1.10.3,mapped_partial,cgei-es-lesson-1-10-2,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.4.1,Multiple stressors acting on the same system,1.10.4,mapped_partial,cgei-es-lesson-1-10-3,yes,partial_documented,unclear,,mapped_partial,retain
+1.10.4.2,Compound and cascading environmental events,1.10.4,mapped_partial,cgei-es-lesson-1-10-3,yes,partial_with_practice,yes,,mapped_partial,retain
+1.10.4.3,Long-term change versus short-term variability in system state,1.10.4,mapped_partial,cgei-es-lesson-1-10-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.10.5.1,"Thresholds, regime shifts, and hysteresis in ecological and social systems",1.10.5,mapped_partial,cgei-es-lesson-1-10-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.10.5.2,Adaptive capacity and path dependence in coupled systems,1.10.5,mapped_partial,cgei-es-lesson-1-10-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+1.10.5.3,Social–ecological systems and the adaptive cycle at overview level,1.10.5,mapped_partial,cgei-es-lesson-1-10-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.1.1.1,Weather versus climate,2.1.1,mapped_partial,cgei-cl-lesson-2-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.1.2,"Climate normals, anomalies, and baseline periods",2.1.1,mapped_partial,cgei-cl-lesson-2-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.1.3,"Seasonality, variability, and trend as separate ideas",2.1.1,mapped_partial,cgei-cl-lesson-2-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.1.4,"Time horizons: synoptic, seasonal, decadal, multi-decadal, centennial",2.1.1,mapped_partial,cgei-cl-lesson-2-1-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.2.1,WMO normals: the current climatological standard normal (1991–2020) versus the 1961–1990 reference period used for long-term monitoring,2.1.2,mapped_partial,cgei-cl-lesson-2-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.2.2,"Variables and standards of observation: 2 m air temperature, 10 m wind, precipitation (mm), radiation (W m⁻²); screen design and siting classes",2.1.2,mapped_partial,cgei-cl-lesson-2-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.2.3,"Metadata needed to interpret a climate value: station, height, instrument, period, and time zone",2.1.2,mapped_partial,cgei-cl-lesson-2-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.1.3.1,"Mean state, variance, extremes",2.1.3,mapped_partial,cgei-cl-lesson-2-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.3.2,Stationarity and nonstationarity,2.1.3,mapped_partial,cgei-cl-lesson-2-1-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.3.3,Probability distributions of climate variables (normal for temperature; gamma-type for precipitation); percentiles and return periods as descriptors,2.1.3,mapped_partial,cgei-cl-lesson-2-1-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.3.4,Climate classification systems at overview level,2.1.3,deferred,,yes,deferred,unclear,,deferred,retain
+2.1.4.1,"Climate indices and teleconnection indices (ONI, IOD/DMI, SOI, NAO, MJO phase) — definitions and data sources",2.1.4,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_with_practice,yes,,mapped_partial,retain
+2.1.4.2,"Index construction: standardisation, reference period, and sign conventions",2.1.4,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.4.3,Using indices as predictors without over-reading correlation,2.1.4,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.5.1,"Natural drivers: orbital (Milankovitch), solar, volcanic; internal variability",2.1.5,mapped_partial,cgei-cl-lesson-2-1-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.1.5.2,"Palaeoclimate archives: ice cores, tree rings, speleothems, sediments — what each records and its resolution",2.1.5,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.5.3,"Instrumental global temperature records (HadCRUT, GISTEMP, NOAAGlobalTemp, Berkeley Earth): construction and uncertainty",2.1.5,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.1.5.4,Observed warming and attribution headline: human influence on the climate system is unequivocal (IPCC AR6 WGI),2.1.5,mapped_partial,cgei-cl-lesson-2-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.1.1,Global energy budget and greenhouse effect,2.2.1,mapped_partial,cgei-cl-lesson-2-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.1.2,"Surface energy balance over land, including urban surfaces",2.2.1,mapped_partial,cgei-cl-lesson-2-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.1.3,"Latent heat, soil moisture, and evaporative cooling",2.2.1,mapped_partial,cgei-cl-lesson-2-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.2.2.1,"Effective radiative forcing; Planck, water-vapour, lapse-rate, surface-albedo, and cloud feedbacks",2.2.2,mapped_partial,cgei-cl-lesson-2-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.2.2,Equilibrium climate sensitivity and transient climate response: assessed ranges (AR6: ECS likely 2.5–4 °C; TCR likely 1.4–2.2 °C),2.2.2,mapped_partial,cgei-cl-lesson-2-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.2.3,Transient climate response to cumulative emissions and remaining carbon budget (link to Subject 10),2.2.2,mapped_partial,cgei-cl-lesson-2-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.3.1,General circulation of the atmosphere (conceptual),2.2.3,mapped_partial,cgei-cl-lesson-2-2-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.2.3.2,"Monsoon systems: drivers, onset, withdrawal",2.2.3,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.3.3,Western disturbances and winter precipitation over northern Pakistan,2.2.3,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.3.4,Land–atmosphere coupling; irrigation and dust as regional modifiers,2.2.3,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.4.1,"Monsoon intraseasonal variability: active and break spells, monsoon lows, moisture transport pathways",2.2.4,mapped_partial,cgei-cl-lesson-2-2-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.2.4.2,"Teleconnections: ENSO, IOD, MJO/boreal summer intraseasonal oscillation, NAO, and summer circumglobal wave patterns — mechanism versus correlation",2.2.4,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.4.3,"Lead–lag relationships and seasonal predictability sources (ENSO, IOD, snow, soil moisture)",2.2.4,deferred,,yes,deferred,unclear,,deferred,retain
+2.2.5.1,"Documented extreme-event case studies to study mechanistically: 2010 floods, 2015 Karachi heatwave, 2022 floods (including the rapid-attribution study), 2022 spring heatwave, 2025 monsoon floods — verify event details against NDMA, PDMA, and PMD reports",2.2.5,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.5.2,"Case-study template: synoptic set-up, moisture source, antecedent conditions, impacts, and data used",2.2.5,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.5.3,Comparing events across years with consistent definitions,2.2.5,mapped_partial,cgei-cl-lesson-2-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.6.1,Surface urban heat island versus canopy-layer UHI,2.2.6,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.6.2,UHI intensity definitions (urban minus rural) and the rural-reference problem,2.2.6,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.6.3,Day versus night; seasonal dependence,2.2.6,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.6.4,Local Climate Zones (Stewart and Oke) as a standardised urban–rural descriptor; sky-view factor; urban canopy layer versus roughness sublayer,2.2.6,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+2.2.7.1,"Role of materials, geometry, vegetation, and anthropogenic heat",2.2.7,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.7.2,"Anthropogenic heat sources: air conditioning, traffic, industry; electricity demand feedback",2.2.7,mapped_partial,cgei-cl-lesson-2-2-4,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.2.7.3,Humidity and heat stress in urban canopies; wind and ventilation,2.2.7,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.2.7.4,Arid and semi-arid cities: daytime surface urban cool islands can occur when surroundings are dry or bare; irrigated surroundings change the sign — rural reference choice matters,2.2.7,mapped_partial,cgei-cl-lesson-2-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.1.1,"In-situ stations: strengths, gaps, inhomogeneity",2.4.1,mapped_partial,cgei-cl-lesson-2-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.1.2,"Station archives: GHCN-Daily, Integrated Surface Database, GSOD; completeness and metadata checks",2.4.1,mapped_partial,cgei-cl-lesson-2-4-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.4.1.3,"Station quality control: range, step, spike, persistence, and internal-consistency checks",2.4.1,mapped_partial,cgei-cl-lesson-2-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.4.1.4,"Homogenisation: station moves, instrument and screen changes, observer practice; detection tests (SNHT, Pettitt), reference series, and metadata",2.4.1,mapped_partial,cgei-cl-lesson-2-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.2.1,Satellite retrievals versus in-situ truth,2.4.2,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.2.2,"Gridded precipitation estimates are satellite-based, gauge-blended, or merged products with their own error structures — not observations",2.4.2,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.2.3,"Gridded temperature and climate datasets: CRU TS, Berkeley Earth, CPC, TerraClimate, WorldClim/CHELSA climatologies",2.4.2,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.2.4,"Gridded precipitation: CHIRPS (0.05°, 1981 onward; satellite–gauge blend), IMERG (0.1°, half-hourly, 2000 onward), GPCC (gauge analysis), MSWEP (merged), PERSIANN-CDR — products, not observations",2.4.2,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.4.3.1,Reanalysis: data assimilation idea; ERA5 and ERA5-Land,2.4.3,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.3.2,"Reanalyses compared: ERA5 (~31 km, 1940 onward), ERA5-Land (~9 km, 1950 onward), MERRA-2, JRA-3Q; spread between reanalyses as an uncertainty indicator",2.4.3,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.3.3,"Agro-climate and solar/meteorological resources: NASA POWER, ERA5-HEAT (UTCI), CAMS radiation",2.4.3,deferred,,yes,deferred,unclear,,deferred,retain
+2.4.3.4,"Successor planning: ERA6 production began in March 2026 with operational declaration expected in Q4 2026 (per ECMWF user-event material) — verify status, and keep code product-agnostic so ERA5 analyses can be repeated on ERA6",2.4.3,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.4.1,What each product is optimised for — and what it is not,2.4.4,mapped_partial,cgei-cl-lesson-2-4-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.4.4.2,Comparing products; limits of agreement as validation,2.4.4,mapped_partial,cgei-cl-lesson-2-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.4.3,"Selection checklist: variable, resolution, record length, latency, licence, known biases, and regional validation",2.4.4,mapped_partial,cgei-cl-lesson-2-4-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.4.5.1,Resolution and grid-cell representativeness,2.4.5,mapped_partial,cgei-cl-lesson-2-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.5.2,Representativeness: point versus grid-cell versus urban-canopy support,2.4.5,mapped_partial,cgei-cl-lesson-2-4-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.4.5.3,"Systematic bias, version changes, missing data",2.4.5,mapped_partial,cgei-cl-lesson-2-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.4.5.4,Sampling and orbit-drift effects in satellite climate records,2.4.5,mapped_partial,cgei-cl-lesson-2-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.1.1,NetCDF and GRIB structures,2.5.1,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.1.2,"CF conventions: coordinates, units, standard names",2.5.1,mapped_partial,cgei-cl-lesson-2-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.5.1.3,Calendars (including non-Gregorian model calendars),2.5.1,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.2.1,Accumulated versus instantaneous variables,2.5.2,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.5.2.2,Longitude conventions and time-zone handling,2.5.2,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.2.3,"Day boundaries: UTC versus local time (PKT = UTC+5) when deriving daily maxima, minima, and totals — misalignment biases Tmax, Tmin, and rainfall days",2.5.2,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.5.2.4,Accumulation conventions differ by product (e.g. ERA5 versus ERA5-Land) — read the product documentation before differencing,2.5.2,mapped_partial,cgei-cl-lesson-2-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.3.1,Zarr and cloud-optimised climate arrays; chunking trade-offs; Parquet for station tables,2.5.3,mapped_partial,cgei-cl-lesson-2-5-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.5.3.2,"CDS API: request, download, cache, cite",2.5.3,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.3.3,Copernicus Climate Data Store platform migration (2024): new API endpoints and keys; pin the client version in the manifest,2.5.3,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.3.4,"CMIP6 access: ESGF nodes and cloud-hosted catalogues; checking variable, grid, calendar, experiment, member",2.5.3,deferred,,yes,deferred,yes,,deferred,retain
+2.5.4.1,"xarray: labelled arrays, selection, groupby, resample, weighted means",2.5.4,mapped_partial,cgei-cl-lesson-2-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.5.4.2,Building climatologies and anomalies,2.5.4,mapped_partial,cgei-cl-lesson-2-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.5.4.3,Area-weighting by cosine of latitude; masking by region without edge artefacts,2.5.4,mapped_partial,cgei-cl-lesson-2-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.4.4,Unit and sign conventions (K to °C; m to mm; fluxes positive downward or upward),2.5.4,deferred,,yes,deferred,unclear,,deferred,retain
+2.5.5.1,"Tool ecosystem: xarray, dask, cf_xarray, xESMF, regionmask, xclim (indices), climpred (verification), ESMValTool (evaluation), CDO/NCO (command line), cartopy (maps)",2.5.5,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.5.2,"Manifests: version, extent, date accessed, licence, checksum",2.5.5,mapped_partial,cgei-cl-lesson-2-5-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.5.5.3,Pinning tool versions and recording the exact request parameters for every download,2.5.5,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.1,"Define the study window and region mask (point, grid cell, or district polygon) and justify ERA5 versus ERA5-Land",2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.2,"Variables and conventions: 2 m temperature, dew point, total precipitation, 10 m wind; units, accumulation rules, and UTC versus Pakistan time",2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.3,"Derived quantities: daily maxima and minima on local days, rainfall totals, and heat index or UTCI where justified",2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.4,Baseline and anomalies: 1991–2020 climatology and seasonal definitions fixed in advance,2.5.6,mapped_partial,cgei-cl-lesson-2-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.5,"Trend and extremes: autocorrelation-aware trend test, percentile thresholds, and return levels where the record allows, all with uncertainty",2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.6,Validation: compare with station records or a second gridded product and document where ERA5 under- or over-estimates,2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.5.6.7,"Interpretation boundary: separate rainfall variability from flood causation, which also needs hydrology, drainage, and exposure data",2.5.6,mapped_partial,cgei-cl-lesson-2-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.1.1,Absolute and percentile thresholds; reference periods,2.6.1,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.6.1.2,"Frequency, intensity, duration, timing, spatial extent",2.6.1,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.1.3,Sensitivity of extreme frequencies to the reference period and baseline,2.6.1,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.6.2.1,"Heatwave and heat-stress metrics: excess heat factor, percentile-based spells, tropical nights, wet-bulb temperature, heat index, UTCI, WBGT — each needs different inputs and answers a different question",2.6.2,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.2.2,Hot nights and night-time recovery as separate metrics with local thresholds,2.6.2,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.2.3,"Sensitivity of heatwave counts to threshold, duration, and reference period",2.6.2,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.3.1,"ETCCDI rainfall indices (Rx1day, Rx5day, R10mm, R20mm, R95pTOT, CDD, CWD) and their sensitivity to measurement and product resolution",2.6.3,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.3.2,Daily versus sub-daily rainfall: what daily data cannot resolve,2.6.3,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.3.3,"Sensitivity of rainfall indices to gauge density, product resolution, and wet-day threshold",2.6.3,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.4.1,"Drought indices: SPI, SPEI — timescales and interpretation",2.6.4,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.4.2,"Cold waves, fog days, dust days, and frost: locally relevant extremes absent from many index sets",2.6.4,deferred,,yes,deferred,unclear,,deferred,retain
+2.6.4.3,"Drought timescales and what each answers: 1, 3, 6, and 12 months",2.6.4,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.5.1,Linear trends with uncertainty,2.6.5,mapped_partial,cgei-cl-lesson-2-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+2.6.5.2,Sen’s slope; Mann–Kendall and autocorrelation-aware variants,2.6.5,mapped_partial,cgei-cl-lesson-2-6-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.5.3,Bootstrap and permutation approaches,2.6.5,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.5.4,Seasonal Mann–Kendall and block-bootstrap variants for seasonal and autocorrelated series,2.6.5,mapped_partial,cgei-cl-lesson-2-6-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.6.5.5,Removing or regressing out ENSO and other modes before interpreting trends,2.6.5,deferred,,yes,deferred,unclear,,deferred,retain
+2.6.6.1,Effect sizes over p-value-only reporting,2.6.6,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.6.2,Multiple testing across variables and grid cells,2.6.6,mapped_partial,cgei-cl-lesson-2-6-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.6.3,Field significance and false-discovery-rate control for maps of local tests (Wilks),2.6.6,mapped_partial,cgei-cl-lesson-2-6-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.6.4,Changepoints and homogeneity — when justified,2.6.6,deferred,,yes,deferred,unclear,,deferred,retain
+2.6.7.1,Short records cannot establish long-term climate-change trends alone,2.6.7,mapped_partial,cgei-cl-lesson-2-6-3,yes,partial_documented,yes,,mapped_partial,retain
+2.6.7.2,Area-average reanalysis is not a rain gauge and not flood causation,2.6.7,mapped_partial,cgei-cl-lesson-2-6-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.7.3,Compound events: heat+drought; rain+wet soils+drainage failure,2.6.7,mapped_partial,cgei-cl-lesson-2-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.6.7.4,"Report the baseline, season definition, data product, and period with every trend",2.6.7,mapped_partial,cgei-cl-lesson-2-6-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.6.7.5,Trend in a reanalysis variable is a statement about the product as well as the climate,2.6.7,mapped_partial,cgei-cl-lesson-2-6-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.1.1,Monsoon onset/withdrawal and justified local season definitions (not default JJA),2.8.1,mapped_partial,cgei-cl-lesson-2-8-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.1.2,"Seasons used by PMD-style convention (winter, pre-monsoon, monsoon, post-monsoon) versus analysis-specific definitions justified by local data",2.8.1,mapped_partial,cgei-cl-lesson-2-8-1,yes,partial_with_practice,yes,,mapped_partial,retain
+2.8.1.3,"ENSO/IOD as variability context, not one-line local causes",2.8.1,mapped_partial,cgei-cl-lesson-2-8-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.1.4,Glacier and snow-melt contributions to Indus flow and their seasonal timing,2.8.1,mapped_partial,cgei-cl-lesson-2-8-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+2.8.1.5,"Irrigation, canals, and the Indus system as climate modifiers",2.8.1,mapped_partial,cgei-cl-lesson-2-8-1,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.2.1,"Pre-monsoon heat, hot nights, dust",2.8.2,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.2.2,Winter fog and smog season; dust storms and thunderstorm outflows; cold waves and frost,2.8.2,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.2.3,Crop-residue burning seasons (rice stubble in autumn; wheat residue in spring) as air-quality drivers,2.8.2,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.3.1,"Climate and land-cover context of Multan: arid plain, irrigated surroundings, river and canal network",2.8.3,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.3.2,Station and gridded series available for Multan and what each represents,2.8.3,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.3.3,Typical analysis periods and baseline choices for the region,2.8.3,mapped_partial,cgei-cl-lesson-2-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.4.1,Pakistan Meteorological Department: what is public vs restricted,2.8.4,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.4.2,"SUPARCO, NDMA, PDMA Punjab, PBS geography",2.8.4,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.4.3,PMD Flood Forecasting Division; WAPDA and IRSA (river and reservoir data); Punjab Irrigation Department; PCRWR; PARC; Survey of Pakistan; Pakistan Bureau of Statistics (digital census 2023); ICIMOD for HKH regional data,2.8.4,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.5.1,Global layers still used when local series are unavailable — with honest limits,2.8.5,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.5.2,"What is open, what is on request, and what is paid — document the request trail and licence for every dataset",2.8.5,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+2.8.5.3,Local knowledge and farmer observation as complementary evidence,2.8.5,mapped_partial,cgei-cl-lesson-2-8-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.1.1,"Points, lines, polygons, multiparts",3.1.1,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.1.2,"Raster grid, pixel size, extent, origin, bands, nodata",3.1.1,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.1.3,Categorical versus continuous rasters,3.1.1,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.1.4,Attribute tables and data types,3.1.1,mapped_partial,cgei-geo-lesson-3-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.1.5,"Beyond 2D: TIN, point clouds, voxels, space–time cubes, and network data models",3.1.1,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.1.6,Raster pyramids/overviews and tiling; pixel-is-area versus pixel-is-point conventions and half-pixel shifts,3.1.1,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.2.1,"Intersection, containment, adjacency, distance",3.1.2,mapped_partial,cgei-geo-lesson-3-1-3,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.2.2,Topology rules and common validity errors,3.1.2,mapped_partial,cgei-geo-lesson-3-1-3,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.2.3,Geometry repair,3.1.2,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.3.1,Cartographic scale versus process scale,3.1.3,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.3.2,Spatial grain and extent; minimum mapping unit,3.1.3,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.3.3,Mixed pixels,3.1.3,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.3.4,Modifiable areal unit problem (MAUP),3.1.3,mapped_partial,cgei-geo-lesson-3-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.3.5,Ecological fallacy,3.1.3,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.4.1,"Components of quality: positional accuracy, attribute accuracy, logical consistency, completeness, lineage (ISO 19157)",3.1.4,mapped_partial,cgei-geo-lesson-3-4-5,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.4.2,Metadata standards (ISO 19115) and FAIR practice; minimum metadata per layer,3.1.4,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.4.3,Error propagation through overlay and map algebra; why stacked layers compound error,3.1.4,deferred,,yes,deferred,unclear,,deferred,retain
+3.1.5.1,"GNSS accuracy classes: consumer, SBAS-aided, RTK/PPK; multipath in urban canyons; horizontal versus vertical error",3.1.5,mapped_partial,cgei-geo-lesson-3-4-6,yes,partial_with_practice,yes,,mapped_partial,retain
+3.1.5.2,Datum of GNSS coordinates (WGS 84/ITRF) versus legacy local datums in older maps,3.1.5,mapped_partial,cgei-geo-lesson-3-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.1.5.3,Recording accuracy estimates and averaging protocols for field points,3.1.5,mapped_partial,cgei-geo-lesson-3-4-6,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.1.1,Geographic versus projected CRS,3.2.1,mapped_partial,cgei-geo-lesson-3-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.2.1.2,"Datum, ellipsoid, prime meridian",3.2.1,mapped_partial,cgei-geo-lesson-3-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.1.3,Map projections and distortion types,3.2.1,mapped_partial,cgei-geo-lesson-3-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.1.4,EPSG codes and axis order,3.2.1,mapped_partial,cgei-geo-lesson-3-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.1.5,On-the-fly projection versus permanent transformation,3.2.1,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.2.1,Vertical datums and geoids: ellipsoidal versus orthometric heights; SRTM (EGM96) versus Copernicus DEM (EGM2008) conventions,3.2.2,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.2.2,Datum transformations and grid-shift files; accuracy of a transformation as part of the error budget,3.2.2,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+3.2.2.3,"Affine geotransforms and resampling choices (nearest, bilinear, cubic) — categorical versus continuous data",3.2.2,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+3.2.3.1,WGS 84 geographic storage conventions,3.2.3,mapped_partial,cgei-geo-lesson-3-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.3.2,UTM zone 42N (EPSG:32642) for Multan area and distance,3.2.3,deferred,,yes,deferred,unclear,,deferred,retain
+3.2.3.3,"UTM zone boundaries: zone 42N spans 66–72°E; Multan lies inside, but Punjab-wide layers cross 72°E — use equal-area projections or per-zone processing for provincial statistics",3.2.3,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+3.2.3.4,"Equal-area projections (e.g. Albers, Lambert azimuthal) for area summaries over large regions",3.2.3,mapped_partial,cgei-geo-lesson-3-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.3.5,"Why Web Mercator is for web tiles, not hectare calculations",3.2.3,mapped_partial,cgei-geo-lesson-3-2-3,yes,partial_with_practice,unclear,,mapped_partial,retain
+3.2.4.1,Documenting CRS on every dataset and map,3.2.4,mapped_partial,cgei-geo-lesson-3-2-4,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.2.4.2,Legacy Survey of Pakistan sheets and cadastral layers may use local datums or grids — identify and document before overlaying,3.2.4,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+3.2.4.3,Test every pipeline step by checking that known landmarks land where expected after reprojection,3.2.4,mapped_partial,cgei-geo-lesson-3-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+3.3.1.1,"Projects, layers, symbology, labelling",3.3.1,mapped_partial,cgei-geo-lesson-3-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.1.2,"Print layouts: scale bar, legend, north arrow, inset, export resolution",3.3.1,mapped_partial,cgei-geo-lesson-3-3-8,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.3.1.3,Vector and raster geoprocessing tools,3.3.1,mapped_partial,cgei-geo-lesson-3-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.1.4,Graphical models / processing models for repeatability,3.3.1,mapped_partial,cgei-geo-lesson-3-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.2.1,PyQGIS scripting and plugins; processing from the command line; project templates,3.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+3.3.2.2,"ArcGIS Pro and ModelBuilder as the dominant commercial alternative: concepts transfer, interface differs; file geodatabase versus GeoPackage",3.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+3.3.2.3,Command-line GDAL/OGR for batch inspection and conversion,3.3.2,mapped_partial,cgei-geo-lesson-3-3-8,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.3.1,"Buffer, dissolve, clip, intersection, union, difference",3.3.3,mapped_partial,cgei-geo-lesson-3-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.3.2,Spatial join and attribute join,3.3.3,mapped_partial,cgei-geo-lesson-3-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.3.3,Zonal statistics,3.3.3,mapped_partial,cgei-geo-lesson-3-3-3,yes,partial_with_practice,yes,,mapped_partial,retain
+3.3.3.4,Reclassification and map algebra,3.3.3,mapped_partial,cgei-geo-lesson-3-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.4.1,"File formats: shapefile limits (10-character fields, 2 GB), GeoPackage as preferred container, GeoJSON (WGS 84 only), FlatGeobuf, KML",3.3.4,mapped_partial,cgei-geo-lesson-3-3-6,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.4.2,"Topological editing, snapping, and digitising error; georeferencing scanned maps with control points and RMSE",3.3.4,mapped_partial,cgei-geo-lesson-3-3-8,yes,partial_with_practice,yes,,mapped_partial,retain
+3.3.4.3,Choosing formats for exchange versus analysis versus archive,3.3.4,mapped_partial,cgei-geo-lesson-3-3-6,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.5.1,"Province, district, tehsil, union council, mauza hierarchy",3.3.5,mapped_partial,cgei-geo-lesson-3-3-7,yes,partial_documented,unclear,,mapped_partial,retain
+3.3.5.2,"Boundary source, year, and known topology issues",3.3.5,mapped_partial,cgei-geo-lesson-3-3-7,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.3.5.3,Study-area definition and sensitivity to boundary choice,3.3.5,mapped_partial,cgei-geo-lesson-3-3-7,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.1.1,"GeoPandas: read/write, CRS, plot",3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.1.2,Shapely geometries and predicates,3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.1.3,"Spatial joins, overlays, dissolve, aggregate",3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.1.4,Area and length in appropriate CRS,3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.1.5,pyogrio/fiona I/O; spatial indexes (STRtree) and vectorised predicates for speed,3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.1.6,GeoParquet and DuckDB spatial for large vector data; H3/S2 discrete global grids for aggregation,3.5.1,mapped_partial,cgei-geo-lesson-3-5-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+3.5.1.7,dask-geopandas for out-of-core work,3.5.1,deferred,,yes,deferred,unclear,,deferred,retain
+3.5.2.1,Rasterio and GDAL bindings,3.5.2,mapped_partial,cgei-geo-lesson-3-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.2.2,"Windowed reading, masks, nodata",3.5.2,mapped_partial,cgei-geo-lesson-3-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.2.3,"Reproject, resample, mosaic",3.5.2,mapped_partial,cgei-geo-lesson-3-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.2.4,Cloud-Optimized GeoTIFF (COG) and overviews,3.5.2,mapped_partial,cgei-geo-lesson-3-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.2.5,rioxarray for xarray-integrated raster work,3.5.2,mapped_partial,cgei-geo-lesson-3-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.3.1,"xarray-spatial, scipy.ndimage, scikit-image for filtering, morphology, and texture",3.5.3,deferred,,yes,deferred,unclear,,deferred,retain
+3.5.3.2,"STAC-driven loading with pystac-client, odc-stac, or stackstac; lazy evaluation and chunking",3.5.3,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_with_practice,yes,,mapped_partial,retain
+3.5.3.3,rasterstats/exactextract-style zonal statistics and fractional pixel coverage at polygon edges,3.5.3,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.3.4,"Interactive exploration: geemap, folium, leafmap, lonboard — exploration, not analysis",3.5.3,mapped_partial,cgei-geo-lesson-3-5-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.5.4.1,"sf, terra, stars for vector and raster; gstat and INLA for geostatistics and Bayesian spatial models",3.5.4,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.4.2,When R is the better tool (mature spatial-statistics packages) and how to interoperate via files,3.5.4,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.4.3,Mixed-language workflows: exchanging data through open formats,3.5.4,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.5.1,"PySAL ecosystem (libpysal, esda, spreg, mgwr); PyKrige and GSTools; momepy for urban morphology",3.5.5,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.5.2,"Matching library to method: autocorrelation, regression, geostatistics, and networks",3.5.5,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.5.5.3,"Version and dependency pinning for geospatial binaries (GDAL, PROJ, GEOS)",3.5.5,mapped_partial,cgei-geo-lesson-3-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.6.1.1,Visual hierarchy and figure–ground,3.6.1,deferred,,yes,deferred,unclear,,deferred,retain
+3.6.1.2,"Colour: sequential, diverging, qualitative; colour-blind safe choices",3.6.1,mapped_partial,cgei-geo-lesson-3-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.6.1.3,"Classification methods: equal interval, quantiles, natural breaks, manual",3.6.1,mapped_partial,cgei-geo-lesson-3-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.1.4,When not to use a choropleth,3.6.1,mapped_partial,cgei-geo-lesson-3-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.2.1,"Thematic map types: proportional symbols, dot density, bivariate, cartogram, small multiples; when each is honest",3.6.2,mapped_partial,cgei-geo-lesson-3-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.6.2.2,"Relief depiction, generalisation, labelling hierarchy, and typography; scale-dependent rendering",3.6.2,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.2.3,"Choosing a map type by data type, audience, and message",3.6.2,mapped_partial,cgei-geo-lesson-3-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.3.1,"Print and journal figure standards: resolution, vector formats, colour-blind-safe palettes, accessibility",3.6.3,mapped_partial,cgei-geo-lesson-3-6-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.6.3.2,"Journal and poster figure checklists: panel labels, scale bars, units, and colour-blind checks",3.6.3,mapped_partial,cgei-geo-lesson-3-6-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.6.3.3,Reproducible figure scripts and version control of map styling,3.6.3,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.4.1,Showing uncertainty and data gaps,3.6.4,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.6.4.2,Avoiding false precision from smooth surfaces,3.6.4,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,unclear,,mapped_partial,retain
+3.6.4.3,"Legends that state units, date, resolution, and source",3.6.4,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.5.1,Disputed and sensitive boundaries: follow applicable national mapping rules and include a boundary disclaimer where required,3.6.5,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.6.5.2,"Web cartography: vector tiles, MapLibre styling, tile caching, and attribution requirements",3.6.5,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.6.5.3,Attribution and licensing statements on maps,3.6.5,mapped_partial,cgei-geo-lesson-3-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.9.1.1,Spatial autocorrelation concept,3.9.1,mapped_partial,cgei-geo-lesson-3-9-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.1.2,Global and local Moran’s I; LISA,3.9.1,mapped_partial,cgei-geo-lesson-3-9-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+3.9.1.3,Neighbourhood definitions and distance weights,3.9.1,deferred,,yes,deferred,yes,,deferred,retain
+3.9.1.4,Edge effects and multiple testing over space,3.9.1,deferred,,yes,deferred,yes,,deferred,retain
+3.9.2.1,Hotspot statistics; kernel density estimation,3.9.2,mapped_partial,cgei-geo-lesson-3-9-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.2.2,"Cluster detection: Getis–Ord Gi*, DBSCAN/ST-DBSCAN, space–time scan statistics (SaTScan-type); emerging hot-spot analysis and space–time cubes",3.9.2,deferred,,yes,deferred,yes,,deferred,retain
+3.9.2.3,"Point pattern analysis: quadrat, nearest-neighbour, Ripley’s K; complete spatial randomness as a null",3.9.2,mapped_partial,cgei-geo-lesson-3-9-1,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.2.4,Kernel bandwidth choice and its effect on hotspot maps,3.9.2,deferred,,yes,deferred,unclear,,deferred,retain
+3.9.3.1,Residual spatial autocorrelation in OLS; spatial lag and spatial error models,3.9.3,deferred,,yes,deferred,unclear,,deferred,retain
+3.9.3.2,"Geographically weighted regression and multiscale GWR: bandwidth, local collinearity, interpretation limits",3.9.3,deferred,,yes,deferred,yes,,deferred,retain
+3.9.3.3,Spatial confounding and what regression coefficients on spatial data can and cannot mean,3.9.3,deferred,,yes,deferred,yes,,deferred,retain
+3.9.4.1,"Deterministic methods: nearest neighbour, IDW, splines",3.9.4,mapped_partial,cgei-geo-lesson-3-9-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.9.4.2,Regionalised variables; stationarity assumptions,3.9.4,mapped_partial,cgei-geo-lesson-3-9-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.4.3,"Empirical variogram: nugget, sill, range, anisotropy",3.9.4,mapped_partial,cgei-geo-lesson-3-9-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.9.4.4,Ordinary and universal kriging; prediction variance,3.9.4,mapped_partial,cgei-geo-lesson-3-9-2,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.4.5,Cross-validation; when data are too sparse to krige,3.9.4,mapped_partial,cgei-geo-lesson-3-9-2,yes,partial_with_practice,yes,,mapped_partial,retain
+3.9.5.1,Spatial blocks; buffered holdouts,3.9.5,mapped_partial,cgei-geo-lesson-3-9-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.5.2,Leave-location-out evaluation,3.9.5,mapped_partial,cgei-geo-lesson-3-9-1,yes,partial_with_practice,yes,,mapped_partial,retain
+3.9.5.3,Residual spatial pattern as a diagnostic,3.9.5,mapped_partial,cgei-geo-lesson-3-9-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.5.4,Choosing block size from the range of spatial dependence,3.9.5,deferred,,yes,deferred,unclear,,deferred,retain
+3.9.6.1,"Areal interpolation: area-weighted, dasymetric, and model-based; downscaling census counts",3.9.6,mapped_partial,cgei-geo-lesson-3-9-3,yes,partial_documented,unclear,,mapped_partial,retain
+3.9.6.2,Monte Carlo propagation of input uncertainty through raster models,3.9.6,deferred,,yes,deferred,yes,,deferred,retain
+3.9.6.3,Spatially balanced and stratified sampling designs for reference data,3.9.6,deferred,,yes,deferred,yes,,deferred,retain
+3.9.6.4,"Bayesian spatial models (CAR/BYM, SPDE/INLA) and Gaussian processes at overview level",3.9.6,deferred,,yes,deferred,yes,,deferred,retain
+4.1.1.1,Electromagnetic spectrum relevant to EO,4.1.1,mapped_partial,cgei-rs-lesson-4-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.1.1.2,"Reflectance, radiance, brightness temperature, emissivity",4.1.1,mapped_partial,cgei-rs-lesson-4-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.1.1.3,"Planck function, emissivity, and the thermal infrared window (8–14 µm); why land surface temperature differs from air temperature",4.1.1,mapped_partial,cgei-rs-lesson-4-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.1.1.4,"Spectral behaviour of vegetation, soil, water, and urban materials: red edge, SWIR moisture sensitivity, bright and dark surfaces",4.1.1,mapped_partial,cgei-rs-lesson-4-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.2.1,"Atmospheric absorption, scattering, and correction concepts",4.1.2,mapped_partial,cgei-rs-lesson-4-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.2.2,"Solar and view geometry: sun elevation, azimuth, BRDF, shadows, topographic illumination",4.1.2,mapped_partial,cgei-rs-lesson-4-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.2.3,"Spatial, spectral, temporal, radiometric resolution",4.1.2,mapped_partial,cgei-rs-lesson-4-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.3.1,Passive optical and thermal,4.1.3,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.3.2,"Active microwave (SAR): wavelength, polarisation, speckle (conceptual)",4.1.3,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.3.3,"Passive microwave (soil moisture, precipitation), lidar (canopy height, terrain), gravimetry (water storage), altimetry — what each measures",4.1.3,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.4.1,Sun-synchronous orbits; local overpass time and its analytical consequences,4.1.4,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.4.2,Overpass times and diurnal sampling: Landsat and Terra ~10:00–10:30 local solar time; Aqua and VIIRS ~13:30 (with night passes); geostationary sensors for the full diurnal cycle; ECOSTRESS’s variable ISS sampling,4.1.4,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.4.3,"Revisit, swath, and cloud-free-observation probability as design constraints",4.1.4,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.5.1,Top-of-atmosphere versus surface products,4.1.5,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.5.2,Retrieved variables versus derived indices,4.1.5,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.5.3,Product levels and versioning,4.1.5,mapped_partial,cgei-rs-lesson-4-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.1.5.4,"Geolocation accuracy, co-registration, and pixel footprint versus nominal pixel size (e.g. Landsat thermal bands collected at 100 m and resampled to 30 m)",4.1.5,mapped_partial,cgei-rs-lesson-4-1-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.2.1.1,Landsat 8/9 Collection 2 Level-2: surface reflectance and surface temperature,4.2.1,mapped_partial,cgei-rs-lesson-4-2-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.2.1.2,Sentinel-2 MSI,4.2.1,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.1.3,"MODIS and VIIRS: coarse resolution, high temporal frequency, fire/thermal products",4.2.1,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.1.4,"Geostationary platforms viewing South Asia (e.g. INSAT series, Meteosat IODC) for sub-daily land-surface and cloud information",4.2.1,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.1.5,ECOSTRESS and ASTER thermal records: sampling and archive limitations,4.2.1,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.2.1,Landsat 8 and 9 operational; Landsat 5 and 7 archives for long records (Landsat 7 SLC-off after 2003); Landsat Next in planning,4.2.2,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.2.2,Sentinel-2 constellation composition has changed (Sentinel-2C launched 2024); Sentinel-1 has been rebuilt since the 2021 loss of Sentinel-1B — confirm acquisition coverage for the dates studied,4.2.2,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.2.3,MODIS on Terra and Aqua is beyond design life with orbit drift affecting overpass time; VIIRS provides continuity,4.2.2,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.2.4,"Thermal missions in development or early operation (e.g. TRISHNA, SBG-TIR, Copernicus LSTM) — verify launch and data status before planning",4.2.2,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.2.5,"Hyperspectral: EnMAP, PRISMA, EMIT; commercial very-high-resolution optical and SAR constellations as paid options",4.2.2,mapped_partial,cgei-rs-lesson-4-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.3.1,"SAR: NISAR (NASA–ISRO, L- and S-band, 12-day repeat); calibrated L-band public release via ASF DAAC began 20 July 2026 with the full science record expected by end of 2026; S-band data distributed through ISRO’s Bhoonidhi portal",4.2.3,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.3.2,Sentinel-1 SAR for water and all-weather surface applications,4.2.3,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.3.3,"SAR basics for practitioners: backscatter, calibration, terrain correction, speckle filtering, coherence; InSAR for surface deformation",4.2.3,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.2.4.1,"DEM sources: SRTM, Copernicus DEM; hydrologic conditioning concepts",4.2.4,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.4.2,"Spaceborne lidar (GEDI, ICESat-2) for canopy and elevation profiles",4.2.4,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.4.3,"Vertical accuracy, void filling, and surface-versus-terrain differences across DEM products",4.2.4,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.5.1,Land-cover and land-use products,4.2.5,mapped_partial,cgei-rs-lesson-4-2-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.2.5.2,"Land cover: Dynamic World (10 m, near real-time), ESA WorldCover (10 m), annual 10 m LULC products, GLC_FCS30 — differing legends, dates, and known errors",4.2.5,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.5.3,Night-time lights,4.2.5,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.5.4,Surface water and vegetation products,4.2.5,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.6.1,Burned area versus active fire detections,4.2.6,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.6.2,"Evapotranspiration and water: MODIS ET, SSEBop, FAO WaPOR; JRC Global Surface Water; GRACE/GRACE-FO storage anomalies",4.2.6,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.6.3,"Soil moisture and precipitation: SMAP, SMOS, ESA CCI soil moisture; GPM IMERG",4.2.6,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.7.1,"Atmospheric composition: Sentinel-5P TROPOMI, MODIS/VIIRS aerosol (MAIAC), CAMS reanalysis and forecasts",4.2.7,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.7.2,Snow and ice: MODIS/VIIRS snow cover; glacier inventories,4.2.7,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.7.3,"Temporal coverage, latency, and licence of atmospheric and cryosphere products",4.2.7,mapped_partial,cgei-rs-lesson-4-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.2.8.1,"QA bands, cloud and shadow masks, saturation",4.2.8,mapped_partial,cgei-rs-lesson-4-2-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.2.8.2,Scale factors and offsets (especially Landsat ST),4.2.8,mapped_partial,cgei-rs-lesson-4-2-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.2.8.3,Cross-sensor continuity problems,4.2.8,mapped_partial,cgei-rs-lesson-4-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.1.1,"NDVI, EVI: formulation, saturation, soil background",4.3.1,mapped_partial,cgei-rs-lesson-4-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.3.1.2,NDWI / MNDWI for water,4.3.1,mapped_partial,cgei-rs-lesson-4-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.1.3,NBR and burn severity indices,4.3.1,mapped_partial,cgei-rs-lesson-4-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.1.4,"SAVI/MSAVI for soil-background control; NDMI/NDII/LSWI for moisture; bare-soil and built-up indices (BSI, IBI, NDBI−NDVI combinations)",4.3.1,mapped_partial,cgei-rs-lesson-4-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.2.1,NDBI and built-up proxies,4.3.2,mapped_partial,cgei-rs-lesson-4-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.2.2,Albedo and emissivity concepts,4.3.2,mapped_partial,cgei-rs-lesson-4-3-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.3.2.3,Tasselled-cap components and narrow-to-broadband albedo conversion,4.3.2,mapped_partial,cgei-rs-lesson-4-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.2.4,Known failure: NDBI confuses bare soil with built-up in arid scenes; irrigated fields confuse thermal and vegetation contrasts,4.3.2,mapped_partial,cgei-rs-lesson-4-3-2,yes,partial_with_practice,unclear,,mapped_partial,retain
+4.3.3.1,"Radiative transfer equation, single-channel, mono-window, split-window, and temperature–emissivity separation approaches",4.3.3,mapped_partial,cgei-rs-lesson-4-3-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.3.3.2,Landsat 8 TIRS Band 11 has known stray-light problems — use Band 10 only; Landsat 9 TIRS-2 reduces the issue,4.3.3,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.3.3,"Emissivity estimation (NDVI-threshold method, ASTER-based emissivity) and its error contribution",4.3.3,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.3.4,Official scaling: surface temperature (K) = DN × 0.00341802 + 149.0; surface reflectance = DN × 0.0000275 − 0.2 — verify against current product documentation,4.3.3,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.3.5,"Collection 2 ST ancillary bands: ST_QA (per-pixel uncertainty), emissivity, cloud distance, atmospheric transmission and radiance terms — use them",4.3.3,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.4.1,Collection 2 ST scale and offset — official factors only,4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.4.2,"QA_PIXEL cloud, shadow, fill rules written before compositing",4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.3.4.3,Morning overpass ≠ afternoon air temperature ≠ heat-stress index,4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_with_practice,unclear,,mapped_partial,retain
+4.3.4.4,Landsat 8 vs 9 continuity checks,4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.4.5,Seasonal composites and sensitivity to compositing rules,4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.4.6,"Compositing choices (median, mean, percentile, season window) and their effect on hotspot maps",4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.4.7,"Clear-sky sampling bias: cloudy cooler days are missing, so composites run warm; report the number of valid observations per pixel",4.3.4,mapped_partial,cgei-rs-lesson-4-3-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.3.5.1,"Validation against in-situ radiometers, loggers, and other satellite LST (MODIS/VIIRS/ECOSTRESS); LST uncertainty versus the signal being interpreted",4.3.5,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.5.2,"Relative LST (normalisation), UTFVI and similar indices are descriptive categories, not health thresholds",4.3.5,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_with_practice,unclear,,mapped_partial,retain
+4.3.5.3,Reporting LST uncertainty alongside the heat signal being interpreted,4.3.5,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.6.1,Context-dependent meaning of each index,4.3.6,mapped_partial,cgei-rs-lesson-4-3-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.3.6.2,"Failure cases in arid, irrigated, and heterogeneous urban scenes",4.3.6,mapped_partial,cgei-rs-lesson-4-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.6.3,"Checklist for any index: what it measures, where it fails, and what independent evidence supports it",4.3.6,mapped_partial,cgei-rs-lesson-4-3-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.3.7.1,Thermal sharpening (e.g. DisTrad/TsHARP-style) and spatio-temporal fusion (STARFM family): assumptions and failure over heterogeneous urban scenes,4.3.7,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.7.2,Diurnal temperature cycle modelling and estimating air temperature from LST with ML — spatial validation required,4.3.7,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.3.7.3,Validating sharpened products against independent finer-scale thermal data,4.3.7,mapped_partial,cgei-rs-lesson-4-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.1.1,DN → radiance → reflectance chain; top-of-atmosphere versus surface reflectance,4.4.1,mapped_partial,cgei-rs-lesson-4-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.4.1.2,"Atmospheric correction approaches (6S-type radiative transfer, LaSRC, Sen2Cor, MAJA) and their inputs",4.4.1,mapped_partial,cgei-rs-lesson-4-4-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.4.1.3,BRDF/nadir normalisation and topographic correction in rugged terrain,4.4.1,mapped_partial,cgei-rs-lesson-4-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.2.1,"Orthorectification, co-registration (e.g. image-to-image matching), and sub-pixel misregistration effects on change detection",4.4.2,mapped_partial,cgei-rs-lesson-4-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.2.2,Resampling and pan-sharpening: effects on indices and classification,4.4.2,mapped_partial,cgei-rs-lesson-4-4-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.2.3,Checking co-registration quality with independent control features and reporting residual shift,4.4.2,mapped_partial,cgei-rs-lesson-4-4-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.4.3.1,"Fmask, s2cloudless, Cloud Score+, and product QA bands: strengths, omission and commission errors",4.4.3,mapped_partial,cgei-rs-lesson-4-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.3.2,"Haze, thin cirrus, snow versus cloud confusion; masking rules declared before compositing",4.4.3,mapped_partial,cgei-rs-lesson-4-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.3.3,Validating a mask against manual interpretation on a small sample and recording omission and commission rates,4.4.3,mapped_partial,cgei-rs-lesson-4-4-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.4.4.1,Landsat–Sentinel-2 harmonisation (e.g. Harmonized Landsat Sentinel-2); band-pass differences and linear adjustment coefficients,4.4.4,mapped_partial,cgei-rs-lesson-4-4-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.4.2,Landsat 5 → 7 → 8 → 9 continuity for multi-decadal series; verifying with overlap periods,4.4.4,mapped_partial,cgei-rs-lesson-4-4-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.4.4.3,"Time-series gap filling and smoothing: harmonic regression, Savitzky–Golay, and when smoothing erases signal",4.4.4,mapped_partial,cgei-rs-lesson-4-4-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.5.1.1,Canopy-layer versus surface UHI; day versus night; seasonal dependence; surface urban heat island intensity (SUHII) definitions,4.5.1,mapped_partial,cgei-rs-lesson-4-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.5.1.2,"Rural or reference selection: buffers, land-cover classes, elevation matching, exclusion of water and relief; sensitivity of SUHII to these choices",4.5.1,mapped_partial,cgei-rs-lesson-4-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.5.1.3,"Local Climate Zone mapping (WUDAPT, LCZ Generator) and LCZ-based comparison as an alternative to urban–rural binaries",4.5.1,mapped_partial,cgei-rs-lesson-4-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.5.2.1,"Candidate drivers: vegetation, impervious fraction, albedo, building density and height, population, night-time lights, water, topography",4.5.2,mapped_partial,cgei-rs-lesson-4-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.2.2,"Models: correlation and OLS, geographically weighted regression, spatial lag/error, random forest with spatial cross-validation and SHAP — interpretation limits for each",4.5.2,mapped_partial,cgei-rs-lesson-4-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.2.3,Scale effects: pixel versus block versus grid versus administrative unit (MAUP),4.5.2,mapped_partial,cgei-rs-lesson-4-5-2,yes,partial_with_practice,unclear,,mapped_partial,retain
+4.5.2.4,Hotspot detection with Getis–Ord Gi* and cluster tests; edge and boundary effects,4.5.2,mapped_partial,cgei-rs-lesson-4-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.3.1,"Cooling intensity, cooling distance, and patch-size thresholds from LST profiles",4.5.3,mapped_partial,cgei-rs-lesson-4-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.3.2,Water demand versus cooling benefit in arid cities; irrigated versus non-irrigated green space,4.5.3,mapped_partial,cgei-rs-lesson-4-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.3.3,Separating the effect of vegetation amount from vegetation configuration and irrigation,4.5.3,mapped_partial,cgei-rs-lesson-4-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.4.1,"Microclimate and urban canopy models: ENVI-met, SOLWEIG/UMEP, Urban Weather Generator, WRF with urban canopy schemes, CFD — assumptions, scale, and input demands",4.5.4,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.4.2,"Scenario testing for trees, albedo, and form changes; what a model result does and does not validate",4.5.4,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.4.3,"Input demands and calibration data needed by each tool, and typical domain sizes and resolutions",4.5.4,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.5.1,"Logger networks, mobile traverses, and comparison with official station records; matching support (point versus pixel)",4.5.5,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.5.2,From heat maps to exposure: overlay with population and vulnerability layers — cross-reference to Subject 7,4.5.5,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.5.3,Reporting confidence in a heat-exposure map as a function of data quality and validation coverage,4.5.5,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.6.1,"Question and estimand: for example, how much of an apparent SUHI pattern comes from compositing, rural-reference, and sensor choices rather than land-cover change",4.5.6,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.6.2,"Data plan: Landsat Collection 2 Level 2 scenes with stated seasonal windows, cloud and quality masks, and valid-observation counts per pixel and per year",4.5.6,mapped_partial,cgei-rs-lesson-4-5-5,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.5.6.3,"Reference design: several rural references and an LCZ-based comparison, matched on elevation and land cover",4.5.6,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.6.4,"Statistics plan written before analysis: models, spatial cross-validation, sensitivity table, and effect sizes with intervals",4.5.6,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.6.5,"Deliverables: parameterised workflow, export manifest, maps, uncertainty layers, and a methods appendix",4.5.6,mapped_partial,cgei-rs-lesson-4-5-5,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.5.7.1,"Compare satellite LST with station or logger air temperature near overpass time, stating the surface–air relation and the sampling mismatch",4.5.7,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.7.2,"Cross-check against MODIS or VIIRS LST and, where available, ECOSTRESS for the same dates",4.5.7,mapped_partial,cgei-rs-lesson-4-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.7.3,"Repeat with alternative composites (median, percentile), seasonal windows, and cloud-mask rules; report how hotspot maps change",4.5.7,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.7.4,"Test whether cooling-effect estimates change with scale (pixel, grid, ward) and with the vegetation index used",4.5.7,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.7.5,"Report where the method is least reliable: water edges, bare fields, new construction, and mixed pixels",4.5.7,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.8.1,Use associational language for LST–NDVI relations; call cooling an observed association unless the design supports a causal claim,4.5.8,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.8.2,"Separate surface heat from human heat exposure; add population, age, housing, and cooling-access layers before using the word vulnerability",4.5.8,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.5.8.3,"State limitations: clear-sky sampling bias, overpass time, 100 m native thermal resolution, and the absence of health outcome data",4.5.8,mapped_partial,cgei-rs-lesson-4-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+4.6.1.1,Image vs ImageCollection; Feature vs FeatureCollection,4.6.1,mapped_partial,cgei-rs-lesson-4-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.1.2,"Filter by space, time, metadata",4.6.1,mapped_partial,cgei-rs-lesson-4-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.1.3,"Cloud masking, compositing, reducers, zonal statistics",4.6.1,mapped_partial,cgei-rs-lesson-4-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.1.4,JavaScript Code Editor and Python API; geemap,4.6.1,mapped_partial,cgei-rs-lesson-4-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.2.1,"Client versus server computation; getInfo pitfalls; scale and CRS handling in reducers (bestEffort, tileScale, maxPixels)",4.6.2,mapped_partial,cgei-rs-lesson-4-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.2.2,Parameterised scripts and processing logs,4.6.2,mapped_partial,cgei-rs-lesson-4-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.2.3,Collection deprecations and version changes (use Collection 2 Landsat); record asset IDs and versions in the processing log,4.6.2,mapped_partial,cgei-rs-lesson-4-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.2.4,"Export tasks, assets, quotas",4.6.2,mapped_partial,cgei-rs-lesson-4-6-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.3.1,"Noncommercial quota tiers since April 2026 (Community 150 and Contributor 1,000 EECU-hours/month) — monitor consumption; annual re-verification of noncommercial status",4.6.3,mapped_partial,cgei-rs-lesson-4-6-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.3.2,Satellite Embedding dataset (annual 10 m learned embeddings) as a feature source — see Unit on emerging EO/GeoAI,4.6.3,mapped_partial,cgei-rs-lesson-4-6-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.3.3,"Cost, quota, and licence planning when choosing between GEE and open pipelines",4.6.3,mapped_partial,cgei-rs-lesson-4-6-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.4.1,Rasterio/GDAL batch processing,4.6.4,mapped_partial,cgei-rs-lesson-4-6-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.4.2,Reproducible parameter files,4.6.4,mapped_partial,cgei-rs-lesson-4-6-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.4.3,Fixture datasets for tests without live API calls,4.6.4,mapped_partial,cgei-rs-lesson-4-6-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.5.1,Reconciling the same metric in GEE and local Python on a test geometry,4.6.5,mapped_partial,cgei-rs-lesson-4-6-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.5.2,"Alternatives and complements: openEO, Copernicus Data Space Ecosystem, STAC with odc-stac or stackstac, Dask-based cubes",4.6.5,mapped_partial,cgei-rs-lesson-4-6-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.6.5.3,"Choosing a platform by data volume, latency, licence, reproducibility, and team skills",4.6.5,mapped_partial,cgei-rs-lesson-4-6-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.1.1,Training sample design; class imbalance,4.7.1,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.1.2,"Class taxonomy design (legend, minimum mapping unit, mixed classes); label sources and their uncertainty",4.7.1,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.1.3,Stratified random sampling for training and reference; per-class minimum sample sizes,4.7.1,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.1.4,Validation samples independent of training,4.7.1,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.2.1,"Features: bands, indices, texture (GLCM), temporal percentiles and harmonic terms, topography, SAR backscatter",4.7.2,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.2.2,Algorithms: Random Forest and alternatives,4.7.2,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.2.3,Object-based image analysis (superpixels/segmentation) versus pixel-based approaches,4.7.2,mapped_partial,cgei-rs-lesson-4-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.3.1,"Confusion matrix, overall/user/producer accuracy, F1",4.7.3,mapped_partial,cgei-rs-lesson-4-7-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.3.2,Area-adjusted accuracy concepts,4.7.3,mapped_partial,cgei-rs-lesson-4-7-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.3.3,Kappa criticisms: report quantity and allocation disagreement (Pontius and Millones); area-adjusted estimates with confidence intervals (Olofsson et al.),4.7.3,mapped_partial,cgei-rs-lesson-4-7-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.3.4,Post-classification filtering and benchmark comparison with global products,4.7.3,mapped_partial,cgei-rs-lesson-4-7-2,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.4.1,Linear spectral mixture analysis; vegetation–impervious–soil (V-I-S) fractions; endmember selection,4.7.4,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.4.2,Why fractional cover is often better than hard classes in mixed urban pixels,4.7.4,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.4.3,Choosing between hard classification and fractional cover for a given decision,4.7.4,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.5.1,K-means and variants: what is optimised,4.7.5,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.5.2,Choosing k; stability across seeds and seasons,4.7.5,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.5.3,Clusters are not land-cover classes until labelled and validated,4.7.5,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.5.4,Do not treat cluster maps as ground truth for later supervised models,4.7.5,mapped_partial,cgei-rs-lesson-4-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.6.1,Post-classification comparison; change matrices,4.7.6,mapped_partial,cgei-rs-lesson-4-7-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.6.2,Temporal composites and trajectory ideas,4.7.6,mapped_partial,cgei-rs-lesson-4-7-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.6.3,Uncertainty in change maps,4.7.6,mapped_partial,cgei-rs-lesson-4-7-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.6.4,"Time-series approaches: LandTrendr, CCDC, BFAST — segmentation, breakpoints, and parameter sensitivity",4.7.6,mapped_partial,cgei-rs-lesson-4-7-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.6.5,"Urban expansion metrics: built-up growth rate, compactness, landscape metrics; interpretation limits",4.7.6,mapped_partial,cgei-rs-lesson-4-7-4,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.7.1,"Cellular automata, Markov chains, and ML-based transition models (e.g. CA-Markov, ANN-CA, PLUS-type approaches)",4.7.7,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.7.2,"Driver selection, calibration, and validation with quantity/allocation disagreement and figure-of-merit; scenario assumptions stated explicitly",4.7.7,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.7.3,"A projection is a conditional scenario, not a forecast",4.7.7,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.8.1,Treat K-Means as exploratory clustering; assign class names only after inspecting clusters against reference imagery,4.7.8,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.8.2,Define a legend and minimum mapping unit; collect stratified random reference samples from very-high-resolution imagery and field checks,4.7.8,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.8.3,Train a baseline classifier (for example random forest) with spatially separated training and test samples,4.7.8,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.8.4,"Compare with Dynamic World and ESA WorldCover for the same date after mapping legends, and explain the differences",4.7.8,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.7.8.5,"Report the error matrix, user’s and producer’s accuracy, and area-adjusted class areas with confidence intervals",4.7.8,mapped_partial,cgei-rs-lesson-4-7-5,yes,partial_with_practice,yes,,mapped_partial,retain
+4.11.1.1,Choose sampling units that match the satellite footprint and are spatially stratified across the gradient of interest,4.11.1,mapped_partial,cgei-rs-lesson-4-11-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.1.2,"Time sampling within days of the overpass for dynamic variables, and record GNSS accuracy",4.11.1,mapped_partial,cgei-rs-lesson-4-11-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.11.1.3,Replicate within pixels to quantify sub-pixel variability,4.11.1,mapped_partial,cgei-rs-lesson-4-11-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.1.4,"Document handling, analytical method, units, and detection limit for every analyte",4.11.1,mapped_partial,cgei-rs-lesson-4-11-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.11.1.5,"Plan sample size from expected effect size and spatial correlation, and accept that small samples limit model complexity",4.11.1,mapped_partial,cgei-rs-lesson-4-11-1,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.2.1,"Electrical conductivity and salinity: detected only indirectly (vegetation stress, surface salt crusts, indices), with strong confounding from moisture and crop type",4.11.2,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.2.2,"Soil moisture and organic matter: optical, thermal, and microwave proxies with depth limits",4.11.2,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.2.3,"Nitrogen, phosphorus, and potassium: reached indirectly through canopy chlorophyll and vigour; not directly observable in broadband multispectral imagery",4.11.2,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.2.4,Heavy metals and trace contaminants: generally not directly observable; treat any hyperspectral claim as needing careful validation,4.11.2,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.2.5,"Water quality: chlorophyll, turbidity, and suspended sediment can be retrieved in optical waters with local calibration; dissolved chemistry mostly cannot",4.11.2,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.3.1,"Start with simple, regularised, or physically motivated models and compare against the mean and a single-index baseline",4.11.3,mapped_partial,cgei-rs-lesson-4-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.3.2,Use leave-one-site-out or spatial block validation and report confidence intervals,4.11.3,mapped_partial,cgei-rs-lesson-4-11-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.11.3.3,Avoid fitting many indices to few samples; keep feature selection inside the validation loop,4.11.3,mapped_partial,cgei-rs-lesson-4-11-3,yes,partial_with_practice,yes,,mapped_partial,retain
+4.11.3.4,Report prediction uncertainty and the area of applicability,4.11.3,mapped_partial,cgei-rs-lesson-4-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.11.4.1,Present laboratory QA/QC alongside the EO model metrics,4.11.4,mapped_partial,cgei-rs-lesson-4-11-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.11.4.2,State which parts of a relationship are association and which are mechanistic,4.11.4,mapped_partial,cgei-rs-lesson-4-11-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.11.4.3,"Share data, code, and metadata so the field campaign can be reused",4.11.4,mapped_partial,cgei-rs-lesson-4-11-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.11.4.4,"Link results to decisions such as salinity management, irrigation-water quality, or pollution screening",4.11.4,mapped_partial,cgei-rs-lesson-4-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.1.1,Semantic segmentation and change detection networks,4.12.1,mapped_partial,cgei-rs-lesson-4-12-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.12.1.2,Classical baselines required in the same comparison,4.12.1,mapped_partial,cgei-rs-lesson-4-12-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.12.1.3,Label quality as the binding constraint,4.12.1,mapped_partial,cgei-rs-lesson-4-12-1,yes,partial_with_practice,yes,,mapped_partial,retain
+4.12.2.1,"Benchmark and tooling ecosystem: TorchGeo, segmentation_models_pytorch, Raster Vision; common benchmarks and their domain limits",4.12.2,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.2.2,"Segment Anything-style promptable models for EO (e.g. SAMGeo): useful for annotation, not a validation substitute",4.12.2,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.2.3,"Benchmarks for EO foundation models (e.g. GEO-Bench, PANGAEA) — read what tasks they cover and what they omit",4.12.2,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.3.1,Pretrained EO models; transfer and fine-tuning,4.12.3,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.3.2,Self-supervised learning on multispectral archives,4.12.3,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.3.3,"Examples: Prithvi-EO, Clay, SatMAE, DOFA, SSL4EO; evaluation on tasks and regions similar to the intended use",4.12.3,mapped_partial,cgei-rs-lesson-4-12-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.12.4.1,"Learned embeddings as features: the Google Satellite Embedding dataset (annual 10 m, 64-dimensional, from AlphaEarth Foundations; CC-BY 4.0) — embeddings are not physical measurements and need the same spatial validation as any predictor",4.12.4,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.4.2,Geographic and sensor domain shift,4.12.4,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.4.3,Probing what an embedding encodes with simple linear classifiers before relying on it,4.12.4,mapped_partial,cgei-rs-lesson-4-12-2,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.5.1,"Vision–language and agentic geospatial systems: promising for search and code generation, unverified for measurement without checks",4.12.5,mapped_partial,cgei-rs-lesson-4-12-3,yes,partial_documented,unclear,,mapped_partial,retain
+4.12.5.2,"Verification requirements before using generated maps, code, or interpretations in analysis",4.12.5,mapped_partial,cgei-rs-lesson-4-12-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+4.12.5.3,Provenance and licence of pretrained weights and training data,4.12.5,mapped_partial,cgei-rs-lesson-4-12-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.2.1.1,"Types, structures (list, dict, set, tuple), comprehensions",5.2.1,mapped_partial,cgei-ds-lesson-5-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.1.2,"Functions, modules, packages",5.2.1,mapped_partial,cgei-ds-lesson-5-2-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+5.2.1.3,"Exceptions, assertions, basic type hints",5.2.1,mapped_partial,cgei-ds-lesson-5-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+5.2.1.4,Readable naming and docstrings,5.2.1,mapped,cgei-ds-lesson-5-2-1,yes,policy_full_mapped,unclear,,mapped,retain
+5.2.2.1,"ndarrays, dtypes, shapes",5.2.2,mapped_partial,cgei-ds-lesson-5-2-2,yes,partial_with_practice,yes,,mapped_partial,retain
+5.2.2.2,Vectorisation and broadcasting,5.2.2,mapped,cgei-ds-lesson-5-2-2,yes,policy_full_mapped,unclear,,mapped,retain
+5.2.2.3,"Boolean masks, fancy indexing",5.2.2,mapped_partial,cgei-ds-lesson-5-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.2.4,NaN handling and numerical precision,5.2.2,mapped_partial,cgei-ds-lesson-5-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.2.5,Random number generators and seeds,5.2.2,mapped_partial,cgei-ds-lesson-5-2-2,yes,partial_with_practice,yes,,mapped_partial,retain
+5.2.3.1,Series and DataFrame,5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.3.2,"Indexing, filtering, assignment",5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.3.3,"Joins/merges, groupby, aggregate",5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.3.4,"Reshape: melt, pivot, stack",5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.3.5,Datetime handling and resampling,5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_with_practice,yes,,mapped_partial,retain
+5.2.3.6,Categoricals; missing data patterns,5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.3.7,Tidy data principles,5.2.3,mapped_partial,cgei-ds-lesson-5-2-3,yes,partial_with_practice,unclear,,mapped_partial,retain
+5.2.4.1,"Command-line basics (bash, grep, find, cron); file-system hygiene; paths with pathlib",5.2.4,mapped_partial,cgei-ds-lesson-5-2-4,yes,partial_with_practice,yes,,mapped_partial,retain
+5.2.4.2,"Environment managers (conda/mamba, uv, pip) and project configuration with pyproject.toml; Jupyter and editor workflows",5.2.4,mapped_partial,cgei-ds-lesson-5-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.4.3,"Common formats and their libraries: CSV, Parquet, NetCDF, HDF5, GeoTIFF, GeoJSON, Zarr",5.2.4,mapped_partial,cgei-ds-lesson-5-2-4,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.2.4.4,Units-aware computing (e.g. pint); time zones and datetime handling with zoneinfo; regular expressions for messy text,5.2.4,mapped_partial,cgei-ds-lesson-5-2-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.5.1,"R as a complement: when to use it, and how to interoperate",5.2.5,mapped_partial,cgei-ds-lesson-5-2-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.5.2,"Equivalent workflows in R (tidyverse, terra) for reading the spatial-statistics literature",5.2.5,mapped_partial,cgei-ds-lesson-5-2-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.2.5.3,Deciding when a second language is justified by library availability rather than preference,5.2.5,mapped_partial,cgei-ds-lesson-5-2-5,yes,partial_with_practice,unclear,,mapped_partial,retain
+5.3.1.1,Univariate summaries and distributions,5.3.1,mapped_partial,cgei-ds-lesson-5-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.1.2,Bivariate relationships and scatter diagnostics,5.3.1,mapped_partial,cgei-ds-lesson-5-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.1.3,Missingness patterns; duplicates; impossible values,5.3.1,mapped_partial,cgei-ds-lesson-5-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.1.4,Outliers: detection versus treatment decisions,5.3.1,mapped_partial,cgei-ds-lesson-5-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+5.3.2.1,"Diagnostic habits for time series (seasonal plots, lag plots) and spatial data (maps of missingness and residuals)",5.3.2,mapped_partial,cgei-ds-lesson-5-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.2.2,"Spatial diagnostics: maps of missingness, residuals, and local variance",5.3.2,mapped_partial,cgei-ds-lesson-5-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.2.3,"Checking units, sign conventions, and time stamps before any modelling",5.3.2,mapped_partial,cgei-ds-lesson-5-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.3.1,"Matplotlib fundamentals: figures, axes, saves",5.3.3,mapped_partial,cgei-ds-lesson-5-3-4,yes,partial_with_practice,yes,,mapped_partial,retain
+5.3.3.2,Seaborn for statistical graphics,5.3.3,mapped_partial,cgei-ds-lesson-5-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.3.3,Plotly for interactive exploration when needed,5.3.3,mapped_partial,cgei-ds-lesson-5-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.3.4,"Interactive layers (Plotly, Altair, hvPlot, Bokeh, Panel) — keep static versions for papers",5.3.3,mapped_partial,cgei-ds-lesson-5-3-4,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.3.4.1,"Uncertainty bands, error bars, and honest axes",5.3.4,mapped_partial,cgei-ds-lesson-5-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.4.2,"Colour, type size, and greyscale survivability",5.3.4,mapped_partial,cgei-ds-lesson-5-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.4.3,"Axis choices, truncation, dual axes, and log scales: when each misleads",5.3.4,mapped_partial,cgei-ds-lesson-5-3-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.3.5.1,"Climate-science plot types: climate stripes, Hovmöller diagrams, Taylor diagrams, wind roses, anomaly bars, ECDFs",5.3.5,mapped_partial,cgei-ds-lesson-5-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.5.2,Maps with cartopy and geopandas; shared colour scales across panels; small multiples,5.3.5,mapped_partial,cgei-ds-lesson-5-3-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.3.5.3,"Selecting plot types for anomalies, distributions, seasonal cycles, and model–observation comparison",5.3.5,mapped_partial,cgei-ds-lesson-5-3-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.1.1,Random variables; common distributions,5.4.1,mapped_partial,cgei-ds-lesson-5-4-distributions,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.1.2,"Expectation, variance, covariance",5.4.1,mapped_partial,cgei-ds-lesson-5-4-distributions,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.1.3,"Distribution fitting for environmental variables (normal, log-normal, gamma, Weibull); goodness-of-fit and transformations",5.4.1,mapped_partial,cgei-ds-lesson-5-4-distributions,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.2.1,Sampling distributions; standard error,5.4.2,mapped_partial,cgei-ds-lesson-5-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.2.2,Sampling bias and representativeness,5.4.2,mapped_partial,cgei-ds-lesson-5-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.2.3,Sampling designs and their estimators at overview level,5.4.2,mapped_partial,cgei-ds-lesson-5-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.3.1,Confidence intervals,5.4.3,mapped_partial,cgei-ds-lesson-5-4-2,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.3.2,Hypothesis tests; p-values and their limits,5.4.3,mapped_partial,cgei-ds-lesson-5-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.3.3,Effect sizes,5.4.3,mapped_partial,cgei-ds-lesson-5-4-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.3.4,Type I / II errors; power (conceptual),5.4.3,mapped_partial,cgei-ds-lesson-5-4-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.3.5,Multiple testing problem,5.4.3,mapped_partial,cgei-ds-lesson-5-4-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.4.1,"Non-parametric tests (Wilcoxon, Kruskal–Wallis, Kolmogorov–Smirnov); QQ plots; robust statistics",5.4.4,mapped_partial,cgei-ds-lesson-5-4-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.4.2,"ANOVA and chi-square tests; contingency tables (hits, misses, false alarms) — link to verification in Subject 7",5.4.4,mapped,cgei-ds-lesson-5-4-5,yes,policy_full_mapped,yes,,mapped,retain
+5.4.4.3,Power and sample-size calculations; effective sample size under autocorrelation,5.4.4,mapped_partial,cgei-ds-lesson-5-4-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.5.1,Pearson/Spearman correlation; partial correlation idea,5.4.5,mapped_partial,cgei-ds-lesson-5-4-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.5.2,Simple linear regression; assumptions,5.4.5,mapped_partial,cgei-ds-lesson-5-4-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.4.5.3,Residuals and basic diagnostics,5.4.5,mapped_partial,cgei-ds-lesson-5-4-4,yes,partial_with_practice,yes,,mapped_partial,retain
+5.4.5.4,Correlation ≠ causation,5.4.5,mapped_partial,cgei-ds-lesson-5-4-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.1.1,Question and variable catalogue first,5.5.1,mapped_partial,cgei-ds-lesson-5-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.1.2,"Discovery, access, ingestion, quality assessment",5.5.1,mapped_partial,cgei-ds-lesson-5-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.1.3,"Transformation, analysis, visualisation, reporting",5.5.1,mapped_partial,cgei-ds-lesson-5-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.5.1.4,Data lineage and reproducibility,5.5.1,mapped_partial,cgei-ds-lesson-5-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.2.1,"Data management plans, FAIR principles, and metadata (DataCite, ISO 19115) for released datasets",5.5.2,mapped_partial,cgei-ds-lesson-5-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.2.2,"Data licences: CC-BY, ODbL, non-commercial clauses; recording the licence in the manifest",5.5.2,mapped_partial,cgei-ds-lesson-5-5-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.2.3,"Licence compliance for USGS, Copernicus, CDS, demographic data",5.5.2,mapped_partial,cgei-ds-lesson-5-5-4,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.5.3.1,"Large-data tools: Arrow/Parquet, Polars, DuckDB, Dask; chunk-size tuning; memory profiling",5.5.3,mapped_partial,cgei-ds-lesson-5-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.3.2,Sizing and profiling: when data fit in memory and when they do not,5.5.3,mapped_partial,cgei-ds-lesson-5-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.3.3,Columnar and chunked formats for repeated analysis,5.5.3,mapped_partial,cgei-ds-lesson-5-5-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.4.1,"SELECT, WHERE, JOIN, GROUP BY, aggregates",5.5.4,mapped_partial,cgei-ds-lesson-5-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.4.2,"CTEs, subqueries, window functions",5.5.4,mapped_partial,cgei-ds-lesson-5-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.4.3,NULL handling and date functions,5.5.4,mapped_partial,cgei-ds-lesson-5-5-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.4.4,"Keys, normalisation, indexes — conceptual schema design",5.5.4,mapped_partial,cgei-ds-lesson-5-5-2,yes,partial_with_practice,yes,,mapped_partial,retain
+5.5.5.1,"HTTP, JSON, pagination, status codes",5.5.5,mapped_partial,cgei-ds-lesson-5-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.5.2,Authentication patterns; rate limits; retries,5.5.5,mapped_partial,cgei-ds-lesson-5-5-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.5.5.3,"Download manifests: URL, version, extent, date, licence, checksum",5.5.5,mapped_partial,cgei-ds-lesson-5-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+5.5.5.4,"When no API exists (e.g. data published as web pages or PDFs): manual extraction protocol, double entry, and checks; robots.txt and terms of use",5.5.5,mapped_partial,cgei-ds-lesson-5-5-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.5.5.5,Credential management; environment variables; never in notebooks or repositories,5.5.5,mapped_partial,cgei-ds-lesson-5-5-4,yes,partial_with_practice,yes,,mapped_partial,retain
+5.6.1.1,Multiple linear regression,5.6.1,mapped,cgei-ds-lesson-5-6-1,yes,policy_full_mapped,yes,,mapped,retain
+5.6.1.2,Interactions and nonlinear terms,5.6.1,mapped_partial,cgei-ds-lesson-5-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.1.3,"Regularisation (ridge, lasso) conceptually",5.6.1,mapped_partial,cgei-ds-lesson-5-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.1.4,Logistic regression for binary outcomes,5.6.1,mapped_partial,cgei-ds-lesson-5-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.2.1,Model selection and cross-validation ideas,5.6.2,mapped_partial,cgei-ds-lesson-5-6-5,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.6.2.2,"Model comparison: AIC/BIC, cross-validation, out-of-sample error; parsimony",5.6.2,mapped_partial,cgei-ds-lesson-5-6-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.2.3,Generalised additive models for nonlinear responses; quantile regression for conditional extremes,5.6.2,mapped_partial,cgei-ds-lesson-5-6-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.6.3.1,Bootstrap and permutation tests,5.6.3,mapped_partial,cgei-ds-lesson-5-6-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.3.2,Prediction versus confidence intervals,5.6.3,mapped,cgei-ds-lesson-5-6-3,yes,policy_full_mapped,unclear,,mapped,retain
+5.6.3.3,Sensitivity analysis,5.6.3,mapped_partial,cgei-ds-lesson-5-6-3,yes,partial_with_practice,yes,,mapped_partial,retain
+5.6.3.4,Monte Carlo simulation at introductory level,5.6.3,mapped_partial,cgei-ds-lesson-5-6-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.4.1,Temporal autocorrelation,5.6.4,mapped_partial,cgei-ds-lesson-5-6-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.4.2,Spatial dependence (link to Subject 3),5.6.4,mapped_partial,cgei-ds-lesson-5-6-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.4.3,Why iid assumptions fail for climate and EO data,5.6.4,mapped,cgei-ds-lesson-5-6-4,yes,policy_full_mapped,unclear,,mapped,retain
+5.6.4.4,Effective degrees of freedom under autocorrelation and its effect on significance,5.6.4,mapped_partial,cgei-ds-lesson-5-6-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.6.4.5,Block bootstrap and spatial block resampling,5.6.4,mapped_partial,cgei-ds-lesson-5-6-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.1.1,"Git: commit, branch, merge, tag",5.11.1,mapped_partial,cgei-ds-lesson-5-11-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.1.2,"Branching strategies, pull requests, and review for solo and team work",5.11.1,mapped_partial,cgei-ds-lesson-5-11-1,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.1.3,"Commit hygiene: small commits, informative messages, no data or secrets",5.11.1,mapped_partial,cgei-ds-lesson-5-11-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+5.11.1.4,No secrets in repositories,5.11.1,mapped_partial,cgei-ds-lesson-5-11-1,yes,partial_with_practice,yes,,mapped_partial,retain
+5.11.2.1,"Reproducible environments: lockfiles (conda-lock, uv lock); containers (Docker, devcontainers); Makefile/Snakemake/nox for task automation",5.11.2,mapped_partial,cgei-ds-lesson-5-11-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.2.2,"Licences for code (MIT, Apache-2.0, GPL) and data; CITATION.cff and software citation",5.11.2,mapped_partial,cgei-ds-lesson-5-11-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.2.3,"Dependency updates and security: pinned versions, scheduled updates, and vulnerability alerts",5.11.2,mapped_partial,cgei-ds-lesson-5-11-4,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.3.1,Notebook versus module: when each is appropriate,5.11.3,mapped_partial,cgei-ds-lesson-5-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.3.2,"Functions, configuration files, logging",5.11.3,mapped_partial,cgei-ds-lesson-5-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.3.3,Command-line entry points,5.11.3,mapped_partial,cgei-ds-lesson-5-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.3.4,"Project layout: data_raw, data_interim, data_processed, notebooks, src, tests, outputs, docs",5.11.3,mapped_partial,cgei-ds-lesson-5-11-2,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.4.1,Unit tests with pytest,5.11.4,mapped_partial,cgei-ds-lesson-5-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.4.2,"Testing units, date conversions, masks, derived indicators",5.11.4,mapped_partial,cgei-ds-lesson-5-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.4.3,Deterministic seeds,5.11.4,mapped_partial,cgei-ds-lesson-5-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.4.4,"Data validation tests (pandera, Great Expectations-style checks) for schema, range, and units",5.11.4,mapped_partial,cgei-ds-lesson-5-11-3,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.5.1,"Continuous integration (GitHub Actions) running tests, linting, and formatting; pre-commit hooks; type checking",5.11.5,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.5.2,"Documentation: README, docstrings, MkDocs/Sphinx, Quarto or Jupyter Book for reproducible reports",5.11.5,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.5.3,Good enough practices in scientific computing as a checklist; FAIR principles for research software,5.11.5,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.6.1,"A notebook or script that runs top to bottom (not only a PDF of the code), with outputs cleared and re-run",5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.11.6.2,"An environment file with pinned versions and notes on Earth Engine authentication, without secrets",5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.6.3,"A README stating the question, data sources and versions, workflow, how to reproduce, outputs, and limitations",5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_with_practice,yes,,mapped_partial,retain
+5.11.6.4,"A data card and manifest: asset IDs, date ranges, filters, scaling, and export parameters",5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+5.11.6.5,"A results folder regenerated by code, a licence, a citation file, and a release with a DOI",5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+5.11.6.6,A short validation and sensitivity section so reviewers can see what was tested,5.11.6,mapped_partial,cgei-ds-lesson-5-11-5,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.1.1,Prediction target and unit of analysis,6.1.1,mapped_partial,cgei-ml-lesson-6-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.1.2,"Prediction horizon (nowcast, short lead, seasonal, etc.)",6.1.1,mapped_partial,cgei-ml-lesson-6-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.1.3,Decision the prediction is meant to support,6.1.1,mapped_partial,cgei-ml-lesson-6-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.1.4,"Problem family: interpolation versus extrapolation, retrieval (inverse problem), emulation, downscaling, gap filling, nowcasting",6.1.1,mapped_partial,cgei-ml-lesson-6-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.2.1,Feature set and feature leakage risks,6.1.2,mapped_partial,cgei-ml-lesson-6-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.2.2,"Label scarcity, weak labels, and sampling bias in training data (e.g. sensor sites concentrated in cities or accessible locations)",6.1.2,mapped_partial,cgei-ml-lesson-6-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.2.3,"Area of applicability: where the model is allowed to predict, given training coverage (dissimilarity index)",6.1.2,mapped_partial,cgei-ml-lesson-6-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.3.1,Regression,6.1.3,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.3.2,"Classification (binary, multiclass)",6.1.3,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.3.3,Clustering and dimensionality reduction,6.1.3,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.3.4,Anomaly / novelty detection,6.1.3,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.3.5,Probabilistic prediction,6.1.3,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.4.1,Climatology and persistence,6.1.4,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.4.2,Linear / logistic regression,6.1.4,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.4.3,Simple threshold rules and transparent heuristic maps,6.1.4,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.1.4.4,A complex model must beat a simple baseline,6.1.4,mapped_partial,cgei-ml-lesson-6-1-3,yes,partial_documented,unclear,,mapped_partial,retain
+6.2.1.1,"Spectral indices, texture, temporal percentiles, harmonic terms; topographic and distance-to features",6.2.1,mapped_partial,cgei-ml-lesson-6-2-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.2.1.2,"Neighbourhood and multi-scale features (focal statistics, buffers); lagged and rolling-window features",6.2.1,mapped_partial,cgei-ml-lesson-6-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.2.1.3,Cyclical encodings for day-of-year and hour; handling categorical predictors,6.2.1,mapped_partial,cgei-ml-lesson-6-2-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.2.1.4,"Feature documentation: definition, source, scale, units, and availability at prediction time",6.2.1,mapped_partial,cgei-ml-lesson-6-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.2.2.1,"Missing data and cloud gaps: masking, imputation, and what each does to uncertainty",6.2.2,mapped_partial,cgei-ml-lesson-6-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.2.2.2,"Normalisation per band, per region, or per sensor; effect on transfer across sites and years",6.2.2,mapped_partial,cgei-ml-lesson-6-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.2.2.3,"Scale mismatch and support: aligning pixels, points, and polygons before modelling",6.2.2,mapped_partial,cgei-ml-lesson-6-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.2.3.1,Target construction and leakage-prone definitions; sample design under spatial autocorrelation; effective sample size,6.2.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.2.3.2,"Class imbalance: weighting and resampling, and why resampling can mislead evaluation",6.2.3,mapped_partial,cgei-ml-lesson-6-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+6.2.3.3,"Fitting scalers, encoders, and selectors only on training data, after the split",6.2.3,mapped_partial,cgei-ml-lesson-6-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.3.1.1,Linear and regularised regression,6.3.1,mapped_partial,cgei-ml-lesson-6-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.3.1.2,Logistic regression,6.3.1,mapped_partial,cgei-ml-lesson-6-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.3.1.3,Feature scaling and encoding needs,6.3.1,mapped_partial,cgei-ml-lesson-6-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.3.1.4,"Support vector machines, k-nearest neighbours, naive Bayes, Gaussian processes: when each is appropriate",6.3.1,deferred,,yes,deferred,yes,,deferred,retain
+6.3.2.1,"Decision trees: split criteria, depth, overfitting",6.3.2,mapped_partial,cgei-ml-lesson-6-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.3.2.2,"Random Forest: bagging, feature randomness, out-of-bag ideas",6.3.2,mapped_partial,cgei-ml-lesson-6-3-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.3.2.3,Gradient boosting / XGBoost-style methods: sequential residuals,6.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.2.4,LightGBM and CatBoost alongside XGBoost; quantile regression forests for prediction intervals,6.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.2.5,Hyperparameter defaults versus tuning: what matters most for tree ensembles,6.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.3.1,"K-means: objective, initialization, limitations",6.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.3.2,Distance metrics and scaling dependence,6.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.3.3,Hierarchical clustering concepts,6.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.3.4,Cluster validity ideas; stability,6.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.4.1,Dimension reduction for exploration: PCA; t-SNE and UMAP for visualisation only,6.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.4.2,"Gaussian mixture models, DBSCAN, self-organising maps; isolation-forest-style anomaly detection",6.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+6.3.4.3,"Choosing an unsupervised method by data type, noise, and the question",6.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.1.1,Train / validation / test separation,6.4.1,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.1.2,Cross-validation schemes,6.4.1,mapped_partial,cgei-ml-lesson-6-4-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.4.1.3,Preprocessing fitted on training data only,6.4.1,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.1.4,"Imputation, scaling, encoding, feature selection in a pipeline",6.4.1,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.1.5,Hyperparameter tuning without contaminating the test set,6.4.1,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.2.1,"Regression: MAE, RMSE, bias, R² and its limits",6.4.2,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.2.2,"Classification: accuracy, precision, recall, F1, ROC/PR curves",6.4.2,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.2.3,Calibration and Brier score concepts,6.4.2,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.2.4,Task-specific environmental metrics when needed,6.4.2,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.2.5,"Imbalanced and segmentation metrics: PR-AUC, MCC, IoU, Dice; kappa caveats",6.4.2,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.3.1,"Probabilistic and ensemble metrics: CRPS, rank histograms, spread–skill ratio; skill scores relative to a baseline",6.4.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.3.2,"Hydrology metrics: Nash–Sutcliffe efficiency, Kling–Gupta efficiency, volume bias",6.4.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.3.3,Block-bootstrap confidence intervals and paired comparisons between models; nested cross-validation,6.4.3,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.3.4,Choosing metrics before modelling and matching them to the decision,6.4.3,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.4.1,Why random pixel splits leak,6.4.4,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+6.4.4.2,Spatial blocks; buffered holdouts; leave-location-out,6.4.4,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.4.3,Temporal holdouts and future information in features,6.4.4,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.4.4.4,Duplicated or near-duplicate samples,6.4.4,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.5.1,Cross-validation for dependent data (Roberts et al.); target-oriented validation (Meyer et al.); area-of-applicability estimation (Meyer and Pebesma),6.4.5,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.5.2,Tooling: GroupKFold with spatial block IDs; block cross-validators in Verde; CAST in R,6.4.5,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.5.3,Report the distance between training and test locations; performance decay with distance,6.4.5,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.6.1,"Fit the same model with random, spatially blocked, and temporally blocked cross-validation and report the performance gap",6.4.6,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.4.6.2,Choose block size from the range of residual spatial autocorrelation and report sensitivity to it,6.4.6,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.6.3,"Compare against climatology or the mean, persistence, and a regularised linear baseline",6.4.6,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.6.4,"Produce error maps, residual diagnostics, and calibration plots; identify the regions and conditions where the model fails",6.4.6,deferred,,yes,deferred,unclear,,deferred,retain
+6.4.6.5,Report predictions only inside the area of applicability and state the extrapolation limit,6.4.6,mapped_partial,cgei-ml-lesson-6-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.1.1,Permutation importance,6.5.1,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.5.1.2,Partial dependence and ICE plots,6.5.1,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.1.3,SHAP values at conceptual/practical level,6.5.1,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.1.4,Attribution ≠ causal mechanism,6.5.1,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.1.5,Correlated features and spatial autocorrelation distort permutation importance and SHAP; interpret groups of features,6.5.1,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.2.1,"Ensembles, bootstrap, quantile regression, conformal prediction (with the caveat of spatial dependence), Bayesian and deep-ensemble approaches",6.5.2,mapped_partial,cgei-ml-lesson-6-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.5.2.2,Calibration plots; out-of-distribution detection; abstaining when outside the area of applicability,6.5.2,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.2.3,Propagating prediction uncertainty into downstream indices and maps,6.5.2,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.3.1,Subgroup performance,6.5.3,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.3.2,"Domain shift: years, sensors, seasons, regions",6.5.3,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.3.3,Residual maps and failure modes,6.5.3,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.5.3.4,"Model cards documenting data, metrics, limits",6.5.3,mapped_partial,cgei-ml-lesson-6-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.6.1.1,Land-cover / land-use classification,6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.1.2,Environmental variable prediction with spatial CV,6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.1.3,Anomaly detection in monitoring series,6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.1.4,"PM2.5 estimation from aerosol, meteorology, and land-use predictors; air temperature from LST; gap-filled LST and NDVI",6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.6.1.5,Species distribution modelling (presence-only data biases); crop-type mapping and yield proxies,6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.1.6,Surrogate models for urban microclimate simulators,6.6.1,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.2.1,"Flood- and landslide-susceptibility ML papers: inventory bias, arbitrary non-event sampling, random splits, and uncalibrated “probabilities”",6.6.2,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.2.2,Random pixel cross-validation inflating accuracy in mapping studies (large-scale spatial validation evidence),6.6.2,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.2.3,Feature sets containing the target’s proxy (e.g. LST predicting LST-derived hotspot classes),6.6.2,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.2.4,Overclaiming transferability from one city or year to others,6.6.2,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.3.1,K-means on spectral/thermal features is exploratory,6.6.3,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.3.2,"Stability across k, seed, season",6.6.3,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.3.3,Accuracy assessment only with independent labels,6.6.3,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.6.3.4,Do not recycle clusters as supervised labels on the same image,6.6.3,mapped_partial,cgei-ml-lesson-6-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+6.7.1.1,"Tensors, layers, activations, loss functions",6.7.1,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.1.2,Backpropagation and optimisers (conceptual),6.7.1,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.1.3,"Regularisation: weight decay, dropout, early stopping",6.7.1,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.1.4,Training diagnostics and overfitting recognition,6.7.1,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.2.1,"Sequence and time-series models: LSTM/GRU, temporal convolution, transformers; ConvLSTM for spatio-temporal fields",6.7.2,mapped_partial,cgei-ml-lesson-6-7-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.7.2.2,"Loss functions for segmentation and imbalance (Dice, focal); evaluation with IoU on independent tiles",6.7.2,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.2.3,"Choosing an architecture family by data type: tabular, sequence, image, graph",6.7.2,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.3.1,CNNs and receptive fields,6.7.3,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.3.2,Semantic segmentation; U-Net-style encoder–decoders,6.7.3,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.3.3,Multispectral inputs; multi-temporal stacks; optical–SAR fusion,6.7.3,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.3.4,Vision transformers and Swin-style models; masked autoencoders and contrastive self-supervised learning,6.7.3,mapped_partial,cgei-ml-lesson-6-7-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+6.7.4.1,Transfer learning and fine-tuning,6.7.4,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.4.2,Class imbalance and augmentation strategies,6.7.4,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.4.3,"Tile sampling, overlap blending at inference, and edge artefacts",6.7.4,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.1,Spatially independent test labels,6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.2,Compare against Random Forest / boosting baselines,6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.3,"Refuse deep models on tiny, weak label sets",6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.4,Track compute budget,6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.5,"Frameworks and tooling: PyTorch/Lightning, TorchGeo, segmentation_models_pytorch, Hugging Face; Colab/Kaggle/cloud GPUs",6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+6.7.5.6,"Mixed precision, memory budgeting, deterministic seeds (and where GPUs remain non-deterministic); experiment tracking",6.7.5,mapped_partial,cgei-ml-lesson-6-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.1.1,"Hazard, exposure, vulnerability, capacity",7.1.1,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.1.2,"Risk, consequence, residual risk",7.1.1,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.1.3,"Resilience, adaptation, mitigation (climate vs disaster usage)",7.1.1,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.1.4,"Preparedness, response, recovery, Build Back Better",7.1.1,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.2.1,Risk as interaction — not hazard alone,7.1.2,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.2.2,Dynamic and scale-dependent risk,7.1.2,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.2.3,Social vulnerability cannot be read off a physical map alone,7.1.2,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,yes,,mapped_partial,retain
+7.1.2.4,Uncertainty in likelihood and in impact,7.1.2,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.3.1,"Sensitivity, adaptive capacity, and coping capacity; differential vulnerability by income, gender, age, disability, occupation, tenure, and location",7.1.3,mapped_partial,cgei-risk-lesson-7-1-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+7.1.3.2,"Pressure-and-release model: root causes, dynamic pressures, unsafe conditions",7.1.3,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.3.3,"Sustainable livelihoods framework: assets, access, and institutions",7.1.3,deferred,,yes,deferred,unclear,,deferred,retain
+7.1.3.4,Social vulnerability indices (e.g. SoVI-type) — construction choices and transferability,7.1.3,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.4.1,"IPCC risk framing: risk arises from the interaction of hazard, exposure, and vulnerability (the “×” is notation, not literal multiplication); AR6 also stresses responses as a determinant of risk",7.1.4,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.4.2,"Sendai Framework priorities (understanding, governance, investment, preparedness)",7.1.4,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.4.3,"Multi-hazard, compound, cascading, systemic risk — definitions",7.1.4,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.5.1,"Key risks, reasons for concern, adaptation limits (hard and soft), and maladaptation",7.1.5,mapped_partial,cgei-risk-lesson-7-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.5.2,Disaster risk management cycle; structural versus non-structural measures; convergence of DRR and climate adaptation,7.1.5,mapped_partial,cgei-risk-lesson-7-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.1.5.3,Loss and damage: economic and non-economic losses; terminology and politics,7.1.5,mapped_partial,cgei-risk-lesson-7-1-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+7.3.1.1,"Temperature metrics: daily max/min, apparent temperature concepts",7.3.1,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.1.2,"Duration, intensity, timing; night-time recovery",7.3.1,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+7.3.1.3,"LST versus air temperature versus heat-stress indices (UTCI, WBGT) — data requirements",7.3.1,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.1.4,Exposure metrics: population-weighted person-days above a threshold; personal-sensor evidence,7.3.1,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+7.3.2.1,"Exposure modifiers: outdoor work, housing, age, access to cooling/shade/green space",7.3.2,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.2.2,Occupational heat standards (e.g. WBGT-based) and outdoor and informal-sector workers,7.3.2,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.2.3,Indoor heat and electricity reliability: outages and load-shedding as risk amplifiers,7.3.2,mapped_partial,cgei-risk-lesson-7-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.3.1,"Heat physiology and illness: core temperature, thermoregulation, heat exhaustion versus heat stroke; vulnerable groups",7.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.3.2,Heat–mortality and heat–morbidity analysis: exposure–response curves and distributed-lag models; data constraints,7.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.3.3,"Heat Action Plan components: triggers, communication, cooling spaces, work-hour rules, health-system readiness, evaluation (Ahmedabad-style plans as references)",7.3.3,deferred,,yes,deferred,yes,,deferred,retain
+7.3.4.1,Rainfall intensity–duration–frequency concepts,7.3.4,mapped_partial,cgei-risk-lesson-7-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.4.2,Rainfall-runoff; antecedent wetness,7.3.4,mapped_partial,cgei-risk-lesson-7-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.4.3,"Multi-source precipitation: gauges, satellites, reanalysis",7.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.4.4,"Terrain, DEM, flow accumulation, drainage, floodplain",7.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.5.1,"Flood types: river, flash, urban pluvial, canal or embankment breach, barrage and dam operation, glacial-lake outburst",7.3.5,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.5.2,"Hydraulic modelling at overview level: HEC-RAS 1D/2D, LISFLOOD-FP, HAND-based screening; global flood forecasting (e.g. GloFAS) and national flood forecasting",7.3.5,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.5.3,Inundation maps versus susceptibility indices — limits,7.3.5,mapped_partial,cgei-risk-lesson-7-3-2,yes,partial_with_practice,yes,,mapped_partial,retain
+7.3.6.1,Depth–damage functions and flood inventories; SAR and gauge-based event mapping,7.3.6,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.6.2,"Embankments, breaching, and operational releases as part of the hazard, not external to it",7.3.6,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.6.3,"Flood warning information: forecast sources, gauge networks, and communication gaps",7.3.6,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.7.1,"Meteorological, agricultural, hydrological drought",7.3.7,mapped_partial,cgei-risk-lesson-7-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+7.3.7.2,SPI/SPEI and timescale choice,7.3.7,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.7.3,Vegetation and soil-moisture indicators,7.3.7,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.7.4,"Hydrological drought: river flows, reservoir storage, groundwater levels",7.3.7,mapped_partial,cgei-risk-lesson-7-3-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+7.3.8.1,"Demand, irrigation, and exposure of crops/ecosystems",7.3.8,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.8.2,"Irrigated-plain caveat: rainfall-based indices (SPI/SPEI) can understate or overstate crop stress where canal supply and groundwater control water availability — combine with canal-supply, groundwater, and vegetation anomalies",7.3.8,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.8.3,"Water-supply indicators: canal flows, reservoir storage, and groundwater levels",7.3.8,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.9.1,Active fire detections versus burned area products,7.3.9,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.9.2,"Confidence, seasonality, land-cover context",7.3.9,deferred,,yes,deferred,unclear,,deferred,retain
+7.3.9.3,Weather and fuel conditions as context,7.3.9,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.1.1,"Selecting indicators for hazard, exposure, vulnerability",7.5.1,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.1.2,Normalisation and weighting — transparency required,7.5.1,mapped_partial,cgei-risk-lesson-7-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+7.5.1.3,Sensitivity analysis on weights and indicators,7.5.1,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.1.4,Composite indices: use carefully; keep components inspectable,7.5.1,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.2.1,"Existing frameworks and their construction: INFORM Risk, WorldRiskIndex — dimensions, normalisation, and aggregation choices",7.5.2,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.2.2,"Census and survey variables as vulnerability proxies: what is public at which unit, and ecological-fallacy limits",7.5.2,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.2.3,"Adapting a global index to local data: what to keep, drop, and re-weight",7.5.2,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.3.1,Overlay and multi-criteria combination,7.5.3,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.3.2,Uncertainty and data-quality registers,7.5.3,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.3.3,"Exposure datasets: population grids, building footprints, critical facilities (hospitals, schools), land use; their resolution and completeness",7.5.3,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.4.1,Validation against historical events and independent records,7.5.4,deferred,,yes,deferred,yes,,deferred,retain
+7.5.4.2,Danger of fitting stories to incomplete loss databases,7.5.4,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+7.5.4.3,"Validation against event inventories (EM-DAT, DesInventar, official loss data) with attention to under-reporting and reporting bias",7.5.4,deferred,,yes,deferred,unclear,,deferred,retain
+7.5.5.1,"Separate hazard (LST, humid-heat metrics), exposure (population density, outdoor workers), sensitivity (age, health, housing), and adaptive capacity (green access, income proxies, cooling access)",7.5.5,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.5.2,"Source each indicator transparently (for example population grids, census tables at the finest public unit, OSM facilities) and record its resolution and year",7.5.5,mapped_partial,cgei-risk-lesson-7-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+7.5.5.3,"Normalise, weight, and aggregate with documented choices; test sensitivity to weights and aggregation method",7.5.5,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+7.5.5.4,Keep the components visible in maps rather than showing only a composite score,7.5.5,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+7.5.5.5,"Validate against heat-health or service-demand data where possible, and state that an index ranks places rather than measuring harm",7.5.5,mapped_partial,cgei-risk-lesson-7-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.1.1,Broad interest → focused question,8.1.1,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.1.1.2,Problem statement and contribution,8.1.1,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.1.3,"Research gap types: empirical, methodological, contextual; stating contribution without overclaiming",8.1.1,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.2.1,Estimands: what quantity is being targeted,8.1.2,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.1.2.2,"Unit of analysis, time horizon, place, population",8.1.2,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.2.3,"Conceptual framework and operational definitions; variables, indicators, and hypotheses",8.1.2,mapped_partial,cgei-rp-lesson-8-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.3.1,Exploratory versus confirmatory,8.1.3,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.3.2,"Observational designs: cross-sectional, longitudinal, comparative",8.1.3,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.3.3,Quasi-experimental ideas at conceptual level,8.1.3,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.3.4,When experiments are impossible in environmental systems,8.1.3,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.4.1,Pre-registration and registered reports for confirmatory work; data management plan at proposal stage,8.1.4,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.4.2,Data-management and analysis plan written before data collection,8.1.4,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.4.3,Documenting deviations from the plan,8.1.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.1.5.1,Search strategies and screening criteria,8.1.5,mapped_partial,cgei-rp-lesson-8-1-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.1.5.2,Evidence tables and research gap statements,8.1.5,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.5.3,Avoiding cherry-picking,8.1.5,mapped_partial,cgei-rp-lesson-8-1-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.1.5.4,Open scholarly sources and alerting; managing references and notes,8.1.5,deferred,,yes,deferred,unclear,,deferred,retain
+8.1.6.1,Systematic and scoping reviews (PRISMA-style reporting); screening records; bibliometric mapping,8.1.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.1.6.2,"Evidence synthesis: effect sizes, heterogeneity, and why meta-analysis needs comparable designs",8.1.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.1.6.3,Reference managers (e.g. Zotero),8.1.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.1.1,Construct validity: does the measure match the concept,8.2.1,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.2.1.2,"Precision, accuracy, bias",8.2.1,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.2.1.3,Instrument calibration ideas,8.2.1,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.2.2.1,Measurement uncertainty and budgets (GUM-style thinking); limits of detection and quantification; reference materials,8.2.2,mapped_partial,cgei-rp-lesson-8-2-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.2.2.2,Scale development and reliability (e.g. Cronbach’s alpha) for survey instruments,8.2.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.2.3,"Reference materials, blanks, and detection limits as measurement controls",8.2.2,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.2.3.1,Target population and sampling frame,8.2.3,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.2.3.2,Probability versus convenience samples,8.2.3,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.2.3.3,Stratification; sample size intuition,8.2.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.3.4,Sample-size determination; design effect; stratified and cluster sampling; spatially balanced sampling,8.2.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.4.1,What one GPS point means inside a 30 m or 100 m pixel,8.2.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.4.2,Coordinate error versus pixel size when pairing field points with imagery,8.2.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.2.4.3,Representativeness of a sampling location within a heterogeneous footprint,8.2.4,mapped_partial,cgei-rp-lesson-8-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.1.1,Internal validity and confounding,8.3.1,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.1.2,External validity and generalisation,8.3.1,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.1.3,Selection bias and missing data mechanisms,8.3.1,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.1.4,Reproducibility as a validity concern,8.3.1,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.2.1,Pre-specified analysis when confirmatory,8.3.2,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.2.2,Sensitivity checks; reporting null results,8.3.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.3.2.3,Multiple testing and selective reporting,8.3.2,mapped_partial,cgei-rp-lesson-8-3-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.3.2.4,Transparent deviation logs,8.3.2,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.3.1,"Researcher degrees of freedom, p-hacking, and HARKing; forking-paths documentation",8.3.3,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+8.3.3.2,Preprints and open peer review as transparency tools,8.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.3.3.3,"Registered analysis plans, open code, and data availability statements",8.3.3,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.3.4.1,Consent and purpose limitation for survey/household data,8.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.3.4.2,Location privacy; aggregation choices,8.3.4,mapped_partial,cgei-rp-lesson-8-3-1,yes,partial_documented,yes,,mapped_partial,retain
+8.3.4.3,Dual-use and sensitive infrastructure awareness at overview level,8.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.3.4.4,"University ethics approval: when needed, what to prepare",8.3.4,mapped_partial,cgei-rp-lesson-8-3-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.3.4.5,"Local and traditional knowledge: consent, credit, and benefit sharing",8.3.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.3.5.1,Data licences and attribution,8.3.5,deferred,,yes,deferred,yes,,deferred,retain
+8.3.5.2,Authorship criteria and contribution statements (ICMJE/CRediT-style); plagiarism and self-plagiarism; similarity-check policies,8.3.5,mapped_partial,cgei-rp-lesson-8-3-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.3.5.3,Predatory publishers and journal checking (e.g. Think–Check–Submit; national recognition lists such as HEC’s journal recognition system),8.3.5,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.1.1,IMRaD for papers,8.6.1,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.1.2,Methods completeness checklist,8.6.1,mapped_partial,cgei-rp-lesson-8-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.6.1.3,Data and code availability statements,8.6.1,mapped_partial,cgei-rp-lesson-8-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.6.1.4,Reproducibility appendix,8.6.1,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.1.5,Limitations and contribution statements,8.6.1,mapped_partial,cgei-rp-lesson-8-6-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.6.2.1,Technical reports and methods notes,8.6.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.2.2,Scientific posters and talks,8.6.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.2.3,"Policy / decision briefs (different audience, same evidence)",8.6.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.2.4,"Conference abstracts, talks, and posters; scholarship and admission statements with a research proposal",8.6.2,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.3.1,Preprints and peer-review response,8.6.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.3.2,Data papers (e.g. data-journal formats) and software papers; supplementary materials,8.6.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.3.3,"Choosing venues: remote sensing, climatology, urban climate, hazards, and applied-environment journals; scope, impact, and cost (open-access fees and waivers)",8.6.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.4.1,Calibrated uncertainty language (e.g. IPCC likelihood terms),8.6.4,mapped_partial,cgei-rp-lesson-8-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.6.4.2,Figure and table quality; map citations,8.6.4,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.4.3,"Writing limitations: specific, honest, and linked to the claim",8.6.4,mapped_partial,cgei-rp-lesson-8-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.6.5.1,"AI assistance: disclosure, verification of citations and code",8.6.5,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.5.2,No invented references,8.6.5,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.5.3,"Citation verification routine: open each source and check the quote, number, and context",8.6.5,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.6.1,"Writing process: outline, figure-first drafting, revision for argument and concision; response-to-reviewers letters",8.6.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.6.2,Reference styles and managers; LaTeX/Overleaf and Quarto for reproducible manuscripts,8.6.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.6.6.3,"Revision passes: argument first, then structure, then sentences, then references and figures",8.6.6,deferred,,yes,deferred,unclear,,deferred,retain
+8.7.1.1,"Identify the single contribution: methods sensitivity, validation, or new regional evidence for Multan — not all three",8.7.1,mapped_partial,cgei-rp-lesson-8-7-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.7.1.2,"Position the work against 10–15 close prior studies (South Asian UHI, Landsat LST, LCZ studies)",8.7.1,mapped_partial,cgei-rp-lesson-8-7-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.7.1.3,State research questions and what result would change your conclusions,8.7.1,mapped_partial,cgei-rp-lesson-8-7-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+8.7.2.1,Validation against independent temperature data and alternative LST products,8.7.2,mapped_partial,cgei-rp-lesson-8-7-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.7.2.2,"Sensitivity analysis for composites, seasonal windows, rural references, and scale",8.7.2,mapped_partial,cgei-rp-lesson-8-7-2,yes,partial_with_practice,yes,,mapped_partial,retain
+8.7.2.3,Uncertainty maps and valid-observation coverage,8.7.2,mapped_partial,cgei-rp-lesson-8-7-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.7.2.4,A reproducible repository with a DOI plus data-availability and code-availability statements,8.7.2,mapped_partial,cgei-rp-lesson-8-7-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.7.3.1,"Structure: abstract, introduction with the gap, study area, data, methods, results, discussion with limitations, conclusion",8.7.3,mapped_partial,cgei-rp-lesson-8-7-3,yes,partial_documented,unclear,,mapped_partial,retain
+8.7.3.2,"Figure set: study area, workflow, LST maps with valid-observation masks, driver relationships, sensitivity, and validation",8.7.3,mapped_partial,cgei-rp-lesson-8-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+8.7.3.3,"Tables: data inventory, model comparison, and sensitivity results",8.7.3,mapped_partial,cgei-rp-lesson-8-7-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.7.3.4,Reference management and citation verification against the sources,8.7.3,deferred,,yes,deferred,unclear,,deferred,retain
+8.7.4.1,"Shortlist venues by scope, rigour, and fees; check national recognition rules where they apply (for example HEC journal recognition)",8.7.4,mapped_partial,cgei-rp-lesson-8-7-3,yes,partial_with_practice,yes,,mapped_partial,retain
+8.7.4.2,Post a preprint (for example EarthArXiv) at or before submission if the journal allows,8.7.4,mapped_partial,cgei-rp-lesson-8-7-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.7.4.3,"Cover letter, suggested reviewers, and ethics and data statements",8.7.4,mapped_partial,cgei-rp-lesson-8-7-3,yes,partial_documented,unclear,,mapped_partial,retain
+8.7.4.4,Handling reviews: point-by-point responses and tracked revisions,8.7.4,mapped_partial,cgei-rp-lesson-8-7-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.8.1.1,Runnable environment and one-command or documented notebook path,8.8.1,mapped_partial,cgei-rp-lesson-8-8-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.8.1.2,"README: data, methods, outputs, limitations",8.8.1,mapped_partial,cgei-rp-lesson-8-8-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.8.1.3,"Manifests, tests, licences",8.8.1,mapped_partial,cgei-rp-lesson-8-8-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.8.2.1,"ORCID, public profiles, preprint, and DOI for code and data as a verifiable record",8.8.2,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_with_practice,yes,,mapped_partial,retain
+8.8.2.2,"Public profile hygiene: consistent name, affiliation, and links to code and data",8.8.2,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.2.3,"Preprint and DOI practice for code, data, and reports",8.8.2,mapped_partial,cgei-rp-lesson-8-8-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.8.3.1,"UHI FYP as draft to revise, not archive to hide",8.8.3,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.3.2,"What the new version corrects: scale factors, QA, validation, claim language",8.8.3,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.3.3,One paper-quality output on a single clear question,8.8.3,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.4.1,"Reproduce one published method exactly, then extend; keep the replication as an appendix",8.8.4,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.4.2,"Choose a question that is falsifiable, feasible with open data, and sharpened by a methods contribution — for example, a sensitivity study of how compositing rules, rural-reference choice, and LCZ stratification change a city’s surface heat estimate (illustrative template only)",8.8.4,mapped_partial,cgei-rp-lesson-8-8-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.8.4.3,Pilot analysis to test feasibility before committing to a question,8.8.4,mapped_partial,cgei-rp-lesson-8-8-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.8.5.1,"One place, one hazard family, one primary methods gap",8.8.5,mapped_partial,cgei-rp-lesson-8-8-3,yes,partial_with_practice,yes,,mapped_partial,retain
+8.8.5.2,"Supervision need stated as methods depth, not tool list",8.8.5,mapped_partial,cgei-rp-lesson-8-8-3,yes,partial_with_practice,yes,,mapped_partial,retain
+8.8.5.3,Feasible data and compute,8.8.5,mapped_partial,cgei-rp-lesson-8-8-3,yes,partial_with_practice,yes,,mapped_partial,retain
+8.9.1.1,"Structure: problem, gap, objectives, methods, feasibility, timeline, outputs, ethics, references",8.9.1,mapped_partial,cgei-rp-lesson-8-9-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.9.1.2,Matching scope to supervisor expertise and available data and compute,8.9.1,mapped_partial,cgei-rp-lesson-8-9-1,yes,partial_documented,unclear,,mapped_partial,retain
+8.9.1.3,"Anticipating reviewer questions: novelty, feasibility, risk, and validation",8.9.1,mapped_partial,cgei-rp-lesson-8-9-1,yes,partial_with_practice,yes,,mapped_partial,retain
+8.9.2.1,"Statements of purpose, CVs, referee management; scholarship criteria read closely",8.9.2,mapped_partial,cgei-rp-lesson-8-9-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.9.2.2,Budgeting small projects; in-kind support and data access letters,8.9.2,mapped_partial,cgei-rp-lesson-8-9-2,yes,partial_with_practice,yes,,mapped_partial,retain
+8.9.2.3,"Funding landscape: scholarships, project grants, and data-access programmes — verify current calls",8.9.2,mapped_partial,cgei-rp-lesson-8-9-2,yes,partial_documented,unclear,,mapped_partial,retain
+8.9.3.1,Project planning with milestones and risk registers; version-controlled collaboration; authorship agreements,8.9.3,mapped_partial,cgei-rp-lesson-8-9-3,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+8.9.3.2,"Giving and receiving technical feedback; regular supervisor reports with questions, not only results",8.9.3,mapped_partial,cgei-rp-lesson-8-9-3,yes,partial_documented,unclear,,mapped_partial,retain
+8.9.3.3,"Consultancy and agency practice for assessments (IEE/EIA) — deliverable structure, client constraints, and professional ethics",8.9.3,mapped_partial,cgei-rp-lesson-8-9-3,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.1.1,Source citation on or adjacent to the map,9.4.1,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+9.4.1.2,Time and confidence controls where relevant,9.4.1,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.1.3,"Layer list that separates hazard, exposure, vulnerability, options",9.4.1,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+9.4.2.1,"Provenance standards and documentation: W3C PROV-style lineage, dataset and model cards, changelogs, “last updated” and version stamps",9.4.2,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.2.2,"Review states for consequential content (draft, reviewed, published) with named reviewer and date",9.4.2,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_with_practice,yes,,mapped_partial,retain
+9.4.2.3,Public changelog and versioned releases of datasets and methods,9.4.2,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.3.1,Bilingual or plain-language brief when users are not specialists,9.4.3,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.3.2,One usability pass with a non-author reader,9.4.3,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.3.3,"Language, literacy, device, and connectivity profile of the target users; offline or low-bandwidth modes",9.4.3,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+9.4.3.4,Feedback channel and correction policy visible on the product,9.4.3,mapped_partial,cgei-dspt-lesson-9-4-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.1.1,"Separate data acquisition, validation, transformation, analysis, visualization, and reporting.",11.2.1,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.1.2,"Use functions, modules, packages, configuration files, and clear interfaces.",11.2.1,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.1.3,"Avoid hidden notebook state, hard-coded paths, duplicated logic, and oversized scripts.",11.2.1,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.1.4,"Apply naming, formatting, type hints, docstrings, and concise comments.",11.2.1,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.2.1,"Unit, integration, regression, and smoke tests.",11.2.2,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.2.2,"Assertions, test fixtures, mocks, expected values, and tolerance-based numeric tests.",11.2.2,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_with_practice,yes,,mapped_partial,retain
+11.2.2.3,Debugging tracebacks and reproducing a minimal failing example.,11.2.2,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.2.4,"Testing edge cases, missing data, empty inputs, units, CRS, and coordinate order.",11.2.2,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_with_practice,yes,,mapped_partial,retain
+11.2.2.5,"Code review, issue tracking, pull requests, and technical debt basics.",11.2.2,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.3.1,"Git commits, branches, merging, conflict resolution, and tags.",11.2.3,mapped_partial,cgei-se-lesson-11-2-2,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+11.2.3.2,"Repository structure, README files, changelogs, and semantic versioning.",11.2.3,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.3.3,"Dependency pinning, virtual environments, and lockfiles where appropriate.",11.2.3,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.3.4,CI workflows for automated tests and basic quality checks.,11.2.3,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.3.5,Releasing stable research code and archiving a versioned snapshot.,11.2.3,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.4.1,"README, docstrings, and architecture notes that let a stranger rerun the work",11.2.4,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.4.2,Issue tracking and code review as quality control for solo and small-team projects,11.2.4,mapped_partial,cgei-se-lesson-11-2-2,yes,partial_documented,unclear,,mapped_partial,retain
+11.2.4.3,Recording design decisions and known limitations,11.2.4,mapped_partial,cgei-se-lesson-11-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.1.1,"Tensors, layers, activations, loss functions, gradients, backpropagation, and optimizers.",12.1.1,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.1.2,"Training/validation/test separation, mini-batches, learning rate, epochs, and early stopping.",12.1.1,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+12.1.1.3,"Regularization, dropout, weight decay, normalization, and overfitting diagnostics.",12.1.1,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.1.4,"Random seeds, hardware determinism, experiment tracking, and computational cost.",12.1.1,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.2.1,Multilayer perceptrons for tabular baselines and embeddings.,12.1.2,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.2.2,Convolutional neural networks for image and raster data.,12.1.2,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.2.3,Sequence models and attention/transformer concepts for time-dependent data.,12.1.2,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.2.4,Transfer learning and pretrained models; prerequisites and failure modes.,12.1.2,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.2.5,When tree-based models or statistical baselines remain preferable.,12.1.2,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+12.1.3.1,"Estimating parameters, memory, and training time before starting",12.1.3,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.1.3.2,"Data loaders, batching, and I/O bottlenecks for raster data",12.1.3,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_with_practice,yes,,mapped_partial,retain
+12.1.3.3,Energy and cost reporting for training runs,12.1.3,mapped_partial,cgei-ai-lesson-12-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.1.1,"Image classification, object detection, semantic segmentation, and change detection.",12.2.1,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.1.2,"Annotation protocols, label uncertainty, class imbalance, and inter-annotator agreement.",12.2.1,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.1.3,Spatially independent data splits to avoid leakage between adjacent image tiles.,12.2.1,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+12.2.1.4,Augmentation that preserves physical/geographic meaning and does not invent invalid observations.,12.2.1,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.2.1,CNN-based classifiers and segmentation architectures such as U-Net at a conceptual/practical level.,12.2.2,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.2.2,"Transfer learning, feature extractors, fine-tuning, and domain mismatch.",12.2.2,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.2.3,"Class-wise precision/recall, IoU, Dice, object metrics, and confusion matrices as appropriate.",12.2.2,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.2.4,"Edge effects, tiling, overlaps, mosaicking, and inference across large rasters.",12.2.2,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.2.5,"Accuracy by geography, season, sensor, and land-cover class.",12.2.2,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.3.1,"Tiled inference at scale: overlap, blending, and edge effects",12.2.3,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.3.2,Post-processing predictions into vector layers with topology checks,12.2.3,mapped_partial,cgei-ai-lesson-12-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+12.2.3.3,"Monitoring drift across seasons, sensors, and regions",12.2.3,mapped_partial,cgei-ai-lesson-12-2-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+12.3.1.1,"Forecast horizons, rolling-origin evaluation, persistence, climatology, and seasonal baselines.",12.3.1,mapped_partial,cgei-ai-lesson-12-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+12.3.1.2,"Lagged predictors, rolling windows, temporal covariates, and data leakage across time.",12.3.1,mapped_partial,cgei-ai-lesson-12-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.1.3,"Sequence models, temporal CNNs, recurrent models, and transformer concepts.",12.3.1,mapped_partial,cgei-ai-lesson-12-3-2,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.1.4,"Probabilistic forecasts, calibration, event-based evaluation, and prediction uncertainty.",12.3.1,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_with_practice,yes,,mapped_partial,retain
+12.3.2.1,"Pretrained geospatial encoders, embeddings, and their intended use cases.",12.3.2,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.2.2,"Transfer to new regions, sensors, seasons, and environmental regimes.",12.3.2,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.2.3,"Assess pretraining data, licensing, spatial/temporal coverage, and possible hidden leakage.",12.3.2,mapped_partial,cgei-ai-lesson-12-3-3,yes,nominal_or_named,yes,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+12.3.2.4,"Benchmark foundation-model representations against simple spectral, statistical, and tree-based baselines.",12.3.2,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.3.1,"Ensembles, calibration, and probabilistic scores for spatiotemporal forecasts",12.3.3,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.3.2,Physical constraints and conservation checks on predicted fields,12.3.3,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_documented,unclear,,mapped_partial,retain
+12.3.3.3,Comparison against physical models and post-processed baselines,12.3.3,mapped_partial,cgei-ai-lesson-12-3-3,yes,partial_with_practice,unclear,,mapped_partial,retain
+13.1.1.1,"Choose one coherent problem: environmental data analysis, GIS, remote sensing, climate analytics, or GeoAI.",13.1.1,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.1.2,"Define the user or scientific audience, research question, study area, dates, target variables, and output.",13.1.1,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.1.3,"Check data availability, quality, permissions, compute requirements, and feasibility before committing.",13.1.1,mapped_partial,cgei-cap-lesson-13-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.1.1.4,"Distinguish a class exercise, portfolio project, operational prototype, and publishable research study.",13.1.1,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.2.1,"Prepare milestones, task dependencies, a weekly work plan, and a realistic scope.",13.1.2,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.2.2,"Create a risk log covering unavailable data, failed methods, resource limits, and timeline slippage.",13.1.2,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.2.3,Define acceptance criteria and a minimum viable result before adding advanced features.,13.1.2,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.2.4,"Record decisions, changes, and reasons for dropping an approach.",13.1.2,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.3.1,"Data access, licence, and compute checks before the first line of code",13.1.3,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.3.2,Methodological risks and fallback plans,13.1.3,mapped_partial,cgei-cap-lesson-13-1-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.1.3.3,Ethics and privacy screening,13.1.3,mapped_partial,cgei-cap-lesson-13-1-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.2.1.1,"Write a project brief, hypothesis or analytical question, and method-selection rationale.",13.2.1,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.1.2,"Audit data, build a clean data inventory, and preserve provenance.",13.2.1,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.2.1.3,Create a simple baseline before applying complex methods.,13.2.1,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.2.1.4,"Implement transparent preprocessing, exploration, modelling, and evaluation steps.",13.2.1,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.1.5,"Validate results, analyse errors, and document uncertainty and limitations.",13.2.1,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.2.1,"Generate final maps, plots, tables, metrics, and a short executive summary.",13.2.2,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.2.2.2,Prepare a reproducible repository and clean environment instructions.,13.2.2,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.2.2.3,Write a technical report and a plain-language summary.,13.2.2,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.2.4,Present the project in a short talk and answer questions about assumptions and limitations.,13.2.2,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.3.1,"Review checkpoints: data audit, baseline, validation, write-up",13.2.3,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.2.3.2,Reproduction from a clean environment before sharing,13.2.3,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.2.3.3,External feedback and revision tracking,13.2.3,mapped_partial,cgei-cap-lesson-13-2-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.3.1.1,"Maintain one flagship analysis, one geospatial/remote-sensing project, and one ML/GeoAI project.",13.3.1,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.1.2,"Write a README with problem, data, method, results, limitations, and reproduction steps.",13.3.1,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.3.1.3,"Include selected figures, maps, a data dictionary, requirements/environment file, and citations.",13.3.1,mapped_partial,cgei-cap-lesson-13-3-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.3.1.4,"Separate public data/code from large, restricted, or licensed material.",13.3.1,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.1.5,Show substantive individual contributions in collaborative projects.,13.3.1,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.2.1,Describe a project in problem–method–evidence–limitation form.,13.3.2,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.2.2,Select only metrics that answer the project question.,13.3.2,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.2.3,Explain errors and negative results instead of showing only best-case maps.,13.3.2,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.2.4,Build a concise portfolio page or PDF summary for non-specialists.,13.3.2,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.3.1,"Public repository hygiene, licences, and DOIs for code and data",13.3.3,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.3.2,"Short project pages with maps, figures, and limitations",13.3.3,mapped_partial,cgei-cap-lesson-13-3-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.3.3.3,Maintaining links and responding to questions over time,13.3.3,deferred,,yes,deferred,unclear,,deferred,retain
+13.5.1.1,Read recent papers from prospective supervisors or target research groups.,13.5.1,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.1.2,"Map your existing skills and project evidence to the group’s methods, datasets, and research questions.",13.5.1,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.1.3,"Identify prerequisites still needed in mathematics, statistics, computing, environmental science, or domain physics.",13.5.1,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.1.4,"Write a concise statement of research interests with evidence, not only broad ambitions.",13.5.1,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.2.1,"Maintain a research CV, project summaries, transcripts/documents checklist, and referee plan.",13.5.2,mapped_partial,cgei-cap-lesson-13-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.5.2.2,Prepare a one-page project summary and a clear statement of your own contribution.,13.5.2,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.2.3,"Assess programme requirements, funding terms, deadlines, language tests, and document requirements from official sources.",13.5.2,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.2.4,"Write respectful, concise supervisor enquiries that demonstrate specific research fit.",13.5.2,mapped_partial,cgei-cap-lesson-13-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.5.3.1,"Eligibility, deadlines, and document checklists taken from official sources",13.5.3,mapped_partial,cgei-cap-lesson-13-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.5.3.2,Referee preparation and timelines,13.5.3,mapped_partial,cgei-cap-lesson-13-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.5.3.3,Contingency planning for competing offers and delayed funding decisions,13.5.3,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_with_practice,yes,,mapped_partial,retain
+13.5.4.1,"For each target (ITC Twente, TU Munich, ETH Zurich, UCL, Oxford): programme or group fit, required evidence, and deadlines taken from the official pages",13.5.4,deferred,,yes,deferred,unclear,,deferred,retain
+13.5.4.2,"Map your evidence to each target: reproducible UHI study, validated ML project, ERA5 workflow, and a proposal that bridges them",13.5.4,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.4.3,"Supervisor outreach: read three to five recent papers, propose one specific question, and attach a one-page summary",13.5.4,mapped_partial,cgei-cap-lesson-13-5-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.5.4.4,"Scholarship fit (DAAD, Chevening, Erasmus Mundus, Fulbright, MEXT): eligibility, language and test requirements, and referee needs — verify current rules",13.5.4,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.5.4.5,Plan B and plan C options with different timelines,13.5.4,mapped_partial,cgei-cap-lesson-13-5-1,yes,partial_with_practice,unclear,,mapped_partial,retain
+13.6.1.1,"Problem definition: a clear, scoped question with a reasoned method choice.",13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.1.2,"Data quality: provenance, licences, units, cleaning decisions, and limitations are documented.",13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.1.3,"Technical quality: code is readable, tested, and reproducible; outputs are validated.",13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.1.4,"Scientific quality: baseline comparison, appropriate evaluation, uncertainty, and cautious interpretation.",13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.1.5,"Communication: figures, maps, report, and oral explanation suit the target audience.",13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.1.6,Portfolio readiness: repository and summary allow an external reader to understand and assess the work.,13.6.1,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.2.1,Use feedback and errors to produce a prioritized revision list.,13.6.2,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.2.2,Re-run the project from a clean environment after revisions.,13.6.2,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.2.3,Record the main limitations and the next realistic improvement.,13.6.2,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.3.1,Peer or supervisor review with a structured checklist,13.6.3,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain
+13.6.3.2,Reproducibility audit by an independent person,13.6.3,mapped_partial,cgei-cap-lesson-13-6-1,yes,nominal_or_named,unclear,Evidence note indicates named/overview-level coverage,mapped_partial,retain_partial
+13.6.3.3,Decision log: what changed after review and why,13.6.3,mapped_partial,cgei-cap-lesson-13-6-1,yes,partial_documented,unclear,,mapped_partial,retain

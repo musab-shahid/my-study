@@ -1,18 +1,19 @@
 {
   "schema_version": "1.0",
-  "status": "baseline_identified_subject5_leaf_id_title_order_verified",
+  "status": "baseline_pinned_extract_committed_c45",
   "source_artifact": {
-    "filename": "Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path(1).docx",
+    "filename": "Master_Study_TOC_Climate_Geospatial_Intelligence_Priority_Path.docx",
     "sha256": "3480f590c548d71abd5a5519eaa678ee1629831363a33b4c664b7d73e9318ebb",
     "source_kind": "user_supplied_upload",
     "repository_copy": false,
     "provenance_independently_authenticated": false,
-    "immutable_baseline_policy": "preserve exact original bytes; never edit in place; propose approved revisions as separately versioned artifacts"
+    "immutable_baseline_policy": "preserve exact original bytes; never edit in place; propose approved revisions as separately versioned artifacts",
+    "working_copy_note": "Verified against user-supplied/attachments copy SHA-256 3480f590\u2026; identical to Priority_Path-2/3 uploads. Original bytes not vendored in git (size/policy)."
   },
   "extraction": {
     "extracted_on": "2026-10-25",
     "method": "python-docx paragraph text and numbering-pattern extraction; source paragraph order preserved for counts",
-    "version_or_script_committed": false,
+    "version_or_script_committed": true,
     "counts": {
       "subjects": 14,
       "units": 130,
@@ -38,19 +39,26 @@
           "Does not authenticate external DOCX approval"
         ]
       }
-    }
+    },
+    "scripts": [
+      "scripts/audit-cgei-toc-source.py",
+      "scripts/audit_core_leaf_coverage.py"
+    ],
+    "normalized_rows_csv": "docs/cgei/source-toc/priority-path-source-rows.csv",
+    "core_coverage_report_csv": "docs/cgei/source-toc/core-leaf-coverage-report.csv"
   },
   "implementation_context": {
-    "authoring_pull_request": 9,
-    "branch": "feat/cgei-full-curriculum-skeleton",
-    "latest_head_when_manifest_created": "0b7e777921fc20d983801caa088569c7b3526f2e",
-    "merged_to_main": false
+    "branch": "feat/cgei-core-leaf-coverage-gate",
+    "cycle": "C.45",
+    "based_on_main": "03ace1741084ae7a6befafcb9cc8922ca9cd89d4"
   },
   "known_limits": [
     "A hash identifies the supplied file bytes but does not prove external approval or provenance.",
     "The original DOCX is not stored in this repository; the hash alone cannot recover it.",
     "Subject 5 leaf ID, exact title, and order match the baseline (184/184) as of C.28 reconciliation.",
-    "Match does not prove instructional completeness, assessment quality, or app lesson semantics."
+    "Match does not prove instructional completeness, assessment quality, or app lesson semantics.",
+    "Core coverage gate uses disposition rows in docs/cgei/*traceability*.csv; unmapped Core leaves remain until dispositioned.",
+    "Gate exit code 1 on unmapped/stale unless --allow-unmapped is set for transitional reporting."
   ],
   "control_documents": [
     "docs/cgei/SOURCE_OF_TRUTH_AND_CHANGE_CONTROL.md",

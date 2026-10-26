@@ -8,4 +8,6 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 12.1.2.3,Sequence attention transformer concepts,12.1.2,Architectures and selection,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-2,mapped_partial,Named.
 12.1.2.4,Transfer learning failure modes,12.1.2,Architectures and selection,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-2,mapped_partial,Named.
 12.1.2.5,When tree or statistical baselines preferable,12.1.2,Architectures and selection,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-2;cgei-ai-121-1-lab,mapped_partial,Baseline fixture.
-12.1.3,Compute data cost estimation,12.1,Compute data and cost,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-4,mapped_partial,Checklist.
+12.1.3.1,"Estimating parameters, memory, and training time before starting",12.1.3,Resource planning,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-4,mapped_partial,"Key-point: estimate parameters, memory, time before large runs; no estimation worksheet."
+12.1.3.3,Energy and cost reporting for training runs,12.1.3,Resource planning,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-4,mapped_partial,Report energy/cost when relevant; no measurement protocol.
+12.1.3.2,"Data loaders, batching, and I/O bottlenecks for raster data",12.1.3,Resource planning,Core,cgei-ai-lesson-12-1-1,cgei-ai-121-1-loader;cgei-ai-121-1-batch;cgei-ai-121-1-loader-lab,mapped_partial,"Windowed loading, invalid-sample rejection, batching, spatial-split discipline, cold/warm timing lab; not GDAL/GeoTIFF production loaders."

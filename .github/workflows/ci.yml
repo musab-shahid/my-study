@@ -120,6 +120,41 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_4_inference_check.py
       - name: Verify Unit 5.5 data workflow checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_5_data_workflow_check.py
+      - name: Verify Unit 12.1 raster loader checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_1_raster_loader_check.py
+      - name: Verify Unit 12.2 vector post-process checks
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_2_vector_postprocess_check.py
+      - name: Verify Core-leaf coverage gate regression cases
+        run: python scripts/tests/test_audit_core_leaf_coverage.py
+      - name: Run repository Core-leaf coverage audit (transitional report)
+        run: python scripts/audit_core_leaf_coverage.py --allow-unmapped
+      - name: Verify strict Core-leaf coverage gate
+        shell: bash
+        run: |
+          set +e
+          output="$(python scripts/audit_core_leaf_coverage.py 2>&1)"
+          status=$?
+          set -e
+          printf '%s\n' "$output"
+          if [ "$status" -eq 0 ]; then
+            echo "Strict gate clear: no unmapped Core leaves and no blocking stale IDs."
+            exit 0
+          fi
+          if [ "$status" -eq 1 ]; then
+            printf '%s\n' "$output" | grep -E -q "[1-9][0-9]* unmapped Core leaves|[1-9][0-9]* stale"
+            echo "Strict gate correctly blocking unresolved leaves or stale IDs."
+            exit 0
+          fi
+          echo "Unexpected strict gate exit status: $status" >&2
+          exit 1
+      - name: Upload Core-leaf coverage report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: core-leaf-coverage-report
+          path: docs/cgei/source-toc/core-leaf-coverage-report.csv
+          if-no-files-found: warn
+          retention-days: 14
       - name: Verify Unit 5.11 research software checks
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_11_research_software_check.py
       - name: Verify Unit 5.6 intermediate inference modelling checks

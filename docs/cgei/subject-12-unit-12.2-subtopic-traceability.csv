@@ -8,4 +8,6 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 12.2.2.3,Precision recall IoU Dice confusion matrices,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-2,mapped_partial,Named.
 12.2.2.4,Tiling overlaps mosaicking,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Named.
 12.2.2.5,Accuracy by geography season sensor class,12.2.2,Training and evaluation,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-2,mapped_partial,Named.
-12.2.3,Operational inference QC,12.2,Operational inference and quality control,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Light.
+12.2.3.1,"Tiled inference at scale: overlap, blending, and edge effects",12.2.3,Operational deployment,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Callout: tiled inference needs overlap/blending plans; procedure not practised.
+12.2.3.3,"Monitoring drift across seasons, sensors, and regions",12.2.3,Operational deployment,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-3,mapped_partial,Domain shift across sensors/seasons named; monitoring protocol not taught.
+12.2.3.2,Post-processing predictions into vector layers with topology checks,12.2.3,Operational deployment,Core,cgei-ai-lesson-12-2-1,cgei-ai-122-1-vector;cgei-ai-122-1-topology;cgei-ai-122-1-vector-lab,mapped_partial,"Polygonize, CRS/validity checks, reject log, synthetic defect injection; not GDAL polygonize or model accuracy."
