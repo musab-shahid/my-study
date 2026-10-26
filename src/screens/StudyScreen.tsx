@@ -269,133 +269,181 @@ export function StudyScreen() {
             </Card>
           )}
 
-          {roadmapTopic && (
-            <Card className="mb-3 p-3 sm:p-4 border border-sky-100 bg-sky-50/40">
+          {/* Supporting orientation — collapsed by default; full content when expanded */}
+          {(roadmapTopic || curriculumSubject) && (
+            <Card className="mb-3 p-3 sm:p-4 border border-slate-200 bg-slate-50/50">
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Domain orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
+                  <span className="min-w-0">
+                    <span className="block text-sm font-semibold text-slate-900">
+                      {curriculumSubject ? 'Before you begin' : 'Domain orientation'}
+                    </span>
+                    <span className="block text-xs text-slate-500 mt-0.5">
+                      {curriculumSubject
+                        ? `${curriculumSubject.subtitle} · ${curriculumUnits.length} units · expand for goals and how to study`
+                        : `Context for ${subjectTitle} · expand for orientation notes`}
+                    </span>
+                  </span>
                   <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
                 </summary>
-                <div className="pt-3">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-sky-100 flex items-center justify-center shrink-0">
-                  <BookOpen className="w-5 h-5 text-sky-800" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1">Context</p>
-                  <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
-                  {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
-                  {subjectTopics.length === 0 && (
-                    <p className="mt-4 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
-                      Structured lessons and assessments for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
-                    </p>
+                <div className="pt-4 space-y-5 border-t border-slate-200 mt-3">
+                  {curriculumSubject && (
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">This subject</p>
+                      <h2 className="text-base font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
+                      <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
+                      {curriculumSubject.purpose ? (
+                        <p className="text-sm text-slate-700 leading-relaxed mt-2"><span className="font-semibold text-slate-800">Why it matters. </span>{curriculumSubject.purpose}</p>
+                      ) : null}
+                      {curriculumSubject.audience ? (
+                        <p className="text-sm text-slate-600 leading-relaxed mt-2"><span className="font-semibold text-slate-700">Who it is for. </span>{curriculumSubject.audience}</p>
+                      ) : null}
+                      {curriculumSubject.prerequisites?.length ? (
+                        <div className="mt-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Prerequisites and connections</h3>
+                          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                            {curriculumSubject.prerequisites.map((item) => (
+                              <li key={item}>{item}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ) : null}
+                      {curriculumUnits.length > 0 ? (
+                        <div className="mt-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">How the subject is organised</h3>
+                          <p className="text-sm text-slate-600 mb-2">Study the units below in order. Each unit groups related lessons, practice, and checks.</p>
+                          <ol className="list-decimal pl-5 space-y-1 text-sm text-slate-700">
+                            {curriculumUnits.map((unit) => (
+                              <li key={unit.id}><span className="font-medium text-slate-800">{unit.code}</span> — {unit.title}</li>
+                            ))}
+                          </ol>
+                        </div>
+                      ) : null}
+                      {curriculumSubject.outcomes?.length ? (
+                        <div className="mt-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">What you will be able to do</h3>
+                          <ul className="space-y-1.5">
+                            {curriculumSubject.outcomes.slice(0, 12).map((outcome) => (
+                              <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
+                                <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
+                              </li>
+                            ))}
+                            {curriculumSubject.outcomes.length > 12 ? (
+                              <li className="text-xs text-slate-500">…and {curriculumSubject.outcomes.length - 12} further outcomes across the units.</li>
+                            ) : null}
+                          </ul>
+                        </div>
+                      ) : null}
+                      <p className="mt-3 text-xs text-slate-500">Orientation is context only. It is not counted as a lesson or mastery item.</p>
+                    </div>
+                  )}
+                  {roadmapTopic && (
+                    <div className={curriculumSubject ? 'pt-2 border-t border-slate-100' : ''}>
+                      {curriculumSubject ? (
+                        <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-2">Domain context</p>
+                      ) : (
+                        <>
+                          <p className="text-xs font-semibold uppercase tracking-wide text-sky-800 mb-1">Domain orientation</p>
+                          <h2 className="text-base font-bold text-slate-900">{subjectTitle}</h2>
+                        </>
+                      )}
+                      {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-1">{roadmapTopic.definition}</p>}
+                      {roadmapTopic.explanationSections?.map((section) => (
+                        <div key={section.heading} className="mt-3">
+                          <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
+                          <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
+                        </div>
+                      ))}
+                      {roadmapTopic.keyFacts?.length ? (
+                        <div className="mt-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Orientation notes</h3>
+                          <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
+                        </div>
+                      ) : null}
+                      {roadmapTopic.examPoints?.length ? (
+                        <div className="mt-3">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Learning principles</h3>
+                          <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
+                        </div>
+                      ) : null}
+                      {!curriculumSubject && subjectTopics.length === 0 && (
+                        <p className="mt-3 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
+                          Structured lessons for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
+                        </p>
+                      )}
+                    </div>
                   )}
                 </div>
-              </div>
-                </div>
               </details>
             </Card>
           )}
 
+          {/* Primary learning path: canonical units */}
           {curriculumSubject && (
-            <Card className="mb-3 p-3 sm:p-4 border border-teal-100 bg-teal-50/40">
-              <details>
-                <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Course orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief introduction · not a lesson</span></span>
-                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
-                </summary>
-                <div className="pt-3">
-              <div className="flex items-start gap-3">
-                <div className="w-10 h-10 rounded-xl bg-teal-100 flex items-center justify-center shrink-0">
-                  <BookOpen className="w-5 h-5 text-teal-800" />
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Introduction</p>
-                  <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
-                  <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
+            <Card className="mb-3 p-3.5 sm:p-5 border border-teal-200 bg-white">
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-900">Learning path</h3>
+                  <p className="text-xs text-slate-500 mt-0.5">
+                    {curriculumLessons.length > 0
+                      ? `${studiedCurriculumLessonCount} of ${curriculumLessons.length} lessons marked studied · follow units in order`
+                      : 'Units registered · lessons still being integrated'}
+                  </p>
                 </div>
               </div>
-                </div>
-              </details>
-            </Card>
-          )}
-
-          {curriculumSubject && (
-            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
-                  <div className="mt-4">
-                    <div className="flex items-center justify-between gap-3 mb-2">
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500">Curriculum units</h3>
-                      <span className="text-xs text-slate-500">
-                        {curriculumLessons.length > 0
-                          ? `${studiedCurriculumLessonCount} of ${curriculumLessons.length} lessons marked studied`
-                          : 'No lessons mapped yet'}
+              <div className="space-y-2">
+                {curriculumUnits.map((unit) => (
+                  <button
+                    key={unit.id}
+                    type="button"
+                    onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
+                    className="w-full rounded-xl border border-slate-200 bg-slate-50/80 hover:bg-teal-50 hover:border-teal-200 p-3 text-left transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-xs font-bold text-teal-800 w-10 shrink-0 pt-0.5">{unit.code}</span>
+                      <span className="min-w-0 flex-1">
+                        <span className="flex flex-wrap items-center gap-2">
+                          <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
+                          <span className={`rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
+                        </span>
+                        <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
+                        <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
                       </span>
+                      <ChevronRight className="w-4 h-4 text-teal-700 shrink-0 mt-1" />
                     </div>
-                    <div className="space-y-2">
-                      {curriculumUnits.map((unit) => (
-                        <button
-                          key={unit.id}
-                          onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
-                          className="w-full rounded-xl border border-teal-200 bg-white hover:bg-teal-50 p-3 text-left transition-colors cursor-pointer"
-                        >
-                          <div className="flex items-start gap-3">
-                            <span className="text-xs font-bold text-slate-500 w-10 shrink-0 pt-0.5">{unit.code}</span>
-                            <span className="min-w-0 flex-1">
-                              <span className="flex flex-wrap items-center gap-2">
-                                <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
-                                <span className={`rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide ${unit.readiness === 'review' ? 'bg-amber-100 text-amber-800' : unit.readiness === 'outlined' ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-600'}`}>{unit.readiness}</span>
-                              </span>
-                              <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
-                              <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons currently mapped` : 'Lessons not yet integrated'}</span>
-                            </span>
-                            {unit.legacySectionId && <ChevronRight className="w-4 h-4 text-teal-700 shrink-0 mt-1" />}
-                          </div>
-                        </button>
-                      ))}
+                  </button>
+                ))}
+              </div>
+              {curriculumSubject.projectIds.map((projectId) => {
+                const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
+                if (!project) return null;
+                return (
+                  <div key={project.id} className="mt-4 rounded-xl border border-violet-200 bg-violet-50/70 p-4">
+                    <div className="flex items-start gap-3">
+                      <span className="text-xs font-bold text-violet-800 shrink-0">Project</span>
+                      <div className="min-w-0">
+                        <p className="font-semibold text-sm text-slate-900">{project.title}</p>
+                        <p className="text-xs text-slate-600 mt-1">{project.purpose}</p>
+                      </div>
                     </div>
                   </div>
+                );
+              })}
+              {lastCurriculumLesson && (
+                <button type="button" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-sky-50/50 hover:bg-sky-50 p-3 text-left transition-colors">
+                  <span className="text-label font-semibold uppercase tracking-wide text-sky-800">Resume</span>
+                  <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
+                </button>
+              )}
             </Card>
           )}
 
-          {curriculumSubject && curriculumSubject.projectIds.length > 0 && (
-            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
-              <h2 className="font-semibold text-slate-900 mb-3">Projects & capstones</h2>
-              <div className="space-y-3">
-                  {curriculumSubject.projectIds.map((projectId) => {
-                    const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
-                    if (!project) return null;
-                    return (
-                      <div key={project.id} className="mt-4 rounded-xl border border-violet-200 bg-violet-50/70 p-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
-                            <GraduationCap className="w-5 h-5 text-violet-800" />
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <div className="flex flex-wrap items-center gap-2">
-                              <h3 className="font-semibold text-sm text-slate-900">{project.title}</h3>
-                              <span className="rounded-full px-2 py-0.5 text-label font-semibold uppercase tracking-wide bg-violet-100 text-violet-800">{project.readiness}</span>
-                            </div>
-                            <p className="text-xs text-slate-700 leading-relaxed mt-1">{project.purpose}</p>
-                            <p className="text-xs text-slate-500 mt-2">{project.milestones.length} milestones · assessed with a portfolio rubric</p>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
-            </Card>
-          )}
-
-{/* Sections accordion */}
-          {subjectSections.length > 0 && (
+          {/* Legacy Section → Topic path only when this subject has no canonical unit path yet */}
+          {subjectSections.length > 0 && !(curriculumSubject && curriculumUnits.length > 0) && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-slate-900">
-                {curriculumSubject && curriculumUnits.length > 0
-                  ? 'Legacy topic groups'
-                  : subjectId?.startsWith('cgei-')
-                    ? 'Topic groups'
-                    : 'Sections'}
+                {subjectId?.startsWith('cgei-') ? 'Topic groups' : 'Sections'}
               </h3>
               <span className="text-slate-400 text-sm">{subjectSections.length}</span>
             </div>
