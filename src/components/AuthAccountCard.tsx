@@ -11,7 +11,7 @@ import {
 
 /**
  * Email + password account card for cloud backup and cloud AI tutor.
- * Renders nothing when Supabase is not configured.
+ * Always visible: if Supabase env is missing, shows setup steps instead of hiding.
  */
 export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => void }) {
   const [email, setEmail] = useState(getStoredUserEmail() ?? '');
@@ -22,7 +22,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
   const [signedIn, setSignedIn] = useState(isSignedIn());
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
 
-  if (!isAuthConfigured()) return null;
+  const configured = isAuthConfigured();
 
   const refresh = () => {
     setSignedIn(isSignedIn());
@@ -31,6 +31,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    if (!configured) return;
     setBusy(true);
     setErr(null);
     setMsg(null);
@@ -46,7 +47,6 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
       refresh();
     } else {
       setErr(result.error);
-      // Sign-up may succeed without an immediate session (email confirm).
       if (/confirm your email/i.test(result.error)) {
         setMode('signin');
         setMsg(result.error);
@@ -77,7 +77,22 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
           </p>
         </div>
 
-        {signedIn ? (
+        {!configured ? (
+          <div className="rounded-btn border border-amber-200 bg-amber-50 p-3" role="status">
+            <p className="text-sm font-semibold text-amber-900">Supabase is not connected in this preview</p>
+            <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+              Add these two values in Bolt (project secrets / env), then restart the preview:
+            </p>
+            <ul className="mt-2 text-xs text-amber-900 list-disc pl-4 space-y-1 font-mono">
+              <li>VITE_SUPABASE_URL</li>
+              <li>VITE_SUPABASE_ANON_KEY</li>
+            </ul>
+            <p className="text-xs text-amber-800 mt-2 leading-relaxed">
+              Get them from the Supabase dashboard → Project Settings → API. Enable Authentication → Providers → Email
+              (for quick testing you can turn off “Confirm email”).
+            </p>
+          </div>
+        ) : signedIn ? (
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
             <p className="text-sm text-slate-700">
               Signed in as{' '}
