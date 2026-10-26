@@ -98,3 +98,30 @@ The manifest currently records a structural snapshot of 3 tracks, 1 exam profile
 ## Current scope limitation
 
 This is a first-pass repository and curriculum-quality audit based on checked-in source and audit documents. It does not claim independent review of all 2,763 source nodes, every question's factual correctness, all UI states, production deployment configuration, or real-data scientific validity. Those remain explicit work items rather than assumed successes.
+
+
+---
+
+## Current-main integrity snapshot (2026-10-26, C.80)
+
+**Baseline main:** `68caaa0be2a687ced334568887a3fbed7390b120` (check / e2e / scientific-smoke green).
+
+### Source traceability (#104)
+- Pinned extract: `docs/cgei/source-toc/priority-path-source-rows.csv` (2,763 nodes).
+- Core-leaf gate: 1,015 Core subtopics; disposition counts regenerated via `scripts/audit_core_leaf_coverage.py` (mapped 6 / mapped_partial 900 / deferred 109 / unmapped 0).
+- **Full-source disposition:** `scripts/audit_full_source_disposition.py` writes `docs/cgei/source-toc/full-source-disposition-report.csv` so every source path has an explicit disposition (including explicit `unmapped` and hierarchy `aggregate`).
+- Unit 3.4: pinned source priority is **Support**; stage narratives must not reclassify it as Core without source change control.
+- **Provenance limit:** original DOCX is not stored in-repo; manifest records expected SHA-256 of the supplied file when available. Hash does not prove institutional approval.
+
+### Whole-app integrity (#105)
+- `validate:data` / curriculum validation: structural pass (CGEI registry).
+- Question-bank validator: structural pass after fixing HATV-06-Q030 and HATV-03-Q011 duplicate options; remaining findings are style/policy warnings, not silent critical failures.
+- Persistence / live Supabase RLS / production restore: **not** re-executed in this cycle (no production credentials in agent environment).
+- Manual keyboard / screen-reader sign-off for install/update prompts: **not** claimed; automated e2e covers focus and touch-target heights only.
+- Branch-protection enforcement: not modified; required checks observed green on main SHAs but admin settings not asserted as code.
+
+### Explicit non-claims
+- Full instructional mastery for `mapped_partial` leaves.
+- Factual correctness of every assessment item beyond schema/option integrity.
+- Live cloud recovery certification.
+- Comprehensive security certification.
