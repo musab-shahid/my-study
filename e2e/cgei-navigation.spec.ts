@@ -71,8 +71,11 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     for (const subject of subjects) {
       await page.goto(`/learn/${subject.id}`);
       await expect(page.getByRole('heading', { name: 'Learning path', exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText(subject.firstUnit, { exact: true }).first()).toBeVisible();
-      await expect(page.getByText(subject.lastUnit, { exact: true }).first()).toBeVisible();
+      // The orientation's ordered unit list is intentionally inside collapsed <details>.
+      // Assert the actual, always-visible learning-path unit controls rather than the
+      // duplicate codes in that hidden orientation list.
+      await expect(page.getByRole('button').filter({ hasText: subject.firstUnit }).last()).toBeVisible();
+      await expect(page.getByRole('button').filter({ hasText: subject.lastUnit }).last()).toBeVisible();
     }
 
     await page.goto('/learn/cgei-data-science');
