@@ -167,6 +167,8 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_6_baseline_compare_check.py
       - name: Verify Unit 5.7 time-series lab arithmetic
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_timeseries_lab_check.py
+      - name: Verify Unit 5.7 stationarity and ADF interpretation
+        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_stationarity_adf_check.py
       - name: Verify Unit 5.8 EOF eigenvalue arithmetic
         run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_8_eof_weight_check.py
       - name: Verify Unit 5.9 logistic interpretation arithmetic
