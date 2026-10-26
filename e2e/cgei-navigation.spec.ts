@@ -98,10 +98,12 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/topic/cgei-env-systems-roadmap');
 
     await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
-    // Label is split across the heading text and a muted span; do not exact-match a single string.
-    const orientationLabel = page.locator('p').filter({ hasText: 'Domain orientation' }).filter({ hasText: 'not a study lesson' });
-    await expect(orientationLabel).toBeVisible({ timeout: 20_000 });
-    await expect(orientationLabel).toContainText('context only');
+    const orientation = page.locator('details').filter({ hasText: 'Domain orientation' });
+    await expect(orientation).toBeVisible({ timeout: 20_000 });
+    await expect(orientation.locator('summary')).toContainText('Brief context');
+    await expect(orientation).not.toHaveAttribute('open', '');
+    await orientation.locator('summary').click();
+    await expect(orientation).toHaveAttribute('open', '');
     await expect(page.getByText(/Structured lessons and assessments for this domain are being migrated progressively/)).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Sections', exact: true })).toHaveCount(0);
     await expect(page.getByText(/0 \/ 1 topics studied/)).toHaveCount(0);
