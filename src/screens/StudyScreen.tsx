@@ -311,7 +311,6 @@ export function StudyScreen() {
                 </div>
               </div>
                 </div>
-                </div>
               </details>
             </Card>
           )}
@@ -353,6 +352,7 @@ export function StudyScreen() {
                 </div>
               </details>
             </Card>
+          )}
 
           {curriculumSubject && (
             <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
