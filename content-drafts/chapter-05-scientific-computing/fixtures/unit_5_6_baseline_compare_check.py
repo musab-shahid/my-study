@@ -11,15 +11,23 @@ from __future__ import annotations
 import random
 
 
+def _validate_metric_pair(y, p):
+    if not y or len(y) != len(p):
+        raise ValueError("observed and predicted values must have equal non-zero lengths")
+
+
 def mae(y, p):
+    _validate_metric_pair(y, p)
     return sum(abs(a - b) for a, b in zip(y, p)) / len(y)
 
 
 def rmse(y, p):
+    _validate_metric_pair(y, p)
     return (sum((a - b) ** 2 for a, b in zip(y, p)) / len(y)) ** 0.5
 
 
 def bias(y, p):
+    _validate_metric_pair(y, p)
     return sum(b - a for a, b in zip(y, p)) / len(y)
 
 
@@ -59,14 +67,24 @@ def main() -> None:
     assert m_lin < m_base, f"MAE lin={m_lin} base={m_base}"
     assert r_lin < r_base, f"RMSE lin={r_lin} base={r_base}"
 
-    # Guard: refuse comparison if lengths diverge (mismatched evaluation sets)
-    try:
-        mae(test_y, pred_lin[:-1])
-        raise AssertionError("expected length mismatch to be detected by zip truncation check")
-    except Exception:
-        pass
-    # Explicit equal-length check used by teaching code
-    assert len(test_y) == len(pred_base) == len(pred_lin)
+    # Every metric must reject mismatched evaluation rows instead of allowing
+    # zip() to silently truncate the comparison.
+    for metric in (mae, rmse, bias):
+        try:
+            metric(test_y, pred_lin[:-1])
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"{metric.__name__} accepted mismatched lengths")
+
+    # Empty metric inputs must also fail clearly rather than divide by zero.
+    for metric in (mae, rmse, bias):
+        try:
+            metric([], [])
+        except ValueError:
+            pass
+        else:
+            raise AssertionError(f"{metric.__name__} accepted empty inputs")
 
     print(
         "PASS unit_5_6_baseline_compare_check "
