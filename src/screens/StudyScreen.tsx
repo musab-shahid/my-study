@@ -273,7 +273,7 @@ export function StudyScreen() {
             <Card className="mb-3 p-3 sm:p-4 border border-sky-100 bg-sky-50/40">
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <span className="min-w-0"><span className="block text-sm font-semibold text-sky-900">Domain orientation</span><span className="block text-xs text-slate-600 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Domain orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief context for {subjectTitle} · not a lesson</span></span>
                   <ChevronDown className="w-4 h-4 shrink-0 text-sky-700" aria-hidden />
                 </summary>
                 <div className="pt-3">
@@ -319,8 +319,8 @@ export function StudyScreen() {
             <Card className="mb-3 p-3 sm:p-4 border border-teal-100 bg-teal-50/40">
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <span className="min-w-0"><span className="block text-sm font-semibold text-teal-900">Course orientation</span><span className="block text-xs text-slate-600 mt-0.5">Brief introduction · not a lesson</span></span>
-                  <ChevronDown className="w-4 h-4 shrink-0 text-teal-700" aria-hidden />
+                  <span className="min-w-0"><span className="block text-sm font-semibold text-slate-900">Course orientation</span><span className="block text-xs text-slate-500 mt-0.5">Brief introduction · not a lesson</span></span>
+                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
                 </summary>
                 <div className="pt-3">
               <div className="flex items-start gap-3">
@@ -392,7 +392,7 @@ export function StudyScreen() {
           )}
 
           {curriculumSubject && curriculumSubject.projectIds.length > 0 && (
-            <Card className="mb-3 p-3.5 sm:p-5 border border-violet-200">
+            <Card className="mb-3 p-3.5 sm:p-5 border border-slate-200">
               <h2 className="font-semibold text-slate-900 mb-3">Projects & capstones</h2>
               <div className="space-y-3">
                   {curriculumSubject.projectIds.map((projectId) => {
