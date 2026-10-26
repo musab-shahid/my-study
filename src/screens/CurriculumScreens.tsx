@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { ArrowLeft, CheckCircle2, ChevronRight, Clock3, Link2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
@@ -77,9 +77,19 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
         <p className="text-slate-700 leading-relaxed mt-3">{unit.summary}</p>
       </div>
 
-      {unit.outcomes.length > 0 && <Card className="p-card-pad sm:p-card-pad-lg mb-5 border border-teal-100">
-        <h2 className="font-semibold text-slate-900 mb-3">Learning outcomes</h2>
-        <ul className="space-y-2">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-teal-50 text-teal-800 border border-teal-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
+      {unit.outcomes.length > 0 && <Card className="p-0 mb-5 border border-teal-100 overflow-hidden">
+        <details open>
+          <summary className="flex items-center justify-between gap-3 cursor-pointer list-none p-card-pad sm:p-card-pad-lg select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
+            <h2 className="font-semibold text-slate-900">Learning outcomes</h2>
+            <span className="flex items-center gap-2 text-xs text-slate-500">
+              <span>{unit.outcomes.length} outcomes</span>
+              <ChevronDown className="w-4 h-4 text-slate-400 transition-transform duration-DEFAULT [details[open]_&]:rotate-180" />
+            </span>
+          </summary>
+          <div className="px-card-pad sm:px-card-pad-lg pb-card-pad sm:pb-card-pad-lg">
+            <ul className="space-y-2">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-teal-50 text-teal-800 border border-teal-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
+          </div>
+        </details>
       </Card>}
 
       <section className="mb-6">
