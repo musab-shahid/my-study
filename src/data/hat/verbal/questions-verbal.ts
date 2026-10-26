@@ -849,7 +849,7 @@ export const verbalQuestions: Question[] = [
 
   { id: 'HATV-06-Q030', sectionId: 'HATV-06', topicId: 'hat-v6-idioms', difficulty: 'medium', type: 'single',
     question: 'Fill in the blank: "Don\'t worry about retirement now; we\'ll ___ that bridge when we come to it."',
-    options: ['burn', 'cross', 'build', 'cross that bridge when we come to it'.substring(0, 5)],
+    options: ['burn', 'cross', 'build', 'jump'],
     correctAnswer: 1,
     explanation: '"Cross that bridge when one comes to it" means to deal with a problem when it actually happens, not worry in advance.',
     sourceCitation: 'HAT idioms list', examType: 'hat', hatSection: 'verbal', hatSubtype: 'idiom' },
@@ -1949,7 +1949,7 @@ export const verbalQuestions: Question[] = [
 
   { id: 'HATV-03-Q011', sectionId: 'HATV-03', topicId: 'hat-v3-grammar', difficulty: 'medium', type: 'single',
     question: 'Choose the grammatically correct option:',
-    options: ['Here is the files you requested.', 'Here are the files you requested.', 'Here are the file you requested.', 'Here is the files you requested.'],
+    options: ['Here is the files you requested.', 'Here are the files you requested.', 'Here are the file you requested.', 'Here is the file you requested.'],
     correctAnswer: 1,
     explanation: 'In inverted sentences starting with "Here/There/Where/How", the verb agrees with the SUBJECT that comes AFTER the verb. "The files" is plural, so "are" is correct. "Is" would only be correct if the subject were singular ("Here is the file").',
     sourceCitation: 'HAT Verbal Prep — Grammar Rule 1O', examType: 'hat', hatSection: 'verbal', hatSubtype: 'sv-agreement' },

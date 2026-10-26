@@ -1,0 +1,66 @@
+{
+  "source_inventory_rows": 2763,
+  "unique_source_ids": 2763,
+  "disposition_totals": {
+    "aggregate": 700,
+    "mapped_partial": 1123,
+    "deferred": 159,
+    "unmapped": 775,
+    "mapped": 6
+  },
+  "by_node_type": {
+    "subject": {
+      "aggregate": 14
+    },
+    "unit": {
+      "aggregate": 130
+    },
+    "topic": {
+      "aggregate": 556,
+      "deferred": 3,
+      "mapped_partial": 8
+    },
+    "subtopic": {
+      "mapped_partial": 1115,
+      "deferred": 156,
+      "unmapped": 775,
+      "mapped": 6
+    }
+  },
+  "by_priority": {
+    "none": {
+      "aggregate": 14
+    },
+    "Core": {
+      "aggregate": 326,
+      "mapped_partial": 900,
+      "deferred": 110,
+      "mapped": 6
+    },
+    "Support": {
+      "aggregate": 247,
+      "unmapped": 501,
+      "mapped_partial": 206,
+      "deferred": 39
+    },
+    "Optional": {
+      "aggregate": 113,
+      "unmapped": 274,
+      "deferred": 10,
+      "mapped_partial": 17
+    }
+  },
+  "matrix_disposition_ids": 1296,
+  "core_subtopics_without_matrix_row": 0,
+  "unit_3_4_priority_note": "Unit 3.4 source priority='Support'; child subtopic priority counts={}. Pinned inventory is authoritative for source priority; stage-completion narrative must not override Support\u2192Core.",
+  "denominators": {
+    "full_extracted_inventory": 2763,
+    "subtopics": 2052,
+    "core_subtopics_in_source": 1015
+  },
+  "limits": [
+    "Original DOCX is not in-repo; manifest hash identifies bytes when the file is supplied.",
+    "Disposition is not instructional mastery or readiness promotion.",
+    "aggregate nodes are structural and do not imply child completeness."
+  ]
+}
