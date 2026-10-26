@@ -47,3 +47,11 @@ A lesson is **review-ready** only with: explanation+limits, worked reasoning, gu
 The Subject 3.1 traceability registry now explicitly records source leaves 3.1.1.5 and 3.1.1.6 as deferred because the current lesson evidence does not teach the stated data-model and raster-grid conventions. The generated report links both rows to `subject-3-unit-3.1-subtopic-traceability.csv`.
 
 CI runs the transitional audit to regenerate the report, then runs the strict audit against the same repository data and asserts the expected blocking result: exit code 1, 207 unmapped Core leaves, and 0 stale lesson-ID references. This is an expected-failure assertion, not a waiver; strict coverage remains blocked until unmapped leaves receive evidence-based dispositions. The report artifact is uploaded after both runs.
+
+## Current-main snapshot (2026-10-26, post-PR #137 + Unit 6.1 refresh)
+
+Historical counts above remain valid for their recorded baselines. Regenerated on branch `feat/cgei-subject6-core-slice` after rebase onto `15fff7f`:
+
+* Run `python scripts/audit_core_leaf_coverage.py` for live denominators.
+* Do not promote `mapped_partial` to `mapped` without full instructional contract evidence.
+* Issue #104 remains open until acceptance criteria beyond structural disposition are met.
