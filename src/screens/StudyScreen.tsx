@@ -285,24 +285,6 @@ export function StudyScreen() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-1">Context</p>
                   <h2 className="text-lg font-bold text-slate-900">{subjectTitle}</h2>
                   {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-2">{roadmapTopic.definition}</p>}
-                  {roadmapTopic.explanationSections?.map((section) => (
-                    <div key={section.heading} className="mt-3">
-                      <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
-                      <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
-                    </div>
-                  ))}
-                  {roadmapTopic.keyFacts?.length ? (
-                    <div className="mt-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Orientation notes</h3>
-                      <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
-                    </div>
-                  ) : null}
-                  {roadmapTopic.examPoints?.length ? (
-                    <div className="mt-4">
-                      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Learning principles</h3>
-                      <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-sky-700 font-bold">•</span><span>{point}</span></li>)}</ul>
-                    </div>
-                  ) : null}
                   {subjectTopics.length === 0 && (
                     <p className="mt-4 rounded-lg border border-sky-100 bg-white/80 p-3 text-xs text-slate-600">
                       Structured lessons and assessments for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
@@ -331,22 +313,7 @@ export function StudyScreen() {
                   <p className="text-xs font-semibold uppercase tracking-wide text-teal-800 mb-1">Introduction</p>
                   <h2 className="text-lg font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
                   <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
-                  <div className="mt-4">
-                    <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">What you will learn</h3>
-                    <ul className="space-y-1.5">
-                      {curriculumSubject.outcomes.map((outcome) => (
-                        <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
-                          <span className="text-teal-700 font-bold">•</span><span>{outcome.statement}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {lastCurriculumLesson && (
-                    <button onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 rounded-xl border border-sky-200 bg-white hover:bg-sky-50 p-3 text-left transition-colors">
-                      <span className="text-label font-semibold uppercase tracking-wide text-sky-800">Resume your last curriculum lesson</span>
-                      <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-sky-700 shrink-0" /></span>
-                    </button>
-                  )}
+}
                 </div>
               </div>
                 </div>
