@@ -25,14 +25,14 @@ Useful scripts:
 | `npm run lint` | ESLint |
 | `npm run build` | Production build + bundle budget |
 | `npm run validate:data` | Curriculum / question / traceability validators |
-| `npm run check:design-system` | Net-new design-system guard on the latest diff |
+| `npm run check:design-system` | Whole-tree baseline ratchet + net-new styling guard |
 | `npm run test:e2e` | Playwright e2e (requires `npm run test:e2e:install`) |
 
 ## Cloud features
 
 Cloud backup and the cloud AI tutor require a Supabase Auth session. Without a session token, cloud backup controls stay disabled and the cloud tutor path returns “Sign in required”. Local study, quizzes, and offline progress continue to work without sign-in.
 
-Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (see `.env.example`). Provider keys for the AI proxy are edge-function secrets only and are never bundled in the client.
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (see `.env.example`). Provider keys for the AI proxy are edge-function secrets only and are never bundled in the client. Configure the edge-function secret `APP_ALLOWED_ORIGINS` as a comma-separated list of exact deployed app origins (for example, `https://study.example.com`). Localhost origins are allowed only when `ENVIRONMENT` is not `production`.
 
 ## Accessibility
 
