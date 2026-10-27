@@ -1,8 +1,5 @@
 import { useEffect, useRef } from 'react';
-import {
-  Search, Clock, Settings as SettingsIcon, RotateCcw,
-  FunctionSquare, TrendingUp, X, Layers,
-} from 'lucide-react';
+import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 import { IconButton } from '@/components/ui';
 import { useRouter } from '@/router';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -20,8 +17,8 @@ const studyTools = [
   { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
-  { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
-  { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
+  { icon: FEATURE_ICONS.flashcards, label: 'Flashcards', screen: 'flashcards' as const },
+  { icon: FEATURE_ICONS.mockExam, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
 const tools = [
@@ -101,7 +98,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           <div className="flex items-center justify-between px-5">
             <h3 id="mobile-tools-title" className="font-bold text-slate-900 text-base tracking-tight">More</h3>
             <IconButton label="Close" onClick={onClose} className="text-slate-500">
-              <X className="w-5 h-5" aria-hidden />
+              <INTERACTION_ICONS.close className="w-5 h-5" aria-hidden />
             </IconButton>
           </div>
         </div>

@@ -1,4 +1,5 @@
-import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
+import { Home } from 'lucide-react';
+import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 import { useRouter } from '@/router';
 import { breadcrumbForRoute } from '@/router/paths';
 import { IconButton, Button } from '@/components/ui';
@@ -14,7 +15,7 @@ export function Breadcrumbs({ showCurrent = true }: { showCurrent?: boolean } = 
         const isCurrent = showCurrent && i === displayItems.length - 1;
         return (
           <div key={i} className="flex items-center gap-1 shrink-0">
-            {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-300 shrink-0" aria-hidden />}
+            {i > 0 && <INTERACTION_ICONS.forward className="w-3.5 h-3.5 text-slate-300 shrink-0" aria-hidden />}
             {isCurrent ? (
               <span className="text-slate-800 font-semibold truncate max-w-[160px] sm:max-w-[200px]" aria-current="page">
                 {item.label}
@@ -46,7 +47,7 @@ export function BackButton({ fallbackToHome: _fallbackToHome = false }: { fallba
       }}
       className="shrink-0"
     >
-      <ChevronLeft className="w-5 h-5" aria-hidden />
+      <INTERACTION_ICONS.back className="w-5 h-5" aria-hidden />
     </IconButton>
   );
 }

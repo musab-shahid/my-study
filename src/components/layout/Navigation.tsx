@@ -1,9 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Home, Brain, RotateCcw, FunctionSquare, TrendingUp,
-  Search, Clock, Settings as SettingsIcon, Trophy,
-  ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
-  Layers, Library,
+  Home, TrendingUp, Search, Clock, Settings as SettingsIcon, Cloud,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
@@ -23,6 +20,7 @@ import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
 import { AppBrand } from '@/components/ui';
 import { FEATURE_ICONS } from '@/lib/feature-icons';
+import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 
 const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
 
@@ -174,7 +172,7 @@ export function Sidebar() {
                         >
                           <Icon className={`w-3.5 h-3.5 shrink-0 ${colors.text}`} />
                           <span className="flex-1 text-left truncate">{sub.title}</span>
-                          <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+                          <INTERACTION_ICONS.expand className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} aria-hidden />
                         </button>
                         {expanded && (
                           <div id={`subject-nav-${subjectId}`} className="ml-2 mb-1 space-y-0.5">
@@ -287,7 +285,7 @@ export function Sidebar() {
                 : 'text-slate-400 hover:text-white hover:bg-slate-800'
             }`}
           >
-            <Layers className="w-5 h-5 shrink-0" />
+            <FEATURE_ICONS.flashcards className="w-5 h-5 shrink-0" aria-hidden />
             Flashcards
           </button>
           <button
@@ -430,7 +428,7 @@ export function MobileNav() {
               <span className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full bg-brand-400" aria-hidden />
             )}
             <span className="relative">
-              <MoreHorizontal className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} />
+              <INTERACTION_ICONS.more className="w-5 h-5" strokeWidth={moreActive ? 2.25 : 2} aria-hidden />
               {reviewDue > 0 && (
                 <span className="absolute -top-1.5 -right-2 min-w-5 h-5 px-1 rounded-full bg-warning-700 text-white text-caption font-bold leading-5 text-center">
                   {reviewDue > 9 ? '9+' : reviewDue}
