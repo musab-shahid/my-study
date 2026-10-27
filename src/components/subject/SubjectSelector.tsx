@@ -1,4 +1,4 @@
-import { ChevronDown, Check } from 'lucide-react';
+import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 import { useRef, useEffect, useCallback, useId } from 'react';
 import { subjects } from '@/data/subjects';
 import { subjectsForScope } from '@/lib/track-scope';
@@ -90,7 +90,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
           )}
           <span className="truncate">{currentLabel}</span>
         </span>
-        <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-DEFAULT ${open ? 'rotate-180' : ''}`} />
+        <INTERACTION_ICONS.expand className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-DEFAULT ${open ? 'rotate-180' : ''}`} aria-hidden />
       </button>
       {open && (
         <div
@@ -116,7 +116,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-slate-300 shrink-0" />
                 <span className="flex-1">All Subjects</span>
-                {value === 'all' && <Check className="w-4 h-4 text-brand-500" />}
+                {value === 'all' && <INTERACTION_ICONS.check className="w-4 h-4 text-brand-500" />}
               </button>
             );
           })()}
@@ -144,7 +144,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
                 <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${getSubjectStyle(subject.id).dotBg}`} />
                 <span className="flex-1 truncate">{subject.title}</span>
                 {disabled && <span className="text-slate-400 text-xs">(no content)</span>}
-                {active && <Check className="w-4 h-4 text-brand-500" />}
+                {active && <INTERACTION_ICONS.check className="w-4 h-4 text-brand-500" />}
               </button>
             );
           })}

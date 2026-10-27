@@ -15,12 +15,14 @@ function readSrc(rel: string): string {
 describe('feature icons registry', () => {
   it('defines the primary destination set in source', () => {
     const src = readSrc('src/lib/feature-icons.ts');
-    for (const id of ['home', 'tracks', 'learn', 'practice', 'review', 'formulas', 'progress', 'search', 'settings']) {
+    for (const id of ['home', 'tracks', 'learn', 'practice', 'review', 'formulas', 'progress', 'search', 'settings', 'flashcards', 'mockExam']) {
       assert.match(src, new RegExp(`${id}:\\s*\\w+`), `missing feature id ${id}`);
     }
     assert.match(src, /practice:\s*Brain/);
     assert.match(src, /learn:\s*BookOpen/);
     assert.match(src, /tracks:\s*Library/);
+    assert.match(src, /flashcards:\s*Layers/);
+    assert.match(src, /mockExam:\s*Clock/);
     assert.match(src, /formulas:\s*FunctionSquare/);
     assert.ok(!/practice:\s*Dumbbell/.test(src));
     assert.ok(!/^\s*Dumbbell,?$/m.test(src));

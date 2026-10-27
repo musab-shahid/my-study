@@ -18,6 +18,9 @@ for (const f of files) {
   if (/Dumbbell/.test(t)) {
     errors.push(`${f}: Dumbbell still referenced — Practice must use FEATURE_ICONS.practice (Brain)`);
   }
+  if (/\bSigma\b/.test(t)) {
+    errors.push(`${f}: Sigma must not be used for Formulas — use FEATURE_ICONS.formulas`);
+  }
 }
 const brand = readFileSync('src/components/ui/index.tsx', 'utf8');
 if (/BookOpenCheck/.test(brand)) {
