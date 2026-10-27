@@ -291,18 +291,6 @@ export function Sidebar() {
             Flashcards
           </button>
           <button
-            onClick={() => navigate({ screen: 'cloud-atlas', parent: null })}
-            aria-current={currentScreen === 'cloud-atlas' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'cloud-atlas'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Cloud className="w-5 h-5 shrink-0" />
-            Cloud Atlas
-          </button>
-          <button
             onClick={() => { setActiveSubjectForScreen('progress', 'all'); navigate({ screen: 'progress', parent: null }); }}
             aria-current={currentScreen === 'progress' && getActiveSubject('progress') === 'all' ? 'page' : undefined}
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
@@ -367,11 +355,12 @@ export function MobileNav() {
     currentScreen === 'track' ||
     currentScreen === 'fpsc' ||
     currentScreen === 'hat';
+  // Primary study loop first: Home → Learn → Practice; Tracks for enrollment/switching.
   const navItems = [
     { icon: FEATURE_ICONS.home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },
-    { icon: FEATURE_ICONS.tracks, label: 'Tracks', screen: 'track' as ScreenName, onClick: tracksClick },
-    { icon: FEATURE_ICONS.practice, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
     { icon: FEATURE_ICONS.learn, label: 'Learn', screen: 'learn' as ScreenName, onClick: () => goToStage('learn') },
+    { icon: FEATURE_ICONS.practice, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
+    { icon: FEATURE_ICONS.tracks, label: 'Tracks', screen: 'track' as ScreenName, onClick: tracksClick },
   ];
   const reviewDue = (() => {
     try {

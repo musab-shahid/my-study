@@ -2,11 +2,12 @@
  * Canonical feature → Lucide icon mapping for primary navigation surfaces.
  * Sidebar stages, mobile bottom bar, and ToolsTray must import from here
  * so the same destination never gets two different symbols.
+ * Learn uses BookOpen (study), Tracks uses Library (catalog) — do not conflate them.
  */
 import {
   Home,
   Library,
-  BookCopy,
+  BookOpen,
   Brain,
   RotateCcw,
   FunctionSquare,
@@ -30,7 +31,7 @@ export type FeatureIconId =
 export const FEATURE_ICONS: Record<FeatureIconId, LucideIcon> = {
   home: Home,
   tracks: Library,
-  learn: BookCopy,
+  learn: BookOpen,
   /** Unified Practice icon on sidebar stages and bottom nav. */
   practice: Brain,
   review: RotateCcw,

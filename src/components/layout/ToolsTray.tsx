@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import {
   Search, Clock, Settings as SettingsIcon, RotateCcw,
-  FunctionSquare, TrendingUp, X, Layers, Cloud,
+  FunctionSquare, TrendingUp, X, Layers,
 } from 'lucide-react';
 import { IconButton } from '@/components/ui';
 import { useRouter } from '@/router';
@@ -21,7 +21,6 @@ const studyTools = [
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
   { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
-  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
   { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
   { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
@@ -30,7 +29,6 @@ const tools = [
   { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
   { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
   { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
-  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
   { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
@@ -67,7 +65,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     if (item.screen === 'practice' && item.mode === 'mock') {
       navigate({ screen: 'practice', mode: 'mock' });
     } else {
-      navigate({ screen: item.screen as 'review' | 'formulas' | 'progress' | 'search' | 'flashcards' | 'cloud-atlas' | 'settings' });
+      navigate({ screen: item.screen as 'review' | 'formulas' | 'progress' | 'search' | 'flashcards' | 'settings' });
     }
     onClose();
   };
