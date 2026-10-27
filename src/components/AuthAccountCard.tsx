@@ -122,12 +122,11 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <div className="flex gap-2 text-xs">
-              <button
+            <div className="flex gap-2 text-xs items-center">
+              <Button
                 type="button"
-                className={`font-semibold min-h-touch px-1 ${
-                  mode === 'signin' ? 'text-brand-700 underline' : 'text-slate-600'
-                }`}
+                size="sm"
+                variant={mode === 'signin' ? 'secondary' : 'ghost'}
                 onClick={() => {
                   setMode('signin');
                   setErr(null);
@@ -135,15 +134,14 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                 }}
               >
                 Sign in
-              </button>
+              </Button>
               <span className="text-slate-400" aria-hidden>
                 ·
               </span>
-              <button
+              <Button
                 type="button"
-                className={`font-semibold min-h-touch px-1 ${
-                  mode === 'signup' ? 'text-brand-700 underline' : 'text-slate-600'
-                }`}
+                size="sm"
+                variant={mode === 'signup' ? 'secondary' : 'ghost'}
                 onClick={() => {
                   setMode('signup');
                   setErr(null);
@@ -151,7 +149,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                 }}
               >
                 Create account
-              </button>
+              </Button>
             </div>
             <label className="block">
               <span className="text-xs font-medium text-slate-700">Email</span>

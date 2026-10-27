@@ -28,7 +28,8 @@
     "audit:core-leaf-evidence": "npx --yes tsx --tsconfig tsconfig.app.json scripts/audit-core-leaf-evidence.ts",
     "validate:traceability:all": "tsx --tsconfig tsconfig.app.json scripts/validate-all-traceability.ts",
     "audit:full-source": "python3 scripts/audit_full_source_disposition.py",
-    "scan:secrets": "python3 scripts/scan_repo_secrets.py"
+    "scan:secrets": "python3 scripts/scan_repo_secrets.py",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

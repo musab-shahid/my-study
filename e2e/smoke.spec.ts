@@ -414,8 +414,8 @@ test.describe('Settings reset failure feedback', () => {
     const localDataBefore = await page.evaluate(() => localStorage.getItem('examprep-data'));
 
     await page.getByRole('button', { name: 'Select all' }).click();
-    await page.getByRole('button', { name: 'Reset All' }).click();
-    await page.getByRole('button', { name: 'Yes, Delete' }).click();
+    await page.getByRole('button', { name: 'Reset selected' }).click();
+    await page.getByRole('button', { name: 'Confirm reset' }).click();
 
     const resetAlert = page.getByRole('alert').filter({
       hasText: 'Reset cancelled because a recovery backup could not be saved.',
