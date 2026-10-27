@@ -459,22 +459,31 @@ export function IconButton({
   onClick,
   label,
   className = '',
+  size = 'md',
+  disabled,
 }: {
   children: ReactNode;
   onClick?: () => void;
   label: string;
   className?: string;
+  /** md = 44px touch target; lg = 48px for overlays/dismiss */
+  size?: 'md' | 'lg';
+  disabled?: boolean;
 }) {
+  const sizeClass = size === 'lg' ? 'w-12 h-12 min-h-[48px] min-w-[48px]' : 'w-11 h-11 min-h-touch min-w-[44px]';
   return (
     <button
       type="button"
       onClick={onClick}
+      disabled={disabled}
       aria-label={label}
       className={[
-        'flex items-center justify-center w-11 h-11 rounded-btn',
+        'inline-flex items-center justify-center rounded-btn box-border',
+        sizeClass,
         'text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200',
         'transition-colors duration-DEFAULT touch-manipulation',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1',
+        'disabled:opacity-50 disabled:cursor-not-allowed',
         className,
       ].join(' ')}
     >

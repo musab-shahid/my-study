@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, type ReactNode } from 'react';
 import { Download, X, Library, Share } from 'lucide-react';
+import { Button, IconButton } from '@/components/ui';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 
 const DISMISS_KEY = 'pwa-install-dismissed';
@@ -148,9 +149,9 @@ export function InstallPrompt() {
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <button type="button" onClick={handleDismiss} className="absolute top-1 right-1 inline-flex h-12 min-h-[48px] min-w-[48px] items-center justify-center rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 box-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white" aria-label="Dismiss">
-          <X className="w-4 h-4" />
-        </button>
+        <IconButton label="Dismiss" onClick={handleDismiss} size="lg" className="absolute top-1 right-1 text-slate-400 hover:text-slate-600">
+          <X className="w-4 h-4" aria-hidden />
+        </IconButton>
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-md">
             {icon}
@@ -172,14 +173,10 @@ export function InstallPrompt() {
       <Library className="w-5 h-5 text-white" />,
       'Install App',
       'On iPhone or iPad, open the Share menu in Safari, then choose "Add to Home Screen". The app will work like a native app, including offline access.',
-      <button
-        type="button"
-        onClick={handleDismiss}
-        className="inline-flex h-12 min-h-[48px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-      >
-        <X className="w-3.5 h-3.5" />
+      <Button variant="ghost" size="lg" onClick={handleDismiss}>
+        <X className="w-3.5 h-3.5" aria-hidden />
         Not now
-      </button>,
+      </Button>,
     );
   }
 
@@ -190,22 +187,14 @@ export function InstallPrompt() {
     'Install App',
     'Add the app to your home screen for quick access. It works offline and your progress is saved on your device.',
     <>
-      <button
-        type="button"
-        onClick={handleInstall}
-        className="inline-flex h-12 min-h-[48px] items-center gap-1.5 px-4 py-2 rounded-lg bg-brand-700 text-white text-xs font-semibold hover:bg-brand-800 transition-colors shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-      >
-        <Download className="w-3.5 h-3.5" aria-hidden="true" />
+      <Button variant="primary" size="lg" onClick={handleInstall}>
+        <Download className="w-3.5 h-3.5" aria-hidden />
         Install
-      </button>
-      <button
-        type="button"
-        onClick={handleDismiss}
-        className="inline-flex h-12 min-h-[48px] items-center gap-1 px-3 py-2 rounded-lg text-slate-500 text-xs font-medium hover:text-slate-700 hover:bg-slate-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
-      >
-        <X className="w-3.5 h-3.5" />
+      </Button>
+      <Button variant="ghost" size="lg" onClick={handleDismiss}>
+        <X className="w-3.5 h-3.5" aria-hidden />
         Not now
-      </button>
+      </Button>
     </>,
   );
 }
