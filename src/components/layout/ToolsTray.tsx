@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import {
   Search, Clock, Settings as SettingsIcon, RotateCcw,
-  Sigma, TrendingUp, X, Layers, Cloud,
+  FunctionSquare, TrendingUp, X, Layers, Cloud,
 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
@@ -16,7 +16,7 @@ interface ToolsTrayProps {
 
 const studyTools = [
   { icon: RotateCcw, label: 'Review', screen: 'review' as const },
-  { icon: Sigma, label: 'Formulas', screen: 'formulas' as const },
+  { icon: FunctionSquare, label: 'Formulas', screen: 'formulas' as const },
   { icon: TrendingUp, label: 'Progress', screen: 'progress' as const },
 ];
 

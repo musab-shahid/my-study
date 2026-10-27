@@ -1,5 +1,7 @@
 /**
- * UI chrome derived from the track registry — avoid hard-coded fpsc/hat maps.
+ * UI chrome derived from the central track registry — avoids hard-coded
+ * fpsc/hat/cgei color maps and keeps a single source of truth in
+ * subject-colors.ts (getTrackStyle).
  */
 import {
   listTrackDefinitions,
@@ -8,6 +10,7 @@ import {
   type TrackId,
 } from "../data/tracks.ts";
 import { FileText, GraduationCap, type LucideIcon } from "lucide-react";
+import { getTrackStyle } from "../data/subject-colors.ts";
 
 const ICON_BY_KEY: Record<string, LucideIcon> = {
   FileText,
@@ -23,30 +26,21 @@ export function trackIcon(trackId: TrackId): LucideIcon {
   return ICON_BY_KEY[key] ?? FileText;
 }
 
+/**
+ * Track accent classes for surfaces that need raw Tailwind gradient/icon-wrap
+ * strings (e.g. the mobile ToolsTray). Derived from the central track style
+ * registry so there is exactly one definition per track — no parallel palette.
+ */
 export function trackAccentClasses(trackId: TrackId): {
   gradient: string;
   iconWrap: string;
   text: string;
 } {
-  const accent = getTrackDefinition(trackId).accent;
-  if (accent === "indigo") {
-    return {
-      gradient: "from-indigo-500 to-violet-600",
-      iconWrap: "bg-indigo-700",
-      text: "text-indigo-700",
-    };
-  }
-  if (accent === "teal") {
-    return {
-      gradient: "from-teal-500 to-cyan-600",
-      iconWrap: "bg-teal-700",
-      text: "text-teal-700",
-    };
-  }
+  const style = getTrackStyle(trackId);
   return {
-    gradient: "from-sky-500 to-cyan-600",
-    iconWrap: "bg-sky-700",
-    text: "text-sky-700",
+    gradient: style.gradient,
+    iconWrap: style.iconGradient,
+    text: style.accentText,
   };
 }
 
