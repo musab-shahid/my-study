@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback, useRef } from 'react';
-import { RefreshCw, BookOpen } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 import { Button } from '@/components/ui';
 
 type Props = {
@@ -183,7 +184,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
           aria-label="Application update available"
         >
           <div className="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
-            <BookOpen className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} />
+            <FEATURE_ICONS.learn className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} aria-hidden />
           </div>
           <div className="flex-1 min-w-0" role="status" aria-live="polite" aria-atomic="true">
             <p className="font-semibold text-slate-900 text-sm">Update available</p>

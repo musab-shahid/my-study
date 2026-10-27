@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import {
-  Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
+  Home, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
   Layers, Library,
@@ -26,7 +26,7 @@ import { FEATURE_ICONS } from '@/lib/feature-icons';
 
 const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
 
-const stageIcons: Record<StageScreen, typeof BookCopy> = {
+const stageIcons: Record<StageScreen, typeof FEATURE_ICONS.learn> = {
   learn: FEATURE_ICONS.learn,
   practice: FEATURE_ICONS.practice,
   review: FEATURE_ICONS.review,
@@ -156,7 +156,7 @@ export function Sidebar() {
                   {trackSubs.map((sub) => {
                     const subjectId = sub.id as SubjectId;
                     const colors = getSubjectStyle(subjectId);
-                    const Icon = sub.lucideIcon ?? BookCopy;
+                    const Icon = sub.lucideIcon ?? FEATURE_ICONS.learn;
                     const expanded = expandedSubject === subjectId;
                     return (
                       <div key={subjectId}>
