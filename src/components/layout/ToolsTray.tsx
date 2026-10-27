@@ -3,6 +3,7 @@ import {
   Search, Clock, Settings as SettingsIcon, RotateCcw,
   FunctionSquare, TrendingUp, X, Layers, Cloud,
 } from 'lucide-react';
+import { IconButton } from '@/components/ui';
 import { useRouter } from '@/router';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { allTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
@@ -104,14 +105,9 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           <div className="sheet-handle mb-3" aria-hidden />
           <div className="flex items-center justify-between px-5">
             <h3 id="mobile-tools-title" className="font-bold text-slate-900 text-base tracking-tight">More</h3>
-            <button
-              type="button"
-              onClick={onClose}
-              className="w-10 h-10 rounded-btn flex items-center justify-center text-slate-500 hover:bg-slate-100 active:bg-slate-200 transition-colors duration-DEFAULT touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <IconButton label="Close" onClick={onClose} className="text-slate-500">
+              <X className="w-5 h-5" aria-hidden />
+            </IconButton>
           </div>
         </div>
 

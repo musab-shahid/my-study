@@ -63,7 +63,7 @@ export default {
         'card':     '0 1px 2px 0 rgb(15 23 42 / 0.04)',
         'card-hover': '0 2px 8px -2px rgb(15 23 42 / 0.08)',
         'glow-brand': '0 0 0 1px rgb(var(--color-brand-700) / 0.12)',
-        'glow-indigo': '0 0 0 1px rgb(67 56 202 / 0.12)',
+        'glow-brand-soft': '0 0 0 1px rgb(var(--color-brand-500) / 0.16)',
       },
       maxWidth: {
         content: '56rem',       /* standard workspace */
@@ -94,7 +94,7 @@ export default {
           to:   { opacity: '1', transform: 'translateX(0)' },
         },
         pulseGlow: {
-          '0%, 100%': { boxShadow: '0 0 0 0 rgba(99, 102, 241, 0.15)' },
+          '0%, 100%': { boxShadow: '0 0 0 0 rgba(2, 132, 199, 0.15)' },
           '50%':      { boxShadow: '0 0 0 8px rgba(99, 102, 241, 0)' },
         },
         shimmer: {

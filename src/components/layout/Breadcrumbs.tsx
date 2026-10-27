@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Home } from 'lucide-react';
 import { useRouter } from '@/router';
 import { breadcrumbForRoute } from '@/router/paths';
+import { IconButton, Button } from '@/components/ui';
 
 export function Breadcrumbs({ showCurrent = true }: { showCurrent?: boolean } = {}) {
   const { currentRoute, navigate } = useRouter();
@@ -34,35 +35,34 @@ export function Breadcrumbs({ showCurrent = true }: { showCurrent?: boolean } = 
   );
 }
 
-export function BackButton({ fallbackToHome = false }: { fallbackToHome?: boolean } = {}) {
+export function BackButton({ fallbackToHome: _fallbackToHome = false }: { fallbackToHome?: boolean } = {}) {
   const { back, canGoBack, navigate } = useRouter();
-  if (!canGoBack && !fallbackToHome) return null;
   return (
-    <button
-      type="button"
+    <IconButton
+      label="Go back"
       onClick={() => {
         if (canGoBack) back();
         else navigate({ screen: 'home', parent: null });
       }}
-      className="flex items-center justify-center w-11 h-11 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200 transition-colors duration-DEFAULT shrink-0 touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1"
-      aria-label="Go back"
+      className="shrink-0"
     >
-      <ChevronLeft className="w-5 h-5" />
-    </button>
+      <ChevronLeft className="w-5 h-5" aria-hidden />
+    </IconButton>
   );
 }
 
 export function HomeButton() {
   const { navigate } = useRouter();
   return (
-    <button
-      type="button"
+    <Button
+      variant="ghost"
+      size="md"
       onClick={() => navigate({ screen: 'home', parent: null })}
-      className="flex items-center gap-1.5 px-3 h-11 rounded-btn text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200 transition-colors duration-DEFAULT shrink-0 text-sm font-medium touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1"
+      className="shrink-0"
       aria-label="Go to home"
     >
-      <Home className="w-4 h-4" />
+      <Home className="w-4 h-4" aria-hidden />
       Home
-    </button>
+    </Button>
   );
 }
