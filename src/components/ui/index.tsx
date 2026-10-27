@@ -1,5 +1,6 @@
 import type { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
-import { BookOpenCheck, CheckCircle2, Circle, Star, Lock, Flame } from 'lucide-react';
+import { CheckCircle2, Circle, Star, Lock, Flame } from 'lucide-react';
+import { BrandMark } from './BrandMark';
 import { getSubjectColor } from '@/data/subject-colors';
 
 export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
@@ -495,12 +496,9 @@ export function AppBrand({
 }) {
   return (
     <div className={`inline-flex min-w-0 items-center gap-3 ${className}`}>
-      <span
-        aria-hidden="true"
-        className={`inline-flex shrink-0 items-center justify-center rounded-btn bg-brand-700 text-white ${compact ? 'h-8 w-8' : 'h-10 w-10'}`}
-      >
-        <BookOpenCheck className={compact ? 'h-4 w-4' : 'h-5 w-5'} />
-      </span>
+      <BrandMark
+        className={`shrink-0 text-brand-700 ${compact ? 'h-8 w-8' : 'h-10 w-10'} rounded-btn`}
+      />
       <span className="min-w-0">
         <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-slate-900'}`}>My Study</span>
         {!compact && (
@@ -514,4 +512,5 @@ export function AppBrand({
 }
 
 
+export { BrandMark } from './BrandMark';
 export { Field, Dialog, Tabs, Notice } from './primitives.tsx';

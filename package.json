@@ -31,7 +31,8 @@
     "scan:secrets": "python3 scripts/scan_repo_secrets.py",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:branding": "node scripts/check-branding.mjs",
-    "check:headers": "node scripts/security-headers.mjs --check"
+    "check:headers": "node scripts/security-headers.mjs --check",
+    "check:feature-icons": "node scripts/check-feature-icons.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

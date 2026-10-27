@@ -8,6 +8,7 @@ import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { allTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
 import { listTrackDefinitions, type TrackId } from '@/data/tracks';
 import { openTrackOptions } from '@/router/openTrack';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 
 interface ToolsTrayProps {
   isOpen: boolean;
@@ -15,17 +16,21 @@ interface ToolsTrayProps {
 }
 
 const studyTools = [
-  { icon: RotateCcw, label: 'Review', screen: 'review' as const },
-  { icon: FunctionSquare, label: 'Formulas', screen: 'formulas' as const },
-  { icon: TrendingUp, label: 'Progress', screen: 'progress' as const },
+  { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
+  { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
+  { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
+  { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
+  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
+  { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
+  { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
 const tools = [
-  { icon: Search, label: 'Search', screen: 'search' as const },
+  { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
   { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
   { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
   { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
-  { icon: SettingsIcon, label: 'Settings', screen: 'settings' as const },
+  { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
 function isTrackActive(screen: string, trackId: TrackId, routeTrackId?: string): boolean {

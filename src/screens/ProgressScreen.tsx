@@ -19,6 +19,7 @@ import { countMasteredTopics } from '@/lib/attention';
 import { getSubjectColor } from '@/data/subject-colors';
 import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader, ListRow } from '@/components/ui';
 import type { SubjectId } from '@/types';
+import { CHART_COLORS } from '@/lib/chart-colors';
 
 /** Honesty label when filter is All Subjects — stats are not bank-wide. */
 function practicedSubjectsNote(isAll: boolean): string {
@@ -429,12 +430,12 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
       >
         <defs>
           <linearGradient id="accArea" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#0ea5e9" stopOpacity="0.18" />
-            <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0.01" />
+            <stop offset="0%" stopColor=CHART_COLORS.brand stopOpacity="0.18" />
+            <stop offset="100%" stopColor=CHART_COLORS.brand stopOpacity="0.01" />
           </linearGradient>
           <linearGradient id="accLine" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#0284c7" />
-            <stop offset="100%" stopColor="#0ea5e9" />
+            <stop offset="0%" stopColor=CHART_COLORS.brandDeep />
+            <stop offset="100%" stopColor=CHART_COLORS.brand />
           </linearGradient>
         </defs>
 
@@ -443,8 +444,8 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
           const y = yFor(pct);
           return (
             <g key={pct}>
-              <line x1={padL} y1={y} x2={width - padR} y2={y} stroke="#f1f5f9" strokeWidth="1" strokeDasharray={pct === 0 ? '0' : '3 4'} />
-              <text x={padL - 6} y={y + 3} textAnchor="end" fontSize="9" fill="#94a3b8" fontWeight="600">{pct}</text>
+              <line x1={padL} y1={y} x2={width - padR} y2={y} stroke=CHART_COLORS.grid strokeWidth="1" strokeDasharray={pct === 0 ? '0' : '3 4'} />
+              <text x={padL - 6} y={y + 3} textAnchor="end" fontSize="9" fill=CHART_COLORS.axis fontWeight="600">{pct}</text>
             </g>
           );
         })}
@@ -460,8 +461,8 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
           const x = xFor(i);
           return (
             <g key={i}>
-              <text x={x} y={height - padB + 14} textAnchor="middle" fontSize="9" fill={hovered === i ? '#0ea5e9' : '#94a3b8'} fontWeight={hovered === i ? 700 : 400}>{d.label}</text>
-              {d.subLabel && <text x={x} y={height - padB + 26} textAnchor="middle" fontSize="8" fill="#cbd5e1">{d.subLabel}</text>}
+              <text x={x} y={height - padB + 14} textAnchor="middle" fontSize="9" fill={hovered === i ? CHART_COLORS.brand : CHART_COLORS.axis} fontWeight={hovered === i ? 700 : 400}>{d.label}</text>
+              {d.subLabel && <text x={x} y={height - padB + 26} textAnchor="middle" fontSize="8" fill=CHART_COLORS.axisMuted>{d.subLabel}</text>}
               <rect
                 x={x - (chartW / n) / 2}
                 y={padT}
@@ -476,14 +477,14 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
         {/* Data points */}
         {points.map((p) => {
-          const color = p.d.accuracy! >= 75 ? '#059669' : p.d.accuracy! >= 50 ? '#d97706' : '#dc2626';
+          const color = p.d.accuracy! >= 75 ? CHART_COLORS.success : p.d.accuracy! >= 50 ? CHART_COLORS.warning : CHART_COLORS.danger;
           const isHovered = hovered === p.i;
           return (
             <g key={p.i}>
               {(hovered === p.i) && (
-                <line x1={p.x} y1={padT} x2={p.x} y2={padT + chartH} stroke="#cbd5e1" strokeWidth="1" strokeDasharray="3 3" />
+                <line x1={p.x} y1={padT} x2={p.x} y2={padT + chartH} stroke=CHART_COLORS.axisMuted strokeWidth="1" strokeDasharray="3 3" />
               )}
-              <circle cx={p.x} cy={p.y} r={isHovered ? 6 : 4} fill="#fff" stroke={color} strokeWidth={isHovered ? 3 : 2} style={{ transition: 'r 0.15s' }} />
+              <circle cx={p.x} cy={p.y} r={isHovered ? 6 : 4} fill=CHART_COLORS.tooltipFg stroke={color} strokeWidth={isHovered ? 3 : 2} style={{ transition: 'r 0.15s' }} />
               {isHovered && (
                 <circle cx={p.x} cy={p.y} r="10" fill={color} fillOpacity="0.12" />
               )}
@@ -502,9 +503,9 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
           const tipY = Math.max(padT, y - tipH - 12);
           return (
             <g pointerEvents="none">
-              <rect x={tipX} y={tipY} width={tipW} height={tipH} rx="8" fill="#1e293b" fillOpacity="0.92" />
-              <text x={tipX + tipW / 2} y={tipY + 16} textAnchor="middle" fontSize="12" fill="#fff" fontWeight="700">{d.accuracy}% accuracy</text>
-              <text x={tipX + tipW / 2} y={tipY + 32} textAnchor="middle" fontSize="9" fill="#94a3b8">{d.correct}/{d.questions} · {d.quizzes} quiz{d.quizzes !== 1 ? 'zes' : ''}</text>
+              <rect x={tipX} y={tipY} width={tipW} height={tipH} rx="8" fill=CHART_COLORS.tooltipBg fillOpacity="0.92" />
+              <text x={tipX + tipW / 2} y={tipY + 16} textAnchor="middle" fontSize="12" fill=CHART_COLORS.tooltipFg fontWeight="700">{d.accuracy}% accuracy</text>
+              <text x={tipX + tipW / 2} y={tipY + 32} textAnchor="middle" fontSize="9" fill=CHART_COLORS.axis>{d.correct}/{d.questions} · {d.quizzes} quiz{d.quizzes !== 1 ? 'zes' : ''}</text>
             </g>
           );
         })()}
@@ -518,8 +519,8 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
           const tipY = padT + 8;
           return (
             <g pointerEvents="none">
-              <rect x={tipX} y={tipY} width={tipW} height={tipH} rx="8" fill="#1e293b" fillOpacity="0.92" />
-              <text x={tipX + tipW / 2} y={tipY + 17} textAnchor="middle" fontSize="10" fill="#94a3b8">No quizzes</text>
+              <rect x={tipX} y={tipY} width={tipW} height={tipH} rx="8" fill=CHART_COLORS.tooltipBg fillOpacity="0.92" />
+              <text x={tipX + tipW / 2} y={tipY + 17} textAnchor="middle" fontSize="10" fill=CHART_COLORS.axis>No quizzes</text>
             </g>
           );
         })()}

@@ -3,7 +3,7 @@ import {
   Home, BookCopy, Brain, RotateCcw, FunctionSquare, TrendingUp,
   Search, Clock, Settings as SettingsIcon, Trophy,
   ChevronRight, ChevronDown, Cloud, MoreHorizontal, FileText,
-  Dumbbell, Layers, Library,
+  Layers, Library,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
@@ -22,16 +22,17 @@ import { openTrackOptions } from '@/router/openTrack';
 import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
 import { AppBrand } from '@/components/ui';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 
 const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
 
 const stageIcons: Record<StageScreen, typeof BookCopy> = {
-  learn: BookCopy,
-  practice: Brain,
-  review: RotateCcw,
-  formulas: FunctionSquare,
-  progress: TrendingUp,
-  search: Search,
+  learn: FEATURE_ICONS.learn,
+  practice: FEATURE_ICONS.practice,
+  review: FEATURE_ICONS.review,
+  formulas: FEATURE_ICONS.formulas,
+  progress: FEATURE_ICONS.progress,
+  search: FEATURE_ICONS.search,
 };
 
 function trackNavStyles(trackId: ExamTrack) {
@@ -367,10 +368,10 @@ export function MobileNav() {
     currentScreen === 'fpsc' ||
     currentScreen === 'hat';
   const navItems = [
-    { icon: Home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },
-    { icon: Library, label: 'Tracks', screen: 'track' as ScreenName, onClick: tracksClick },
-    { icon: Dumbbell, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
-    { icon: BookCopy, label: 'Learn', screen: 'learn' as ScreenName, onClick: () => goToStage('learn') },
+    { icon: FEATURE_ICONS.home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },
+    { icon: FEATURE_ICONS.tracks, label: 'Tracks', screen: 'track' as ScreenName, onClick: tracksClick },
+    { icon: FEATURE_ICONS.practice, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
+    { icon: FEATURE_ICONS.learn, label: 'Learn', screen: 'learn' as ScreenName, onClick: () => goToStage('learn') },
   ];
   const reviewDue = (() => {
     try {
