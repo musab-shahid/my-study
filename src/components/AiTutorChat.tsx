@@ -505,7 +505,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
     return (
       <button
         onPointerDown={handleFabPointerDown}
-        className="fixed z-[9999] flex items-center gap-2 px-5 py-3.5 rounded-full bg-gradient-to-r from-sky-500 to-blue-600 text-white font-semibold text-sm shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 hover:scale-105 transition-transform touch-none select-none cursor-grab active:cursor-grabbing"
+        className="fixed z-[9999] flex items-center gap-2 px-5 py-3.5 rounded-full bg-gradient-to-r from-brand-700 to-brand-900 text-white font-semibold text-sm shadow-lg shadow-brand-700/30 hover:shadow-xl hover:shadow-brand-700/40 hover:scale-105 transition-transform touch-none select-none cursor-grab active:cursor-grabbing"
         style={fabStyle}
       >
         <Sparkles className="w-5 h-5 pointer-events-none" />
@@ -530,21 +530,21 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
       {/* Header */}
       <div
         onPointerDown={handleDragStart}
-        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-sky-500 to-blue-600 text-white cursor-grab active:cursor-grabbing touch-none select-none"
+        className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-brand-700 to-brand-900 text-white cursor-grab active:cursor-grabbing touch-none select-none"
       >
         <div className="flex items-center gap-2 min-w-0">
           <GripVertical className="w-4 h-4 shrink-0 opacity-60" />
           <MessageCircle className="w-5 h-5 shrink-0" />
           <div className="min-w-0">
             <p className="font-semibold text-sm">AI Tutor</p>
-            <p className="text-sky-100 text-xs truncate max-w-[200px]">{topicTitle}</p>
+            <p className="text-white/80 text-xs truncate max-w-[200px]">{topicTitle}</p>
           </div>
         </div>
         <div className="flex items-center gap-1 shrink-0" onPointerDown={stopDragPropagation}>
           {messages.length > 0 && (
             <button
               onClick={resetChat}
-              className="text-sky-100 hover:text-white text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors"
+              className="text-white/80 hover:text-white text-xs px-2 py-1 rounded hover:bg-white/10 transition-colors"
             >
               Clear
             </button>
@@ -553,7 +553,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             onClick={isExpanded ? collapsePanel : expandPanel}
             title={isExpanded ? 'Collapse' : 'Expand'}
             aria-label={isExpanded ? 'Collapse panel' : 'Expand panel'}
-            className="text-sky-100 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
+            className="text-white/80 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
           >
             {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
           </button>
@@ -563,7 +563,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               setIsOpen(false);
             }}
             aria-label="Close chat"
-            className="text-sky-100 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
+            className="text-white/80 hover:text-white p-1 rounded hover:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -580,7 +580,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           onClick={() => setShowModelDropdown(!showModelDropdown)}
           aria-haspopup="listbox"
           aria-expanded={showModelDropdown}
-          className="flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-sky-600 transition-colors"
+          className="flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-brand-700 transition-colors"
         >
           {currentModel?.label ?? 'Select model'}
           {currentModel?.badge && (
@@ -589,7 +589,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             </span>
           )}
           {currentModel?.free && (
-            <span className="text-[10px] font-normal text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded-full">
+            <span className="text-[10px] font-normal text-success-700 bg-success-100 px-1.5 py-0.5 rounded-full">
               Free
             </span>
           )}
@@ -606,7 +606,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                   setShowModelDropdown(false);
                 }}
                 className={`flex items-center justify-between w-full px-3 py-2 text-sm text-left hover:bg-slate-50 transition-colors ${
-                  modelId === m.id ? 'text-sky-600 font-medium' : 'text-slate-700'
+                  modelId === m.id ? 'text-brand-700 font-medium' : 'text-slate-700'
                 }`}
               >
                 <span className="flex items-center gap-2">
@@ -617,12 +617,12 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                     </span>
                   )}
                   {m.free && (
-                    <span className="text-[10px] font-normal text-emerald-600 bg-emerald-100 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-normal text-success-700 bg-success-100 px-1.5 py-0.5 rounded-full">
                       Free
                     </span>
                   )}
                 </span>
-                {modelId === m.id && <Check className="w-3.5 h-3.5 text-sky-500" />}
+                {modelId === m.id && <Check className="w-3.5 h-3.5 text-brand-700" />}
               </button>
             ))}
           </div>
@@ -633,8 +633,8 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-slate-50">
         {messages.length === 0 && !loading && (
           <div className="text-center py-6">
-            <div className="w-12 h-12 rounded-full bg-sky-100 flex items-center justify-center mx-auto mb-3">
-              <Sparkles className="w-6 h-6 text-sky-500" />
+            <div className="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center mx-auto mb-3">
+              <Sparkles className="w-6 h-6 text-brand-700" />
             </div>
             <p className="text-slate-600 text-sm mb-4">
               Ask me anything about <span className="font-semibold">{topicTitle}</span>
@@ -647,7 +647,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="block w-full text-left px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm hover:border-sky-300 hover:bg-sky-50/50 transition-colors"
+                  className="block w-full text-left px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm hover:border-brand-400 hover:bg-brand-50/50 transition-colors"
                 >
                   {prompt}
                 </button>
@@ -664,7 +664,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             <div
               className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 msg.role === 'user'
-                  ? 'bg-sky-500 text-white rounded-br-md whitespace-pre-line'
+                  ? 'bg-brand-700 text-white rounded-br-md whitespace-pre-line'
                   : 'bg-white border border-slate-200 text-slate-700 rounded-bl-md'
               }`}
             >
@@ -691,7 +691,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         {loading && (
           <div className="flex justify-start">
             <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-2">
-              <Loader2 className="w-4 h-4 text-sky-500 animate-spin" />
+              <Loader2 className="w-4 h-4 text-brand-700 animate-spin" />
               <span className="text-slate-400 text-xs">{currentModel?.label}</span>
               <button
                 onClick={handleStop}
@@ -742,14 +742,14 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             aria-label="Type your question"
             rows={1}
             maxLength={MAX_INPUT_LENGTH}
-            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-colors max-h-24"
+            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-colors max-h-24"
             style={{ minHeight: '40px' }}
           />
           <button
             onClick={() => sendMessage(input)}
             disabled={!input.trim() || loading || cooldownRemaining > 0}
             aria-label="Send message"
-            className="p-2.5 rounded-xl bg-sky-500 text-white hover:bg-sky-600 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
+            className="p-2.5 rounded-xl bg-brand-700 text-white hover:bg-brand-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors shrink-0"
           >
             <Send className="w-4 h-4" />
           </button>

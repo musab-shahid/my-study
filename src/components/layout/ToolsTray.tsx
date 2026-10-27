@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 import {
   Search, Clock, Settings as SettingsIcon, RotateCcw,
-  Sigma, TrendingUp, X, Trophy, FileText, Layers, Cloud,
+  Sigma, TrendingUp, X, Layers, Cloud,
 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { allTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
+import { listTrackDefinitions, type TrackId } from '@/data/tracks';
+import { openTrackOptions } from '@/router/openTrack';
 
 interface ToolsTrayProps {
   isOpen: boolean;
@@ -25,22 +28,11 @@ const tools = [
   { icon: SettingsIcon, label: 'Settings', screen: 'settings' as const },
 ];
 
-const examTracks = [
-  {
-    icon: FileText,
-    label: 'FPSC Exam',
-    isActive: (screen: string, trackId?: string) => screen === 'fpsc' || (screen === 'track' && trackId === 'fpsc'),
-    route: { screen: 'fpsc' as const },
-    iconClass: 'text-sky-600',
-  },
-  {
-    icon: Trophy,
-    label: 'HAT Prep',
-    isActive: (screen: string, trackId?: string) => screen === 'hat' || (screen === 'track' && trackId === 'hat'),
-    route: { screen: 'hat' as const },
-    iconClass: 'text-indigo-600',
-  },
-];
+function isTrackActive(screen: string, trackId: TrackId, routeTrackId?: string): boolean {
+  if (screen === 'track' && routeTrackId === trackId) return true;
+  // Legacy screen aliases still resolve to their track landing.
+  return screen === trackId;
+}
 
 export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
   const { route, navigate } = useRouter();
@@ -73,6 +65,19 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     }
     onClose();
   };
+
+  const trackRows = allTrackIds().map((trackId) => {
+    const def = listTrackDefinitions().find((t) => t.id === trackId);
+    if (!def) return null;
+    const routeTrackId = 'trackId' in route ? (route.trackId as string | undefined) : undefined;
+    return {
+      trackId,
+      icon: trackIcon(trackId),
+      label: def.title,
+      active: isTrackActive(route.screen, trackId, routeTrackId),
+      accentText: trackAccentClasses(trackId).text,
+    };
+  }).filter((r): r is NonNullable<typeof r> => r !== null);
 
   return (
     <div hidden={!isOpen}>
@@ -151,24 +156,21 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
 
           <section aria-labelledby="more-tracks-heading">
-            <p id="more-tracks-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Exam tracks</p>
+            <p id="more-tracks-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
             <div className="space-y-0.5">
-              {examTracks.map((item) => {
-                const active = item.isActive(route.screen, 'trackId' in route ? route.trackId : undefined);
-                return (
-                  <button
-                    key={item.label}
-                    type="button"
-                    onClick={() => { navigate(item.route); onClose(); }}
-                    aria-current={active ? 'page' : undefined}
-                    className={rowClass(active)}
-                  >
-                    <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : item.iconClass}`} aria-hidden />
-                    <span className="font-medium text-sm">{item.label}</span>
-                    {active && <span className="ml-auto text-xs font-semibold">Current</span>}
-                  </button>
-                );
-              })}
+              {trackRows.map((row) => (
+                <button
+                  key={row.trackId}
+                  type="button"
+                  onClick={() => { navigate({ ...openTrackOptions(row.trackId) }); onClose(); }}
+                  aria-current={row.active ? 'page' : undefined}
+                  className={rowClass(row.active)}
+                >
+                  <row.icon className={`w-5 h-5 shrink-0 ${row.active ? 'text-brand-700' : row.accentText}`} aria-hidden />
+                  <span className="font-medium text-sm">{row.label}</span>
+                  {row.active && <span className="ml-auto text-xs font-semibold">Current</span>}
+                </button>
+              ))}
             </div>
           </section>
         </div>

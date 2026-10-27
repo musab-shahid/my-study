@@ -92,8 +92,41 @@ for (const name of ['brand-500', 'danger-500', 'warning-500', 'success-500']) {
   console.log(`INFO ${name} on white: ${contrastRatio(fg, white).toFixed(2)}:1 (avoid text-white on *-500 body text)`);
 }
 
+// Component-level pair assertions — catches utility-class regressions the
+// token-on-white pass above does not cover (e.g. badges using raw emerald/sky
+// pairs that bypass semantic tokens). These mirror real pairs used in the AI
+// tutor, badge components, and other floating chrome.
+function parseRgbTokenRaw(name) {
+  return parseRgbToken(name);
+}
+
+const componentPairs = [
+  // success-700 on success-100 — the AA-safe "Free" badge pair (was emerald-600/emerald-100 ~3.3:1).
+  { name: 'success-700 on success-100', fg: 'success-700', bg: 'success-100', min: 4.5 },
+  // brand-700 on brand-100 — tutor empty-state icon, suggested prompt hover.
+  { name: 'brand-700 on brand-100', fg: 'brand-700', bg: 'brand-100', min: 4.5 },
+  // white on brand-700 — tutor FAB, header, send button, user bubble.
+  { name: 'white on brand-700', fg: '__white__', bg: 'brand-700', min: 4.5 },
+  // white on brand-900 — darker end of tutor gradient.
+  { name: 'white on brand-900', fg: '__white__', bg: 'brand-900', min: 4.5 },
+];
+
+for (const { name, fg: fgName, bg: bgName, min } of componentPairs) {
+  const fg = fgName === '__white__' ? white : parseRgbTokenRaw(fgName);
+  const bg = parseRgbTokenRaw(bgName);
+  if (!fg || !bg) {
+    console.error(`missing component pair ${name} (${fgName}/${bgName})`);
+    failed += 1;
+    continue;
+  }
+  const ratio = contrastRatio(fg, bg);
+  const ok = ratio >= min;
+  console.log(`${ok ? 'OK' : 'FAIL'} component ${name}: ${ratio.toFixed(2)}:1 (need ≥${min})`);
+  if (!ok) failed += 1;
+}
+
 if (failed) {
   console.error(`Contrast check failed: ${failed} pair(s)`);
   process.exit(1);
 }
-console.log('Contrast checks passed for owned semantic tokens and text-on-surface pairs.');
+console.log('Contrast checks passed for owned semantic tokens, text-on-surface pairs, and component-level pairs.');
