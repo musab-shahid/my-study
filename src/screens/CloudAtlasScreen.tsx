@@ -46,7 +46,7 @@ export function CloudAtlasScreen() {
               <div className="flex items-center gap-2 mb-3">
                 <Cloud className="w-5 h-5 text-slate-700" />
                 <h2 className="font-semibold text-slate-900 text-lg">{level} Clouds</h2>
-                <span className="text-slate-400 text-sm">({levelClouds.length})</span>
+                <span className="text-slate-600 text-sm">({levelClouds.length})</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {levelClouds.map((cloud) => (
@@ -58,7 +58,7 @@ export function CloudAtlasScreen() {
                     >
                       <div className="flex items-center justify-between mb-2">
                         <p className="font-semibold text-slate-900">{cloud.name}</p>
-                        <ChevronRight className="w-4 h-4 text-slate-400" />
+                        <ChevronRight className="w-4 h-4 text-slate-600" />
                       </div>
                       <p className="text-slate-500 text-xs">{cloud.altitude}</p>
                     </button>

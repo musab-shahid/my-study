@@ -41,3 +41,15 @@ Contrast against WCAG AA, keyboard focus, and shared UI primitives are project a
 ## License
 
 No license file is published yet. All rights reserved unless a license is added.
+
+## Privacy
+
+Progress stays on-device by default. Optional cloud backup and the AI tutor are described in **Settings → Privacy & data**.
+
+## Security
+
+See [SECURITY.md](./SECURITY.md) for how to report vulnerabilities.
+
+## License
+
+See [LICENSE](./LICENSE). All rights reserved unless a separate written grant says otherwise.

@@ -200,7 +200,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
             >
               {!flipped ? (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-400 mb-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
                     {card!.topicTitle}
                   </p>
                   <div className="text-lg sm:text-xl font-semibold text-slate-900 leading-snug">
@@ -229,7 +229,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
                   {card!.hint && (
                     <p className="mt-3 text-sm text-slate-500">{card!.hint}</p>
                   )}
-                  <p className="mt-6 text-sm text-slate-400 flex items-center gap-1.5">
+                  <p className="mt-6 text-sm text-slate-600 flex items-center gap-1.5">
                     <EyeOff className="w-4 h-4" /> Tap to hide
                   </p>
                 </>

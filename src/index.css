@@ -184,3 +184,12 @@
 .formula-display .katex {
   font-size: 1.2em;
 }
+
+@layer utilities {
+  .text-ink {
+    color: var(--text-primary);
+  }
+  .text-ink-muted {
+    color: var(--text-muted);
+  }
+}

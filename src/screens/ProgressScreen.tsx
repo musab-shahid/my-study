@@ -163,7 +163,7 @@ return (
               <div>
                 <h3 className="font-semibold text-slate-900">Accuracy over time</h3>
                 <p className="text-xs text-slate-500 mt-1">Weekly percentage of attempted questions answered correctly.</p>
-                <p className="text-slate-400 text-xs mt-0.5">
+                <p className="text-slate-600 text-xs mt-0.5">
                   Last {weeklyData.length} weeks · {totalQuestionsThisPeriod} questions answered
                   {practicedSubjectsNote(isAllSubjects) ? ` · ${practicedSubjectsNote(isAllSubjects)}` : ''}
                 </p>
@@ -196,7 +196,7 @@ return (
               <div className="mb-4">
                 <h3 className="font-semibold text-slate-900">By Subject</h3>
                 {practicedSubjectsNote(isAllSubjects) && (
-                  <p className="text-slate-400 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
+                  <p className="text-slate-600 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
                 )}
               </div>
               <div className="space-y-4">
@@ -215,7 +215,7 @@ return (
                         <span className="text-sm font-bold shrink-0 ml-2">{mScore}/100</span>
                       </div>
                       <ProgressBar value={mScore} colorClass={color.bar} />
-                      <p className="text-slate-400 text-xs mt-0.5">{sStats.studiedTopics}/{sStats.totalTopics} topics · {sStats.accuracy === null ? 'No quiz attempts yet' : `${sStats.accuracy}% accuracy`}</p>
+                      <p className="text-slate-600 text-xs mt-0.5">{sStats.studiedTopics}/{sStats.totalTopics} topics · {sStats.accuracy === null ? 'No quiz attempts yet' : `${sStats.accuracy}% accuracy`}</p>
                     </div>
                   );
                 })}
@@ -239,7 +239,7 @@ return (
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
                       <ProgressBar value={accuracy ?? 0} color={accuracy === null ? 'sky' : accuracy >= 75 ? 'green' : accuracy >= 50 ? 'amber' : 'red'} />
-                      <p className="text-slate-400 text-xs mt-0.5">{studiedCount}/{sectionTopicCount} topics studied</p>
+                      <p className="text-slate-600 text-xs mt-0.5">{studiedCount}/{sectionTopicCount} topics studied</p>
                     </div>
                   );
                 })}
@@ -252,7 +252,7 @@ return (
             <div className="mb-3">
               <h3 className="font-semibold text-slate-900">Weakest Topics</h3>
               {practicedSubjectsNote(isAllSubjects) && (
-                <p className="text-slate-400 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
+                <p className="text-slate-600 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
               )}
             </div>
             {weakTopics.length > 0 ? (
@@ -265,7 +265,7 @@ return (
                   return (
                     <div key={w.topicId} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-slate-400 text-xs font-bold w-4 shrink-0">{i + 1}</span>
+                        <span className="text-slate-600 text-xs font-bold w-4 shrink-0">{i + 1}</span>
                         {color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />}
                         <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm">{topic.title}</span>
                       </div>
@@ -419,7 +419,7 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
   return (
     <div className="w-full overflow-x-auto">
-      <p className="text-xs text-slate-400 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
+      <p className="text-xs text-slate-600 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
       <svg
         role="img"
         aria-label={`Weekly accuracy chart with ${validPoints.length} weeks containing quiz attempts.`}
@@ -542,7 +542,7 @@ function StatCard({ icon, label, value, sub, color }: { icon: React.ReactNode; l
       <p className="text-slate-500 text-xs font-medium">{label}</p>
       <div className="flex items-baseline gap-0.5 mt-1">
         <span className="text-xl font-bold text-slate-900 font-mono tabular-nums">{value}</span>
-        {sub && <span className="text-slate-400 text-xs">{sub}</span>}
+        {sub && <span className="text-slate-600 text-xs">{sub}</span>}
       </div>
     </Card>
   );

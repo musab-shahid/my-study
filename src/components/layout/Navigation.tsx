@@ -101,7 +101,7 @@ export function Sidebar() {
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
               ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/25'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              : 'text-slate-600 hover:text-white hover:bg-slate-800'
           }`}
         >
           <Home className="w-5 h-5 shrink-0" />
@@ -140,7 +140,7 @@ export function Sidebar() {
                 className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium transition-all duration-DEFAULT border-l-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                   isTrackRouteActive
                     ? `${styles.activeBorder} text-white bg-slate-800`
-                    : 'border-transparent text-slate-400 hover:text-white hover:bg-slate-800'
+                    : 'border-transparent text-slate-600 hover:text-white hover:bg-slate-800'
                 }`}
               >
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
@@ -167,7 +167,7 @@ export function Sidebar() {
                             setExpandedSubject((prev) => (prev === subjectId ? null : subjectId));
                           }}
                           className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                            expanded ? 'text-white bg-slate-800' : 'text-slate-400 hover:text-white hover:bg-slate-800/80'
+                            expanded ? 'text-white bg-slate-800' : 'text-slate-600 hover:text-white hover:bg-slate-800/80'
                           }`}
                         >
                           <Icon className={`w-3.5 h-3.5 shrink-0 ${colors.text}`} />
@@ -189,7 +189,7 @@ export function Sidebar() {
                                   }}
                                   aria-current={active ? 'page' : undefined}
                                   className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                                    active ? styles.stageActive : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/60'
+                                    active ? styles.stageActive : 'text-slate-500 hover:text-slate-500 hover:bg-slate-800/60'
                                   }`}
                                 >
                                   <StageIcon className="w-3.5 h-3.5 shrink-0" />
@@ -201,7 +201,7 @@ export function Sidebar() {
                               <button
                                 type="button"
                                 onClick={() => navigate({ screen: 'cloud-atlas', parent: null })}
-                                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-slate-500 hover:text-slate-300 hover:bg-slate-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
+                                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-slate-500 hover:text-slate-500 hover:bg-slate-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
                               >
                                 <Cloud className="w-3.5 h-3.5 shrink-0" />
                                 Cloud Atlas
@@ -239,7 +239,7 @@ export function Sidebar() {
               className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium border-l-2 mb-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                 active
                   ? `${styles.activeBorder} text-white ${styles.activeBg}`
-                  : 'border-transparent text-slate-400 hover:text-white hover:bg-slate-800'
+                  : 'border-transparent text-slate-600 hover:text-white hover:bg-slate-800'
               }`}
             >
               <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
@@ -258,7 +258,7 @@ export function Sidebar() {
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
               currentScreen === 'search'
                 ? 'text-white bg-slate-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                : 'text-slate-600 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Search className="w-5 h-5 shrink-0" />
@@ -270,7 +270,7 @@ export function Sidebar() {
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
               route.screen === 'practice' && route.mode === 'mock'
                 ? 'text-white bg-slate-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                : 'text-slate-600 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Clock className="w-5 h-5 shrink-0" />
@@ -282,7 +282,7 @@ export function Sidebar() {
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
               currentScreen === 'flashcards'
                 ? 'text-white bg-slate-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                : 'text-slate-600 hover:text-white hover:bg-slate-800'
             }`}
           >
             <FEATURE_ICONS.flashcards className="w-5 h-5 shrink-0" aria-hidden />
@@ -294,7 +294,7 @@ export function Sidebar() {
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
               currentScreen === 'progress' && getActiveSubject('progress') === 'all'
                 ? 'text-white bg-slate-800'
-                : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                : 'text-slate-600 hover:text-white hover:bg-slate-800'
             }`}
           >
             <TrendingUp className="w-5 h-5 shrink-0" />
@@ -310,7 +310,7 @@ export function Sidebar() {
           className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'settings'
               ? 'text-white bg-slate-800'
-              : 'text-slate-400 hover:text-white hover:bg-slate-800'
+              : 'text-slate-600 hover:text-white hover:bg-slate-800'
           }`}
         >
           <SettingsIcon className="w-5 h-5 shrink-0" />
@@ -397,7 +397,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-                  active ? activeColor : 'text-slate-500 hover:text-slate-300'
+                  active ? activeColor : 'text-slate-500 hover:text-slate-500'
                 }`}
               >
                 {active && (
@@ -421,7 +421,7 @@ export function MobileNav() {
             aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-              moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-300'
+              moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-500'
             }`}
           >
             {moreActive && (

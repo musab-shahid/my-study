@@ -584,7 +584,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         >
           {currentModel?.label ?? 'Select model'}
           {currentModel?.badge && (
-            <span className="text-[10px] font-normal text-slate-400 bg-slate-200 px-1.5 py-0.5 rounded-full">
+            <span className="text-[10px] font-normal text-slate-600 bg-slate-200 px-1.5 py-0.5 rounded-full">
               {currentModel.badge}
             </span>
           )}
@@ -612,7 +612,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                 <span className="flex items-center gap-2">
                   {m.label}
                   {m.badge && (
-                    <span className="text-[10px] font-normal text-slate-400 bg-slate-100 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-normal text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded-full">
                       {m.badge}
                     </span>
                   )}
@@ -675,7 +675,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               {msg.role === 'assistant' && (
                 <button
                   onClick={() => handleCopy(msg)}
-                  className="mt-1.5 flex items-center gap-1 text-xs text-slate-400 hover:text-slate-600 transition-colors"
+                  className="mt-1.5 flex items-center gap-1 text-xs text-slate-600 hover:text-slate-600 transition-colors"
                 >
                   {copiedId === msg.id ? (
                     <><CheckIcon className="w-3 h-3" /> Copied</>
@@ -692,7 +692,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           <div className="flex justify-start">
             <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-2">
               <Loader2 className="w-4 h-4 text-brand-700 animate-spin" />
-              <span className="text-slate-400 text-xs">{currentModel?.label}</span>
+              <span className="text-slate-600 text-xs">{currentModel?.label}</span>
               <button
                 onClick={handleStop}
                 className="ml-2 flex items-center gap-1 text-xs text-slate-500 hover:text-danger-500 transition-colors"
@@ -742,7 +742,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             aria-label="Type your question"
             rows={1}
             maxLength={MAX_INPUT_LENGTH}
-            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-colors max-h-24"
+            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-600 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-colors max-h-24"
             style={{ minHeight: '40px' }}
           />
           <button
@@ -755,11 +755,11 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           </button>
         </div>
         <div className="flex items-center justify-between mt-1.5 px-1">
-          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-warning-500' : 'text-slate-300'}`}>
+          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-warning-500' : 'text-slate-500'}`}>
             {input.length}/{MAX_INPUT_LENGTH}
           </span>
           {cooldownRemaining > 0 && (
-            <span className="text-[10px] text-slate-400">
+            <span className="text-[10px] text-slate-600">
               Please wait {Math.ceil(cooldownRemaining / 1000)}s...
             </span>
           )}
@@ -771,7 +771,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         onPointerDown={handleResizeStart}
         className="absolute bottom-0 right-0 w-6 h-6 cursor-se-resize touch-none z-20"
       >
-        <svg viewBox="0 0 10 10" className="w-full h-full text-slate-400" fill="currentColor">
+        <svg viewBox="0 0 10 10" className="w-full h-full text-slate-600" fill="currentColor">
           <path d="M9.5 9.5 L9.5 6.5 L6.5 9.5 Z" />
           <path d="M9.5 9.5 L9.5 3.5 L3.5 9.5 Z" opacity="0.5" />
         </svg>

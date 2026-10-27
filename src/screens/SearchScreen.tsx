@@ -123,14 +123,14 @@ export function SearchScreen() {
       ) : (
         <>
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
             <input
               type="search"
               aria-label={`Search ${subjectTitle}`}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${subjectTitle}…`}
-              className="w-full min-h-12 pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-slate-900 placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:border-brand-400"
+              className="w-full min-h-12 pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-slate-900 placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:border-brand-400"
               autoComplete="off"
             />
           </div>
@@ -183,7 +183,7 @@ export function SearchScreen() {
                             {result.match}
                           </p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" aria-hidden />
+                        <ChevronRight className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" aria-hidden />
                       </ListRow>
                     </Card>
                   );

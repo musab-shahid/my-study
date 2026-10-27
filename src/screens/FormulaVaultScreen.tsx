@@ -159,7 +159,7 @@ export function FormulaVaultScreen() {
                               <span className="font-medium text-slate-700">Topic:</span> {f.topicTitle}
                             </p>
                           </div>
-                          <ChevronRight className={`w-5 h-5 text-slate-400 shrink-0 mt-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                          <ChevronRight className={`w-5 h-5 text-slate-600 shrink-0 mt-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
                         </div>
                       </button>
                       {isOpen && (

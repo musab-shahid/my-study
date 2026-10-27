@@ -174,7 +174,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                   <div key={section.id}>
                     <div className="flex items-center gap-2 mb-2">
                       <SectionBadge section={section} />
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-wide">{section.title}</p>
+                      <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">{section.title}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {sectionTopics.map((topic) => {
@@ -417,7 +417,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
           <Card className="p-5">
             <h3 className="font-semibold text-slate-900 mb-3">Your last 3 sessions</h3>
             {recentSessions.length === 0 ? (
-              <p className="text-slate-400 text-sm text-center py-4">No sessions yet — start a quiz to see your history here.</p>
+              <p className="text-slate-600 text-sm text-center py-4">No sessions yet — start a quiz to see your history here.</p>
             ) : (
               <div className="space-y-3">
                 {recentSessions.map((quiz, i) => {
@@ -480,7 +480,7 @@ function Dropdown({ value, options, onChange, ariaLabel }: {
         className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 transition-colors"
       >
         <span>{currentLabel}</span>
-        <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-4 h-4 text-slate-600 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
         <>
@@ -538,9 +538,9 @@ function SimpleModeCard({ icon, iconBg, title, description, bestFor, onClick, di
       <div className="flex-1 min-w-0">
         <p className="font-semibold text-slate-900">{title}</p>
         <p className="text-slate-500 text-sm mt-0.5">{disabledNote ?? description}</p>
-        <p className="text-slate-400 text-xs mt-1">Best for: {bestFor}</p>
+        <p className="text-slate-600 text-xs mt-1">Best for: {bestFor}</p>
       </div>
-      {!disabled && <ChevronRight className="w-5 h-5 text-slate-300 shrink-0 mt-1" />}
+      {!disabled && <ChevronRight className="w-5 h-5 text-slate-500 shrink-0 mt-1" />}
     </button>
   );
 }
@@ -574,10 +574,10 @@ function ExpandableModeCard({ icon, iconBg, title, description, bestFor, expande
         <div className="flex-1 min-w-0">
           <p className="font-semibold text-slate-900">{title}</p>
           <p className="text-slate-500 text-sm mt-0.5">{disabledNote ?? description}</p>
-          <p className="text-slate-400 text-xs mt-1">Best for: {bestFor}</p>
+          <p className="text-slate-600 text-xs mt-1">Best for: {bestFor}</p>
         </div>
         {!disabled && (
-          <ChevronDown className={`w-5 h-5 text-slate-400 shrink-0 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-5 h-5 text-slate-600 shrink-0 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`} />
         )}
       </button>
 
