@@ -21,25 +21,38 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "jsr:@supabase/supabase-js@2";
 import { MAX_PROXY_CONTENT_CHARS, MAX_PROXY_CONTEXT_CHARS, MAX_PROXY_MESSAGES, isPlainRecord, sanitizeProxyContext, sanitizeProxyMessages, type ProxyMessage } from "../_shared/ai-proxy-validation.ts";
 
-/** Prefer an explicit origin allowlist in production; * is kept only for local/dev flexibility while JWT is required. */
-const ALLOWED_ORIGINS = new Set([
+/** Explicit deployment allowlist; configure APP_ALLOWED_ORIGINS as comma-separated origins. */
+const DEVELOPMENT_ORIGINS = new Set([
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "http://localhost:4173",
   "http://127.0.0.1:4173",
 ]);
 
+function allowedOrigins(): Set<string> {
+  const configured = (Deno.env.get("APP_ALLOWED_ORIGINS") || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+  const origins = new Set(configured);
+  if (Deno.env.get("ENVIRONMENT") !== "production") {
+    for (const origin of DEVELOPMENT_ORIGINS) origins.add(origin);
+  }
+  return origins;
+}
+
 function corsHeaders(req: Request): Record<string, string> {
   const origin = req.headers.get("Origin") || "";
-  const allowOrigin = ALLOWED_ORIGINS.has(origin) ? origin : (ALLOWED_ORIGINS.values().next().value as string);
-  return {
-    "Access-Control-Allow-Origin": allowOrigin,
-    "Access-Control-Allow-Headers":
-      "authorization, x-client-info, apikey, content-type",
+  const headers: Record<string, string> = {
+    "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
   };
+  if (origin && allowedOrigins().has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return headers;
 }
 
 type Msg = ProxyMessage;
