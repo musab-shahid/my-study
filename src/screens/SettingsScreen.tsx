@@ -292,7 +292,7 @@ export function SettingsScreen() {
               <p className="text-slate-500 text-xs mt-0.5">
                 Optional per-device backup of local progress. Requires network and a signed-in account.
                 {!getProgressSyncAccessToken() && (
-                  <span className="block mt-1 text-amber-800">
+                  <span className="block mt-1 text-warning-800">
                     Sign in with the Account card above to enable upload and restore.
                   </span>
                 )}
@@ -323,9 +323,9 @@ export function SettingsScreen() {
               </Button>
             </div>
             {confirmCloudRestore && (
-              <div className="rounded-xl border border-amber-200 bg-amber-50 p-3" role="group" aria-label="Confirm cloud restore">
-                <p className="text-sm font-semibold text-amber-900">Replace local progress with the cloud backup?</p>
-                <p className="mt-1 text-xs leading-5 text-amber-800">
+              <div className="rounded-xl border border-warning-200 bg-warning-50 p-3" role="group" aria-label="Confirm cloud restore">
+                <p className="text-sm font-semibold text-warning-900">Replace local progress with the cloud backup?</p>
+                <p className="mt-1 text-xs leading-5 text-warning-800">
                   A recovery copy of your current local data will be saved first.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">

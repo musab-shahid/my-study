@@ -9,10 +9,10 @@ import type { CloudEntry } from '@/types';
 const LEVELS: CloudEntry['level'][] = ['High', 'Middle', 'Low', 'Vertical'];
 
 const levelColors: Record<CloudEntry['level'], string> = {
-  High: 'bg-sky-100 text-sky-700 border-sky-200',
+  High: 'bg-brand-100 text-brand-700 border-brand-200',
   Middle: 'bg-brand-100 text-brand-700 border-brand-200',
   Low: 'bg-slate-100 text-slate-700 border-slate-200',
-  Vertical: 'bg-amber-100 text-amber-700 border-amber-200',
+  Vertical: 'bg-warning-100 text-warning-700 border-warning-200',
 };
 
 export function CloudAtlasScreen() {

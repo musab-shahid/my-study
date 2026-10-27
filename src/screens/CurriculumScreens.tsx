@@ -31,7 +31,7 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
               type="button"
               aria-pressed={isSelected}
               onClick={() => { if (!submitted) setSelected(index); }}
-              className={`w-full rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${isAnswer ? 'border-success-400 bg-success-50 text-success-900' : isWrongSelection ? 'border-danger-300 bg-danger-50 text-danger-900' : isSelected ? 'border-teal-400 bg-brand-50 text-teal-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
+              className={`w-full rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${isAnswer ? 'border-success-400 bg-success-50 text-success-900' : isWrongSelection ? 'border-danger-300 bg-danger-50 text-danger-900' : isSelected ? 'border-brand-400 bg-brand-50 text-brand-900' : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'}`}
             >
               <span className="font-semibold mr-2">{String.fromCharCode(65 + index)}.</span>{option}
             </button>
@@ -77,7 +77,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
         <p className="text-slate-700 leading-relaxed mt-3">{unit.summary}</p>
       </div>
 
-      {unit.outcomes.length > 0 && <Card className="p-0 mb-5 border border-teal-100 overflow-hidden">
+      {unit.outcomes.length > 0 && <Card className="p-0 mb-5 border border-brand-100 overflow-hidden">
         <details>
           <summary className="flex items-center justify-between gap-3 cursor-pointer list-none p-card-pad sm:p-card-pad-lg select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
             <h2 className="font-semibold text-slate-900">Learning outcomes</h2>
@@ -87,7 +87,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
             </span>
           </summary>
           <div className="px-card-pad sm:px-card-pad-lg pb-card-pad sm:pb-card-pad-lg">
-            <ul className="space-y-2">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-brand-50 text-brand-800 border border-teal-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
+            <ul className="space-y-2">{unit.outcomes.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-brand-50 text-brand-800 border border-brand-100 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul>
           </div>
         </details>
       </Card>}
@@ -152,7 +152,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
         {unit && <button onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="text-sm text-brand-800 hover:underline mt-2 inline-flex items-center gap-1"><ArrowLeft className="w-3 h-3" /> Back to Unit {unit.code}</button>}
       </div>
 
-      {lesson.objectives.length > 0 && <Card className="p-card-pad sm:p-card-pad-lg mb-5 border border-sky-100 bg-sky-50/40"><h2 className="font-semibold text-slate-900 mb-2">Learning objectives</h2><ul className="space-y-2">{lesson.objectives.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-white border border-sky-100 text-sky-800 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul></Card>}
+      {lesson.objectives.length > 0 && <Card className="p-card-pad sm:p-card-pad-lg mb-5 border border-brand-100 bg-brand-50/40"><h2 className="font-semibold text-slate-900 mb-2">Learning objectives</h2><ul className="space-y-2">{lesson.objectives.map((outcome) => <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700"><span className="rounded bg-white border border-brand-100 text-brand-800 px-1.5 py-0.5 text-label font-bold shrink-0">{outcome.level}</span><span>{outcome.statement}</span></li>)}</ul></Card>}
 
       <div className="mb-6"><CurriculumLessonContent lesson={lesson} /></div>
 

@@ -755,7 +755,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           </button>
         </div>
         <div className="flex items-center justify-between mt-1.5 px-1">
-          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-amber-500' : 'text-slate-300'}`}>
+          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-warning-500' : 'text-slate-300'}`}>
             {input.length}/{MAX_INPUT_LENGTH}
           </span>
           {cooldownRemaining > 0 && (
