@@ -18,6 +18,7 @@ import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
 import { validateCloudRestoreData, validateLocalProgressForCloudPush } from './cloud-restore.ts';
 import { getDeviceId } from './device-id.ts';
+import { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
 
 export {
   planCloudRestoreWrite,
@@ -28,6 +29,7 @@ export {
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
 
 export { getDeviceId };
+export { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
 
 export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
@@ -80,29 +82,6 @@ function requireAuth(): { ok: true; token: string } | { ok: false; error: string
   return { ok: true, token };
 }
 
-/** Decode JWT payload claims (no signature verify — RLS enforces on server). */
-function jwtPayload(token: string): Record<string, unknown> | null {
-  try {
-    const part = token.split('.')[1];
-    if (!part) return null;
-    const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/'))) as Record<string, unknown>;
-    return json && typeof json === 'object' ? json : null;
-  } catch {
-    return null;
-  }
-}
-
-function userIdFromAccessToken(token: string): string | null {
-  const json = jwtPayload(token);
-  return json && typeof json.sub === 'string' ? json.sub : null;
-}
-
-/** True when exp is present and in the past (clock skew tolerance 30s). */
-export function isAccessTokenExpired(token: string, nowMs: number = Date.now()): boolean {
-  const json = jwtPayload(token);
-  if (!json || typeof json.exp !== 'number') return false;
-  return json.exp * 1000 <= nowMs - 30_000;
-}
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
 export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {

@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { isAccessTokenExpired } from '../progress-sync.ts';
+import { isAccessTokenExpired } from '../access-token.ts';
 
 function fakeJwt(payload: Record<string, unknown>): string {
   const body = Buffer.from(JSON.stringify(payload)).toString('base64url');
