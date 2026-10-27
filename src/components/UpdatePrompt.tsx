@@ -195,7 +195,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
             onClick={handleUpdate}
             disabled={restarting}
             aria-busy={restarting}
-            aria-label={restarting ? 'Updating application' : 'Restart to apply update'}
+            aria-label={restarting ? 'Updating application' : undefined}
             className="inline-flex h-12 min-h-[48px] items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand-700 text-white text-xs font-semibold hover:bg-brand-800 transition-colors shadow-sm shrink-0 self-center box-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-70"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${restarting ? 'animate-spin' : ''}`} aria-hidden="true" />
