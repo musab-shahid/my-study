@@ -80,12 +80,12 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
         </div>
 
         {!configured ? (
-          <div className="rounded-btn border border-amber-200 bg-amber-50 p-3" role="status">
-            <p className="text-sm font-semibold text-amber-900">Supabase is not connected in this preview</p>
-            <p className="text-xs text-amber-800 mt-1 leading-relaxed">
+          <div className="rounded-btn border border-warning-200 bg-warning-50 p-3" role="status">
+            <p className="text-sm font-semibold text-warning-900">Supabase is not connected in this preview</p>
+            <p className="text-xs text-warning-800 mt-1 leading-relaxed">
               The preview did not receive both env values. Check this status (values are never shown):
             </p>
-            <ul className="mt-2 text-xs text-amber-900 space-y-1">
+            <ul className="mt-2 text-xs text-warning-900 space-y-1">
               <li>
                 <span className="font-mono">VITE_SUPABASE_URL</span>:{' '}
                 {envStatus.urlPresent
@@ -99,13 +99,13 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
                 {envStatus.keyPresent ? 'loaded' : 'missing'}
               </li>
             </ul>
-            <p className="text-xs text-amber-800 mt-2 leading-relaxed">
+            <p className="text-xs text-warning-800 mt-2 leading-relaxed">
               In Bolt, create a file named <span className="font-mono">.env</span> next to{' '}
               <span className="font-mono">package.json</span> with exactly:
             </p>
-            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-amber-100 rounded-btn p-2 overflow-x-auto text-slate-800">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
+            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-warning-100 rounded-btn p-2 overflow-x-auto text-slate-800">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
-            <p className="text-xs text-amber-800 mt-2 leading-relaxed">
+            <p className="text-xs text-warning-800 mt-2 leading-relaxed">
               No quotes, no spaces around <span className="font-mono">=</span>, then fully restart the preview (stop and run again).
               Database → Secrets is for server keys and will not fill these client vars.
             </p>

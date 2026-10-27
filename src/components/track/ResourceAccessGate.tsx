@@ -32,7 +32,7 @@ function SwitchWorkspaceCard({
           icon={<BookOpen className="w-12 h-12" />}
         />
         {err && (
-          <p className="text-sm text-red-600 text-center mt-3" role="alert">{err}</p>
+          <p className="text-sm text-danger-600 text-center mt-3" role="alert">{err}</p>
         )}
         <div className="flex justify-center mt-4">
           <Button

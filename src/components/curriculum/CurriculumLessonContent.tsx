@@ -4,8 +4,8 @@ import type { CurriculumContentBlock, CurriculumLesson } from '@/types/curriculu
 
 export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }) {
   const toneClasses = {
-    info: 'border-sky-200 bg-sky-50/70',
-    warning: 'border-amber-200 bg-amber-50/70',
+    info: 'border-brand-200 bg-brand-50/70',
+    warning: 'border-warning-200 bg-warning-50/70',
     success: 'border-success-200 bg-success-50/70',
     critical: 'border-danger-200 bg-danger-50/70',
   } as const;
@@ -28,7 +28,7 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
             <ul className="space-y-2">
               {(block.items ?? []).map((item, index) => (
                 <li key={index} className="flex items-start gap-2.5 text-slate-700 text-sm sm:text-base leading-relaxed">
-                  <span className={block.kind === 'checklist' ? 'mt-0.5 rounded border border-slate-300 w-4 h-4 shrink-0' : 'w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0'} />
+                  <span className={block.kind === 'checklist' ? 'mt-0.5 rounded border border-slate-300 w-4 h-4 shrink-0' : 'w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0'} />
                   <span><MathText text={item} /></span>
                 </li>
               ))}

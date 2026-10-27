@@ -160,7 +160,7 @@ export function WorkspaceSettingsCard() {
       ) && (
         <button
           type="button"
-          className="mt-3 text-xs font-semibold text-sky-700"
+          className="mt-3 text-xs font-semibold text-brand-700"
           onClick={() => navigate({ screen: 'home', parent: null })}
         >
           Explore another track on Home →

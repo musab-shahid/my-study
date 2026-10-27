@@ -89,7 +89,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sky-600 hover:text-sky-700 underline underline-offset-2"
+            className="text-brand-600 hover:text-brand-700 underline underline-offset-2"
           >
             {m[1]}
           </a>
@@ -338,7 +338,7 @@ function renderBlock(block: Block, idx: number): ReactNode {
 
     case 'blockquote':
       return (
-        <blockquote key={key} className="my-2 pl-3 border-l-2 border-sky-300 text-slate-600 italic">
+        <blockquote key={key} className="my-2 pl-3 border-l-2 border-brand-300 text-slate-600 italic">
           {renderInline(block.text ?? '', key)}
         </blockquote>
       );

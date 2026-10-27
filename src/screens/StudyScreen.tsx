@@ -419,9 +419,9 @@ export function StudyScreen() {
                 const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
                 if (!project) return null;
                 return (
-                  <div key={project.id} className="mt-4 rounded-xl border border-violet-200 bg-violet-50/70 p-4">
+                  <div key={project.id} className="mt-4 rounded-xl border border-brand-200 bg-brand-50/70 p-4">
                     <div className="flex items-start gap-3">
-                      <span className="text-xs font-bold text-violet-800 shrink-0">Project</span>
+                      <span className="text-xs font-bold text-brand-800 shrink-0">Project</span>
                       <div className="min-w-0">
                         <p className="font-semibold text-sm text-slate-900">{project.title}</p>
                         <p className="text-xs text-slate-600 mt-1">{project.purpose}</p>
@@ -491,7 +491,7 @@ export function StudyScreen() {
                               <TopicStatusIcon status={status} />
                               <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{topic.title}</span>
                               {topic.postRestriction === 'bs17' && (
-                                <span className="text-xs font-medium px-2 py-0.5 rounded bg-amber-100 text-amber-700 border border-amber-200 shrink-0">BS-17</span>
+                                <span className="text-xs font-medium px-2 py-0.5 rounded bg-warning-100 text-warning-700 border border-warning-200 shrink-0">BS-17</span>
                               )}
                               <span className="text-slate-400 text-xs shrink-0">{statusLabel}</span>
                             </button>
@@ -785,7 +785,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     return (
       <PageContainer>
           <div className="mb-4">
-          <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
+          <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
           <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
@@ -802,18 +802,18 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
-        <span className="text-xs font-bold text-sky-600 bg-sky-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
+        <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
         <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
         {curriculumLesson && (
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
-            <span className="rounded-full bg-sky-50 text-brand-700 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
+            <span className="rounded-full bg-brand-50 text-brand-700 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
             {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
             <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
           </div>
         )}
         {curriculumLesson?.objectives.length ? (
           <section className="mt-4 rounded-xl border border-brand-100 bg-brand-50 p-4">
-            <h2 className="text-xs font-semibold uppercase tracking-wide text-sky-900 mb-2">By the end of this lesson, you should be able to</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-wide text-brand-900 mb-2">By the end of this lesson, you should be able to</h2>
             <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
               <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
                 <span className="rounded bg-white border border-brand-100 px-1.5 py-0.5 text-label font-bold text-brand-700 shrink-0">{outcome.level}</span>
@@ -835,7 +835,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {topic.keyFacts && topic.keyFacts.length > 0 && (
           <section>
             <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-slate-500 mb-3">Key Facts</h2>
-            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-sky-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
+            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
           </section>
         )}
         {topic.explanationSections && topic.explanationSections.map((sec, i) => (
@@ -902,7 +902,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <QuantFormulasBlock formulas={(topic as Topic & { quantFormulas?: QuantFormulaEntry[] }).quantFormulas!} />
         )}
         {topic.examPoints && topic.examPoints.length > 0 && (
-          <Card className="p-3.5 sm:p-5 border-l-4 border-l-amber-500 bg-amber-50/50">
+          <Card className="p-3.5 sm:p-5 border-l-4 border-l-warning-500 bg-warning-50/50">
             <div className="flex items-center gap-2 mb-3"><span className="text-warning-600 font-semibold text-sm uppercase tracking-wide">Exam Points</span></div>
             <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
           </Card>
@@ -952,7 +952,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             const intro = Array.isArray(chooser) ? undefined : (chooser as MethodChooser).intro;
             if (!steps?.length) return null;
             return (
-              <Card className="p-3.5 sm:p-5 border-l-4 border-l-sky-500 bg-sky-50/40">
+              <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
                 <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">{title}</h3>
                 {intro && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={intro} /></p>}
                 <ul className="space-y-2">
@@ -984,7 +984,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 </li>
               ));
             return (
-              <Card className="p-3.5 sm:p-5 border-l-4 border-l-sky-500 bg-sky-50/40">
+              <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
                 <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">{tc.title ?? 'Which method / equation?'}</h3>
                 {tc.root && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={tc.root} /></p>}
                 <ul className="space-y-2">{renderBranches(tc.branches, 0)}</ul>
@@ -994,7 +994,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           const mc = chooser as MethodChooser;
           if (!mc.options?.length) return null;
           return (
-            <Card className="p-3.5 sm:p-5 border-l-4 border-l-sky-500 bg-sky-50/40">
+            <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
               <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">Which method / equation?</h3>
               {mc.scenario && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={mc.scenario} /></p>}
               <div className="space-y-2 sm:space-y-3">
@@ -1037,29 +1037,29 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           </section>
         )}
         {topic.misconceptionRemediation && topic.misconceptionRemediation.length > 0 && (
-          <Card className="p-3.5 sm:p-5 border-l-4 border-l-amber-500 bg-amber-50/40">
+          <Card className="p-3.5 sm:p-5 border-l-4 border-l-warning-500 bg-warning-50/40">
             <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Misconceptions</h3>
             <div className="space-y-3 sm:space-y-4">
               {topic.misconceptionRemediation.map((m, i) => (
                 <div key={i} className="space-y-1">
-                  <p className="text-sm font-medium text-amber-900"><XCircle className="inline w-3.5 h-3.5 text-danger-500 -mt-0.5 mr-1" /><MathText text={m.misconception ?? (m as { name?: string }).name} /></p>
+                  <p className="text-sm font-medium text-warning-900"><XCircle className="inline w-3.5 h-3.5 text-danger-500 -mt-0.5 mr-1" /><MathText text={m.misconception ?? (m as { name?: string }).name} /></p>
                   {m.whyStudentsThinkIt && <p className="text-xs text-slate-600 leading-relaxed"><span className="font-medium">Why it feels right: </span><MathText text={m.whyStudentsThinkIt} /></p>}
                   {m.correctModel && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Correct model: </span><MathText text={m.correctModel} /></p>}
                   {m.remedy && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Remedy: </span><MathText text={m.remedy} /></p>}
-                  {m.drill && <p className="text-xs text-slate-500 leading-relaxed mt-1 pl-3 border-l-2 border-amber-200"><MathText text={m.drill} /></p>}
+                  {m.drill && <p className="text-xs text-slate-500 leading-relaxed mt-1 pl-3 border-l-2 border-warning-200"><MathText text={m.drill} /></p>}
                 </div>
               ))}
             </div>
           </Card>
         )}
         {topic.qualitativeScenarios && topic.qualitativeScenarios.length > 0 && (
-          <Card className="p-3.5 sm:p-5 border-l-4 border-l-violet-500 bg-violet-50/30">
+          <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/30">
             <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Think it through</h3>
             <div className="space-y-3 sm:space-y-4">
               {topic.qualitativeScenarios.map((q, i) => (
                 <div key={i} className="space-y-1">
                   <p className="text-sm font-medium text-slate-900"><MathText text={q.scenario ?? (q as { question?: string }).question ?? ''} /></p>
-                  <p className="text-sm text-violet-800"><span className="font-medium">Answer: </span><MathText text={q.answer ?? ''} /></p>
+                  <p className="text-sm text-brand-800"><span className="font-medium">Answer: </span><MathText text={q.answer ?? ''} /></p>
                   <p className="text-xs text-slate-600 leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning ?? ''} /></p>
                 </div>
               ))}
@@ -1087,12 +1087,12 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             .filter((x) => x.topic && !isTopicMastered(x.id, data));
           if (unmastered.length === 0) return null;
           return (
-            <Card className="p-3 border-amber-200 bg-amber-50/60">
-              <h3 className="font-semibold text-amber-900 text-xs mb-1 flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <Card className="p-3 border-warning-200 bg-warning-50/60">
+              <h3 className="font-semibold text-warning-900 text-xs mb-1 flex items-center gap-1.5">
+                <AlertTriangle className="w-3.5 h-3.5 text-warning-600 shrink-0" />
                 Prerequisites not mastered yet
               </h3>
-              <p className="text-amber-800/70 text-label mb-2">
+              <p className="text-warning-800/70 text-label mb-2">
                 Review these first so this topic sticks.
               </p>
               <div className="flex flex-wrap gap-1.5">
@@ -1101,7 +1101,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                     key={id}
                     type="button"
                     onClick={() => navigate({ screen: 'topic', topicId: id })}
-                    className="px-2.5 py-1 rounded-md text-xs font-medium bg-white border border-amber-200 text-amber-900 hover:bg-amber-100 transition-colors"
+                    className="px-2.5 py-1 rounded-md text-xs font-medium bg-white border border-warning-200 text-warning-900 hover:bg-warning-100 transition-colors"
                   >
                     {pt!.title}
                   </button>
@@ -1112,9 +1112,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         })()}
         {(() => {
           const groups: { label: string; ids: string[]; chipClass: string }[] = [];
-          if (topic.buildsOn?.length) groups.push({ label: 'Builds On', ids: topic.buildsOn, chipClass: 'bg-green-50 hover:bg-green-100 text-green-700' });
-          if (topic.leadsTo?.length) groups.push({ label: 'Leads To', ids: topic.leadsTo, chipClass: 'bg-blue-50 hover:bg-blue-100 text-blue-700' });
-          if (topic.usedIn?.length) groups.push({ label: 'Used In', ids: topic.usedIn, chipClass: 'bg-amber-50 hover:bg-amber-100 text-amber-700' });
+          if (topic.buildsOn?.length) groups.push({ label: 'Builds On', ids: topic.buildsOn, chipClass: 'bg-success-50 hover:bg-success-100 text-success-700' });
+          if (topic.leadsTo?.length) groups.push({ label: 'Leads To', ids: topic.leadsTo, chipClass: 'bg-brand-50 hover:bg-brand-100 text-brand-700' });
+          if (topic.usedIn?.length) groups.push({ label: 'Used In', ids: topic.usedIn, chipClass: 'bg-warning-50 hover:bg-warning-100 text-warning-700' });
           if (groups.length === 0) return null;
           return (
             <Card className="p-3">
@@ -1134,7 +1134,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             </Card>
           );
         })()}
-        <div className="rounded-2xl border border-brand-100 bg-sky-50/70 p-card-pad sm:p-card-pad-lg">
+        <div className="rounded-2xl border border-brand-100 bg-brand-50/70 p-card-pad sm:p-card-pad-lg">
           <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
           <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
           <div className="mt-3 flex flex-col sm:flex-row gap-2">

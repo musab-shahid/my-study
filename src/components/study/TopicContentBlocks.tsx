@@ -250,9 +250,9 @@ export function SubtopicsBlock({ subtopics, expandedGroups, onToggleGroup }: { s
 
 export function QuantFormulasBlock({ formulas }: { formulas: QuantFormulaEntry[] }) {
   return (
-    <Card className="p-3.5 sm:p-5 border-l-4 border-l-sky-500 bg-sky-50/40">
+    <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
       <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3 flex items-center gap-1.5">
-        <Calculator className="w-4 h-4 text-sky-600" />
+        <Calculator className="w-4 h-4 text-brand-600" />
         Quantitative Formulas
       </h3>
       <div className="space-y-3">

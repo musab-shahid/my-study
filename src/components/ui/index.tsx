@@ -398,7 +398,7 @@ export function StreakIndicator({ streak, atRisk = false }: { streak: number; at
     <span
       className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium ${
         atRisk
-          ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200/60'
+          ? 'bg-warning-50 text-warning-700 ring-1 ring-warning-200/60'
           : 'bg-warning-50 text-warning-600 ring-1 ring-warning-100'
       }`}
     >

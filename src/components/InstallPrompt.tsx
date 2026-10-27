@@ -152,7 +152,7 @@ export function InstallPrompt() {
           <X className="w-4 h-4" />
         </button>
         <div className="flex items-start gap-3">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-md">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-md">
             {icon}
           </div>
           <div className="flex-1 min-w-0">

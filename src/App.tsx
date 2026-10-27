@@ -251,14 +251,14 @@ function AppContent() {
         {storageWarning && (
           <div
             role="alert"
-            className="mx-3 mt-3 lg:mx-6 rounded-btn border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-950 shadow-sm"
+            className="mx-3 mt-3 lg:mx-6 rounded-btn border border-warning-200 bg-warning-50 px-4 py-3 text-sm text-warning-950 shadow-sm"
           >
             <p className="font-medium">{storageWarning}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {hasBackup && (
                 <button
                   type="button"
-                  className="rounded-btn bg-amber-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-amber-700"
+                  className="rounded-btn bg-warning-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-warning-700"
                   onClick={() => downloadBackupFile()}
                 >
                   Download backup
@@ -266,7 +266,7 @@ function AppContent() {
               )}
               <button
                 type="button"
-                className="rounded-btn border border-amber-300 bg-white px-3 py-1.5 text-xs font-medium text-amber-900 hover:bg-amber-100"
+                className="rounded-btn border border-warning-300 bg-white px-3 py-1.5 text-xs font-medium text-warning-900 hover:bg-warning-100"
                 onClick={() => setStorageWarning(null)}
               >
                 Dismiss

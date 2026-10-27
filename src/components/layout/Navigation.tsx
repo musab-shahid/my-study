@@ -402,7 +402,7 @@ export function MobileNav() {
             const Icon = item.icon;
             const activeColor = activeEnrolled && isTrackId(activeEnrolled)
               ? getTrackStyle(activeEnrolled).accent
-              : 'text-sky-500';
+              : 'text-brand-400';
             return (
               <button
                 key={item.screen}
