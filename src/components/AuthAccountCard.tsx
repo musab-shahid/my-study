@@ -153,7 +153,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               >
                 Sign in
               </Button>
-              <span className="text-slate-600" aria-hidden>
+              <span className="text-ink-muted" aria-hidden>
                 ·
               </span>
               <Button
@@ -168,7 +168,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               >
                 Create account
               </Button>
-              <span className="text-slate-600" aria-hidden>
+              <span className="text-ink-muted" aria-hidden>
                 ·
               </span>
               <Button
@@ -213,7 +213,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               </label>
             )}
             {mode === 'reset' && (
-              <p className="text-xs text-slate-600 leading-relaxed">
+              <p className="text-xs text-ink-muted leading-relaxed">
                 We will email a reset link if an account exists for this address. The message is the same whether or not the account is found.
               </p>
             )}

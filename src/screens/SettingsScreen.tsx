@@ -285,8 +285,8 @@ export function SettingsScreen() {
       <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
 
       <Card className="p-card-pad mb-4">
-        <h2 className="font-semibold text-slate-900 text-sm">Privacy &amp; data</h2>
-        <div className="mt-2 space-y-2 text-xs leading-relaxed text-slate-600">
+        <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
+        <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
           <p>
             <strong className="font-medium">On this device.</strong>{' '}
             Study progress, quiz history, and preferences are stored in your browser
