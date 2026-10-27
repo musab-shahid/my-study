@@ -1,0 +1,21 @@
+{
+  "note": "FROZEN persistent identifiers. Changing these requires a data migration.",
+  "identifiers": [
+    "examprep-${cacheHash}",
+    "examprep-data",
+    "examprep-data-backup",
+    "examprep-device-id",
+    "examprep-flashcard-known",
+    "examprep-practice-prefs",
+    "examprep-quiz-progress",
+    "examprep-sidebar-expanded",
+    "examprep-subject-selection",
+    "examprep-subject-selection-reset",
+    "examprep-supabase-access-token",
+    "examprep-supabase-refresh-token",
+    "examprep-supabase-user-email",
+    "examprep-v3",
+    "examprep:check-update",
+    "examprep:install-prompt-consumed"
+  ]
+}

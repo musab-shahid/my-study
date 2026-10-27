@@ -119,7 +119,7 @@ describe('Phase A path mapping', () => {
 
   it('uses the real track title in track breadcrumbs', () => {
     const crumbs = breadcrumbForRoute({ screen: 'track', trackId: 'fpsc' });
-    assert.deepEqual(crumbs.map((crumb) => crumb.label), ['Home', 'Exam Prep']);
+    assert.deepEqual(crumbs.map((crumb) => crumb.label), ['Home', 'FPSC']);
   });
 
 

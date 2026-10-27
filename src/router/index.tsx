@@ -151,7 +151,7 @@ export function routeLabel(route: Route): string {
       return isTrackId(route.trackId)
         ? getTrackDefinition(route.trackId).shortTitle || getTrackDefinition(route.trackId).title
         : 'Track';
-    default: return 'Exam Prep';
+    default: return 'My Study';
   }
 }
 
