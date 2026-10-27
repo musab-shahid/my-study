@@ -13,7 +13,12 @@ interface ToolsTrayProps {
   onClose: () => void;
 }
 
-const studyTools = [
+type MoreNavItem =
+  | { icon: typeof FEATURE_ICONS.review; label: string; screen: 'review' | 'formulas' | 'progress' | 'flashcards' | 'search' | 'settings' }
+  | { icon: typeof FEATURE_ICONS.mockExam; label: string; screen: 'practice'; mode: 'mock' };
+
+
+const studyTools: MoreNavItem[] = [
   { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
@@ -21,7 +26,7 @@ const studyTools = [
   { icon: FEATURE_ICONS.mockExam, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
-const tools = [
+const tools: MoreNavItem[] = [
   { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
   { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
@@ -55,11 +60,11 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
       active ? 'bg-brand-50 text-brand-700' : 'text-slate-800 hover:bg-slate-50 active:bg-slate-100'
     }`;
 
-  const goTo = (item: { screen: string; mode?: string }) => {
-    if (item.screen === 'practice' && item.mode === 'mock') {
+  const goTo = (item: MoreNavItem) => {
+    if (item.screen === 'practice') {
       navigate({ screen: 'practice', mode: 'mock' });
     } else {
-      navigate({ screen: item.screen as 'review' | 'formulas' | 'progress' | 'search' | 'flashcards' | 'settings' });
+      navigate({ screen: item.screen });
     }
     onClose();
   };
