@@ -5,6 +5,9 @@ import { swPrecachePlugin } from './vite-sw-plugin.js';
 import packageJson from './package.json';
 import { buildCsp } from './scripts/security-headers.mjs';
 
+// Minimal process typing so tsconfig.node does not require @types/node.
+declare const process: { env: Record<string, string | undefined> };
+
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
