@@ -106,9 +106,12 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog.getByRole('button', { name: 'Learn', exact: true })).toHaveCount(0);
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
     await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
-    await expect(dialog.getByRole('region', { name: 'Study tools' })).toBeVisible();
-    await expect(dialog.getByRole('region', { name: 'Tools', exact: true })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Study' })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'App' })).toBeVisible();
     await expect(dialog.getByRole('region', { name: 'Learning tracks' })).toBeVisible();
+    await expect(dialog.getByRole('button', { name: 'Search', exact: true })).toHaveCount(1);
+    await expect(dialog.getByRole('button', { name: 'Settings', exact: true })).toHaveCount(1);
+    await expect(dialog.getByRole('button', { name: 'Flashcards', exact: true })).toHaveCount(1);
   });
 
   test('marks the current secondary destination and returns focus after closing', async ({ page }) => {

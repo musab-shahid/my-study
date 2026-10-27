@@ -20,15 +20,12 @@ const studyTools = [
   { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
-  { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
   { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
-  { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
+  { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
 const tools = [
   { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
-  { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
-  { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
   { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
@@ -111,10 +108,10 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
 
         <div className="px-5 py-4">
           <section role="region" className="mb-5" aria-labelledby="more-study-heading">
-            <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study tools</p>
+            <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study</p>
             <div className="space-y-0.5">
               {studyTools.map((item) => {
-                const active = isCurrent(item.screen);
+                const active = isCurrent(item.screen, 'mode' in item ? item.mode : undefined);
                 return (
                   <button
                     key={item.screen}
@@ -132,11 +129,11 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             </div>
           </section>
 
-          <section role="region" className="mb-5" aria-labelledby="more-tools-heading">
-            <p id="more-tools-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Tools</p>
+          <section role="region" className="mb-5" aria-labelledby="more-app-heading">
+            <p id="more-app-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">App</p>
             <div className="space-y-0.5">
               {tools.map((item) => {
-                const active = isCurrent(item.screen, item.mode);
+                const active = isCurrent(item.screen);
                 return (
                   <button
                     key={item.label}
