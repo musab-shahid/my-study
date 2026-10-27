@@ -1,0 +1,14 @@
+{
+  "generatedAt": "2026-10-27T08:50:42.439Z",
+  "totals": {
+    "raw-button": 83,
+    "arbitrary-font-size": 10,
+    "raw-palette-color": 210,
+    "arbitrary-hex-color": 0,
+    "white-on-mid-tone-fill": 6,
+    "non-canonical-focus-ring": 2,
+    "raw-neutral-class": 1005,
+    "inline-style": 12
+  },
+  "note": "Whole-tree ratchet baseline regenerated 2026-10-27 on fix/audit-findings-2026-10-27 after AuthAccountCard + Settings audit work. Counts must not increase without reviewed reduction. Per-change diff guard still runs in default mode."
+}

@@ -14,6 +14,7 @@ import {
 import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
+import { AuthAccountCard } from '@/components/AuthAccountCard';
 import { computeStreak, getTodayActivity, getWeekActivity } from '@/lib/streak';
 import { downloadBackupFile } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
@@ -50,6 +51,7 @@ export function SettingsScreen() {
   const [resetDone, setResetDone] = useState<{ message: string; kind: 'success' | 'error' } | null>(null);
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
+  const [sessionTick, setSessionTick] = useState(0);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
@@ -65,7 +67,6 @@ export function SettingsScreen() {
   const globalAnswered = Object.keys(data.questionResults).length;
   const globalCorrect = Object.values(data.questionResults).filter((r) => r.correct).length;
 
-  // App-wide inventory (both tracks) — not scoped to activeTrack
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
   const globalAcc = globalAnswered > 0 ? Math.round((globalCorrect / globalAnswered) * 100) : 0;
@@ -73,6 +74,7 @@ export function SettingsScreen() {
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
   const isFullReset = allSelected;
+  const hasSession = Boolean(getProgressSyncAccessToken()) || sessionTick < 0;
 
   const toggleSubject = (id: SubjectId) => {
     setSelectedSubjects((prev) => {
@@ -135,14 +137,12 @@ export function SettingsScreen() {
     }
   };
 
-  // Install card: always offer a path when not already installed (audit I2)
   useEffect(() => {
     if (isStandalone()) {
       setShowInstall(false);
       return;
     }
     setShowInstall(true);
-
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
@@ -212,7 +212,6 @@ export function SettingsScreen() {
 
       <WorkspaceSettingsCard />
 
-      {/* App info — global inventory (catalog size, not workspace progress) */}
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
@@ -230,7 +229,6 @@ export function SettingsScreen() {
         </div>
       </Card>
 
-      {/* Activity strip */}
       <div className="grid grid-cols-3 gap-3 mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-1">
@@ -260,21 +258,18 @@ export function SettingsScreen() {
         </Card>
       </div>
 
+      <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
 
-      {/* Cloud backup (Supabase) */}
       {isProgressSyncConfigured() && (
         <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">
             <div>
               <p className="font-semibold text-slate-900 text-sm">Cloud backup</p>
               <p className="text-slate-500 text-xs mt-0.5">
-                Optional per-device backup of local progress to your Supabase project. Requires network
-                and a signed-in account (device id alone is not enough). Restoring replaces progress in this
-                browser; backups are not shared across devices. Rows are isolated per user under RLS.
+                Optional per-device backup of local progress. Requires network and a signed-in account.
                 {!getProgressSyncAccessToken() && (
-                  <span className="block mt-1 text-amber-700">
-                    No session token found — cloud upload/download will stay disabled until Auth sign-in is
-                    wired (owner deploy). Prefer local JSON export below.
+                  <span className="block mt-1 text-amber-800">
+                    Sign in with the Account card above to enable upload and restore.
                   </span>
                 )}
               </p>
@@ -293,7 +288,7 @@ export function SettingsScreen() {
                       : r.error === 'auth-required'
                         ? 'Sign in required before cloud backup.'
                         : r.error === 'device-id-unavailable'
-                        ? 'This browser cannot create a stable device ID, so cloud backup is unavailable. Your local data remains on this device.'
+                        ? 'This browser cannot create a stable device ID, so cloud backup is unavailable.'
                         : `Upload failed: ${r.error}`,
                   );
                   setSyncBusy(false);
@@ -313,7 +308,7 @@ export function SettingsScreen() {
               <div className="rounded-xl border border-amber-200 bg-amber-50 p-3" role="group" aria-label="Confirm cloud restore">
                 <p className="text-sm font-semibold text-amber-900">Replace local progress with the cloud backup?</p>
                 <p className="mt-1 text-xs leading-5 text-amber-800">
-                  A recovery copy of your current local data will be saved first. Restoring will replace the progress currently loaded in this browser.
+                  A recovery copy of your current local data will be saved first.
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Button
@@ -330,7 +325,7 @@ export function SettingsScreen() {
                             : r.error === 'invalid-cloud-data'
                               ? 'Cloud backup is invalid or incompatible. Local data was not changed.'
                               : r.error === 'device-id-unavailable'
-                                ? 'This browser cannot create a stable device ID, so cloud restore is unavailable. Local data was not changed.'
+                                ? 'This browser cannot create a stable device ID, so cloud restore is unavailable.'
                                 : `Download failed: ${r.error ?? 'unknown'}`,
                         );
                         setSyncBusy(false);
@@ -366,7 +361,6 @@ export function SettingsScreen() {
         </Card>
       )}
 
-      {/* Export progress */}
       <Card className="p-card-pad mb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
@@ -376,11 +370,7 @@ export function SettingsScreen() {
           <Button variant="secondary" onClick={() => {
             try {
               const started = downloadBackupFile(data);
-              setBackupMsg(
-                started
-                  ? 'Backup download started. Check your downloads.'
-                  : 'Backup could not be created. Please try again.',
-              );
+              setBackupMsg(started ? 'Backup download started. Check your downloads.' : 'Backup could not be created. Please try again.');
             } catch (e) {
               console.error('[settings] export failed', e);
               setBackupMsg('Backup could not be created. Please try again.');
@@ -390,7 +380,6 @@ export function SettingsScreen() {
         </div>
       </Card>
 
-      {/* Check for content / app updates */}
       <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm">
@@ -399,219 +388,107 @@ export function SettingsScreen() {
           <div className="flex-1 min-w-0">
             <p className="font-semibold text-slate-900 text-sm">App updates</p>
             <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
-              Check if a new version of the app is available. If an update was downloaded in the background, you will be asked to restart to apply it.
+              Check if a new version is available and reload the app.
             </p>
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={() => {
-                if (!navigator.onLine) {
-                  setUpdateMsg('You are offline. Reconnect to the internet before checking for updates.');
-                  return;
-                }
-                setUpdateMsg('Update check requested. If an update is available, you will be prompted to restart.');
-                window.dispatchEvent(new Event('examprep:check-update'));
-              }}
-              className="mt-3 min-h-11"
-            >
-              <RefreshCw className="w-3.5 h-3.5" />
-              Check for updates
-            </Button>
-            {updateMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{updateMsg}</p>}
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button
+                variant="secondary"
+                onClick={async () => {
+                  setUpdateMsg(null);
+                  try {
+                    if ('serviceWorker' in navigator) {
+                      const regs = await navigator.serviceWorker.getRegistrations();
+                      await Promise.all(regs.map((r) => r.update()));
+                    }
+                    setUpdateMsg('Checked for updates. If a new version was found, reload the page.');
+                  } catch {
+                    setUpdateMsg('Could not check for updates. Try reloading the page.');
+                  }
+                }}
+              >
+                Check for updates
+              </Button>
+              <Button variant="secondary" onClick={() => window.location.reload()}>
+                Reload
+              </Button>
+            </div>
+            {updateMsg && <p className="text-xs text-slate-600 mt-2" role="status">{updateMsg}</p>}
           </div>
         </div>
       </Card>
 
-      {/* Install app — fallback for users who never saw the banner (audit I2) */}
       {showInstall && (
-        <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
+        <Card className="p-card-pad mb-4">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm">
-              <Download className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
+              <Share className="w-5 h-5 text-slate-600" />
             </div>
             <div className="flex-1 min-w-0">
               <p className="font-semibold text-slate-900 text-sm">Install app</p>
-              {deferredPrompt ? (
-                <>
-                  <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
-                    Install the app on your device for a home-screen icon and faster access. It works offline and your progress is saved on this device.
-                  </p>
-                  <Button size="sm" onClick={handleInstall} className="mt-3 min-h-11">
-                    <Download className="w-3.5 h-3.5" />
-                    Install
-                  </Button>
-                </>
-              ) : isIOS() ? (
-                <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
-                  Tap the <Share className="inline w-3 h-3 -mt-0.5 text-brand-600" /> Share button in Safari, then choose <strong className="font-semibold text-slate-700">Add to Home Screen</strong>.
-                </p>
-              ) : (
-                <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
-                  Use your browser menu (often <strong className="font-semibold text-slate-700">Install app</strong> or <strong className="font-semibold text-slate-700">Add to Home Screen</strong>). The app works offline once loaded.
-                </p>
+              <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
+                {isIOS()
+                  ? 'On iPhone/iPad: tap Share, then Add to Home Screen.'
+                  : deferredPrompt
+                    ? 'Install My Study for quicker access and offline use.'
+                    : 'Use your browser menu (Install app / Add to Home Screen) if available.'}
+              </p>
+              {deferredPrompt && (
+                <Button className="mt-3" onClick={handleInstall}>
+                  Install
+                </Button>
               )}
-              {installMsg && <p className="mt-2 text-xs leading-5 text-slate-600" role="status" aria-live="polite">{installMsg}</p>}
+              {installMsg && <p className="text-xs text-slate-600 mt-2" role="status">{installMsg}</p>}
             </div>
           </div>
         </Card>
       )}
 
-      {/* Per-subject data management — grouped by exam track */}
-      <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.15s' }}>
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-2">
-            <Database className="w-4 h-4 text-brand-500" />
-            <h3 className="font-semibold text-slate-900">Subject Data</h3>
-          </div>
-          <Button variant="ghost" size="sm" onClick={toggleAll} aria-pressed={allSelected}>
-            {allSelected ? 'Clear all' : 'Select all'}
+      <Card className="p-card-pad mb-4">
+        <p className="font-semibold text-slate-900 text-sm mb-2">Reset progress</p>
+        <p className="text-slate-500 text-xs mb-3 leading-relaxed">
+          Choose subjects to clear. A recovery backup is saved first when possible.
+        </p>
+        <div className="flex flex-wrap gap-2 mb-3">
+          <Button type="button" variant="secondary" size="sm" onClick={toggleAll}>
+            {allSelected ? 'Clear selection' : 'Select all'}
           </Button>
+          {examTracks.map((t) => (
+            <Button key={t.id} type="button" variant="secondary" size="sm" onClick={() => toggleTrack(t.id)}>
+              {t.shortTitle || t.title}
+            </Button>
+          ))}
         </div>
-
-        {examTracks.map((track) => {
-          const trackSubjects = subjectsByTrack(track.id);
-          const trackMeta = examTrackMap[track.id];
-          if (!trackMeta) return null;
-          const TrackIcon = trackMeta.icon;
-          const selectedInTrack = trackSubjects.filter((s) => selectedSubjects.has(s.id as SubjectId));
-          const allTrackSelected = selectedInTrack.length === trackSubjects.length;
-
-          return (
-            <div key={track.id} className="mb-4 last:mb-0">
-              {/* Track sub-header */}
+        <div className="flex flex-wrap gap-2 mb-3 max-h-40 overflow-y-auto">
+          {subjects.map((s) => {
+            const selected = selectedSubjects.has(s.id as SubjectId);
+            return (
               <button
+                key={s.id}
                 type="button"
-                onClick={() => toggleTrack(track.id)}
-                aria-pressed={allTrackSelected}
-                className="w-full flex items-center justify-between mb-2 px-1 group rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
+                onClick={() => toggleSubject(s.id as SubjectId)}
+                className={`text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
+                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-slate-600'
+                }`}
               >
-                <div className="flex items-center gap-2">
-                  <span className={`w-6 h-6 rounded-md bg-gradient-to-br ${getTrackStyle(track.id).gradient} flex items-center justify-center shrink-0`}>
-                    <TrackIcon className="w-3.5 h-3.5 text-white" />
-                  </span>
-                  <span className="text-sm font-semibold text-slate-700">{trackMeta.title}</span>
-                  <span className="text-slate-500 text-xs">({trackSubjects.length})</span>
-                </div>
-                <span className={`text-xs font-medium transition-colors ${allTrackSelected ? 'text-brand-700' : 'text-slate-500 group-hover:text-slate-600'}`}>
-                  {allTrackSelected ? 'Clear track' : 'Select track'}
-                </span>
+                {selected ? '✓ ' : ''}{s.title}
               </button>
-
-              {/* Compact table header */}
-              <div className="hidden sm:grid grid-cols-[1fr_50px_50px_50px_24px] gap-2 px-2 pb-1 text-slate-500 text-xs font-medium uppercase tracking-wide">
-                <span>Subject</span>
-                <span className="text-right">Studied</span>
-                <span className="text-right">Answered</span>
-                <span className="text-right">Acc.</span>
-                <span />
-              </div>
-
-              <div className="space-y-0.5">
-                {trackSubjects.map((subject) => {
-                  const colors = getSubjectStyle(subject.id);
-                  const selected = selectedSubjects.has(subject.id as SubjectId);
-                  const stats = sd.statsFor(subject.id as SubjectId);
-                  const Icon = subject.lucideIcon;
-                  const hasData = stats.studiedTopics > 0 || stats.questionsAnswered > 0;
-                  return (
-                    <button
-                      key={subject.id}
-                      type="button"
-                      onClick={() => toggleSubject(subject.id as SubjectId)}
-                      aria-pressed={selected}
-                      className={`w-full grid grid-cols-[1fr_50px_50px_50px_24px] gap-2 items-center px-2 py-2 rounded-lg transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset ${
-                        selected ? 'bg-brand-50 ring-1 ring-brand-300' : 'hover:bg-slate-50'
-                      }`}
-                    >
-                      <div className="flex items-center gap-2 min-w-0">
-                        <span className={`w-7 h-7 rounded-md ${colors.tint} flex items-center justify-center shrink-0`}>
-                          {Icon && <Icon className={`w-4 h-4 ${colors.text}`} aria-hidden /> }
-                        </span>
-                        <span className="text-sm font-medium text-slate-800 truncate">{subject.title}</span>
-                      </div>
-                      <span className="text-sm text-slate-600 text-right tabular-nums">
-                        {hasData ? `${stats.studiedTopics}/${stats.totalTopics}` : '—'}
-                      </span>
-                      <span className="text-sm text-slate-600 text-right tabular-nums">
-                        {hasData ? stats.questionsAnswered : '—'}
-                      </span>
-                      <span className={`text-sm text-right tabular-nums font-medium ${
-                        !hasData || stats.accuracy == null || stats.accuracy === 0 ? 'text-slate-500'
-                        : stats.accuracy >= 75 ? 'text-success-600'
-                        : stats.accuracy >= 50 ? 'text-warning-600' : 'text-danger-600'
-                      }`}>
-                        {hasData && stats.accuracy != null && stats.accuracy > 0 ? `${stats.accuracy}%` : '—'}
-                      </span>
-                      <span className="flex items-center justify-center">
-                        {selected
-                          ? <Check className="w-4 h-4 text-brand-700" />
-                          : <Minus className="w-4 h-4 text-slate-300" />}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-
-        {/* Unified reset action */}
-        <div className="mt-4 pt-3 border-t border-slate-100">
-          {!confirming ? (
-            <div className="flex items-center justify-between">
-              <p className="text-slate-500 text-sm">
-                {noneSelected
-                  ? 'Select subjects above to reset their data'
-                  : isFullReset
-                    ? 'All subjects selected — this will reset everything'
-                    : `${selectedSubjects.size} subject${selectedSubjects.size !== 1 ? 's' : ''} selected`}
-              </p>
-              <Button
-                variant="danger"
-                disabled={noneSelected}
-                onClick={() => setConfirming(true)}
-              >
-                <Trash2 className="w-4 h-4 inline mr-1" />
-                {isFullReset ? 'Reset All' : `Reset (${selectedSubjects.size})`}
-              </Button>
-            </div>
-          ) : (
-            <div className="p-3 rounded-xl bg-danger-50 border border-danger-100">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="w-4 h-4 text-danger-600 shrink-0" />
-                <p className="text-danger-700 text-sm font-medium">
-                  {isFullReset
-                    ? 'Delete all progress?'
-                    : `Delete progress for ${selectedSubjects.size} subject${selectedSubjects.size !== 1 ? 's' : ''}?`}
-                </p>
-              </div>
-              <p className="text-danger-600 text-xs mb-3">
-                This permanently removes study progress, quiz results, and revision schedules. It cannot be undone.
-              </p>
-              <div className="flex gap-2">
-                <Button variant="danger" onClick={handleReset}>Yes, Delete</Button>
-                <Button variant="secondary" onClick={() => setConfirming(false)}>Cancel</Button>
-              </div>
-            </div>
-          )}
+            );
+          })}
         </div>
-      </Card>
-
-      {/* Global totals */}
-      <Card className="p-card-pad animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-        <h3 className="font-semibold text-slate-900 mb-3">All Data</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          <MiniStat icon={<BookOpen className="w-4 h-4 text-brand-500" />} label="Studied" value={`${globalStudied}`} />
-          <MiniStat icon={<Brain className="w-4 h-4 text-brand-500" />} label="Answered" value={`${globalAnswered}`} />
-          <MiniStat icon={<Target className="w-4 h-4 text-success-500" />} label="Accuracy" value={`${globalAcc}%`} />
-          <MiniStat icon={<TrendingUp className="w-4 h-4 text-warning-500" />} label="Quizzes" value={`${data.quizHistory.length}`} />
-        </div>
-        <div className="flex items-start gap-1.5 mt-3">
-          <Info className="w-3.5 h-3.5 text-slate-500 shrink-0 mt-0.5" />
-          <p className="text-slate-500 text-xs leading-relaxed">
-            Stored locally in your browser. No account or server required.
-          </p>
-        </div>
+        {!confirming ? (
+          <Button variant="danger" disabled={noneSelected} onClick={() => setConfirming(true)}>
+            Reset selected
+          </Button>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            <Button variant="danger" onClick={handleReset}>
+              Confirm reset
+            </Button>
+            <Button variant="secondary" onClick={() => setConfirming(false)}>
+              Cancel
+            </Button>
+          </div>
+        )}
       </Card>
     </PageContainer>
   );
@@ -619,22 +496,10 @@ export function SettingsScreen() {
 
 function InfoStat({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
-    <div className="flex flex-col items-center gap-0.5">
-      {icon}
-      <p className="text-lg font-bold text-slate-900 font-mono tabular-nums leading-tight">{value}</p>
+    <div className="text-center">
+      <div className="flex items-center justify-center gap-1 mb-0.5">{icon}</div>
+      <p className="text-base font-bold text-slate-900 leading-tight">{value}</p>
       <p className="text-slate-500 text-xs leading-tight">{label}</p>
-    </div>
-  );
-}
-
-function MiniStat({ icon, label, value }: { icon: React.ReactNode; label: string; value: string }) {
-  return (
-    <div className="flex items-center gap-2">
-      {icon}
-      <div>
-        <p className="text-slate-900 text-sm font-bold font-mono tabular-nums leading-tight">{value}</p>
-        <p className="text-slate-500 text-xs leading-tight">{label}</p>
-      </div>
     </div>
   );
 }

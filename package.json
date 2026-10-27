@@ -1,5 +1,5 @@
 {
-  "name": "examprep-hub",
+  "name": "my-study",
   "private": true,
   "version": "1.1.0",
   "type": "module",
@@ -16,7 +16,7 @@
     "typecheck": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.node.json --noEmit",
     "validate:data": "tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts && tsx scripts/validate-question-bank.ts && tsx --tsconfig tsconfig.app.json scripts/validate-source-traceability.ts && npm run audit:cgei && npm run validate:traceability:all && npm run audit:data-inventory",
     "audit:data-inventory": "tsx --tsconfig tsconfig.app.json scripts/audit-app-data-inventory.ts",
-    "check:design-system": "node scripts/check-design-system.mjs",
+    "check:design-system": "node scripts/check-design-system.mjs --ratchet && node scripts/check-design-system.mjs",
     "lint": "eslint src --max-warnings 200",
     "check": "npm run validate:data && npm test && npm run typecheck && npm run lint && npm run build",
     "test": "tsx --tsconfig tsconfig.app.json --test src/lib/__tests__/*.test.ts src/router/__tests__/*.test.ts src/__tests__/data/*.test.ts",
@@ -28,7 +28,8 @@
     "audit:core-leaf-evidence": "npx --yes tsx --tsconfig tsconfig.app.json scripts/audit-core-leaf-evidence.ts",
     "validate:traceability:all": "tsx --tsconfig tsconfig.app.json scripts/validate-all-traceability.ts",
     "audit:full-source": "python3 scripts/audit_full_source_disposition.py",
-    "scan:secrets": "python3 scripts/scan_repo_secrets.py"
+    "scan:secrets": "python3 scripts/scan_repo_secrets.py",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
