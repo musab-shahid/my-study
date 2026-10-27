@@ -352,10 +352,10 @@ export const subjectStyles: Record<string, SubjectStyle> = {
     glow: 'shadow-yellow-500/20', gradient: 'from-yellow-500 to-amber-600', lightGradient: 'from-yellow-50 to-amber-50',
   },
   'cgei-advanced-branches': {
-    dot: '#57534e', dotBg: 'bg-stone-600', bar: 'bg-stone-600', tint: 'bg-stone-50',
-    text: 'text-stone-800', borderLeft: 'border-l-stone-600', bg: 'bg-stone-600',
-    border: 'border-stone-200', borderActive: 'border-stone-600', hoverBorder: 'hover:border-stone-500',
-    glow: 'shadow-stone-500/20', gradient: 'from-stone-500 to-neutral-600', lightGradient: 'from-stone-50 to-neutral-50',
+    dot: '#65a30d', dotBg: 'bg-lime-600', bar: 'bg-lime-600', tint: 'bg-lime-50',
+    text: 'text-lime-800', borderLeft: 'border-l-lime-600', bg: 'bg-lime-600',
+    border: 'border-lime-200', borderActive: 'border-lime-600', hoverBorder: 'hover:border-lime-500',
+    glow: 'shadow-lime-500/20', gradient: 'from-lime-500 to-green-600', lightGradient: 'from-lime-50 to-green-50',
   },
 
 };
