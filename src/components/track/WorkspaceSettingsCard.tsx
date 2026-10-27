@@ -48,7 +48,7 @@ export function WorkspaceSettingsCard() {
         Switch changes where Study and Practice point. Leave removes the track from My Tracks but keeps your progress.
       </p>
       {msg && (
-        <p className="text-xs text-emerald-700 mb-2" role="status">{msg}</p>
+        <p className="text-xs text-success-700 mb-2" role="status">{msg}</p>
       )}
       <ul className="space-y-2">
         {enrolled.map((id) => {
@@ -62,7 +62,7 @@ export function WorkspaceSettingsCard() {
             <li
               key={id}
               className={`rounded-btn border px-3 py-2.5 ${
-                isActive ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-white'
+                isActive ? 'border-success-300 bg-success-50' : 'border-slate-200 bg-white'
               }`}
             >
               <div className="flex items-start gap-3">
@@ -73,7 +73,7 @@ export function WorkspaceSettingsCard() {
                   <p className="text-sm font-semibold text-slate-900">
                     {def.title}
                     {isActive && (
-                      <span className="ml-2 text-[10px] font-bold uppercase text-emerald-700">Active</span>
+                      <span className="ml-2 text-[10px] font-bold uppercase text-success-700">Active</span>
                     )}
                   </p>
                   <p className="text-xs text-slate-500">

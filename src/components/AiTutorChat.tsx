@@ -695,7 +695,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               <span className="text-slate-400 text-xs">{currentModel?.label}</span>
               <button
                 onClick={handleStop}
-                className="ml-2 flex items-center gap-1 text-xs text-slate-500 hover:text-rose-500 transition-colors"
+                className="ml-2 flex items-center gap-1 text-xs text-slate-500 hover:text-danger-500 transition-colors"
               >
                 <Square className="w-3 h-3 fill-current" />
                 Stop
@@ -705,7 +705,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         )}
 
         {error && (
-          <div className="flex flex-col gap-2 px-3 py-2.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+          <div className="flex flex-col gap-2 px-3 py-2.5 rounded-xl bg-danger-50 border border-danger-200 text-danger-700 text-sm">
             <div className="flex items-start gap-2">
               <AlertCircle className="w-4 h-4 mt-0.5 shrink-0" />
               <span>{error}</span>
@@ -713,7 +713,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             <div className="flex items-center gap-3">
               <button
                 onClick={handleRetry}
-                className="flex items-center gap-1 text-xs font-medium text-rose-600 hover:text-rose-800 underline underline-offset-2"
+                className="flex items-center gap-1 text-xs font-medium text-danger-600 hover:text-danger-800 underline underline-offset-2"
               >
                 <RotateCcw className="w-3 h-3" />
                 Retry last message
@@ -721,7 +721,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               {availableModels.length > 1 && (
                 <button
                   onClick={() => setShowModelDropdown(true)}
-                  className="text-xs font-medium text-rose-600 hover:text-rose-800 underline underline-offset-2"
+                  className="text-xs font-medium text-danger-600 hover:text-danger-800 underline underline-offset-2"
                 >
                   Try a different model
                 </button>

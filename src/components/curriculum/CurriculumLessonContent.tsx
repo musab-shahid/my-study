@@ -6,8 +6,8 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
   const toneClasses = {
     info: 'border-sky-200 bg-sky-50/70',
     warning: 'border-amber-200 bg-amber-50/70',
-    success: 'border-emerald-200 bg-emerald-50/70',
-    critical: 'border-rose-200 bg-rose-50/70',
+    success: 'border-success-200 bg-success-50/70',
+    critical: 'border-danger-200 bg-danger-50/70',
   } as const;
 
   const renderBlock = (block: CurriculumContentBlock) => {
@@ -45,7 +45,7 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
         );
       case 'worked-example':
         return (
-          <Card key={block.id} className="p-4 sm:p-5 border-l-4 border-l-emerald-500 bg-emerald-50/40">
+          <Card key={block.id} className="p-4 sm:p-5 border-l-4 border-l-success-500 bg-success-50/40">
             {heading}
             {block.body && <div className="text-slate-700 text-sm sm:text-base leading-relaxed whitespace-pre-line"><MathText text={block.body} /></div>}
           </Card>

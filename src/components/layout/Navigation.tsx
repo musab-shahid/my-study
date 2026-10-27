@@ -148,7 +148,7 @@ export function Sidebar() {
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
                 <span className="flex-1 text-left">{track.title}</span>
                 {trackMembership.activeTrackId === trackId && (
-                  <span className="text-label text-emerald-400 font-semibold">Active</span>
+                  <span className="text-label text-success-400 font-semibold">Active</span>
                 )}
               </button>
               {trackMembership.activeTrackId === trackId && (
