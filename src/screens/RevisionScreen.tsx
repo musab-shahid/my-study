@@ -133,7 +133,7 @@ function RevisionGroup({
       <div className="flex items-center gap-2 mb-2">
         <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${iconClass}`}>{icon}</span>
         <div>
-          <h2 id={`revision-${tone}`} className="font-semibold text-slate-900">{title} <span className="text-slate-400 font-normal">({items.length})</span></h2>
+          <h2 id={`revision-${tone}`} className="font-semibold text-slate-900">{title} <span className="text-slate-600 font-normal">({items.length})</span></h2>
           <p className="text-xs text-slate-500">{description}</p>
         </div>
       </div>
@@ -153,7 +153,7 @@ function RevisionGroup({
                   {item.accuracy === null ? <Badge color="slate">Not attempted</Badge> : <span>{item.accuracy}% recent accuracy</span>}
                 </span>
               </span>
-              <ChevronRight className="w-4 h-4 text-slate-300 shrink-0" aria-hidden />
+              <ChevronRight className="w-4 h-4 text-slate-500 shrink-0" aria-hidden />
             </ListRow>
           );
         })}

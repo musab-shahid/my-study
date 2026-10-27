@@ -236,7 +236,7 @@ export function ProgressBar({
 export function StatusIcon({ status }: { status: 'not_started' | 'studied' | 'mastered' }) {
   if (status === 'mastered') return <Star className="w-4 h-4 text-brand-500 fill-brand-500 shrink-0" aria-label="Mastered" />;
   if (status === 'studied') return <CheckCircle2 className="w-4 h-4 text-success-500 shrink-0" aria-label="Studied" />;
-  return <Circle className="w-4 h-4 text-slate-300 shrink-0" aria-label="Not started" />;
+  return <Circle className="w-4 h-4 text-slate-500 shrink-0" aria-label="Not started" />;
 }
 
 export function EmptyState({
@@ -253,7 +253,7 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center py-14 sm:py-20 px-6 text-center">
       {icon && (
-        <div className="mb-5 text-slate-300 flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
+        <div className="mb-5 text-slate-500 flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
           {icon}
         </div>
       )}
@@ -511,7 +511,7 @@ export function AppBrand({
       <span className="min-w-0">
         <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-slate-900'}`}>My Study</span>
         {!compact && (
-          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-slate-400' : 'text-slate-500'}`}>
+          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-slate-600' : 'text-slate-500'}`}>
             Learning and assessment
           </span>
         )}

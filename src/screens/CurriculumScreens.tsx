@@ -83,7 +83,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
             <h2 className="font-semibold text-slate-900">Learning outcomes</h2>
             <span className="flex items-center gap-2 text-xs text-slate-500">
               <span>{unit.outcomes.length} outcomes</span>
-              <ChevronDown className="w-4 h-4 text-slate-400 transition-transform duration-DEFAULT [details[open]_&]:rotate-180" />
+              <ChevronDown className="w-4 h-4 text-slate-600 transition-transform duration-DEFAULT [details[open]_&]:rotate-180" />
             </span>
           </summary>
           <div className="px-card-pad sm:px-card-pad-lg pb-card-pad sm:pb-card-pad-lg">
@@ -106,7 +106,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
                 <span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-slate-900">{lesson.title}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label capitalize">{lesson.readiness}</span></span>
                 <span className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mt-1">{lesson.estimatedMinutes ? <span className="inline-flex items-center gap-1"><Clock3 className="w-3 h-3" />{lesson.estimatedMinutes} min</span> : null}<span>{lesson.objectives.length} learning outcomes</span><span>{lesson.activityIds.length} practice activities</span></span>
               </span>
-              {studied ? <CheckCircle2 className="w-5 h-5 text-success-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
+              {studied ? <CheckCircle2 className="w-5 h-5 text-success-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-600 shrink-0" />}
             </div>
           </button>;
         })}</div> : <Card className="p-5 border border-dashed border-slate-300 bg-slate-50"><p className="font-medium text-slate-800">Lesson content is being developed</p><p className="text-sm text-slate-600 mt-1">This unit is registered in the curriculum, but its lessons have not yet been authored and validated. It is intentionally not presented as complete.</p>{unit.sourceDocument && <p className="text-xs text-slate-500 mt-3">Source manuscript: <code>{unit.sourceDocument}</code></p>}</Card>}
@@ -118,7 +118,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 
       {deliverables.length > 0 && <section className="mb-6"><h2 className="text-lg font-semibold text-slate-900 mb-3">Portfolio evidence</h2><div className="space-y-2">{deliverables.map((item) => <Card key={item.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-slate-900">{item.title}</h3><p className="text-sm text-slate-600 mt-1">{item.description}</p><ul className="list-disc pl-5 mt-2 text-xs text-slate-600 space-y-1">{item.acceptanceCriteria.map((criterion) => <li key={criterion}>{criterion}</li>)}</ul></Card>)}</div></section>}
 
-      {resources.length > 0 && <section><h2 className="text-lg font-semibold text-slate-900 mb-3">Resources</h2><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-slate-900">{resource.title}</span>}</div><p className="text-sm text-slate-600 mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
+      {resources.length > 0 && <section><h2 className="text-lg font-semibold text-slate-900 mb-3">Resources</h2><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-slate-900">{resource.title}</span>}</div><p className="text-sm text-slate-600 mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-slate-600 mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
     </PageContainer>
   );
 }

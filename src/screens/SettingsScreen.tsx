@@ -284,6 +284,35 @@ export function SettingsScreen() {
 
       <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
 
+      <Card className="p-card-pad mb-4">
+        <h2 className="font-semibold text-slate-900 text-sm">Privacy &amp; data</h2>
+        <div className="mt-2 space-y-2 text-xs leading-relaxed text-slate-600">
+          <p>
+            <strong className="font-medium">On this device.</strong>{' '}
+            Study progress, quiz history, and preferences are stored in your browser
+            (localStorage). They stay on the device until you clear site data or restore a backup.
+          </p>
+          <p>
+            <strong className="font-medium">Cloud backup (optional).</strong>{' '}
+            If you sign in, a copy of that progress can be uploaded to our database under your
+            account so you can restore it on another device. Sync is snapshot-based; the last
+            successful upload for a device wins.
+          </p>
+          <p>
+            <strong className="font-medium">AI tutor.</strong>{' '}
+            When you use the tutor, the question text and a short learning-state summary are sent
+            through our proxy to third-party model providers. We do not send your password. Avoid
+            pasting sensitive personal data into tutor messages.
+          </p>
+          <p>
+            <strong className="font-medium">Deletion.</strong>{' '}
+            You can export or clear local data from this Settings screen. Account deletion that
+            removes cloud rows is not yet available in the app; contact the maintainer if you need
+            a cloud account removed.
+          </p>
+        </div>
+      </Card>
+
       {isProgressSyncConfigured() && (
         <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">

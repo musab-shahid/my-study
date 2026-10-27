@@ -91,7 +91,7 @@ export function TrackOverviewScreen({ trackId }: { trackId: TrackId }) {
       catalog={
         scopeEmpty ? (
           <div className="border border-dashed border-slate-200 rounded-card px-4 py-8 text-center">
-            <AlertCircle className="w-6 h-6 text-slate-300 mx-auto mb-2" aria-hidden />
+            <AlertCircle className="w-6 h-6 text-slate-500 mx-auto mb-2" aria-hidden />
             <p className="text-sm font-medium text-slate-700">
               {scopeInvalid ? 'Invalid exam profile' : scopeEmptyPolicy ? 'No subjects defined for this profile' : 'No subjects available'}
             </p>

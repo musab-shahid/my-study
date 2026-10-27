@@ -185,7 +185,7 @@ export function StudyScreen() {
                     </div>
                     {topics.length > 0 && <div className="mt-2"><ProgressBar value={Math.round((studied / topics.length) * 100)} colorClass={getSubjectColor(subject.id).bar} /></div>}
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                  <ChevronRight className="w-5 h-5 text-slate-600 shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </button>
               </Card>
             );
@@ -220,7 +220,7 @@ export function StudyScreen() {
               <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${contColor.text}`}>Continue Learning</p>
               <p className="text-lg sm:text-xl font-bold leading-snug text-slate-900 mb-1 break-words">{continueTopic.title}</p>
               <p className="text-slate-500 text-sm mb-1">Section: {sectionMap[continueTopic.sectionId]?.title ?? continueTopic.sectionId}</p>
-              <p className="text-slate-400 text-xs mb-4">
+              <p className="text-slate-600 text-xs mb-4">
                 {data.studiedTopics.includes(continueTopic.id) ? '100% read' : '0% read'}
               </p>
               <Button size="lg" onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}>
@@ -408,7 +408,7 @@ export function StudyScreen() {
                           <Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge>
                         </span>
                         <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
-                        <span className="block text-xs text-slate-400 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
+                        <span className="block text-xs text-slate-600 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
                       </span>
                       <ChevronRight className="w-4 h-4 text-success-700 shrink-0 mt-1" />
                     </div>
@@ -446,7 +446,7 @@ export function StudyScreen() {
               <h3 className="font-semibold text-slate-900">
                 {subjectId?.startsWith('cgei-') ? 'Topic groups' : 'Sections'}
               </h3>
-              <span className="text-slate-400 text-sm">{subjectSections.length}</span>
+              <span className="text-slate-600 text-sm">{subjectSections.length}</span>
             </div>
             <div className="space-y-2">
               {subjectSections.map((section) => {
@@ -472,7 +472,7 @@ export function StudyScreen() {
                         <p className="font-medium text-slate-900 text-sm break-words">{section.title}</p>
                         <p className="text-slate-500 text-xs mt-0.5">{sectionTopics.length} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
                       </div>
-                      {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />}
+                      {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-600 shrink-0" />}
                     </button>
                     {isExpanded && (
                       <div id={`section-topics-${section.id}`} className="ml-12 pl-3 pr-1 py-1 space-y-1">
@@ -493,7 +493,7 @@ export function StudyScreen() {
                               {topic.postRestriction === 'bs17' && (
                                 <span className="text-xs font-medium px-2 py-0.5 rounded bg-warning-100 text-warning-700 border border-warning-200 shrink-0">BS-17</span>
                               )}
-                              <span className="text-slate-400 text-xs shrink-0">{statusLabel}</span>
+                              <span className="text-slate-600 text-xs shrink-0">{statusLabel}</span>
                             </button>
                           );
                         })}
@@ -639,7 +639,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                         <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-success-700 hover:underline">{resource.title}</a>
                       ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
                       <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
-                      {resource.authorOrPublisher && <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
+                      {resource.authorOrPublisher && <p className="text-label text-slate-600 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
                     </li>
                   ))}
                 </ul>
@@ -656,7 +656,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           return (
             <Card key={topic.id} className="p-0 transition-colors hover:border-slate-300">
               <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
-                <span className="text-slate-400 text-xs font-bold w-6 shrink-0">{topic.order}</span>
+                <span className="text-slate-600 text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-slate-900 text-sm sm:text-base leading-snug">{topic.title}</p>
                   {(() => {
@@ -669,7 +669,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                   })()}
                 </div>
                 <TopicStatusIcon status={status} />
-                <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />
+                <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />
               </button>
             </Card>
           );
@@ -1122,7 +1122,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               <div className="space-y-2">
                 {groups.map((g) => (
                   <div key={g.label}>
-                    <p className="text-slate-400 text-label font-medium mb-1">{g.label}</p>
+                    <p className="text-slate-600 text-label font-medium mb-1">{g.label}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {g.ids.map((rid) => { const t = getTopic(rid); if (!t) return null; return (
                         <button key={rid} onClick={() => navigate({ screen: 'topic', topicId: rid })} className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${g.chipClass}`}>{t.title}</button>
@@ -1172,9 +1172,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
               {prevTopic ? (
                 <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <ChevronLeft className="w-5 h-5 text-slate-400 shrink-0" />
+                  <ChevronLeft className="w-5 h-5 text-slate-600 shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-slate-400 font-medium">Previous</p>
+                    <p className="text-xs text-slate-600 font-medium">Previous</p>
                     <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{prevTopic.title}</p>
                   </div>
                 </button>
@@ -1182,10 +1182,10 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               {nextTopic ? (
                 <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <div className="min-w-0">
-                    <p className="text-xs text-slate-400 font-medium">Next</p>
+                    <p className="text-xs text-slate-600 font-medium">Next</p>
                     <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{nextTopic.title}</p>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-400 shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-slate-600 shrink-0" />
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
             </div>
@@ -1230,7 +1230,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                   <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
                     {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-brand-700 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
                     <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
-                    {resource.authorOrPublisher ? <p className="text-label text-slate-400 mt-1">{resource.authorOrPublisher}</p> : null}
+                    {resource.authorOrPublisher ? <p className="text-label text-slate-600 mt-1">{resource.authorOrPublisher}</p> : null}
                   </li>
                 ))}</ul>
               </div>

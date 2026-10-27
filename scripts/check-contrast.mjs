@@ -2,7 +2,7 @@
  * WCAG AA contrast checks for semantic tokens in src/index.css.
  * Covers owned brand/status tokens and primary text-on-surface pairs.
  */
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
 const css = readFileSync(join(process.cwd(), 'src/index.css'), 'utf8');
@@ -130,3 +130,45 @@ if (failed) {
   process.exit(1);
 }
 console.log('Contrast checks passed for owned semantic tokens, text-on-surface pairs, and component-level pairs.');
+
+
+// ---------------------------------------------------------------------------
+// Forbidden low-contrast text utilities on any class string in src/
+// slate-300 (~1.5:1 on white) and slate-400 (~2.6:1 on white) fail WCAG AA
+// for normal text. Decorative icons should use text-slate-500+ or currentColor.
+// ---------------------------------------------------------------------------
+const FORBIDDEN_TEXT = ['text-slate-300', 'text-slate-400'];
+const SRC = join(process.cwd(), 'src');
+
+function walk(dir, out = []) {
+  for (const name of readdirSync(dir)) {
+    const full = join(dir, name);
+    const st = statSync(full);
+    if (st.isDirectory()) walk(full, out);
+    else if (/\.(tsx|ts|css)$/.test(name)) out.push(full);
+  }
+  return out;
+}
+
+const offenders = [];
+for (const file of walk(SRC)) {
+  const text = readFileSync(file, 'utf8');
+  for (const token of FORBIDDEN_TEXT) {
+    if (text.includes(token)) {
+      const rel = file.replace(process.cwd() + '/', '');
+      offenders.push(`${rel}: ${token}`);
+    }
+  }
+}
+
+if (offenders.length) {
+  console.error('FAIL forbidden low-contrast text utilities:');
+  for (const line of offenders.slice(0, 40)) console.error('  ' + line);
+  if (offenders.length > 40) console.error(`  … and ${offenders.length - 40} more`);
+  failed += offenders.length;
+} else {
+  console.log('OK no text-slate-300 / text-slate-400 in src/');
+}
+
+
+process.exit(failed ? 1 : 0);

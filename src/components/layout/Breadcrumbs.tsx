@@ -15,7 +15,7 @@ export function Breadcrumbs({ showCurrent = true }: { showCurrent?: boolean } = 
         const isCurrent = showCurrent && i === displayItems.length - 1;
         return (
           <div key={i} className="flex items-center gap-1 shrink-0">
-            {i > 0 && <INTERACTION_ICONS.forward className="w-3.5 h-3.5 text-slate-300 shrink-0" aria-hidden />}
+            {i > 0 && <INTERACTION_ICONS.forward className="w-3.5 h-3.5 text-slate-500 shrink-0" aria-hidden />}
             {isCurrent ? (
               <span className="text-slate-800 font-semibold truncate max-w-[160px] sm:max-w-[200px]" aria-current="page">
                 {item.label}

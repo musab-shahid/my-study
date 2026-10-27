@@ -37,6 +37,9 @@ export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
 }
 
+/** Matches DB check app_progress_payload_size_chk (5 MiB). */
+export const MAX_PROGRESS_PAYLOAD_BYTES = 5 * 1024 * 1024;
+
 
 /** Persist session access token after Supabase Auth login. */
 export function setProgressSyncAccessToken(token: string | null): void {
@@ -103,6 +106,11 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
   // configuration so invalid payloads fail deterministically before any request.
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
 
+  const encoded = JSON.stringify(data);
+  if (encoded.length > MAX_PROGRESS_PAYLOAD_BYTES) {
+    return { ok: false, error: 'payload-too-large' };
+  }
+
   const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
@@ -122,7 +130,7 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
         device_id: deviceId,
         payload: data,
         updated_at: new Date().toISOString(),
-      }),
+      }), // payload size pre-checked against MAX_PROGRESS_PAYLOAD_BYTES
     });
     if (!res.ok) {
       const t = await res.text().catch(() => '');

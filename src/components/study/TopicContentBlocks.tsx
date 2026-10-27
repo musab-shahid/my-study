@@ -37,7 +37,7 @@ function GroupWrapper({
           <h4 className="font-semibold text-slate-900 text-sm">{title}</h4>
           {description && <p className="text-slate-500 text-xs mt-0.5">{description}</p>}
         </div>
-        {isExpanded ? <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" /> : <ChevronRight className="w-4 h-4 text-slate-400 shrink-0" />}
+        {isExpanded ? <ChevronDown className="w-4 h-4 text-slate-600 shrink-0" /> : <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />}
       </button>
       {isExpanded && <div className="mt-3">{children}</div>}
     </Card>

@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { Card, Button } from '@/components/ui';
 import { getSupabaseEnvStatus } from '@/lib/runtime-env';
 import {
@@ -8,6 +8,8 @@ import {
   signInWithPassword,
   signUpWithPassword,
   signOut,
+  MIN_PASSWORD_LENGTH,
+  requestPasswordReset,
 } from '@/lib/supabase-auth';
 
 /**
@@ -21,7 +23,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(isSignedIn());
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  const [mode, setMode] = useState<'signin' | 'signup' | 'reset'>('signin');
 
   const configured = isAuthConfigured();
   const envStatus = getSupabaseEnvStatus();
@@ -37,6 +39,22 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
     setBusy(true);
     setErr(null);
     setMsg(null);
+    if (mode === 'reset') {
+      const result = await requestPasswordReset(email);
+      setBusy(false);
+      if (result.ok) {
+        setMsg('If an account exists for that email, a reset link has been sent. Check your inbox.');
+        setMode('signin');
+      } else {
+        setErr(result.error ?? 'Could not send reset email.');
+      }
+      return;
+    }
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      setBusy(false);
+      setErr(`Password must be at least ${MIN_PASSWORD_LENGTH} characters.`);
+      return;
+    }
     const result =
       mode === 'signin'
         ? await signInWithPassword(email, password)
@@ -122,7 +140,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-            <div className="flex gap-2 text-xs items-center">
+            <div className="flex flex-wrap gap-2 text-xs items-center">
               <Button
                 type="button"
                 size="sm"
@@ -135,7 +153,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               >
                 Sign in
               </Button>
-              <span className="text-slate-400" aria-hidden>
+              <span className="text-slate-600" aria-hidden>
                 ·
               </span>
               <Button
@@ -150,6 +168,22 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               >
                 Create account
               </Button>
+              <span className="text-slate-600" aria-hidden>
+                ·
+              </span>
+              <Button
+                type="button"
+                size="sm"
+                variant={mode === 'reset' ? 'secondary' : 'ghost'}
+                onClick={() => {
+                  setMode('reset');
+                  setErr(null);
+                  setMsg(null);
+                  setPassword('');
+                }}
+              >
+                Forgot password
+              </Button>
             </div>
             <label className="block">
               <span className="text-xs font-medium text-slate-700">Email</span>
@@ -163,21 +197,34 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                 placeholder="you@example.com"
               />
             </label>
-            <label className="block">
-              <span className="text-xs font-medium text-slate-700">Password</span>
-              <input
-                type="password"
-                autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
-                required
-                minLength={6}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-slate-900 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
-                placeholder="At least 6 characters"
-              />
-            </label>
+            {mode !== 'reset' && (
+              <label className="block">
+                <span className="text-xs font-medium text-slate-700">Password</span>
+                <input
+                  type="password"
+                  autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
+                  required
+                  minLength={MIN_PASSWORD_LENGTH}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-slate-900 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
+                  placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
+                />
+              </label>
+            )}
+            {mode === 'reset' && (
+              <p className="text-xs text-slate-600 leading-relaxed">
+                We will email a reset link if an account exists for this address. The message is the same whether or not the account is found.
+              </p>
+            )}
             <Button type="submit" disabled={busy}>
-              {busy ? 'Please wait…' : mode === 'signin' ? 'Sign in' : 'Create account'}
+              {busy
+                ? 'Please wait…'
+                : mode === 'signin'
+                  ? 'Sign in'
+                  : mode === 'signup'
+                    ? 'Create account'
+                    : 'Send reset link'}
             </Button>
           </form>
         )}

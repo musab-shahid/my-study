@@ -149,7 +149,7 @@ export function InstallPrompt() {
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <IconButton label="Dismiss" onClick={handleDismiss} size="lg" className="absolute top-1 right-1 text-slate-400 hover:text-slate-600">
+        <IconButton label="Dismiss" onClick={handleDismiss} size="lg" className="absolute top-1 right-1 text-slate-600 hover:text-slate-600">
           <X className="w-4 h-4" aria-hidden />
         </IconButton>
         <div className="flex items-start gap-3">

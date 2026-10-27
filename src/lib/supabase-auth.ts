@@ -195,3 +195,40 @@ export async function signOut(): Promise<void> {
     /* ignore network errors on logout */
   }
 }
+
+/** Minimum password length (NIST SP 800-63B: ≥8; no composition rules). */
+export const MIN_PASSWORD_LENGTH = 8;
+
+/**
+ * Request a password-recovery email. Supabase sends a link that lands on the
+ * site with type=recovery; the app does not need to collect a new password here
+ * until the recovery session is established.
+ */
+export async function requestPasswordReset(email: string): Promise<{ ok: boolean; error?: string }> {
+  if (!isAuthConfigured()) {
+    return { ok: false, error: 'Cloud account is not configured in this build.' };
+  }
+  const trimmed = email.trim();
+  if (!trimmed) return { ok: false, error: 'Enter an email address.' };
+  const redirectTo =
+    typeof window !== 'undefined' ? `${window.location.origin}/` : undefined;
+  try {
+    // Supabase Auth recover endpoint — always returns 200 when email is well-formed
+    // to limit account enumeration; we still keep UI copy non-revealing.
+    const res = await fetch(authUrl('recover'), {
+      method: 'POST',
+      headers: anonHeaders(),
+      body: JSON.stringify({ email: trimmed, gotrue_meta_security: {}, ...(redirectTo ? { redirect_to: redirectTo } : {}) }),
+    });
+    if (!res.ok && res.status !== 429) {
+      // Generic failure; do not surface whether the address is registered.
+      return { ok: false, error: 'Could not send a reset email. Check the address and try again.' };
+    }
+    if (res.status === 429) {
+      return { ok: false, error: 'Too many attempts. Wait a moment and try again.' };
+    }
+    return { ok: true };
+  } catch {
+    return { ok: false, error: 'Network error. Try again when you are online.' };
+  }
+}
