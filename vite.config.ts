@@ -4,6 +4,24 @@ import { fileURLToPath, URL } from 'node:url';
 import { swPrecachePlugin } from './vite-sw-plugin.js';
 import packageJson from './package.json';
 
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const cspConnect = supabaseUrl ? `connect-src 'self' ${new URL(supabaseUrl).origin}` : "connect-src 'self'";
+const previewCsp = [
+  "default-src 'self'",
+  "script-src 'self'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com",
+  "img-src 'self' data: blob:",
+  cspConnect,
+  "worker-src 'self'",
+  "manifest-src 'self'",
+  "object-src 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'none'",
+  'upgrade-insecure-requests',
+].join('; ');
+
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
@@ -17,6 +35,12 @@ export default defineConfig({
   },
   // lucide-react is left in optimizeDeps (default) for faster cold starts
   optimizeDeps: {},
+  preview: {
+    headers: {
+      'Content-Security-Policy': previewCsp,
+      'X-Content-Type-Options': 'nosniff',
+    },
+  },
   build: {
     rollupOptions: {
       output: {

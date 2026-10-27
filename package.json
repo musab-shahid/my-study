@@ -11,7 +11,7 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/check-bundle-budget.mjs",
+    "build": "vite build && node scripts/security-headers.mjs --write && node scripts/check-bundle-budget.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --project tsconfig.app.json --noEmit && tsc --project tsconfig.node.json --noEmit",
     "validate:data": "tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts && tsx scripts/validate-question-bank.ts && tsx --tsconfig tsconfig.app.json scripts/validate-source-traceability.ts && npm run audit:cgei && npm run validate:traceability:all && npm run audit:data-inventory",
@@ -29,7 +29,9 @@
     "validate:traceability:all": "tsx --tsconfig tsconfig.app.json scripts/validate-all-traceability.ts",
     "audit:full-source": "python3 scripts/audit_full_source_disposition.py",
     "scan:secrets": "python3 scripts/scan_repo_secrets.py",
-    "check:contrast": "node scripts/check-contrast.mjs"
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:branding": "node scripts/check-branding.mjs",
+    "check:headers": "node scripts/security-headers.mjs --check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

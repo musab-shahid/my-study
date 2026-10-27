@@ -77,6 +77,8 @@ jobs:
           fi
       - name: Contrast WCAG spot-check
         run: npm run check:contrast
+      - name: Branding guard
+        run: npm run check:branding
       - name: Validate data
         run: npm run validate:data
       - name: Core-leaf substantive-evidence gate
@@ -89,6 +91,8 @@ jobs:
         run: npm run lint
       - name: Build
         run: npm run build
+      - name: Security headers and service-worker check
+        run: npm run check:headers
 
   e2e:
     runs-on: ubuntu-latest
