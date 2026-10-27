@@ -562,7 +562,7 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
         <p className="text-slate-600 mt-1 text-body-sm">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
       {curriculumUnit && (
-        <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-success-100 bg-teal-50/30">
+        <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-success-100 bg-brand-50/30">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
             <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-success-700 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
@@ -913,21 +913,21 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {topic.comparisonTableHazards && <ComparisonTableBlock table={topic.comparisonTableHazards} />}
         {topic.comparisonTables?.map((t, i) => <ComparisonTableBlock key={`ct-plural-${i}`} table={t} />)}
         {(() => { const rawEx = topic.workedExample ?? (topic as Topic & { workedExamples?: typeof topic.workedExample }).workedExamples; if (!rawEx) return null; const examples = Array.isArray(rawEx) ? rawEx : [rawEx]; return examples.map((ex, ei) => (
-          <Card key={ei} className="p-5 border-l-4 border-l-emerald-500 bg-emerald-50/40">
-            <div className="flex items-center gap-2 mb-3"><span className="text-emerald-700 font-semibold text-sm uppercase tracking-wide">Worked Example{examples.length > 1 ? ` ${ei + 1}` : ''}</span></div>
+          <Card key={ei} className="p-5 border-l-4 border-l-success-500 bg-success-50/40">
+            <div className="flex items-center gap-2 mb-3"><span className="text-success-700 font-semibold text-sm uppercase tracking-wide">Worked Example{examples.length > 1 ? ` ${ei + 1}` : ''}</span></div>
             <div className="space-y-2 sm:space-y-3">
               <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Problem</p><p className="text-slate-800 text-base leading-7"><MathText text={ex.problem} /></p></div>
               {ex.solution && typeof ex.solution === 'string' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><p className="text-slate-700 text-base leading-7"><MathText text={ex.solution} /></p></div>}
               {ex.solution && typeof ex.solution === 'object' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solution).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-base leading-7"><MathText text={val} /></p></div>)}</div></div>}
               {ex.solutionSteps && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solutionSteps).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-sm leading-relaxed"><MathText text={val} /></p></div>)}</div></div>}
-              {ex.answer && <div className="pt-2 border-t border-emerald-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Answer</p><p className="text-emerald-800 text-base font-semibold"><MathText text={ex.answer} /></p></div>}
-              {ex.takeaway && <div className="pt-2 border-t border-emerald-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Takeaway</p><p className="text-emerald-800 text-sm leading-relaxed"><MathText text={ex.takeaway} /></p></div>}
+              {ex.answer && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Answer</p><p className="text-success-800 text-base font-semibold"><MathText text={ex.answer} /></p></div>}
+              {ex.takeaway && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Takeaway</p><p className="text-success-800 text-sm leading-relaxed"><MathText text={ex.takeaway} /></p></div>}
             </div>
           </Card>
         )); })()}
         {topic.commonMistakes && topic.commonMistakes.length > 0 && (
-          <Card className="p-3.5 sm:p-5 border-l-4 border-l-rose-500 bg-rose-50/40">
-            <div className="flex items-center gap-2 mb-3"><span className="text-rose-700 font-semibold text-sm uppercase tracking-wide">Common Mistakes</span></div>
+          <Card className="p-3.5 sm:p-5 border-l-4 border-l-danger-500 bg-danger-50/40">
+            <div className="flex items-center gap-2 mb-3"><span className="text-danger-700 font-semibold text-sm uppercase tracking-wide">Common Mistakes</span></div>
             <ul className="space-y-2 sm:space-y-3">{topic.commonMistakes.map((mistake, i) => {
               if (typeof mistake === 'string') {
                 return <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><MathText text={mistake} /></li>;
@@ -1044,8 +1044,8 @@ export function TopicScreen({ topicId }: { topicId: string }) {
                 <div key={i} className="space-y-1">
                   <p className="text-sm font-medium text-amber-900"><XCircle className="inline w-3.5 h-3.5 text-danger-500 -mt-0.5 mr-1" /><MathText text={m.misconception ?? (m as { name?: string }).name} /></p>
                   {m.whyStudentsThinkIt && <p className="text-xs text-slate-600 leading-relaxed"><span className="font-medium">Why it feels right: </span><MathText text={m.whyStudentsThinkIt} /></p>}
-                  {m.correctModel && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-emerald-700">Correct model: </span><MathText text={m.correctModel} /></p>}
-                  {m.remedy && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-emerald-700">Remedy: </span><MathText text={m.remedy} /></p>}
+                  {m.correctModel && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Correct model: </span><MathText text={m.correctModel} /></p>}
+                  {m.remedy && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Remedy: </span><MathText text={m.remedy} /></p>}
                   {m.drill && <p className="text-xs text-slate-500 leading-relaxed mt-1 pl-3 border-l-2 border-amber-200"><MathText text={m.drill} /></p>}
                 </div>
               ))}
@@ -1067,12 +1067,12 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           </Card>
         )}
         {Array.isArray(topic.postRestriction) && topic.postRestriction.length > 0 && (
-          <Card className="p-3.5 sm:p-5 border-l-4 border-l-rose-400 bg-rose-50/30">
+          <Card className="p-3.5 sm:p-5 border-l-4 border-l-danger-400 bg-danger-50/30">
             <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Post-Restriction Rules</h3>
             <div className="space-y-2 sm:space-y-3">
               {topic.postRestriction.map((r, i) => (
                 <div key={i} className="space-y-1">
-                  <p className="text-sm font-medium text-rose-800"><MathText text={r.rule} /></p>
+                  <p className="text-sm font-medium text-danger-800"><MathText text={r.rule} /></p>
                   <p className="text-xs text-slate-600 leading-relaxed"><MathText text={r.restriction} /></p>
                   <p className="text-xs text-slate-500 leading-relaxed"><span className="font-medium">Consequence: </span><MathText text={r.consequence} /></p>
                 </div>

@@ -112,7 +112,7 @@ export function CGEITrackOverviewScreen() {
         <Card className="p-4 mb-6 border border-brand-200 bg-brand-50/50">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="min-w-0">
-              <p className="text-caption font-bold uppercase tracking-wide text-teal-800 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Continue curriculum</p>
+              <p className="text-caption font-bold uppercase tracking-wide text-brand-800 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Continue curriculum</p>
               <p className="font-semibold text-slate-900 mt-1">{lastLesson.title}</p>
               <p className="text-caption text-slate-600 mt-1">Resume the last opened canonical lesson.</p>
             </div>

@@ -362,7 +362,7 @@ export function DashboardScreen() {
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
             <p className="text-xs text-slate-500">Streak</p>
             <p className="text-xl font-semibold text-slate-900 mt-0.5 flex items-center gap-1.5">
-              <Flame className="w-5 h-5 text-orange-500" aria-hidden />
+              <Flame className="w-5 h-5 text-warning-500" aria-hidden />
               {streakInfo.streak}
             </p>
             <p className="text-label text-slate-400 mt-1">

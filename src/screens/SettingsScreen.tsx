@@ -256,7 +256,7 @@ export function SettingsScreen() {
       <div className="grid grid-cols-3 gap-3 mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-orange-500' : 'text-slate-500'}`} />
+            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-warning-500' : 'text-slate-500'}`} />
             <span className="text-slate-500 text-xs font-medium">Streak</span>
           </div>
           <p className="text-xl font-bold text-slate-900 leading-tight">{streak.streak}<span className="text-sm font-normal text-slate-500">d</span></p>
@@ -476,11 +476,12 @@ export function SettingsScreen() {
                 key={s.id}
                 type="button"
                 onClick={() => toggleSubject(s.id as SubjectId)}
-                className={`text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
+                className={`inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
                   selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-slate-600'
                 }`}
               >
-                {selected ? '✓ ' : ''}{s.title}
+                {selected ? <Check className="w-3.5 h-3.5 shrink-0 text-brand-700" aria-hidden /> : null}
+                {s.title}
               </button>
             );
           })}
