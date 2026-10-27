@@ -199,7 +199,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
             disabled={restarting}
             aria-busy={restarting}
             aria-label={restarting ? 'Updating application' : undefined}
-            className="shrink-0 self-center min-h-[44px]"
+            className="shrink-0 self-center min-h-[48px] h-12"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${restarting ? 'animate-spin' : ''}`} aria-hidden />
             {restarting ? 'Updating…' : 'Restart'}
