@@ -176,8 +176,12 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
   return (
     <div className="fixed top-0 inset-x-0 z-[60] animate-fade-in-up">
       <div className="mx-auto max-w-md px-4 pt-[env(safe-area-inset-top)]">
-        <div className="rounded-b-2xl border border-b-0 border-brand-200 bg-white shadow-lg px-4 py-3 flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-brand-400 to-sky-600 flex items-center justify-center shrink-0 shadow-sm">
+        <div
+          className="rounded-b-2xl border border-b-0 border-brand-200 bg-white shadow-lg px-4 py-3 flex items-center gap-3"
+          role="region"
+          aria-label="Application update available"
+        >
+          <div className="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center shrink-0 shadow-sm" aria-hidden="true">
             <BookOpen className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} />
           </div>
           <div className="flex-1 min-w-0" role="status" aria-live="polite" aria-atomic="true">
@@ -190,9 +194,11 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
             type="button"
             onClick={handleUpdate}
             disabled={restarting}
+            aria-busy={restarting}
+            aria-label={restarting ? 'Updating application' : 'Restart to apply update'}
             className="inline-flex h-12 min-h-[48px] items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg bg-brand-700 text-white text-xs font-semibold hover:bg-brand-800 transition-colors shadow-sm shrink-0 self-center box-border focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-70"
           >
-            <RefreshCw className={`w-3.5 h-3.5 ${restarting ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-3.5 h-3.5 ${restarting ? 'animate-spin' : ''}`} aria-hidden="true" />
             {restarting ? 'Updating…' : 'Restart'}
           </button>
         </div>
