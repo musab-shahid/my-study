@@ -470,7 +470,7 @@ export function SettingsScreen() {
                   selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-slate-600'
                 }`}
               >
-                {selected ? '✓ ' : ''}{s.shortTitle || s.title}
+                {selected ? '✓ ' : ''}{s.title}
               </button>
             );
           })}
