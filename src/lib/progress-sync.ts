@@ -19,14 +19,16 @@ import type { AppData } from '../types.ts';
 import { validateCloudRestoreData, validateLocalProgressForCloudPush } from './cloud-restore.ts';
 import { getDeviceId } from './device-id.ts';
 import { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
+import {
+  getAccessToken,
+  setAccessToken,
+  setSessionTokens,
+} from './session-tokens.ts';
 
 export {
   planCloudRestoreWrite,
   CLOUD_RESTORE_RECOVERY_SUFFIX,
 } from './cloud-restore.ts';
-
-/** Supabase Auth access_token after sign-in (not the anon key). */
-const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
 
 export { getDeviceId };
 export { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
@@ -38,20 +40,13 @@ export function isProgressSyncConfigured(): boolean {
 
 /** Persist session access token after Supabase Auth login. */
 export function setProgressSyncAccessToken(token: string | null): void {
-  try {
-    if (!token) localStorage.removeItem(ACCESS_TOKEN_KEY);
-    else localStorage.setItem(ACCESS_TOKEN_KEY, token);
-  } catch {
-    /* ignore quota / private mode */
-  }
+  // Clearing access token also clears refresh (full sign-out).
+  if (!token) setSessionTokens(null);
+  else setAccessToken(token);
 }
 
 export function getProgressSyncAccessToken(): string | null {
-  try {
-    return localStorage.getItem(ACCESS_TOKEN_KEY);
-  } catch {
-    return null;
-  }
+  return getAccessToken();
 }
 
 function restUrl(path: string): string {
@@ -83,6 +78,24 @@ function requireAuth(): { ok: true; token: string } | { ok: false; error: string
 }
 
 
+
+/** Prefer a non-expired access token; attempt refresh when exp is past. */
+async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | { ok: false; error: string }> {
+  const auth = requireAuth();
+  if (auth.ok) return auth;
+  if (auth.error !== 'token-expired') return auth;
+  try {
+    const { refreshSession } = await import('./supabase-auth.ts');
+    const refreshed = await refreshSession();
+    if (!refreshed.ok) return { ok: false, error: 'token-expired' };
+    const token = getAccessToken();
+    if (!token) return { ok: false, error: 'auth-required' };
+    return { ok: true, token };
+  } catch {
+    return { ok: false, error: 'token-expired' };
+  }
+}
+
 /** Push local AppData snapshot to Supabase (authenticated only). */
 export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {
   // Do not persist a malformed local snapshot to cloud storage where it could
@@ -90,7 +103,7 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
   // configuration so invalid payloads fail deterministically before any request.
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
 
-  const auth = requireAuth();
+  const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
   if (!userId) return { ok: false, error: 'invalid-token' };
@@ -123,7 +136,7 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
 
 /** Pull cloud snapshot for this user + device. */
 export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; error?: string }> {
-  const auth = requireAuth();
+  const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
   const deviceId = getDeviceId();
   if (!deviceId) return { ok: false, error: 'device-id-unavailable' };

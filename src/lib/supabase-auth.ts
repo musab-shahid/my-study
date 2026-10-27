@@ -16,6 +16,7 @@ import {
   setProgressSyncAccessToken,
   isProgressSyncConfigured,
 } from './progress-sync.ts';
+import { getRefreshToken, setSessionTokens } from './session-tokens.ts';
 
 const USER_EMAIL_KEY = 'examprep-supabase-user-email';
 
@@ -84,14 +85,45 @@ function mapAuthError(status: number, body: unknown): string {
 
 async function applySession(data: {
   access_token?: string;
+  refresh_token?: string;
   user?: { email?: string };
 }): Promise<AuthResult> {
   const token = data.access_token;
   if (!token) return { ok: false, error: 'No access token returned from Supabase.' };
-  setProgressSyncAccessToken(token);
+  setSessionTokens({
+    accessToken: token,
+    refreshToken: data.refresh_token ?? getRefreshToken(),
+  });
   const email = data.user?.email?.trim() || getStoredUserEmail() || '';
   if (email) setStoredUserEmail(email);
   return { ok: true, email };
+}
+
+/**
+ * Exchange the stored refresh token for a new access token.
+ * Clears the local session when the refresh token is missing or rejected.
+ */
+export async function refreshSession(): Promise<AuthResult> {
+  if (!isAuthConfigured()) return { ok: false, error: 'Supabase is not configured.' };
+  const refresh = getRefreshToken();
+  if (!refresh) return { ok: false, error: 'token-expired' };
+
+  try {
+    const res = await fetch(authUrl('token?grant_type=refresh_token'), {
+      method: 'POST',
+      headers: anonHeaders(),
+      body: JSON.stringify({ refresh_token: refresh }),
+    });
+    const body = await res.json().catch(() => ({}));
+    if (!res.ok) {
+      setSessionTokens(null);
+      setStoredUserEmail(null);
+      return { ok: false, error: mapAuthError(res.status, body) };
+    }
+    return applySession(body);
+  } catch (e) {
+    return { ok: false, error: e instanceof Error ? e.message : 'Session refresh failed' };
+  }
 }
 
 /** Create account (email + password). May require email confirmation depending on project settings. */
@@ -147,7 +179,7 @@ export async function signInWithPassword(email: string, password: string): Promi
 /** Clear local session token (server revoke is best-effort). */
 export async function signOut(): Promise<void> {
   const token = getProgressSyncAccessToken();
-  setProgressSyncAccessToken(null);
+  setSessionTokens(null);
   setStoredUserEmail(null);
   if (!token || !isAuthConfigured()) return;
   try {
