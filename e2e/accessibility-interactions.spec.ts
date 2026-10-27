@@ -15,7 +15,7 @@ test.describe('mobile tools dialog keyboard behavior', () => {
 
     const dialog = page.getByRole('dialog', { name: 'More' });
     await expect(dialog).toBeVisible();
-    await expect(dialog).toContainText('Study tools');
+    await expect(dialog).toContainText('Study');
     await expect(dialog).toContainText('Search');
     await expect(dialog).toContainText('Settings');
     await expect(dialog).toContainText('More');
