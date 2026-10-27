@@ -111,7 +111,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study</p>
             <div className="space-y-0.5">
               {studyTools.map((item) => {
-                const active = isCurrent(item.screen);
+                const active = isCurrent(item.screen, 'mode' in item ? item.mode : undefined);
                 return (
                   <button
                     key={item.screen}
@@ -133,7 +133,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             <p id="more-app-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">App</p>
             <div className="space-y-0.5">
               {tools.map((item) => {
-                const active = isCurrent(item.screen, item.mode);
+                const active = isCurrent(item.screen);
                 return (
                   <button
                     key={item.label}
