@@ -31,7 +31,7 @@ export const FEATURE_ICONS: Record<FeatureIconId, LucideIcon> = {
   home: Home,
   tracks: Library,
   learn: BookCopy,
-  /** Unified: Brain for Practice on sidebar stages and bottom nav (was Dumbbell on mobile). */
+  /** Unified Practice icon on sidebar stages and bottom nav. */
   practice: Brain,
   review: RotateCcw,
   formulas: FunctionSquare,

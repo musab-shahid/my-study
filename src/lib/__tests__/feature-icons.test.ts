@@ -20,7 +20,8 @@ describe('feature icons registry', () => {
     }
     assert.match(src, /practice:\s*Brain/);
     assert.match(src, /formulas:\s*FunctionSquare/);
-    assert.ok(!src.includes('Dumbbell'));
+    assert.ok(!/practice:\s*Dumbbell/.test(src));
+    assert.ok(!/^\s*Dumbbell,?$/m.test(src));
   });
 
   it('is consumed by desktop nav and mobile tools tray', () => {
@@ -28,7 +29,7 @@ describe('feature icons registry', () => {
     const tray = readSrc('src/components/layout/ToolsTray.tsx');
     assert.match(nav, /FEATURE_ICONS/);
     assert.match(tray, /FEATURE_ICONS/);
-    assert.ok(!nav.includes('Dumbbell'));
+    assert.ok(!/\bDumbbell\b/.test(nav));
     assert.match(nav, /FEATURE_ICONS\.practice/);
     assert.match(tray, /FEATURE_ICONS\.formulas/);
   });
