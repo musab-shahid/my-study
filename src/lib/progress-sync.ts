@@ -18,6 +18,7 @@ import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
 import { validateCloudRestoreData, validateLocalProgressForCloudPush } from './cloud-restore.ts';
 import { getDeviceId } from './device-id.ts';
+import { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
 
 export {
   planCloudRestoreWrite,
@@ -28,6 +29,7 @@ export {
 const ACCESS_TOKEN_KEY = 'examprep-supabase-access-token';
 
 export { getDeviceId };
+export { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
 
 export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
@@ -74,20 +76,12 @@ function requireAuth(): { ok: true; token: string } | { ok: false; error: string
       error: 'auth-required',
     };
   }
+  if (isAccessTokenExpired(token)) {
+    return { ok: false, error: 'token-expired' };
+  }
   return { ok: true, token };
 }
 
-/** Decode user id from JWT payload (no signature verify — RLS enforces on server). */
-function userIdFromAccessToken(token: string): string | null {
-  try {
-    const part = token.split('.')[1];
-    if (!part) return null;
-    const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')));
-    return typeof json.sub === 'string' ? json.sub : null;
-  } catch {
-    return null;
-  }
-}
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
 export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {
