@@ -120,10 +120,20 @@ if (mode === 'ratchet') {
   process.exit(0);
 }
 
-// Default: diff-only guard (existing behaviour)
+// Default: net-new guard over a single commit or an explicit SHA range.
+// Pull_request CI checks out a merge commit; HEAD^1 is then the base branch and
+// the diff becomes the whole PR (false positives on existing debt). Callers
+// should set DESIGN_SYSTEM_DIFF_BASE + DESIGN_SYSTEM_DIFF_HEAD to the PR head
+// commit and its parent for net-new, and rely on --ratchet for whole-tree debt.
 let diff;
 try {
-  diff = execFileSync('git', ['diff', '--unified=0', 'HEAD^1', 'HEAD', '--', 'src'], {
+  const base = process.env.DESIGN_SYSTEM_DIFF_BASE?.trim();
+  const head = process.env.DESIGN_SYSTEM_DIFF_HEAD?.trim() || 'HEAD';
+  const rangeArgs = base
+    ? ['diff', '--unified=0', `${base}...${head}`, '--', 'src']
+    : ['diff', '--unified=0', 'HEAD^1', 'HEAD', '--', 'src'];
+  console.log('Design-system net-new range:', base ? `${base}...${head}` : 'HEAD^1..HEAD');
+  diff = execFileSync('git', rangeArgs, {
     encoding: 'utf8',
     stdio: ['ignore', 'pipe', 'pipe'],
   });
