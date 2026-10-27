@@ -173,7 +173,7 @@ export function InstallPrompt() {
       <Library className="w-5 h-5 text-white" />,
       'Install App',
       'On iPhone or iPad, open the Share menu in Safari, then choose "Add to Home Screen". The app will work like a native app, including offline access.',
-      <Button variant="ghost" size="md" onClick={handleDismiss}>
+      <Button variant="ghost" size="lg" onClick={handleDismiss}>
         <X className="w-3.5 h-3.5" aria-hidden />
         Not now
       </Button>,
@@ -187,11 +187,11 @@ export function InstallPrompt() {
     'Install App',
     'Add the app to your home screen for quick access. It works offline and your progress is saved on your device.',
     <>
-      <Button variant="primary" size="md" onClick={handleInstall}>
+      <Button variant="primary" size="lg" onClick={handleInstall}>
         <Download className="w-3.5 h-3.5" aria-hidden />
         Install
       </Button>
-      <Button variant="ghost" size="md" onClick={handleDismiss}>
+      <Button variant="ghost" size="lg" onClick={handleDismiss}>
         <X className="w-3.5 h-3.5" aria-hidden />
         Not now
       </Button>

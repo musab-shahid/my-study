@@ -193,7 +193,7 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
           </div>
           <Button
             variant="primary"
-            size="md"
+            size="lg"
             onClick={handleUpdate}
             disabled={restarting}
             aria-busy={restarting}
