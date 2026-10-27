@@ -10,7 +10,7 @@ const previewCsp = [
   "default-src 'self'",
   "script-src 'self'",
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-  "font-src 'self' https://fonts.gstatic.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
   "img-src 'self' data: blob:",
   cspConnect,
   "worker-src 'self'",
