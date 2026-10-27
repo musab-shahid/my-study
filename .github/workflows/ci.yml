@@ -159,9 +159,11 @@ jobs:
         run: python scripts/audit_core_leaf_coverage.py --allow-unmapped
       - name: Verify full-source disposition gate
         run: python3 scripts/audit_full_source_disposition.py
-      - name: Verify strict Core-leaf coverage gate
+      - name: Enforce strict Core-leaf coverage gate
         shell: bash
         run: |
+          # Required: zero unmapped Core leaves and zero blocking stale IDs.
+          # Transitional reporting (allow-unmapped) remains a separate step above.
           set +e
           output="$(python scripts/audit_core_leaf_coverage.py 2>&1)"
           status=$?
@@ -172,9 +174,9 @@ jobs:
             exit 0
           fi
           if [ "$status" -eq 1 ]; then
-            printf '%s\n' "$output" | grep -E -q "[1-9][0-9]* unmapped Core leaves|[1-9][0-9]* stale"
-            echo "Strict gate correctly blocking unresolved leaves or stale IDs."
-            exit 0
+            echo "Strict gate FAILED: unresolved Core leaves or stale IDs remain." >&2
+            echo "This step is blocking — fix dispositions/content or use an explicit deferred policy." >&2
+            exit 1
           fi
           echo "Unexpected strict gate exit status: $status" >&2
           exit 1

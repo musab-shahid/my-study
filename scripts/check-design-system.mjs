@@ -101,8 +101,19 @@ if (mode === 'ratchet') {
   }
   const baseline = JSON.parse(readFileSync(BASELINE_PATH, 'utf8'));
   const { totals } = scanTree();
+  const scannerKeys = Object.keys(totals).sort();
+  const baselineKeys = Object.keys(baseline.totals || {}).sort();
+  const missingInBaseline = scannerKeys.filter((k) => !baselineKeys.includes(k));
+  const extraInBaseline = baselineKeys.filter((k) => !scannerKeys.includes(k));
+  if (missingInBaseline.length || extraInBaseline.length) {
+    console.error('Design-system baseline schema mismatch — key sets must match exactly:');
+    if (missingInBaseline.length) console.error('  missing in baseline:', missingInBaseline.join(', '));
+    if (extraInBaseline.length) console.error('  extra in baseline (unknown to scanner):', extraInBaseline.join(', '));
+    console.error('Regenerate with: node scripts/check-design-system.mjs --baseline');
+    process.exit(1);
+  }
   const regressions = [];
-  for (const key of Object.keys(baseline.totals || {})) {
+  for (const key of scannerKeys) {
     const before = baseline.totals[key] ?? 0;
     const after = totals[key] ?? 0;
     if (after > before) {
