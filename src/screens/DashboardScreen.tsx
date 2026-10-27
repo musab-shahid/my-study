@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from 'react';
 import { getAttentionItems, getDashboardRecommendation, buildDailyReviewTopicIds, firstUnmasteredPrereq } from '@/lib/attention';
-import { Zap, ChevronRight, Flame, BookOpen, Brain, RotateCcw, TrendingUp } from 'lucide-react';
+import { Zap, ChevronRight, Flame } from 'lucide-react';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 import { useRouter } from '@/router';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
@@ -217,14 +218,14 @@ export function DashboardScreen() {
           <p className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-4">What you get after beginning</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
-              { icon: <BookOpen className="w-5 h-5" />, label: 'Learn', desc: 'Topic notes & explanations' },
-              { icon: <Brain className="w-5 h-5" />, label: 'Practice', desc: 'Adaptive quiz sessions' },
-              { icon: <RotateCcw className="w-5 h-5" />, label: 'Review', desc: 'Spaced-repetition queue' },
-              { icon: <TrendingUp className="w-5 h-5" />, label: 'Progress', desc: 'Accuracy & coverage stats' },
-            ].map(({ icon, label, desc }) => (
+              { Icon: FEATURE_ICONS.learn, label: 'Learn', desc: 'Topic notes & explanations' },
+              { Icon: FEATURE_ICONS.practice, label: 'Practice', desc: 'Adaptive quiz sessions' },
+              { Icon: FEATURE_ICONS.review, label: 'Review', desc: 'Spaced-repetition queue' },
+              { Icon: FEATURE_ICONS.progress, label: 'Progress', desc: 'Accuracy & coverage stats' },
+            ].map(({ Icon, label, desc }) => (
               <div key={label} className="rounded-card border border-slate-200 bg-white p-3.5 flex flex-col gap-2">
-                <div className="w-9 h-9 rounded-btn bg-brand-50 flex items-center justify-center text-brand-500">
-                  {icon}
+                <div className="w-9 h-9 rounded-btn bg-brand-50 flex items-center justify-center text-brand-700">
+                  <Icon className="w-5 h-5" aria-hidden />
                 </div>
                 <div>
                   <p className="font-semibold text-slate-800 text-sm">{label}</p>

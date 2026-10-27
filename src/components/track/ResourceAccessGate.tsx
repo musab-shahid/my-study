@@ -8,7 +8,7 @@ import { isTrackId, type TrackId } from '@/data/tracks';
 import { listTrackDefinitions } from '@/data/tracks';
 import { EnrollmentRequired } from '@/components/track/EnrollmentRequired';
 import { PageContainer, EmptyState, Card, Button } from '@/components/ui';
-import { BookOpen } from 'lucide-react';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 
 function SwitchWorkspaceCard({
   trackId,
@@ -29,7 +29,7 @@ function SwitchWorkspaceCard({
         <EmptyState
           title={`Open in ${label}?`}
           message={`${title} belongs to your ${label} enrollment, which is not the active workspace. Switch only if you want to change Study and Practice context.`}
-          icon={<BookOpen className="w-12 h-12" />}
+          icon={<FEATURE_ICONS.learn className="w-12 h-12" aria-hidden />}
         />
         {err && (
           <p className="text-sm text-danger-600 text-center mt-3" role="alert">{err}</p>
@@ -76,7 +76,7 @@ export function TopicAccessGate({
           <EmptyState
             title="Topic not found"
             message="This topic id is missing or was renamed."
-            icon={<BookOpen className="w-12 h-12" />}
+            icon={<FEATURE_ICONS.learn className="w-12 h-12" aria-hidden />}
           />
         </Card>
       </PageContainer>
@@ -90,7 +90,7 @@ export function TopicAccessGate({
           <EmptyState
             title="Topic unavailable"
             message="No subject mapping for this topic."
-            icon={<BookOpen className="w-12 h-12" />}
+            icon={<FEATURE_ICONS.learn className="w-12 h-12" aria-hidden />}
           />
         </Card>
       </PageContainer>
@@ -125,7 +125,7 @@ export function SectionAccessGate({
           <EmptyState
             title="Section not found"
             message="Unknown section id."
-            icon={<BookOpen className="w-12 h-12" />}
+            icon={<FEATURE_ICONS.learn className="w-12 h-12" aria-hidden />}
           />
         </Card>
       </PageContainer>

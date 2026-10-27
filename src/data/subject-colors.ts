@@ -321,6 +321,42 @@ export const subjectStyles: Record<string, SubjectStyle> = {
     border: 'border-amber-200', borderActive: 'border-amber-600', hoverBorder: 'hover:border-amber-500',
     glow: 'shadow-amber-500/20', gradient: 'from-amber-500 to-orange-600', lightGradient: 'from-amber-50 to-orange-50',
   },
+  'cgei-decision-support': {
+    dot: '#2563eb', dotBg: 'bg-blue-600', bar: 'bg-blue-600', tint: 'bg-blue-50',
+    text: 'text-blue-800', borderLeft: 'border-l-blue-600', bg: 'bg-blue-600',
+    border: 'border-blue-200', borderActive: 'border-blue-600', hoverBorder: 'hover:border-blue-500',
+    glow: 'shadow-blue-500/20', gradient: 'from-blue-500 to-indigo-600', lightGradient: 'from-blue-50 to-indigo-50',
+  },
+  'cgei-climate-policy': {
+    dot: '#059669', dotBg: 'bg-emerald-600', bar: 'bg-emerald-600', tint: 'bg-emerald-50',
+    text: 'text-emerald-800', borderLeft: 'border-l-emerald-600', bg: 'bg-emerald-600',
+    border: 'border-emerald-200', borderActive: 'border-emerald-600', hoverBorder: 'hover:border-emerald-500',
+    glow: 'shadow-emerald-500/20', gradient: 'from-emerald-500 to-green-600', lightGradient: 'from-emerald-50 to-green-50',
+  },
+  'cgei-software-engineering': {
+    dot: '#4f46e5', dotBg: 'bg-indigo-600', bar: 'bg-indigo-600', tint: 'bg-indigo-50',
+    text: 'text-indigo-800', borderLeft: 'border-l-indigo-600', bg: 'bg-indigo-600',
+    border: 'border-indigo-200', borderActive: 'border-indigo-600', hoverBorder: 'hover:border-indigo-500',
+    glow: 'shadow-indigo-500/20', gradient: 'from-indigo-500 to-violet-600', lightGradient: 'from-indigo-50 to-violet-50',
+  },
+  'cgei-advanced-ai': {
+    dot: '#9333ea', dotBg: 'bg-purple-600', bar: 'bg-purple-600', tint: 'bg-purple-50',
+    text: 'text-purple-800', borderLeft: 'border-l-purple-600', bg: 'bg-purple-600',
+    border: 'border-purple-200', borderActive: 'border-purple-600', hoverBorder: 'hover:border-purple-500',
+    glow: 'shadow-purple-500/20', gradient: 'from-purple-500 to-fuchsia-600', lightGradient: 'from-purple-50 to-fuchsia-50',
+  },
+  'cgei-capstone': {
+    dot: '#ca8a04', dotBg: 'bg-yellow-600', bar: 'bg-yellow-600', tint: 'bg-yellow-50',
+    text: 'text-yellow-800', borderLeft: 'border-l-yellow-600', bg: 'bg-yellow-600',
+    border: 'border-yellow-200', borderActive: 'border-yellow-600', hoverBorder: 'hover:border-yellow-500',
+    glow: 'shadow-yellow-500/20', gradient: 'from-yellow-500 to-amber-600', lightGradient: 'from-yellow-50 to-amber-50',
+  },
+  'cgei-advanced-branches': {
+    dot: '#65a30d', dotBg: 'bg-lime-600', bar: 'bg-lime-600', tint: 'bg-lime-50',
+    text: 'text-lime-800', borderLeft: 'border-l-lime-600', bg: 'bg-lime-600',
+    border: 'border-lime-200', borderActive: 'border-lime-600', hoverBorder: 'hover:border-lime-500',
+    glow: 'shadow-lime-500/20', gradient: 'from-lime-500 to-green-600', lightGradient: 'from-lime-50 to-green-50',
+  },
 
 };
 

@@ -34,6 +34,13 @@ describe('feature icons registry', () => {
     assert.match(tray, /FEATURE_ICONS\.formulas/);
   });
 
+  it('uses FEATURE_ICONS.learn on the home feature preview (not ad-hoc BookOpen)', () => {
+    const dash = readSrc('src/screens/DashboardScreen.tsx');
+    assert.match(dash, /FEATURE_ICONS/);
+    assert.match(dash, /FEATURE_ICONS\.learn/);
+    assert.ok(!/icon:\s*<BookOpen/.test(dash), 'Dashboard must not hard-code BookOpen for Learn');
+  });
+
   it('keeps AppBrand on BrandMark rather than Lucide BookOpenCheck', () => {
     const ui = readSrc('src/components/ui/index.tsx');
     assert.match(ui, /BrandMark/);
