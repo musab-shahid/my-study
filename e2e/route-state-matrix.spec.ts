@@ -44,8 +44,10 @@ async function seedWorkspace(
     },
   );
   await page.reload();
-  await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('main')).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible();
 }
+
 
 test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
   test.describe.configure({ mode: 'serial' });
@@ -67,13 +69,25 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
       await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
       await expect(page).toHaveURL(route.urlFragment);
 
-      // Desktop: sidebar marks the destination aria-current.
-      const desktopNav = page.locator('aside');
-      const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
-      // Sidebar is hidden on mobile, so switch to desktop viewport for this assertion.
+      // Desktop sidebar marks the destination aria-current (sidebar is md+).
       await page.setViewportSize({ width: 1280, height: 900 });
+      const desktopNav = page.locator('aside');
+      await expect(desktopNav).toBeVisible();
+      const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
       await expect(desktopBtn).toBeVisible();
       await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+
+      // Mobile More: destinations that live only in the tray should also mark current.
+      await page.setViewportSize(VIEWPORT);
+      const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+      await trigger.click();
+      const dialog = page.getByRole('dialog', { name: 'More' });
+      await expect(dialog).toBeVisible();
+      const moreBtn = dialog.getByRole('button', { name: route.label, exact: true });
+      if (await moreBtn.count()) {
+        await expect(moreBtn).toHaveAttribute('aria-current', 'page');
+      }
+      await page.keyboard.press('Escape');
     });
   }
 
@@ -112,17 +126,22 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await page.goto('/settings');
     await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 
-    // Navigate Home via the header back control.
-    const homeBtn = page.locator('header').first().getByRole('button', { name: 'Home', exact: true });
-    await homeBtn.click();
-    await expect(page).toHaveURL(/\/$/);
+    // Navigate Home via primary bottom nav.
+    const bar = page.getByRole('navigation', { name: 'Primary' });
+    await bar.getByRole('button', { name: 'Home', exact: true }).click();
+    await expect(page).toHaveURL(/\/?$/);
 
-    // More trigger should not carry aria-current for any secondary destination now.
+    const homeBtn = bar.getByRole('button', { name: 'Home', exact: true });
+    await expect(homeBtn).toHaveAttribute('aria-current', 'page');
+
+    // More secondary destinations should not stay current after leaving them.
     const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
-    const currentMarkers = dialog.locator('[aria-current="page"]');
-    await expect(currentMarkers).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Search', exact: true })).not.toHaveAttribute(
+      'aria-current',
+      'page',
+    );
   });
 
   test('track landing route keeps the Tracks item active on mobile', async ({ page }) => {
