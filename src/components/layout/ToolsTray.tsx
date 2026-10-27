@@ -78,7 +78,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     return {
       trackId,
       icon: trackIcon(trackId),
-      label: def.title,
+      label: def.shortTitle,
       active: isTrackActive(route.screen, trackId, routeTrackId),
       accentText: trackAccentClasses(trackId).text,
     };
@@ -116,7 +116,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
         </div>
 
         <div className="px-5 py-4">
-          <section className="mb-5" aria-labelledby="more-study-heading">
+          <section role="region" className="mb-5" aria-labelledby="more-study-heading">
             <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study tools</p>
             <div className="space-y-0.5">
               {studyTools.map((item) => {
@@ -138,7 +138,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             </div>
           </section>
 
-          <section className="mb-5" aria-labelledby="more-tools-heading">
+          <section role="region" className="mb-5" aria-labelledby="more-tools-heading">
             <p id="more-tools-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Tools</p>
             <div className="space-y-0.5">
               {tools.map((item) => {
@@ -160,7 +160,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             </div>
           </section>
 
-          <section aria-labelledby="more-tracks-heading">
+          <section role="region" aria-labelledby="more-tracks-heading">
             <p id="more-tracks-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
             <div className="space-y-0.5">
               {trackRows.map((row) => (
