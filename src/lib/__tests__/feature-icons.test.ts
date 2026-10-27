@@ -19,6 +19,8 @@ describe('feature icons registry', () => {
       assert.match(src, new RegExp(`${id}:\\s*\\w+`), `missing feature id ${id}`);
     }
     assert.match(src, /practice:\s*Brain/);
+    assert.match(src, /learn:\s*BookOpen/);
+    assert.match(src, /tracks:\s*Library/);
     assert.match(src, /formulas:\s*FunctionSquare/);
     assert.ok(!/practice:\s*Dumbbell/.test(src));
     assert.ok(!/^\s*Dumbbell,?$/m.test(src));

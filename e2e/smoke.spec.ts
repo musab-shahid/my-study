@@ -78,6 +78,22 @@ test.describe('Mobile More sheet accessibility', () => {
   });
 });
 
+test.describe('Mobile primary bar', () => {
+  test('orders Home, Learn, Practice, Tracks before More', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/');
+    const bar = page.getByRole('navigation', { name: 'Primary' });
+    const labels = await bar.locator('button').allTextContents();
+    const normalized = labels.map((s) => s.replace(/\d+/g, '').trim());
+    const idx = (name: string) => normalized.findIndex((s) => s.startsWith(name));
+    expect(idx('Home')).toBeGreaterThanOrEqual(0);
+    expect(idx('Learn')).toBeGreaterThan(idx('Home'));
+    expect(idx('Practice')).toBeGreaterThan(idx('Learn'));
+    expect(idx('Tracks')).toBeGreaterThan(idx('Practice'));
+    expect(idx('More')).toBeGreaterThan(idx('Tracks'));
+  });
+});
+
 test.describe('Mobile More menu consistency', () => {
   test('contains secondary destinations without duplicating primary Learn and Practice tabs', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
@@ -127,13 +143,14 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
   });
 
-  test('desktop sidebar exposes Flashcards and Cloud Atlas as global tools', async ({ page }) => {
+  test('desktop sidebar exposes Flashcards as a global tool; Cloud Atlas stays subject-scoped', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
 
     const sidebar = page.locator('aside').filter({ hasText: 'My Study' });
     await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
-    await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toBeVisible();
+    // Cloud Atlas is meteo-subject only — not a global Tools entry
+    await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toHaveCount(0);
   });
 
   test('header stays contextual while retaining its back navigation control', async ({ page }) => {
