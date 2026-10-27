@@ -1,0 +1,11 @@
+{
+  "generatedAt": "2026-10-27",
+  "totals": {
+    "raw-button": 84,
+    "arbitrary-font-size": 9,
+    "raw-palette-color": 125,
+    "raw-neutral-class": 788,
+    "inline-style": 15
+  },
+  "note": "Initial ratchet baseline derived from the 2026-10-27 audit inventory. Other checks remain covered by the per-change guard until their whole-tree inventory is reviewed."
+}
