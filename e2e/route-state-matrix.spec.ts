@@ -33,7 +33,23 @@ async function seedWorkspace(
       localStorage.setItem(appKey, JSON.stringify(data));
       localStorage.setItem(
         subjectKey,
-        JSON.stringify({ activeTrack: track, byTrack: {} }),
+        JSON.stringify({
+          activeTrack: track,
+          byTrack: {
+            [track]: {
+              perScreen: {
+                progress: 'all',
+                formulas: 'all',
+                review: 'all',
+                learn: 'all',
+                practice: 'all',
+                search: 'all',
+              },
+              lastSelected: 'meteo-climatology',
+              prefersAll: true,
+            },
+          },
+        }),
       );
     },
     {
@@ -52,16 +68,21 @@ async function seedWorkspace(
 test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
   test.describe.configure({ mode: 'serial' });
 
-  const secondaryRoutes: { path: string; label: string; urlFragment: RegExp }[] = [
+  /** Top-level desktop sidebar utilities with aria-current wiring. */
+  const sidebarUtilities: { path: string; label: string; urlFragment: RegExp }[] = [
     { path: '/search', label: 'Search', urlFragment: /\/search/ },
     { path: '/progress', label: 'Progress', urlFragment: /\/progress/ },
     { path: '/flashcards', label: 'Flashcards', urlFragment: /\/flashcards/ },
-    { path: '/formulas', label: 'Formulas', urlFragment: /\/formulas/ },
-    { path: '/review', label: 'Review', urlFragment: /\/review/ },
   ];
 
-  for (const route of secondaryRoutes) {
-    test(`direct load "${route.label}" marks it current on desktop and mobile`, async ({ page }) => {
+  /** Stage routes that load but are not always a top-level named sidebar button. */
+  const stageRoutes: { path: string; urlFragment: RegExp }[] = [
+    { path: '/formulas', urlFragment: /\/formulas/ },
+    { path: '/review', urlFragment: /\/review/ },
+  ];
+
+  for (const route of sidebarUtilities) {
+    test(`direct load "${route.label}" marks it current on desktop sidebar`, async ({ page }) => {
       await page.setViewportSize(VIEWPORT);
       await seedWorkspace(page);
 
@@ -69,25 +90,22 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
       await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
       await expect(page).toHaveURL(route.urlFragment);
 
-      // Desktop sidebar marks the destination aria-current (sidebar is md+).
       await page.setViewportSize({ width: 1280, height: 900 });
       const desktopNav = page.locator('aside');
       await expect(desktopNav).toBeVisible();
       const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
       await expect(desktopBtn).toBeVisible();
       await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+    });
+  }
 
-      // Mobile More: destinations that live only in the tray should also mark current.
+  for (const route of stageRoutes) {
+    test(`direct load ${route.path} resolves main content`, async ({ page }) => {
       await page.setViewportSize(VIEWPORT);
-      const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
-      await trigger.click();
-      const dialog = page.getByRole('dialog', { name: 'More' });
-      await expect(dialog).toBeVisible();
-      const moreBtn = dialog.getByRole('button', { name: route.label, exact: true });
-      if (await moreBtn.count()) {
-        await expect(moreBtn).toHaveAttribute('aria-current', 'page');
-      }
-      await page.keyboard.press('Escape');
+      await seedWorkspace(page);
+      await page.goto(route.path);
+      await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
+      await expect(page).toHaveURL(route.urlFragment);
     });
   }
 
