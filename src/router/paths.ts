@@ -253,6 +253,14 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
         { label: 'Practice', route: { screen: 'practice' } },
         { label: 'Quiz', route },
       ];
+    case 'track':
+      return [
+        home,
+        {
+          label: isTrackId(route.trackId) ? getTrackDefinition(route.trackId).shortTitle : 'Track',
+          route,
+        },
+      ];
     default:
       return [home, { label: routeLabelFallback(route), route }];
   }
@@ -271,7 +279,7 @@ function routeLabelFallback(route: PathRoute): string {
     hat: 'HAT Prep',
     fpsc: 'FPSC Exam',
   };
-  return names[route.screen] ?? 'Exam Prep';
+  return names[route.screen] ?? 'My Study';
 }
 
 /** True if path is one of our app routes (not an unknown URL). */

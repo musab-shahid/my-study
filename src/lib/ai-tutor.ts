@@ -875,7 +875,7 @@ async function callOpenRouter(
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${apiKey}`,
       'HTTP-Referer': window.location.origin,
-      'X-Title': 'ExamPrep AI Tutor',
+      'X-Title': 'My Study AI Tutor',
     },
     body: JSON.stringify({
       model,

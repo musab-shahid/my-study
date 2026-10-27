@@ -1,5 +1,5 @@
 /**
- * ExamPrep Hub — ID conventions (canonical targets)
+ * My Study — ID conventions (canonical targets)
  *
  * SUBJECT IDs: kebab-case; HAT uses hat- prefix; track is on Subject object.
  * SECTION IDs: unified `{CODE}-{NN}` (METEO-01, EARTH-01, PHY-01, …). See section-id-aliases for migration.

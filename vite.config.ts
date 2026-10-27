@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 import { swPrecachePlugin } from './vite-sw-plugin.js';
 import packageJson from './package.json';
+import { buildCsp } from './scripts/security-headers.mjs';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,6 +18,12 @@ export default defineConfig({
   },
   // lucide-react is left in optimizeDeps (default) for faster cold starts
   optimizeDeps: {},
+  preview: {
+    headers: {
+      'Content-Security-Policy': buildCsp(process.env.VITE_SUPABASE_URL),
+      'X-Content-Type-Options': 'nosniff',
+    },
+  },
   build: {
     rollupOptions: {
       output: {

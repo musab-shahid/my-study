@@ -2,7 +2,7 @@
 
 ## Goal
 
-Improve the existing ExamPrep Hub experience without replacing established study, quiz, routing, enrollment, offline, or progress behavior.
+Improve the existing My Study experience without replacing established study, quiz, routing, enrollment, offline, or progress behavior.
 
 ## Product surfaces found in the current app
 
