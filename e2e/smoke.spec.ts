@@ -32,8 +32,10 @@ test.describe('Mobile More sheet accessibility', () => {
 
     const close = dialog.getByRole('button', { name: 'Close' });
     await expect(close).toBeFocused();
+    const tracks = dialog.getByRole('region', { name: 'Learning tracks' });
+    const lastTrack = tracks.getByRole('button').last();
     await page.keyboard.press('Shift+Tab');
-    await expect(dialog.getByRole('button', { name: 'HAT Prep', exact: true })).toBeFocused();
+    await expect(lastTrack).toBeFocused();
     await page.keyboard.press('Tab');
     await expect(close).toBeFocused();
 
@@ -52,7 +54,7 @@ test.describe('Mobile More sheet accessibility', () => {
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
     const close = dialog.getByRole('button', { name: 'Close' });
-    const lastVisible = dialog.getByRole('button', { name: 'HAT Prep', exact: true });
+    const lastVisible = dialog.getByRole('region', { name: 'Learning tracks' }).getByRole('button').last();
 
     await dialog.evaluate((node) => {
       const hidden = document.createElement('button');
@@ -90,7 +92,7 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
     await expect(dialog.getByRole('region', { name: 'Study tools' })).toBeVisible();
     await expect(dialog.getByRole('region', { name: 'Tools', exact: true })).toBeVisible();
-    await expect(dialog.getByRole('region', { name: 'Exam tracks' })).toBeVisible();
+    await expect(dialog.getByRole('region', { name: 'Learning tracks' })).toBeVisible();
   });
 
   test('marks the current secondary destination and returns focus after closing', async ({ page }) => {

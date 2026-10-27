@@ -8,6 +8,7 @@ import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { allTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
 import { listTrackDefinitions, type TrackId } from '@/data/tracks';
 import { openTrackOptions } from '@/router/openTrack';
+import { FEATURE_ICONS } from '@/lib/feature-icons';
 
 interface ToolsTrayProps {
   isOpen: boolean;
@@ -15,17 +16,21 @@ interface ToolsTrayProps {
 }
 
 const studyTools = [
-  { icon: RotateCcw, label: 'Review', screen: 'review' as const },
-  { icon: FunctionSquare, label: 'Formulas', screen: 'formulas' as const },
-  { icon: TrendingUp, label: 'Progress', screen: 'progress' as const },
+  { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
+  { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
+  { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
+  { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
+  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
+  { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
+  { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
 const tools = [
-  { icon: Search, label: 'Search', screen: 'search' as const },
+  { icon: FEATURE_ICONS.search, label: 'Search', screen: 'search' as const },
   { icon: Clock, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
   { icon: Layers, label: 'Flashcards', screen: 'flashcards' as const },
   { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
-  { icon: SettingsIcon, label: 'Settings', screen: 'settings' as const },
+  { icon: FEATURE_ICONS.settings, label: 'Settings', screen: 'settings' as const },
 ];
 
 function isTrackActive(screen: string, trackId: TrackId, routeTrackId?: string): boolean {
@@ -73,7 +78,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
     return {
       trackId,
       icon: trackIcon(trackId),
-      label: def.title,
+      label: def.shortTitle,
       active: isTrackActive(route.screen, trackId, routeTrackId),
       accentText: trackAccentClasses(trackId).text,
     };
@@ -111,7 +116,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
         </div>
 
         <div className="px-5 py-4">
-          <section className="mb-5" aria-labelledby="more-study-heading">
+          <section role="region" className="mb-5" aria-labelledby="more-study-heading">
             <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study tools</p>
             <div className="space-y-0.5">
               {studyTools.map((item) => {
@@ -133,7 +138,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             </div>
           </section>
 
-          <section className="mb-5" aria-labelledby="more-tools-heading">
+          <section role="region" className="mb-5" aria-labelledby="more-tools-heading">
             <p id="more-tools-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Tools</p>
             <div className="space-y-0.5">
               {tools.map((item) => {
@@ -155,7 +160,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
             </div>
           </section>
 
-          <section aria-labelledby="more-tracks-heading">
+          <section role="region" aria-labelledby="more-tracks-heading">
             <p id="more-tracks-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
             <div className="space-y-0.5">
               {trackRows.map((row) => (

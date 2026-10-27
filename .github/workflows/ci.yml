@@ -79,6 +79,8 @@ jobs:
         run: npm run check:contrast
       - name: Branding guard
         run: npm run check:branding
+      - name: Feature icons and logo mark
+        run: npm run check:feature-icons
       - name: Validate data
         run: npm run validate:data
       - name: Core-leaf substantive-evidence gate
