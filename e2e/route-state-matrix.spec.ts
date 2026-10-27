@@ -29,14 +29,19 @@ async function seedWorkspace(
 ) {
   await page.goto('/');
   await page.evaluate(
-    ({ appKey, subjectKey, data }) => {
+    ({ appKey, subjectKey, data, track }) => {
       localStorage.setItem(appKey, JSON.stringify(data));
       localStorage.setItem(
         subjectKey,
         JSON.stringify({ activeTrack: track, byTrack: {} }),
       );
     },
-    { appKey: APP_DATA_KEY, subjectKey: SUBJECT_SELECTION_KEY, data: enrolledAppData(track) },
+    {
+      appKey: APP_DATA_KEY,
+      subjectKey: SUBJECT_SELECTION_KEY,
+      data: enrolledAppData(track),
+      track,
+    },
   );
   await page.reload();
   await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });

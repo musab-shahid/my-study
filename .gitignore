@@ -22,3 +22,4 @@ dist-ssr
 *.sw?
 .env
 audit-report.json
+test-results/
