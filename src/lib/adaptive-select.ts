@@ -14,6 +14,7 @@ import {
   localDateString,
   parseLocalDate,
 } from './constants.ts';
+import { interleaveByMaterial } from './material-interleave.ts';
 
 export type QuestionResultLike = {
   correct: boolean;
@@ -473,10 +474,24 @@ export function pickAdaptiveQuestions(
 
   workingOffers.sort((a, b) => b.need - a.need);
 
-  if (count >= workingOffers.length) {
-    return workingOffers.map((o) => o.chosen);
+  const top =
+    count >= workingOffers.length
+      ? workingOffers.map((o) => o.chosen)
+      : workingOffers.slice(0, count).map((o) => o.chosen);
+
+  // Material-aware interleaving for mixed practice (not pure topic drills).
+  // Preserves priority order as much as possible while breaking long same-kind runs.
+  if (opts.mode === 'quick' || opts.mode === 'challenge' || opts.mode === 'review') {
+    return interleaveByMaterial(
+      top.map((q) => ({
+        ...q,
+        subjectId: q.subjectId,
+        topicId: q.topicId,
+      })),
+      2,
+    );
   }
-  return workingOffers.slice(0, count).map((o) => o.chosen);
+  return top;
 }
 
 export const ADAPTIVE_WEIGHTS = W;
