@@ -73,7 +73,7 @@ describe('canAccessSubject', () => {
   });
 
   it('signals other-enrolled-track when resource is enrolled but not active', () => {
-    let d = withEnrollAndFocus(base(), 'fpsc').data;
+    const d = withEnrollAndFocus(base(), 'fpsc').data;
     const hat = withEnrollAndFocus(d, 'hat').data;
     // Active remains hat after second enroll (setActive default)
     const r = canAccessSubject(hat, 'physics');

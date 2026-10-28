@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, type ReactNode } from 'react';
-import { Download, X, Library, Share } from 'lucide-react';
+import { Download, X, Library } from 'lucide-react';
 import { Button, IconButton } from '@/components/ui';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 

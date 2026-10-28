@@ -1,7 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { selectQuizPool, filterRestoredQuestions } from '../quiz-pool.ts';
-import { quizSignature, signaturesMatch } from '../quiz-signature.ts';
+import { signaturesMatch } from '../quiz-signature.ts';
 import type { Question } from '../../types.ts';
 
 /** Minimal question fixture — no dependency on lazy-loaded banks */
