@@ -142,9 +142,11 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               </Button>
             </div>
             {!confirmDelete ? (
-              <button
+              <Button
                 type="button"
-                className="self-start text-xs text-danger-700 underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 rounded"
+                variant="ghost"
+                size="sm"
+                className="self-start text-xs text-danger-700"
                 disabled={busy}
                 onClick={() => {
                   setConfirmDelete(true);
@@ -153,7 +155,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                 }}
               >
                 Delete cloud account…
-              </button>
+              </Button>
             ) : (
               <div className="rounded-btn border border-danger-100 bg-danger-50 p-3 space-y-2">
                 <p className="text-xs text-danger-800 leading-relaxed">
