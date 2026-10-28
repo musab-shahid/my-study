@@ -8,6 +8,10 @@ export interface AnswerRecord {
   questionId: string;
   correct: boolean;
   selectedIndices: number[];
+  /** 1=guess, 2=think so, 3=sure — captured before feedback when available. */
+  confidence?: 1 | 2 | 3;
+  /** Ms from item shown to check/confidence submit. */
+  latencyMs?: number;
 }
 
 export interface ResultsData {

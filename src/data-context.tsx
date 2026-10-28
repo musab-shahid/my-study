@@ -13,7 +13,7 @@ export interface DataContextValue {
   data: AppData;
   markStudied: (topicId: string) => void;
   markCurriculumLessonStudied: (lessonId: string) => void;
-  recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
+  recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
   reset: () => boolean;
@@ -77,7 +77,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => markCurriculumLessonStudiedPure(prev, lessonId));
   }, []);
 
-  const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
+  const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
     setData((prev) => recordQuizResult(prev, topicId, answers, questions, mode, subjectId, difficultyFilter));
   }, []);
 
