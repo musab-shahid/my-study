@@ -3,6 +3,9 @@ import { ensureTrackMembership, normalizeTrackMembership, emptyTrackMembership, 
 import { STORAGE_KEYS, getEffectiveQuizStats, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
 import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/lib/adaptive-select';
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
+import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
+import { applyExamAwareInterval, daysUntilIsoDate } from '@/lib/exam-aware-schedule';
+import { getNextSession, FPSC_OCT_2026_SESSIONS } from '@/lib/exam-schedule';
 import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
@@ -672,6 +675,28 @@ export function recordQuizResult(
     prog.reviewStage = scheduled.reviewStage;
     prog.nextReview = scheduled.nextReview;
     prog.intervalDays = scheduled.intervalDays;
+    // Exam-aware compression when a future session date is known (display schedule).
+    try {
+      const next = getNextSession(FPSC_OCT_2026_SESSIONS, new Date(now));
+      const examIso = next?.startsAtIso;
+      if (examIso) {
+        const days = daysUntilIsoDate(examIso, now);
+        if (Number.isFinite(days)) {
+          const aware = applyExamAwareInterval({
+            intervalDays: prog.intervalDays ?? scheduled.intervalDays,
+            daysUntilExam: days,
+          });
+          prog.intervalDays = aware.intervalDays;
+          if (aware.intervalDays !== scheduled.intervalDays && prog.nextReview) {
+            const base = new Date(now);
+            base.setUTCDate(base.getUTCDate() + aware.intervalDays);
+            prog.nextReview = base.toISOString().slice(0, 10);
+          }
+        }
+      }
+    } catch {
+      /* schedule helpers must never break saves */
+    }
     prog.easeFactor = scheduled.easeFactor;
 
     // Phase 2: update topic ability θ from each answer on this topic
@@ -685,6 +710,18 @@ export function recordQuizResult(
 
     topicProgress = { ...topicProgress, [tid]: prog };
   }
+
+  // Phase 0: append-only review events (best-effort; aggregates remain authoritative)
+  dualWriteQuizAttemptsFireAndForget({
+    answers: answers.map((a) => ({
+      questionId: a.questionId,
+      correct: a.correct,
+      skillId: questionTopicMap.get(a.questionId) ?? a.questionId,
+    })),
+    mode,
+    sessionId: `quiz_${now}`,
+    ts: now,
+  });
 
   return {
     ...data,
