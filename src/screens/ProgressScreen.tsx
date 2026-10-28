@@ -17,6 +17,10 @@ import { computeStreak, getWeakTopics, getWeeklyAccuracy, type WeeklyAccuracyPoi
 import { computeMasteryScore } from '@/lib/constants';
 import { computeCoverageCompetence, aggregateQuestionResults, loadCalibrationBins } from '@/lib/progress-insights';
 import type { CalibrationBin } from '@/lib/calibration';
+import { planDailyWorkload } from '@/lib/exam-planner';
+import { stickyDistractors } from '@/lib/distractor-analytics';
+import { getDefaultReviewLog } from '@/lib/review-log';
+import { compareSchedulersOnLog } from '@/lib/fsrs-shadow-compare';
 import { countMasteredTopics } from '@/lib/attention';
 import { getSubjectColor } from '@/data/subject-colors';
 import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader, ListRow } from '@/components/ui';
@@ -40,6 +44,8 @@ function formatAccuracy(accuracy: number | null | undefined, attempts?: number):
 export function ProgressScreen() {
   const { data, trackMembership } = useData();
   const [calibrationBins, setCalibrationBins] = useState<CalibrationBin[] | null>(null);
+  const [stickyLines, setStickyLines] = useState<string[]>([]);
+  const [schedulerNote, setSchedulerNote] = useState<string | null>(null);
   const { navigate } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
@@ -85,9 +91,31 @@ export function ProgressScreen() {
 
   useEffect(() => {
     let cancelled = false;
-    void loadCalibrationBins().then((bins) => {
-      if (!cancelled) setCalibrationBins(bins);
-    });
+    void (async () => {
+      try {
+        const bins = await loadCalibrationBins();
+        const events = await getDefaultReviewLog().getAll();
+        const sticky = stickyDistractors(events, { minWrong: 2, minShare: 0.25, limit: 5 });
+        const lines = sticky.map(
+          (s) =>
+            `${s.itemId}: “${s.chosenOption}” (${s.wrongCount}× wrong)`,
+        );
+        const cmp = compareSchedulersOnLog(events);
+        let note: string | null = null;
+        if (cmp.predictionCount >= 5 && cmp.fsrsLogLoss != null && cmp.sm2LogLoss != null) {
+          note = cmp.fsrsBeatsSm2
+            ? `Shadow FSRS log-loss ${cmp.fsrsLogLoss.toFixed(3)} beats SM-2-like ${cmp.sm2LogLoss.toFixed(3)} on ${cmp.predictionCount} re-reviews (metrics only).`
+            : `Shadow FSRS log-loss ${cmp.fsrsLogLoss.toFixed(3)} vs SM-2-like ${cmp.sm2LogLoss.toFixed(3)} on ${cmp.predictionCount} re-reviews (still collecting evidence).`;
+        }
+        if (!cancelled) {
+          setCalibrationBins(bins);
+          setStickyLines(lines);
+          setSchedulerNote(note);
+        }
+      } catch {
+        if (!cancelled) setCalibrationBins([]);
+      }
+    })();
     return () => {
       cancelled = true;
     };
@@ -260,6 +288,42 @@ return (
               />
             )}
           </Card>
+
+          {/* Exam plan + distractors + shadow scheduler (learning-science rungs) */}
+          {(() => {
+            const dueCount = Object.values(data.topicProgress ?? {}).filter(
+              (p) => p.nextReview && p.nextReview <= new Date().toISOString().slice(0, 10),
+            ).length;
+            const plan = planDailyWorkload({ dueTopicCount: dueCount });
+            return (
+              <Card className="p-3.5 sm:p-5 mb-4">
+                <h3 className="font-semibold text-ink mb-1">Exam-aware plan</h3>
+                <p className="text-xs text-ink-muted mb-2">{plan.message}</p>
+                <p className="text-sm text-ink">
+                  Suggested today: <span className="font-semibold">{plan.suggestedMinutes} min</span>
+                  {plan.daysUntilExam != null ? ` · ${plan.daysUntilExam}d to exam` : ''}
+                  {plan.overloaded ? ' · prioritize weighted topics' : ''}
+                </p>
+                {schedulerNote && (
+                  <p className="text-xs text-ink-muted mt-2">{schedulerNote}</p>
+                )}
+              </Card>
+            );
+          })()}
+
+          {stickyLines.length > 0 && (
+            <Card className="p-3.5 sm:p-5 mb-4">
+              <h3 className="font-semibold text-ink mb-1">Sticky distractors</h3>
+              <p className="text-xs text-ink-muted mb-2">
+                Options you pick when wrong (from the review log). Use these to target misconceptions.
+              </p>
+              <ul className="list-disc pl-5 space-y-1 text-sm text-ink">
+                {stickyLines.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+            </Card>
+          )}
 
           {/* By subject (all) or section accuracy (single) */}
           {isAllSubjects ? (
