@@ -1,12 +1,12 @@
 /**
  * Opt-in, privacy-preserving error reporting.
  *
- * - Disabled by default (localStorage key examprep-error-reporting = "1" to enable).
+ * - Disabled by default (localStorage key my-study-error-reporting = "1" to enable).
  * - Scrubs tokens, emails, and long opaque strings before any network send.
  * - If VITE_ERROR_REPORT_URL is unset, only logs a scrubbed payload to the console
  *   (still useful for support when the learner copies diagnostics).
  */
-const OPT_IN_KEY = 'examprep-error-reporting';
+const OPT_IN_KEY = 'my-study-error-reporting';
 const MAX_MESSAGE = 500;
 const MAX_STACK = 2000;
 

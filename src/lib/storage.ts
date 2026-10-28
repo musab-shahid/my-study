@@ -11,7 +11,7 @@ import { resolveQuestionId } from '@/lib/question-id-aliases';
 /** Current AppData document version (trackMembership remains separately versioned). */
 export const APP_DATA_SCHEMA_VERSION = 1;
 
-const LOCAL_MUTATION_KEY = 'examprep-local-mutation-at';
+const LOCAL_MUTATION_KEY = 'my-study-local-mutation-at';
 
 export function touchLocalMutation(ts: string = new Date().toISOString()): void {
   try {
