@@ -15,6 +15,8 @@ import { SectionBadge } from '@/components/SectionBadge';
 import { getSectionAccuracy } from '@/lib/stats';
 import { computeStreak, getWeakTopics, getWeeklyAccuracy, type WeeklyAccuracyPoint } from '@/lib/streak';
 import { computeMasteryScore } from '@/lib/constants';
+import { computeCoverageCompetence, aggregateQuestionResults, loadCalibrationBins } from '@/lib/progress-insights';
+import type { CalibrationBin } from '@/lib/calibration';
 import { countMasteredTopics } from '@/lib/attention';
 import { getSubjectColor } from '@/data/subject-colors';
 import { PageContainer, Card, ProgressBar, EmptyState, PurposeLine, StreakIndicator, AchievementBadge, ScreenHeader, ListRow } from '@/components/ui';
@@ -37,6 +39,7 @@ function formatAccuracy(accuracy: number | null | undefined, attempts?: number):
 
 export function ProgressScreen() {
   const { data, trackMembership } = useData();
+  const [calibrationBins, setCalibrationBins] = useState<CalibrationBin[] | null>(null);
   const { navigate } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack } = useSubjectSelection();
@@ -68,10 +71,27 @@ export function ProgressScreen() {
   const weakTopics = getWeakTopics(data, allTopicIds, 5, 5);
   const weeklyData = getWeeklyAccuracy(data, 8, scopedSubjectIds);
 
-  // Mastery calculation
+  const qrAgg = aggregateQuestionResults(data.questionResults ?? {});
+  const coverageCompetence = computeCoverageCompetence({
+    studiedTopics: currentStats.studiedTopics,
+    totalTopics: currentStats.totalTopics,
+    correct: qrAgg.correct,
+    attempts: qrAgg.attempts,
+  });
+  // Legacy combined score for subject rows (still listed as /100 exposure blend)
   const masteryScore = currentStats.totalTopics > 0
     ? computeMasteryScore(currentStats.studiedTopics, currentStats.totalTopics, currentStats.accuracy)
     : 0;
+
+  useEffect(() => {
+    let cancelled = false;
+    void loadCalibrationBins().then((bins) => {
+      if (!cancelled) setCalibrationBins(bins);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [data.quizHistory.length]);
 
   // Achievements
   const totalQuestionsAll = allStats.reduce((s, st) => s + st.questionsAnswered, 0);
@@ -151,10 +171,32 @@ return (
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
             <StatCard icon={<Brain className="w-5 h-5" />} label="Questions" value={String(currentStats.questionsAnswered)} color="slate" />
             <StatCard icon={<Target className="w-5 h-5" />} label="Accuracy" value={currentStats.questionsAnswered === 0 || currentStats.accuracy === null ? '—' : `${currentStats.accuracy}%`} color="amber" />
-            <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Mastery" value={String(masteryScore)} color="green" sub="/100" />
+            <StatCard
+              icon={<TrendingUp className="w-5 h-5" />}
+              label="Competence"
+              value={qrAgg.attempts === 0 ? '—' : String(Math.round(coverageCompetence.competence.mean * 100))}
+              color="green"
+              sub={qrAgg.attempts === 0 ? '' : '%'}
+            />
           </div>
-          <p className="text-xs leading-5 text-muted mb-4">
-            Accuracy is the percentage of attempted questions answered correctly. Mastery combines topic coverage (50%) and quiz accuracy (50%); before you attempt quizzes, the accuracy half counts as zero.
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <div className="rounded-card border border-border bg-surface-muted p-3">
+              <p className="text-xs text-ink-muted mb-1">Coverage (opened topics)</p>
+              <p className="text-lg font-semibold text-ink">{coverageCompetence.coveragePct}%</p>
+              <ProgressBar value={coverageCompetence.coveragePct} max={100} color="sky" />
+            </div>
+            <div className="rounded-card border border-border bg-surface-muted p-3">
+              <p className="text-xs text-ink-muted mb-1">Readiness (recall-weighted)</p>
+              <p className="text-lg font-semibold text-ink">{coverageCompetence.readinessScore}/100</p>
+              <ProgressBar value={coverageCompetence.readinessScore} max={100} color="sky" />
+            </div>
+          </div>
+          <p className="text-xs leading-5 text-ink-muted mb-4">
+            Accuracy is percent correct on attempts. Competence is a Bayesian estimate of true accuracy (not a few lucky tries).
+            Coverage is only whether topics were opened — it is tracked separately so exposure is not mistaken for mastery.
+            {coverageCompetence.competence.mastered
+              ? ' Current evidence supports a mastered bar on overall attempts.'
+              : ' More well-spaced practice is needed before treating overall competence as mastered.'}
           </p>
 
           {/* Accuracy chart */}
@@ -187,6 +229,35 @@ return (
               </>
             ) : (
               <EmptyState title="No data yet" message="Take some quizzes to see your chart." icon={<TrendingUp className="w-10 h-10" />} />
+            )}
+          </Card>
+
+          {/* Confidence calibration (from review event log when available) */}
+          <Card className="p-3.5 sm:p-5 mb-4">
+            <h3 className="font-semibold text-ink mb-1">Confidence calibration</h3>
+            <p className="text-xs text-ink-muted mb-3">
+              How often you were right at each confidence level (Guess / Think so / Sure). Empty until you rate confidence in quizzes.
+            </p>
+            {calibrationBins && calibrationBins.some((b) => b.n > 0) ? (
+              <div className="space-y-3">
+                {calibrationBins.map((b) => (
+                  <div key={b.confidence}>
+                    <div className="flex items-center justify-between text-sm mb-1">
+                      <span className="font-medium text-ink">{b.label}</span>
+                      <span className="text-ink-muted">
+                        {b.n === 0 ? 'No data' : `${Math.round(b.accuracy * 100)}% · n=${b.n}`}
+                      </span>
+                    </div>
+                    <ProgressBar value={b.n === 0 ? 0 : Math.round(b.accuracy * 100)} max={100} color="sky" />
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <EmptyState
+                title="No confidence data yet"
+                message="After Check Answer, pick Guess / Think so / Sure. Your calibration will appear here."
+                icon={<Brain className="w-10 h-10" />}
+              />
             )}
           </Card>
 
