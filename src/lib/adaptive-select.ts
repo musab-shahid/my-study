@@ -483,14 +483,16 @@ export function pickAdaptiveQuestions(
   // Material-aware interleaving for mixed practice (not pure topic drills).
   // Preserves priority order as much as possible while breaking long same-kind runs.
   if (opts.mode === 'quick' || opts.mode === 'challenge' || opts.mode === 'review') {
-    return interleaveByMaterial(
+    const byId = new Map(top.map((q) => [q.id, q]));
+    const ordered = interleaveByMaterial(
       top.map((q) => ({
-        ...q,
+        id: q.id,
         subjectId: sectionMap[q.sectionId]?.subjectId,
         topicId: q.topicId,
       })),
       2,
     );
+    return ordered.map((item) => byId.get(item.id)).filter((q): q is Question => q != null);
   }
   return top;
 }
