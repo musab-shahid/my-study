@@ -28,6 +28,7 @@ import {
 export {
   planCloudRestoreWrite,
   CLOUD_RESTORE_RECOVERY_SUFFIX,
+  isLocalNewerThanCloud,
 } from './cloud-restore.ts';
 
 export { getDeviceId };
@@ -143,7 +144,12 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
 }
 
 /** Pull cloud snapshot for this user + device. */
-export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; error?: string }> {
+export type PullProgressResult =
+  | { ok: true; data: AppData; updatedAt: string | null }
+  | { ok: false; error: string };
+
+/** Pull cloud snapshot for this user + device (includes cloud updated_at for conflict UX). */
+export async function pullProgress(): Promise<PullProgressResult> {
   const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
   const deviceId = getDeviceId();
@@ -166,10 +172,13 @@ export async function pullProgress(): Promise<{ ok: boolean; data?: AppData; err
     if (!validateCloudRestoreData(payload)) {
       return { ok: false, error: 'invalid-cloud-data' };
     }
-    return { ok: true, data: payload };
+    const updatedAt =
+      typeof rows[0]?.updated_at === 'string' ? (rows[0].updated_at as string) : null;
+    return { ok: true, data: payload as AppData, updatedAt };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : 'pull-failed' };
   }
 }
+
 
 export { isAiProxyConfigured };

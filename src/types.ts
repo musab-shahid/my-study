@@ -510,6 +510,8 @@ export interface TrackMembershipState {
 }
 
 export interface AppData {
+  /** AppData document version; missing is treated as 0 and migrated on load. */
+  schemaVersion?: number;
   studiedTopics: string[];
   /** Separate passive-study progress for canonical curriculum lessons; never mixed into legacy Topic quiz/SR statistics. */
   studiedCurriculumLessons?: string[];

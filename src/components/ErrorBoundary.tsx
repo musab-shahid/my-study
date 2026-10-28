@@ -1,6 +1,7 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
 import { AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui';
+import { reportError } from '@/lib/error-reporting';
 
 interface Props {
   children: ReactNode;
@@ -23,6 +24,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     console.error('ErrorBoundary caught:', error, errorInfo);
+    const route =
+      typeof window !== 'undefined' ? `${window.location.pathname}${window.location.hash}` : undefined;
+    void reportError(error, { componentStack: errorInfo.componentStack ?? undefined, route });
   }
 
   private handleReload = () => {
