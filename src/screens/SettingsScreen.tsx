@@ -16,15 +16,20 @@ import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
 import { AuthAccountCard } from '@/components/AuthAccountCard';
 import { computeStreak, getTodayActivity, getWeekActivity } from '@/lib/streak';
-import { downloadBackupFile } from '@/lib/storage';
+import { downloadBackupFile, getLocalMutationAt } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import {
   isProgressSyncConfigured,
   getProgressSyncAccessToken,
   pushProgress,
   pullProgress,
+  isLocalNewerThanCloud,
 } from '@/lib/progress-sync';
 import { planCloudRestoreWrite } from '@/lib/cloud-restore';
+import {
+  isErrorReportingEnabled,
+  setErrorReportingEnabled,
+} from '@/lib/error-reporting';
 import { sections } from '@/data/sections';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 import type { SubjectId } from '@/types';
@@ -76,6 +81,7 @@ export function SettingsScreen() {
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
   const [sessionTick, setSessionTick] = useState(0);
+  const [errorReporting, setErrorReporting] = useState(isErrorReportingEnabled);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
@@ -313,6 +319,27 @@ export function SettingsScreen() {
         </div>
       </Card>
 
+      <Card className="p-card-pad mb-4">
+        <h2 className="font-semibold text-ink text-sm">Diagnostics</h2>
+        <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+          Optionally send crash diagnostics (error message, route, app version). Tokens and
+          emails are scrubbed. No report is sent unless you enable this.
+        </p>
+        <label className="mt-3 flex items-center gap-2 text-sm text-ink">
+          <input
+            type="checkbox"
+            className="rounded"
+            checked={errorReporting}
+            onChange={(e) => {
+              const on = e.target.checked;
+              setErrorReportingEnabled(on);
+              setErrorReporting(on);
+            }}
+          />
+          Share crash diagnostics
+        </label>
+      </Card>
+
       {isProgressSyncConfigured() && (
         <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">
@@ -356,6 +383,9 @@ export function SettingsScreen() {
                 <p className="text-sm font-semibold text-warning-900">Replace local progress with the cloud backup?</p>
                 <p className="mt-1 text-xs leading-5 text-warning-800">
                   A recovery copy of your current local data will be saved first.
+                  {getLocalMutationAt()
+                    ? ' If this device was edited after the last cloud upload, restoring will overwrite those edits.'
+                    : ''}
                 </p>
                 <div className="mt-3 flex flex-wrap gap-2">
                   <Button
@@ -378,7 +408,12 @@ export function SettingsScreen() {
                           localStorage.setItem(plan.recoveryKey, plan.recoveryValue);
                         }
                         localStorage.setItem(plan.appDataKey, plan.appDataValue);
-                        setSyncMsg('Downloaded and saved. Reloading…');
+                        const newer = r.ok && isLocalNewerThanCloud(getLocalMutationAt(), r.updatedAt);
+                        setSyncMsg(
+                          newer
+                            ? 'Downloaded and saved (local data was newer than the cloud backup and was overwritten). Reloading…'
+                            : 'Downloaded and saved. Reloading…',
+                        );
                         window.location.reload();
                       } catch {
                         setSyncMsg('Download ok but could not write locally — local data unchanged.');

@@ -8,6 +8,25 @@ import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
 import { resolveQuestionId } from '@/lib/question-id-aliases';
 
+/** Current AppData document version (trackMembership remains separately versioned). */
+export const APP_DATA_SCHEMA_VERSION = 1;
+
+const LOCAL_MUTATION_KEY = 'examprep-local-mutation-at';
+
+export function touchLocalMutation(ts: string = new Date().toISOString()): void {
+  try {
+    localStorage.setItem(LOCAL_MUTATION_KEY, ts);
+  } catch { /* ignore */ }
+}
+
+export function getLocalMutationAt(): string | null {
+  try {
+    return localStorage.getItem(LOCAL_MUTATION_KEY);
+  } catch {
+    return null;
+  }
+}
+
 const STORAGE_KEY = STORAGE_KEYS.appData;
 const LEGACY_KEY = STORAGE_KEYS.legacyAppData;
 const BACKUP_KEY = 'examprep-data-backup';
@@ -66,6 +85,7 @@ export function downloadBackupFile(data?: AppData): boolean {
 }
 
 const emptyData: AppData = {
+  schemaVersion: APP_DATA_SCHEMA_VERSION,
   studiedTopics: [],
   studiedCurriculumLessons: [],
   lastOpenedCurriculumLesson: '',
@@ -168,10 +188,32 @@ function validateTopicProgress(p: unknown): p is TopicProgress {
   return true;
 }
 
+
+function migrateAppDataDocument(data: Record<string, unknown>): Record<string, unknown> {
+  const v = typeof data.schemaVersion === 'number' ? data.schemaVersion : 0;
+  if (v > APP_DATA_SCHEMA_VERSION) {
+    return data; // reject later in validate if we choose
+  }
+  if (v < 1) {
+    return { ...data, schemaVersion: 1 };
+  }
+  return data;
+}
+
 function validateAppData(data: unknown): data is AppData {
   if (!isObject(data)) {
     console.warn('[storage] Invalid data: not an object');
     return false;
+  }
+  const version = typeof (data as { schemaVersion?: unknown }).schemaVersion === 'number'
+    ? (data as { schemaVersion: number }).schemaVersion
+    : 0;
+  if (version > APP_DATA_SCHEMA_VERSION) {
+    console.warn('[storage] Invalid data: schemaVersion from the future', version);
+    return false;
+  }
+  if (version < 1) {
+    (data as { schemaVersion: number }).schemaVersion = 1;
   }
   if (data.quizHistory !== undefined && !Array.isArray(data.quizHistory)) {
     console.warn('[storage] Invalid data: quizHistory is not an array');
@@ -458,7 +500,12 @@ function tryRestoreBackup(recoveryOnly = false): AppData | null {
 }
 
 export function saveData(data: AppData): void {
-  pendingData = data;
+  const withVersion: AppData = {
+    ...data,
+    schemaVersion: data.schemaVersion ?? APP_DATA_SCHEMA_VERSION,
+  };
+  pendingData = withVersion;
+  touchLocalMutation();
   if (saveTimer !== null) clearTimeout(saveTimer);
   saveTimer = setTimeout(flushSave, SAVE_DEBOUNCE_MS);
 }
