@@ -100,6 +100,12 @@ async function answerCurrentQuestion(page: Page) {
   await expect(check).toBeEnabled({ timeout: 5_000 });
   await check.click();
 
+  // Confidence gate (Guess / Think so / Sure) appears before feedback.
+  const thinkSo = page.getByRole('button', { name: /Think so/i });
+  if (await thinkSo.isVisible().catch(() => false)) {
+    await thinkSo.click();
+  }
+
   const next = page.getByRole('button', { name: /^(Next Question|View Results)$/i });
   const continueRegion = page.getByLabel(/tap or press enter to continue/i);
   if (await next.isVisible().catch(() => false)) {

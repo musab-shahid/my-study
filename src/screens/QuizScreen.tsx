@@ -864,7 +864,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (!s.checked) {
+        if (s.awaitingConfidence) {
+          // Keyboard path: default to "Think so" so flow stays one-handed.
+          handleConfidence(2);
+        } else if (!s.checked) {
           if (s.selectedIndices.length > 0) handleCheck();
         } else {
           handleNext();
@@ -892,7 +895,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [finished, showExitConfirm, showKeysHelp, handleCheck, handleNext, handleExit, toggleOption]);
+  }, [finished, showExitConfirm, showKeysHelp, handleCheck, handleConfidence, handleNext, handleExit, toggleOption]);
 
   // ── Early returns only AFTER all hooks ──
   const validationError = validateQuizParams({ mode, count, topicId, topicIds, scope, subjectId });
