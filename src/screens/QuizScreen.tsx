@@ -24,6 +24,8 @@ import {
   insertQuestionAt,
   scheduleNextDayHcMiss,
   cloneQuestionForRequeue,
+  listDueHcMisses,
+  clearHcMisses,
 } from '@/lib/hypercorrection-requeue';
 import { resolveLearningScope, scopeInputFromData } from '@/lib/learning-scope';
 import {
@@ -178,6 +180,9 @@ function pickQuestions(
   if (pool.length === 0) return [];
 
   const targetCount = targetPoolCount(mode, count, pool.length);
+  const duePriorityIds = listDueHcMisses()
+    .map((d) => d.questionId)
+    .filter((id) => pool.some((q) => q.id === id));
 
   if (mode === 'mock') {
     if (pool.length <= targetCount) return shuffleArray(pool);
@@ -200,12 +205,17 @@ function pickQuestions(
     }
     return shuffleArray(picked);
   }
-  return pickAdaptiveQuestions(pool, Math.min(targetCount, pool.length), {
+  const picked = pickAdaptiveQuestions(pool, Math.min(targetCount, pool.length), {
     mode,
     questionResults,
     topicProgress,
     recentQuestionIds: recentQuestionIdsFromResults(questionResults),
+    priorityQuestionIds: duePriorityIds,
   });
+  // Consume only those actually selected into the session
+  const selectedDue = duePriorityIds.filter((id) => picked.some((q) => q.id === id));
+  if (selectedDue.length > 0) clearHcMisses(selectedDue);
+  return picked;
 }
 
 function isCorrect(question: Question, selectedIndex: number[]): boolean {

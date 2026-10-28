@@ -30,6 +30,11 @@ export interface AdaptiveSelectOptions {
   topicProgress?: Record<string, TopicProgress>;
   /** Extra ids to treat as "just seen" (current session) */
   recentQuestionIds?: string[];
+  /**
+   * Prefer these items (e.g. next-day high-confidence misses).
+   * Boosts need score and relaxes same-id hard cooldown so they can reappear.
+   */
+  priorityQuestionIds?: string[];
   /** Injected clock for tests */
   now?: number;
   /** Disable random jitter (tests) */
@@ -87,6 +92,8 @@ const W = {
   /** Residual penalty if hard-cooldown item must still be used */
   recentHard: -1.0,
   recent3Days: -0.08,
+  /** Next-day high-confidence miss priority */
+  hypercorrection: 0.55,
   jitter: 0.04,
 } as const;
 
@@ -375,11 +382,13 @@ export function scoreQuestion(q: Question, opts: AdaptiveSelectOptions): number 
   const results = opts.questionResults ?? {};
   const progressMap = opts.topicProgress ?? {};
   const recent = new Set(opts.recentQuestionIds ?? []);
+  const priority = new Set(opts.priorityQuestionIds ?? []);
   const r = results[q.id];
   const prog = progressMap[q.topicId];
   const ability = getTopicAbility(prog);
 
   let s = 0;
+  if (priority.has(q.id)) s += W.hypercorrection;
 
   // Phase 1 + 3: novelty / strength / last wrong
   if (!r) {
@@ -447,9 +456,13 @@ export function pickAdaptiveQuestions(
   for (const [key, members] of groups) {
     const chosen = pickVariantFromGroup(members, opts);
     if (!chosen) continue;
-    const need = scoreVariantGroup(members, opts);
+    const priority = new Set(opts.priorityQuestionIds ?? []);
+    const priorityMember = members.some((m) => priority.has(m.id));
+    const need =
+      scoreVariantGroup(members, opts) + (priorityMember ? W.hypercorrection : 0);
     // Phase C: group is hard-cooled only if ALL stems are (sibling still showable)
-    const hard = isGroupHardCooldown(members, results, now);
+    // HC-miss dues may re-enter despite same-id hard windows
+    const hard = isGroupHardCooldown(members, results, now) && !priorityMember;
     offers.push({ key, members, chosen, need, hard });
   }
 
