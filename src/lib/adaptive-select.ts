@@ -8,6 +8,7 @@
  * Phase C: group-level strength rollup (skill not closed by one memorized stem)
  */
 import type { Difficulty, PracticeMode, Question, TopicProgress } from '../types.ts';
+import { sectionMap } from '../data/sections.ts';
 import {
   MASTERY_ACCURACY_THRESHOLD,
   getEffectiveQuizStats,
@@ -485,7 +486,7 @@ export function pickAdaptiveQuestions(
     return interleaveByMaterial(
       top.map((q) => ({
         ...q,
-        subjectId: q.subjectId,
+        subjectId: sectionMap[q.sectionId]?.subjectId,
         topicId: q.topicId,
       })),
       2,
