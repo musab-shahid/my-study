@@ -74,12 +74,12 @@ export function interleaveByMaterial<T extends InterleaveItem>(
   if (items.length <= 2) return [...items];
   const remaining = [...items];
   const out: T[] = [];
-  let lastKind: MaterialKind | null = null;
+  let lastKind: MaterialKind | undefined;
   let run = 0;
 
   while (remaining.length > 0) {
     let pick = 0;
-    if (lastKind != null && run >= maxRun) {
+    if (lastKind !== undefined && run >= maxRun) {
       const alt = remaining.findIndex((it) => {
         const k = inferMaterialKind(it);
         return k !== lastKind && shouldInterleave({ id: 'x', materialKind: lastKind }, it);
