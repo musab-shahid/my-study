@@ -18,6 +18,13 @@ import type { Question, DifficultyFilter, PracticeMode, TimeLimitSetting, Subjec
 // SubjectId used for workspace scope checks
 import { quizSignature } from '@/lib/quiz-signature';
 import { selectQuizPool, filterRestoredQuestions, targetPoolCount } from '@/lib/quiz-pool';
+import {
+  shouldRequeueHighConfidenceMiss,
+  planRequeueInsert,
+  insertQuestionAt,
+  scheduleNextDayHcMiss,
+  cloneQuestionForRequeue,
+} from '@/lib/hypercorrection-requeue';
 import { resolveLearningScope, scopeInputFromData } from '@/lib/learning-scope';
 import {
   validateDraftShape,
@@ -219,6 +226,10 @@ interface QuizState {
   answers: AnswerRecord[];
   startTime: number;
   elapsed: number;
+  /** Question ids already re-inserted this session (at most once each). */
+  requeuedIds: string[];
+  /** Banner after scheduling a hypercorrection re-show. */
+  requeueNotice: string | null;
 }
 
 function buildBreakdown(questions: Question[], answers: AnswerRecord[]) {
@@ -404,7 +415,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       optionOrders.push(order);
       return question;
     });
-    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: Date.now(), answers: [], startTime: Date.now(), elapsed: 0 });
+    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: Date.now(), answers: [], startTime: Date.now(), elapsed: 0, requeuedIds: [], requeueNotice: null });
     setFinished(false);
     setResults(null);
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool]);
@@ -541,6 +552,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       checked: false,
       awaitingConfidence: false,
       itemShownAt: Date.now(),
+      requeuedIds: [],
+      requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
       startTime: Date.now() - resumedElapsed * 1000,
@@ -729,13 +742,49 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         latencyMs,
       };
       const already = prev.answers.some((a) => a.questionId === q.id);
+      const answers = already
+        ? prev.answers.map((a) => (a.questionId === q.id ? record : a))
+        : [...prev.answers, record];
+
+      let questions = prev.questions;
+      let optionOrders = prev.optionOrders;
+      let requeuedIds = prev.requeuedIds ?? [];
+      let requeueNotice: string | null = null;
+
+      if (
+        shouldRequeueHighConfidenceMiss(
+          correct,
+          confidence,
+          requeuedIds,
+          q.id,
+        )
+      ) {
+        const { insertAt } = planRequeueInsert({
+          currentIdx: prev.currentIdx,
+          questionCount: prev.questions.length,
+          gap: 2,
+        });
+        const { question: reshown, order } = shuffleQuestionOptions(cloneQuestionForRequeue(q));
+        questions = insertQuestionAt(prev.questions, insertAt, reshown);
+        optionOrders = insertQuestionAt(prev.optionOrders, insertAt, order);
+        requeuedIds = [...requeuedIds, q.id];
+        const steps = insertAt - prev.currentIdx;
+        requeueNotice =
+          steps <= 1
+            ? 'High-confidence miss — you will see this item again next.'
+            : `High-confidence miss — scheduled again in about ${steps - 1} question${steps - 1 === 1 ? '' : 's'}.`;
+        scheduleNextDayHcMiss(q.id, q.topicId);
+      }
+
       return {
         ...prev,
+        questions,
+        optionOrders,
+        requeuedIds,
+        requeueNotice,
         awaitingConfidence: false,
         checked: true,
-        answers: already
-          ? prev.answers.map((a) => (a.questionId === q.id ? record : a))
-          : [...prev.answers, record],
+        answers,
       };
     });
   }, []);
@@ -758,6 +807,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             checked: false,
             awaitingConfidence: false,
             itemShownAt: Date.now(),
+            requeueNotice: null,
           }
         : prev,
     );
@@ -1269,6 +1319,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         </div>
         )}
       </Card>
+
+
+      {state.requeueNotice && (
+        <div
+          className="rounded-card border border-brand-100 bg-brand-50/80 p-3 mb-3 text-sm text-ink"
+          role="status"
+          aria-live="polite"
+        >
+          {state.requeueNotice}
+        </div>
+      )}
 
       {/* Confidence before feedback (hypercorrection / calibration) */}
       {state.awaitingConfidence && !state.checked && (
