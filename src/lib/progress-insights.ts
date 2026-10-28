@@ -10,6 +10,10 @@ import {
 } from './mastery-bayesian.ts';
 import { computeCalibration, type CalibrationBin } from './calibration.ts';
 import { getDefaultReviewLog } from './review-log.ts';
+import {
+  computeEfficacySnapshot,
+  type EfficacySnapshot,
+} from './efficacy-metrics.ts';
 
 export interface CoverageCompetence {
   coverageShare: number;
@@ -67,5 +71,14 @@ export async function loadCalibrationBins(): Promise<CalibrationBin[]> {
     return computeCalibration(events);
   } catch {
     return [];
+  }
+}
+
+export async function loadEfficacySnapshot(minDelayDays = 7): Promise<EfficacySnapshot> {
+  try {
+    const events = await getDefaultReviewLog().getAll();
+    return computeEfficacySnapshot(events, minDelayDays);
+  } catch {
+    return computeEfficacySnapshot([], minDelayDays);
   }
 }

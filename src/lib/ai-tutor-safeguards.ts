@@ -62,6 +62,27 @@ export const TUTOR_EVAL_CASES: TutorEvalCase[] = [
     expectLeak: false,
   },
   {
+    id: 'safe-nudge',
+    description: 'Nudge only',
+    sampleOutput:
+      'Before we solve for return period: what does an annual exceedance probability of 0.02 mean in plain language?',
+    expectLeak: false,
+  },
+  {
+    id: 'safe-misconception',
+    description: 'Diagnose wrong answer without dumping key',
+    sampleOutput:
+      'Your choice treated LST as air temperature. Land-surface temperature is a satellite skin measurement; near-surface air temperature is different. Try restating the distinction in one sentence.',
+    expectLeak: false,
+  },
+  {
+    id: 'safe-partial-step',
+    description: 'Partial step after attempt',
+    sampleOutput:
+      'You already set up the logit model. Next: convert the linear predictor to a probability with the inverse logit. Do that step, then we will check the predicted probability table.',
+    expectLeak: false,
+  },
+  {
     id: 'leak-correct-answer',
     description: 'Explicit correct answer with question',
     sampleOutput:
@@ -73,6 +94,46 @@ export const TUTOR_EVAL_CASES: TutorEvalCase[] = [
     description: 'Answer key section',
     sampleOutput: 'Practice questions...\n\nAnswer key\n1. A  2. C',
     expectLeak: true,
+  },
+  {
+    id: 'leak-option-is',
+    description: 'The correct option is',
+    sampleOutput:
+      '1) Buffer 2) Clip 3) Dissolve\nThe correct option is 2) Clip for extracting features by a polygon boundary.',
+    expectLeak: true,
+  },
+  {
+    id: 'leak-paren-correct',
+    description: 'Marked (correct)',
+    sampleOutput: 'A. Mean B. Median (correct) C. Mode — pick one for skewed income.',
+    expectLeak: true,
+  },
+  {
+    id: 'leak-answer-colon-letter',
+    description: 'Answer: A pattern',
+    sampleOutput: 'Which CRS for web maps?\nAnswer: C',
+    expectLeak: true,
+  },
+  {
+    id: 'safe-full-solution-after-request',
+    description: 'Full solution text without MCQ key language',
+    sampleOutput:
+      'Since you asked for the full solution: Euler step is y_{n+1} = y_n + h f(t_n, y_n). With h=0.5 and f=-k y, substitute the values you already computed for y_0.',
+    expectLeak: false,
+  },
+  {
+    id: 'safe-cgei-uncertainty',
+    description: 'CGEI uncertainty coaching',
+    sampleOutput:
+      'List two reasons a zonal mean of LST can mislead heat-risk ranking for neighbourhoods (think mixed pixels and population exposure).',
+    expectLeak: false,
+  },
+  {
+    id: 'safe-hat-quant',
+    description: 'HAT quant prompt without key',
+    sampleOutput:
+      'A sequence is arithmetic with first term 5 and common difference 3. Write the 10th term formula before computing the value.',
+    expectLeak: false,
   },
 ];
 
@@ -87,4 +148,19 @@ export function runTutorLeakEval(
     }
   }
   return { passed: failures.length === 0, failures };
+}
+
+/** Structural checks on the production system prompt (not model output). */
+export function attemptFirstPromptChecks(prompt: string = ATTEMPT_FIRST_SYSTEM_PROMPT): string[] {
+  const missing: string[] = [];
+  const need = [
+    [/retrieval practice|attempt or reasoning/i, 'attempt-first'],
+    [/hint ladder/i, 'hint ladder'],
+    [/do NOT reveal correct options/i, 'no premature keys'],
+    [/misconception/i, 'misconception diagnosis'],
+  ] as const;
+  for (const [re, label] of need) {
+    if (!re.test(prompt)) missing.push(label);
+  }
+  return missing;
 }

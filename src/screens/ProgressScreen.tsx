@@ -15,8 +15,9 @@ import { SectionBadge } from '@/components/SectionBadge';
 import { getSectionAccuracy } from '@/lib/stats';
 import { computeStreak, getWeakTopics, getWeeklyAccuracy, type WeeklyAccuracyPoint } from '@/lib/streak';
 import { computeMasteryScore } from '@/lib/constants';
-import { computeCoverageCompetence, aggregateQuestionResults, loadCalibrationBins } from '@/lib/progress-insights';
+import { computeCoverageCompetence, aggregateQuestionResults, loadCalibrationBins, loadEfficacySnapshot } from '@/lib/progress-insights';
 import type { CalibrationBin } from '@/lib/calibration';
+import type { EfficacySnapshot } from '@/lib/efficacy-metrics';
 import { planDailyWorkload } from '@/lib/exam-planner';
 import { stickyDistractors } from '@/lib/distractor-analytics';
 import { getDefaultReviewLog } from '@/lib/review-log';
@@ -44,6 +45,7 @@ function formatAccuracy(accuracy: number | null | undefined, attempts?: number):
 export function ProgressScreen() {
   const { data, trackMembership } = useData();
   const [calibrationBins, setCalibrationBins] = useState<CalibrationBin[] | null>(null);
+  const [efficacy, setEfficacy] = useState<EfficacySnapshot | null>(null);
   const [stickyLines, setStickyLines] = useState<string[]>([]);
   const [schedulerNote, setSchedulerNote] = useState<string | null>(null);
   const { navigate } = useRouter();
@@ -94,6 +96,7 @@ export function ProgressScreen() {
     void (async () => {
       try {
         const bins = await loadCalibrationBins();
+        const efficacySnap = await loadEfficacySnapshot(7);
         const events = await getDefaultReviewLog().getAll();
         const sticky = stickyDistractors(events, { minWrong: 2, minShare: 0.25, limit: 5 });
         const lines = sticky.map(
@@ -109,11 +112,15 @@ export function ProgressScreen() {
         }
         if (!cancelled) {
           setCalibrationBins(bins);
+          setEfficacy(efficacySnap);
           setStickyLines(lines);
           setSchedulerNote(note);
         }
       } catch {
-        if (!cancelled) setCalibrationBins([]);
+        if (!cancelled) {
+          setCalibrationBins([]);
+          setEfficacy(null);
+        }
       }
     })();
     return () => {
@@ -285,6 +292,35 @@ return (
                 title="No confidence data yet"
                 message="After Check Answer, pick Guess / Think so / Sure. Your calibration will appear here."
                 icon={<Brain className="w-10 h-10" />}
+              />
+            )}
+          </Card>
+
+          <Card className="p-3.5 sm:p-5 mb-4">
+            <h3 className="font-semibold text-ink mb-1">Delayed retention</h3>
+            <p className="text-xs text-ink-muted mb-3">
+              Accuracy on items you first saw at least 7 days earlier (north-star style). Same-session scores are excluded.
+            </p>
+            {efficacy && efficacy.delayedRetention.n > 0 ? (
+              <div>
+                <p className="text-lg font-semibold text-ink">
+                  {Math.round((efficacy.delayedRetention.accuracy ?? 0) * 100)}%
+                  <span className="text-sm font-normal text-ink-muted"> · n={efficacy.delayedRetention.n}</span>
+                </p>
+                <ProgressBar
+                  value={Math.round((efficacy.delayedRetention.accuracy ?? 0) * 100)}
+                  max={100}
+                  color="sky"
+                />
+                <p className="text-xs text-ink-muted mt-2">
+                  {efficacy.uniqueItems} items in log · {efficacy.totalEvents} attempts total
+                </p>
+              </div>
+            ) : (
+              <EmptyState
+                title="Not enough delayed data"
+                message="Keep practicing over multiple days. This metric fills in once items are re-tested after a week."
+                icon={<TrendingUp className="w-10 h-10" />}
               />
             )}
           </Card>

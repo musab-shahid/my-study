@@ -8,12 +8,14 @@
  * Phase C: group-level strength rollup (skill not closed by one memorized stem)
  */
 import type { Difficulty, PracticeMode, Question, TopicProgress } from '../types.ts';
+import { sectionMap } from '../data/sections.ts';
 import {
   MASTERY_ACCURACY_THRESHOLD,
   getEffectiveQuizStats,
   localDateString,
   parseLocalDate,
 } from './constants.ts';
+import { interleaveByMaterial } from './material-interleave.ts';
 
 export type QuestionResultLike = {
   correct: boolean;
@@ -473,10 +475,26 @@ export function pickAdaptiveQuestions(
 
   workingOffers.sort((a, b) => b.need - a.need);
 
-  if (count >= workingOffers.length) {
-    return workingOffers.map((o) => o.chosen);
+  const top =
+    count >= workingOffers.length
+      ? workingOffers.map((o) => o.chosen)
+      : workingOffers.slice(0, count).map((o) => o.chosen);
+
+  // Material-aware interleaving for mixed practice (not pure topic drills).
+  // Preserves priority order as much as possible while breaking long same-kind runs.
+  if (opts.mode === 'quick' || opts.mode === 'challenge' || opts.mode === 'review') {
+    const byId = new Map(top.map((q) => [q.id, q]));
+    const ordered = interleaveByMaterial(
+      top.map((q) => ({
+        id: q.id,
+        subjectId: sectionMap[q.sectionId]?.subjectId,
+        topicId: q.topicId,
+      })),
+      2,
+    );
+    return ordered.map((item) => byId.get(item.id)).filter((q): q is Question => q != null);
   }
-  return workingOffers.slice(0, count).map((o) => o.chosen);
+  return top;
 }
 
 export const ADAPTIVE_WEIGHTS = W;
