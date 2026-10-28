@@ -55,7 +55,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Your study progress is saved in this browser.
             </p>
             {this.state.error?.message && (
-              <pre className="text-left text-xs text-slate-500 bg-slate-50 rounded-btn p-3 mb-5 overflow-x-auto max-h-28">
+              <pre className="text-left text-xs text-ink-muted bg-slate-50 rounded-btn p-3 mb-5 overflow-x-auto max-h-28">
                 {this.state.error.message}
               </pre>
             )}

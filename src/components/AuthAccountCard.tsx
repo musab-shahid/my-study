@@ -93,8 +93,8 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
     <Card className="p-card-pad mb-4">
       <div className="flex flex-col gap-3">
         <div>
-          <p className="font-semibold text-slate-900 text-sm">Account</p>
-          <p className="text-slate-600 text-xs mt-0.5 leading-relaxed">
+          <p className="font-semibold text-ink text-sm">Account</p>
+          <p className="text-ink-muted text-xs mt-0.5 leading-relaxed">
             Sign in to enable cloud backup and the cloud AI tutor. Study and quizzes work offline without an account.
           </p>
         </div>
@@ -123,7 +123,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
               In Bolt, create a file named <span className="font-mono">.env</span> next to{' '}
               <span className="font-mono">package.json</span> with exactly:
             </p>
-            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-warning-100 rounded-btn p-2 overflow-x-auto text-slate-800">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
+            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-warning-100 rounded-btn p-2 overflow-x-auto text-ink">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
             <p className="text-xs text-warning-800 mt-2 leading-relaxed">
               No quotes, no spaces around <span className="font-mono">=</span>, then fully restart the preview (stop and run again).
@@ -133,9 +133,9 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
         ) : signedIn ? (
           <div className="flex flex-col gap-3">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-slate-700">
+              <p className="text-sm text-ink-muted">
                 Signed in as{' '}
-                <span className="font-medium text-slate-900">{getStoredUserEmail() || email || 'your account'}</span>
+                <span className="font-medium text-ink">{getStoredUserEmail() || email || 'your account'}</span>
               </p>
               <Button type="button" variant="secondary" disabled={busy} onClick={handleSignOut}>
                 Sign out
@@ -247,20 +247,20 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
               </Button>
             </div>
             <label className="block">
-              <span className="text-xs font-medium text-slate-700">Email</span>
+              <span className="text-xs font-medium text-ink-muted">Email</span>
               <input
                 type="email"
                 autoComplete="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-slate-900 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
+                className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-ink min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
                 placeholder="you@example.com"
               />
             </label>
             {mode !== 'reset' && (
               <label className="block">
-                <span className="text-xs font-medium text-slate-700">Password</span>
+                <span className="text-xs font-medium text-ink-muted">Password</span>
                 <input
                   type="password"
                   autoComplete={mode === 'signin' ? 'current-password' : 'new-password'}
@@ -268,7 +268,7 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                   minLength={MIN_PASSWORD_LENGTH}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-slate-900 min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
+                  className="mt-1 w-full rounded-btn border border-slate-300 px-3 py-2 text-sm text-ink min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700"
                   placeholder={`At least ${MIN_PASSWORD_LENGTH} characters`}
                 />
               </label>

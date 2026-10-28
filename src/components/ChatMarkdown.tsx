@@ -67,7 +67,7 @@ function renderInline(text: string, keyPrefix: string): ReactNode[] {
     {
       regex: /`([^`]+?)`/,
       render: (m) => (
-        <code key={`${keyPrefix}-c-${keyIdx}`} className="px-1.5 py-0.5 rounded bg-slate-100 text-slate-800 text-[0.85em] font-mono">
+        <code key={`${keyPrefix}-c-${keyIdx}`} className="px-1.5 py-0.5 rounded bg-slate-100 text-ink text-[0.85em] font-mono">
           {m[1]}
         </code>
       ),
@@ -289,10 +289,10 @@ function renderBlock(block: Block, idx: number): ReactNode {
     case 'heading': {
       const level = block.level ?? 2;
       const sizes: Record<number, string> = {
-        1: 'text-base font-bold text-slate-900 mt-3 mb-1.5',
-        2: 'text-sm font-bold text-slate-900 mt-2.5 mb-1',
-        3: 'text-sm font-semibold text-slate-800 mt-2 mb-1',
-        4: 'text-xs font-semibold text-slate-700 mt-1.5 mb-0.5',
+        1: 'text-base font-bold text-ink mt-3 mb-1.5',
+        2: 'text-sm font-bold text-ink mt-2.5 mb-1',
+        3: 'text-sm font-semibold text-ink mt-2 mb-1',
+        4: 'text-xs font-semibold text-ink-muted mt-1.5 mb-0.5',
       };
       return (
         <div key={key} className={sizes[level] || sizes[4]}>
@@ -335,7 +335,7 @@ function renderBlock(block: Block, idx: number): ReactNode {
 
     case 'blockquote':
       return (
-        <blockquote key={key} className="my-2 pl-3 border-l-2 border-brand-300 text-slate-600 italic">
+        <blockquote key={key} className="my-2 pl-3 border-l-2 border-brand-300 text-ink-muted italic">
           {renderInline(block.text ?? '', key)}
         </blockquote>
       );
@@ -347,7 +347,7 @@ function renderBlock(block: Block, idx: number): ReactNode {
             <thead>
               <tr>
                 {block.headers?.map((h, i) => (
-                  <th key={`${key}-th-${i}`} className="border border-slate-300 bg-slate-100 px-2 py-1 text-left font-semibold text-slate-700">
+                  <th key={`${key}-th-${i}`} className="border border-slate-300 bg-slate-100 px-2 py-1 text-left font-semibold text-ink-muted">
                     {renderInline(h, `${key}-th-${i}`)}
                   </th>
                 ))}
@@ -357,7 +357,7 @@ function renderBlock(block: Block, idx: number): ReactNode {
               {block.rows?.map((row, ri) => (
                 <tr key={`${key}-tr-${ri}`}>
                   {row.map((cell, ci) => (
-                    <td key={`${key}-td-${ri}-${ci}`} className="border border-slate-200 px-2 py-1 text-slate-600">
+                    <td key={`${key}-td-${ri}-${ci}`} className="border border-slate-200 px-2 py-1 text-ink-muted">
                       {renderInline(cell, `${key}-td-${ri}-${ci}`)}
                     </td>
                   ))}

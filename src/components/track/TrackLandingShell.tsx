@@ -56,11 +56,11 @@ export function TrackLandingShell({
           </p>
         )}
         {profileSlot && <div className="mt-4 pt-4 border-t border-slate-100">{profileSlot}</div>}
-        {summary && <div className="mt-3 text-sm text-slate-600">{summary}</div>}
+        {summary && <div className="mt-3 text-sm text-ink-muted">{summary}</div>}
       </div>
 
       <section className="mb-6" aria-label="Subjects">
-        <h2 className="text-section-title font-medium text-slate-700 mb-3">Subjects</h2>
+        <h2 className="text-section-title font-medium text-ink mb-3">Subjects</h2>
         {catalog}
       </section>
 
@@ -94,8 +94,8 @@ export function TrackSubjectRow({
     >
       {dotClass && <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} aria-hidden />}
       <div className="min-w-0 flex-1">
-        <p className="text-card-title font-semibold text-slate-900 break-words">{title}</p>
-        <p className="text-caption text-slate-600 mt-0.5 break-words leading-relaxed">{meta}</p>
+        <p className="text-card-title font-semibold text-ink break-words">{title}</p>
+        <p className="text-caption text-ink-muted mt-0.5 break-words leading-relaxed">{meta}</p>
         {typeof progressPct === 'number' && (
           <div className="mt-1.5 h-1 w-full max-w-[12rem] rounded-full bg-slate-200 overflow-hidden">
             <div

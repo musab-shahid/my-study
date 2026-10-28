@@ -83,12 +83,12 @@ export function Field({
 
   return (
     <div className={'grid gap-1.5 ' + className}>
-      <label htmlFor={controlId} className="text-label text-slate-700">
+      <label htmlFor={controlId} className="text-label text-ink-muted">
         {label}
         {required && <span aria-hidden="true" className="ml-1 text-danger-700">*</span>}
       </label>
       {control}
-      {hint && <p id={hintId} className="text-caption text-slate-500">{hint}</p>}
+      {hint && <p id={hintId} className="text-caption text-ink-muted">{hint}</p>}
       {error && <p id={errorId} role="alert" className="text-caption text-danger-700">{error}</p>}
     </div>
   );
@@ -188,14 +188,14 @@ export function Dialog({
       >
         <div className="mb-4 flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <h2 id={titleId} className="text-section-title text-slate-900">{title}</h2>
-            {description && <p id={descriptionId} className="mt-1 text-body text-slate-600">{description}</p>}
+            <h2 id={titleId} className="text-section-title text-ink">{title}</h2>
+            {description && <p id={descriptionId} className="mt-1 text-body text-ink-muted">{description}</p>}
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label={closeLabel}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-btn text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-btn text-ink-muted transition-colors hover:bg-slate-100 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
           >
             <X className="h-5 w-5" aria-hidden="true" />
           </button>
@@ -272,7 +272,7 @@ export function Tabs({
                 'min-h-touch rounded-t-btn border-b-2 px-3 py-2 text-body font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 ' +
                 (active
                   ? 'border-brand-700 text-brand-800'
-                  : 'border-transparent text-slate-600 hover:border-slate-300 hover:text-slate-900') +
+                  : 'border-transparent text-ink-muted hover:border-slate-300 hover:text-ink') +
                 (item.disabled ? ' cursor-not-allowed opacity-50' : '')
               }
             >

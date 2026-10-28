@@ -26,8 +26,8 @@ export function WorkspaceSettingsCard() {
   if (enrolled.length === 0) {
     return (
       <Card className="p-3.5 sm:p-5 mb-4">
-        <h2 className="text-sm font-semibold text-slate-900">Workspace</h2>
-        <p className="text-sm text-slate-600 mt-1 leading-relaxed">
+        <h2 className="text-sm font-semibold text-ink">Workspace</h2>
+        <p className="text-sm text-ink-muted mt-1 leading-relaxed">
           You have not begun a track yet. Explore a track from Home, then use Begin — study stays locked until then.
         </p>
         <Button
@@ -43,8 +43,8 @@ export function WorkspaceSettingsCard() {
 
   return (
     <Card className="p-3.5 sm:p-5 mb-4">
-      <h2 className="text-sm font-semibold text-slate-900">Workspace</h2>
-      <p className="text-xs text-slate-500 mt-0.5 mb-3">
+      <h2 className="text-sm font-semibold text-ink">Workspace</h2>
+      <p className="text-xs text-ink-muted mt-0.5 mb-3">
         Switch changes where Study and Practice point. Leave removes the track from My Tracks but keeps your progress.
       </p>
       {msg && (
@@ -70,13 +70,13 @@ export function WorkspaceSettingsCard() {
                   <Icon className="w-4 h-4 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-slate-900">
+                  <p className="text-sm font-semibold text-ink">
                     {def.title}
                     {isActive && (
                       <span className="ml-2 text-[10px] font-bold uppercase text-success-700">Active</span>
                     )}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-ink-muted">
                     Profile: {profile ? profile.title : 'General preparation'}
                   </p>
                 </div>
@@ -141,7 +141,7 @@ export function WorkspaceSettingsCard() {
                   <Button
                     type="button"
                     variant="secondary"
-                    className="text-xs py-1.5 px-2.5 text-slate-600"
+                    className="text-xs py-1.5 px-2.5 text-ink-muted"
                     onClick={() => {
                       setConfirmLeave(id);
                       setMsg(null);

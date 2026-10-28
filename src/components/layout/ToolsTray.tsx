@@ -57,7 +57,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
 
   const rowClass = (active: boolean) =>
     `w-full flex items-center gap-3 px-3 py-3 rounded-btn transition-colors duration-DEFAULT text-left min-h-touch-lg touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 ${
-      active ? 'bg-brand-50 text-brand-700' : 'text-slate-800 hover:bg-slate-50 active:bg-slate-100'
+      active ? 'bg-brand-50 text-brand-700' : 'text-ink hover:bg-slate-50 active:bg-slate-100'
     }`;
 
   const goTo = (item: MoreNavItem) => {
@@ -101,8 +101,8 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
         <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pt-3 pb-2 border-b border-slate-100">
           <div className="sheet-handle mb-3" aria-hidden />
           <div className="flex items-center justify-between px-5">
-            <h3 id="mobile-tools-title" className="font-bold text-slate-900 text-base tracking-tight">More</h3>
-            <IconButton label="Close" onClick={onClose} className="text-slate-500">
+            <h3 id="mobile-tools-title" className="font-bold text-ink text-base tracking-tight">More</h3>
+            <IconButton label="Close" onClick={onClose} className="text-ink-muted">
               <INTERACTION_ICONS.close className="w-5 h-5" aria-hidden />
             </IconButton>
           </div>
@@ -110,7 +110,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
 
         <div className="px-5 py-4">
           <section role="region" className="mb-5" aria-labelledby="more-study-heading">
-            <p id="more-study-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Study</p>
+            <p id="more-study-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2">Study</p>
             <div className="space-y-0.5">
               {studyTools.map((item) => {
                 const active = isCurrent(item.screen, 'mode' in item ? item.mode : undefined);
@@ -122,7 +122,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
                     aria-current={active ? 'page' : undefined}
                     className={rowClass(active)}
                   >
-                    <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-slate-600'}`} aria-hidden />
+                    <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted'}`} aria-hidden />
                     <span className="font-medium text-sm">{item.label}</span>
                     {active && <span className="ml-auto text-xs font-semibold">Current</span>}
                   </button>
@@ -132,7 +132,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
 
           <section role="region" className="mb-5" aria-labelledby="more-app-heading">
-            <p id="more-app-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">App</p>
+            <p id="more-app-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2">App</p>
             <div className="space-y-0.5">
               {tools.map((item) => {
                 const active = isCurrent(item.screen);
@@ -144,7 +144,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
                     aria-current={active ? 'page' : undefined}
                     className={rowClass(active)}
                   >
-                    <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-slate-600'}`} aria-hidden />
+                    <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted'}`} aria-hidden />
                     <span className="font-medium text-sm">{item.label}</span>
                     {active && <span className="ml-auto text-xs font-semibold">Current</span>}
                   </button>
@@ -154,7 +154,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
 
           <section role="region" aria-labelledby="more-tracks-heading">
-            <p id="more-tracks-heading" className="text-slate-500 text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
+            <p id="more-tracks-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
             <div className="space-y-0.5">
               {trackRows.map((row) => (
                 <button

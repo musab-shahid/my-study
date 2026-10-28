@@ -187,8 +187,8 @@ export function UpdatePrompt({ offlineVisible = false }: Props) {
             <FEATURE_ICONS.learn className={`w-4 h-4 text-white ${restarting ? 'opacity-70' : ''}`} aria-hidden />
           </div>
           <div className="flex-1 min-w-0" role="status" aria-live="polite" aria-atomic="true">
-            <p className="font-semibold text-slate-900 text-sm">Update available</p>
-            <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
+            <p className="font-semibold text-ink text-sm">Update available</p>
+            <p className="text-ink-muted text-xs mt-0.5 leading-relaxed">
               A new version of the app is ready. Restart to load it — your progress stays saved on this device.
             </p>
           </div>

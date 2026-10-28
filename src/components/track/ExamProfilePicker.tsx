@@ -22,15 +22,15 @@ export function ExamProfilePicker({ trackId, enrolled }: Props) {
 
   return (
     <div className="rounded-card border border-slate-200 bg-white px-3.5 py-3 sm:px-5 sm:py-4 mb-4 sm:mb-6">
-      <label htmlFor={`exam-profile-${trackId}`} className="block text-sm font-semibold text-slate-900">
+      <label htmlFor={`exam-profile-${trackId}`} className="block text-sm font-semibold text-ink">
         Preparing for
       </label>
-      <p className="text-xs text-slate-500 mt-0.5 mb-2">
+      <p className="text-xs text-ink-muted mt-0.5 mb-2">
         Optional. General uses the whole track. A profile focuses subjects and tagged content — progress is not erased.
       </p>
       <select
         id={`exam-profile-${trackId}`}
-        className="w-full sm:w-auto max-w-full rounded-btn border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2"
+        className="w-full sm:w-auto max-w-full rounded-btn border border-slate-300 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2"
         value={current ?? ""}
         onChange={(e) => {
           const v = e.target.value;
@@ -56,7 +56,7 @@ export function ExamProfilePicker({ trackId, enrolled }: Props) {
         ))}
       </select>
       {current && (
-        <p className="text-xs text-slate-600 mt-2">
+        <p className="text-xs text-ink-muted mt-2">
           {profiles.find((p) => p.id === current)?.description}
         </p>
       )}

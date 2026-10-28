@@ -23,14 +23,14 @@ export function Header({
           <Breadcrumbs showCurrent={false} />
         </div>
         {context && (
-          <p title={context} className="ml-auto hidden max-w-[45%] truncate text-caption text-slate-500 sm:block">
+          <p title={context} className="ml-auto hidden max-w-[45%] truncate text-caption text-ink-muted sm:block">
             {context}
           </p>
         )}
       </div>
       {showMobileMeta && (
         <div className="flex flex-col gap-1 px-page-x pb-2 sm:hidden">
-          {context && <p title={context} className="truncate text-caption text-slate-500">{context}</p>}
+          {context && <p title={context} className="truncate text-caption text-ink-muted">{context}</p>}
           <Breadcrumbs showCurrent={false} />
         </div>
       )}

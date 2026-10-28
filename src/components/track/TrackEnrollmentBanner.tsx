@@ -44,8 +44,8 @@ export function TrackEnrollmentBanner({
 
   return (
     <div className="rounded-card border border-slate-200 bg-white px-3.5 py-3 sm:px-5 sm:py-4 mb-4 sm:mb-6 shadow-card">
-      <p className="text-sm font-semibold text-slate-900">Not started</p>
-      <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+      <p className="text-sm font-semibold text-ink">Not started</p>
+      <p className="text-xs text-ink-muted mt-1 leading-relaxed">
         You are previewing {trackTitle}. Browsing this page does not enroll you or change your other
         tracks. Begin to add it to My Tracks and unlock study and practice.
       </p>

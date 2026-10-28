@@ -51,10 +51,10 @@ export function QuizResults({
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 bg-brand-50">
             {pct >= 60 ? <CheckCircle2 className="w-8 h-8 text-success-500" /> : <XCircle className="w-8 h-8 text-danger-500" />}
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-ink mb-1">
             {score} / {total}
           </h1>
-          <p className="text-slate-500 text-sm mb-4">{pct}% correct · {mode === 'mock' ? 'Mock Exam' : 'Quiz'} complete</p>
+          <p className="text-ink-muted text-sm mb-4">{pct}% correct · {mode === 'mock' ? 'Mock Exam' : 'Quiz'} complete</p>
           <ProgressBar value={pct} max={100} color="sky" />
         </div>
         <div className="flex flex-col sm:flex-row gap-3 mt-6">
@@ -74,12 +74,12 @@ export function QuizResults({
 
       {Object.keys(perDifficulty).length > 0 && (
         <Card className="p-4 mb-4">
-          <h3 className="font-semibold text-slate-900 text-sm mb-3">By Difficulty</h3>
+          <h3 className="font-semibold text-ink text-sm mb-3">By Difficulty</h3>
           <div className="space-y-2">
             {Object.entries(perDifficulty).map(([diff, stats]) => (
               <div key={diff} className="flex items-center justify-between text-sm">
-                <span className="capitalize text-slate-700">{diff}</span>
-                <span className="text-slate-500">{stats.correct} / {stats.total}</span>
+                <span className="capitalize text-ink-muted">{diff}</span>
+                <span className="text-ink-muted">{stats.correct} / {stats.total}</span>
               </div>
             ))}
           </div>
@@ -88,7 +88,7 @@ export function QuizResults({
 
       {Object.keys(perTopic).length > 1 && (
         <Card className="p-4 mb-4">
-          <h3 className="font-semibold text-slate-900 text-sm mb-3">By Topic</h3>
+          <h3 className="font-semibold text-ink text-sm mb-3">By Topic</h3>
           <div className="space-y-2">
             {Object.entries(perTopic).map(([topicId, stats]) => {
               const topic = getTopic(topicId);
@@ -102,11 +102,11 @@ export function QuizResults({
                     {topic?.title ?? topicId}
                   </button>
                   <div className="flex items-center justify-between gap-2 sm:shrink-0 sm:justify-end">
-                    <span className="text-slate-500">{stats.correct} / {stats.total}</span>
+                    <span className="text-ink-muted">{stats.correct} / {stats.total}</span>
                     <button
                       type="button"
                       onClick={() => onPracticeTopic(topicId)}
-                      className="min-h-10 rounded-md px-2 text-xs text-slate-500 hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
+                      className="min-h-10 rounded-md px-2 text-xs text-ink-muted hover:text-brand-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
                     >
                       Practice
                     </button>
@@ -120,7 +120,7 @@ export function QuizResults({
 
       {wrongAnswers.length > 0 && (
         <Card className="p-4 mb-4">
-          <h3 className="font-semibold text-slate-900 text-sm mb-3">Review Wrong Answers</h3>
+          <h3 className="font-semibold text-ink text-sm mb-3">Review Wrong Answers</h3>
           <div className="space-y-3">
             {wrongAnswers.map((ans) => {
               const q = questions.find((x) => x.id === ans.questionId);
@@ -128,7 +128,7 @@ export function QuizResults({
               const correctIdx = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
               return (
                 <div key={ans.questionId} className="border border-slate-200 rounded-lg p-3">
-                  <p className="text-slate-800 text-sm font-medium mb-2">{q.question}</p>
+                  <p className="text-ink text-sm font-medium mb-2">{q.question}</p>
                   {q.type === 'matching' ? (
                     <div className="space-y-2.5 text-sm">
                       {q.options.map((opt, idx) => {
@@ -145,7 +145,7 @@ export function QuizResults({
                           selectedMatchIdx === correctMatchIdx;
                         return (
                           <div key={idx} className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-2 sm:gap-3 rounded-lg border border-slate-100 p-3">
-                            <p className="min-w-0 break-words font-medium leading-5 text-slate-800">{opt}</p>
+                            <p className="min-w-0 break-words font-medium leading-5 text-ink">{opt}</p>
                             <div className="min-w-0 space-y-1.5">
                               <p className={isCorrect ? 'break-words text-success-700' : 'break-words text-danger-700'}>
                                 <span className="font-medium">Your answer: </span>
@@ -167,7 +167,7 @@ export function QuizResults({
                       {q.options.map((opt, idx) => {
                         const isCorrect = Array.isArray(q.correctAnswer) ? q.correctAnswer.includes(idx) : q.correctAnswer === idx;
                         const isSelected = ans.selectedIndices.includes(idx);
-                        let cls = 'text-slate-600';
+                        let cls = 'text-ink-muted';
                         if (isCorrect) cls = 'text-success-700 font-medium';
                         else if (isSelected) cls = 'text-danger-600 line-through';
                         return (

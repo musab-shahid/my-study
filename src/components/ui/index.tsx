@@ -8,7 +8,7 @@ export function LoadingSpinner({ label = 'Loading…' }: { label?: string }) {
   return (
     <div className="flex flex-col items-center justify-center py-10 sm:py-20 px-4 sm:px-6 text-center" role="status" aria-live="polite">
       <div className="w-8 h-8 border-2 border-slate-200 border-t-brand-500 rounded-full animate-spin mb-3" />
-      <p className="text-slate-500 text-sm">{label}</p>
+      <p className="text-ink-muted text-sm">{label}</p>
     </div>
   );
 }
@@ -84,12 +84,12 @@ export function ScreenHeader({
         <div className="min-w-0">
           <Heading level={1}>{title}</Heading>
           {subtitle && (
-            <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem] leading-relaxed max-w-2xl">
+            <p className="text-ink-muted mt-1 text-sm sm:text-[0.9375rem] leading-relaxed max-w-2xl">
               {subtitle}
             </p>
           )}
           {purpose && (
-            <p className="text-sm text-slate-500 max-w-2xl mt-2 leading-relaxed">{purpose}</p>
+            <p className="text-sm text-ink-muted max-w-2xl mt-2 leading-relaxed">{purpose}</p>
           )}
         </div>
         {actions && <div className="flex flex-wrap gap-2 shrink-0">{actions}</div>}
@@ -101,7 +101,7 @@ export function ScreenHeader({
 /** Uppercase section label used above card groups */
 export function SectionLabel({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <p className={`text-[0.8125rem] font-medium text-slate-600 tracking-normal mb-2.5 ${className}`}>
+    <p className={`text-[0.8125rem] font-medium text-ink-muted tracking-normal mb-2.5 ${className}`}>
       {children}
     </p>
   );
@@ -235,7 +235,7 @@ export function ProgressBar({
 export function StatusIcon({ status }: { status: 'not_started' | 'studied' | 'mastered' }) {
   if (status === 'mastered') return <Star className="w-4 h-4 text-brand-500 fill-brand-500 shrink-0" aria-label="Mastered" />;
   if (status === 'studied') return <CheckCircle2 className="w-4 h-4 text-success-500 shrink-0" aria-label="Studied" />;
-  return <Circle className="w-4 h-4 text-slate-500 shrink-0" aria-label="Not started" />;
+  return <Circle className="w-4 h-4 text-ink-muted shrink-0" aria-label="Not started" />;
 }
 
 export function EmptyState({
@@ -252,12 +252,12 @@ export function EmptyState({
   return (
     <div className="flex flex-col items-center justify-center py-14 sm:py-20 px-6 text-center">
       {icon && (
-        <div className="mb-5 text-slate-500 flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
+        <div className="mb-5 text-ink-muted flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
           {icon}
         </div>
       )}
-      <h3 className="text-slate-800 font-semibold text-lg mb-1.5 tracking-tight">{title}</h3>
-      <p className="text-slate-500 text-sm max-w-sm leading-relaxed">{message}</p>
+      <h3 className="text-ink font-semibold text-lg mb-1.5 tracking-tight">{title}</h3>
+      <p className="text-ink-muted text-sm max-w-sm leading-relaxed">{message}</p>
       {action && <div className="mt-6">{action}</div>}
     </div>
   );
@@ -271,7 +271,7 @@ export function Badge({
   color?: 'slate' | 'sky' | 'green' | 'amber' | 'red';
 }) {
   const colors = {
-    slate: 'bg-slate-100 text-slate-600',
+    slate: 'bg-slate-100 text-ink-muted',
     sky: 'bg-brand-100 text-brand-700',
     green: 'bg-success-100 text-success-700',
     amber: 'bg-warning-100 text-warning-700',
@@ -307,8 +307,8 @@ export function Button({
 } & Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'type' | 'onClick' | 'disabled' | 'className'>) {
   const variants: Record<ButtonVariant, string> = {
     primary: 'bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900 shadow-sm shadow-brand-700/20', // button chrome, not card elevation
-    secondary: 'bg-white text-slate-700 border border-slate-300 hover:bg-slate-50 active:bg-slate-100',
-    ghost: 'text-slate-600 hover:bg-slate-100 active:bg-slate-200',
+    secondary: 'bg-white text-ink-muted border border-slate-300 hover:bg-slate-50 active:bg-slate-100',
+    ghost: 'text-ink-muted hover:bg-slate-100 active:bg-slate-200',
     danger: 'bg-danger-700 text-white hover:bg-danger-800 active:bg-danger-900 shadow-sm shadow-danger-700/20',
   };
   const sizes: Record<ButtonSize, string> = {
@@ -376,7 +376,7 @@ export function ActionCard({
 
 export function PurposeLine({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <p className={`text-sm text-slate-500 italic max-w-2xl mb-3 sm:mb-6 leading-snug sm:leading-relaxed ${className}`}>{children}</p>
+    <p className={`text-sm text-ink-muted italic max-w-2xl mb-3 sm:mb-6 leading-snug sm:leading-relaxed ${className}`}>{children}</p>
   );
 }
 
@@ -388,7 +388,7 @@ export function TopicStatusIcon({ status }: { status: 'not_started' | 'studied' 
 export function StreakIndicator({ streak, atRisk = false }: { streak: number; atRisk?: boolean }) {
   if (streak === 0) {
     return (
-      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-50 text-slate-600 text-sm font-medium ring-1 ring-slate-100">
+      <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-50 text-ink-muted text-sm font-medium ring-1 ring-slate-100">
         Study today to start a streak!
       </span>
     );
@@ -435,19 +435,19 @@ export function AchievementBadge({
         >
           <CheckCircle2 className="w-5 h-5 text-white" />
         </div>
-        <p className="font-semibold text-slate-900 text-sm">{title}</p>
-        <p className="text-slate-500 text-xs mt-1">{description}</p>
-        {unlockDate && <p className="text-slate-500 text-xs mt-1.5">Unlocked {unlockDate}</p>}
+        <p className="font-semibold text-ink text-sm">{title}</p>
+        <p className="text-ink-muted text-xs mt-1">{description}</p>
+        {unlockDate && <p className="text-ink-muted text-xs mt-1.5">Unlocked {unlockDate}</p>}
       </div>
     );
   }
   return (
     <div className="rounded-2xl border border-slate-200 p-4 text-center bg-slate-50/80">
       <div className="w-10 h-10 rounded-full mx-auto mb-2 flex items-center justify-center bg-slate-200">
-        <Lock className="w-5 h-5 text-slate-500" />
+        <Lock className="w-5 h-5 text-ink-muted" />
       </div>
-      <p className="font-semibold text-slate-500 text-sm">{title}</p>
-      <p className="text-slate-500 text-xs mt-1">Locked — {description}</p>
+      <p className="font-semibold text-ink-muted text-sm">{title}</p>
+      <p className="text-ink-muted text-xs mt-1">Locked — {description}</p>
     </div>
   );
 }
@@ -479,7 +479,7 @@ export function IconButton({
       className={[
         'inline-flex items-center justify-center rounded-btn box-border',
         sizeClass,
-        'text-slate-600 hover:bg-slate-100 hover:text-slate-900 active:bg-slate-200',
+        'text-ink-muted hover:bg-slate-100 hover:text-ink active:bg-slate-200',
         'transition-colors duration-DEFAULT touch-manipulation',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1',
         'disabled:opacity-50 disabled:cursor-not-allowed',
@@ -508,9 +508,9 @@ export function AppBrand({
         className={`shrink-0 text-brand-700 ${compact ? 'h-8 w-8' : 'h-10 w-10'} rounded-btn`}
       />
       <span className="min-w-0">
-        <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-slate-900'}`}>My Study</span>
+        <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-ink'}`}>My Study</span>
         {!compact && (
-          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-slate-600' : 'text-slate-500'}`}>
+          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-ink-muted' : 'text-ink-muted'}`}>
             Learning and assessment
           </span>
         )}

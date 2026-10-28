@@ -572,7 +572,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
 
       {/* Model selector bar */}
       <div ref={dropdownRef} className="relative flex items-center justify-between px-4 py-2 bg-slate-50 border-b border-slate-200">
-        <div className="flex items-center gap-1.5 text-slate-500 text-xs">
+        <div className="flex items-center gap-1.5 text-ink-muted text-xs">
           <Sparkles className="w-3 h-3" />
           <span>Model</span>
         </div>
@@ -580,11 +580,11 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           onClick={() => setShowModelDropdown(!showModelDropdown)}
           aria-haspopup="listbox"
           aria-expanded={showModelDropdown}
-          className="flex items-center gap-1.5 text-sm font-medium text-slate-700 hover:text-brand-700 transition-colors"
+          className="flex items-center gap-1.5 text-sm font-medium text-ink-muted hover:text-brand-700 transition-colors"
         >
           {currentModel?.label ?? 'Select model'}
           {currentModel?.badge && (
-            <span className="text-[10px] font-normal text-slate-600 bg-slate-200 px-1.5 py-0.5 rounded-full">
+            <span className="text-[10px] font-normal text-ink-muted bg-slate-200 px-1.5 py-0.5 rounded-full">
               {currentModel.badge}
             </span>
           )}
@@ -606,13 +606,13 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                   setShowModelDropdown(false);
                 }}
                 className={`flex items-center justify-between w-full px-3 py-2 text-sm text-left hover:bg-slate-50 transition-colors ${
-                  modelId === m.id ? 'text-brand-700 font-medium' : 'text-slate-700'
+                  modelId === m.id ? 'text-brand-700 font-medium' : 'text-ink-muted'
                 }`}
               >
                 <span className="flex items-center gap-2">
                   {m.label}
                   {m.badge && (
-                    <span className="text-[10px] font-normal text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded-full">
+                    <span className="text-[10px] font-normal text-ink-muted bg-slate-100 px-1.5 py-0.5 rounded-full">
                       {m.badge}
                     </span>
                   )}
@@ -636,7 +636,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             <div className="w-12 h-12 rounded-full bg-brand-100 flex items-center justify-center mx-auto mb-3">
               <Sparkles className="w-6 h-6 text-brand-700" />
             </div>
-            <p className="text-slate-600 text-sm mb-4">
+            <p className="text-ink-muted text-sm mb-4">
               Ask me anything about <span className="font-semibold">{topicTitle}</span>
             </p>
             <div className="space-y-2">
@@ -647,7 +647,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
                 <button
                   key={prompt}
                   onClick={() => sendMessage(prompt)}
-                  className="block w-full text-left px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm hover:border-brand-400 hover:bg-brand-50/50 transition-colors"
+                  className="block w-full text-left px-3 py-2.5 rounded-xl bg-white border border-slate-200 text-ink-muted text-sm hover:border-brand-400 hover:bg-brand-50/50 transition-colors"
                 >
                   {prompt}
                 </button>
@@ -665,7 +665,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
                 msg.role === 'user'
                   ? 'bg-brand-700 text-white rounded-br-md whitespace-pre-line'
-                  : 'bg-white border border-slate-200 text-slate-700 rounded-bl-md'
+                  : 'bg-white border border-slate-200 text-ink-muted rounded-bl-md'
               }`}
             >
               {msg.role === 'assistant'
@@ -675,7 +675,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               {msg.role === 'assistant' && (
                 <button
                   onClick={() => handleCopy(msg)}
-                  className="mt-1.5 flex items-center gap-1 text-xs text-slate-600 hover:text-slate-600 transition-colors"
+                  className="mt-1.5 flex items-center gap-1 text-xs text-ink-muted hover:text-ink-muted transition-colors"
                 >
                   {copiedId === msg.id ? (
                     <><CheckIcon className="w-3 h-3" /> Copied</>
@@ -692,10 +692,10 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           <div className="flex justify-start">
             <div className="bg-white border border-slate-200 rounded-2xl rounded-bl-md px-4 py-3 flex items-center gap-2">
               <Loader2 className="w-4 h-4 text-brand-700 animate-spin" />
-              <span className="text-slate-600 text-xs">{currentModel?.label}</span>
+              <span className="text-ink-muted text-xs">{currentModel?.label}</span>
               <button
                 onClick={handleStop}
-                className="ml-2 flex items-center gap-1 text-xs text-slate-500 hover:text-danger-500 transition-colors"
+                className="ml-2 flex items-center gap-1 text-xs text-ink-muted hover:text-danger-500 transition-colors"
               >
                 <Square className="w-3 h-3 fill-current" />
                 Stop
@@ -742,7 +742,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
             aria-label="Type your question"
             rows={1}
             maxLength={MAX_INPUT_LENGTH}
-            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-slate-900 placeholder:text-slate-600 focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-colors max-h-24"
+            className="flex-1 resize-none px-3 py-2 rounded-xl border border-slate-200 text-sm text-ink placeholder:text-ink-muted focus:outline-none focus:border-brand-400 focus:ring-1 focus:ring-brand-400 transition-colors max-h-24"
             style={{ minHeight: '40px' }}
           />
           <button
@@ -755,11 +755,11 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           </button>
         </div>
         <div className="flex items-center justify-between mt-1.5 px-1">
-          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-warning-500' : 'text-slate-500'}`}>
+          <span className={`text-[10px] ${input.length > MAX_INPUT_LENGTH * 0.9 ? 'text-warning-500' : 'text-ink-muted'}`}>
             {input.length}/{MAX_INPUT_LENGTH}
           </span>
           {cooldownRemaining > 0 && (
-            <span className="text-[10px] text-slate-600">
+            <span className="text-[10px] text-ink-muted">
               Please wait {Math.ceil(cooldownRemaining / 1000)}s...
             </span>
           )}
@@ -771,7 +771,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         onPointerDown={handleResizeStart}
         className="absolute bottom-0 right-0 w-6 h-6 cursor-se-resize touch-none z-20"
       >
-        <svg viewBox="0 0 10 10" className="w-full h-full text-slate-600" fill="currentColor">
+        <svg viewBox="0 0 10 10" className="w-full h-full text-ink-muted" fill="currentColor">
           <path d="M9.5 9.5 L9.5 6.5 L6.5 9.5 Z" />
           <path d="M9.5 9.5 L9.5 3.5 L3.5 9.5 Z" opacity="0.5" />
         </svg>

@@ -21,7 +21,7 @@ export function OfflineIndicator() {
     <div className="fixed top-0 inset-x-0 z-[55] pointer-events-none animate-fade-in-up">
       <div className="mx-auto max-w-sm px-4 pt-[env(safe-area-inset-top)]">
         <div className="rounded-b-xl bg-slate-800 text-white shadow-lg px-4 py-2 flex items-center gap-2">
-          <WifiOff className="w-4 h-4 text-slate-500 shrink-0" />
+          <WifiOff className="w-4 h-4 text-ink-muted shrink-0" />
           <p className="text-xs font-medium">You're offline — showing saved pages and subjects you've already opened</p>
         </div>
       </div>

@@ -66,7 +66,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
   return (
     <div className={`relative ${compact ? '' : 'w-full sm:w-auto'}`} ref={ref}>
       {label && (
-        <p className="text-slate-500 text-xs font-medium mb-1.5">{label}</p>
+        <p className="text-ink-muted text-xs font-medium mb-1.5">{label}</p>
       )}
       <button
         ref={triggerRef}
@@ -82,7 +82,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={label ?? 'Select subject'}
-        className={`flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors duration-DEFAULT min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 ${open ? 'border-brand-300 ring-2 ring-brand-700/20' : ''} ${compact ? 'min-w-[160px]' : 'w-full sm:w-[240px]'}`}
+        className={`flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-ink text-sm font-medium hover:bg-slate-50 hover:border-slate-300 transition-colors duration-DEFAULT min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 ${open ? 'border-brand-300 ring-2 ring-brand-700/20' : ''} ${compact ? 'min-w-[160px]' : 'w-full sm:w-[240px]'}`}
       >
         <span className="flex items-center gap-2 truncate">
           {value !== 'all' && valueStyle && (
@@ -90,7 +90,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
           )}
           <span className="truncate">{currentLabel}</span>
         </span>
-        <INTERACTION_ICONS.expand className={`w-4 h-4 text-slate-600 shrink-0 transition-transform duration-DEFAULT ${open ? 'rotate-180' : ''}`} aria-hidden />
+        <INTERACTION_ICONS.expand className={`w-4 h-4 text-ink-muted shrink-0 transition-transform duration-DEFAULT ${open ? 'rotate-180' : ''}`} aria-hidden />
       </button>
       {open && (
         <div
@@ -111,7 +111,7 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
                 aria-selected={value === 'all'}
                 tabIndex={-1}
                 className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left hover:bg-slate-50 transition-colors duration-DEFAULT ${
-                  value === 'all' ? 'bg-brand-50 text-brand-700 font-medium' : 'text-slate-700'
+                  value === 'all' ? 'bg-brand-50 text-brand-700 font-medium' : 'text-ink-muted'
                 }`}
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-slate-300 shrink-0" />
@@ -138,12 +138,12 @@ export function SubjectSelector({ value, onChange, showAllOption = true, compact
                 role="option"
                 tabIndex={-1}
                 className={`w-full flex items-center gap-2 px-3 py-2 text-sm text-left transition-colors duration-DEFAULT ${
-                  active ? 'bg-brand-50 text-brand-700 font-medium' : 'text-slate-700 hover:bg-slate-50'
+                  active ? 'bg-brand-50 text-brand-700 font-medium' : 'text-ink-muted hover:bg-slate-50'
                 } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
               >
                 <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${getSubjectStyle(subject.id).dotBg}`} />
                 <span className="flex-1 truncate">{subject.title}</span>
-                {disabled && <span className="text-slate-600 text-xs">(no content)</span>}
+                {disabled && <span className="text-ink-muted text-xs">(no content)</span>}
                 {active && <INTERACTION_ICONS.check className="w-4 h-4 text-brand-500" />}
               </button>
             );

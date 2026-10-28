@@ -149,7 +149,7 @@ export function InstallPrompt() {
       aria-label={title}
     >
       <div className="rounded-2xl border border-slate-200 bg-white shadow-xl p-4 relative">
-        <IconButton label="Dismiss" onClick={handleDismiss} size="lg" className="absolute top-1 right-1 text-slate-600 hover:text-slate-600">
+        <IconButton label="Dismiss" onClick={handleDismiss} size="lg" className="absolute top-1 right-1 text-ink-muted hover:text-ink-muted">
           <X className="w-4 h-4" aria-hidden />
         </IconButton>
         <div className="flex items-start gap-3">
@@ -158,8 +158,8 @@ export function InstallPrompt() {
           </div>
           <div className="flex-1 min-w-0">
             <div role="status" aria-live="polite" aria-atomic="true">
-              <h3 className="font-semibold text-slate-900 text-sm">{title}</h3>
-              <div className="text-slate-500 text-xs mt-0.5 leading-relaxed">{body}</div>
+              <h3 className="font-semibold text-ink text-sm">{title}</h3>
+              <div className="text-ink-muted text-xs mt-0.5 leading-relaxed">{body}</div>
             </div>
             <div className="flex items-center gap-2 mt-3">{actions}</div>
           </div>
