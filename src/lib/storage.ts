@@ -719,10 +719,16 @@ export function recordQuizResult(
       skillId: questionTopicMap.get(a.questionId) ?? a.questionId,
       confidence: a.confidence,
       latencyMs: a.latencyMs,
-      chosenOption:
-        a.selectedIndices && a.selectedIndices.length > 0
-          ? a.selectedIndices.join(',')
-          : undefined,
+      chosenOption: (() => {
+        if (!a.selectedIndices || a.selectedIndices.length === 0) return undefined;
+        const qq = questionById.get(a.questionId);
+        if (qq?.options?.length) {
+          return a.selectedIndices
+            .map((i) => qq.options[i] ?? String(i))
+            .join(' | ');
+        }
+        return a.selectedIndices.join(',');
+      })(),
     })),
     mode,
     sessionId: `quiz_${now}`,
