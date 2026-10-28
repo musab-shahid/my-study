@@ -607,7 +607,7 @@ export function markTopicStudied(data: AppData, topicId: string): AppData {
 export function recordQuizResult(
   data: AppData,
   topicId: string | null,
-  answers: { questionId: string; correct: boolean }[],
+  answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[],
   questions: Question[],
   mode: PracticeMode,
   subjectId?: string,
@@ -717,6 +717,12 @@ export function recordQuizResult(
       questionId: a.questionId,
       correct: a.correct,
       skillId: questionTopicMap.get(a.questionId) ?? a.questionId,
+      confidence: a.confidence,
+      latencyMs: a.latencyMs,
+      chosenOption:
+        a.selectedIndices && a.selectedIndices.length > 0
+          ? a.selectedIndices.join(',')
+          : undefined,
     })),
     mode,
     sessionId: `quiz_${now}`,

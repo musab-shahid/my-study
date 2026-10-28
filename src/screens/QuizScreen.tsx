@@ -212,6 +212,10 @@ interface QuizState {
   currentIdx: number;
   selectedIndices: number[];
   checked: boolean;
+  /** True while waiting for optional confidence before revealing feedback. */
+  awaitingConfidence: boolean;
+  /** Epoch ms when the current item was shown (for latency). */
+  itemShownAt: number;
   answers: AnswerRecord[];
   startTime: number;
   elapsed: number;
@@ -400,7 +404,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       optionOrders.push(order);
       return question;
     });
-    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, answers: [], startTime: Date.now(), elapsed: 0 });
+    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: Date.now(), answers: [], startTime: Date.now(), elapsed: 0 });
     setFinished(false);
     setResults(null);
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool]);
@@ -535,6 +539,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       currentIdx: Math.min(saved.currentIdx, reconciled.questions.length - 1),
       selectedIndices: [],
       checked: false,
+      awaitingConfidence: false,
+      itemShownAt: Date.now(),
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
       startTime: Date.now() - resumedElapsed * 1000,
@@ -701,17 +707,31 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   // ── All hooks MUST be above any early return (Rules of Hooks) ──
   const handleCheck = useCallback(() => {
     setState((prev) => {
-      if (!prev || prev.selectedIndices.length === 0 || prev.checked) return prev;
+      if (!prev || prev.selectedIndices.length === 0 || prev.checked || prev.awaitingConfidence) {
+        return prev;
+      }
+      // Metacognition gate: capture confidence before revealing correctness (L-05).
+      return { ...prev, awaitingConfidence: true };
+    });
+  }, []);
+
+  const handleConfidence = useCallback((confidence: 1 | 2 | 3) => {
+    setState((prev) => {
+      if (!prev || !prev.awaitingConfidence || prev.checked) return prev;
       const q = prev.questions[prev.currentIdx];
       const correct = isCorrect(q, prev.selectedIndices);
+      const latencyMs = Math.max(0, Date.now() - (prev.itemShownAt || prev.startTime));
       const record: AnswerRecord = {
         questionId: q.id,
         correct,
         selectedIndices: [...prev.selectedIndices],
+        confidence,
+        latencyMs,
       };
       const already = prev.answers.some((a) => a.questionId === q.id);
       return {
         ...prev,
+        awaitingConfidence: false,
         checked: true,
         answers: already
           ? prev.answers.map((a) => (a.questionId === q.id ? record : a))
@@ -736,6 +756,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             currentIdx: prev.currentIdx + 1,
             selectedIndices: [],
             checked: false,
+            awaitingConfidence: false,
+            itemShownAt: Date.now(),
           }
         : prev,
     );
@@ -754,6 +776,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     if (!s || s.questions.length === 0) return;
     const q = s.questions[s.currentIdx];
     const now = Date.now();
+
+    // Lock options while collecting confidence
+    if (s.awaitingConfidence) return;
 
     if (s.checked) {
       const last = lastTapRef.current;
@@ -839,7 +864,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
       if (e.key === 'Enter') {
         e.preventDefault();
-        if (!s.checked) {
+        if (s.awaitingConfidence) {
+          // Keyboard path: default to "Think so" so flow stays one-handed.
+          handleConfidence(2);
+        } else if (!s.checked) {
           if (s.selectedIndices.length > 0) handleCheck();
         } else {
           handleNext();
@@ -867,7 +895,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [finished, showExitConfirm, showKeysHelp, handleCheck, handleNext, handleExit, toggleOption]);
+  }, [finished, showExitConfirm, showKeysHelp, handleCheck, handleConfidence, handleNext, handleExit, toggleOption]);
 
   // ── Early returns only AFTER all hooks ──
   const validationError = validateQuizParams({ mode, count, topicId, topicIds, scope, subjectId });
@@ -1242,6 +1270,41 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         )}
       </Card>
 
+      {/* Confidence before feedback (hypercorrection / calibration) */}
+      {state.awaitingConfidence && !state.checked && (
+        <div
+          className="rounded-card border border-brand-100 bg-white shadow-card p-3.5 sm:p-5 mb-4"
+          role="group"
+          aria-label="How sure are you?"
+        >
+          <p className="text-sm font-semibold text-ink mb-1">How sure are you?</p>
+          <p className="text-xs text-ink-muted mb-3">
+            Answer before we show whether you were right — this improves later review.
+          </p>
+          <div className="grid grid-cols-3 gap-2">
+            {(
+              [
+                { c: 1 as const, label: 'Guess', hint: 'Not sure' },
+                { c: 2 as const, label: 'Think so', hint: 'Somewhat sure' },
+                { c: 3 as const, label: 'Sure', hint: 'Confident' },
+              ] as const
+            ).map(({ c, label, hint }) => (
+              <Button
+                key={c}
+                type="button"
+                variant="secondary"
+                onClick={() => handleConfidence(c)}
+                className="flex flex-col items-center justify-center min-h-12 px-2 py-2"
+                aria-label={`${label}: ${hint}`}
+              >
+                <span className="text-sm font-medium text-ink">{label}</span>
+                <span className="text-xs font-normal text-ink-muted">{hint}</span>
+              </Button>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* After-answer feedback — live region + multi-correct + tap to advance */}
       {state.checked && (
         <div
@@ -1267,6 +1330,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <span className="font-semibold text-danger-700">Incorrect</span>
               </>
             )}
+            {(() => {
+              const last = state.answers.find((a) => a.questionId === currentQ.id);
+              if (last && !last.correct && last.confidence === 3) {
+                return (
+                  <span className="ml-2 text-xs font-medium text-danger-700 rounded-full px-2 py-0.5">
+                    High-confidence miss — review carefully
+                  </span>
+                );
+              }
+              return null;
+            })()}
             <span className="ml-auto text-xs text-muted font-medium">Tap or press Enter to continue →</span>
           </div>
           {!correctAns && (currentQ.type === 'multi') && (
@@ -1323,15 +1397,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
       {/* Action buttons */}
       <div className="flex gap-3">
-        {!state.checked ? (
+        {!state.checked && !state.awaitingConfidence ? (
           <Button onClick={handleCheck} disabled={state.selectedIndices.length === 0 || (currentQ.type === 'matching' && (state.selectedIndices.length !== currentQ.options.length || state.selectedIndices.some((i) => i === undefined || i === null || i < 0)))} className="flex-1">
             Check Answer
           </Button>
-        ) : (
+        ) : state.checked ? (
           <Button onClick={handleNext} className="flex-1">
             {state.currentIdx + 1 >= state.questions.length ? 'View Results' : 'Next Question'}
             <ChevronRight className="w-4 h-4 inline ml-1" />
           </Button>
+        ) : (
+          <p className="flex-1 text-center text-sm text-ink-muted py-2">Select how sure you are to continue</p>
         )}
       </div>
 
