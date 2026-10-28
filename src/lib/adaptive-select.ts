@@ -30,6 +30,11 @@ export interface AdaptiveSelectOptions {
   topicProgress?: Record<string, TopicProgress>;
   /** Extra ids to treat as "just seen" (current session) */
   recentQuestionIds?: string[];
+  /**
+   * Prefer these items (e.g. next-day high-confidence misses).
+   * Boosts need score and relaxes same-id hard cooldown so they can reappear.
+   */
+  priorityQuestionIds?: string[];
   /** Injected clock for tests */
   now?: number;
   /** Disable random jitter (tests) */
