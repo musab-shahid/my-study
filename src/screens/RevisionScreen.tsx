@@ -134,7 +134,7 @@ function RevisionGroup({
         <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${iconClass}`}>{icon}</span>
         <div>
           <h2 id={`revision-${tone}`} className="font-semibold text-ink">{title} <span className="text-muted font-normal">({items.length})</span></h2>
-          <p className="text-xs text-slate-500">{description}</p>
+          <p className="text-xs text-ink-muted">{description}</p>
         </div>
       </div>
       <Card elevation="flat" className="p-1">
@@ -148,12 +148,12 @@ function RevisionGroup({
               <span className={`w-1 self-stretch rounded-full ${subjectColor?.bar ?? 'bg-slate-300'}`} aria-hidden />
               <span className="min-w-0 flex-1">
                 <span className="block min-w-0 font-medium text-sm text-ink break-words whitespace-normal">{topic.title}</span>
-                <span className="flex flex-wrap items-center gap-2 mt-1 text-xs text-slate-500">
+                <span className="flex flex-wrap items-center gap-2 mt-1 text-xs text-ink-muted">
                   <span>Due {parseLocalDate(item.dateStr).toLocaleDateString()}</span>
                   {item.accuracy === null ? <Badge color="slate">Not attempted</Badge> : <span>{item.accuracy}% recent accuracy</span>}
                 </span>
               </span>
-              <ChevronRight className="w-4 h-4 text-slate-500 shrink-0" aria-hidden />
+              <ChevronRight className="w-4 h-4 text-ink-muted shrink-0" aria-hidden />
             </ListRow>
           );
         })}

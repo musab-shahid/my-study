@@ -279,7 +279,7 @@ export function DashboardScreen() {
                 className={`px-3 py-1.5 rounded-chip text-xs font-semibold border transition-colors ${
                   isActive
                     ? 'bg-slate-900 text-white border-slate-900'
-                    : 'bg-white text-slate-600 border-slate-200 hover:border-slate-300'
+                    : 'bg-white text-ink-muted border-slate-200 hover:border-slate-300'
                 }`}
               >
                 {def.shortTitle}

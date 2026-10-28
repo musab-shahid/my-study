@@ -109,7 +109,7 @@ export function SearchScreen() {
 
       <div className="mb-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
         <SubjectSelector value={activeSubject} onChange={handleSubjectChange} showAllOption />
-        <p className="text-xs text-slate-500">Results stay within this track and exam profile.</p>
+        <p className="text-xs text-ink-muted">Results stay within this track and exam profile.</p>
       </div>
 
       {!hasContent ? (
@@ -123,14 +123,14 @@ export function SearchScreen() {
       ) : (
         <>
           <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-600" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-ink-muted" />
             <input
               type="search"
               aria-label={`Search ${subjectTitle}`}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder={`Search ${subjectTitle}…`}
-              className="w-full min-h-12 pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-slate-900 placeholder:text-slate-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:border-brand-400"
+              className="w-full min-h-12 pl-10 pr-4 py-3 rounded-btn border border-slate-200 bg-white text-ink placeholder:text-ink-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:border-brand-400"
               autoComplete="off"
             />
           </div>
@@ -153,7 +153,7 @@ export function SearchScreen() {
             </Card>
           ) : (
             <div>
-              <p className="text-slate-500 text-sm mb-3" role="status" aria-live="polite">
+              <p className="text-ink-muted text-sm mb-3" role="status" aria-live="polite">
                 {results.length} result{results.length !== 1 ? 's' : ''} · {subjectTitle}
               </p>
               <div className="space-y-2">
@@ -174,16 +174,16 @@ export function SearchScreen() {
                           )}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="font-medium text-slate-900 text-sm">{result.topic.title}</p>
-                          <p className="text-slate-500 text-xs mt-0.5">
+                          <p className="font-medium text-ink text-sm">{result.topic.title}</p>
+                          <p className="text-ink-muted text-xs mt-0.5">
                             {subjectMap[result.subjectId]?.title ?? result.subjectId}
                             {section ? ` · ${section.title}` : ''}
                           </p>
-                          <p className="text-slate-600 text-sm mt-2 line-clamp-2">
+                          <p className="text-ink-muted text-sm mt-2 line-clamp-2">
                             {result.match}
                           </p>
                         </div>
-                        <ChevronRight className="w-4 h-4 text-slate-600 shrink-0 mt-0.5" aria-hidden />
+                        <ChevronRight className="w-4 h-4 text-ink-muted shrink-0 mt-0.5" aria-hidden />
                       </ListRow>
                     </Card>
                   );

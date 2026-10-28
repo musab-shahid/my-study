@@ -92,18 +92,18 @@ export function CGEITrackOverviewScreen() {
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
           <div className="rounded-card bg-brand-50 border border-brand-100 p-card-pad">
             <Compass className="w-5 h-5 text-brand-800 mb-2" aria-hidden />
-            <p className="font-semibold text-sm text-slate-900">14 connected domains</p>
-            <p className="text-caption leading-relaxed text-slate-600 mt-1">A pathway from environmental foundations to applied intelligence and research.</p>
+            <p className="font-semibold text-sm text-ink">14 connected domains</p>
+            <p className="text-caption leading-relaxed text-ink-muted mt-1">A pathway from environmental foundations to applied intelligence and research.</p>
           </div>
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-3">
-            <Layers3 className="w-5 h-5 text-slate-700 mb-2" aria-hidden />
-            <p className="font-semibold text-sm text-slate-900">Overview → units → lessons</p>
-            <p className="text-caption leading-relaxed text-slate-600 mt-1">Orientation material is separate from lessons and assessment progress.</p>
+            <Layers3 className="w-5 h-5 text-ink mb-2" aria-hidden />
+            <p className="font-semibold text-sm text-ink">Overview → units → lessons</p>
+            <p className="text-caption leading-relaxed text-ink-muted mt-1">Orientation material is separate from lessons and assessment progress.</p>
           </div>
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-3">
-            <FlaskConical className="w-5 h-5 text-slate-700 mb-2" aria-hidden />
-            <p className="font-semibold text-sm text-slate-900">Evidence over checkmarks</p>
-            <p className="text-caption leading-relaxed text-slate-600 mt-1">The long-term goal is validated analysis, code, maps, reports, and projects.</p>
+            <FlaskConical className="w-5 h-5 text-ink mb-2" aria-hidden />
+            <p className="font-semibold text-sm text-ink">Evidence over checkmarks</p>
+            <p className="text-caption leading-relaxed text-ink-muted mt-1">The long-term goal is validated analysis, code, maps, reports, and projects.</p>
           </div>
         </div>
       </div>
@@ -113,8 +113,8 @@ export function CGEITrackOverviewScreen() {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="min-w-0">
               <p className="text-caption font-bold uppercase tracking-wide text-brand-800 flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Continue curriculum</p>
-              <p className="font-semibold text-slate-900 mt-1">{lastLesson.title}</p>
-              <p className="text-caption text-slate-600 mt-1">Resume the last opened canonical lesson.</p>
+              <p className="font-semibold text-ink mt-1">{lastLesson.title}</p>
+              <p className="text-caption text-ink-muted mt-1">Resume the last opened canonical lesson.</p>
             </div>
             <Button variant="secondary" onClick={() => {
               const result = setActiveEnrolledTrack('cgei');

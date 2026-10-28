@@ -109,15 +109,15 @@ export function FpscLandingScreen() {
       catalog={
         scopeEmpty ? (
           <div className="border border-dashed border-slate-200 rounded-card px-4 py-8 text-center">
-            <AlertCircle className="w-6 h-6 text-slate-500 mx-auto mb-2" aria-hidden />
-            <p className="text-sm font-medium text-slate-700">
+            <AlertCircle className="w-6 h-6 text-ink-muted mx-auto mb-2" aria-hidden />
+            <p className="text-sm font-medium text-ink">
               {scopeInvalid
                 ? 'Invalid exam profile'
                 : scopeEmptyPolicy
                   ? 'No subjects defined for this profile'
                   : 'No subjects available'}
             </p>
-            <p className="text-xs text-slate-500 mt-1">
+            <p className="text-xs text-ink-muted mt-1">
               {scopeInvalid
                 ? 'Choose a valid exam profile to see available subjects.'
                 : scopeEmptyPolicy

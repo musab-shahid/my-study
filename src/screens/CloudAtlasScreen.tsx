@@ -11,7 +11,7 @@ const LEVELS: CloudEntry['level'][] = ['High', 'Middle', 'Low', 'Vertical'];
 const levelColors: Record<CloudEntry['level'], string> = {
   High: 'bg-brand-100 text-brand-700 border-brand-200',
   Middle: 'bg-brand-100 text-brand-700 border-brand-200',
-  Low: 'bg-slate-100 text-slate-700 border-slate-200',
+  Low: 'bg-slate-100 text-ink border-slate-200',
   Vertical: 'bg-warning-100 text-warning-700 border-warning-200',
 };
 

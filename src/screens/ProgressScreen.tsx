@@ -300,7 +300,7 @@ return (
                           className="items-start bg-danger-50/80 border border-danger-100 hover:bg-danger-50"
                         >
                           <div className="min-w-0 flex-1">
-                            <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
+                            <p className="text-sm text-ink line-clamp-2">{m.stem}</p>
                             <p className="text-xs text-muted mt-1">
                               {topic?.title ?? m.topicId} · {m.attempts} attempts
                             </p>

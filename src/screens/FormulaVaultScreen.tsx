@@ -148,18 +148,18 @@ export function FormulaVaultScreen() {
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2 mb-1">
                               <p className="font-semibold text-ink text-sm">{f.name}</p>
-                              <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-label font-semibold uppercase tracking-wide text-slate-600">
+                              <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-label font-semibold uppercase tracking-wide text-ink-muted">
                                 {cat}
                               </span>
                             </div>
-                            <div className="formula-display text-slate-900 text-base mt-2 overflow-x-auto py-2 px-2.5 bg-slate-50 border border-slate-100 rounded-lg">
+                            <div className="formula-display text-ink text-base mt-2 overflow-x-auto py-2 px-2.5 bg-slate-50 border border-slate-100 rounded-lg">
                               <MathText text={`$$${f.expression}$$`} />
                             </div>
                             <p className="text-muted text-xs mt-2">
                               <span className="font-medium text-ink">Topic:</span> {f.topicTitle}
                             </p>
                           </div>
-                          <ChevronRight className={`w-5 h-5 text-slate-600 shrink-0 mt-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
+                          <ChevronRight className={`w-5 h-5 text-ink-muted shrink-0 mt-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
                         </div>
                       </button>
                       {isOpen && (

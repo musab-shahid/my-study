@@ -175,7 +175,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
         </Card>
       ) : (
         <>
-          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 mb-3 text-sm text-slate-500" aria-live="polite">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 mb-3 text-sm text-ink-muted" aria-live="polite">
             <span>
               Card {idx + 1} / {total}
               {card ? ` · ${KIND_LABEL[card.kind]}` : ''}
@@ -200,10 +200,10 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
             >
               {!flipped ? (
                 <>
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-600 mb-2">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-ink-muted mb-2">
                     {card!.topicTitle}
                   </p>
-                  <div className="text-lg sm:text-xl font-semibold text-slate-900 leading-snug">
+                  <div className="text-lg sm:text-xl font-semibold text-ink leading-snug">
                     {card!.kind === 'formula' ? (
                       <span>{card!.prompt}</span>
                     ) : (
@@ -219,7 +219,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
                   <p className="text-caption font-semibold uppercase tracking-wide text-brand-700 mb-2">
                     Answer
                   </p>
-                  <div className="text-lg sm:text-xl font-semibold text-slate-900 leading-snug">
+                  <div className="text-lg sm:text-xl font-semibold text-ink leading-snug">
                     {card!.kind === 'formula' ? (
                       <MathText text={`$$${card!.answer}$$`} />
                     ) : (
@@ -227,9 +227,9 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
                     )}
                   </div>
                   {card!.hint && (
-                    <p className="mt-3 text-sm text-slate-500">{card!.hint}</p>
+                    <p className="mt-3 text-sm text-ink-muted">{card!.hint}</p>
                   )}
-                  <p className="mt-6 text-sm text-slate-600 flex items-center gap-1.5">
+                  <p className="mt-6 text-sm text-ink-muted flex items-center gap-1.5">
                     <EyeOff className="w-4 h-4" /> Tap to hide
                   </p>
                 </>

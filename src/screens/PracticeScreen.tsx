@@ -204,7 +204,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                                   ? 'bg-success-50 border border-success-100 text-success-700 hover:bg-success-100'
                                   : isAttempted
                                     ? 'bg-warning-50 border border-warning-100 text-warning-700 hover:bg-warning-100'
-                                    : 'bg-white border border-slate-200 text-slate-700 hover:bg-slate-50'
+                                    : 'bg-white border border-slate-200 text-ink hover:bg-slate-50'
                             }`}
                           >
                             {isMastered && !selected && <CheckCircle2 size={14} className="shrink-0" />}
@@ -353,13 +353,13 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                   </div>
                   <div>
                     <label className="block text-muted text-xs font-medium mb-1.5">Timer</label>
-                    <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-slate-600 text-sm font-medium">
+                    <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-ink-muted text-sm font-medium">
                       {mockTimerMinutes} min (auto)
                     </div>
                   </div>
                   <div>
                     <label className="block text-muted text-xs font-medium mb-1.5">Difficulty</label>
-                    <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-slate-500 text-sm font-medium">
+                    <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-ink-muted text-sm font-medium">
                       Auto-mixed
                     </div>
                   </div>
@@ -404,8 +404,8 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-500 text-xs font-medium mb-1.5">Available at this level</label>
-                  <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-slate-500 text-sm font-medium">
+                  <label className="block text-ink-muted text-xs font-medium mb-1.5">Available at this level</label>
+                  <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-ink-muted text-sm font-medium">
                     {challengePool.length} questions
                   </div>
                 </div>
@@ -477,10 +477,10 @@ function Dropdown({ value, options, onChange, ariaLabel }: {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={ariaLabel}
-        className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-slate-800 text-sm font-medium hover:bg-slate-50 transition-colors"
+        className="w-full flex items-center justify-between gap-2 px-3 py-2 rounded-btn border border-slate-200 bg-white text-ink text-sm font-medium hover:bg-slate-50 transition-colors"
       >
         <span>{currentLabel}</span>
-        <ChevronDown className={`w-4 h-4 text-slate-600 shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
+        <ChevronDown className={`w-4 h-4 text-ink-muted shrink-0 transition-transform ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
         <>
@@ -502,7 +502,7 @@ function Dropdown({ value, options, onChange, ariaLabel }: {
                 aria-selected={opt.value === value}
                 tabIndex={-1}
                 className={`w-full flex items-center justify-between px-3 py-2 text-sm text-left hover:bg-slate-50 transition-colors ${
-                  opt.value === value ? 'bg-brand-50 text-brand-700 font-medium' : 'text-slate-700'
+                  opt.value === value ? 'bg-brand-50 text-brand-700 font-medium' : 'text-ink'
                 }`}
               >
                 <span>{opt.label}</span>
@@ -536,11 +536,11 @@ function SimpleModeCard({ icon, iconBg, title, description, bestFor, onClick, di
         {icon}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-semibold text-slate-900">{title}</p>
-        <p className="text-slate-500 text-sm mt-0.5">{disabledNote ?? description}</p>
-        <p className="text-slate-600 text-xs mt-1">Best for: {bestFor}</p>
+        <p className="font-semibold text-ink">{title}</p>
+        <p className="text-ink-muted text-sm mt-0.5">{disabledNote ?? description}</p>
+        <p className="text-ink-muted text-xs mt-1">Best for: {bestFor}</p>
       </div>
-      {!disabled && <ChevronRight className="w-5 h-5 text-slate-500 shrink-0 mt-1" />}
+      {!disabled && <ChevronRight className="w-5 h-5 text-ink-muted shrink-0 mt-1" />}
     </button>
   );
 }
@@ -572,12 +572,12 @@ function ExpandableModeCard({ icon, iconBg, title, description, bestFor, expande
           {icon}
         </div>
         <div className="flex-1 min-w-0">
-          <p className="font-semibold text-slate-900">{title}</p>
-          <p className="text-slate-500 text-sm mt-0.5">{disabledNote ?? description}</p>
-          <p className="text-slate-600 text-xs mt-1">Best for: {bestFor}</p>
+          <p className="font-semibold text-ink">{title}</p>
+          <p className="text-ink-muted text-sm mt-0.5">{disabledNote ?? description}</p>
+          <p className="text-ink-muted text-xs mt-1">Best for: {bestFor}</p>
         </div>
         {!disabled && (
-          <ChevronDown className={`w-5 h-5 text-slate-600 shrink-0 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          <ChevronDown className={`w-5 h-5 text-ink-muted shrink-0 mt-1 transition-transform ${expanded ? 'rotate-180' : ''}`} />
         )}
       </button>
 
