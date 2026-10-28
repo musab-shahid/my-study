@@ -23,6 +23,35 @@ type FieldProps = {
 };
 
 /** Consistent labelled form control with connected hint/error descriptions. */
+
+type HeadingLevel = 1 | 2 | 3;
+
+const HEADING_STYLES: Record<HeadingLevel, string> = {
+  1: 'text-page-title sm:text-page-title-lg text-ink tracking-tight',
+  2: 'text-section-title text-ink tracking-tight',
+  3: 'text-card-title text-ink',
+};
+
+/** Semantic heading with shared type scale — prefer over ad-hoc h1/h2 classes. */
+export function Heading({
+  level = 2,
+  children,
+  className = '',
+  id,
+}: {
+  level?: HeadingLevel;
+  children: ReactNode;
+  className?: string;
+  id?: string;
+}) {
+  const Tag = (`h${level}` as 'h1' | 'h2' | 'h3');
+  return (
+    <Tag id={id} className={`${HEADING_STYLES[level]} ${className}`.trim()}>
+      {children}
+    </Tag>
+  );
+}
+
 export function Field({
   id,
   label,

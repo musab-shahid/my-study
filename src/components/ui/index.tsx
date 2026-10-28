@@ -1,3 +1,4 @@
+import { Heading } from './primitives.tsx';
 import type { ReactNode, ButtonHTMLAttributes, CSSProperties } from 'react';
 import { CheckCircle2, Circle, Star, Lock, Flame } from 'lucide-react';
 import { BrandMark } from './BrandMark';
@@ -81,9 +82,7 @@ export function ScreenHeader({
     <div className={`mb-5 sm:mb-8 ${className}`}>
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <h1 className="text-page-title sm:text-page-title-lg text-slate-900">
-            {title}
-          </h1>
+          <Heading level={1}>{title}</Heading>
           {subtitle && (
             <p className="text-slate-600 mt-1 text-sm sm:text-[0.9375rem] leading-relaxed max-w-2xl">
               {subtitle}
@@ -522,4 +521,4 @@ export function AppBrand({
 
 
 export { BrandMark } from './BrandMark';
-export { Field, Dialog, Tabs, Notice } from './primitives.tsx';
+export { Field, Dialog, Tabs, Notice, Heading } from './primitives.tsx';
