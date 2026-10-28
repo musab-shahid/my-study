@@ -47,7 +47,6 @@ export function Sidebar() {
   const { route, navigate } = useRouter();
   const { getActiveSubject, setActiveSubjectForScreen, setActiveTrack } = useSubjectSelection();
   const { trackMembership, setActiveEnrolledTrack } = useData();
-  const sd = useSubjectData();
   const enrolledIds = enrolledTrackIds(trackMembership.enrollments);
   const exploreIds = allTrackIds().filter((id) => !trackMembership.enrollments[id]);
   const [expandedSubject, setExpandedSubject] = useState<string | null>(() => {
@@ -60,25 +59,6 @@ export function Sidebar() {
     } catch { /* ignore */ }
   }, [expandedSubject]);
   const currentScreen = route.screen;
-  const goToStage = (stage: StageScreen, subjectId: SubjectId) => {
-    setActiveSubjectForScreen(stage, subjectId);
-    navigate({ screen: stage });
-  };
-  const isSubjectActive = (subjectId: string): boolean => {
-    if (!(STAGE_SCREENS as readonly string[]).includes(currentScreen)) return false;
-    const activeSubj = getActiveSubject(currentScreen as StageScreen);
-    return activeSubj === subjectId;
-  };
-  const isStageActive = (stage: StageScreen, subjectId: string): boolean => {
-    return currentScreen === stage && getActiveSubject(stage) === subjectId;
-  };
-  const getReviewDueCount = (subjectId: SubjectId): number => {
-    const stats = sd.statsFor(subjectId);
-    return stats.todayRevision?.length ?? 0;
-  };
-  const toggleSubject = (subjectId: string) => {
-    setExpandedSubject((prev) => (prev === subjectId ? null : subjectId));
-  };
   const isTrackLandingActive = (trackId: ExamTrackId) => {
     const landing = getLandingScreenForTrack(trackId);
     if (landing === 'track') {

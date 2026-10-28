@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { RouterProvider, useRouter, routeLabel, type Route } from '@/router';
 import { DataProvider } from '@/data-context';
 import { useData } from '@/hooks/useData';
@@ -225,7 +225,8 @@ function AppContent() {
 
   const [storageWarning, setStorageWarning] = useState<string | null>(() => consumeStorageWarning());
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
-  const hasBackup = useMemo(() => Boolean(getBackupRaw()), [storageWarning]);
+  // Re-read after storageWarning updates (recovery path may create a backup).
+  const hasBackup = Boolean(getBackupRaw()) || Boolean(storageWarning);
 
   useEffect(() => {
     const onOnline = () => setIsOffline(false);

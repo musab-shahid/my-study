@@ -5,12 +5,10 @@ import {
   scoreQuestion,
   updateTopicAbility,
   nearMissScore,
-  predictedSuccess,
-  getTopicAbility,
-  updateQuestionStrength,
+      updateQuestionStrength,
   resolveStrength,
 } from '../adaptive-select.ts';
-import type { Question, TopicProgress } from '../../types.ts';
+import type { Question } from '../../types.ts';
 
 function q(partial: Partial<Question> & { id: string; topicId: string }): Question {
   return {

@@ -17,7 +17,7 @@
     "validate:data": "tsx --tsconfig tsconfig.app.json scripts/validate-curriculum.ts && tsx scripts/validate-question-bank.ts && tsx --tsconfig tsconfig.app.json scripts/validate-source-traceability.ts && npm run audit:cgei && npm run validate:traceability:all && npm run audit:data-inventory",
     "audit:data-inventory": "tsx --tsconfig tsconfig.app.json scripts/audit-app-data-inventory.ts",
     "check:design-system": "node scripts/check-design-system.mjs --ratchet && node scripts/check-design-system.mjs",
-    "lint": "eslint src --max-warnings 200",
+    "lint": "eslint src --max-warnings 115",
     "check": "npm run validate:data && npm test && npm run typecheck && npm run lint && npm run build",
     "test": "tsx --tsconfig tsconfig.app.json --test src/lib/__tests__/*.test.ts src/router/__tests__/*.test.ts src/__tests__/data/*.test.ts",
     "test:e2e": "playwright test",
@@ -31,6 +31,7 @@
     "scan:secrets": "python3 scripts/scan_repo_secrets.py",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:branding": "node scripts/check-branding.mjs",
+    "check:perf-gate": "node scripts/run-lighthouse-ci.mjs",
     "check:headers": "node scripts/security-headers.mjs --check",
     "check:feature-icons": "node scripts/check-feature-icons.mjs"
   },
