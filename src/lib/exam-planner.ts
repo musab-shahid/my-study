@@ -124,7 +124,7 @@ export function planDailyWorkload(args: {
     } else if (overloaded) {
       message = `About ${needed} min of due work vs ${budget} min budget — prioritize top-weighted topics.`;
     } else {
-      message = `${daysUntilExam} days to ${session.title}. Suggested today: ~${Math.min(needed, budget)} min.`;
+      message = `${daysUntilExam} days to ${session.label}. Suggested today: ~${Math.min(needed, budget)} min.`;
     }
   }
 
