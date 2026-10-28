@@ -26,7 +26,7 @@ export class ErrorBoundary extends Component<Props, State> {
     console.error('ErrorBoundary caught:', error, errorInfo);
     const route =
       typeof window !== 'undefined' ? `${window.location.pathname}${window.location.hash}` : undefined;
-    void reportError(error, { componentStack: errorInfo.componentStack, route });
+    void reportError(error, { componentStack: errorInfo.componentStack ?? undefined, route });
   }
 
   private handleReload = () => {

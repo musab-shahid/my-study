@@ -395,7 +395,7 @@ export function SettingsScreen() {
                       setSyncMsg(null);
                       const r = await pullProgress();
                       if (!r.ok || !r.data) {
-                        setSyncMsg(cloudSyncErrorMessage(r.error, 'download'));
+                        setSyncMsg(cloudSyncErrorMessage(!r.ok ? r.error : undefined, 'download'));
                         setSyncBusy(false);
                         setConfirmCloudRestore(false);
                         return;
