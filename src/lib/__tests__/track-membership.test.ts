@@ -160,7 +160,7 @@ describe('track membership', () => {
 
 describe('setActiveExamProfile validation', () => {
   it('rejects profile that does not belong to track', () => {
-    let state = emptyTrackMembership();
+    const state = emptyTrackMembership();
     const e = enrollTrack(state, 'fpsc');
     assert.ok(e.ok);
     if (!e.ok) return;
@@ -171,7 +171,7 @@ describe('setActiveExamProfile validation', () => {
   });
 
   it('accepts null general preparation', () => {
-    let state = emptyTrackMembership();
+    const state = emptyTrackMembership();
     const e = enrollTrack(state, 'fpsc');
     assert.ok(e.ok);
     if (!e.ok) return;

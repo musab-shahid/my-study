@@ -247,8 +247,8 @@ export function SettingsScreen() {
             <Library className="w-7 h-7 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-bold text-slate-900 text-base leading-tight">My Study</p>
-            <p className="text-slate-500 text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
+            <p className="font-bold text-ink text-base leading-tight">My Study</p>
+            <p className="text-muted text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
           </div>
         </div>
         <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
@@ -261,29 +261,29 @@ export function SettingsScreen() {
       <div className="grid grid-cols-3 gap-3 mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-1">
-            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-warning-500' : 'text-slate-500'}`} />
-            <span className="text-slate-500 text-xs font-medium">Streak</span>
+            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-warning-500' : 'text-muted'}`} />
+            <span className="text-muted text-xs font-medium">Streak</span>
           </div>
-          <p className="text-xl font-bold text-slate-900 leading-tight">{streak.streak}<span className="text-sm font-normal text-slate-500">d</span></p>
-          <p className="text-slate-500 text-xs mt-0.5 truncate">
+          <p className="text-xl font-bold text-ink leading-tight">{streak.streak}<span className="text-sm font-normal text-muted">d</span></p>
+          <p className="text-muted text-xs mt-0.5 truncate">
             {streak.studiedToday ? 'On track' : streak.atRisk ? 'At risk' : 'Start today'}
           </p>
         </Card>
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-1">
             <TrendingUp className="w-4 h-4 text-brand-500" />
-            <span className="text-slate-500 text-xs font-medium">Today</span>
+            <span className="text-muted text-xs font-medium">Today</span>
           </div>
-          <p className="text-xl font-bold text-slate-900 leading-tight">{today.questionsAnswered}</p>
-          <p className="text-slate-500 text-xs mt-0.5 truncate">{today.quizCount} quizzes</p>
+          <p className="text-xl font-bold text-ink leading-tight">{today.questionsAnswered}</p>
+          <p className="text-muted text-xs mt-0.5 truncate">{today.quizCount} quizzes</p>
         </Card>
         <Card className="p-3">
           <div className="flex items-center gap-1.5 mb-1">
             <Target className="w-4 h-4 text-success-500" />
-            <span className="text-slate-500 text-xs font-medium">Week</span>
+            <span className="text-muted text-xs font-medium">Week</span>
           </div>
-          <p className="text-xl font-bold text-slate-900 leading-tight">{week.avgAccuracy}<span className="text-sm font-normal text-slate-500">%</span></p>
-          <p className="text-slate-500 text-xs mt-0.5 truncate">{week.questionsAnswered} answered</p>
+          <p className="text-xl font-bold text-ink leading-tight">{week.avgAccuracy}<span className="text-sm font-normal text-muted">%</span></p>
+          <p className="text-muted text-xs mt-0.5 truncate">{week.questionsAnswered} answered</p>
         </Card>
       </div>
 
@@ -343,8 +343,8 @@ export function SettingsScreen() {
         <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">
             <div>
-              <p className="font-semibold text-slate-900 text-sm">Cloud backup</p>
-              <p className="text-slate-500 text-xs mt-0.5">
+              <p className="font-semibold text-ink text-sm">Cloud backup</p>
+              <p className="text-muted text-xs mt-0.5">
                 Optional per-device backup of local progress. Requires network and a signed-in account.
                 {!getProgressSyncAccessToken() && (
                   <span className="block mt-1 text-warning-800">
@@ -429,7 +429,7 @@ export function SettingsScreen() {
                 </div>
               </div>
             )}
-            {syncMsg && <p className="text-xs text-slate-600" role="status" aria-live="polite" aria-atomic="true">{syncMsg}</p>}
+            {syncMsg && <p className="text-xs text-muted" role="status" aria-live="polite" aria-atomic="true">{syncMsg}</p>}
           </div>
         </Card>
       )}
@@ -437,8 +437,8 @@ export function SettingsScreen() {
       <Card className="p-card-pad mb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <p className="font-semibold text-slate-900 text-sm">Export progress</p>
-            <p className="text-slate-500 text-xs mt-0.5">Download a JSON backup of your local study data.</p>
+            <p className="font-semibold text-ink text-sm">Export progress</p>
+            <p className="text-muted text-xs mt-0.5">Download a JSON backup of your local study data.</p>
           </div>
           <Button variant="secondary" onClick={() => {
             try {
@@ -449,7 +449,7 @@ export function SettingsScreen() {
               setBackupMsg('Backup could not be created. Please try again.');
             }
           }}>Download backup</Button>
-          {backupMsg && <p className="text-xs text-slate-600 sm:basis-full" role="status" aria-live="polite">{backupMsg}</p>}
+          {backupMsg && <p className="text-xs text-muted sm:basis-full" role="status" aria-live="polite">{backupMsg}</p>}
         </div>
       </Card>
 
@@ -459,8 +459,8 @@ export function SettingsScreen() {
             <RefreshCw className="w-5 h-5 text-white" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-slate-900 text-sm">App updates</p>
-            <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
+            <p className="font-semibold text-ink text-sm">App updates</p>
+            <p className="text-muted text-xs mt-0.5 leading-relaxed">
               Check if a new version is available and reload the app.
             </p>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -485,7 +485,7 @@ export function SettingsScreen() {
                 Reload
               </Button>
             </div>
-            {updateMsg && <p className="text-xs text-slate-600 mt-2" role="status">{updateMsg}</p>}
+            {updateMsg && <p className="text-xs text-muted mt-2" role="status">{updateMsg}</p>}
           </div>
         </div>
       </Card>
@@ -494,11 +494,11 @@ export function SettingsScreen() {
         <Card className="p-card-pad mb-4">
           <div className="flex items-start gap-3">
             <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
-              <Share className="w-5 h-5 text-slate-600" />
+              <Share className="w-5 h-5 text-muted" />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="font-semibold text-slate-900 text-sm">Install app</p>
-              <p className="text-slate-500 text-xs mt-0.5 leading-relaxed">
+              <p className="font-semibold text-ink text-sm">Install app</p>
+              <p className="text-muted text-xs mt-0.5 leading-relaxed">
                 {isIOS()
                   ? 'On iPhone/iPad: tap Share, then Add to Home Screen.'
                   : deferredPrompt
@@ -510,15 +510,15 @@ export function SettingsScreen() {
                   Install
                 </Button>
               )}
-              {installMsg && <p className="text-xs text-slate-600 mt-2" role="status">{installMsg}</p>}
+              {installMsg && <p className="text-xs text-muted mt-2" role="status">{installMsg}</p>}
             </div>
           </div>
         </Card>
       )}
 
       <Card className="p-card-pad mb-4">
-        <p className="font-semibold text-slate-900 text-sm mb-2">Reset progress</p>
-        <p className="text-slate-500 text-xs mb-3 leading-relaxed">
+        <p className="font-semibold text-ink text-sm mb-2">Reset progress</p>
+        <p className="text-muted text-xs mb-3 leading-relaxed">
           Choose subjects to clear. A recovery backup is saved first when possible.
         </p>
         <div className="flex flex-wrap gap-2 mb-3">
@@ -540,7 +540,7 @@ export function SettingsScreen() {
                 type="button"
                 onClick={() => toggleSubject(s.id as SubjectId)}
                 className={`inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
-                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-slate-600'
+                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-muted'
                 }`}
               >
                 {selected ? <Check className="w-3.5 h-3.5 shrink-0 text-brand-700" aria-hidden /> : null}
@@ -572,8 +572,8 @@ function InfoStat({ icon, value, label }: { icon: React.ReactNode; value: string
   return (
     <div className="text-center">
       <div className="flex items-center justify-center gap-1 mb-0.5">{icon}</div>
-      <p className="text-base font-bold text-slate-900 leading-tight">{value}</p>
-      <p className="text-slate-500 text-xs leading-tight">{label}</p>
+      <p className="text-base font-bold text-ink leading-tight">{value}</p>
+      <p className="text-muted text-xs leading-tight">{label}</p>
     </div>
   );
 }

@@ -34,7 +34,7 @@ describe('Phase 5 membership invariants', () => {
   });
 
   it('begin creates one enrollment; second begin is idempotent', () => {
-    let s = emptyTrackMembership();
+    const s = emptyTrackMembership();
     const a = enrollTrack(s, 'fpsc', { at: '2026-01-01T00:00:00.000Z' });
     assert.ok(a.ok && a.created);
     if (!a.ok) return;
@@ -80,7 +80,7 @@ describe('Phase 5 membership invariants', () => {
   });
 
   it('exam profile does not require re-enrollment', () => {
-    let s = emptyTrackMembership();
+    const s = emptyTrackMembership();
     const e = enrollTrack(s, 'fpsc');
     assert.ok(e.ok);
     if (!e.ok) return;
@@ -174,7 +174,7 @@ describe('resource access', () => {
 
 describe('leaveTrack', () => {
   it('unenrolls without requiring progress wipe and clears focus if needed', () => {
-    let s = emptyTrackMembership();
+    const s = emptyTrackMembership();
     const a = enrollTrack(s, 'fpsc');
     assert.ok(a.ok);
     if (!a.ok) return;

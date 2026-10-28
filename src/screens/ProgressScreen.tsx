@@ -141,7 +141,7 @@ return (
           <Card className="p-4 mb-4">
             <div className="flex items-center justify-between flex-wrap gap-2">
               <StreakIndicator streak={streakInfo.streak} atRisk={streakInfo.atRisk} />
-              <span className="text-slate-500 text-sm">
+              <span className="text-muted text-sm">
                 {currentStats.studiedTopics} studied · {currentStats.quizTouchedTopics} practiced · {currentStats.questionsAnswered} questions answered
               </span>
             </div>
@@ -153,7 +153,7 @@ return (
             <StatCard icon={<Target className="w-5 h-5" />} label="Accuracy" value={currentStats.questionsAnswered === 0 || currentStats.accuracy === null ? '—' : `${currentStats.accuracy}%`} color="amber" />
             <StatCard icon={<TrendingUp className="w-5 h-5" />} label="Mastery" value={String(masteryScore)} color="green" sub="/100" />
           </div>
-          <p className="text-xs leading-5 text-slate-500 mb-4">
+          <p className="text-xs leading-5 text-muted mb-4">
             Accuracy is the percentage of attempted questions answered correctly. Mastery combines topic coverage (50%) and quiz accuracy (50%); before you attempt quizzes, the accuracy half counts as zero.
           </p>
 
@@ -161,15 +161,15 @@ return (
           <Card className="p-3.5 sm:p-5 mb-4">
             <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
               <div>
-                <h3 className="font-semibold text-slate-900">Accuracy over time</h3>
-                <p className="text-xs text-slate-500 mt-1">Weekly percentage of attempted questions answered correctly.</p>
-                <p className="text-slate-600 text-xs mt-0.5">
+                <h3 className="font-semibold text-ink">Accuracy over time</h3>
+                <p className="text-xs text-muted mt-1">Weekly percentage of attempted questions answered correctly.</p>
+                <p className="text-muted text-xs mt-0.5">
                   Last {weeklyData.length} weeks · {totalQuestionsThisPeriod} questions answered
                   {practicedSubjectsNote(isAllSubjects) ? ` · ${practicedSubjectsNote(isAllSubjects)}` : ''}
                 </p>
               </div>
               {trendDelta !== null && (
-                <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold ${trendDelta > 0 ? 'bg-success-50 text-success-600' : trendDelta < 0 ? 'bg-danger-50 text-danger-600' : 'bg-slate-100 text-slate-500'}`}>
+                <div className={`inline-flex items-center gap-1.5 px-2 py-1 rounded-full text-xs font-semibold ${trendDelta > 0 ? 'bg-success-50 text-success-600' : trendDelta < 0 ? 'bg-danger-50 text-danger-600' : 'bg-slate-100 text-muted'}`}>
                   {trendDelta > 0 ? <TrendingUp className="w-3.5 h-3.5" /> : trendDelta < 0 ? <TrendingUp className="w-3.5 h-3.5 rotate-180" /> : null}
                   {trendDelta > 0 ? '+' : ''}{trendDelta}% vs last week
                 </div>
@@ -179,9 +179,9 @@ return (
               <>
                 <AccuracyChart data={weeklyData} />
                 {bestWeek && bestWeek.accuracy !== null && (
-                  <div className="flex items-center gap-1.5 mt-3 text-xs text-slate-500">
+                  <div className="flex items-center gap-1.5 mt-3 text-xs text-muted">
                     <Award className="w-3.5 h-3.5 text-warning-500" />
-                    Best week: <span className="font-semibold text-slate-700">{bestWeek.label}{bestWeek.subLabel ? `–${bestWeek.subLabel}` : ''}</span> at <span className="font-semibold text-slate-700">{bestWeek.accuracy}%</span>
+                    Best week: <span className="font-semibold text-muted">{bestWeek.label}{bestWeek.subLabel ? `–${bestWeek.subLabel}` : ''}</span> at <span className="font-semibold text-muted">{bestWeek.accuracy}%</span>
                   </div>
                 )}
               </>
@@ -194,9 +194,9 @@ return (
           {isAllSubjects ? (
             <Card className="p-3.5 sm:p-5 mb-4">
               <div className="mb-4">
-                <h3 className="font-semibold text-slate-900">By Subject</h3>
+                <h3 className="font-semibold text-ink">By Subject</h3>
                 {practicedSubjectsNote(isAllSubjects) && (
-                  <p className="text-slate-600 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
+                  <p className="text-muted text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
                 )}
               </div>
               <div className="space-y-4">
@@ -210,12 +210,12 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />
-                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{subject.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-muted text-sm font-medium">{subject.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{mScore}/100</span>
                       </div>
                       <ProgressBar value={mScore} colorClass={color.bar} />
-                      <p className="text-slate-600 text-xs mt-0.5">{sStats.studiedTopics}/{sStats.totalTopics} topics · {sStats.accuracy === null ? 'No quiz attempts yet' : `${sStats.accuracy}% accuracy`}</p>
+                      <p className="text-muted text-xs mt-0.5">{sStats.studiedTopics}/{sStats.totalTopics} topics · {sStats.accuracy === null ? 'No quiz attempts yet' : `${sStats.accuracy}% accuracy`}</p>
                     </div>
                   );
                 })}
@@ -223,7 +223,7 @@ return (
             </Card>
           ) : (
             <Card className="p-3.5 sm:p-5 mb-4">
-              <h3 className="font-semibold text-slate-900 mb-4">Section Accuracy</h3>
+              <h3 className="font-semibold text-ink mb-4">Section Accuracy</h3>
               <div className="space-y-3">
                 {currentStats.sections.map((section) => {
                   const accuracy = getSectionAccuracy(data, section.id, currentStats.questions);
@@ -234,12 +234,12 @@ return (
                       <div className="flex items-center justify-between mb-1">
                         <div className="flex items-center gap-2 min-w-0">
                           <SectionBadge section={section} />
-                          <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{section.title}</span>
+                          <span className="min-w-0 flex-1 break-words whitespace-normal text-muted text-sm font-medium">{section.title}</span>
                         </div>
                         <span className="text-sm font-bold shrink-0 ml-2">{accuracy !== null ? `${accuracy}%` : '—'}</span>
                       </div>
                       <ProgressBar value={accuracy ?? 0} color={accuracy === null ? 'sky' : accuracy >= 75 ? 'green' : accuracy >= 50 ? 'amber' : 'red'} />
-                      <p className="text-slate-600 text-xs mt-0.5">{studiedCount}/{sectionTopicCount} topics studied</p>
+                      <p className="text-muted text-xs mt-0.5">{studiedCount}/{sectionTopicCount} topics studied</p>
                     </div>
                   );
                 })}
@@ -250,9 +250,9 @@ return (
           {/* Weakest topics */}
           <Card className="p-3.5 sm:p-5 mb-4">
             <div className="mb-3">
-              <h3 className="font-semibold text-slate-900">Weakest Topics</h3>
+              <h3 className="font-semibold text-ink">Weakest Topics</h3>
               {practicedSubjectsNote(isAllSubjects) && (
-                <p className="text-slate-600 text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
+                <p className="text-muted text-xs mt-0.5">{practicedSubjectsNote(isAllSubjects)}</p>
               )}
             </div>
             {weakTopics.length > 0 ? (
@@ -265,9 +265,9 @@ return (
                   return (
                     <div key={w.topicId} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
                       <div className="flex items-center gap-2 min-w-0">
-                        <span className="text-slate-600 text-xs font-bold w-4 shrink-0">{i + 1}</span>
+                        <span className="text-muted text-xs font-bold w-4 shrink-0">{i + 1}</span>
                         {color && <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: color.dot }} />}
-                        <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm">{topic.title}</span>
+                        <span className="min-w-0 flex-1 break-words whitespace-normal text-muted text-sm">{topic.title}</span>
                       </div>
                       <span className={`text-sm font-bold shrink-0 ml-2 ${w.accuracy < 60 ? 'text-danger-500' : 'text-warning-500'}`}>{w.accuracy}%</span>
                     </div>
@@ -283,8 +283,8 @@ return (
           {/* Item analytics — sticky misses & teach-without-test */}
           {(stickyMisses.length > 0 || teachOnly.length > 0 || fragileWins.length > 0) && (
             <Card className="p-card-pad-lg">
-              <h3 className="font-semibold text-slate-900 mb-1">From your practice history</h3>
-              <p className="text-xs text-slate-500 mb-4">
+              <h3 className="font-semibold text-ink mb-1">From your practice history</h3>
+              <p className="text-xs text-muted mb-4">
                 Sticky misses and topics you studied but barely tested — not official scores.
               </p>
               {stickyMisses.length > 0 && (
@@ -301,7 +301,7 @@ return (
                         >
                           <div className="min-w-0 flex-1">
                             <p className="text-sm text-slate-800 line-clamp-2">{m.stem}</p>
-                            <p className="text-xs text-slate-500 mt-1">
+                            <p className="text-xs text-muted mt-1">
                               {topic?.title ?? m.topicId} · {m.attempts} attempts
                             </p>
                           </div>
@@ -341,7 +341,7 @@ return (
                 </div>
               )}
               {fragileWins.length > 0 && stickyMisses.length === 0 && (
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted">
                   Some recent corrects still look fragile — a short review quiz will firm them up.
                 </p>
               )}
@@ -350,7 +350,7 @@ return (
 
           {/* Achievements */}
           <Card className="p-card-pad-lg">
-            <h3 className="font-semibold text-slate-900 mb-4">Achievements</h3>
+            <h3 className="font-semibold text-ink mb-4">Achievements</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
               {achievements.map((a) => (
                 <AchievementBadge
@@ -419,7 +419,7 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 
   return (
     <div className="w-full overflow-x-auto">
-      <p className="text-xs text-slate-600 mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
+      <p className="text-xs text-muted mb-1 sm:hidden">Swipe horizontally to inspect the full chart.</p>
       <svg
         role="img"
         aria-label={`Weekly accuracy chart with ${validPoints.length} weeks containing quiz attempts.`}
@@ -532,17 +532,17 @@ function AccuracyChart({ data }: { data: WeeklyAccuracyPoint[] }) {
 function StatCard({ icon, label, value, sub, color }: { icon: React.ReactNode; label: string; value: string; sub?: string; color: 'sky' | 'slate' | 'amber' | 'green' }) {
   const colors = {
     sky: 'bg-brand-100 text-brand-600',
-    slate: 'bg-slate-100 text-slate-600',
+    slate: 'bg-slate-100 text-muted',
     amber: 'bg-warning-100 text-warning-600',
     green: 'bg-success-100 text-success-600',
   };
   return (
     <Card className="p-card-pad">
       <div className={`w-9 h-9 rounded-btn ${colors[color]} flex items-center justify-center mb-2`}>{icon}</div>
-      <p className="text-slate-500 text-xs font-medium">{label}</p>
+      <p className="text-muted text-xs font-medium">{label}</p>
       <div className="flex items-baseline gap-0.5 mt-1">
-        <span className="text-xl font-bold text-slate-900 font-mono tabular-nums">{value}</span>
-        {sub && <span className="text-slate-600 text-xs">{sub}</span>}
+        <span className="text-xl font-bold text-ink font-mono tabular-nums">{value}</span>
+        {sub && <span className="text-muted text-xs">{sub}</span>}
       </div>
     </Card>
   );

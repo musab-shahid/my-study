@@ -60,7 +60,7 @@ describe('track-focus', () => {
   });
 
   it('null focus is allowed', () => {
-    let d = withEnrollAndFocus(baseData(), 'fpsc').data;
+    const d = withEnrollAndFocus(baseData(), 'fpsc').data;
     const r = withFocusTrack(d, null);
     assert.equal(r.ok, true);
     assert.equal(getActiveTrackId(r.data), null);
