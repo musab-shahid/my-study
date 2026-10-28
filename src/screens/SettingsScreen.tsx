@@ -23,9 +23,8 @@ import {
   getProgressSyncAccessToken,
   pushProgress,
   pullProgress,
-  isLocalNewerThanCloud,
 } from '@/lib/progress-sync';
-import { planCloudRestoreWrite } from '@/lib/cloud-restore';
+import { planCloudRestoreWrite, isLocalNewerThanCloud } from '@/lib/cloud-restore';
 import {
   isErrorReportingEnabled,
   setErrorReportingEnabled,

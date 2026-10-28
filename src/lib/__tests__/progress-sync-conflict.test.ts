@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { isLocalNewerThanCloud } from '../progress-sync.ts';
+import { isLocalNewerThanCloud } from '../cloud-restore.ts';
 
 describe('isLocalNewerThanCloud', () => {
   it('returns false when either timestamp is missing', () => {

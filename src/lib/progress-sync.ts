@@ -28,6 +28,7 @@ import {
 export {
   planCloudRestoreWrite,
   CLOUD_RESTORE_RECOVERY_SUFFIX,
+  isLocalNewerThanCloud,
 } from './cloud-restore.ts';
 
 export { getDeviceId };
@@ -179,16 +180,5 @@ export async function pullProgress(): Promise<PullProgressResult> {
   }
 }
 
-/** True when local mutation timestamp is strictly after cloud updated_at. */
-export function isLocalNewerThanCloud(
-  localMutationAt: string | null | undefined,
-  cloudUpdatedAt: string | null | undefined,
-): boolean {
-  if (!localMutationAt || !cloudUpdatedAt) return false;
-  const local = Date.parse(localMutationAt);
-  const cloud = Date.parse(cloudUpdatedAt);
-  if (Number.isNaN(local) || Number.isNaN(cloud)) return false;
-  return local > cloud;
-}
 
 export { isAiProxyConfigured };
