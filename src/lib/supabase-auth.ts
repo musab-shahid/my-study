@@ -232,3 +232,43 @@ export async function requestPasswordReset(email: string): Promise<{ ok: boolean
     return { ok: false, error: 'Network error. Try again when you are online.' };
   }
 }
+
+/**
+ * Permanently delete the signed-in cloud account via the delete-account edge function.
+ * On success, clears local session tokens. Local study data on the device is not wiped
+ * automatically — Settings still offers local backup/clear controls.
+ */
+export async function deleteAccount(): Promise<{ ok: true } | { ok: false; error: string }> {
+  if (!isAuthConfigured()) {
+    return { ok: false, error: 'Cloud account is not configured in this build.' };
+  }
+  const token = getProgressSyncAccessToken();
+  if (!token) {
+    return { ok: false, error: 'Sign in before deleting the account.' };
+  }
+  try {
+    const res = await fetch(
+      `${env.SUPABASE_URL.replace(/\/$/, '')}/functions/v1/delete-account`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: env.SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${token}`,
+        },
+        body: '{}',
+      },
+    );
+    if (!res.ok) {
+      if (res.status === 401) return { ok: false, error: 'Session expired. Sign in again, then retry.' };
+      if (res.status === 503) return { ok: false, error: 'Account deletion is not available in this deployment yet.' };
+      return { ok: false, error: 'Could not delete the account. Try again later.' };
+    }
+    setSessionTokens(null);
+    setStoredUserEmail(null);
+    return { ok: true };
+  } catch {
+    return { ok: false, error: 'Network error. Try again when you are online.' };
+  }
+}
+

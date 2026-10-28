@@ -31,3 +31,10 @@ and issues that require physical access to an unlocked learner device.
   mitigated by a strict CSP and short-lived access tokens when configured).
 - Password recovery depends on Supabase Auth email delivery being configured in
   the project dashboard.
+
+## Deploy notes
+
+- Edge function `delete-account` must be deployed for self-service cloud account
+  deletion. It requires `SUPABASE_SERVICE_ROLE_KEY` (hosted Supabase injects this)
+  and must never expose that key to the client.
+
