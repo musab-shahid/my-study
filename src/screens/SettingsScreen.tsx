@@ -306,9 +306,9 @@ export function SettingsScreen() {
           </p>
           <p>
             <strong className="font-medium">Deletion.</strong>{' '}
-            You can export or clear local data from this Settings screen. Account deletion that
-            removes cloud rows is not yet available in the app; contact the maintainer if you need
-            a cloud account removed.
+            Export or clear local data from this Settings screen. While signed in, use
+            &quot;Delete cloud account&quot; on the Account card to remove the cloud account and
+            synced backups (requires the delete-account function to be deployed).
           </p>
         </div>
       </Card>

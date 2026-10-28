@@ -10,6 +10,7 @@ import {
   signOut,
   MIN_PASSWORD_LENGTH,
   requestPasswordReset,
+  deleteAccount,
 } from '@/lib/supabase-auth';
 
 /**
@@ -24,6 +25,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
   const [err, setErr] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(isSignedIn());
   const [mode, setMode] = useState<'signin' | 'signup' | 'reset'>('signin');
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   const configured = isAuthConfigured();
   const envStatus = getSupabaseEnvStatus();
@@ -129,14 +131,71 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
             </p>
           </div>
         ) : signedIn ? (
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-700">
-              Signed in as{' '}
-              <span className="font-medium text-slate-900">{getStoredUserEmail() || email || 'your account'}</span>
-            </p>
-            <Button type="button" variant="secondary" disabled={busy} onClick={handleSignOut}>
-              Sign out
-            </Button>
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-slate-700">
+                Signed in as{' '}
+                <span className="font-medium text-slate-900">{getStoredUserEmail() || email || 'your account'}</span>
+              </p>
+              <Button type="button" variant="secondary" disabled={busy} onClick={handleSignOut}>
+                Sign out
+              </Button>
+            </div>
+            {!confirmDelete ? (
+              <button
+                type="button"
+                className="self-start text-xs text-danger-700 underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 rounded"
+                disabled={busy}
+                onClick={() => {
+                  setConfirmDelete(true);
+                  setErr(null);
+                  setMsg(null);
+                }}
+              >
+                Delete cloud account…
+              </button>
+            ) : (
+              <div className="rounded-btn border border-danger-100 bg-danger-50 p-3 space-y-2">
+                <p className="text-xs text-danger-800 leading-relaxed">
+                  This permanently deletes your cloud account and synced progress backups.
+                  Local data on this device is not removed automatically. This cannot be undone.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    disabled={busy}
+                    onClick={async () => {
+                      setBusy(true);
+                      setErr(null);
+                      setMsg(null);
+                      const result = await deleteAccount();
+                      setBusy(false);
+                      if (result.ok) {
+                        setConfirmDelete(false);
+                        setSignedIn(false);
+                        setPassword('');
+                        setMsg('Cloud account deleted. Local study data on this device was kept.');
+                        refresh();
+                        onSessionChange?.();
+                      } else {
+                        setErr(result.error);
+                      }
+                    }}
+                  >
+                    {busy ? 'Deleting…' : 'Yes, delete my account'}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    disabled={busy}
+                    onClick={() => setConfirmDelete(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-3">
