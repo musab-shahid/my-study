@@ -1122,19 +1122,19 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             <IconButton label="Exit quiz" onClick={handleExit} className="shrink-0">
               <ArrowLeft className="w-5 h-5" />
             </IconButton>
-            <span className="text-sm font-medium text-slate-700 truncate hidden sm:inline">Quiz</span>
+            <span className="text-sm font-medium text-muted truncate hidden sm:inline">Quiz</span>
           </div>
           <div className="flex items-center gap-1">
             <IconButton label="Keyboard shortcuts" onClick={() => setShowKeysHelp(true)} className="hidden sm:inline-flex">
               <Keyboard className="w-4 h-4" />
             </IconButton>
-            <span className="text-slate-500 text-sm font-medium">
+            <span className="text-muted text-sm font-medium">
               Q {state.currentIdx + 1} of {state.questions.length}
             </span>
           </div>
           {showTimer && (
             <span
-              className={`flex items-center gap-1 text-sm font-mono ${timerUrgent ? 'text-danger-600 font-semibold' : 'text-slate-600'}`}
+              className={`flex items-center gap-1 text-sm font-mono ${timerUrgent ? 'text-danger-600 font-semibold' : 'text-muted'}`}
               role="timer"
               aria-live={timerUrgent ? 'assertive' : 'off'}
               aria-atomic="true"
@@ -1157,7 +1157,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       {/* Topic + difficulty + source citation */}
       {topicInfo && (
         <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-slate-700">
+          <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-muted">
             Topic: {topicInfo.title}
           </span>
           <span
@@ -1172,14 +1172,14 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             {difficultyLabel}
           </span>
           {currentQ.sourceCitation && (
-            <span className="text-xs text-slate-500 italic">{currentQ.sourceCitation}</span>
+            <span className="text-xs text-muted italic">{currentQ.sourceCitation}</span>
           )}
         </div>
       )}
 
       {/* Question */}
       <Card className="p-card-pad sm:p-card-pad-lg mb-4">
-        <h1 className="text-slate-900 text-section-title sm:text-page-title font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
+        <h1 className="text-ink text-section-title sm:text-page-title font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
         {currentQ.type === 'matching' ? (
           <MatchingOptions question={currentQ} selectedIndices={state.selectedIndices} checked={state.checked} onSelect={toggleOption} />
         ) : (
@@ -1227,12 +1227,12 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                         : state.checked && isSelected && !isCorrectOption
                           ? 'bg-danger-700 text-white'
                           : 'bg-brand-700 text-white'
-                      : 'bg-slate-100 text-slate-500'
+                      : 'bg-slate-100 text-muted'
                   }`}
                 >
                   {currentQ.type === 'multi' ? (isSelected ? <Check className="w-3 h-3" /> : '') : String.fromCharCode(65 + idx)}
                 </div>
-                <span className="text-slate-800 text-sm flex-1">{opt}</span>
+                <span className="text-ink text-sm flex-1">{opt}</span>
                 {state.checked && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-success-500 shrink-0" />}
                 {state.checked && isSelected && !isCorrectOption && <XCircle className="w-5 h-5 text-danger-500 shrink-0" />}
               </button>
@@ -1267,17 +1267,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <span className="font-semibold text-danger-700">Incorrect</span>
               </>
             )}
-            <span className="ml-auto text-xs text-slate-500 font-medium">Tap or press Enter to continue →</span>
+            <span className="ml-auto text-xs text-muted font-medium">Tap or press Enter to continue →</span>
           </div>
           {!correctAns && (currentQ.type === 'multi') && (
             <div className="mb-3 space-y-1">
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 You answered:{' '}
                 <span className="font-medium text-danger-600">
                   {state.selectedIndices.map((i) => currentQ.options[i]).join(', ') || 'None'}
                 </span>
               </p>
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 Correct answer(s):{' '}
                 <span className="font-medium text-success-600">
                   {(currentQ.correctAnswer as number[]).map((i) => currentQ.options[i]).join(', ')}
@@ -1287,13 +1287,13 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           )}
           {!correctAns && currentQ.type === 'matching' && (
             <div className="mb-3 space-y-1">
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 You matched:{' '}
                 <span className="font-medium text-danger-600">
                   {currentQ.options.map((opt, i) => `${opt} → ${currentQ.matchOptions?.[state.selectedIndices[i] ?? -1] ?? '—'}`).join(', ')}
                 </span>
               </p>
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 Correct matches:{' '}
                 <span className="font-medium text-success-600">
                   {currentQ.options.map((opt, i) => `${opt} → ${currentQ.matchOptions?.[(currentQ.correctAnswer as number[])[i]] ?? '—'}`).join(', ')}
@@ -1303,13 +1303,13 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
           )}
           {!correctAns && currentQ.type !== 'multi' && currentQ.type !== 'matching' && (
             <div className="mb-3 space-y-1">
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 You answered:{' '}
                 <span className="font-medium text-danger-600">
                   {currentQ.options[state.selectedIndices[0]] ?? 'None'}
                 </span>
               </p>
-              <p className="text-slate-600 text-sm">
+              <p className="text-muted text-sm">
                 Correct answer:{' '}
                 <span className="font-medium text-success-600">
                   {currentQ.options[currentQ.correctAnswer as number]}
@@ -1317,7 +1317,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               </p>
             </div>
           )}
-          <p className="text-slate-600 text-sm leading-relaxed">{currentQ.explanation}</p>
+          <p className="text-muted text-sm leading-relaxed">{currentQ.explanation}</p>
         </div>
       )}
 
@@ -1348,7 +1348,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-3">
-              <h2 id="keys-help-title" className="font-semibold text-slate-900 text-base flex items-center gap-2">
+              <h2 id="keys-help-title" className="font-semibold text-ink text-base flex items-center gap-2">
                 <Keyboard className="w-4 h-4 text-brand-600" />
                 Keyboard shortcuts
               </h2>
@@ -1356,14 +1356,14 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 <X className="w-4 h-4" />
               </IconButton>
             </div>
-            <ul className="space-y-2 text-sm text-slate-700">
+            <ul className="space-y-2 text-sm text-muted">
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Select option</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">A–D</kbd> <kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–4</kbd></li>
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Multi-select toggle</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">1–9</kbd></li>
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Check / Next</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Enter</kbd></li>
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">Exit quiz</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">Esc</kbd></li>
               <li className="flex flex-wrap items-center justify-between gap-2"><span className="min-w-0 flex-1">This help</span><kbd className="font-mono text-xs bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">?</kbd></li>
             </ul>
-            <p className="text-xs text-slate-500 mt-3">Matching questions still use tap/click. Shortcuts are disabled while this dialog or the exit prompt is open.</p>
+            <p className="text-xs text-muted mt-3">Matching questions still use tap/click. Shortcuts are disabled while this dialog or the exit prompt is open.</p>
             <Button className="w-full min-h-11 mt-4 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2" onClick={() => setShowKeysHelp(false)}>Got it</Button>
           </div>
         </div>
@@ -1387,9 +1387,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               <div className="w-10 h-10 rounded-btn bg-warning-100 flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5 text-warning-500" />
               </div>
-              <h3 id="exit-modal-title" className="font-bold text-slate-900 text-lg">Exit quiz?</h3>
+              <h3 id="exit-modal-title" className="font-bold text-ink text-lg">Exit quiz?</h3>
             </div>
-            <p className="text-slate-600 text-sm mb-5">
+            <p className="text-muted text-sm mb-5">
               You&apos;ve answered {state.answers.length} of {state.questions.length} questions. Your progress will be lost.
             </p>
             <div className="flex gap-3">

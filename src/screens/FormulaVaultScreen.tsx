@@ -130,7 +130,7 @@ export function FormulaVaultScreen() {
             if (formulas.length === 0) return null;
             return (
               <div key={cat}>
-                <h2 className="font-semibold text-slate-900 mb-3 text-lg">{cat}</h2>
+                <h2 className="font-semibold text-ink mb-3 text-lg">{cat}</h2>
                 <div className="space-y-3">
                   {formulas.map((f) => {
                     const key = `${f.topicId}:${f.name}`;
@@ -147,7 +147,7 @@ export function FormulaVaultScreen() {
                         <div className="flex items-start justify-between gap-3">
                           <div className="min-w-0 flex-1">
                             <div className="flex flex-wrap items-center gap-2 mb-1">
-                              <p className="font-semibold text-slate-900 text-sm">{f.name}</p>
+                              <p className="font-semibold text-ink text-sm">{f.name}</p>
                               <span className="inline-flex items-center rounded-full bg-slate-100 px-2 py-0.5 text-label font-semibold uppercase tracking-wide text-slate-600">
                                 {cat}
                               </span>
@@ -155,8 +155,8 @@ export function FormulaVaultScreen() {
                             <div className="formula-display text-slate-900 text-base mt-2 overflow-x-auto py-2 px-2.5 bg-slate-50 border border-slate-100 rounded-lg">
                               <MathText text={`$$${f.expression}$$`} />
                             </div>
-                            <p className="text-slate-600 text-xs mt-2">
-                              <span className="font-medium text-slate-700">Topic:</span> {f.topicTitle}
+                            <p className="text-muted text-xs mt-2">
+                              <span className="font-medium text-ink">Topic:</span> {f.topicTitle}
                             </p>
                           </div>
                           <ChevronRight className={`w-5 h-5 text-slate-600 shrink-0 mt-1 transition-transform ${isOpen ? 'rotate-90' : ''}`} />
@@ -166,13 +166,13 @@ export function FormulaVaultScreen() {
                         <div id={`formula-details-${key}`} className="mt-4 pt-4 border-t border-slate-100">
                           {(f.variables?.length ?? 0) > 0 && (
                             <div className="space-y-2 mb-4">
-                              <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
+                              <p className="text-label font-semibold uppercase tracking-wide text-muted">Symbols</p>
                               {f.variables.map((v, i) => (
                                 <div key={i} className="flex items-start gap-3 text-sm">
-                                  <span className="text-slate-900 font-semibold shrink-0 min-w-[3rem]">
+                                  <span className="text-ink font-semibold shrink-0 min-w-[3rem]">
                                     <MathText text={`$${v.symbol}$`} />
                                   </span>
-                                  <span className="min-w-0 flex-1 break-words text-slate-600">= {v.meaning}</span>
+                                  <span className="min-w-0 flex-1 break-words text-muted">= {v.meaning}</span>
                                 </div>
                               ))}
                             </div>

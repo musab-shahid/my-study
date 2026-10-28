@@ -44,9 +44,9 @@ export function CloudAtlasScreen() {
           return (
             <div key={level}>
               <div className="flex items-center gap-2 mb-3">
-                <Cloud className="w-5 h-5 text-slate-700" />
-                <h2 className="font-semibold text-slate-900 text-lg">{level} Clouds</h2>
-                <span className="text-slate-600 text-sm">({levelClouds.length})</span>
+                <Cloud className="w-5 h-5 text-muted" />
+                <h2 className="font-semibold text-ink text-lg">{level} Clouds</h2>
+                <span className="text-muted text-sm">({levelClouds.length})</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                 {levelClouds.map((cloud) => (
@@ -57,10 +57,10 @@ export function CloudAtlasScreen() {
                       className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-btn"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <p className="font-semibold text-slate-900">{cloud.name}</p>
-                        <ChevronRight className="w-4 h-4 text-slate-600" />
+                        <p className="font-semibold text-ink">{cloud.name}</p>
+                        <ChevronRight className="w-4 h-4 text-muted" />
                       </div>
-                      <p className="text-slate-500 text-xs">{cloud.altitude}</p>
+                      <p className="text-muted text-xs">{cloud.altitude}</p>
                     </button>
                   </Card>
                 ))}
@@ -101,7 +101,7 @@ function CloudModal({ cloud, levelColors, onClose }: {
         >
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 id="cloud-modal-title" className="text-xl font-bold text-slate-900">{cloud.name}</h3>
+              <h3 id="cloud-modal-title" className="text-xl font-bold text-ink">{cloud.name}</h3>
               <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium border ${levelColors[cloud.level]}`}>
                 {cloud.level}
               </span>
@@ -110,7 +110,7 @@ function CloudModal({ cloud, levelColors, onClose }: {
               ref={closeButtonRef}
               type="button"
               onClick={onClose}
-              className="flex min-h-11 min-w-11 items-center justify-center text-slate-500 hover:text-slate-700 rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
+              className="flex min-h-11 min-w-11 items-center justify-center text-muted hover:text-ink rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
               aria-label="Close"
             >
               <X className="w-5 h-5" />
@@ -118,16 +118,16 @@ function CloudModal({ cloud, levelColors, onClose }: {
           </div>
           <div className="space-y-3">
             <div>
-              <p className="text-slate-500 text-xs font-medium uppercase tracking-wide mb-1">Altitude</p>
-              <p className="text-slate-700 text-sm">{cloud.altitude}</p>
+              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Altitude</p>
+              <p className="text-muted text-sm">{cloud.altitude}</p>
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-medium uppercase tracking-wide mb-1">Composition</p>
-              <p className="text-slate-700 text-sm">{cloud.composition}</p>
+              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Composition</p>
+              <p className="text-muted text-sm">{cloud.composition}</p>
             </div>
             <div>
-              <p className="text-slate-500 text-xs font-medium uppercase tracking-wide mb-1">Appearance</p>
-              <p className="text-slate-700 text-sm leading-relaxed">{cloud.appearance}</p>
+              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Appearance</p>
+              <p className="text-muted text-sm leading-relaxed">{cloud.appearance}</p>
             </div>
           </div>
         </div>

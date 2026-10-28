@@ -197,8 +197,8 @@ export function DashboardScreen() {
                       <Icon className="w-5 h-5 text-white" aria-hidden />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h2 className="font-semibold text-slate-900 text-sm sm:text-base">{track.title}</h2>
-                      <p className="text-xs sm:text-sm text-slate-600 mt-0.5 line-clamp-2">{track.description}</p>
+                      <h2 className="font-semibold text-ink text-sm sm:text-base">{track.title}</h2>
+                      <p className="text-xs sm:text-sm text-muted mt-0.5 line-clamp-2">{track.description}</p>
                     </div>
                     <Button
                       size="sm"
@@ -215,7 +215,7 @@ export function DashboardScreen() {
         </div>
         {/* Feature preview — fills empty space and sets expectations */}
         <div className="mt-8 pt-6 border-t border-slate-200">
-          <p className="text-xs font-semibold uppercase tracking-wider text-slate-600 mb-4">What you get after beginning</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted mb-4">What you get after beginning</p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
               { Icon: FEATURE_ICONS.learn, label: 'Learn', desc: 'Topic notes & explanations' },
@@ -228,13 +228,13 @@ export function DashboardScreen() {
                   <Icon className="w-5 h-5" aria-hidden />
                 </div>
                 <div>
-                  <p className="font-semibold text-slate-800 text-sm">{label}</p>
-                  <p className="text-xs text-slate-500 mt-0.5 leading-relaxed">{desc}</p>
+                  <p className="font-semibold text-ink text-sm">{label}</p>
+                  <p className="text-xs text-muted mt-0.5 leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
           </div>
-          <p className="text-xs text-slate-600 mt-5">
+          <p className="text-xs text-muted mt-5">
             Beginning a track adds it to My Tracks and sets your active workspace. You can enroll in more than one track.
           </p>
         </div>
@@ -294,8 +294,8 @@ export function DashboardScreen() {
         {resumableDraft ? (
           <>
             <p className="text-label font-bold uppercase tracking-[0.12em] text-brand-700 mb-2">Pick up where you left off</p>
-            <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">Resume your quiz</p>
-            <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">
+            <p className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">Resume your quiz</p>
+            <p className="text-sm text-muted mt-1 mb-4 max-w-xl leading-relaxed">
               You have a saved attempt ({resumableDraft.answers?.length ?? 0} answered of{' '}
               {resumableDraft.questionIds?.length ?? 0}). Continue where you left off — same questions and answers.
             </p>
@@ -312,8 +312,8 @@ export function DashboardScreen() {
         ) : (
           <>
             <p className="text-label font-bold uppercase tracking-[0.14em] text-brand-700 mb-2">Your next best step</p>
-            <p className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">{recHeadline}</p>
-            <p className="text-sm text-slate-600 mt-1 mb-4 max-w-xl leading-relaxed">{recSubtext}</p>
+            <p className="text-xl sm:text-2xl font-semibold text-ink tracking-tight">{recHeadline}</p>
+            <p className="text-sm text-muted mt-1 mb-4 max-w-xl leading-relaxed">{recSubtext}</p>
             <div className="flex flex-wrap gap-2">
               <Button size="lg" onClick={recNavigate}>
                 {recAction}
@@ -334,10 +334,10 @@ export function DashboardScreen() {
       {hasHistory ? (
         <div className="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-4 mb-6">
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
-            <p className="text-xs text-slate-500">Topics studied</p>
-            <p className="text-xl font-semibold text-slate-900 mt-0.5">
+            <p className="text-xs text-muted">Topics studied</p>
+            <p className="text-xl font-semibold text-ink mt-0.5">
               {globalStats.studiedTopics}
-              <span className="text-sm font-normal text-slate-600">/{globalStats.totalTopics}</span>
+              <span className="text-sm font-normal text-muted">/{globalStats.totalTopics}</span>
             </p>
             <div className="mt-2">
               <ProgressBar
@@ -348,40 +348,40 @@ export function DashboardScreen() {
             </div>
           </div>
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
-            <p className="text-xs text-slate-500">Accuracy</p>
-            <p className="text-xl font-semibold text-slate-900 mt-0.5">
+            <p className="text-xs text-muted">Accuracy</p>
+            <p className="text-xl font-semibold text-ink mt-0.5">
               {globalStats.questionsAnswered === 0 || globalStats.accuracy === null
                 ? '—'
                 : `${globalStats.accuracy}%`}
             </p>
-            <p className="text-caption text-slate-500 mt-1">
+            <p className="text-caption text-muted mt-1">
               {globalStats.questionsAnswered === 0
                 ? 'No quiz attempts yet'
                 : `${globalStats.questionsAnswered} answered`}
             </p>
           </div>
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
-            <p className="text-xs text-slate-500">Streak</p>
-            <p className="text-xl font-semibold text-slate-900 mt-0.5 flex items-center gap-1.5">
+            <p className="text-xs text-muted">Streak</p>
+            <p className="text-xl font-semibold text-ink mt-0.5 flex items-center gap-1.5">
               <Flame className="w-5 h-5 text-warning-500" aria-hidden />
               {streakInfo.streak}
             </p>
-            <p className="text-label text-slate-600 mt-1">
+            <p className="text-label text-muted mt-1">
               {streakInfo.atRisk ? 'At risk today' : 'Keep it going'}
             </p>
           </div>
           <div className="rounded-card border border-slate-200/90 bg-white p-4 shadow-card transition-shadow hover:shadow-card-hover">
-            <p className="text-xs text-slate-500">Reviews due</p>
-            <p className="text-xl font-semibold text-slate-900 mt-0.5">{reviewDue.length}</p>
-            <p className="text-label text-slate-600 mt-1">
+            <p className="text-xs text-muted">Reviews due</p>
+            <p className="text-xl font-semibold text-ink mt-0.5">{reviewDue.length}</p>
+            <p className="text-label text-muted mt-1">
               {reviewDue.length === 0 ? 'You\'re caught up' : 'In your active scope'}
             </p>
           </div>
         </div>
       ) : (
         <Card className="p-4 mb-5 border-dashed border-slate-200">
-          <p className="text-sm font-medium text-slate-900">No study history yet</p>
-          <p className="text-sm text-slate-600 mt-1">
+          <p className="text-sm font-medium text-ink">No study history yet</p>
+          <p className="text-sm text-muted mt-1">
             Open a subject and mark topics studied, or start a short practice session. Metrics appear after real activity — not zeros that look like scores.
           </p>
         </Card>
@@ -390,7 +390,7 @@ export function DashboardScreen() {
       {/* Supporting: review / weak areas when real data exists */}
       {(reviewDue.length > 0 || weakTopics.length > 0) && (
         <Card className="p-4 mb-5">
-          <h2 className="text-sm font-semibold text-slate-900 mb-3">Focus areas</h2>
+          <h2 className="text-sm font-semibold text-ink mb-3">Focus areas</h2>
           <div className="space-y-2">
             {reviewDue.slice(0, 3).map((item) => {
               const topic = getTopic(item.topicId);
@@ -400,7 +400,7 @@ export function DashboardScreen() {
                   onClick={() => navigate({ screen: 'topic', topicId: item.topicId })}
                   className="justify-between"
                 >
-                  <span className="text-sm text-slate-800 truncate">
+                  <span className="text-sm text-ink truncate">
                     {topic?.title ?? item.topicId}
                   </span>
                   <span className="text-caption font-medium text-warning-700 shrink-0">Due</span>
@@ -415,10 +415,10 @@ export function DashboardScreen() {
                   onClick={() => navigate({ screen: 'topic', topicId: w.topicId })}
                   className="justify-between"
                 >
-                  <span className="text-sm text-slate-800 truncate">
+                  <span className="text-sm text-ink truncate">
                     {topic?.title ?? w.topicId}
                   </span>
-                  <span className="text-caption font-medium text-slate-600 shrink-0">
+                  <span className="text-caption font-medium text-muted shrink-0">
                     {w.accuracy}%
                   </span>
                 </ListRow>
@@ -438,15 +438,15 @@ export function DashboardScreen() {
         <Card className="p-4 mb-5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
-              <p className="text-xs text-slate-500">Upcoming exam</p>
-              <p className="text-sm font-semibold text-slate-900">{nextExam.label}</p>
+              <p className="text-xs text-muted">Upcoming exam</p>
+              <p className="text-sm font-semibold text-ink">{nextExam.label}</p>
             </div>
-            <p className="text-sm font-medium text-slate-700 tabular-nums">
+            <p className="text-sm font-medium text-muted tabular-nums">
               {formatCountdownShort(examCountdown)}
             </p>
           </div>
           {readiness && (
-            <p className="text-xs text-slate-500 mt-2">
+            <p className="text-xs text-muted mt-2">
               Readiness {readiness.score}% — {readinessLabel(readiness.score)}
             </p>
           )}

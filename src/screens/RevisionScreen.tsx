@@ -91,8 +91,8 @@ export function RevisionScreen() {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-brand-700">Ready for review</p>
-                <p className="text-xl font-semibold text-slate-900 mt-1">{totalDue} topic{totalDue === 1 ? '' : 's'} due now</p>
-                <p className="text-sm text-slate-600 mt-1">Work through the full queue or choose a topic below.</p>
+                <p className="text-xl font-semibold text-ink mt-1">{totalDue} topic{totalDue === 1 ? '' : 's'} due now</p>
+                <p className="text-sm text-muted mt-1">Work through the full queue or choose a topic below.</p>
               </div>
               <Button onClick={() => navigate({ screen: 'quiz', mode: 'review', topicIds: allDueIds, count: Math.min(totalDue * 3, 20) })}>
                 <Dumbbell className="w-4 h-4" aria-hidden />
@@ -133,7 +133,7 @@ function RevisionGroup({
       <div className="flex items-center gap-2 mb-2">
         <span className={`w-7 h-7 rounded-lg flex items-center justify-center ${iconClass}`}>{icon}</span>
         <div>
-          <h2 id={`revision-${tone}`} className="font-semibold text-slate-900">{title} <span className="text-slate-600 font-normal">({items.length})</span></h2>
+          <h2 id={`revision-${tone}`} className="font-semibold text-ink">{title} <span className="text-muted font-normal">({items.length})</span></h2>
           <p className="text-xs text-slate-500">{description}</p>
         </div>
       </div>
@@ -147,7 +147,7 @@ function RevisionGroup({
             <ListRow key={item.topicId} onClick={() => onOpen(item.topicId)} className="border-b border-slate-100 last:border-0">
               <span className={`w-1 self-stretch rounded-full ${subjectColor?.bar ?? 'bg-slate-300'}`} aria-hidden />
               <span className="min-w-0 flex-1">
-                <span className="block min-w-0 font-medium text-sm text-slate-900 break-words whitespace-normal">{topic.title}</span>
+                <span className="block min-w-0 font-medium text-sm text-ink break-words whitespace-normal">{topic.title}</span>
                 <span className="flex flex-wrap items-center gap-2 mt-1 text-xs text-slate-500">
                   <span>Due {parseLocalDate(item.dateStr).toLocaleDateString()}</span>
                   {item.accuracy === null ? <Badge color="slate">Not attempted</Badge> : <span>{item.accuracy}% recent accuracy</span>}

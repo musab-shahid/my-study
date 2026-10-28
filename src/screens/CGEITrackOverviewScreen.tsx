@@ -129,16 +129,16 @@ export function CGEITrackOverviewScreen() {
       )}
 
       <div className="mb-4">
-        <h2 className="text-xl font-bold text-slate-900">Explore the pathway</h2>
-        <p className="text-sm text-slate-600 mt-1">Start with the foundations, then follow the domain that matches your goals. You can return here at any time.</p>
+        <h2 className="text-xl font-bold text-ink">Explore the pathway</h2>
+        <p className="text-sm text-muted mt-1">Start with the foundations, then follow the domain that matches your goals. You can return here at any time.</p>
       </div>
 
       <div className="space-y-6">
         {DOMAIN_GROUPS.map((group) => (
           <section key={group.id} aria-labelledby={`cgei-group-${group.id}`}>
             <div className="mb-3">
-              <h3 id={`cgei-group-${group.id}`} className="font-bold text-slate-900">{group.title}</h3>
-              <p className="text-sm text-slate-500 mt-0.5">{group.description}</p>
+              <h3 id={`cgei-group-${group.id}`} className="font-bold text-ink">{group.title}</h3>
+              <p className="text-sm text-muted mt-0.5">{group.description}</p>
             </div>
             <div className="grid md:grid-cols-2 gap-3">
               {group.subjectIds.map((subjectId) => {
@@ -171,33 +171,33 @@ export function CGEITrackOverviewScreen() {
                         <Icon className={`w-5 h-5 ${subjectStyle.text}`} aria-hidden />
                       </div>
                       <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-slate-900 leading-snug">{subject.title}</h4>
+                        <h4 className="font-semibold text-ink leading-snug">{subject.title}</h4>
                         {canonical ? (
                           <>
-                            <p className="text-caption text-slate-700 font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
-                            <p className="text-caption text-slate-600 mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
-                            <p className="text-caption text-slate-500 mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
+                            <p className="text-caption text-ink font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
+                            <p className="text-caption text-muted mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
+                            <p className="text-caption text-muted mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
                           </>
                         ) : hasTopicContent ? (
                           <>
-                            <p className="text-caption text-slate-600 font-semibold mt-1">Legacy topic content · release status not tracked</p>
-                            <p className="text-caption text-slate-500 mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
+                            <p className="text-caption text-muted font-semibold mt-1">Legacy topic content · release status not tracked</p>
+                            <p className="text-caption text-muted mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
                           </>
                         ) : hasTopicOutlines ? (
                           <>
-                            <p className="text-caption text-slate-600 font-semibold mt-1">Partial topic outline</p>
-                            <p className="text-caption text-slate-500 mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
+                            <p className="text-caption text-muted font-semibold mt-1">Partial topic outline</p>
+                            <p className="text-caption text-muted mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
                           </>
                         ) : (
                           <>
-                            <p className="text-caption text-slate-600 font-semibold mt-1">Orientation only</p>
-                            <p className="text-caption text-slate-500 mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
+                            <p className="text-caption text-muted font-semibold mt-1">Orientation only</p>
+                            <p className="text-caption text-muted mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
                           </>
                         )}
                       </div>
                     </div>
                     <div className="mt-4 flex items-center justify-between gap-3">
-                      <span className="text-caption text-slate-500 flex items-center gap-1">
+                      <span className="text-caption text-muted flex items-center gap-1">
                         {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-success-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
                         {canonical ? 'Structured pathway' : hasTopicContent ? 'Legacy topic content' : hasTopicOutlines ? 'Partial topic outline' : 'Orientation only'}
                       </span>
@@ -213,7 +213,7 @@ export function CGEITrackOverviewScreen() {
         ))}
       </div>
 
-      <p className="text-caption text-slate-500 mt-6 leading-relaxed">
+      <p className="text-caption text-muted mt-6 leading-relaxed">
         Coverage is intentionally shown by implementation stage, not as a single completion percentage: roadmap entries, drafted lessons, validated lessons, and demonstrated competencies are different kinds of progress.
       </p>
     </PageContainer>

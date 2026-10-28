@@ -180,12 +180,12 @@ export function StudyScreen() {
                   <div className="flex-1 min-w-0">
                     <p className={`font-semibold text-sm sm:text-base break-words ${color.text}`}>{subject.title}</p>
                     <div className="flex items-center gap-3 mt-1">
-                      {topics.length > 0 ? <span className="text-slate-500 text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span> : hasOverview ? <span className="text-slate-500 text-xs">Domain overview</span> : null}
+                      {topics.length > 0 ? <span className="text-muted text-xs">{topics.length} {subject.id === 'cgei-data-science' ? 'lessons' : 'topics'}</span> : hasOverview ? <span className="text-muted text-xs">Domain overview</span> : null}
                       {topics.length > 0 ? <span className={`text-xs font-medium ${color.text}`}>{studied}/{topics.length} studied</span> : hasOverview ? <span className={`text-xs font-medium ${color.text}`}>Orientation</span> : null}
                     </div>
                     {topics.length > 0 && <div className="mt-2"><ProgressBar value={Math.round((studied / topics.length) * 100)} colorClass={getSubjectColor(subject.id).bar} /></div>}
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-600 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                  <ChevronRight className="w-5 h-5 text-muted shrink-0 transition-transform group-hover:translate-x-0.5" />
                 </button>
               </Card>
             );
@@ -218,9 +218,9 @@ export function StudyScreen() {
             return (
             <ActionCard className="mb-3 sm:mb-6" borderColorClass={contColor.borderLeft}>
               <p className={`text-xs font-semibold uppercase tracking-wide mb-1 ${contColor.text}`}>Continue Learning</p>
-              <p className="text-lg sm:text-xl font-bold leading-snug text-slate-900 mb-1 break-words">{continueTopic.title}</p>
-              <p className="text-slate-500 text-sm mb-1">Section: {sectionMap[continueTopic.sectionId]?.title ?? continueTopic.sectionId}</p>
-              <p className="text-slate-600 text-xs mb-4">
+              <p className="text-lg sm:text-xl font-bold leading-snug text-ink mb-1 break-words">{continueTopic.title}</p>
+              <p className="text-muted text-sm mb-1">Section: {sectionMap[continueTopic.sectionId]?.title ?? continueTopic.sectionId}</p>
+              <p className="text-muted text-xs mb-4">
                 {data.studiedTopics.includes(continueTopic.id) ? '100% read' : '0% read'}
               </p>
               <Button size="lg" onClick={() => navigate({ screen: 'topic', topicId: continueTopic.id })}>
@@ -239,10 +239,10 @@ export function StudyScreen() {
             >
               <div className={`w-12 h-12 rounded-btn bg-white flex items-center justify-center shrink-0 ${meteoColor.text}`}><MapIcon className="w-6 h-6" aria-hidden /></div>
               <div className="flex-1">
-                <p className="font-semibold text-card-title text-slate-900">Pakistan Climate</p>
-                <p className="text-slate-700 text-body-sm">7 topics covering climate zones, monsoon patterns, and climate change</p>
+                <p className="font-semibold text-card-title text-ink">Pakistan Climate</p>
+                <p className="text-muted text-body-sm">7 topics covering climate zones, monsoon patterns, and climate change</p>
               </div>
-              <ChevronRight className="w-5 h-5 text-slate-500 shrink-0" aria-hidden />
+              <ChevronRight className="w-5 h-5 text-muted shrink-0" aria-hidden />
             </button>
           )}
 
@@ -250,14 +250,14 @@ export function StudyScreen() {
             <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
               {showFormulaVault && (
                 <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-slate-700" /></div>
-                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Formula Vault</p><p className="text-slate-500 text-xs">All formulas in {subjectTitle}</p></div>
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-muted" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-ink text-sm">Formula Vault</p><p className="text-muted text-xs">All formulas in {subjectTitle}</p></div>
                 </button>
               )}
               {subjectId === 'meteo-climatology' && (
                 <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-slate-700" /></div>
-                  <div className="min-w-0"><p className="font-semibold text-slate-900 text-sm">Cloud Atlas</p><p className="text-slate-500 text-xs">10 cloud genera</p></div>
+                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-muted" /></div>
+                  <div className="min-w-0"><p className="font-semibold text-ink text-sm">Cloud Atlas</p><p className="text-muted text-xs">10 cloud genera</p></div>
                 </button>
               )}
             </div>
@@ -265,7 +265,7 @@ export function StudyScreen() {
 
           {roadmapTopicId && !roadmapTopic && subjectTopics.length === 0 && (
             <Card className="mb-4 sm:mb-6 p-4 border border-slate-200">
-              <div className="flex items-center gap-3"><LoadingSpinner /><p className="text-sm text-slate-600">Loading domain orientation…</p></div>
+              <div className="flex items-center gap-3"><LoadingSpinner /><p className="text-sm text-muted">Loading domain orientation…</p></div>
             </Card>
           )}
 
@@ -275,33 +275,33 @@ export function StudyScreen() {
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <span className="min-w-0">
-                    <span className="block text-sm font-semibold text-slate-900">
+                    <span className="block text-sm font-semibold text-ink">
                       {curriculumSubject ? 'Before you begin' : 'Domain orientation'}
                     </span>
-                    <span className="block text-xs text-slate-500 mt-0.5">
+                    <span className="block text-xs text-muted mt-0.5">
                       {curriculumSubject
                         ? `${curriculumSubject.subtitle} · ${curriculumUnits.length} units · expand for goals and how to study`
                         : `Context for ${subjectTitle} · expand for orientation notes`}
                     </span>
                   </span>
-                  <ChevronDown className="w-4 h-4 shrink-0 text-slate-500" aria-hidden />
+                  <ChevronDown className="w-4 h-4 shrink-0 text-muted" aria-hidden />
                 </summary>
                 <div className="pt-4 space-y-5 border-t border-slate-200 mt-3">
                   {curriculumSubject && (
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wide text-success-700 mb-1">This subject</p>
-                      <h2 className="text-base font-bold text-slate-900">{curriculumSubject.subtitle}</h2>
-                      <p className="text-sm text-slate-700 leading-relaxed mt-2">{curriculumSubject.overview}</p>
+                      <h2 className="text-base font-bold text-ink">{curriculumSubject.subtitle}</h2>
+                      <p className="text-sm text-muted leading-relaxed mt-2">{curriculumSubject.overview}</p>
                       {curriculumSubject.purpose ? (
-                        <p className="text-sm text-slate-700 leading-relaxed mt-2"><span className="font-semibold text-slate-800">Why it matters. </span>{curriculumSubject.purpose}</p>
+                        <p className="text-sm text-muted leading-relaxed mt-2"><span className="font-semibold text-ink">Why it matters. </span>{curriculumSubject.purpose}</p>
                       ) : null}
                       {curriculumSubject.audience ? (
-                        <p className="text-sm text-slate-600 leading-relaxed mt-2"><span className="font-semibold text-slate-700">Who it is for. </span>{curriculumSubject.audience}</p>
+                        <p className="text-sm text-muted leading-relaxed mt-2"><span className="font-semibold text-muted">Who it is for. </span>{curriculumSubject.audience}</p>
                       ) : null}
                       {curriculumSubject.prerequisites?.length ? (
                         <div className="mt-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Prerequisites and connections</h3>
-                          <ul className="list-disc pl-5 space-y-1 text-sm text-slate-700">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Prerequisites and connections</h3>
+                          <ul className="list-disc pl-5 space-y-1 text-sm text-muted">
                             {curriculumSubject.prerequisites.map((item) => (
                               <li key={item}>{item}</li>
                             ))}
@@ -310,31 +310,31 @@ export function StudyScreen() {
                       ) : null}
                       {curriculumUnits.length > 0 ? (
                         <div className="mt-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">How the subject is organised</h3>
-                          <p className="text-sm text-slate-600 mb-2">Study the units below in order. Each unit groups related lessons, practice, and checks.</p>
-                          <ol className="list-decimal pl-5 space-y-1 text-sm text-slate-700">
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">How the subject is organised</h3>
+                          <p className="text-sm text-muted mb-2">Study the units below in order. Each unit groups related lessons, practice, and checks.</p>
+                          <ol className="list-decimal pl-5 space-y-1 text-sm text-muted">
                             {curriculumUnits.map((unit) => (
-                              <li key={unit.id}><span className="font-medium text-slate-800">{unit.code}</span> — {unit.title}</li>
+                              <li key={unit.id}><span className="font-medium text-ink">{unit.code}</span> — {unit.title}</li>
                             ))}
                           </ol>
                         </div>
                       ) : null}
                       {curriculumSubject.outcomes?.length ? (
                         <div className="mt-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">What you will be able to do</h3>
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">What you will be able to do</h3>
                           <ul className="space-y-1.5">
                             {curriculumSubject.outcomes.slice(0, 12).map((outcome) => (
-                              <li key={outcome.id} className="text-sm text-slate-700 flex gap-2">
+                              <li key={outcome.id} className="text-sm text-muted flex gap-2">
                                 <span className="text-success-700 font-bold">•</span><span>{outcome.statement}</span>
                               </li>
                             ))}
                             {curriculumSubject.outcomes.length > 12 ? (
-                              <li className="text-xs text-slate-500">…and {curriculumSubject.outcomes.length - 12} further outcomes across the units.</li>
+                              <li className="text-xs text-muted">…and {curriculumSubject.outcomes.length - 12} further outcomes across the units.</li>
                             ) : null}
                           </ul>
                         </div>
                       ) : null}
-                      <p className="mt-3 text-xs text-slate-500">Orientation is context only. It is not counted as a lesson or mastery item.</p>
+                      <p className="mt-3 text-xs text-muted">Orientation is context only. It is not counted as a lesson or mastery item.</p>
                     </div>
                   )}
                   {roadmapTopic && (
@@ -344,30 +344,30 @@ export function StudyScreen() {
                       ) : (
                         <>
                           <p className="text-xs font-semibold uppercase tracking-wide text-brand-700 mb-1">Domain orientation</p>
-                          <h2 className="text-base font-bold text-slate-900">{subjectTitle}</h2>
+                          <h2 className="text-base font-bold text-ink">{subjectTitle}</h2>
                         </>
                       )}
-                      {roadmapTopic.definition && <p className="text-sm text-slate-700 leading-relaxed mt-1">{roadmapTopic.definition}</p>}
+                      {roadmapTopic.definition && <p className="text-sm text-muted leading-relaxed mt-1">{roadmapTopic.definition}</p>}
                       {roadmapTopic.explanationSections?.map((section) => (
                         <div key={section.heading} className="mt-3">
-                          <h3 className="text-sm font-semibold text-slate-900">{section.heading}</h3>
-                          <p className="text-sm text-slate-700 leading-relaxed mt-1">{section.body}</p>
+                          <h3 className="text-sm font-semibold text-ink">{section.heading}</h3>
+                          <p className="text-sm text-muted leading-relaxed mt-1">{section.body}</p>
                         </div>
                       ))}
                       {roadmapTopic.keyFacts?.length ? (
                         <div className="mt-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Orientation notes</h3>
-                          <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-slate-700 flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Orientation notes</h3>
+                          <ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul>
                         </div>
                       ) : null}
                       {roadmapTopic.examPoints?.length ? (
                         <div className="mt-3">
-                          <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-1">Learning principles</h3>
-                          <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-slate-700 flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{point}</span></li>)}</ul>
+                          <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Learning principles</h3>
+                          <ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{point}</span></li>)}</ul>
                         </div>
                       ) : null}
                       {!curriculumSubject && subjectTopics.length === 0 && (
-                        <p className="mt-3 rounded-lg border border-brand-100 bg-white/80 p-3 text-xs text-slate-600">
+                        <p className="mt-3 rounded-lg border border-brand-100 bg-white/80 p-3 text-xs text-muted">
                           Structured lessons for this domain are being migrated progressively. This overview is not counted as a lesson or mastery item.
                         </p>
                       )}
@@ -383,8 +383,8 @@ export function StudyScreen() {
             <Card className="mb-3 p-3.5 sm:p-5 border border-success-200 bg-white">
               <div className="flex items-center justify-between gap-3 mb-3">
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-900">Learning path</h3>
-                  <p className="text-xs text-slate-500 mt-0.5">
+                  <h3 className="text-sm font-semibold text-ink">Learning path</h3>
+                  <p className="text-xs text-muted mt-0.5">
                     {curriculumLessons.length > 0
                       ? `${studiedCurriculumLessonCount} of ${curriculumLessons.length} lessons marked studied · follow units in order`
                       : 'Units registered · lessons still being integrated'}
@@ -404,11 +404,11 @@ export function StudyScreen() {
                       <span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span>
                       <span className="min-w-0 flex-1">
                         <span className="flex flex-wrap items-center gap-2">
-                          <span className="font-semibold text-sm text-slate-900">{unit.title}</span>
+                          <span className="font-semibold text-sm text-ink">{unit.title}</span>
                           <Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge>
                         </span>
-                        <span className="block text-xs text-slate-600 leading-relaxed mt-1">{unit.summary}</span>
-                        <span className="block text-xs text-slate-600 mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
+                        <span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span>
+                        <span className="block text-xs text-muted mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
                       </span>
                       <ChevronRight className="w-4 h-4 text-success-700 shrink-0 mt-1" />
                     </div>
@@ -423,8 +423,8 @@ export function StudyScreen() {
                     <div className="flex items-start gap-3">
                       <span className="text-xs font-bold text-brand-800 shrink-0">Project</span>
                       <div className="min-w-0">
-                        <p className="font-semibold text-sm text-slate-900">{project.title}</p>
-                        <p className="text-xs text-slate-600 mt-1">{project.purpose}</p>
+                        <p className="font-semibold text-sm text-ink">{project.title}</p>
+                        <p className="text-xs text-muted mt-1">{project.purpose}</p>
                       </div>
                     </div>
                   </div>
@@ -433,7 +433,7 @@ export function StudyScreen() {
               {lastCurriculumLesson && (
                 <Button type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastCurriculumLesson.id })} className="w-full mt-4 justify-start rounded-xl border-brand-200 bg-brand-50 p-3 text-left">
                   <span className="text-label font-semibold uppercase tracking-wide text-brand-700">Resume</span>
-                  <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-slate-900">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-brand-700 shrink-0" /></span>
+                  <span className="flex items-center justify-between gap-3 mt-1"><span className="font-semibold text-sm text-ink">{lastCurriculumLesson.title}</span><ChevronRight className="w-4 h-4 text-brand-700 shrink-0" /></span>
                 </Button>
               )}
             </Card>
@@ -443,10 +443,10 @@ export function StudyScreen() {
           {subjectSections.length > 0 && !(curriculumSubject && curriculumUnits.length > 0) && (
           <Card className="p-3.5 sm:p-5 mb-3 sm:mb-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-slate-900">
+              <h3 className="font-semibold text-ink">
                 {subjectId?.startsWith('cgei-') ? 'Topic groups' : 'Sections'}
               </h3>
-              <span className="text-slate-600 text-sm">{subjectSections.length}</span>
+              <span className="text-muted text-sm">{subjectSections.length}</span>
             </div>
             <div className="space-y-2">
               {subjectSections.map((section) => {
@@ -469,10 +469,10 @@ export function StudyScreen() {
                     >
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium text-slate-900 text-sm break-words">{section.title}</p>
-                        <p className="text-slate-500 text-xs mt-0.5">{sectionTopics.length} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
+                        <p className="font-medium text-ink text-sm break-words">{section.title}</p>
+                        <p className="text-muted text-xs mt-0.5">{sectionTopics.length} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'} · {studiedInSection} studied · {masteredInSection} mastered</p>
                       </div>
-                      {isExpanded ? <ChevronDown className="w-5 h-5 text-slate-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-slate-600 shrink-0" />}
+                      {isExpanded ? <ChevronDown className="w-5 h-5 text-muted shrink-0" /> : <ChevronRight className="w-5 h-5 text-muted shrink-0" />}
                     </button>
                     {isExpanded && (
                       <div id={`section-topics-${section.id}`} className="ml-12 pl-3 pr-1 py-1 space-y-1">
@@ -489,11 +489,11 @@ export function StudyScreen() {
                               className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
-                              <span className="min-w-0 flex-1 break-words whitespace-normal text-slate-700 text-sm font-medium">{topic.title}</span>
+                              <span className="min-w-0 flex-1 break-words whitespace-normal text-muted text-sm font-medium">{topic.title}</span>
                               {topic.postRestriction === 'bs17' && (
                                 <span className="text-xs font-medium px-2 py-0.5 rounded bg-warning-100 text-warning-700 border border-warning-200 shrink-0">BS-17</span>
                               )}
-                              <span className="text-slate-600 text-xs shrink-0">{statusLabel}</span>
+                              <span className="text-muted text-xs shrink-0">{statusLabel}</span>
                             </button>
                           );
                         })}
@@ -508,7 +508,7 @@ export function StudyScreen() {
 
           {/* Stats footer */}
           {subjectTopics.length > 0 && (
-            <p className="text-slate-500 text-sm text-center">
+            <p className="text-muted text-sm text-center">
               {subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length} / {subjectTopics.length} topics studied · {Math.round((subjectTopics.filter((t) => data.studiedTopics.includes(t.id)).length / subjectTopics.length) * 100)}% complete
             </p>
           )}
@@ -558,24 +558,24 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
         <div className="flex items-center gap-2 mb-1">
           <SectionBadge section={section} />
         </div>
-        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 tracking-tight leading-tight">{section.title}</h1>
-        <p className="text-slate-600 mt-1 text-body-sm">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
+        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink tracking-tight leading-tight">{section.title}</h1>
+        <p className="text-muted mt-1 text-body-sm">{section.topicCount} {section.subjectId === 'cgei-data-science' ? 'lessons' : 'topics'}</p>
       </div>
       {curriculumUnit && (
         <Card className="mb-5 p-card-pad sm:p-card-pad-lg border border-success-100 bg-brand-50/30">
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <h2 className="font-semibold text-slate-900">Unit learning plan</h2>
+            <h2 className="font-semibold text-ink">Unit learning plan</h2>
             <button type="button" onClick={() => navigate({ screen: 'curriculum-unit', unitId: curriculumUnit.id })} className="text-xs font-semibold text-success-700 hover:underline">Open unit workspace <span aria-hidden="true">→</span></button>
           </div>
-          <p className="text-sm text-slate-700 leading-relaxed mt-1">{curriculumUnit.summary}</p>
+          <p className="text-sm text-muted leading-relaxed mt-1">{curriculumUnit.summary}</p>
           {curriculumUnit.outcomes.length > 0 && (
             <details className="mt-4">
-              <summary className="cursor-pointer text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-sm">
+              <summary className="cursor-pointer text-xs font-semibold uppercase tracking-wide text-muted mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-sm">
                 Learning outcomes
               </summary>
               <ul className="space-y-2 mt-2">
                 {curriculumUnit.outcomes.map((outcome) => (
-                  <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+                  <li key={outcome.id} className="flex items-start gap-2 text-sm text-muted">
                     <span className="rounded-md bg-white border border-success-100 px-1.5 py-0.5 text-label font-bold text-success-700 shrink-0">{outcome.level}</span>
                     <span>{outcome.statement}</span>
                   </li>
@@ -585,16 +585,16 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           )}
           {unitActivities.length > 0 && (
             <div className="mt-4">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Practice activities</h3>
+              <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-2">Practice activities</h3>
               <div className="space-y-2">
                 {unitActivities.map((activity) => (
                   <div key={activity.id} className="rounded-lg border border-slate-200 bg-white p-3">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-semibold text-sm text-slate-900">{activity.title}</span>
-                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label font-semibold">{activity.level}</span>
-                      {activity.estimatedMinutes && <span className="text-label text-slate-500">~{activity.estimatedMinutes} min</span>}
+                      <span className="font-semibold text-sm text-ink">{activity.title}</span>
+                      <span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes && <span className="text-label text-muted">~{activity.estimatedMinutes} min</span>}
                     </div>
-                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{activity.instructions}</p>
+                    <p className="text-xs text-muted leading-relaxed mt-1">{activity.instructions}</p>
                     {activity.expectedEvidence?.length ? <p className="text-xs text-success-700 mt-2"><span className="font-semibold">Evidence:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
                   </div>
                 ))}
@@ -604,13 +604,13 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-4">
             {unitAssessments.length > 0 && (
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Checks and assessments</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-2">Checks and assessments</h3>
                 <ul className="space-y-2">
                   {unitAssessments.map((assessment) => (
                     <li key={assessment.id} className="rounded-lg border border-slate-200 bg-white p-3">
-                      <p className="font-medium text-sm text-slate-900">{assessment.title}</p>
-                      <p className="text-xs text-slate-600 mt-1">{assessment.purpose}</p>
-                      {assessment.passThreshold !== undefined && <p className="text-xs text-slate-500 mt-1">Target: {Math.round(assessment.passThreshold * 100)}%</p>}
+                      <p className="font-medium text-sm text-ink">{assessment.title}</p>
+                      <p className="text-xs text-muted mt-1">{assessment.purpose}</p>
+                      {assessment.passThreshold !== undefined && <p className="text-xs text-muted mt-1">Target: {Math.round(assessment.passThreshold * 100)}%</p>}
                     </li>
                   ))}
                 </ul>
@@ -618,12 +618,12 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
             )}
             {unitDeliverables.length > 0 && (
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Portfolio evidence</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-2">Portfolio evidence</h3>
                 <ul className="space-y-2">
                   {unitDeliverables.map((deliverable) => (
                     <li key={deliverable.id} className="rounded-lg border border-slate-200 bg-white p-3">
-                      <p className="font-medium text-sm text-slate-900">{deliverable.title}</p>
-                      <p className="text-xs text-slate-600 mt-1">{deliverable.description}</p>
+                      <p className="font-medium text-sm text-ink">{deliverable.title}</p>
+                      <p className="text-xs text-muted mt-1">{deliverable.description}</p>
                     </li>
                   ))}
                 </ul>
@@ -631,15 +631,15 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
             )}
             {unitResources.length > 0 && (
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Supporting references</h3>
+                <h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-2">Supporting references</h3>
                 <ul className="space-y-2">
                   {unitResources.map((resource) => (
                     <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
                       {resource.url ? (
                         <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-success-700 hover:underline">{resource.title}</a>
-                      ) : <p className="font-medium text-sm text-slate-900">{resource.title}</p>}
-                      <p className="text-xs text-slate-600 mt-1">{resource.purpose}</p>
-                      {resource.authorOrPublisher && <p className="text-label text-slate-600 mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
+                      ) : <p className="font-medium text-sm text-ink">{resource.title}</p>}
+                      <p className="text-xs text-muted mt-1">{resource.purpose}</p>
+                      {resource.authorOrPublisher && <p className="text-label text-muted mt-1">{resource.authorOrPublisher} · checked {resource.accessedOn ?? 'date not recorded'}</p>}
                     </li>
                   ))}
                 </ul>
@@ -656,20 +656,20 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
           return (
             <Card key={topic.id} className="p-0 transition-colors hover:border-slate-300">
               <button type="button" onClick={() => navigate({ screen: 'topic', topicId: topic.id })} className="w-full flex items-center gap-3 p-4 hover:bg-slate-50 active:bg-slate-100 transition-colors text-left rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
-                <span className="text-slate-600 text-xs font-bold w-6 shrink-0">{topic.order}</span>
+                <span className="text-muted text-xs font-bold w-6 shrink-0">{topic.order}</span>
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-slate-900 text-sm sm:text-base leading-snug">{topic.title}</p>
+                  <p className="font-medium text-ink text-sm sm:text-base leading-snug">{topic.title}</p>
                   {(() => {
                     const lesson = cgeiCurriculum.lessons.find((item) => item.sourceTopicId === topic.id);
                     return (
-                      <span className="text-xs text-slate-500">
+                      <span className="text-xs text-muted">
                         {lesson ? `${lesson.level} · ~${lesson.estimatedMinutes ?? 0} min · ${lesson.readiness}` : topic.content ? 'Content available' : 'Content coming soon'}
                       </span>
                     );
                   })()}
                 </div>
                 <TopicStatusIcon status={status} />
-                <ChevronRight className="w-4 h-4 text-slate-600 shrink-0" />
+                <ChevronRight className="w-4 h-4 text-muted shrink-0" />
               </button>
             </Card>
           );
@@ -786,7 +786,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
       <PageContainer>
           <div className="mb-4">
           <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
-          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
           <EmptyState title="Content Coming Soon" message="This topic hasn't been authored yet." icon={<BookOpen className="w-12 h-12" />} />
@@ -803,9 +803,9 @@ export function TopicScreen({ topicId }: { topicId: string }) {
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
         <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
-        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900 leading-tight mt-2">{topic.title}</h1>
+        <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink leading-tight mt-2">{topic.title}</h1>
         {curriculumLesson && (
-          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-muted">
             <span className="rounded-full bg-brand-50 text-brand-700 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
             {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
             <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
@@ -815,7 +815,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <section className="mt-4 rounded-xl border border-brand-100 bg-brand-50 p-4">
             <h2 className="text-xs font-semibold uppercase tracking-wide text-brand-900 mb-2">By the end of this lesson, you should be able to</h2>
             <ul className="space-y-2">{curriculumLesson.objectives.map((outcome) => (
-              <li key={outcome.id} className="flex items-start gap-2 text-sm text-slate-700">
+              <li key={outcome.id} className="flex items-start gap-2 text-sm text-muted">
                 <span className="rounded bg-white border border-brand-100 px-1.5 py-0.5 text-label font-bold text-brand-700 shrink-0">{outcome.level}</span>
                 <span>{outcome.statement}</span>
               </li>
@@ -828,20 +828,20 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {curriculumLesson ? <CurriculumLessonContent lesson={curriculumLesson} /> : (<>
         {topic.definition && (
           <section>
-            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-brand-700 mb-2.5">Definition</h2>
-            <p className="text-slate-800 text-base sm:text-lg leading-7 sm:leading-8"><MathText text={topic.definition} /></p>
+            <h2 className="font-semibold text-ink text-sm uppercase tracking-wider text-brand-700 mb-2.5">Definition</h2>
+            <p className="text-ink text-base sm:text-lg leading-7 sm:leading-8"><MathText text={topic.definition} /></p>
           </section>
         )}
         {topic.keyFacts && topic.keyFacts.length > 0 && (
           <section>
-            <h2 className="font-semibold text-slate-900 text-sm uppercase tracking-wider text-slate-500 mb-3">Key Facts</h2>
-            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-slate-700 text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
+            <h2 className="font-semibold text-ink text-sm uppercase tracking-wider text-muted mb-3">Key Facts</h2>
+            <ul className="space-y-2">{topic.keyFacts.map((fact, i) => <li key={i} className="flex items-start gap-2.5 text-muted text-base leading-7"><span className="w-1.5 h-1.5 rounded-full bg-brand-500 mt-2 shrink-0" /><MathText text={fact} /></li>)}</ul>
           </section>
         )}
         {topic.explanationSections && topic.explanationSections.map((sec, i) => (
           <section key={i}>
-            <h2 className="font-semibold text-slate-900 text-lg sm:text-xl tracking-tight mb-2.5">{sec.heading}</h2>
-            <p className="text-slate-700 text-base leading-7 sm:leading-8"><MathText text={sec.body} /></p>
+            <h2 className="font-semibold text-ink text-lg sm:text-xl tracking-tight mb-2.5">{sec.heading}</h2>
+            <p className="text-muted text-base leading-7 sm:leading-8"><MathText text={sec.body} /></p>
           </section>
         ))}
         {topic.subtopics && topic.subtopics.length > 0 && (
@@ -871,27 +871,27 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {(() => { const raw = topic.formula ?? (topic as Topic & { formulas?: typeof topic.formula }).formulas; if (!raw) return null; const formulas = Array.isArray(raw) ? raw : [raw]; return formulas.map((f, fi) => (
           <Card key={fi} className="p-5 border border-slate-200 bg-white overflow-hidden">
             <div className="flex items-start gap-2.5 mb-3">
-              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700">
+              <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-muted">
                 <Calculator className="w-4 h-4" />
               </div>
               <div className="min-w-0">
-                <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Formula{formulas.length > 1 ? ` ${fi + 1} of ${formulas.length}` : ''}</p>
-                <h3 className="font-semibold text-slate-900 text-sm leading-snug">{f.name}</h3>
-                <p className="text-xs text-slate-500 mt-0.5">From this topic · {topic.title}</p>
+                <p className="text-label font-semibold uppercase tracking-wide text-muted">Formula{formulas.length > 1 ? ` ${fi + 1} of ${formulas.length}` : ''}</p>
+                <h3 className="font-semibold text-ink text-sm leading-snug">{f.name}</h3>
+                <p className="text-xs text-muted mt-0.5">From this topic · {topic.title}</p>
               </div>
             </div>
-            <div className="formula-display text-slate-900 text-base sm:text-lg mb-4 text-center py-4 px-3 bg-slate-50 border border-slate-200 rounded-xl overflow-x-auto">
+            <div className="formula-display text-ink text-base sm:text-lg mb-4 text-center py-4 px-3 bg-slate-50 border border-slate-200 rounded-xl overflow-x-auto">
               <MathText text={`$$${f.expression}$$`} />
             </div>
             {(f.variables?.length ?? 0) > 0 && (
               <div className="space-y-2">
-                <p className="text-label font-semibold uppercase tracking-wide text-slate-500">Symbols</p>
+                <p className="text-label font-semibold uppercase tracking-wide text-muted">Symbols</p>
                 {f.variables.map((v, i) => (
                   <div key={i} className="flex items-baseline gap-3 text-sm">
-                    <span className="text-slate-900 font-semibold shrink-0 min-w-[3rem]">
+                    <span className="text-ink font-semibold shrink-0 min-w-[3rem]">
                       <MathText text={`$${v.symbol}$`} />
                     </span>
-                    <span className="text-slate-600">= {v.meaning}</span>
+                    <span className="text-muted">= {v.meaning}</span>
                   </div>
                 ))}
               </div>
@@ -904,7 +904,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         {topic.examPoints && topic.examPoints.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-warning-500 bg-warning-50/50">
             <div className="flex items-center gap-2 mb-3"><span className="text-warning-600 font-semibold text-sm uppercase tracking-wide">Exam Points</span></div>
-            <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
+            <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-ink text-base leading-7"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
           </Card>
         )}
         {topic.comparisonTable && <ComparisonTableBlock table={topic.comparisonTable} />}
@@ -916,12 +916,12 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <Card key={ei} className="p-5 border-l-4 border-l-success-500 bg-success-50/40">
             <div className="flex items-center gap-2 mb-3"><span className="text-success-700 font-semibold text-sm uppercase tracking-wide">Worked Example{examples.length > 1 ? ` ${ei + 1}` : ''}</span></div>
             <div className="space-y-2 sm:space-y-3">
-              <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Problem</p><p className="text-slate-800 text-base leading-7"><MathText text={ex.problem} /></p></div>
-              {ex.solution && typeof ex.solution === 'string' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><p className="text-slate-700 text-base leading-7"><MathText text={ex.solution} /></p></div>}
-              {ex.solution && typeof ex.solution === 'object' && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solution).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-base leading-7"><MathText text={val} /></p></div>)}</div></div>}
-              {ex.solutionSteps && <div><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solutionSteps).map(([key, val]) => <div key={key}><p className="text-slate-900 text-sm font-medium"><MathText text={key} /></p><p className="text-slate-600 text-sm leading-relaxed"><MathText text={val} /></p></div>)}</div></div>}
-              {ex.answer && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Answer</p><p className="text-success-800 text-base font-semibold"><MathText text={ex.answer} /></p></div>}
-              {ex.takeaway && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Takeaway</p><p className="text-success-800 text-sm leading-relaxed"><MathText text={ex.takeaway} /></p></div>}
+              <div><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Problem</p><p className="text-ink text-base leading-7"><MathText text={ex.problem} /></p></div>
+              {ex.solution && typeof ex.solution === 'string' && <div><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Solution</p><p className="text-muted text-base leading-7"><MathText text={ex.solution} /></p></div>}
+              {ex.solution && typeof ex.solution === 'object' && <div><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solution).map(([key, val]) => <div key={key}><p className="text-ink text-sm font-medium"><MathText text={key} /></p><p className="text-muted text-base leading-7"><MathText text={val} /></p></div>)}</div></div>}
+              {ex.solutionSteps && <div><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Solution</p><div className="space-y-2">{Object.entries(ex.solutionSteps).map(([key, val]) => <div key={key}><p className="text-ink text-sm font-medium"><MathText text={key} /></p><p className="text-muted text-sm leading-relaxed"><MathText text={val} /></p></div>)}</div></div>}
+              {ex.answer && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Answer</p><p className="text-success-800 text-base font-semibold"><MathText text={ex.answer} /></p></div>}
+              {ex.takeaway && <div className="pt-2 border-t border-success-200"><p className="text-xs font-semibold text-muted uppercase tracking-wide mb-1">Takeaway</p><p className="text-success-800 text-sm leading-relaxed"><MathText text={ex.takeaway} /></p></div>}
             </div>
           </Card>
         )); })()}
@@ -930,14 +930,14 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <div className="flex items-center gap-2 mb-3"><span className="text-danger-700 font-semibold text-sm uppercase tracking-wide">Common Mistakes</span></div>
             <ul className="space-y-2 sm:space-y-3">{topic.commonMistakes.map((mistake, i) => {
               if (typeof mistake === 'string') {
-                return <li key={i} className="flex items-start gap-2 text-slate-800 text-base leading-7"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><MathText text={mistake} /></li>;
+                return <li key={i} className="flex items-start gap-2 text-ink text-base leading-7"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><MathText text={mistake} /></li>;
               }
               const m = mistake as { mistake: string; correction: string; explanation: string };
               return (
                 <li key={i} className="text-sm leading-relaxed space-y-1">
                   <div className="flex items-start gap-2"><XCircle className="w-3.5 h-3.5 text-danger-500 mt-0.5 shrink-0" /><span className="text-danger-700 line-through"><MathText text={m.mistake} /></span></div>
                   <div className="flex items-start gap-2 pl-5"><span className="text-success-700 font-medium"><MathText text={m.correction} /></span></div>
-                  <p className="pl-5 text-slate-500 text-xs"><MathText text={m.explanation} /></p>
+                  <p className="pl-5 text-muted text-xs"><MathText text={m.explanation} /></p>
                 </li>
               );
             })}</ul>
@@ -953,19 +953,19 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             if (!steps?.length) return null;
             return (
               <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
-                <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">{title}</h3>
-                {intro && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={intro} /></p>}
+                <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-2">{title}</h3>
+                {intro && <p className="text-muted text-sm mb-3 leading-relaxed"><MathText text={intro} /></p>}
                 <ul className="space-y-2">
                   {steps.map((step, i) => {
                     const when = step.when ?? step.condition ?? '';
                     const use = step.use ?? step.recommendation ?? '';
                     return (
-                      <li key={i} className="text-sm text-slate-800 leading-relaxed">
+                      <li key={i} className="text-sm text-ink leading-relaxed">
                         <span className="font-medium text-brand-700">If </span>
                         <MathText text={when} />
                         <span className="font-medium text-brand-700"> → </span>
                         <MathText text={use} />
-                        {step.notes && <span className="block text-slate-500 text-xs mt-0.5"><MathText text={step.notes} /></span>}
+                        {step.notes && <span className="block text-muted text-xs mt-0.5"><MathText text={step.notes} /></span>}
                       </li>
                     );
                   })}
@@ -979,14 +979,14 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               branches.map((b, i) => (
                 <li key={`${depth}-${i}`} className={depth > 0 ? 'pl-4' : ''}>
                   <span className="font-medium text-brand-700">{b.condition}</span>
-                  {b.result && <span className="text-slate-700"> → <MathText text={b.result} /></span>}
+                  {b.result && <span className="text-muted"> → <MathText text={b.result} /></span>}
                   {b.branches && <ul className="space-y-1 mt-1 pl-4 border-l border-brand-200">{renderBranches(b.branches, depth + 1)}</ul>}
                 </li>
               ));
             return (
               <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
-                <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">{tc.title ?? 'Which method / equation?'}</h3>
-                {tc.root && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={tc.root} /></p>}
+                <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-2">{tc.title ?? 'Which method / equation?'}</h3>
+                {tc.root && <p className="text-muted text-sm mb-3 leading-relaxed"><MathText text={tc.root} /></p>}
                 <ul className="space-y-2">{renderBranches(tc.branches, 0)}</ul>
               </Card>
             );
@@ -995,41 +995,41 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           if (!mc.options?.length) return null;
           return (
             <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/40">
-              <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-2">Which method / equation?</h3>
-              {mc.scenario && <p className="text-slate-600 text-sm mb-3 leading-relaxed"><MathText text={mc.scenario} /></p>}
+              <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-2">Which method / equation?</h3>
+              {mc.scenario && <p className="text-muted text-sm mb-3 leading-relaxed"><MathText text={mc.scenario} /></p>}
               <div className="space-y-2 sm:space-y-3">
                 {mc.options.map((opt, i) => (
                   <div key={i} className="space-y-1">
                     {opt.name && <p className="text-sm font-semibold text-brand-700"><MathText text={opt.name} /></p>}
-                    {opt.when && <p className="text-xs text-slate-500 leading-relaxed"><span className="font-medium">When: </span><MathText text={opt.when} /></p>}
-                    {opt.steps && <ul className="space-y-1 pl-4">{opt.steps.map((s, si) => <li key={si} className="text-xs text-slate-700 leading-relaxed list-disc"><MathText text={s} /></li>)}</ul>}
+                    {opt.when && <p className="text-xs text-muted leading-relaxed"><span className="font-medium">When: </span><MathText text={opt.when} /></p>}
+                    {opt.steps && <ul className="space-y-1 pl-4">{opt.steps.map((s, si) => <li key={si} className="text-xs text-muted leading-relaxed list-disc"><MathText text={s} /></li>)}</ul>}
                   </div>
                 ))}
               </div>
-              {mc.recommendation && <p className="mt-3 pt-2 border-t border-brand-200 text-xs text-slate-600 leading-relaxed"><span className="font-medium text-brand-700">Recommendation: </span><MathText text={mc.recommendation} /></p>}
+              {mc.recommendation && <p className="mt-3 pt-2 border-t border-brand-200 text-xs text-muted leading-relaxed"><span className="font-medium text-brand-700">Recommendation: </span><MathText text={mc.recommendation} /></p>}
             </Card>
           );
         })()}
         {topic.limitCases && topic.limitCases.length > 0 && (
           <section>
-            <h3 className="font-semibold text-slate-900 text-xs uppercase tracking-wider text-slate-500 mb-3">Limit cases</h3>
+            <h3 className="font-semibold text-ink text-xs uppercase tracking-wider text-muted mb-3">Limit cases</h3>
             <ul className="space-y-2 sm:space-y-3">
               {topic.limitCases.map((lc, i) => {
                 if (lc.condition) {
                   return (
-                    <li key={i} className="text-sm text-slate-800 leading-relaxed">
+                    <li key={i} className="text-sm text-ink leading-relaxed">
                       <span className="font-medium"><MathText text={lc.condition} /></span>
-                      <span className="text-slate-500"> → </span>
+                      <span className="text-muted"> → </span>
                       <MathText text={lc.result ?? ''} />
-                      {lc.physicalMeaning && <span className="block text-slate-500 text-xs mt-0.5"><MathText text={lc.physicalMeaning} /></span>}
+                      {lc.physicalMeaning && <span className="block text-muted text-xs mt-0.5"><MathText text={lc.physicalMeaning} /></span>}
                     </li>
                   );
                 }
                 return (
-                  <li key={i} className="text-sm text-slate-800 leading-relaxed space-y-1">
-                    {lc.case && <p className="font-medium text-slate-900"><MathText text={lc.case} /></p>}
-                    {lc.example && <p className="text-slate-600 text-xs italic"><MathText text={lc.example} /></p>}
-                    {lc.resolution && <p className="text-slate-700"><MathText text={lc.resolution} /></p>}
+                  <li key={i} className="text-sm text-ink leading-relaxed space-y-1">
+                    {lc.case && <p className="font-medium text-ink"><MathText text={lc.case} /></p>}
+                    {lc.example && <p className="text-muted text-xs italic"><MathText text={lc.example} /></p>}
+                    {lc.resolution && <p className="text-muted"><MathText text={lc.resolution} /></p>}
                   </li>
                 );
               })}
@@ -1038,15 +1038,15 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         )}
         {topic.misconceptionRemediation && topic.misconceptionRemediation.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-warning-500 bg-warning-50/40">
-            <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Misconceptions</h3>
+            <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-3">Misconceptions</h3>
             <div className="space-y-3 sm:space-y-4">
               {topic.misconceptionRemediation.map((m, i) => (
                 <div key={i} className="space-y-1">
                   <p className="text-sm font-medium text-warning-900"><XCircle className="inline w-3.5 h-3.5 text-danger-500 -mt-0.5 mr-1" /><MathText text={m.misconception ?? (m as { name?: string }).name} /></p>
-                  {m.whyStudentsThinkIt && <p className="text-xs text-slate-600 leading-relaxed"><span className="font-medium">Why it feels right: </span><MathText text={m.whyStudentsThinkIt} /></p>}
-                  {m.correctModel && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Correct model: </span><MathText text={m.correctModel} /></p>}
-                  {m.remedy && <p className="text-sm text-slate-800 leading-relaxed"><span className="font-medium text-success-700">Remedy: </span><MathText text={m.remedy} /></p>}
-                  {m.drill && <p className="text-xs text-slate-500 leading-relaxed mt-1 pl-3 border-l-2 border-warning-200"><MathText text={m.drill} /></p>}
+                  {m.whyStudentsThinkIt && <p className="text-xs text-muted leading-relaxed"><span className="font-medium">Why it feels right: </span><MathText text={m.whyStudentsThinkIt} /></p>}
+                  {m.correctModel && <p className="text-sm text-ink leading-relaxed"><span className="font-medium text-success-700">Correct model: </span><MathText text={m.correctModel} /></p>}
+                  {m.remedy && <p className="text-sm text-ink leading-relaxed"><span className="font-medium text-success-700">Remedy: </span><MathText text={m.remedy} /></p>}
+                  {m.drill && <p className="text-xs text-muted leading-relaxed mt-1 pl-3 border-l-2 border-warning-200"><MathText text={m.drill} /></p>}
                 </div>
               ))}
             </div>
@@ -1054,13 +1054,13 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         )}
         {topic.qualitativeScenarios && topic.qualitativeScenarios.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/30">
-            <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Think it through</h3>
+            <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-3">Think it through</h3>
             <div className="space-y-3 sm:space-y-4">
               {topic.qualitativeScenarios.map((q, i) => (
                 <div key={i} className="space-y-1">
-                  <p className="text-sm font-medium text-slate-900"><MathText text={q.scenario ?? (q as { question?: string }).question ?? ''} /></p>
+                  <p className="text-sm font-medium text-ink"><MathText text={q.scenario ?? (q as { question?: string }).question ?? ''} /></p>
                   <p className="text-sm text-brand-800"><span className="font-medium">Answer: </span><MathText text={q.answer ?? ''} /></p>
-                  <p className="text-xs text-slate-600 leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning ?? ''} /></p>
+                  <p className="text-xs text-muted leading-relaxed"><MathText text={q.why ?? (q as { reasoning?: string }).reasoning ?? ''} /></p>
                 </div>
               ))}
             </div>
@@ -1068,13 +1068,13 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         )}
         {Array.isArray(topic.postRestriction) && topic.postRestriction.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-danger-400 bg-danger-50/30">
-            <h3 className="font-semibold text-slate-900 text-sm uppercase tracking-wide mb-3">Post-Restriction Rules</h3>
+            <h3 className="font-semibold text-ink text-sm uppercase tracking-wide mb-3">Post-Restriction Rules</h3>
             <div className="space-y-2 sm:space-y-3">
               {topic.postRestriction.map((r, i) => (
                 <div key={i} className="space-y-1">
                   <p className="text-sm font-medium text-danger-800"><MathText text={r.rule} /></p>
-                  <p className="text-xs text-slate-600 leading-relaxed"><MathText text={r.restriction} /></p>
-                  <p className="text-xs text-slate-500 leading-relaxed"><span className="font-medium">Consequence: </span><MathText text={r.consequence} /></p>
+                  <p className="text-xs text-muted leading-relaxed"><MathText text={r.restriction} /></p>
+                  <p className="text-xs text-muted leading-relaxed"><span className="font-medium">Consequence: </span><MathText text={r.consequence} /></p>
                 </div>
               ))}
             </div>
@@ -1118,11 +1118,11 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           if (groups.length === 0) return null;
           return (
             <Card className="p-3">
-              <h3 className="font-semibold text-slate-500 text-xs uppercase tracking-wide mb-2">Connected Topics</h3>
+              <h3 className="font-semibold text-muted text-xs uppercase tracking-wide mb-2">Connected Topics</h3>
               <div className="space-y-2">
                 {groups.map((g) => (
                   <div key={g.label}>
-                    <p className="text-slate-600 text-label font-medium mb-1">{g.label}</p>
+                    <p className="text-muted text-label font-medium mb-1">{g.label}</p>
                     <div className="flex flex-wrap gap-1.5">
                       {g.ids.map((rid) => { const t = getTopic(rid); if (!t) return null; return (
                         <button key={rid} onClick={() => navigate({ screen: 'topic', topicId: rid })} className={`px-2.5 py-1 rounded-md text-xs font-medium transition-colors ${g.chipClass}`}>{t.title}</button>
@@ -1135,8 +1135,8 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           );
         })()}
         <div className="rounded-2xl border border-brand-100 bg-brand-50/70 p-card-pad sm:p-card-pad-lg">
-          <p className="text-sm font-semibold text-slate-900">Finished reading?</p>
-          <p className="mt-1 text-sm text-slate-600">Check what stuck, then continue to the next topic when you’re ready.</p>
+          <p className="text-sm font-semibold text-ink">Finished reading?</p>
+          <p className="mt-1 text-sm text-muted">Check what stuck, then continue to the next topic when you’re ready.</p>
           <div className="mt-3 flex flex-col sm:flex-row gap-2">
             {topicQuestions.length > 0 && (
               <Button onClick={() => navigate({ screen: 'quiz', mode: 'topic', topicId })} className="min-h-11 flex-1 justify-center">
@@ -1172,20 +1172,20 @@ export function TopicScreen({ topicId }: { topicId: string }) {
             <div className="flex items-center justify-between gap-3 pt-4 border-t border-slate-200">
               {prevTopic ? (
                 <button onClick={() => navigate({ screen: 'topic', topicId: prevTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-left min-w-0 flex-1 max-w-[48%] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
-                  <ChevronLeft className="w-5 h-5 text-slate-600 shrink-0" />
+                  <ChevronLeft className="w-5 h-5 text-muted shrink-0" />
                   <div className="min-w-0">
-                    <p className="text-xs text-slate-600 font-medium">Previous</p>
-                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{prevTopic.title}</p>
+                    <p className="text-xs text-muted font-medium">Previous</p>
+                    <p className="text-sm text-muted font-medium break-words whitespace-normal">{prevTopic.title}</p>
                   </div>
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
               {nextTopic ? (
                 <button onClick={() => navigate({ screen: 'topic', topicId: nextTopic.id })} className="flex min-h-touch items-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors text-right min-w-0 flex-1 max-w-[48%] justify-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <div className="min-w-0">
-                    <p className="text-xs text-slate-600 font-medium">Next</p>
-                    <p className="text-sm text-slate-700 font-medium break-words whitespace-normal">{nextTopic.title}</p>
+                    <p className="text-xs text-muted font-medium">Next</p>
+                    <p className="text-sm text-muted font-medium break-words whitespace-normal">{nextTopic.title}</p>
                   </div>
-                  <ChevronRight className="w-5 h-5 text-slate-600 shrink-0" />
+                  <ChevronRight className="w-5 h-5 text-muted shrink-0" />
                 </button>
               ) : <div className="flex-1 max-w-[48%]" />}
             </div>
@@ -1196,41 +1196,41 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <section className="space-y-4 pt-5 border-t border-slate-200">
             {lessonActivities.length > 0 && (
               <div>
-                <h2 className="font-semibold text-slate-900 mb-2">Practice and application</h2>
+                <h2 className="font-semibold text-ink mb-2">Practice and application</h2>
                 <div className="space-y-2">{lessonActivities.map((activity) => (
                   <Card key={activity.id} className="p-4 border border-slate-200">
                     <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-medium text-slate-900 text-sm">{activity.title}</h3>
-                      <span className="rounded-full bg-slate-100 text-slate-600 px-2 py-0.5 text-label font-semibold">{activity.level}</span>
-                      {activity.estimatedMinutes ? <span className="text-xs text-slate-500">~{activity.estimatedMinutes} min</span> : null}
+                      <h3 className="font-medium text-ink text-sm">{activity.title}</h3>
+                      <span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label font-semibold">{activity.level}</span>
+                      {activity.estimatedMinutes ? <span className="text-xs text-muted">~{activity.estimatedMinutes} min</span> : null}
                     </div>
-                    <p className="text-sm text-slate-700 leading-relaxed mt-2">{activity.instructions}</p>
-                    {activity.expectedEvidence?.length ? <p className="text-xs text-slate-600 mt-2"><span className="font-semibold">Evidence to save:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
-                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-700">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-slate-600">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
+                    <p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>
+                    {activity.expectedEvidence?.length ? <p className="text-xs text-muted mt-2"><span className="font-semibold">Evidence to save:</span> {activity.expectedEvidence.join(' · ')}</p> : null}
+                    {activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-700">Hints</summary><ul className="list-disc pl-5 mt-2 space-y-1 text-sm text-muted">{activity.hints.map((hint, index) => <li key={index}>{hint}</li>)}</ul></details> : null}
                   </Card>
                 ))}</div>
               </div>
             )}
             {lessonAssessments.length > 0 && (
               <div>
-                <h2 className="font-semibold text-slate-900 mb-2">Knowledge and skill checks</h2>
+                <h2 className="font-semibold text-ink mb-2">Knowledge and skill checks</h2>
                 <div className="grid sm:grid-cols-2 gap-2">{lessonAssessments.map((assessment) => (
                   <Card key={assessment.id} className="p-4 border border-slate-200">
-                    <h3 className="font-medium text-slate-900 text-sm">{assessment.title}</h3>
-                    <p className="text-sm text-slate-600 leading-relaxed mt-1">{assessment.purpose}</p>
-                    {assessment.passThreshold !== undefined ? <p className="text-xs text-slate-500 mt-2">Target: {Math.round(assessment.passThreshold * 100)}%</p> : null}
+                    <h3 className="font-medium text-ink text-sm">{assessment.title}</h3>
+                    <p className="text-sm text-muted leading-relaxed mt-1">{assessment.purpose}</p>
+                    {assessment.passThreshold !== undefined ? <p className="text-xs text-muted mt-2">Target: {Math.round(assessment.passThreshold * 100)}%</p> : null}
                   </Card>
                 ))}</div>
               </div>
             )}
             {lessonResources.length > 0 && (
               <div>
-                <h2 className="font-semibold text-slate-900 mb-2">Further reading and tools</h2>
+                <h2 className="font-semibold text-ink mb-2">Further reading and tools</h2>
                 <ul className="space-y-2">{lessonResources.map((resource) => (
                   <li key={resource.id} className="rounded-lg border border-slate-200 bg-white p-3">
-                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-brand-700 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-slate-900">{resource.title}</p>}
-                    <p className="text-xs text-slate-600 leading-relaxed mt-1">{resource.purpose}</p>
-                    {resource.authorOrPublisher ? <p className="text-label text-slate-600 mt-1">{resource.authorOrPublisher}</p> : null}
+                    {resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="text-sm font-medium text-brand-700 hover:underline">{resource.title}</a> : <p className="text-sm font-medium text-ink">{resource.title}</p>}
+                    <p className="text-xs text-muted leading-relaxed mt-1">{resource.purpose}</p>
+                    {resource.authorOrPublisher ? <p className="text-label text-muted mt-1">{resource.authorOrPublisher}</p> : null}
                   </li>
                 ))}</ul>
               </div>

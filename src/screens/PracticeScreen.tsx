@@ -147,15 +147,15 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
     return (
       <PageContainer width="standard">
         <div className="mb-4">
-          <button onClick={() => setView('modes')} className="flex items-center gap-1 text-slate-500 text-sm hover:text-slate-700 mb-2">
+          <button onClick={() => setView('modes')} className="flex items-center gap-1 text-muted text-sm hover:text-ink mb-2">
             <ArrowLeft className="w-4 h-4" /> Back
           </button>
-          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-slate-900">Focus Practice</h1>
-          <p className="text-slate-500 mt-1">Select topics to drill — {selectedFocusTopics.size} selected</p>
+          <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink">Focus Practice</h1>
+          <p className="text-muted mt-1">Select topics to drill — {selectedFocusTopics.size} selected</p>
         </div>
 
         <div className="mb-4">
-          <p className="text-xs text-slate-500 mb-2">
+          <p className="text-xs text-muted mb-2">
           &quot;All subjects&quot; means every subject in your active track (and exam profile), not other tracks.
         </p>
         <SubjectSelector value={activeSubject} onChange={handleSubjectChange} showAllOption={false} compact />
@@ -174,7 +174,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                   <div key={section.id}>
                     <div className="flex items-center gap-2 mb-2">
                       <SectionBadge section={section} />
-                      <p className="text-xs font-bold text-slate-600 uppercase tracking-wide">{section.title}</p>
+                      <p className="text-xs font-bold text-muted uppercase tracking-wide">{section.title}</p>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {sectionTopics.map((topic) => {
@@ -286,7 +286,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
       <SectionLabel>Scope</SectionLabel>
       <div className="mb-5">
         <SubjectSelector value={activeSubject} onChange={handleSubjectChange} showAllOption />
-        <p className="text-slate-500 text-sm mt-2">
+        <p className="text-muted text-sm mt-2">
           {totalAvailable} question{totalAvailable !== 1 ? 's' : ''} available in this scope
         </p>
       </div>
@@ -343,7 +343,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
               <div className="space-y-3">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
-                    <label className="block text-slate-500 text-xs font-medium mb-1.5">Count</label>
+                    <label className="block text-muted text-xs font-medium mb-1.5">Count</label>
                     <Dropdown
                       value={String(prefs.mockCount)}
                       options={MOCK_COUNT_OPTIONS.map((n) => ({ value: String(n), label: String(n) }))}
@@ -352,13 +352,13 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                     />
                   </div>
                   <div>
-                    <label className="block text-slate-500 text-xs font-medium mb-1.5">Timer</label>
+                    <label className="block text-muted text-xs font-medium mb-1.5">Timer</label>
                     <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-slate-600 text-sm font-medium">
                       {mockTimerMinutes} min (auto)
                     </div>
                   </div>
                   <div>
-                    <label className="block text-slate-500 text-xs font-medium mb-1.5">Difficulty</label>
+                    <label className="block text-muted text-xs font-medium mb-1.5">Difficulty</label>
                     <div className="px-3 py-2 rounded-btn border border-slate-200 bg-slate-50 text-slate-500 text-sm font-medium">
                       Auto-mixed
                     </div>
@@ -395,7 +395,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-500 text-xs font-medium mb-1.5">Difficulty</label>
+                  <label className="block text-muted text-xs font-medium mb-1.5">Difficulty</label>
                   <Dropdown
                     value={prefs.challengeDifficulty}
                     options={CHALLENGE_DIFFICULTY_OPTIONS.map((d) => ({ value: d.value, label: d.label }))}
@@ -415,9 +415,9 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
 
           {/* Recent Sessions */}
           <Card className="p-5">
-            <h3 className="font-semibold text-slate-900 mb-3">Your last 3 sessions</h3>
+            <h3 className="font-semibold text-ink mb-3">Your last 3 sessions</h3>
             {recentSessions.length === 0 ? (
-              <p className="text-slate-600 text-sm text-center py-4">No sessions yet — start a quiz to see your history here.</p>
+              <p className="text-muted text-sm text-center py-4">No sessions yet — start a quiz to see your history here.</p>
             ) : (
               <div className="space-y-3">
                 {recentSessions.map((quiz, i) => {
@@ -434,8 +434,8 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
                       <div className="flex items-center gap-3 min-w-0">
                         <CheckCircle2 className={`w-5 h-5 shrink-0 ${pct >= 75 ? 'text-success-500' : pct >= 50 ? 'text-warning-500' : 'text-danger-500'}`} />
                         <div className="min-w-0">
-                          <p className="text-slate-800 text-sm font-medium truncate">{modeLabel}</p>
-                          <p className="text-slate-500 text-xs">{relativeDate(quiz.date)} · {subjLabel}{diffLabel}</p>
+                          <p className="text-ink text-sm font-medium truncate">{modeLabel}</p>
+                          <p className="text-muted text-xs">{relativeDate(quiz.date)} · {subjLabel}{diffLabel}</p>
                         </div>
                       </div>
                       <span className={`text-sm font-bold shrink-0 ${pct >= 75 ? 'text-success-600' : pct >= 50 ? 'text-warning-600' : 'text-danger-600'}`}>
