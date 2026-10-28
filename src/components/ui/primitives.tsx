@@ -27,9 +27,9 @@ type FieldProps = {
 type HeadingLevel = 1 | 2 | 3;
 
 const HEADING_STYLES: Record<HeadingLevel, string> = {
-  1: 'text-page-title sm:text-page-title-lg text-slate-900 tracking-tight',
-  2: 'text-section-title text-slate-900 tracking-tight',
-  3: 'text-card-title text-slate-900',
+  1: 'text-page-title sm:text-page-title-lg text-ink tracking-tight',
+  2: 'text-section-title text-ink tracking-tight',
+  3: 'text-card-title text-ink',
 };
 
 /** Semantic heading with shared type scale — prefer over ad-hoc h1/h2 classes. */
