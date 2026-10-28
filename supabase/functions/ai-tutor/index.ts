@@ -124,9 +124,32 @@ const MAX_TOKENS_OUT = 2048;
 const UPSTREAM_TIMEOUT_MS = 45_000;
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX_PER_WINDOW = 20;
+/** Soft daily ceiling per authenticated user (best-effort across isolates when KV is available). */
+const RATE_MAX_PER_DAY = 200;
 
-/** Best-effort per-isolate rate limit (resets on cold start). */
+/** In-memory fallback when Deno KV is unavailable (resets on cold start). */
 const rateBuckets = new Map<string, { count: number; windowStart: number }>();
+const dailyBuckets = new Map<string, { count: number; day: string }>();
+
+function utcDayKey(ms: number = Date.now()): string {
+  return new Date(ms).toISOString().slice(0, 10);
+}
+
+let kvPromise: Promise<Deno.Kv | null> | null = null;
+
+async function getKv(): Promise<Deno.Kv | null> {
+  if (!kvPromise) {
+    kvPromise = (async () => {
+      try {
+        // Available on Supabase Edge when KV is enabled; otherwise fall back to memory.
+        return await Deno.openKv();
+      } catch {
+        return null;
+      }
+    })();
+  }
+  return kvPromise;
+}
 
 function json(req: Request, status: number, body: Record<string, unknown>) {
   return new Response(JSON.stringify(body), {
@@ -142,8 +165,18 @@ function clientErrorMessage(status: number): string {
   return "AI service temporarily unavailable";
 }
 
-function checkRateLimit(userId: string): boolean {
+function checkRateLimitMemory(userId: string): boolean {
   const now = Date.now();
+  const day = utcDayKey(now);
+  const daily = dailyBuckets.get(userId);
+  if (!daily || daily.day !== day) {
+    dailyBuckets.set(userId, { count: 1, day });
+  } else if (daily.count >= RATE_MAX_PER_DAY) {
+    return false;
+  } else {
+    daily.count += 1;
+  }
+
   const b = rateBuckets.get(userId);
   if (!b || now - b.windowStart > RATE_WINDOW_MS) {
     rateBuckets.set(userId, { count: 1, windowStart: now });
@@ -151,6 +184,46 @@ function checkRateLimit(userId: string): boolean {
   }
   if (b.count >= RATE_MAX_PER_WINDOW) return false;
   b.count += 1;
+  return true;
+}
+
+/**
+ * Prefer Deno KV so limits survive cold starts and span isolates.
+ * Falls back to per-isolate memory when KV is not available.
+ */
+async function checkRateLimit(userId: string): Promise<boolean> {
+  const kv = await getKv();
+  if (!kv) return checkRateLimitMemory(userId);
+
+  const now = Date.now();
+  const day = utcDayKey(now);
+  const windowKey = ["ai-rate", "window", userId] as const;
+  const dayKey = ["ai-rate", "day", userId, day] as const;
+
+  const dayEntry = await kv.get<{ count: number }>(dayKey);
+  const dayCount = dayEntry.value?.count ?? 0;
+  if (dayCount >= RATE_MAX_PER_DAY) return false;
+
+  const winEntry = await kv.get<{ count: number; windowStart: number }>(windowKey);
+  let win = winEntry.value;
+  if (!win || now - win.windowStart > RATE_WINDOW_MS) {
+    win = { count: 1, windowStart: now };
+  } else if (win.count >= RATE_MAX_PER_WINDOW) {
+    return false;
+  } else {
+    win = { count: win.count + 1, windowStart: win.windowStart };
+  }
+
+  const expWin = win.windowStart + RATE_WINDOW_MS;
+  // Expire a bit after the window; daily key expires ~48h after day start.
+  const dayStart = Date.parse(`${day}T00:00:00.000Z`);
+  const expDay = dayStart + 48 * 60 * 60 * 1000;
+
+  await kv
+    .atomic()
+    .set(windowKey, win, { expireIn: Math.max(1000, expWin - now) })
+    .set(dayKey, { count: dayCount + 1 }, { expireIn: Math.max(1000, expDay - now) })
+    .commit();
   return true;
 }
 
@@ -194,7 +267,7 @@ Deno.serve(async (req) => {
   if (userOrErr instanceof Response) return userOrErr;
   const userId = userOrErr.id;
 
-  if (!checkRateLimit(userId)) {
+  if (!(await checkRateLimit(userId))) {
     return json(req, 429, { error: clientErrorMessage(429) });
   }
 
