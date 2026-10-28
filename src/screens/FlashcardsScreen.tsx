@@ -16,6 +16,8 @@ import {
   type Flashcard,
   type FlashcardKind,
 } from '@/lib/flashcards';
+import { FLASHCARD_GRADES, recordFlashcardGrade } from '@/lib/flashcard-grades';
+
 const KIND_FILTERS: Array<FlashcardKind | 'all'> = [
   'all',
   'fact',
@@ -104,6 +106,16 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
     go(1);
   };
 
+  const gradeCard = (grade: (typeof FLASHCARD_GRADES)[number]['grade']) => {
+    if (!card) return;
+    recordFlashcardGrade({ cardId: card.id, topicId: card.topicId, grade });
+    if (grade === 'good' || grade === 'easy') {
+      setKnownIds((prev) => new Set(prev).add(card.id));
+    }
+    setFlipped(false);
+    go(1);
+  };
+
   const reshuffle = () => {
     setDeck(shuffleCards(filtered));
     setIdx(0);
@@ -128,7 +140,7 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
     <PageContainer>
       <ScreenHeader
         title="Flashcards"
-        subtitle="Rapid recall for key facts, formulas, idioms, and common traps."
+        subtitle="Rate Again / Hard / Good / Easy after you flip — grades feed your review log."
         actions={!topicId ? <SubjectSelector value={activeSubject} onChange={onSubjectChange} compact /> : undefined}
       />
 
@@ -249,13 +261,19 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
                 <Shuffle className="w-4 h-4" />
               </Button>
             </div>
-            <div className="flex gap-2">
-              <Button variant="secondary" onClick={() => go(1)}>
-                Still learning
-              </Button>
-              <Button onClick={markKnown}>
-                Know it
-              </Button>
+            <div className="flex flex-wrap gap-2 justify-end">
+              {FLASHCARD_GRADES.map(({ grade, label, hint }) => (
+                <Button
+                  key={grade}
+                  variant={grade === 'again' ? 'secondary' : grade === 'easy' ? 'primary' : 'secondary'}
+                  onClick={() => gradeCard(grade)}
+                  disabled={!flipped}
+                  aria-label={`${label}: ${hint}`}
+                  className="min-h-11"
+                >
+                  {label}
+                </Button>
+              ))}
             </div>
           </div>
 
