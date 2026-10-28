@@ -268,7 +268,21 @@ Deno.serve(async (req) => {
   const userId = userOrErr.id;
 
   if (!(await checkRateLimit(userId))) {
-    return json(req, 429, { error: clientErrorMessage(429) });
+    const retryAfterSec = Math.ceil(RATE_WINDOW_MS / 1000);
+    return new Response(
+      JSON.stringify({
+        error: clientErrorMessage(429),
+        retryAfterSec,
+      }),
+      {
+        status: 429,
+        headers: {
+          ...corsHeaders(req),
+          "Content-Type": "application/json",
+          "Retry-After": String(retryAfterSec),
+        },
+      },
+    );
   }
 
   const rawText = await req.text();

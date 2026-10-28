@@ -1,6 +1,6 @@
 import { Component, type ReactNode, type ErrorInfo } from 'react';
 import { AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui';
+import { Button, Heading } from '@/components/ui';
 import { reportError } from '@/lib/error-reporting';
 
 interface Props {
@@ -49,8 +49,8 @@ export class ErrorBoundary extends Component<Props, State> {
             <div className="w-14 h-14 rounded-card bg-danger-50 flex items-center justify-center mx-auto mb-4">
               <AlertTriangle className="w-7 h-7 text-danger-600" aria-hidden />
             </div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight mb-2">Something went wrong</h1>
-            <p className="text-slate-500 text-sm leading-relaxed mb-4">
+            <Heading level={1} className="text-xl font-bold mb-2">Something went wrong</Heading>
+            <p className="text-ink-muted text-sm leading-relaxed mb-4">
               The app hit an unexpected error. You can try continuing or reload to reset the UI state.
               Your study progress is saved in this browser.
             </p>
