@@ -1286,16 +1286,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 { c: 3 as const, label: 'Sure', hint: 'Confident' },
               ] as const
             ).map(({ c, label, hint }) => (
-              <button
+              <Button
                 key={c}
                 type="button"
+                variant="secondary"
                 onClick={() => handleConfidence(c)}
-                className="flex flex-col items-center justify-center min-h-[48px] rounded-btn border-2 border-slate-200 bg-surface-muted px-2 py-2 text-sm font-medium text-ink hover:border-brand-400 hover:bg-brand-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
+                className="flex flex-col items-center justify-center min-h-12 px-2 py-2"
                 aria-label={`${label}: ${hint}`}
               >
-                <span>{label}</span>
-                <span className="text-[10px] font-normal text-ink-muted">{hint}</span>
-              </button>
+                <span className="text-sm font-medium text-ink">{label}</span>
+                <span className="text-xs font-normal text-ink-muted">{hint}</span>
+              </Button>
             ))}
           </div>
         </div>
@@ -1330,7 +1331,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               const last = state.answers.find((a) => a.questionId === currentQ.id);
               if (last && !last.correct && last.confidence === 3) {
                 return (
-                  <span className="ml-2 text-xs font-medium text-danger-600 bg-danger-50 border border-danger-100 rounded-full px-2 py-0.5">
+                  <span className="ml-2 text-xs font-medium text-danger-700 rounded-full px-2 py-0.5">
                     High-confidence miss — review carefully
                   </span>
                 );
