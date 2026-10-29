@@ -1,3 +1,5 @@
+import type { ExamSessionConfig } from '../types.ts';
+
 /**
  * Explicit exam-session configuration.
  *
@@ -6,22 +8,7 @@
  * empty until a learner configures an exam session.
  */
 
-export interface ExamSession {
-  id: string;
-  /** Short label shown on the dashboard countdown. */
-  label: string;
-  /** Paper / case reference (public post codes only). */
-  caseRef?: string;
-  /** ISO-8601 wall-clock start with an explicit UTC offset. */
-  startsAtIso: string;
-  /** Required IANA time zone for calendar-day planning (e.g. Asia/Karachi). */
-  timeZone: string;
-  endsAtIso?: string;
-  reportByIso?: string;
-  doorsCloseIso?: string;
-  venue?: string;
-  note: string;
-}
+export type ExamSession = ExamSessionConfig;
 
 /** No exam is configured for a new learner by default. */
 export const DEFAULT_EXAM_SESSIONS: readonly ExamSession[] = [];
