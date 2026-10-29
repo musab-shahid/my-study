@@ -212,6 +212,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       ),
       lastOpenedTopic: subjectTopicIds.has(current.lastOpenedTopic) ? '' : current.lastOpenedTopic,
       trackMembership: current.trackMembership,
+      examSessionsByProfile: current.examSessionsByProfile,
     };
 
     // Persist synchronously before committing the destructive in-memory change.
