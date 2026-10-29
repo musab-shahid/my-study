@@ -5,27 +5,48 @@ import { detectAnswerLeak, runTutorLeakEval, ATTEMPT_FIRST_SYSTEM_PROMPT } from 
 
 describe('exam-aware schedule', () => {
   it('caps long intervals when exam is soon', () => {
-    const r = applyExamAwareInterval({ intervalDays: 30, daysUntilExam: 10 });
-    assert.ok(r.intervalDays < 30);
-    assert.ok(r.intervalDays >= 1);
-    assert.equal(r.reason, 'capped_to_exam');
+    const result = applyExamAwareInterval({ intervalDays: 30, daysUntilExam: 10 });
+    assert.ok(result.intervalDays != null && result.intervalDays < 30);
+    assert.ok(result.intervalDays != null && result.intervalDays >= 1);
+    assert.equal(result.reason, 'capped_to_exam');
+    assert.equal(result.status, 'scheduled');
   });
 
-  it('uses 1-day interval in final review window', () => {
-    const r = applyExamAwareInterval({ intervalDays: 14, daysUntilExam: 2 });
-    assert.equal(r.intervalDays, 1);
-    assert.equal(r.requestRetention, 0.95);
+  it('uses a one-day interval in the final review window', () => {
+    const result = applyExamAwareInterval({ intervalDays: 14, daysUntilExam: 2 });
+    assert.equal(result.intervalDays, 1);
+    assert.equal(result.requestRetention, 0.95);
   });
 
   it('does not expand intervals', () => {
-    const r = applyExamAwareInterval({ intervalDays: 3, daysUntilExam: 60 });
-    assert.equal(r.intervalDays, 3);
+    const result = applyExamAwareInterval({ intervalDays: 3, daysUntilExam: 60 });
+    assert.equal(result.intervalDays, 3);
   });
 
-  it('daysUntilIsoDate computes whole days', () => {
-    const now = Date.parse('2026-10-01T12:00:00Z');
-    const d = daysUntilIsoDate('2026-10-11T00:00:00Z', now);
-    assert.ok(d >= 9 && d <= 10);
+  it('returns explicit states for no date and passed exam', () => {
+    const noDate = applyExamAwareInterval({ intervalDays: 14, daysUntilExam: null });
+    assert.equal(noDate.status, 'no_exam_date');
+    assert.equal(noDate.intervalDays, null);
+    assert.equal(noDate.requestRetention, null);
+    const passed = applyExamAwareInterval({ intervalDays: 14, daysUntilExam: -1 });
+    assert.equal(passed.status, 'exam_passed');
+    assert.equal(passed.intervalDays, null);
+    assert.equal(passed.infeasible, true);
+  });
+
+  it('rejects invalid interval and date parameters', () => {
+    assert.throws(() => applyExamAwareInterval({ intervalDays: 0, daysUntilExam: 5 }), RangeError);
+    assert.throws(() => applyExamAwareInterval({ intervalDays: 5, daysUntilExam: Number.NaN }), RangeError);
+    assert.throws(() => applyExamAwareInterval({ intervalDays: 5, daysUntilExam: 5, remainingFraction: 2 }), RangeError);
+    assert.throws(() => applyExamAwareInterval({ intervalDays: 5, daysUntilExam: 5, finalReviewDays: -1 }), RangeError);
+  });
+
+  it('computes calendar days in the configured time zone', () => {
+    const now = Date.parse('2026-10-10T20:00:00Z'); // 11 Oct in Asia/Karachi
+    assert.equal(daysUntilIsoDate('2026-10-11T00:30:00+05:00', now, 'Asia/Karachi'), 0);
+    assert.equal(daysUntilIsoDate('2026-10-11T00:00:00Z', Date.parse('2026-10-01T12:00:00Z')), 10);
+    assert.ok(Number.isNaN(daysUntilIsoDate('not-a-date', now, 'Asia/Karachi')));
+    assert.ok(Number.isNaN(daysUntilIsoDate('2026-10-11T00:00:00Z', now, 'Not/AZone')));
   });
 });
 
@@ -41,7 +62,7 @@ describe('AI tutor safeguards', () => {
   });
 
   it('golden eval set passes', () => {
-    const r = runTutorLeakEval();
-    assert.equal(r.passed, true, r.failures.join('; '));
+    const result = runTutorLeakEval();
+    assert.equal(result.passed, true, result.failures.join('; '));
   });
 });
