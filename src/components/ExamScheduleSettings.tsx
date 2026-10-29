@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { CalendarClock, Plus, Pencil, Trash2, X, Save, AlertCircle } from 'lucide-react';
 import { Card, Button } from '@/components/ui';
 import { useData } from '@/hooks/useData';
-import { getTrackDefinition, listTrackDefinitions, isTrackId, type TrackId } from '@/data/tracks';
+import { getTrackDefinition, listTrackDefinitions, isTrackId } from '@/data/tracks';
 import {
   formatIsoInTimeZone,
   getExamSessionConfigKey,
