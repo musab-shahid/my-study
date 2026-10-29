@@ -66,8 +66,8 @@ export const PERSONAL_FPSC_OCT_2026_SESSIONS: ExamSession[] = [
   },
 ];
 
-/** @deprecated Use PERSONAL_FPSC_OCT_2026_SESSIONS explicitly; never use as a default. */
-export const FPSC_OCT_2026_SESSIONS = PERSONAL_FPSC_OCT_2026_SESSIONS;
+/** @deprecated Legacy default export; intentionally empty. Use PERSONAL_FPSC_OCT_2026_SESSIONS only for that personal schedule. */
+export const FPSC_OCT_2026_SESSIONS: ExamSession[] = [];
 
 export interface CountdownParts {
   days: number;
