@@ -103,6 +103,9 @@ export function ExamScheduleSettings() {
     : availableTracks[0]?.id ?? 'fpsc';
   const [trackValue, setTrackValue] = useState<string>(initialTrack);
   const selectedTrack = isTrackId(trackValue) ? trackValue : null;
+  const activeProfileForTrack = trackMembership.activeTrackId
+    ? (trackMembership.enrollments[trackMembership.activeTrackId]?.activeExamId ?? null)
+    : null;
   const [profileValue, setProfileValue] = useState('general');
   const [draft, setDraft] = useState<SessionDraft>(() => blankDraft());
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -113,7 +116,7 @@ export function ExamScheduleSettings() {
       setTrackValue(trackMembership.activeTrackId);
       setProfileValue(trackMembership.enrollments[trackMembership.activeTrackId]?.activeExamId ?? 'general');
     }
-  }, [trackMembership.activeTrackId, trackMembership.enrollments]);
+  }, [trackMembership.activeTrackId, activeProfileForTrack]);
 
   const profileId = profileValue === 'general' ? null : profileValue;
   const configKey = selectedTrack ? getExamSessionConfigKey(selectedTrack, profileId) : '';
