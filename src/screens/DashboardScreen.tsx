@@ -450,7 +450,7 @@ export function DashboardScreen() {
                   <p className="text-xs text-muted">Upcoming exam</p>
                   <p className="text-sm font-semibold text-ink">{nextExam.label}</p>
                   <p className="text-xs text-muted mt-0.5">
-                    {new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: nextExam.timeZone }).format(new Date(nextExam.startsAtIso))}
+                    {new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: nextExam.timeZone }).format(new Date(examTarget.iso))} · {examTarget.label}
                   </p>
                 </div>
                 <p className="text-sm font-medium text-muted tabular-nums">
