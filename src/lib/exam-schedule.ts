@@ -118,7 +118,9 @@ export function validateExamSessions(sessions: readonly ExamSession[]): string[]
     if (!isValidDate(session.endsAtIso)) errors.push(`${prefix}.endsAtIso must be a valid ISO date with an explicit offset`);
     if (!isValidDate(session.reportByIso)) errors.push(`${prefix}.reportByIso must be a valid ISO date with an explicit offset`);
     if (!isValidDate(session.doorsCloseIso)) errors.push(`${prefix}.doorsCloseIso must be a valid ISO date with an explicit offset`);
-    if (session.timeZone) {
+    if (!session.timeZone) {
+      errors.push(`${prefix}.timeZone is required (IANA time zone)`);
+    } else {
       try {
         new Intl.DateTimeFormat('en', { timeZone: session.timeZone }).format(0);
       } catch {
