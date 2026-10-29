@@ -15,7 +15,7 @@ import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from 
 import { computeStreak, getWeakTopics } from '@/lib/streak';
 import { openTrackOptions } from '@/router/openTrack';
 import {
-  FPSC_OCT_2026_SESSIONS,
+  DEFAULT_EXAM_SESSIONS,
   getCountdownParts,
   formatCountdownShort,
   getNextSession,
@@ -69,7 +69,7 @@ export function DashboardScreen() {
     return () => window.clearInterval(id);
   }, []);
 
-  const nextExam = useMemo(() => getNextSession(FPSC_OCT_2026_SESSIONS, now), [now]);
+  const nextExam = useMemo(() => getNextSession(DEFAULT_EXAM_SESSIONS, now), [now]);
   const examTarget = useMemo(
     () => (nextExam ? getExamCountdownTarget(nextExam, now) : null),
     [nextExam, now],
