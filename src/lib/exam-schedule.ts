@@ -100,6 +100,72 @@ export function formatCountdownShort(c: CountdownParts): string {
   return `${c.minutes}m ${c.seconds}s`;
 }
 
+/** Stable per-track/profile storage key; general preparation is deliberately separate. */
+export function getExamSessionConfigKey(trackId: string, profileId: string | null): string {
+  return `${trackId}:${profileId ?? 'general'}`;
+}
+
+/** Convert an ISO instant to a datetime-local value in the selected IANA zone. */
+export function formatIsoInTimeZone(iso: string, timeZone: string): string {
+  const instant = Date.parse(iso);
+  if (!Number.isFinite(instant)) return '';
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(instant);
+  const values = Object.fromEntries(parts.map((part) => [part.type, part.value]));
+  return `${values.year}-${values.month}-${values.day}T${values.hour}:${values.minute}`;
+}
+
+/**
+ * Convert a wall-clock datetime-local value in an IANA zone into an ISO instant.
+ * Nonexistent daylight-saving wall times are rejected instead of silently shifted.
+ */
+export function localDateTimeToIso(value: string, timeZone: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/.exec(value);
+  if (!match) throw new RangeError('Enter a valid date and time.');
+  const [, year, month, day, hour, minute] = match;
+  const targetWall = Date.UTC(Number(year), Number(month) - 1, Number(day), Number(hour), Number(minute));
+  if (!Number.isFinite(targetWall)) throw new RangeError('Enter a valid date and time.');
+  try {
+    const formatter = new Intl.DateTimeFormat('en-CA', {
+      timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23',
+    });
+    let candidate = targetWall;
+    for (let attempt = 0; attempt < 4; attempt += 1) {
+      const parts = Object.fromEntries(formatter.formatToParts(candidate).map((part) => [part.type, part.value]));
+      const representedWall = Date.UTC(
+        Number(parts.year), Number(parts.month) - 1, Number(parts.day),
+        Number(parts.hour), Number(parts.minute), Number(parts.second),
+      );
+      const delta = targetWall - representedWall;
+      if (delta === 0) break;
+      candidate += delta;
+    }
+    const roundTrip = formatIsoInTimeZone(new Date(candidate).toISOString(), timeZone);
+    if (roundTrip !== value) throw new RangeError('That local time does not exist in the selected time zone because of a clock change.');
+    return new Date(candidate).toISOString();
+  } catch (error) {
+    if (error instanceof RangeError) throw error;
+    throw new RangeError('Choose a valid IANA time zone.');
+  }
+}
+
+/** Keep valid session configurations while quarantining malformed optional config. */
+export function normalizeExamSessionsByProfile(value: unknown): Record<string, ExamSession[]> {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
+  const normalized: Record<string, ExamSession[]> = {};
+  for (const [key, sessions] of Object.entries(value as Record<string, unknown>)) {
+    if (!key.trim() || !Array.isArray(sessions)) continue;
+    if (validateExamSessions(sessions as ExamSession[]).length === 0) {
+      normalized[key] = sessions.map((session) => ({ ...(session as ExamSession) }));
+    }
+  }
+  return normalized;
+}
+
 /** Return validation errors for configured sessions; an empty list means valid. */
 export function validateExamSessions(sessions: readonly ExamSession[]): string[] {
   const errors: string[] = [];
