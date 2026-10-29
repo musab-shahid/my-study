@@ -14,6 +14,7 @@ import {
 import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
+import { ExamScheduleSettings } from '@/components/ExamScheduleSettings';
 import { AuthAccountCard } from '@/components/AuthAccountCard';
 import { computeStreak, getTodayActivity, getWeekActivity } from '@/lib/streak';
 import { downloadBackupFile, getLocalMutationAt } from '@/lib/storage';
@@ -240,6 +241,7 @@ export function SettingsScreen() {
       )}
 
       <WorkspaceSettingsCard />
+      <ExamScheduleSettings />
 
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
