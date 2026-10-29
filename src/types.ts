@@ -509,6 +509,20 @@ export interface TrackMembershipState {
   activeTrackId: string | null;
 }
 
+export interface ExamSessionConfig {
+  id: string;
+  label: string;
+  startsAtIso: string;
+  /** Required IANA time zone for calendar-day planning (e.g. Asia/Karachi). */
+  timeZone: string;
+  note: string;
+  caseRef?: string;
+  endsAtIso?: string;
+  reportByIso?: string;
+  doorsCloseIso?: string;
+  venue?: string;
+}
+
 export interface AppData {
   /** AppData document version; missing is treated as 0 and migrated on load. */
   schemaVersion?: number;
@@ -524,4 +538,6 @@ export interface AppData {
   lastOpenedTopic: string;
   /** Track enrollments + active focus (schema v1). Optional until migrated. */
   trackMembership?: TrackMembershipState;
+  /** Learner-configured exam sessions, scoped by `${trackId}:${profileId ?? 'general'}`. */
+  examSessionsByProfile?: Record<string, ExamSessionConfig[]>;
 }

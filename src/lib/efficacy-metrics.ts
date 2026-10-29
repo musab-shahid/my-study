@@ -1,7 +1,7 @@
 /**
  * Learning-engine efficacy metrics (L-10).
- * North-star: accuracy on items whose first recorded attempt was at least
- * `minDelayDays` earlier — a delayed-retention proxy, not same-session performance.
+ * Delayed accuracy is an attempt-level descriptive metric, not evidence of causality
+ * or a calibrated estimate of unassisted learning.
  */
 
 import type { ReviewEvent } from './review-event.ts';
@@ -9,55 +9,72 @@ import type { ReviewEvent } from './review-event.ts';
 const DAY_MS = 86_400_000;
 
 export interface DelayedRetentionStats {
-  /** Items with ≥1 attempt at or after firstSeen + minDelayDays */
+  /** Number of qualifying delayed attempts (the accuracy denominator). */
   n: number;
+  /** Number of correct qualifying delayed attempts. */
   correct: number;
-  /** 0–1; null when n === 0 */
+  /** Distinct item IDs with at least one qualifying delayed attempt. */
+  uniqueEligibleItems: number;
+  /** 0–1; null when n === 0. Attempt-level accuracy, not unique-item accuracy. */
   accuracy: number | null;
   minDelayDays: number;
 }
 
 export interface EfficacySnapshot {
   delayedRetention: DelayedRetentionStats;
-  /** Mean latency on delayed attempts (ms), if any measured */
+  /** Mean latency on qualifying delayed attempts (ms), if any measured. */
   meanLatencyMs: number | null;
   totalEvents: number;
+  /** Distinct items with any recorded event, not only delayed-eligible items. */
   uniqueItems: number;
+  // ReviewEvent has no reliable learnerId; deviceId must not be reported as unique learners.
 }
 
-/**
- * First-touch timestamp per itemId.
- */
+/** Validate a delay threshold rather than allowing NaN / negative windows. */
+function validateMinDelayDays(minDelayDays: number): void {
+  if (!Number.isFinite(minDelayDays) || minDelayDays < 0) {
+    throw new RangeError('minDelayDays must be a finite non-negative number.');
+  }
+}
+
+/** First-touch timestamp per itemId. */
 export function firstSeenByItem(events: ReviewEvent[]): Map<string, number> {
   const map = new Map<string, number>();
   const sorted = [...events].sort((a, b) => a.ts - b.ts);
-  for (const e of sorted) {
-    if (!map.has(e.itemId)) map.set(e.itemId, e.ts);
+  for (const event of sorted) {
+    if (!map.has(event.itemId)) map.set(event.itemId, event.ts);
   }
   return map;
 }
 
 /**
- * Accuracy on attempts that occur at least `minDelayDays` after the item's first event.
+ * Accuracy on attempts at least minDelayDays after first exposure.
+ * Multiple delayed attempts for the same item each contribute an observation;
+ * uniqueEligibleItems reports breadth separately.
  */
 export function computeDelayedRetention(
   events: ReviewEvent[],
   minDelayDays = 7,
 ): DelayedRetentionStats {
+  validateMinDelayDays(minDelayDays);
   const first = firstSeenByItem(events);
   const minDelayMs = minDelayDays * DAY_MS;
   let n = 0;
   let correct = 0;
-  for (const e of events) {
-    const t0 = first.get(e.itemId);
-    if (t0 == null) continue;
-    if (e.ts - t0 < minDelayMs) continue;
+  const eligibleItems = new Set<string>();
+
+  for (const event of events) {
+    const firstSeen = first.get(event.itemId);
+    if (firstSeen == null || event.ts - firstSeen < minDelayMs) continue;
     n += 1;
-    if (e.correct) correct += 1;
+    eligibleItems.add(event.itemId);
+    if (event.correct) correct += 1;
   }
+
   return {
     n,
     correct,
+    uniqueEligibleItems: eligibleItems.size,
     accuracy: n > 0 ? correct / n : null,
     minDelayDays,
   };
@@ -67,19 +84,26 @@ export function computeEfficacySnapshot(
   events: ReviewEvent[],
   minDelayDays = 7,
 ): EfficacySnapshot {
+  validateMinDelayDays(minDelayDays);
   const delayedRetention = computeDelayedRetention(events, minDelayDays);
   const first = firstSeenByItem(events);
   const minDelayMs = minDelayDays * DAY_MS;
   let latencySum = 0;
   let latencyN = 0;
-  for (const e of events) {
-    const t0 = first.get(e.itemId);
-    if (t0 == null || e.ts - t0 < minDelayMs) continue;
-    if (typeof e.latencyMs === 'number' && Number.isFinite(e.latencyMs) && e.latencyMs >= 0) {
-      latencySum += e.latencyMs;
+
+  for (const event of events) {
+    const firstSeen = first.get(event.itemId);
+    if (firstSeen == null || event.ts - firstSeen < minDelayMs) continue;
+    if (
+      typeof event.latencyMs === 'number' &&
+      Number.isFinite(event.latencyMs) &&
+      event.latencyMs >= 0
+    ) {
+      latencySum += event.latencyMs;
       latencyN += 1;
     }
   }
+
   return {
     delayedRetention,
     meanLatencyMs: latencyN > 0 ? latencySum / latencyN : null,
@@ -89,16 +113,25 @@ export function computeEfficacySnapshot(
 }
 
 /**
- * Brier score for binary outcomes given predicted probabilities aligned to events.
- * Lower is better. Returns null if lengths mismatch or empty.
+ * Brier score for binary outcomes and aligned predicted probabilities.
+ * Invalid probabilities are rejected, never clamped. Returns null for empty or
+ * length-mismatched inputs.
  */
 export function brierScore(predictions: number[], outcomes: boolean[]): number | null {
   if (predictions.length === 0 || predictions.length !== outcomes.length) return null;
-  let s = 0;
-  for (let i = 0; i < predictions.length; i++) {
-    const p = Math.min(1, Math.max(0, predictions[i]!));
-    const y = outcomes[i] ? 1 : 0;
-    s += (p - y) ** 2;
+
+  let sum = 0;
+  for (let index = 0; index < predictions.length; index++) {
+    const probability = predictions[index];
+    const outcome = outcomes[index];
+    if (typeof probability !== 'number' || !Number.isFinite(probability) || probability < 0 || probability > 1) {
+      throw new RangeError(`predictions[${index}] must be a finite probability in [0, 1].`);
+    }
+    if (typeof outcome !== 'boolean') {
+      throw new RangeError(`outcomes[${index}] must be boolean.`);
+    }
+    const y = outcome ? 1 : 0;
+    sum += (probability - y) ** 2;
   }
-  return s / predictions.length;
+  return sum / predictions.length;
 }

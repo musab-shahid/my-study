@@ -9,12 +9,13 @@ import {
   type ExamAwareResult,
 } from './exam-aware-schedule.ts';
 import {
-  FPSC_OCT_2026_SESSIONS,
+  DEFAULT_EXAM_SESSIONS,
   getNextSession,
+  validateExamSessions,
   type ExamSession,
 } from './exam-schedule.ts';
 
-/** Relative weight for a subject or topic on the exam (sum need not be 1). */
+/** Relative weight for a subject or topic on an exam (sum need not be 1). */
 export interface BlueprintWeight {
   id: string;
   weight: number;
@@ -22,16 +23,20 @@ export interface BlueprintWeight {
 }
 
 /**
- * Default FPSC-style weights for Met / Asst Met style papers.
- * Placeholder until official blueprint percentages are verified — values are relative only.
+ * Provisional relative weights for FPSC-style Met / Asst Met papers.
+ * These are not official blueprint percentages and must be supplied explicitly
+ * by a learner/profile before being interpreted as exam-specific priorities.
  */
-export const DEFAULT_FPSC_MET_WEIGHTS: readonly BlueprintWeight[] = [
+export const PROVISIONAL_FPSC_MET_WEIGHTS: readonly BlueprintWeight[] = [
   { id: 'atmosphere', weight: 1.2, label: 'Atmosphere / dynamics' },
   { id: 'thermodynamics', weight: 1.1, label: 'Thermo / moisture' },
   { id: 'synoptic', weight: 1.0, label: 'Synoptic / weather systems' },
   { id: 'instruments', weight: 0.8, label: 'Instruments / observations' },
   { id: 'climate', weight: 0.7, label: 'Climate / applied' },
 ];
+
+/** @deprecated Use PROVISIONAL_FPSC_MET_WEIGHTS; this is not a product default. */
+export const DEFAULT_FPSC_MET_WEIGHTS = PROVISIONAL_FPSC_MET_WEIGHTS;
 
 export interface TopicPlanInput {
   topicId: string;
@@ -53,26 +58,40 @@ export interface RankedTopic {
   due: boolean;
 }
 
-/**
- * Rank topics by exam weight × expected forgetting (1 - recall), with due boost.
- */
+function assertFiniteRange(name: string, value: number, min: number, max = Number.POSITIVE_INFINITY): void {
+  if (!Number.isFinite(value) || value < min || value > max) {
+    throw new RangeError(`${name} must be a finite number in [${min}, ${max}].`);
+  }
+}
+
+/** Rank topics by provisional exam weight × expected forgetting, with a due boost. */
 export function rankTopicsForExamDay(
   topics: TopicPlanInput[],
-  weights: readonly BlueprintWeight[] = DEFAULT_FPSC_MET_WEIGHTS,
+  weights: readonly BlueprintWeight[] = [],
 ): RankedTopic[] {
-  const wMap = new Map(weights.map((w) => [w.id, w.weight]));
-  const ranked = topics.map((t) => {
-    const weight = wMap.get(t.blueprintId ?? '') ?? 1;
-    const recall = t.predictedRecall ?? 0.5;
-    const forgetting = Math.max(0, 1 - recall);
-    const dueBoost = t.due ? 1.25 : 1;
+  const wMap = new Map<string, number>();
+  for (const weight of weights) {
+    if (!weight.id.trim()) throw new RangeError('Blueprint weight id is required.');
+    assertFiniteRange(`weight for ${weight.id}`, weight.weight, Number.MIN_VALUE);
+    if (wMap.has(weight.id)) throw new RangeError(`Duplicate blueprint weight id: ${weight.id}`);
+    wMap.set(weight.id, weight.weight);
+  }
+
+  const ranked = topics.map((topic) => {
+    if (!topic.topicId.trim()) throw new RangeError('topicId is required.');
+    const weight = wMap.get(topic.blueprintId ?? '') ?? 1;
+    const recall = topic.predictedRecall ?? 0.5;
+    assertFiniteRange(`predictedRecall for ${topic.topicId}`, recall, 0, 1);
+    if (topic.minutes !== undefined) assertFiniteRange(`minutes for ${topic.topicId}`, topic.minutes, 0);
+    const forgetting = 1 - recall;
+    const dueBoost = topic.due ? 1.25 : 1;
     const score = weight * forgetting * dueBoost;
     return {
-      topicId: t.topicId,
+      topicId: topic.topicId,
       score,
       weight,
       forgetting,
-      due: Boolean(t.due),
+      due: Boolean(topic.due),
     };
   });
   ranked.sort((a, b) => b.score - a.score);
@@ -86,39 +105,52 @@ export interface WorkloadPlan {
   suggestedMinutes: number;
   /** True when due work exceeds a reasonable daily budget. */
   overloaded: boolean;
-  /** Exam-aware interval helper for a sample 14-day proposal. */
-  sampleInterval: ExamAwareResult;
+  /** Null when no upcoming exam is configured. */
+  sampleInterval: ExamAwareResult | null;
   message: string;
 }
 
-/**
- * Build a lightweight daily workload signal from due count and next exam.
- */
+/** Build a lightweight daily workload signal from due count and next configured exam. */
 export function planDailyWorkload(args: {
   dueTopicCount: number;
   minutesPerDueTopic?: number;
   dailyBudgetMinutes?: number;
-  sessions?: ExamSession[];
+  sessions?: readonly ExamSession[];
   now?: Date;
 }): WorkloadPlan {
-  const now = args.now ?? new Date();
-  const sessions = args.sessions ?? FPSC_OCT_2026_SESSIONS;
-  const session = getNextSession(sessions, now);
-  const daysUntilExam = session
-    ? daysUntilIsoDate(session.startsAtIso, now.getTime())
-    : null;
+  assertFiniteRange('dueTopicCount', args.dueTopicCount, 0);
+  if (!Number.isInteger(args.dueTopicCount)) {
+    throw new RangeError('dueTopicCount must be a non-negative integer.');
+  }
+
   const minutesPer = args.minutesPerDueTopic ?? 12;
   const budget = args.dailyBudgetMinutes ?? 90;
+  assertFiniteRange('minutesPerDueTopic', minutesPer, 0);
+  assertFiniteRange('dailyBudgetMinutes', budget, 0);
+
+  const now = args.now ?? new Date();
+  if (!Number.isFinite(now.getTime())) throw new RangeError('now must be a valid Date.');
+
+  const sessions = args.sessions ?? DEFAULT_EXAM_SESSIONS;
+  const sessionErrors = validateExamSessions(sessions);
+  if (sessionErrors.length > 0) throw new RangeError(`Invalid exam session configuration: ${sessionErrors.join('; ')}`);
+
+  const session = getNextSession(sessions, now);
+  const daysUntilExam = session
+    ? daysUntilIsoDate(session.startsAtIso, now.getTime(), session.timeZone ?? 'UTC')
+    : null;
+  if (session && (daysUntilExam === null || !Number.isFinite(daysUntilExam))) {
+    throw new RangeError('Could not calculate days until the configured exam.');
+  }
+
   const needed = args.dueTopicCount * minutesPer;
   const overloaded = needed > budget;
+  const sampleInterval = session && daysUntilExam !== null
+    ? applyExamAwareInterval({ intervalDays: 14, daysUntilExam })
+    : null;
 
-  const sampleInterval = applyExamAwareInterval({
-    intervalDays: 14,
-    daysUntilExam: daysUntilExam ?? 90,
-  });
-
-  let message = 'No upcoming exam session in the schedule.';
-  if (session && daysUntilExam != null) {
+  let message = 'No upcoming exam session is configured.';
+  if (session && daysUntilExam !== null) {
     if (daysUntilExam <= 3) {
       message = `Final review window (${daysUntilExam}d). Prefer short, high-weight reviews.`;
     } else if (overloaded) {
