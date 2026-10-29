@@ -8,7 +8,7 @@ import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicSt
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
-import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index';
+import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index-helpers';
 
 export interface DataContextValue {
   data: AppData;

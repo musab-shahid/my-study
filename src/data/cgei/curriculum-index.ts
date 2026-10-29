@@ -2758,6 +2758,3 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
 export const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
 export const cgeiIndexLessonById = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));
 
-export function cgeiLessonIdsForSubjects(subjectIds: ReadonlySet<string>): ReadonlySet<string> {
-  return new Set(cgeiIndexLessons.filter((lesson) => subjectIds.has(lesson.subjectId)).map((lesson) => lesson.id));
-}
