@@ -739,8 +739,34 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "lessonIds": [
       "cgei-se-lesson-11-5-1"
     ]
+  },
+  {
+    "id": "cgei-ds-unit-5-1",
+    "code": "5.1",
+    "title": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-1-1",
+      "cgei-ds-lesson-5-1-2",
+      "cgei-ds-lesson-5-1-9",
+      "cgei-ds-lesson-5-1-3",
+      "cgei-ds-lesson-5-1-4",
+      "cgei-ds-lesson-5-1-10",
+      "cgei-ds-lesson-5-1-5",
+      "cgei-ds-lesson-5-1-11",
+      "cgei-ds-lesson-5-1-12",
+      "cgei-ds-lesson-5-1-6",
+      "cgei-ds-lesson-5-1-13",
+      "cgei-ds-lesson-5-1-14",
+      "cgei-ds-lesson-5-1-7",
+      "cgei-ds-lesson-5-1-15",
+      "cgei-ds-lesson-5-1-8",
+      "cgei-ds-lesson-5-1-16"
+    ]
   }
 ];
+
 export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   {
     "id": "cgei-ai-lesson-12-1-1",
@@ -1999,7 +2025,23 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectId": "cgei-software-engineering",
     "subjectTitle": "Software Engineering for Environmental Systems"
   },
-    {
+  {
+    "id": "cgei-ds-lesson-5-1-1",
+    "title": "Quantities, units and dimensional analysis",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-2",
+    "title": "Calculus, finite differences and environmental fields",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
     "id": "cgei-ds-lesson-5-1-9",
     "title": "Divergence, curl and vector fields in environmental flows",
     "unitId": "cgei-ds-unit-5-1",
@@ -2008,8 +2050,32 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Scientific Computing & Data Science"
   },
   {
+    "id": "cgei-ds-lesson-5-1-3",
+    "title": "Matrices, linear maps and least squares",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-4",
+    "title": "Eigenvalues, SVD and PCA foundations",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
     "id": "cgei-ds-lesson-5-1-10",
     "title": "Taylor expansion, linearisation and error propagation",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-5",
+    "title": "Stock\u2013flux systems, ODEs and numerical integration",
     "unitId": "cgei-ds-unit-5-1",
     "unitTitle": "Mathematical and physical foundations",
     "subjectId": "cgei-data-science",
@@ -2032,6 +2098,14 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Scientific Computing & Data Science"
   },
   {
+    "id": "cgei-ds-lesson-5-1-6",
+    "title": "Environmental mass and water balance",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
     "id": "cgei-ds-lesson-5-1-13",
     "title": "Continuity, diffusion and advection equations",
     "unitId": "cgei-ds-unit-5-1",
@@ -2048,8 +2122,24 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Scientific Computing & Data Science"
   },
   {
+    "id": "cgei-ds-lesson-5-1-7",
+    "title": "Surface energy balance and thermal radiation",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
     "id": "cgei-ds-lesson-5-1-15",
     "title": "Waves, conduction and convection in heat transfer",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-8",
+    "title": "Probability, uncertainty and dependent observations",
     "unitId": "cgei-ds-unit-5-1",
     "unitTitle": "Mathematical and physical foundations",
     "subjectId": "cgei-data-science",
