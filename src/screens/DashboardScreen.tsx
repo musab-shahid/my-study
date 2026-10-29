@@ -443,7 +443,7 @@ export function DashboardScreen() {
       {/* Workspace-scoped exam countdown; never invent a default date. */}
       {activeWorkspaceTrack && (
         <Card className="p-4 mb-5">
-          {nextExam && examCountdown && !examCountdown.started ? (
+          {nextExam && examCountdown && examTarget && !examCountdown.started ? (
             <>
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
