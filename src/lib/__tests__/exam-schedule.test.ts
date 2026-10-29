@@ -109,6 +109,8 @@ describe('exam-schedule', () => {
       'fpsc:general': PERSONAL_FPSC_OCT_2026_SESSIONS,
       'hat:general': [{ id: 'broken', startsAtIso: 'not-a-date' }],
       'cgei:general': null,
+      'unknown:general': PERSONAL_FPSC_OCT_2026_SESSIONS,
+      ['__proto__']: PERSONAL_FPSC_OCT_2026_SESSIONS,
     });
     assert.deepEqual(Object.keys(normalized), ['fpsc:general']);
     assert.equal(normalized['fpsc:general'].length, 2);
