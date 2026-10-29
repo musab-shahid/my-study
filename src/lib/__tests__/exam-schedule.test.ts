@@ -10,6 +10,9 @@ import {
   PERSONAL_FPSC_OCT_2026_SESSIONS,
   FPSC_OCT_2026_SESSIONS,
   validateExamSessions,
+  formatIsoInTimeZone,
+  localDateTimeToIso,
+  normalizeExamSessionsByProfile,
 } from '../exam-schedule.ts';
 
 describe('exam-schedule', () => {
@@ -89,4 +92,40 @@ describe('exam-schedule', () => {
     const now = new Date('2026-10-16T17:00:00+05:00');
     assert.equal(getNextSession(PERSONAL_FPSC_OCT_2026_SESSIONS, now), null);
   });
+  it('round-trips local wall time in the selected IANA zone', () => {
+    const iso = localDateTimeToIso('2026-10-11T09:30', 'Asia/Karachi');
+    assert.equal(formatIsoInTimeZone(iso, 'Asia/Karachi'), '2026-10-11T09:30');
+    assert.equal(new Date(iso).toISOString(), '2026-10-11T04:30:00.000Z');
+  });
+
+  it('rejects nonexistent daylight-saving wall times and invalid zones', () => {
+    assert.throws(() => localDateTimeToIso('2026-03-08T02:30', 'America/New_York'), RangeError);
+    assert.throws(() => localDateTimeToIso('2026-10-11T09:30', 'Not/AZone'), RangeError);
+    assert.throws(() => localDateTimeToIso('2026-02-31T09:30', 'UTC'), RangeError);
+  });
+
+  it('quarantines malformed saved session settings without trusting them', () => {
+    const normalized = normalizeExamSessionsByProfile({
+      'fpsc:general': PERSONAL_FPSC_OCT_2026_SESSIONS,
+      'hat:general': [{ id: 'broken', startsAtIso: 'not-a-date' }],
+      'cgei:general': null,
+    });
+    assert.deepEqual(Object.keys(normalized), ['fpsc:general']);
+    assert.equal(normalized['fpsc:general'].length, 2);
+  });
+
+  it('rejects impossible calendar dates and inconsistent report/door times', () => {
+    const invalid = {
+      ...PERSONAL_FPSC_OCT_2026_SESSIONS[0],
+      startsAtIso: '2026-02-31T10:00:00+05:00',
+    };
+    assert.ok(validateExamSessions([invalid]).some((error) => error.includes('startsAtIso')));
+    const inconsistent = {
+      ...PERSONAL_FPSC_OCT_2026_SESSIONS[0],
+      reportByIso: '2026-10-16T09:40:00+05:00',
+      doorsCloseIso: '2026-10-16T09:30:00+05:00',
+    };
+    assert.ok(validateExamSessions([inconsistent]).some((error) => error.includes('reportByIso must not be after doorsCloseIso')));
+  });
+
 });
