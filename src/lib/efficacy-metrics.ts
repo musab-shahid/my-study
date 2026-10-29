@@ -27,6 +27,7 @@ export interface EfficacySnapshot {
   totalEvents: number;
   /** Distinct items with any recorded event, not only delayed-eligible items. */
   uniqueItems: number;
+  // ReviewEvent has no reliable learnerId; deviceId must not be reported as unique learners.
 }
 
 /** Validate a delay threshold rather than allowing NaN / negative windows. */
