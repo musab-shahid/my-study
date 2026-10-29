@@ -44,7 +44,7 @@ describe('CGEI curriculum structure', () => {
     for (const code of ['5.1', '5.2', '5.3']) {
       const unit = cgeiCurriculum.units.find((item) => item.code === code);
       assert.ok(unit, `Unit ${code} should be registered`);
-      assert.equal(unit.lessonIds.length,  code === '5.1' ? 8 : 5);
+      assert.equal(unit.lessonIds.length,  code === '5.1' ? 16 : 5);
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
     assert.equal(cgeiCurriculum.lessons.length, 229);
