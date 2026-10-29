@@ -3,6 +3,7 @@ import type { AppData, Question, DifficultyFilter, PracticeMode, SubjectId, Trac
 import { emptyTrackMembership, normalizeTrackMembership, setActiveExamProfile as setActiveExamProfilePure, leaveTrack as leaveTrackPure } from '@/lib/track-membership';
 import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
 import { isTrackId, type TrackId } from '@/data/tracks';
+import { getExamSessionConfigKey, validateExamSessions, type ExamSession } from '@/lib/exam-schedule';
 import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
@@ -24,6 +25,8 @@ export interface DataContextValue {
   setActiveEnrolledTrack: (trackId: TrackId | null) => { ok: boolean; reason?: string };
   /** Set exam/post profile within an enrolled track (null = general track scope) */
   setExamProfile: (trackId: TrackId, examId: string | null) => { ok: boolean; reason?: string };
+  /** Persist validated exam sessions for a track/profile without touching study progress. */
+  setExamSessions: (trackId: TrackId, profileId: string | null, sessions: ExamSession[]) => { ok: boolean; reason?: string };
   /** Leave a track (unenroll). Progress is kept. */
   leaveEnrolledTrack: (trackId: TrackId) => { ok: boolean; reason?: string };
   trackMembership: TrackMembershipState;
@@ -148,6 +151,24 @@ export function DataProvider({ children }: { children: ReactNode }) {
     return { ok: true as const };
   }, []);
 
+  const setExamSessions = useCallback((trackId: TrackId, profileId: string | null, sessions: ExamSession[]) => {
+    const errors = validateExamSessions(sessions);
+    if (errors.length > 0) return { ok: false as const, reason: errors.join('; ') };
+    const key = getExamSessionConfigKey(trackId, profileId);
+    const next: AppData = {
+      ...dataRef.current,
+      examSessionsByProfile: {
+        ...(dataRef.current.examSessionsByProfile ?? {}),
+        [key]: sessions.map((session) => ({ ...session })),
+      },
+    };
+    setData(next);
+    dataRef.current = next;
+    saveData(next);
+    if (!flushPendingSave()) return { ok: false as const, reason: 'persist-failed' };
+    return { ok: true as const };
+  }, []);
+
   const trackMembership = normalizeTrackMembership(data.trackMembership ?? emptyTrackMembership());
 
 
@@ -207,7 +228,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <DataContext.Provider value={{ data, markStudied, markCurriculumLessonStudied, recordQuiz, setLastTopic, setLastCurriculumLesson, reset, resetSubjects, enrollInTrack, setActiveEnrolledTrack, setExamProfile, leaveEnrolledTrack, trackMembership }}>
+    <DataContext.Provider value={{ data, markStudied, markCurriculumLessonStudied, recordQuiz, setLastTopic, setLastCurriculumLesson, reset, resetSubjects, enrollInTrack, setActiveEnrolledTrack, setExamProfile, setExamSessions, leaveEnrolledTrack, trackMembership }}>
       {children}
     </DataContext.Provider>
   );
