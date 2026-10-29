@@ -27,13 +27,16 @@ export interface BlueprintWeight {
  * These are not official blueprint percentages and must be supplied explicitly
  * by a learner/profile before being interpreted as exam-specific priorities.
  */
-export const DEFAULT_FPSC_MET_WEIGHTS: readonly BlueprintWeight[] = [
+export const PROVISIONAL_FPSC_MET_WEIGHTS: readonly BlueprintWeight[] = [
   { id: 'atmosphere', weight: 1.2, label: 'Atmosphere / dynamics' },
   { id: 'thermodynamics', weight: 1.1, label: 'Thermo / moisture' },
   { id: 'synoptic', weight: 1.0, label: 'Synoptic / weather systems' },
   { id: 'instruments', weight: 0.8, label: 'Instruments / observations' },
   { id: 'climate', weight: 0.7, label: 'Climate / applied' },
 ];
+
+/** @deprecated Use PROVISIONAL_FPSC_MET_WEIGHTS; this is not a product default. */
+export const DEFAULT_FPSC_MET_WEIGHTS = PROVISIONAL_FPSC_MET_WEIGHTS;
 
 export interface TopicPlanInput {
   topicId: string;
