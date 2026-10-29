@@ -46,6 +46,7 @@ describe('exam-schedule', () => {
     assert.ok(errors.some((error) => error.includes('timeZone')));
     assert.ok(errors.some((error) => error.includes('unique')));
     assert.ok(errors.some((error) => error.includes('reportByIso')));
+    assert.ok(validateExamSessions([{ ...PERSONAL_FPSC_OCT_2026_SESSIONS[0], timeZone: undefined }]).some((error) => error.includes('timeZone is required')));
   });
 
   it('exam-day checklist covers ID, pen, phone, doors', () => {
