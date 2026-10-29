@@ -237,7 +237,7 @@ export function ExamScheduleSettings() {
             <p className="mt-1 text-xs text-ink-muted">
               {sessions.length > 0
                 ? 'All saved sessions have passed. Add a future date or edit an existing session.'
-                : 'Add an exam date below to enable an honest countdown and date-aware planning for this scope.'}
+                : 'Add an exam date below to show a truthful countdown for this scope.'}
             </p>
           </>
         )}
