@@ -48,7 +48,7 @@ The Subject 5 overview lives in `CurriculumSubject.overview`; `cgei-data-science
 
 ## Assessment and depth review
 
-The expanded bank contains **59 questions across sixteen topics** (IDs `CGEI-05-Q001`–`CGEI-05-Q035`). New application items cover rate integration, a numeric gradient, a hand-calculated least-squares coefficient and residual check, eigenvalue/SVD distinction, a stock–flux steady state, water-balance storage, energy-balance signs, and standard error.
+The expanded bank contains **59 questions across sixteen topics** (IDs `CGEI-05-Q001`–`CGEI-05-Q059`). New application items cover rate integration, a numeric gradient, a hand-calculated least-squares coefficient and residual check, eigenvalue/SVD distinction, a stock–flux steady state, water-balance storage, energy-balance signs, and standard error.
 
 The count is a coverage indicator, not a mastery guarantee. Review questions for calculation, interpretation, transfer, and misconception diagnosis. Each topic should have at least one worked numerical example where the subject is quantitative, and explanations must show the reasoning rather than only repeat the answer.
 
@@ -70,7 +70,7 @@ The count is a coverage indicator, not a mastery guarantee. Review questions for
 - **Source-to-app map:** all six manuscript strands mapped to eight app topics.
 - **Topic teaching:** quantitative worked examples now exist for units, rates/gradients, OLS, eigenpairs, Euler integration, lake steady state, water balance, energy balance, and standard error.
 - **Assessment:** 35 questions across the eight topics; new applied items added after the initial 26-question review.
-- **Structural metadata:** `CGEI-051` declares 8 lessons and 35 Unit 5.1 questions. The canonical registry now contains 76 questions overall (35 migrated from Unit 5.1 plus 41 across Units 5.2–5.5).
+- **Structural metadata:** `CGEI-051` declares 16 lessons and 59 Unit 5.1 questions. The canonical registry now contains 76 questions overall (35 migrated from Unit 5.1 plus 41 across Units 5.2–5.5).
 - **Validation:** the previous CI run passed E2E and scientific smoke but failed a stale curriculum-count assertion. The count was corrected and a new CI run was started; the latest run must finish green and the lesson UI must still be reviewed before Unit 5.1 is marked validated.
 - **Scope boundary:** Units 5.2–5.5 are integrated as draft lessons and checks; Units 5.6–5.12 remain manuscript-first/planned and are not claimed to be app-integrated.
 
