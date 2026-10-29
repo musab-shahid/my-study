@@ -156,9 +156,9 @@ export function localDateTimeToIso(value: string, timeZone: string): string {
 /** Keep valid session configurations while quarantining malformed optional config. */
 export function normalizeExamSessionsByProfile(value: unknown): Record<string, ExamSession[]> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) return {};
-  const normalized: Record<string, ExamSession[]> = {};
+  const normalized: Record<string, ExamSession[]> = Object.create(null) as Record<string, ExamSession[]>;
   for (const [key, sessions] of Object.entries(value as Record<string, unknown>)) {
-    if (!key.trim() || !Array.isArray(sessions)) continue;
+    if (!/^(fpsc|hat|cgei):(?:general|[a-z0-9-]+)$/.test(key) || !Array.isArray(sessions)) continue;
     if (validateExamSessions(sessions as ExamSession[]).length === 0) {
       normalized[key] = sessions.map((session) => ({ ...(session as ExamSession) }));
     }
