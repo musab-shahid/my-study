@@ -172,7 +172,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData(next);
     dataRef.current = next;
     return { ok: true as const };
-  }, []);;
+  }, []);
 
   const trackMembership = normalizeTrackMembership(data.trackMembership ?? emptyTrackMembership());
 
