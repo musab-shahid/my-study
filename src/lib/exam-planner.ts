@@ -136,7 +136,7 @@ export function planDailyWorkload(args: {
   const daysUntilExam = session
     ? daysUntilIsoDate(session.startsAtIso, now.getTime(), session.timeZone ?? 'UTC')
     : null;
-  if (session && daysUntilExam === null) {
+  if (session && (daysUntilExam === null || !Number.isFinite(daysUntilExam))) {
     throw new RangeError('Could not calculate days until the configured exam.');
   }
 
