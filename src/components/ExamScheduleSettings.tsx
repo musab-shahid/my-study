@@ -257,12 +257,12 @@ export function ExamScheduleSettings() {
                     {session.venue && <p className="mt-1 text-xs text-ink-muted">{session.venue}</p>}
                   </div>
                   <div className="flex shrink-0 gap-2">
-                    <button type="button" className="inline-flex items-center gap-1 rounded-btn border border-slate-300 bg-white px-2.5 py-1.5 text-xs font-medium text-ink hover:bg-slate-50" onClick={() => beginEdit(session)}>
+                    <Button type="button" variant="secondary" size="sm" className="min-h-0 px-2.5 py-1.5" onClick={() => beginEdit(session)}>
                       <Pencil className="h-3.5 w-3.5" aria-hidden /> Edit
-                    </button>
-                    <button type="button" className="inline-flex items-center gap-1 rounded-btn border border-danger-200 bg-white px-2.5 py-1.5 text-xs font-medium text-danger-700 hover:bg-danger-50" onClick={() => removeSession(session.id)}>
+                    </Button>
+                    <Button type="button" variant="secondary" size="sm" className="min-h-0 border-danger-200 px-2.5 py-1.5 text-danger-700 hover:bg-danger-50" onClick={() => removeSession(session.id)}>
                       <Trash2 className="h-3.5 w-3.5" aria-hidden /> Remove
-                    </button>
+                    </Button>
                   </div>
                 </li>
               );
@@ -275,9 +275,9 @@ export function ExamScheduleSettings() {
         <div className="flex items-center justify-between gap-3">
           <h3 className="text-sm font-semibold text-ink">{editingId ? 'Edit exam session' : 'Add an exam session'}</h3>
           {editingId && (
-            <button type="button" className="inline-flex items-center gap-1 text-xs font-medium text-ink-muted hover:text-ink" onClick={() => { setEditingId(null); setDraft(blankDraft()); setMessage(null); }}>
+            <Button type="button" variant="ghost" size="sm" className="min-h-0 px-2 py-1.5" onClick={() => { setEditingId(null); setDraft(blankDraft()); setMessage(null); }}>
               <X className="h-3.5 w-3.5" aria-hidden /> Cancel edit
-            </button>
+            </Button>
           )}
         </div>
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
