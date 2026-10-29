@@ -64,7 +64,7 @@ function assertFiniteRange(name: string, value: number, min: number, max = Numbe
 /** Rank topics by provisional exam weight × expected forgetting, with a due boost. */
 export function rankTopicsForExamDay(
   topics: TopicPlanInput[],
-  weights: readonly BlueprintWeight[] = DEFAULT_FPSC_MET_WEIGHTS,
+  weights: readonly BlueprintWeight[] = [],
 ): RankedTopic[] {
   const wMap = new Map<string, number>();
   for (const weight of weights) {
