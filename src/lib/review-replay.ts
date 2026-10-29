@@ -43,7 +43,8 @@ export function isValidReviewEvent(e: unknown): e is ReviewEvent {
   if (typeof o.ts !== 'number' || !Number.isFinite(o.ts)) return false;
   if (typeof o.itemId !== 'string' || o.itemId.length === 0) return false;
   if (typeof o.skillId !== 'string' || o.skillId.length === 0) return false;
-  if (typeof o.mode !== 'string') return false;
+  const VALID_MODES = ['topic', 'quick', 'mock', 'review', 'challenge', 'flashcard'];
+  if (typeof o.mode !== 'string' || !VALID_MODES.includes(o.mode)) return false;
   if (typeof o.correct !== 'boolean') return false;
   if (typeof o.algoVersion !== 'string') return false;
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) return false;
