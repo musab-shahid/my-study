@@ -154,20 +154,25 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const setExamSessions = useCallback((trackId: TrackId, profileId: string | null, sessions: ExamSession[]) => {
     const errors = validateExamSessions(sessions);
     if (errors.length > 0) return { ok: false as const, reason: errors.join('; ') };
+    const current = dataRef.current;
     const key = getExamSessionConfigKey(trackId, profileId);
     const next: AppData = {
-      ...dataRef.current,
+      ...current,
       examSessionsByProfile: {
-        ...(dataRef.current.examSessionsByProfile ?? {}),
+        ...(current.examSessionsByProfile ?? {}),
         [key]: sessions.map((session) => ({ ...session })),
       },
     };
+    saveData(next);
+    if (!flushPendingSave()) {
+      saveData(current);
+      flushPendingSave();
+      return { ok: false as const, reason: 'persist-failed' };
+    }
     setData(next);
     dataRef.current = next;
-    saveData(next);
-    if (!flushPendingSave()) return { ok: false as const, reason: 'persist-failed' };
     return { ok: true as const };
-  }, []);
+  }, []);;
 
   const trackMembership = normalizeTrackMembership(data.trackMembership ?? emptyTrackMembership());
 
