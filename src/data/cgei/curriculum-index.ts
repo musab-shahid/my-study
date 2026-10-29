@@ -1998,6 +1998,70 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "unitTitle": "Data pipelines, orchestration, and reliable updates",
     "subjectId": "cgei-software-engineering",
     "subjectTitle": "Software Engineering for Environmental Systems"
+  },
+    {
+    "id": "cgei-ds-lesson-5-1-9",
+    "title": "Divergence, curl and vector fields in environmental flows",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-10",
+    "title": "Taylor expansion, linearisation and error propagation",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-11",
+    "title": "Numerical stability, time-stepping limits and floating-point error",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-12",
+    "title": "Optimisation: gradient descent and constrained concepts",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-13",
+    "title": "Continuity, diffusion and advection equations",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-14",
+    "title": "Dimensional analysis, Buckingham Pi and non-dimensional numbers",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-15",
+    "title": "Waves, conduction and convection in heat transfer",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-1-16",
+    "title": "Law of large numbers, central limit theorem, and common distributions",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   }
 ];
 
