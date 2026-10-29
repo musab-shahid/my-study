@@ -37,9 +37,12 @@ describe('Bayesian mastery', () => {
     assert.ok(m.probAboveThreshold < 0.9);
   });
 
-  it('betaProbAbove boundaries', () => {
-    assert.equal(betaProbAbove(2, 2, 0), 1);
-    assert.equal(betaProbAbove(2, 2, 1), 0);
+  it('betaProbAbove boundaries: threshold 0 and 1 throw RangeError', () => {
+    assert.throws(() => betaProbAbove(2, 2, 0), RangeError);
+    assert.throws(() => betaProbAbove(2, 2, 1), RangeError);
+    assert.throws(() => betaProbAbove(0, 2, 0.5), RangeError);
+    assert.throws(() => betaProbAbove(2, -1, 0.5), RangeError);
+    assert.throws(() => betaProbAbove(NaN, 2, 0.5), RangeError);
   });
 
   it('compositeReadiness keeps coverage separate and subordinate', () => {

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { buildReviewEvent } from '../review-event.ts';
 import { MemoryReviewLog } from '../review-log.ts';
 import { dualWriteQuizAttempts } from '../dual-write.ts';
-import { diffAggregates, replayItemEvents } from '../review-replay.ts';
+import { diffAggregates, diffAggregatesDetailed, replayItemEvents } from '../review-replay.ts';
 import { updateQuestionStrength } from '../adaptive-select.ts';
 
 describe('review replay property', () => {
@@ -37,18 +37,13 @@ describe('review replay property', () => {
 
   it('dual-write + diffAggregates is empty for matching live state', async () => {
     const log = new MemoryReviewLog();
-    const answers = [
-      { questionId: 'a', correct: true },
-      { questionId: 'b', correct: false },
-      { questionId: 'a', correct: true },
-    ];
     // Simulate live aggregates
     let ra = updateQuestionStrength(undefined, true, 100);
     const rb = updateQuestionStrength(undefined, false, 101);
     ra = updateQuestionStrength(ra, true, 102);
     const live = { a: ra, b: rb };
 
-    await dualWriteQuizAttempts({
+    const result = await dualWriteQuizAttempts({
       answers: [
         { questionId: 'a', correct: true, skillId: 't1' },
         { questionId: 'b', correct: false, skillId: 't1' },
@@ -58,6 +53,7 @@ describe('review replay property', () => {
       ts: 100,
       log,
     });
+    assert.equal(result.status, 'persisted');
     const events = await log.getAll();
     const mismatches = diffAggregates(live, events);
     assert.deepEqual(mismatches, []);

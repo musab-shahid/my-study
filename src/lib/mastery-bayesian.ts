@@ -90,10 +90,25 @@ export function betaProbAbove(
   beta: number,
   threshold: number,
 ): number {
-  if (threshold <= 0) return 1;
-  if (threshold >= 1) return 0;
+  if (!Number.isFinite(alpha) || alpha <= 0) {
+    throw new RangeError(`alpha must be a finite positive number, got ${alpha}`);
+  }
+  if (!Number.isFinite(beta) || beta <= 0) {
+    throw new RangeError(`beta must be a finite positive number, got ${beta}`);
+  }
+  if (!Number.isFinite(threshold) || threshold <= 0 || threshold >= 1) {
+    throw new RangeError(
+      `threshold must be strictly between 0 and 1, got ${threshold}`,
+    );
+  }
   const cdf = incompleteBeta(alpha, beta, threshold);
-  return Math.min(1, Math.max(0, 1 - cdf));
+  const result = 1 - cdf;
+  if (!Number.isFinite(result)) {
+    throw new RangeError(
+      `betaProbAbove produced non-finite result for alpha=${alpha}, beta=${beta}, threshold=${threshold}`,
+    );
+  }
+  return Math.min(1, Math.max(0, result));
 }
 
 export function computeBayesianMastery(
@@ -106,16 +121,48 @@ export function computeBayesianMastery(
     priorBeta?: number;
   },
 ): MasteryPosterior {
+  if (!Number.isFinite(correct) || correct < 0 || !Number.isSafeInteger(correct)) {
+    throw new RangeError(`correct must be a non-negative safe integer, got ${correct}`);
+  }
+  if (!Number.isFinite(attempts) || attempts < 0 || !Number.isSafeInteger(attempts)) {
+    throw new RangeError(`attempts must be a non-negative safe integer, got ${attempts}`);
+  }
+  if (correct > attempts) {
+    throw new RangeError(`correct (${correct}) must not exceed attempts (${attempts})`);
+  }
+
   const accuracyThreshold = options?.accuracyThreshold ?? DEFAULT_THRESHOLD;
   const confidence = options?.confidence ?? DEFAULT_CONFIDENCE;
   const priorAlpha = options?.priorAlpha ?? 1;
   const priorBeta = options?.priorBeta ?? 1;
 
-  const c = Math.max(0, Math.floor(correct));
-  const n = Math.max(0, Math.floor(attempts));
+  if (!Number.isFinite(accuracyThreshold) || accuracyThreshold <= 0 || accuracyThreshold >= 1) {
+    throw new RangeError(
+      `accuracyThreshold must be strictly between 0 and 1, got ${accuracyThreshold}`,
+    );
+  }
+  if (!Number.isFinite(confidence) || confidence <= 0 || confidence >= 1) {
+    throw new RangeError(
+      `confidence must be strictly between 0 and 1, got ${confidence}`,
+    );
+  }
+  if (!Number.isFinite(priorAlpha) || priorAlpha <= 0) {
+    throw new RangeError(`priorAlpha must be a finite positive number, got ${priorAlpha}`);
+  }
+  if (!Number.isFinite(priorBeta) || priorBeta <= 0) {
+    throw new RangeError(`priorBeta must be a finite positive number, got ${priorBeta}`);
+  }
+
+  const c = correct;
+  const n = attempts;
   const alpha = priorAlpha + c;
   const beta = priorBeta + (n - c);
   const mean = alpha / (alpha + beta);
+  if (!Number.isFinite(mean)) {
+    throw new RangeError(
+      `mastery mean is non-finite for correct=${correct}, attempts=${attempts}`,
+    );
+  }
   const probAboveThreshold = betaProbAbove(alpha, beta, accuracyThreshold);
   const mastered = n > 0 && probAboveThreshold >= confidence;
 
