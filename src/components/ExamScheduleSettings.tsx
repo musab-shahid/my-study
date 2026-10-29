@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { CalendarClock, Plus, Pencil, Trash2, X, Save, AlertCircle } from 'lucide-react';
 import { Card, Button } from '@/components/ui';
 import { useData } from '@/hooks/useData';
@@ -103,9 +103,6 @@ export function ExamScheduleSettings() {
     : availableTracks[0]?.id ?? 'fpsc';
   const [trackValue, setTrackValue] = useState<string>(initialTrack);
   const selectedTrack = isTrackId(trackValue) ? trackValue : null;
-  const activeProfile = selectedTrack
-    ? (trackMembership.enrollments[selectedTrack]?.activeExamId ?? null)
-    : null;
   const [profileValue, setProfileValue] = useState('general');
   const [draft, setDraft] = useState<SessionDraft>(() => blankDraft());
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -148,7 +145,7 @@ export function ExamScheduleSettings() {
     setMessage(null);
   };
 
-  const saveSession = (event: React.FormEvent<HTMLFormElement>) => {
+  const saveSession = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!selectedTrack) return;
     try {
