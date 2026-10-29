@@ -14,8 +14,8 @@ export interface ExamSession {
   caseRef?: string;
   /** ISO-8601 wall-clock start with an explicit UTC offset. */
   startsAtIso: string;
-  /** IANA time zone for calendar-day planning (e.g. Asia/Karachi). */
-  timeZone?: string;
+  /** Required IANA time zone for calendar-day planning (e.g. Asia/Karachi). */
+  timeZone: string;
   endsAtIso?: string;
   reportByIso?: string;
   doorsCloseIso?: string;
