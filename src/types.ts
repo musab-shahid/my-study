@@ -524,4 +524,17 @@ export interface AppData {
   lastOpenedTopic: string;
   /** Track enrollments + active focus (schema v1). Optional until migrated. */
   trackMembership?: TrackMembershipState;
+  /** Learner-configured exam sessions, scoped by `${trackId}:${profileId ?? 'general'}`. */
+  examSessionsByProfile?: Record<string, Array<{
+    id: string;
+    label: string;
+    startsAtIso: string;
+    timeZone: string;
+    note: string;
+    caseRef?: string;
+    endsAtIso?: string;
+    reportByIso?: string;
+    doorsCloseIso?: string;
+    venue?: string;
+  }>>;
 }
