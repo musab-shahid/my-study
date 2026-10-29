@@ -148,7 +148,14 @@ function sanitizeForSave(data: AppData): AppData {
       ? rawMem
       : normalizeTrackMembership(rawMem ?? emptyTrackMembership());
   // revisionDates is legacy read-only; never persist a live mirror
-  return { ...data, topicProgress, revisionDates: {}, trackMembership, examSessionsByProfile: normalizeExamSessionsByProfile(data.examSessionsByProfile) };
+  const examSessionsByProfile = normalizeExamSessionsByProfile(data.examSessionsByProfile);
+  return {
+    ...data,
+    topicProgress,
+    revisionDates: {},
+    trackMembership,
+    ...(Object.keys(examSessionsByProfile).length > 0 ? { examSessionsByProfile } : {}),
+  };
 }
 
 /** @returns false if write failed (storage full/denied) */
@@ -340,7 +347,11 @@ function migrateTopicIdKeys(data: AppData): { data: AppData; changed: boolean } 
 
 function normalizeLoaded(parsed: AppData): AppData {
   let merged = { ...emptyData, ...parsed };
-  merged.examSessionsByProfile = normalizeExamSessionsByProfile(merged.examSessionsByProfile);
+  if (parsed.examSessionsByProfile !== undefined) {
+    const examSessionsByProfile = normalizeExamSessionsByProfile(parsed.examSessionsByProfile);
+    if (Object.keys(examSessionsByProfile).length > 0) merged.examSessionsByProfile = examSessionsByProfile;
+    else delete merged.examSessionsByProfile;
+  }
   let migrated = false;
   for (const [k, v] of Object.entries(merged.topicProgress)) {
     if (v.quizCorrect === undefined && (v.quizAccuracy !== undefined || v.quizAttempts !== undefined || v.attempts !== undefined)) {
