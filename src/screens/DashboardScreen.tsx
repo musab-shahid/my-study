@@ -15,7 +15,7 @@ import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from 
 import { computeStreak, getWeakTopics } from '@/lib/streak';
 import { openTrackOptions } from '@/router/openTrack';
 import {
-  DEFAULT_EXAM_SESSIONS,
+  getExamSessionConfigKey,
   getCountdownParts,
   formatCountdownShort,
   getNextSession,
@@ -69,7 +69,14 @@ export function DashboardScreen() {
     return () => window.clearInterval(id);
   }, []);
 
-  const nextExam = useMemo(() => getNextSession(DEFAULT_EXAM_SESSIONS, now), [now]);
+  const activeWorkspaceTrack = trackMembership.activeTrackId;
+  const activeWorkspaceProfileId = activeWorkspaceTrack
+    ? (trackMembership.enrollments[activeWorkspaceTrack]?.activeExamId ?? null)
+    : null;
+  const configuredSessions = activeWorkspaceTrack
+    ? (data.examSessionsByProfile?.[getExamSessionConfigKey(activeWorkspaceTrack, activeWorkspaceProfileId)] ?? [])
+    : [];
+  const nextExam = useMemo(() => getNextSession(configuredSessions, now), [configuredSessions, now]);
   const examTarget = useMemo(
     () => (nextExam ? getExamCountdownTarget(nextExam, now) : null),
     [nextExam, now],
@@ -433,22 +440,37 @@ export function DashboardScreen() {
         </Card>
       )}
 
-      {/* Exam countdown — compact, only if relevant */}
-      {nextExam && examCountdown && !examCountdown.started && (
+      {/* Workspace-scoped exam countdown; never invent a default date. */}
+      {activeWorkspaceTrack && (
         <Card className="p-4 mb-5">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <p className="text-xs text-muted">Upcoming exam</p>
-              <p className="text-sm font-semibold text-ink">{nextExam.label}</p>
+          {nextExam && examCountdown && !examCountdown.started ? (
+            <>
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <p className="text-xs text-muted">Upcoming exam</p>
+                  <p className="text-sm font-semibold text-ink">{nextExam.label}</p>
+                  <p className="text-xs text-muted mt-0.5">
+                    {new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: nextExam.timeZone }).format(new Date(nextExam.startsAtIso))}
+                  </p>
+                </div>
+                <p className="text-sm font-medium text-muted tabular-nums">
+                  {formatCountdownShort(examCountdown)}
+                </p>
+              </div>
+              {readiness && (
+                <p className="text-xs text-muted mt-2">
+                  Readiness {readiness.score}% — {readinessLabel(readiness.score)}
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-sm font-semibold text-ink">No upcoming exam configured</p>
+                <p className="mt-1 text-xs text-muted">Add a date for this workspace to enable a truthful countdown.</p>
+              </div>
+              <Button size="sm" variant="secondary" onClick={() => navigate({ screen: 'settings' })}>Set exam date</Button>
             </div>
-            <p className="text-sm font-medium text-muted tabular-nums">
-              {formatCountdownShort(examCountdown)}
-            </p>
-          </div>
-          {readiness && (
-            <p className="text-xs text-muted mt-2">
-              Readiness {readiness.score}% — {readinessLabel(readiness.score)}
-            </p>
           )}
         </Card>
       )}
