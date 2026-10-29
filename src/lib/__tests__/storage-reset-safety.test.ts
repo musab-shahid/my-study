@@ -37,6 +37,31 @@ afterEach(() => {
 });
 
 describe('storage reset safety', () => {
+  it('round-trips valid exam settings and quarantines malformed optional settings without losing progress', () => {
+    const storage = installLocalStorage();
+    const data = loadData();
+    data.studiedTopics = ['topic-a'];
+    data.examSessionsByProfile = {
+      'fpsc:general': [{
+        id: 'configured-exam',
+        label: 'Configured exam',
+        startsAtIso: '2027-01-12T09:00:00.000Z',
+        timeZone: 'UTC',
+        note: '',
+      }],
+      'hat:general': [{ id: 'broken', label: 'Broken', startsAtIso: 'not-a-date' }] as unknown as NonNullable<typeof data.examSessionsByProfile>[string],
+    };
+
+    saveData(data);
+    assert.equal(flushPendingSave(), true);
+    const loaded = loadData();
+
+    assert.deepEqual(loaded.studiedTopics, ['topic-a']);
+    assert.deepEqual(Object.keys(loaded.examSessionsByProfile ?? {}), ['fpsc:general']);
+    assert.equal(loaded.examSessionsByProfile?.['fpsc:general']?.[0]?.label, 'Configured exam');
+    assert.equal(storage.getItem(STORAGE_KEYS.appData) !== null, true);
+  });
+
   it('cancels reset when the backup cannot be written and keeps pending data recoverable', () => {
     const storage = installLocalStorage({}, BACKUP_KEY);
     const data = loadData();
