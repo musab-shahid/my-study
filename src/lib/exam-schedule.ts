@@ -170,36 +170,56 @@ export function normalizeExamSessionsByProfile(value: unknown): Record<string, E
 export function validateExamSessions(sessions: readonly ExamSession[]): string[] {
   const errors: string[] = [];
   const ids = new Set<string>();
-  const hasOffset = (value: string) => /(?:Z|[+-]\d{2}:\d{2})$/i.test(value);
-  const isValidDate = (value: string | undefined) =>
-    value === undefined || (hasOffset(value) && Number.isFinite(Date.parse(value)));
+  const isValidDate = (value: unknown): value is string => {
+    if (typeof value !== 'string') return false;
+    const match = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})(?::(\d{2})(?:\.\d{1,3})?)?(Z|([+-])(\d{2}):(\d{2}))$/i.exec(value);
+    if (!match) return false;
+    const [, y, mo, d, h, mi, sec = '0', zone, , offsetHour = '0', offsetMinute = '0'] = match;
+    const year = Number(y), month = Number(mo), day = Number(d);
+    const hour = Number(h), minute = Number(mi), second = Number(sec);
+    if (month < 1 || month > 12 || day < 1 || day > new Date(Date.UTC(year, month, 0)).getUTCDate()) return false;
+    if (hour > 23 || minute > 59 || second > 59) return false;
+    if (zone.toUpperCase() !== 'Z' && (Number(offsetHour) > 23 || Number(offsetMinute) > 59)) return false;
+    return Number.isFinite(Date.parse(value));
+  };
 
-  for (const [index, session] of sessions.entries()) {
-    const prefix = `sessions[${index}]`;
-    if (!session.id.trim()) errors.push(`${prefix}.id is required`);
-    else if (ids.has(session.id)) errors.push(`${prefix}.id must be unique`);
-    ids.add(session.id);
-    if (!session.label.trim()) errors.push(`${prefix}.label is required`);
-    if (!isValidDate(session.startsAtIso)) errors.push(`${prefix}.startsAtIso must be a valid ISO date with an explicit offset`);
-    if (!isValidDate(session.endsAtIso)) errors.push(`${prefix}.endsAtIso must be a valid ISO date with an explicit offset`);
-    if (!isValidDate(session.reportByIso)) errors.push(`${prefix}.reportByIso must be a valid ISO date with an explicit offset`);
-    if (!isValidDate(session.doorsCloseIso)) errors.push(`${prefix}.doorsCloseIso must be a valid ISO date with an explicit offset`);
-    if (!session.timeZone) {
-      errors.push(`${prefix}.timeZone is required (IANA time zone)`);
+  if (!Array.isArray(sessions)) return ['sessions must be an array'];
+  for (const [index, candidate] of sessions.entries()) {
+    const prefix = 'sessions[' + index + ']';
+    if (!candidate || typeof candidate !== 'object' || Array.isArray(candidate)) {
+      errors.push(prefix + ' must be an object');
+      continue;
+    }
+    const session = candidate as ExamSession;
+    if (typeof session.id !== 'string' || !session.id.trim()) errors.push(prefix + '.id is required');
+    else if (ids.has(session.id)) errors.push(prefix + '.id must be unique');
+    if (typeof session.id === 'string') ids.add(session.id);
+    if (typeof session.label !== 'string' || !session.label.trim()) errors.push(prefix + '.label is required');
+    else if (session.label.length > 120) errors.push(prefix + '.label must be 120 characters or fewer');
+    if (typeof session.note !== 'string') errors.push(prefix + '.note must be a string');
+    if (!isValidDate(session.startsAtIso)) errors.push(prefix + '.startsAtIso must be a valid ISO date with an explicit offset');
+    for (const field of ['endsAtIso', 'reportByIso', 'doorsCloseIso'] as const) {
+      const value = session[field];
+      if (value !== undefined && !isValidDate(value)) errors.push(prefix + '.' + field + ' must be a valid ISO date with an explicit offset');
+    }
+    if (typeof session.timeZone !== 'string' || !session.timeZone.trim()) {
+      errors.push(prefix + '.timeZone is required (IANA time zone)');
     } else {
       try {
         new Intl.DateTimeFormat('en', { timeZone: session.timeZone }).format(0);
       } catch {
-        errors.push(`${prefix}.timeZone must be a valid IANA time zone`);
+        errors.push(prefix + '.timeZone must be a valid IANA time zone');
       }
     }
-    const start = Date.parse(session.startsAtIso);
-    const end = session.endsAtIso ? Date.parse(session.endsAtIso) : undefined;
-    const report = session.reportByIso ? Date.parse(session.reportByIso) : undefined;
-    const doors = session.doorsCloseIso ? Date.parse(session.doorsCloseIso) : undefined;
-    if (Number.isFinite(start) && end !== undefined && end <= start) errors.push(`${prefix}.endsAtIso must be after startsAtIso`);
-    if (Number.isFinite(start) && report !== undefined && report > start) errors.push(`${prefix}.reportByIso must not be after startsAtIso`);
-    if (Number.isFinite(start) && doors !== undefined && doors > start) errors.push(`${prefix}.doorsCloseIso must not be after startsAtIso`);
+    const startAt = isValidDate(session.startsAtIso) ? Date.parse(session.startsAtIso) : Number.NaN;
+    const endAt = isValidDate(session.endsAtIso) ? Date.parse(session.endsAtIso) : undefined;
+    const reportAt = isValidDate(session.reportByIso) ? Date.parse(session.reportByIso) : undefined;
+    const doorsAt = isValidDate(session.doorsCloseIso) ? Date.parse(session.doorsCloseIso) : undefined;
+    if (Number.isFinite(startAt) && endAt !== undefined && endAt <= startAt) errors.push(prefix + '.endsAtIso must be after startsAtIso');
+    if (Number.isFinite(startAt) && reportAt !== undefined && reportAt > startAt) errors.push(prefix + '.reportByIso must not be after startsAtIso');
+    if (Number.isFinite(startAt) && doorsAt !== undefined && doorsAt > startAt) errors.push(prefix + '.doorsCloseIso must not be after startsAtIso');
+    if (reportAt !== undefined && doorsAt !== undefined && reportAt > doorsAt) errors.push(prefix + '.reportByIso must not be after doorsCloseIso');
+    if (session.venue !== undefined && typeof session.venue !== 'string') errors.push(prefix + '.venue must be a string');
   }
   return errors;
 }
