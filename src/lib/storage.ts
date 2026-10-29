@@ -5,7 +5,7 @@ import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/l
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 import { applyExamAwareInterval, daysUntilIsoDate } from '@/lib/exam-aware-schedule';
-import { getNextSession, FPSC_OCT_2026_SESSIONS } from '@/lib/exam-schedule';
+import { getNextSession, DEFAULT_EXAM_SESSIONS } from '@/lib/exam-schedule';
 import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
@@ -677,20 +677,22 @@ export function recordQuizResult(
     prog.intervalDays = scheduled.intervalDays;
     // Exam-aware compression when a future session date is known (display schedule).
     try {
-      const next = getNextSession(FPSC_OCT_2026_SESSIONS, new Date(now));
+      const next = getNextSession(DEFAULT_EXAM_SESSIONS, new Date(now));
       const examIso = next?.startsAtIso;
       if (examIso) {
-        const days = daysUntilIsoDate(examIso, now);
+        const days = daysUntilIsoDate(examIso, now, next?.timeZone ?? 'UTC');
         if (Number.isFinite(days)) {
           const aware = applyExamAwareInterval({
             intervalDays: prog.intervalDays ?? scheduled.intervalDays,
             daysUntilExam: days,
           });
-          prog.intervalDays = aware.intervalDays;
-          if (aware.intervalDays !== scheduled.intervalDays && prog.nextReview) {
-            const base = new Date(now);
-            base.setUTCDate(base.getUTCDate() + aware.intervalDays);
-            prog.nextReview = base.toISOString().slice(0, 10);
+          if (aware.status === 'scheduled' && aware.intervalDays !== null) {
+            prog.intervalDays = aware.intervalDays;
+            if (aware.intervalDays !== scheduled.intervalDays && prog.nextReview) {
+              const base = new Date(now);
+              base.setUTCDate(base.getUTCDate() + aware.intervalDays);
+              prog.nextReview = base.toISOString().slice(0, 10);
+            }
           }
         }
       }
