@@ -31,7 +31,7 @@ describe('exam-schedule', () => {
       label: 'Invalid',
       startsAtIso: 'not-a-date',
       endsAtIso: '2026-10-16T10:00:00',
-      reportByIso: '2026-10-16T12:00:00Z',
+      reportByIso: '2026-10-16T12:00:00',
       timeZone: 'Not/AZone',
       note: '',
     }, {
