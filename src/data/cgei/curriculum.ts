@@ -94,7 +94,6 @@ const questions: CurriculumQuestion[] = engineQuestions.flatMap((question) => {
     options: [...question.options],
     correctAnswer: question.correctAnswer,
     explanation: question.explanation,
-    sourceCitation: question.sourceCitation,
     difficulty: question.difficulty,
     cognitiveLevel: question.cognitiveLevel,
   }];
