@@ -81,10 +81,10 @@ jobs:
         run: npm run check:branding
       - name: Feature icons and logo mark
         run: npm run check:feature-icons
-      - name: Validate data
-        run: npm run validate:data
-      - name: Core-leaf substantive-evidence gate
-        run: npm run audit:core-leaf-evidence
+      - name: CGEI unified gate (validate:data + evidence + index checks)
+        env:
+          CGEI_EVIDENCE_REPORT: docs/cgei/source-toc/core-leaf-evidence-report.csv
+        run: npm run check:cgei
       - name: Unit tests
         run: npm test
       - name: Typecheck
@@ -152,18 +152,12 @@ jobs:
         run: python content-drafts/chapter-05-scientific-computing/fixtures/smoke_check.py
       - name: Verify chunked CSV equivalence and peak memory lab
         run: python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py
-      - name: Verify Unit 5.4 inference arithmetic
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_4_inference_check.py
-      - name: Verify Unit 5.5 data workflow checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_5_data_workflow_check.py
-      - name: Verify Unit 12.1 raster loader checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_1_raster_loader_check.py
-      - name: Verify Unit 12.2 vector post-process checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_2_vector_postprocess_check.py
+      - name: Scientific unit fixtures (auto-discover unit_*_check.py)
+        run: python3 scripts/run-unit-fixture-checks.py
       - name: Verify Core-leaf coverage gate regression cases
         run: python scripts/tests/test_audit_core_leaf_coverage.py
       - name: Run repository Core-leaf coverage audit (transitional report)
-        run: python scripts/audit_core_leaf_coverage.py --allow-unmapped
+        run: python scripts/audit_core_leaf_coverage.py --allow-unmapped --report docs/cgei/source-toc/core-leaf-coverage-report.csv
       - name: Verify full-source disposition gate
         run: python3 scripts/audit_full_source_disposition.py
       - name: Enforce strict Core-leaf coverage gate
@@ -172,7 +166,7 @@ jobs:
           # Required: zero unmapped Core leaves and zero blocking stale IDs.
           # Transitional reporting (allow-unmapped) remains a separate step above.
           set +e
-          output="$(python scripts/audit_core_leaf_coverage.py 2>&1)"
+          output="$(python scripts/audit_core_leaf_coverage.py --report /tmp/core-leaf-coverage-failcheck.csv 2>&1)"
           status=$?
           set -e
           printf '%s\n' "$output"
@@ -203,208 +197,8 @@ jobs:
           path: docs/cgei/source-toc/core-leaf-evidence-report.csv
           if-no-files-found: warn
           retention-days: 14
-      - name: Verify Unit 5.11 research software checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_11_research_software_check.py
-      - name: Verify Unit 5.6 intermediate inference modelling checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_6_inference_modelling_check.py
-      - name: Verify Unit 5.6 leakage-aware split checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_6_leakage_split_check.py
-      - name: Verify Unit 5.6 baseline comparison checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_6_baseline_compare_check.py
-      - name: Verify Unit 5.7 time-series lab arithmetic
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_timeseries_lab_check.py
-      - name: Verify Unit 5.7 stationarity and ADF interpretation
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_7_stationarity_adf_check.py
-      - name: Verify Unit 5.8 EOF eigenvalue arithmetic
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_8_eof_weight_check.py
-      - name: Verify Unit 5.9 logistic interpretation arithmetic
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_9_logistic_interpret_check.py
-      - name: Verify Unit 5.10 confounding arithmetic
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_10_confounding_check.py
-      - name: Verify Unit 5.11 manifest and checksum integrity
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_11_manifest_checksum_check.py
-      - name: Verify Unit 5.12 multidimensional bookkeeping contract
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_12_multidim_contract_check.py
-      - name: Verify Unit 6.1 learning-problem checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_1_learning_problem_check.py
-      - name: Verify Unit 6.2 feature-prep checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_2_feature_prep_check.py
-      - name: Verify Unit 6.3 core-algorithm checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_3_core_algorithms_check.py
-      - name: Verify Unit 6.5 interpretation checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_5_interpretation_check.py
-      - name: Verify Unit 6.6 practice checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_6_practice_check.py
-      - name: Verify Unit 6.7 EO deep-learning prep checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_7_eo_deep_learning_check.py
-      - name: Verify Subject 6 Core pathway
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_core_pathway_check.py
-      - name: Verify Unit 6.4 leakage-split checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_6_4_leakage_split_check.py
-      - name: Verify Unit 5.1 numerical foundations
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_1_foundations_check.py
-      - name: Verify Unit 5.2 python scientific checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_2_python_scientific_check.py
-      - name: Verify Unit 5.3 EDA visualisation checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_3_eda_visualisation_check.py
-      - name: Verify Unit 3.1 spatial integrity diagnostics
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_1_spatial_integrity_check.py
-      - name: Verify Unit 3.2 geographic scale and degree-cell area
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_scale_check.py
-      - name: Verify Unit 3.5 Python geospatial stack
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_python_geospatial_stack_check.py
-      - name: Verify Unit 3.5 COG/raster invariants
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_cog_raster_check.py
-      - name: Verify Unit 3.9 spatial stats
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_9_spatial_stats_check.py
-      - name: Verify Unit 3.9 method-selection checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_9_method_selection_check.py
-      - name: Verify Unit 2.3 atmosphere checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_3_atmosphere_check.py
-      - name: Verify Unit 4.5 humid-heat bridge
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_humid_heat_bridge_check.py
-      - name: Verify Unit 8.7 paper readiness
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_7_paper_readiness_check.py
-      - name: Verify Unit 8.8 portfolio positioning
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_8_portfolio_positioning_check.py
-      - name: Verify Unit 8.9 proposal readiness
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_9_proposal_readiness_check.py
-      - name: Verify Unit 8.D research design
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_d_research_design_check.py
-      - name: Verify Unit 8.D exit package checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_d_exit_package_check.py
-      - name: Verify Unit 12.3 spatiotemporal eval
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_3_spatiotemporal_eval_check.py
-      - name: Verify Unit 12.3 probabilistic forecast checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_3_prob_forecast_check.py
       - name: Curriculum activity/assessment integrity
         run: python content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py
-      - name: Verify unit_3_5_climate_spatial_integration_check.py
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_5_climate_spatial_integration_check.py
-      - name: Verify unit_3_6_cartography_check.py
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_6_cartography_check.py
-      - name: Verify Unit 3.2 transform validation
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_transform_validation_check.py
 
-      - name: Verify Unit 3.2 assign CRS vs transform
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_assign_vs_transform_check.py
 
-      - name: Verify Unit 3.2 CRS workflow chain
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_2_crs_workflow_check.py
 
-      - name: Verify Unit 3.9 neighbourhood weights
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_9_neighbourhood_weights_check.py
-      - name: Verify Unit 3.3 join integrity and CRS guard
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_join_integrity_check.py
-      - name: Verify Unit 3.3 zonal statistics aggregation
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_stats_check.py
-      - name: Verify Unit 3.3 zonal rasterization teaching fixture
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_zonal_rasterization_check.py
-      - name: Verify Unit 3.3 georeferencing RMSE
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_georef_rmse_check.py
-      - name: Verify Unit 3.3 reclassification and map algebra
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_reclass_map_algebra_check.py
-      - name: Verify Unit 3.3 admin hierarchy and format contract
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_3_admin_formats_check.py
-      - name: Verify Unit 3.4 terrain slope stencil
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_terrain_slope_check.py
-      - name: Verify Unit 3.4 instructional D8 flow routing
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_flow_routing_check.py
-      - name: Verify Unit 3.4 network accessibility Dijkstra
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_network_accessibility_check.py
-      - name: Verify Unit 3.4 geocoding quality metrics
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_geocoding_quality_check.py
-      - name: Verify Unit 3.4 field-data QC contract
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_3_4_field_data_qc_check.py
-      - name: Verify Unit 1.1 planetary energy budget
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_1_energy_budget_check.py
-      - name: Verify Unit 1.10 coupled systems teaching checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_1_10_coupled_systems_check.py
-      - name: Verify Unit 2.1 weather-climate timescale statistics
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_1_weather_climate_timescales_check.py
-      - name: Verify Unit 2.1 stationarity checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_1_stationarity_check.py
-      - name: Verify Unit 2.1 percentiles and return periods
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_1_percentiles_return_periods_check.py
-      - name: Verify Unit 2.2 climate system process checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_2_climate_system_processes_check.py
-      - name: Verify Unit 2.4 data-product QC checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_4_data_products_check.py
-      - name: Verify Unit 2.5 climate data handling checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_5_climate_data_handling_check.py
-      - name: Verify Unit 2.5 NetCDF structure checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_5_netcdf_structure_check.py
-      - name: Verify Unit 2.6 extremes and trend analysis checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_extremes_trend_analysis_check.py
-      - name: Verify Unit 2.6 R10mm index checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_etccdi_r10mm_check.py
-      - name: Verify Unit 2.6 CDD spell checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_etccdi_cdd_check.py
-      - name: Verify Unit 2.6 extremes batch checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_6_extremes_batch_check.py
-      - name: Verify C.36 cross-subject batch
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_c36_cross_subject_batch_check.py
-      - name: Verify Unit 2.8 regional climate literacy checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_2_8_regional_climate_literacy_check.py
-      - name: Verify Unit 4.1 radiometric physics checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_1_radiometric_physics_check.py
-      - name: Verify Unit 4.2 major data-family checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_2_data_families_check.py
-      - name: Verify Unit 7 risk-index checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_risk_index_check.py
-      - name: Verify Unit 7.3 heat-hazard checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_7_3_heat_hazard_check.py
-      - name: Verify Unit 8 research-protocol checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_research_protocol_check.py
-      - name: Verify unit_8_2_measurement_sampling_check.py
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_2_measurement_sampling_check.py
-      - name: Verify unit_8_3_validity_ethics_check.py
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_3_validity_ethics_check.py
-      - name: Verify Unit 8.6 reporting checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_8_6_reporting_check.py
-      - name: Verify Unit 9 decision-product checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_9_decision_product_check.py
-      - name: Verify Unit 10 policy-appraisal checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_10_policy_appraisal_check.py
-      - name: Verify Unit 11 env-pipeline checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_11_env_pipeline_check.py
-      - name: Verify Unit 12 AI split/baseline checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_12_ai_split_baseline_check.py
-      - name: Verify Unit 13 capstone heat-risk checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_capstone_heat_risk_check.py
-      - name: Verify Unit 13 public-data pathway checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_public_data_pathway_check.py
-      - name: Verify Unit 13 MODIS local-process checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_modis_local_process_check.py
-      - name: Verify Multan UHI foundation contrast
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_foundation_check.py
-      - name: Verify Multan UHI Landsat ST pathway
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_multan_uhi_landsat_st_check.py
-      - name: Verify Unit 13 portfolio checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_portfolio_check.py
-      - name: Verify Unit 13 research-fit checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_research_fit_check.py
-      - name: Verify Unit 13 external-review checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_external_review_check.py
-      - name: Verify Unit 13 Core reproduction protocol
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_13_core_repro_protocol_check.py
-      - name: Verify Unit 4.3 spectral indices and LST checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_3_indices_lst_check.py
-      - name: Verify Unit 4.4 preprocessing and harmonisation checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_4_preprocess_harmonise_check.py
-      - name: Verify Unit 4.5 SUHI analysis checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_5_suhi_analysis_check.py
-      - name: Verify Unit 4.11 EO validation
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_11_eo_validation_check.py
-      - name: Verify Unit 4.12 GeoAI method selection
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_12_geoai_method_selection_check.py
-      - name: Verify Unit 4.6 pipeline and platform checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_6_pipeline_platform_check.py
-      - name: Verify Unit 4.7 classification and change checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_7_classification_change_check.py
-      - name: Verify Unit 4.8 active-fire and hotspot checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_8_active_fire_check.py
-      - name: Verify Unit 4.9 advanced EO analysis checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_9_advanced_eo_check.py
-      - name: Verify Unit 4.10 thematic EO application checks
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/unit_4_10_thematic_eo_check.py

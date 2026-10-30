@@ -417,7 +417,10 @@ async function main() {
     bySubject,
     findings,
   };
-  const outPath = resolve(process.cwd(), 'audit-report.json');
+  // Do not write into tracked paths; default to OS temp (override with CGEI_REPORT_PATH).
+  const outPath = process.env.CGEI_REPORT_PATH
+    ? resolve(process.cwd(), process.env.CGEI_REPORT_PATH)
+    : resolve(tmpdir(), 'my-study-audit-report.json');
   writeFileSync(outPath, JSON.stringify(report, null, 2));
   console.log(`Wrote ${outPath}`);
   console.log('─'.repeat(40));

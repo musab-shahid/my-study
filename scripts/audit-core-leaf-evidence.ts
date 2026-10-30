@@ -8,12 +8,16 @@
  * Run with: npm run audit:core-leaf-evidence
  */
 import { readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { hasSubstantiveLessonContent } from '../src/data/cgei/readiness';
 
 const COVERAGE_CSV = 'docs/cgei/source-toc/core-leaf-coverage-report.csv';
-const REPORT_CSV = 'docs/cgei/source-toc/core-leaf-evidence-report.csv';
+// Write reports outside tracked paths (override with CGEI_EVIDENCE_REPORT).
+const REPORT_CSV =
+  process.env.CGEI_EVIDENCE_REPORT ??
+  `${tmpdir().replace(/\\/g, '/')}/my-study-core-leaf-evidence-report.csv`;
 
 interface CoverageRow {
   sourceId: string;
@@ -152,11 +156,14 @@ function main() {
       String(r.assessmentCount), String(r.resolvableQuestionCount), r.evidenceVerdict,
     ].join(','));
   }
-  writeFileSync(resolve(process.cwd(), REPORT_CSV), lines.join('\n') + '\n', 'utf8');
+  const reportPath = REPORT_CSV.startsWith('/') || /^[A-Za-z]:/.test(REPORT_CSV)
+    ? REPORT_CSV
+    : resolve(process.cwd(), REPORT_CSV);
+  writeFileSync(reportPath, lines.join('\n') + '\n', 'utf8');
 
   console.log(`# Core-leaf substantive-evidence gate`);
   console.log(`Checked ${checked} mapped lesson(s); ${passed} passed; ${checked - passed} failed.`);
-  console.log(`Report written to ${REPORT_CSV}`);
+  console.log(`Report written to ${reportPath}`);
   if (failures.length) {
     console.error(`\nSubstantive-evidence gate failed: ${failures.length} gap(s)`);
     for (const f of failures) console.error(`  FAIL: ${f}`);
