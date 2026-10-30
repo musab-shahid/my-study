@@ -19,7 +19,8 @@ import {
   subject2Units,
   subject2Lessons,
   subject2Outcomes,
-} from './climate-science/subject-2-curriculum';
+} from './climate-science/topics-climate-science';
+import { cgeiTrack } from './shared';
 
 const outcomes51: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-quantities', statement: 'Convert environmental quantities and diagnose dimensional or order-of-magnitude errors.', action: 'convert and validate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
@@ -3613,15 +3614,7 @@ const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestio
 
 export const cgeiCurriculum: CurriculumRegistry = {
   schemaVersion: 2,
-  tracks: [
-    {
-      id: 'cgei',
-      title: 'Climate, Geospatial & Environmental Intelligence',
-      description: 'A competency-led pathway from environmental systems and geospatial foundations to reproducible climate-risk intelligence and research artefacts.',
-      subjectIds: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
-      recommendedOrder: ['cgei-env-systems', 'cgei-climate-science', 'cgei-geospatial', 'cgei-remote-sensing', 'cgei-data-science', 'cgei-ml-geoai', 'cgei-climate-risk', 'cgei-research-practice', 'cgei-decision-support', 'cgei-climate-policy', 'cgei-software-engineering', 'cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
-    },
-  ],
+  tracks: [cgeiTrack],
   subjects: [
     {
       id: 'cgei-subject-5-data-science',

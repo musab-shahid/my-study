@@ -1,0 +1,38 @@
+/**
+ * Canonical Climate Science subject module (Subject 2).
+ * Quiz-engine legacy topics remain under ./legacy/topics-climate-science.ts.
+ */
+export {
+  outcomes21,
+  lessons21,
+  outcomes22,
+  lessons22,
+  outcomes23,
+  lessons23,
+  outcomes24,
+  lessons24,
+  outcomes25,
+  lessons25,
+  outcomes26,
+  lessons26,
+  outcomes27,
+  lessons27,
+  outcomes28,
+  lessons28,
+  outcomes29,
+  lessons29,
+  outcomes210,
+  lessons210,
+  outcomes211,
+  lessons211,
+  outcomes212,
+  lessons212,
+  outcomes213,
+  lessons213,
+  subject2Units as climateScienceUnits,
+  subject2Lessons as climateScienceLessons,
+  subject2Outcomes as climateScienceOutcomes,
+  subject2Units,
+  subject2Lessons,
+  subject2Outcomes,
+} from './subject-2-curriculum';
