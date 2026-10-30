@@ -15,6 +15,24 @@ import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, Cu
 import { questions as legacyDataScienceQuestions } from './data-science/questions-data-science';
 import type { Topic } from '@/types';
 import { topics as dataScienceTopics } from './data-science/topics-data-science';
+import {
+  outcomes21, lessons21,
+  outcomes22, lessons22,
+  outcomes23, lessons23,
+  outcomes24, lessons24,
+  outcomes25, lessons25,
+  outcomes26, lessons26,
+  outcomes27, lessons27,
+  outcomes28, lessons28,
+  outcomes29, lessons29,
+  outcomes210, lessons210,
+  outcomes211, lessons211,
+  outcomes212, lessons212,
+  outcomes213, lessons213,
+  subject2Units,
+  subject2Lessons,
+  subject2Outcomes,
+} from './climate-science/subject-2-curriculum';
 
 const outcomes51: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-quantities', statement: 'Convert environmental quantities and diagnose dimensional or order-of-magnitude errors.', action: 'convert and validate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
@@ -2107,316 +2125,9 @@ const lessons110: CurriculumLesson[] = [
 ];
 
 
-const outcomes21: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-21-weather-climate', statement: 'Distinguish weather from climate and compute anomalies relative to a stated baseline normal without treating a single extreme as climate disproof.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-21-stats', statement: 'Describe climate with mean, spread and percentiles, and show that estimated trends depend on the analysis window.', action: 'describe and demonstrate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-21-evidence', statement: 'State the metadata required for a climate claim and separate trend description from causal attribution at overview level.', action: 'state and separate', level: 'L1', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
-];
 
-const lessons21: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-1-1', kind: 'lesson', title: 'Weather versus climate and baselines', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes21[0]],
-    content: [
-      { id: 'cgei-cl-21-1-1', kind: 'prose', title: 'State, distribution and baseline', body: 'Weather is the short-term atmospheric state. Climate is a statistical description of weather over a defined period and region. Climate normals summarise that distribution; anomalies measure departures from a stated baseline. A single cold day is weather variability, not a disproof of a long-term warming signal—and a single heatwave is not, by itself, a full attribution study.' },
-      { id: 'cgei-cl-21-1-2', kind: 'prose', title: 'Normals and WMO practice', body: 'WMO climatological standard normals currently use 1991–2020; longer monitoring often still references 1961–1990. Changing the baseline changes anomaly numbers without changing the raw observations. Always report station/domain, variable, units, period, baseline and time zone.' },
-      { id: 'cgei-cl-21-1-lab', kind: 'worked-example', title: 'Lab: normal and anomaly on synthetic months', body: 'A 36-month synthetic series has seasonality plus a weak upward trend and one cold spike. Year-1 mean is the teaching normal (~16.8°C). Month 18 anomaly is positive relative to that normal. Fixture unit_2_1_weather_climate_timescales_check.py locks the calculations. Data are synthetic.' },
-    ],
-    activityIds: ['cgei-cl-a-21-baseline'], assessmentIds: ['cgei-cl-assess-21-baseline'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-1-2', kind: 'lesson', title: 'Climate statistics and time windows', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes21[1]],
-    content: [
-      { id: 'cgei-cl-21-2-1', kind: 'prose', title: 'Mean, variance, extremes, stationarity', body: 'Climate description needs central tendency, spread and extremes (percentiles, threshold exceedances). Temperature is often roughly unimodal; precipitation is skewed. Stationarity is an assumption, not a guarantee—nonstationarity matters for return periods. Time horizons span synoptic to multi-decadal; mixing them without saying so confuses weather noise with climate signals.' },
-      { id: 'cgei-cl-21-2-lab', kind: 'worked-example', title: 'Lab: window-dependent slopes', body: 'On the synthetic series, the OLS slope over 36 months is positive and small per month; the slope over the first 12 months differs because seasonality dominates the short window. Missing values must be dropped from means, not treated as zero. Fixture unit_2_1_weather_climate_timescales_check.py asserts both behaviours.' },
-      { id: 'cgei-cl-21-2-3', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Linear slope ≠ attribution', 'Short records exaggerate sampling noise', 'Subject 5 covers formal time-series inference in more depth'] },
-      { id: 'cgei-cl-21-2-stationarity', kind: 'prose', title: 'Stationarity is an assumption, not a default', body: 'A series is mean-stationary in a working sense when the expected level does not change over the period of interest; variance-stationarity requires stable spread. Climate series often violate both through trends, step changes (e.g. instrument moves), and heteroskedasticity. Treating a nonstationary series as stationary biases baselines, percentiles, and trend tests. Always state the window and the assumption.' },
-      { id: 'cgei-cl-21-2-stat-ex', kind: 'worked-example', title: 'Two-window mean difference on synthetic series', body: 'Fixture unit_2_1_stationarity_check.py compares (1) stationary noise, (2) an abrupt mean shift, and (3) a linear trend using |mean(second half) − mean(first half)|. The shift and trend exceed a threshold set from the stationary series; the stationary series does not. This is a teaching screen, not an Augmented Dickey–Fuller test and not attribution.' },
-      { id: 'cgei-cl-21-2-stat-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Synthetic series only', 'Two-window mean difference is not a formal unit-root test', 'Does not homogenise station records', 'Does not attribute warming to forcings'] },
-      { id: 'cgei-cl-21-2-percentile', kind: 'prose', title: 'Percentiles are sample ranks; return periods need a rate', body: 'An empirical percentile answers: what value has a given fraction of the sample at or below it? A return period answers a different question: for a defined event on a stated time unit (often years), how long between exceedances on average if the process is stationary? The elementary link is T = 1/AEP where AEP is the annual exceedance probability. Small samples make both unstable; nonstationarity breaks the interpretation.' },
-      { id: 'cgei-cl-21-2-rp-ex', kind: 'worked-example', title: 'Synthetic annual maxima: percentile vs return period', body: 'Fixture unit_2_1_percentiles_return_periods_check.py uses ten annual maxima. The 90th percentile is 22, but only one year exceeds 22 (AEP=0.1 so T is about 10 years), not a 90-year event. Threshold 20 is exceeded twice (AEP=0.2 so T=5 years). Nearest-rank percentiles and T=1/AEP are locked. Limits: synthetic, not GEV, not design flood guidance.' },
-      { id: 'cgei-cl-21-2-rp-callout', kind: 'callout', title: 'Common errors', tone: 'warning', items: ['Treating the p-th percentile as a p-year return level', 'Ignoring event definition and time unit', 'Using T=1/AEP under strong nonstationarity without stating the assumption', 'Over-interpreting n=10 as a reliable extreme estimate'] }],
-    activityIds: ['cgei-cl-a-21-stats'], assessmentIds: ['cgei-cl-assess-21-stats'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-1-3', kind: 'lesson', title: 'Indices, past climate and evidence language', order: 3, readiness: 'draft', level: 'L1', estimatedMinutes: 40,
-    objectives: [outcomes21[2]],
-    content: [
-      { id: 'cgei-cl-21-3-1', kind: 'prose', title: 'Climate and teleconnection indices', body: 'Indices such as ONI, IOD/DMI, SOI, NAO and MJO phase summarise large-scale variability. Construction depends on standardisation and reference periods. Correlation with local weather is not automatic causation; over-reading index maps is a common error.' },
-      { id: 'cgei-cl-21-3-2', kind: 'prose', title: 'Past climate and instrumental records', body: 'Natural drivers include orbital, solar and volcanic forcings plus internal variability. Palaeo archives (ice cores, tree rings, speleothems, sediments) differ in resolution and what they record. Instrumental global series (HadCRUT, GISTEMP, NOAAGlobalTemp, Berkeley Earth) are constructed products with uncertainty. IPCC AR6 states that human influence on the climate system is unequivocal—this unit treats that as a headline result, not a calculation the learner repeats from the synthetic series.' },
-      { id: 'cgei-cl-21-3-3', kind: 'checklist', title: 'Minimum climate-claim checklist', items: ['Variable and units', 'Domain', 'Period and baseline', 'Statistic', 'Data source and limits', 'What is not claimed'] },
-    ],
-    activityIds: ['cgei-cl-a-21-evidence'], assessmentIds: ['cgei-cl-assess-21-evidence'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-const outcomes23: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-23-moisture', statement: 'Relate humidity variables, wet-bulb temperature, and Clausius–Clapeyron scaling to humid-heat and extreme rainfall risk.', action: 'relate and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-23-pbl', statement: 'Explain diurnal boundary-layer evolution and why urban night-time temperatures depend on heat storage and stability.', action: 'explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-23-nwp', statement: 'Describe NWP resolution, parameterisation, ensembles, and the difference between initial-condition and model uncertainty.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
-];
-
-const lessons23: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-3-1', kind: 'lesson', title: 'Moist thermodynamics and humidity variables', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
-    objectives: [outcomes23[0]],
-    content: [
-      { id: 'cgei-cl-23-1-1', kind: 'prose', title: 'Hydrostatics and potential temperature', body: 'The ideal-gas law and hydrostatic balance link pressure and height in the atmosphere. Potential temperature is conserved for dry adiabatic displacement; the dry adiabatic lapse rate is about 9.8 K km⁻¹. When condensation occurs, latent heat release reduces the magnitude of the moist adiabatic lapse rate. Static stability, inversions, and CAPE summarise whether a lifted parcel accelerates—conceptual literacy, not operational forecasting skill from a single CAPE value.' },
-      { id: 'cgei-cl-23-1-2', kind: 'table', title: 'Humidity variables', headers: ['Variable', 'Meaning', 'Use'], rows: [['Vapour pressure e', 'Partial pressure of water vapour', 'Saturation comparison'], ['Specific humidity q', 'Mass of vapour per mass of moist air', 'Conserved-ish in many processes'], ['Relative humidity RH', 'e / e_sat(T)', 'Near saturation, not absolute moisture'], ['Dew point Td', 'Cooling needed for saturation at constant pressure', 'Night-time condensation risk'], ['Wet-bulb Tw', 'Temperature after evaporative cooling to saturation', 'Humid-heat stress (with T and ventilation)']] },
-      { id: 'cgei-cl-23-1-3', kind: 'worked-example', title: 'Clausius–Clapeyron scaling (~7% per K)', body: 'Saturation vapour pressure rises steeply with temperature. A rule of thumb is ~6–7% more moisture capacity per 1 K warming near typical surface temperatures. Fixture unit_2_3_atmosphere_check.py computes e_sat(T+1)/e_sat(T) − 1 for T = 300 K using the August–Roche–Magnus approximation and checks the ratio is near 6–7%. This motivates intensified short-duration rainfall potential and higher humid-heat risk—not a uniform local rainfall increase everywhere.' },
-      { id: 'cgei-cl-23-1-4', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Tw is not a complete heat-stress index alone', 'CAPE is environment-dependent and model-sensitive', 'CC scaling is about saturation capacity, not realised precipitation'] },
-    ],
-    activityIds: ['cgei-cl-a-23-moisture'], assessmentIds: ['cgei-cl-assess-23-moisture'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-3-2', kind: 'lesson', title: 'Boundary layer, fluxes, and urban nights', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes23[1]],
-    content: [
-      { id: 'cgei-cl-23-2-1', kind: 'prose', title: 'Diurnal PBL', body: 'After sunrise, surface heating grows a convective mixed layer; after sunset, a stable nocturnal layer can form near the ground. Roughness length and displacement height summarise how surfaces extract momentum. In cities, the roughness sublayer and heat storage in buildings delay cooling. Night-time urban warmth is therefore not only “more energy input at noon”—geometry, materials, and stability matter.' },
-      { id: 'cgei-cl-23-2-2', kind: 'prose', title: 'Turbulent fluxes', body: 'The surface energy balance partitions net radiation into sensible heat H, latent heat LE, and ground heat G (plus storage). The Bowen ratio H/LE is high for dry surfaces and low for evaporating ones. Urban SUHI analyses (Unit 4.5) observe surface temperature patterns; atmospheric UHI is a different quantity measured in the air.' },
-      { id: 'cgei-cl-23-2-3', kind: 'key-points', title: 'Regional circulation vocabulary', items: ['Heat lows and monsoon trough structure (conceptual)', 'Western disturbances as mid-latitude intrusions', 'Blocking and jet anomalies as predictability context', 'Not a substitute for synoptic analysis training'] },
-    ],
-    activityIds: ['cgei-cl-a-23-pbl'], assessmentIds: ['cgei-cl-assess-23-pbl'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-3-3', kind: 'lesson', title: 'Clouds, precipitation, and NWP concepts', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes23[2]],
-    content: [
-      { id: 'cgei-cl-23-3-1', kind: 'prose', title: 'Precipitation processes', body: 'Convective and stratiform systems, orographic lift, and ice-phase processes produce different spatial scales and intensities. Aerosols acting as CCN can modulate cloud properties; dust also has direct radiative effects. Cloudburst-scale events remain poorly resolved by coarse models.' },
-      { id: 'cgei-cl-23-3-2', kind: 'prose', title: 'NWP literacy', body: 'Numerical weather prediction integrates approximate equations on a grid. Processes smaller than the grid (convection, turbulence, radiation details) are parameterised. Data assimilation blends observations into the model state. Chaos limits deterministic predictability; ensembles sample initial-condition and sometimes model uncertainty. Convection-permitting grids reduce—not eliminate—parameterisation needs.' },
-      { id: 'cgei-cl-23-3-3', kind: 'callout', title: 'Honest use of model output', tone: 'warning', items: ['High resolution is not automatic skill', 'Ensemble spread is not a calibrated probability without verification', 'Parameterisation choices affect surface fluxes used in impact models'] },
-    ],
-    activityIds: ['cgei-cl-a-23-nwp'], assessmentIds: ['cgei-cl-assess-23-nwp'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-
-
-const outcomes22: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-22-energy', statement: 'Explain the greenhouse effect with a one-layer teaching model and show how latent heat alters the surface energy residual.', action: 'explain and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
-  { id: 'cgei-cl-o-22-feedback', statement: 'Distinguish major climate feedbacks and state AR6 assessed ranges for ECS and TCR without treating them as single point truths.', action: 'distinguish and state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-22-regional', statement: 'Describe monsoon, western-disturbance and land–atmosphere couplings relevant to South Asian climate at process level.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-22-uhi', statement: 'Distinguish surface and canopy UHI definitions and explain why rural-reference and day–night contrasts matter.', action: 'distinguish and explain', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-];
-
-const lessons22: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-2-1', kind: 'lesson', title: 'Radiation, greenhouse effect and surface energy', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 50,
-    objectives: [outcomes22[0]],
-    content: [
-      { id: 'cgei-cl-22-1-1', kind: 'prose', title: 'From planetary Te to a warmer surface', body: 'The planetary effective temperature Te satisfies σ Te⁴ = S(1−A)/4. A one-layer longwave absorber teaching model yields σ Ts⁴ = 2 σ Te⁴, so Ts = Te × 2^{1/4} ≈ 1.19 Te—illustrating why a greenhouse atmosphere produces a surface warmer than Te. Real atmospheres are multi-layer and spectrally selective; this is not a GCM.' },
-      { id: 'cgei-cl-22-1-lab', kind: 'worked-example', title: 'Lab: greenhouse Ts and latent-heat residual', body: 'With S=1361 W m⁻² and A=0.30, Te≈254.6 K and one-layer Ts≈302.8 K. On the surface budget Q*+Q_F=Q_H+Q_E+ΔQ_S, raising Q_E from 100 to 180 W m⁻² (more evaporative cooling) cuts the residual available for storage/sensible heat from 150 to 70 W m⁻². Fixture unit_2_2_climate_system_processes_check.py locks these results.' },
-      { id: 'cgei-cl-22-1-3', kind: 'key-points', title: 'Energy process cautions', items: ['Greenhouse gases do not “create” energy; they alter the vertical flux profile', 'Soil moisture controls evaporative cooling capacity', 'Urban materials change storage and Q_F (link Unit 1.10)'] },
-    ],
-    activityIds: ['cgei-cl-a-22-energy'], assessmentIds: ['cgei-cl-assess-22-energy'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-2-2', kind: 'lesson', title: 'Forcing, feedbacks and sensitivity', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes22[1]],
-    content: [
-      { id: 'cgei-cl-22-2-1', kind: 'prose', title: 'Feedback chains', body: 'Effective radiative forcing quantifies an imposed TOA imbalance. Feedbacks amplify or damp the response: Planck (stabilising), water-vapour (positive), lapse-rate (often negative, tightly coupled to water vapour), surface-albedo (positive when ice/snow retreats), and clouds (sign and magnitude uncertain). Ice–albedo: melt → lower A → more absorbed solar → more melt.' },
-      { id: 'cgei-cl-22-2-2', kind: 'table', title: 'AR6 sensitivity ranges (stated, not fitted here)', headers: ['Metric', 'AR6 likely range', 'Meaning'], rows: [['ECS', '2.5–4 °C', 'Equilibrium response to 2×CO₂'], ['TCR', '1.4–2.2 °C', 'Transient response at CO₂ doubling in a 1%/yr scenario']] },
-      { id: 'cgei-cl-22-2-3', kind: 'callout', title: 'Scope', tone: 'info', items: ['TCRE and remaining carbon budget link to Subject 10', 'This lesson does not recompute ECS from the synthetic series'] },
-    ],
-    activityIds: ['cgei-cl-a-22-feedback'], assessmentIds: ['cgei-cl-assess-22-feedback'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-2-3', kind: 'lesson', title: 'Circulation, monsoon and teleconnections', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes22[2]],
-    content: [
-      { id: 'cgei-cl-22-3-1', kind: 'prose', title: 'Regional process systems', body: 'General circulation organises heat and moisture transport. South Asian monsoon onset and withdrawal are driven by land–ocean thermal contrast, moisture supply and large-scale dynamics. Western disturbances deliver winter precipitation over northern Pakistan. Irrigation and dust modify regional land–atmosphere coupling. Intraseasonal active/break spells and teleconnections (ENSO, IOD, MJO) modulate rainfall—correlation is not mechanism by itself.' },
-      { id: 'cgei-cl-22-3-2', kind: 'prose', title: 'Extreme-event case template', body: 'Mechanistic case studies (e.g. major flood or heatwave years named in the TOC) should record synoptic set-up, moisture source, antecedent conditions, impacts and data used. Consistent event definitions are required before inter-annual comparison. Rapid-attribution literature is cited as an evidence class, not re-derived here.' },
-    ],
-    activityIds: ['cgei-cl-a-22-regional'], assessmentIds: ['cgei-cl-assess-22-regional'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-2-4', kind: 'lesson', title: 'Urban heat island processes', order: 4, readiness: 'draft', level: 'L2', estimatedMinutes: 35,
-    objectives: [outcomes22[3]],
-    content: [
-      { id: 'cgei-cl-22-4-1', kind: 'prose', title: 'Surface versus canopy UHI', body: 'Surface UHI is a skin-temperature contrast; canopy-layer UHI is air temperature in the urban canopy. Intensity is urban minus rural, so the rural reference controls the sign and magnitude—especially in arid cities where irrigated or bare surroundings can produce daytime surface cool islands. Day/night and seasonal contrasts differ because storage and Q_F cycles differ.' },
-      { id: 'cgei-cl-22-4-2', kind: 'key-points', title: 'Urban process controls', items: ['Materials, geometry, vegetation, anthropogenic heat', 'AC/traffic can feed electricity–heat loops', 'Local Climate Zones standardise urban form descriptors', 'Link Unit 1.10 urban energy residual practice'] },
-    ],
-    activityIds: ['cgei-cl-a-22-uhi'], assessmentIds: ['cgei-cl-assess-22-uhi'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-
-const outcomes24: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-24-station', statement: 'Apply basic station QC checks (range, step, spike, persistence) and distinguish missing values from valid zeros.', action: 'apply and distinguish', level: 'L2', competencyIds: ['cgei-comp-reproducibility', 'cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-24-products', statement: 'Distinguish in-situ observations, gridded observational products and reanalysis estimates and state why a grid-cell value is not a station observation.', action: 'distinguish and state', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-24-select', statement: 'Select a climate data product using a fitness-for-purpose checklist including variable, resolution, record length, licence and known limitations.', action: 'select and justify', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
-];
-
-const lessons24: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-4-1', kind: 'lesson', title: 'In-situ stations and quality control', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes24[0]],
-    content: [
-      { id: 'cgei-cl-24-1-1', kind: 'prose', title: 'What a station actually measures', body: 'In-situ stations provide high temporal fidelity at a point, with limited spatial representativeness. Archives such as GHCN-Daily, ISD and GSOD differ in completeness and metadata. Homogenisation addresses station moves and instrument changes; this unit introduces the need for it without implementing SNHT/Pettitt software.' },
-      { id: 'cgei-cl-24-1-lab', kind: 'worked-example', title: 'Lab: synthetic station QC', body: 'Teaching checks on a synthetic Tmax series flag range violations (65°C, 80°C), large steps, spikes, and long persistence runs. Missing values are excluded from means and must not be replaced by zero. Fixture unit_2_4_data_products_check.py locks these behaviours.' },
-      { id: 'cgei-cl-24-1-3', kind: 'key-points', title: 'QC rules of thumb', items: ['Range, step, spike, persistence, internal consistency', 'Missing ≠ 0', 'Metadata: station, height, instrument, period, time zone'] },
-    ],
-    activityIds: ['cgei-cl-a-24-qc'], assessmentIds: ['cgei-cl-assess-24-qc'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-4-2', kind: 'lesson', title: 'Gridded products and reanalysis', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes24[1]],
-    content: [
-      { id: 'cgei-cl-24-2-1', kind: 'prose', title: 'Grids are constructed estimates', body: 'Gridded temperature and precipitation products (CRU TS, Berkeley Earth, CHIRPS, IMERG, GPCC, MSWEP, …) blend gauges and/or satellites with interpolation or merging. They are products with error structures—not direct observations of every cell. Satellite retrievals estimate geophysical quantities under retrieval assumptions.' },
-      { id: 'cgei-cl-24-2-2', kind: 'prose', title: 'Reanalysis idea', body: 'Reanalysis (ERA5, ERA5-Land, MERRA-2, JRA-3Q) assimilates observations into a model to produce a physically coherent time series. Grid values are estimates; constraint strength varies by variable and era. Spread across reanalyses is an uncertainty indicator. ERA6 planning should keep analysis code product-agnostic.' },
-      { id: 'cgei-cl-24-2-lab', kind: 'worked-example', title: 'Lab: point versus cell mean', body: 'A synthetic 2×2 grid mean of 21.5°C need not equal a station reading of 25°C inside the cell—spatial support differs. Fixture unit_2_4_data_products_check.py asserts the inequality.' },
-    ],
-    activityIds: ['cgei-cl-a-24-products'], assessmentIds: ['cgei-cl-assess-24-products'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-4-3', kind: 'lesson', title: 'Choosing products and representativeness', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes24[2]],
-    content: [
-      { id: 'cgei-cl-24-3-1', kind: 'checklist', title: 'Fitness-for-purpose checklist', items: ['Variable and units', 'Spatial/temporal resolution and coverage', 'Record length and latency', 'Licence and citation', 'Known biases and regional validation', 'Missing-data pattern', 'Whether the question needs a point, a grid cell, or a canopy-scale quantity'] },
-      { id: 'cgei-cl-24-3-2', kind: 'prose', title: 'Agreement is not validation', body: 'Two products can agree and both be biased. Disagreement can reflect different methods, periods, or spatial support rather than a simple right/wrong label. Version changes and orbit drift affect satellite climate records. Document provenance before comparing series.' },
-      { id: 'cgei-cl-24-3-3', kind: 'callout', title: 'Scope honesty', tone: 'info', items: ['No live download of ERA5/CHIRPS in CI', 'Homogenisation algorithms named, not implemented', 'Unit 2.1 station/attribution gaps remain'] },
-    ],
-    activityIds: ['cgei-cl-a-24-select'], assessmentIds: ['cgei-cl-assess-24-select'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-
-const outcomes25: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-25-time', statement: 'Distinguish accumulated versus instantaneous variables and show how UTC versus local (PKT) day boundaries change daily maxima.', action: 'distinguish and demonstrate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
-  { id: 'cgei-cl-o-25-aggregate', statement: 'Aggregate climate series with variable-specific rules and completeness thresholds without treating missing as zero.', action: 'aggregate and validate', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
-  { id: 'cgei-cl-o-25-anomaly', statement: 'Compute monthly anomalies against a declared baseline and document units, baseline period and processing steps.', action: 'compute and document', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-reproducibility'] },
-];
-
-const lessons25: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-5-1', kind: 'lesson', title: 'Formats, metadata and time conventions', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes25[0]],
-    content: [
-      { id: 'cgei-cl-25-1-1', kind: 'prose', title: 'Structure before arithmetic', body: 'NetCDF/GRIB and CF conventions encode coordinates, units and standard names. Model calendars may be non-Gregorian. Accumulated fields (e.g. precipitation over a forecast step) differ from instantaneous temperatures. Longitude conventions and time zones matter: PKT = UTC+5. Deriving Tmax on UTC days versus local days can reassign a nocturnal spike across calendar dates—biasing heat-day counts if ignored.' },
-      { id: 'cgei-cl-25-1-netcdf', kind: 'prose', title: 'NetCDF-like cubes: dimensions, variables, attributes', body: 'A multidimensional climate array is not just a matrix: named dimensions (time, lat, lon) fix axis lengths; variables bind data to those dimensions; attributes carry units, standard_name/long_name, and provenance. Shape must match the product of dimension sizes. Missing units or unknown dimension names are structural defects—catch them before analysis.' },
-      { id: 'cgei-cl-25-1-netcdf-ex', kind: 'worked-example', title: 'Validate a synthetic CF-style cube', body: 'Fixture unit_2_5_netcdf_structure_check.py builds a dict cube with dimensions time=3, lat=2 and variable tas[time,lat] in kelvin with standard_name. It rejects shape mismatches, missing units, and unknown dimensions. This teaches the data model offline—it does not parse binary NetCDF/GRIB and does not require the netCDF4 library.' },
-      { id: 'cgei-cl-25-1-netcdf-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['No binary NetCDF or GRIB I/O in CI', 'Not a full CF Convention compliance suite', 'Calendars and packed data types are only named elsewhere', 'Always read product documentation for accumulation rules'] },
-      { id: 'cgei-cl-25-1-lab', kind: 'worked-example', title: 'Lab: UTC vs PKT daily max', body: 'A synthetic hourly series places a 42°C spike at UTC hour 22. Under PKT (UTC+5) that hour belongs to the next local calendar day. Fixture unit_2_5_climate_data_handling_check.py demonstrates local-day grouping. Product accumulation rules (ERA5 vs ERA5-Land) must be read before differencing—not guessed.' },
-      { id: 'cgei-cl-25-1-3a', kind: 'prose', title: 'Units: Kelvin versus Celsius', body: 'Many reanalysis fields (e.g. ERA5 2 m temperature) are stored in kelvin. Convert with T°C = TK − 273.15. Never mix kelvin series with Celsius baselines when computing anomalies. Precipitation products use kg m⁻² or mm with product-specific accumulation periods—read the variable documentation before converting units.' },
-      { id: 'cgei-cl-25-1-3b', kind: 'worked-example', title: 'Accumulated precipitation differencing (product-conditioned)', body: 'Some model/reanalysis fields accumulate over a forecast or analysis cycle. Within a cycle, interval depth is A_i − A_{i−1} when A is non-decreasing. A negative difference is not automatically zero rain: it often marks a cycle reset or a data fault and must be recorded. Prefer flagging resets (interval missing for that step, new baseline) over silent max(Δ,0) clamps unless product documentation defines clamp behaviour. Synthetic monotonic series [0, 1.5, 1.5, 4.0] → [0, 1.5, 0, 2.5]. Series with reset [0, 1.5, 3.0, 0.2, 1.0] flags the drop. Fixture unit_2_5_climate_data_handling_check.py locks both. ERA5 vs ERA5-Land step definitions still require product docs.' },
-      { id: 'cgei-cl-25-1-3', kind: 'key-points', title: 'Metadata checklist', items: ['Variable, units, standard_name', 'Time coordinate and calendar', 'Accumulated vs instantaneous', 'UTC vs local day definition', 'Kelvin vs Celsius for temperature fields'] },
-    ],
-    activityIds: ['cgei-cl-a-25-time'], assessmentIds: ['cgei-cl-assess-25-time'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-5-2', kind: 'lesson', title: 'Aggregation, missingness and anomalies', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes25[1], outcomes25[2]],
-    content: [
-      { id: 'cgei-cl-25-2-1', kind: 'prose', title: 'Variable-specific aggregation', body: 'Temperature means and precipitation sums are different operations. Completeness thresholds decide whether a monthly mean is publishable. Missing values stay missing—never coerced to zero for temperature. Anomalies use a declared baseline: A_t = X_t − X̄_baseline,m(t). Baselines (e.g. 1991–2020) must be fixed before analysis.' },
-      { id: 'cgei-cl-25-2-lab', kind: 'worked-example', title: 'Lab: completeness and anomaly', body: 'A month with only 2/10 valid days fails an 80% completeness rule (returns incomplete). Dense data mean is 4.5. Anomaly of 35°C against a July baseline of 32°C is +3°C. Fixture unit_2_5_climate_data_handling_check.py locks these results.' },
-      { id: 'cgei-cl-25-2-3', kind: 'callout', title: 'xarray workflow pointer', tone: 'info', items: ['Labelled arrays, groupby, resample, weighted means are the production pattern', 'Area-weighting by cos(latitude) matters for regional means', 'This fixture stays stdlib; Subject 5/Unit 5.12 deepen xarray pipelines'] },
-    ],
-    activityIds: ['cgei-cl-a-25-aggregate'], assessmentIds: ['cgei-cl-assess-25-aggregate'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-5-3', kind: 'lesson', title: 'Reproducible workflow and Multan case template', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes25[2]],
-    content: [
-      { id: 'cgei-cl-25-3-1', kind: 'prose', title: 'From inventory to analysis-ready table', body: 'A defensible workflow: inventory metadata → validate units/time → QC gaps/duplicates → aggregate with completeness rules → build fixed-baseline anomalies → align sources → record provenance (version, extent, access date, licence, checksum). Cloud access (Zarr, CDS API) requires pinned clients and cited requests—CI here does not call CDS.' },
-      { id: 'cgei-cl-25-3-2', kind: 'prose', title: 'Multan monsoon/heat case (template)', body: 'Define region mask and justify ERA5 vs ERA5-Land. Fix variables (2 m temperature, dew point, precipitation, wind), units, accumulation and UTC vs PKT daily definitions. Derive local-day Tmax/Tmin and rainfall totals. Use a pre-declared 1991–2020 baseline. Validate against stations or a second product. Do not equate rainfall anomalies with flood causation without hydrology and exposure.' },
-      { id: 'cgei-cl-25-3-3', kind: 'checklist', title: 'Processing record fields', items: ['Source product and version', 'Spatial/temporal extent', 'UTC vs local aggregation rule', 'Baseline period', 'Completeness threshold', 'Licence and citation'] },
-    ],
-    activityIds: ['cgei-cl-a-25-workflow'], assessmentIds: ['cgei-cl-assess-25-workflow'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-
-const outcomes26: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-26-threshold', statement: 'Define absolute and percentile thresholds with a declared baseline and count exceedances and spell durations without treating each day as an independent event without justification.', action: 'define and count', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
-  { id: 'cgei-cl-o-26-trend', statement: 'Estimate a linear and Sen slope with explicit units and state why autocorrelation affects uncertainty even when the slope estimate is unchanged.', action: 'estimate and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-26-inference', statement: 'Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and return-period schedules.', action: 'report with limits', level: 'L2', competencyIds: ['cgei-comp-uncertainty', 'cgei-comp-reproducibility'] },
-];
-
-const lessons26: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-6-1', kind: 'lesson', title: 'Thresholds, heat and rainfall extremes', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes26[0]],
-    content: [
-      { id: 'cgei-cl-26-1-1', kind: 'prose', title: 'Defining an extreme', body: 'Extremes need a threshold: absolute (e.g. 40°C) or percentile-based (e.g. 90th percentile of a reference period). Frequency, intensity, duration, timing and spatial extent answer different questions. Changing the baseline changes percentile thresholds and therefore counts. Heat metrics (percentile spells, tropical nights, heat index, UTCI, WBGT) require different inputs. ETCCDI rainfall indices (Rx1day, R95pTOT, CDD, …) are resolution-sensitive. Daily data cannot resolve sub-daily intensities.' },
-      { id: 'cgei-cl-26-1-r10mm', kind: 'prose', title: 'R10mm: heavy precipitation days (pedagogical)', body: 'ETCCDI-style R10mm counts days with precipitation at least 10 mm. Units are days over the stated period. Comparison is inclusive (>= 10). Missing observations must not be coerced to 0 mm (that would invent dry days and bias rates if you later divide by period length). This teaching implementation uses a short synthetic daily series—it is not a complete ETCCDI software stack and is not station-validated.' },
-      { id: 'cgei-cl-26-1-r10mm-ex', kind: 'worked-example', title: 'Synthetic 10-day series', body: 'Series mm/day: [0, 5, 10, 12.5, 9.9, missing, 20, 0, 10, 3]. Qualifying days: 10, 12.5, 20, 10 → R10mm = 4. The value 9.9 does not qualify. Missing is skipped. Fixture unit_2_6_etccdi_r10mm_check.py locks the count, the inclusive boundary at 10, rejection of negatives, and empty-series failure.' },
-      { id: 'cgei-cl-26-1-r10mm-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Pedagogical R10mm only — not full ETCCDI compliance', 'Synthetic daily values only', 'Not a precipitation climate-change attribution', 'Resolution and gauge density affect real indices'] },
-      { id: 'cgei-cl-26-1-r10mm-complete', kind: 'prose', title: 'Completeness: a count needs a denominator', body: 'R10mm from available days can look identical for two periods that differ sharply in observation coverage. Completeness = observed_valid / expected_n for a declared period. A project teaching rule warns when completeness < 0.80; that threshold is pedagogical, not an official ETCCDI requirement. Zero mm is an observation (dry day), not missing. List-level checks do not detect calendar gaps or duplicate dates.' },
-      { id: 'cgei-cl-26-1-r10mm-complete-ex', kind: 'worked-example', title: 'Same R10mm, different coverage', body: 'Series A (10 slots, 1 missing): R10mm=4, completeness=0.90, warning off. Series B with four wet days and six missing: R10mm=4, completeness=0.40, warning on. Fixture unit_2_6_etccdi_r10mm_check.py locks both cases, the 0.80 boundary, and zero-vs-missing.' },
-      { id: 'cgei-cl-26-1-cdd', kind: 'prose', title: 'CDD: consecutive dry days (pedagogical)', body: 'A dry day is precipitation strictly below 1.0 mm. A wet day is a valid observation at or above 1.0 mm. Missing is neither dry nor wet and ends a confirmed dry run. CDD_confirmed is the longest consecutive sequence of observed dry days. When any day is missing, the true period maximum may exceed CDD_confirmed—report incomplete rather than inventing zeros to bridge gaps.' },
-      { id: 'cgei-cl-26-1-cdd-ex', kind: 'worked-example', title: 'Spells, gaps, and the zero-fill error', body: 'Complete series [0, 0.5, 2, 0, 0.2, 0] has CDD_confirmed=3. Series [0, 0, missing, 0, 0] has two runs of length 2 → CDD_confirmed=2 and incomplete=true. Filling the missing day with 0 mm would falsely yield 5. Fixture unit_2_6_etccdi_cdd_check.py locks these results and the 1.0 mm boundary.' },
-      { id: 'cgei-cl-26-1-cdd-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Pedagogical CDD — not verified full ETCCDI/ClimPACT', 'List-level only; not calendar-aware', 'Incomplete records: true maximum may be larger', 'Synthetic data only'] },
-      { id: 'cgei-cl-26-1-batch', kind: 'prose', title: 'Extremes package: multiple indices, one discipline', body: 'Rainfall and heat extremes share rules: define the threshold and units, skip missing rather than invent zeros, and separate confirmed spells from unknown true maxima. Complementary pedagogical indices—Rx1day (max daily precip), CWD (wet spells), SU25/TR (absolute temperature counts), and simple heatwave spell-days—answer different questions. Baseline choice changes percentile thresholds. Bootstrap SE and Cohen d are descriptive aids, not attribution. Always report baseline, product, period, index, units, and limitations.' },
-      { id: 'cgei-cl-26-1-batch-ex', kind: 'worked-example', title: 'Batch fixture locks', body: 'Fixture unit_2_6_extremes_batch_check.py locks Rx1day=40 on a synthetic series, tropical nights (Tmin>20) = 2, summer days (Tmax>25) = 2, CWD_confirmed=2 with incomplete=true when a gap exists, two-half 90th percentiles 13 vs 23, bootstrap SE > 0, Cohen d for shifted groups, heatwave spell-days=3 for a 3-day run above 35°C, and one compound hot-dry day. Reporting helper flags missing metadata keys.' },
-      { id: 'cgei-cl-26-1-batch-callout', kind: 'callout', title: 'Batch limits', tone: 'warning', items: ['All series synthetic', 'Not full ETCCDI/ClimPACT suite', 'Bootstrap LCG is pedagogical not production RNG', 'Compound count is co-occurrence only — not dynamical dependence', 'No real-station validation'] },
-      { id: 'cgei-cl-26-1-lab', kind: 'worked-example', title: 'Lab: percentile exceedance and spell length', body: 'On a 10-year synthetic annual series 30, 30.2, …, 31.8°C, the nearest-rank 90th percentile is 31.6°C with one exceedance. A binary spell pattern 0,1,1,1,0,1,0 has max duration 3. Fixture unit_2_6_extremes_trend_analysis_check.py locks these results. Consecutive days in one heatwave are not independent events for return-period counting without declustering.' },
-      { id: 'cgei-cl-26-1-3', kind: 'key-points', title: 'Extreme-definition cautions', items: ['Declare baseline and percentile convention', 'Duration ≠ number of threshold crossings', 'Drought indices SPI/SPEI answer timescale-specific questions'] },
-    ],
-    activityIds: ['cgei-cl-a-26-threshold'], assessmentIds: ['cgei-cl-assess-26-threshold'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-6-2', kind: 'lesson', title: 'Trend estimation and dependence', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes26[1]],
-    content: [
-      { id: 'cgei-cl-26-2-1', kind: 'prose', title: 'Slopes with units', body: 'A linear OLS slope against time is an estimate of average change per year (or per decade)—not attribution. Sen’s slope (median of pairwise slopes) is robust to outliers. Mann–Kendall tests the presence of a monotonic trend; serial correlation reduces effective sample size and can inflate significance if ignored. Bootstrap/block-bootstrap and seasonal Mann–Kendall address dependence and seasonality at more advanced depth.' },
-      { id: 'cgei-cl-26-2-lab', kind: 'worked-example', title: 'Lab: OLS and Sen slopes', body: 'For T_t = 30 + 0.2 t (°C), t=0…9, both OLS and Sen slopes equal 0.2°C/year. Fixture unit_2_6_extremes_trend_analysis_check.py asserts both. Autocorrelation is not present in this noise-free series; real climate series need dependence-aware uncertainty even when the slope formula is unchanged.' },
-      { id: 'cgei-cl-26-2-3', kind: 'callout', title: 'What is deferred', tone: 'warning', items: ['Full Mann–Kendall p-value tables and variance correction', 'Field significance / FDR for maps (Wilks)', 'GEV/GPD fitting (Unit 2.7 Support)'] },
-    ],
-    activityIds: ['cgei-cl-a-26-trend'], assessmentIds: ['cgei-cl-assess-26-trend'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-6-3', kind: 'lesson', title: 'Return periods and inference discipline', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes26[2]],
-    content: [
-      { id: 'cgei-cl-26-3-1', kind: 'prose', title: 'Probability is not a schedule', body: 'Under stationarity and independence, an annual exceedance probability p corresponds to return period T ≈ 1/p years—not a promise the event occurs once every T years on a fixed calendar. Empirical T from k events in n years is T=n/k; when T ≫ n the estimate is weakly constrained. Non-stationarity breaks classical return-period interpretation.' },
-      { id: 'cgei-cl-26-3-lab', kind: 'worked-example', title: 'Lab: empirical return period', body: 'With 2 events in 10 years, T=5 years under the empirical annual rate. Fixture unit_2_6_extremes_trend_analysis_check.py locks T=5. This is not a fitted GEV return level.' },
-      { id: 'cgei-cl-26-3-2', kind: 'checklist', title: 'Reporting discipline', items: ['Variable, units, product, domain', 'Period, baseline, season definition', 'Method and assumptions', 'Effect size not only p-value', 'Short records cannot alone prove long-term climate change', 'Reanalysis trends describe the product as well as the climate', 'Rainfall extremes ≠ flood causation without hydrology/exposure'] },
-    ],
-    activityIds: ['cgei-cl-a-26-inference'], assessmentIds: ['cgei-cl-assess-26-inference'], resourceIds: [], deliverableIds: [],
-  },
-];
-
-
-const outcomes28: CurriculumOutcome[] = [
-  { id: 'cgei-cl-o-28-seasons', statement: 'Justify local seasonal definitions for Pakistan analyses and distinguish PMD-style season bins from default JJA without treating ENSO/IOD as one-line local causes.', action: 'justify and distinguish', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-28-multan', statement: 'Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent.', action: 'describe', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
-  { id: 'cgei-cl-o-28-evidence', statement: 'Identify appropriate national data institutions and evidence types, documenting access limits without fabricating restricted observations.', action: 'identify and document', level: 'L2', competencyIds: ['cgei-comp-reproducibility'] },
-];
-
-const lessons28: CurriculumLesson[] = [
-  {
-    id: 'cgei-cl-lesson-2-8-1', kind: 'lesson', title: 'Seasons and regional drivers', order: 1, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes28[0]],
-    content: [
-      { id: 'cgei-cl-28-1-1', kind: 'prose', title: 'Local seasons, not default JJA', body: 'Pakistan analyses often need season definitions justified by local timing—not automatic June–August (JJA). A PMD-style teaching partition groups winter, pre-monsoon, monsoon and post-monsoon months; monsoon onset/withdrawal timing varies by year and location. Fixture unit_2_8_regional_climate_literacy_check.py labels months under this teaching map and shows September is monsoon-style here while not in JJA.' },
-      { id: 'cgei-cl-28-1-2', kind: 'prose', title: 'Drivers with scale discipline', body: 'Monsoon moisture transport, western disturbances (cool-season precipitation over northern Pakistan), and Indus snow/glacier melt timing structure the annual cycle. ENSO and IOD modulate variability but are not one-line causes of every local anomaly. Irrigation canals and the Indus system modify land–atmosphere fluxes and must be treated as climate-relevant human systems, not scenery.' },
-      { id: 'cgei-cl-28-1-3', kind: 'key-points', title: 'Seasonal literacy', items: ['Declare the season definition used', 'JJA ≠ local monsoon definition by default', 'Teleconnections are context, not automatic attribution'] },
-    ],
-    activityIds: ['cgei-cl-a-28-seasons'], assessmentIds: ['cgei-cl-assess-28-seasons'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-8-2', kind: 'lesson', title: 'Heat, air-quality seasons and Multan context', order: 2, readiness: 'draft', level: 'L2', estimatedMinutes: 45,
-    objectives: [outcomes28[1]],
-    content: [
-      { id: 'cgei-cl-28-2-1', kind: 'prose', title: 'Hazard seasons', body: 'Pre-monsoon heat, hot nights and dust differ from winter fog/smog seasons, dust storms, thunderstorm outflows, cold waves and frost. Crop-residue burning (rice stubble in autumn; wheat residue in spring) is an air-quality driver overlapping climate-sensitive seasons. These are process categories—quantitative rankings for specific districts require sourced data, not assumed hierarchy.' },
-      { id: 'cgei-cl-28-2-2', kind: 'prose', title: 'Multan and southern Punjab setting', body: 'Multan sits on an arid plain with irrigated surroundings and a river/canal network. Station series represent point conditions; gridded products and reanalysis estimate spatial fields with their own support and biases (Units 2.4–2.5). Typical analyses must declare baseline (e.g. 1991–2020) and period before computing anomalies or extremes (Units 2.1, 2.6). No fabricated Multan station means are claimed in this lesson.' },
-      { id: 'cgei-cl-28-2-3', kind: 'callout', title: 'Evidence discipline', tone: 'warning', items: ['Synthetic series in fixtures are not Multan observations', 'Do not equate a hot season with a proven long-term trend', 'Grid-cell averages are not every farm field'] },
-    ],
-    activityIds: ['cgei-cl-a-28-multan'], assessmentIds: ['cgei-cl-assess-28-multan'], resourceIds: [], deliverableIds: [],
-  },
-  {
-    id: 'cgei-cl-lesson-2-8-3', kind: 'lesson', title: 'Data institutions and access practice', order: 3, readiness: 'draft', level: 'L2', estimatedMinutes: 40,
-    objectives: [outcomes28[2]],
-    content: [
-      { id: 'cgei-cl-28-3-1', kind: 'prose', title: 'Who holds what', body: 'Pakistan Meteorological Department (PMD) holds core meteorological records—public versus restricted access must be verified per product. Related institutions include SUPARCO, NDMA, PDMA Punjab, PBS geography, PMD Flood Forecasting Division, WAPDA, IRSA, Punjab Irrigation Department, PCRWR, PARC, Survey of Pakistan, PBS digital census products, and ICIMOD for HKH context. List membership is not a data download.' },
-      { id: 'cgei-cl-28-3-2', kind: 'prose', title: 'Access trail', body: 'When local series are unavailable, global layers (reanalysis, satellite blends) remain usable with honest representativeness limits. Document what is open, on request, or paid; keep request trails and licences. Local knowledge and farmer observation complement but do not replace instrumental series. Evidence tags: principle, assessment finding, observed result, synthetic example, unverified hypothesis—keep them separate.' },
-      { id: 'cgei-cl-28-3-3', kind: 'checklist', title: 'Regional literacy brief fields', items: ['Defined geography (e.g. Multan district or station radius)', 'Season definition', 'Variable and spatial support', 'Evidence type and source class', 'Period and baseline', 'Limits and next data need'] },
-    ],
-    activityIds: ['cgei-cl-a-28-evidence'], assessmentIds: ['cgei-cl-assess-28-evidence'], resourceIds: [], deliverableIds: [],
-  },
-];
-
+// Subject 2 outcomes/lessons/units: see ./climate-science/subject-2-curriculum.ts
+// (imported as outcomes21…outcomes213, lessons21…lessons213, subject2Units, subject2Lessons)
 
 const outcomes41: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-41-radiometry', statement: 'Distinguish radiance, reflectance, emissivity and brightness temperature, and compute Planck B_λ and a brightness-temperature inversion for a synthetic spectral point.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
@@ -3873,7 +3584,7 @@ const lessons135: CurriculumLesson[] = [
   },
 ];
 
-const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...lessons21, ...lessons22, ...lessons24, ...lessons25, ...lessons26, ...lessons28, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons67, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136, ...lessons133, ...lessons135, ...lessons123, ...lessons23, ...lessons35, ...lessons36, ...lessons39, ...lessons411, ...lessons412, ...lessons87, ...lessons88, ...lessons89, ...lessons8d];
+const lessons: CurriculumLesson[] = [...lessons11, ...lessons110, ...subject2Lessons, ...lessons41, ...lessons42, ...lessons43, ...lessons44, ...lessons45, ...lessons46, ...lessons47, ...lessons48, ...lessons49, ...lessons410, ...lessons31, ...lessons32, ...lessons33, ...lessons34, ...lessons51, ...lessons52, ...lessons53, ...lessons54, ...lessons55, ...lessons56, ...lessons57, ...lessons58, ...lessons59, ...lessons510, ...lessons511, ...lessons512, ...lessons61, ...lessons62, ...lessons63, ...lessons64, ...lessons65, ...lessons66, ...lessons67, ...lessons71, ...lessons73, ...lessons75, ...lessons81, ...lessons82, ...lessons83, ...lessons86, ...lessons91, ...lessons93, ...lessons94, ...lessons101, ...lessons102, ...lessons106, ...lessons111, ...lessons112, ...lessons115, ...lessons121, ...lessons122, ...lessons127, ...lessons131, ...lessons132, ...lessons136, ...lessons133, ...lessons135, ...lessons123, ...lessons35, ...lessons36, ...lessons39, ...lessons411, ...lessons412, ...lessons87, ...lessons88, ...lessons89, ...lessons8d];
 
 const legacyCurriculumQuestions: CurriculumQuestion[] = legacyDataScienceQuestions.flatMap((question) => {
   if (question.type !== 'single' || typeof question.correctAnswer !== 'number') return [];
@@ -4120,14 +3831,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.2 and 2.4–2.6 plus 2.8 cover foundations through regional climate literacy. Units 2.3/2.7 Support not yet implemented. Draft slice only.',
+      overview: 'Units 2.1–2.13 cover weather–climate foundations, observations, extremes, EVT, regional literacy, models/projections, attribution, ML/services, and S2S outlooks. Content is review-level; legacy topic bridge remains until migration.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
-      outcomes: [...outcomes21, ...outcomes22, ...outcomes24, ...outcomes25, ...outcomes26, ...outcomes28],
+      outcomes: subject2Outcomes,
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
-      unitIds: ['cgei-cl-unit-2-1', 'cgei-cl-unit-2-2', 'cgei-cl-unit-2-3', 'cgei-cl-unit-2-4', 'cgei-cl-unit-2-5', 'cgei-cl-unit-2-6', 'cgei-cl-unit-2-8'],
+      unitIds: subject2Units.map((unit) => unit.id),
       projectIds: [],
       resourceIds: [],
-      estimatedHours: 6,
+      estimatedHours:  40,
     },
     {
       id: 'cgei-subject-4-remote-sensing',
@@ -4408,84 +4119,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
       sourceDocument: 'Master Study TOC Subject 1 Unit 1.10 — Coupled human–natural systems (Core)',
       notes: ['Core unit after 1.1; Support units 1.2–1.9 not required by TOC order for this Core path.', 'Urban SEB and compound flag are teaching models only.'],
     },
-    {
-      id: 'cgei-cl-unit-2-1', code: '2.1', title: 'Weather, climate, and time scales', order: 201, kind: 'unit', readiness: 'draft',
-      summary: 'Distinguish weather from climate, compute anomalies against stated normals, and interpret variability and trends without confusing description with attribution.',
-      estimatedHours: 6, prerequisites: ['Unit 1.1'], outcomes: outcomes21,
-      lessonIds: lessons21.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-21-baseline', 'cgei-cl-a-21-stats', 'cgei-cl-a-21-evidence'],
-      assessmentIds: ['cgei-cl-assess-21-baseline', 'cgei-cl-assess-21-stats', 'cgei-cl-assess-21-evidence'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.1 — Weather, climate, and time scales (Core)',
-      notes: ['Core unit; synthetic series only; attribution is headline-level, not computed here.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-2', code: '2.2', title: 'Climate system processes', order: 202, kind: 'unit', readiness: 'draft',
-      summary: 'Explain greenhouse and surface-energy processes, climate feedbacks and sensitivity ranges, regional monsoon/WD systems, and urban heat-island definitions.',
-      estimatedHours: 8, prerequisites: ['Unit 2.1', 'Unit 1.1'], outcomes: outcomes22,
-      lessonIds: lessons22.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-22-energy', 'cgei-cl-a-22-feedback', 'cgei-cl-a-22-regional', 'cgei-cl-a-22-uhi'],
-      assessmentIds: ['cgei-cl-assess-22-energy', 'cgei-cl-assess-22-feedback', 'cgei-cl-assess-22-regional', 'cgei-cl-assess-22-uhi'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.2 — Climate system processes (Core)',
-      notes: ['One-layer greenhouse is instructional; ECS/TCR ranges stated from AR6, not fitted.', 'Extreme-event cases use template language, not full attribution reanalysis.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-4', code: '2.4', title: 'Observations, reanalysis, and gridded products', order: 204, kind: 'unit', readiness: 'draft',
-      summary: 'Quality-control station series, distinguish observations from gridded products and reanalysis, and select datasets with an explicit fitness-for-purpose checklist.',
-      estimatedHours: 7, prerequisites: ['Unit 2.1'], outcomes: outcomes24,
-      lessonIds: lessons24.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-24-qc', 'cgei-cl-a-24-products', 'cgei-cl-a-24-select'],
-      assessmentIds: ['cgei-cl-assess-24-qc', 'cgei-cl-assess-24-products', 'cgei-cl-assess-24-select'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.4 — Observations, reanalysis, and gridded products (Core)',
-      notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.', 'Homogenisation named but not implemented.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-3', subjectId: 'cgei-climate-science', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'draft',
-      summary: 'Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.',
-      estimatedHours: 10, prerequisites: ['Unit 2.1', 'Unit 2.2'], outcomes: outcomes23,
-      lessonIds: lessons23.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-23-moisture', 'cgei-cl-a-23-pbl', 'cgei-cl-a-23-nwp'],
-      assessmentIds: ['cgei-cl-assess-23-moisture', 'cgei-cl-assess-23-pbl', 'cgei-cl-assess-23-nwp'],
-      resourceIds: [],
-      deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.3',
-      notes: ['Support Unit 2.3. Synthetic Clausius–Clapeyron check; no NWP model run in CI.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'draft',
-      summary: 'Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.',
-      estimatedHours: 8, prerequisites: ['Unit 2.4'], outcomes: outcomes25,
-      lessonIds: lessons25.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-25-time', 'cgei-cl-a-25-aggregate', 'cgei-cl-a-25-workflow'],
-      assessmentIds: ['cgei-cl-assess-25-time', 'cgei-cl-assess-25-aggregate', 'cgei-cl-assess-25-workflow'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.5 — Climate data handling (Core)',
-      notes: ['Synthetic handling only; no CDS/ERA5 download in CI.', 'Multan case is a workflow template, not a validated local study.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-6', code: '2.6', title: 'Extremes and trend analysis', order: 206, kind: 'unit', readiness: 'draft',
-      summary: 'Define thresholds and extreme indices, estimate trends with explicit units and dependence awareness, and report results without overstating return periods or attribution.',
-      estimatedHours: 8, prerequisites: ['Unit 2.5'], outcomes: outcomes26,
-      lessonIds: lessons26.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-26-threshold', 'cgei-cl-a-26-trend', 'cgei-cl-a-26-inference'],
-      assessmentIds: ['cgei-cl-assess-26-threshold', 'cgei-cl-assess-26-trend', 'cgei-cl-assess-26-inference'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.6 — Extremes and trend analysis (Core)',
-      notes: ['OLS/Sen and empirical T only; no GEV/GPD or field significance in this slice.'],
-    },
-    {
-      id: 'cgei-cl-unit-2-8', code: '2.8', title: 'Regional climate literacy (Pakistan / southern Punjab)', order: 208, kind: 'unit', readiness: 'draft',
-      summary: 'Interpret Pakistan and southern Punjab seasonal climate context, Multan land–climate setting, and data-institution access practice with disciplined evidence types.',
-      estimatedHours: 7, prerequisites: ['Unit 2.1', 'Unit 2.4', 'Unit 2.6'], outcomes: outcomes28,
-      lessonIds: lessons28.map((lesson) => lesson.id),
-      activityIds: ['cgei-cl-a-28-seasons', 'cgei-cl-a-28-multan', 'cgei-cl-a-28-evidence'],
-      assessmentIds: ['cgei-cl-assess-28-seasons', 'cgei-cl-assess-28-multan', 'cgei-cl-assess-28-evidence'],
-      resourceIds: [], deliverableIds: [],
-      sourceDocument: 'Master Study TOC Subject 2 Unit 2.8 — Regional climate literacy (Pakistan / southern Punjab) (Core)',
-      notes: ['No fabricated PMD station statistics; synthetic season helper only.', 'Institution list is navigational literacy, not a data portal.'],
-    },
+    ...subject2Units,
     {
       id: 'cgei-rs-unit-4-1', code: '4.1', title: 'Remote sensing physics and sensors', order: 401, kind: 'unit', readiness: 'draft',
       summary: 'Explain radiometric quantities and Planck/Wien relations, resolve resolution trade-offs, and select sensing modes and product levels for environmental questions.',
