@@ -261,7 +261,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-13-2",
       "cgei-cl-lesson-2-13-3"
     ]
-  }
+  },
   {
     "id": "cgei-ds-unit-5-1",
     "code": "5.1",
