@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "generatedAt": "1970-01-01T00:00:00.000Z",
+  "counts": {
+    "subjects": 0,
+    "units": 0,
+    "lessons": 0,
+    "activities": 0,
+    "assessments": 0,
+    "questions": 0,
+    "resources": 0,
+    "deliverables": 0
+  },
+  "arrays": {
+    "subjectIds": [],
+    "unitIds": [],
+    "lessonIds": [],
+    "activityIds": [],
+    "assessmentIds": [],
+    "questionIds": [],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  "entityHashes": {}
+}

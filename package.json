@@ -37,7 +37,9 @@
     "check:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts --check",
     "check:cgei": "node scripts/check-cgei.mjs",
     "test:unit-fixtures": "python3 scripts/run-unit-fixture-checks.py",
-    "check:cgei-legacy-freeze": "bash scripts/check-cgei-legacy-freeze.sh"
+    "check:cgei-legacy-freeze": "bash scripts/check-cgei-legacy-freeze.sh",
+    "snapshot:cgei-registry": "tsx --tsconfig tsconfig.app.json scripts/cgei-registry-snapshot.ts",
+    "check:cgei-registry": "tsx --tsconfig tsconfig.app.json scripts/cgei-registry-snapshot.ts --check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
