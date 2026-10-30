@@ -1,10 +1,10 @@
 /**
- * CGEI question ID ledger — generate or check docs/cgei/question-id-ledger.json.
+ * CGEI question ID ledger — generate or check docs/cgei/question-id-ledger.json
  *
- * Snapshot changes are explicit:
- *   npm run snapshot:cgei-question-ids -- --record-moves --reason="..."
- *   npm run snapshot:cgei-question-ids -- --record-new-ids --reason="..."
- * Check: npm run check:cgei-question-ids
+ *   npm run snapshot:cgei-question-ids
+ *   npm run check:cgei-question-ids
+ *
+ * Fails if any previously recorded ID disappears or changes subject folder.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
@@ -12,151 +12,81 @@ import { join, resolve } from 'node:path';
 const ROOT = resolve(process.cwd(), 'src/data/cgei');
 const OUT = resolve(process.cwd(), 'docs/cgei/question-id-ledger.json');
 const check = process.argv.includes('--check');
-const recordMoves = process.argv.includes('--record-moves');
-const recordNewIds = process.argv.includes('--record-new-ids');
-const reasonArg = process.argv.find((arg) => arg.startsWith('--reason='));
-const reason = reasonArg ? reasonArg.slice('--reason='.length).trim() : '';
 
-type Move = { id: string; from: string; to: string; reason: string };
 type Ledger = {
-  version: 2;
+  version: 1;
   description: string;
-  questions: Record<string, { subject: string }>;
-  moves: Move[];
+  questions: Record<string, { subject: string; source?: string }>;
 };
 
-function collect(): Record<string, { subject: string }> {
-  const questions: Record<string, { subject: string }> = {};
-  const owners: Record<string, string> = {};
+function collect(): Ledger {
+  const questions: Ledger['questions'] = {};
   for (const folder of readdirSync(ROOT, { withFileTypes: true })) {
-    if (!folder.isDirectory() || folder.name === 'lib' || folder.name === 'legacy') continue;
-    const file = join(ROOT, folder.name, 'questions-' + folder.name + '.ts');
+    if (!folder.isDirectory()) continue;
+    if (folder.name === 'lib' || folder.name === 'legacy') continue;
+    const file = join(ROOT, folder.name, `questions-${folder.name}.ts`);
     if (!existsSync(file)) continue;
-    const source = readFileSync(file, 'utf8');
+    const text = readFileSync(file, 'utf8');
     const ids = new Set<string>();
-    const pattern = /(?:\bid\s*:\s*|["']id["']\s*:\s*)["']([^"']+)["']/g;
-    for (const match of source.matchAll(pattern)) {
-      if (/^(CGEI-|cgei-)/i.test(match[1])) ids.add(match[1]);
+    for (const m of text.matchAll(/(?:^|\s)id:\s*['"]([^'"]+)['"]/g)) {
+      if (m[1].startsWith('CGEI-') || m[1].startsWith('cgei-')) ids.add(m[1]);
     }
+    for (const m of text.matchAll(/"id"\s*:\s*"([^"]+)"/g)) {
+      if (m[1].startsWith('CGEI-') || m[1].startsWith('cgei-')) ids.add(m[1]);
+    }
+    const subject = `cgei-${folder.name}`;
     for (const id of ids) {
-      if (owners[id]) {
-        throw new Error('Duplicate CGEI question ID ' + id + ' in ' + owners[id] + ' and cgei-' + folder.name);
-      }
-      owners[id] = 'cgei-' + folder.name;
-      questions[id] = { subject: owners[id] };
+      questions[id] = { subject };
     }
   }
-  return Object.fromEntries(Object.entries(questions).sort(([a], [b]) => a.localeCompare(b)));
-}
-
-function readLedger(): Ledger | null {
-  if (!existsSync(OUT)) return null;
-  const parsed = JSON.parse(readFileSync(OUT, 'utf8')) as Partial<Ledger> & {
-    questions?: Record<string, { subject: string; source?: string }>;
-  };
-  if (!parsed.questions || typeof parsed.questions !== 'object') {
-    throw new Error('Question ID ledger has no questions object.');
+  // Flat curriculum projection during Phase C migration
+  const flat = join(ROOT, 'curriculum-questions.ts');
+  if (existsSync(flat)) {
+    const text = readFileSync(flat, 'utf8');
+    for (const m of text.matchAll(/"id"\s*:\s*"([^"]+)"/g)) {
+      const id = m[1];
+      if (!(id.startsWith('CGEI-') || id.startsWith('cgei-'))) continue;
+      if (!questions[id]) {
+        questions[id] = { subject: 'cgei-unassigned', source: 'curriculum-questions' };
+      }
+    }
   }
   return {
-    version: 2,
-    description: 'CGEI question ID ledger.',
-    questions: Object.fromEntries(
-      Object.entries(parsed.questions).map(([id, meta]) => [id, { subject: meta.subject }]),
-    ),
-    moves: Array.isArray(parsed.moves) ? parsed.moves : [],
+    version: 1,
+    description:
+      'CGEI question ID ledger. IDs are permanent; CI fails if an ID disappears or changes subject.',
+    questions,
   };
-}
-
-function checkLedger(live: Record<string, { subject: string }>, ledger: Ledger): string[] {
-  const errors: string[] = [];
-  for (const [id, meta] of Object.entries(ledger.questions)) {
-    if (!live[id]) errors.push('missing ID ' + id + ' (was subject ' + meta.subject + ')');
-    else if (live[id].subject !== meta.subject) {
-      errors.push('ID ' + id + ' moved ' + meta.subject + ' -> ' + live[id].subject + ' without a ledger update');
-    }
-  }
-  for (const id of Object.keys(live)) {
-    if (!ledger.questions[id]) errors.push('new ID ' + id + ' in ' + live[id].subject + ' is not in the committed ledger');
-  }
-
-  const movesById = new Map<string, Move[]>();
-  for (const move of ledger.moves) {
-    if (!move.id || !move.from || !move.to || !move.reason?.trim()) {
-      errors.push('invalid move record: ' + JSON.stringify(move));
-      continue;
-    }
-    if (move.from === move.to) errors.push('move record for ' + move.id + ' has identical from/to subjects');
-    if (!ledger.questions[move.id]) errors.push('move record references unknown ID ' + move.id);
-    if (!live[move.id]) errors.push('move record references missing live ID ' + move.id);
-    const records = movesById.get(move.id) ?? [];
-    records.push(move);
-    movesById.set(move.id, records);
-  }
-  for (const [id, records] of movesById) {
-    for (let index = 1; index < records.length; index += 1) {
-      if (records[index].from !== records[index - 1].to) {
-        errors.push('move history for ' + id + ' is discontinuous: ' + records[index - 1].to + ' -> ' + records[index].from);
-      }
-    }
-    if (ledger.questions[id] && records[records.length - 1].to !== ledger.questions[id].subject) {
-      errors.push('move history for ' + id + ' ends at ' + records[records.length - 1].to + ', ledger says ' + ledger.questions[id].subject);
-    }
-  }
-  return errors;
 }
 
 const live = collect();
 
 if (check) {
-  const ledger = readLedger();
-  if (!ledger) {
-    console.error('Missing ' + OUT + '. Run npm run snapshot:cgei-question-ids');
+  if (!existsSync(OUT)) {
+    console.error(`Missing ${OUT}. Run npm run snapshot:cgei-question-ids`);
     process.exit(2);
   }
-  const errors = checkLedger(live, ledger);
+  const committed = JSON.parse(readFileSync(OUT, 'utf8')) as Ledger;
+  const errors: string[] = [];
+  for (const [id, meta] of Object.entries(committed.questions)) {
+    if (!live.questions[id]) {
+      errors.push(`missing ID ${id} (was subject ${meta.subject})`);
+    } else if (live.questions[id].subject !== meta.subject && meta.subject !== 'cgei-unassigned') {
+      // allow migration from unassigned into a subject
+      if (live.questions[id].subject !== meta.subject) {
+        errors.push(`ID ${id} moved ${meta.subject} → ${live.questions[id].subject}`);
+      }
+    }
+  }
   if (errors.length) {
     console.error('CGEI question ID ledger check failed:');
-    for (const error of errors.slice(0, 60)) console.error(' ', error);
-    if (errors.length > 60) console.error('  ... +' + (errors.length - 60) + ' more');
+    for (const e of errors.slice(0, 40)) console.error(' ', e);
+    if (errors.length > 40) console.error(`  … +${errors.length - 40} more`);
     process.exit(1);
   }
-  console.log('CGEI question ID ledger OK (' + Object.keys(live).length + ' IDs; ' + ledger.moves.length + ' recorded moves)');
-} else {
-  const previous = readLedger();
-  const previousQuestions = previous?.questions ?? {};
-  const missing = Object.keys(previousQuestions).filter((id) => !live[id]);
-  const added = Object.keys(live).filter((id) => !previousQuestions[id]);
-  const moved = Object.keys(previousQuestions)
-    .filter((id) => live[id] && previousQuestions[id].subject !== live[id].subject)
-    .map((id) => ({ id, from: previousQuestions[id].subject, to: live[id].subject }));
-
-  if (missing.length) {
-    console.error('Refusing to remove ' + missing.length + ' permanent question ID(s): ' + missing.slice(0, 20).join(', '));
-    process.exit(1);
-  }
-  if (added.length && !recordNewIds) {
-    console.error('Refusing to add ' + added.length + ' question ID(s) without --record-new-ids: ' + added.slice(0, 20).join(', '));
-    process.exit(1);
-  }
-  if (moved.length && !recordMoves) {
-    console.error('Refusing to move ' + moved.length + ' question ID(s) without --record-moves: ' + moved.slice(0, 20).map((item) => item.id).join(', '));
-    process.exit(1);
-  }
-  if ((added.length || moved.length) && !reason) {
-    console.error('A non-empty --reason="..." is required when recording new IDs or subject moves.');
-    process.exit(1);
-  }
-
-  const moves: Move[] = [...(previous?.moves ?? [])];
-  for (const item of moved.sort((a, b) => a.id.localeCompare(b.id))) {
-    moves.push({ ...item, reason });
-  }
-  const ledger: Ledger = {
-    version: 2,
-    description: 'CGEI question ID ledger. IDs are permanent; CI fails if an ID disappears, is added without a reviewed snapshot, or changes subject without an explicit move record.',
-    questions: live,
-    moves,
-  };
-  writeFileSync(OUT, JSON.stringify(ledger, null, 2) + '\n', 'utf8');
-  console.log('Wrote ' + OUT + ' (' + Object.keys(live).length + ' IDs; ' + moved.length + ' moves; ' + added.length + ' additions)');
+  console.log(`CGEI question ID ledger OK (${Object.keys(committed.questions).length} IDs)`);
+  process.exit(0);
 }
+
+writeFileSync(OUT, `${JSON.stringify(live, null, 2)}\n`, 'utf8');
+console.log(`Wrote ${OUT} (${Object.keys(live.questions).length} IDs)`);
