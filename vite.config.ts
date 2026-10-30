@@ -55,6 +55,7 @@ export default defineConfig({
           // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (
             id.includes('/src/data/cgei/curriculum') ||
+            id.includes('/src/data/cgei/question-projection-order.ts') ||
             id.includes('/src/data/cgei/registry-shared') ||
             id.includes('/src/data/cgei/shared.ts') ||
             id.includes('/src/data/cgei/lib/') ||
