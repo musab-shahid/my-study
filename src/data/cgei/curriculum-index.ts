@@ -183,7 +183,8 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-8-2",
       "cgei-cl-lesson-2-8-3"
     ]
-  },,
+  },
+
   {
     "id": "cgei-cl-unit-2-7",
     "code": "2.7",
