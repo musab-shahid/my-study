@@ -1225,14 +1225,14 @@ export const questions: Question[] = [
     question:
       'An annual temperature series has an OLS trend estimate of +0.18°C per year, but its residuals show positive autocorrelation. Which interpretation is most defensible?',
     options: [
-      'The positive slope must be discarded because autocorrelation makes trend estimation impossible',
-      'The fitted slope remains +0.18°C per year, but its uncertainty and significance should be reassessed with a method that accounts for serial dependence',
-      'The trend is automatically significant because the slope is positive',
-      'Autocorrelation changes the temperature unit but not the statistical inference',
+      'The positive slope proves a climate-change signal, because serial dependence affects only the temperature units, not the inference',
+      'The slope must be discarded; any autocorrelation makes ordinary least-squares trend estimation invalid',
+      'Retain the +0.18°C per year fitted slope, but reassess its uncertainty with a method that accounts for serial dependence',
+      'The trend is automatically significant because the estimated slope is positive',
     ],
-    correctAnswer: 1,
+    correctAnswer: 2,
     explanation:
-      'The OLS point estimate and the uncertainty around it are different parts of the result. Positive serial dependence can reduce the effective independent information and make conventional independent-error uncertainty too optimistic; report the slope with an autocorrelation-aware uncertainty assessment.',
+      'The fitted slope and its uncertainty are separate parts of the result. Positive serial dependence can reduce effective independent information and make conventional independent-error uncertainty too optimistic; retain the estimate but reassess inference with an autocorrelation-aware method.',
     sourceCitation: 'Master Study TOC · Unit 2.6 Extremes and trend analysis',
     lessonId: 'cgei-cl-lesson-2-6-2',
     cognitiveLevel: 'analyze',
