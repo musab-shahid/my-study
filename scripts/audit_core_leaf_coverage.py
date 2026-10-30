@@ -16,6 +16,7 @@ import csv
 import re
 import sys
 from collections import Counter
+import tempfile
 from pathlib import Path
 
 VALID = {"mapped", "mapped_partial", "deferred"}
@@ -148,8 +149,10 @@ def main() -> int:
         "--curriculum", type=Path, default=Path("src/data/cgei/curriculum.ts"),
     )
     parser.add_argument(
-        "--report", type=Path,
-        default=Path("docs/cgei/source-toc/core-leaf-coverage-report.csv"),
+        "--report",
+        type=Path,
+        default=Path(tempfile.gettempdir()) / "my-study-core-leaf-coverage-report.csv",
+        help="Report output path (default: OS temp; do not write into tracked docs/)",
     )
     parser.add_argument(
         "--allow-unmapped", action="store_true",

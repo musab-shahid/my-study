@@ -7,12 +7,43 @@ import { loadSubjectTopics, loadSubjectQuestions } from '../../data/lazy-data.ts
 import type { SubjectId } from '../../types.ts';
 import { cgeiCurriculum } from '../../data/cgei/curriculum.ts';
 import { questions as legacyUnit51Questions } from '../../data/cgei/data-science/questions-data-science.ts';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
+
+function loadStructureBaseline(): {
+  subjects: number;
+  units: number;
+  lessons: number;
+  questions: number;
+  cgei05Questions: number;
+  unit51Lessons: number;
+} {
+  const path = resolve(process.cwd(), 'docs/cgei/structure-baseline.json');
+  return JSON.parse(readFileSync(path, 'utf8')) as {
+    subjects: number;
+    units: number;
+    lessons: number;
+    questions: number;
+    cgei05Questions: number;
+    unit51Lessons: number;
+  };
+}
+
+function assertRatchet(actual: number, baseline: number, label: string): void {
+  assert.ok(
+    actual >= baseline,
+    `${label} ratchet: actual ${actual} must be >= baseline ${baseline} (counts may grow, never shrink)`,
+  );
+}
 
 describe('CGEI curriculum structure', () => {
   const cgeiSubjects = subjectsByTrack('cgei');
+  const baseline = loadStructureBaseline();
 
   it('registers all 14 domains from the Master Study TOC', () => {
-    assert.equal(cgeiSubjects.length, 14);
+    assertRatchet(cgeiSubjects.length, baseline.subjects, 'subjects');
+    assert.equal(cgeiSubjects.length, baseline.subjects);
     assert.deepEqual(
       cgeiSubjects.slice(0, 8).map((subject) => subject.id),
       [
@@ -44,11 +75,12 @@ describe('CGEI curriculum structure', () => {
     for (const code of ['5.1', '5.2', '5.3']) {
       const unit = cgeiCurriculum.units.find((item) => item.code === code);
       assert.ok(unit, `Unit ${code} should be registered`);
-      assert.equal(unit.lessonIds.length,  code === '5.1' ? 16 : 5);
+      assert.equal(unit.lessonIds.length,  code === '5.1' ? baseline.unit51Lessons : 5);
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
-    assert.equal(cgeiCurriculum.lessons.length, 253);
-    assert.equal(cgeiCurriculum.questions.length, 568);
+    assertRatchet(cgeiCurriculum.lessons.length, baseline.lessons, 'lessons');
+    assertRatchet(cgeiCurriculum.units.length, baseline.units, 'units');
+    assertRatchet(cgeiCurriculum.questions.length, baseline.questions, 'questions');
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id === 'cgei-geo-q-32-vertical-datum').length, 1);
     const unitOrders = cgeiCurriculum.units.map((unit) => unit.order);
     assert.equal(unitOrders.length, new Set(unitOrders).size);
@@ -56,7 +88,11 @@ describe('CGEI curriculum structure', () => {
       cgeiCurriculum.units.filter((unit) => unit.code.startsWith('5.')).map((unit) => unit.order).sort((a, b) => a - b),
       Array.from({ length: 12 }, (_, index) => index + 1),
     );
-    assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 59);
+    assertRatchet(
+      cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length,
+      baseline.cgei05Questions,
+      'CGEI-05 questions',
+    );
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
     const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
     const unit55 = cgeiCurriculum.units.find((unit) => unit.code === '5.5');

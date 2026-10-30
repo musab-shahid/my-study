@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "description": "CGEI structure ratchet: counts may grow, never shrink. Updated only when content intentionally expands.",
+  "subjects": 14,
+  "units": 82,
+  "lessons": 253,
+  "questions": 568,
+  "cgei05Questions": 59,
+  "unit51Lessons": 16
+}
