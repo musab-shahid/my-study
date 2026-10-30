@@ -1709,7 +1709,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-ds-lesson-5-2-1",
-    "title": "cgei-ds-lesson-5-2-1",
+    "title": "Scientific Python structure, functions and defensive checks",
     "unitId": "cgei-ds-unit-5-2",
     "unitTitle": "Python for scientific work",
     "subjectId": "cgei-data-science",
