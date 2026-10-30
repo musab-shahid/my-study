@@ -112,18 +112,22 @@ def load_dispositions(docs_cgei: Path) -> dict[str, dict[str, str]]:
 def lesson_ids_in_curriculum(path: Path) -> set[str]:
     """Collect CGEI lesson IDs from curriculum.ts and per-subject modules.
 
-    Subject modules (e.g. climate-science/subject-2-curriculum.ts) hold lesson
+    Subject modules (topics-<subject>.ts and *curriculum*.ts) hold lesson
     definitions that curriculum.ts imports; those IDs must count as live.
     """
     if not path.is_file():
         raise ValueError(f"missing curriculum input: {path}")
     paths = [path]
     root = path.parent
-    # Per-subject extracted modules: src/data/cgei/<subject>/*curriculum*.ts
+    # Per-subject modules after B3: topics-<subject>.ts (canonical) and any
+    # *curriculum*.ts extracts (e.g. subject-2-curriculum.ts). Skip legacy/.
     if root.is_dir():
         for sub in sorted(root.iterdir()):
-            if sub.is_dir():
-                paths.extend(sorted(sub.glob("*curriculum*.ts")))
+            if not sub.is_dir() or sub.name == 'legacy' or sub.name == 'lib':
+                continue
+            paths.extend(sorted(sub.glob("*curriculum*.ts")))
+            paths.extend(sorted(sub.glob("topics-*.ts")))
+            # Nested legacy is excluded; topics at subject root only
     ids: set[str] = set()
     for candidate in paths:
         try:
