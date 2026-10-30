@@ -49,3 +49,13 @@ Merge the same day while content is frozen. Gate: typecheck, tests, build, bundl
 - `docs/cgei/CONTENT_AUTHORING_GUIDE.md` — authoring workflow
 - `docs/cgei/structure-baseline.json` — count ratchet
 - `docs/cgei/registry-manifest.json` — golden registry (seal with `npm run snapshot:cgei-registry`)
+
+
+## Phase C3 migration
+
+```bash
+npx tsx --tsconfig tsconfig.app.json scripts/migrations/c3-merge-question-banks.ts --check
+npx tsx --tsconfig tsconfig.app.json scripts/migrations/c3-merge-question-banks.ts
+```
+
+Writes review sidecars under `src/data/cgei/_c3_merged/`. Legacy bank IDs win on conflict. After review, merge into `questions-<subject>.ts`, derive `assessment.questionIds`, delete `curriculum-questions.ts`.
