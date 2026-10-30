@@ -183,7 +183,85 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-8-2",
       "cgei-cl-lesson-2-8-3"
     ]
+  },,
+  {
+    "id": "cgei-cl-unit-2-7",
+    "code": "2.7",
+    "title": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-7-1",
+      "cgei-cl-lesson-2-7-2",
+      "cgei-cl-lesson-2-7-3",
+      "cgei-cl-lesson-2-7-4"
+    ]
   },
+  {
+    "id": "cgei-cl-unit-2-9",
+    "code": "2.9",
+    "title": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-9-1",
+      "cgei-cl-lesson-2-9-2",
+      "cgei-cl-lesson-2-9-3",
+      "cgei-cl-lesson-2-9-4",
+      "cgei-cl-lesson-2-9-5",
+      "cgei-cl-lesson-2-9-6"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-10",
+    "code": "2.10",
+    "title": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-10-1",
+      "cgei-cl-lesson-2-10-2",
+      "cgei-cl-lesson-2-10-3"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-11",
+    "code": "2.11",
+    "title": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-11-1",
+      "cgei-cl-lesson-2-11-2",
+      "cgei-cl-lesson-2-11-3"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-12",
+    "code": "2.12",
+    "title": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-12-1",
+      "cgei-cl-lesson-2-12-2",
+      "cgei-cl-lesson-2-12-3",
+      "cgei-cl-lesson-2-12-4",
+      "cgei-cl-lesson-2-12-5"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-13",
+    "code": "2.13",
+    "title": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-13-1",
+      "cgei-cl-lesson-2-13-2",
+      "cgei-cl-lesson-2-13-3"
+    ]
+  }
   {
     "id": "cgei-ds-unit-5-1",
     "code": "5.1",
@@ -2753,6 +2831,198 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "unitTitle": "Data pipelines, orchestration, and reliable updates",
     "subjectId": "cgei-software-engineering",
     "subjectTitle": "Software Engineering for Environmental Systems"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-1",
+    "title": "Core theory: GEV, GPD, return levels, and declustering",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-2",
+    "title": "Estimation and diagnostics",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-3",
+    "title": "Extensions: non-stationarity, regional analysis, and dependence",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-4",
+    "title": "Applications and communicating return periods",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-1",
+    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-2",
+    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-3",
+    "title": "Model evaluation: skill metrics and process-based checks",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-4",
+    "title": "Bias adjustment: methods, assumptions, and artefacts",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-5",
+    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-6",
+    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-1",
+    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-2",
+    "title": "Choosing models and members, and documenting the choice",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-3",
+    "title": "CMIP7 and AR7 awareness",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-1",
+    "title": "Concepts: detection, attribution, and the single-record problem",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection and attribution",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-2",
+    "title": "Event attribution: probabilistic framing and rapid protocols",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection and attribution",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-3",
+    "title": "Limits: harder cases and communicating attribution results",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection and attribution",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-1",
+    "title": "ML in downscaling and bias correction",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "ML/AI in climate downscaling and services",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-2",
+    "title": "Probabilistic and rare-event evaluation",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "ML/AI in climate downscaling and services",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-3",
+    "title": "Using open AI forecasts: post-processing and blending",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "ML/AI in climate downscaling and services",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-4",
+    "title": "Climate services",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "ML/AI in climate downscaling and services",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-5",
+    "title": "Digital twins and kilometre-scale models",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "ML/AI in climate downscaling and services",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-1",
+    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-2",
+    "title": "Skill and verification of probabilistic outlooks",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-3",
+    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   }
 ];
 export const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
