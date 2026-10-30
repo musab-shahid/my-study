@@ -51,12 +51,11 @@ export default defineConfig({
             if (id.includes('lucide-react')) return 'vendor-icons';
             return 'vendor';
           }
-          // Lazy question banks stay on their own dynamic imports; group shared lib
           if (id.includes('/src/lib/')) return 'app-lib';
-          // Keep CGEI assembler + subject modules out of the eager app-data chunk.
-          // Note: curriculum-questions.ts does NOT match the "questions-" substring.
+          // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (
             id.includes('/src/data/cgei/curriculum') ||
+            id.includes('/src/data/cgei/question-projection-order.ts') ||
             id.includes('/src/data/cgei/registry-shared') ||
             id.includes('/src/data/cgei/shared.ts') ||
             id.includes('/src/data/cgei/lib/') ||
@@ -64,6 +63,8 @@ export default defineConfig({
           ) {
             return undefined;
           }
+          // Subject topic/question modules remain outside eager app-data and are reached
+          // through the lazy CGEI screen boundary (also shared with quiz loading).
           if (id.includes('/src/data/') && !id.includes('questions-') && !id.includes('topics-')) return 'app-data';
         },
       },
