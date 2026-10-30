@@ -53,7 +53,11 @@ export default defineConfig({
           }
           // Lazy question banks stay on their own dynamic imports; group shared lib
           if (id.includes('/src/lib/')) return 'app-lib';
-          if (id.includes('/src/data/') && !id.includes('/src/data/cgei/curriculum.ts') && !id.includes('questions-') && !id.includes('topics-')) return 'app-data';
+          // CGEI curriculum assembler + subject modules share one precached chunk.
+          if (id.includes('/src/data/cgei/') && (id.includes('curriculum') || id.includes('/topics-') || id.includes('shared.ts') || id.includes('subject-2-curriculum') || id.includes('/lib/builders'))) {
+            return 'cgei-curriculum';
+          }
+          if (id.includes('/src/data/') && !id.includes('questions-') && !id.includes('topics-')) return 'app-data';
         },
       },
     },
