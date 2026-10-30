@@ -1,35 +1,52 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import type { CurriculumQuestion } from '@/types/curriculum';
+import type { Question, SubjectId } from '@/types';
+import { loadSubjectQuestions } from '@/data/lazy-data';
+import {
+  collectLessonChecks,
+  curriculumQuestionToCheck,
+  shuffleOptions,
+  type LessonCheckItem,
+} from '@/lib/cgei-lesson-questions';
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { PageContainer, Card, EmptyState, Button, Heading } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
-function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) {
+function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
+  const [attempt, setAttempt] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
-  const isCorrect = selected === question.correctAnswer;
+  const shuffled = useMemo(
+    () => shuffleOptions(item.options, item.correctAnswer),
+    // attempt forces a new shuffle; item identity covers content changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [item.id, attempt],
+  );
+  const isCorrect = selected === shuffled.correctAnswer;
   return (
     <Card className="p-card-pad border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
-        <span className="text-label uppercase tracking-wide font-semibold text-muted">{question.difficulty} · {question.cognitiveLevel}</span>
+        <span className="text-label uppercase tracking-wide font-semibold text-muted">{item.difficulty}{item.cognitiveLevel ? ` · ${item.cognitiveLevel}` : ''}</span>
         <span className="text-label text-muted">Unrecorded knowledge check</span>
       </div>
-      <p className="font-medium text-sm sm:text-base text-ink leading-relaxed">{question.prompt}</p>
-      <p className="text-xs text-muted mt-1">Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
-      <div className="space-y-2 mt-3">
-        {question.options.map((option, index) => {
+      <p className="font-medium text-sm sm:text-base text-ink leading-relaxed">{item.prompt}</p>
+      <p className="text-xs text-muted mt-1">Options are shuffled each attempt. Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
+      <div className="space-y-2 mt-3" role="radiogroup" aria-label="Answer options">
+        {shuffled.options.map((option, index) => {
           const isSelected = selected === index;
-          const isAnswer = submitted && index === question.correctAnswer;
+          const isAnswer = submitted && index === shuffled.correctAnswer;
           const isWrongSelection = submitted && isSelected && !isCorrect;
           return (
             <button
-              key={option}
+              key={`${attempt}-${index}-${option.slice(0, 32)}`}
               type="button"
-              aria-pressed={isSelected}
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Option ${index + 1}: ${option}`}
               onClick={() => { if (!submitted) setSelected(index); }}
               className={`w-full rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${isAnswer ? 'border-success-400 bg-success-50 text-success-900' : isWrongSelection ? 'border-danger-300 bg-danger-50 text-danger-900' : isSelected ? 'border-brand-400 bg-brand-50 text-brand-900' : 'border-slate-200 bg-white text-muted hover:bg-slate-50'}`}
             >
@@ -38,14 +55,17 @@ function CurriculumQuestionCard({ question }: { question: CurriculumQuestion }) 
           );
         })}
       </div>
-      {!submitted ? <div className="mt-3"><Button variant="secondary" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button></div> : (
-        <div className={`mt-3 rounded-lg border p-3 ${isCorrect ? 'border-success-200 bg-success-50' : 'border-warning-200 bg-warning-50'}`}>
-          <p role="status" aria-live="polite" aria-atomic="true" className={`font-semibold text-sm ${isCorrect ? 'text-success-800' : 'text-warning-900'}`}>{isCorrect ? 'Correct' : `Not quite — answer ${String.fromCharCode(65 + question.correctAnswer)}`}</p>
-          <p className="text-sm text-muted leading-relaxed mt-1">{question.explanation}</p>
-          {question.sourceCitation ? <p className="text-label text-muted mt-2">Source: {question.sourceCitation}</p> : null}
-          <button type="button" onClick={() => { setSelected(null); setSubmitted(false); }} className="mt-2 text-xs font-semibold text-brand-800 hover:underline">Try again</button>
-        </div>
-      )}
+      <div className="mt-3 flex flex-wrap gap-2">
+        {!submitted ? (
+          <Button type="button" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button>
+        ) : (
+          <>
+            <p className={`text-sm font-medium ${isCorrect ? 'text-success-700' : 'text-danger-700'}`}>{isCorrect ? 'Correct' : 'Not quite'}</p>
+            <Button type="button" variant="secondary" onClick={() => { setSelected(null); setSubmitted(false); setAttempt((n) => n + 1); }}>Try again</Button>
+          </>
+        )}
+      </div>
+      {submitted && item.explanation ? <p className="text-sm text-muted mt-3 border-t border-slate-200 pt-3">{item.explanation}</p> : null}
     </Card>
   );
 }
@@ -114,7 +134,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 
       {activities.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Practice activities</Heading><div className="grid md:grid-cols-2 gap-3">{activities.map((activity) => <Card key={activity.id} className="p-card-pad border border-slate-200"><div className="flex flex-wrap gap-2 items-center"><h3 className="font-semibold text-sm text-ink">{activity.title}</h3><span className="text-label bg-slate-100 rounded-full px-2 py-0.5">{activity.level}</span></div><p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-brand-800 mt-2"><strong>Evidence:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}</Card>)}</div></section>}
 
-      {assessments.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Assessments</Heading><div className="grid md:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{assessment.title}</h3><p className="text-sm text-muted mt-2">{assessment.purpose}</p>{assessment.passThreshold !== undefined ? <p className="text-xs text-muted mt-2">Target score: {Math.round(assessment.passThreshold * 100)}%</p> : null}{assessment.questionIds?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800 hover:underline">{assessment.questionIds.length} questions · Open assessment</summary><div className="space-y-3 mt-3">{assessment.questionIds.map((questionId) => cgeiCurriculum.questions.find((question) => question.id === questionId)).filter((question): question is CurriculumQuestion => Boolean(question)).map((question) => <CurriculumQuestionCard key={question.id} question={question} />)}</div></details> : null}</Card>)}</div></section>}
+      {assessments.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Assessments</Heading><div className="grid md:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{assessment.title}</h3><p className="text-sm text-muted mt-2">{assessment.purpose}</p>{assessment.passThreshold !== undefined ? <p className="text-xs text-muted mt-2">Target score: {Math.round(assessment.passThreshold * 100)}%</p> : null}{assessment.questionIds?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800 hover:underline">{assessment.questionIds.length} questions · Open assessment</summary><div className="space-y-3 mt-3">{assessment.questionIds.map((questionId) => cgeiCurriculum.questions.find((question) => question.id === questionId)).filter((question): question is CurriculumQuestion => Boolean(question)).map((question) => <CurriculumQuestionCard key={question.id} item={curriculumQuestionToCheck(question)} />)}</div></details> : null}</Card>)}</div></section>}
 
       {deliverables.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Portfolio evidence</Heading><div className="space-y-2">{deliverables.map((item) => <Card key={item.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{item.title}</h3><p className="text-sm text-muted mt-1">{item.description}</p><ul className="list-disc pl-5 mt-2 text-xs text-muted space-y-1">{item.acceptanceCriteria.map((criterion) => <li key={criterion}>{criterion}</li>)}</ul></Card>)}</div></section>}
 
@@ -128,9 +148,41 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const { data, markStudied, setLastTopic, markCurriculumLessonStudied, setLastCurriculumLesson } = useData();
   const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
   const unit = lesson ? cgeiCurriculum.units.find((item) => item.lessonIds.includes(lesson.id)) : undefined;
+  const subject = unit ? cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id)) : undefined;
   const resources = lesson?.resourceIds.map((id) => cgeiCurriculum.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const activities = lesson?.activityIds.map((id) => cgeiCurriculum.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const assessments = lesson?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const assessmentQuestionIds = assessments.flatMap((a) => a.questionIds ?? []);
+  const subjectId = (subject?.subjectId ?? '') as SubjectId;
+  const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
+
+  useEffect(() => {
+    if (!subject?.subjectId) {
+      setBankQuestions([]);
+      return;
+    }
+    let cancelled = false;
+    loadSubjectQuestions(subject.subjectId as SubjectId)
+      .then((qs) => { if (!cancelled) setBankQuestions(qs); })
+      .catch(() => { if (!cancelled) setBankQuestions([]); });
+    return () => { cancelled = true; };
+  }, [subject?.subjectId]);
+
+  const lessonChecks = useMemo(
+    () =>
+      lesson
+        ? collectLessonChecks({
+            lessonId: lesson.id,
+            assessmentQuestionIds,
+            curriculumQuestions: cgeiCurriculum.questions,
+            bankQuestions,
+          })
+        : [],
+    // assessmentQuestionIds is derived from lesson assessments
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [lesson?.id, bankQuestions, assessmentQuestionIds.join('|')],
+  );
+
   const isLessonStudied = lesson?.sourceTopicId
     ? data.studiedTopics.includes(lesson.sourceTopicId)
     : Boolean(lesson && (data.studiedCurriculumLessons ?? []).includes(lesson.id));
@@ -158,7 +210,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       {activities.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Practice and application</Heading><div className="space-y-3">{activities.map((activity) => <Card key={activity.id} className="p-card-pad border border-slate-200"><div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-ink text-sm">{activity.title}</h3><span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label">{activity.level}</span>{activity.estimatedMinutes ? <span className="text-xs text-muted">{activity.estimatedMinutes} min</span> : null}</div><p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-brand-800 mt-2"><strong>Evidence to produce:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}{activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800">Hints</summary><ul className="list-disc pl-5 mt-2 text-sm text-muted space-y-1">{activity.hints.map((hint) => <li key={hint}>{hint}</li>)}</ul></details> : null}</Card>)}</div></section>}
 
-      {assessments.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Check your understanding</Heading><div className="grid sm:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{assessment.title}</h3><p className="text-sm text-muted mt-2">{assessment.purpose}</p>{assessment.questionIds?.length ? <p className="text-xs text-muted mt-2">{assessment.questionIds.length} linked questions</p> : null}{(assessment.questionIds ?? []).map((questionId) => cgeiCurriculum.questions.find((question) => question.id === questionId)).filter((question): question is CurriculumQuestion => Boolean(question)).map((question) => <div key={question.id} className="mt-3"><CurriculumQuestionCard question={question} /></div>)}</Card>)}</div></section>}
+      {lessonChecks.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Check your understanding</Heading><div className="space-y-3">{lessonChecks.map((item) => <CurriculumQuestionCard key={item.id} item={item} />)}</div><p className="text-xs text-muted mt-3">Single-choice and true/false items for this lesson. Other types stay in the quiz engine. Answers are not recorded.</p></section>}
 
       {resources.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">References and tools</Heading><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-ink">{resource.title}</span>}</div><p className="text-sm text-muted mt-2">{resource.purpose}</p></Card>)}</div></section>}
 
