@@ -9,6 +9,7 @@ import { getNextSession, DEFAULT_EXAM_SESSIONS, normalizeExamSessionsByProfile }
 import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
+import { applyCgeiProgressAliases, lessonIdForCgeiTopic } from '@/lib/cgei-progress-aliases';
 import { resolveQuestionId } from '@/lib/question-id-aliases';
 
 /** Current AppData document version (trackMembership remains separately versioned). */
@@ -386,6 +387,11 @@ function normalizeLoaded(parsed: AppData): AppData {
   merged = qMig.data;
   if (qMig.changed) migrated = true;
 
+  // Phase E: legacy CGEI topic progress → canonical lesson progress
+  const beforeLessons = (merged.studiedCurriculumLessons ?? []).length;
+  merged = applyCgeiProgressAliases(merged);
+  if ((merged.studiedCurriculumLessons ?? []).length !== beforeLessons) migrated = true;
+
   // Track membership: normalize existing or migrate from evidence (never default-enroll FPSC)
   let legacyActive: string | null = null;
   try {
@@ -608,12 +614,18 @@ export function markTopicStudied(data: AppData, topicId: string): AppData {
     prog.reviewStage = 0;
     prog.nextReview = reviewDateForStage(0);
   }
-  return {
+  let next: AppData = {
     ...data,
     studiedTopics: [...new Set([...data.studiedTopics, topicId])],
     topicProgress: { ...data.topicProgress, [topicId]: prog },
     lastOpenedTopic: topicId,
   };
+  // Phase E: dual-write canonical lesson progress for CGEI Unit 5.1 aliases
+  const lessonId = lessonIdForCgeiTopic(topicId);
+  if (lessonId) {
+    next = markCurriculumLessonStudied(next, lessonId);
+  }
+  return next;
 }
 
 export function recordQuizResult(
