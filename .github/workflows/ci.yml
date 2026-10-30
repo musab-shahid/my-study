@@ -81,6 +81,11 @@ jobs:
         run: npm run check:branding
       - name: Feature icons and logo mark
         run: npm run check:feature-icons
+      - name: CGEI legacy/ folder freeze
+        run: |
+          git fetch origin main --depth=1 || true
+          BASE_REF=origin/main bash scripts/check-cgei-legacy-freeze.sh
+
       - name: CGEI unified gate (validate:data + evidence + index checks)
         env:
           CGEI_EVIDENCE_REPORT: docs/cgei/source-toc/core-leaf-evidence-report.csv
