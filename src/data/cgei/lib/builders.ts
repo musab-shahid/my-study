@@ -58,17 +58,39 @@ export function legacyTopicToBlocks(
     });
   }
   const rawExamples = topic.workedExample ?? topic.workedExamples;
-  const examples = rawExamples
-    ? Array.isArray(rawExamples)
-      ? rawExamples
-      : [rawExamples]
-    : [];
+  const examples = rawExamples ? (Array.isArray(rawExamples) ? rawExamples : [rawExamples]) : [];
   for (const [index, example] of examples.entries()) {
+    const solution =
+      typeof example.solution === 'string'
+        ? example.solution
+        : example.solution
+          ? Object.entries(example.solution)
+              .map(([step, detail]) => `${step}: ${detail}`)
+              .join('\n')
+          : '';
     blocks.push({
       id: `${topicId}-worked-example-${index + 1}`,
       kind: 'worked-example',
-      title: example.title ?? `Worked example ${index + 1}`,
-      body: [example.setup, example.steps?.join('\n'), example.result].filter(Boolean).join('\n\n'),
+      title: `Worked example ${index + 1}`,
+      body: [
+        `Problem: ${example.problem}`,
+        solution ? `Solution: ${solution}` : undefined,
+        example.answer ? `Answer: ${example.answer}` : undefined,
+        example.takeaway ? `Takeaway: ${example.takeaway}` : undefined,
+      ]
+        .filter(Boolean)
+        .join('\n\n'),
+    });
+  }
+  if (topic.comparisonTable) {
+    blocks.push({
+      id: `${topicId}-comparison-table`,
+      kind: 'table',
+      title: topic.comparisonTable.title,
+      headers: topic.comparisonTable.headers,
+      rows: topic.comparisonTable.rows.map((row) =>
+        Array.isArray(row) ? row : Object.values(row as Record<string, string>),
+      ),
     });
   }
   if (topic.commonMistakes?.length) {
