@@ -1,6 +1,11 @@
 import type { Topic } from "@/types";
 
 /**
+ * Quiz-engine topic bank for CGEI Climate Science (Phase E4).
+ * Formerly under legacy/; kept so sectionId/topicId validation and practice
+ * topic lists stay stable. Canonical teaching content lives in topics-*.ts.
+ */
+/**
  * CGEI Subject 2 — Climate science and climate data
  * Priority Path Units 2.4 → 2.5 → 2.6 (Master Study TOC)
  * L3/L4 practice deliverables stay outside the quiz engine; study targets L1–L2 clarity.

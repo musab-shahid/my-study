@@ -1,23 +1,18 @@
 #!/usr/bin/env bash
-# Phase E3+: only content-bearing legacy banks remain frozen
-# (data-science, climate-science). Roadmap stubs moved to roadmap-topics.ts.
+# Phase E4: CGEI legacy/ folders are retired.
+# Fail if any src/data/cgei/*/legacy/ path is reintroduced.
 set -euo pipefail
 
-BASE_REF="${BASE_REF:-origin/main}"
-if ! git rev-parse --verify "$BASE_REF" >/dev/null 2>&1; then
-  BASE_REF="main"
-fi
-
-mapfile -t hits < <(git diff --name-status "$BASE_REF"...HEAD 2>/dev/null | awk '
-  $1 ~ /^[MD]/ && $2 ~ /^src\/data\/cgei\/(data-science|climate-science)\/legacy\// { print $1 "\t" $2 }
-  $1 ~ /^R/ && $2 ~ /^src\/data\/cgei\/(data-science|climate-science)\/legacy\// { print $1 "\t" $2 " -> " $3 }
-')
+hits=()
+while IFS= read -r line; do
+  hits+=("$line")
+done < <(find src/data/cgei -type d -name legacy 2>/dev/null || true)
 
 if ((${#hits[@]} > 0)); then
-  echo "ERROR: edits under content-bearing CGEI legacy/ banks are frozen."
-  echo "Migrate content into canonical topics/questions modules instead."
+  echo "ERROR: CGEI legacy/ directories were retired in Phase E4."
+  echo "Use quiz-topics-*.ts or roadmap-topics.ts instead."
   printf '%s\n' "${hits[@]}"
   exit 1
 fi
 
-echo "OK: no modifications under content-bearing CGEI legacy/ folders"
+echo "OK: no CGEI legacy/ directories present"

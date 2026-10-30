@@ -32,7 +32,7 @@ src/data/cgei/
 
 - Canonical content: `climate-science/subject-2-curriculum.ts`
 - Public module path: `climate-science/topics-climate-science.ts` (re-exports)
-- Legacy quiz topics: `climate-science/legacy/topics-climate-science.ts` (frozen)
+- Quiz topic modules: `climate-science/quiz-topics-climate-science.ts`, `data-science/quiz-topics-data-science.ts`, `roadmap-topics.ts` (Phase E4)
 
 ## Splitting the monolith (B3)
 
