@@ -16,19 +16,6 @@ import { questions as legacyDataScienceQuestions } from './data-science/question
 import type { Topic } from '@/types';
 import { topics as dataScienceTopics } from './data-science/topics-data-science';
 import {
-  outcomes21, lessons21,
-  outcomes22, lessons22,
-  outcomes23, lessons23,
-  outcomes24, lessons24,
-  outcomes25, lessons25,
-  outcomes26, lessons26,
-  outcomes27, lessons27,
-  outcomes28, lessons28,
-  outcomes29, lessons29,
-  outcomes210, lessons210,
-  outcomes211, lessons211,
-  outcomes212, lessons212,
-  outcomes213, lessons213,
   subject2Units,
   subject2Lessons,
   subject2Outcomes,
@@ -42,7 +29,15 @@ const outcomes51: CurriculumOutcome[] = [
   { id: 'cgei-ds-o-odes', statement: 'Formulate a stock–flux ODE, compute a steady state, and explain a numerical integration limitation.', action: 'formulate and check', level: 'L2', competencyIds: ['cgei-comp-mathematical-modeling'] },
   { id: 'cgei-ds-o-water-balance', statement: 'Close a water balance using a consistent control volume, period, and unit convention.', action: 'calculate and critique', level: 'L2', competencyIds: ['cgei-comp-environmental-accounting'] },
   { id: 'cgei-ds-o-energy-balance', statement: 'Apply a stated surface-energy sign convention and distinguish land-surface temperature from near-surface air temperature.', action: 'calculate and distinguish', level: 'L2', competencyIds: ['cgei-comp-environmental-accounting'] },
-  { id: 'cgei-ds-o-uncertainty', statement: 'Calculate a conventional standard error and identify when dependence undermines an independent-sample interpretation.', action: 'calculate and diagnose', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+{ id: 'cgei-ds-o-uncertainty', statement: 'Calculate a conventional standard error and identify when dependence undermines an independent-sample interpretation.', action: 'calculate and diagnose', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
+  { id: 'cgei-ds-o-div-curl', statement: 'Interpret divergence and curl as local spreading and rotation diagnostics for environmental vector fields.', action: 'interpret and apply', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ds-o-taylor-error', statement: 'Linearise a smooth map with a first-order Taylor expansion and propagate uncertainty through a derivative scaling.', action: 'approximate and propagate', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ds-o-num-stability', statement: 'Identify time-step and floating-point limits that make a numerical scheme inaccurate or unstable.', action: 'diagnose and constrain', level: 'L2', competencyIds: ['cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-ds-o-optimisation', statement: 'Contrast least-squares fitting with iterative gradient descent and state when a constraint changes the feasible set.', action: 'compare and select', level: 'L2', competencyIds: ['cgei-comp-mathematical-modeling'] },
+  { id: 'cgei-ds-o-continuity', statement: 'Connect continuity, diffusion and advection forms to conservation statements in a fixed control volume.', action: 'formulate and relate', level: 'L2', competencyIds: ['cgei-comp-environmental-accounting'] },
+  { id: 'cgei-ds-o-buckingham', statement: 'Reduce a dimensional relationship with Buckingham Pi reasoning and interpret a non-dimensional group.', action: 'reduce and interpret', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning'] },
+  { id: 'cgei-ds-o-heat-transfer', statement: 'Distinguish conduction, convection and radiative transfer pathways in a surface energy context.', action: 'distinguish and apply', level: 'L2', competencyIds: ['cgei-comp-environmental-accounting'] },
+  { id: 'cgei-ds-o-clt-lln', statement: 'State when the law of large numbers and central limit theorem apply and name common distribution families used as environmental models.', action: 'state and apply', level: 'L2', competencyIds: ['cgei-comp-uncertainty'] },
 ];
 
 const outcomes52: CurriculumOutcome[] = [
@@ -123,13 +118,23 @@ const outcomes54: CurriculumOutcome[] = [
 const lessonDefinitions = [
   { id: 'cgei-ds-lesson-5-1-1', sourceTopicId: 'cgei-ds-units-dimensions', title: 'Quantities, units and dimensional analysis', objectiveIds: ['cgei-ds-o-quantities'], minutes: 25, activityIds: ['cgei-ds-a-unit-audit'], assessmentIds: ['cgei-ds-assess-unit-check'], resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation'], deliverableIds: ['cgei-ds-d-unit-sheet'] },
   { id: 'cgei-ds-lesson-5-1-2', sourceTopicId: 'cgei-ds-rates-finite-diff', title: 'Calculus, finite differences and environmental fields', objectiveIds: ['cgei-ds-o-calculus'], minutes: 35, activityIds: ['cgei-ds-a-rate-gradient'], assessmentIds: ['cgei-ds-assess-calculus-check'], deliverableIds: ['cgei-ds-d-rate-note'] },
+  { id: 'cgei-ds-lesson-5-1-9', sourceTopicId: 'cgei-ds-div-curl-fields', title: 'Divergence, curl and vector fields in environmental flows', objectiveIds: ['cgei-ds-o-div-curl'], minutes: 30, activityIds: ['cgei-ds-a-div-curl'], assessmentIds: ['cgei-ds-assess-div-curl'], deliverableIds: ['cgei-ds-d-rate-note'] },
   { id: 'cgei-ds-lesson-5-1-3', sourceTopicId: 'cgei-ds-matrices-least-squares', title: 'Matrices, linear maps and least squares', objectiveIds: ['cgei-ds-o-linear-algebra'], minutes: 35, activityIds: ['cgei-ds-a-least-squares'], assessmentIds: ['cgei-ds-assess-linear-algebra'], resourceIds: ['cgei-ds-r-numpy-linalg'], deliverableIds: ['cgei-ds-d-linear-algebra-notebook'] },
   { id: 'cgei-ds-lesson-5-1-4', sourceTopicId: 'cgei-ds-eigen-svd-pca', title: 'Eigenvalues, SVD and PCA foundations', objectiveIds: ['cgei-ds-o-eigen-svd'], minutes: 35, activityIds: ['cgei-ds-a-eigen-check'], assessmentIds: ['cgei-ds-assess-eigen-svd'], resourceIds: ['cgei-ds-r-numpy-linalg'], deliverableIds: ['cgei-ds-d-linear-algebra-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-10', sourceTopicId: 'cgei-ds-taylor-error-propagation', title: 'Taylor expansion, linearisation and error propagation', objectiveIds: ['cgei-ds-o-taylor-error'], minutes: 30, activityIds: ['cgei-ds-a-taylor-error'], assessmentIds: ['cgei-ds-assess-taylor-error'], deliverableIds: ['cgei-ds-d-rate-note'] },
   { id: 'cgei-ds-lesson-5-1-5', sourceTopicId: 'cgei-ds-ode-numerical', title: 'Stock–flux systems, ODEs and numerical integration', objectiveIds: ['cgei-ds-o-odes'], minutes: 35, activityIds: ['cgei-ds-a-stock-flux'], assessmentIds: ['cgei-ds-assess-ode-check'], resourceIds: ['cgei-ds-r-scipy-solve-ivp'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-11', sourceTopicId: 'cgei-ds-numerical-stability-floats', title: 'Numerical stability, time-stepping limits and floating-point error', objectiveIds: ['cgei-ds-o-num-stability'], minutes: 30, activityIds: ['cgei-ds-a-num-stability'], assessmentIds: ['cgei-ds-assess-num-stability'], resourceIds: ['cgei-ds-r-scipy-solve-ivp'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-12', sourceTopicId: 'cgei-ds-optimisation-methods', title: 'Optimisation: gradient descent and constrained concepts', objectiveIds: ['cgei-ds-o-optimisation'], minutes: 30, activityIds: ['cgei-ds-a-optimisation'], assessmentIds: ['cgei-ds-assess-optimisation'], resourceIds: ['cgei-ds-r-numpy-linalg'], deliverableIds: ['cgei-ds-d-linear-algebra-notebook'] },
   { id: 'cgei-ds-lesson-5-1-6', sourceTopicId: 'cgei-ds-water-mass-balance', title: 'Environmental mass and water balance', objectiveIds: ['cgei-ds-o-water-balance'], minutes: 25, activityIds: ['cgei-ds-a-water-balance'], assessmentIds: ['cgei-ds-assess-water-check'], resourceIds: ['cgei-ds-r-era5-precipitation'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-13', sourceTopicId: 'cgei-ds-continuity-diffusion-advection', title: 'Continuity, diffusion and advection equations', objectiveIds: ['cgei-ds-o-continuity'], minutes: 30, activityIds: ['cgei-ds-a-continuity'], assessmentIds: ['cgei-ds-assess-continuity'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-14', sourceTopicId: 'cgei-ds-buckingham-pi-nondim', title: 'Dimensional analysis, Buckingham Pi and non-dimensional numbers', objectiveIds: ['cgei-ds-o-buckingham'], minutes: 30, activityIds: ['cgei-ds-a-buckingham'], assessmentIds: ['cgei-ds-assess-buckingham'], deliverableIds: ['cgei-ds-d-unit-sheet'] },
   { id: 'cgei-ds-lesson-5-1-7', sourceTopicId: 'cgei-ds-energy-balance', title: 'Surface energy balance and thermal radiation', objectiveIds: ['cgei-ds-o-energy-balance'], minutes: 30, activityIds: ['cgei-ds-a-energy-signs'], assessmentIds: ['cgei-ds-assess-energy-check'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
+  { id: 'cgei-ds-lesson-5-1-15', sourceTopicId: 'cgei-ds-waves-conduction-convection', title: 'Waves, conduction and convection in heat transfer', objectiveIds: ['cgei-ds-o-heat-transfer'], minutes: 30, activityIds: ['cgei-ds-a-heat-transfer'], assessmentIds: ['cgei-ds-assess-heat-transfer'], deliverableIds: ['cgei-ds-d-balance-notebook'] },
   { id: 'cgei-ds-lesson-5-1-8', sourceTopicId: 'cgei-ds-probability-dependence', title: 'Probability, uncertainty and dependent observations', objectiveIds: ['cgei-ds-o-uncertainty'], minutes: 35, activityIds: ['cgei-ds-a-uncertainty-audit'], assessmentIds: ['cgei-ds-assess-probability-check'], deliverableIds: ['cgei-ds-d-uncertainty-note'] },
+  { id: 'cgei-ds-lesson-5-1-16', sourceTopicId: 'cgei-ds-clt-lln-distributions', title: 'Law of large numbers, central limit theorem, and common distributions', objectiveIds: ['cgei-ds-o-clt-lln'], minutes: 30, activityIds: ['cgei-ds-a-clt-lln'], assessmentIds: ['cgei-ds-assess-clt-lln'], deliverableIds: ['cgei-ds-d-uncertainty-note'] },
 ] as const;
+
+
 
 const lessonDefinitions52 = [
   { id: 'cgei-ds-lesson-5-2-1', title: 'Scientific Python structure, functions and defensive checks', objectiveIds: ['cgei-ds-o-52-structure',
@@ -2127,7 +2132,6 @@ const lessons110: CurriculumLesson[] = [
 
 
 // Subject 2 outcomes/lessons/units: see ./climate-science/subject-2-curriculum.ts
-// (imported as outcomes21…outcomes213, lessons21…lessons213, subject2Units, subject2Lessons)
 
 const outcomes41: CurriculumOutcome[] = [
   { id: 'cgei-rs-o-41-radiometry', statement: 'Distinguish radiance, reflectance, emissivity and brightness temperature, and compute Planck B_λ and a brightness-temperature inversion for a synthetic spectral point.', action: 'distinguish and compute', level: 'L2', competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-mathematical-modeling'] },
@@ -3831,14 +3835,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
       readiness: 'draft',
       audience: 'Learners who will interpret climate data, extremes and projections for environmental intelligence.',
       purpose: 'Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.',
-      overview: 'Units 2.1–2.13 cover weather–climate foundations, observations, extremes, EVT, regional literacy, models/projections, attribution, ML/services, and S2S outlooks. Content is review-level; legacy topic bridge remains until migration.',
+      overview: 'Units 2.1–2.2 and 2.4–2.6 plus 2.8 cover foundations through regional climate literacy. Units 2.3/2.7 Support not yet implemented. Draft slice only.',
       prerequisites: ['Unit 1.1 radiation and Earth-system vocabulary'],
       outcomes: subject2Outcomes,
       competencyIds: ['cgei-comp-quantitative-reasoning', 'cgei-comp-uncertainty', 'cgei-comp-reproducibility', 'cgei-comp-mathematical-modeling'],
       unitIds: subject2Units.map((unit) => unit.id),
       projectIds: [],
       resourceIds: [],
-      estimatedHours:  40,
+      estimatedHours: 6,
     },
     {
       id: 'cgei-subject-4-remote-sensing',
@@ -3864,13 +3868,13 @@ export const cgeiCurriculum: CurriculumRegistry = {
       id: 'cgei-ds-unit-5-1', code: '5.1', title: 'Mathematical and physical foundations', order: 1, kind: 'unit', readiness: 'review',
       legacySectionId: 'CGEI-051',
       summary: 'Build the mathematical language needed to interpret environmental quantities, fields, matrices, stock–flux systems, energy/mass balances and uncertainty.',
-      estimatedHours: 7.5, prerequisites: ['Algebra and functions', 'Means and variances'], outcomes: outcomes51,
+      estimatedHours: 12.5, prerequisites: ['Algebra and functions', 'Means and variances'], outcomes: outcomes51,
       lessonIds: lessonDefinitions.map((lesson) => lesson.id),
-      activityIds: ['cgei-ds-a-unit-audit', 'cgei-ds-a-rate-gradient', 'cgei-ds-a-least-squares', 'cgei-ds-a-eigen-check', 'cgei-ds-a-stock-flux', 'cgei-ds-a-water-balance', 'cgei-ds-a-energy-signs', 'cgei-ds-a-uncertainty-audit'],
+      activityIds: ['cgei-ds-a-unit-audit', 'cgei-ds-a-rate-gradient', 'cgei-ds-a-div-curl', 'cgei-ds-a-least-squares', 'cgei-ds-a-eigen-check', 'cgei-ds-a-taylor-error', 'cgei-ds-a-stock-flux', 'cgei-ds-a-num-stability', 'cgei-ds-a-optimisation', 'cgei-ds-a-water-balance', 'cgei-ds-a-continuity', 'cgei-ds-a-buckingham', 'cgei-ds-a-energy-signs', 'cgei-ds-a-heat-transfer', 'cgei-ds-a-uncertainty-audit', 'cgei-ds-a-clt-lln'],
       assessmentIds: ['cgei-ds-assess-unit-diagnostic', 'cgei-ds-assess-unit-quiz'],
-      resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'], deliverableIds: ['cgei-ds-d-unit-sheet', 'cgei-ds-d-linear-algebra-notebook', 'cgei-ds-d-balance-notebook', 'cgei-ds-d-uncertainty-note'],
+      resourceIds: ['cgei-ds-r-usgs-l2-scaling', 'cgei-ds-r-era5-precipitation', 'cgei-ds-r-numpy-linalg', 'cgei-ds-r-scipy-solve-ivp'], deliverableIds: ['cgei-ds-d-unit-sheet', 'cgei-ds-d-linear-algebra-notebook', 'cgei-ds-d-balance-notebook', 'cgei-ds-d-uncertainty-note', 'cgei-ds-d-rate-note'],
       sourceDocument: 'content-drafts/chapter-05-scientific-computing/units/05.1-mathematical-physical-foundations.md',
-      notes: ['The subject overview is not a lesson.', 'The eight lessons bridge to stable legacy Topic IDs during migration.', 'Readiness remains review until the application validation and rendering checks pass.'],
+      notes: ['The subject overview is not a lesson.', 'Sixteen lessons bridge to stable legacy Topic IDs during migration (eight original plus eight 2026 expansion topics).', 'Readiness remains review; expanded topics have not yet been re-reviewed with readinessEvidence.'],
     },
     {
       id: 'cgei-ds-unit-5-2', code: '5.2', title: 'Python for scientific work', order: 2, kind: 'unit', readiness: 'draft',
@@ -5828,7 +5832,15 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-a-stock-flux', kind: 'guided-practice', title: 'Stock–flux model and steady state', instructions: 'Write the units of every term in the lake mass-balance ODE, calculate the steady-state mass, then compare one Euler step against the expected direction of change.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-odes'], expectedEvidence: ['Equation with units', 'Steady-state calculation', 'Numerical limitation note'], required: true },
     { id: 'cgei-ds-a-water-balance', kind: 'independent-practice', title: 'Close a catchment water balance', instructions: 'Estimate the missing storage term from precipitation, evapotranspiration and runoff. State the control volume, time period and omitted-flux caveat.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-water-balance'], expectedEvidence: ['Balance calculation', 'Boundary and limitation note'], required: true },
     { id: 'cgei-ds-a-energy-signs', kind: 'independent-practice', title: 'Energy-balance sign convention', instructions: 'Solve the surface energy balance under the stated sign convention, then rewrite the explanation for a convention with the flux direction reversed without mixing signs.', level: 'L2', estimatedMinutes: 20, objectiveIds: ['cgei-ds-o-energy-balance'], expectedEvidence: ['Equation and signed calculation', 'Explanation of sign convention'], required: true },
-    { id: 'cgei-ds-a-uncertainty-audit', kind: 'critique', title: 'Uncertainty and dependence audit', instructions: 'Calculate a conventional standard error for an independent sample, then critique whether the same formula is justified for autocorrelated daily temperatures or neighbouring pixels.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-uncertainty'], expectedEvidence: ['Standard-error calculation', 'Dependence critique'], required: true }, 
+    { id: 'cgei-ds-a-uncertainty-audit', kind: 'critique', title: 'Uncertainty and dependence audit', instructions: 'Calculate a conventional standard error for an independent sample, then critique whether the same formula is justified for autocorrelated daily temperatures or neighbouring pixels.', level: 'L2', estimatedMinutes: 25, objectiveIds: ['cgei-ds-o-uncertainty'], expectedEvidence: ['Standard-error calculation', 'Dependence critique'], required: true },
+    { id: 'cgei-ds-a-div-curl', kind: 'independent-practice', title: 'Divergence and curl field check', instructions: 'For a stated 2D velocity sketch, identify a region of positive divergence and a region of non-zero curl, and write one environmental interpretation for each.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-div-curl'], expectedEvidence: ['One divergence and one curl region with environmental meaning.'] },
+    { id: 'cgei-ds-a-taylor-error', kind: 'guided-practice', title: 'First-order error propagation', instructions: 'Linearise a smooth scalar function at a reference point and propagate a small input uncertainty through the derivative scale.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-taylor-error'], expectedEvidence: ['Linearised increment and scaled uncertainty.'] },
+    { id: 'cgei-ds-a-num-stability', kind: 'guided-practice', title: 'Time-step and float diagnostic', instructions: 'Given a simple Euler update, state one stability constraint on the time step and one floating-point risk in the accumulation.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-num-stability'], expectedEvidence: ['Stability bound and float risk named.'] },
+    { id: 'cgei-ds-a-optimisation', kind: 'guided-practice', title: 'Least squares vs gradient step', instructions: 'Contrast a closed-form least-squares slope with one gradient-descent update on a quadratic loss and note when a box constraint would bind.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-optimisation'], expectedEvidence: ['One LS expression, one GD update, one constraint remark.'] },
+    { id: 'cgei-ds-a-continuity', kind: 'guided-practice', title: 'Continuity and transport terms', instructions: 'Write a continuity balance for a fixed control volume and identify the diffusion and advection contributions in a given PDE form.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-continuity'], expectedEvidence: ['Balance statement with named terms.'] },
+    { id: 'cgei-ds-a-buckingham', kind: 'guided-practice', title: 'Buckingham Pi sketch', instructions: 'List base dimensions for a stated problem and form at least one non-dimensional group; interpret it physically.', level: 'L2', estimatedMinutes: 15, objectiveIds: ['cgei-ds-o-buckingham'], expectedEvidence: ['Dimension table and one Pi group with meaning.'] },
+    { id: 'cgei-ds-a-heat-transfer', kind: 'guided-practice', title: 'Heat pathway identification', instructions: 'For a surface energy sketch, label conduction, convection and radiation pathways and state which term Stefan–Boltzmann governs.', level: 'L2', estimatedMinutes: 12, objectiveIds: ['cgei-ds-o-heat-transfer'], expectedEvidence: ['Three pathways labeled; radiation law linked.'] },
+    { id: 'cgei-ds-a-clt-lln', kind: 'guided-practice', title: 'LLN/CLT applicability check', instructions: 'Given a sampling scenario, state whether LLN and CLT are plausible and name one distribution family that may model the observations.', level: 'L2', estimatedMinutes: 12, objectiveIds: ['cgei-ds-o-clt-lln'], expectedEvidence: ['Applicability judgment and one named distribution.'] }, 
     { id: 'cgei-ds-a-52-functions', kind: 'coding-lab', title: 'Refactor a notebook transformation into a tested module', instructions: 'Extract a repeated unit conversion or QA-mask operation into src/project/preprocess.py. Add a docstring with units and missing-value behaviour, at least three assertions or unit tests, and a guarded script entry point. Restart the notebook kernel and run the analysis from top to bottom.', level: 'L3', estimatedMinutes: 35, objectiveIds: ['cgei-ds-o-52-structure'], resourceIds: ['cgei-ds-r-52-good-practices'], expectedEvidence: ['Importable module', 'Tests for typical and invalid inputs', 'Clean-kernel execution note'], hints: ['Separate file loading from pure transformation functions.', 'Test a boundary case and a missing-value case.'], required: true },
 
 
@@ -6171,7 +6183,7 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-rs-assess-412-ops', kind: 'formative', title: 'Operational verification', purpose: 'Assess linked lesson outcomes.', objectiveIds: ['cgei-rs-o-412-ops'], questionIds: ['cgei-rs-q-412-vlm'], required: true },
 
     { id: 'cgei-ds-assess-unit-diagnostic', kind: 'diagnostic', title: 'Unit 5.1 entry diagnostic', purpose: 'Identify prerequisite gaps in algebra, units, rates and probability before the unit.', objectiveIds: outcomes51.map((o) => o.id), required: false },
-    { id: 'cgei-ds-assess-unit-quiz', kind: 'quiz', title: 'Unit 5.1 concept and calculation check', purpose: 'Check conceptual understanding and short calculations across the eight substantive lessons.', objectiveIds: outcomes51.map((o) => o.id), questionIds: Array.from({ length: 35 }, (_, i) => `CGEI-05-Q${String(i + 1).padStart(3, '0')}`), passThreshold: 0.8, required: true },
+    { id: 'cgei-ds-assess-unit-quiz', kind: 'quiz', title: 'Unit 5.1 concept and calculation check', purpose: 'Check conceptual understanding and short calculations across the sixteen substantive lessons.', objectiveIds: outcomes51.map((o) => o.id), questionIds: Array.from({ length: 59 }, (_, i) => `CGEI-05-Q${String(i + 1).padStart(3, '0')}`), passThreshold: 0.8, required: true },
     { id: 'cgei-ds-assess-unit-check', kind: 'formative', title: 'Units and dimensional analysis checkpoint', purpose: 'Check conversions, dimensions and plausibility reasoning.', objectiveIds: ['cgei-ds-o-quantities'], questionIds: ['CGEI-05-Q001', 'CGEI-05-Q027'], required: true },
     { id: 'cgei-ds-assess-calculus-check', kind: 'formative', title: 'Rates and fields checkpoint', purpose: 'Check accumulation and derivative units.', objectiveIds: ['cgei-ds-o-calculus'], questionIds: ['CGEI-05-Q027', 'CGEI-05-Q028'], required: true },
     { id: 'cgei-ds-assess-linear-algebra', kind: 'formative', title: 'Least-squares checkpoint', purpose: 'Check coefficient calculation and residual geometry.', objectiveIds: ['cgei-ds-o-linear-algebra'], questionIds: ['CGEI-05-Q029', 'CGEI-05-Q030'], required: true },
@@ -6180,6 +6192,14 @@ export const cgeiCurriculum: CurriculumRegistry = {
     { id: 'cgei-ds-assess-water-check', kind: 'formative', title: 'Water-balance checkpoint', purpose: 'Check missing-flux calculation and boundary assumptions.', objectiveIds: ['cgei-ds-o-water-balance'], questionIds: ['CGEI-05-Q033'], required: true },
     { id: 'cgei-ds-assess-energy-check', kind: 'formative', title: 'Energy-balance checkpoint', purpose: 'Check signed arithmetic under an explicit convention.', objectiveIds: ['cgei-ds-o-energy-balance'], questionIds: ['CGEI-05-Q034'], required: true },
     { id: 'cgei-ds-assess-probability-check', kind: 'formative', title: 'Uncertainty checkpoint', purpose: 'Check standard error and the independent-sample assumption.', objectiveIds: ['cgei-ds-o-uncertainty'], questionIds: ['CGEI-05-Q035'], required: true },
+    { id: 'cgei-ds-assess-div-curl', kind: 'formative', title: 'Divergence and curl checkpoint', purpose: 'Check divergence/curl interpretation in environmental flows.', objectiveIds: ['cgei-ds-o-div-curl'], questionIds: ['CGEI-05-Q036', 'CGEI-05-Q037', 'CGEI-05-Q038'], required: true },
+    { id: 'cgei-ds-assess-taylor-error', kind: 'formative', title: 'Taylor and error propagation checkpoint', purpose: 'Check linearisation and derivative-based uncertainty scaling.', objectiveIds: ['cgei-ds-o-taylor-error'], questionIds: ['CGEI-05-Q039', 'CGEI-05-Q040', 'CGEI-05-Q041'], required: true },
+    { id: 'cgei-ds-assess-num-stability', kind: 'formative', title: 'Numerical stability checkpoint', purpose: 'Check time-step limits and floating-point error reasoning.', objectiveIds: ['cgei-ds-o-num-stability'], questionIds: ['CGEI-05-Q042', 'CGEI-05-Q043', 'CGEI-05-Q044'], required: true },
+    { id: 'cgei-ds-assess-optimisation', kind: 'formative', title: 'Optimisation concepts checkpoint', purpose: 'Check least-squares versus gradient-descent concepts.', objectiveIds: ['cgei-ds-o-optimisation'], questionIds: ['CGEI-05-Q045', 'CGEI-05-Q046', 'CGEI-05-Q047'], required: true },
+    { id: 'cgei-ds-assess-continuity', kind: 'formative', title: 'Continuity and transport checkpoint', purpose: 'Check continuity, diffusion and advection forms.', objectiveIds: ['cgei-ds-o-continuity'], questionIds: ['CGEI-05-Q048', 'CGEI-05-Q049', 'CGEI-05-Q050'], required: true },
+    { id: 'cgei-ds-assess-buckingham', kind: 'formative', title: 'Buckingham Pi checkpoint', purpose: 'Check dimensional analysis and non-dimensional groups.', objectiveIds: ['cgei-ds-o-buckingham'], questionIds: ['CGEI-05-Q051', 'CGEI-05-Q052', 'CGEI-05-Q053'], required: true },
+    { id: 'cgei-ds-assess-heat-transfer', kind: 'formative', title: 'Heat transfer pathways checkpoint', purpose: 'Distinguish conduction, convection and radiation pathways.', objectiveIds: ['cgei-ds-o-heat-transfer'], questionIds: ['CGEI-05-Q054', 'CGEI-05-Q055', 'CGEI-05-Q056'], required: true },
+    { id: 'cgei-ds-assess-clt-lln', kind: 'formative', title: 'LLN, CLT and distributions checkpoint', purpose: 'Check LLN/CLT conditions and common distributions.', objectiveIds: ['cgei-ds-o-clt-lln'], questionIds: ['CGEI-05-Q057', 'CGEI-05-Q058', 'CGEI-05-Q059'], required: true },
     { id: 'cgei-ds-assess-capstone-review', kind: 'portfolio-review', title: 'Scientific computing capstone review', purpose: 'Assess reproducibility, methodological fit, validation, uncertainty and communication of a scientific artefact.', objectiveIds: ['cgei-ds-o-reproducible-analysis', 'cgei-ds-o-environmental-inference', 'cgei-ds-o-data-product'], rubricId: 'cgei-ds-rubric-capstone', required: true }, 
     { id: 'cgei-ds-assess-52-structure', kind: 'practical', title: 'Scientific Python structure check', purpose: 'Evaluate whether a transformation is importable, unit-aware, tested, and independent of hidden notebook state.', objectiveIds: ['cgei-ds-o-52-structure'], questionIds: ['cgei-ds-q-52-001', 'cgei-ds-q-52-002'], activityIds: ['cgei-ds-a-52-functions'], required: true },
 

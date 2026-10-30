@@ -44,11 +44,11 @@ describe('CGEI curriculum structure', () => {
     for (const code of ['5.1', '5.2', '5.3']) {
       const unit = cgeiCurriculum.units.find((item) => item.code === code);
       assert.ok(unit, `Unit ${code} should be registered`);
-      assert.equal(unit.lessonIds.length,  code === '5.1' ? 8 : 5);
+      assert.equal(unit.lessonIds.length,  code === '5.1' ? 16 : 5);
       assert.ok(unit.lessonIds.every((id) => cgeiCurriculum.lessons.some((lesson) => lesson.id === id)));
     }
-    assert.equal(cgeiCurriculum.lessons.length, 221);
-    assert.equal(cgeiCurriculum.questions.length, 544);
+    assert.equal(cgeiCurriculum.lessons.length, 253);
+    assert.equal(cgeiCurriculum.questions.length, 568);
     assert.equal(cgeiCurriculum.questions.filter((question) => question.id === 'cgei-geo-q-32-vertical-datum').length, 1);
     const unitOrders = cgeiCurriculum.units.map((unit) => unit.order);
     assert.equal(unitOrders.length, new Set(unitOrders).size);
@@ -56,7 +56,7 @@ describe('CGEI curriculum structure', () => {
       cgeiCurriculum.units.filter((unit) => unit.code.startsWith('5.')).map((unit) => unit.order).sort((a, b) => a - b),
       Array.from({ length: 12 }, (_, index) => index + 1),
     );
-    assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 35);
+    assert.equal(cgeiCurriculum.questions.filter((question) => question.id.startsWith('CGEI-05-Q')).length, 59);
     assert.ok(cgeiCurriculum.lessons.filter((lesson) => !lesson.sourceTopicId).every((lesson) => lesson.content.length > 0));
     const unit51 = cgeiCurriculum.units.find((unit) => unit.code === '5.1');
     const unit55 = cgeiCurriculum.units.find((unit) => unit.code === '5.5');

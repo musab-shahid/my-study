@@ -109,13 +109,30 @@ def load_dispositions(docs_cgei: Path) -> dict[str, dict[str, str]]:
 
 
 def lesson_ids_in_curriculum(path: Path) -> set[str]:
+    """Collect CGEI lesson IDs from curriculum.ts and per-subject modules.
+
+    Subject modules (e.g. climate-science/subject-2-curriculum.ts) hold lesson
+    definitions that curriculum.ts imports; those IDs must count as live.
+    """
     if not path.is_file():
         raise ValueError(f"missing curriculum input: {path}")
-    text = path.read_text(encoding="utf-8")
-    ids = set(LESSON_ID.findall(text))
+    paths = [path]
+    root = path.parent
+    # Per-subject extracted modules: src/data/cgei/<subject>/*curriculum*.ts
+    if root.is_dir():
+        for sub in sorted(root.iterdir()):
+            if sub.is_dir():
+                paths.extend(sorted(sub.glob("*curriculum*.ts")))
+    ids: set[str] = set()
+    for candidate in paths:
+        try:
+            text = candidate.read_text(encoding="utf-8")
+        except OSError as exc:
+            raise ValueError(f"cannot read curriculum input {candidate}: {exc}") from exc
+        ids.update(LESSON_ID.findall(text))
     if not ids:
         raise ValueError(
-            f"curriculum input is empty or unparseable: no CGEI lesson IDs found in {path}"
+            f"curriculum input is empty or unparseable: no CGEI lesson IDs found under {path}"
         )
     return ids
 

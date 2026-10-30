@@ -264,6 +264,186 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-ds-unit-5-1",
+    "code": "5.1",
+    "title": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-1-1",
+      "cgei-ds-lesson-5-1-2",
+      "cgei-ds-lesson-5-1-9",
+      "cgei-ds-lesson-5-1-3",
+      "cgei-ds-lesson-5-1-4",
+      "cgei-ds-lesson-5-1-10",
+      "cgei-ds-lesson-5-1-5",
+      "cgei-ds-lesson-5-1-11",
+      "cgei-ds-lesson-5-1-12",
+      "cgei-ds-lesson-5-1-6",
+      "cgei-ds-lesson-5-1-13",
+      "cgei-ds-lesson-5-1-14",
+      "cgei-ds-lesson-5-1-7",
+      "cgei-ds-lesson-5-1-15",
+      "cgei-ds-lesson-5-1-8",
+      "cgei-ds-lesson-5-1-16"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-10",
+    "code": "5.10",
+    "title": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-10-1",
+      "cgei-ds-lesson-5-10-2",
+      "cgei-ds-lesson-5-10-3",
+      "cgei-ds-lesson-5-10-4",
+      "cgei-ds-lesson-5-10-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-11",
+    "code": "5.11",
+    "title": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-11-1",
+      "cgei-ds-lesson-5-11-2",
+      "cgei-ds-lesson-5-11-3",
+      "cgei-ds-lesson-5-11-4",
+      "cgei-ds-lesson-5-11-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-12",
+    "code": "5.12",
+    "title": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-12-1",
+      "cgei-ds-lesson-5-12-2",
+      "cgei-ds-lesson-5-12-3",
+      "cgei-ds-lesson-5-12-4",
+      "cgei-ds-lesson-5-12-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-2",
+    "code": "5.2",
+    "title": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-2-1",
+      "cgei-ds-lesson-5-2-2",
+      "cgei-ds-lesson-5-2-3",
+      "cgei-ds-lesson-5-2-4",
+      "cgei-ds-lesson-5-2-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-3",
+    "code": "5.3",
+    "title": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-3-1",
+      "cgei-ds-lesson-5-3-2",
+      "cgei-ds-lesson-5-3-3",
+      "cgei-ds-lesson-5-3-4",
+      "cgei-ds-lesson-5-3-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-4",
+    "code": "5.4",
+    "title": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-4-distributions",
+      "cgei-ds-lesson-5-4-1",
+      "cgei-ds-lesson-5-4-2",
+      "cgei-ds-lesson-5-4-3",
+      "cgei-ds-lesson-5-4-5",
+      "cgei-ds-lesson-5-4-4"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-5",
+    "code": "5.5",
+    "title": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-5-1",
+      "cgei-ds-lesson-5-5-2",
+      "cgei-ds-lesson-5-5-3",
+      "cgei-ds-lesson-5-5-4",
+      "cgei-ds-lesson-5-5-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-6",
+    "code": "5.6",
+    "title": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-6-1",
+      "cgei-ds-lesson-5-6-2",
+      "cgei-ds-lesson-5-6-3",
+      "cgei-ds-lesson-5-6-4",
+      "cgei-ds-lesson-5-6-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-7",
+    "code": "5.7",
+    "title": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-7-1",
+      "cgei-ds-lesson-5-7-2",
+      "cgei-ds-lesson-5-7-3",
+      "cgei-ds-lesson-5-7-4",
+      "cgei-ds-lesson-5-7-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-8",
+    "code": "5.8",
+    "title": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-8-1",
+      "cgei-ds-lesson-5-8-2",
+      "cgei-ds-lesson-5-8-3",
+      "cgei-ds-lesson-5-8-4",
+      "cgei-ds-lesson-5-8-5"
+    ]
+  },
+  {
+    "id": "cgei-ds-unit-5-9",
+    "code": "5.9",
+    "title": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science",
+    "lessonIds": [
+      "cgei-ds-lesson-5-9-1",
+      "cgei-ds-lesson-5-9-2",
+      "cgei-ds-lesson-5-9-3",
+      "cgei-ds-lesson-5-9-4",
+      "cgei-ds-lesson-5-9-5"
+    ]
+  },
+  {
     "id": "cgei-dspt-unit-9-1",
     "code": "9.1",
     "title": "Communicating for decisions",
@@ -975,7 +1155,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-3-2",
-    "title": "Boundary layer, fluxes, and urban nights",
+    "title": "Dynamics, boundary layer and surface exchange",
     "unitId": "cgei-cl-unit-2-3",
     "unitTitle": "Atmospheric thermodynamics, dynamics, and the boundary layer",
     "subjectId": "cgei-climate-science",
@@ -983,7 +1163,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-3-3",
-    "title": "Clouds, precipitation, and NWP concepts",
+    "title": "Clouds, precipitation and NWP concepts",
     "unitId": "cgei-cl-unit-2-3",
     "unitTitle": "Atmospheric thermodynamics, dynamics, and the boundary layer",
     "subjectId": "cgei-climate-science",
@@ -1023,7 +1203,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-5-2",
-    "title": "Aggregation, missingness and anomalies",
+    "title": "Aggregation, completeness and anomalies",
     "unitId": "cgei-cl-unit-2-5",
     "unitTitle": "Climate data handling",
     "subjectId": "cgei-climate-science",
@@ -1047,7 +1227,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-6-2",
-    "title": "Trend estimation and dependence",
+    "title": "Trend estimation",
     "unitId": "cgei-cl-unit-2-6",
     "unitTitle": "Extremes and trend analysis",
     "subjectId": "cgei-climate-science",
@@ -1071,7 +1251,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-8-2",
-    "title": "Heat, air-quality seasons and Multan context",
+    "title": "Multan / southern Punjab setting",
     "unitId": "cgei-cl-unit-2-8",
     "unitTitle": "Regional climate literacy (Pakistan / southern Punjab)",
     "subjectId": "cgei-climate-science",
@@ -1085,200 +1265,582 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
-
   {
-    "id": "cgei-cl-lesson-2-7-1",
-    "title": "Core theory: GEV, GPD, return levels, and declustering",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-1",
+    "title": "Quantities, units and dimensional analysis",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-7-2",
-    "title": "Estimation and diagnostics",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-10",
+    "title": "Taylor expansion, linearisation and error propagation",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-7-3",
-    "title": "Extensions: non-stationarity, regional analysis, and dependence",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-11",
+    "title": "Numerical stability, time-stepping limits and floating-point error",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-7-4",
-    "title": "Applications and communicating return periods",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-12",
+    "title": "Optimisation: gradient descent and constrained concepts",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-1",
-    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-13",
+    "title": "Continuity, diffusion and advection equations",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-2",
-    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-14",
+    "title": "Dimensional analysis, Buckingham Pi and non-dimensional numbers",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-3",
-    "title": "Model evaluation: skill metrics and process-based checks",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-15",
+    "title": "Waves, conduction and convection in heat transfer",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-4",
-    "title": "Bias adjustment: methods, assumptions, and artefacts",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-16",
+    "title": "Law of large numbers, central limit theorem, and common distributions",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-5",
-    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-2",
+    "title": "Calculus, finite differences and environmental fields",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-9-6",
-    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-3",
+    "title": "Matrices, linear maps and least squares",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-10-1",
-    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-4",
+    "title": "Eigenvalues, SVD and PCA foundations",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-10-2",
-    "title": "Choosing models and members, and documenting the choice",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-5",
+    "title": "Stock–flux systems, ODEs and numerical integration",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-10-3",
-    "title": "CMIP7 and AR7 awareness",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-6",
+    "title": "Environmental mass and water balance",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-11-1",
-    "title": "Concepts: detection, attribution, and the single-record problem",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-7",
+    "title": "Surface energy balance and thermal radiation",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-11-2",
-    "title": "Event attribution: probabilistic framing and rapid protocols",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-8",
+    "title": "Probability, uncertainty and dependent observations",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-11-3",
-    "title": "Limits: harder cases and communicating attribution results",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-1-9",
+    "title": "Divergence, curl and vector fields in environmental flows",
+    "unitId": "cgei-ds-unit-5-1",
+    "unitTitle": "Mathematical and physical foundations",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-12-1",
-    "title": "ML in downscaling and bias correction",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-10-1",
+    "title": "Causal questions, DAGs and variable roles",
+    "unitId": "cgei-ds-unit-5-10",
+    "unitTitle": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-12-2",
-    "title": "Probabilistic and rare-event evaluation",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-10-2",
+    "title": "Define estimands and target trials",
+    "unitId": "cgei-ds-unit-5-10",
+    "unitTitle": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-12-3",
-    "title": "Using open AI forecasts: post-processing and blending",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-10-3",
+    "title": "Confounding, adjustment and identification",
+    "unitId": "cgei-ds-unit-5-10",
+    "unitTitle": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-12-4",
-    "title": "Climate services",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-10-4",
+    "title": "Natural experiments, matching and difference-in-differences",
+    "unitId": "cgei-ds-unit-5-10",
+    "unitTitle": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-12-5",
-    "title": "Digital twins and kilometre-scale models",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-10-5",
+    "title": "Sensitivity, negative controls and causal reporting",
+    "unitId": "cgei-ds-unit-5-10",
+    "unitTitle": "Causal inference for environmental questions",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-13-1",
-    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-11-1",
+    "title": "Version control as research provenance",
+    "unitId": "cgei-ds-unit-5-11",
+    "unitTitle": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-13-2",
-    "title": "Skill and verification of probabilistic outlooks",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-11-2",
+    "title": "Modular design and data contracts",
+    "unitId": "cgei-ds-unit-5-11",
+    "unitTitle": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
   {
-    "id": "cgei-cl-lesson-2-13-3",
-    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
+    "id": "cgei-ds-lesson-5-11-3",
+    "title": "Scientific testing and numerical invariants",
+    "unitId": "cgei-ds-unit-5-11",
+    "unitTitle": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
   },
-  
+  {
+    "id": "cgei-ds-lesson-5-11-4",
+    "title": "Environments, dependencies and reproducibility",
+    "unitId": "cgei-ds-unit-5-11",
+    "unitTitle": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-11-5",
+    "title": "Documentation, CI and scientific releases",
+    "unitId": "cgei-ds-unit-5-11",
+    "unitTitle": "Research software engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-12-1",
+    "title": "Labeled arrays and multidimensional data models",
+    "unitId": "cgei-ds-unit-5-12",
+    "unitTitle": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-12-2",
+    "title": "Coordinate alignment, selection and aggregation",
+    "unitId": "cgei-ds-unit-5-12",
+    "unitTitle": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-12-3",
+    "title": "Lazy computation, chunking and Dask",
+    "unitId": "cgei-ds-unit-5-12",
+    "unitTitle": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-12-4",
+    "title": "Robust spatiotemporal feature pipelines",
+    "unitId": "cgei-ds-unit-5-12",
+    "unitTitle": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-12-5",
+    "title": "Validation, performance and reproducible outputs",
+    "unitId": "cgei-ds-unit-5-12",
+    "unitTitle": "xarray and scalable environmental pipelines",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-2-1",
+    "title": "Scientific Python structure, functions and defensive checks",
+    "unitId": "cgei-ds-unit-5-2",
+    "unitTitle": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-2-2",
+    "title": "NumPy arrays, broadcasting and missing values",
+    "unitId": "cgei-ds-unit-5-2",
+    "unitTitle": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-2-3",
+    "title": "Pandas time zones, daily summaries and safe joins",
+    "unitId": "cgei-ds-unit-5-2",
+    "unitTitle": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-2-4",
+    "title": "Environments, formats and data provenance",
+    "unitId": "cgei-ds-unit-5-2",
+    "unitTitle": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-2-5",
+    "title": "Regex, metadata validation and Python–R interoperability",
+    "unitId": "cgei-ds-unit-5-2",
+    "unitTitle": "Python for scientific work",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-3-1",
+    "title": "EDA as scientific questioning and data profiling",
+    "unitId": "cgei-ds-unit-5-3",
+    "unitTitle": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-3-2",
+    "title": "Distributional and relational graphics",
+    "unitId": "cgei-ds-unit-5-3",
+    "unitTitle": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-3-3",
+    "title": "Climate series, anomalies and temporal dependence",
+    "unitId": "cgei-ds-unit-5-3",
+    "unitTitle": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-3-4",
+    "title": "Maps as analytical graphics",
+    "unitId": "cgei-ds-unit-5-3",
+    "unitTitle": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-3-5",
+    "title": "Uncertainty, captions and responsible visual claims",
+    "unitId": "cgei-ds-unit-5-3",
+    "unitTitle": "Exploratory data analysis and visualisation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-1",
+    "title": "Sampling designs, representativeness and environmental support",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-2",
+    "title": "Estimation, confidence intervals and bootstrap",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-3",
+    "title": "Hypothesis tests, p-values and multiple testing",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-4",
+    "title": "Correlation, simple regression and residual diagnostics",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-5",
+    "title": "Effect sizes, power and rank-based methods",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-4-distributions",
+    "title": "Probability models and environmental distributions",
+    "unitId": "cgei-ds-unit-5-4",
+    "unitTitle": "Introductory statistics for environmental data",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-1",
+    "title": "End-to-end workflows, idempotence and manifests",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-2",
+    "title": "Relational tables, SQL joins and grouped summaries",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-3",
+    "title": "HTTP APIs, retries, pagination and local caching",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-4",
+    "title": "Provenance, licences, credentials and ethical access",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-5-5",
+    "title": "Build a reproducible environmental-data acquisition package",
+    "unitId": "cgei-ds-unit-5-5",
+    "unitTitle": "Data workflow engineering",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-6-1",
+    "title": "Multiple regression, categorical predictors and interactions",
+    "unitId": "cgei-ds-unit-5-6",
+    "unitTitle": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-6-2",
+    "title": "Residual diagnostics and multicollinearity",
+    "unitId": "cgei-ds-unit-5-6",
+    "unitTitle": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-6-3",
+    "title": "Parameter uncertainty, prediction intervals and bootstrap",
+    "unitId": "cgei-ds-unit-5-6",
+    "unitTitle": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-6-4",
+    "title": "Temporal and spatial dependence; leakage-aware validation",
+    "unitId": "cgei-ds-unit-5-6",
+    "unitTitle": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-6-5",
+    "title": "Compare models against baselines and report failure cases",
+    "unitId": "cgei-ds-unit-5-6",
+    "unitTitle": "Intermediate inference and model validation",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-7-1",
+    "title": "Time-series structure, frequency and data quality",
+    "unitId": "cgei-ds-unit-5-7",
+    "unitTitle": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-7-2",
+    "title": "Trend, seasonality, decomposition and anomalies",
+    "unitId": "cgei-ds-unit-5-7",
+    "unitTitle": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-7-3",
+    "title": "Autocorrelation, stationarity and trend uncertainty",
+    "unitId": "cgei-ds-unit-5-7",
+    "unitTitle": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-7-4",
+    "title": "Forecast baselines and leakage-aware temporal validation",
+    "unitId": "cgei-ds-unit-5-7",
+    "unitTitle": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-7-5",
+    "title": "Forecast diagnostics, model comparison and failure analysis",
+    "unitId": "cgei-ds-unit-5-7",
+    "unitTitle": "Time-series analysis",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-8-1",
+    "title": "Build a defensible multivariate data matrix",
+    "unitId": "cgei-ds-unit-5-8",
+    "unitTitle": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-8-2",
+    "title": "Area weighting and covariance targets",
+    "unitId": "cgei-ds-unit-5-8",
+    "unitTitle": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-8-3",
+    "title": "PCA/EOF by eigenanalysis and SVD",
+    "unitId": "cgei-ds-unit-5-8",
+    "unitTitle": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-8-4",
+    "title": "Choose modes and test stability",
+    "unitId": "cgei-ds-unit-5-8",
+    "unitTitle": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-8-5",
+    "title": "Indices, composites and field significance",
+    "unitId": "cgei-ds-unit-5-8",
+    "unitTitle": "Multivariate analysis, PCA and EOF",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-9-1",
+    "title": "Choose a GLM from outcome support and scientific question",
+    "unitId": "cgei-ds-unit-5-9",
+    "unitTitle": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-9-2",
+    "title": "Mixed models for grouped and repeated environmental data",
+    "unitId": "cgei-ds-unit-5-9",
+    "unitTitle": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-9-3",
+    "title": "Bayesian models: priors, posterior and computation",
+    "unitId": "cgei-ds-unit-5-9",
+    "unitTitle": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-9-4",
+    "title": "Diagnostics, overdispersion and predictive checks",
+    "unitId": "cgei-ds-unit-5-9",
+    "unitTitle": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
+  {
+    "id": "cgei-ds-lesson-5-9-5",
+    "title": "Effect contrasts, uncertainty and scientific reporting",
+    "unitId": "cgei-ds-unit-5-9",
+    "unitTitle": "GLMs, mixed models and Bayesian modelling",
+    "subjectId": "cgei-data-science",
+    "subjectTitle": "Scientific Computing & Data Science"
+  },
   {
     "id": "cgei-dspt-lesson-9-1-1",
     "title": "Audience, risk communication and product metadata",
@@ -2271,74 +2833,199 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectId": "cgei-software-engineering",
     "subjectTitle": "Software Engineering for Environmental Systems"
   },
-    {
-    "id": "cgei-ds-lesson-5-1-9",
-    "title": "Divergence, curl and vector fields in environmental flows",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+  {
+    "id": "cgei-cl-lesson-2-7-1",
+    "title": "Core theory: GEV, GPD, return levels, and declustering",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-10",
-    "title": "Taylor expansion, linearisation and error propagation",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-7-2",
+    "title": "Estimation and diagnostics",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-11",
-    "title": "Numerical stability, time-stepping limits and floating-point error",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-7-3",
+    "title": "Extensions: non-stationarity, regional analysis, and dependence",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-12",
-    "title": "Optimisation: gradient descent and constrained concepts",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-7-4",
+    "title": "Applications and communicating return periods",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-13",
-    "title": "Continuity, diffusion and advection equations",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-9-1",
+    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-14",
-    "title": "Dimensional analysis, Buckingham Pi and non-dimensional numbers",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-9-2",
+    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-15",
-    "title": "Waves, conduction and convection in heat transfer",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-9-3",
+    "title": "Model evaluation: skill metrics and process-based checks",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   },
   {
-    "id": "cgei-ds-lesson-5-1-16",
-    "title": "Law of large numbers, central limit theorem, and common distributions",
-    "unitId": "cgei-ds-unit-5-1",
-    "unitTitle": "Mathematical and physical foundations",
-    "subjectId": "cgei-data-science",
-    "subjectTitle": "Scientific Computing & Data Science"
+    "id": "cgei-cl-lesson-2-9-4",
+    "title": "Bias adjustment: methods, assumptions, and artefacts",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-5",
+    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-6",
+    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-1",
+    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-2",
+    "title": "Choosing models and members, and documenting the choice",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-3",
+    "title": "CMIP7 and AR7 awareness",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-1",
+    "title": "Concepts: detection, attribution, and the single-record problem",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-2",
+    "title": "Event attribution: probabilistic framing and rapid protocols",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-3",
+    "title": "Limits: harder cases and communicating attribution results",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-1",
+    "title": "ML in downscaling and bias correction",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-2",
+    "title": "Probabilistic and rare-event evaluation",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-3",
+    "title": "Using open AI forecasts: post-processing and blending",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-4",
+    "title": "Climate services",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-5",
+    "title": "Digital twins and kilometre-scale models",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-1",
+    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-2",
+    "title": "Skill and verification of probabilistic outlooks",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-3",
+    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
   }
 ];
+export const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
+export const cgeiIndexLessonById = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));
 
-export const cgeiIndexUnitById: ReadonlyMap<string, CgeiIndexUnit> = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
-export const cgeiIndexLessonById: ReadonlyMap<string, CgeiIndexLesson> = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));
-export function cgeiLessonIdsForSubjects(subjectIds: ReadonlySet<string>): ReadonlySet<string> {
-  return new Set(cgeiIndexLessons.filter((lesson) => subjectIds.has(lesson.subjectId)).map((lesson) => lesson.id));
-}

@@ -10,7 +10,7 @@ The original flat `Topic` schema was insufficient for the required hierarchy. Th
 | Content need | Canonical mechanism | Unit 5.1 implementation |
 |--------------|--------------------|-------------------------|
 | Course orientation | `CurriculumSubject.overview` | Separate from the topic bank and progress counts |
-| Unit / lesson hierarchy | `CurriculumUnit` → `CurriculumLesson` | Eight lessons mapped to stable legacy Topic IDs |
+| Unit / lesson hierarchy | `CurriculumUnit` → `CurriculumLesson` | Sixteen lessons mapped to stable legacy Topic IDs |
 | Learning objectives and L1–L4 level | `CurriculumOutcome`, `CurriculumLesson.objectives`, `level` | First-class objective cards and level labels |
 | Explanations and key points | Typed `prose` and `key-points` blocks | Legacy content converted through a compatibility adapter |
 | Equations and variables | `equation` blocks with MathText rendering | Formula notes and symbols preserved |
@@ -25,22 +25,30 @@ The original flat `Topic` schema was insufficient for the required hierarchy. Th
 
 ## Manuscript → app topic map
 
-| Manuscript | App topic id | Section |
-|------------|--------------|---------|
-| 5.1.1 Quantities, units, dimensional analysis | `cgei-ds-units-dimensions` | CGEI-051 |
-| 5.1.2 Calculus, finite differences, fields | `cgei-ds-rates-finite-diff` | CGEI-051 |
-| 5.1.3.1–5.1.3.2 Matrices, maps, least squares | `cgei-ds-matrices-least-squares` | CGEI-051 |
-| 5.1.3.3 Eigenvalues, SVD, PCA foundations | `cgei-ds-eigen-svd-pca` | CGEI-051 |
-| 5.1.4 ODEs and numerical methods | `cgei-ds-ode-numerical` | CGEI-051 |
-| 5.1.5 Water / mass balance strand | `cgei-ds-water-mass-balance` | CGEI-051 |
-| 5.1.5 Energy balance + Stefan–Boltzmann | `cgei-ds-energy-balance` | CGEI-051 |
-| 5.1.6 Probability foundations | `cgei-ds-probability-dependence` | CGEI-051 |
+| Manuscript | App topic id | Lesson id | Section |
+|------------|--------------|-----------|---------|
+| 5.1.1 Quantities, units, dimensional analysis | `cgei-ds-units-dimensions` | `cgei-ds-lesson-5-1-1` | CGEI-051 |
+| 5.1.2 Calculus, finite differences, fields | `cgei-ds-rates-finite-diff` | `cgei-ds-lesson-5-1-2` | CGEI-051 |
+| 5.1.1.1 Divergence, curl, vector fields | `cgei-ds-div-curl-fields` | `cgei-ds-lesson-5-1-9` | CGEI-051 |
+| 5.1.3.1–5.1.3.2 Matrices, maps, least squares | `cgei-ds-matrices-least-squares` | `cgei-ds-lesson-5-1-3` | CGEI-051 |
+| 5.1.3.3 Eigenvalues, SVD, PCA foundations | `cgei-ds-eigen-svd-pca` | `cgei-ds-lesson-5-1-4` | CGEI-051 |
+| 5.1.1.3 Taylor expansion and error propagation | `cgei-ds-taylor-error-propagation` | `cgei-ds-lesson-5-1-10` | CGEI-051 |
+| 5.1.4 ODEs and numerical methods | `cgei-ds-ode-numerical` | `cgei-ds-lesson-5-1-5` | CGEI-051 |
+| 5.1.2.2 Numerical stability and floating-point error | `cgei-ds-numerical-stability-floats` | `cgei-ds-lesson-5-1-11` | CGEI-051 |
+| 5.1.2.3 Optimisation (gradient descent, constraints) | `cgei-ds-optimisation-methods` | `cgei-ds-lesson-5-1-12` | CGEI-051 |
+| 5.1.5 Water / mass balance strand | `cgei-ds-water-mass-balance` | `cgei-ds-lesson-5-1-6` | CGEI-051 |
+| 5.1.3.1 Continuity, diffusion, advection | `cgei-ds-continuity-diffusion-advection` | `cgei-ds-lesson-5-1-13` | CGEI-051 |
+| 5.1.3.2 Buckingham Pi / non-dimensional numbers | `cgei-ds-buckingham-pi-nondim` | `cgei-ds-lesson-5-1-14` | CGEI-051 |
+| 5.1.5 Energy balance + Stefan–Boltzmann | `cgei-ds-energy-balance` | `cgei-ds-lesson-5-1-7` | CGEI-051 |
+| 5.1.3.3 Waves, conduction, convection | `cgei-ds-waves-conduction-convection` | `cgei-ds-lesson-5-1-15` | CGEI-051 |
+| 5.1.6 Probability foundations | `cgei-ds-probability-dependence` | `cgei-ds-lesson-5-1-8` | CGEI-051 |
+| 5.1.4.2–5.1.4.3 LLN, CLT, common distributions | `cgei-ds-clt-lln-distributions` | `cgei-ds-lesson-5-1-16` | CGEI-051 |
 
 The Subject 5 overview lives in `CurriculumSubject.overview`; `cgei-data-science-roadmap` is not registered as a topic or progress item.
 
 ## Assessment and depth review
 
-The expanded bank contains **35 questions across eight topics** (IDs `CGEI-05-Q001`–`CGEI-05-Q035`). New application items cover rate integration, a numeric gradient, a hand-calculated least-squares coefficient and residual check, eigenvalue/SVD distinction, a stock–flux steady state, water-balance storage, energy-balance signs, and standard error.
+The expanded bank contains **59 questions across sixteen topics** (IDs `CGEI-05-Q001`–`CGEI-05-Q059`). New application items cover rate integration, a numeric gradient, a hand-calculated least-squares coefficient and residual check, eigenvalue/SVD distinction, a stock–flux steady state, water-balance storage, energy-balance signs, and standard error.
 
 The count is a coverage indicator, not a mastery guarantee. Review questions for calculation, interpretation, transfer, and misconception diagnosis. Each topic should have at least one worked numerical example where the subject is quantitative, and explanations must show the reasoning rather than only repeat the answer.
 
@@ -62,6 +70,11 @@ The count is a coverage indicator, not a mastery guarantee. Review questions for
 - **Source-to-app map:** all six manuscript strands mapped to eight app topics.
 - **Topic teaching:** quantitative worked examples now exist for units, rates/gradients, OLS, eigenpairs, Euler integration, lake steady state, water balance, energy balance, and standard error.
 - **Assessment:** 35 questions across the eight topics; new applied items added after the initial 26-question review.
-- **Structural metadata:** `CGEI-051` declares 8 lessons and 35 Unit 5.1 questions. The canonical registry now contains 76 questions overall (35 migrated from Unit 5.1 plus 41 across Units 5.2–5.5).
+- **Structural metadata:** `CGEI-051` declares 16 lessons and 59 Unit 5.1 questions. The canonical registry now contains 76 questions overall (35 migrated from Unit 5.1 plus 41 across Units 5.2–5.5).
 - **Validation:** the previous CI run passed E2E and scientific smoke but failed a stale curriculum-count assertion. The count was corrected and a new CI run was started; the latest run must finish green and the lesson UI must still be reviewed before Unit 5.1 is marked validated.
 - **Scope boundary:** Units 5.2–5.5 are integrated as draft lessons and checks; Units 5.6–5.12 remain manuscript-first/planned and are not claimed to be app-integrated.
+
+
+## 2026 expansion topics
+
+Eight additional topics (`cgei-ds-div-curl-fields` … `cgei-ds-clt-lln-distributions`) are registered as lessons `cgei-ds-lesson-5-1-9` … `5-1-16` with content bridged via `legacyTopicToBlocks`. Unit readiness remains `review` pending a readinessEvidence pass.

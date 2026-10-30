@@ -223,7 +223,17 @@ const unit511 = cgeiCurriculum.units.find((unit) => unit.code === '5.11');
 const unit512 = cgeiCurriculum.units.find((unit) => unit.code === '5.12');
 if (!subject5 || !unit51) errors.push('Subject 5 or Unit 5.1 registry entry is missing');
 if (subject5 && subject5.unitIds.length !== 12) errors.push(`Subject 5 should list the 12 instructional units; capstone is a separate project; found ${subject5.unitIds.length}`);
-if (unit51 && unit51.lessonIds.length !== 8) errors.push(`Unit 5.1 should map 8 substantive lessons; found ${unit51.lessonIds.length}`);
+if (unit51) {
+  const unit51Lessons = cgeiCurriculum.lessons.filter((lesson) => unit51.lessonIds.includes(lesson.id));
+  if (unit51Lessons.length !== unit51.lessonIds.length) {
+    errors.push(`Unit 5.1 references ${unit51.lessonIds.length - unit51Lessons.length} missing lesson record(s)`);
+  }
+  for (const lesson of unit51Lessons) {
+    if (!lesson.sourceTopicId || !topicMetadata.some((topic) => topic.id === lesson.sourceTopicId)) {
+      errors.push(`Unit 5.1 lesson ${lesson.id} must map to an existing canonical source topic`);
+    }
+  }
+}
 if (unit52 && unit52.lessonIds.length !== 5) errors.push(`Unit 5.2 should map 5 substantive lessons; found ${unit52.lessonIds.length}`);
 if (unit53 && unit53.lessonIds.length !== 5) errors.push(`Unit 5.3 should map 5 substantive lessons; found ${unit53.lessonIds.length}`);
 if (unit54 && unit54.lessonIds.length !== 6) errors.push(`Unit 5.4 should map 6 substantive lessons after adding the source-aligned probability/distributions lesson; found ${unit54.lessonIds.length}`);
