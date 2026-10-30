@@ -36,7 +36,8 @@
     "check:feature-icons": "node scripts/check-feature-icons.mjs",
     "check:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts --check",
     "check:cgei": "node scripts/check-cgei.mjs",
-    "test:unit-fixtures": "python3 scripts/run-unit-fixture-checks.py"
+    "test:unit-fixtures": "python3 scripts/run-unit-fixture-checks.py",
+    "check:cgei-legacy-freeze": "bash scripts/check-cgei-legacy-freeze.sh"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

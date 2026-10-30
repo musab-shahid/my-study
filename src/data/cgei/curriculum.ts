@@ -14,7 +14,7 @@
 import type { CurriculumContentBlock, CurriculumQuestion, CurriculumRegistry, CurriculumOutcome, CurriculumLesson, CurriculumUnit } from '@/types/curriculum';
 import { questions as legacyDataScienceQuestions } from './data-science/questions-data-science';
 import type { Topic } from '@/types';
-import { topics as dataScienceTopics } from './data-science/topics-data-science';
+import { topics as dataScienceTopics } from './data-science/legacy/topics-data-science';
 import {
   subject2Units,
   subject2Lessons,
