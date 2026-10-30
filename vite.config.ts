@@ -51,7 +51,7 @@ export default defineConfig({
             if (id.includes('lucide-react')) return 'vendor-icons';
             return 'vendor';
           }
-                    if (id.includes('/src/lib/')) return 'app-lib';
+          if (id.includes('/src/lib/')) return 'app-lib';
           // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (
             id.includes('/src/data/cgei/curriculum') ||
