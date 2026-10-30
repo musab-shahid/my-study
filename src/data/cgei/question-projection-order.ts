@@ -576,6 +576,6 @@ export const cgeiQuestionProjectionOrder = [
   "cgei-ds-q-51-020",
   "cgei-ds-q-511-020",
   "cgei-ds-q-512-020",
-  "cgei-ds-q-56-020",,
+  "cgei-ds-q-56-020",
   "cgei-cl-q-26-005",
 ] as const;
