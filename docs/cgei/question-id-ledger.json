@@ -1,0 +1,2330 @@
+{
+  "version": 1,
+  "description": "CGEI question ID ledger. IDs are permanent; CI fails if an ID disappears or changes subject.",
+  "questions": {
+    "CGEI-02-Q001": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q002": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q003": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q004": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q005": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q006": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q007": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q008": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q009": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q010": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q011": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q012": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q013": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q014": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-02-Q015": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q001": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q002": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q003": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q004": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q005": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q006": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q007": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q008": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q009": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q010": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q011": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-024-Q012": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q001": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q002": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q003": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q004": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q005": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q006": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q007": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q008": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q009": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-025-Q010": {
+      "subject": "cgei-climate-science"
+    },
+    "CGEI-05-Q001": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q002": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q003": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q004": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q005": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q006": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q007": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q008": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q009": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q010": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q011": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q012": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q013": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q014": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q015": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q016": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q017": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q018": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q019": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q020": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q021": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q022": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q023": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q024": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q025": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q026": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q027": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q028": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q029": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q030": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q031": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q032": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q033": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q034": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q035": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q036": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q037": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q038": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q039": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q040": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q041": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q042": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q043": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q044": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q045": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q046": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q047": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q048": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q049": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q050": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q051": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q052": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q053": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q054": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q055": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q056": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q057": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q058": {
+      "subject": "cgei-data-science"
+    },
+    "CGEI-05-Q059": {
+      "subject": "cgei-data-science"
+    },
+    "cgei-ds-q-51-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-51-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-31-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-31-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-31-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-31-scale": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-36-hierarchy": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-weights": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-rmse": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-layout": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-gdalinfo": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-scale-resize": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-gdal-batch": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-33-topo-rmse": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-35-area": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-35-nodata": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-35-pin": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-35-cog": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-36-breaks": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-36-choro": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-36-legend": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-loo": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-idw": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-block": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-looidw": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-variogram": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-39-ok": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-34-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-seb": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-11-tau": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-110-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-110-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-110-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-es-q-110-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-21-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-21-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-21-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-21-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-22-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-22-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-22-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-22-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-22-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-24-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-24-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-24-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-24-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-kelvin": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-25-accum": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-26-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-26-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-26-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-26-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-28-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-28-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-28-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-28-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-23-cc": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-23-tw": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-23-pbl": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cl-q-23-ens": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-41-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-71-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-71-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-71-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-73-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-73-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-75-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-75-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-risk-q-75-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-81-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-81-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-81-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-81-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-82-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-82-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-82-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-83-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-83-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-83-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-86-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-86-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-91-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-91-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-93-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-93-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-94-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-94-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-dspt-q-94-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-101-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-101-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-101-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-101-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-102-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-102-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-106-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-pol-q-106-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-111-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-111-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-112-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-112-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-112-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-112-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-115-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-se-q-115-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-121-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-121-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-121-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-122-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-122-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-127-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-127-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-131-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-131-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-132-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-132-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-132-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-132-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-133-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-133-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-133-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-135-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-135-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-135-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-136-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-136-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-cap-q-136-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-vertical-datum": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-utm": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-otf": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-resample": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-zonebound": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-grid": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-landmark": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-assign": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-geo-q-32-workflow": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-51-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-017": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-018": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-019": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-57-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-017": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-018": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-interp": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-leakage": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-label-bias": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-61-aoa": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-64-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-62-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-62-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-62-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-63-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-63-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-63-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-65-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-65-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-65-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-66-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-66-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-66-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-67-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-67-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ml-q-67-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-017": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-018": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-52-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-53-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-017": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-018": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-019": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-54-021": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-013": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-018": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-019": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-014": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-015": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-016": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-017": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-42-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-44-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-humid": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-46-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-48-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-49-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-410-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-leak": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-proxy": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-sample": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-nested": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-412-base": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-412-sam": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-412-vlm": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-411-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-412-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-001": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-002": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-003": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-004": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-005": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-006": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-007": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-008": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-009": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-55-010": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-87-one": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-87-val": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-87-fig": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-88-readme": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-88-revise": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-88-focus": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-89-struct": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-89-scope": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-89-risk": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-8d-estimand": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-8d-avail": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-8d-validity": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rp-q-8d-package": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-123-persist": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-123-leak": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ai-q-123-fm": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-43-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-45-012": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-rs-q-47-011": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-58-021": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-510-021": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-59-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-51-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-511-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-512-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    },
+    "cgei-ds-q-56-020": {
+      "subject": "cgei-data-science",
+      "source": "curriculum-questions"
+    }
+  }
+}

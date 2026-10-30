@@ -40,7 +40,9 @@
     "check:cgei-legacy-freeze": "bash scripts/check-cgei-legacy-freeze.sh",
     "snapshot:cgei-registry": "tsx --tsconfig tsconfig.app.json scripts/cgei-registry-snapshot.ts",
     "check:cgei-registry": "tsx --tsconfig tsconfig.app.json scripts/cgei-registry-snapshot.ts --check",
-    "generate:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts"
+    "generate:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts",
+    "snapshot:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts",
+    "check:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts --check"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
