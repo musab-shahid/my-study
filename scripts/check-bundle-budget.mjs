@@ -100,10 +100,10 @@ if (largest) {
   console.log(
     `[bundle-budget] Largest JS chunk ${largest.file}: ${(largest.raw / 1024).toFixed(1)} KiB raw / ${(largest.gzip / 1024).toFixed(1)} KiB gzip`,
   );
-  // Subject 4 instructional expansion (2026-10-26) pushed the lazy curriculum chunk ~303 KiB gzip.
-  // Keep the curriculum behind the lazy boundary; allow a modest headroom for teachable content.
-  if (largest.gzip > 320 * 1024) {
-    console.error('[bundle-budget] A single JavaScript chunk exceeds the 320 KiB gzip budget.');
+  // B3 thin assembler packs all subject topics modules into one lazy curriculum graph.
+  // Keep it behind the lazy screen boundary; allow headroom for full-track content.
+  if (largest.gzip > 420 * 1024) {
+    console.error('[bundle-budget] A single JavaScript chunk exceeds the 420 KiB gzip budget.');
     failed = true;
   }
 }

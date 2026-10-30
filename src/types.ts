@@ -392,6 +392,19 @@ export interface Question {
    * remains keyed on this question's id.
    */
   quantTemplate?: QuantTemplate;
+  /**
+   * Canonical curriculum lesson this item primarily assesses (CGEI Phase C).
+   * Optional during migration; required for new CGEI items once banks are unified.
+   */
+  lessonId?: string;
+  /** Canonical assessment that should list this item (derived at assembly when omitted). */
+  assessmentId?: string;
+  /** Learning-objective IDs this item is intended to probe. */
+  objectiveIds?: string[];
+  /** Bloom-style cognitive level for curriculum analytics (optional). */
+  cognitiveLevel?: 'remember' | 'understand' | 'apply' | 'analyze' | 'evaluate' | 'create';
+  /** Optional free-text tag for the lesson content block this item checks. */
+  tests?: string;
 }
 
 export interface CloudEntry {

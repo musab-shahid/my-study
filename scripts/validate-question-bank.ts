@@ -243,6 +243,31 @@ q: Question, subjectId: string) {
   if (!q.sourceCitation || !String(q.sourceCitation).trim()) {
     add('warning', subjectId, id, 'MISSING_CITATION', 'Empty sourceCitation');
   }
+
+  // CGEI Phase C optional curriculum links (schema only; full cross-registry checks land with C3).
+  if (subjectId.startsWith('cgei-')) {
+    if (q.lessonId !== undefined) {
+      if (typeof q.lessonId !== 'string' || !q.lessonId.trim()) {
+        add('critical', subjectId, id, 'BAD_LESSON_ID', 'lessonId must be a non-empty string when present');
+      } else if (!q.lessonId.includes('lesson')) {
+        add('warning', subjectId, id, 'SUSPECT_LESSON_ID', `lessonId "${q.lessonId}" does not look like a lesson id`);
+      }
+    }
+    if (q.assessmentId !== undefined && (typeof q.assessmentId !== 'string' || !q.assessmentId.trim())) {
+      add('critical', subjectId, id, 'BAD_ASSESSMENT_ID', 'assessmentId must be a non-empty string when present');
+    }
+    if (q.objectiveIds !== undefined) {
+      if (!Array.isArray(q.objectiveIds) || q.objectiveIds.some((x) => typeof x !== 'string' || !x.trim())) {
+        add('critical', subjectId, id, 'BAD_OBJECTIVE_IDS', 'objectiveIds must be an array of non-empty strings when present');
+      }
+    }
+    if (q.cognitiveLevel !== undefined) {
+      const allowed = new Set(['remember', 'understand', 'apply', 'analyze', 'evaluate', 'create']);
+      if (typeof q.cognitiveLevel !== 'string' || !allowed.has(q.cognitiveLevel)) {
+        add('critical', subjectId, id, 'BAD_COGNITIVE_LEVEL', `cognitiveLevel "${String(q.cognitiveLevel)}" is not a known Bloom level`);
+      }
+    }
+  }
 }
 
 async function main() {
