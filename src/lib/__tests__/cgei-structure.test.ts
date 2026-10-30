@@ -145,7 +145,11 @@ describe('CGEI curriculum structure', () => {
   });
 
   it('preserves every Unit 5.1 question ID, lesson mapping, and source citation', () => {
-    for (const legacyQuestion of legacyUnit51Questions) {
+    // After C3 the data-science bank also holds migrated curriculum items for units 5.2+.
+    // This assertion only covers the original Unit 5.1 bridge IDs (CGEI-05-Q###).
+    const unit51Bank = legacyUnit51Questions.filter((q) => /^CGEI-05-Q\d+/.test(q.id));
+    assert.equal(unit51Bank.length, baseline.cgei05Questions);
+    for (const legacyQuestion of unit51Bank) {
       const migrated = cgeiCurriculum.questions.find((question) => question.id === legacyQuestion.id);
       assert.ok(migrated, `Missing canonical question for ${legacyQuestion.id}`);
       const expectedLesson = cgeiCurriculum.lessons.find((lesson) => lesson.sourceTopicId === legacyQuestion.topicId);

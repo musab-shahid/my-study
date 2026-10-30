@@ -1,5 +1,7 @@
 import type { Question } from '@/types';
 
+/** Phase C3: legacy rows kept; migrated curriculum items appended with lessonId. */
+
 const SRC = 'Master Study TOC · Unit 2.6 Extremes and trend analysis';
 const TID = 'cgei-extremes-and-trend-analysis';
 const SID = 'CGEI-02';
@@ -12,6 +14,7 @@ const SID = 'CGEI-02';
  * where the quant template engine is not required for the teaching point.
  */
 export const questions: Question[] = [
+
   {
     id: 'CGEI-02-Q001',
     sectionId: SID,
@@ -622,4 +625,596 @@ export const questions: Question[] = [
     explanation: '1 m = 1000 mm.',
     sourceCitation: 'Master Study TOC · Unit 2.5 Time, units & daily construction',
   },
+  // --- Phase C3 migrated curriculum questions ---
+
+  {
+    "id": "cgei-cl-q-21-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "A single unusually cold month most correctly indicates:",
+    "options": [
+      "Climate change has reversed",
+      "Weather variability within a longer climate distribution",
+      "The baseline normal is invalid",
+      "Attribution is complete"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Weather extremes occur within climate distributions; one cold month does not overturn a long-term climate assessment.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-1-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-21-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "An anomaly is defined relative to:",
+    "options": [
+      "Tomorrow’s forecast only",
+      "A stated baseline normal for a defined period",
+      "The maximum possible temperature",
+      "Sea-level pressure alone"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Anomalies require an explicit baseline period; changing the baseline changes anomaly values.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-1-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-21-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Treating a missing monthly temperature as 0°C when computing a mean will:",
+    "options": [
+      "Always improve accuracy",
+      "Bias the mean downward if true values are warmer",
+      "Remove seasonality",
+      "Equal the median"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Zero is a real temperature; inserting it for missing data biases the mean and violates the observation contract.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-1-2",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-cl-q-21-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "A positive linear trend on a short local series is sufficient to conclude:",
+    "options": [
+      "Full IPCC-level attribution for the globe",
+      "A descriptive change over that window, not automatic causal attribution",
+      "That weather no longer exists",
+      "That the baseline must be 1961–1990"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Trend description is not attribution; causal claims need additional evidence beyond a short local fit.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-1-3",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-22-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "In the one-layer greenhouse teaching model, surface temperature Ts relates to Te by:",
+    "options": [
+      "Ts = Te",
+      "Ts = Te × 2^{1/4}",
+      "Ts = 2 Te",
+      "Ts = Te / 2"
+    ],
+    "correctAnswer": 1,
+    "explanation": "σ Ts⁴ = 2 σ Te⁴ implies Ts = Te × 2^{1/4}.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-2-1",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-22-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Increasing latent heat flux Q_E while holding Q* and Q_H fixed tends to:",
+    "options": [
+      "Increase the residual available for storage",
+      "Decrease the residual ΔQ_S in the teaching budget",
+      "Create energy",
+      "Set albedo to zero"
+    ],
+    "correctAnswer": 1,
+    "explanation": "ΔQ_S = Q*+Q_F−Q_H−Q_E falls when Q_E rises (evaporative cooling).",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-2-1",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-22-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "AR6 likely ECS range is approximately:",
+    "options": [
+      "0.1–0.5 °C",
+      "2.5–4 °C",
+      "10–20 °C",
+      "Exactly 1.5 °C only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "AR6 assesses ECS as likely 2.5–4 °C; TCR is a separate transient metric.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-2-2",
+    "cognitiveLevel": "remember"
+  },
+  {
+    "id": "cgei-cl-q-22-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "Western disturbances primarily influence:",
+    "options": [
+      "Only equatorial Pacific SSTs",
+      "Winter precipitation over northern Pakistan and adjoining regions",
+      "Stratospheric ozone chemistry alone",
+      "Deep-ocean carbon pumps only"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Western disturbances are key winter precipitation systems for northern Pakistan.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-2-3",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-22-005",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Canopy-layer UHI is best described as:",
+    "options": [
+      "Skin temperature from a satellite only",
+      "Near-surface air temperature contrast in the urban canopy versus a rural reference",
+      "Only anthropogenic heat with no rural reference",
+      "Ocean heat content anomaly"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Canopy UHI uses air temperature in the urban canopy layer relative to a rural site; surface UHI is skin temperature.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-2-4",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-24-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "Replacing a missing daily temperature with 0°C before averaging will typically:",
+    "options": [
+      "Leave the mean unchanged",
+      "Bias the mean if true values are not near 0°C",
+      "Improve homogenisation automatically",
+      "Convert the series to anomalies"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Zero is a physical value; using it as a fill for missing data biases statistics.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-4-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-24-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "A persistence QC flag is intended to catch:",
+    "options": [
+      "Long runs of identical values that may indicate stuck sensors",
+      "Only satellite orbit drift",
+      "Licence violations",
+      "Grid CRS mismatches"
+    ],
+    "correctAnswer": 0,
+    "explanation": "Unrealistic long constant runs often signal instrument or encoding problems.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-4-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-24-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "An ERA5 grid-cell temperature is best described as:",
+    "options": [
+      "A direct thermometer reading at every location in the cell",
+      "A model-and-assimilation estimate constrained by observations",
+      "Always more accurate than any station",
+      "Identical to CHIRPS precipitation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Reanalysis blends observations with a model via data assimilation; it is not a dense network of direct measurements.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-4-2",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-24-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Agreement between two gridded products is sufficient to conclude:",
+    "options": [
+      "Both are unbiased truth",
+      "They are similar under their methods, not that either is validated",
+      "Station data are unnecessary forever",
+      "Homogenisation is complete"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Shared methods or shared inputs can produce agreement without eliminating bias; independent validation is still required.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-4-3",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-cl-q-25-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "Pakistan Standard Time (PKT) is offset from UTC by:",
+    "options": [
+      "UTC−5",
+      "UTC+5",
+      "UTC+0 only",
+      "UTC+12"
+    ],
+    "correctAnswer": 1,
+    "explanation": "PKT = UTC+5; local calendar days therefore group UTC hours differently than UTC days.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-1",
+    "cognitiveLevel": "remember"
+  },
+  {
+    "id": "cgei-cl-q-25-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Before differencing accumulated precipitation fields from two products, you should first:",
+    "options": [
+      "Assume identical accumulation windows",
+      "Read each product’s accumulation and time conventions",
+      "Convert all values to anomalies automatically",
+      "Drop all missing as zeros"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Accumulation windows and time encodings differ by product (e.g. ERA5 vs ERA5-Land documentation).",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-25-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "With baseline July mean 32°C, an observed July value of 35°C has anomaly:",
+    "options": [
+      "35°C",
+      "+3°C",
+      "−3°C",
+      "32°C"
+    ],
+    "correctAnswer": 1,
+    "explanation": "A = X − baseline = 35 − 32 = +3°C.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-2",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-25-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "A complete processing record for climate data handling should include at least:",
+    "options": [
+      "Only the final plot colours",
+      "Source version, extent, time rule, baseline, completeness rule, licence",
+      "Solely the programming language version",
+      "No baseline if anomalies are used"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Reproducibility requires provenance of source, spatial/temporal extent, aggregation rules, baseline and licence.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-3",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-25-kelvin",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "ERA5 2 m temperature is often stored in kelvin. The correct conversion to Celsius is:",
+    "options": [
+      "T°C = TK + 273.15",
+      "T°C = TK − 273.15",
+      "T°C = TK × 273.15",
+      "No conversion is ever needed"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Celsius = kelvin − 273.15; mixing units corrupts anomalies.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-1",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-25-accum",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "A negative jump in a precipitation accumulation series most carefully indicates:",
+    "options": [
+      "Always zero rainfall for that step",
+      "A possible forecast-cycle reset or data problem that should be flagged before inventing an interval",
+      "That Celsius conversion failed",
+      "That UTC and PKT are identical"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Negative deltas often mark resets or faults; silent clamps hide product structure.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-5-1",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-26-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "Changing the baseline period for a percentile threshold will typically:",
+    "options": [
+      "Leave all exceedance counts unchanged",
+      "Change the threshold and therefore the exceedance counts",
+      "Convert the series to precipitation",
+      "Eliminate the need for units"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Percentile thresholds are baseline-dependent; different baselines yield different thresholds and counts.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-6-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-26-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Three consecutive days above a heat threshold are best treated as:",
+    "options": [
+      "Three fully independent 1-day events by default",
+      "One multi-day spell for duration metrics unless declustered for event counts",
+      "Proof of a 3-year return period",
+      "Evidence against autocorrelation"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Duration metrics treat consecutive exceedances as one spell; independence must be justified before counting separate events.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-6-1",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-cl-q-26-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "For T_t = 30 + 0.2 t (°C), t = 0…9, the OLS slope is:",
+    "options": [
+      "0.2°C/year",
+      "2°C/year",
+      "30°C",
+      "0°C/year"
+    ],
+    "correctAnswer": 0,
+    "explanation": "The designed series has slope 0.2°C per year; Sen’s slope matches on this noise-free series.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-6-2",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-26-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "An empirical return period T = 5 years from 2 events in 10 years means:",
+    "options": [
+      "The event is scheduled every fifth calendar year",
+      "Under the empirical annual rate and stated assumptions, mean recurrence is about 5 years—not a fixed schedule",
+      "A 100-year event is impossible",
+      "Attribution is complete"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Return period is a probability-based mean recurrence under assumptions, not a deterministic calendar schedule.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-6-3",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-28-001",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "Using JJA by default for every Pakistan monsoon analysis is risky because:",
+    "options": [
+      "JJA is never warm",
+      "Local onset/withdrawal and justified season bins may differ from fixed JJA",
+      "Monsoon only occurs in December",
+      "ENSO replaces all local data"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Season definitions should be justified locally; fixed JJA can misalign with local monsoon timing.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-8-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-28-002",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "ENSO or IOD anomalies should be treated as:",
+    "options": [
+      "Automatic one-line causes of every local weather event",
+      "Large-scale variability context that may modulate but does not by itself prove local causation",
+      "Proof that stations are unnecessary",
+      "Identical to irrigation effects"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Teleconnections provide context; local causation needs local evidence and mechanisms.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-8-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-28-003",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:",
+    "options": [
+      "One must be a software bug",
+      "They sample different spatial supports and methods",
+      "Reanalysis always equals the station",
+      "Irrigation cancels all differences"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Point observations and grid estimates have different spatial support and construction (Units 2.4–2.5).",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-8-2",
+    "cognitiveLevel": "analyze"
+  },
+  {
+    "id": "cgei-cl-q-28-004",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "easy",
+    "type": "single",
+    "question": "When a local PMD series is restricted, the correct practice is to:",
+    "options": [
+      "Invent plausible station numbers for the lesson",
+      "Use permitted global layers only with documented limits, request trails and licences",
+      "Ignore provenance",
+      "Treat farmer anecdotes as instrumental Tmax"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Access limits require documentation and honest use of alternative products—not fabricated observations.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-8-3",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-23-cc",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Clausius–Clapeyron scaling of ~6–7% per K near typical surface temperatures primarily describes:",
+    "options": [
+      "A guaranteed local increase in seasonal rainfall totals of 7% per K",
+      "The approximate increase of saturation vapour pressure with temperature",
+      "The dry adiabatic lapse rate",
+      "The Bowen ratio of an urban canyon"
+    ],
+    "correctAnswer": 1,
+    "explanation": "CC governs saturation vapour pressure (moisture capacity), not automatic rainfall totals.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-3-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-23-tw",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Wet-bulb temperature is most directly related to:",
+    "options": [
+      "Satellite brightness temperature alone",
+      "Evaporative cooling of air to saturation at constant pressure",
+      "Geostrophic wind speed",
+      "Model grid spacing"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Tw reflects cooling by evaporation to saturation—central to humid-heat stress.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-3-1",
+    "cognitiveLevel": "understand"
+  },
+  {
+    "id": "cgei-cl-q-23-pbl",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Urban night-time warmth relative to rural areas is often sustained by:",
+    "options": [
+      "Only higher daytime insolation at the same latitude",
+      "Heat storage in built materials, reduced sky-view, and altered stability—not solar forcing alone",
+      "Always higher latent heat flux than rural wetlands",
+      "Geostrophic balance failure"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Storage, geometry, and stability shape nocturnal urban climates.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-3-2",
+    "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-23-ens",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "Ensemble forecast spread is best interpreted as:",
+    "options": [
+      "A calibrated probability of the event without further verification",
+      "A measure of diversity among members that still requires verification for probabilistic skill",
+      "Proof that parameterisations are unnecessary",
+      "The same as observation error"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Spread is uncertainty information, not automatically a calibrated probability.",
+    "sourceCitation": "CGEI curriculum (migrated)",
+    "lessonId": "cgei-cl-lesson-2-3-3",
+    "cognitiveLevel": "apply"
+  }
+
 ];
