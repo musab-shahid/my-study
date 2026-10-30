@@ -74,7 +74,7 @@ The canonical assembler keeps `cgeiCurriculum.questions` as a compatibility proj
 - Lesson-page checks use the subject bank, deduplicate by question ID, and currently render `single` and `true_false`. Options are shuffled for an attempt; these inline checks do not currently record answers into quiz-attempt or spaced-repetition progress.
 - Multi-select, calculation, fill-blank and matching remain available to the quiz engine, not the current inline lesson renderer.
 
-**Climate Science migration boundary:** 37 legacy Climate questions still have no canonical `lessonId` and remain engine-only. The review proposal is `docs/cgei/CLIMATE_QUESTION_LESSON_MAPPING_REVIEW.md`. Do not apply those mappings until the owner approves them. A question's old quiz `topicId` is retained for engine compatibility and is not, by itself, sufficient evidence for a canonical lesson mapping.
+**Climate Science migration boundary:** 37 legacy Climate questions still have no canonical `lessonId` and remain engine-only, preserving their existing behaviour. Do not assign canonical lesson links without a separate content review. A question's old quiz `topicId` is retained for engine compatibility and is not, by itself, sufficient evidence for a canonical lesson mapping.
 
 ## 5. IDs and progress compatibility
 
