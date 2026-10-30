@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Discover and run every unit_*_check.py fixture under content-drafts/.
+"""Discover and run every unit_*_check.py under fixtures/cgei (Phase E5).
 
-CI and local must use this entrypoint instead of listing fixtures by hand,
-so new unit_*_check.py files are picked up automatically.
+Falls back to content-drafts/ if fixtures/cgei is missing (compat).
+CI and local must use this entrypoint instead of listing fixtures by hand.
 """
 from __future__ import annotations
 
@@ -17,8 +17,8 @@ def main() -> int:
     parser.add_argument(
         "--root",
         type=Path,
-        default=Path("content-drafts"),
-        help="Root directory to search (default: content-drafts)",
+        default=None,
+        help="Root directory to search (default: fixtures/cgei, else content-drafts)",
     )
     parser.add_argument(
         "--pattern",
@@ -26,7 +26,12 @@ def main() -> int:
         help="Glob relative to each tree (default: unit_*_check.py)",
     )
     args = parser.parse_args()
-    root: Path = args.root
+    if args.root is not None:
+        root = args.root
+    elif Path("fixtures/cgei").is_dir():
+        root = Path("fixtures/cgei")
+    else:
+        root = Path("content-drafts")
     if not root.is_dir():
         print(f"ERROR: fixture root not found: {root}", file=sys.stderr)
         return 2

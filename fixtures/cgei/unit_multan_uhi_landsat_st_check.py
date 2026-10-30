@@ -4,7 +4,15 @@ from __future__ import annotations
 import importlib.util
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[2]
+def _repo_root() -> Path:
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        if (parent / "package.json").is_file() and (parent / "src").is_dir():
+            return parent
+    raise RuntimeError(f"Could not locate repo root from {here}")
+
+
+ROOT = _repo_root() / "content-drafts"
 MOD = ROOT / "capstones" / "multan-uhi" / "analysis" / "landsat_st_local.py"
 
 
