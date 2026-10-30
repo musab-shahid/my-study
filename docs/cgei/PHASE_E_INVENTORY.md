@@ -1,31 +1,32 @@
 # Phase E — Legacy CGEI inventory
 
-## E1 — Data Science progress (done)
+## Completed
 
-16 Unit 5.1 topics → lesson progress aliases.
+| Step | Result |
+|------|--------|
+| E1 | DS Unit 5.1 progress aliases |
+| E2 | Climate progress aliases |
+| E3 | Roadmap-only `legacy/` → `roadmap-topics.ts` |
+| **E4** | Content-bearing `legacy/` → `quiz-topics-*.ts`; **no `legacy/` left under CGEI** |
 
-## E2 — Climate Science progress (done)
+## E4 paths
 
-9 climate legacy topic ids → Subject 2 lessons (units 2.4–2.6).
+| Subject | Quiz topic module |
+|---------|-------------------|
+| Data Science | `src/data/cgei/data-science/quiz-topics-data-science.ts` |
+| Climate Science | `src/data/cgei/climate-science/quiz-topics-climate-science.ts` |
+| All other CGEI subjects | `src/data/cgei/roadmap-topics.ts` |
 
-## E3 — Roadmap-only legacy retirement (this slice)
+Canonical teaching content remains in `topics-<subject>.ts`. Quiz topic modules preserve stable `topicId` values for the shared quiz engine.
 
-| Change | Detail |
-|--------|--------|
-| Shared module | `src/data/cgei/roadmap-topics.ts` |
-| Loaders | 12 roadmap subjects load from shared module |
-| Deleted | `src/data/cgei/*/legacy/` for roadmap-only subjects |
-| Still frozen | `data-science/legacy/`, `climate-science/legacy/` only |
-| Advanced branches | Orientation-only via shared roadmap (same as other thin subjects) |
+## Remaining (optional / later)
 
-## Remaining
-
-1. Retire content-bearing climate + data-science `legacy/` after quiz consumers use section/topic metadata only
-2. Traceability CSV input/output decision
-3. Move fixtures out of `content-drafts/` if desired
+1. Traceability CSV input vs output decision
+2. Move fixtures out of `content-drafts/` if CI paths allow
+3. Further thin quiz-topics text once practice UI only needs id/title/sectionId
 
 ## Invariants
 
 - FPSC / HAT / QuizScreen untouched
-- Roadmap deep links still resolve via `overview.ts` + path router
-- Green CI does not validate scientific readiness
+- Progress aliases still apply for DS + climate topic → lesson
+- Reintroducing `src/data/cgei/*/legacy/` fails CI

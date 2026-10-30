@@ -1,6 +1,11 @@
 import type { Topic } from "@/types";
 
 /**
+ * Quiz-engine topic bank for CGEI Data Science (Phase E4).
+ * Formerly under legacy/; kept so sectionId/topicId validation and practice
+ * topic lists stay stable. Canonical teaching content lives in topics-*.ts.
+ */
+/**
  * CGEI Subject 5 — Scientific Computing and Data Science
  * Unit 5.1 lesson content only; course orientation and unit hierarchy live in curriculum.ts.
  * Manuscript: content-drafts/chapter-05-scientific-computing/units/05.1-...
