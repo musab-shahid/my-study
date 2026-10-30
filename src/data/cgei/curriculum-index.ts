@@ -31,6 +31,18 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-ai-unit-12-3",
+    "code": "12.3",
+    "title": "Spatiotemporal ML, forecasting, and foundation models",
+    "subjectId": "cgei-advanced-ai",
+    "subjectTitle": "Advanced AI for Environmental Intelligence",
+    "lessonIds": [
+      "cgei-ai-lesson-12-3-1",
+      "cgei-ai-lesson-12-3-2",
+      "cgei-ai-lesson-12-3-3"
+    ]
+  },
+  {
     "id": "cgei-ai-unit-12-7",
     "code": "12.7",
     "title": "Evaluating and governing AI systems",
@@ -545,6 +557,41 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-geo-unit-3-5",
+    "code": "3.5",
+    "title": "Python geospatial stack",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-5-1",
+      "cgei-geo-lesson-3-5-2",
+      "cgei-geo-lesson-3-5-3"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-6",
+    "code": "3.6",
+    "title": "Cartography",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-6-1",
+      "cgei-geo-lesson-3-6-2"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-9",
+    "code": "3.9",
+    "title": "Spatial statistics and geostatistics",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-9-1",
+      "cgei-geo-lesson-3-9-2",
+      "cgei-geo-lesson-3-9-3"
+    ]
+  },
+  {
     "id": "cgei-ml-unit-6-1",
     "code": "6.1",
     "title": "Learning problem formulation",
@@ -722,6 +769,54 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-rp-unit-8-7",
+    "code": "8.7",
+    "title": "Turning the FYP into a first paper",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity",
+    "lessonIds": [
+      "cgei-rp-lesson-8-7-1",
+      "cgei-rp-lesson-8-7-2",
+      "cgei-rp-lesson-8-7-3"
+    ]
+  },
+  {
+    "id": "cgei-rp-unit-8-8",
+    "code": "8.8",
+    "title": "Portfolio and research positioning",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity",
+    "lessonIds": [
+      "cgei-rp-lesson-8-8-1",
+      "cgei-rp-lesson-8-8-2",
+      "cgei-rp-lesson-8-8-3"
+    ]
+  },
+  {
+    "id": "cgei-rp-unit-8-9",
+    "code": "8.9",
+    "title": "Research proposals, funding, and professional practice",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity",
+    "lessonIds": [
+      "cgei-rp-lesson-8-9-1",
+      "cgei-rp-lesson-8-9-2",
+      "cgei-rp-lesson-8-9-3"
+    ]
+  },
+  {
+    "id": "cgei-rp-unit-8-d",
+    "code": "8.D",
+    "title": "Depth checks and research mastery gates",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity",
+    "lessonIds": [
+      "cgei-rp-lesson-8-d-1",
+      "cgei-rp-lesson-8-d-2",
+      "cgei-rp-lesson-8-d-3"
+    ]
+  },
+  {
     "id": "cgei-rs-unit-4-1",
     "code": "4.1",
     "title": "Remote sensing physics and sensors",
@@ -744,6 +839,30 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-rs-lesson-4-10-2",
       "cgei-rs-lesson-4-10-3",
       "cgei-rs-lesson-4-10-4"
+    ]
+  },
+  {
+    "id": "cgei-rs-unit-4-11",
+    "code": "4.11",
+    "title": "Ground truth, laboratory data, and EO integration",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing",
+    "lessonIds": [
+      "cgei-rs-lesson-4-11-1",
+      "cgei-rs-lesson-4-11-2",
+      "cgei-rs-lesson-4-11-3"
+    ]
+  },
+  {
+    "id": "cgei-rs-unit-4-12",
+    "code": "4.12",
+    "title": "Emerging EO / GeoAI directions",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing",
+    "lessonIds": [
+      "cgei-rs-lesson-4-12-1",
+      "cgei-rs-lesson-4-12-2",
+      "cgei-rs-lesson-4-12-3"
     ]
   },
   {
@@ -897,6 +1016,30 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "EO computer vision tasks and leakage-safe evaluation",
     "unitId": "cgei-ai-unit-12-2",
     "unitTitle": "Computer vision and image understanding for Earth observation",
+    "subjectId": "cgei-advanced-ai",
+    "subjectTitle": "Advanced AI for Environmental Intelligence"
+  },
+  {
+    "id": "cgei-ai-lesson-12-3-1",
+    "title": "Rolling-origin evaluation and baselines",
+    "unitId": "cgei-ai-unit-12-3",
+    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
+    "subjectId": "cgei-advanced-ai",
+    "subjectTitle": "Advanced AI for Environmental Intelligence"
+  },
+  {
+    "id": "cgei-ai-lesson-12-3-2",
+    "title": "Lagged features and leakage across time and space",
+    "unitId": "cgei-ai-unit-12-3",
+    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
+    "subjectId": "cgei-advanced-ai",
+    "subjectTitle": "Advanced AI for Environmental Intelligence"
+  },
+  {
+    "id": "cgei-ai-lesson-12-3-3",
+    "title": "Foundation models and physical consistency checks",
+    "unitId": "cgei-ai-unit-12-3",
+    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
     "subjectId": "cgei-advanced-ai",
     "subjectTitle": "Advanced AI for Environmental Intelligence"
   },
@@ -1566,7 +1709,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-ds-lesson-5-2-1",
-    "title": "Scientific Python structure, functions and defensive checks",
+    "title": "cgei-ds-lesson-5-2-1",
     "unitId": "cgei-ds-unit-5-2",
     "unitTitle": "Python for scientific work",
     "subjectId": "cgei-data-science",
@@ -2133,6 +2276,70 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Geospatial Science, GIS & Cartography"
   },
   {
+    "id": "cgei-geo-lesson-3-5-1",
+    "title": "Python vector stack (GeoPandas and Shapely)",
+    "unitId": "cgei-geo-unit-3-5",
+    "unitTitle": "Python geospatial stack",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-5-2",
+    "title": "Python raster stack (rasterio and friends)",
+    "unitId": "cgei-geo-unit-3-5",
+    "unitTitle": "Python geospatial stack",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-5-3",
+    "title": "Analysis libraries, STAC and R complement",
+    "unitId": "cgei-geo-unit-3-5",
+    "unitTitle": "Python geospatial stack",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-6-1",
+    "title": "Colour, classification and choropleth honesty",
+    "unitId": "cgei-geo-unit-3-6",
+    "unitTitle": "Cartography",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-6-2",
+    "title": "Legends, uncertainty and reproducible figures",
+    "unitId": "cgei-geo-unit-3-6",
+    "unitTitle": "Cartography",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-9-1",
+    "title": "Spatial dependence, weights and clusters",
+    "unitId": "cgei-geo-unit-3-9",
+    "unitTitle": "Spatial statistics and geostatistics",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-9-2",
+    "title": "Interpolation, variograms and kriging limits",
+    "unitId": "cgei-geo-unit-3-9",
+    "unitTitle": "Spatial statistics and geostatistics",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-9-3",
+    "title": "Spatial validation and change of support",
+    "unitId": "cgei-geo-unit-3-9",
+    "unitTitle": "Spatial statistics and geostatistics",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
     "id": "cgei-ml-lesson-6-1-1",
     "title": "Prediction target, unit, and horizon",
     "unitId": "cgei-ml-unit-6-1",
@@ -2325,6 +2532,102 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Research Practice & Scientific Integrity"
   },
   {
+    "id": "cgei-rp-lesson-8-7-1",
+    "title": "One contribution, clear questions",
+    "unitId": "cgei-rp-unit-8-7",
+    "unitTitle": "Turning the FYP into a first paper",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-7-2",
+    "title": "Evidence before submission",
+    "unitId": "cgei-rp-unit-8-7",
+    "unitTitle": "Turning the FYP into a first paper",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-7-3",
+    "title": "Manuscript, figures, venue, and review",
+    "unitId": "cgei-rp-unit-8-7",
+    "unitTitle": "Turning the FYP into a first paper",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-8-1",
+    "title": "Repository as evidence",
+    "unitId": "cgei-rp-unit-8-8",
+    "unitTitle": "Portfolio and research positioning",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-8-2",
+    "title": "Public record and coursework to study",
+    "unitId": "cgei-rp-unit-8-8",
+    "unitTitle": "Portfolio and research positioning",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-8-3",
+    "title": "Graduate research positioning",
+    "unitId": "cgei-rp-unit-8-8",
+    "unitTitle": "Portfolio and research positioning",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-9-1",
+    "title": "Proposal structure and reviewer risks",
+    "unitId": "cgei-rp-unit-8-9",
+    "unitTitle": "Research proposals, funding, and professional practice",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-9-2",
+    "title": "Applications, budgets, and funding literacy",
+    "unitId": "cgei-rp-unit-8-9",
+    "unitTitle": "Research proposals, funding, and professional practice",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-9-3",
+    "title": "Working practice and professional ethics",
+    "unitId": "cgei-rp-unit-8-9",
+    "unitTitle": "Research proposals, funding, and professional practice",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-d-1",
+    "title": "One-page research design (estimand and non-claims)",
+    "unitId": "cgei-rp-unit-8-d",
+    "unitTitle": "Depth checks and research mastery gates",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-d-2",
+    "title": "Reproducible methods and availability statements",
+    "unitId": "cgei-rp-unit-8-d",
+    "unitTitle": "Depth checks and research mastery gates",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
+    "id": "cgei-rp-lesson-8-d-3",
+    "title": "Validity review and constructive referee notes",
+    "unitId": "cgei-rp-unit-8-d",
+    "unitTitle": "Depth checks and research mastery gates",
+    "subjectId": "cgei-research-practice",
+    "subjectTitle": "Research Practice & Scientific Integrity"
+  },
+  {
     "id": "cgei-rs-lesson-4-1-1",
     "title": "Electromagnetic basis and radiometric quantities",
     "unitId": "cgei-rs-unit-4-1",
@@ -2377,6 +2680,54 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Water quality, snow and ground deformation",
     "unitId": "cgei-rs-unit-4-10",
     "unitTitle": "Thematic EO applications beyond heat: water, agriculture, air, snow, subsidence",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-11-1",
+    "title": "Paired field\u2013satellite sampling design",
+    "unitId": "cgei-rs-unit-4-11",
+    "unitTitle": "Ground truth, laboratory data, and EO integration",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-11-2",
+    "title": "What laboratory variables EO can and cannot support",
+    "unitId": "cgei-rs-unit-4-11",
+    "unitTitle": "Ground truth, laboratory data, and EO integration",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-11-3",
+    "title": "Small-sample validation and reporting",
+    "unitId": "cgei-rs-unit-4-11",
+    "unitTitle": "Ground truth, laboratory data, and EO integration",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-12-1",
+    "title": "Deep learning on EO: baselines and labels first",
+    "unitId": "cgei-rs-unit-4-12",
+    "unitTitle": "Emerging EO / GeoAI directions",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-12-2",
+    "title": "Benchmarks, foundation models and embeddings",
+    "unitId": "cgei-rs-unit-4-12",
+    "unitTitle": "Emerging EO / GeoAI directions",
+    "subjectId": "cgei-remote-sensing",
+    "subjectTitle": "Earth Observation & Remote Sensing"
+  },
+  {
+    "id": "cgei-rs-lesson-4-12-3",
+    "title": "Multimodal systems and operational verification",
+    "unitId": "cgei-rs-unit-4-12",
+    "unitTitle": "Emerging EO / GeoAI directions",
     "subjectId": "cgei-remote-sensing",
     "subjectTitle": "Earth Observation & Remote Sensing"
   },
