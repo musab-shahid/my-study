@@ -2508,7 +2508,8 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-1-3', kind: 'prose', title: 'Statistical and hybrid seasonal outlooks', body: 'Analogue and regression approaches use precursors (e.g. ENSO). Hybrid methods statistically correct known dynamical biases before issuing probabilities.' },
       { id: 'cgei-cl-213-1-4', kind: 'prose', title: 'Lead-time definitions and initialisation dates', body: 'Lead-time counting conventions differ by centre. Always state the issuing centre’s definition alongside any lead-time figure.' },
       { id: 'cgei-cl-213-1-lab', kind: 'worked-example', title: 'Lab: computing the lead-time gap in days (hand-verified)', body: 'Init 1 May → JJA starts 1 June: 31-day lead. Same init → ASO starts 1 August: 31+30+31 = 92 days (~3 months). Target season must always be stated with lead time.' },
-      { id: 'cgei-cl-213-1-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Lead conventions vary by centre.', 'No C3S/S2S product is queried here.', 'No analogue/regression fit is performed.'] },,
+      { id: 'cgei-cl-213-1-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Lead conventions vary by centre.', 'No C3S/S2S product is queried here.', 'No analogue/regression fit is performed.'] },
+
 
       {
         kind: 'callout',
@@ -2537,7 +2538,8 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-2-2', kind: 'prose', title: 'Skill is region-, season-, and variable-dependent', body: 'South Asian monsoon rainfall seasonal skill is modest relative to temperature skill. Evaluate locally for the specific region, season, and variable.' },
       { id: 'cgei-cl-213-2-3', kind: 'prose', title: 'Deterministic versus probabilistic metrics', body: 'MAE/RMSE/ACC score single values; Brier/RPS/CRPS score full distributions. Scoring only the central value of a probabilistic product discards calibration information.' },
       { id: 'cgei-cl-213-2-lab2', kind: 'worked-example', title: 'Lab: MAE versus RMSE sensitivity to a single large error (hand-verified)', body: 'Errors 1,1,1,5: MAE = 2.0; RMSE = √7 ≈ 2.65. RMSE weights the large error more.' },
-      { id: 'cgei-cl-213-2-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['RPSS example is a single case.', 'Monsoon skill contrast is qualitative literature pattern, not re-derived.', 'ROC described, not plotted.'] },,
+      { id: 'cgei-cl-213-2-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['RPSS example is a single case.', 'Monsoon skill contrast is qualitative literature pattern, not re-derived.', 'ROC described, not plotted.'] },
+
 
       {
         kind: 'callout',
@@ -2566,7 +2568,8 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-3-2', kind: 'prose', title: 'Communicating without false certainty', body: 'A 45% above-normal category is the mode, not near-certainty — 55% of probability mass remains outside it. Quote all categories.' },
       { id: 'cgei-cl-213-3-lab2', kind: 'worked-example', title: 'Lab: a worked sowing decision using tercile-weighted expected profit (hand-verified)', body: 'Outlook below/near/above = 0.40/0.35/0.25. Standard expected profit 2450; drought-resistant 2325. Standard still wins by 125 (vs 500 under climatology). Forecast narrows the margin without flipping the choice — decision-relevant downside-risk signal.' },
       { id: 'cgei-cl-213-3-checklist', kind: 'checklist', title: 'Using a seasonal outlook for a real decision', items: ['Quote all tercile probabilities', 'State system, lead definition, and local skill', 'Identify C and L; compute threshold C/L', 'Check decision timing vs forecast lead', 'Compare expected outcome under forecast vs climatology', 'State explicitly when the forecast does not flip the optimal decision'] },
-      { id: 'cgei-cl-213-3-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['All C/L and profit figures are synthetic.', 'Cost-loss assumes full protection at fixed cost.', 'Risk aversion is named but not formally modelled.'] },,
+      { id: 'cgei-cl-213-3-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['All C/L and profit figures are synthetic.', 'Cost-loss assumes full protection at fixed cost.', 'Risk aversion is named but not formally modelled.'] },
+
 
       {
         kind: 'callout',
