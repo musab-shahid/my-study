@@ -99,7 +99,9 @@ const questions: CurriculumQuestion[] = engineQuestions.flatMap((question) => {
     cognitiveLevel: question.cognitiveLevel,
   }];
 });
-const questionOrder = new Map(cgeiQuestionProjectionOrder.map((id, index) => [id, index]));
+const questionOrder = new Map<string, number>(
+  cgeiQuestionProjectionOrder.map((id, index) => [id, index] as const),
+);
 const untrackedQuestionIds = questions.filter((question) => !questionOrder.has(question.id)).map((question) => question.id);
 const missingQuestionIds = cgeiQuestionProjectionOrder.filter(
   (id) => !questions.some((question) => question.id === id),
