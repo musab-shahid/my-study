@@ -1,39 +1,42 @@
-# Phase E — Legacy CGEI inventory (start)
+# Phase E — Legacy CGEI inventory
 
-Prepared for the Final Plan §8 retirement sequence. **This document does not delete legacy folders.**
-
-## 1. Data Science (Unit 5.1)
+## E1 — Data Science progress (done)
 
 | Item | Status |
 |------|--------|
-| 16 legacy topics under `data-science/legacy/` | Materialized as lessons with `sourceTopicId` |
-| Progress | **Aliased** topic id → lesson id (`src/lib/cgei-progress-aliases.ts`) |
-| Content derivation from `sourceTopicId` at runtime | Already stopped in B3 (static blocks) |
+| 16 Unit 5.1 legacy topics | Progress aliased → lessons |
+| Implementation | `src/lib/cgei-progress-aliases.ts` + `storage` load / `markTopicStudied` |
 
-## 2. Climate Science
+## E2 — Climate Science progress (this slice)
 
-| Legacy topic id | Role | Decision (E1) |
-|-----------------|------|----------------|
-| `cgei-climate-data-products` | Quiz-engine topic (CGEI-024) | Keep for quiz until lesson `sourceTopicId` mapping approved |
-| `cgei-time-units-daily` | Quiz-engine topic (CGEI-025) | Keep |
-| `cgei-extremes-and-trend-analysis` | Quiz-engine topic (CGEI-02) | Keep |
-| Plus internal ids (`cgei-2-4-*`, `cgei-2-5-*`, `cgei-2-6-*`) | Nested legacy structure | Do not expose new deep links |
+| Legacy topic id | Canonical lesson | Rationale |
+|-----------------|------------------|-----------|
+| `cgei-climate-data-products` | `cgei-cl-lesson-2-4-2` | Gridded products and reanalysis |
+| `cgei-2-4-classes` | `cgei-cl-lesson-2-4-3` | Choosing products |
+| `cgei-2-4-era5` | `cgei-cl-lesson-2-4-2` | ERA5 as reanalysis example |
+| `cgei-time-units-daily` | `cgei-cl-lesson-2-5-1` | Formats, metadata, time conventions |
+| `cgei-2-5-units` | `cgei-cl-lesson-2-5-1` | Units within data handling |
+| `cgei-2-5-clocks` | `cgei-cl-lesson-2-5-2` | Aggregation / day boundaries |
+| `cgei-extremes-and-trend-analysis` | `cgei-cl-lesson-2-6-1` | Thresholds and extremes |
+| `cgei-2-6-spi-spei` | `cgei-cl-lesson-2-6-1` | Extreme indices |
+| `cgei-2-6-trends` | `cgei-cl-lesson-2-6-2` | Trend estimation |
 
-Canonical Subject 2 lessons are the instructional path; legacy topics remain the **quiz section** targets until C1 section/topic generation is fully rolled out.
+Primary section anchors (`CGEI-024`, `CGEI-025`, extremes under `CGEI-02`) remain quiz-engine topics; aliases only affect **curriculum lesson progress**, not question `sectionId`/`topicId`.
 
-## 3. Roadmap overview topics (12)
+## Roadmap overview topics (12)
 
-Listed in `src/data/cgei/overview.ts`. Deep links `/topic/cgei-*-roadmap` already route to subject orientation (`pathToRoute` + e2e). **No lesson progress** is recorded for these ids.
+Listed in `src/data/cgei/overview.ts`. Deep links route to subject orientation. **Never** aliased to lessons (enforced in tests).
 
-## 4. Not in E1 (later E steps)
+## Not done yet (later E)
 
 1. Delete `src/data/cgei/*/legacy/` (except advanced-branches until it has units)
-2. Remove CGEI topic loaders from `lazy-data.ts` for retired subjects
-3. Generate quiz-only sections/topic-metadata without instructional legacy bodies
+2. Remove retired CGEI topic loaders from `lazy-data.ts` where only roadmaps remain
+3. Quiz-only sections/topic-metadata generation
 4. Traceability CSV input/output decision
 5. Move fixtures out of `content-drafts/`
 
-## 5. Invariants
+## Invariants
 
 - FPSC / HAT / QuizScreen untouched
-- Legacy freeze still blocks casual edits under `legacy/` until an explicit E-delete PR lifts it
+- Legacy freeze still blocks casual edits under `legacy/`
+- Green CI does not validate scientific readiness
