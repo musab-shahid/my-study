@@ -35,7 +35,7 @@ const bankQuestions = [
 
 describe('CGEI question-bank projection', () => {
   it('preserves the former flat projection IDs and their exact order', () => {
-    assert.equal(cgeiQuestionProjectionOrder.length, 568);
+    assert.equal(cgeiQuestionProjectionOrder.length, 569);
     assert.deepEqual(
       cgeiCurriculum.questions.map((question) => question.id),
       cgeiQuestionProjectionOrder,
@@ -46,7 +46,7 @@ describe('CGEI question-bank projection', () => {
     const eligible = bankQuestions.filter(
       (question) => question.lessonId && question.type === 'single' && typeof question.correctAnswer === 'number',
     );
-    assert.equal(eligible.length, 568);
+    assert.equal(eligible.length, 569);
     assert.equal(cgeiCurriculum.questions.length, eligible.length);
 
     const byId = new Map(bankQuestions.map((question) => [question.id, question]));
