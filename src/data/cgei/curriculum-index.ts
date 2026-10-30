@@ -1,8 +1,11 @@
 /**
- * Lightweight, synchronous navigation/progress metadata for CGEI.
- * Keep instructional content in curriculum.ts so route parsing and reset logic
- * never need to pull the full lesson/question registry into the initial bundle.
- * A parity test keeps this metadata aligned with the canonical registry.
+ * GENERATED FILE — do not edit by hand.
+ * Source: src/data/cgei/curriculum.ts
+ * Regenerate with: npm run generate:cgei-index
+ * Check with: npm run check:cgei-index
+ *
+ * This lightweight mirror keeps navigation/reset code from importing the full
+ * instructional registry into the initial bundle.
  */
 export interface CgeiIndexUnit { id: string; code: string; title: string; subjectId: string; subjectTitle: string; lessonIds: readonly string[] }
 export interface CgeiIndexLesson { id: string; title: string; unitId: string; unitTitle: string; subjectId: string; subjectTitle: string }
@@ -25,18 +28,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "subjectTitle": "Advanced AI for Environmental Intelligence",
     "lessonIds": [
       "cgei-ai-lesson-12-2-1"
-    ]
-  },
-  {
-    "id": "cgei-ai-unit-12-3",
-    "code": "12.3",
-    "title": "Spatiotemporal ML, forecasting, and foundation models",
-    "subjectId": "cgei-advanced-ai",
-    "subjectTitle": "Advanced AI for Environmental Intelligence",
-    "lessonIds": [
-      "cgei-ai-lesson-12-3-1",
-      "cgei-ai-lesson-12-3-2",
-      "cgei-ai-lesson-12-3-3"
     ]
   },
   {
@@ -112,6 +103,56 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-cl-unit-2-10",
+    "code": "2.10",
+    "title": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-10-1",
+      "cgei-cl-lesson-2-10-2",
+      "cgei-cl-lesson-2-10-3"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-11",
+    "code": "2.11",
+    "title": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-11-1",
+      "cgei-cl-lesson-2-11-2",
+      "cgei-cl-lesson-2-11-3"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-12",
+    "code": "2.12",
+    "title": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-12-1",
+      "cgei-cl-lesson-2-12-2",
+      "cgei-cl-lesson-2-12-3",
+      "cgei-cl-lesson-2-12-4",
+      "cgei-cl-lesson-2-12-5"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-13",
+    "code": "2.13",
+    "title": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-13-1",
+      "cgei-cl-lesson-2-13-2",
+      "cgei-cl-lesson-2-13-3"
+    ]
+  },
+  {
     "id": "cgei-cl-unit-2-2",
     "code": "2.2",
     "title": "Climate system processes",
@@ -173,19 +214,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
-    "id": "cgei-cl-unit-2-8",
-    "code": "2.8",
-    "title": "Regional climate literacy (Pakistan / southern Punjab)",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science",
-    "lessonIds": [
-      "cgei-cl-lesson-2-8-1",
-      "cgei-cl-lesson-2-8-2",
-      "cgei-cl-lesson-2-8-3"
-    ]
-  },
-
-  {
     "id": "cgei-cl-unit-2-7",
     "code": "2.7",
     "title": "Extreme value statistics and return levels",
@@ -196,6 +224,18 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-7-2",
       "cgei-cl-lesson-2-7-3",
       "cgei-cl-lesson-2-7-4"
+    ]
+  },
+  {
+    "id": "cgei-cl-unit-2-8",
+    "code": "2.8",
+    "title": "Regional climate literacy (Pakistan / southern Punjab)",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science",
+    "lessonIds": [
+      "cgei-cl-lesson-2-8-1",
+      "cgei-cl-lesson-2-8-2",
+      "cgei-cl-lesson-2-8-3"
     ]
   },
   {
@@ -211,56 +251,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-cl-lesson-2-9-4",
       "cgei-cl-lesson-2-9-5",
       "cgei-cl-lesson-2-9-6"
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-10",
-    "code": "2.10",
-    "title": "Regional projection products and the CMIP7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science",
-    "lessonIds": [
-      "cgei-cl-lesson-2-10-1",
-      "cgei-cl-lesson-2-10-2",
-      "cgei-cl-lesson-2-10-3"
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-11",
-    "code": "2.11",
-    "title": "Detection, attribution, and event-based interpretation",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science",
-    "lessonIds": [
-      "cgei-cl-lesson-2-11-1",
-      "cgei-cl-lesson-2-11-2",
-      "cgei-cl-lesson-2-11-3"
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-12",
-    "code": "2.12",
-    "title": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science",
-    "lessonIds": [
-      "cgei-cl-lesson-2-12-1",
-      "cgei-cl-lesson-2-12-2",
-      "cgei-cl-lesson-2-12-3",
-      "cgei-cl-lesson-2-12-4",
-      "cgei-cl-lesson-2-12-5"
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-13",
-    "code": "2.13",
-    "title": "Seasonal-to-subseasonal prediction and verification",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science",
-    "lessonIds": [
-      "cgei-cl-lesson-2-13-1",
-      "cgei-cl-lesson-2-13-2",
-      "cgei-cl-lesson-2-13-3"
     ]
   },
   {
@@ -488,7 +478,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-es-unit-1-10",
     "code": "1.10",
-    "title": "Coupled human–natural systems",
+    "title": "Coupled human\u2013natural systems",
     "subjectId": "cgei-env-systems",
     "subjectTitle": "Earth System Science Foundations",
     "lessonIds": [
@@ -552,41 +542,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-geo-lesson-3-4-4",
       "cgei-geo-lesson-3-4-5",
       "cgei-geo-lesson-3-4-6"
-    ]
-  },
-  {
-    "id": "cgei-geo-unit-3-5",
-    "code": "3.5",
-    "title": "Python geospatial stack",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography",
-    "lessonIds": [
-      "cgei-geo-lesson-3-5-1",
-      "cgei-geo-lesson-3-5-2",
-      "cgei-geo-lesson-3-5-3"
-    ]
-  },
-  {
-    "id": "cgei-geo-unit-3-6",
-    "code": "3.6",
-    "title": "Cartography",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography",
-    "lessonIds": [
-      "cgei-geo-lesson-3-6-1",
-      "cgei-geo-lesson-3-6-2"
-    ]
-  },
-  {
-    "id": "cgei-geo-unit-3-9",
-    "code": "3.9",
-    "title": "Spatial statistics and geostatistics",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography",
-    "lessonIds": [
-      "cgei-geo-lesson-3-9-1",
-      "cgei-geo-lesson-3-9-2",
-      "cgei-geo-lesson-3-9-3"
     ]
   },
   {
@@ -767,54 +722,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
-    "id": "cgei-rp-unit-8-7",
-    "code": "8.7",
-    "title": "Turning the FYP into a first paper",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity",
-    "lessonIds": [
-      "cgei-rp-lesson-8-7-1",
-      "cgei-rp-lesson-8-7-2",
-      "cgei-rp-lesson-8-7-3"
-    ]
-  },
-  {
-    "id": "cgei-rp-unit-8-8",
-    "code": "8.8",
-    "title": "Portfolio and research positioning",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity",
-    "lessonIds": [
-      "cgei-rp-lesson-8-8-1",
-      "cgei-rp-lesson-8-8-2",
-      "cgei-rp-lesson-8-8-3"
-    ]
-  },
-  {
-    "id": "cgei-rp-unit-8-9",
-    "code": "8.9",
-    "title": "Research proposals, funding, and professional practice",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity",
-    "lessonIds": [
-      "cgei-rp-lesson-8-9-1",
-      "cgei-rp-lesson-8-9-2",
-      "cgei-rp-lesson-8-9-3"
-    ]
-  },
-  {
-    "id": "cgei-rp-unit-8-d",
-    "code": "8.D",
-    "title": "Depth checks and research mastery gates",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity",
-    "lessonIds": [
-      "cgei-rp-lesson-8-d-1",
-      "cgei-rp-lesson-8-d-2",
-      "cgei-rp-lesson-8-d-3"
-    ]
-  },
-  {
     "id": "cgei-rs-unit-4-1",
     "code": "4.1",
     "title": "Remote sensing physics and sensors",
@@ -837,30 +744,6 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
       "cgei-rs-lesson-4-10-2",
       "cgei-rs-lesson-4-10-3",
       "cgei-rs-lesson-4-10-4"
-    ]
-  },
-  {
-    "id": "cgei-rs-unit-4-11",
-    "code": "4.11",
-    "title": "Ground truth, laboratory data, and EO integration",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing",
-    "lessonIds": [
-      "cgei-rs-lesson-4-11-1",
-      "cgei-rs-lesson-4-11-2",
-      "cgei-rs-lesson-4-11-3"
-    ]
-  },
-  {
-    "id": "cgei-rs-unit-4-12",
-    "code": "4.12",
-    "title": "Emerging EO / GeoAI directions",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing",
-    "lessonIds": [
-      "cgei-rs-lesson-4-12-1",
-      "cgei-rs-lesson-4-12-2",
-      "cgei-rs-lesson-4-12-3"
     ]
   },
   {
@@ -1018,30 +901,6 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Advanced AI for Environmental Intelligence"
   },
   {
-    "id": "cgei-ai-lesson-12-3-1",
-    "title": "Rolling-origin evaluation and baselines",
-    "unitId": "cgei-ai-unit-12-3",
-    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
-    "subjectId": "cgei-advanced-ai",
-    "subjectTitle": "Advanced AI for Environmental Intelligence"
-  },
-  {
-    "id": "cgei-ai-lesson-12-3-2",
-    "title": "Lagged features and leakage across time and space",
-    "unitId": "cgei-ai-unit-12-3",
-    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
-    "subjectId": "cgei-advanced-ai",
-    "subjectTitle": "Advanced AI for Environmental Intelligence"
-  },
-  {
-    "id": "cgei-ai-lesson-12-3-3",
-    "title": "Foundation models and physical consistency checks",
-    "unitId": "cgei-ai-unit-12-3",
-    "unitTitle": "Spatiotemporal ML, forecasting, and foundation models",
-    "subjectId": "cgei-advanced-ai",
-    "subjectTitle": "Advanced AI for Environmental Intelligence"
-  },
-  {
     "id": "cgei-ai-lesson-12-7-1",
     "title": "Evaluating and governing environmental AI",
     "unitId": "cgei-ai-unit-12-7",
@@ -1110,6 +969,118 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Indices, past climate and evidence language",
     "unitId": "cgei-cl-unit-2-1",
     "unitTitle": "Weather, climate, and time scales",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-1",
+    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-2",
+    "title": "Choosing models and members, and documenting the choice",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-10-3",
+    "title": "CMIP7 and AR7 awareness",
+    "unitId": "cgei-cl-unit-2-10",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-1",
+    "title": "Concepts: detection, attribution, and the single-record problem",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-2",
+    "title": "Event attribution: probabilistic framing and rapid protocols",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-11-3",
+    "title": "Limits: harder cases and communicating attribution results",
+    "unitId": "cgei-cl-unit-2-11",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-1",
+    "title": "ML in downscaling and bias correction",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-2",
+    "title": "Probabilistic and rare-event evaluation",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-3",
+    "title": "Using open AI forecasts: post-processing and blending",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-4",
+    "title": "Climate services",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-12-5",
+    "title": "Digital twins and kilometre-scale models",
+    "unitId": "cgei-cl-unit-2-12",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-1",
+    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-2",
+    "title": "Skill and verification of probabilistic outlooks",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-13-3",
+    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
+    "unitId": "cgei-cl-unit-2-13",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -1242,6 +1213,38 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Climate Science"
   },
   {
+    "id": "cgei-cl-lesson-2-7-1",
+    "title": "Core theory: GEV, GPD, return levels, and declustering",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-2",
+    "title": "Estimation and diagnostics",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-3",
+    "title": "Extensions: non-stationarity, regional analysis, and dependence",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-7-4",
+    "title": "Applications and communicating return periods",
+    "unitId": "cgei-cl-unit-2-7",
+    "unitTitle": "Extreme value statistics and return levels",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
     "id": "cgei-cl-lesson-2-8-1",
     "title": "Seasons and regional drivers",
     "unitId": "cgei-cl-unit-2-8",
@@ -1262,6 +1265,54 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Data institutions and access practice",
     "unitId": "cgei-cl-unit-2-8",
     "unitTitle": "Regional climate literacy (Pakistan / southern Punjab)",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-1",
+    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-2",
+    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-3",
+    "title": "Model evaluation: skill metrics and process-based checks",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-4",
+    "title": "Bias adjustment: methods, assumptions, and artefacts",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-5",
+    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
+    "subjectId": "cgei-climate-science",
+    "subjectTitle": "Climate Science"
+  },
+  {
+    "id": "cgei-cl-lesson-2-9-6",
+    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
+    "unitId": "cgei-cl-unit-2-9",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -1355,7 +1406,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-ds-lesson-5-1-5",
-    "title": "Stock–flux systems, ODEs and numerical integration",
+    "title": "Stock\u2013flux systems, ODEs and numerical integration",
     "unitId": "cgei-ds-unit-5-1",
     "unitTitle": "Mathematical and physical foundations",
     "subjectId": "cgei-data-science",
@@ -1547,7 +1598,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-ds-lesson-5-2-5",
-    "title": "Regex, metadata validation and Python–R interoperability",
+    "title": "Regex, metadata validation and Python\u2013R interoperability",
     "unitId": "cgei-ds-unit-5-2",
     "unitTitle": "Python for scientific work",
     "subjectId": "cgei-data-science",
@@ -1893,7 +1944,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-es-lesson-1-10-1",
     "title": "Urban energy, metabolism and heat",
     "unitId": "cgei-es-unit-1-10",
-    "unitTitle": "Coupled human–natural systems",
+    "unitTitle": "Coupled human\u2013natural systems",
     "subjectId": "cgei-env-systems",
     "subjectTitle": "Earth System Science Foundations"
   },
@@ -1901,7 +1952,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-es-lesson-1-10-2",
     "title": "Agricultural systems and land-use change",
     "unitId": "cgei-es-unit-1-10",
-    "unitTitle": "Coupled human–natural systems",
+    "unitTitle": "Coupled human\u2013natural systems",
     "subjectId": "cgei-env-systems",
     "subjectTitle": "Earth System Science Foundations"
   },
@@ -1909,7 +1960,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-es-lesson-1-10-3",
     "title": "Compound stress, thresholds and adaptive capacity",
     "unitId": "cgei-es-unit-1-10",
-    "unitTitle": "Coupled human–natural systems",
+    "unitTitle": "Coupled human\u2013natural systems",
     "subjectId": "cgei-env-systems",
     "subjectTitle": "Earth System Science Foundations"
   },
@@ -2078,70 +2129,6 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Field data contracts and observation QC",
     "unitId": "cgei-geo-unit-3-4",
     "unitTitle": "Terrain, network, and field-mapping workflows",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-5-1",
-    "title": "Python vector stack (GeoPandas and Shapely)",
-    "unitId": "cgei-geo-unit-3-5",
-    "unitTitle": "Python geospatial stack",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-5-2",
-    "title": "Python raster stack (rasterio and friends)",
-    "unitId": "cgei-geo-unit-3-5",
-    "unitTitle": "Python geospatial stack",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-5-3",
-    "title": "Analysis libraries, STAC and R complement",
-    "unitId": "cgei-geo-unit-3-5",
-    "unitTitle": "Python geospatial stack",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-6-1",
-    "title": "Colour, classification and choropleth honesty",
-    "unitId": "cgei-geo-unit-3-6",
-    "unitTitle": "Cartography",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-6-2",
-    "title": "Legends, uncertainty and reproducible figures",
-    "unitId": "cgei-geo-unit-3-6",
-    "unitTitle": "Cartography",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-9-1",
-    "title": "Spatial dependence, weights and clusters",
-    "unitId": "cgei-geo-unit-3-9",
-    "unitTitle": "Spatial statistics and geostatistics",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-9-2",
-    "title": "Interpolation, variograms and kriging limits",
-    "unitId": "cgei-geo-unit-3-9",
-    "unitTitle": "Spatial statistics and geostatistics",
-    "subjectId": "cgei-geospatial",
-    "subjectTitle": "Geospatial Science, GIS & Cartography"
-  },
-  {
-    "id": "cgei-geo-lesson-3-9-3",
-    "title": "Spatial validation and change of support",
-    "unitId": "cgei-geo-unit-3-9",
-    "unitTitle": "Spatial statistics and geostatistics",
     "subjectId": "cgei-geospatial",
     "subjectTitle": "Geospatial Science, GIS & Cartography"
   },
@@ -2338,102 +2325,6 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Research Practice & Scientific Integrity"
   },
   {
-    "id": "cgei-rp-lesson-8-7-1",
-    "title": "One contribution, clear questions",
-    "unitId": "cgei-rp-unit-8-7",
-    "unitTitle": "Turning the FYP into a first paper",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-7-2",
-    "title": "Evidence before submission",
-    "unitId": "cgei-rp-unit-8-7",
-    "unitTitle": "Turning the FYP into a first paper",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-7-3",
-    "title": "Manuscript, figures, venue, and review",
-    "unitId": "cgei-rp-unit-8-7",
-    "unitTitle": "Turning the FYP into a first paper",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-8-1",
-    "title": "Repository as evidence",
-    "unitId": "cgei-rp-unit-8-8",
-    "unitTitle": "Portfolio and research positioning",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-8-2",
-    "title": "Public record and coursework to study",
-    "unitId": "cgei-rp-unit-8-8",
-    "unitTitle": "Portfolio and research positioning",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-8-3",
-    "title": "Graduate research positioning",
-    "unitId": "cgei-rp-unit-8-8",
-    "unitTitle": "Portfolio and research positioning",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-9-1",
-    "title": "Proposal structure and reviewer risks",
-    "unitId": "cgei-rp-unit-8-9",
-    "unitTitle": "Research proposals, funding, and professional practice",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-9-2",
-    "title": "Applications, budgets, and funding literacy",
-    "unitId": "cgei-rp-unit-8-9",
-    "unitTitle": "Research proposals, funding, and professional practice",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-9-3",
-    "title": "Working practice and professional ethics",
-    "unitId": "cgei-rp-unit-8-9",
-    "unitTitle": "Research proposals, funding, and professional practice",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-d-1",
-    "title": "One-page research design (estimand and non-claims)",
-    "unitId": "cgei-rp-unit-8-d",
-    "unitTitle": "Depth checks and research mastery gates",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-d-2",
-    "title": "Reproducible methods and availability statements",
-    "unitId": "cgei-rp-unit-8-d",
-    "unitTitle": "Depth checks and research mastery gates",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
-    "id": "cgei-rp-lesson-8-d-3",
-    "title": "Validity review and constructive referee notes",
-    "unitId": "cgei-rp-unit-8-d",
-    "unitTitle": "Depth checks and research mastery gates",
-    "subjectId": "cgei-research-practice",
-    "subjectTitle": "Research Practice & Scientific Integrity"
-  },
-  {
     "id": "cgei-rs-lesson-4-1-1",
     "title": "Electromagnetic basis and radiometric quantities",
     "unitId": "cgei-rs-unit-4-1",
@@ -2486,54 +2377,6 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Water quality, snow and ground deformation",
     "unitId": "cgei-rs-unit-4-10",
     "unitTitle": "Thematic EO applications beyond heat: water, agriculture, air, snow, subsidence",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-11-1",
-    "title": "Paired field–satellite sampling design",
-    "unitId": "cgei-rs-unit-4-11",
-    "unitTitle": "Ground truth, laboratory data, and EO integration",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-11-2",
-    "title": "What laboratory variables EO can and cannot support",
-    "unitId": "cgei-rs-unit-4-11",
-    "unitTitle": "Ground truth, laboratory data, and EO integration",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-11-3",
-    "title": "Small-sample validation and reporting",
-    "unitId": "cgei-rs-unit-4-11",
-    "unitTitle": "Ground truth, laboratory data, and EO integration",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-12-1",
-    "title": "Deep learning on EO: baselines and labels first",
-    "unitId": "cgei-rs-unit-4-12",
-    "unitTitle": "Emerging EO / GeoAI directions",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-12-2",
-    "title": "Benchmarks, foundation models and embeddings",
-    "unitId": "cgei-rs-unit-4-12",
-    "unitTitle": "Emerging EO / GeoAI directions",
-    "subjectId": "cgei-remote-sensing",
-    "subjectTitle": "Earth Observation & Remote Sensing"
-  },
-  {
-    "id": "cgei-rs-lesson-4-12-3",
-    "title": "Multimodal systems and operational verification",
-    "unitId": "cgei-rs-unit-4-12",
-    "unitTitle": "Emerging EO / GeoAI directions",
     "subjectId": "cgei-remote-sensing",
     "subjectTitle": "Earth Observation & Remote Sensing"
   },
@@ -2832,200 +2675,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "unitTitle": "Data pipelines, orchestration, and reliable updates",
     "subjectId": "cgei-software-engineering",
     "subjectTitle": "Software Engineering for Environmental Systems"
-  },
-  {
-    "id": "cgei-cl-lesson-2-7-1",
-    "title": "Core theory: GEV, GPD, return levels, and declustering",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-7-2",
-    "title": "Estimation and diagnostics",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-7-3",
-    "title": "Extensions: non-stationarity, regional analysis, and dependence",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-7-4",
-    "title": "Applications and communicating return periods",
-    "unitId": "cgei-cl-unit-2-7",
-    "unitTitle": "Extreme value statistics and return levels",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-1",
-    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-2",
-    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-3",
-    "title": "Model evaluation: skill metrics and process-based checks",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-4",
-    "title": "Bias adjustment: methods, assumptions, and artefacts",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-5",
-    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-6",
-    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
-    "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate models and projections",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-1",
-    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Regional projection products and the CMIP7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-2",
-    "title": "Choosing models and members, and documenting the choice",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Regional projection products and the CMIP7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-3",
-    "title": "CMIP7 and AR7 awareness",
-    "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Regional projection products and the CMIP7 transition",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-1",
-    "title": "Concepts: detection, attribution, and the single-record problem",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection, attribution, and event-based interpretation",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-2",
-    "title": "Event attribution: probabilistic framing and rapid protocols",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection, attribution, and event-based interpretation",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-3",
-    "title": "Limits: harder cases and communicating attribution results",
-    "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection, attribution, and event-based interpretation",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-1",
-    "title": "ML in downscaling and bias correction",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-2",
-    "title": "Probabilistic and rare-event evaluation",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-3",
-    "title": "Using open AI forecasts: post-processing and blending",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-4",
-    "title": "Climate services",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-5",
-    "title": "Digital twins and kilometre-scale models",
-    "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-13-1",
-    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-13-2",
-    "title": "Skill and verification of probabilistic outlooks",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
-  },
-  {
-    "id": "cgei-cl-lesson-2-13-3",
-    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
-    "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
-    "subjectId": "cgei-climate-science",
-    "subjectTitle": "Climate Science"
   }
 ];
 export const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));
 export const cgeiIndexLessonById = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));
-
