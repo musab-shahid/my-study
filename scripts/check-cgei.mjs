@@ -17,6 +17,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const steps = [
   ['npm', ['run', 'validate:data']],
+  ['npm', ['run', 'lint:cgei-questions']],
   ['npm', ['run', 'audit:core-leaf-evidence']],
 ];
 

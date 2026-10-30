@@ -42,7 +42,12 @@
     "check:cgei-registry": "tsx --tsconfig tsconfig.app.json scripts/cgei-registry-snapshot.ts --check",
     "generate:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts",
     "snapshot:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts",
-    "check:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts --check"
+    "check:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts --check",
+    "new:question": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-question.ts",
+    "new:lesson": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-lesson.ts",
+    "new:unit": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-unit.ts",
+    "lint:cgei-questions": "tsx --tsconfig tsconfig.app.json scripts/lint-cgei-questions.ts",
+    "snapshot:cgei-question-lints": "tsx --tsconfig tsconfig.app.json scripts/lint-cgei-questions.ts --snapshot"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
