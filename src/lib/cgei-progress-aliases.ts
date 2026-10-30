@@ -2,19 +2,17 @@
  * Phase E — CGEI progress aliases (legacy topic id → canonical lesson id).
  *
  * Data Science Unit 5.1 topics are fully materialized as lessons with
- * `sourceTopicId`. Learners who studied the legacy topic id must appear as
- * having studied the matching lesson after load / mark-studied.
- *
- * Climate Science legacy topics (reanalysis, time units, extremes) remain
- * quiz-engine topics until an explicit lesson mapping is approved — they are
- * intentionally absent from this map.
+ * `sourceTopicId`. Climate Science legacy quiz topics map to the closest
+ * Subject 2 lessons (Phase E2). Learners who studied those topic ids gain
+ * the matching lesson progress after load / mark-studied.
  *
  * Roadmap overview topic ids are orientation only; they never map to lessons.
  */
 import type { AppData } from '@/types';
 
-/** Legacy / bridge topic id → canonical lesson id (Unit 5.1). */
+/** Legacy / bridge topic id → canonical lesson id. */
 export const CGEI_TOPIC_TO_LESSON: Readonly<Record<string, string>> = {
+  // --- Data Science Unit 5.1 (E1) ---
   'cgei-ds-units-dimensions': 'cgei-ds-lesson-5-1-1',
   'cgei-ds-rates-finite-diff': 'cgei-ds-lesson-5-1-2',
   'cgei-ds-matrices-least-squares': 'cgei-ds-lesson-5-1-3',
@@ -31,7 +29,28 @@ export const CGEI_TOPIC_TO_LESSON: Readonly<Record<string, string>> = {
   'cgei-ds-buckingham-pi-nondim': 'cgei-ds-lesson-5-1-14',
   'cgei-ds-waves-conduction-convection': 'cgei-ds-lesson-5-1-15',
   'cgei-ds-clt-lln-distributions': 'cgei-ds-lesson-5-1-16',
+
+  // --- Climate Science legacy quiz topics (E2) ---
+  // Unit 2.4 Observations, reanalysis, and gridded products
+  'cgei-climate-data-products': 'cgei-cl-lesson-2-4-2',
+  'cgei-2-4-classes': 'cgei-cl-lesson-2-4-3',
+  'cgei-2-4-era5': 'cgei-cl-lesson-2-4-2',
+  // Unit 2.5 Climate data handling
+  'cgei-time-units-daily': 'cgei-cl-lesson-2-5-1',
+  'cgei-2-5-units': 'cgei-cl-lesson-2-5-1',
+  'cgei-2-5-clocks': 'cgei-cl-lesson-2-5-2',
+  // Unit 2.6 Extremes and trend analysis
+  'cgei-extremes-and-trend-analysis': 'cgei-cl-lesson-2-6-1',
+  'cgei-2-6-spi-spei': 'cgei-cl-lesson-2-6-1',
+  'cgei-2-6-trends': 'cgei-cl-lesson-2-6-2',
 };
+
+/** Primary climate topic ids kept as quiz-section anchors (sections.ts). */
+export const CGEI_CLIMATE_PRIMARY_TOPIC_IDS = [
+  'cgei-climate-data-products',
+  'cgei-time-units-daily',
+  'cgei-extremes-and-trend-analysis',
+] as const;
 
 export function lessonIdForCgeiTopic(topicId: string): string | undefined {
   return CGEI_TOPIC_TO_LESSON[topicId];
