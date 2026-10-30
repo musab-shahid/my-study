@@ -9,6 +9,10 @@ Learning and assessment app for multi-track study (CGEI curriculum and civil-ser
 - Production build with bundle budget check
 - Design-system guard, secret scan, and content evidence gates in CI
 
+## CGEI curriculum
+
+See the [CGEI curriculum architecture and authoring guide](docs/cgei/CGEI_CURRICULUM_ARCHITECTURE.md) for the canonical subject/unit/lesson layout, per-subject question-bank contract, progress compatibility rules, authoring commands and validation gates.
+
 ## Local development
 
 ```bash
