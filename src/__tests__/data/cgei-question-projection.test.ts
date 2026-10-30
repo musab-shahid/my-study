@@ -36,7 +36,7 @@ const bankQuestions = [
 
 const baseline = JSON.parse(
   readFileSync(resolve(process.cwd(), 'docs/cgei/question-projection-baseline.json'), 'utf8'),
-) as { version: number; questionIds: string[] };
+) as { version: number; questionIds: string[]; questionsByLesson: Record<string, string[]> };
 
 describe('CGEI question-bank projection', () => {
   it('preserves every question ID from the former flat curriculum projection', () => {
@@ -46,6 +46,12 @@ describe('CGEI question-bank projection', () => {
       cgeiCurriculum.questions.map((question) => question.id).sort(),
       baseline.questionIds,
     );
+    for (const [lessonId, expectedIds] of Object.entries(baseline.questionsByLesson)) {
+      const actualIds = cgeiCurriculum.questions
+        .filter((question) => question.lessonId === lessonId)
+        .map((question) => question.id);
+      assert.deepEqual(actualIds, expectedIds, 'display order changed for ' + lessonId);
+    }
   });
 
   it('projects every lesson-linked single-choice bank question without changing its content', () => {

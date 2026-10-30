@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Question IDs previously exposed by the flat curriculum projection before C3 bank projection. New/deferred engine-only questions are intentionally not included.",
+  "description": "Question IDs previously exposed by the flat curriculum projection. questionIds is the permanent set; questionsByLesson preserves the former per-lesson display order. New/deferred engine-only questions are intentionally excluded.",
   "questionIds": [
     "CGEI-05-Q001",
     "CGEI-05-Q002",
@@ -570,5 +570,1015 @@
     "cgei-se-q-112-004",
     "cgei-se-q-115-001",
     "cgei-se-q-115-002"
-  ]
+  ],
+  "questionsByLesson": {
+    "cgei-ai-lesson-12-1-1": [
+      "cgei-ai-q-121-001",
+      "cgei-ai-q-121-002",
+      "cgei-ai-q-121-003"
+    ],
+    "cgei-ai-lesson-12-2-1": [
+      "cgei-ai-q-122-001",
+      "cgei-ai-q-122-002"
+    ],
+    "cgei-ai-lesson-12-3-1": [
+      "cgei-ai-q-123-persist",
+      "cgei-ai-q-123-leak",
+      "cgei-ai-q-123-fm"
+    ],
+    "cgei-ai-lesson-12-7-1": [
+      "cgei-ai-q-127-001",
+      "cgei-ai-q-127-002"
+    ],
+    "cgei-cap-lesson-13-1-1": [
+      "cgei-cap-q-131-001",
+      "cgei-cap-q-131-002"
+    ],
+    "cgei-cap-lesson-13-2-1": [
+      "cgei-cap-q-132-001",
+      "cgei-cap-q-132-002",
+      "cgei-cap-q-132-003",
+      "cgei-cap-q-132-004"
+    ],
+    "cgei-cap-lesson-13-3-1": [
+      "cgei-cap-q-133-001",
+      "cgei-cap-q-133-002",
+      "cgei-cap-q-133-003"
+    ],
+    "cgei-cap-lesson-13-5-1": [
+      "cgei-cap-q-135-001",
+      "cgei-cap-q-135-002",
+      "cgei-cap-q-135-003"
+    ],
+    "cgei-cap-lesson-13-6-1": [
+      "cgei-cap-q-136-001",
+      "cgei-cap-q-136-002",
+      "cgei-cap-q-136-003"
+    ],
+    "cgei-cl-lesson-2-1-1": [
+      "cgei-cl-q-21-001",
+      "cgei-cl-q-21-002"
+    ],
+    "cgei-cl-lesson-2-1-2": [
+      "cgei-cl-q-21-003"
+    ],
+    "cgei-cl-lesson-2-1-3": [
+      "cgei-cl-q-21-004"
+    ],
+    "cgei-cl-lesson-2-2-1": [
+      "cgei-cl-q-22-001",
+      "cgei-cl-q-22-002"
+    ],
+    "cgei-cl-lesson-2-2-2": [
+      "cgei-cl-q-22-003"
+    ],
+    "cgei-cl-lesson-2-2-3": [
+      "cgei-cl-q-22-004"
+    ],
+    "cgei-cl-lesson-2-2-4": [
+      "cgei-cl-q-22-005"
+    ],
+    "cgei-cl-lesson-2-3-1": [
+      "cgei-cl-q-23-cc",
+      "cgei-cl-q-23-tw"
+    ],
+    "cgei-cl-lesson-2-3-2": [
+      "cgei-cl-q-23-pbl"
+    ],
+    "cgei-cl-lesson-2-3-3": [
+      "cgei-cl-q-23-ens"
+    ],
+    "cgei-cl-lesson-2-4-1": [
+      "cgei-cl-q-24-001",
+      "cgei-cl-q-24-002"
+    ],
+    "cgei-cl-lesson-2-4-2": [
+      "cgei-cl-q-24-003"
+    ],
+    "cgei-cl-lesson-2-4-3": [
+      "cgei-cl-q-24-004"
+    ],
+    "cgei-cl-lesson-2-5-1": [
+      "cgei-cl-q-25-001",
+      "cgei-cl-q-25-002",
+      "cgei-cl-q-25-kelvin",
+      "cgei-cl-q-25-accum"
+    ],
+    "cgei-cl-lesson-2-5-2": [
+      "cgei-cl-q-25-003"
+    ],
+    "cgei-cl-lesson-2-5-3": [
+      "cgei-cl-q-25-004"
+    ],
+    "cgei-cl-lesson-2-6-1": [
+      "cgei-cl-q-26-001",
+      "cgei-cl-q-26-002"
+    ],
+    "cgei-cl-lesson-2-6-2": [
+      "cgei-cl-q-26-003"
+    ],
+    "cgei-cl-lesson-2-6-3": [
+      "cgei-cl-q-26-004"
+    ],
+    "cgei-cl-lesson-2-8-1": [
+      "cgei-cl-q-28-001",
+      "cgei-cl-q-28-002"
+    ],
+    "cgei-cl-lesson-2-8-2": [
+      "cgei-cl-q-28-003"
+    ],
+    "cgei-cl-lesson-2-8-3": [
+      "cgei-cl-q-28-004"
+    ],
+    "cgei-ds-lesson-5-1-1": [
+      "CGEI-05-Q001",
+      "CGEI-05-Q002",
+      "CGEI-05-Q003",
+      "cgei-ds-q-51-001"
+    ],
+    "cgei-ds-lesson-5-1-10": [
+      "CGEI-05-Q039",
+      "CGEI-05-Q040",
+      "CGEI-05-Q041"
+    ],
+    "cgei-ds-lesson-5-1-11": [
+      "CGEI-05-Q042",
+      "CGEI-05-Q043",
+      "CGEI-05-Q044"
+    ],
+    "cgei-ds-lesson-5-1-12": [
+      "CGEI-05-Q045",
+      "CGEI-05-Q046",
+      "CGEI-05-Q047"
+    ],
+    "cgei-ds-lesson-5-1-13": [
+      "CGEI-05-Q048",
+      "CGEI-05-Q049",
+      "CGEI-05-Q050"
+    ],
+    "cgei-ds-lesson-5-1-14": [
+      "CGEI-05-Q051",
+      "CGEI-05-Q052",
+      "CGEI-05-Q053"
+    ],
+    "cgei-ds-lesson-5-1-15": [
+      "CGEI-05-Q054",
+      "CGEI-05-Q055",
+      "CGEI-05-Q056"
+    ],
+    "cgei-ds-lesson-5-1-16": [
+      "CGEI-05-Q057",
+      "CGEI-05-Q058",
+      "CGEI-05-Q059"
+    ],
+    "cgei-ds-lesson-5-1-2": [
+      "CGEI-05-Q004",
+      "CGEI-05-Q005",
+      "CGEI-05-Q006",
+      "CGEI-05-Q027",
+      "CGEI-05-Q028",
+      "cgei-ds-q-51-002"
+    ],
+    "cgei-ds-lesson-5-1-3": [
+      "CGEI-05-Q007",
+      "CGEI-05-Q008",
+      "CGEI-05-Q009",
+      "CGEI-05-Q029",
+      "CGEI-05-Q030"
+    ],
+    "cgei-ds-lesson-5-1-4": [
+      "CGEI-05-Q010",
+      "CGEI-05-Q011",
+      "CGEI-05-Q012",
+      "CGEI-05-Q013",
+      "CGEI-05-Q031"
+    ],
+    "cgei-ds-lesson-5-1-5": [
+      "CGEI-05-Q014",
+      "CGEI-05-Q015",
+      "CGEI-05-Q016",
+      "CGEI-05-Q032",
+      "cgei-ds-q-51-003",
+      "cgei-ds-q-51-020"
+    ],
+    "cgei-ds-lesson-5-1-6": [
+      "CGEI-05-Q017",
+      "CGEI-05-Q018",
+      "CGEI-05-Q019",
+      "CGEI-05-Q033"
+    ],
+    "cgei-ds-lesson-5-1-7": [
+      "CGEI-05-Q020",
+      "CGEI-05-Q021",
+      "CGEI-05-Q022",
+      "CGEI-05-Q034"
+    ],
+    "cgei-ds-lesson-5-1-8": [
+      "CGEI-05-Q023",
+      "CGEI-05-Q024",
+      "CGEI-05-Q025",
+      "CGEI-05-Q026",
+      "CGEI-05-Q035"
+    ],
+    "cgei-ds-lesson-5-1-9": [
+      "CGEI-05-Q036",
+      "CGEI-05-Q037",
+      "CGEI-05-Q038"
+    ],
+    "cgei-ds-lesson-5-10-1": [
+      "cgei-ds-q-510-001",
+      "cgei-ds-q-510-002",
+      "cgei-ds-q-510-020",
+      "cgei-ds-q-510-021"
+    ],
+    "cgei-ds-lesson-5-10-2": [
+      "cgei-ds-q-510-003",
+      "cgei-ds-q-510-004",
+      "cgei-ds-q-510-012"
+    ],
+    "cgei-ds-lesson-5-10-3": [
+      "cgei-ds-q-510-005",
+      "cgei-ds-q-510-006",
+      "cgei-ds-q-510-011"
+    ],
+    "cgei-ds-lesson-5-10-4": [
+      "cgei-ds-q-510-007",
+      "cgei-ds-q-510-008",
+      "cgei-ds-q-510-013",
+      "cgei-ds-q-510-015"
+    ],
+    "cgei-ds-lesson-5-10-5": [
+      "cgei-ds-q-510-009",
+      "cgei-ds-q-510-010",
+      "cgei-ds-q-510-014"
+    ],
+    "cgei-ds-lesson-5-11-1": [
+      "cgei-ds-q-511-001",
+      "cgei-ds-q-511-002",
+      "cgei-ds-q-511-013",
+      "cgei-ds-q-511-020"
+    ],
+    "cgei-ds-lesson-5-11-2": [
+      "cgei-ds-q-511-003",
+      "cgei-ds-q-511-004"
+    ],
+    "cgei-ds-lesson-5-11-3": [
+      "cgei-ds-q-511-005",
+      "cgei-ds-q-511-006",
+      "cgei-ds-q-511-011",
+      "cgei-ds-q-511-012",
+      "cgei-ds-q-511-014"
+    ],
+    "cgei-ds-lesson-5-11-4": [
+      "cgei-ds-q-511-007",
+      "cgei-ds-q-511-008",
+      "cgei-ds-q-511-015"
+    ],
+    "cgei-ds-lesson-5-11-5": [
+      "cgei-ds-q-511-009",
+      "cgei-ds-q-511-010",
+      "cgei-ds-q-511-016"
+    ],
+    "cgei-ds-lesson-5-12-1": [
+      "cgei-ds-q-512-001",
+      "cgei-ds-q-512-002",
+      "cgei-ds-q-512-011",
+      "cgei-ds-q-512-012",
+      "cgei-ds-q-512-020"
+    ],
+    "cgei-ds-lesson-5-12-2": [
+      "cgei-ds-q-512-003",
+      "cgei-ds-q-512-004"
+    ],
+    "cgei-ds-lesson-5-12-3": [
+      "cgei-ds-q-512-005",
+      "cgei-ds-q-512-006"
+    ],
+    "cgei-ds-lesson-5-12-4": [
+      "cgei-ds-q-512-007",
+      "cgei-ds-q-512-008",
+      "cgei-ds-q-512-013"
+    ],
+    "cgei-ds-lesson-5-12-5": [
+      "cgei-ds-q-512-009",
+      "cgei-ds-q-512-010",
+      "cgei-ds-q-512-014",
+      "cgei-ds-q-512-015"
+    ],
+    "cgei-ds-lesson-5-2-1": [
+      "cgei-ds-q-52-001",
+      "cgei-ds-q-52-002"
+    ],
+    "cgei-ds-lesson-5-2-2": [
+      "cgei-ds-q-52-003",
+      "cgei-ds-q-52-004",
+      "cgei-ds-q-52-010",
+      "cgei-ds-q-52-012",
+      "cgei-ds-q-52-013"
+    ],
+    "cgei-ds-lesson-5-2-3": [
+      "cgei-ds-q-52-005",
+      "cgei-ds-q-52-006",
+      "cgei-ds-q-52-014"
+    ],
+    "cgei-ds-lesson-5-2-4": [
+      "cgei-ds-q-52-007",
+      "cgei-ds-q-52-008",
+      "cgei-ds-q-52-015"
+    ],
+    "cgei-ds-lesson-5-2-5": [
+      "cgei-ds-q-52-009",
+      "cgei-ds-q-52-011",
+      "cgei-ds-q-52-016"
+    ],
+    "cgei-ds-lesson-5-3-1": [
+      "cgei-ds-q-53-001",
+      "cgei-ds-q-53-002",
+      "cgei-ds-q-53-011"
+    ],
+    "cgei-ds-lesson-5-3-2": [
+      "cgei-ds-q-53-003",
+      "cgei-ds-q-53-004",
+      "cgei-ds-q-53-012"
+    ],
+    "cgei-ds-lesson-5-3-3": [
+      "cgei-ds-q-53-005",
+      "cgei-ds-q-53-006",
+      "cgei-ds-q-53-013"
+    ],
+    "cgei-ds-lesson-5-3-4": [
+      "cgei-ds-q-53-007",
+      "cgei-ds-q-53-008",
+      "cgei-ds-q-53-014"
+    ],
+    "cgei-ds-lesson-5-3-5": [
+      "cgei-ds-q-53-009",
+      "cgei-ds-q-53-010",
+      "cgei-ds-q-53-015"
+    ],
+    "cgei-ds-lesson-5-4-1": [
+      "cgei-ds-q-54-001",
+      "cgei-ds-q-54-002",
+      "cgei-ds-q-54-016",
+      "cgei-ds-q-54-019"
+    ],
+    "cgei-ds-lesson-5-4-2": [
+      "cgei-ds-q-54-003",
+      "cgei-ds-q-54-004"
+    ],
+    "cgei-ds-lesson-5-4-3": [
+      "cgei-ds-q-54-005",
+      "cgei-ds-q-54-006"
+    ],
+    "cgei-ds-lesson-5-4-4": [
+      "cgei-ds-q-54-007",
+      "cgei-ds-q-54-008",
+      "cgei-ds-q-54-014",
+      "cgei-ds-q-54-021"
+    ],
+    "cgei-ds-lesson-5-4-5": [
+      "cgei-ds-q-54-013",
+      "cgei-ds-q-54-009",
+      "cgei-ds-q-54-010",
+      "cgei-ds-q-54-015",
+      "cgei-ds-q-54-017",
+      "cgei-ds-q-54-018",
+      "cgei-ds-q-54-020"
+    ],
+    "cgei-ds-lesson-5-4-distributions": [
+      "cgei-ds-q-54-011",
+      "cgei-ds-q-54-012"
+    ],
+    "cgei-ds-lesson-5-5-1": [
+      "cgei-ds-q-55-015",
+      "cgei-ds-q-55-001",
+      "cgei-ds-q-55-002"
+    ],
+    "cgei-ds-lesson-5-5-2": [
+      "cgei-ds-q-55-013",
+      "cgei-ds-q-55-018",
+      "cgei-ds-q-55-019",
+      "cgei-ds-q-55-003",
+      "cgei-ds-q-55-004"
+    ],
+    "cgei-ds-lesson-5-5-3": [
+      "cgei-ds-q-55-016",
+      "cgei-ds-q-55-011",
+      "cgei-ds-q-55-005",
+      "cgei-ds-q-55-006"
+    ],
+    "cgei-ds-lesson-5-5-4": [
+      "cgei-ds-q-55-014",
+      "cgei-ds-q-55-012",
+      "cgei-ds-q-55-007",
+      "cgei-ds-q-55-008"
+    ],
+    "cgei-ds-lesson-5-5-5": [
+      "cgei-ds-q-55-017",
+      "cgei-ds-q-55-009",
+      "cgei-ds-q-55-010"
+    ],
+    "cgei-ds-lesson-5-6-1": [
+      "cgei-ds-q-56-001",
+      "cgei-ds-q-56-002",
+      "cgei-ds-q-56-011",
+      "cgei-ds-q-56-012"
+    ],
+    "cgei-ds-lesson-5-6-2": [
+      "cgei-ds-q-56-003",
+      "cgei-ds-q-56-004"
+    ],
+    "cgei-ds-lesson-5-6-3": [
+      "cgei-ds-q-56-005",
+      "cgei-ds-q-56-006",
+      "cgei-ds-q-56-013",
+      "cgei-ds-q-56-014"
+    ],
+    "cgei-ds-lesson-5-6-4": [
+      "cgei-ds-q-56-007",
+      "cgei-ds-q-56-008",
+      "cgei-ds-q-56-015",
+      "cgei-ds-q-56-017",
+      "cgei-ds-q-56-020"
+    ],
+    "cgei-ds-lesson-5-6-5": [
+      "cgei-ds-q-56-009",
+      "cgei-ds-q-56-010",
+      "cgei-ds-q-56-016",
+      "cgei-ds-q-56-018"
+    ],
+    "cgei-ds-lesson-5-7-1": [
+      "cgei-ds-q-57-001"
+    ],
+    "cgei-ds-lesson-5-7-2": [
+      "cgei-ds-q-57-002",
+      "cgei-ds-q-57-010",
+      "cgei-ds-q-57-017"
+    ],
+    "cgei-ds-lesson-5-7-3": [
+      "cgei-ds-q-57-003",
+      "cgei-ds-q-57-004",
+      "cgei-ds-q-57-011",
+      "cgei-ds-q-57-016",
+      "cgei-ds-q-57-020"
+    ],
+    "cgei-ds-lesson-5-7-4": [
+      "cgei-ds-q-57-005",
+      "cgei-ds-q-57-006",
+      "cgei-ds-q-57-012",
+      "cgei-ds-q-57-018",
+      "cgei-ds-q-57-015"
+    ],
+    "cgei-ds-lesson-5-7-5": [
+      "cgei-ds-q-57-007",
+      "cgei-ds-q-57-008",
+      "cgei-ds-q-57-009",
+      "cgei-ds-q-57-013",
+      "cgei-ds-q-57-014",
+      "cgei-ds-q-57-019"
+    ],
+    "cgei-ds-lesson-5-8-1": [
+      "cgei-ds-q-58-001",
+      "cgei-ds-q-58-002"
+    ],
+    "cgei-ds-lesson-5-8-2": [
+      "cgei-ds-q-58-003",
+      "cgei-ds-q-58-004",
+      "cgei-ds-q-58-015",
+      "cgei-ds-q-58-021"
+    ],
+    "cgei-ds-lesson-5-8-3": [
+      "cgei-ds-q-58-005",
+      "cgei-ds-q-58-006",
+      "cgei-ds-q-58-011",
+      "cgei-ds-q-58-016",
+      "cgei-ds-q-58-017",
+      "cgei-ds-q-58-020"
+    ],
+    "cgei-ds-lesson-5-8-4": [
+      "cgei-ds-q-58-007",
+      "cgei-ds-q-58-008",
+      "cgei-ds-q-58-012",
+      "cgei-ds-q-58-013"
+    ],
+    "cgei-ds-lesson-5-8-5": [
+      "cgei-ds-q-58-009",
+      "cgei-ds-q-58-010",
+      "cgei-ds-q-58-014",
+      "cgei-ds-q-58-018"
+    ],
+    "cgei-ds-lesson-5-9-1": [
+      "cgei-ds-q-59-001",
+      "cgei-ds-q-59-002",
+      "cgei-ds-q-59-011",
+      "cgei-ds-q-59-020"
+    ],
+    "cgei-ds-lesson-5-9-2": [
+      "cgei-ds-q-59-003",
+      "cgei-ds-q-59-004"
+    ],
+    "cgei-ds-lesson-5-9-3": [
+      "cgei-ds-q-59-005",
+      "cgei-ds-q-59-006",
+      "cgei-ds-q-59-012"
+    ],
+    "cgei-ds-lesson-5-9-4": [
+      "cgei-ds-q-59-007",
+      "cgei-ds-q-59-008"
+    ],
+    "cgei-ds-lesson-5-9-5": [
+      "cgei-ds-q-59-009",
+      "cgei-ds-q-59-010"
+    ],
+    "cgei-dspt-lesson-9-1-1": [
+      "cgei-dspt-q-91-001",
+      "cgei-dspt-q-91-002"
+    ],
+    "cgei-dspt-lesson-9-3-1": [
+      "cgei-dspt-q-93-001",
+      "cgei-dspt-q-93-002"
+    ],
+    "cgei-dspt-lesson-9-4-1": [
+      "cgei-dspt-q-94-001",
+      "cgei-dspt-q-94-002",
+      "cgei-dspt-q-94-003"
+    ],
+    "cgei-es-lesson-1-1-1": [
+      "cgei-es-q-11-001"
+    ],
+    "cgei-es-lesson-1-1-2": [
+      "cgei-es-q-11-002",
+      "cgei-es-q-11-003",
+      "cgei-es-q-11-seb"
+    ],
+    "cgei-es-lesson-1-1-3": [
+      "cgei-es-q-11-004",
+      "cgei-es-q-11-tau"
+    ],
+    "cgei-es-lesson-1-10-1": [
+      "cgei-es-q-110-001",
+      "cgei-es-q-110-002"
+    ],
+    "cgei-es-lesson-1-10-2": [
+      "cgei-es-q-110-003"
+    ],
+    "cgei-es-lesson-1-10-3": [
+      "cgei-es-q-110-004"
+    ],
+    "cgei-geo-lesson-3-1-1": [
+      "cgei-geo-q-31-001"
+    ],
+    "cgei-geo-lesson-3-1-2": [
+      "cgei-geo-q-31-002"
+    ],
+    "cgei-geo-lesson-3-1-3": [
+      "cgei-geo-q-31-003",
+      "cgei-geo-q-31-scale"
+    ],
+    "cgei-geo-lesson-3-2-1": [
+      "cgei-geo-q-32-001",
+      "cgei-geo-q-32-vertical-datum",
+      "cgei-geo-q-32-utm"
+    ],
+    "cgei-geo-lesson-3-2-2": [
+      "cgei-geo-q-32-002"
+    ],
+    "cgei-geo-lesson-3-2-3": [
+      "cgei-geo-q-32-003"
+    ],
+    "cgei-geo-lesson-3-2-4": [
+      "cgei-geo-q-32-otf",
+      "cgei-geo-q-32-resample",
+      "cgei-geo-q-32-zonebound",
+      "cgei-geo-q-32-grid",
+      "cgei-geo-q-32-landmark",
+      "cgei-geo-q-32-assign",
+      "cgei-geo-q-32-workflow"
+    ],
+    "cgei-geo-lesson-3-3-1": [
+      "cgei-geo-q-33-001",
+      "cgei-geo-q-33-006"
+    ],
+    "cgei-geo-lesson-3-3-2": [
+      "cgei-geo-q-33-002",
+      "cgei-geo-q-33-020"
+    ],
+    "cgei-geo-lesson-3-3-3": [
+      "cgei-geo-q-33-003"
+    ],
+    "cgei-geo-lesson-3-3-4": [
+      "cgei-geo-q-33-004"
+    ],
+    "cgei-geo-lesson-3-3-5": [
+      "cgei-geo-q-33-005"
+    ],
+    "cgei-geo-lesson-3-3-6": [
+      "cgei-geo-q-33-007"
+    ],
+    "cgei-geo-lesson-3-3-7": [
+      "cgei-geo-q-33-008"
+    ],
+    "cgei-geo-lesson-3-3-8": [
+      "cgei-geo-q-33-rmse",
+      "cgei-geo-q-33-layout",
+      "cgei-geo-q-33-gdalinfo",
+      "cgei-geo-q-33-scale-resize",
+      "cgei-geo-q-33-gdal-batch",
+      "cgei-geo-q-33-topo-rmse"
+    ],
+    "cgei-geo-lesson-3-4-1": [
+      "cgei-geo-q-34-001"
+    ],
+    "cgei-geo-lesson-3-4-2": [
+      "cgei-geo-q-34-002"
+    ],
+    "cgei-geo-lesson-3-4-3": [
+      "cgei-geo-q-34-003",
+      "cgei-geo-q-34-005"
+    ],
+    "cgei-geo-lesson-3-4-4": [
+      "cgei-geo-q-34-006",
+      "cgei-geo-q-34-007"
+    ],
+    "cgei-geo-lesson-3-4-5": [
+      "cgei-geo-q-34-004",
+      "cgei-geo-q-34-008"
+    ],
+    "cgei-geo-lesson-3-4-6": [
+      "cgei-geo-q-34-009",
+      "cgei-geo-q-34-010"
+    ],
+    "cgei-geo-lesson-3-5-1": [
+      "cgei-geo-q-35-area"
+    ],
+    "cgei-geo-lesson-3-5-2": [
+      "cgei-geo-q-35-nodata",
+      "cgei-geo-q-35-cog"
+    ],
+    "cgei-geo-lesson-3-5-3": [
+      "cgei-geo-q-35-pin"
+    ],
+    "cgei-geo-lesson-3-6-1": [
+      "cgei-geo-q-36-hierarchy",
+      "cgei-geo-q-36-breaks",
+      "cgei-geo-q-36-choro"
+    ],
+    "cgei-geo-lesson-3-6-2": [
+      "cgei-geo-q-36-legend"
+    ],
+    "cgei-geo-lesson-3-9-1": [
+      "cgei-geo-q-39-weights",
+      "cgei-geo-q-39-loo"
+    ],
+    "cgei-geo-lesson-3-9-2": [
+      "cgei-geo-q-39-idw",
+      "cgei-geo-q-39-looidw",
+      "cgei-geo-q-39-variogram",
+      "cgei-geo-q-39-ok"
+    ],
+    "cgei-geo-lesson-3-9-3": [
+      "cgei-geo-q-39-block"
+    ],
+    "cgei-ml-lesson-6-1-1": [
+      "cgei-ml-q-61-001"
+    ],
+    "cgei-ml-lesson-6-1-2": [
+      "cgei-ml-q-61-interp",
+      "cgei-ml-q-61-leakage",
+      "cgei-ml-q-61-label-bias",
+      "cgei-ml-q-61-aoa"
+    ],
+    "cgei-ml-lesson-6-1-3": [
+      "cgei-ml-q-61-002",
+      "cgei-ml-q-61-003"
+    ],
+    "cgei-ml-lesson-6-2-1": [
+      "cgei-ml-q-62-001",
+      "cgei-ml-q-62-002"
+    ],
+    "cgei-ml-lesson-6-2-2": [
+      "cgei-ml-q-62-003"
+    ],
+    "cgei-ml-lesson-6-3-1": [
+      "cgei-ml-q-63-001",
+      "cgei-ml-q-63-002",
+      "cgei-ml-q-63-003"
+    ],
+    "cgei-ml-lesson-6-4-1": [
+      "cgei-ml-q-64-001"
+    ],
+    "cgei-ml-lesson-6-5-1": [
+      "cgei-ml-q-65-001",
+      "cgei-ml-q-65-002",
+      "cgei-ml-q-65-003"
+    ],
+    "cgei-ml-lesson-6-6-1": [
+      "cgei-ml-q-66-001",
+      "cgei-ml-q-66-002",
+      "cgei-ml-q-66-003"
+    ],
+    "cgei-ml-lesson-6-7-1": [
+      "cgei-ml-q-67-001",
+      "cgei-ml-q-67-002",
+      "cgei-ml-q-67-003"
+    ],
+    "cgei-pol-lesson-10-1-1": [
+      "cgei-pol-q-101-001",
+      "cgei-pol-q-101-002"
+    ],
+    "cgei-pol-lesson-10-1-2": [
+      "cgei-pol-q-101-003",
+      "cgei-pol-q-101-004"
+    ],
+    "cgei-pol-lesson-10-2-1": [
+      "cgei-pol-q-102-001",
+      "cgei-pol-q-102-002"
+    ],
+    "cgei-pol-lesson-10-6-1": [
+      "cgei-pol-q-106-001",
+      "cgei-pol-q-106-002"
+    ],
+    "cgei-risk-lesson-7-1-1": [
+      "cgei-risk-q-71-001",
+      "cgei-risk-q-71-002"
+    ],
+    "cgei-risk-lesson-7-1-2": [
+      "cgei-risk-q-71-003"
+    ],
+    "cgei-risk-lesson-7-3-1": [
+      "cgei-risk-q-73-001"
+    ],
+    "cgei-risk-lesson-7-3-2": [
+      "cgei-risk-q-73-002"
+    ],
+    "cgei-risk-lesson-7-5-1": [
+      "cgei-risk-q-75-001",
+      "cgei-risk-q-75-002",
+      "cgei-risk-q-75-003"
+    ],
+    "cgei-rp-lesson-8-1-1": [
+      "cgei-rp-q-81-001",
+      "cgei-rp-q-81-002"
+    ],
+    "cgei-rp-lesson-8-1-2": [
+      "cgei-rp-q-81-003",
+      "cgei-rp-q-81-004"
+    ],
+    "cgei-rp-lesson-8-2-1": [
+      "cgei-rp-q-82-001",
+      "cgei-rp-q-82-002",
+      "cgei-rp-q-82-003"
+    ],
+    "cgei-rp-lesson-8-3-1": [
+      "cgei-rp-q-83-001",
+      "cgei-rp-q-83-002",
+      "cgei-rp-q-83-003"
+    ],
+    "cgei-rp-lesson-8-6-1": [
+      "cgei-rp-q-86-001",
+      "cgei-rp-q-86-002"
+    ],
+    "cgei-rp-lesson-8-7-1": [
+      "cgei-rp-q-87-one",
+      "cgei-rp-q-87-val",
+      "cgei-rp-q-87-fig"
+    ],
+    "cgei-rp-lesson-8-8-1": [
+      "cgei-rp-q-88-readme",
+      "cgei-rp-q-88-revise",
+      "cgei-rp-q-88-focus"
+    ],
+    "cgei-rp-lesson-8-9-1": [
+      "cgei-rp-q-89-struct",
+      "cgei-rp-q-89-scope",
+      "cgei-rp-q-89-risk"
+    ],
+    "cgei-rp-lesson-8-d-1": [
+      "cgei-rp-q-8d-estimand",
+      "cgei-rp-q-8d-avail",
+      "cgei-rp-q-8d-validity"
+    ],
+    "cgei-rp-lesson-8-d-3": [
+      "cgei-rp-q-8d-package"
+    ],
+    "cgei-rs-lesson-4-1-1": [
+      "cgei-rs-q-41-001",
+      "cgei-rs-q-41-002",
+      "cgei-rs-q-41-006",
+      "cgei-rs-q-41-007"
+    ],
+    "cgei-rs-lesson-4-1-2": [
+      "cgei-rs-q-41-003"
+    ],
+    "cgei-rs-lesson-4-1-3": [
+      "cgei-rs-q-41-004",
+      "cgei-rs-q-41-005"
+    ],
+    "cgei-rs-lesson-4-10-1": [
+      "cgei-rs-q-410-001",
+      "cgei-rs-q-410-002"
+    ],
+    "cgei-rs-lesson-4-10-2": [
+      "cgei-rs-q-410-003",
+      "cgei-rs-q-410-004",
+      "cgei-rs-q-410-005"
+    ],
+    "cgei-rs-lesson-4-10-3": [
+      "cgei-rs-q-410-006",
+      "cgei-rs-q-410-007"
+    ],
+    "cgei-rs-lesson-4-10-4": [
+      "cgei-rs-q-410-008",
+      "cgei-rs-q-410-009",
+      "cgei-rs-q-410-010"
+    ],
+    "cgei-rs-lesson-4-11-1": [
+      "cgei-rs-q-411-sample",
+      "cgei-rs-q-411-010"
+    ],
+    "cgei-rs-lesson-4-11-2": [
+      "cgei-rs-q-411-proxy",
+      "cgei-rs-q-411-011"
+    ],
+    "cgei-rs-lesson-4-11-3": [
+      "cgei-rs-q-411-leak",
+      "cgei-rs-q-411-nested"
+    ],
+    "cgei-rs-lesson-4-12-1": [
+      "cgei-rs-q-412-base",
+      "cgei-rs-q-412-010"
+    ],
+    "cgei-rs-lesson-4-12-2": [
+      "cgei-rs-q-412-sam"
+    ],
+    "cgei-rs-lesson-4-12-3": [
+      "cgei-rs-q-412-vlm"
+    ],
+    "cgei-rs-lesson-4-2-1": [
+      "cgei-rs-q-42-009",
+      "cgei-rs-q-42-001",
+      "cgei-rs-q-42-002",
+      "cgei-rs-q-42-008"
+    ],
+    "cgei-rs-lesson-4-2-2": [
+      "cgei-rs-q-42-003",
+      "cgei-rs-q-42-006",
+      "cgei-rs-q-42-007"
+    ],
+    "cgei-rs-lesson-4-2-3": [
+      "cgei-rs-q-42-004",
+      "cgei-rs-q-42-005"
+    ],
+    "cgei-rs-lesson-4-3-1": [
+      "cgei-rs-q-43-001",
+      "cgei-rs-q-43-002",
+      "cgei-rs-q-43-003"
+    ],
+    "cgei-rs-lesson-4-3-2": [
+      "cgei-rs-q-43-004",
+      "cgei-rs-q-43-005"
+    ],
+    "cgei-rs-lesson-4-3-3": [
+      "cgei-rs-q-43-006",
+      "cgei-rs-q-43-007",
+      "cgei-rs-q-43-008",
+      "cgei-rs-q-43-011"
+    ],
+    "cgei-rs-lesson-4-3-4": [
+      "cgei-rs-q-43-009",
+      "cgei-rs-q-43-010"
+    ],
+    "cgei-rs-lesson-4-4-1": [
+      "cgei-rs-q-44-001",
+      "cgei-rs-q-44-002"
+    ],
+    "cgei-rs-lesson-4-4-2": [
+      "cgei-rs-q-44-003",
+      "cgei-rs-q-44-004"
+    ],
+    "cgei-rs-lesson-4-4-3": [
+      "cgei-rs-q-44-005",
+      "cgei-rs-q-44-006",
+      "cgei-rs-q-44-007"
+    ],
+    "cgei-rs-lesson-4-4-4": [
+      "cgei-rs-q-44-008",
+      "cgei-rs-q-44-009",
+      "cgei-rs-q-44-010"
+    ],
+    "cgei-rs-lesson-4-5-1": [
+      "cgei-rs-q-45-001",
+      "cgei-rs-q-45-002",
+      "cgei-rs-q-45-003",
+      "cgei-rs-q-45-humid",
+      "cgei-rs-q-45-011"
+    ],
+    "cgei-rs-lesson-4-5-2": [
+      "cgei-rs-q-45-004",
+      "cgei-rs-q-45-005",
+      "cgei-rs-q-45-012"
+    ],
+    "cgei-rs-lesson-4-5-3": [
+      "cgei-rs-q-45-006"
+    ],
+    "cgei-rs-lesson-4-5-4": [
+      "cgei-rs-q-45-007",
+      "cgei-rs-q-45-008"
+    ],
+    "cgei-rs-lesson-4-5-5": [
+      "cgei-rs-q-45-009",
+      "cgei-rs-q-45-010"
+    ],
+    "cgei-rs-lesson-4-6-1": [
+      "cgei-rs-q-46-001",
+      "cgei-rs-q-46-002"
+    ],
+    "cgei-rs-lesson-4-6-2": [
+      "cgei-rs-q-46-003",
+      "cgei-rs-q-46-004",
+      "cgei-rs-q-46-005"
+    ],
+    "cgei-rs-lesson-4-6-3": [
+      "cgei-rs-q-46-006",
+      "cgei-rs-q-46-007"
+    ],
+    "cgei-rs-lesson-4-6-4": [
+      "cgei-rs-q-46-008",
+      "cgei-rs-q-46-009",
+      "cgei-rs-q-46-010"
+    ],
+    "cgei-rs-lesson-4-7-1": [
+      "cgei-rs-q-47-001",
+      "cgei-rs-q-47-002",
+      "cgei-rs-q-47-011"
+    ],
+    "cgei-rs-lesson-4-7-2": [
+      "cgei-rs-q-47-003",
+      "cgei-rs-q-47-004",
+      "cgei-rs-q-47-005"
+    ],
+    "cgei-rs-lesson-4-7-3": [
+      "cgei-rs-q-47-006",
+      "cgei-rs-q-47-007"
+    ],
+    "cgei-rs-lesson-4-7-4": [
+      "cgei-rs-q-47-008",
+      "cgei-rs-q-47-009"
+    ],
+    "cgei-rs-lesson-4-7-5": [
+      "cgei-rs-q-47-010"
+    ],
+    "cgei-rs-lesson-4-8-1": [
+      "cgei-rs-q-48-001",
+      "cgei-rs-q-48-002"
+    ],
+    "cgei-rs-lesson-4-8-2": [
+      "cgei-rs-q-48-003",
+      "cgei-rs-q-48-004",
+      "cgei-rs-q-48-005"
+    ],
+    "cgei-rs-lesson-4-8-3": [
+      "cgei-rs-q-48-006",
+      "cgei-rs-q-48-007"
+    ],
+    "cgei-rs-lesson-4-8-4": [
+      "cgei-rs-q-48-008",
+      "cgei-rs-q-48-009",
+      "cgei-rs-q-48-010"
+    ],
+    "cgei-rs-lesson-4-9-1": [
+      "cgei-rs-q-49-001",
+      "cgei-rs-q-49-002"
+    ],
+    "cgei-rs-lesson-4-9-2": [
+      "cgei-rs-q-49-003",
+      "cgei-rs-q-49-004"
+    ],
+    "cgei-rs-lesson-4-9-3": [
+      "cgei-rs-q-49-005",
+      "cgei-rs-q-49-006"
+    ],
+    "cgei-rs-lesson-4-9-4": [
+      "cgei-rs-q-49-007",
+      "cgei-rs-q-49-008",
+      "cgei-rs-q-49-009",
+      "cgei-rs-q-49-010"
+    ],
+    "cgei-se-lesson-11-1-1": [
+      "cgei-se-q-111-001",
+      "cgei-se-q-111-002"
+    ],
+    "cgei-se-lesson-11-2-1": [
+      "cgei-se-q-112-001"
+    ],
+    "cgei-se-lesson-11-2-2": [
+      "cgei-se-q-112-002",
+      "cgei-se-q-112-003",
+      "cgei-se-q-112-004"
+    ],
+    "cgei-se-lesson-11-5-1": [
+      "cgei-se-q-115-001",
+      "cgei-se-q-115-002"
+    ]
+  }
 }
