@@ -5,6 +5,14 @@ import re
 import sys
 from pathlib import Path
 
+def _repo_root() -> Path:
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        if (parent / "package.json").is_file() and (parent / "src").is_dir():
+            return parent
+    raise RuntimeError(f"Could not locate repo root from {here}")
+
+
 
 def collect_array_ids(text: str, field: str) -> set[str]:
     ids: set[str] = set()
@@ -31,7 +39,7 @@ def collect_defined_ids(text: str, kind_group: str) -> set[str]:
 
 
 def main() -> int:
-    root = Path(__file__).resolve().parents[3]
+    root = _repo_root()
     ct_path = root / "src/data/cgei/curriculum.ts"
     ct = ct_path.read_text(encoding="utf-8")
 

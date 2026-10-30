@@ -36,7 +36,7 @@ function main(): void {
   // Fixture stub
   const fixtureDir = resolve(
     process.cwd(),
-    'content-drafts/chapter-05-scientific-computing/fixtures',
+    'fixtures/cgei',
   );
   mkdirSync(fixtureDir, { recursive: true });
   const fixturePath = join(fixtureDir, `unit_${codeSlug.replace(/-/g, '_')}_stub_check.py`);

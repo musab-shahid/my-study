@@ -9,8 +9,18 @@ import json
 import re
 from pathlib import Path
 
+def _chapter_root() -> Path:
+    """Manuscript chapter root (labs stay under content-drafts; fixtures under fixtures/cgei)."""
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        candidate = parent / "content-drafts" / "chapter-05-scientific-computing"
+        if candidate.is_dir():
+            return candidate
+    raise RuntimeError(f"Could not locate chapter-05-scientific-computing from {here}")
+
+
 ROOT = Path(__file__).resolve().parent
-LABS = ROOT.parent / "labs"
+LABS = _chapter_root() / "labs"
 PROTOCOL = LABS / "unit-13-core-reproduction-protocol.md"
 RECORD = LABS / "portfolio" / "independent_repro_record.json"
 

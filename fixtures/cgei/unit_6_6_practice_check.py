@@ -4,8 +4,18 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+def _chapter_root() -> Path:
+    """Manuscript chapter root (labs stay under content-drafts; fixtures under fixtures/cgei)."""
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        candidate = parent / "content-drafts" / "chapter-05-scientific-computing"
+        if candidate.is_dir():
+            return candidate
+    raise RuntimeError(f"Could not locate chapter-05-scientific-computing from {here}")
+
+
 ROOT = Path(__file__).resolve().parent
-REPORT = ROOT.parent / "labs" / "portfolio" / "env_ml_practice_report.json"
+REPORT = _chapter_root() / "labs" / "portfolio" / "env_ml_practice_report.json"
 REQUIRED_TOP = (
     "problem_framing",
     "data",

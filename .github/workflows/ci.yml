@@ -154,9 +154,9 @@ jobs:
       - name: Install scientific Python dependencies
         run: python -m pip install numpy pandas statsmodels matplotlib scikit-learn
       - name: Verify Chapter 5 numerical examples
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/smoke_check.py
+        run: python fixtures/cgei/smoke_check.py
       - name: Verify chunked CSV equivalence and peak memory lab
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py
+        run: python fixtures/cgei/chunked_csv_lab_check.py
       - name: Scientific unit fixtures (auto-discover unit_*_check.py)
         run: python3 scripts/run-unit-fixture-checks.py
       - name: Verify Core-leaf coverage gate regression cases
@@ -203,7 +203,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
       - name: Curriculum activity/assessment integrity
-        run: python content-drafts/chapter-05-scientific-computing/fixtures/curriculum_activity_assessment_integrity_check.py
+        run: python fixtures/cgei/curriculum_activity_assessment_integrity_check.py
 
 
 

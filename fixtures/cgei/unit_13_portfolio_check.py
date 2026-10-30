@@ -7,10 +7,20 @@ and reproduction instructions. Does not evaluate scientific validity.
 from __future__ import annotations
 
 from pathlib import Path
+
+def _chapter_root() -> Path:
+    """Manuscript chapter root (labs stay under content-drafts; fixtures under fixtures/cgei)."""
+    here = Path(__file__).resolve()
+    for parent in here.parents:
+        candidate = parent / "content-drafts" / "chapter-05-scientific-computing"
+        if candidate.is_dir():
+            return candidate
+    raise RuntimeError(f"Could not locate chapter-05-scientific-computing from {here}")
+
 import json
 
 ROOT = Path(__file__).resolve().parent
-TEMPLATE = ROOT.parent / "labs" / "portfolio" / "capstone_portfolio_evidence.json"
+TEMPLATE = _chapter_root() / "labs" / "portfolio" / "capstone_portfolio_evidence.json"
 
 REQUIRED_FIELDS = (
     "project_title",

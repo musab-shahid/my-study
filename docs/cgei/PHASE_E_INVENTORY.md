@@ -1,4 +1,4 @@
-# Phase E — Legacy CGEI inventory
+# Phase E — Legacy CGEI inventory (complete)
 
 ## Completed
 
@@ -6,27 +6,26 @@
 |------|--------|
 | E1 | DS Unit 5.1 progress aliases |
 | E2 | Climate progress aliases |
-| E3 | Roadmap-only `legacy/` → `roadmap-topics.ts` |
-| **E4** | Content-bearing `legacy/` → `quiz-topics-*.ts`; **no `legacy/` left under CGEI** |
+| E3 | Roadmap-only topics → `roadmap-topics.ts`; delete those `legacy/` dirs |
+| E4 | Content-bearing topics → `quiz-topics-*.ts`; **no CGEI `legacy/` left** |
+| **E5** | Traceability policy locked; fixtures moved to `fixtures/cgei/` |
 
-## E4 paths
+## E5 decisions
 
-| Subject | Quiz topic module |
-|---------|-------------------|
-| Data Science | `src/data/cgei/data-science/quiz-topics-data-science.ts` |
-| Climate Science | `src/data/cgei/climate-science/quiz-topics-climate-science.ts` |
-| All other CGEI subjects | `src/data/cgei/roadmap-topics.ts` |
+See `docs/cgei/TRACEABILITY_AND_FIXTURES.md`.
 
-Canonical teaching content remains in `topics-<subject>.ts`. Quiz topic modules preserve stable `topicId` values for the shared quiz engine.
+- Per-unit traceability CSVs are **inputs**
+- Aggregate CSV is a working copy, not the sole authority
+- Validators do not auto-rewrite dispositions
+- Executable fixtures live under `fixtures/cgei/`
 
-## Remaining (optional / later)
+## Optional later (not blocking)
 
-1. Traceability CSV input vs output decision
-2. Move fixtures out of `content-drafts/` if CI paths allow
-3. Further thin quiz-topics text once practice UI only needs id/title/sectionId
+- Thin `quiz-topics-*.ts` prose when the practice UI only needs id/title/sectionId
+- Generate aggregate CSV from per-unit files in CI (report-only)
 
 ## Invariants
 
 - FPSC / HAT / QuizScreen untouched
-- Progress aliases still apply for DS + climate topic → lesson
+- Progress aliases remain for DS + climate
 - Reintroducing `src/data/cgei/*/legacy/` fails CI
