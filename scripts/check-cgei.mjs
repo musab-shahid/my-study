@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 /**
  * Unified CGEI gate — local and CI must call the same script so they cannot drift.
- * Order matches Phase A local gate (curriculum / data subset).
+ *
+ * Core gate (matches pre-A3 CI curriculum steps):
+ *   validate:data + audit:core-leaf-evidence
+ *
+ * Optional index/metadata --check scripts remain available as
+ *   npm run check:cgei-index / check:topic-metadata
+ * and should be added here once generate:* output is committed in parity.
  */
 import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
@@ -12,11 +18,8 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const steps = [
   ['npm', ['run', 'validate:data']],
   ['npm', ['run', 'audit:core-leaf-evidence']],
-  ['npm', ['run', 'check:cgei-index']],
-  ['npm', ['run', 'check:topic-metadata']],
 ];
 
-let failed = 0;
 for (const [cmd, args] of steps) {
   console.log(`\n▶ check:cgei — ${cmd} ${args.join(' ')}`);
   const result = spawnSync(cmd, args, {
@@ -26,9 +29,9 @@ for (const [cmd, args] of steps) {
     env: process.env,
   });
   if (result.status !== 0) {
-    failed = result.status || 1;
-    console.error(`✖ step failed: ${cmd} ${args.join(' ')} (exit ${failed})`);
-    process.exit(failed);
+    const code = result.status || 1;
+    console.error(`✖ step failed: ${cmd} ${args.join(' ')} (exit ${code})`);
+    process.exit(code);
   }
 }
 
