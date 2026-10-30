@@ -4,7 +4,7 @@
  * Subject content lives in per-subject topics-<subject>.ts modules generated
  * by scripts/migrations/split-curriculum-by-subject.ts. This file reassembles
  * the CurriculumRegistry from those modules plus the shared track,
- * competencies, rubrics and flat question bank.
+ * competencies, rubrics and per-subject question banks.
  *
  * assessment.questionIds: when omitted or empty, derived from questions whose
  * lessonId is listed on a lesson that references the assessment (Phase C3.5).
