@@ -59,3 +59,8 @@ npx tsx --tsconfig tsconfig.app.json scripts/migrations/c3-merge-question-banks.
 ```
 
 Writes review sidecars under `src/data/cgei/_c3_merged/`. Legacy bank IDs win on conflict. After review, merge into `questions-<subject>.ts`, derive `assessment.questionIds`, delete `curriculum-questions.ts`.
+
+
+## Phase E — legacy retirement
+
+See `docs/cgei/PHASE_E_INVENTORY.md`. Progress aliases: `src/lib/cgei-progress-aliases.ts`.
