@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-101-001",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-1",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Nationally determined contributions (NDCs) under Paris are best described as:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-101-002",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-1",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before citing the “latest COP outcome” in coursework, learners should:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-101-003",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-1",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "An ex-ante policy appraisal should not:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-101-004",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-1",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "When a policy card claims equity benefits, transparent practice requires:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-102-001",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-2",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Scope 2 emissions under the GHG Protocol primarily concern:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-102-002",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-2",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Choosing GWP100 versus alternative methane metrics can:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-106-001",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-6",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Raising the discount rate in a present-value damage calculation typically:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-pol-q-106-002",
     "sectionId": "CGEI-10",
-    "topicId": "cgei-pol-unit-10-6",
+    "topicId": "cgei-climate-policy-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Benefit transfer of valuation estimates should be treated as:",

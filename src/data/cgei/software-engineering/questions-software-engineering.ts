@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-111-001",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-1",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Hard-coding absolute machine-specific paths in analysis scripts primarily harms:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-111-002",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-1",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before writing code for a large EO workflow, computational thinking recommends:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-112-001",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-2",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Hidden notebook state is risky because:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-112-002",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-2",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A unit test that checks temperature range rejection primarily demonstrates:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-112-003",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-2",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Passing software tests implies:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-112-004",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-2",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Dependency pinning and CI smoke tests primarily support:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-115-001",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-5",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "An idempotent pipeline step is one that:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-se-q-115-002",
     "sectionId": "CGEI-11",
-    "topicId": "cgei-se-unit-11-5",
+    "topicId": "cgei-software-engineering-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Provenance manifests in environmental pipelines should typically record:",

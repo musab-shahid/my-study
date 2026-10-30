@@ -630,7 +630,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-21-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-1",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "A single unusually cold month most correctly indicates:",
@@ -649,7 +649,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-21-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-1",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "An anomaly is defined relative to:",
@@ -668,7 +668,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-21-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-1",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Treating a missing monthly temperature as 0°C when computing a mean will:",
@@ -687,7 +687,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-21-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-1",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "A positive linear trend on a short local series is sufficient to conclude:",
@@ -706,7 +706,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-22-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-2",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "In the one-layer greenhouse teaching model, surface temperature Ts relates to Te by:",
@@ -725,7 +725,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-22-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-2",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Increasing latent heat flux Q_E while holding Q* and Q_H fixed tends to:",
@@ -744,7 +744,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-22-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-2",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "AR6 likely ECS range is approximately:",
@@ -763,7 +763,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-22-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-2",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "Western disturbances primarily influence:",
@@ -782,7 +782,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-22-005",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-2",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Canopy-layer UHI is best described as:",
@@ -801,7 +801,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-24-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-4",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "Replacing a missing daily temperature with 0°C before averaging will typically:",
@@ -820,7 +820,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-24-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-4",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "A persistence QC flag is intended to catch:",
@@ -839,7 +839,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-24-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-4",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "An ERA5 grid-cell temperature is best described as:",
@@ -858,7 +858,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-24-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-4",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Agreement between two gridded products is sufficient to conclude:",
@@ -877,7 +877,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "Pakistan Standard Time (PKT) is offset from UTC by:",
@@ -896,7 +896,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Before differencing accumulated precipitation fields from two products, you should first:",
@@ -915,7 +915,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "With baseline July mean 32°C, an observed July value of 35°C has anomaly:",
@@ -934,7 +934,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "A complete processing record for climate data handling should include at least:",
@@ -953,7 +953,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-kelvin",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "ERA5 2 m temperature is often stored in kelvin. The correct conversion to Celsius is:",
@@ -972,7 +972,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-25-accum",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-5",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "A negative jump in a precipitation accumulation series most carefully indicates:",
@@ -991,7 +991,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-26-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-6",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "Changing the baseline period for a percentile threshold will typically:",
@@ -1010,7 +1010,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-26-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-6",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Three consecutive days above a heat threshold are best treated as:",
@@ -1029,7 +1029,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-26-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-6",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "For T_t = 30 + 0.2 t (°C), t = 0…9, the OLS slope is:",
@@ -1048,7 +1048,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-26-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-6",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "An empirical return period T = 5 years from 2 events in 10 years means:",
@@ -1067,7 +1067,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-28-001",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-8",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "Using JJA by default for every Pakistan monsoon analysis is risky because:",
@@ -1086,7 +1086,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-28-002",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-8",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "ENSO or IOD anomalies should be treated as:",
@@ -1105,7 +1105,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-28-003",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-8",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:",
@@ -1124,7 +1124,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-28-004",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-8",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "easy",
     "type": "single",
     "question": "When a local PMD series is restricted, the correct practice is to:",
@@ -1143,7 +1143,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-23-cc",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-3",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Clausius–Clapeyron scaling of ~6–7% per K near typical surface temperatures primarily describes:",
@@ -1162,7 +1162,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-23-tw",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-3",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Wet-bulb temperature is most directly related to:",
@@ -1181,7 +1181,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-23-pbl",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-3",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Urban night-time warmth relative to rural areas is often sustained by:",
@@ -1200,7 +1200,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cl-q-23-ens",
     "sectionId": "CGEI-02",
-    "topicId": "cgei-cl-unit-2-3",
+    "topicId": "cgei-extremes-and-trend-analysis",
     "difficulty": "medium",
     "type": "single",
     "question": "Ensemble forecast spread is best interpreted as:",

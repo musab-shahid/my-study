@@ -939,7 +939,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-51-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-1",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A product reports 1 mm day⁻¹ of precipitation. Which conversion yields SI depth rate in m s⁻¹?",
@@ -958,7 +958,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-51-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-1",
+    "topicId": "cgei-ds-rates-finite-diff",
     "difficulty": "medium",
     "type": "single",
     "question": "For y=t² at t=2 with h=0.1, why does the central difference equal the exact derivative?",
@@ -977,7 +977,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-51-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-1",
+    "topicId": "cgei-ds-ode-numerical",
     "difficulty": "medium",
     "type": "single",
     "question": "Euler update with V in m³, Q in m³ s⁻¹, and Δt=1 h written as 1 without converting to seconds will:",
@@ -996,7 +996,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which is the first step before decomposing a monthly environmental series?",
@@ -1015,7 +1015,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "How should a June temperature anomaly be defined?",
@@ -1034,7 +1034,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is the main risk of ignoring positive serial autocorrelation in a conventional trend test?",
@@ -1053,7 +1053,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why use HAC/Newey–West covariance for a trend regression?",
@@ -1072,7 +1072,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For a forecast of next month's rainfall, which split is generally appropriate?",
@@ -1091,7 +1091,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What is a seasonal-naïve forecast for monthly data with annual seasonality?",
@@ -1110,7 +1110,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why must candidate and baseline forecasts use identical test timestamps?",
@@ -1129,7 +1129,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does RMSE emphasise more than MAE?",
@@ -1148,7 +1148,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A model improves average RMSE but performs worse during heat extremes. What should the report do?",
@@ -1167,7 +1167,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which convention is common for a climate EOF matrix?",
@@ -1186,7 +1186,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does centring each spatial column usually do?",
@@ -1205,7 +1205,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Why use area weights on a regular latitude–longitude grid?",
@@ -1224,7 +1224,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Why multiply columns by square-root area weights in a common convention?",
@@ -1243,7 +1243,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For SVD X = UΣVᵀ, what is a common PC score construction?",
@@ -1262,7 +1262,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "If an EOF pattern sign is flipped, what should happen to its PC for the same reconstruction?",
@@ -1281,7 +1281,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why is a 99% cumulative-variance cutoff not universal?",
@@ -1300,7 +1300,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What can happen when neighbouring eigenvalues are close relative to sampling error?",
@@ -1319,7 +1319,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What should a high-minus-low composite map report?",
@@ -1338,7 +1338,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why consider FDR or field-significance methods for maps?",
@@ -1357,7 +1357,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "A spectral peak appears in a short, irregularly sampled record. What is the most defensible next step?",
@@ -1376,7 +1376,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which statement correctly distinguishes ADF and KPSS tests?",
@@ -1395,7 +1395,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "When evaluating a model with a lagged ENSO predictor, what prevents forecast leakage?",
@@ -1414,7 +1414,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why should a changepoint detection result be checked against metadata?",
@@ -1433,7 +1433,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "How does canonical correlation analysis differ from maximum covariance analysis?",
@@ -1452,7 +1452,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "What does North's rule of thumb help assess?",
@@ -1471,7 +1471,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is a useful check when claiming climate regimes are stable?",
@@ -1490,7 +1490,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "Why does serial dependence matter for map-based correlation inference?",
@@ -1509,7 +1509,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What should primarily guide the family and link in a GLM?",
@@ -1528,7 +1528,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "In a binomial GLM with a logit link, what does exponentiating a coefficient generally yield?",
@@ -1547,7 +1547,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why might a random intercept for monitoring station be useful for repeated measurements?",
@@ -1566,7 +1566,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A mixed model reports a singular fit. What is the best response?",
@@ -1585,7 +1585,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does a Bayesian posterior represent?",
@@ -1604,7 +1604,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is a purpose of prior predictive checking?",
@@ -1623,7 +1623,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why can overdispersion matter in a Poisson GLM?",
@@ -1642,7 +1642,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "If intended deployment is to new monitoring stations, which validation is usually more defensible?",
@@ -1661,7 +1661,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A logit-model coefficient is statistically significant. Which reporting approach is most useful?",
@@ -1680,7 +1680,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What should a model card disclose?",
@@ -1699,7 +1699,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Under the synthetic logistic model, predicted exceedance probability rises from about 0.11 to 0.57 when predictors move from cool/green to warm/built settings. What is the strongest claim?",
@@ -1718,7 +1718,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A 95% credible interval for a rate is (0.12, 0.28). Which interpretation matches Bayesian semantics under the model and prior?",
@@ -1737,7 +1737,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does a causal DAG primarily represent?",
@@ -1756,7 +1756,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why can conditioning on a collider create bias?",
@@ -1775,7 +1775,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which item belongs in an estimand definition?",
@@ -1794,7 +1794,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why specify a target trial for an observational question?",
@@ -1813,7 +1813,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What must hold for standard backdoor adjustment to identify a causal effect?",
@@ -1832,7 +1832,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why is automatic adjustment for every measured variable unsafe?",
@@ -1851,7 +1851,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is central to a standard difference-in-differences interpretation?",
@@ -1870,7 +1870,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What does propensity-score weighting not automatically solve?",
@@ -1889,7 +1889,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is the purpose of a carefully chosen negative control?",
@@ -1908,7 +1908,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which conclusion is most defensible when key identification assumptions remain uncertain?",
@@ -1927,7 +1927,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "In the synthetic lab, the crude treatment contrast is about +5.1 while each C-stratum effect is +2. What does this illustrate?",
@@ -1946,7 +1946,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Before estimating an effect of a cooling intervention, what must be specified?",
@@ -1965,7 +1965,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Difference-in-differences primarily relies on:",
@@ -1984,7 +1984,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "An observational NDVI–LST association is best reported as:",
@@ -2003,7 +2003,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Propensity-score weighting balances:",
@@ -2022,7 +2022,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does version control provide for research software?",
@@ -2041,7 +2041,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which practice is appropriate before committing a change?",
@@ -2060,7 +2060,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is a data contract intended to make explicit?",
@@ -2079,7 +2079,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why separate ingestion, validation and analysis logic?",
@@ -2098,7 +2098,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "How should a floating-point regression test compare numerical results?",
@@ -2117,7 +2117,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does a passing unit test establish?",
@@ -2136,7 +2136,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which is needed for a meaningful clean rerun?",
@@ -2155,7 +2155,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Where should API tokens and private credentials be stored?",
@@ -2174,7 +2174,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does a green CI run mean?",
@@ -2193,7 +2193,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which release note is most defensible?",
@@ -2212,7 +2212,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A manifest lists sha256 for input.csv. After a one-byte append, validation fails. What was demonstrated?",
@@ -2231,7 +2231,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which missing manifest field should block a clean-environment acceptance check?",
@@ -2250,7 +2250,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A good research commit message primarily explains:",
@@ -2269,7 +2269,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Deterministic seeds in scientific tests are used to:",
@@ -2288,7 +2288,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Lockfiles help reproducibility by:",
@@ -2307,7 +2307,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A student repository repair checklist should include:",
@@ -2326,7 +2326,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "In xarray, what is the main role of coordinates?",
@@ -2345,7 +2345,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What should be inspected before analyzing a gridded Dataset?",
@@ -2364,7 +2364,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why can xarray arithmetic produce unexpected missing values?",
@@ -2383,7 +2383,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which statement about reprojection is correct?",
@@ -2402,7 +2402,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is a common cost of chunks that are too small?",
@@ -2421,7 +2421,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which claim about lazy Dask execution is most accurate?",
@@ -2440,7 +2440,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What should a derived environmental feature record?",
@@ -2459,7 +2459,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why validate coordinates before combining time–space arrays?",
@@ -2478,7 +2478,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is useful evidence in an eager-versus-lazy comparison?",
@@ -2497,7 +2497,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does a successful pipeline run prove?",
@@ -2516,7 +2516,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A spatial mean replaces missing cells with zeros before averaging. What is the main risk?",
@@ -2535,7 +2535,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why is an unweighted mean on a regular lat–lon toy grid not automatically an area-mean?",
@@ -2554,7 +2554,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "An idempotent pipeline step should:",
@@ -2573,7 +2573,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A run manifest should at least capture:",
@@ -2592,7 +2592,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Large analysis inputs should typically:",
@@ -2611,7 +2611,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Does Granger-style predictability establish a physical causal mechanism?",
@@ -2630,7 +2630,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A synthetic series yields lag-1 sample autocorrelation ≈ 0.64. What does this justify reporting?",
@@ -2649,7 +2649,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A pedagogical Dickey–Fuller t-statistic on a short synthetic series is −0.40 against an illustrative 5% critical value of −2.93. The most defensible statement is:",
@@ -2668,7 +2668,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-017",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Sampling every 4 days when a true cycle has period 2 days primarily risks:",
@@ -2687,7 +2687,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-018",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A useful forecast evaluation protocol should:",
@@ -2706,7 +2706,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-019",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Large correlation between two independent trending series is best addressed by:",
@@ -2725,7 +2725,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-57-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-7",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Why insist that every training observation precede the forecast origin in a lag-1 evaluation?",
@@ -2744,7 +2744,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "For covariance [[1, 0.8], [0.8, 1]], eigenvalues are 1.8 and 0.2. About what fraction of variance is on the first mode?",
@@ -2763,7 +2763,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "North's rule of thumb is mainly used to:",
@@ -2782,7 +2782,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-017",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "MCA primarily maximises:",
@@ -2801,7 +2801,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-018",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A leading EOF should be reported as:",
@@ -2820,7 +2820,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "In LST ~ NDVI * C(season) + built_frac, what does the NDVI coefficient represent when season uses a reference category?",
@@ -2839,7 +2839,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A fitted NDVI coefficient is −2.0 °C per NDVI unit. What modelled difference corresponds to an NDVI increase of 0.10 in the reference season?",
@@ -2858,7 +2858,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A residual-versus-fitted plot shows a clear U-shaped pattern. What is the strongest first interpretation?",
@@ -2877,7 +2877,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Two vegetation indices have high VIF values. What is the most defensible next step?",
@@ -2896,7 +2896,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which interval is generally intended to describe where a new individual observation may fall?",
@@ -2915,7 +2915,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why might ordinary row-wise bootstrap resampling be unsuitable for a strongly autocorrelated daily temperature series?",
@@ -2934,7 +2934,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For n = 100 and lag-one correlation ρ = 0.60, what does n_eff ≈ n(1−ρ)/(1+ρ) give?",
@@ -2953,7 +2953,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "You want to estimate performance in districts absent from training. Which split best matches the claim?",
@@ -2972,7 +2972,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A candidate has lower RMSE than a baseline, but uses a random split while the baseline uses district-blocked folds. What can you conclude?",
@@ -2991,7 +2991,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which metric remains in the original outcome units and penalises large errors more strongly than MAE?",
@@ -3010,7 +3010,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Ridge and lasso regularisation primarily address:",
@@ -3029,7 +3029,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "In logistic regression, exp(β) for a coefficient is interpreted as:",
@@ -3048,7 +3048,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A sensitivity analysis is most useful when it:",
@@ -3067,7 +3067,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Introductory Monte Carlo coverage checks evaluate:",
@@ -3086,7 +3086,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Block bootstrap is preferred over i.i.d. resampling when:",
@@ -3105,7 +3105,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Quantile regression is especially relevant when the scientific target is:",
@@ -3124,7 +3124,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-017",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "A model memorizes station means. Random row splits put the same stations in train and test; group hold-out keeps stations disjoint. Which statement is correct?",
@@ -3143,7 +3143,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-018",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "Candidate RMSE is lower than a baseline, but the candidate used a random split and the baseline used station-blocked validation. What is the strongest response?",
@@ -3162,7 +3162,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A temperature conversion is repeated in four notebooks. What is the strongest first step to reduce inconsistent results?",
@@ -3181,7 +3181,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why should a script entry point usually be guarded with if __name__ == \"__main__\":?",
@@ -3200,7 +3200,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is the result shape when an array shaped (3, 1, 1) is added to one shaped (1, 2, 2)?",
@@ -3219,7 +3219,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A raster stores invalid pixels as −9999. Why is np.nanmean alone not sufficient to protect a temperature summary?",
@@ -3238,7 +3238,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "An observation timestamp is 2026-06-01 19:00 UTC. Which Pakistan local date should it receive?",
@@ -3257,7 +3257,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Two station-days both have a daily maximum of 41 °C, but one uses 24 valid hourly observations and the other uses only 2. What should the summary report?",
@@ -3276,7 +3276,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which statement best describes why Parquet may be useful for a shared analysis-ready table?",
@@ -3295,7 +3295,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which provenance record is most useful for recreating a climate-data transformation?",
@@ -3314,7 +3314,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A regex accepts the date text \"20261340\" because it contains eight digits. What is the next required validation?",
@@ -3333,7 +3333,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "You decode a new satellite product to physical units. Where should the scale factor and offset come from?",
@@ -3352,7 +3352,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A collaborator will analyse your cleaned table in R. What is the most robust hand-off?",
@@ -3371,7 +3371,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Boolean masks in NumPy are primarily used to:",
@@ -3390,7 +3390,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "np.random.default_rng(seed=42) is used to:",
@@ -3409,7 +3409,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "pandas resample differs from interpolation because it:",
@@ -3428,7 +3428,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "pathlib.Path is preferred over string path concatenation because it:",
@@ -3447,7 +3447,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-52-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-2",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Choosing R alongside Python is best justified by:",
@@ -3466,7 +3466,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Before choosing the first EDA plot, what should be stated?",
@@ -3485,7 +3485,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A precipitation distribution has median 0 mm/day and a much larger 95th percentile. Which summary approach is most informative?",
@@ -3504,7 +3504,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Why can an ECDF complement a histogram?",
@@ -3523,7 +3523,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A residual-versus-fitted plot shows a widening funnel as fitted values increase. What should you investigate?",
@@ -3542,7 +3542,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What must accompany a climate anomaly plot for its reference to be interpretable?",
@@ -3561,7 +3561,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why inspect autocorrelation or lag plots before a significance test on a climate series?",
@@ -3580,7 +3580,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which caption is analytically stronger for a Multan heat map?",
@@ -3599,7 +3599,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which colour-map choice is generally appropriate for a continuous temperature anomaly centred on zero?",
@@ -3618,7 +3618,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A scatterplot shows lower LST at pixels with higher NDVI. Which conclusion is justified by the plot alone?",
@@ -3637,7 +3637,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What is the most responsible response when a smooth map implies finer precision than the sparse observations support?",
@@ -3656,7 +3656,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Finding an outlier in a climate series means you should:",
@@ -3675,7 +3675,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A dense scatterplot with heavy overplotting is improved by:",
@@ -3694,7 +3694,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Before fitting a time-series model you should check:",
@@ -3713,7 +3713,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Interactive Plotly figures for exploration should be paired with:",
@@ -3732,7 +3732,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-53-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-3",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Truncating the y-axis on a bar chart of anomalies can:",
@@ -3751,7 +3751,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Daily rainfall has many exact zeros and a right-skewed positive tail. Which is the strongest first modelling choice?",
@@ -3770,7 +3770,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "What is a key caution when a goodness-of-fit test follows parameter estimation on the same data?",
@@ -3789,7 +3789,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A study uses 100 adjacent pixels from one neighbourhood. What is the strongest interpretation?",
@@ -3808,7 +3808,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "What does the standard error describe?",
@@ -3827,7 +3827,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which statement best describes a frequentist 95% confidence interval procedure?",
@@ -3846,7 +3846,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why might a naive confidence interval from 30 consecutive winter days be too narrow?",
@@ -3865,7 +3865,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "What does a p-value of 0.02 mean, assuming the null and model are true?",
@@ -3884,7 +3884,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A study tests thousands of pixels independently and reports only p < 0.05 results. What is a relevant concern?",
@@ -3903,7 +3903,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "In an OLS model LST (°C) ~ NDVI (dimensionless), what are the slope units?",
@@ -3922,7 +3922,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A negative OLS slope relates NDVI to LST. What conclusion is justified by OLS alone?",
@@ -3941,7 +3941,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A forecast verification study records observed event/no event and forecast event/no event. What should be done before applying a chi-square test of independence?",
@@ -3960,7 +3960,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A huge sample gives p < 0.001 for a 0.05 °C difference. What else is needed to judge its importance?",
@@ -3979,7 +3979,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "When might a rank-based method help, and what assumption may still matter?",
@@ -3998,7 +3998,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Partial correlation of NDVI and LST given soil moisture is closer to zero than the simple Pearson correlation. What is the strongest justified claim?",
@@ -4017,7 +4017,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A two-sample power sketch suggests about 63 independent observations per group to detect a 2 °C difference when σ = 4 °C. Daily temperatures in one city are strongly autocorrelated. What should change in planning?",
@@ -4036,7 +4036,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "For a sample of n independent observations with sample standard deviation s, the standard error of the mean is:",
@@ -4055,7 +4055,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-017",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Cohen's d primarily communicates:",
@@ -4074,7 +4074,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-018",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Wilcoxon signed-rank is designed for:",
@@ -4093,7 +4093,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-019",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "After estimating distribution parameters from the same sample, a classical KS p-value should be treated as:",
@@ -4112,7 +4112,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For n=100 and ρ=0.5 under a simple AR(1)-like mean-variance approximation, n_eff is about:",
@@ -4131,7 +4131,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-54-021",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-4",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A featureless residual-versus-fitted plot alone:",
@@ -4150,7 +4150,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-013",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A heat-day query uses WHERE tmax > 40 without handling NULLs. What is a likely consequence?",
@@ -4169,7 +4169,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-018",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "After LEFT JOIN stations to daily with the June date filter in ON, Station C has mean_june_tmax NULL and n_valid 0. What does that mean?",
@@ -4188,7 +4188,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-019",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "After joining stations to daily, COUNT(*) is 6 but COUNT(DISTINCT station_id || '-' || date) is 3 for the same filter. What is the best interpretation?",
@@ -4207,7 +4207,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-014",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Where should a CDS API key live in a shared analysis repository?",
@@ -4226,7 +4226,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-015",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A variable catalogue should be written:",
@@ -4245,7 +4245,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-016",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Bounded retries with backoff are appropriate for:",
@@ -4264,7 +4264,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-017",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Choose Dask over a single-node DuckDB/Parquet path primarily when:",
@@ -4283,7 +4283,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-011",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A government report is published only as a PDF table and no supported API is available. What is the strongest first step?",
@@ -4302,7 +4302,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-012",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "Which statement best describes a responsible licence check before publishing a derived dataset?",
@@ -4321,7 +4321,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-001",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "Which workflow ordering best protects raw environmental data and makes transformations auditable?",
@@ -4340,7 +4340,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-002",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A workflow appends the same daily rows every time it runs. Which change most directly addresses the failure?",
@@ -4359,7 +4359,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-003",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "You need mean June maximum temperature by station for 2024. Which SQL pattern is appropriate?",
@@ -4378,7 +4378,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-004",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "A join unexpectedly reduces 3,000 daily observations to 2,700 rows. What should you check first?",
@@ -4397,7 +4397,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-005",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A public API responds with HTTP 429. What is the safest general response for an idempotent GET request?",
@@ -4416,7 +4416,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-006",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Why should an HTTP client set a timeout and call raise_for_status() before trusting response.json()?",
@@ -4435,7 +4435,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-007",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "easy",
     "type": "single",
     "question": "A climate dataset is publicly downloadable. What must you still check before redistributing it?",
@@ -4454,7 +4454,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-008",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Which credential-handling practice is appropriate for a public research repository?",
@@ -4473,7 +4473,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-009",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "Which manifest gives the strongest basis for reproducing a data acquisition?",
@@ -4492,7 +4492,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-55-010",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-5",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "hard",
     "type": "single",
     "question": "A package runs only on the author's laptop because the API key and file paths are hard-coded. What is the best remediation?",
@@ -4511,7 +4511,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For the teaching covariance S=[[1, 0.8], [0.8, 1]], the leading eigenvalue and its variance share are:",
@@ -4530,7 +4530,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-58-021",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-8",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "On a regular latitude–longitude grid, equal cell weights without cos(φ) area factors can:",
@@ -4549,7 +4549,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "In the Unit 5.10 synthetic table, stratum ATEs equal +2 but the crude contrast is larger primarily because:",
@@ -4568,7 +4568,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-510-021",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-10",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Adjusting for a mediator when the target is the total effect of exposure typically:",
@@ -4587,7 +4587,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-59-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-9",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "For logistic regression, exp(β_j) is best interpreted as:",
@@ -4606,7 +4606,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-51-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-1",
+    "topicId": "cgei-ds-ode-numerical",
     "difficulty": "medium",
     "type": "single",
     "question": "A forward Euler lake step uses V0=1e6 m³, Qin−Qout=0.5 m³/s, dt=3600 s. The updated volume is:",
@@ -4625,7 +4625,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-511-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-11",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "A matching SHA-256 checksum between a manifest and a local file primarily establishes:",
@@ -4644,7 +4644,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-512-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-12",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "When computing a spatial mean on a grid that contains fill values, treating fills as zero typically:",
@@ -4663,7 +4663,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ds-q-56-020",
     "sectionId": "CGEI-051",
-    "topicId": "cgei-ds-unit-5-6",
+    "topicId": "cgei-ds-units-dimensions",
     "difficulty": "medium",
     "type": "single",
     "question": "Random train/test splits on strongly autocorrelated environmental series often:",

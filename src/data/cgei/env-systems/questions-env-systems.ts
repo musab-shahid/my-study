@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-001",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Which sphere coupling best describes Himalayan snow and ice feeding the Indus?",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-002",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using σT⁴ at T=288 K, blackbody exitance is about:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-003",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "With S=1361 W m⁻² and A=0.30, the planetary effective temperature Te is nearest:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-004",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Ice–albedo feedback is classified as positive because:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-seb",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In the teaching SEB form Rn = H + LE + G, a residual Rn − (H+LE+G) of +20 W m⁻² means:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-11-tau",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-1",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Residence time τ ≈ M/F is best described as:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-110-001",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-10",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "With Q*=450, Q_F=30, Q_H=280, Q_E=80 W m⁻², storage ΔQ_S equals:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-110-002",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-10",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Urban heat intensity for T_u=38.5°C and T_r=35.0°C is:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-110-003",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-10",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Urban expansion most directly tends to:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-es-q-110-004",
     "sectionId": "CGEI-01",
-    "topicId": "cgei-es-unit-1-10",
+    "topicId": "cgei-env-systems-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Under an AND compound rule with thresholds 0.6/0.6, heat=0.8 and drought=0.4 yields:",

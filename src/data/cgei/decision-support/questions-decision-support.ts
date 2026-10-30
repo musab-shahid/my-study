@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-91-001",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-1",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A decision-facing product should primarily start from:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-91-002",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-1",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Omitting units, valid time, source, version and confidence from a map product:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-93-001",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-3",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Changing multi-criteria weights can:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-93-002",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-3",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Relative to one opaque composite score, separate inspectable layers are preferred because:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-94-001",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-4",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A published consequential product should include:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-94-002",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-4",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Provenance-first design requires that hazard, exposure and vulnerability:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-dspt-q-94-003",
     "sectionId": "CGEI-09",
-    "topicId": "cgei-dspt-unit-9-4",
+    "topicId": "cgei-decision-support-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A non-author usability pass is valuable because:",

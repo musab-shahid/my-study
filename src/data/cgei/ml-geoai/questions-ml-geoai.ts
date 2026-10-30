@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A complete learning problem statement must include at least:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Before deploying a complex environmental model you should:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "hard",
     "type": "single",
     "question": "A candidate beats climatology on a randomly shuffled row split for daily station temperatures. What is the strongest critique?",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-interp",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Training stations span 15–35 °C. A model predicts 48 °C at a desert site never represented in training. This use is best described as:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-leakage",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Which feature most clearly risks leakage when predicting tomorrow’s heat-index from data available at 06:00 local time?",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-label-bias",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Labels come only from urban airport stations. Model skill is reported as high on a random hold-out of those stations. The strongest concern is:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-61-aoa",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-1",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Area of applicability (e.g. via predictor dissimilarity to training) is used to:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-64-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-4",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Random row splits for gridded climate data often:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-62-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-2",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Scalers and encoders should be fit:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-62-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-2",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Fitting a standard scaler on all rows before a chronological split:",
@@ -198,7 +198,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-62-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-2",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "In the synthetic parcel contract, heat_exceed should be treated as:",
@@ -217,7 +217,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-63-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-3",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A fair algorithm comparison requires:",
@@ -236,7 +236,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-63-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-3",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Logistic regression coefficients in an environmental classifier primarily indicate:",
@@ -255,7 +255,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-63-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-3",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Under class imbalance, reporting only accuracy is risky because:",
@@ -274,7 +274,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-65-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-5",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Feature importance from a heat classifier primarily supports:",
@@ -293,7 +293,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-65-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-5",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A model with strong ranking skill but poor calibration:",
@@ -312,7 +312,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-65-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-5",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "On a four-row synthetic holdout, reliability bins should be treated as:",
@@ -331,7 +331,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-66-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-6",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An honest environmental ML practice report must:",
@@ -350,7 +350,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-66-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-6",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Random pixel cross-validation on mapped EO products often:",
@@ -369,7 +369,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-66-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-6",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Recycling k-means clusters as supervised labels on the same image is problematic because:",
@@ -388,7 +388,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-67-001",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-7",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Overlapping image patches that straddle a spatial train/test cut primarily risk:",
@@ -407,7 +407,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-67-002",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-7",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A U-Net-style model is most associated with:",
@@ -426,7 +426,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ml-q-67-003",
     "sectionId": "CGEI-06",
-    "topicId": "cgei-ml-unit-6-7",
+    "topicId": "cgei-ml-geoai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "On a tiny weak label set, best practice is to:",

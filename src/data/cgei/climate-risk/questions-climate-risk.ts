@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-71-001",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-1",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A map of flood inundation depth primarily represents:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-71-002",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-1",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Residual risk is best described as:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-71-003",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-1",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Social vulnerability can be read directly from a physical hazard map alone:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-73-001",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-3",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "LST, air temperature and WBGT-type heat-stress indices:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-73-002",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-3",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Historical flood frequency guarantees the same risk under future climate and land-use change:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-75-001",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-5",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Changing indicator weights in a composite risk index can:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-75-002",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-5",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "If vulnerability data are missing for a district, a transparent workflow should:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-risk-q-75-003",
     "sectionId": "CGEI-07",
-    "topicId": "cgei-risk-unit-7-5",
+    "topicId": "cgei-climate-risk-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A composite risk index primarily:",

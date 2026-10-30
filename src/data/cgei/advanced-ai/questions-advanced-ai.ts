@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-121-001",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-1",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before adopting a deep neural network for a small tabular environmental dataset, best practice is to:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-121-002",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-1",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Train/validation/test separation primarily helps:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-121-003",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-1",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "An overfit model that memorises training points but fails on new inputs illustrates:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-122-001",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-2",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Random pixel-level splits of EO imagery often fail because:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-122-002",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-2",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "For semantic segmentation evaluation, IoU/Dice metrics are useful because they:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-127-001",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-7",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A model card for decision-facing environmental AI should include:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-127-002",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-7",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Comparing an AI system only to itself without a simpler baseline is problematic because:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-123-persist",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-3",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-ai-q-123-persist (curriculum integrity stub).",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-123-leak",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-3",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-ai-q-123-leak (curriculum integrity stub).",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-ai-q-123-fm",
     "sectionId": "CGEI-12",
-    "topicId": "cgei-ai-unit-12-3",
+    "topicId": "cgei-advanced-ai-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-ai-q-123-fm (curriculum integrity stub).",

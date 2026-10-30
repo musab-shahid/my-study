@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-81-001",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-1",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An estimand is best described as:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-81-002",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-1",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A protocol that sets estimand equal to a vague research question should be:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-81-003",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-1",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Confirmatory environmental analyses should typically include:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-81-004",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-1",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A confirmatory protocol lists plan_deviations: [\"\"]. What is the correct evaluation?",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-82-001",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-2",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Construct validity primarily asks:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-82-002",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-2",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Generalising beyond the sampling frame without justification threatens:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-82-003",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-2",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A study joins handheld GPS waypoints to 1 km LST cells without documenting CRS or assignment rule. The strongest critique is:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-83-001",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-3",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Reporting only the model specifications that look favourable after seeing results is primarily:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-83-002",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-3",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Internal validity concerns:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-83-003",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-3",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A confirmatory analysis reports only the specification with the smallest p-value after trying many covariate sets. This is best described as:",
@@ -198,7 +198,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-86-001",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-6",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Data and code availability statements in environmental research reports are:",
@@ -217,7 +217,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-86-002",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-6",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A results-heavy draft omits data/code availability and non-claims. Under Unit 8.6 teaching this is:",
@@ -236,7 +236,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-87-one",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-7",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-87-one (curriculum integrity stub).",
@@ -255,7 +255,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-87-val",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-7",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-87-val (curriculum integrity stub).",
@@ -274,7 +274,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-87-fig",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-7",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-87-fig (curriculum integrity stub).",
@@ -293,7 +293,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-88-readme",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-8",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-88-readme (curriculum integrity stub).",
@@ -312,7 +312,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-88-revise",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-8",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-88-revise (curriculum integrity stub).",
@@ -331,7 +331,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-88-focus",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-8",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-88-focus (curriculum integrity stub).",
@@ -350,7 +350,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-89-struct",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-9",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-89-struct (curriculum integrity stub).",
@@ -369,7 +369,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-89-scope",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-9",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-89-scope (curriculum integrity stub).",
@@ -388,7 +388,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-89-risk",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-9",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-89-risk (curriculum integrity stub).",
@@ -407,7 +407,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-8d-estimand",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-d",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-8d-estimand (curriculum integrity stub).",
@@ -426,7 +426,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-8d-avail",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-d",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-8d-avail (curriculum integrity stub).",
@@ -445,7 +445,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-8d-validity",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-d",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Draft check for cgei-rp-q-8d-validity (curriculum integrity stub).",
@@ -464,7 +464,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rp-q-8d-package",
     "sectionId": "CGEI-08",
-    "topicId": "cgei-rp-unit-8-d",
+    "topicId": "cgei-research-practice-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "An exit package claims a public DOI but leaves doi_or_url blank and labels a synthetic demo as field validation. The correct evaluation is:",

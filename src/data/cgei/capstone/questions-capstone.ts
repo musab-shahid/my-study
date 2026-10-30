@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-131-001",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-1",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A defensible capstone scope should primarily start from:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-131-002",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-1",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before coding, learners should check:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-132-001",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-2",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "In the teaching capstone, synthetic neighbourhood ranks should be interpreted as:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-132-002",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-2",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Weight sensitivity in the H/E/V index is important because:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-132-003",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-2",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A capstone decision card should require human review because:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-132-004",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-2",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "MODIS LST_Day in the public-data pathway should be interpreted as:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-133-001",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-3",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A portfolio data inventory should:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-133-002",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-3",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Collapsing Path A synthetic ranks and a MODIS teaching extract into one “Multan validated result” is:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-133-003",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-3",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Claiming a genuine Multan granule was processed requires at minimum:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-135-001",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-5",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A research-interest statement should primarily:",
@@ -198,7 +198,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-135-002",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-5",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Programme deadlines and funding eligibility should be taken from:",
@@ -217,7 +217,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-135-003",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-5",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A respectful supervisor enquiry should include:",
@@ -236,7 +236,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-136-001",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-6",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "After fixing validation failures, best practice is to:",
@@ -255,7 +255,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-136-002",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-6",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An illustrative external-review packet must:",
@@ -274,7 +274,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-cap-q-136-003",
     "sectionId": "CGEI-13",
-    "topicId": "cgei-cap-unit-13-6",
+    "topicId": "cgei-capstone-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A justified rejection disposition is appropriate when:",

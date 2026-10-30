@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-31-001",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-1",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Which representation best stores continuous precipitation rate on a regular 0.1° grid?",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-31-002",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-1",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Matching station rows to districts by approximate lat/lon equality is risky primarily because:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-31-003",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-1",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Two axis-aligned district boxes share only a boundary edge and have unique IDs. Under the teaching fixture rules, this should be treated as:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-31-scale",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-1",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A study reports a strong negative correlation between district mean income and district mean greenness, then concludes that poorer individuals live in less green environments. The primary methodological risk is:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-36-hierarchy",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-6",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Figure–ground design primarily means:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-weights",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "On three parcels in a straight line, rook contiguity implies:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-001",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A 500 m buffer around rivers should be computed in which setting?",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-002",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Five daily rows share two station_ids. An attribute join to a two-row station metadata table (unique station_id) typically yields:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-020",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A point layer labelled EPSG:4326 and a polygon layer labelled EPSG:32642 share similar numeric coordinates. The safest first action before a spatial join is to:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-003",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "In the Unit 3.3 fixture, zone 1 has values 10, 20 and NoData. The correct zonal mean excludes NoData and equals:",
@@ -198,7 +198,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-004",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Under the Unit 3.3 teaching rules, a cell value of 30 becomes which class?",
@@ -217,7 +217,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-005",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Which item is essential in a reproducible QGIS processing log for this unit?",
@@ -236,7 +236,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-006",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Which operation keeps the part of layer A that lies outside layer B?",
@@ -255,7 +255,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-007",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Which statement about shapefiles is correct for analysis workflows?",
@@ -274,7 +274,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-008",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In the Unit 3.3 admin fixture, which defect must be fixed before trusting a district aggregation?",
@@ -293,7 +293,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-rmse",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "RMSE for georeferencing control points is best described as:",
@@ -312,7 +312,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-layout",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A decision map layout should include at minimum:",
@@ -331,7 +331,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-gdalinfo",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "The primary teaching purpose of gdalinfo on a raster is to:",
@@ -350,7 +350,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-scale-resize",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A layout is designed at 1:50,000 with a scale bar in kilometres. The page is later resized for a slide without updating the map scale or scale bar. What is true?",
@@ -369,7 +369,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-gdal-batch",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "When batch-converting many shapefiles with ogr2ogr, the safest practice is to:",
@@ -388,7 +388,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-33-topo-rmse",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-3",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Topology rules (e.g. no dangles, must not overlap) and georeferencing RMSE answer different questions. Which pairing is correct?",
@@ -407,7 +407,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-35-area",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-5",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Computing polygon area for hectare statistics should use:",
@@ -426,7 +426,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-35-nodata",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-5",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "When averaging a raster window, nodata values should be:",
@@ -445,7 +445,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-35-pin",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-5",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Pinning GDAL/PROJ/GEOS versions matters because:",
@@ -464,7 +464,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-35-cog",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-5",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A Cloud-Optimized GeoTIFF differs from a generic GeoTIFF primarily by:",
@@ -483,7 +483,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-36-breaks",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-6",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Equal-interval and quantile class breaks on the same skewed rates can differ because:",
@@ -502,7 +502,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-36-choro",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-6",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A choropleth of raw station counts by district without normalisation is problematic because:",
@@ -521,7 +521,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-36-legend",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-6",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An honest climate map legend or caption should include at least:",
@@ -540,7 +540,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-loo",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Random train/test splits of nearby spatial sites are risky because:",
@@ -559,7 +559,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-idw",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "IDW interpolation differs from ordinary kriging mainly in that IDW:",
@@ -578,7 +578,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-block",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Spatial block or leave-location-out validation is preferred when:",
@@ -597,7 +597,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-looidw",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Leave-location-out IDW evaluation is more informative than reporting only in-sample fit because it:",
@@ -616,7 +616,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-variogram",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In an empirical semivariogram, the nugget primarily reflects:",
@@ -635,7 +635,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-39-ok",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-9",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In ordinary kriging, requiring spatial weights to sum to one primarily enforces:",
@@ -654,7 +654,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-001",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:",
@@ -673,7 +673,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-002",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:",
@@ -692,7 +692,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-003",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "On the Unit 3.4 teaching grid, under D8 steepest descent, the centre cell flows which direction (Esri code)?",
@@ -711,7 +711,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-004",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "With 6 matched, 2 ambiguous and 2 unmatched out of 10 records, the match rate (matched/all) is:",
@@ -730,7 +730,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-005",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "With accumulation including the cell itself, the outlet cell of the teaching 3×3 grid accumulates:",
@@ -749,7 +749,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-006",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "On the Unit 3.4 teaching network, the distance-shortest path A→Clinic is:",
@@ -768,7 +768,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-007",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using time (minutes) as cost, the least-cost path A→Clinic is:",
@@ -787,7 +787,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-008",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A record is status=matched but its coordinates are 150 m from the known true location. The correct interpretation is:",
@@ -806,7 +806,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-009",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In the Unit 3.4 field QC fixture, which observation_id is fully clean?",
@@ -825,7 +825,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-34-010",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-4",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Missing gnss_accuracy_m on an otherwise complete record should be treated as:",
@@ -844,7 +844,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-001",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Why is the coordinate pair (70, 30) ambiguous without metadata?",
@@ -863,7 +863,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-vertical-datum",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Which statement correctly distinguishes an ellipsoid, a geodetic datum/reference frame, and a vertical datum?",
@@ -882,7 +882,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-002",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:",
@@ -901,7 +901,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-003",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Which choice best matches computing global land-area totals?",
@@ -920,7 +920,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-utm",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "For metre-based area or distance in a Multan regional study, the safest practice is to:",
@@ -939,7 +939,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-otf",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "On-the-fly reprojection in a GIS project primarily means:",
@@ -958,7 +958,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-resample",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "When transforming a categorical land-cover raster, the preferred resampling method is usually:",
@@ -977,7 +977,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-zonebound",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "UTM zone 42N (EPSG:32642) longitude span used in this curriculum is:",
@@ -996,7 +996,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-grid",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "If a required datum grid-shift file is missing, the curriculum acceptance rule is to:",
@@ -1015,7 +1015,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-landmark",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Landmark validation after reprojection means:",
@@ -1034,7 +1034,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-assign",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A table of longitude/latitude values is stored as (73.1, 30.2) but carries no CRS. The analyst runs “assign EPSG:32642” and then buffers by 1000 map units. The most accurate critique is:",
@@ -1053,7 +1053,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-geo-q-32-workflow",
     "sectionId": "CGEI-03",
-    "topicId": "cgei-geo-unit-3-2",
+    "topicId": "cgei-geospatial-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "After transforming a layer, a control point residual is 13 m in the target CRS. The most defensible next statement is:",

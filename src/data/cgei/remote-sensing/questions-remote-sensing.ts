@@ -8,7 +8,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Brightness temperature is best defined as:",
@@ -27,7 +27,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using Wien’s law (wavelength form) at T=300 K, λ_max is nearest:",
@@ -46,7 +46,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Nominal revisit every 5 days guarantees cloud-free observations every 5 days:",
@@ -65,7 +65,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "SAR is classified as active microwave sensing because:",
@@ -84,7 +84,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A Level-2 product label always means the same atmospheric correction across agencies:",
@@ -103,7 +103,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using Wien’s displacement law in wavelength form (λ_max T ≈ 2897.8 μm·K), the peak wavelength for a 300 K blackbody is approximately:",
@@ -122,7 +122,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-41-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-1",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A brightness temperature retrieved assuming ε=1 is best interpreted as:",
@@ -141,7 +141,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "For a multi-year land-surface greenness analysis under variable aerosol loading, the stronger default product class is:",
@@ -160,7 +160,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Landsat Collection 2 Level-2 is primarily used as:",
@@ -179,7 +179,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "MODIS/VIIRS compared with Sentinel-2 typically offer:",
@@ -198,7 +198,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A practical advantage of SAR for surface-water mapping in cloudy seasons is:",
@@ -217,7 +217,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "If ST = DN × scale + offset and documentation is missing, you should:",
@@ -236,7 +236,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Cross-sensor continuity problems imply that:",
@@ -255,7 +255,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "SAR backscatter (e.g. Sentinel-1 GRD σ⁰) is best interpreted as:",
@@ -274,7 +274,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "When choosing a DEM for hydrologic routing, a critical product-literacy check is:",
@@ -293,7 +293,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-42-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-2",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Top-of-atmosphere reflectance and surface reflectance differ because:",
@@ -312,7 +312,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "NDVI = (NIR − Red) / (NIR + Red) is best computed from:",
@@ -331,7 +331,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A practical limitation of NDVI in dense canopies is:",
@@ -350,7 +350,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Differenced NBR (dNBR) is primarily used to:",
@@ -369,7 +369,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In arid scenes, NDBI commonly confuses:",
@@ -388,7 +388,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Proxy honesty requires that an index user can state:",
@@ -407,7 +407,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using the teaching Collection-2 style factors, ST (K) is recovered as:",
@@ -426,7 +426,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Landsat 8 TIRS Band 11 is problematic for many single-band applications because of:",
@@ -445,7 +445,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Morning satellite LST should not be treated as:",
@@ -464,7 +464,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Clear-sky LST composites often run warm because:",
@@ -483,7 +483,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Thermal sharpening (e.g. TsHARP-style) over heterogeneous urban scenes:",
@@ -502,7 +502,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Top-of-atmosphere reflectance differs from surface reflectance because:",
@@ -521,7 +521,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A defensible atmospheric-correction description should include:",
@@ -540,7 +540,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Sub-pixel misregistration most often creates false change:",
@@ -559,7 +559,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Co-registration quality should be reported using:",
@@ -578,7 +578,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Mask omission rate on a reference sample is:",
@@ -597,7 +597,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Cloud/shadow mask rules should be declared:",
@@ -616,7 +616,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Thin cirrus and bright sand are difficult for optical cloud masks because:",
@@ -635,7 +635,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Landsat–Sentinel harmonisation products primarily address:",
@@ -654,7 +654,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Multi-decadal Landsat 5–9 reflectance series should include:",
@@ -673,7 +673,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-44-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-4",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Savitzky–Golay or harmonic smoothing can be harmful when:",
@@ -692,7 +692,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "SUHII based on satellite LST measures:",
@@ -711,7 +711,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "If urban mean LST is 312 K and reference mean is 308.5 K, baseline SUHII is:",
@@ -730,7 +730,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A high-quality reference design should:",
@@ -749,7 +749,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Spatial cross-validation in ML heat-driver models primarily helps:",
@@ -768,7 +768,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "MAUP matters in urban heat studies because:",
@@ -787,7 +787,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In arid cities, irrigated parks complicate cooling interpretation because:",
@@ -806,7 +806,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Comparing Landsat LST to a weather-station air temperature requires stating:",
@@ -825,7 +825,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Calling a pixel “vulnerable” from mean LST alone is problematic because:",
@@ -844,7 +844,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A responsible SUHI methods section should include:",
@@ -863,7 +863,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Clear-sky satellite composites of LST often:",
@@ -882,7 +882,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-humid",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A positive SUHII (urban LST warmer than the rural reference) is sufficient to conclude higher urban wet-bulb temperature Tw:",
@@ -901,7 +901,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An ImageCollection in Earth Engine is best described as:",
@@ -920,7 +920,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before computing a median composite you should typically:",
@@ -939,7 +939,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Calling getInfo on a very large server-side object is risky because:",
@@ -958,7 +958,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A processing log for a parameterised EE script should include:",
@@ -977,7 +977,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Reducer scale and CRS matter because:",
@@ -996,7 +996,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Noncommercial EE access should be treated as:",
@@ -1015,7 +1015,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "When choosing GEE versus a local/STAC pipeline, weigh:",
@@ -1034,7 +1034,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Fixture datasets in CI pipelines are valuable because:",
@@ -1053,7 +1053,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Reconciling a zonal mean between GEE and local Python on a test geometry primarily checks:",
@@ -1072,7 +1072,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-46-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-6",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A green pipeline exit code alone is insufficient because:",
@@ -1091,7 +1091,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Validation samples should be:",
@@ -1110,7 +1110,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Random pixel train/test splits often leak because:",
@@ -1129,7 +1129,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "User’s accuracy for a class is:",
@@ -1148,7 +1148,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "High overall accuracy can still be misleading when:",
@@ -1167,7 +1167,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Relative to kappa as a headline metric, good practice emphasises:",
@@ -1186,7 +1186,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "K-means cluster IDs should be treated as:",
@@ -1205,7 +1205,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Fractional V-I-S cover is often preferred in mixed urban pixels because:",
@@ -1224,7 +1224,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Post-classification change maps require:",
@@ -1243,7 +1243,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Classification error on either date tends to:",
@@ -1262,7 +1262,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A CA-Markov land-use projection should be communicated as:",
@@ -1281,7 +1281,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "An active-fire (hotspot) detection primarily indicates:",
@@ -1300,7 +1300,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Fire radiative power (FRP) in active-fire products is best treated as:",
@@ -1319,7 +1319,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Hotspot counts alone can establish burned area:",
@@ -1338,7 +1338,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A pixel with no detection under cloud should be treated as:",
@@ -1357,7 +1357,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Summing detections over many overpasses without deduplication mainly risks:",
@@ -1376,7 +1376,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Claiming crop-residue burning from hotspots alone is weak because:",
@@ -1395,7 +1395,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Active-fire detections and burned-area products:",
@@ -1414,7 +1414,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A responsible hotspot map must include:",
@@ -1433,7 +1433,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A good limitations sentence states:",
@@ -1452,7 +1452,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-48-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-8",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "On a hotspot dashboard, burned-area and smoke/AQ layers should be:",
@@ -1471,7 +1471,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Optical–thermal–SAR fusion is best justified when:",
@@ -1490,7 +1490,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "After spatio-temporal fusion you should:",
@@ -1509,7 +1509,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A seasonal anomaly compares an observation to:",
@@ -1528,7 +1528,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Aggressive gap filling / smoothing of EO time series can:",
@@ -1547,7 +1547,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Independent reference data for a fused product must not be:",
@@ -1566,7 +1566,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Reporting only overall accuracy for a multi-stratum product risks:",
@@ -1585,7 +1585,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Operational latency should be set from:",
@@ -1604,7 +1604,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Alert thresholds differ from exploratory mapping because alerts require:",
@@ -1623,7 +1623,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Archiving inputs, configs, and outputs supports:",
@@ -1642,7 +1642,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-49-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-9",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "A monitoring design is incomplete without:",
@@ -1661,7 +1661,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-001",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "During cloudy monsoon flooding, a first-pass extent map often prefers:",
@@ -1680,7 +1680,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-002",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Mapped surface-water extent alone establishes:",
@@ -1699,7 +1699,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-003",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "In irrigated agriculture, high vegetation indices can:",
@@ -1718,7 +1718,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-004",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Soil-moisture satellite products typically:",
@@ -1737,7 +1737,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-005",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Using NDVI alone as a yield map is weak because:",
@@ -1756,7 +1756,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-006",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "AOD-to-PM2.5 models should be evaluated with:",
@@ -1775,7 +1775,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-007",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "TROPOMI NO2 column amounts:",
@@ -1794,7 +1794,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-008",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "NDSI snow-cover maps measure:",
@@ -1813,7 +1813,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-009",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "InSAR displacement is fundamentally:",
@@ -1832,7 +1832,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-410-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-10",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "easy",
     "type": "single",
     "question": "Before attributing InSAR subsidence to groundwater pumping, add:",
@@ -1851,7 +1851,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-leak",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "hard",
     "type": "single",
     "question": "Selecting the best spectral index on all field sites and then reporting cross-validated skill on the same sites is problematic because:",
@@ -1870,7 +1870,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-proxy",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Broadband multispectral EO typically supports laboratory soil nitrogen most accurately as:",
@@ -1889,7 +1889,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-sample",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A single grab sample at one GPS point inside a 30 m pixel is insufficient as the sole pixel reference because:",
@@ -1908,7 +1908,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-nested",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "hard",
     "type": "single",
     "question": "In nested leave-one-site-out feature selection, the feature chosen for predicting a held-out site must be selected using:",
@@ -1927,7 +1927,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-412-base",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-12",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "A deep EO model comparison is incomplete without:",
@@ -1946,7 +1946,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-412-sam",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-12",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Segment Anything–style EO tools are most appropriately treated as:",
@@ -1965,7 +1965,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-412-vlm",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-12",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Vision–language geospatial outputs used in measurement workflows require:",
@@ -1984,7 +1984,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Fitting an EO–field regression on all sites and then reporting error on the same sites primarily risks:",
@@ -2003,7 +2003,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-411-011",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-11",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Laboratory soil nitrogen is best treated in multispectral EO studies as:",
@@ -2022,7 +2022,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-412-010",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-12",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Before replacing a maintained spectral-index baseline with a deep EO model for operational monitoring, you should require:",
@@ -2041,7 +2041,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-43-011",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-3",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Clear-sky-only seasonal mean LST maps are risky for heat exposure because:",
@@ -2060,7 +2060,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-011",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Using a warmer irrigated fringe as the reference instead of a dry fringe typically:",
@@ -2079,7 +2079,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-45-012",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-5",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Higher LST in high-impervious parcels in a single-city map is strongest evidence for:",
@@ -2098,7 +2098,7 @@ export const questions: Question[] = [
   {
     "id": "cgei-rs-q-47-011",
     "sectionId": "CGEI-04",
-    "topicId": "cgei-rs-unit-4-7",
+    "topicId": "cgei-remote-sensing-roadmap",
     "difficulty": "medium",
     "type": "single",
     "question": "Train and test spatial blocks must be disjoint primarily to:",
