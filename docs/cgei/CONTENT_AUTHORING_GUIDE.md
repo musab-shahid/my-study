@@ -89,3 +89,18 @@ That runs question-bank, curriculum, traceability, CGEI coverage, and data-inven
 The current registry is too large for comfortable routine editing, and canonical curriculum questions do not yet share the normal quiz-attempt/mastery pipeline. The safe next architecture step is to split the canonical registry into per-subject curriculum modules while retaining `curriculum.ts` as a compatibility aggregator, then decide and test how curriculum questions should enter the saved assessment workflow. Do not delete legacy topic/question files until parity, stable IDs, deep links, progress restoration, and quiz results have been verified.
 
 This guide explains the current behavior; it does not claim that all subjects are fully migrated or scientifically validated.
+
+
+## Phase D — scaffolds and quality gates
+
+| Command | Purpose |
+|--------|---------|
+| `npm run new:unit -- --subject cgei-data-science --code 5.13 --title "..."` | Fixture + traceability stubs + unit shell to paste |
+| `npm run new:lesson -- --unit <unitId>` | Append draft lesson to `topics-<subject>.ts` (add to `unit.lessonIds` yourself) |
+| `npm run new:question -- --lesson <lessonId>` | Append draft question to `questions-<subject>.ts` with next free id + `lessonId` |
+| `npm run lint:cgei-questions` | Position-bias / longest-correct ratchets vs `docs/cgei/question-lint-baseline.json` |
+| `npm run snapshot:cgei-question-lints` | Tighten baselines after intentional cleanup |
+
+Per-unit PR checklist: `docs/cgei/UNIT_PR_CHECKLIST.md` and GitHub template `.github/PULL_REQUEST_TEMPLATE/cgei-unit.md`.
+
+Readiness remains `draft` until scientific review — green CI never validates science.
