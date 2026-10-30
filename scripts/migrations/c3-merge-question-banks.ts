@@ -48,9 +48,29 @@ function subjectForLesson(lessonId: string) {
   return cgeiCurriculum.subjects.find((s) => s.unitIds.includes(unit.id));
 }
 
+const SUBJECT_SECTION: Record<string, string> = {
+  'cgei-env-systems': 'CGEI-01',
+  'cgei-climate-science': 'CGEI-02',
+  'cgei-geospatial': 'CGEI-03',
+  'cgei-remote-sensing': 'CGEI-04',
+  'cgei-data-science': 'CGEI-051',
+  'cgei-ml-geoai': 'CGEI-06',
+  'cgei-climate-risk': 'CGEI-07',
+  'cgei-research-practice': 'CGEI-08',
+  'cgei-decision-support': 'CGEI-09',
+  'cgei-climate-policy': 'CGEI-10',
+  'cgei-software-engineering': 'CGEI-11',
+  'cgei-advanced-ai': 'CGEI-12',
+  'cgei-capstone': 'CGEI-13',
+  'cgei-advanced-branches': 'CGEI-14',
+};
+
 function toEngineQuestion(q: CurriculumQuestion): Question {
   const unit = unitForLesson(q.lessonId);
-  const sectionId = (unit?.legacySectionId ?? `CGEI-${q.lessonId}`) as Question['sectionId'];
+  const subject = subjectForLesson(q.lessonId);
+  const sectionId = (unit?.legacySectionId
+    ?? (subject ? SUBJECT_SECTION[subject.subjectId] : undefined)
+    ?? 'CGEI-01') as Question['sectionId'];
   const topicId = unit?.id ?? q.lessonId;
   return {
     id: q.id,
