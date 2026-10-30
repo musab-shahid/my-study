@@ -1,9 +1,8 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
 import { describe, it } from 'node:test';
 
 import { cgeiCurriculum } from '../../data/cgei/curriculum';
+import { cgeiQuestionProjectionOrder } from '../../data/cgei/question-projection-order';
 import { questions as envSystemsQuestions } from '../../data/cgei/env-systems/questions-env-systems';
 import { questions as climateQuestions } from '../../data/cgei/climate-science/questions-climate-science';
 import { questions as geospatialQuestions } from '../../data/cgei/geospatial/questions-geospatial';
@@ -34,24 +33,13 @@ const bankQuestions = [
   ...capstoneQuestions,
 ];
 
-const baseline = JSON.parse(
-  readFileSync(resolve(process.cwd(), 'docs/cgei/question-projection-baseline.json'), 'utf8'),
-) as { version: number; questionIds: string[]; questionsByLesson: Record<string, string[]> };
-
 describe('CGEI question-bank projection', () => {
-  it('preserves every question ID from the former flat curriculum projection', () => {
-    assert.equal(baseline.version, 1);
-    assert.equal(baseline.questionIds.length, 568);
+  it('preserves the former flat projection IDs and their exact order', () => {
+    assert.equal(cgeiQuestionProjectionOrder.length, 568);
     assert.deepEqual(
-      cgeiCurriculum.questions.map((question) => question.id).sort(),
-      baseline.questionIds,
+      cgeiCurriculum.questions.map((question) => question.id),
+      cgeiQuestionProjectionOrder,
     );
-    for (const [lessonId, expectedIds] of Object.entries(baseline.questionsByLesson)) {
-      const actualIds = cgeiCurriculum.questions
-        .filter((question) => question.lessonId === lessonId)
-        .map((question) => question.id);
-      assert.deepEqual(actualIds, expectedIds, 'display order changed for ' + lessonId);
-    }
   });
 
   it('projects every lesson-linked single-choice bank question without changing its content', () => {
