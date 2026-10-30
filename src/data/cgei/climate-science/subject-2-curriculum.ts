@@ -2512,11 +2512,13 @@ export const lessons213: CurriculumLesson[] = [
 
 
       {
+        id: 'cgei-cl-auto-0001',
         kind: 'callout',
         title: 'S2S skill is horizon- and region-dependent',
         body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
       },
       {
+        id: 'cgei-cl-auto-0002',
         kind: 'key-points',
         title: 'Decision-use checklist',
         items: [
@@ -2542,11 +2544,13 @@ export const lessons213: CurriculumLesson[] = [
 
 
       {
+        id: 'cgei-cl-auto-0003',
         kind: 'callout',
         title: 'S2S skill is horizon- and region-dependent',
         body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
       },
       {
+        id: 'cgei-cl-auto-0004',
         kind: 'key-points',
         title: 'Decision-use checklist',
         items: [
@@ -2572,11 +2576,13 @@ export const lessons213: CurriculumLesson[] = [
 
 
       {
+        id: 'cgei-cl-auto-0005',
         kind: 'callout',
         title: 'S2S skill is horizon- and region-dependent',
         body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
       },
       {
+        id: 'cgei-cl-auto-0006',
         kind: 'key-points',
         title: 'Decision-use checklist',
         items: [
