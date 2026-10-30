@@ -65,7 +65,7 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
           </>
         )}
       </div>
-      {submitted && item.explanation ? <p className="text-sm text-muted mt-3 border-t border-slate-100 pt-3">{item.explanation}</p> : null}
+      {submitted && item.explanation ? <p className="text-sm text-muted mt-3 border-t border-slate-200 pt-3">{item.explanation}</p> : null}
     </Card>
   );
 }
