@@ -1,13 +1,9 @@
 /**
- * CGEI Subject 2 — Climate Science and Climate Data
- *
- * Subject-wise curriculum module extracted from the canonical registry pattern.
- * Source of truth for structure: Master Study TOC + docs/cgei subject-2 unit traceability CSVs.
- *
- * Units: 2.1–2.13 (Core + Support). Legacy topics-climate-science.ts remains a
- * compatibility bridge until Subject 2 progress migration is complete.
- *
- * Status: review-level instructional content; readinessEvidence not yet attached.
+ * Subject 2 — Climate science and climate data (Master Study TOC aligned)
+ * Units 2.1–2.13 + priority tags (Core/Support/Optional), scope, failure modes,
+ * and competence language toward the Subject 2 exit deliverable (2.D.4).
+ * Activities for 2.7 / 2.9–2.13 are registered in curriculum.ts; assessments
+ * that require question bank entries remain empty until those questions exist.
  */
 
 import type {
@@ -2512,7 +2508,23 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-1-3', kind: 'prose', title: 'Statistical and hybrid seasonal outlooks', body: 'Analogue and regression approaches use precursors (e.g. ENSO). Hybrid methods statistically correct known dynamical biases before issuing probabilities.' },
       { id: 'cgei-cl-213-1-4', kind: 'prose', title: 'Lead-time definitions and initialisation dates', body: 'Lead-time counting conventions differ by centre. Always state the issuing centre’s definition alongside any lead-time figure.' },
       { id: 'cgei-cl-213-1-lab', kind: 'worked-example', title: 'Lab: computing the lead-time gap in days (hand-verified)', body: 'Init 1 May → JJA starts 1 June: 31-day lead. Same init → ASO starts 1 August: 31+30+31 = 92 days (~3 months). Target season must always be stated with lead time.' },
-      { id: 'cgei-cl-213-1-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Lead conventions vary by centre.', 'No C3S/S2S product is queried here.', 'No analogue/regression fit is performed.'] },
+      { id: 'cgei-cl-213-1-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['Lead conventions vary by centre.', 'No C3S/S2S product is queried here.', 'No analogue/regression fit is performed.'] },,
+
+      {
+        kind: 'callout',
+        title: 'S2S skill is horizon- and region-dependent',
+        body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
+      },
+      {
+        kind: 'key-points',
+        title: 'Decision-use checklist',
+        items: [
+          'State the decision lead time and whether the forecast has documented skill at that lead',
+          'Prefer probabilistic thresholds over single deterministic maps',
+          'Separate climate-mode guidance from local hydrological response',
+          'Record product version and issue time in the manifest',
+        ],
+      }
     ],
     activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
   },
@@ -2525,7 +2537,23 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-2-2', kind: 'prose', title: 'Skill is region-, season-, and variable-dependent', body: 'South Asian monsoon rainfall seasonal skill is modest relative to temperature skill. Evaluate locally for the specific region, season, and variable.' },
       { id: 'cgei-cl-213-2-3', kind: 'prose', title: 'Deterministic versus probabilistic metrics', body: 'MAE/RMSE/ACC score single values; Brier/RPS/CRPS score full distributions. Scoring only the central value of a probabilistic product discards calibration information.' },
       { id: 'cgei-cl-213-2-lab2', kind: 'worked-example', title: 'Lab: MAE versus RMSE sensitivity to a single large error (hand-verified)', body: 'Errors 1,1,1,5: MAE = 2.0; RMSE = √7 ≈ 2.65. RMSE weights the large error more.' },
-      { id: 'cgei-cl-213-2-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['RPSS example is a single case.', 'Monsoon skill contrast is qualitative literature pattern, not re-derived.', 'ROC described, not plotted.'] },
+      { id: 'cgei-cl-213-2-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['RPSS example is a single case.', 'Monsoon skill contrast is qualitative literature pattern, not re-derived.', 'ROC described, not plotted.'] },,
+
+      {
+        kind: 'callout',
+        title: 'S2S skill is horizon- and region-dependent',
+        body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
+      },
+      {
+        kind: 'key-points',
+        title: 'Decision-use checklist',
+        items: [
+          'State the decision lead time and whether the forecast has documented skill at that lead',
+          'Prefer probabilistic thresholds over single deterministic maps',
+          'Separate climate-mode guidance from local hydrological response',
+          'Record product version and issue time in the manifest',
+        ],
+      }
     ],
     activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
   },
@@ -2538,7 +2566,23 @@ export const lessons213: CurriculumLesson[] = [
       { id: 'cgei-cl-213-3-2', kind: 'prose', title: 'Communicating without false certainty', body: 'A 45% above-normal category is the mode, not near-certainty — 55% of probability mass remains outside it. Quote all categories.' },
       { id: 'cgei-cl-213-3-lab2', kind: 'worked-example', title: 'Lab: a worked sowing decision using tercile-weighted expected profit (hand-verified)', body: 'Outlook below/near/above = 0.40/0.35/0.25. Standard expected profit 2450; drought-resistant 2325. Standard still wins by 125 (vs 500 under climatology). Forecast narrows the margin without flipping the choice — decision-relevant downside-risk signal.' },
       { id: 'cgei-cl-213-3-checklist', kind: 'checklist', title: 'Using a seasonal outlook for a real decision', items: ['Quote all tercile probabilities', 'State system, lead definition, and local skill', 'Identify C and L; compute threshold C/L', 'Check decision timing vs forecast lead', 'Compare expected outcome under forecast vs climatology', 'State explicitly when the forecast does not flip the optimal decision'] },
-      { id: 'cgei-cl-213-3-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['All C/L and profit figures are synthetic.', 'Cost-loss assumes full protection at fixed cost.', 'Risk aversion is named but not formally modelled.'] },
+      { id: 'cgei-cl-213-3-callout', kind: 'callout', title: 'Limits', tone: 'warning', items: ['All C/L and profit figures are synthetic.', 'Cost-loss assumes full protection at fixed cost.', 'Risk aversion is named but not formally modelled.'] },,
+
+      {
+        kind: 'callout',
+        title: 'S2S skill is horizon- and region-dependent',
+        body: 'Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief.',
+      },
+      {
+        kind: 'key-points',
+        title: 'Decision-use checklist',
+        items: [
+          'State the decision lead time and whether the forecast has documented skill at that lead',
+          'Prefer probabilistic thresholds over single deterministic maps',
+          'Separate climate-mode guidance from local hydrological response',
+          'Record product version and issue time in the manifest',
+        ],
+      }
     ],
     activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
   },
@@ -2557,8 +2601,8 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-21-baseline', 'cgei-cl-a-21-stats', 'cgei-cl-a-21-evidence'],
     assessmentIds: ['cgei-cl-assess-21-baseline', 'cgei-cl-assess-21-stats', 'cgei-cl-assess-21-evidence'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.1 — Weather, climate, and time scales (Core)',
-    notes: ['Core unit; synthetic series only; attribution is headline-level, not computed here.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.1 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Defines weather, climate, normals, variability, and indices. Outcome: state a baseline, season, and statistical description for any climate claim.', 'Failure mode: Calling weather a climate trend; omitting baseline period or season definition.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-2', code: '2.2', title: 'Climate system processes', order: 202, kind: 'unit', readiness: 'review',
@@ -2568,8 +2612,8 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-22-energy', 'cgei-cl-a-22-feedback', 'cgei-cl-a-22-regional', 'cgei-cl-a-22-uhi'],
     assessmentIds: ['cgei-cl-assess-22-energy', 'cgei-cl-assess-22-feedback', 'cgei-cl-assess-22-regional', 'cgei-cl-assess-22-uhi'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.2 — Climate system processes (Core)',
-    notes: ['One-layer greenhouse is instructional; ECS/TCR ranges stated from AR6, not fitted.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.2 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Energy budget, forcing/feedbacks, circulation and monsoon, teleconnections, extreme-event cases, urban climate. Outcome: explain a regional heat or rainfall event mechanistically.', 'Failure mode: Treating urban heat as pure greenhouse forcing; ignoring surface-energy terms.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-3', code: '2.3', title: 'Atmospheric thermodynamics, dynamics, and the boundary layer', order: 203, kind: 'unit', readiness: 'review',
@@ -2579,8 +2623,8 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-23-moisture', 'cgei-cl-a-23-pbl', 'cgei-cl-a-23-nwp'],
     assessmentIds: ['cgei-cl-assess-23-moisture', 'cgei-cl-assess-23-pbl', 'cgei-cl-assess-23-nwp'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.3 — Atmospheric thermodynamics, dynamics, and the boundary layer (Support)',
-    notes: ['Support unit. Synthetic Clausius–Clapeyron check; no NWP model run in CI.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.3 (Support)',
+    notes: ['Support unit per Master TOC priority path.', 'Scope: Thermodynamics, dynamics, PBL, clouds/aerosols, NWP concepts. Outcome: connect moisture and dynamics language to observed weather and model fields.', 'Failure mode: Using NWP output as climate truth without stating lead time and resolution.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-4', code: '2.4', title: 'Observations, reanalysis, and gridded products', order: 204, kind: 'unit', readiness: 'review',
@@ -2590,8 +2634,8 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-24-qc', 'cgei-cl-a-24-products', 'cgei-cl-a-24-select'],
     assessmentIds: ['cgei-cl-assess-24-qc', 'cgei-cl-assess-24-products', 'cgei-cl-assess-24-select'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.4 — Observations, reanalysis, and gridded products (Core)',
-    notes: ['Synthetic QC only; no live ERA5/CHIRPS download in CI.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.4 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Stations, satellite/gridded products, reanalysis, product choice, representativeness. Outcome: select and justify a climate product with uncertainty language.', 'Failure mode: Reading area-mean reanalysis rainfall as a gauge; ignoring product version.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-5', code: '2.5', title: 'Climate data handling', order: 205, kind: 'unit', readiness: 'review',
@@ -2601,8 +2645,8 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-25-time', 'cgei-cl-a-25-aggregate', 'cgei-cl-a-25-workflow'],
     assessmentIds: ['cgei-cl-assess-25-time', 'cgei-cl-assess-25-aggregate', 'cgei-cl-assess-25-workflow'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.5 — Climate data handling (Core)',
-    notes: ['Synthetic handling only; Multan case is a workflow template, not a validated local study.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.5 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Formats, time/accumulation conventions, access, workflow, tools, Multan ERA5 case. Outcome: run a reproducible climate-data notebook with correct units and clocks.', 'Failure mode: UTC vs local daily extremes; wrong accumulation conventions.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-6', code: '2.6', title: 'Extremes and trend analysis', order: 206, kind: 'unit', readiness: 'review',
@@ -2612,19 +2656,19 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-26-threshold', 'cgei-cl-a-26-trend', 'cgei-cl-a-26-inference'],
     assessmentIds: ['cgei-cl-assess-26-threshold', 'cgei-cl-assess-26-trend', 'cgei-cl-assess-26-inference'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.6 — Extremes and trend analysis (Core)',
-    notes: ['OLS/Sen and empirical T only; formal EVT in Unit 2.7.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.6 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Thresholds, heat/rain/drought extremes, trends, significance, inference discipline. Outcome: compute extremes and trends without over-claiming causation.', 'Failure mode: Short-record trends as climate-change proof; multiple testing ignored.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-7', code: '2.7', title: 'Extreme value statistics and return levels', order: 207, kind: 'unit', readiness: 'review',
     summary: 'Apply GEV/GPD concepts, return levels and diagnostics, and communicate extremes with explicit stationarity and sample-size limits.',
     estimatedHours: 8, prerequisites: ['Unit 2.6'], outcomes: outcomes27,
     lessonIds: lessons27.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-27-theory', 'cgei-cl-a-27-estimate', 'cgei-cl-a-27-extend', 'cgei-cl-a-27-apply'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.7 — Extreme value analysis (Support)',
-    notes: ['Support unit. Teaching calculations only; not operational design guidance.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.7 (Support)',
+    notes: ['Support unit per Master TOC priority path.', 'Scope: GEV/GPD theory, estimation, extensions, applications. Outcome: fit a simple extreme-value model and report return levels with stated extrapolation limits.', 'Failure mode: Extrapolating return levels far beyond record length without intervals.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
     id: 'cgei-cl-unit-2-8', code: '2.8', title: 'Regional climate literacy (Pakistan / southern Punjab)', order: 208, kind: 'unit', readiness: 'review',
@@ -2634,63 +2678,63 @@ export const subject2Units: CurriculumUnit[] = [
     activityIds: ['cgei-cl-a-28-seasons', 'cgei-cl-a-28-multan', 'cgei-cl-a-28-evidence'],
     assessmentIds: ['cgei-cl-assess-28-seasons', 'cgei-cl-assess-28-multan', 'cgei-cl-assess-28-evidence'],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.8 — Regional climate literacy (Pakistan / southern Punjab) (Core)',
-    notes: ['No fabricated PMD station statistics; synthetic season helper only.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.8 (Core)',
+    notes: ['Core unit per Master TOC priority path.', 'Scope: Pakistan/southern Punjab seasons, heat/dust/fog/smog, Multan context, data institutions. Outcome: place Multan evidence in correct seasonal and institutional context.', 'Failure mode: National generalisations applied to Multan without local seasonality.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
-    id: 'cgei-cl-unit-2-9', code: '2.9', title: 'Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections', order: 209, kind: 'unit', readiness: 'review',
+    id: 'cgei-cl-unit-2-9', code: '2.9', title: 'Climate models and projections', order: 209, kind: 'unit', readiness: 'review',
     summary: 'Navigate GCM/ESM/RCM hierarchy, CMIP scenarios and ensembles, evaluation, bias adjustment, downscaling, and responsible projection use.',
     estimatedHours: 10, prerequisites: ['Unit 2.2', 'Unit 2.6'], outcomes: outcomes29,
     lessonIds: lessons29.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-29-hierarchy', 'cgei-cl-a-29-eval', 'cgei-cl-a-29-bias'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.9 — Climate models, scenarios, and projections (Core)',
-    notes: ['No live CMIP download in CI; uncertainty framing is instructional.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.9 (Support)',
+    notes: ['Support unit per Master TOC priority path.', 'Scope: Model hierarchy, scenarios, evaluation, bias adjustment, downscaling, using projections. Outcome: justify a model subset and method for a regional question.', 'Failure mode: Counting models instead of evaluating them; treating bias-adjusted output as observation.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
-    id: 'cgei-cl-unit-2-10', code: '2.10', title: 'Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition', order: 210, kind: 'unit', readiness: 'review',
+    id: 'cgei-cl-unit-2-10', code: '2.10', title: 'Regional projection products and the CMIP7 transition', order: 210, kind: 'unit', readiness: 'review',
     summary: 'Compare CORDEX, NEX-GDDP, ISIMIP and related families; document model/member choices; maintain CMIP7/AR7 awareness.',
     estimatedHours: 6, prerequisites: ['Unit 2.9'], outcomes: outcomes210,
     lessonIds: lessons210.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-210-families', 'cgei-cl-a-210-select', 'cgei-cl-a-210-cmip7'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.10 — Projection product families and model selection (Support)',
-    notes: ['Product literacy only; no full archive harvest in CI.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.10 (Support)',
+    notes: ['Support unit per Master TOC priority path.', 'Scope: Product families, documentation, CMIP7/AR7 awareness. Outcome: document product choice for a regional projection workflow.', 'Failure mode: Citing CMIP7 products that are not yet available for the variable/region.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
-    id: 'cgei-cl-unit-2-11', code: '2.11', title: 'Detection and attribution', order: 211, kind: 'unit', readiness: 'review',
+    id: 'cgei-cl-unit-2-11', code: '2.11', title: 'Detection, attribution, and event-based interpretation', order: 211, kind: 'unit', readiness: 'review',
     summary: 'Separate detection from attribution, frame event attribution probabilistically, and communicate limits for hard cases.',
     estimatedHours: 6, prerequisites: ['Unit 2.6', 'Unit 2.9'], outcomes: outcomes211,
     lessonIds: lessons211.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-211-concepts', 'cgei-cl-a-211-event', 'cgei-cl-a-211-limits'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.11 — Detection and attribution (Support)',
-    notes: ['Conceptual and communication focus; not a full attribution reanalysis lab.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.11 (Optional)',
+    notes: ['Optional unit per Master TOC priority path.', 'Scope: Detection/attribution concepts, event attribution, limits. Outcome: separate detection from attribution language and state what a single event cannot prove.', 'Failure mode: Equating a trend detection with single-event attribution.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
-    id: 'cgei-cl-unit-2-12', code: '2.12', title: 'ML/AI in climate downscaling and services', order: 212, kind: 'unit', readiness: 'review',
+    id: 'cgei-cl-unit-2-12', code: '2.12', title: 'Emerging directions: ML, open AI forecasts, climate services, and digital twins', order: 212, kind: 'unit', readiness: 'review',
     summary: 'Critique ML downscaling and rare-event evaluation, use open AI forecasts responsibly, and place climate services and digital twins in an evidence hierarchy.',
     estimatedHours: 7, prerequisites: ['Unit 2.9', 'Unit 2.10'], outcomes: outcomes212,
     lessonIds: lessons212.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-212-ml', 'cgei-cl-a-212-services', 'cgei-cl-a-212-baseline'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.12 — ML, open AI forecasts, climate services, and digital twins (Support)',
-    notes: ['No trained ML models in CI; evaluation literacy only.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.12 (Support)',
+    notes: ['Support unit per Master TOC priority path.', 'Scope: ML downscaling, probabilistic evaluation, open AI forecasts, climate services, digital twins. Outcome: state when ML/AI adds value over a simple baseline under honest validation.', 'Failure mode: Deploying ML downscaling without a simple baseline or spatial holdout.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
   {
-    id: 'cgei-cl-unit-2-13', code: '2.13', title: 'Seasonal-to-subseasonal prediction and use in decisions', order: 213, kind: 'unit', readiness: 'review',
+    id: 'cgei-cl-unit-2-13', code: '2.13', title: 'Seasonal-to-subseasonal prediction and verification', order: 213, kind: 'unit', readiness: 'review',
     summary: 'Interpret S2S/seasonal systems, verify probabilistic outlooks, and apply cost-loss reasoning without false certainty.',
     estimatedHours: 6, prerequisites: ['Unit 2.1', 'Unit 2.6'], outcomes: outcomes213,
     lessonIds: lessons213.map((lesson) => lesson.id),
-    activityIds: [],
+    activityIds: ['cgei-cl-a-213-systems', 'cgei-cl-a-213-skill', 'cgei-cl-a-213-decisions'],
     assessmentIds: [],
     resourceIds: [], deliverableIds: [],
-    sourceDocument: 'Master Study TOC Subject 2 Unit 2.13 — Seasonal and subseasonal outlooks for decisions (Support)',
-    notes: ['Synthetic skill and cost-loss examples only; no live C3S/S2S pull in CI.'],
+    sourceDocument: 'Master Study TOC Subject 2 Unit 2.13 (Optional)',
+    notes: ['Optional unit per Master TOC priority path.', 'Scope: S2S forecast systems, skill/verification, decision use. Outcome: interpret an S2S product with skill limits and decision-relevant uncertainty.', 'Failure mode: Using S2S as a deterministic weather forecast beyond skill horizon.', 'Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.', 'Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing.'],
   },
 ];
 

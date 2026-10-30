@@ -201,7 +201,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-cl-unit-2-9",
     "code": "2.9",
-    "title": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "title": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science",
     "lessonIds": [
@@ -216,7 +216,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-cl-unit-2-10",
     "code": "2.10",
-    "title": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "title": "Regional projection products and the CMIP7 transition",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science",
     "lessonIds": [
@@ -228,7 +228,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-cl-unit-2-11",
     "code": "2.11",
-    "title": "Detection and attribution",
+    "title": "Detection, attribution, and event-based interpretation",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science",
     "lessonIds": [
@@ -240,7 +240,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-cl-unit-2-12",
     "code": "2.12",
-    "title": "ML/AI in climate downscaling and services",
+    "title": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science",
     "lessonIds": [
@@ -254,7 +254,7 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
   {
     "id": "cgei-cl-unit-2-13",
     "code": "2.13",
-    "title": "Seasonal-to-subseasonal prediction and use in decisions",
+    "title": "Seasonal-to-subseasonal prediction and verification",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science",
     "lessonIds": [
