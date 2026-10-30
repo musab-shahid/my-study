@@ -58,6 +58,10 @@ describe('CGEI question-bank projection', () => {
       assert.deepEqual(projected.options, source.options);
       assert.equal(projected.correctAnswer, source.correctAnswer);
       assert.equal(projected.explanation, source.explanation);
+      assert.equal(
+        projected.sourceCitation,
+        source.sourceCitation === "CGEI curriculum (migrated)" ? undefined : source.sourceCitation,
+      );
       assert.equal(projected.difficulty, source.difficulty);
       assert.equal(projected.cognitiveLevel, source.cognitiveLevel);
     }

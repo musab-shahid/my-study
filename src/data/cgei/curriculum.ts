@@ -94,6 +94,9 @@ const questions: CurriculumQuestion[] = engineQuestions.flatMap((question) => {
     options: [...question.options],
     correctAnswer: question.correctAnswer,
     explanation: question.explanation,
+    ...(question.sourceCitation && question.sourceCitation !== "CGEI curriculum (migrated)"
+      ? { sourceCitation: question.sourceCitation }
+      : {}),
     difficulty: question.difficulty,
     cognitiveLevel: question.cognitiveLevel,
   }];
