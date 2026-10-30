@@ -7,7 +7,7 @@
     "lessons": 253,
     "activities": 252,
     "assessments": 229,
-    "questions": 568,
+    "questions": 569,
     "resources": 56,
     "deliverables": 49
   },
@@ -1419,7 +1419,8 @@
       "cgei-ds-q-51-020",
       "cgei-ds-q-511-020",
       "cgei-ds-q-512-020",
-      "cgei-ds-q-56-020"
+      "cgei-ds-q-56-020",
+      "cgei-cl-q-26-005"
     ],
     "resourceIds": [
       "cgei-geo-r-epsg",
@@ -3033,6 +3034,7 @@
     "cgei-ds-d-512-performance": "6f1a2f9392ea912da81d945559e23efc17026916e46fd16f8db853462dde1e5b",
     "cgei-ds-d-512-pipeline": "66dae703601806514a236a1de302216c9891ac441f6d7b8d283a2c7fef00fea5",
     "cgei-ds-d-512-report": "6a07ff5228104bf1f6ff8a7dc5bd43d1154faf8008e1fdddc8800c944670e3d4",
-    "cgei-ds-d-capstone-repository": "a40967f458412ec57538235446e258783d15ac4df8fd1e626686090ec870e76c"
+    "cgei-ds-d-capstone-repository": "a40967f458412ec57538235446e258783d15ac4df8fd1e626686090ec870e76c",
+    "cgei-cl-q-26-005": "5644afc49596d40a0ab3e807e14b1842e4e49b52f3086ca14610133c69878c2f"
   }
 }
