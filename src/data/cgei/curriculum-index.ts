@@ -1155,7 +1155,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-3-2",
-    "title": "Boundary layer, fluxes, and urban nights",
+    "title": "Dynamics, boundary layer and surface exchange",
     "unitId": "cgei-cl-unit-2-3",
     "unitTitle": "Atmospheric thermodynamics, dynamics, and the boundary layer",
     "subjectId": "cgei-climate-science",
@@ -1163,7 +1163,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-3-3",
-    "title": "Clouds, precipitation, and NWP concepts",
+    "title": "Clouds, precipitation and NWP concepts",
     "unitId": "cgei-cl-unit-2-3",
     "unitTitle": "Atmospheric thermodynamics, dynamics, and the boundary layer",
     "subjectId": "cgei-climate-science",
@@ -1203,7 +1203,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-5-2",
-    "title": "Aggregation, missingness and anomalies",
+    "title": "Aggregation, completeness and anomalies",
     "unitId": "cgei-cl-unit-2-5",
     "unitTitle": "Climate data handling",
     "subjectId": "cgei-climate-science",
@@ -1227,7 +1227,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-6-2",
-    "title": "Trend estimation and dependence",
+    "title": "Trend estimation",
     "unitId": "cgei-cl-unit-2-6",
     "unitTitle": "Extremes and trend analysis",
     "subjectId": "cgei-climate-science",
@@ -1251,7 +1251,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-8-2",
-    "title": "Heat, air-quality seasons and Multan context",
+    "title": "Multan / southern Punjab setting",
     "unitId": "cgei-cl-unit-2-8",
     "unitTitle": "Regional climate literacy (Pakistan / southern Punjab)",
     "subjectId": "cgei-climate-science",
@@ -2869,7 +2869,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-1",
     "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2877,7 +2877,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-2",
     "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2885,7 +2885,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-3",
     "title": "Model evaluation: skill metrics and process-based checks",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2893,7 +2893,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-4",
     "title": "Bias adjustment: methods, assumptions, and artefacts",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2901,7 +2901,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-5",
     "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2909,7 +2909,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-9-6",
     "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
     "unitId": "cgei-cl-unit-2-9",
-    "unitTitle": "Climate model hierarchy, scenarios, evaluation, bias adjustment, downscaling, and using projections",
+    "unitTitle": "Climate models and projections",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2917,7 +2917,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-10-1",
     "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
     "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2925,7 +2925,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-10-2",
     "title": "Choosing models and members, and documenting the choice",
     "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2933,7 +2933,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-10-3",
     "title": "CMIP7 and AR7 awareness",
     "unitId": "cgei-cl-unit-2-10",
-    "unitTitle": "Applied climate data products: availability, selection, documentation, and the CMIP7/AR7 transition",
+    "unitTitle": "Regional projection products and the CMIP7 transition",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2941,7 +2941,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-11-1",
     "title": "Concepts: detection, attribution, and the single-record problem",
     "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2949,7 +2949,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-11-2",
     "title": "Event attribution: probabilistic framing and rapid protocols",
     "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2957,7 +2957,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-11-3",
     "title": "Limits: harder cases and communicating attribution results",
     "unitId": "cgei-cl-unit-2-11",
-    "unitTitle": "Detection and attribution",
+    "unitTitle": "Detection, attribution, and event-based interpretation",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2965,7 +2965,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-12-1",
     "title": "ML in downscaling and bias correction",
     "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2973,7 +2973,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-12-2",
     "title": "Probabilistic and rare-event evaluation",
     "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2981,7 +2981,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-12-3",
     "title": "Using open AI forecasts: post-processing and blending",
     "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2989,7 +2989,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-12-4",
     "title": "Climate services",
     "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -2997,7 +2997,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-12-5",
     "title": "Digital twins and kilometre-scale models",
     "unitId": "cgei-cl-unit-2-12",
-    "unitTitle": "ML/AI in climate downscaling and services",
+    "unitTitle": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -3005,7 +3005,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-13-1",
     "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
     "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -3013,7 +3013,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-13-2",
     "title": "Skill and verification of probabilistic outlooks",
     "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   },
@@ -3021,7 +3021,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "id": "cgei-cl-lesson-2-13-3",
     "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
     "unitId": "cgei-cl-unit-2-13",
-    "unitTitle": "Seasonal-to-subseasonal prediction and use in decisions",
+    "unitTitle": "Seasonal-to-subseasonal prediction and verification",
     "subjectId": "cgei-climate-science",
     "subjectTitle": "Climate Science"
   }
