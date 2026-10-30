@@ -5,8 +5,16 @@
  * by scripts/migrations/split-curriculum-by-subject.ts. This file reassembles
  * the CurriculumRegistry from those modules plus the shared track,
  * competencies, rubrics and flat question bank.
+ *
+ * assessment.questionIds: when omitted or empty, derived from questions whose
+ * lessonId is listed on a lesson that references the assessment (Phase C3.5).
  */
-import type { CurriculumRegistry } from "@/types/curriculum";
+import type {
+  CurriculumAssessment,
+  CurriculumLesson,
+  CurriculumQuestion,
+  CurriculumRegistry,
+} from "@/types/curriculum";
 import { cgeiTrack } from "./shared";
 import { competencies, rubrics } from "./registry-shared";
 import { curriculumQuestions } from "./curriculum-questions";
@@ -41,17 +49,49 @@ const subjectModules = [
   capstone,
 ];
 
+const lessons: CurriculumLesson[] = subjectModules.flatMap((mod) => mod.lessons);
+const questions: CurriculumQuestion[] = curriculumQuestions;
+const rawAssessments: CurriculumAssessment[] = subjectModules.flatMap((mod) => mod.assessments);
+
+/** Lessons that list a given assessment id. */
+function lessonIdsForAssessment(assessmentId: string): string[] {
+  return lessons
+    .filter((lesson) => (lesson.assessmentIds ?? []).includes(assessmentId))
+    .map((lesson) => lesson.id);
+}
+
+/**
+ * Prefer hand-authored questionIds when present; otherwise attach every
+ * curriculum question whose lessonId is on a lesson that references the assessment.
+ */
+function withDerivedQuestionIds(assessment: CurriculumAssessment): CurriculumAssessment {
+  if (assessment.questionIds && assessment.questionIds.length > 0) {
+    return assessment;
+  }
+  const lessonIds = new Set(lessonIdsForAssessment(assessment.id));
+  if (lessonIds.size === 0) {
+    return assessment;
+  }
+  const derived = questions
+    .filter((q) => lessonIds.has(q.lessonId))
+    .map((q) => q.id);
+  if (derived.length === 0) {
+    return assessment;
+  }
+  return { ...assessment, questionIds: derived };
+}
+
 export const cgeiCurriculum: CurriculumRegistry = {
   schemaVersion: 2,
   tracks: [cgeiTrack],
   subjects: subjectModules.map((mod) => mod.subject),
   units: subjectModules.flatMap((mod) => mod.units),
-  lessons: subjectModules.flatMap((mod) => mod.lessons),
-  questions: curriculumQuestions,
+  lessons,
+  questions,
   competencies,
   resources: subjectModules.flatMap((mod) => mod.resources),
   activities: subjectModules.flatMap((mod) => mod.activities),
-  assessments: subjectModules.flatMap((mod) => mod.assessments),
+  assessments: rawAssessments.map(withDerivedQuestionIds),
   rubrics,
   deliverables: subjectModules.flatMap((mod) => mod.deliverables),
   projects: subjectModules.flatMap((mod) => mod.projects),
