@@ -8,6 +8,8 @@ import type { Question, SubjectId } from '@/types';
 import { loadSubjectQuestions } from '@/data/lazy-data';
 import {
   collectLessonChecks,
+  getVisibleLessonChecks,
+  LESSON_CHECK_DISPLAY_LIMIT,
   curriculumQuestionToCheck,
   shuffleOptions,
   type LessonCheckItem,
@@ -155,6 +157,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const assessmentQuestionIds = assessments.flatMap((a) => a.questionIds ?? []);
   const subjectId = (subject?.subjectId ?? '') as SubjectId;
   const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
+  const [showAllLessonChecks, setShowAllLessonChecks] = useState(false);
 
   useEffect(() => {
     if (!subject?.subjectId) {
@@ -183,6 +186,12 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
     [lesson?.id, bankQuestions, assessmentQuestionIds.join('|')],
   );
 
+  const visibleLessonChecks = getVisibleLessonChecks(lessonChecks, showAllLessonChecks);
+
+  useEffect(() => {
+    setShowAllLessonChecks(false);
+  }, [lesson?.id]);
+
   const isLessonStudied = lesson?.sourceTopicId
     ? data.studiedTopics.includes(lesson.sourceTopicId)
     : Boolean(lesson && (data.studiedCurriculumLessons ?? []).includes(lesson.id));
@@ -210,7 +219,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       {activities.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Practice and application</Heading><div className="space-y-3">{activities.map((activity) => <Card key={activity.id} className="p-card-pad border border-slate-200"><div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-ink text-sm">{activity.title}</h3><span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label">{activity.level}</span>{activity.estimatedMinutes ? <span className="text-xs text-muted">{activity.estimatedMinutes} min</span> : null}</div><p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-brand-800 mt-2"><strong>Evidence to produce:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}{activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800">Hints</summary><ul className="list-disc pl-5 mt-2 text-sm text-muted space-y-1">{activity.hints.map((hint) => <li key={hint}>{hint}</li>)}</ul></details> : null}</Card>)}</div></section>}
 
-      {lessonChecks.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Check your understanding</Heading><div className="space-y-3">{lessonChecks.map((item) => <CurriculumQuestionCard key={item.id} item={item} />)}</div><p className="text-xs text-muted mt-3">Single-choice and true/false items for this lesson. Other types stay in the quiz engine. Answers are not recorded.</p></section>}
+      {lessonChecks.length > 0 && <section className="mb-6"><div className="flex flex-wrap items-end justify-between gap-2 mb-3"><Heading level={2} className="text-lg font-semibold">Check your understanding</Heading><span className="text-xs text-muted">{showAllLessonChecks ? `All ${lessonChecks.length} checks` : `Showing ${visibleLessonChecks.length} of ${lessonChecks.length}`}</span></div><div className="space-y-3">{visibleLessonChecks.map((item) => <CurriculumQuestionCard key={item.id} item={item} />)}</div>{lessonChecks.length > LESSON_CHECK_DISPLAY_LIMIT && <div className="mt-3 flex justify-center"><Button type="button" variant="secondary" size="sm" onClick={() => setShowAllLessonChecks((value) => !value)}>{showAllLessonChecks ? 'Show fewer questions' : `Show all ${lessonChecks.length} questions`}</Button></div>}<p className="text-xs text-muted mt-3">Single-choice and true/false items for this lesson. Other types stay in the quiz engine. Answers are not recorded.</p></section>}
 
       {resources.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">References and tools</Heading><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-ink">{resource.title}</span>}</div><p className="text-sm text-muted mt-2">{resource.purpose}</p></Card>)}</div></section>}
 
