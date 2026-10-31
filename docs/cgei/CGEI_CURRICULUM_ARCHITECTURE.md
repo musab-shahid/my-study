@@ -131,7 +131,7 @@ npm run build
 npm run test:e2e
 ```
 
-- `npm run check:cgei` runs data validation, question-quality lint, Core-leaf evidence audit, question-ID ledger check and generated-index check.
+- `npm run check:cgei` first runs the authoring sync in idempotence-check mode (index, section counts and ID ledger must already be current), then runs data validation, question-quality lint, Core-leaf evidence audit, question-ID ledger check and generated-index check.
 - `npm run check:cgei-registry` checks the whole-registry hash snapshot. Because ordinary content edits change hashes, use it for deliberate structural re-baselining rather than as a routine content-PR gate.
 - `npm run build` includes the production build, security-header generation and bundle-budget check.
 - CI additionally runs the secret/security, design-system, contrast, branding, feature-icon, legacy-freeze, scientific-smoke, Playwright and Lighthouse checks.
