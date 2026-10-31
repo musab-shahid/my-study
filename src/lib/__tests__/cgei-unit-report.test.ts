@@ -26,5 +26,10 @@ describe('CGEI unit report helpers', () => {
     ]);
     assert.equal(fail.meetsReviewMinimum, false);
     assert.equal(fail.missingCitations, 2);
+
+    const tocOnly = summarizeQuestionCoverage([
+      { cognitiveLevel: 'apply', difficulty: 'medium', type: 'single', sourceCitation: 'Master Study TOC · Unit 2.6' },
+    ]);
+    assert.equal(tocOnly.missingCitations, 1, 'a TOC pointer is curriculum traceability, not a scientific source citation');
   });
 });

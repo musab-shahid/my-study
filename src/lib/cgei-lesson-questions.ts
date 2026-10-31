@@ -7,6 +7,13 @@ import type { CurriculumQuestion } from '@/types/curriculum';
 
 const LESSON_RENDER_TYPES = new Set<QuestionType>(['single', 'true_false']);
 
+/** Keep lesson pages concise while leaving every check available on expansion. */
+export const LESSON_CHECK_DISPLAY_LIMIT = 5;
+
+export function getVisibleLessonChecks(items: readonly LessonCheckItem[], showAll: boolean): LessonCheckItem[] {
+  return showAll ? [...items] : items.slice(0, LESSON_CHECK_DISPLAY_LIMIT);
+}
+
 export type LessonCheckItem = {
   id: string;
   prompt: string;

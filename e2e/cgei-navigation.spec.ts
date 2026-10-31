@@ -113,4 +113,21 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('heading', { name: 'Legacy topic groups', exact: true })).toHaveCount(0);
     await expect(page.getByText(/0 \/ 1 topics studied/)).toHaveCount(0);
   });
+
+  test('lesson checks cap at five, expand fully, and reset when the learner changes lessons', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/curriculum/lesson/cgei-cl-lesson-2-4-3');
+
+    await expect(page.getByText('Showing 5 of 7', { exact: true })).toBeVisible({ timeout: 30_000 });
+    await page.getByRole('button', { name: 'Show all 7 questions', exact: true }).click();
+    await expect(page.getByText('All 7 checks', { exact: true })).toBeVisible();
+
+    await page.getByRole('button', { name: 'Unit overview', exact: true }).click();
+    await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-cl-unit-2-4$/);
+    await page.getByRole('button', { name: /Gridded products and reanalysis/ }).click();
+    await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-cl-lesson-2-4-2$/);
+    await expect(page.getByText('Showing 3 of 3', { exact: true })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByRole('button', { name: /Show all/ })).toHaveCount(0);
+  });
+
 });

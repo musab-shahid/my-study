@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { shuffleOptions, collectLessonChecks, bankQuestionToCheck } from '../cgei-lesson-questions.ts';
+import { shuffleOptions, collectLessonChecks, bankQuestionToCheck, getVisibleLessonChecks, LESSON_CHECK_DISPLAY_LIMIT } from '../cgei-lesson-questions.ts';
 import type { Question } from '../../types.ts';
 
 describe('cgei-lesson-questions', () => {
@@ -34,6 +34,17 @@ describe('cgei-lesson-questions', () => {
       lessonId: 'lesson-1',
     };
     assert.equal(bankQuestionToCheck(multi), null);
+  });
+
+  it('caps the initial lesson-page list but preserves an explicit show-all path', () => {
+    const items = Array.from({ length: 8 }, (_, index) => ({
+      id: `q${index + 1}`, prompt: `Question ${index + 1}`, options: ['a', 'b'],
+      correctAnswer: 0, difficulty: 'easy', explanation: '', source: 'bank' as const,
+    }));
+    assert.equal(LESSON_CHECK_DISPLAY_LIMIT, 5);
+    assert.equal(getVisibleLessonChecks(items, false).length, 5);
+    assert.equal(getVisibleLessonChecks(items, true).length, 8);
+    assert.equal(items.length, 8, 'display cap must not mutate or delete source items');
   });
 
   it('collects bank questions by lessonId and dedupes against curriculum', () => {

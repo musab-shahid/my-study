@@ -62,6 +62,8 @@ The engine schema includes stable `id`, `sectionId`, `topicId`, `difficulty`, `t
 
 Supported engine question types are `single`, `true_false`, `multi`, `calculation`, `fill_blank` and `matching`. Keep the answer-key shape consistent with the declared type. The shared quiz engine is not being replaced; FPSC and HAT continue to use it.
 
+Lesson pages render single-choice and true/false bank items as unrecorded checks. To keep long lessons readable, they show at most five initially and provide an explicit show-all control; this is presentation-only and does not remove items from the bank or quiz engine. Other question types remain in the existing quiz engine. The 37 retained legacy Climate questions and their lesson/objective assignments are recorded in [LEGACY_CLIMATE_QUESTION_MAPPING.md](./LEGACY_CLIMATE_QUESTION_MAPPING.md).
+
 ## 4. Question projection and assessment behaviour
 
 The canonical assembler keeps `cgeiCurriculum.questions` as a compatibility projection for existing curriculum consumers. It is built from the subject banks; it is not a second source of question content.
