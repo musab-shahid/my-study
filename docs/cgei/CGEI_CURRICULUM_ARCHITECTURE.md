@@ -161,3 +161,9 @@ Readiness moves from `draft` to `review` to `validated` only with recorded evide
 - Do not claim a subject is complete because it has a registry entry, roadmap card, question count or green build.
 - Do not invent data, citations, calculations or source coverage. Record gaps honestly and keep readiness at draft.
 - Do not merge content work until exact-head CI and the required human review are complete.
+
+## Read-only unit completeness report
+
+Run `npm run report:cgei-unit -- --unit <unitId>` to inspect a unit's lessons, learning objectives, question counts and cognitive levels, linked activities/assessments/resources/deliverables/rubrics/projects, fixture files and references, source-TOC traceability, unresolved IDs, and readiness evidence. Add `--json` for machine-readable output.
+
+The report never edits curriculum data and does not block draft creation. When promoting readiness, run it with `--to review` or `--to validated`; the command exits non-zero if the requested promotion is incomplete. Review promotion checks substantive lesson content, at least three questions across two cognitive levels with one apply-or-higher item, traceability evidence, and all declared references. Validated promotion additionally requires unit and lesson readiness evidence and no partially mapped Core leaves. Activities, resources and deliverables are optional: the report validates them when linked but does not create empty records or require them for every unit.
