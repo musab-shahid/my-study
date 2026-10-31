@@ -39,7 +39,7 @@ const expected = [
   ["CGEI-025-Q008", "2-8-1", "cgei-cl-o-28-seasons", "understand"],
   ["CGEI-025-Q009", "2-5-2", "cgei-cl-o-25-aggregate", "analyze"],
   ["CGEI-025-Q010", "2-5-1", "cgei-cl-o-25-time", "apply"]
-] as const
+] as const;
 
 describe('legacy Climate question lesson mapping', () => {
   it('maps all 35 lesson-supported legacy IDs to the reviewed canonical lesson and objective', () => {
