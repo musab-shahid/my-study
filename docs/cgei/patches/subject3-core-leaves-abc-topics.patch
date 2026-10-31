@@ -1,7 +1,11 @@
-See local authoring session. Apply after fetching:
-
-  curl -sL https://raw.githubusercontent.com/musab-shahid/my-study/main/docs/cgei/patches/subject3-core-leaves-abc-topics.patch | git apply
-
-Or copy the full topics file from the Batch A-C authoring worktree.
-
-This placeholder will be replaced with the full unified diff in a follow-up if needed.
+--- a/src/data/cgei/geospatial/topics-geospatial.ts
++++ b/src/data/cgei/geospatial/topics-geospatial.ts
+@@ -264,7 +264,7 @@
+     "outcomes": [
+       {
+         "id": "cgei-geo-o-31-models",
+-        "statement": "Choose vector or raster representation for an environmental question and state the support of each observation.",
++        "statement": "Choose among vector, raster and common beyond-2D models for an environmental question and state the support of each observation.",
+         "action": "select and justify",
+         "level": "L2",
+         "competencyIds": [
