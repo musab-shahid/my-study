@@ -106,22 +106,23 @@ const linkedRubricIds = unique([
 ]);
 const missingRubrics = linkedRubricIds.filter((id) => !rubricById.has(id));
 
-const tracePath = resolve(root, 'docs/cgei/ALL-units-subtopic-traceability.csv');
-const traceRows = existsSync(tracePath) ? parseCsv(readFileSync(tracePath, 'utf8')) : [];
-const subjectNumber = subject.id.match(/cgei-subject-(\d+)/)?.[1];
+const subjectNumber = subject.id.match(/cgei-subject-(\\d+)/)?.[1];
 const preferredTraceFile = subjectNumber
   ? `subject-${subjectNumber}-unit-${unit.code}-subtopic-traceability.csv`
   : '';
 const alternateTraceFile = subjectNumber
-  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\./g, '-')}-subtopic-traceability.csv`
+  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\\./g, '-')}-subtopic-traceability.csv`
   : '';
-const preferredRows = traceRows.filter((row) => row.source_file === preferredTraceFile);
-const alternateRows = traceRows.filter((row) => row.source_file === alternateTraceFile);
-const unitTraceRows = preferredRows.length
-  ? preferredRows
-  : alternateRows.length
-    ? alternateRows
-    : traceRows.filter((row) => !row.source_file && row.source_subtopic_path?.startsWith(`${unit.code}.`));
+const preferredTracePath = preferredTraceFile ? resolve(root, 'docs/cgei', preferredTraceFile) : '';
+const alternateTracePath = alternateTraceFile ? resolve(root, 'docs/cgei', alternateTraceFile) : '';
+// Read the unit's authoritative traceability matrix directly; the all-units CSV is a derived roll-up.
+const traceSourcePath = preferredTracePath && existsSync(preferredTracePath)
+  ? preferredTracePath
+  : alternateTracePath && existsSync(alternateTracePath)
+    ? alternateTracePath
+    : '';
+const traceSourceFile = traceSourcePath ? (traceSourcePath.split(/[\\/]/).pop() ?? '') : null;
+const unitTraceRows = traceSourcePath ? parseCsv(readFileSync(traceSourcePath, 'utf8')) : [];
 const coreTraceRows = unitTraceRows.filter((row) => row.priority?.toLowerCase() === 'core');
 const countDispositions = (rows: typeof unitTraceRows) => rows.reduce<Record<string, number>>((counts, row) => {
   const key = row.disposition || 'missing';
@@ -282,7 +283,7 @@ const report = {
   },
   references: { unresolved, missingCompetencies, missingRubrics },
   traceability: {
-    sourceFile: preferredRows.length ? preferredTraceFile : alternateRows.length ? alternateTraceFile : null,
+    sourceFile: traceSourceFile,
     rowCount: unitTraceRows.length,
     items: unitTraceRows.map((row) => ({
       sourcePath: row.source_subtopic_path,
