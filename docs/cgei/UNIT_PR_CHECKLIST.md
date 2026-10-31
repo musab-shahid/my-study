@@ -33,3 +33,10 @@ npm test
 ## Reviewer
 
 A subject-competent reviewer checks formulas, units, assumptions, worked examples and answer keys: every hard/numeric item and about a quarter of the rest. Record reviewer evidence before moving readiness `draft → review → validated`.
+
+### Unit readiness promotion
+
+- [ ] For a new unit, keep readiness at `draft`; the report is read-only and does not block creation.
+- [ ] When moving a unit to `review`, attach `npm run report:cgei-unit -- --unit <unitId> --to review` output and resolve its blockers.
+- [ ] When moving a unit to `validated`, attach `npm run report:cgei-unit -- --unit <unitId> --to validated` output, including unit and lesson readiness evidence.
+- [ ] Optional activities, resources and deliverables are reported and their references validated when present; they are not fabricated or universally required.
