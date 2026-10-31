@@ -4,7 +4,7 @@
  *   npm run new:unit -- --subject cgei-data-science --code 5.13 --title "My unit"
  *
  * Creates:
- *   - content-drafts/.../fixtures/unit_<code>_stub_check.py (minimal pass)
+ *   - no fixture file; add one only when executable assertions exist
  *   - docs/cgei/unit-<code>-traceability-stub.csv
  *   - prints the topics-<subject>.ts unit object to paste (does not auto-edit large modules)
  */
