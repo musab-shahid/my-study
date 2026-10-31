@@ -245,8 +245,21 @@ if (jsonOutput) {
     console.log(`  Objectives: ${item.objectives} | Blocks: ${item.contentBlocks} ${JSON.stringify(item.contentKinds)}`);
     console.log(`  Questions: ${item.questions.total}; levels ${JSON.stringify(item.questions.cognitiveLevels)}; apply+: ${item.questions.applyOrHigher}; missing citations: ${item.questions.missingCitations}`);
   }
+  console.log('\nLINKED RECORDS');
+  for (const [kind, records] of Object.entries(report.linkedRecords)) {
+    const summary = records.length ? records.map((item) => `${item.id}: ${item.title}`).join('; ') : '(none; optional unless the unit requires them)';
+    console.log(`- ${kind}: ${summary}`);
+  }
+  const unresolvedEntries = Object.entries(unresolved).filter(([, values]) => values.length);
+  console.log('\nUNRESOLVED REFERENCES');
+  console.log(unresolvedEntries.length ? unresolvedEntries.map(([kind, values]) => `- ${kind}: ${values.join(', ')}`).join('\n') : '- none');
+  if (missingCompetencies.length) console.log(`- competencies: ${missingCompetencies.join(', ')}`);
+  if (missingRubrics.length) console.log(`- rubrics: ${missingRubrics.join(', ')}`);
   console.log(`\nTRACEABILITY — ${unitTraceRows.length} rows; Core: ${coreTraceRows.length} ${JSON.stringify(dispositionCounts)}; Support: ${supportTraceRows.length} ${JSON.stringify(supportDispositionCounts)}`);
-  console.log(`FIXTURES — ${fixtureFiles.length} files; explicit refs: ${fixtureReferences.length}; missing refs: ${missingFixtureReferences.length}`);
+  for (const row of traceabilityGaps.slice(0, 10)) console.log(`  - ${row.source_subtopic_path}: ${row.disposition || 'missing'} — ${row.evidence_note || 'no evidence note'}`);
+  console.log(`FIXTURES — ${fixtureFiles.length} files: ${fixtureFiles.join(', ') || '(none)'}`);
+  console.log(`  Explicit refs: ${fixtureReferences.join(', ') || '(none)'}; missing: ${missingFixtureReferences.join(', ') || '(none)'}`);
+  console.log(`READINESS EVIDENCE — ${evidence?.reviewer || '(no reviewer)'} | ${evidence?.reviewedOn || '(no review date)'} | checks: ${evidence?.checksPassed?.length ?? 0} | notes: ${evidence?.notes?.length ?? 0}`);
   console.log(`\nPROMOTION TO REVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
   for (const item of reviewBlockers) console.log(`  - ${item}`);
   console.log(`PROMOTION TO VALIDATED: ${validatedBlockers.length ? 'BLOCKED' : 'PASS'} (${validatedBlockers.length} blockers)`);
