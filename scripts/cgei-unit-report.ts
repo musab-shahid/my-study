@@ -150,7 +150,10 @@ const lessonReports = lessons.map((lesson) => {
     readinessEvidencePresent: Boolean(lesson.readinessEvidence),
     readinessEvidence: lesson.readinessEvidence ?? null,
     objectives: lesson.objectives.length,
+    objectiveIds: lesson.objectives.map((outcome) => outcome.id),
     contentBlocks: lesson.content.length,
+    contentBlockIds: lesson.content.map((block) => block.id),
+    questionIds: qs.map((question) => question.id),
     contentKinds,
     questions: coverage,
     activityIds: lesson.activityIds,
@@ -244,6 +247,7 @@ if (jsonOutput) {
     console.log(`- ${item.id} — ${item.title} [${item.readiness}]`);
     console.log(`  Objectives: ${item.objectives} | Blocks: ${item.contentBlocks} ${JSON.stringify(item.contentKinds)}`);
     console.log(`  Questions: ${item.questions.total}; levels ${JSON.stringify(item.questions.cognitiveLevels)}; apply+: ${item.questions.applyOrHigher}; missing citations: ${item.questions.missingCitations}`);
+    console.log(`  Question IDs: ${item.questionIds.join(', ') || '(none)'}`);
   }
   console.log('\nLINKED RECORDS');
   for (const [kind, records] of Object.entries(report.linkedRecords)) {
