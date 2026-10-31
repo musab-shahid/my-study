@@ -308,21 +308,14 @@ async function main() {
     'hat-verbal': () => import('../src/data/hat/verbal/topics-verbal'),
     'hat-analytical': () => import('../src/data/hat/analytical/topics-analytical'),
     'hat-quantitative': () => import('../src/data/hat/quantitative/topics-quantitative'),
-    'cgei-climate-science': () => import('../src/data/cgei/climate-science/quiz-topics-climate-science'),
-    'cgei-env-systems': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-env-systems') })),
-    'cgei-geospatial': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-geospatial') })),
-    'cgei-remote-sensing': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-remote-sensing') })),
-    'cgei-data-science': () => import('../src/data/cgei/data-science/quiz-topics-data-science'),
-    'cgei-ml-geoai': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-ml-geoai') })),
-    'cgei-climate-risk': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-climate-risk') })),
-    'cgei-research-practice': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-research-practice') })),
-    'cgei-decision-support': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-decision-support') })),
-    'cgei-climate-policy': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-climate-policy') })),
-    'cgei-software-engineering': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-software-engineering') })),
-    'cgei-advanced-ai': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-advanced-ai') })),
-    'cgei-capstone': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-capstone') })),
-    'cgei-advanced-branches': () => import('../src/data/cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-advanced-branches') })),
   };
+  // CGEI quiz topics live in each subject's questions-<subject>.ts (two-file architecture),
+  // so the question loaders are also the topic loaders for every CGEI subject.
+  for (const subjectId of Object.keys(questionLoaders)) {
+    if (subjectId.startsWith('cgei-')) {
+      topicLoaders[subjectId] = questionLoaders[subjectId] as unknown as (typeof topicLoaders)[string];
+    }
+  }
   const knownTopicIds = new Set(topics.map((t) => t.id));
   for (const subjectId of activeSubjects as SubjectId[]) {
     const loader = topicLoaders[subjectId];
@@ -347,7 +340,7 @@ async function main() {
         }
       }
     } catch (e) {
-      add('warning', subjectId, '—', 'TOPIC_LOAD_FAILED', String(e));
+      add('critical', subjectId, '—', 'TOPIC_LOAD_FAILED', String(e));
     }
   }
 

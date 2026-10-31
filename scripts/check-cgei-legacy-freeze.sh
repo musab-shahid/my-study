@@ -8,7 +8,7 @@ while IFS= read -r line; do
   if [ -n "$line" ]; then
     if [ "$found" -eq 0 ]; then
       echo "ERROR: CGEI legacy/ directories were retired in Phase E4."
-      echo "Use quiz-topics-*.ts or roadmap-topics.ts instead."
+      echo "Keep one topics-<subject>.ts and one questions-<subject>.ts per subject; quiz topics live in the questions file."
     fi
     echo "$line"
     found=1
