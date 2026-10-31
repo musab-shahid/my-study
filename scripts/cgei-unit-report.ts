@@ -25,6 +25,7 @@ import { questions as softwareEngineering } from '../src/data/cgei/software-engi
 import { questions as advancedAi } from '../src/data/cgei/advanced-ai/questions-advanced-ai';
 import { questions as capstone } from '../src/data/cgei/capstone/questions-capstone';
 import { parseCsv, summarizeQuestionCoverage } from './lib/cgei-unit-report-core';
+import { hasSubstantiveContentBlock, hasSubstantiveText, validateReadinessEvidence } from '../src/data/cgei/readiness';
 
 const allQuestions = [
   ...envSystems, ...climateScience, ...geospatial, ...remoteSensing, ...dataScience,
@@ -55,10 +56,14 @@ const questionsByLesson = new Map<string, typeof unitQuestions>();
 for (const lesson of lessons) questionsByLesson.set(lesson.id, unitQuestions.filter((question) => question.lessonId === lesson.id));
 
 const unique = (values: string[]) => [...new Set(values)];
-const activityIds = unique([...unit.activityIds, ...lessons.flatMap((lesson) => lesson.activityIds)]);
 const assessmentIds = unique([...unit.assessmentIds, ...lessons.flatMap((lesson) => lesson.assessmentIds)]);
 const activityById = new Map(cgeiCurriculum.activities.map((item) => [item.id, item] as const));
 const assessmentById = new Map(cgeiCurriculum.assessments.map((item) => [item.id, item] as const));
+const activityIds = unique([
+  ...unit.activityIds,
+  ...lessons.flatMap((lesson) => lesson.activityIds),
+  ...assessmentIds.flatMap((id) => assessmentById.get(id)?.activityIds ?? []),
+]);
 const resourceById = new Map(cgeiCurriculum.resources.map((item) => [item.id, item] as const));
 const deliverableById = new Map(cgeiCurriculum.deliverables.map((item) => [item.id, item] as const));
 const projectLinks = cgeiCurriculum.projects.filter((project) => project.prerequisiteUnitIds?.includes(unit.id));
@@ -83,6 +88,7 @@ const unresolved = {
   assessmentObjectiveIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
   assessmentQuestionIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.questionIds ?? []).filter((id) => !questionIds.has(id)),
   assessmentActivityIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.activityIds ?? []).filter((id) => !activityById.has(id)),
+  questionObjectiveIds: unitQuestions.flatMap((question) => question.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
   activityResourceIds: activityResourceIds.filter((id) => !resourceById.has(id)),
   projectResourceIds: projectResourceIds.filter((id) => !resourceById.has(id)),
 };
@@ -101,7 +107,20 @@ const missingRubrics = linkedRubricIds.filter((id) => !rubricById.has(id));
 
 const tracePath = resolve(root, 'docs/cgei/ALL-units-subtopic-traceability.csv');
 const traceRows = existsSync(tracePath) ? parseCsv(readFileSync(tracePath, 'utf8')) : [];
-const unitTraceRows = traceRows.filter((row) => row.source_subtopic_path?.startsWith(`${unit.code}.`));
+const subjectNumber = subject.id.match(/cgei-subject-(\\d+)/)?.[1];
+const preferredTraceFile = subjectNumber
+  ? `subject-${subjectNumber}-unit-${unit.code}-subtopic-traceability.csv`
+  : '';
+const alternateTraceFile = subjectNumber
+  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\\./g, '-')}-subtopic-traceability.csv`
+  : '';
+const preferredRows = traceRows.filter((row) => row.source_file === preferredTraceFile);
+const alternateRows = traceRows.filter((row) => row.source_file === alternateTraceFile);
+const unitTraceRows = preferredRows.length
+  ? preferredRows
+  : alternateRows.length
+    ? alternateRows
+    : traceRows.filter((row) => !row.source_file && row.source_subtopic_path?.startsWith(`${unit.code}.`));
 const coreTraceRows = unitTraceRows.filter((row) => row.priority?.toLowerCase() === 'core');
 const countDispositions = (rows: typeof unitTraceRows) => rows.reduce<Record<string, number>>((counts, row) => {
   const key = row.disposition || 'missing';
@@ -116,15 +135,19 @@ const traceabilityGaps = coreTraceRows.filter((row) => {
   if (!disposition || disposition === 'unmapped' || disposition === 'stale_mapping') return true;
   if (!row.evidence_note?.trim()) return true;
   if (disposition === 'mapped' || disposition === 'mapped_partial') {
-    const lesson = row.app_lesson_id ? lessonById.get(row.app_lesson_id) : undefined;
+    const lesson = row.app_lesson_id && lessonIds.has(row.app_lesson_id)
+      ? lessonById.get(row.app_lesson_id)
+      : undefined;
     if (!lesson) return true;
     const blockIds = (row.app_content_block_ids ?? '').split(';').map((id) => id.trim()).filter(Boolean);
-    const liveBlockIds = new Set(lesson.content.map((block) => block.id));
-    if (!blockIds.length || blockIds.some((id) => !liveBlockIds.has(id))) return true;
+    if (!blockIds.length || blockIds.some((id) =>
+      !lesson.content.some((block) => block.id === id && hasSubstantiveContentBlock(block)),
+    )) return true;
   }
   return false;
 });
-const partialCore = coreTraceRows.filter((row) => row.disposition === 'mapped_partial');
+const nonMappedCore = coreTraceRows.filter((row) => row.disposition?.toLowerCase() !== 'mapped');
+
 
 const fixtureDir = resolve(root, 'fixtures/cgei');
 const codeSlug = unit.code.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -143,9 +166,18 @@ const lessonReports = lessons.map((lesson) => {
     return counts;
   }, {});
   const text = JSON.stringify(lesson.content) ?? '';
-  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\.py/g)].map((match) => match[0]));
+  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\\.py/g)].map((match) => match[0]));
+  const substantiveContentBlocks = lesson.content.filter(hasSubstantiveContentBlock).length;
+  const nonSubstantiveContentBlockIds = lesson.content.filter((block) => !hasSubstantiveContentBlock(block)).map((block) => block.id);
+  const objectiveIssues = lesson.objectives
+    .filter((objective) => !hasSubstantiveText(objective.statement) || !hasSubstantiveText(objective.action))
+    .map((objective) => objective.id);
+  const textValues = lesson.content.flatMap((block) => [
+    block.body, block.expression, block.code, block.caption, ...(block.items ?? []),
+  ]).filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
+  const hasPlaceholderText = textValues.some((value) => !hasSubstantiveText(value));
   const hasQuantitativeExample = lesson.content.some((block) =>
-    block.kind === 'worked-example' && /\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
+    block.kind === 'worked-example' && /\\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
   );
   return {
     id: lesson.id,
@@ -156,27 +188,46 @@ const lessonReports = lessons.map((lesson) => {
     objectives: lesson.objectives.length,
     objectiveIds: lesson.objectives.map((outcome) => outcome.id),
     contentBlocks: lesson.content.length,
+    substantiveContentBlocks,
+    nonSubstantiveContentBlockIds,
     contentBlockIds: lesson.content.map((block) => block.id),
     questionIds: qs.map((question) => question.id),
+    questionsDetail: qs.map((question) => ({
+      id: question.id,
+      type: question.type,
+      difficulty: question.difficulty,
+      cognitiveLevel: question.cognitiveLevel ?? null,
+      sourceCitation: question.sourceCitation,
+      objectiveIds: question.objectiveIds ?? [],
+      tests: question.tests ?? null,
+    })),
+    objectiveIssues,
     hasQuantitativeExample,
     fixtureReferences: lessonFixtureReferences,
     contentKinds,
     questions: coverage,
+    hasPlaceholderText,
     activityIds: lesson.activityIds,
     assessmentIds: lesson.assessmentIds,
     resourceIds: lesson.resourceIds,
     deliverableIds: lesson.deliverableIds ?? [],
-    hasPlaceholderText: /\b(?:TODO|FIXME|TBD|LOREM\s+IPSUM)\b/i.test(text),
+    contentTextLength: text.length,
   };
 });
 
 const reviewBlockers: string[] = [];
 if (!unit.outcomes.length) reviewBlockers.push('Unit has no measurable outcomes.');
+if (unit.outcomes.some((outcome) => !hasSubstantiveText(outcome.statement) || !hasSubstantiveText(outcome.action))) {
+  reviewBlockers.push('One or more unit outcomes lack a substantive statement or observable action.');
+}
+if (new Set(unit.lessonIds).size !== unit.lessonIds.length) reviewBlockers.push('Unit lessonIds contains duplicates.');
 if (!unit.lessonIds.length) reviewBlockers.push('Unit has no lessons.');
 for (const lesson of lessons) {
   const report = lessonReports.find((item) => item.id === lesson.id)!;
   if (!lesson.objectives.length) reviewBlockers.push(`${lesson.id}: no learning objectives.`);
-  if (!lesson.content.some((block) => block.kind === 'prose')) reviewBlockers.push(`${lesson.id}: no prose teaching block.`);
+  if (report.objectiveIssues.length) reviewBlockers.push(`${lesson.id}: incomplete/placeholder objectives: ${report.objectiveIssues.join(', ')}.`);
+  if (report.substantiveContentBlocks === 0) reviewBlockers.push(`${lesson.id}: no substantive instructional content blocks.`);
+  if (!lesson.content.some((block) => block.kind === 'prose' && hasSubstantiveContentBlock(block))) reviewBlockers.push(`${lesson.id}: no substantive prose teaching block.`);
   if (!lesson.content.some((block) => block.kind === 'worked-example' || block.kind === 'code')) {
     reviewBlockers.push(`${lesson.id}: no worked example or executable/code block.`);
   }
@@ -186,8 +237,8 @@ for (const lesson of lessons) {
   }
   if (report.questions.applyOrHigher < 1) reviewBlockers.push(`${lesson.id}: no apply-or-higher question.`);
   if (report.questions.missingCitations > 0) reviewBlockers.push(`${lesson.id}: ${report.questions.missingCitations} questions lack a specific source citation.`);
-  if (report.hasQuantitativeExample && report.fixtureReferences.length === 0) reviewBlockers.push(`${lesson.id}: quantitative worked example has no explicit unit fixture reference.`);
-  if (report.hasPlaceholderText) reviewBlockers.push(`${lesson.id}: lesson content contains TODO/FIXME/TBD placeholder text.`);
+  if (report.hasQuantitativeExample && fixtureFiles.length === 0) reviewBlockers.push(`${lesson.id}: quantitative worked example has no unit-scoped fixture file.`);
+  if (report.hasPlaceholderText) reviewBlockers.push(`${lesson.id}: lesson content contains placeholder/draft text.`);
 }
 if (Object.values(unresolved).some((values) => values.length)) reviewBlockers.push('One or more lesson/activity/assessment/resource/deliverable references do not resolve.');
 if (missingCompetencies.length) reviewBlockers.push(`Unknown competency references: ${missingCompetencies.join(', ')}.`);
@@ -197,22 +248,18 @@ if (traceabilityGaps.length) reviewBlockers.push(`${traceabilityGaps.length} Cor
 if (missingFixtureReferences.length) reviewBlockers.push(`Missing referenced fixture files: ${missingFixtureReferences.join(', ')}.`);
 
 const validatedBlockers = [...reviewBlockers];
-if (partialCore.length) validatedBlockers.push(`${partialCore.length} Core traceability rows remain mapped_partial.`);
+if (nonMappedCore.length) {
+  const counts = countDispositions(nonMappedCore);
+  validatedBlockers.push(`Validated readiness requires every Core source leaf to be fully mapped; remaining dispositions: ${JSON.stringify(counts)}.`);
+}
 const evidence = unit.readinessEvidence;
-if (!evidence?.reviewer?.trim()) validatedBlockers.push('Validated readiness requires a named reviewer.');
-if (!evidence?.reviewedOn || !/^\d{4}-\d{2}-\d{2}$/.test(evidence.reviewedOn)) validatedBlockers.push('Validated readiness requires reviewedOn in YYYY-MM-DD format.');
-if (!evidence?.checksPassed?.length) validatedBlockers.push('Validated readiness requires recorded checksPassed.');
-if (!evidence?.notes?.length) validatedBlockers.push('Validated readiness requires review notes and caveats.');
+validatedBlockers.push(...validateReadinessEvidence('validated', evidence, `Unit ${unit.id}`));
 for (const lesson of lessons) {
-  const lessonEvidence = lesson.readinessEvidence;
-  if (lesson.readiness !== 'validated' || !lessonEvidence) {
-    validatedBlockers.push(`${lesson.id}: lesson must be validated with its own readiness evidence before the unit is validated.`);
+  if (!['validated', 'released'].includes(lesson.readiness)) {
+    validatedBlockers.push(`${lesson.id}: lesson must be validated/released with its own readiness evidence before the unit is validated.`);
     continue;
   }
-  if (!lessonEvidence.reviewer.trim()) validatedBlockers.push(`${lesson.id}: readiness evidence has no reviewer.`);
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(lessonEvidence.reviewedOn)) validatedBlockers.push(`${lesson.id}: readiness evidence has an invalid review date.`);
-  if (!lessonEvidence.checksPassed.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no completed checks.`);
-  if (!lessonEvidence.notes.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no review notes.`);
+  validatedBlockers.push(...validateReadinessEvidence('validated', lesson.readinessEvidence, `Lesson ${lesson.id}`));
 }
 
 const report = {
@@ -233,7 +280,17 @@ const report = {
   },
   references: { unresolved, missingCompetencies, missingRubrics },
   traceability: {
-    rows: unitTraceRows.length,
+    sourceFile: preferredRows.length ? preferredTraceFile : alternateRows.length ? alternateTraceFile : null,
+    rowCount: unitTraceRows.length,
+    items: unitTraceRows.map((row) => ({
+      sourcePath: row.source_subtopic_path,
+      title: row.source_subtopic_title,
+      priority: row.priority,
+      lessonId: row.app_lesson_id || null,
+      contentBlockIds: (row.app_content_block_ids ?? '').split(';').map((id) => id.trim()).filter(Boolean),
+      disposition: row.disposition || 'missing',
+      evidenceNote: row.evidence_note || '',
+    })),
     coreRows: coreTraceRows.length,
     supportRows: supportTraceRows.length,
     coreDispositions: dispositionCounts,
@@ -260,7 +317,8 @@ if (jsonOutput) {
     console.log(`- ${item.id} — ${item.title} [${item.readiness}]`);
     console.log(`  Objectives: ${item.objectives} | Blocks: ${item.contentBlocks} ${JSON.stringify(item.contentKinds)}`);
     console.log(`  Questions: ${item.questions.total}; levels ${JSON.stringify(item.questions.cognitiveLevels)}; apply+: ${item.questions.applyOrHigher}; missing citations: ${item.questions.missingCitations}`);
-    console.log(`  Question IDs: ${item.questionIds.join(', ') || '(none)'}`);
+    console.log(`  Question IDs: ${item.questionsDetail.map((question) => `${question.id} [${question.type}/${question.difficulty}/${question.cognitiveLevel ?? 'unspecified'}]`).join(', ') || '(none)'}`);
+    console.log(`  Substantive blocks: ${item.substantiveContentBlocks}/${item.contentBlocks}; non-substantive IDs: ${item.nonSubstantiveContentBlockIds.join(', ') || '(none)'}`);
     console.log(`  Quantitative example: ${item.hasQuantitativeExample ? 'yes' : 'no'} | fixtures: ${item.fixtureReferences.join(', ') || '(none)'}`);
   }
   console.log('\nLINKED RECORDS');
@@ -273,14 +331,14 @@ if (jsonOutput) {
   console.log(unresolvedEntries.length ? unresolvedEntries.map(([kind, values]) => `- ${kind}: ${values.join(', ')}`).join('\n') : '- none');
   if (missingCompetencies.length) console.log(`- competencies: ${missingCompetencies.join(', ')}`);
   if (missingRubrics.length) console.log(`- rubrics: ${missingRubrics.join(', ')}`);
-  console.log(`\nTRACEABILITY — ${unitTraceRows.length} rows; Core: ${coreTraceRows.length} ${JSON.stringify(dispositionCounts)}; Support: ${supportTraceRows.length} ${JSON.stringify(supportDispositionCounts)}`);
+  console.log(`\nTRACEABILITY — ${unitTraceRows.length} rows from ${report.traceability.sourceFile ?? 'aggregate fallback'}; Core: ${coreTraceRows.length} ${JSON.stringify(dispositionCounts)}; Support: ${supportTraceRows.length} ${JSON.stringify(supportDispositionCounts)}`);
   for (const row of traceabilityGaps.slice(0, 10)) console.log(`  - ${row.source_subtopic_path}: ${row.disposition || 'missing'} — ${row.evidence_note || 'no evidence note'}`);
   console.log(`FIXTURES — ${fixtureFiles.length} files: ${fixtureFiles.join(', ') || '(none)'}`);
   console.log(`  Explicit refs: ${fixtureReferences.join(', ') || '(none)'}; missing: ${missingFixtureReferences.join(', ') || '(none)'}`);
   console.log(`READINESS EVIDENCE — ${evidence?.reviewer || '(no reviewer)'} | ${evidence?.reviewedOn || '(no review date)'} | checks: ${evidence?.checksPassed?.length ?? 0} | notes: ${evidence?.notes?.length ?? 0}`);
-  console.log(`\nPROMOTION TO REVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
+  console.log(`\nREVIEW READINESS PREVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
   for (const item of reviewBlockers) console.log(`  - ${item}`);
-  console.log(`PROMOTION TO VALIDATED: ${validatedBlockers.length ? 'BLOCKED' : 'PASS'} (${validatedBlockers.length} blockers)`);
+  console.log(`VALIDATED READINESS PREVIEW: ${validatedBlockers.length ? 'BLOCKED' : 'PASS'} (${validatedBlockers.length} blockers)`);
 }
 
 if (target) {
