@@ -62,13 +62,16 @@ const assessmentById = new Map(cgeiCurriculum.assessments.map((item) => [item.id
 const resourceById = new Map(cgeiCurriculum.resources.map((item) => [item.id, item]));
 const deliverableById = new Map(cgeiCurriculum.deliverables.map((item) => [item.id, item]));
 const projectLinks = cgeiCurriculum.projects.filter((project) => project.prerequisiteUnitIds?.includes(unit.id));
-const activityResourceIds = activityIds.flatMap((id) => activityById.get(id)?.resourceIds ?? []);
+const activityResourceIds = activityIds.flatMap((id) => [
+  ...(activityById.get(id)?.resourceIds ?? []),
+  ...(activityById.get(id)?.solutionResourceId ? [activityById.get(id)!.solutionResourceId!] : []),
+]);
 const projectResourceIds = projectLinks.flatMap((project) => project.resourceIds ?? []);
 const resourceIds = unique([...unit.resourceIds, ...lessons.flatMap((lesson) => lesson.resourceIds), ...activityResourceIds, ...projectResourceIds, ...subject.resourceIds]);
 const deliverableIds = unique([...unit.deliverableIds, ...lessons.flatMap((lesson) => lesson.deliverableIds ?? [])]);
 const competencyById = new Map(cgeiCurriculum.competencies.map((item) => [item.id, item]));
 const rubricById = new Map(cgeiCurriculum.rubrics.map((item) => [item.id, item]));
-const outcomeIds = new Set([...unit.outcomes, ...lessons.flatMap((lesson) => lesson.objectives)].map((outcome) => outcome.id));
+const outcomeIds = new Set([...subject.outcomes, ...unit.outcomes, ...lessons.flatMap((lesson) => lesson.objectives)].map((outcome) => outcome.id));
 const questionIds = new Set(allQuestions.map((question) => question.id));
 const unresolved = {
   lessonIds: unit.lessonIds.filter((id) => !lessonById.has(id)),
@@ -84,6 +87,7 @@ const unresolved = {
   projectResourceIds: projectResourceIds.filter((id) => !resourceById.has(id)),
 };
 const objectiveCompetencyIds = unique([
+  ...subject.outcomes.flatMap((outcome) => outcome.competencyIds ?? []),
   ...unit.outcomes.flatMap((outcome) => outcome.competencyIds ?? []),
   ...lessons.flatMap((lesson) => lesson.objectives.flatMap((outcome) => outcome.competencyIds ?? [])),
 ]);
