@@ -2,7 +2,7 @@ import type { Topic, Question, SubjectId } from '@/types';
 import { sectionMap } from './sections';
 
 type TopicModule = { topics: Topic[] };
-type QuestionModule = { questions: Question[] };
+type QuestionModule = { questions: Question[]; topics?: Topic[] };
 
 const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'meteo-climatology': () => import('./fpsc/meteorology/topics-meteorology'),
@@ -15,11 +15,11 @@ const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'hat-verbal': () => import('./hat/verbal/topics-verbal'),
   'hat-analytical': () => import('./hat/analytical/topics-analytical'),
   'hat-quantitative': () => import('./hat/quantitative/topics-quantitative'),
-  'cgei-climate-science': () => import('./cgei/climate-science/quiz-topics-climate-science'),
+  'cgei-climate-science': () => import('./cgei/climate-science/questions-climate-science'),
   'cgei-env-systems': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-env-systems') })),
   'cgei-geospatial': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-geospatial') })),
   'cgei-remote-sensing': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-remote-sensing') })),
-  'cgei-data-science': () => import('./cgei/data-science/quiz-topics-data-science'),
+  'cgei-data-science': () => import('./cgei/data-science/questions-data-science'),
   'cgei-ml-geoai': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-ml-geoai') })),
   'cgei-climate-risk': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-climate-risk') })),
   'cgei-research-practice': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-research-practice') })),
