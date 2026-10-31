@@ -35,3 +35,14 @@ See `docs/cgei/TRACEABILITY_AND_FIXTURES.md`.
 
 Each CGEI subject folder: `topics-<subject>.ts` + `questions-<subject>.ts` only.
 Quiz-engine `Topic[]` is exported as `topics` from the same topics file where needed.
+
+
+## File roles (authoritative)
+
+| File | Contains |
+|------|----------|
+| `topics-<subject>.ts` | Curriculum hierarchy only: subject, units, lessons, activities, assessments, outcomes |
+| `questions-<subject>.ts` | Quiz **questions** (`Question[]`) |
+| `quiz-topics-<subject>.ts` | Quiz-engine **topics** (`Topic[]`) when the subject has practice topics — **not** curriculum lessons |
+
+`curriculum.ts` is the thin assembler only. Do not put quiz `Topic[]` inside curriculum topics files.
