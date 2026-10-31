@@ -142,7 +142,11 @@ const lessonReports = lessons.map((lesson) => {
     counts[block.kind] = (counts[block.kind] ?? 0) + 1;
     return counts;
   }, {});
-  const text = JSON.stringify(lesson.content);
+  const text = JSON.stringify(lesson.content) ?? '';
+  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\\.py/g)].map((match) => match[0]));
+  const hasQuantitativeExample = lesson.content.some((block) =>
+    block.kind === 'worked-example' && /\\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
+  );
   return {
     id: lesson.id,
     title: lesson.title,
@@ -154,6 +158,8 @@ const lessonReports = lessons.map((lesson) => {
     contentBlocks: lesson.content.length,
     contentBlockIds: lesson.content.map((block) => block.id),
     questionIds: qs.map((question) => question.id),
+    hasQuantitativeExample,
+    fixtureReferences: lessonFixtureReferences,
     contentKinds,
     questions: coverage,
     activityIds: lesson.activityIds,
@@ -180,6 +186,7 @@ for (const lesson of lessons) {
   }
   if (report.questions.applyOrHigher < 1) reviewBlockers.push(`${lesson.id}: no apply-or-higher question.`);
   if (report.questions.missingCitations > 0) reviewBlockers.push(`${lesson.id}: ${report.questions.missingCitations} questions lack a specific source citation.`);
+  if (report.hasQuantitativeExample && report.fixtureReferences.length === 0) reviewBlockers.push(`${lesson.id}: quantitative worked example has no explicit unit fixture reference.`);
   if (report.hasPlaceholderText) reviewBlockers.push(`${lesson.id}: lesson content contains TODO/FIXME/TBD placeholder text.`);
 }
 if (Object.values(unresolved).some((values) => values.length)) reviewBlockers.push('One or more lesson/activity/assessment/resource/deliverable references do not resolve.');
@@ -254,6 +261,7 @@ if (jsonOutput) {
     console.log(`  Objectives: ${item.objectives} | Blocks: ${item.contentBlocks} ${JSON.stringify(item.contentKinds)}`);
     console.log(`  Questions: ${item.questions.total}; levels ${JSON.stringify(item.questions.cognitiveLevels)}; apply+: ${item.questions.applyOrHigher}; missing citations: ${item.questions.missingCitations}`);
     console.log(`  Question IDs: ${item.questionIds.join(', ') || '(none)'}`);
+    console.log(`  Quantitative example: ${item.hasQuantitativeExample ? 'yes' : 'no'} | fixtures: ${item.fixtureReferences.join(', ') || '(none)'}`);
   }
   console.log('\nLINKED RECORDS');
   for (const [kind, records] of Object.entries(report.linkedRecords)) {
