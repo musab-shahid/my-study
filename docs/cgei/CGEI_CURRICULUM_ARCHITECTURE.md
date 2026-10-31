@@ -97,7 +97,7 @@ Use the scaffolds, then edit the generated subject file. Do not hand-edit genera
 npm run new:unit -- --subject cgei-data-science --code 5.13
 ```
 
-Supply the canonical subject ID and next unit code. Review the generated unit, fixture stub, traceability rows and audit stub.
+Supply the canonical subject ID and next unit code. Review the printed unit shell and traceability stub. No fixture is generated; add a fixture only when it contains real executable assertions (print-only stubs fail scientific-smoke).
 
 ### Add a lesson
 
