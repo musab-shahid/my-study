@@ -123,9 +123,9 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('All 6 checks', { exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: 'Unit overview', exact: true }).click();
-    await expect(page).toHaveURL(/\\/curriculum\\/unit\\/cgei-cl-unit-2-4$/);
+    await expect(page).toHaveURL(/\/curriculum\/unit\\/cgei-cl-unit-2-4$/);
     await page.getByRole('button', { name: /Gridded products and reanalysis/ }).click();
-    await expect(page).toHaveURL(/\\/curriculum\\/lesson\\/cgei-cl-lesson-2-4-2$/);
+    await expect(page).toHaveURL(/\/curriculum\/lesson\\/cgei-cl-lesson-2-4-2$/);
     await expect(page.getByText('Showing 2 of 2', { exact: true })).toBeVisible({ timeout: 30_000 });
     await expect(page.getByRole('button', { name: /Show all/ })).toHaveCount(0);
   });
