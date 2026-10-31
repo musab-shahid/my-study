@@ -1,14 +1,14 @@
 import type { Question } from '@/types';
 
-/** Phase C3: legacy rows kept; migrated curriculum items appended with lessonId. */
+/** Legacy Climate Science bank: preserve permanent IDs and engine routing; lesson links are explicit. */
 
 const SRC = 'Master Study TOC · Unit 2.6 Extremes and trend analysis';
 const TID = 'cgei-extremes-and-trend-analysis';
 const SID = 'CGEI-02';
 
 /**
- * Sample quiz for CGEI Unit 2.6 — mapped to app Question types.
- * IDs: CGEI-02-Q001 … (section-scoped serial).
+ * Legacy Climate Science questions retained in their original section/topic groups.
+ * IDs are permanent; canonical lesson/objective links are recorded per item below.
  * Types used: single, true_false, multi, fill_blank (option-based), matching.
  * Parametric calculation drafts from the TOC sample are represented as fixed single items
  * where the quant template engine is not required for the teaching point.
