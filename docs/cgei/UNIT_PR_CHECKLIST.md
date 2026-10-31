@@ -16,7 +16,7 @@ Use one unit per PR when adding or deepening content.
 ```bash
 npm run new:lesson -- --unit <unitId>          # if scaffolding
 npm run new:question -- --lesson <lessonId>    # ×3+ per lesson
-npm run generate:cgei-index
+npm run cgei:sync -- --reason="describe added question IDs"
 npm run check:cgei
 npm run lint:cgei-questions
 npm run validate:data

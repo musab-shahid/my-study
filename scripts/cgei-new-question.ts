@@ -1,138 +1,95 @@
 /**
- * Phase D — scaffold a new CGEI question into the subject bank.
- *
- *   npm run new:question -- --lesson cgei-ds-lesson-5-1-1
- *   npm run new:question -- --lesson cgei-ds-lesson-5-1-1 --difficulty hard
- *
- * Allocates the next free ID for the subject, appends a draft template,
- * and records the ID in the ledger when --ledger is passed (default on).
+ * Add a draft question to the correct subject bank.
+ * IDs follow cgei-<subject>-q-<unit-code>-NNN and insertion is syntax-aware.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
-import { cgeiIndexLessonById } from '../src/data/cgei/curriculum-index';
-
-const ROOT = resolve(process.cwd(), 'src/data/cgei');
+import * as ts from 'typescript';
+import { cgeiIndexLessonById, cgeiIndexUnitById } from '../src/data/cgei/curriculum-index';
+import { cgeiCurriculum } from '../src/data/cgei/curriculum';
+import { topics } from '../src/data/topics';
 
 function arg(name: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
-  if (i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--')) {
-    return process.argv[i + 1];
-  }
-  return undefined;
+  return i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--') ? process.argv[i + 1] : undefined;
 }
-
-const SUBJECT_FOLDER: Record<string, string> = {
-  'cgei-env-systems': 'env-systems',
-  'cgei-climate-science': 'climate-science',
-  'cgei-geospatial': 'geospatial',
-  'cgei-remote-sensing': 'remote-sensing',
-  'cgei-data-science': 'data-science',
-  'cgei-ml-geoai': 'ml-geoai',
-  'cgei-climate-risk': 'climate-risk',
-  'cgei-research-practice': 'research-practice',
-  'cgei-decision-support': 'decision-support',
-  'cgei-climate-policy': 'climate-policy',
-  'cgei-software-engineering': 'software-engineering',
-  'cgei-advanced-ai': 'advanced-ai',
-  'cgei-capstone': 'capstone',
-  'cgei-advanced-branches': 'advanced-branches',
+const SUBJECTS: Record<string, { folder: string; abbr: string; section: string }> = {
+  'cgei-env-systems': { folder: 'env-systems', abbr: 'es', section: 'CGEI-01' },
+  'cgei-climate-science': { folder: 'climate-science', abbr: 'cl', section: 'CGEI-02' },
+  'cgei-geospatial': { folder: 'geospatial', abbr: 'geo', section: 'CGEI-03' },
+  'cgei-remote-sensing': { folder: 'remote-sensing', abbr: 'rs', section: 'CGEI-04' },
+  'cgei-data-science': { folder: 'data-science', abbr: 'ds', section: 'CGEI-051' },
+  'cgei-ml-geoai': { folder: 'ml-geoai', abbr: 'ml', section: 'CGEI-06' },
+  'cgei-climate-risk': { folder: 'climate-risk', abbr: 'risk', section: 'CGEI-07' },
+  'cgei-research-practice': { folder: 'research-practice', abbr: 'rp', section: 'CGEI-08' },
+  'cgei-decision-support': { folder: 'decision-support', abbr: 'dspt', section: 'CGEI-09' },
+  'cgei-climate-policy': { folder: 'climate-policy', abbr: 'pol', section: 'CGEI-10' },
+  'cgei-software-engineering': { folder: 'software-engineering', abbr: 'se', section: 'CGEI-11' },
+  'cgei-advanced-ai': { folder: 'advanced-ai', abbr: 'ai', section: 'CGEI-12' },
+  'cgei-capstone': { folder: 'capstone', abbr: 'cap', section: 'CGEI-13' },
 };
-
-const SUBJECT_SECTION: Record<string, string> = {
-  'cgei-env-systems': 'CGEI-01',
-  'cgei-climate-science': 'CGEI-02',
-  'cgei-geospatial': 'CGEI-03',
-  'cgei-remote-sensing': 'CGEI-04',
-  'cgei-data-science': 'CGEI-051',
-  'cgei-ml-geoai': 'CGEI-06',
-  'cgei-climate-risk': 'CGEI-07',
-  'cgei-research-practice': 'CGEI-08',
-  'cgei-decision-support': 'CGEI-09',
-  'cgei-climate-policy': 'CGEI-10',
-  'cgei-software-engineering': 'CGEI-11',
-  'cgei-advanced-ai': 'CGEI-12',
-  'cgei-capstone': 'CGEI-13',
-  'cgei-advanced-branches': 'CGEI-14',
-};
-
-function nextId(folder: string, subjectId: string, bankText: string): string {
-  // Prefer cgei-<abbr>-q-draft-NNN for new scaffold items
-  const abbr = folder.split('-').map((p) => p[0]).join('');
-  const prefix = `cgei-${folder}-q-`;
-  const nums = [...bankText.matchAll(new RegExp(`id:\\s*['"]${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\d+)['"]`, 'g'))].map((m) => Number(m[1]));
-  const nums2 = [...bankText.matchAll(new RegExp(`"id":\\s*"${prefix.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\d+)"`, 'g'))].map((m) => Number(m[1]));
-  const max = Math.max(0, ...nums, ...nums2);
-  return `${prefix}${String(max + 1).padStart(3, '0')}`;
+function keyOf(name: ts.PropertyName | undefined): string | undefined {
+  return name && (ts.isIdentifier(name) || ts.isStringLiteral(name)) ? name.text : undefined;
 }
-
+function stringProp(node: ts.ObjectLiteralExpression, key: string): string | undefined {
+  const p = node.properties.find((x): x is ts.PropertyAssignment => ts.isPropertyAssignment(x) && keyOf(x.name) === key);
+  return p && ts.isStringLiteralLike(p.initializer) ? p.initializer.text : undefined;
+}
+function locateQuestionsArray(source: ts.SourceFile): ts.ArrayLiteralExpression {
+  let result: ts.ArrayLiteralExpression | undefined;
+  const visit = (node: ts.Node) => {
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.name.text === 'questions' &&
+        node.initializer && ts.isArrayLiteralExpression(node.initializer)) result = node.initializer;
+    ts.forEachChild(node, visit);
+  };
+  visit(source);
+  if (!result) throw new Error('Could not locate questions array safely');
+  return result;
+}
 function main(): void {
   const lessonId = arg('lesson');
-  if (!lessonId) {
-    console.error('Usage: npm run new:question -- --lesson <lessonId> [--difficulty easy|medium|hard]');
-    process.exit(2);
-  }
+  if (!lessonId) throw new Error('Usage: npm run new:question -- --lesson <lessonId> [--topic <engineTopicId>]');
   const lesson = cgeiIndexLessonById.get(lessonId);
-  if (!lesson) {
-    console.error(`Unknown lesson id: ${lessonId} (not in curriculum-index)`);
-    process.exit(1);
-  }
-  const folder = SUBJECT_FOLDER[lesson.subjectId];
-  if (!folder) {
-    console.error(`No folder mapping for subject ${lesson.subjectId}`);
-    process.exit(1);
-  }
-  const bankPath = join(ROOT, folder, `questions-${folder}.ts`);
-  if (!existsSync(bankPath)) {
-    console.error(`Missing bank ${bankPath}`);
-    process.exit(1);
+  if (!lesson) throw new Error(`Unknown lesson ID: ${lessonId}`);
+  const unit = cgeiIndexUnitById.get(lesson.unitId);
+  const subject = SUBJECTS[lesson.subjectId];
+  if (!unit || !subject) throw new Error('Missing unit or subject question-ID convention');
+  const path = join(resolve(process.cwd(), 'src/data/cgei'), subject.folder, `questions-${subject.folder}.ts`);
+  if (!existsSync(path)) throw new Error(`Missing bank ${path}`);
+  const text = readFileSync(path, 'utf8');
+  const source = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+  const array = locateQuestionsArray(source);
+  const objects = array.elements.filter(ts.isObjectLiteralExpression);
+  const prefix = `cgei-${subject.abbr}-q-${unit.code.toLowerCase().replace(/[^a-z0-9]/g, '')}-`;
+  const ledger = JSON.parse(readFileSync(resolve(process.cwd(), 'docs/cgei/question-id-ledger.json'), 'utf8')) as { questions?: Record<string, unknown> };
+  const ids = new Set<string>(Object.keys(ledger.questions ?? {}));
+  for (const item of objects) { const id = stringProp(item, 'id'); if (id) ids.add(id); }
+  const max = Math.max(0, ...[...ids].filter((id) => id.startsWith(prefix))
+    .map((id) => Number(id.slice(prefix.length))).filter((n) => Number.isInteger(n) && n > 0));
+  const id = `${prefix}${String(max + 1).padStart(3, '0')}`;
+  const sameLesson = objects.find((item) => stringProp(item, 'lessonId') === lessonId);
+  const canonicalLesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
+  const topicId = arg('topic') ?? (sameLesson ? stringProp(sameLesson, 'topicId') : canonicalLesson?.sourceTopicId);
+  if (!topicId || !topics.some((topic) => topic.id === topicId)) {
+    throw new Error('No valid quiz topic can be inferred. Supply --topic <existingTopicId>; never use a unit/lesson ID.');
   }
   const difficulty = arg('difficulty') ?? 'medium';
-  if (!['easy', 'medium', 'hard'].includes(difficulty)) {
-    console.error('difficulty must be easy|medium|hard');
-    process.exit(2);
-  }
-
-  let text = readFileSync(bankPath, 'utf8');
-  const id = nextId(folder, lesson.subjectId, text);
-  const sectionId = SUBJECT_SECTION[lesson.subjectId] ?? 'CGEI-01';
-  const topicId = lesson.unitId;
-
-  const template = `
-  {
-    id: '${id}',
-    sectionId: '${sectionId}',
-    topicId: '${topicId}',
-    difficulty: '${difficulty}',
-    type: 'single',
-    question: 'TODO: write a clear stem with one unambiguous correct option.',
-    options: [
-      'TODO correct option',
-      'TODO plausible distractor',
-      'TODO plausible distractor',
-      'TODO plausible distractor',
-    ],
+  if (!['easy', 'medium', 'hard'].includes(difficulty)) throw new Error('difficulty must be easy|medium|hard');
+  const question = {
+    id, sectionId: subject.section, topicId, difficulty, type: 'single',
+    question: 'TODO: write one clear, assessable question stem.',
+    options: ['TODO: correct answer', 'TODO: plausible distractor', 'TODO: plausible distractor', 'TODO: plausible distractor'],
     correctAnswer: 0,
-    explanation:
-      'TODO: explain why the correct option is right and why the likeliest wrong answer fails (≥ 60 characters).',
-    sourceCitation: 'TODO: manuscript / TOC / fixture reference',
-    lessonId: '${lessonId}',
-    cognitiveLevel: 'understand',
-  },
-`;
-
-  // Insert before final ]; of questions array
-  const close = text.lastIndexOf('];');
-  if (close < 0) {
-    console.error('Could not find questions array terminator ];');
-    process.exit(1);
-  }
-  text = `${text.slice(0, close).replace(/\s*$/, '')}\n${template}\n];\n`;
-  writeFileSync(bankPath, text, 'utf8');
-  console.log(`Appended draft question ${id}`);
-  console.log(`  bank: ${bankPath}`);
-  console.log(`  lesson: ${lessonId} (${lesson.title})`);
-  console.log('Next: edit the TODOs, run npm run validate:data and npm run lint:cgei-questions');
-  console.log('Then: npm run snapshot:cgei-question-ids if you keep the new ID');
+    explanation: 'TODO: explain the reasoning and address the likeliest misconception.',
+    sourceCitation: 'TODO: add a specific, traceable source.',
+    lessonId, cognitiveLevel: 'understand',
+  };
+  const close = array.end - 1;
+  const prior = text.slice(array.getStart(source), close).trimEnd();
+  const separator = prior.endsWith(',') ? '' : ',';
+  const rendered = JSON.stringify(question, null, 2).split('\n').map((line) => `  ${line}`).join('\n');
+  writeFileSync(path, text.slice(0, close) + separator + '\n' + rendered + '\n' + text.slice(close), 'utf8');
+  console.log(`Added draft ${id} to ${path}; lesson=${lessonId}; topic=${topicId}`);
+  console.log('Replace every TODO before running npm run cgei:sync.');
 }
-
 main();

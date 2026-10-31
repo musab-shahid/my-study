@@ -9,6 +9,7 @@
  */
 import { readFileSync, writeFileSync, existsSync, readdirSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import * as ts from 'typescript';
 
 const ROOT = resolve(process.cwd(), 'src/data/cgei');
 const BASELINE_PATH = resolve(process.cwd(), 'docs/cgei/question-lint-baseline.json');
@@ -137,6 +138,45 @@ function metrics(questions: Q[]) {
   };
 }
 
+function findQuestionPlaceholders(): string[] {
+  const findings: string[] = [];
+  const placeholder = /\\b(?:TODO|FIXME|TBD|LOREM\\s+IPSUM)\\b/i;
+  for (const ent of readdirSync(ROOT, { withFileTypes: true })) {
+    if (!ent.isDirectory() || ent.name === 'lib' || ent.name === 'legacy') continue;
+    const file = join(ROOT, ent.name, `questions-${ent.name}.ts`);
+    if (!existsSync(file)) continue;
+    const source = ts.createSourceFile(file, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
+    const visit = (node: ts.Node) => {
+      if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name) && node.name.text === 'questions' &&
+          node.initializer && ts.isArrayLiteralExpression(node.initializer)) {
+        for (const item of node.initializer.elements) {
+          if (!ts.isObjectLiteralExpression(item)) continue;
+          const id = item.properties.find((p): p is ts.PropertyAssignment => ts.isPropertyAssignment(p) &&
+            ((ts.isIdentifier(p.name) && p.name.text === 'id') || (ts.isStringLiteral(p.name) && p.name.text === 'id')));
+          const questionId = id && ts.isStringLiteralLike(id.initializer) ? id.initializer.text : '(unknown-id)';
+          for (const property of item.properties) {
+            if (!ts.isPropertyAssignment(property)) continue;
+            const key = ts.isIdentifier(property.name) || ts.isStringLiteral(property.name) ? property.name.text : '';
+            if (!['question', 'options', 'explanation', 'sourceCitation'].includes(key)) continue;
+            const values: string[] = [];
+            const collect = (value: ts.Node) => {
+              if (ts.isStringLiteralLike(value) || ts.isNoSubstitutionTemplateLiteral(value)) values.push(value.text);
+              else ts.forEachChild(value, collect);
+            };
+            collect(property.initializer);
+            for (const value of values) if (placeholder.test(value)) {
+              findings.push(`${ent.name}/${questionId} ${key} contains unfinished placeholder text`);
+            }
+          }
+        }
+      }
+      ts.forEachChild(node, visit);
+    };
+    visit(source);
+  }
+  return findings;
+}
+
 function main(): void {
   const baseline = loadBaseline();
   const questions = collectAll();
@@ -156,7 +196,7 @@ function main(): void {
     return;
   }
 
-  const errors: string[] = [];
+  const errors: string[] = findQuestionPlaceholders();
   if (m.longestIsCorrectShare > baseline.maxLongestIsCorrectShare + 1e-9) {
     errors.push(
       `longest-is-correct share ${m.longestIsCorrectShare.toFixed(3)} exceeds baseline ${baseline.maxLongestIsCorrectShare} (may only improve)`,

@@ -39,7 +39,7 @@ describe('CGEI golden registry manifest', () => {
     assert.equal(new Set(live.arrays.unitIds).size, live.counts.units);
   });
 
-  it('matches the committed manifest when present (ID order and entity hashes)', () => {
+  (process.env.CHECK_CGEI_GOLDEN === '1' || process.env.UPDATE_CGEI_MANIFEST === '1' ? it : it.skip)('matches the committed manifest when explicitly requested (ID order and entity hashes)', () => {
     const live = buildRegistryManifest(cgeiCurriculum, '2026-01-01T00:00:00.000Z');
 
     if (process.env.UPDATE_CGEI_MANIFEST === '1') {

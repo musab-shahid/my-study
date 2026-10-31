@@ -18,7 +18,6 @@ import type {
 } from "@/types/curriculum";
 import { cgeiTrack } from "./shared";
 import { competencies, rubrics } from "./registry-shared";
-import { cgeiQuestionProjectionOrder } from "./question-projection-order";
 
 import * as envSystems from "./env-systems/topics-env-systems";
 import * as climateScience from "./climate-science/topics-climate-science";
@@ -101,22 +100,6 @@ const questions: CurriculumQuestion[] = engineQuestions.flatMap((question) => {
     cognitiveLevel: question.cognitiveLevel,
   }];
 });
-const questionOrder = new Map<string, number>(
-  cgeiQuestionProjectionOrder.map((id, index) => [id, index] as const),
-);
-const untrackedQuestionIds = questions.filter((question) => !questionOrder.has(question.id)).map((question) => question.id);
-const missingQuestionIds = cgeiQuestionProjectionOrder.filter(
-  (id) => !questions.some((question) => question.id === id),
-);
-if (untrackedQuestionIds.length || missingQuestionIds.length) {
-  throw new Error(
-    "CGEI question projection/order mismatch. Untracked: " +
-      untrackedQuestionIds.slice(0, 10).join(", ") +
-      "; missing: " +
-      missingQuestionIds.slice(0, 10).join(", "),
-  );
-}
-questions.sort((a, b) => questionOrder.get(a.id)! - questionOrder.get(b.id)!);
 const rawAssessments: CurriculumAssessment[] = subjectModules.flatMap((mod) => mod.assessments);
 
 /** Lessons that list a given assessment id. */

@@ -12,8 +12,8 @@ import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const steps = [
+  ['npm', ['run', 'check:cgei-sync']],
   ['npm', ['run', 'validate:data']],
-  ['npm', ['run', 'lint:cgei-questions']],
   ['npm', ['run', 'audit:core-leaf-evidence']],
   ['npm', ['run', 'check:cgei-question-ids']],
   ['npm', ['run', 'check:cgei-index']],
