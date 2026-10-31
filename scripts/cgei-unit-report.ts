@@ -197,9 +197,15 @@ if (!evidence?.reviewedOn || !/^\d{4}-\d{2}-\d{2}$/.test(evidence.reviewedOn)) v
 if (!evidence?.checksPassed?.length) validatedBlockers.push('Validated readiness requires recorded checksPassed.');
 if (!evidence?.notes?.length) validatedBlockers.push('Validated readiness requires review notes and caveats.');
 for (const lesson of lessons) {
-  if (lesson.readiness !== 'validated' || !lesson.readinessEvidence) {
+  const lessonEvidence = lesson.readinessEvidence;
+  if (lesson.readiness !== 'validated' || !lessonEvidence) {
     validatedBlockers.push(`${lesson.id}: lesson must be validated with its own readiness evidence before the unit is validated.`);
+    continue;
   }
+  if (!lessonEvidence.reviewer.trim()) validatedBlockers.push(`${lesson.id}: readiness evidence has no reviewer.`);
+  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(lessonEvidence.reviewedOn)) validatedBlockers.push(`${lesson.id}: readiness evidence has an invalid review date.`);
+  if (!lessonEvidence.checksPassed.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no completed checks.`);
+  if (!lessonEvidence.notes.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no review notes.`);
 }
 
 const report = {
