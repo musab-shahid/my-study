@@ -15,6 +15,14 @@ import { cgeiIndexLessons, cgeiIndexUnits } from '../src/data/cgei/curriculum-in
 const outputPath = resolve(process.cwd(), 'src/data/cgei/curriculum-index.ts');
 const checkOnly = process.argv.includes('--check');
 
+function stableJson(value: unknown): string {
+  const json = JSON.stringify(value, null, 2);
+  if (!json) throw new Error('Could not serialize CGEI index metadata');
+  return json.replace(/[^\\x00-\\x7F]/g, (character) =>
+    '\\\\u' + character.charCodeAt(0).toString(16).padStart(4, '0'),
+  );
+}
+
 function requireOne<T>(values: T[], description: string): T {
   if (values.length !== 1) {
     throw new Error(`${description}: expected exactly one parent, found ${values.length}`);
@@ -56,7 +64,7 @@ const lessons = cgeiCurriculum.lessons.map((lesson) => {
   };
 }).sort((a, b) => a.id.localeCompare(b.id));
 
-const generated = `/**\n * GENERATED FILE — do not edit by hand.\n * Source: src/data/cgei/curriculum.ts\n * Regenerate with: npm run generate:cgei-index\n * Check with: npm run check:cgei-index\n *\n * This lightweight mirror keeps navigation/reset code from importing the full\n * instructional registry into the initial bundle.\n */\nexport interface CgeiIndexUnit { id: string; code: string; title: string; subjectId: string; subjectTitle: string; lessonIds: readonly string[] }\nexport interface CgeiIndexLesson { id: string; title: string; unitId: string; unitTitle: string; subjectId: string; subjectTitle: string }\nexport const cgeiIndexUnits: readonly CgeiIndexUnit[] = ${JSON.stringify(units, null, 2)};\nexport const cgeiIndexLessons: readonly CgeiIndexLesson[] = ${JSON.stringify(lessons, null, 2)};\nexport const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));\nexport const cgeiIndexLessonById = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));\n`;
+const generated = `/**\n * GENERATED FILE — do not edit by hand.\n * Source: src/data/cgei/curriculum.ts\n * Regenerate with: npm run generate:cgei-index\n * Check with: npm run check:cgei-index\n *\n * This lightweight mirror keeps navigation/reset code from importing the full\n * instructional registry into the initial bundle.\n */\nexport interface CgeiIndexUnit { id: string; code: string; title: string; subjectId: string; subjectTitle: string; lessonIds: readonly string[] }\nexport interface CgeiIndexLesson { id: string; title: string; unitId: string; unitTitle: string; subjectId: string; subjectTitle: string }\nexport const cgeiIndexUnits: readonly CgeiIndexUnit[] = ${stableJson(units)};\nexport const cgeiIndexLessons: readonly CgeiIndexLesson[] = ${stableJson(lessons)};\nexport const cgeiIndexUnitById = new Map(cgeiIndexUnits.map((unit) => [unit.id, unit] as const));\nexport const cgeiIndexLessonById = new Map(cgeiIndexLessons.map((lesson) => [lesson.id, lesson] as const));\n`;
 
 if (checkOnly) {
   // Compare the exported metadata rather than formatting: generated source may
