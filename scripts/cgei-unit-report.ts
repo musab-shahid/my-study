@@ -80,6 +80,7 @@ const outcomeIds = new Set([...subject.outcomes, ...unit.outcomes, ...lessons.fl
 const questionIds = new Set(allQuestions.map((question) => question.id));
 const unresolved = {
   lessonIds: unit.lessonIds.filter((id) => !lessonById.has(id)),
+  lessonPrerequisiteIds: lessons.flatMap((lesson) => lesson.prerequisiteLessonIds ?? []).filter((id) => !lessonById.has(id)),
   activityIds: activityIds.filter((id) => !activityById.has(id)),
   assessmentIds: assessmentIds.filter((id) => !assessmentById.has(id)),
   resourceIds: resourceIds.filter((id) => !resourceById.has(id)),
@@ -87,6 +88,7 @@ const unresolved = {
   activityObjectiveIds: activityIds.flatMap((id) => activityById.get(id)?.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
   assessmentObjectiveIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
   assessmentQuestionIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.questionIds ?? []).filter((id) => !questionIds.has(id)),
+  questionAssessmentIds: unitQuestions.filter((question) => question.assessmentId && !assessmentById.has(question.assessmentId)).map((question) => `${question.id} -> ${question.assessmentId}`),
   assessmentActivityIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.activityIds ?? []).filter((id) => !activityById.has(id)),
   questionObjectiveIds: unitQuestions.flatMap((question) => question.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
   activityResourceIds: activityResourceIds.filter((id) => !resourceById.has(id)),
