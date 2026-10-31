@@ -1,0 +1,7 @@
+See local authoring session. Apply after fetching:
+
+  curl -sL https://raw.githubusercontent.com/musab-shahid/my-study/main/docs/cgei/patches/subject3-core-leaves-abc-topics.patch | git apply
+
+Or copy the full topics file from the Batch A-C authoring worktree.
+
+This placeholder will be replaced with the full unified diff in a follow-up if needed.
