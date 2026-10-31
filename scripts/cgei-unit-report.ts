@@ -95,8 +95,13 @@ const dispositionCounts = coreTraceRows.reduce<Record<string, number>>((counts, 
 const traceabilityGaps = coreTraceRows.filter((row) => {
   const disposition = row.disposition?.toLowerCase();
   if (!disposition || disposition === 'unmapped' || disposition === 'stale_mapping') return true;
-  if (disposition === 'deferred' || disposition === 'mapped_partial' || disposition === 'mapped') {
-    return !row.evidence_note?.trim();
+  if (!row.evidence_note?.trim()) return true;
+  if (disposition === 'mapped' || disposition === 'mapped_partial') {
+    const lesson = row.app_lesson_id ? lessonById.get(row.app_lesson_id) : undefined;
+    if (!lesson) return true;
+    const blockIds = (row.app_content_block_ids ?? '').split(';').map((id) => id.trim()).filter(Boolean);
+    const liveBlockIds = new Set(lesson.content.map((block) => block.id));
+    if (!blockIds.length || blockIds.some((id) => !liveBlockIds.has(id))) return true;
   }
   return false;
 });
@@ -151,6 +156,7 @@ for (const lesson of lessons) {
     reviewBlockers.push(`${lesson.id}: fewer than two cognitive levels.`);
   }
   if (report.questions.applyOrHigher < 1) reviewBlockers.push(`${lesson.id}: no apply-or-higher question.`);
+  if (report.questions.missingCitations > 0) reviewBlockers.push(`${lesson.id}: ${report.questions.missingCitations} questions lack a specific source citation.`);
   if (report.hasPlaceholderText) reviewBlockers.push(`${lesson.id}: lesson content contains TODO/FIXME/TBD placeholder text.`);
 }
 if (Object.values(unresolved).some((values) => values.length)) reviewBlockers.push('One or more lesson/activity/assessment/resource/deliverable references do not resolve.');
@@ -221,9 +227,10 @@ if (jsonOutput) {
   console.log(`\nPROMOTION TO REVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
   for (const item of reviewBlockers) console.log(`  - ${item}`);
   console.log(`PROMOTION TO VALIDATED: ${validatedBlockers.length ? 'BLOCKED' : 'PASS'} (${validatedBlockers.length} blockers)`);
-  if (target) {
-    const blockers = target === 'review' ? reviewBlockers : validatedBlockers;
-    console.log(`\nREQUESTED PROMOTION (${target}): ${blockers.length ? 'FAIL' : 'PASS'}`);
-    if (blockers.length) process.exitCode = 1;
-  }
+}
+
+if (target) {
+  const blockers = target === 'review' ? reviewBlockers : validatedBlockers;
+  if (!jsonOutput) console.log(`\nREQUESTED PROMOTION (${target}): ${blockers.length ? 'FAIL' : 'PASS'}`);
+  if (blockers.length) process.exitCode = 1;
 }
