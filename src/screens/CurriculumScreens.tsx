@@ -160,6 +160,11 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const [expandedLessonId, setExpandedLessonId] = useState<string | null>(null);
   const showAllLessonChecks = expandedLessonId === lesson?.id;
 
+  // Expansion belongs to the current lesson only; never carry it across navigation.
+  useEffect(() => {
+    setExpandedLessonId(null);
+  }, [lesson?.id]);
+
   useEffect(() => {
     if (!subject?.subjectId) {
       setBankQuestions([]);
