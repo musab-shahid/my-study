@@ -43,6 +43,7 @@
     "generate:cgei-index": "tsx --tsconfig tsconfig.app.json scripts/generate-cgei-index.ts",
     "snapshot:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts",
     "cgei:sync": "tsx --tsconfig tsconfig.app.json scripts/cgei-sync.ts",
+    "report:cgei-unit": "tsx --tsconfig tsconfig.app.json scripts/cgei-unit-report.ts",
     "check:cgei-sync": "npm run cgei:sync -- --reason=CI-idempotence-check && git diff --exit-code -- docs/cgei/question-id-ledger.json src/data/sections.ts src/data/cgei/curriculum-index.ts",
     "check:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts --check",
     "new:question": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-question.ts",
