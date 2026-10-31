@@ -241,7 +241,7 @@ if (jsonOutput) {
     console.log(`  Objectives: ${item.objectives} | Blocks: ${item.contentBlocks} ${JSON.stringify(item.contentKinds)}`);
     console.log(`  Questions: ${item.questions.total}; levels ${JSON.stringify(item.questions.cognitiveLevels)}; apply+: ${item.questions.applyOrHigher}; missing citations: ${item.questions.missingCitations}`);
   }
-  console.log(`\nTRACEABILITY — ${unitTraceRows.length} rows; Core: ${coreTraceRows.length}; dispositions: ${JSON.stringify(dispositionCounts)}`);
+  console.log(`\nTRACEABILITY — ${unitTraceRows.length} rows; Core: ${coreTraceRows.length} ${JSON.stringify(dispositionCounts)}; Support: ${supportTraceRows.length} ${JSON.stringify(supportDispositionCounts)}`);
   console.log(`FIXTURES — ${fixtureFiles.length} files; explicit refs: ${fixtureReferences.length}; missing refs: ${missingFixtureReferences.length}`);
   console.log(`\nPROMOTION TO REVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
   for (const item of reviewBlockers) console.log(`  - ${item}`);
