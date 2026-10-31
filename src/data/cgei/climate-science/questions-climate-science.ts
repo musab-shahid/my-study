@@ -17,6 +17,9 @@ export const questions: Question[] = [
 
   {
     id: 'CGEI-02-Q001',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'understand',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -35,6 +38,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q002',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
+    cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -54,6 +60,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q003',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
+    cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -73,6 +82,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q004',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -92,6 +104,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q005',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -111,6 +126,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q006',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'understand',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -124,6 +142,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q007',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -137,6 +158,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q008',
+    lessonId: 'cgei-cl-lesson-2-8-2',
+    objectiveIds: ['cgei-cl-o-28-multan'],
+    cognitiveLevel: 'evaluate',
     sectionId: SID,
     topicId: TID,
     difficulty: 'hard',
@@ -156,6 +180,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q009',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -174,6 +201,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q010',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'remember',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -187,6 +217,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q011',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
+    cognitiveLevel: 'understand',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -200,6 +233,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q012',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'remember',
     sectionId: SID,
     topicId: TID,
     difficulty: 'easy',
@@ -212,6 +248,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q013',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'apply',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -231,6 +270,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q014',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -245,6 +287,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q015',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
+    cognitiveLevel: 'apply',
     sectionId: SID,
     topicId: TID,
     difficulty: 'medium',
@@ -261,6 +306,9 @@ export const questions: Question[] = [
   // ── Unit 2.4 — Climate data products & reanalysis ─────────────────────────
   {
     id: 'CGEI-024-Q001',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'easy',
@@ -279,6 +327,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q002',
+    lessonId: 'cgei-cl-lesson-2-4-2',
+    objectiveIds: ['cgei-cl-o-24-products'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'easy',
@@ -292,6 +343,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q003',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'remember',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'easy',
@@ -305,6 +359,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q004',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'analyze',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'medium',
@@ -323,6 +380,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q005',
+    lessonId: 'cgei-cl-lesson-2-9-2',
+    objectiveIds: ['cgei-cl-o-29-scenarios'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'medium',
@@ -341,6 +401,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q006',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'medium',
@@ -359,6 +422,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q007',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'evaluate',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'medium',
@@ -372,6 +438,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q008',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'analyze',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'hard',
@@ -390,6 +459,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q009',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'hard',
@@ -414,6 +486,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q010',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'easy',
@@ -432,6 +507,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q011',
+    lessonId: 'cgei-cl-lesson-2-4-3',
+    objectiveIds: ['cgei-cl-o-24-select'],
+    cognitiveLevel: 'evaluate',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'medium',
@@ -450,6 +528,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q012',
+    lessonId: 'cgei-cl-lesson-2-6-3',
+    objectiveIds: ['cgei-cl-o-26-inference'],
+    cognitiveLevel: 'evaluate',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
     difficulty: 'hard',
@@ -470,6 +551,9 @@ export const questions: Question[] = [
   // ── Unit 2.5 — Time, units & daily construction ───────────────────────────
   {
     id: 'CGEI-025-Q001',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
@@ -482,6 +566,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q002',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'remember',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
@@ -494,6 +581,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q003',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
@@ -512,6 +602,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q004',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
@@ -530,6 +623,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q005',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
@@ -548,6 +644,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q006',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
@@ -566,6 +665,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q007',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'analyze',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'hard',
@@ -584,6 +686,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q008',
+    lessonId: 'cgei-cl-lesson-2-8-1',
+    objectiveIds: ['cgei-cl-o-28-seasons'],
+    cognitiveLevel: 'understand',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
@@ -597,6 +702,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q009',
+    lessonId: 'cgei-cl-lesson-2-5-2',
+    objectiveIds: ['cgei-cl-o-25-aggregate'],
+    cognitiveLevel: 'analyze',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'hard',
@@ -615,6 +723,9 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-025-Q010',
+    lessonId: 'cgei-cl-lesson-2-5-1',
+    objectiveIds: ['cgei-cl-o-25-time'],
+    cognitiveLevel: 'apply',
     sectionId: 'CGEI-025',
     topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
