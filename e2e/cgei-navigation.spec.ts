@@ -118,15 +118,15 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/lesson/cgei-cl-lesson-2-4-3');
 
-    await expect(page.getByText('Showing 5 of 6', { exact: true })).toBeVisible({ timeout: 30_000 });
-    await page.getByRole('button', { name: 'Show all 6 questions', exact: true }).click();
-    await expect(page.getByText('All 6 checks', { exact: true })).toBeVisible();
+    await expect(page.getByText('Showing 5 of 7', { exact: true })).toBeVisible({ timeout: 30_000 });
+    await page.getByRole('button', { name: 'Show all 7 questions', exact: true }).click();
+    await expect(page.getByText('All 7 checks', { exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: 'Unit overview', exact: true }).click();
     await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-cl-unit-2-4$/);
     await page.getByRole('button', { name: /Gridded products and reanalysis/ }).click();
     await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-cl-lesson-2-4-2$/);
-    await expect(page.getByText('Showing 2 of 2', { exact: true })).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText('Showing 3 of 3', { exact: true })).toBeVisible({ timeout: 30_000 });
     await expect(page.getByRole('button', { name: /Show all/ })).toHaveCount(0);
   });
 
