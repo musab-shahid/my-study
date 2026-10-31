@@ -24,7 +24,7 @@ describe('CGEI two-file subject data architecture', () => {
     }
   });
 
-  it('loads quiz topic metadata from the subject question files', async () => {
+  it('loads quiz topic metadata from every registered subject question file', async () => {
     const [climateTopics, climateQuestions, dataScienceTopics, dataScienceQuestions] = await Promise.all([
       loadSubjectTopics('cgei-climate-science'),
       loadSubjectQuestions('cgei-climate-science'),
@@ -36,5 +36,15 @@ describe('CGEI two-file subject data architecture', () => {
     assert.ok(dataScienceTopics.some((topic) => topic.id === 'cgei-ds-units-dimensions'));
     assert.ok(climateQuestions.length > 0);
     assert.ok(dataScienceQuestions.length > 0);
+
+    const allSubjectTopics = await Promise.all(
+      cgeiCurriculum.subjects.map((subject) => loadSubjectTopics(subject.subjectId)),
+    );
+    for (const [index, topics] of allSubjectTopics.entries()) {
+      assert.ok(
+        topics.length > 0,
+        `${cgeiCurriculum.subjects[index].subjectId} must load quiz metadata from its question file`,
+      );
+    }
   });
 });

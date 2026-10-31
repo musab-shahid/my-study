@@ -1,7 +1,10 @@
-# CGEI legacy topic banks (frozen)
+# CGEI subject data architecture
 
-These `topics-*.ts` files are the pre-canonical topic model for the quiz engine and progress bridges.
+Every registered CGEI subject has exactly two subject data modules:
 
-- **Do not edit** files under any `legacy/` folder. CI fails on modifications.
-- Canonical content lives in the curriculum registry / future `topics-<subject>.ts` (Phase B3).
-- Questions remain in the parent subject folder (`questions-*.ts`) and become the unified banks in Phase C.
+- `topics-<subject>.ts` is the canonical learning hierarchy: subject metadata, units, lessons, outcomes, activities, assessments, resources, deliverables and projects.
+- `questions-<subject>.ts` contains the quiz question bank and quiz-engine topic metadata used for quiz navigation.
+
+All quiz topic metadata belongs with its subject question bank. Do not create separate `quiz-topics-<subject>.ts` files or shared per-subject quiz-topic banks.
+
+`src/data/cgei/curriculum.ts` assembles the canonical curriculum registry from the per-subject learning modules and question banks. Shared registry metadata and validation helpers remain in the shared CGEI modules.
