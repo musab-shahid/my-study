@@ -99,11 +99,14 @@ const tracePath = resolve(root, 'docs/cgei/ALL-units-subtopic-traceability.csv')
 const traceRows = existsSync(tracePath) ? parseCsv(readFileSync(tracePath, 'utf8')) : [];
 const unitTraceRows = traceRows.filter((row) => row.source_subtopic_path?.startsWith(`${unit.code}.`));
 const coreTraceRows = unitTraceRows.filter((row) => row.priority?.toLowerCase() === 'core');
-const dispositionCounts = coreTraceRows.reduce<Record<string, number>>((counts, row) => {
+const countDispositions = (rows: typeof unitTraceRows) => rows.reduce<Record<string, number>>((counts, row) => {
   const key = row.disposition || 'missing';
   counts[key] = (counts[key] ?? 0) + 1;
   return counts;
 }, {});
+const dispositionCounts = countDispositions(coreTraceRows);
+const supportTraceRows = unitTraceRows.filter((row) => row.priority?.toLowerCase() === 'support');
+const supportDispositionCounts = countDispositions(supportTraceRows);
 const traceabilityGaps = coreTraceRows.filter((row) => {
   const disposition = row.disposition?.toLowerCase();
   if (!disposition || disposition === 'unmapped' || disposition === 'stale_mapping') return true;
@@ -141,6 +144,7 @@ const lessonReports = lessons.map((lesson) => {
     title: lesson.title,
     readiness: lesson.readiness,
     readinessEvidencePresent: Boolean(lesson.readinessEvidence),
+    readinessEvidence: lesson.readinessEvidence ?? null,
     objectives: lesson.objectives.length,
     contentBlocks: lesson.content.length,
     contentKinds,
@@ -204,13 +208,16 @@ const report = {
     resources: resourceIds.map((id) => resourceById.get(id)).filter(Boolean),
     deliverables: deliverableIds.map((id) => deliverableById.get(id)).filter(Boolean),
     rubrics: linkedRubricIds.map((id) => rubricById.get(id)).filter(Boolean),
+    competencies: objectiveCompetencyIds.map((id) => competencyById.get(id)).filter(Boolean),
     projects: projectLinks,
   },
   references: { unresolved, missingCompetencies, missingRubrics },
   traceability: {
     rows: unitTraceRows.length,
     coreRows: coreTraceRows.length,
-    dispositions: dispositionCounts,
+    supportRows: supportTraceRows.length,
+    coreDispositions: dispositionCounts,
+    supportDispositions: supportDispositionCounts,
     gaps: traceabilityGaps.slice(0, 20),
   },
   fixtures: { files: fixtureFiles, referenced: fixtureReferences, missingReferences: missingFixtureReferences },
