@@ -143,9 +143,9 @@ const lessonReports = lessons.map((lesson) => {
     return counts;
   }, {});
   const text = JSON.stringify(lesson.content) ?? '';
-  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\\.py/g)].map((match) => match[0]));
+  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\.py/g)].map((match) => match[0]));
   const hasQuantitativeExample = lesson.content.some((block) =>
-    block.kind === 'worked-example' && /\\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
+    block.kind === 'worked-example' && /\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
   );
   return {
     id: lesson.id,
