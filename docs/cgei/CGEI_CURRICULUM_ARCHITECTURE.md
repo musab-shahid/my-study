@@ -24,7 +24,6 @@ src/data/cgei/
   curriculum.ts                  thin assembler; exports cgeiCurriculum
   curriculum-index.ts            generated navigation index
   curriculum-index-helpers.ts    index helpers
-  question-projection-order.ts   stable compatibility order for questions
   shared.ts                      track-level shared records
   registry-shared.ts              competencies and rubrics
   lib/builders.ts                 typed content builders
@@ -38,7 +37,7 @@ Examples of subject folders include `data-science/`, `climate-science/`, `geospa
 - Edit the subject's `topics-*.ts` for canonical instructional structure and lesson content.
 - Edit the subject's `questions-*.ts` for questions. Do not create a flat cross-subject question file.
 - `curriculum.ts` is an assembler, not a place to author subject content. It statically imports the subject modules and preserves the public `cgeiCurriculum` API.
-- `curriculum-index.ts` is generated. Regenerate it with `npm run generate:cgei-index`; verify it with `npm run check:cgei-index`.
+- `curriculum-index.ts` is generated. Regenerate it with `npm run cgei:sync -- --reason="describe the content change"`; verify it with `npm run check:cgei-index`.
 - CGEI's old `legacy/` content folders have been retired. The existing quiz engine and its quiz-topic metadata are compatibility infrastructure; do not confuse those engine records with the canonical subject/unit/lesson hierarchy.
 
 The canonical subject modules and their question banks are consumed through the lazy CGEI screen boundary. The quiz loader shares those subject-bank modules; do not reintroduce a second flat copy of their question content.
@@ -69,7 +68,7 @@ The canonical assembler keeps `cgeiCurriculum.questions` as a compatibility proj
 
 - The projection contains lesson-linked single-choice questions with numeric answer indices.
 - The engine's `question` field is exposed as the curriculum `prompt`; the question ID, lesson, options, answer, explanation, difficulty and cognitive level are preserved.
-- `question-projection-order.ts` preserves the former registry question order. The assembler fails closed if a projected question is missing from that order or a new projected ID has not been deliberately added. Update it in the same change when adding/removing a lesson-linked single-choice question.
+- The canonical question projection follows declared subject-module order and each subject bank's authored array order. This is deterministic, preserves per-lesson order, and needs no separate global ID-order manifest.
 - The assembler derives an assessment's `questionIds` from the questions linked to lessons that reference that assessment **only when the assessment has no hand-authored IDs**. Existing authored IDs take precedence.
 - Lesson-page checks use the subject bank, deduplicate by question ID, and currently render `single` and `true_false`. Options are shuffled for an attempt; these inline checks do not currently record answers into quiz-attempt or spaced-repetition progress.
 - Multi-select, calculation, fill-blank and matching remain available to the quiz engine, not the current inline lesson renderer.
@@ -82,7 +81,7 @@ Question IDs are permanent because saved answers, review schedules and mastery a
 
 - `docs/cgei/question-id-ledger.json` records every question ID and its owning subject.
 - The ledger check rejects missing IDs, unrecorded new IDs, duplicate IDs and subject moves without an explicit history record.
-- Record a new ID with `npm run snapshot:cgei-question-ids -- --record-new-ids --reason="why this ID is being added"`.
+- Record a new ID with `npm run cgei:sync -- --reason="why this ID is being added"`.
 - Record a subject move with `npm run snapshot:cgei-question-ids -- --record-moves --reason="why ownership changed"`.
 - Never delete or rename an ID to make a check pass. A legitimate move must preserve the ID and include an auditable reason.
 
@@ -114,9 +113,9 @@ Complete the generated lesson in the subject's `topics-*.ts` file and update the
 npm run new:question -- --lesson cgei-ds-lesson-5-1-1
 ```
 
-The scaffold allocates the next free ID and links the question to its lesson. Complete the prompt, answer key, distractors, explanation, difficulty, cognitive level, source citation and engine topic/section references. If it is a lesson-linked single-choice question, update `question-projection-order.ts` in the same PR.
+The scaffold allocates the next free ID using the established subject/unit-code convention and inserts it with TypeScript-aware syntax handling. Complete the prompt, answer key, distractors, explanation, difficulty, cognitive level, source citation and engine topic/section references. It uses an existing lesson topic or sourceTopicId when available; otherwise supply --topic with a valid quiz-engine topic ID.
 
-After authoring, update the question-ID ledger using the explicit command above. Run the question lint and all relevant validators; do not lower a baseline to hide a new defect.
+After authoring, run `npm run cgei:sync -- --reason="why these IDs are being added"`. It runs placeholder lint, regenerates the navigation index, derives CGEI section question counts, and records new IDs. It refuses silent removals and subject moves. Run `npm run check:cgei` and the full test suite; do not lower a baseline to hide a new defect.
 
 ## 7. Validation and delivery gates
 
@@ -133,7 +132,7 @@ npm run test:e2e
 ```
 
 - `npm run check:cgei` runs data validation, question-quality lint, Core-leaf evidence audit, question-ID ledger check and generated-index check.
-- `npm run check:cgei-registry` checks the golden registry snapshot.
+- `npm run check:cgei-registry` checks the whole-registry hash snapshot. Because ordinary content edits change hashes, use it for deliberate structural re-baselining rather than as a routine content-PR gate.
 - `npm run build` includes the production build, security-header generation and bundle-budget check.
 - CI additionally runs the secret/security, design-system, contrast, branding, feature-icon, legacy-freeze, scientific-smoke, Playwright and Lighthouse checks.
 - Confirm that checks ran on the exact latest PR head, not an older commit.
