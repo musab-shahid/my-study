@@ -108,12 +108,12 @@ const linkedRubricIds = unique([
 ]);
 const missingRubrics = linkedRubricIds.filter((id) => !rubricById.has(id));
 
-const subjectNumber = subject.id.match(/cgei-subject-(\\d+)/)?.[1];
+const subjectNumber = subject.id.match(/cgei-subject-(\d+)/)?.[1];
 const preferredTraceFile = subjectNumber
   ? `subject-${subjectNumber}-unit-${unit.code}-subtopic-traceability.csv`
   : '';
 const alternateTraceFile = subjectNumber
-  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\\./g, '-')}-subtopic-traceability.csv`
+  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\./g, '-')}-subtopic-traceability.csv`
   : '';
 const preferredTracePath = preferredTraceFile ? resolve(root, 'docs/cgei', preferredTraceFile) : '';
 const alternateTracePath = alternateTraceFile ? resolve(root, 'docs/cgei', alternateTraceFile) : '';
