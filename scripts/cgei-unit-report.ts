@@ -47,7 +47,7 @@ if (!unit) throw new Error(`Unknown CGEI unit: ${unitId}`);
 const subject = cgeiCurriculum.subjects.find((item) => item.unitIds.includes(unit.id));
 if (!subject) throw new Error(`Unit ${unit.id} has no registered parent subject`);
 
-const lessonById = new Map(cgeiCurriculum.lessons.map((item) => [item.id, item]));
+const lessonById = new Map(cgeiCurriculum.lessons.map((item) => [item.id, item] as const));
 const lessons = unit.lessonIds.map((id) => lessonById.get(id)).filter((item): item is NonNullable<typeof item> => Boolean(item));
 const lessonIds = new Set(lessons.map((lesson) => lesson.id));
 const unitQuestions = allQuestions.filter((question) => question.lessonId && lessonIds.has(question.lessonId));
@@ -57,10 +57,10 @@ for (const lesson of lessons) questionsByLesson.set(lesson.id, unitQuestions.fil
 const unique = (values: string[]) => [...new Set(values)];
 const activityIds = unique([...unit.activityIds, ...lessons.flatMap((lesson) => lesson.activityIds)]);
 const assessmentIds = unique([...unit.assessmentIds, ...lessons.flatMap((lesson) => lesson.assessmentIds)]);
-const activityById = new Map(cgeiCurriculum.activities.map((item) => [item.id, item]));
-const assessmentById = new Map(cgeiCurriculum.assessments.map((item) => [item.id, item]));
-const resourceById = new Map(cgeiCurriculum.resources.map((item) => [item.id, item]));
-const deliverableById = new Map(cgeiCurriculum.deliverables.map((item) => [item.id, item]));
+const activityById = new Map(cgeiCurriculum.activities.map((item) => [item.id, item] as const));
+const assessmentById = new Map(cgeiCurriculum.assessments.map((item) => [item.id, item] as const));
+const resourceById = new Map(cgeiCurriculum.resources.map((item) => [item.id, item] as const));
+const deliverableById = new Map(cgeiCurriculum.deliverables.map((item) => [item.id, item] as const));
 const projectLinks = cgeiCurriculum.projects.filter((project) => project.prerequisiteUnitIds?.includes(unit.id));
 const activityResourceIds = activityIds.flatMap((id) => [
   ...(activityById.get(id)?.resourceIds ?? []),
@@ -69,8 +69,8 @@ const activityResourceIds = activityIds.flatMap((id) => [
 const projectResourceIds = projectLinks.flatMap((project) => project.resourceIds ?? []);
 const resourceIds = unique([...unit.resourceIds, ...lessons.flatMap((lesson) => lesson.resourceIds), ...activityResourceIds, ...projectResourceIds, ...subject.resourceIds]);
 const deliverableIds = unique([...unit.deliverableIds, ...lessons.flatMap((lesson) => lesson.deliverableIds ?? [])]);
-const competencyById = new Map(cgeiCurriculum.competencies.map((item) => [item.id, item]));
-const rubricById = new Map(cgeiCurriculum.rubrics.map((item) => [item.id, item]));
+const competencyById = new Map(cgeiCurriculum.competencies.map((item) => [item.id, item] as const));
+const rubricById = new Map(cgeiCurriculum.rubrics.map((item) => [item.id, item] as const));
 const outcomeIds = new Set([...subject.outcomes, ...unit.outcomes, ...lessons.flatMap((lesson) => lesson.objectives)].map((outcome) => outcome.id));
 const questionIds = new Set(allQuestions.map((question) => question.id));
 const unresolved = {
@@ -207,12 +207,12 @@ const report = {
   outcomes: unit.outcomes,
   lessons: lessonReports,
   linkedRecords: {
-    activities: activityIds.map((id) => activityById.get(id)).filter(Boolean),
-    assessments: assessmentIds.map((id) => assessmentById.get(id)).filter(Boolean),
-    resources: resourceIds.map((id) => resourceById.get(id)).filter(Boolean),
-    deliverables: deliverableIds.map((id) => deliverableById.get(id)).filter(Boolean),
-    rubrics: linkedRubricIds.map((id) => rubricById.get(id)).filter(Boolean),
-    competencies: objectiveCompetencyIds.map((id) => competencyById.get(id)).filter(Boolean),
+    activities: activityIds.flatMap((id) => activityById.get(id) ? [activityById.get(id)!] : []),
+    assessments: assessmentIds.flatMap((id) => assessmentById.get(id) ? [assessmentById.get(id)!] : []),
+    resources: resourceIds.flatMap((id) => resourceById.get(id) ? [resourceById.get(id)!] : []),
+    deliverables: deliverableIds.flatMap((id) => deliverableById.get(id) ? [deliverableById.get(id)!] : []),
+    rubrics: linkedRubricIds.flatMap((id) => rubricById.get(id) ? [rubricById.get(id)!] : []),
+    competencies: objectiveCompetencyIds.flatMap((id) => competencyById.get(id) ? [competencyById.get(id)!] : []),
     projects: projectLinks,
   },
   references: { unresolved, missingCompetencies, missingRubrics },
