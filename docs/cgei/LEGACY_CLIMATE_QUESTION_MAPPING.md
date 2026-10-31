@@ -52,6 +52,24 @@ This is a lesson-linking pass for the 37 pre-existing Climate Science bank quest
 | `CGEI-025-Q009` | `cgei-cl-lesson-2-5-2` | Masks and missing coverage in area aggregation. |
 | `CGEI-025-Q010` | `cgei-cl-lesson-2-5-1` | Metres-to-millimetres conversion. |
 
+## Legacy-item distribution
+
+| Target lesson | Legacy items |
+|---|---:|
+| 2.4.2 | 1 |
+| 2.4.3 | 8 |
+| 2.5.1 | 13 |
+| 2.5.2 | 1 |
+| 2.6.1 | 6 |
+| 2.6.2 | 4 |
+| 2.6.3 | 1 |
+| 2.8.1 | 1 |
+| 2.8.2 | 1 |
+| 2.9.2 | 1 |
+| **Total** | **37** |
+
+These counts cover only the 37 legacy items; any pre-existing canonical questions remain in addition. The mapping is not a readiness sign-off: lessons with fewer than three questions, insufficient cognitive-level coverage, or TOC-only citations remain incomplete and will be reported as such.
+
 ## Lesson-page display
 
 The lesson page initially displays at most **5** single-choice/true-false checks. A learner can explicitly expand the section to see all lesson-linked checks. This is a presentation limit only: no question is hidden from the subject bank or quiz engine.
