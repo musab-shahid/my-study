@@ -37,6 +37,7 @@ A subject-competent reviewer checks formulas, units, assumptions, worked example
 ### Unit readiness promotion
 
 - [ ] For a new unit, keep readiness at `draft`; the report is read-only and does not block creation.
+- [ ] CI automatically runs the promotion report when a unit or lesson readiness status moves upward into `review`, `validated` or `released`.
 - [ ] When moving a unit to `review`, attach `npm run report:cgei-unit -- --unit <unitId> --to review` output and resolve its blockers.
 - [ ] When moving a unit to `validated`, attach `npm run report:cgei-unit -- --unit <unitId> --to validated` output, including unit and lesson readiness evidence.
 - [ ] Optional activities, resources and deliverables are reported and their references validated when present; they are not fabricated or universally required.
