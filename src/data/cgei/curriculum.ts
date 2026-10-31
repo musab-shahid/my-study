@@ -1,8 +1,8 @@
 /**
  * Thin CGEI curriculum assembler.
  *
- * Subject content lives in per-subject topics-<subject>.ts modules generated
- * by scripts/migrations/split-curriculum-by-subject.ts. This file reassembles
+ * Subject content is hand-authored in per-subject topics-<subject>.ts modules
+ * (the source of truth). This file reassembles
  * the CurriculumRegistry from those modules plus the shared track,
  * competencies, rubrics and per-subject question banks.
  *
