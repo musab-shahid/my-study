@@ -57,20 +57,31 @@ for (const lesson of lessons) questionsByLesson.set(lesson.id, unitQuestions.fil
 const unique = (values: string[]) => [...new Set(values)];
 const activityIds = unique([...unit.activityIds, ...lessons.flatMap((lesson) => lesson.activityIds)]);
 const assessmentIds = unique([...unit.assessmentIds, ...lessons.flatMap((lesson) => lesson.assessmentIds)]);
-const resourceIds = unique([...unit.resourceIds, ...lessons.flatMap((lesson) => lesson.resourceIds), ...subject.resourceIds]);
-const deliverableIds = unique([...unit.deliverableIds, ...lessons.flatMap((lesson) => lesson.deliverableIds ?? [])]);
 const activityById = new Map(cgeiCurriculum.activities.map((item) => [item.id, item]));
 const assessmentById = new Map(cgeiCurriculum.assessments.map((item) => [item.id, item]));
 const resourceById = new Map(cgeiCurriculum.resources.map((item) => [item.id, item]));
 const deliverableById = new Map(cgeiCurriculum.deliverables.map((item) => [item.id, item]));
+const projectLinks = cgeiCurriculum.projects.filter((project) => project.prerequisiteUnitIds?.includes(unit.id));
+const activityResourceIds = activityIds.flatMap((id) => activityById.get(id)?.resourceIds ?? []);
+const projectResourceIds = projectLinks.flatMap((project) => project.resourceIds ?? []);
+const resourceIds = unique([...unit.resourceIds, ...lessons.flatMap((lesson) => lesson.resourceIds), ...activityResourceIds, ...projectResourceIds, ...subject.resourceIds]);
+const deliverableIds = unique([...unit.deliverableIds, ...lessons.flatMap((lesson) => lesson.deliverableIds ?? [])]);
 const competencyById = new Map(cgeiCurriculum.competencies.map((item) => [item.id, item]));
 const rubricById = new Map(cgeiCurriculum.rubrics.map((item) => [item.id, item]));
+const outcomeIds = new Set([...unit.outcomes, ...lessons.flatMap((lesson) => lesson.objectives)].map((outcome) => outcome.id));
+const questionIds = new Set(allQuestions.map((question) => question.id));
 const unresolved = {
   lessonIds: unit.lessonIds.filter((id) => !lessonById.has(id)),
   activityIds: activityIds.filter((id) => !activityById.has(id)),
   assessmentIds: assessmentIds.filter((id) => !assessmentById.has(id)),
   resourceIds: resourceIds.filter((id) => !resourceById.has(id)),
   deliverableIds: deliverableIds.filter((id) => !deliverableById.has(id)),
+  activityObjectiveIds: activityIds.flatMap((id) => activityById.get(id)?.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
+  assessmentObjectiveIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.objectiveIds ?? []).filter((id) => !outcomeIds.has(id)),
+  assessmentQuestionIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.questionIds ?? []).filter((id) => !questionIds.has(id)),
+  assessmentActivityIds: assessmentIds.flatMap((id) => assessmentById.get(id)?.activityIds ?? []).filter((id) => !activityById.has(id)),
+  activityResourceIds: activityResourceIds.filter((id) => !resourceById.has(id)),
+  projectResourceIds: projectResourceIds.filter((id) => !resourceById.has(id)),
 };
 const objectiveCompetencyIds = unique([
   ...unit.outcomes.flatMap((outcome) => outcome.competencyIds ?? []),
@@ -79,6 +90,7 @@ const objectiveCompetencyIds = unique([
 const missingCompetencies = objectiveCompetencyIds.filter((id) => !competencyById.has(id));
 const linkedRubricIds = unique([
   ...assessmentIds.flatMap((id) => assessmentById.get(id)?.rubricId ? [assessmentById.get(id)!.rubricId!] : []),
+  ...projectLinks.flatMap((project) => project.rubricId ? [project.rubricId] : []),
   ...deliverableIds.flatMap((id) => deliverableById.get(id)?.rubricId ? [deliverableById.get(id)!.rubricId!] : []),
 ]);
 const missingRubrics = linkedRubricIds.filter((id) => !rubricById.has(id));
@@ -192,7 +204,7 @@ const report = {
     resources: resourceIds.map((id) => resourceById.get(id)).filter(Boolean),
     deliverables: deliverableIds.map((id) => deliverableById.get(id)).filter(Boolean),
     rubrics: linkedRubricIds.map((id) => rubricById.get(id)).filter(Boolean),
-    projects: cgeiCurriculum.projects.filter((project) => project.prerequisiteUnitIds?.includes(unit.id)),
+    projects: projectLinks,
   },
   references: { unresolved, missingCompetencies, missingRubrics },
   traceability: {
