@@ -58,8 +58,7 @@ export default defineConfig({
             id.includes('/src/data/cgei/question-projection-order.ts') ||
             id.includes('/src/data/cgei/registry-shared') ||
             id.includes('/src/data/cgei/shared.ts') ||
-            id.includes('/src/data/cgei/lib/') ||
-            id.includes('/src/data/cgei/') && id.includes('subject-2-curriculum')
+            id.includes('/src/data/cgei/lib/')
           ) {
             return undefined;
           }
