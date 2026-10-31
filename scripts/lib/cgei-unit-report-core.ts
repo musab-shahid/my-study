@@ -66,7 +66,7 @@ export function summarizeQuestionCoverage(questions: readonly QuestionCoverageIn
     applyOrHigher,
     missingCitations: questions.filter((question) => {
       const citation = question.sourceCitation?.trim() ?? '';
-      return !citation || /^CGEI curriculum \\(migrated\\)/i.test(citation) || /^Master Study TOC(?:\\s|·)/i.test(citation);
+      return !citation || /^CGEI curriculum \(migrated\)/i.test(citation) || /^Master Study TOC(?:\s|·)/i.test(citation);
     }).length,
     meetsReviewMinimum: questions.length >= 3 && Object.keys(levels).filter((level) => level !== 'unspecified').length >= 2 && applyOrHigher >= 1,
   };
