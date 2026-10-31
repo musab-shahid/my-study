@@ -107,12 +107,12 @@ const missingRubrics = linkedRubricIds.filter((id) => !rubricById.has(id));
 
 const tracePath = resolve(root, 'docs/cgei/ALL-units-subtopic-traceability.csv');
 const traceRows = existsSync(tracePath) ? parseCsv(readFileSync(tracePath, 'utf8')) : [];
-const subjectNumber = subject.id.match(/cgei-subject-(\\d+)/)?.[1];
+const subjectNumber = subject.id.match(/cgei-subject-(\d+)/)?.[1];
 const preferredTraceFile = subjectNumber
   ? `subject-${subjectNumber}-unit-${unit.code}-subtopic-traceability.csv`
   : '';
 const alternateTraceFile = subjectNumber
-  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\\./g, '-')}-subtopic-traceability.csv`
+  ? `subject-${subjectNumber}-unit-${unit.code.replace(/\./g, '-')}-subtopic-traceability.csv`
   : '';
 const preferredRows = traceRows.filter((row) => row.source_file === preferredTraceFile);
 const alternateRows = traceRows.filter((row) => row.source_file === alternateTraceFile);
@@ -166,7 +166,7 @@ const lessonReports = lessons.map((lesson) => {
     return counts;
   }, {});
   const text = JSON.stringify(lesson.content) ?? '';
-  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\\.py/g)].map((match) => match[0]));
+  const lessonFixtureReferences = unique([...text.matchAll(/unit_[a-z0-9_]+_check\.py/g)].map((match) => match[0]));
   const substantiveContentBlocks = lesson.content.filter(hasSubstantiveContentBlock).length;
   const nonSubstantiveContentBlockIds = lesson.content.filter((block) => !hasSubstantiveContentBlock(block)).map((block) => block.id);
   const objectiveIssues = lesson.objectives
@@ -177,7 +177,7 @@ const lessonReports = lessons.map((lesson) => {
   ]).filter((value): value is string => typeof value === 'string' && value.trim().length > 0);
   const hasPlaceholderText = textValues.some((value) => !hasSubstantiveText(value));
   const hasQuantitativeExample = lesson.content.some((block) =>
-    block.kind === 'worked-example' && /\\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
+    block.kind === 'worked-example' && /\d/.test(`${block.body ?? ''} ${block.expression ?? ''} ${block.code ?? ''}`),
   );
   return {
     id: lesson.id,
