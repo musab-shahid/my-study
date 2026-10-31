@@ -9,7 +9,7 @@
  *   src/data/cgei/shared.ts (track + any shared resources if present)
  *   src/data/cgei/<folder>/topics-<folder>.ts for each curriculum subject
  *   src/data/cgei/curriculum-questions.ts (temporary flat questions array)
- *   Does NOT overwrite climate-science/subject-2-curriculum.ts; prefers topics-climate-science.ts
+ *   Writes topics-<subject>.ts only (one topics + one questions file per subject).
  *
  * After review, replace curriculum.ts with the thin assembler printed at the end.
  */

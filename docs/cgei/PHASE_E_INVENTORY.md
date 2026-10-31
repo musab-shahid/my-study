@@ -29,3 +29,9 @@ See `docs/cgei/TRACEABILITY_AND_FIXTURES.md`.
 - FPSC / HAT / QuizScreen untouched
 - Progress aliases remain for DS + climate
 - Reintroducing `src/data/cgei/*/legacy/` fails CI
+
+
+## Layout (post-merge)
+
+Each CGEI subject folder: `topics-<subject>.ts` + `questions-<subject>.ts` only.
+Quiz-engine `Topic[]` is exported as `topics` from the same topics file where needed.
