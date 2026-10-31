@@ -133,7 +133,7 @@ export const sections: Section[] = [
     subjectId: 'cgei-climate-science',
     title: 'Extremes and trend analysis',
     topicCount: 1,
-    questionCount: 47,
+    questionCount: 46,
   },
   { id: 'CGEI-01', subjectId: 'cgei-env-systems', title: 'Subject roadmap', topicCount: 1, questionCount: 10 },
   { id: 'CGEI-03', subjectId: 'cgei-geospatial', title: 'Subject roadmap', topicCount: 1, questionCount: 56 },
