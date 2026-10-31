@@ -13,6 +13,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const steps = [
   ['npm', ['run', 'check:cgei-sync']],
+  ['npm', ['run', 'report:cgei-unit', '--', '--unit', 'cgei-cl-unit-2-4']],
   ['npm', ['run', 'validate:data']],
   ['npm', ['run', 'audit:core-leaf-evidence']],
   ['npm', ['run', 'check:cgei-question-ids']],
