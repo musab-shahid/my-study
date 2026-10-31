@@ -64,7 +64,7 @@ export function summarizeQuestionCoverage(questions: readonly QuestionCoverageIn
     difficulty: count('difficulty'),
     types: count('type'),
     applyOrHigher,
-    missingCitations: questions.filter((question) => !question.sourceCitation?.trim()).length,
+    missingCitations: questions.filter((question) => !question.sourceCitation?.trim() || question.sourceCitation === 'CGEI curriculum (migrated)').length,
     meetsReviewMinimum: questions.length >= 3 && Object.keys(levels).filter((level) => level !== 'unspecified').length >= 2 && applyOrHigher >= 1,
   };
 }
