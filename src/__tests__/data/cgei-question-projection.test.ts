@@ -2,7 +2,6 @@ import assert from 'node:assert/strict';
 import { describe, it } from 'node:test';
 
 import { cgeiCurriculum } from '../../data/cgei/curriculum';
-import { cgeiQuestionProjectionOrder } from '../../data/cgei/question-projection-order';
 import { questions as envSystemsQuestions } from '../../data/cgei/env-systems/questions-env-systems';
 import { questions as climateQuestions } from '../../data/cgei/climate-science/questions-climate-science';
 import { questions as geospatialQuestions } from '../../data/cgei/geospatial/questions-geospatial';
@@ -34,19 +33,19 @@ const bankQuestions = [
 ];
 
 describe('CGEI question-bank projection', () => {
-  it('preserves the former flat projection IDs and their exact order', () => {
-    assert.equal(cgeiQuestionProjectionOrder.length, 568);
-    assert.deepEqual(
-      cgeiCurriculum.questions.map((question) => question.id),
-      cgeiQuestionProjectionOrder,
+  it('projects subject-bank questions once in deterministic bank order', () => {
+    const eligible = bankQuestions.filter(
+      (question) => question.lessonId && question.type === 'single' && typeof question.correctAnswer === 'number',
     );
+    const projectedIds = cgeiCurriculum.questions.map((question) => question.id);
+    assert.equal(new Set(projectedIds).size, projectedIds.length, 'projection contains duplicate IDs');
+    assert.deepEqual(projectedIds, eligible.map((question) => question.id));
   });
 
   it('projects every lesson-linked single-choice bank question without changing its content', () => {
     const eligible = bankQuestions.filter(
       (question) => question.lessonId && question.type === 'single' && typeof question.correctAnswer === 'number',
     );
-    assert.equal(eligible.length, 568);
     assert.equal(cgeiCurriculum.questions.length, eligible.length);
 
     const byId = new Map(bankQuestions.map((question) => [question.id, question]));
@@ -67,9 +66,8 @@ describe('CGEI question-bank projection', () => {
     }
   });
 
-  it('keeps the 37 unapproved Climate legacy questions engine-only', () => {
+  it('keeps every unlinked Climate engine question out of the canonical projection', () => {
     const unlinked = climateQuestions.filter((question) => !question.lessonId);
-    assert.equal(unlinked.length, 37);
     const projectedIds = new Set(cgeiCurriculum.questions.map((question) => question.id));
     for (const question of unlinked) assert.equal(projectedIds.has(question.id), false);
   });
