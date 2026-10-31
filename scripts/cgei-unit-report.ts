@@ -93,6 +93,7 @@ const unresolved = {
   projectResourceIds: projectResourceIds.filter((id) => !resourceById.has(id)),
 };
 const objectiveCompetencyIds = unique([
+  ...subject.competencyIds,
   ...subject.outcomes.flatMap((outcome) => outcome.competencyIds ?? []),
   ...unit.outcomes.flatMap((outcome) => outcome.competencyIds ?? []),
   ...lessons.flatMap((lesson) => lesson.objectives.flatMap((outcome) => outcome.competencyIds ?? [])),
@@ -216,6 +217,7 @@ const lessonReports = lessons.map((lesson) => {
 });
 
 const reviewBlockers: string[] = [];
+if (!hasSubstantiveText(unit.summary)) reviewBlockers.push('Unit summary is empty or placeholder text.');
 if (!unit.outcomes.length) reviewBlockers.push('Unit has no measurable outcomes.');
 if (unit.outcomes.some((outcome) => !hasSubstantiveText(outcome.statement) || !hasSubstantiveText(outcome.action))) {
   reviewBlockers.push('One or more unit outcomes lack a substantive statement or observable action.');
