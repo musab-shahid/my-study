@@ -40,6 +40,7 @@ const arg = (name: string): string | undefined => {
 const unitId = arg('unit');
 const target = arg('to');
 const jsonOutput = process.argv.includes('--json');
+const checkStructure = process.argv.includes('--check-structure');
 if (!unitId) throw new Error('Usage: npm run report:cgei-unit -- --unit <unitId> [--to review|validated] [--json]');
 if (target && target !== 'review' && target !== 'validated') throw new Error('--to must be review or validated');
 
@@ -344,6 +345,21 @@ if (jsonOutput) {
   console.log(`\nREVIEW READINESS PREVIEW: ${reviewBlockers.length ? 'BLOCKED' : 'PASS'} (${reviewBlockers.length} blockers)`);
   for (const item of reviewBlockers) console.log(`  - ${item}`);
   console.log(`VALIDATED READINESS PREVIEW: ${validatedBlockers.length ? 'BLOCKED' : 'PASS'} (${validatedBlockers.length} blockers)`);
+}
+
+if (checkStructure) {
+  const unresolvedCount = Object.values(unresolved).reduce((total, values) => total + values.length, 0);
+  const structuralErrors = [
+    ...(!traceSourcePath ? ['Missing authoritative per-unit source-TOC traceability matrix.'] : []),
+    ...(unitTraceRows.length === 0 ? ['Per-unit source-TOC traceability matrix contains no data rows.'] : []),
+    ...(unresolvedCount ? [`${unresolvedCount} linked references do not resolve.`] : []),
+  ];
+  if (structuralErrors.length) {
+    for (const error of structuralErrors) console.error(`STRUCTURE CHECK FAILED: ${error}`);
+    process.exitCode = 1;
+  } else {
+    console.log(`Structure check passed: ${unitTraceRows.length} source-TOC rows and all linked references resolve.`);
+  }
 }
 
 if (target) {
