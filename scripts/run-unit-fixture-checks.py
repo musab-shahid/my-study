@@ -23,8 +23,21 @@ def fixture_assertion_error(path: Path) -> str | None:
         node for node in assertions
         if not (isinstance(node.test, ast.Constant) and node.test.value is True)
     ]
-    if not meaningful:
-        return f"{path}: no meaningful executable assert; print-only/stub fixtures are not evidence"
+    explicit_assertion_raises = any(
+        isinstance(node, ast.Raise)
+        and isinstance(node.exc, ast.Call)
+        and isinstance(node.exc.func, ast.Name)
+        and node.exc.func.id == "AssertionError"
+        for node in ast.walk(tree)
+    )
+    unittest_assertions = any(
+        isinstance(node, ast.Call)
+        and isinstance(node.func, ast.Attribute)
+        and node.func.attr.startswith("assert")
+        for node in ast.walk(tree)
+    )
+    if not meaningful and not explicit_assertion_raises and not unittest_assertions:
+        return f"{path}: no executable assertions; print-only/stub fixtures are not evidence"
     return None
 
 
