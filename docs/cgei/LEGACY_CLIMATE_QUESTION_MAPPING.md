@@ -2,10 +2,11 @@
 
 ## Scope and compatibility
 
-This is a lesson-linking pass for the 37 pre-existing Climate Science bank questions that previously had no canonical lesson link. It does **not** rewrite stems, options, answer keys, explanations, source-citation strings, section IDs, topic IDs, or question IDs.
+This is a lesson-linking pass for the 37 pre-existing Climate Science bank questions that previously had no canonical lesson link. It links the 35 items supported by current lesson content and keeps two unsupported items engine-only rather than inventing curriculum coverage. It does **not** rewrite stems, options, answer keys, explanations, source-citation strings, section IDs, topic IDs, or question IDs.
 
-- All 37 permanent IDs are retained.
-- Each question now has a canonical `lessonId`, its lesson objective ID in `objectiveIds`, and a Bloom-style `cognitiveLevel`.
+- All 37 permanent IDs and their quiz-engine routing are retained.
+- The 35 mapped questions have a canonical `lessonId`, their lesson objective ID in `objectiveIds`, and a Bloom-style `cognitiveLevel`.
+- All 37 retain cognitive-level metadata; the two engine-only questions intentionally have no lesson/objective link until the curriculum teaches their assessed concepts.
 - Existing section/topic routing remains unchanged, so the legacy quiz engine continues to find the same questions.
 - No question is deleted or retired. Wording-only corrections retain the ID; a change to the assessed meaning requires a new ID and a ledger entry.
 - This pass records curriculum placement, not scientific-source sign-off. TOC-only citations are not treated as sufficient scientific references by the unit-readiness report; those questions remain in the later evidence/quality review queue.
