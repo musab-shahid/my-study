@@ -203,7 +203,7 @@ for (const lesson of lessons) {
     continue;
   }
   if (!lessonEvidence.reviewer.trim()) validatedBlockers.push(`${lesson.id}: readiness evidence has no reviewer.`);
-  if (!/^\\d{4}-\\d{2}-\\d{2}$/.test(lessonEvidence.reviewedOn)) validatedBlockers.push(`${lesson.id}: readiness evidence has an invalid review date.`);
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(lessonEvidence.reviewedOn)) validatedBlockers.push(`${lesson.id}: readiness evidence has an invalid review date.`);
   if (!lessonEvidence.checksPassed.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no completed checks.`);
   if (!lessonEvidence.notes.length) validatedBlockers.push(`${lesson.id}: readiness evidence has no review notes.`);
 }
