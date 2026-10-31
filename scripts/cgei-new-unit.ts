@@ -1,5 +1,5 @@
 /**
- * Phase D — scaffold stubs for a new unit (topics note + fixture + traceability).
+ * Phase D — scaffold a draft unit shell and traceability note. No fake fixture is created.
  *
  *   npm run new:unit -- --subject cgei-data-science --code 5.13 --title "My unit"
  *
@@ -8,8 +8,8 @@
  *   - docs/cgei/unit-<code>-traceability-stub.csv
  *   - prints the topics-<subject>.ts unit object to paste (does not auto-edit large modules)
  */
-import { mkdirSync, writeFileSync, existsSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { writeFileSync, existsSync } from 'node:fs';
+import { resolve } from 'node:path';
 
 function arg(name: string): string | undefined {
   const i = process.argv.indexOf(`--${name}`);
@@ -29,27 +29,28 @@ function main(): void {
   }
 
   const codeSlug = code.replace(/\./g, '-');
-  const unitId = subject.replace('cgei-', 'cgei-').includes('data-science')
-    ? `cgei-ds-unit-${codeSlug}`
-    : `${subject.replace(/^cgei-/, 'cgei-')}-unit-${codeSlug}`;
+  const prefixes: Record<string, string> = {
+    'cgei-env-systems': 'cgei-es',
+    'cgei-climate-science': 'cgei-cl',
+    'cgei-geospatial': 'cgei-geo',
+    'cgei-remote-sensing': 'cgei-rs',
+    'cgei-data-science': 'cgei-ds',
+    'cgei-ml-geoai': 'cgei-ml',
+    'cgei-climate-risk': 'cgei-risk',
+    'cgei-research-practice': 'cgei-rp',
+    'cgei-decision-support': 'cgei-dspt',
+    'cgei-climate-policy': 'cgei-pol',
+    'cgei-software-engineering': 'cgei-se',
+    'cgei-advanced-ai': 'cgei-ai',
+    'cgei-capstone': 'cgei-cap',
+  };
+  const prefix = prefixes[subject];
+  if (!prefix) throw new Error(`Unsupported canonical CGEI subject: ${subject}`);
+  const unitId = `${prefix}-unit-${codeSlug}`;
 
-  // Fixture stub
-  const fixtureDir = resolve(
-    process.cwd(),
-    'fixtures/cgei',
-  );
-  mkdirSync(fixtureDir, { recursive: true });
-  const fixturePath = join(fixtureDir, `unit_${codeSlug.replace(/-/g, '_')}_stub_check.py`);
-  if (!existsSync(fixturePath)) {
-    writeFileSync(
-      fixturePath,
-      `"""Stub fixture for unit ${code}. Replace with real numerical checks before review."""\n\ndef main() -> None:\n    print("Unit ${code} stub fixture OK (replace with real assertions).")\n\n\nif __name__ == "__main__":\n    main()\n`,
-      'utf8',
-    );
-    console.log('Wrote', fixturePath);
-  } else {
-    console.log('Fixture exists', fixturePath);
-  }
+  // Never create a passing placeholder fixture. Scientific-smoke only discovers
+  // executable unit_*_check.py files with real assertions.
+  console.log('No fixture stub created. Add a real unit_*_check.py only when it contains executable checks.');
 
   // Traceability stub
   const tracePath = resolve(process.cwd(), 'docs/cgei', `unit-${codeSlug}-traceability-stub.csv`);
