@@ -17,8 +17,6 @@ export const questions: Question[] = [
 
   {
     id: 'CGEI-02-Q001',
-    lessonId: 'cgei-cl-lesson-2-6-1',
-    objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'understand',
     sectionId: SID,
     topicId: TID,
@@ -60,8 +58,6 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q003',
-    lessonId: 'cgei-cl-lesson-2-6-2',
-    objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
@@ -306,8 +302,8 @@ export const questions: Question[] = [
   // ── Unit 2.4 — Climate data products & reanalysis ─────────────────────────
   {
     id: 'CGEI-024-Q001',
-    lessonId: 'cgei-cl-lesson-2-4-3',
-    objectiveIds: ['cgei-cl-o-24-select'],
+    lessonId: 'cgei-cl-lesson-2-4-2',
+    objectiveIds: ['cgei-cl-o-24-products'],
     cognitiveLevel: 'understand',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
@@ -459,8 +455,8 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-024-Q009',
-    lessonId: 'cgei-cl-lesson-2-4-3',
-    objectiveIds: ['cgei-cl-o-24-select'],
+    lessonId: 'cgei-cl-lesson-2-4-2',
+    objectiveIds: ['cgei-cl-o-24-products'],
     cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
     topicId: 'cgei-climate-data-products',
