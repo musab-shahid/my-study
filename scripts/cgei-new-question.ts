@@ -60,7 +60,7 @@ function main(): void {
   const source = ts.createSourceFile(path, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   const array = locateQuestionsArray(source);
   const objects = array.elements.filter(ts.isObjectLiteralExpression);
-  const prefix = `cgei-${subject.abbr}-q-${unit.code.replace(/\\D/g, '')}-`;
+  const prefix = `cgei-${subject.abbr}-q-${unit.code.toLowerCase().replace(/[^a-z0-9]/g, '')}-`;
   const ledger = JSON.parse(readFileSync(resolve(process.cwd(), 'docs/cgei/question-id-ledger.json'), 'utf8')) as { questions?: Record<string, unknown> };
   const ids = new Set<string>(Object.keys(ledger.questions ?? {}));
   for (const item of objects) { const id = stringProp(item, 'id'); if (id) ids.add(id); }
