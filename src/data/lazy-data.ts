@@ -2,7 +2,7 @@ import type { Topic, Question, SubjectId } from '@/types';
 import { sectionMap } from './sections';
 
 type TopicModule = { topics: Topic[] };
-type QuestionModule = { questions: Question[] };
+type QuestionModule = { questions: Question[]; topics?: Topic[] };
 
 const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'meteo-climatology': () => import('./fpsc/meteorology/topics-meteorology'),
@@ -15,20 +15,20 @@ const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'hat-verbal': () => import('./hat/verbal/topics-verbal'),
   'hat-analytical': () => import('./hat/analytical/topics-analytical'),
   'hat-quantitative': () => import('./hat/quantitative/topics-quantitative'),
-  'cgei-climate-science': () => import('./cgei/climate-science/quiz-topics-climate-science'),
-  'cgei-env-systems': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-env-systems') })),
-  'cgei-geospatial': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-geospatial') })),
-  'cgei-remote-sensing': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-remote-sensing') })),
-  'cgei-data-science': () => import('./cgei/data-science/quiz-topics-data-science'),
-  'cgei-ml-geoai': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-ml-geoai') })),
-  'cgei-climate-risk': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-climate-risk') })),
-  'cgei-research-practice': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-research-practice') })),
-  'cgei-decision-support': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-decision-support') })),
-  'cgei-climate-policy': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-climate-policy') })),
-  'cgei-software-engineering': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-software-engineering') })),
-  'cgei-advanced-ai': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-advanced-ai') })),
-  'cgei-capstone': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-capstone') })),
-  'cgei-advanced-branches': () => import('./cgei/roadmap-topics').then((m) => ({ topics: m.roadmapTopicsFor('cgei-advanced-branches') })),
+  'cgei-climate-science': () => import('./cgei/climate-science/questions-climate-science'),
+  'cgei-env-systems': () => import('./cgei/env-systems/questions-env-systems'),
+  'cgei-geospatial': () => import('./cgei/geospatial/questions-geospatial'),
+  'cgei-remote-sensing': () => import('./cgei/remote-sensing/questions-remote-sensing'),
+  'cgei-data-science': () => import('./cgei/data-science/questions-data-science'),
+  'cgei-ml-geoai': () => import('./cgei/ml-geoai/questions-ml-geoai'),
+  'cgei-climate-risk': () => import('./cgei/climate-risk/questions-climate-risk'),
+  'cgei-research-practice': () => import('./cgei/research-practice/questions-research-practice'),
+  'cgei-decision-support': () => import('./cgei/decision-support/questions-decision-support'),
+  'cgei-climate-policy': () => import('./cgei/climate-policy/questions-climate-policy'),
+  'cgei-software-engineering': () => import('./cgei/software-engineering/questions-software-engineering'),
+  'cgei-advanced-ai': () => import('./cgei/advanced-ai/questions-advanced-ai'),
+  'cgei-capstone': () => import('./cgei/capstone/questions-capstone'),
+  'cgei-advanced-branches': () => import('./cgei/advanced-branches/questions-advanced-branches'),
 };
 
 

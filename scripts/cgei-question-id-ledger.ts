@@ -8,6 +8,7 @@
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve } from 'node:path';
+import * as ts from 'typescript';
 
 const ROOT = resolve(process.cwd(), 'src/data/cgei');
 const OUT = resolve(process.cwd(), 'docs/cgei/question-id-ledger.json');
@@ -33,10 +34,39 @@ function collect(): Record<string, { subject: string }> {
     const file = join(ROOT, folder.name, 'questions-' + folder.name + '.ts');
     if (!existsSync(file)) continue;
     const source = readFileSync(file, 'utf8');
+    const sourceFile = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
     const ids = new Set<string>();
-    const pattern = /(?:\bid\s*:\s*|["']id["']\s*:\s*)["']([^"']+)["']/g;
-    for (const match of source.matchAll(pattern)) {
-      if (/^(CGEI-|cgei-)/i.test(match[1])) ids.add(match[1]);
+
+    // Only direct IDs on records inside the exported questions array belong in
+    // the permanent question ledger. Quiz topic metadata may share this file,
+    // but its topic/subtopic IDs are not question IDs.
+    for (const statement of sourceFile.statements) {
+      if (!ts.isVariableStatement(statement)) continue;
+      for (const declaration of statement.declarationList.declarations) {
+        if (
+          !ts.isIdentifier(declaration.name) ||
+          declaration.name.text !== 'questions' ||
+          !declaration.initializer ||
+          !ts.isArrayLiteralExpression(declaration.initializer)
+        ) continue;
+
+        for (const element of declaration.initializer.elements) {
+          if (!ts.isObjectLiteralExpression(element)) continue;
+          for (const property of element.properties) {
+            if (!ts.isPropertyAssignment(property)) continue;
+            const name = property.name;
+            const key = ts.isIdentifier(name) || ts.isStringLiteral(name) ? name.text : '';
+            const value = property.initializer;
+            if (
+              key === 'id' &&
+              (ts.isStringLiteral(value) || ts.isNoSubstitutionTemplateLiteral(value)) &&
+              /^(CGEI-|cgei-)/i.test(value.text)
+            ) {
+              ids.add(value.text);
+            }
+          }
+        }
+      }
     }
     for (const id of ids) {
       if (owners[id]) {
