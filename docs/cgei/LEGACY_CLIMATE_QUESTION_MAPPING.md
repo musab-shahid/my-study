@@ -14,9 +14,7 @@ This is a lesson-linking pass for the 37 pre-existing Climate Science bank quest
 
 | Existing question ID | Canonical lesson | Placement rationale |
 |---|---|---|
-| `CGEI-02-Q001` | `cgei-cl-lesson-2-6-1` | Distinguishes SPI/SPEI drought indicators; extreme-indicator interpretation. |
 | `CGEI-02-Q002` | `cgei-cl-lesson-2-6-2` | Serial correlation and trend-test uncertainty. |
-| `CGEI-02-Q003` | `cgei-cl-lesson-2-6-2` | Field significance and multiple trend testing. |
 | `CGEI-02-Q004` | `cgei-cl-lesson-2-6-1` | Heatwave threshold sensitivity. |
 | `CGEI-02-Q005` | `cgei-cl-lesson-2-5-1` | UTC versus PKT day boundaries. |
 | `CGEI-02-Q006` | `cgei-cl-lesson-2-6-1` | Daily versus sub-daily rainfall-extreme resolution. |
@@ -29,7 +27,7 @@ This is a lesson-linking pass for the 37 pre-existing Climate Science bank quest
 | `CGEI-02-Q013` | `cgei-cl-lesson-2-6-1` | ETCCDI rainfall-extreme indices. |
 | `CGEI-02-Q014` | `cgei-cl-lesson-2-5-1` | ERA5 precipitation units and conversion. |
 | `CGEI-02-Q015` | `cgei-cl-lesson-2-6-2` | Numerical Sen's slope calculation. |
-| `CGEI-024-Q001` | `cgei-cl-lesson-2-4-3` | Reanalysis product class and fitness-for-purpose. |
+| `CGEI-024-Q001` | `cgei-cl-lesson-2-4-2` | Identifies what a reanalysis product such as ERA5 represents. |
 | `CGEI-024-Q002` | `cgei-cl-lesson-2-4-2` | Satellite/gauge-blended gridded observational products. |
 | `CGEI-024-Q003` | `cgei-cl-lesson-2-4-3` | ERA5 grid resolution as a product-selection constraint. |
 | `CGEI-024-Q004` | `cgei-cl-lesson-2-4-3` | Correctly label reanalysis rather than observed station rainfall. |
@@ -37,7 +35,7 @@ This is a lesson-linking pass for the 37 pre-existing Climate Science bank quest
 | `CGEI-024-Q006` | `cgei-cl-lesson-2-5-1` | Minimum metadata and provenance manifest. |
 | `CGEI-024-Q007` | `cgei-cl-lesson-2-4-3` | Grid-cell area averages versus point-gauge representativeness. |
 | `CGEI-024-Q008` | `cgei-cl-lesson-2-4-3` | Reanalysis trends include product/observing-system effects. |
-| `CGEI-024-Q009` | `cgei-cl-lesson-2-4-3` | Match data-product classes to their appropriate use. |
+| `CGEI-024-Q009` | `cgei-cl-lesson-2-4-2` | Distinguishes in-situ, gridded-observation and reanalysis product classes. |
 | `CGEI-024-Q010` | `cgei-cl-lesson-2-5-1` | Inspect NetCDF/GRIB metadata before analysis. |
 | `CGEI-024-Q011` | `cgei-cl-lesson-2-4-3` | Spatial coverage versus product-assumption trade-offs. |
 | `CGEI-024-Q012` | `cgei-cl-lesson-2-6-3` | Cautious inference from a short ERA5 rainfall record. |
@@ -52,23 +50,32 @@ This is a lesson-linking pass for the 37 pre-existing Climate Science bank quest
 | `CGEI-025-Q009` | `cgei-cl-lesson-2-5-2` | Masks and missing coverage in area aggregation. |
 | `CGEI-025-Q010` | `cgei-cl-lesson-2-5-1` | Metres-to-millimetres conversion. |
 
+## Engine-only items retained without a forced lesson link
+
+| Existing question ID | Why it remains unlinked |
+|---|---|
+| `CGEI-02-Q001` | SPI/SPEI are drought indices, but no current Climate Science lesson teaches or assesses that distinction. Unit 2.6.1 covers threshold-based heat/rainfall extremes and dry-day indices, not SPI/SPEI. |
+| `CGEI-02-Q003` | Field significance/FDR for gridded trend maps is explicitly listed as deferred in Unit 2.6.2. Linking it as taught content would misrepresent the lesson. |
+
+Both items retain their original IDs and quiz-engine routing. They remain available through the existing quiz engine and can be lesson-linked later when the relevant instruction is added and reviewed.
+
 ## Legacy-item distribution
 
 | Target lesson | Legacy items |
 |---|---:|
-| 2.4.2 | 1 |
-| 2.4.3 | 8 |
+| 2.4.2 | 3 |
+| 2.4.3 | 6 |
 | 2.5.1 | 13 |
 | 2.5.2 | 1 |
-| 2.6.1 | 6 |
-| 2.6.2 | 4 |
+| 2.6.1 | 5 |
+| 2.6.2 | 3 |
 | 2.6.3 | 1 |
 | 2.8.1 | 1 |
 | 2.8.2 | 1 |
 | 2.9.2 | 1 |
-| **Total** | **37** |
+| **Total linked** | **35** |
 
-These counts cover only the 37 legacy items; any pre-existing canonical questions remain in addition. The mapping is not a readiness sign-off: lessons with fewer than three questions, insufficient cognitive-level coverage, or TOC-only citations remain incomplete and will be reported as such.
+These counts cover the 35 lesson-linked legacy items; the two engine-only items above are not included. Any pre-existing canonical questions remain in addition. The mapping is not a readiness sign-off: lessons with fewer than three questions, insufficient cognitive-level coverage, or TOC-only citations remain incomplete and will be reported as such.
 
 ## Lesson-page display
 
