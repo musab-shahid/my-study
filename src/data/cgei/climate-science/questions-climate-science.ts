@@ -1215,6 +1215,25 @@ export const questions: Question[] = [
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-cl-lesson-2-3-3",
     "cognitiveLevel": "apply"
+  },
+  {
+    "id": "cgei-cl-q-26-005",
+    "sectionId": "CGEI-02",
+    "topicId": "cgei-extremes-and-trend-analysis",
+    "difficulty": "medium",
+    "type": "single",
+    "question": "An annual temperature series has an OLS trend estimate of +0.18°C per year, but its residuals show positive autocorrelation. Which interpretation is most defensible?",
+    "options": [
+      "The positive slope proves a climate-change signal, because serial dependence affects only the temperature units, not the inference",
+      "The slope must be discarded; any autocorrelation makes ordinary least-squares trend estimation invalid",
+      "Retain the +0.18°C per year fitted slope, but reassess its uncertainty with a method that accounts for serial dependence",
+      "The trend is automatically significant because the estimated slope is positive"
+    ],
+    "correctAnswer": 2,
+    "explanation": "The fitted slope and its uncertainty are separate parts of the result. Positive serial dependence can reduce effective independent information and make conventional independent-error uncertainty too optimistic; retain the estimate but reassess inference with an autocorrelation-aware method.",
+    "sourceCitation": "Santer, B.D., et al. (2000). Statistical significance of trends and trend differences in layer-average atmospheric temperature time series. Journal of Geophysical Research: Atmospheres, 105(D6), 7337–7356. https://doi.org/10.1029/1999JD901105",
+    "lessonId": "cgei-cl-lesson-2-6-2",
+    "cognitiveLevel": "analyze"
   }
 
 ];
