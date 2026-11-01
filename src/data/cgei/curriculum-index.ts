@@ -500,6 +500,123 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     ]
   },
   {
+    "id": "cgei-es-unit-1-11",
+    "code": "1.11",
+    "title": "Agro-environmental systems of the irrigated plains",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-11-1"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-12",
+    "code": "1.12",
+    "title": "Climate\u2013health nexus and environmental justice",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-12-1",
+      "cgei-es-lesson-1-12-2"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-13",
+    "code": "1.13",
+    "title": "Systems modelling and simple Earth-system models",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-13-1",
+      "cgei-es-lesson-1-13-2",
+      "cgei-es-lesson-1-13-3"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-2",
+    "code": "1.2",
+    "title": "Ecology and ecosystems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-2-1",
+      "cgei-es-lesson-1-2-2"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-3",
+    "code": "1.3",
+    "title": "Environmental chemistry and physics essentials",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-3-1",
+      "cgei-es-lesson-1-3-2"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-4",
+    "code": "1.4",
+    "title": "Soils, landforms, and fluvial systems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-4-1"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-5",
+    "code": "1.5",
+    "title": "Hydrology and water resources",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-5-1",
+      "cgei-es-lesson-1-5-2"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-6",
+    "code": "1.6",
+    "title": "Cryosphere and mountain water systems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-6-1"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-7",
+    "code": "1.7",
+    "title": "Pollution and environmental quality",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-7-1",
+      "cgei-es-lesson-1-7-2"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-8",
+    "code": "1.8",
+    "title": "Air quality: processes, monitoring, and management",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-8-1"
+    ]
+  },
+  {
+    "id": "cgei-es-unit-1-9",
+    "code": "1.9",
+    "title": "Environmental management and assessment",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations",
+    "lessonIds": [
+      "cgei-es-lesson-1-9-1"
+    ]
+  },
+  {
     "id": "cgei-geo-unit-3-1",
     "code": "3.1",
     "title": "Spatial data models",
@@ -2104,6 +2221,150 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "title": "Compound stress, thresholds and adaptive capacity",
     "unitId": "cgei-es-unit-1-10",
     "unitTitle": "Coupled human\u2013natural systems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-11-1",
+    "title": "Crop calendars, irrigation and agrometeorology",
+    "unitId": "cgei-es-unit-1-11",
+    "unitTitle": "Agro-environmental systems of the irrigated plains",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-12-1",
+    "title": "Climate\u2013health pathways",
+    "unitId": "cgei-es-unit-1-12",
+    "unitTitle": "Climate\u2013health nexus and environmental justice",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-12-2",
+    "title": "Equity, study design, and health-data constraints",
+    "unitId": "cgei-es-unit-1-12",
+    "unitTitle": "Climate\u2013health nexus and environmental justice",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-13-1",
+    "title": "Simple models as thinking tools",
+    "unitId": "cgei-es-unit-1-13",
+    "unitTitle": "Systems modelling and simple Earth-system models",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-13-2",
+    "title": "Systems methods: causal loops, stock\u2013flow, agent-based",
+    "unitId": "cgei-es-unit-1-13",
+    "unitTitle": "Systems modelling and simple Earth-system models",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-13-3",
+    "title": "Model evaluation and communication",
+    "unitId": "cgei-es-unit-1-13",
+    "unitTitle": "Systems modelling and simple Earth-system models",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-2-1",
+    "title": "Ecological organisation and ecosystem function",
+    "unitId": "cgei-es-unit-1-2",
+    "unitTitle": "Ecology and ecosystems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-2-2",
+    "title": "Landscape, urban ecology, and biodiversity",
+    "unitId": "cgei-es-unit-1-2",
+    "unitTitle": "Ecology and ecosystems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-3-1",
+    "title": "Chemistry foundations and transport",
+    "unitId": "cgei-es-unit-1-3",
+    "unitTitle": "Environmental chemistry and physics essentials",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-3-2",
+    "title": "Quantitative habits",
+    "unitId": "cgei-es-unit-1-3",
+    "unitTitle": "Environmental chemistry and physics essentials",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-4-1",
+    "title": "Soils and landforms",
+    "unitId": "cgei-es-unit-1-4",
+    "unitTitle": "Soils, landforms, and fluvial systems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-5-1",
+    "title": "Hydrologic cycle and catchment analysis",
+    "unitId": "cgei-es-unit-1-5",
+    "unitTitle": "Hydrology and water resources",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-5-2",
+    "title": "Floods, Indus water resources, groundwater, water quality",
+    "unitId": "cgei-es-unit-1-5",
+    "unitTitle": "Hydrology and water resources",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-6-1",
+    "title": "Snow, glaciers, and Upper Indus hydrology",
+    "unitId": "cgei-es-unit-1-6",
+    "unitTitle": "Cryosphere and mountain water systems",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-7-1",
+    "title": "Pollution types, waste, and standards",
+    "unitId": "cgei-es-unit-1-7",
+    "unitTitle": "Pollution and environmental quality",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-7-2",
+    "title": "Control, remediation, and health-risk assessment",
+    "unitId": "cgei-es-unit-1-7",
+    "unitTitle": "Pollution and environmental quality",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-8-1",
+    "title": "Air quality: chemistry, sources, monitoring",
+    "unitId": "cgei-es-unit-1-8",
+    "unitTitle": "Air quality: processes, monitoring, and management",
+    "subjectId": "cgei-env-systems",
+    "subjectTitle": "Earth System Science Foundations"
+  },
+  {
+    "id": "cgei-es-lesson-1-9-1",
+    "title": "EIA/IEE process and practice",
+    "unitId": "cgei-es-unit-1-9",
+    "unitTitle": "Environmental management and assessment",
     "subjectId": "cgei-env-systems",
     "subjectTitle": "Earth System Science Foundations"
   },
