@@ -108,7 +108,9 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
 
   const encoded = JSON.stringify(data);
-  if (encoded.length > MAX_PROGRESS_PAYLOAD_BYTES) {
+  // Match DB check (pg_column_size) and network limits: count UTF-8 bytes, not JS string length.
+  const payloadBytes = new TextEncoder().encode(encoded).byteLength;
+  if (payloadBytes > MAX_PROGRESS_PAYLOAD_BYTES) {
     return { ok: false, error: 'payload-too-large' };
   }
 

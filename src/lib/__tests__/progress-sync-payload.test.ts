@@ -39,4 +39,34 @@ describe('validateLocalProgressForCloudPush', () => {
       { ok: false, error: 'invalid-local-data' },
     );
   });
+
+  it('rejects non-finite schemaVersion', () => {
+    assert.deepEqual(
+      validateLocalProgressForCloudPush({
+        ...validData,
+        schemaVersion: Number.NaN,
+      }),
+      { ok: false, error: 'invalid-local-data' },
+    );
+  });
+
+  it('rejects malformed examSessionsByProfile entries', () => {
+    assert.deepEqual(
+      validateLocalProgressForCloudPush({
+        ...validData,
+        examSessionsByProfile: { 'track:general': [{ id: 123 }] },
+      }),
+      { ok: false, error: 'invalid-local-data' },
+    );
+  });
+});
+
+describe('UTF-8 payload byte length', () => {
+  it('UTF-8 byte length exceeds string length for multi-byte content', () => {
+    const multi = '€'.repeat(50);
+    const encoded = JSON.stringify({ note: multi });
+    const charLen = encoded.length;
+    const byteLen = new TextEncoder().encode(encoded).byteLength;
+    assert.ok(byteLen > charLen);
+  });
 });

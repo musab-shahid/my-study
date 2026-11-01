@@ -107,6 +107,20 @@ export function validateCloudRestoreData(value: unknown): value is AppData {
     if (!isRecord(value.revisionDates) || !Object.values(value.revisionDates).every((date) => typeof date === 'string')) return false;
   }
   if (value.trackMembership !== undefined && !isTrackMembership(value.trackMembership)) return false;
+  if (value.schemaVersion !== undefined && !isFiniteNumber(value.schemaVersion)) return false;
+  if (value.examSessionsByProfile !== undefined) {
+    if (!isRecord(value.examSessionsByProfile)) return false;
+    for (const sessions of Object.values(value.examSessionsByProfile)) {
+      if (!Array.isArray(sessions)) return false;
+      for (const session of sessions) {
+        if (!isRecord(session)) return false;
+        // Accept known shape loosely; reject non-objects and non-string ids.
+        if (session.id !== undefined && typeof session.id !== 'string') return false;
+        if (session.label !== undefined && typeof session.label !== 'string') return false;
+        if (session.createdAt !== undefined && typeof session.createdAt !== 'string') return false;
+      }
+    }
+  }
   return true;
 }
 
@@ -146,4 +160,3 @@ export function isLocalNewerThanCloud(
   if (Number.isNaN(local) || Number.isNaN(cloud)) return false;
   return local > cloud;
 }
-
