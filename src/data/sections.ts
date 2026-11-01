@@ -135,7 +135,7 @@ export const sections: Section[] = [
     topicCount: 1,
     questionCount: 47,
   },
-  { id: 'CGEI-01', subjectId: 'cgei-env-systems', title: 'Subject roadmap', topicCount: 1, questionCount: 36 },
+  { id: 'CGEI-01', subjectId: 'cgei-env-systems', title: 'Subject roadmap', topicCount: 14, questionCount: 53 },
   { id: 'CGEI-03', subjectId: 'cgei-geospatial', title: 'Subject roadmap', topicCount: 1, questionCount: 56 },
   { id: 'CGEI-04', subjectId: 'cgei-remote-sensing', title: 'Subject roadmap', topicCount: 1, questionCount: 111 },
   { id: 'CGEI-051', subjectId: 'cgei-data-science', title: 'Unit 5.1 — Mathematical & physical foundations', topicCount: 16, questionCount: 256 },
