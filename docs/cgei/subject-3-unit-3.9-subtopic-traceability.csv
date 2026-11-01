@@ -2,7 +2,7 @@ source_subtopic_path,source_subtopic_title,parent_topic_path,parent_topic_title,
 3.9.1.1,Spatial autocorrelation concept,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Concept taught.,Core
 3.9.1.2,Global local Moran LISA,3.9.1,Autocorrelation,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Named; no PySAL.,Core
 3.9.2.1,Hotspot KDE,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-1,mapped_partial,Bandwidth caution.,Core
-3.9..3,Point pattern CSR null,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-2,mapped_partial,CSR as null.,Core
+3.9.2.3,Point pattern CSR null,3.9.2,Clusters,Core,cgei-geo-lesson-3-9-1,cgei-geo-39-1-2,mapped_partial,CSR as null.,Core
 3.9.4.1,Deterministic interpolation,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-1;cgei-geo-39-2-3,mapped_partial,IDW fixture. LOO-IDW practical + residual lag diagnostic (C.15).,Core
 3.9.4.3,Empirical variogram parameters,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-2;cgei-geo-39-2-6;cgei-geo-39-2-7,mapped_partial,"Empirical semivariogram definition, interpretation, fixture γ̂ bins (C.16).",Core
 3.9.4.4,Ordinary kriging variance,3.9.4,Interpolation,Core,cgei-geo-lesson-3-9-2,cgei-geo-39-2-8;cgei-geo-39-2-9,mapped_partial,"OK system, weights sum=1, model variance, IDW comparison (C.17). Fixed exponential params—not automated fit search.",Core
