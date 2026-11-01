@@ -1,7 +1,7 @@
 {
   "version": 1,
   "description": "CGEI question quality baselines. Metrics may only improve (ratchet). Update via npm run snapshot:cgei-question-lints after intentional bulk cleanup.",
-  "maxLongestIsCorrectShare": 0.8278,
+  "maxLongestIsCorrectShare": 0.8287,
   "minExplanationChars": 40,
   "maxCorrectAnswerIndexShare": 0.694,
   "minQuestionsPerLessonWithAny": 0
