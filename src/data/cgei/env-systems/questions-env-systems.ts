@@ -1178,7 +1178,7 @@ export const topics: Topic[] = [
     relatedTopics: [],
     content: true,
     buildsOn: [],
-    leadsTo: ['cgei-climate-science-roadmap', 'cgei-eo-roadmap', 'cgei-risk-roadmap'],
+    leadsTo: [],
     usedIn: [],
   },
   {
@@ -1224,7 +1224,7 @@ export const topics: Topic[] = [
     relatedTopics: ['cgei-env-systems-coupled', 'cgei-env-systems-modelling'],
     content: true,
     buildsOn: [],
-    leadsTo: ['cgei-climate-science-roadmap'],
+    leadsTo: [],
     usedIn: [],
   },
   {
@@ -1265,7 +1265,7 @@ export const topics: Topic[] = [
     relatedTopics: ['cgei-env-systems-coupled'],
     content: true,
     buildsOn: ['cgei-env-systems-earth-components'],
-    leadsTo: ['cgei-eo-roadmap'],
+    leadsTo: [],
     usedIn: [],
   },
   {
@@ -1735,7 +1735,7 @@ export const topics: Topic[] = [
     relatedTopics: ['cgei-env-systems-earth-components', 'cgei-env-systems-coupled'],
     content: true,
     buildsOn: ['cgei-env-systems-earth-components'],
-    leadsTo: ['cgei-climate-science-roadmap'],
+    leadsTo: [],
     usedIn: [],
   },
 ];
