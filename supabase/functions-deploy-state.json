@@ -1,0 +1,13 @@
+{
+  "projectId": "72221015",
+  "functions": {
+    "ai-tutor": {
+      "hasChanged": false,
+      "hash": "bb558e09c72740e376cb3b83b3233a6d926ea7cfc8b8835413f99a3e3e5a84ad6c48ba189d05276ee97c915c706f75013d8c7be618bd320638067a212e80ef76"
+    },
+    "delete-account": {
+      "hasChanged": false,
+      "hash": "3dec4469cd5e31163464bbcaee6f83dd1e9fc30dfcc0dade0c316ad2749e2ebc"
+    }
+  }
+}

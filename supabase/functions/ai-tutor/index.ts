@@ -1,3 +1,4 @@
+// Edge function: AI tutor proxy (v2 deploy)
 /**
  * My Study — AI tutor proxy (edge).
  *

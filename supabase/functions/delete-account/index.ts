@@ -1,3 +1,4 @@
+// Edge function: delete account
 /**
  * Delete the authenticated user's account (and cascaded app_progress rows).
  *
