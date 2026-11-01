@@ -5,7 +5,7 @@ import { useSubjectData } from '@/hooks/useSubjectData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/SubjectSelector';
 import { useData } from '@/hooks/useData';
-import { subjects, subjectMap } from '@/data/subjects';
+import { subjectMap } from '@/data/subjects';
 import { subjectsForScope } from '@/lib/track-scope';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
 import { topicsBySection, getTopic, topicsBySubject } from '@/data/topics';
@@ -21,7 +21,6 @@ import { cgeiOverviewTopicIdForSubject, isCgeiOverviewTopic } from '@/data/cgei/
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
 import { loadQuestionsForTopic } from '@/data/lazy-data';
 import type { SubjectId, Topic, Question, MethodChooser } from '@/types';
-import type { CurriculumLesson } from '@/types/curriculum';
 import type { QuantFormulaEntry } from '@/components/study/TopicContentBlocks';
 import { AiTutorChat } from '@/components/AiTutorChat';
 import { buildTopicContext, buildStudentContext, consumePendingExplain } from '@/lib/ai-tutor';
@@ -973,9 +972,10 @@ export function TopicScreen({ topicId }: { topicId: string }) {
               </Card>
             );
           }
-          const tc = chooser as { title?: string; root?: string; branches?: Array<{ condition: string; result?: string; branches?: any[] }> };
+          type Branch = { condition: string; result?: string; branches?: Branch[] };
+          const tc = chooser as { title?: string; root?: string; branches?: Branch[] };
           if (tc.branches) {
-            const renderBranches = (branches: Array<{ condition: string; result?: string; branches?: any[] }>, depth: number) =>
+            const renderBranches = (branches: Branch[], depth: number) =>
               branches.map((b, i) => (
                 <li key={`${depth}-${i}`} className={depth > 0 ? 'pl-4' : ''}>
                   <span className="font-medium text-brand-700">{b.condition}</span>

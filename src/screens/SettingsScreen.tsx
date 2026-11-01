@@ -1,17 +1,16 @@
 import {
   RefreshCw,
-  Trash2, Library, Flame, TrendingUp, BookOpen, Brain, Target,
-  Check, CheckCircle2, Minus, AlertTriangle, FileText, Database, Info,
-  Download, Share,
+  Library, Flame, TrendingUp, BookOpen, Target,
+  Check, CheckCircle2, AlertTriangle, FileText, Database,
+  Share,
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useData } from '@/hooks/useData';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import {
   subjects, subjectsByTrack,
-  examTracks, examTrackMap,
+  examTracks,
 } from '@/data/subjects';
-import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
 import { ExamScheduleSettings } from '@/components/ExamScheduleSettings';
@@ -25,6 +24,7 @@ import {
   pushProgress,
   pullProgress,
 } from '@/lib/progress-sync';
+
 import { planCloudRestoreWrite, isLocalNewerThanCloud } from '@/lib/cloud-restore';
 import {
   isErrorReportingEnabled,
@@ -74,13 +74,13 @@ interface BeforeInstallPromptEvent extends Event {
 
 export function SettingsScreen() {
   const { data, reset, resetSubjects } = useData();
-  const sd = useSubjectData();
+  const _sd = useSubjectData();
   const [selectedSubjects, setSelectedSubjects] = useState<Set<SubjectId>>(new Set());
   const [confirming, setConfirming] = useState(false);
   const [resetDone, setResetDone] = useState<{ message: string; kind: 'success' | 'error' } | null>(null);
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
   const [syncBusy, setSyncBusy] = useState(false);
-  const [sessionTick, setSessionTick] = useState(0);
+  const [, setSessionTick] = useState(0);
   const [errorReporting, setErrorReporting] = useState(isErrorReportingEnabled);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
@@ -93,18 +93,13 @@ export function SettingsScreen() {
   const today = getTodayActivity(data);
   const week = getWeekActivity(data);
 
-  const globalStudied = data.studiedTopics.length;
-  const globalAnswered = Object.keys(data.questionResults).length;
-  const globalCorrect = Object.values(data.questionResults).filter((r) => r.correct).length;
-
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
-  const globalAcc = globalAnswered > 0 ? Math.round((globalCorrect / globalAnswered) * 100) : 0;
 
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
   const isFullReset = allSelected;
-  const hasSession = Boolean(getProgressSyncAccessToken()) || sessionTick < 0;
+
 
   const toggleSubject = (id: SubjectId) => {
     setSelectedSubjects((prev) => {
