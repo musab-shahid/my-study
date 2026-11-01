@@ -1,0 +1,1 @@
+REVOKE TRUNCATE, TRIGGER, REFERENCES ON app_progress FROM authenticated;
