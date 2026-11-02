@@ -1,5 +1,5 @@
 import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3 } from 'lucide-react';
-import { useEffect, useMemo } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
@@ -44,14 +44,12 @@ function CGEILearningHomeScreen() {
   const enrolled = isTrackEnrolled(data, 'cgei');
   const subjects = subjectsByTrack('cgei');
   const allLessons = cgeiCurriculum.lessons;
-  const studiedCount = allLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
+  const authoredLessons = allLessons.filter(hasSubstantiveLessonContent);
+  const studiedCount = authoredLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
   const lastLesson = data.lastOpenedCurriculumLesson
     ? allLessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
     : undefined;
-  const recommendedLesson = useMemo(
-    () => allLessons.find((lesson) => !lessonIsStudied(lesson, data) && hasSubstantiveLessonContent(lesson)),
-    [data.studiedCurriculumLessons, data.studiedTopics],
-  );
+  const recommendedLesson = authoredLessons.find((lesson) => !lessonIsStudied(lesson, data));
   const resumeLesson = lastLesson ?? recommendedLesson;
   const resumeLabel = lastLesson ? 'Continue learning' : 'Recommended starting point';
 
@@ -108,11 +106,11 @@ function CGEILearningHomeScreen() {
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="font-semibold text-ink">Overall curriculum progress</h2>
-            <p className="text-xs text-muted mt-1">{studiedCount} of {allLessons.length} lessons marked studied</p>
+            <p className="text-xs text-muted mt-1">{studiedCount} of {authoredLessons.length} authored lessons marked studied</p>
           </div>
-          <span className="text-sm font-semibold tabular-nums text-ink">{allLessons.length ? Math.round(studiedCount / allLessons.length * 100) : 0}%</span>
+          <span className="text-sm font-semibold tabular-nums text-ink">{authoredLessons.length ? Math.round(studiedCount / authoredLessons.length * 100) : 0}%</span>
         </div>
-        <ProgressBar value={allLessons.length ? studiedCount / allLessons.length * 100 : 0} />
+        <ProgressBar value={authoredLessons.length ? studiedCount / authoredLessons.length * 100 : 0} />
         <p className="text-xs text-muted mt-2">This counts lessons explicitly marked studied. Opening a lesson or answering an unrecorded knowledge check does not count as completion or demonstrated mastery.</p>
       </Card>
 
@@ -175,7 +173,8 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
     if (switched.ok) setActiveTrack('cgei');
   }, [trackMembership.activeTrackId, setActiveEnrolledTrack, setActiveTrack]);
   const subjectDefinition = subjectsByTrack('cgei').find((item) => item.id === subjectId);
-  const studiedCount = lessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
+  const authoredLessons = lessons.filter(hasSubstantiveLessonContent);
+  const studiedCount = authoredLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
   const lastLesson = data.lastOpenedCurriculumLesson
     ? lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
     : undefined;
@@ -207,10 +206,10 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
 
       <Card className="p-4 sm:p-5 mb-5">
         <div className="flex items-center justify-between gap-3">
-          <div><h2 className="font-semibold text-ink">Domain progress</h2><p className="text-xs text-muted mt-1">{studiedCount} of {lessons.length} lessons marked studied</p></div>
-          <span className="font-semibold text-sm tabular-nums text-ink">{lessons.length ? Math.round(studiedCount / lessons.length * 100) : 0}%</span>
+          <div><h2 className="font-semibold text-ink">Domain progress</h2><p className="text-xs text-muted mt-1">{studiedCount} of {authoredLessons.length} authored lessons marked studied</p></div>
+          <span className="font-semibold text-sm tabular-nums text-ink">{authoredLessons.length ? Math.round(studiedCount / authoredLessons.length * 100) : 0}%</span>
         </div>
-        <ProgressBar value={lessons.length ? studiedCount / lessons.length * 100 : 0} />
+        <ProgressBar value={authoredLessons.length ? studiedCount / authoredLessons.length * 100 : 0} />
         <p className="text-xs text-muted mt-2">{authoredCount} of {lessons.length} registered lessons contain substantive learning material. Studied status is not a mastery claim.</p>
       </Card>
 
@@ -238,7 +237,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
 
       <Card className="p-4 sm:p-5 border border-success-200 bg-white">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-          <div><h2 className="text-base font-semibold text-ink">Learning path</h2><p className="text-xs text-muted mt-1">{lessons.length > 0 ? `${studiedCount} of ${lessons.length} lessons marked studied · follow units in order` : 'Units registered · lessons still being integrated'}</p></div>
+          <div><h2 className="text-base font-semibold text-ink">Learning path</h2><p className="text-xs text-muted mt-1">{authoredCount > 0 ? `${studiedCount} of ${authoredCount} authored lessons marked studied · follow units in order` : 'Units registered · lessons still being integrated'}</p></div>
           {lastLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastLesson.id })}>Resume last lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : nextLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Open next authored lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : null}
         </div>
         {units.length ? <div className="space-y-2">{units.map((unit) => {
