@@ -76,23 +76,6 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('No matching domains', { exact: true })).toHaveCount(0);
   });
 
-  test('unenrolled CGEI visitor gets an explicit enrollment route', async ({ page }) => {
-    await seedCgeiWorkspace(page);
-    await page.evaluate((key) => {
-      const value = JSON.parse(localStorage.getItem(key) ?? '{}');
-      value.trackMembership = { schemaVersion: 1, enrollments: {}, activeTrackId: null };
-      localStorage.setItem(key, JSON.stringify(value));
-    }, APP_DATA_KEY);
-    await page.reload();
-    await page.goto('/track/cgei');
-    await expect(page.getByRole('button', { name: 'Open CGEI Learning', exact: true })).toBeEnabled();
-    await page.getByRole('button', { name: 'Open CGEI Learning', exact: true }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
-    await expect(page.getByText('Start the CGEI learning pathway', { exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Explore and enroll', exact: true })).toBeVisible();
-    await expect(page.getByRole('button', { name: 'Open domain' }).first()).toBeDisabled();
-  });
-
   test('CGEI home routing follows persisted workspace membership, not a stale selector preference', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.evaluate((key) => {

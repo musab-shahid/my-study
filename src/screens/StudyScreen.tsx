@@ -531,7 +531,7 @@ export function StudyScreen() {
     ? route.subjectId
     : undefined;
   const isCgeiLearningHome = route.screen === 'learn' && !route.subjectId
-    && (route.trackId === 'cgei' || trackMembership.activeTrackId === 'cgei');
+    && trackMembership.activeTrackId === 'cgei';
 
   if (cgeiSubjectId || isCgeiLearningHome) {
     return <CGEILearningScreen subjectId={cgeiSubjectId} />;

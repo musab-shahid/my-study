@@ -1,6 +1,6 @@
 import {
   RefreshCw,
-  BookOpenCheck, Flame, TrendingUp, BookOpen, Target,
+  BookOpenCheck, BookOpen,
   Check, CheckCircle2, AlertTriangle, FileText, Database,
   Share,
 } from 'lucide-react';
@@ -15,7 +15,6 @@ import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
 import { ExamScheduleSettings } from '@/components/ExamScheduleSettings';
 import { AuthAccountCard } from '@/components/AuthAccountCard';
-import { computeStreak, getTodayActivity, getWeekActivity } from '@/lib/streak';
 import { downloadBackupFile, getLocalMutationAt } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import {
@@ -88,10 +87,6 @@ export function SettingsScreen() {
   const [installMsg, setInstallMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
-
-  const streak = computeStreak(data);
-  const today = getTodayActivity(data);
-  const week = getWeekActivity(data);
 
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
@@ -277,35 +272,6 @@ export function SettingsScreen() {
           <InfoStat icon={<Database className="w-4 h-4 text-brand-500" />} value={`${globalQuestionCount}`} label="questions" />
         </div>
       </Card>
-
-      <div className="grid grid-cols-3 gap-3 mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-warning-500' : 'text-muted'}`} />
-            <span className="text-muted text-xs font-medium">Streak</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{streak.streak}<span className="text-sm font-normal text-muted">d</span></p>
-          <p className="text-muted text-xs mt-0.5 truncate">
-            {streak.studiedToday ? 'On track' : streak.atRisk ? 'At risk' : 'Start today'}
-          </p>
-        </Card>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <TrendingUp className="w-4 h-4 text-brand-500" />
-            <span className="text-muted text-xs font-medium">Today</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{today.questionsAnswered}</p>
-          <p className="text-muted text-xs mt-0.5 truncate">{today.quizCount} quizzes</p>
-        </Card>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Target className="w-4 h-4 text-success-500" />
-            <span className="text-muted text-xs font-medium">Week</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{week.avgAccuracy}<span className="text-sm font-normal text-muted">%</span></p>
-          <p className="text-muted text-xs mt-0.5 truncate">{week.questionsAnswered} answered</p>
-        </Card>
-      </div>
 
       </section>
 

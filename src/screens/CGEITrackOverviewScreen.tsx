@@ -90,13 +90,11 @@ export function CGEITrackOverviewScreen() {
           onContinue={continueTrack}
         />
         <div className="flex justify-end">
-          <Button type="button" variant="secondary" onClick={() => {
-            if (enrolled) {
-              const result = setActiveEnrolledTrack('cgei');
-              if (!result.ok) return;
-              setActiveTrack('cgei');
-            }
-            navigate({ screen: 'learn', trackId: 'cgei', parent: currentRoute });
+          <Button type="button" variant="secondary" disabled={!enrolled} onClick={() => {
+            const result = setActiveEnrolledTrack('cgei');
+            if (!result.ok) return;
+            setActiveTrack('cgei');
+            navigate({ screen: 'learn', parent: currentRoute });
           }}>
             Open CGEI Learning <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
