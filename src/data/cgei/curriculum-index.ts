@@ -625,7 +625,34 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "lessonIds": [
       "cgei-geo-lesson-3-1-1",
       "cgei-geo-lesson-3-1-2",
-      "cgei-geo-lesson-3-1-3"
+      "cgei-geo-lesson-3-1-3",
+      "cgei-geo-lesson-3-1-4",
+      "cgei-geo-lesson-3-1-5"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-10",
+    "code": "3.10",
+    "title": "Cloud-native and large-scale geospatial",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-10-1",
+      "cgei-geo-lesson-3-10-2",
+      "cgei-geo-lesson-3-10-3",
+      "cgei-geo-lesson-3-10-4"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-11",
+    "code": "3.11",
+    "title": "Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-11-1",
+      "cgei-geo-lesson-3-11-2",
+      "cgei-geo-lesson-3-11-3"
     ]
   },
   {
@@ -693,7 +720,34 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "subjectTitle": "Geospatial Science, GIS & Cartography",
     "lessonIds": [
       "cgei-geo-lesson-3-6-1",
-      "cgei-geo-lesson-3-6-2"
+      "cgei-geo-lesson-3-6-2",
+      "cgei-geo-lesson-3-6-3",
+      "cgei-geo-lesson-3-6-4"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-7",
+    "code": "3.7",
+    "title": "Spatial databases",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-7-1",
+      "cgei-geo-lesson-3-7-2",
+      "cgei-geo-lesson-3-7-3",
+      "cgei-geo-lesson-3-7-4"
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-8",
+    "code": "3.8",
+    "title": "Open geospatial data, standards, and interoperability",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography",
+    "lessonIds": [
+      "cgei-geo-lesson-3-8-1",
+      "cgei-geo-lesson-3-8-2",
+      "cgei-geo-lesson-3-8-3"
     ]
   },
   {
@@ -705,7 +759,8 @@ export const cgeiIndexUnits: readonly CgeiIndexUnit[] = [
     "lessonIds": [
       "cgei-geo-lesson-3-9-1",
       "cgei-geo-lesson-3-9-2",
-      "cgei-geo-lesson-3-9-3"
+      "cgei-geo-lesson-3-9-3",
+      "cgei-geo-lesson-3-9-4"
     ]
   },
   {
@@ -2393,6 +2448,78 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Geospatial Science, GIS & Cartography"
   },
   {
+    "id": "cgei-geo-lesson-3-1-4",
+    "title": "Spatial data quality and metadata",
+    "unitId": "cgei-geo-unit-3-1",
+    "unitTitle": "Spatial data models",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-1-5",
+    "title": "Positioning and field coordinates",
+    "unitId": "cgei-geo-unit-3-1",
+    "unitTitle": "Spatial data models",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-1",
+    "title": "STAC, COG, Zarr and GeoParquet",
+    "unitId": "cgei-geo-unit-3-10",
+    "unitTitle": "Cloud-native and large-scale geospatial",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-2",
+    "title": "Discovery portals and access costs",
+    "unitId": "cgei-geo-unit-3-10",
+    "unitTitle": "Cloud-native and large-scale geospatial",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-3",
+    "title": "Compute platform choices",
+    "unitId": "cgei-geo-unit-3-10",
+    "unitTitle": "Cloud-native and large-scale geospatial",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-4",
+    "title": "Quotas, dependency risk and exit strategy",
+    "unitId": "cgei-geo-unit-3-10",
+    "unitTitle": "Cloud-native and large-scale geospatial",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-1",
+    "title": "Point clouds, DSM and DTM",
+    "unitId": "cgei-geo-unit-3-11",
+    "unitTitle": "Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-2",
+    "title": "UAV mission planning and compliance",
+    "unitId": "cgei-geo-unit-3-11",
+    "unitTitle": "Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-3",
+    "title": "3D urban form and canopy products",
+    "unitId": "cgei-geo-unit-3-11",
+    "unitTitle": "Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
     "id": "cgei-geo-lesson-3-2-1",
     "title": "Geographic coordinates, datums and axis order",
     "unitId": "cgei-geo-unit-3-2",
@@ -2577,6 +2704,78 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
     "subjectTitle": "Geospatial Science, GIS & Cartography"
   },
   {
+    "id": "cgei-geo-lesson-3-6-3",
+    "title": "Map types, relief and publication standards",
+    "unitId": "cgei-geo-unit-3-6",
+    "unitTitle": "Cartography",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-6-4",
+    "title": "Sensitive boundaries and web cartography",
+    "unitId": "cgei-geo-unit-3-6",
+    "unitTitle": "Cartography",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-1",
+    "title": "PostGIS types, indexes and predicates",
+    "unitId": "cgei-geo-unit-3-7",
+    "unitTitle": "Spatial databases",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-2",
+    "title": "Storage options and scaling",
+    "unitId": "cgei-geo-unit-3-7",
+    "unitTitle": "Spatial databases",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-3",
+    "title": "Schema design and CRS policy",
+    "unitId": "cgei-geo-unit-3-7",
+    "unitTitle": "Spatial databases",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-4",
+    "title": "Query patterns, ETL and testing",
+    "unitId": "cgei-geo-unit-3-7",
+    "unitTitle": "Spatial databases",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-1",
+    "title": "Open base and thematic layers",
+    "unitId": "cgei-geo-unit-3-8",
+    "unitTitle": "Open geospatial data, standards, and interoperability",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-2",
+    "title": "OGC services, STAC and interoperability",
+    "unitId": "cgei-geo-unit-3-8",
+    "unitTitle": "Open geospatial data, standards, and interoperability",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-3",
+    "title": "Licences, ethics and citation",
+    "unitId": "cgei-geo-unit-3-8",
+    "unitTitle": "Open geospatial data, standards, and interoperability",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
     "id": "cgei-geo-lesson-3-9-1",
     "title": "Spatial dependence, weights and clusters",
     "unitId": "cgei-geo-unit-3-9",
@@ -2595,6 +2794,14 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   {
     "id": "cgei-geo-lesson-3-9-3",
     "title": "Spatial validation and change of support",
+    "unitId": "cgei-geo-unit-3-9",
+    "unitTitle": "Spatial statistics and geostatistics",
+    "subjectId": "cgei-geospatial",
+    "subjectTitle": "Geospatial Science, GIS & Cartography"
+  },
+  {
+    "id": "cgei-geo-lesson-3-9-4",
+    "title": "Spatial regression and heterogeneity",
     "unitId": "cgei-geo-unit-3-9",
     "unitTitle": "Spatial statistics and geostatistics",
     "subjectId": "cgei-geospatial",

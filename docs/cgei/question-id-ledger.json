@@ -1316,7 +1316,40 @@
     "cgei-geo-q-31-003": {
       "subject": "cgei-geospatial"
     },
+    "cgei-geo-q-31-easy-nodata": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-31-gnss": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-31-quality": {
+      "subject": "cgei-geospatial"
+    },
     "cgei-geo-q-31-scale": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-310-001": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-310-002": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-310-003": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-310-004": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-310-005": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-311-001": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-311-002": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-311-003": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-32-001": {
@@ -1332,6 +1365,9 @@
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-32-grid": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-32-hard-utm": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-32-landmark": {
@@ -1388,6 +1424,9 @@
     "cgei-geo-q-33-gdalinfo": {
       "subject": "cgei-geospatial"
     },
+    "cgei-geo-q-33-hard-nodata": {
+      "subject": "cgei-geospatial"
+    },
     "cgei-geo-q-33-layout": {
       "subject": "cgei-geospatial"
     },
@@ -1430,10 +1469,16 @@
     "cgei-geo-q-34-010": {
       "subject": "cgei-geospatial"
     },
+    "cgei-geo-q-34-easy-dsm": {
+      "subject": "cgei-geospatial"
+    },
     "cgei-geo-q-35-area": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-35-cog": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-35-easy-crs": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-35-nodata": {
@@ -1442,10 +1487,16 @@
     "cgei-geo-q-35-pin": {
       "subject": "cgei-geospatial"
     },
+    "cgei-geo-q-36-boundaries": {
+      "subject": "cgei-geospatial"
+    },
     "cgei-geo-q-36-breaks": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-36-choro": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-36-hard-counts": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-36-hierarchy": {
@@ -1454,7 +1505,40 @@
     "cgei-geo-q-36-legend": {
       "subject": "cgei-geospatial"
     },
+    "cgei-geo-q-36-types": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-37-001": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-37-002": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-37-003": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-37-004": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-37-005": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-38-001": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-38-002": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-38-003": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-38-easy-odbl": {
+      "subject": "cgei-geospatial"
+    },
     "cgei-geo-q-39-block": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-39-hard-leak": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-39-idw": {
@@ -1467,6 +1551,9 @@
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-39-ok": {
+      "subject": "cgei-geospatial"
+    },
+    "cgei-geo-q-39-reg": {
       "subject": "cgei-geospatial"
     },
     "cgei-geo-q-39-variogram": {

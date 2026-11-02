@@ -146,7 +146,7 @@ export const sections: Section[] = [
   { id: 'CGEI-0212', subjectId: 'cgei-climate-science', title: 'ML, open AI forecasts, climate services and digital twins', topicCount: 1, questionCount: 5 },
   { id: 'CGEI-0213', subjectId: 'cgei-climate-science', title: 'Seasonal-to-subseasonal prediction and verification', topicCount: 1, questionCount: 3 },
   { id: 'CGEI-01', subjectId: 'cgei-env-systems', title: 'Subject roadmap', topicCount: 14, questionCount: 53 },
-  { id: 'CGEI-03', subjectId: 'cgei-geospatial', title: 'Subject roadmap', topicCount: 1, questionCount: 56 },
+  { id: 'CGEI-03', subjectId: 'cgei-geospatial', title: 'Subject roadmap', topicCount: 10, questionCount: 85 },
   { id: 'CGEI-04', subjectId: 'cgei-remote-sensing', title: 'Subject roadmap', topicCount: 1, questionCount: 111 },
   { id: 'CGEI-051', subjectId: 'cgei-data-science', title: 'Unit 5.1 — Mathematical & physical foundations', topicCount: 16, questionCount: 256 },
   { id: 'CGEI-06', subjectId: 'cgei-ml-geoai', title: 'Subject roadmap', topicCount: 1, questionCount: 23 },

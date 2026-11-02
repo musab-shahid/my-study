@@ -12,12 +12,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Which representation best stores continuous precipitation rate on a regular 0.1° grid?",
     "options": [
-      "Polygon districts only",
       "A raster with explicit nodata",
+      "Polygon districts only",
       "A single multipoint without attributes",
       "A text list of station names"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Continuous fields on regular grids are naturally rasters; nodata must be distinguished from zero.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-1-1",
@@ -31,12 +31,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Matching station rows to districts by approximate lat/lon equality is risky primarily because:",
     "options": [
-      "Floating coordinates rarely match as keys and ignore CRS/tolerance",
       "Polygons cannot store attributes",
+      "Floating coordinates rarely match as keys and ignore CRS/tolerance",
       "Rasters forbid joins",
       "EPSG codes are optional"
     ],
-    "correctAnswer": 0,
+    "correctAnswer": 1,
     "explanation": "Use stable IDs or explicit spatial predicates with documented CRS and tolerance—not raw float equality.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-1-2",
@@ -51,11 +51,11 @@ export const questions: Question[] = [
     "question": "Two axis-aligned district boxes share only a boundary edge and have unique IDs. Under the teaching fixture rules, this should be treated as:",
     "options": [
       "Always invalid topology",
+      "Proof that Web Mercator preserves area for every district in the region",
       "A valid control for non-overlapping interiors",
-      "Proof that Web Mercator preserves area",
       "A raster mixed-pixel error"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Shared boundaries can be valid; the fixture flags interior overlaps and duplicate IDs, not every adjacency.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-1-3",
@@ -70,11 +70,11 @@ export const questions: Question[] = [
     "question": "A study reports a strong negative correlation between district mean income and district mean greenness, then concludes that poorer individuals live in less green environments. The primary methodological risk is:",
     "options": [
       "Using UTM instead of geographic coordinates",
-      "Ecological fallacy from aggregate units",
       "Missing Web Mercator distortion only",
-      "PyQGIS not being used"
+      "PyQGIS not being used",
+      "Ecological fallacy from aggregate units"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Aggregate correlations need not hold for individuals. Person-level claims need microdata or claims must stay at the district unit.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-1-3",
@@ -88,12 +88,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Figure–ground design primarily means:",
     "options": [
-      "Always using rainbow colour ramps",
       "Organising contrast so the primary result reads as figure against quieter context",
+      "Always using rainbow colour ramps",
       "Deleting the basemap for scientific honesty",
       "Printing at 1:1 scale only"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Visual hierarchy directs attention: strong figure for the result, muted ground for context.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-6-1",
@@ -109,7 +109,7 @@ export const questions: Question[] = [
     "options": [
       "A touches C directly",
       "A touches B and B touches C, but A does not touch C",
-      "Every parcel is neighbour to every other parcel",
+      "Every parcel is a neighbour to every other parcel in the study region",
       "Weights equal inverse population only"
     ],
     "correctAnswer": 1,
@@ -127,11 +127,11 @@ export const questions: Question[] = [
     "question": "A 500 m buffer around rivers should be computed in which setting?",
     "options": [
       "Geographic degrees on WGS 84 without projection",
-      "A projected CRS with metre units appropriate to the region",
       "Any web tile CRS",
+      "A projected CRS with metre units appropriate to the region",
       "Pixel coordinates of a screenshot"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Metric policy distances require a projected CRS with linear units; degree buffers are not metres.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-1",
@@ -146,11 +146,11 @@ export const questions: Question[] = [
     "question": "Five daily rows share two station_ids. An attribute join to a two-row station metadata table (unique station_id) typically yields:",
     "options": [
       "Two rows only",
-      "Five rows (one-to-many expansion)",
       "Zero rows",
-      "One multipoint geometry"
+      "One multipoint geometry",
+      "Five rows (one-to-many expansion)"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "One-to-many attribute joins expand the many-side rows; always check counts before/after.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-2",
@@ -164,12 +164,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A point layer labelled EPSG:4326 and a polygon layer labelled EPSG:32642 share similar numeric coordinates. The safest first action before a spatial join is to:",
     "options": [
-      "Run intersects immediately because numbers look close",
       "Confirm CRS agreement and reproject if needed; do not treat coordinate numbers as CRS-invariant",
+      "Run intersects immediately because numbers look close",
       "Drop all unmatched polygons",
       "Convert both layers to attributes-only tables"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Spatial predicates assume coordinates share a CRS. Matching numbers under different CRS labels is not a geographic match. Reproject or refuse before interpreting intersects/within results.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-2",
@@ -184,11 +184,11 @@ export const questions: Question[] = [
     "question": "In the Unit 3.3 fixture, zone 1 has values 10, 20 and NoData. The correct zonal mean excludes NoData and equals:",
     "options": [
       "10",
-      "15",
       "20",
+      "15",
       "0"
     ],
-    "correctAnswer": 2,
+    "correctAnswer": 1,
     "explanation": "Valid cells 10, 20, 30 average to 20; NoData is skipped and zero would be a valid value if present.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-3",
@@ -222,11 +222,11 @@ export const questions: Question[] = [
     "question": "Which item is essential in a reproducible QGIS processing log for this unit?",
     "options": [
       "Only the final map screenshot",
-      "CRS, tool names, parameters and output paths",
       "The laptop brand",
-      "A Web Mercator buffer distance in degrees"
+      "A Web Mercator buffer distance in degrees, chosen to suit the laptop screen size",
+      "CRS, tool names, parameters and output paths"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Logs must record CRS, tools, parameters and outputs so another analyst can repeat the work.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-5",
@@ -240,12 +240,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Which operation keeps the part of layer A that lies outside layer B?",
     "options": [
+      "Difference (A−B)",
       "Dissolve",
       "Union",
-      "Difference (A−B)",
       "Attribute join"
     ],
-    "correctAnswer": 2,
+    "correctAnswer": 0,
     "explanation": "Difference retains A outside B; union keeps all pieces; dissolve merges by attribute.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-1",
@@ -278,12 +278,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "In the Unit 3.3 admin fixture, which defect must be fixed before trusting a district aggregation?",
     "options": [
-      "Duplicate unit_id T1 and missing parent D9",
       "Using GeoPackage instead of shapefile",
       "Setting NoData to −9999",
+      "Duplicate unit_id T1 and missing parent D9",
       "Buffering in metres"
     ],
-    "correctAnswer": 0,
+    "correctAnswer": 2,
     "explanation": "Duplicate IDs and missing parents break hierarchical joins and inflate or drop aggregates.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-7",
@@ -298,11 +298,11 @@ export const questions: Question[] = [
     "question": "RMSE for georeferencing control points is best described as:",
     "options": [
       "Proof the entire map is accurate everywhere",
-      "The square root of the mean of squared residual distances of the control points",
       "Always equal to the map scale denominator",
-      "A replacement for documenting CRS"
+      "A replacement for documenting CRS",
+      "The square root of the mean of squared residual distances of the control points"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "RMSE summarises control residuals; it does not validate the whole map surface.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-8",
@@ -316,12 +316,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A decision map layout should include at minimum:",
     "options": [
-      "Only a colourful ramp with no scale",
       "Scale bar with correct units, legend, and CRS/source notes",
+      "Only a colourful ramp with no scale",
       "Degree ticks labeled as kilometres without conversion",
       "An export at any dpi without recording settings"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Scale, legend, and source/CRS notes support interpretation; dpi is a production parameter.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-8",
@@ -355,11 +355,11 @@ export const questions: Question[] = [
     "question": "A layout is designed at 1:50,000 with a scale bar in kilometres. The page is later resized for a slide without updating the map scale or scale bar. What is true?",
     "options": [
       "The scale bar still reports true ground distance for the new layout",
-      "The scale bar is only meaningful for the map scale at which it was constructed; resizing without recalibration misleads distance reading",
       "North arrows correct any scale error automatically",
+      "The scale bar is only meaningful for the map scale at which it was constructed; resizing without recalibration misleads distance reading",
       "Export dpi alone restores true scale"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Scale bars encode a specific map scale. Changing layout size or map scale without regenerating the scale bar breaks the distance relationship.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-8",
@@ -374,11 +374,11 @@ export const questions: Question[] = [
     "question": "When batch-converting many shapefiles with ogr2ogr, the safest practice is to:",
     "options": [
       "Ignore CRS and assume WGS84 for every file",
-      "Set or preserve the source CRS explicitly, write outputs to a checked folder, and fail or log files that error rather than silently skipping verification",
       "Disable all error messages to speed the job",
-      "Reproject every file to Web Mercator without recording the operation"
+      "Reproject every file to Web Mercator without recording the operation",
+      "Set or preserve the source CRS explicitly, write outputs to a checked folder, and fail or log files that error rather than silently skipping verification"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Batch conversion must preserve or document CRS, surface failures, and leave an auditable output set—not hide errors.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-8",
@@ -392,12 +392,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Topology rules (e.g. no dangles, must not overlap) and georeferencing RMSE answer different questions. Which pairing is correct?",
     "options": [
-      "Low RMSE proves polygons cannot overlap; topology rules prove absolute geolocation accuracy",
       "Topology rules constrain relative geometric integrity of features; RMSE summarises control-point residuals and does not by itself prove the whole layer is topologically clean or accurate everywhere",
+      "Low RMSE proves polygons cannot overlap; topology rules prove absolute geolocation accuracy",
       "Either metric alone replaces the need for a CRS definition",
       "RMSE and topology are interchangeable summaries of the same residual vector"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Topology guards structural geometry; RMSE summarises control residuals. Neither replaces CRS documentation or full spatial validation.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-3-8",
@@ -431,11 +431,11 @@ export const questions: Question[] = [
     "question": "When averaging a raster window, nodata values should be:",
     "options": [
       "Treated as zero",
-      "Excluded from the mean",
       "Replaced by the global maximum",
+      "Excluded from the mean",
       "Ignored only if positive"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Nodata must be excluded; zero substitution biases means.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-5-2",
@@ -450,11 +450,11 @@ export const questions: Question[] = [
     "question": "Pinning GDAL/PROJ/GEOS versions matters because:",
     "options": [
       "It makes maps prettier",
-      "Binary mismatches can break or alter CRS transforms",
       "It removes the need for nodata",
-      "It replaces STAC catalogues"
+      "It replaces STAC catalogues",
+      "Binary mismatches can break or alter CRS transforms"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Geospatial binaries affect transform correctness and reproducibility.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-5-3",
@@ -468,12 +468,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A Cloud-Optimized GeoTIFF differs from a generic GeoTIFF primarily by:",
     "options": [
-      "Using a different EPSG code automatically",
       "Internal tiling, overviews, and layout suited to HTTP range requests",
+      "Using a different EPSG code automatically",
       "Removing the need for nodata",
       "Guaranteeing survey-grade positional accuracy"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "COG is about access layout, not CRS correctness by itself.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-5-2",
@@ -507,11 +507,11 @@ export const questions: Question[] = [
     "question": "A choropleth of raw station counts by district without normalisation is problematic because:",
     "options": [
       "Choropleths cannot use sequential colours",
-      "Counts confound area/population with intensity of the phenomenon",
       "Legends cannot show counts",
+      "Counts confound area/population with intensity of the phenomenon",
       "CRS is irrelevant to choropleths"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Rates or densities are usually required for honest choropleths of intensity.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-6-1",
@@ -526,11 +526,11 @@ export const questions: Question[] = [
     "question": "An honest climate map legend or caption should include at least:",
     "options": [
       "Only a colour bar with no units",
-      "Variable, units, date/period, and source or product version",
       "Web Mercator zoom level as the only scale",
-      "A rainbow scale for all variables"
+      "A rainbow scale for all variables",
+      "Variable, units, date/period, and source or product version"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Units, time, and source are minimum interpretability metadata.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-6-2",
@@ -544,12 +544,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Random train/test splits of nearby spatial sites are risky because:",
     "options": [
-      "Spatial data cannot be modelled",
       "Spatial dependence can leak structure into the test set and inflate apparent skill",
+      "Spatial data cannot be modelled",
       "Moran’s I forbids prediction",
       "IDW requires random splits"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Nearby sites are not independent evaluation units.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-9-1",
@@ -563,7 +563,7 @@ export const questions: Question[] = [
     "type": "single",
     "question": "IDW interpolation differs from ordinary kriging mainly in that IDW:",
     "options": [
-      "Always estimates a full prediction variance surface from a variogram",
+      "Always estimates a full prediction variance surface directly from a fitted variogram model",
       "Uses distance-based weights without a variogram-based uncertainty model",
       "Requires a Gaussian process prior by definition",
       "Cannot use more than two sample points"
@@ -582,12 +582,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Spatial block or leave-location-out validation is preferred when:",
     "options": [
-      "The goal is the highest possible training R²",
-      "The deployment claim is prediction at new locations",
+      "The goal is the highest possible training R² on the same samples used to fit",
       "Edge effects do not exist",
+      "The deployment claim is prediction at new locations",
       "All samples are independent by assumption"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Validation design should match the generalization claim.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-9-3",
@@ -602,11 +602,11 @@ export const questions: Question[] = [
     "question": "Leave-location-out IDW evaluation is more informative than reporting only in-sample fit because it:",
     "options": [
       "Always produces zero RMSE",
-      "Scores each site without using that site’s value in the interpolator for that prediction",
       "Removes the need for a power parameter",
-      "Proves the variogram model is correct"
+      "Proves the variogram model is correct",
+      "Scores each site without using that site’s value in the interpolator for that prediction"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "LOO withholds the target site so the prediction is not trivially interpolating itself.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-9-2",
@@ -620,12 +620,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "In an empirical semivariogram, the nugget primarily reflects:",
     "options": [
-      "The maximum lag distance in the study area",
       "Micro-scale variation and measurement error not resolved by the sampling design",
+      "The maximum lag distance in the study area",
       "The number of classes in a choropleth",
       "The EPSG code of the coordinate system"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Nugget captures unresolved short-range variation and measurement noise.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-9-2",
@@ -639,7 +639,7 @@ export const questions: Question[] = [
     "type": "single",
     "question": "In ordinary kriging, requiring spatial weights to sum to one primarily enforces:",
     "options": [
-      "Zero prediction variance everywhere",
+      "Zero prediction variance everywhere, including at unsampled locations",
       "Unbiasedness under a constant unknown mean",
       "That the nugget is zero",
       "That IDW and OK always agree"
@@ -659,11 +659,11 @@ export const questions: Question[] = [
     "question": "Using a DSM (includes buildings/canopy) as if it were bare-earth terrain most directly risks:",
     "options": [
       "Correcting vertical datums automatically",
-      "Biased slopes and flow paths in vegetated or urban areas",
       "Removing all NoData cells",
+      "Biased slopes and flow paths in vegetated or urban areas",
       "Converting degrees to metres"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "DSM elevations include surface features; bare-earth analyses need a DTM or carefully processed terrain model.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-1",
@@ -678,11 +678,11 @@ export const questions: Question[] = [
     "question": "With Δx=Δy=30 m, z_east=130 m and z_west=100 m, the central-difference dz/dx equals:",
     "options": [
       "1.0",
-      "0.5",
       "30",
-      "0.0833"
+      "0.0833",
+      "0.5"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "dz/dx = (130−100)/(2×30) = 30/60 = 0.5 (dimensionless rise/run).",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-2",
@@ -696,12 +696,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "On the Unit 3.4 teaching grid, under D8 steepest descent, the centre cell flows which direction (Esri code)?",
     "options": [
+      "S (4)",
       "E (1)",
       "SE (2)",
-      "S (4)",
       "No downslope (0)"
     ],
-    "correctAnswer": 2,
+    "correctAnswer": 0,
     "explanation": "Centre elevation 5: south to 2 has slope 3, steeper than SE to 1 (~2.83), so code 4 (S).",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-3",
@@ -736,10 +736,10 @@ export const questions: Question[] = [
     "options": [
       "1",
       "3",
-      "8",
-      "9"
+      "9",
+      "8"
     ],
-    "correctAnswer": 3,
+    "correctAnswer": 2,
     "explanation": "All nine cells drain to the outlet under the instructional D8 routing, so accumulation is 9.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-3",
@@ -754,11 +754,11 @@ export const questions: Question[] = [
     "question": "On the Unit 3.4 teaching network, the distance-shortest path A→Clinic is:",
     "options": [
       "A–C–Clinic (6 km)",
-      "A–B–Clinic (4 km)",
       "A–Shelter–Clinic",
-      "Unreachable"
+      "Unreachable",
+      "A–B–Clinic (4 km)"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "A–B (2 km) + B–Clinic (2 km) = 4 km, shorter than A–C–Clinic at 6 km.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-4",
@@ -772,12 +772,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Using time (minutes) as cost, the least-cost path A→Clinic is:",
     "options": [
-      "A–B–Clinic (14 min)",
       "A–C–Clinic (9 min)",
+      "A–B–Clinic (14 min)",
       "Direct 0 min edge",
       "Island path"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "A–C (6 min) + C–Clinic (3 min) = 9 min beats A–B–Clinic at 14 min—distance and time optima differ.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-4",
@@ -811,11 +811,11 @@ export const questions: Question[] = [
     "question": "In the Unit 3.4 field QC fixture, which observation_id is fully clean?",
     "options": [
       "OBS-001",
-      "OBS-002",
       "OBS-003",
+      "OBS-002",
       "OBS-008"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "OBS-002 has unique id, valid vocab, in-bounds coords, declared CRS and non-negative accuracy. OBS-001 is duplicated.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-6",
@@ -830,11 +830,11 @@ export const questions: Question[] = [
     "question": "Missing gnss_accuracy_m on an otherwise complete record should be treated as:",
     "options": [
       "Proof the position is exact",
-      "An error under the teaching data contract",
       "A successful mobile sync",
-      "Equivalent to a 150 m measured offset"
+      "Equivalent to a 150 m measured offset",
+      "An error under the teaching data contract"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Missing accuracy metadata is a contract error; it is not the same as a quantified positional residual.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-4-6",
@@ -848,12 +848,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "Why is the coordinate pair (70, 30) ambiguous without metadata?",
     "options": [
-      "Because Kelvin conversion is required",
       "Because axis order and CRS/datum are unspecified",
+      "Because Kelvin conversion is required",
       "Because SHA-256 is missing",
       "Because Euler integration failed"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Without CRS and axis order, tools may interpret values as lat/lon or lon/lat on different datums.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-1",
@@ -886,12 +886,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "At 30°N, one degree of longitude spans fewer metres than one degree of latitude primarily because:",
     "options": [
-      "Longitude degrees shrink by approximately cos(latitude) on a sphere",
       "EPSG codes forbid longitude",
       "Mercator always expands longitude",
+      "Longitude degrees shrink by approximately cos(latitude) on a sphere",
       "NaNs fill polar cells"
     ],
-    "correctAnswer": 0,
+    "correctAnswer": 2,
     "explanation": "Meridian convergence: parallel radius scales with cos(latitude), so degree of longitude shortens away from the equator.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-2",
@@ -906,11 +906,11 @@ export const questions: Question[] = [
     "question": "Which choice best matches computing global land-area totals?",
     "options": [
       "Web Mercator for convenience",
-      "An equal-area projection or true cell areas from the native grid",
       "Any conformal projection",
-      "Unprojected pixel counts in a screen screenshot"
+      "Unprojected pixel counts in a screen screenshot",
+      "An equal-area projection or true cell areas from the native grid"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Area totals need equal-area treatment or native cell areas; conformal web maps distort area strongly.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-3",
@@ -924,12 +924,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "For metre-based area or distance in a Multan regional study, the safest practice is to:",
     "options": [
+      "Document and use an explicit projected CRS appropriate to the region (e.g. a UTM zone) for planar metrics",
       "Treat 0.01° cells as 1 km squares everywhere",
       "Rely only on on-the-fly map display without recording the analysis CRS",
-      "Document and use an explicit projected CRS appropriate to the region (e.g. a UTM zone) for planar metrics",
       "Swap latitude and longitude to fix scale"
     ],
-    "correctAnswer": 2,
+    "correctAnswer": 0,
     "explanation": "Planar metrics need an explicit projected CRS; display transforms are not documentation.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-1",
@@ -982,11 +982,11 @@ export const questions: Question[] = [
     "question": "UTM zone 42N (EPSG:32642) longitude span used in this curriculum is:",
     "options": [
       "60–66°E",
-      "66–72°E",
       "72–78°E",
-      "Entire Pakistan"
+      "Entire Pakistan",
+      "66–72°E"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Zone 42N spans 66–72°E; Multan is inside; Punjab-wide layers may cross into 43N.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-4",
@@ -1000,12 +1000,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "If a required datum grid-shift file is missing, the curriculum acceptance rule is to:",
     "options": [
-      "Claim centimetre accuracy anyway",
       "Record that the grid was unavailable and avoid high-accuracy positional claims",
+      "Claim centimetre accuracy anyway",
       "Ignore CRS metadata",
       "Switch to Web Mercator for all distances"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Missing grids must be disclosed; accuracy claims require documented transform resources.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-4",
@@ -1039,11 +1039,11 @@ export const questions: Question[] = [
     "question": "A table of longitude/latitude values is stored as (73.1, 30.2) but carries no CRS. The analyst runs “assign EPSG:32642” and then buffers by 1000 map units. The most accurate critique is:",
     "options": [
       "Assign reprojected the points into UTM metres, so the buffer is ~1 km",
-      "Assign only labelled the numbers; without a transform the buffer still uses degree-scale coordinates as if they were metres",
       "Assign deletes axis-order ambiguity automatically",
+      "Assign only labelled the numbers; without a transform the buffer still uses degree-scale coordinates as if they were metres",
       "Buffers never depend on CRS units"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Assign attaches metadata. Transform changes coordinates. Buffering degree-like numbers under a metre CRS label produces nonsense distances.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-4",
@@ -1058,17 +1058,17 @@ export const questions: Question[] = [
     "question": "After transforming a layer, a control point residual is 13 m in the target CRS. The most defensible next statement is:",
     "options": [
       "The transform is survey-grade for cadastral boundaries by default",
-      "Report the residual and judge fitness against a pre-stated use-case tolerance before publishing overlays",
       "Delete the control point so RMSE improves",
-      "Residuals are unnecessary if the EPSG codes look correct"
+      "Residuals are unnecessary if the EPSG codes look correct",
+      "Report the residual and judge fitness against a pre-stated use-case tolerance before publishing overlays"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Residuals quantify transform performance for a stated use case. A 13 m residual may be fine for regional climate overlays and unacceptable for parcels—document tolerance and evidence.",
     "sourceCitation": "CGEI curriculum (migrated)",
     "lessonId": "cgei-geo-lesson-3-2-4",
     "cognitiveLevel": "evaluate"
   },
-{
+  {
     "id": "cgei-geo-q-37-001",
     "sectionId": "CGEI-03",
     "topicId": "cgei-geospatial-roadmap",
@@ -1076,12 +1076,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "In PostGIS, which statement best distinguishes geometry from geography types?",
     "options": [
-      "They are identical aliases for EPSG:4326",
       "Geometry uses planar calculations in a CRS; geography uses ellipsoid calculations on lon/lat",
+      "They are identical aliases for EPSG:4326",
       "Geography is only for rasters",
       "Geometry cannot be indexed"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Geometry is planar (often projected metres); geography is geodetic on a sphere/ellipsoid. Distance and area semantics differ.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.7)",
     "lessonId": "cgei-geo-lesson-3-7-1",
@@ -1115,11 +1115,11 @@ export const questions: Question[] = [
     "question": "ST_DWithin is preferred over filtering on ST_Distance for large tables primarily because:",
     "options": [
       "ST_Distance is deprecated",
-      "ST_DWithin can use spatial indexes; a plain ST_Distance filter often cannot",
       "ST_DWithin ignores SRID",
+      "ST_DWithin can use spatial indexes; a plain ST_Distance filter often cannot",
       "ST_Distance only works on geography"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Index-friendly predicates keep queries scalable; always match SRIDs first.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.7)",
     "lessonId": "cgei-geo-lesson-3-7-3",
@@ -1134,11 +1134,11 @@ export const questions: Question[] = [
     "question": "Using OpenStreetMap-derived features in a public map requires at minimum:",
     "options": [
       "No attribution because OSM is free",
-      "ODbL-compliant attribution and awareness of local completeness limits",
       "Conversion to Web Mercator only",
-      "Deleting the licence file"
+      "Deleting the licence file",
+      "ODbL-compliant attribution and awareness of local completeness limits"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "ODbL requires attribution; completeness varies by city and must be checked for Multan-scale work.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.8)",
     "lessonId": "cgei-geo-lesson-3-8-1",
@@ -1152,12 +1152,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A minimal interoperability test for an open layer is to:",
     "options": [
-      "Open it only in a web browser",
       "Open the same layer in QGIS and Python and compare CRS, extent, and counts",
+      "Open it only in a web browser",
       "Assume WMS and GeoJSON always match",
       "Skip CRS because STAC guarantees it"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Cross-tool checks catch CRS/extent mismatches before analysis.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.8)",
     "lessonId": "cgei-geo-lesson-3-8-2",
@@ -1191,11 +1191,11 @@ export const questions: Question[] = [
     "question": "Cloud-Optimized GeoTIFF is best described as:",
     "options": [
       "A new EPSG code for Pakistan",
-      "A GeoTIFF layout with internal tiling and overviews suited to HTTP range requests",
       "A replacement for all vector formats",
+      "A GeoTIFF layout with internal tiling and overviews suited to HTTP range requests",
       "A guarantee of survey-grade accuracy"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "COG optimises access patterns; CRS correctness is separate.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.10)",
     "lessonId": "cgei-geo-lesson-3-10-1",
@@ -1210,11 +1210,11 @@ export const questions: Question[] = [
     "question": "Choosing Earth Engine versus local Python for a Multan-scale analysis should weigh at least:",
     "options": [
       "Only map aesthetics",
-      "Data volume, licence, reproducibility, cost, and exit strategy",
       "Whether Web Mercator is enabled",
-      "The laptop brand"
+      "The laptop brand",
+      "Data volume, licence, reproducibility, cost, and exit strategy"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Platform choice is a documented trade-off, not a habit.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.10)",
     "lessonId": "cgei-geo-lesson-3-10-2",
@@ -1228,12 +1228,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "An exit strategy for platform-dependent EO work means:",
     "options": [
-      "Never exporting results",
       "Keeping intermediate outputs in open formats so a platform change does not erase the project",
+      "Never exporting results",
       "Using only screenshots as archives",
       "Ignoring quotas"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Open intermediates (COG, GeoPackage, etc.) preserve portability when quotas or platforms change.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.10)",
     "lessonId": "cgei-geo-lesson-3-10-3",
@@ -1267,11 +1267,11 @@ export const questions: Question[] = [
     "question": "Before any UAV flight for this curriculum's context, the mandatory gate is:",
     "options": [
       "Only buying a new battery",
-      "Verifying current Pakistan permit, safety, and privacy requirements with applicable authorities",
       "Assuming recreational rules cover research",
+      "Verifying current Pakistan permit, safety, and privacy requirements with applicable authorities",
       "Skipping overlap planning"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Compliance is mandatory; the curriculum does not authorise flights.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.11)",
     "lessonId": "cgei-geo-lesson-3-11-2",
@@ -1286,17 +1286,16 @@ export const questions: Question[] = [
     "question": "Global canopy-height products used for Multan microclimate work require stating:",
     "options": [
       "That they replace all local surveys",
-      "Resolution and validation limits — they are not courtyard-level surveys",
       "That CityGML is unnecessary",
-      "That RMSE is always zero"
+      "That RMSE is always zero",
+      "Resolution and validation limits — they are not courtyard-level surveys"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Product support and validation limits belong in every claim using global CHM/building-height layers.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.11)",
     "lessonId": "cgei-geo-lesson-3-11-3",
     "cognitiveLevel": "understand"
   },
-
   {
     "id": "cgei-geo-q-37-004",
     "sectionId": "CGEI-03",
@@ -1305,12 +1304,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "For a three-person team concurrently editing district boundaries, the better default store is:",
     "options": [
-      "A single shapefile on a USB drive",
       "PostGIS with roles and backups",
+      "A single shapefile on a USB drive",
       "Screenshots of QGIS",
       "Unprojected CSV only"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Multi-user concurrent editing needs a real multi-user spatial database; GeoPackage fits single-analyst portable packages.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.7)",
     "lessonId": "cgei-geo-lesson-3-7-2",
@@ -1334,10 +1333,7 @@ export const questions: Question[] = [
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.10)",
     "lessonId": "cgei-geo-lesson-3-10-2",
     "cognitiveLevel": "apply"
-  }
-
-,
-
+  },
   {
     "id": "cgei-geo-q-31-quality",
     "sectionId": "CGEI-03",
@@ -1347,11 +1343,11 @@ export const questions: Question[] = [
     "question": "ISO 19157 spatial data quality components include:",
     "options": [
       "Only map colour choice",
-      "Positional accuracy, attribute accuracy, logical consistency, completeness, and lineage",
       "EPSG codes alone",
+      "Positional accuracy, attribute accuracy, logical consistency, completeness, and lineage",
       "Tile zoom levels only"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Those five components are the standard quality vocabulary; stacked overlays compound error across them.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.1)",
     "lessonId": "cgei-geo-lesson-3-1-4",
@@ -1366,11 +1362,11 @@ export const questions: Question[] = [
     "question": "Consumer GNSS points joined to a UTM parcel layer without recorded accuracy or datum primarily risk:",
     "options": [
       "Nothing if the map looks aligned",
-      "Positional mismatch and unstated error relative to the parcel CRS/datum",
       "Automatic RTK correction",
-      "Forced equal-area projection"
+      "Forced equal-area projection",
+      "Positional mismatch and unstated error relative to the parcel CRS/datum"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Field points need accuracy class/estimate and datum before GIS overlay claims.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.1)",
     "lessonId": "cgei-geo-lesson-3-1-5",
@@ -1423,17 +1419,17 @@ export const questions: Question[] = [
     "question": "Significant residual spatial autocorrelation after OLS primarily means:",
     "options": [
       "The model is automatically causal",
-      "Standard errors and inference are unreliable because dependence remains in residuals",
       "GWR is forbidden",
+      "Standard errors and inference are unreliable because dependence remains in residuals",
       "Moran’s I cannot be computed"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Residual spatial structure violates OLS independence assumptions; lag/error models or redesign may be needed—not automatic causal claims.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.9)",
     "lessonId": "cgei-geo-lesson-3-9-4",
     "cognitiveLevel": "analyze"
   },
-{
+  {
     "id": "cgei-geo-q-37-005",
     "sectionId": "CGEI-03",
     "topicId": "cgei-spatial-databases",
@@ -1442,11 +1438,11 @@ export const questions: Question[] = [
     "question": "After loading a GeoPackage into PostGIS, ST_Intersects returns no rows though shapes clearly overlap on the map. The most likely first check is:",
     "options": [
       "Delete the GiST index",
-      "Whether geometry SRIDs match and whether a transform was applied at load",
       "Switching all data to Web Mercator for storage",
-      "Replacing ST_Intersects with a text search on names"
+      "Replacing ST_Intersects with a text search on names",
+      "Whether geometry SRIDs match and whether a transform was applied at load"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Mixed or unset SRIDs and assign-without-transform at ETL are classic empty-join causes; indexes are secondary once SRIDs agree.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.7)",
     "lessonId": "cgei-geo-lesson-3-7-4",
@@ -1460,12 +1456,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A paper hard-codes last year’s Earth Engine Community tier EECU-hour limit as a permanent method requirement. The main methodological problem is:",
     "options": [
-      "EE tiers never change",
       "Quota numbers are operational constraints that must be verified at use time, not frozen as if they were physical constants",
+      "EE tiers never change",
       "Local Python cannot use COGs",
       "STAC forbids citing portals"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Unit 3.10 treats quotas as planning constraints that change; exit strategy uses open intermediates, not obsolete numbers in the methods section.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.10)",
     "lessonId": "cgei-geo-lesson-3-10-4",
@@ -1499,11 +1495,11 @@ export const questions: Question[] = [
     "question": "Zonal mean of rainfall is reported including cells coded as −9999 because the tool treated them as numeric values. This is primarily a failure to:",
     "options": [
       "Use Web Mercator",
-      "Distinguish NoData from valid numeric measurements before aggregation",
       "Convert polygons to points",
+      "Distinguish NoData from valid numeric measurements before aggregation",
       "Increase the buffer distance"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "NoData must be excluded from zonal statistics; −9999 as a real value biases the mean.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.3)",
     "lessonId": "cgei-geo-lesson-3-3-3",
@@ -1518,11 +1514,11 @@ export const questions: Question[] = [
     "question": "A spatial prediction model is validated with a random 80/20 split of grid cells and reports high R². For a claim about performance at new, distant sites this design is inadequate mainly because:",
     "options": [
       "Random splits always understate accuracy",
-      "Nearby cells share spatial structure, so the test set is not independent of the training support",
       "R² cannot be used with rasters",
-      "Only kriging allows validation"
+      "Only kriging allows validation",
+      "Nearby cells share spatial structure, so the test set is not independent of the training support"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "Spatial leakage from random splits is a Core failure mode; blocked or leave-location-out designs match deployment claims.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.9)",
     "lessonId": "cgei-geo-lesson-3-9-3",
@@ -1536,12 +1532,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "A choropleth of raw facility counts by district is used to rank ‘service intensity’. The main cartographic honesty problem is:",
     "options": [
-      "Choropleths cannot show districts",
       "Raw counts confound area/population size with intensity; rates or densities are usually required",
+      "Choropleths cannot show districts",
       "Legends cannot show integers",
       "Districts must always use equal-interval classification"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "Unit 3.6: choropleths of counts without normalisation mislead; rates/densities match the intensity claim.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.6)",
     "lessonId": "cgei-geo-lesson-3-6-1",
@@ -1575,11 +1571,11 @@ export const questions: Question[] = [
     "question": "Computing polygon .area in GeoPandas while the GeoSeries CRS is EPSG:4326 typically yields:",
     "options": [
       "Square metres on the ellipsoid automatically",
-      "Values in square degrees (not usable as hectares without a projected or geodesic method)",
       "Always zero",
+      "Values in square degrees (not usable as hectares without a projected or geodesic method)",
       "UTM zone codes"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 2,
     "explanation": "Area in a geographic CRS is not in metres; project or use geodesic methods.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.5)",
     "lessonId": "cgei-geo-lesson-3-5-1",
@@ -1594,11 +1590,11 @@ export const questions: Question[] = [
     "question": "OpenStreetMap data is commonly distributed under which licence family?",
     "options": [
       "Public domain with no attribution ever",
-      "ODbL (attribution and share-alike obligations)",
       "Only proprietary commercial terms",
-      "ISO 19115 exclusively"
+      "ISO 19115 exclusively",
+      "ODbL (attribution and share-alike obligations)"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 3,
     "explanation": "ODbL requires attribution and share-alike for database derivatives.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.8)",
     "lessonId": "cgei-geo-lesson-3-8-1",
@@ -1612,12 +1608,12 @@ export const questions: Question[] = [
     "type": "single",
     "question": "For bare-earth flood routing, which surface model is generally preferred?",
     "options": [
-      "DSM including roofs and canopy",
       "DTM representing bare earth",
+      "DSM including roofs and canopy",
       "Unprojected JPEG hillshade only",
       "A Web Mercator tile cache"
     ],
-    "correctAnswer": 1,
+    "correctAnswer": 0,
     "explanation": "DTM aims at terrain; DSM includes surface features that obstruct flow paths incorrectly for bare-earth routing.",
     "sourceCitation": "CGEI curriculum (Subject 3 Unit 3.4)",
     "lessonId": "cgei-geo-lesson-3-4-1",

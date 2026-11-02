@@ -405,7 +405,6 @@ export const subject: CurriculumSubject = {
       ]
     },
   {
-  {
       "id": "cgei-geo-o-37-storage",
       "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.",
       "action": "compare and select",
@@ -1007,7 +1006,9 @@ export const units: CurriculumUnit[] = [
     ],
     "lessonIds": [
       "cgei-geo-lesson-3-6-1",
-      "cgei-geo-lesson-3-6-2"
+      "cgei-geo-lesson-3-6-2",
+      "cgei-geo-lesson-3-6-3",
+      "cgei-geo-lesson-3-6-4"
     ],
     "activityIds": [
       "cgei-geo-a-36-colour",
@@ -1525,8 +1526,6 @@ export const lessons: CurriculumLesson[] = [
     ],
     "deliverableIds": []
   },
-  {
-    
   {
     "id": "cgei-geo-lesson-3-1-4",
     "kind": "lesson",
@@ -3766,9 +3765,7 @@ export const lessons: CurriculumLesson[] = [
     "assessmentIds": ["cgei-geo-assess-39-reg"],
     "resourceIds": [],
     "deliverableIds": []
-  },,
-{
-    
+  },
   {
     "id": "cgei-geo-lesson-3-6-3",
     "kind": "lesson",
@@ -4411,7 +4408,6 @@ export const activities: CurriculumActivity[] = [
     ]
   },
   {
-  {
     "id": "cgei-geo-a-37-storage",
     "kind": "guided-practice",
     "title": "Choose a spatial store",
@@ -4949,7 +4945,6 @@ export const assessments: CurriculumAssessment[] = [
     "required": true
   },
   {
-  {
     "id": "cgei-geo-assess-37-storage",
     "kind": "formative",
     "title": "Storage selection",
@@ -5472,9 +5467,7 @@ export const outcomes: CurriculumOutcome[] = [
     "competencyIds": [
       "cgei-comp-quantitative-reasoning"
     ]
-  }
-] as const;
-
+  },
   {
     "id": "cgei-geo-o-37-storage",
     "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.",
@@ -5578,7 +5571,7 @@ export const resources: CurriculumResource[] = [
   },
   {
     "id": "cgei-geo-r-stac",
-    "kind": "standard",
+    "kind": "documentation",
     "title": "STAC specification",
     "url": "https://stacspec.org/",
     "purpose": "SpatioTemporal Asset Catalog for cloud-native discovery.",
@@ -5589,7 +5582,7 @@ export const resources: CurriculumResource[] = [
   },
   {
     "id": "cgei-geo-r-gee",
-    "kind": "platform",
+    "kind": "tool",
     "title": "Google Earth Engine guides and noncommercial tiers",
     "url": "https://developers.google.com/earth-engine/guides/noncommercial_tiers",
     "purpose": "EE workflows and current noncommercial quota documentation — verify at use time.",
@@ -5624,113 +5617,115 @@ export const resources: CurriculumResource[] = [
 
 export const deliverables: CurriculumDeliverable[] = [
   {
-    "id": "cgei-geo-del-crs-log",
-    "kind": "processing-record",
-    "title": "CRS and transform log",
-    "description": "Record source CRS, target CRS, transform method, grid availability, landmark residual, and use-case tolerance for every permanent reprojection in the package.",
-    "format": "markdown table or YAML sidecar",
-    "estimatedMinutes": 25,
-    "objectiveIds": ["cgei-geo-o-32-transform", "cgei-geo-o-37-schema"],
-    "unitIds": ["cgei-geo-unit-3-2", "cgei-geo-unit-3-7"],
-    "acceptanceCriteria": [
+    id: "cgei-geo-del-crs-log",
+    title: "CRS and transform log",
+    description:
+      "Record source CRS, target CRS, transform method, grid availability, landmark residual, and use-case tolerance for every permanent reprojection in the package.",
+    artefactTypes: ["table"],
+    acceptanceCriteria: [
       "Assign versus transform is explicit",
       "At least one landmark residual is reported",
-      "Tolerance is stated for the intended use"
-    ]
+      "Tolerance is stated for the intended use",
+    ],
   },
   {
-    "id": "cgei-geo-del-data-manifest",
-    "kind": "manifest",
-    "title": "Spatial data and licence manifest",
-    "description": "List every layer with source, version, access date, licence/attribution, CRS, and known completeness limits for the Multan study area.",
-    "format": "table (CSV or markdown)",
-    "estimatedMinutes": 30,
-    "objectiveIds": ["cgei-geo-o-38-sources", "cgei-geo-o-38-licence"],
-    "unitIds": ["cgei-geo-unit-3-8"],
-    "acceptanceCriteria": [
+    id: "cgei-geo-del-data-manifest",
+    title: "Spatial data and licence manifest",
+    description:
+      "List every layer with source, version, access date, licence/attribution, CRS, and known completeness limits for the Multan study area.",
+    artefactTypes: ["table"],
+    acceptanceCriteria: [
       "No layer without licence and access date",
       "OSM/ODbL attribution text present when OSM is used",
-      "Completeness cautions for local area stated"
-    ]
+      "Completeness cautions for local area stated",
+    ],
   },
   {
-    "id": "cgei-geo-del-map-package",
-    "kind": "map-package",
-    "title": "Publication-grade map and layout package",
-    "description": "One thematic map with defensible classification, scale bar, legend with units/date/source, CRS note, and export settings recorded.",
-    "format": "PDF/PNG + QGIS project or script",
-    "estimatedMinutes": 45,
-    "objectiveIds": ["cgei-geo-o-36-visual", "cgei-geo-o-36-honesty", "cgei-geo-o-33-layout-georef"],
-    "unitIds": ["cgei-geo-unit-3-6", "cgei-geo-unit-3-3"],
-    "acceptanceCriteria": [
+    id: "cgei-geo-del-map-package",
+    title: "Publication-grade map and layout package",
+    description:
+      "One thematic map with defensible classification, scale bar, legend with units/date/source, CRS note, and export settings recorded.",
+    artefactTypes: ["map", "script"],
+    acceptanceCriteria: [
       "Classification method named",
       "Units, date, source on legend or caption",
-      "No Web Mercator hectare claims"
-    ]
+      "No Web Mercator hectare claims",
+    ],
   },
   {
-    "id": "cgei-geo-del-spatial-validation",
-    "kind": "validation-note",
-    "title": "Spatial validation design note",
-    "description": "Document neighbourhood definition, blocked or leave-location-out design, residual-map checks, and what random splits would leak.",
-    "format": "one-page markdown",
-    "estimatedMinutes": 30,
-    "objectiveIds": ["cgei-geo-o-39-auto", "cgei-geo-o-39-val"],
-    "unitIds": ["cgei-geo-unit-3-9"],
-    "acceptanceCriteria": [
+    id: "cgei-geo-del-spatial-validation",
+    title: "Spatial validation design note",
+    description:
+      "Document neighbourhood definition, blocked or leave-location-out design, residual-map checks, and what random splits would leak.",
+    artefactTypes: ["report"],
+    acceptanceCriteria: [
       "Neighbourhood definition justified",
       "Validation matches deployment claim",
-      "Residual spatial pattern addressed"
-    ]
-  }
-] as const;
+      "Residual spatial pattern addressed",
+    ],
+  },
+];
 
 export const projects: CurriculumProject[] = [
   {
-    "id": "cgei-geo-proj-exit-package",
-    "kind": "exit-gate",
-    "title": "Subject 3 exit gate — Multan spatial analysis package",
-    "summary": "Produce a reproducible spatial package for a Multan/southern Punjab question demonstrating CRS safety, documented data lineage, one honest map, and spatial validation or integrity checks.",
-    "description": "Exit mastery gate for Subject 3. Choose a focused question (e.g. district zonal summary of a continuous field, accessibility to a facility class, or a simple interpolation with LOO diagnostics). Package must include CRS/transform log, data/licence manifest, at least one publication-grade map, and either spatial-validation notes or topology/integrity diagnostics. Prefer open layers with honest completeness limits when restricted national data are unavailable. No invented survey points.",
-    "estimatedHours": 12,
-    "level": "L3",
-    "objectiveIds": [
+    id: "cgei-geo-proj-exit-package",
+    kind: "capstone",
+    title: "Subject 3 exit gate — Multan spatial analysis package",
+    problemStatement:
+      "Produce a reproducible spatial package for a Multan/southern Punjab question demonstrating CRS safety, documented data lineage, one honest map, and spatial validation or integrity checks.",
+    purpose:
+      "Exit mastery gate for Subject 3. Choose a focused question (e.g. district zonal summary of a continuous field, accessibility to a facility class, or a simple interpolation with leave-one-out checks) and show that the whole package holds together.",
+    readiness: "draft",
+    level: "L3",
+    objectiveIds: [
       "cgei-geo-o-32-transform",
       "cgei-geo-o-33-zonal",
       "cgei-geo-o-36-honesty",
       "cgei-geo-o-38-licence",
-      "cgei-geo-o-39-val"
+      "cgei-geo-o-39-val",
     ],
-    "deliverableIds": [
-      "cgei-geo-del-crs-log",
-      "cgei-geo-del-data-manifest",
-      "cgei-geo-del-map-package",
-      "cgei-geo-del-spatial-validation"
+    milestones: [
+      {
+        id: "cgei-geo-proj-exit-m1",
+        title: "Coordinates and data lineage",
+        instructions:
+          "Assign or transform CRS explicitly, then record every layer's source, licence and access date before any analysis.",
+        deliverableIds: ["cgei-geo-del-crs-log", "cgei-geo-del-data-manifest"],
+        acceptanceCriteria: [
+          "Assign versus transform is explicit",
+          "Every open layer has licence and access date",
+        ],
+      },
+      {
+        id: "cgei-geo-proj-exit-m2",
+        title: "One honest map",
+        instructions:
+          "Produce one thematic map with a defensible classification, units and source on the legend, and export settings recorded.",
+        deliverableIds: ["cgei-geo-del-map-package"],
+        acceptanceCriteria: [
+          "Classification method named",
+          "No area or distance claims in geographic or Web Mercator CRS",
+        ],
+      },
+      {
+        id: "cgei-geo-proj-exit-m3",
+        title: "Spatial validation and package",
+        instructions:
+          "Justify the neighbourhood definition and a validation design that matches the deployment claim, then confirm the package runs from a clean environment.",
+        deliverableIds: ["cgei-geo-del-spatial-validation"],
+        acceptanceCriteria: [
+          "Package runs or opens from a clean environment with documented CRS",
+          "All four deliverables present and consistent",
+          "Random splits are not sold as spatial validation",
+        ],
+      },
     ],
-    "resourceIds": [
+    deliverables,
+    resourceIds: [
       "cgei-geo-r-epsg",
       "cgei-geo-r-gdal",
       "cgei-geo-r-qgis",
-      "cgei-geo-r-osm"
+      "cgei-geo-r-osm",
     ],
-    "unitIds": [
-      "cgei-geo-unit-3-2",
-      "cgei-geo-unit-3-3",
-      "cgei-geo-unit-3-6",
-      "cgei-geo-unit-3-8",
-      "cgei-geo-unit-3-9"
-    ],
-    "exitCriteria": [
-      "Package runs or opens from a clean environment with documented CRS",
-      "All four deliverables present and consistent",
-      "No area/distance claims in geographic or Web Mercator CRS",
-      "Licence/attribution complete for every open layer used"
-    ],
-    "failureModes": [
-      "Buffering in degrees labelled as metres",
-      "Choropleth of raw counts without normalisation",
-      "Missing OSM/ODbL attribution",
-      "Random train/test split sold as spatial validation"
-    ]
-  }
-] as const;
+  },
+];
