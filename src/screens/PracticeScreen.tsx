@@ -371,7 +371,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
             <SimpleModeCard
               icon={<RotateCcw className="w-5 h-5" />}
               iconBg="bg-danger-100 text-danger-600"
-              title="Review Wrong Answers"
+              title="Missed questions"
               description={reviewDisabled ? "Re-attempt questions you got wrong" : `All ${wrongPool.length} wrong answers available`}
               bestFor="closing knowledge gaps"
               onClick={startReview}
