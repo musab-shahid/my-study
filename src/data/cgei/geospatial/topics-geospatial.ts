@@ -18,12 +18,12 @@ export const subject: CurriculumSubject = {
   "id": "cgei-subject-3-geospatial",
   "subjectId": "cgei-geospatial",
   "title": "Geospatial Science, GIS & Cartography",
-  "subtitle": "Spatial reference, measurement and map reasoning before deep EO workflows",
+  "subtitle": "Spatial models, CRS discipline, desktop and Python GIS, cartography and spatial statistics before deep EO",
   "version": 1,
-  "readiness": "draft",
-  "audience": "Learners who will analyse climate and environmental data on maps and grids.",
-  "purpose": "Establish correct spatial reference, scale and projection reasoning so later remote-sensing and risk analyses do not misuse coordinates.",
-  "overview": "Subject 3 begins with spatial data models (Unit 3.1), coordinate reference systems (Unit 3.2), and desktop GIS spatial operations (Unit 3.3). Later units expand GIS operations, topology and cartographic communication. Units 3.1–3.6 and Core 3.9 form the geospatial foundation slice (models, CRS, desktop ops, terrain/networks, Python stack). Still draft; Support 3.6+ not fully registered.",
+  "readiness": "review",
+  "audience": "Learners who will analyse climate and environmental data on maps and grids before remote sensing, risk, and GeoAI subjects.",
+  "purpose": "Build defensible geospatial reasoning: vector/raster models, CRS and transforms, desktop and Python GIS operations, terrain and network workflows, honest cartography, and spatial statistics with leakage-aware validation — so later remote-sensing and risk work does not misuse coordinates, support, or maps.",
+  "overview": "Registered units: 3.1 spatial data models; 3.2 CRS; 3.3 desktop GIS operations; 3.4 terrain/network/field (Support); 3.5 Python geospatial stack; 3.6 cartography; 3.9 spatial statistics and geostatistics. Core priority path: 3.1–3.3, 3.5–3.6, 3.9. All TOC units 3.1–3.11 registered (Core: 3.1–3.3, 3.5–3.6, 3.9; Support: 3.4, 3.7, 3.8, 3.10; Optional: 3.11). Draft depth on 3.7–3.11.",
   "prerequisites": [
     "Basic geometry",
     "Unit conversions",
@@ -225,6 +225,259 @@ export const subject: CurriculumSubject = {
         "cgei-comp-reproducibility",
         "cgei-comp-quantitative-reasoning"
       ]
+    },
+    {
+      "id": "cgei-geo-o-35-vector",
+      "statement": "Describe GeoPandas/Shapely roles for vector CRS, predicates, joins and area/length in projected CRS.",
+      "action": "describe and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-35-raster",
+      "statement": "Describe rasterio/GDAL workflows for windowed read, nodata, reproject/resample and COG access patterns.",
+      "action": "describe and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-35-stack",
+      "statement": "Match analysis libraries (zonal stats, STAC loaders, spatial stats) to tasks and state dependency/pinning risks for GDAL/PROJ.",
+      "action": "match and justify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-36-visual",
+      "statement": "Select sequential, diverging or qualitative colour schemes and a classification method matched to data type and message.",
+      "action": "select and justify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-36-honesty",
+      "statement": "Design map legends and uncertainty treatments that state units, date, resolution and source without false precision.",
+      "action": "design and critique",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-39-auto",
+      "statement": "Explain spatial autocorrelation and why random train/test splits of spatial data can leak structure.",
+      "action": "explain and diagnose",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-39-interp",
+      "statement": "Compare deterministic interpolation and kriging concepts, including variogram parameters and when data are too sparse to krige.",
+      "action": "compare and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-39-val",
+      "statement": "Design leave-location-out or spatial-block evaluation and interpret residual spatial pattern as a diagnostic.",
+      "action": "design and interpret",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility",
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-37-basics",
+      "statement": "Explain PostgreSQL/PostGIS geometry versus geography types, spatial indexes (GiST), and when a spatial predicate can use an index.",
+      "action": "explain and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-37-schema",
+      "statement": "Design a minimal schema separating locations, observations, boundaries, and metadata with a single declared CRS policy and data dictionary.",
+      "action": "design and document",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-37-query",
+      "statement": "Write and test spatial SQL patterns (ST_DWithin, KNN, joins) against known answers and state SRID discipline requirements.",
+      "action": "query and verify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-38-sources",
+      "statement": "Select open base and thematic layers (OSM, Natural Earth, WorldPop, building footprints) with documented licence, version, and completeness limits for Multan/Pakistan.",
+      "action": "select and document",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-38-standards",
+      "statement": "Distinguish OGC web services and modern OGC APIs/STAC and run a minimal interoperability test (same layer in QGIS and Python with matching CRS/extent).",
+      "action": "distinguish and verify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility",
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-38-licence",
+      "statement": "Apply attribution and share-alike obligations, record dataset version and access date, and state when aggregation is required before publishing sensitive locations.",
+      "action": "apply and record",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-310-formats",
+      "statement": "Distinguish STAC, COG, Zarr, and GeoParquet roles and choose a format for a stated access pattern (range reads vs multidimensional arrays).",
+      "action": "distinguish and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-310-compute",
+      "statement": "Compare Earth Engine, local Python, and cloud/HPC for a Multan-scale EO task using data volume, licence, reproducibility, and cost criteria.",
+      "action": "compare and justify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-310-quota",
+      "statement": "State Earth Engine noncommercial tier limits as planning constraints and describe an exit strategy that keeps intermediate outputs in open formats.",
+      "action": "plan and document",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-311-clouds",
+      "statement": "Distinguish DSM, DTM, and normalised surface models from lidar/SfM point clouds and state accuracy assessment via independent check-point RMSE.",
+      "action": "distinguish and assess",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-311-uav",
+      "statement": "List mission-planning parameters (altitude, overlap, GSD, sensor type) and state that Pakistan permit, safety, and privacy rules must be verified before any flight.",
+      "action": "plan and comply",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+  {
+      "id": "cgei-geo-o-37-storage",
+      "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.",
+      "action": "compare and select",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+  {
+      "id": "cgei-geo-o-310-discovery",
+      "statement": "Name major discovery portals (Copernicus Data Space, USGS EarthExplorer, NASA Earthdata, AWS Open Data) and state authentication, rate-limit, and egress-cost cautions.",
+      "action": "name and caution",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-311-form",
+      "statement": "Describe building-height and canopy-height products as inputs to sky-view factor, shadow, and microclimate analyses with resolution and validation limits.",
+      "action": "describe and limit",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-31-quality",
+      "statement": "Name ISO 19157 quality components (positional and attribute accuracy, logical consistency, completeness, lineage) and state why stacked overlays compound error.",
+      "action": "name and explain",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning",
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-31-gnss",
+      "statement": "Distinguish GNSS accuracy classes and record accuracy estimates and datum for field points used in GIS.",
+      "action": "distinguish and record",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility",
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-36-types",
+      "statement": "Select thematic map types (choropleth, proportional symbol, dot density, bivariate, small multiples) matched to data type, audience, and message.",
+      "action": "select and justify",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-36-boundaries",
+      "statement": "State when disputed or sensitive boundaries require disclaimers and list attribution requirements for web cartography.",
+      "action": "state and apply",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-reproducibility"
+      ]
+    },
+    {
+      "id": "cgei-geo-o-39-reg",
+      "statement": "Explain residual spatial autocorrelation in OLS and state what spatial lag, spatial error, and GWR coefficients can and cannot mean.",
+      "action": "explain and limit",
+      "level": "L2",
+      "competencyIds": [
+        "cgei-comp-quantitative-reasoning"
+      ]
     }
   ],
   "competencyIds": [
@@ -238,13 +491,25 @@ export const subject: CurriculumSubject = {
     "cgei-geo-unit-3-4",
     "cgei-geo-unit-3-5",
     "cgei-geo-unit-3-6",
-    "cgei-geo-unit-3-9"
+    "cgei-geo-unit-3-7",
+    "cgei-geo-unit-3-8",
+    "cgei-geo-unit-3-9",
+    "cgei-geo-unit-3-10",
+    "cgei-geo-unit-3-11"
   ],
-  "projectIds": [],
+  "projectIds": [
+    "cgei-geo-proj-exit-package"
+  ],
   "resourceIds": [
-    "cgei-geo-r-epsg"
+    "cgei-geo-r-epsg",
+    "cgei-geo-r-postgis",
+    "cgei-geo-r-osm",
+    "cgei-geo-r-stac",
+    "cgei-geo-r-gee",
+    "cgei-geo-r-gdal",
+    "cgei-geo-r-qgis"
   ],
-  "estimatedHours": 6
+  "estimatedHours": 96
 } as const;
 
 export const units: CurriculumUnit[] = [
@@ -255,8 +520,8 @@ export const units: CurriculumUnit[] = [
     "order": 31,
     "kind": "unit",
     "readiness": "draft",
-    "summary": "Represent environmental features as vectors or rasters, manage attributes and keys, and apply basic spatial integrity checks.",
-    "estimatedHours": 6,
+    "summary": "Represent environmental features as vectors or rasters, manage attributes and keys, apply topology checks, and document spatial data quality and field GNSS metadata.",
+    "estimatedHours": 8,
     "prerequisites": [
       "Basic geometry",
       "Tabular data literacy"
@@ -294,12 +559,16 @@ export const units: CurriculumUnit[] = [
     "lessonIds": [
       "cgei-geo-lesson-3-1-1",
       "cgei-geo-lesson-3-1-2",
-      "cgei-geo-lesson-3-1-3"
+      "cgei-geo-lesson-3-1-3",
+      "cgei-geo-lesson-3-1-4",
+      "cgei-geo-lesson-3-1-5"
     ],
     "activityIds": [
       "cgei-geo-a-31-models",
       "cgei-geo-a-31-attributes",
-      "cgei-geo-a-31-topology"
+      "cgei-geo-a-31-topology",
+      "cgei-geo-a-31-quality",
+      "cgei-geo-a-31-gnss"
     ],
     "assessmentIds": [
       "cgei-geo-assess-31-models",
@@ -503,7 +772,8 @@ export const units: CurriculumUnit[] = [
       "cgei-geo-a-33-reclass",
       "cgei-geo-a-33-qgis",
       "cgei-geo-a-33-formats",
-      "cgei-geo-a-33-admin"
+      "cgei-geo-a-33-admin",
+      "cgei-geo-a-33-layout-georef"
     ],
     "assessmentIds": [
       "cgei-geo-assess-33-ops",
@@ -512,7 +782,8 @@ export const units: CurriculumUnit[] = [
       "cgei-geo-assess-33-reclass",
       "cgei-geo-assess-33-qgis",
       "cgei-geo-assess-33-formats",
-      "cgei-geo-assess-33-admin"
+      "cgei-geo-assess-33-admin",
+      "cgei-geo-assess-33-layout-georef"
     ],
     "resourceIds": [
       "cgei-geo-r-epsg"
@@ -708,7 +979,7 @@ export const units: CurriculumUnit[] = [
     "kind": "unit",
     "readiness": "draft",
     "summary": "Design honest thematic maps with appropriate colour, classification, legends and uncertainty treatment.",
-    "estimatedHours": 6,
+    "estimatedHours": 8,
     "prerequisites": [
       "Unit 3.1",
       "Unit 3.2",
@@ -762,7 +1033,7 @@ export const units: CurriculumUnit[] = [
     "kind": "unit",
     "readiness": "draft",
     "summary": "Analyse spatial dependence, choose interpolation methods carefully, and validate spatial predictions without leaking nearby structure.",
-    "estimatedHours": 10,
+    "estimatedHours": 12,
     "prerequisites": [
       "Unit 3.1",
       "Unit 3.2",
@@ -796,28 +1067,230 @@ export const units: CurriculumUnit[] = [
           "cgei-comp-reproducibility",
           "cgei-comp-quantitative-reasoning"
         ]
+      },
+      {
+        "id": "cgei-geo-o-39-reg",
+        "statement": "Explain residual spatial autocorrelation in OLS and state what spatial lag, spatial error, and GWR coefficients can and cannot mean.",
+        "action": "explain and limit",
+        "level": "L2",
+        "competencyIds": [
+          "cgei-comp-quantitative-reasoning"
+        ]
       }
     ],
     "lessonIds": [
       "cgei-geo-lesson-3-9-1",
       "cgei-geo-lesson-3-9-2",
-      "cgei-geo-lesson-3-9-3"
+      "cgei-geo-lesson-3-9-3",
+      "cgei-geo-lesson-3-9-4"
     ],
     "activityIds": [
       "cgei-geo-a-39-auto",
       "cgei-geo-a-39-interp",
-      "cgei-geo-a-39-val"
+      "cgei-geo-a-39-val",
+      "cgei-geo-a-39-reg"
     ],
     "assessmentIds": [
       "cgei-geo-assess-39-auto",
       "cgei-geo-assess-39-interp",
-      "cgei-geo-assess-39-val"
+      "cgei-geo-assess-39-val",
+      "cgei-geo-assess-39-reg"
     ],
     "resourceIds": [],
     "deliverableIds": [],
     "sourceDocument": "Master Study TOC Subject 3 Unit 3.9 — Spatial statistics and geostatistics",
     "notes": [
       "Core Unit 3.9. Synthetic IDW and LOO spatial checks; no PySAL/kriging library in CI."
+    ]
+  },  {
+    "id": "cgei-geo-unit-3-7",
+    "subjectId": "cgei-geospatial",
+    "code": "3.7",
+    "title": "Spatial databases",
+    "order": 37,
+    "kind": "unit",
+    "readiness": "draft",
+    "summary": "Design and query a small spatial database with consistent CRS policy, spatial indexes, storage selection, schema design, and tested SQL patterns.",
+    "estimatedHours": 10,
+    "prerequisites": ["Unit 3.1", "Unit 3.2", "Unit 3.3"],
+    "outcomes": [
+      {
+        "id": "cgei-geo-o-37-basics",
+        "statement": "Explain PostgreSQL/PostGIS geometry versus geography types, spatial indexes (GiST), and when a spatial predicate can use an index.",
+        "action": "explain and select",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-37-storage",
+        "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.",
+        "action": "compare and select",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-37-schema",
+        "statement": "Design a minimal schema separating locations, observations, boundaries, and metadata with a single declared CRS policy and data dictionary.",
+        "action": "design and document",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-37-query",
+        "statement": "Write and test spatial SQL patterns (ST_DWithin, KNN, joins) against known answers and state SRID discipline requirements.",
+        "action": "query and verify",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]
+      }
+    ],
+    "lessonIds": ["cgei-geo-lesson-3-7-1", "cgei-geo-lesson-3-7-2", "cgei-geo-lesson-3-7-3", "cgei-geo-lesson-3-7-4"],
+    "activityIds": ["cgei-geo-a-37-basics", "cgei-geo-a-37-storage", "cgei-geo-a-37-schema", "cgei-geo-a-37-query"],
+    "assessmentIds": ["cgei-geo-assess-37-basics", "cgei-geo-assess-37-storage", "cgei-geo-assess-37-schema", "cgei-geo-assess-37-query"],
+    "resourceIds": ["cgei-geo-r-postgis", "cgei-geo-r-epsg"],
+    "deliverableIds": ["cgei-geo-del-crs-log"],
+    "sourceDocument": "Master Study TOC Subject 3 Unit 3.7 — Spatial databases",
+    "notes": [
+      "Support unit per TOC. CI uses documented SQL patterns without requiring a live PostGIS instance.",
+      "Compare GeoPackage/SpatiaLite/PostGIS/DuckDB at concept level."
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-8",
+    "subjectId": "cgei-geospatial",
+    "code": "3.8",
+    "title": "Open geospatial data, standards, and interoperability",
+    "order": 38,
+    "kind": "unit",
+    "readiness": "draft",
+    "summary": "Source, combine, and cite open geospatial data with correct licences, OGC/STAC awareness, and interoperability checks.",
+    "estimatedHours": 6,
+    "prerequisites": ["Unit 3.1", "Unit 3.2", "Unit 3.3"],
+    "outcomes": [
+      {
+        "id": "cgei-geo-o-38-sources",
+        "statement": "Select open base and thematic layers (OSM, Natural Earth, WorldPop, building footprints) with documented licence, version, and completeness limits for Multan/Pakistan.",
+        "action": "select and document",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-38-standards",
+        "statement": "Distinguish OGC web services and modern OGC APIs/STAC and run a minimal interoperability test (same layer in QGIS and Python with matching CRS/extent).",
+        "action": "distinguish and verify",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility", "cgei-comp-quantitative-reasoning"]
+      },
+      {
+        "id": "cgei-geo-o-38-licence",
+        "statement": "Apply attribution and share-alike obligations, record dataset version and access date, and state when aggregation is required before publishing sensitive locations.",
+        "action": "apply and record",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      }
+    ],
+    "lessonIds": ["cgei-geo-lesson-3-8-1", "cgei-geo-lesson-3-8-2", "cgei-geo-lesson-3-8-3"],
+    "activityIds": ["cgei-geo-a-38-sources", "cgei-geo-a-38-standards", "cgei-geo-a-38-licence"],
+    "assessmentIds": ["cgei-geo-assess-38-sources", "cgei-geo-assess-38-standards", "cgei-geo-assess-38-licence"],
+    "resourceIds": ["cgei-geo-r-osm", "cgei-geo-r-stac", "cgei-geo-r-epsg"],
+    "deliverableIds": ["cgei-geo-del-data-manifest"],
+    "sourceDocument": "Master Study TOC Subject 3 Unit 3.8 — Open geospatial data, standards, and interoperability",
+    "notes": [
+      "Support unit per TOC. Licence discipline is non-negotiable for portfolio work."
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-10",
+    "subjectId": "cgei-geospatial",
+    "code": "3.10",
+    "title": "Cloud-native and large-scale geospatial",
+    "order": 40,
+    "kind": "unit",
+    "readiness": "draft",
+    "summary": "Plan large-scale analysis with STAC/COG/Zarr, discovery portals, platform quotas, cost awareness, and an exit strategy in open formats.",
+    "estimatedHours": 8,
+    "prerequisites": ["Unit 3.5", "Unit 3.8"],
+    "outcomes": [
+      {
+        "id": "cgei-geo-o-310-formats",
+        "statement": "Distinguish STAC, COG, Zarr, and GeoParquet roles and choose a format for a stated access pattern (range reads vs multidimensional arrays).",
+        "action": "distinguish and select",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-310-discovery",
+        "statement": "Name major discovery portals (Copernicus Data Space, USGS EarthExplorer, NASA Earthdata, AWS Open Data) and state authentication, rate-limit, and egress-cost cautions.",
+        "action": "name and caution",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-310-compute",
+        "statement": "Compare Earth Engine, local Python, and cloud/HPC for a Multan-scale EO task using data volume, licence, reproducibility, and cost criteria.",
+        "action": "compare and justify",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-310-quota",
+        "statement": "State Earth Engine noncommercial tier limits as planning constraints and describe an exit strategy that keeps intermediate outputs in open formats.",
+        "action": "plan and document",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      }
+    ],
+    "lessonIds": ["cgei-geo-lesson-3-10-1", "cgei-geo-lesson-3-10-2", "cgei-geo-lesson-3-10-3", "cgei-geo-lesson-3-10-4"],
+    "activityIds": ["cgei-geo-a-310-formats", "cgei-geo-a-310-discovery", "cgei-geo-a-310-compute", "cgei-geo-a-310-quota"],
+    "assessmentIds": ["cgei-geo-assess-310-formats", "cgei-geo-assess-310-discovery", "cgei-geo-assess-310-compute", "cgei-geo-assess-310-quota"],
+    "resourceIds": ["cgei-geo-r-stac", "cgei-geo-r-gee"],
+    "deliverableIds": [],
+    "sourceDocument": "Master Study TOC Subject 3 Unit 3.10 — Cloud-native and large-scale geospatial",
+    "notes": [
+      "Support unit. Quotas change — verify current EE noncommercial tiers before citing numbers in live work."
+    ]
+  },
+  {
+    "id": "cgei-geo-unit-3-11",
+    "subjectId": "cgei-geospatial",
+    "code": "3.11",
+    "title": "Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "order": 41,
+    "kind": "unit",
+    "readiness": "draft",
+    "summary": "Plan and quality-control 3D/UAV acquisition conceptually and derive urban-form variables relevant to microclimate work.",
+    "estimatedHours": 8,
+    "prerequisites": ["Unit 3.2", "Unit 3.4"],
+    "outcomes": [
+      {
+        "id": "cgei-geo-o-311-clouds",
+        "statement": "Distinguish DSM, DTM, and normalised surface models from lidar/SfM point clouds and state accuracy assessment via independent check-point RMSE.",
+        "action": "distinguish and assess",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-quantitative-reasoning"]
+      },
+      {
+        "id": "cgei-geo-o-311-uav",
+        "statement": "List mission-planning parameters (altitude, overlap, GSD, sensor type) and state that Pakistan permit, safety, and privacy rules must be verified before any flight.",
+        "action": "plan and comply",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-reproducibility"]
+      },
+      {
+        "id": "cgei-geo-o-311-form",
+        "statement": "Describe building-height and canopy-height products as inputs to sky-view factor, shadow, and microclimate analyses with resolution and validation limits.",
+        "action": "describe and limit",
+        "level": "L2",
+        "competencyIds": ["cgei-comp-quantitative-reasoning"]
+      }
+    ],
+    "lessonIds": ["cgei-geo-lesson-3-11-1", "cgei-geo-lesson-3-11-2", "cgei-geo-lesson-3-11-3"],
+    "activityIds": ["cgei-geo-a-311-clouds", "cgei-geo-a-311-uav", "cgei-geo-a-311-form"],
+    "assessmentIds": ["cgei-geo-assess-311-clouds", "cgei-geo-assess-311-uav", "cgei-geo-assess-311-form"],
+    "resourceIds": [],
+    "deliverableIds": [],
+    "sourceDocument": "Master Study TOC Subject 3 Unit 3.11 — Lidar, photogrammetry, UAV mapping, and 3D urban form",
+    "notes": [
+      "Optional unit per TOC. No flight operations in CI; compliance notes are mandatory in any real acquisition plan."
     ]
   }
 ] as const;
@@ -1053,7 +1526,47 @@ export const lessons: CurriculumLesson[] = [
     "deliverableIds": []
   },
   {
-    "id": "cgei-geo-lesson-3-2-1",
+    
+  {
+    "id": "cgei-geo-lesson-3-1-4",
+    "kind": "lesson",
+    "title": "Spatial data quality and metadata",
+    "order": 4,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-31-quality", "statement": "Name ISO 19157 quality components (positional and attribute accuracy, logical consistency, completeness, lineage) and state why stacked overlays compound error.", "action": "name and explain", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-31-4-1", "kind": "prose", "title": "ISO 19157 quality components", "body": "Positional accuracy, attribute accuracy, logical consistency, completeness, and lineage are the standard vocabulary for spatial data quality. Metadata (ISO 19115) and FAIR practice require a minimum record per layer: CRS, extent, source, date, and known limits."},
+      {"id": "cgei-geo-31-4-2", "kind": "prose", "title": "Error propagation in overlays", "body": "Map algebra and multi-layer overlays compound positional and classification error. A third overlay is not three times as trustworthy as one—uncertainty stacks. Document lineage so downstream users can judge fitness."},
+      {"id": "cgei-geo-31-4-3", "kind": "key-points", "title": "Quality checklist", "items": ["Name which quality component a claim rests on", "Minimum metadata per layer", "Stacked layers compound error", "Lineage is not optional for decision maps"]}
+    ],
+    "activityIds": ["cgei-geo-a-31-quality"],
+    "assessmentIds": ["cgei-geo-assess-31-quality"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-1-5",
+    "kind": "lesson",
+    "title": "Positioning and field coordinates",
+    "order": 5,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-31-gnss", "statement": "Distinguish GNSS accuracy classes and record accuracy estimates and datum for field points used in GIS.", "action": "distinguish and record", "level": "L2", "competencyIds": ["cgei-comp-reproducibility", "cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-31-5-1", "kind": "prose", "title": "GNSS accuracy classes", "body": "Consumer GNSS, SBAS-aided, and RTK/PPK classes differ by metres to centimetres. Multipath in urban canyons degrades results. Horizontal and vertical error are not interchangeable. Field points used in GIS need recorded accuracy estimates and averaging protocols."},
+      {"id": "cgei-geo-31-5-2", "kind": "prose", "title": "Datum of field coordinates", "body": "Modern GNSS typically reports in WGS 84 / ITRF-related frames. Legacy local datums on older maps are not the same. Document the datum before overlaying field points on administrative or cadastral layers."},
+      {"id": "cgei-geo-31-5-3", "kind": "key-points", "title": "Field coordinate rules", "items": ["Record accuracy class or estimated metres", "State datum", "Do not treat consumer GPS as survey-grade", "Urban multipath is a known failure mode"]}
+    ],
+    "activityIds": ["cgei-geo-a-31-gnss"],
+    "assessmentIds": ["cgei-geo-assess-31-gnss"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  {
+"id": "cgei-geo-lesson-3-2-1",
     "kind": "lesson",
     "title": "Geographic coordinates, datums and axis order",
     "order": 1,
@@ -3233,7 +3746,339 @@ export const lessons: CurriculumLesson[] = [
     ],
     "resourceIds": [],
     "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-9-4",
+    "kind": "lesson",
+    "title": "Spatial regression and heterogeneity",
+    "order": 4,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 45,
+    "objectives": [{"id": "cgei-geo-o-39-reg", "statement": "Explain residual spatial autocorrelation in OLS and state what spatial lag, spatial error, and GWR coefficients can and cannot mean.", "action": "explain and limit", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-39-4-1", "kind": "prose", "title": "When OLS residuals are spatial", "body": "Ordinary least squares ignores spatial dependence. Residual spatial autocorrelation means standard errors and inference are unreliable even if coefficients look plausible. Spatial lag and spatial error models address different dependence structures; neither magically proves causation."},
+      {"id": "cgei-geo-39-4-2", "kind": "prose", "title": "GWR and multiscale GWR", "body": "Geographically weighted regression and multiscale GWR estimate local coefficients. Bandwidth choice, local collinearity, and multiple-testing over space limit interpretation. Local coefficients are exploratory spatial patterns—not automatic policy elasticities."},
+      {"id": "cgei-geo-39-4-3", "kind": "prose", "title": "Spatial confounding", "body": "Variables that vary smoothly over space can produce associations that are not the structural effects claimed. State what regression on spatial data can and cannot support on the claim ladder."},
+      {"id": "cgei-geo-39-4-4", "kind": "key-points", "title": "Regression limits", "items": ["Check residual Moran structure after OLS", "Lag vs error is a modelling choice with theory", "GWR is sensitive to bandwidth", "Spatial confounding is a real threat to interpretation"]}
+    ],
+    "activityIds": ["cgei-geo-a-39-reg"],
+    "assessmentIds": ["cgei-geo-assess-39-reg"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },,
+{
+    
+  {
+    "id": "cgei-geo-lesson-3-6-3",
+    "kind": "lesson",
+    "title": "Map types, relief and publication standards",
+    "order": 3,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-36-types", "statement": "Select thematic map types (choropleth, proportional symbol, dot density, bivariate, small multiples) matched to data type, audience, and message.", "action": "select and justify", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-36-3-1", "kind": "prose", "title": "Choosing a map type", "body": "Choropleths suit rates over areas; proportional symbols suit counts at points; dot density communicates density without false precision of smooth fills; bivariate and small multiples compare two variables or times. Cartograms trade geography for magnitude. Match type to data support and audience message."},
+      {"id": "cgei-geo-36-3-2", "kind": "prose", "title": "Relief, generalisation, typography", "body": "Hillshade and contours support terrain reading. Generalisation and labelling hierarchy must match scale. Journal and poster figures need resolution, vector-friendly export, colour-blind-safe palettes, panel labels, scale bars, and units."},
+      {"id": "cgei-geo-36-3-3", "kind": "key-points", "title": "Publication checklist", "items": ["Map type matches data support", "Reproducible figure script or project file", "Colour-blind-safe where possible", "Scale, units, source on the figure"]}
+    ],
+    "activityIds": ["cgei-geo-a-36-types"],
+    "assessmentIds": ["cgei-geo-assess-36-types"],
+    "resourceIds": [],
+    "deliverableIds": ["cgei-geo-del-map-package"]
+  },
+  {
+    "id": "cgei-geo-lesson-3-6-4",
+    "kind": "lesson",
+    "title": "Sensitive boundaries and web cartography",
+    "order": 4,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 30,
+    "objectives": [{"id": "cgei-geo-o-36-boundaries", "statement": "State when disputed or sensitive boundaries require disclaimers and list attribution requirements for web cartography.", "action": "state and apply", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-36-4-1", "kind": "prose", "title": "Disputed and sensitive boundaries", "body": "Follow applicable national mapping rules and include boundary disclaimers where required. Administrative layers from different years or sources need topology and lineage checks before political interpretation."},
+      {"id": "cgei-geo-36-4-2", "kind": "prose", "title": "Web cartography basics", "body": "Vector tiles, MapLibre-style styling, tile caching, and attribution requirements apply to public web maps. Licensing and attribution statements belong on the map or an accessible credit, not only in a private README."},
+      {"id": "cgei-geo-36-4-3", "kind": "callout", "title": "Ethics", "tone": "warning", "items": ["Boundary claims are not only cartographic choices", "Web attribution is mandatory for open basemap tiles"]}
+    ],
+    "activityIds": ["cgei-geo-a-36-boundaries"],
+    "assessmentIds": ["cgei-geo-assess-36-boundaries"],
+    "resourceIds": ["cgei-geo-r-osm"],
+    "deliverableIds": []
+  },
+  {
+"id": "cgei-geo-lesson-3-7-1",
+    "kind": "lesson",
+    "title": "PostGIS types, indexes and predicates",
+    "order": 1,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-37-basics", "statement": "Explain PostgreSQL/PostGIS geometry versus geography types, spatial indexes (GiST), and when a spatial predicate can use an index.", "action": "explain and select", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-37-1-1", "kind": "prose", "title": "PostgreSQL foundations for spatial work", "body": "Keys, joins, indexes, and views are the relational base. Spatial work adds typed geometry columns, constraints, and indexes that the planner can use. Without primary keys and foreign keys, spatial joins become unmaintainable."},
+      {"id": "cgei-geo-37-1-2", "kind": "prose", "title": "Geometry versus geography", "body": "PostGIS geometry uses planar calculations in a stated CRS (often projected metres). Geography uses ellipsoid calculations on lon/lat (typically WGS 84). Distance and area semantics differ: a 1000-unit buffer on geometry in EPSG:32642 is metres; the same number on geometry mistakenly left in EPSG:4326 is degrees. Choose one storage policy per operational database and declare SRID on every geometry column."},
+      {"id": "cgei-geo-37-1-3", "kind": "table", "title": "Predicate and index behaviour (teaching summary)", "headers": ["Pattern", "Index-friendly?", "Notes"], "rows": [["ST_DWithin(a,b,d)", "Usually yes", "Preferred for radius filters"], ["ST_Intersects / ST_Contains", "Yes with GiST", "Bounding-box primary filter"], ["ST_Distance(a,b) < d in WHERE", "Often no", "Forces pairwise distance"], ["ORDER BY a <-> b LIMIT k", "KNN with index", "Nearest-neighbour idiom"]]},
+      {"id": "cgei-geo-37-1-4", "kind": "key-points", "title": "Basics checklist", "items": ["GiST spatial indexes on geometry columns used in filters", "SRID agreement before any predicate", "Views for stable public query surfaces", "Never mix SRIDs silently in a join"]},
+      {"id": "cgei-geo-37-1-5", "kind": "callout", "title": "No live server required for this unit", "tone": "info", "items": ["Document SQL patterns against known answers", "ETL practice can use ogr2ogr into GeoPackage as a stand-in"]}
+    ],
+    "activityIds": ["cgei-geo-a-37-basics"],
+    "assessmentIds": ["cgei-geo-assess-37-basics"],
+    "resourceIds": ["cgei-geo-r-postgis"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-2",
+    "kind": "lesson",
+    "title": "Storage options and scaling",
+    "order": 2,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-37-storage", "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.", "action": "compare and select", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-37-2-1", "kind": "prose", "title": "Choosing a store", "body": "GeoPackage is the preferred portable file container for many analysis packages. SpatiaLite embeds spatial SQL in a file database. PostGIS adds concurrent multi-user access, robust spatial SQL, raster storage options, and routing via pgRouting. DuckDB spatial targets analytical workloads and large files with a different concurrency model. Match the store to single-user portability versus multi-user services of record."},
+      {"id": "cgei-geo-37-2-2", "kind": "table", "title": "Storage comparison (teaching)", "headers": ["Store", "Best fit", "Watch for"], "rows": [["GeoPackage", "Exchange and local analysis", "Not a multi-writer server"], ["SpatiaLite", "Embedded SQL on a laptop", "Fewer concurrent writers"], ["PostGIS", "Multi-user, complex SQL, services", "Ops burden: backup, roles"], ["DuckDB spatial", "Analytical scans on large files", "Not a long-lived OLTP system of record"]]},
+      {"id": "cgei-geo-37-2-3", "kind": "prose", "title": "Scaling notes", "body": "Partitioning and time-series patterns matter for sensor streams. Backup, replication, and access-control basics are part of reproducibility for any shared PostGIS instance. Raster-in-PostGIS and pgRouting are specialised capabilities—not requirements for every Multan student project."},
+      {"id": "cgei-geo-37-2-4", "kind": "key-points", "title": "Selection rule", "items": ["Portable package → GeoPackage first", "Shared team database → PostGIS with roles and backups", "Ad-hoc analytics on big files → consider DuckDB spatial", "Document why the store was chosen"]}
+    ],
+    "activityIds": ["cgei-geo-a-37-storage"],
+    "assessmentIds": ["cgei-geo-assess-37-storage"],
+    "resourceIds": ["cgei-geo-r-postgis"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-3",
+    "kind": "lesson",
+    "title": "Schema design and CRS policy",
+    "order": 3,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-37-schema", "statement": "Design a minimal schema separating locations, observations, boundaries, and metadata with a single declared CRS policy and data dictionary.", "action": "design and document", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-37-3-1", "kind": "prose", "title": "Separate concerns", "body": "Locations (stable geometries with unique IDs), observations (time-stamped measurements foreign-keyed to locations), boundaries (admin polygons with versioned years and source), and metadata (lineage, licence, access date) should not live in one overloaded table. A data dictionary names every column, unit, and controlled vocabulary."},
+      {"id": "cgei-geo-37-3-2", "kind": "prose", "title": "CRS policy in the database", "body": "Declare one storage CRS for operational vector layers where possible (e.g. EPSG:32642 for Multan metric work, or EPSG:4326 for global exchange tables). Document transforms at ingest. Views that silently mix SRIDs are a defect. The CRS policy belongs in the data dictionary, not only in analyst memory."},
+      {"id": "cgei-geo-37-3-3", "kind": "key-points", "title": "Schema checklist", "items": ["Stable location IDs", "Observation time and units columns", "Boundary year and source fields", "Metadata table or sidecar for licence and lineage", "Written CRS policy"]}
+    ],
+    "activityIds": ["cgei-geo-a-37-schema"],
+    "assessmentIds": ["cgei-geo-assess-37-schema"],
+    "resourceIds": [],
+    "deliverableIds": ["cgei-geo-del-crs-log"]
+  },
+  {
+    "id": "cgei-geo-lesson-3-7-4",
+    "kind": "lesson",
+    "title": "Query patterns, ETL and testing",
+    "order": 4,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 45,
+    "objectives": [{"id": "cgei-geo-o-37-query", "statement": "Write and test spatial SQL patterns (ST_DWithin, KNN, joins) against known answers and state SRID discipline requirements.", "action": "query and verify", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-37-4-1", "kind": "prose", "title": "Spatial SQL patterns", "body": "Nearest-neighbour (KNN via the <-> operator), ST_DWithin for radius filters, and spatial joins must be checked on a tiny fixture with hand-computed truth. Prefer index-friendly predicates. SRID discipline is mandatory: comparing mixed SRIDs yields empty or wrong results without always erroring loudly."},
+      {"id": "cgei-geo-37-4-2", "kind": "prose", "title": "ETL with GDAL/OGR", "body": "ogr2ogr remains the practical path to load shapefiles, GeoPackage layers, and many other formats into PostGIS or GeoPackage. Record source CRS, target SRID, and row counts before/after. Roles, backups, and migration scripts are part of operational reproducibility."},
+      {"id": "cgei-geo-37-4-3", "kind": "worked-example", "title": "Fixture test mindset", "body": "Three points and two polygons with known distances: assert ST_DWithin counts, KNN order, and join row expansion. If the fixture fails after a schema change, fix the query or the data—not the test expectation—unless the definition intentionally changed."},
+      {"id": "cgei-geo-37-4-4", "kind": "key-points", "title": "Failure modes", "items": ["Wrong SRID comparison yields empty or wrong joins", "Unindexed ST_Distance over large tables times out", "Silent CRS assign without transform", "No backup before destructive migration"]}
+    ],
+    "activityIds": ["cgei-geo-a-37-query"],
+    "assessmentIds": ["cgei-geo-assess-37-query"],
+    "resourceIds": ["cgei-geo-r-postgis", "cgei-geo-r-gdal"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-1",
+    "kind": "lesson",
+    "title": "Open base and thematic layers",
+    "order": 1,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-38-sources", "statement": "Select open base and thematic layers (OSM, Natural Earth, WorldPop, building footprints) with documented licence, version, and completeness limits for Multan/Pakistan.", "action": "select and document", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-38-1-1", "kind": "prose", "title": "Open base layers", "body": "OpenStreetMap (ODbL licence; completeness varies by city and theme), Overture Maps, Natural Earth, geoBoundaries, and GADM (licence limits—read before redistributing) provide basemap and boundary options. Multan OSM completeness for buildings, roads, and amenities must be checked against local knowledge or independent counts, not assumed from global reputation."},
+      {"id": "cgei-geo-38-1-2", "kind": "prose", "title": "Buildings, population, humanitarian", "body": "Building footprints and heights: Open Buildings, Microsoft footprints, OSM—coverage and height accuracy differ. Population and settlement grids: WorldPop, GHSL. Humanitarian layers often via HDX. Each product needs version, access date, and a one-line fitness note for Multan-scale work."},
+      {"id": "cgei-geo-38-1-3", "kind": "table", "title": "Open sources (teaching checklist)", "headers": ["Source", "Typical use", "Licence caution"], "rows": [["OSM", "Roads, POIs, buildings", "ODbL attribution / share-alike"], ["Natural Earth", "Cartographic base", "Public domain-style terms—verify"], ["WorldPop / GHSL", "Population grids", "Cite version; resolution limits"], ["Open Buildings", "Footprints", "Check coverage over Multan"]]},
+      {"id": "cgei-geo-38-1-4", "kind": "key-points", "title": "Minimum citation fields", "items": ["Dataset name and version", "Access date", "Licence and attribution text", "Known gaps for the study area"]}
+    ],
+    "activityIds": ["cgei-geo-a-38-sources"],
+    "assessmentIds": ["cgei-geo-assess-38-sources"],
+    "resourceIds": ["cgei-geo-r-osm"],
+    "deliverableIds": ["cgei-geo-del-data-manifest"]
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-2",
+    "kind": "lesson",
+    "title": "OGC services, STAC and interoperability",
+    "order": 2,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-38-standards", "statement": "Distinguish OGC web services and modern OGC APIs/STAC and run a minimal interoperability test (same layer in QGIS and Python with matching CRS/extent).", "action": "distinguish and verify", "level": "L2", "competencyIds": ["cgei-comp-reproducibility", "cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-38-2-1", "kind": "prose", "title": "OGC services and modern APIs", "body": "Classic OGC web services—WMS (pictures), WFS (features), WMTS (tiles), WCS (coverages)—remain common. Modern OGC APIs (Features, Tiles, Coverages) and STAC API improve JSON-centric, web-native discovery. Knowing which protocol returns pixels versus features prevents wrong tooling choices."},
+      {"id": "cgei-geo-38-2-2", "kind": "prose", "title": "Spatial data infrastructure concepts", "body": "Catalogues, metadata harvesting, and access control are the organisational layer. A national or project SDI is not only a file share: it is discoverability plus policy. Interoperability tests open the same layer in QGIS, Python, and a web viewer and compare CRS, extent, and counts."},
+      {"id": "cgei-geo-38-2-3", "kind": "key-points", "title": "Interoperability checklist", "items": ["CRS string matches across clients", "Extent and feature/pixel counts agree", "Access control and tokens documented", "Matching extents is not matching CRS"]}
+    ],
+    "activityIds": ["cgei-geo-a-38-standards"],
+    "assessmentIds": ["cgei-geo-assess-38-standards"],
+    "resourceIds": ["cgei-geo-r-stac"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-8-3",
+    "kind": "lesson",
+    "title": "Licences, ethics and citation",
+    "order": 3,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 30,
+    "objectives": [{"id": "cgei-geo-o-38-licence", "statement": "Apply attribution and share-alike obligations, record dataset version and access date, and state when aggregation is required before publishing sensitive locations.", "action": "apply and record", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-38-3-1", "kind": "prose", "title": "Attribution, share-alike, non-commercial", "body": "Open licences differ: attribution-only, share-alike (e.g. ODbL), and non-commercial clauses change what you may publish and how derivatives must be shared. Obligations travel with derived products—not only the original download."},
+      {"id": "cgei-geo-38-3-2", "kind": "prose", "title": "Sensitive locations and citation", "body": "Precise household or facility coordinates from surveys may require aggregation before public maps. Citation is dataset version + access date + DOI when available—not only a homepage URL. Record licence text in the data manifest (Subject 3 exit deliverable)."},
+      {"id": "cgei-geo-38-3-3", "kind": "callout", "title": "Failure modes", "tone": "warning", "items": ["Publishing precise home locations from field surveys", "Omitting ODbL attribution on OSM-derived maps", "Redistributing GADM or other restricted boundaries against licence terms"]}
+    ],
+    "activityIds": ["cgei-geo-a-38-licence"],
+    "assessmentIds": ["cgei-geo-assess-38-licence"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-1",
+    "kind": "lesson",
+    "title": "STAC, COG, Zarr and GeoParquet",
+    "order": 1,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-310-formats", "statement": "Distinguish STAC, COG, Zarr, and GeoParquet roles and choose a format for a stated access pattern (range reads vs multidimensional arrays).", "action": "distinguish and select", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-310-1-1", "kind": "prose", "title": "STAC catalogues", "body": "STAC organises catalogs, collections, and items with asset links. It is the discovery language for much modern EO. Items point at COGs, Zarr stores, or other assets; the catalog does not replace CRS and licence checks on the assets themselves."},
+      {"id": "cgei-geo-310-1-2", "kind": "prose", "title": "COG, Zarr, GeoParquet, PMTiles", "body": "COGs support HTTP range reads for tiled GeoTIFFs with overviews. Zarr (and kerchunk virtual references) suits chunked multidimensional arrays. GeoParquet stores large vector tables efficiently. PMTiles packages tiles for web maps. Choosing wrong format forces full downloads or awkward tooling."},
+      {"id": "cgei-geo-310-1-3", "kind": "table", "title": "Format vs access pattern", "headers": ["Need", "Often choose", "Why"], "rows": [["Single-scene tiled reads", "COG", "Range requests + overviews"], ["Multi-year climate cube", "Zarr / kerchunk", "Chunked multidimensional"], ["Millions of parcels", "GeoParquet", "Columnar vector analytics"], ["Web basemap tiles", "PMTiles / WMTS", "Client map performance"]]},
+      {"id": "cgei-geo-310-1-4", "kind": "key-points", "title": "Selection cues", "items": ["Format follows access pattern", "STAC discovers; assets still need CRS/licence checks", "Prefer open intermediates for exit strategy"]}
+    ],
+    "activityIds": ["cgei-geo-a-310-formats"],
+    "assessmentIds": ["cgei-geo-assess-310-formats"],
+    "resourceIds": ["cgei-geo-r-stac"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-2",
+    "kind": "lesson",
+    "title": "Discovery portals and access costs",
+    "order": 2,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-310-discovery", "statement": "Name major discovery portals (Copernicus Data Space, USGS EarthExplorer, NASA Earthdata, AWS Open Data) and state authentication, rate-limit, and egress-cost cautions.", "action": "name and caution", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-310-2-1", "kind": "prose", "title": "Where data are found", "body": "Copernicus Data Space Ecosystem, USGS EarthExplorer, NASA Earthdata (earthaccess), and AWS Open Data registries are primary discovery paths for EO and climate holdings. Planetary Computer and Earth Search style STAC endpoints add cloud-native discovery. openEO and open data cubes offer portable processing interfaces; Pangeo-style stacks organise scientific Python on the cloud."},
+      {"id": "cgei-geo-310-2-2", "kind": "prose", "title": "Authentication, rate limits, egress", "body": "Accounts, tokens, and rate limits shape reproducible scripts. Requester-pays buckets and egress costs can dominate a budget if every intermediate is pulled to a laptop. Prefer in-place cloud reads or staged COG exports with a written cost note."},
+      {"id": "cgei-geo-310-2-3", "kind": "key-points", "title": "Access checklist", "items": ["Portal + collection ID recorded", "Auth method documented", "Rate limits and egress considered", "Licence still checked per asset"]}
+    ],
+    "activityIds": ["cgei-geo-a-310-discovery"],
+    "assessmentIds": ["cgei-geo-assess-310-discovery"],
+    "resourceIds": ["cgei-geo-r-stac"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-3",
+    "kind": "lesson",
+    "title": "Compute platform choices",
+    "order": 3,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-310-compute", "statement": "Compare Earth Engine, local Python, and cloud/HPC for a Multan-scale EO task using data volume, licence, reproducibility, and cost criteria.", "action": "compare and justify", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-310-3-1", "kind": "prose", "title": "Criteria over habit", "body": "Earth Engine accelerates some EO stacks but ties workflows to a platform and quota. Local Python maximises reproducibility for Multan-scale regions. Cloud/HPC fits heavy multi-scene or continental work. Criteria: data volume, licence, reproducibility, cost, and exit path—not default brand preference."},
+      {"id": "cgei-geo-310-3-2", "kind": "table", "title": "Platform comparison (teaching)", "headers": ["Platform", "Strength", "Risk"], "rows": [["Earth Engine", "Fast EO prototypes, large catalogs", "Quota, platform lock-in"], ["Local Python", "Full control, offline", "Data volume limits"], ["Cloud/HPC", "Scale", "Cost and ops complexity"]]}
+    ],
+    "activityIds": ["cgei-geo-a-310-compute"],
+    "assessmentIds": ["cgei-geo-assess-310-compute"],
+    "resourceIds": ["cgei-geo-r-gee"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-10-4",
+    "kind": "lesson",
+    "title": "Quotas, dependency risk and exit strategy",
+    "order": 4,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-310-quota", "statement": "State Earth Engine noncommercial tier limits as planning constraints and describe an exit strategy that keeps intermediate outputs in open formats.", "action": "plan and document", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-310-4-1", "kind": "prose", "title": "Plan to the quota", "body": "Earth Engine noncommercial tiers (Community and Contributor monthly EECU-hour limits; annual re-verification—verify current numbers before citing) constrain research workflows. Estimate volume before large exports. Treat quota as a design input, not a surprise."},
+      {"id": "cgei-geo-310-4-2", "kind": "prose", "title": "Exit strategy", "body": "Keep intermediate outputs in open formats (COG, GeoPackage, GeoParquet, Zarr) so a platform or tier change does not erase the project. Scripts should be runnable with local paths once assets are exported."},
+      {"id": "cgei-geo-310-4-3", "kind": "callout", "title": "Verify live quotas", "tone": "warning", "items": ["Tier names and EECU-hour limits change — check official EE noncommercial documentation at use time", "Do not hard-code obsolete quota numbers into papers"]}
+    ],
+    "activityIds": ["cgei-geo-a-310-quota"],
+    "assessmentIds": ["cgei-geo-assess-310-quota"],
+    "resourceIds": ["cgei-geo-r-gee"],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-1",
+    "kind": "lesson",
+    "title": "Point clouds, DSM and DTM",
+    "order": 1,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 40,
+    "objectives": [{"id": "cgei-geo-o-311-clouds", "statement": "Distinguish DSM, DTM, and normalised surface models from lidar/SfM point clouds and state accuracy assessment via independent check-point RMSE.", "action": "distinguish and assess", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-311-1-1", "kind": "prose", "title": "Lidar principles and classes", "body": "Airborne and terrestrial lidar return point clouds with intensity and classification (ground, vegetation, building, noise). From classified clouds derive DSM (first-return / surface including canopy and roofs), DTM (bare earth), and normalised surface models (nDSM = DSM − DTM)."},
+      {"id": "cgei-geo-311-1-2", "kind": "prose", "title": "Structure-from-motion", "body": "SfM recovers 3D structure from overlapping images: image overlap, ground control points, and tie points drive geometry. Orthomosaics inherit georeferencing quality. Accuracy is reported as RMSE against independent check points—not only the GCPs used in the solution, and not visual smoothness."},
+      {"id": "cgei-geo-311-1-3", "kind": "key-points", "title": "Accuracy language", "items": ["Independent check-point RMSE", "Separate horizontal and vertical error when possible", "DSM ≠ DTM for flood or bare-earth routing", "Document sensor, date, and processing software"]}
+    ],
+    "activityIds": ["cgei-geo-a-311-clouds"],
+    "assessmentIds": ["cgei-geo-assess-311-clouds"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-2",
+    "kind": "lesson",
+    "title": "UAV mission planning and compliance",
+    "order": 2,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-311-uav", "statement": "List mission-planning parameters (altitude, overlap, GSD, sensor type) and state that Pakistan permit, safety, and privacy rules must be verified before any flight.", "action": "plan and comply", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
+    "content": [
+      {"id": "cgei-geo-311-2-1", "kind": "prose", "title": "Mission planning parameters", "body": "Altitude, frontal and side overlap, ground sample distance (GSD), sensor choice (RGB, multispectral, thermal), and weather windows define a mission. Thermal and multispectral work require radiometric calibration and attention to flying conditions. Flight plans should state target GSD and overlap before launch."},
+      {"id": "cgei-geo-311-2-2", "kind": "prose", "title": "Regulatory, safety and privacy", "body": "Pakistan permit, safety, and privacy requirements must be verified with current authorities before any flight. This curriculum does not authorise operations. Privacy of people and properties is an ethics requirement, not an afterthought."},
+      {"id": "cgei-geo-311-2-3", "kind": "callout", "title": "No flight without compliance", "tone": "warning", "items": ["Regulatory status changes — check before planning", "Privacy of people and properties is part of ethics", "No student project should fly without documented permits"]}
+    ],
+    "activityIds": ["cgei-geo-a-311-uav"],
+    "assessmentIds": ["cgei-geo-assess-311-uav"],
+    "resourceIds": [],
+    "deliverableIds": []
+  },
+  {
+    "id": "cgei-geo-lesson-3-11-3",
+    "kind": "lesson",
+    "title": "3D urban form and canopy products",
+    "order": 3,
+    "readiness": "draft",
+    "level": "L2",
+    "estimatedMinutes": 35,
+    "objectives": [{"id": "cgei-geo-o-311-form", "statement": "Describe building-height and canopy-height products as inputs to sky-view factor, shadow, and microclimate analyses with resolution and validation limits.", "action": "describe and limit", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning"]}],
+    "content": [
+      {"id": "cgei-geo-311-3-1", "kind": "prose", "title": "Building height and city models", "body": "3D city models (CityGML levels of detail) and building-height layers support sky-view factor, shadow modelling, solar potential, and flood-path obstruction analyses. LoD choice must match the question: footprint height is not full architectural detail."},
+      {"id": "cgei-geo-311-3-2", "kind": "prose", "title": "Canopy-height products", "body": "Spaceborne lidar (e.g. GEDI) and global canopy-height maps provide regional vegetation structure. Resolution and validation limits must be stated—a global CHM is not a survey of every Multan courtyard or roadside tree."},
+      {"id": "cgei-geo-311-3-3", "kind": "key-points", "title": "Microclimate uses and limits", "items": ["Shadow and solar potential modelling", "Sky-view factor from surface models", "Flood-path and roughness inputs", "Always report product resolution and validation limits"]}
+    ],
+    "activityIds": ["cgei-geo-a-311-form"],
+    "assessmentIds": ["cgei-geo-assess-311-form"],
+    "resourceIds": [],
+    "deliverableIds": []
   }
+
 ] as const;
 
 export const activities: CurriculumActivity[] = [
@@ -3463,7 +4308,7 @@ export const activities: CurriculumActivity[] = [
     "level": "L2",
     "estimatedMinutes": 20,
     "objectiveIds": [
-      "cgei-geo-o-32-crs"
+      "cgei-geo-o-32-transform"
     ]
   },
   {
@@ -3564,7 +4409,140 @@ export const activities: CurriculumActivity[] = [
     "objectiveIds": [
       "cgei-geo-o-39-val"
     ]
+  },
+  {
+  {
+    "id": "cgei-geo-a-37-storage",
+    "kind": "guided-practice",
+    "title": "Choose a spatial store",
+    "instructions": "For (a) a single-analyst Multan package to share as a file, (b) a three-person team editing boundaries concurrently, name GeoPackage or PostGIS and one reason.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-37-storage"]
+  },
+  {
+    "id": "cgei-geo-a-310-discovery",
+    "kind": "guided-practice",
+    "title": "Portal and cost note",
+    "instructions": "Name two discovery portals for Landsat/Sentinel-class data and write one sentence on authentication or egress cost you would record before bulk download.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-310-discovery"]
+  },
+  {
+    "id": "cgei-geo-a-37-basics",
+    "kind": "guided-practice",
+    "title": "Geometry vs geography choice",
+    "instructions": "For a Multan distance buffer and a global shipping route length, state whether geometry or geography type is appropriate and why.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-37-basics"]
+  },
+  {
+    "id": "cgei-geo-a-37-schema",
+    "kind": "guided-practice",
+    "title": "Minimal spatial schema",
+    "instructions": "Sketch four tables (locations, observations, boundaries, metadata) with primary keys and one CRS policy sentence.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": ["cgei-geo-o-37-schema"]
+  },
+  {
+    "id": "cgei-geo-a-37-query",
+    "kind": "guided-practice",
+    "title": "ST_DWithin vs ST_Distance",
+    "instructions": "Explain why a filter using ST_DWithin can use a spatial index while a filter on ST_Distance often cannot.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-37-query"]
+  },
+  {
+    "id": "cgei-geo-a-38-sources",
+    "kind": "guided-practice",
+    "title": "Open layer citation card",
+    "instructions": "For OSM buildings and WorldPop over Multan, write licence, version/access date, and one completeness caution each.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": ["cgei-geo-o-38-sources"]
+  },
+  {
+    "id": "cgei-geo-a-38-standards",
+    "kind": "critique",
+    "title": "Interoperability test plan",
+    "instructions": "List three fields you would compare when opening the same WFS/GeoJSON layer in QGIS and GeoPandas.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-38-standards"]
+  },
+  {
+    "id": "cgei-geo-a-38-licence",
+    "kind": "critique",
+    "title": "Attribution and sensitivity",
+    "instructions": "State two publication mistakes: missing ODbL attribution, and publishing precise home locations from a field survey.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-38-licence"]
+  },
+  {
+    "id": "cgei-geo-a-310-formats",
+    "kind": "guided-practice",
+    "title": "Format for access pattern",
+    "instructions": "Choose COG, Zarr, or GeoParquet for (a) single Landsat scene tiles, (b) multi-year climate cube, (c) 5M parcel polygons — one sentence each.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-310-formats"]
+  },
+  {
+    "id": "cgei-geo-a-310-compute",
+    "kind": "critique",
+    "title": "EE vs local for Multan LST",
+    "instructions": "For a 10-date Multan LST stack, argue for Earth Engine or local Python using volume, reproducibility, and exit-strategy criteria.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": ["cgei-geo-o-310-compute"]
+  },
+  {
+    "id": "cgei-geo-a-310-quota",
+    "kind": "guided-practice",
+    "title": "Quota-aware plan",
+    "instructions": "Write three lines: estimate whether a workflow fits a constrained EE monthly quota, what intermediate open format you keep, and that live tier numbers must be re-checked.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-310-quota"]
+  },
+  {
+    "id": "cgei-geo-a-311-clouds",
+    "kind": "guided-practice",
+    "title": "DSM vs DTM use case",
+    "instructions": "For flood-path routing versus solar-roof potential, state which surface model is appropriate and how you would report RMSE.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-311-clouds"]
+  },
+  {
+    "id": "cgei-geo-a-311-uav",
+    "kind": "critique",
+    "title": "Compliance gate",
+    "instructions": "List mission parameters (altitude, overlap, GSD, sensor) and the compliance gate that must pass before any Pakistan flight.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-311-uav"]
+  },
+  {
+    "id": "cgei-geo-a-311-form",
+    "kind": "guided-practice",
+    "title": "Urban form limits",
+    "instructions": "Name two microclimate uses of building/canopy height and one validation limit of a global canopy-height product over Multan.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": ["cgei-geo-o-311-form"]
   }
+,
+{"id": "cgei-geo-a-31-quality", "kind": "guided-practice", "title": "Quality component naming", "instructions": "For a district choropleth built from two overlaid layers, name two ISO 19157 quality components at risk and one lineage field you would record.", "level": "L2", "estimatedMinutes": 15, "objectiveIds": ["cgei-geo-o-31-quality"]},
+  {"id": "cgei-geo-a-31-gnss", "kind": "guided-practice", "title": "Field point metadata", "instructions": "Write the minimum metadata fields for a consumer-GPS tree survey point before joining it to a UTM parcel layer.", "level": "L2", "estimatedMinutes": 15, "objectiveIds": ["cgei-geo-o-31-gnss"]},
+  {"id": "cgei-geo-a-36-types", "kind": "guided-practice", "title": "Map type selection", "instructions": "For district rates, station counts, and two-year comparison, choose choropleth, proportional symbol, or small multiples and one sentence why.", "level": "L2", "estimatedMinutes": 15, "objectiveIds": ["cgei-geo-o-36-types"]},
+  {"id": "cgei-geo-a-36-boundaries", "kind": "critique", "title": "Boundary and web credits", "instructions": "List one disclaimer case for sensitive boundaries and one attribution requirement for an OSM-based web map.", "level": "L2", "estimatedMinutes": 15, "objectiveIds": ["cgei-geo-o-36-boundaries"]},
+  {"id": "cgei-geo-a-39-reg", "kind": "critique", "title": "Spatial regression limits", "instructions": "Explain why significant residual Moran after OLS is a problem and what a GWR local coefficient does not automatically mean for policy.", "level": "L2", "estimatedMinutes": 20, "objectiveIds": ["cgei-geo-o-39-reg"]}
 ] as const;
 
 export const assessments: CurriculumAssessment[] = [
@@ -3657,7 +4635,8 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-34-dem"
     ],
     "questionIds": [
-      "cgei-geo-q-34-001"
+      "cgei-geo-q-34-001",
+      "cgei-geo-q-34-easy-dsm"
     ],
     "required": true
   },
@@ -3738,7 +4717,8 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-33-zonal"
     ],
     "questionIds": [
-      "cgei-geo-q-33-003"
+      "cgei-geo-q-33-003",
+      "cgei-geo-q-33-hard-nodata"
     ],
     "required": true
   },
@@ -3751,7 +4731,8 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-31-models"
     ],
     "questionIds": [
-      "cgei-geo-q-31-001"
+      "cgei-geo-q-31-001",
+      "cgei-geo-q-31-easy-nodata"
     ],
     "required": true
   },
@@ -3826,13 +4807,14 @@ export const assessments: CurriculumAssessment[] = [
     "title": "Transform honesty",
     "purpose": "Assess assign vs transform, grid honesty, and landmark checks.",
     "objectiveIds": [
-      "cgei-geo-o-32-crs"
+      "cgei-geo-o-32-transform"
     ],
     "questionIds": [
       "cgei-geo-q-32-grid",
       "cgei-geo-q-32-landmark",
       "cgei-geo-q-32-assign",
-      "cgei-geo-q-32-workflow"
+      "cgei-geo-q-32-workflow",
+      "cgei-geo-q-32-hard-utm"
     ],
     "required": true
   },
@@ -3863,7 +4845,8 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-35-vector"
     ],
     "questionIds": [
-      "cgei-geo-q-35-area"
+      "cgei-geo-q-35-area",
+      "cgei-geo-q-35-easy-crs"
     ],
     "required": true
   },
@@ -3917,7 +4900,8 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-36-honesty"
     ],
     "questionIds": [
-      "cgei-geo-q-36-legend"
+      "cgei-geo-q-36-legend",
+      "cgei-geo-q-36-hard-counts"
     ],
     "required": true
   },
@@ -3959,10 +4943,150 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-geo-o-39-val"
     ],
     "questionIds": [
-      "cgei-geo-q-39-block"
+      "cgei-geo-q-39-block",
+      "cgei-geo-q-39-hard-leak"
     ],
     "required": true
+  },
+  {
+  {
+    "id": "cgei-geo-assess-37-storage",
+    "kind": "formative",
+    "title": "Storage selection",
+    "purpose": "Assess GeoPackage vs PostGIS vs DuckDB reasoning.",
+    "objectiveIds": ["cgei-geo-o-37-storage"],
+    "questionIds": ["cgei-geo-q-37-004"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-310-discovery",
+    "kind": "formative",
+    "title": "Discovery and access",
+    "purpose": "Assess portal literacy and cost/auth cautions.",
+    "objectiveIds": ["cgei-geo-o-310-discovery"],
+    "questionIds": ["cgei-geo-q-310-004"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-37-basics",
+    "kind": "formative",
+    "title": "PostGIS types",
+    "purpose": "Assess geometry vs geography and index awareness.",
+    "objectiveIds": ["cgei-geo-o-37-basics"],
+    "questionIds": ["cgei-geo-q-37-001"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-37-schema",
+    "kind": "formative",
+    "title": "Schema and CRS policy",
+    "purpose": "Assess schema separation and CRS policy.",
+    "objectiveIds": ["cgei-geo-o-37-schema"],
+    "questionIds": ["cgei-geo-q-37-002"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-37-query",
+    "kind": "formative",
+    "title": "Spatial SQL patterns",
+    "purpose": "Assess ST_DWithin/index reasoning.",
+    "objectiveIds": ["cgei-geo-o-37-query"],
+    "questionIds": ["cgei-geo-q-37-003",
+      "cgei-geo-q-37-005"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-38-sources",
+    "kind": "formative",
+    "title": "Open data selection",
+    "purpose": "Assess licence and completeness documentation.",
+    "objectiveIds": ["cgei-geo-o-38-sources"],
+    "questionIds": ["cgei-geo-q-38-001",
+      "cgei-geo-q-38-easy-odbl"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-38-standards",
+    "kind": "formative",
+    "title": "Standards literacy",
+    "purpose": "Assess OGC/STAC and interoperability checks.",
+    "objectiveIds": ["cgei-geo-o-38-standards"],
+    "questionIds": ["cgei-geo-q-38-002"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-38-licence",
+    "kind": "formative",
+    "title": "Licence and ethics",
+    "purpose": "Assess attribution and sensitive-location handling.",
+    "objectiveIds": ["cgei-geo-o-38-licence"],
+    "questionIds": ["cgei-geo-q-38-003"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-310-formats",
+    "kind": "formative",
+    "title": "Cloud-native formats",
+    "purpose": "Assess COG/Zarr/GeoParquet selection.",
+    "objectiveIds": ["cgei-geo-o-310-formats"],
+    "questionIds": ["cgei-geo-q-310-001"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-310-compute",
+    "kind": "formative",
+    "title": "Compute platform choice",
+    "purpose": "Assess EE vs local criteria.",
+    "objectiveIds": ["cgei-geo-o-310-compute"],
+    "questionIds": ["cgei-geo-q-310-002"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-310-quota",
+    "kind": "formative",
+    "title": "Quota and exit strategy",
+    "purpose": "Assess quota planning and open intermediates.",
+    "objectiveIds": ["cgei-geo-o-310-quota"],
+    "questionIds": ["cgei-geo-q-310-003",
+      "cgei-geo-q-310-005"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-311-clouds",
+    "kind": "formative",
+    "title": "DSM/DTM literacy",
+    "purpose": "Assess surface model selection and RMSE.",
+    "objectiveIds": ["cgei-geo-o-311-clouds"],
+    "questionIds": ["cgei-geo-q-311-001"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-311-uav",
+    "kind": "formative",
+    "title": "UAV compliance",
+    "purpose": "Assess mission parameters and legal gate.",
+    "objectiveIds": ["cgei-geo-o-311-uav"],
+    "questionIds": ["cgei-geo-q-311-002"],
+    "required": false
+  },
+  {
+    "id": "cgei-geo-assess-311-form",
+    "kind": "formative",
+    "title": "3D urban form limits",
+    "purpose": "Assess form variables and product limits.",
+    "objectiveIds": ["cgei-geo-o-311-form"],
+    "questionIds": ["cgei-geo-q-311-003"],
+    "required": false
   }
+,
+{"id": "cgei-geo-assess-31-quality", "kind": "formative", "title": "Data quality literacy", "purpose": "Assess ISO 19157 component awareness.", "objectiveIds": ["cgei-geo-o-31-quality"], "questionIds": ["cgei-geo-q-31-quality"], "required": false},
+  {"id": "cgei-geo-assess-31-gnss", "kind": "formative", "title": "GNSS field metadata", "purpose": "Assess GNSS class and datum recording.", "objectiveIds": ["cgei-geo-o-31-gnss"], "questionIds": ["cgei-geo-q-31-gnss"], "required": false},
+  {"id": "cgei-geo-assess-36-types", "kind": "formative", "title": "Map type selection", "purpose": "Assess thematic map type matching.", "objectiveIds": ["cgei-geo-o-36-types"], "questionIds": ["cgei-geo-q-36-types"], "required": false},
+  {"id": "cgei-geo-assess-36-boundaries", "kind": "formative", "title": "Boundaries and attribution", "purpose": "Assess sensitive boundary and web attribution awareness.", "objectiveIds": ["cgei-geo-o-36-boundaries"], "questionIds": ["cgei-geo-q-36-boundaries"], "required": false},
+  {"id": "cgei-geo-assess-39-reg", "kind": "formative", "title": "Spatial regression limits", "purpose": "Assess residual autocorrelation and GWR interpretation limits.", "objectiveIds": ["cgei-geo-o-39-reg"], "questionIds": ["cgei-geo-q-39-reg"], "required": false},
 ] as const;
 
 export const outcomes: CurriculumOutcome[] = [
@@ -4161,6 +5285,260 @@ export const outcomes: CurriculumOutcome[] = [
       "cgei-comp-reproducibility",
       "cgei-comp-quantitative-reasoning"
     ]
+  },
+  {
+    "id": "cgei-geo-o-35-vector",
+    "statement": "Describe GeoPandas/Shapely roles for vector CRS, predicates, joins and area/length in projected CRS.",
+    "action": "describe and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-35-raster",
+    "statement": "Describe rasterio/GDAL workflows for windowed read, nodata, reproject/resample and COG access patterns.",
+    "action": "describe and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-35-stack",
+    "statement": "Match analysis libraries (zonal stats, STAC loaders, spatial stats) to tasks and state dependency/pinning risks for GDAL/PROJ.",
+    "action": "match and justify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-36-visual",
+    "statement": "Select sequential, diverging or qualitative colour schemes and a classification method matched to data type and message.",
+    "action": "select and justify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-36-honesty",
+    "statement": "Design map legends and uncertainty treatments that state units, date, resolution and source without false precision.",
+    "action": "design and critique",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-39-auto",
+    "statement": "Explain spatial autocorrelation and why random train/test splits of spatial data can leak structure.",
+    "action": "explain and diagnose",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-39-interp",
+    "statement": "Compare deterministic interpolation and kriging concepts, including variogram parameters and when data are too sparse to krige.",
+    "action": "compare and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-39-val",
+    "statement": "Design leave-location-out or spatial-block evaluation and interpret residual spatial pattern as a diagnostic.",
+    "action": "design and interpret",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility",
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-37-basics",
+    "statement": "Explain PostgreSQL/PostGIS geometry versus geography types, spatial indexes (GiST), and when a spatial predicate can use an index.",
+    "action": "explain and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-37-schema",
+    "statement": "Design a minimal schema separating locations, observations, boundaries, and metadata with a single declared CRS policy and data dictionary.",
+    "action": "design and document",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-37-query",
+    "statement": "Write and test spatial SQL patterns (ST_DWithin, KNN, joins) against known answers and state SRID discipline requirements.",
+    "action": "query and verify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-38-sources",
+    "statement": "Select open base and thematic layers (OSM, Natural Earth, WorldPop, building footprints) with documented licence, version, and completeness limits for Multan/Pakistan.",
+    "action": "select and document",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-38-standards",
+    "statement": "Distinguish OGC web services and modern OGC APIs/STAC and run a minimal interoperability test (same layer in QGIS and Python with matching CRS/extent).",
+    "action": "distinguish and verify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility",
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-38-licence",
+    "statement": "Apply attribution and share-alike obligations, record dataset version and access date, and state when aggregation is required before publishing sensitive locations.",
+    "action": "apply and record",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-310-formats",
+    "statement": "Distinguish STAC, COG, Zarr, and GeoParquet roles and choose a format for a stated access pattern (range reads vs multidimensional arrays).",
+    "action": "distinguish and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-310-compute",
+    "statement": "Compare Earth Engine, local Python, and cloud/HPC for a Multan-scale EO task using data volume, licence, reproducibility, and cost criteria.",
+    "action": "compare and justify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-310-quota",
+    "statement": "State Earth Engine noncommercial tier limits as planning constraints and describe an exit strategy that keeps intermediate outputs in open formats.",
+    "action": "plan and document",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-311-clouds",
+    "statement": "Distinguish DSM, DTM, and normalised surface models from lidar/SfM point clouds and state accuracy assessment via independent check-point RMSE.",
+    "action": "distinguish and assess",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-311-uav",
+    "statement": "List mission-planning parameters (altitude, overlap, GSD, sensor type) and state that Pakistan permit, safety, and privacy rules must be verified before any flight.",
+    "action": "plan and comply",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-311-form",
+    "statement": "Describe building-height and canopy-height products as inputs to sky-view factor, shadow, and microclimate analyses with resolution and validation limits.",
+    "action": "describe and limit",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  }
+] as const;
+
+  {
+    "id": "cgei-geo-o-37-storage",
+    "statement": "Compare GeoPackage, SpatiaLite, PostGIS, and DuckDB for a stated multi-user or single-user task and name raster-in-PostGIS and pgRouting roles at overview level.",
+    "action": "compare and select",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-310-discovery",
+    "statement": "Name major discovery portals (Copernicus Data Space, USGS EarthExplorer, NASA Earthdata, AWS Open Data) and state authentication, rate-limit, and egress-cost cautions.",
+    "action": "name and caution",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-31-quality",
+    "statement": "Name ISO 19157 quality components (positional and attribute accuracy, logical consistency, completeness, lineage) and state why stacked overlays compound error.",
+    "action": "name and explain",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning",
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-31-gnss",
+    "statement": "Distinguish GNSS accuracy classes and record accuracy estimates and datum for field points used in GIS.",
+    "action": "distinguish and record",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility",
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-36-types",
+    "statement": "Select thematic map types (choropleth, proportional symbol, dot density, bivariate, small multiples) matched to data type, audience, and message.",
+    "action": "select and justify",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-36-boundaries",
+    "statement": "State when disputed or sensitive boundaries require disclaimers and list attribution requirements for web cartography.",
+    "action": "state and apply",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-reproducibility"
+    ]
+  },
+  {
+    "id": "cgei-geo-o-39-reg",
+    "statement": "Explain residual spatial autocorrelation in OLS and state what spatial lag, spatial error, and GWR coefficients can and cannot mean.",
+    "action": "explain and limit",
+    "level": "L2",
+    "competencyIds": [
+      "cgei-comp-quantitative-reasoning"
+    ]
   }
 ] as const;
 
@@ -4175,10 +5553,184 @@ export const resources: CurriculumResource[] = [
     "accessedOn": "2026-10-23",
     "verificationStatus": "checked",
     "required": true
+  },
+  {
+    "id": "cgei-geo-r-postgis",
+    "kind": "documentation",
+    "title": "PostGIS documentation",
+    "url": "https://postgis.net/documentation/",
+    "purpose": "Geometry/geography types, spatial indexes, and spatial SQL reference.",
+    "authorOrPublisher": "PostGIS Project",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
+  },
+  {
+    "id": "cgei-geo-r-osm",
+    "kind": "dataset",
+    "title": "OpenStreetMap and related open base maps",
+    "url": "https://www.openstreetmap.org/",
+    "purpose": "Open road, building, and amenity layers; ODbL attribution required.",
+    "authorOrPublisher": "OpenStreetMap contributors",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
+  },
+  {
+    "id": "cgei-geo-r-stac",
+    "kind": "standard",
+    "title": "STAC specification",
+    "url": "https://stacspec.org/",
+    "purpose": "SpatioTemporal Asset Catalog for cloud-native discovery.",
+    "authorOrPublisher": "STAC community",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
+  },
+  {
+    "id": "cgei-geo-r-gee",
+    "kind": "platform",
+    "title": "Google Earth Engine guides and noncommercial tiers",
+    "url": "https://developers.google.com/earth-engine/guides/noncommercial_tiers",
+    "purpose": "EE workflows and current noncommercial quota documentation — verify at use time.",
+    "authorOrPublisher": "Google",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
+  },
+  {
+    "id": "cgei-geo-r-gdal",
+    "kind": "documentation",
+    "title": "GDAL/OGR documentation",
+    "url": "https://gdal.org/",
+    "purpose": "gdalinfo, ogr2ogr, format drivers, and warping/resampling reference.",
+    "authorOrPublisher": "GDAL/OGR contributors",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
+  },
+  {
+    "id": "cgei-geo-r-qgis",
+    "kind": "documentation",
+    "title": "QGIS documentation",
+    "url": "https://docs.qgis.org/",
+    "purpose": "Desktop GIS workflows, processing toolbox, and print layouts.",
+    "authorOrPublisher": "QGIS Project",
+    "accessedOn": "2026-11-02",
+    "verificationStatus": "checked",
+    "required": false
   }
 ] as const;
 
-export const deliverables: CurriculumDeliverable[] = [] as const;
+export const deliverables: CurriculumDeliverable[] = [
+  {
+    "id": "cgei-geo-del-crs-log",
+    "kind": "processing-record",
+    "title": "CRS and transform log",
+    "description": "Record source CRS, target CRS, transform method, grid availability, landmark residual, and use-case tolerance for every permanent reprojection in the package.",
+    "format": "markdown table or YAML sidecar",
+    "estimatedMinutes": 25,
+    "objectiveIds": ["cgei-geo-o-32-transform", "cgei-geo-o-37-schema"],
+    "unitIds": ["cgei-geo-unit-3-2", "cgei-geo-unit-3-7"],
+    "acceptanceCriteria": [
+      "Assign versus transform is explicit",
+      "At least one landmark residual is reported",
+      "Tolerance is stated for the intended use"
+    ]
+  },
+  {
+    "id": "cgei-geo-del-data-manifest",
+    "kind": "manifest",
+    "title": "Spatial data and licence manifest",
+    "description": "List every layer with source, version, access date, licence/attribution, CRS, and known completeness limits for the Multan study area.",
+    "format": "table (CSV or markdown)",
+    "estimatedMinutes": 30,
+    "objectiveIds": ["cgei-geo-o-38-sources", "cgei-geo-o-38-licence"],
+    "unitIds": ["cgei-geo-unit-3-8"],
+    "acceptanceCriteria": [
+      "No layer without licence and access date",
+      "OSM/ODbL attribution text present when OSM is used",
+      "Completeness cautions for local area stated"
+    ]
+  },
+  {
+    "id": "cgei-geo-del-map-package",
+    "kind": "map-package",
+    "title": "Publication-grade map and layout package",
+    "description": "One thematic map with defensible classification, scale bar, legend with units/date/source, CRS note, and export settings recorded.",
+    "format": "PDF/PNG + QGIS project or script",
+    "estimatedMinutes": 45,
+    "objectiveIds": ["cgei-geo-o-36-visual", "cgei-geo-o-36-honesty", "cgei-geo-o-33-layout-georef"],
+    "unitIds": ["cgei-geo-unit-3-6", "cgei-geo-unit-3-3"],
+    "acceptanceCriteria": [
+      "Classification method named",
+      "Units, date, source on legend or caption",
+      "No Web Mercator hectare claims"
+    ]
+  },
+  {
+    "id": "cgei-geo-del-spatial-validation",
+    "kind": "validation-note",
+    "title": "Spatial validation design note",
+    "description": "Document neighbourhood definition, blocked or leave-location-out design, residual-map checks, and what random splits would leak.",
+    "format": "one-page markdown",
+    "estimatedMinutes": 30,
+    "objectiveIds": ["cgei-geo-o-39-auto", "cgei-geo-o-39-val"],
+    "unitIds": ["cgei-geo-unit-3-9"],
+    "acceptanceCriteria": [
+      "Neighbourhood definition justified",
+      "Validation matches deployment claim",
+      "Residual spatial pattern addressed"
+    ]
+  }
+] as const;
 
-export const projects: CurriculumProject[] = [] as const;
-
+export const projects: CurriculumProject[] = [
+  {
+    "id": "cgei-geo-proj-exit-package",
+    "kind": "exit-gate",
+    "title": "Subject 3 exit gate — Multan spatial analysis package",
+    "summary": "Produce a reproducible spatial package for a Multan/southern Punjab question demonstrating CRS safety, documented data lineage, one honest map, and spatial validation or integrity checks.",
+    "description": "Exit mastery gate for Subject 3. Choose a focused question (e.g. district zonal summary of a continuous field, accessibility to a facility class, or a simple interpolation with LOO diagnostics). Package must include CRS/transform log, data/licence manifest, at least one publication-grade map, and either spatial-validation notes or topology/integrity diagnostics. Prefer open layers with honest completeness limits when restricted national data are unavailable. No invented survey points.",
+    "estimatedHours": 12,
+    "level": "L3",
+    "objectiveIds": [
+      "cgei-geo-o-32-transform",
+      "cgei-geo-o-33-zonal",
+      "cgei-geo-o-36-honesty",
+      "cgei-geo-o-38-licence",
+      "cgei-geo-o-39-val"
+    ],
+    "deliverableIds": [
+      "cgei-geo-del-crs-log",
+      "cgei-geo-del-data-manifest",
+      "cgei-geo-del-map-package",
+      "cgei-geo-del-spatial-validation"
+    ],
+    "resourceIds": [
+      "cgei-geo-r-epsg",
+      "cgei-geo-r-gdal",
+      "cgei-geo-r-qgis",
+      "cgei-geo-r-osm"
+    ],
+    "unitIds": [
+      "cgei-geo-unit-3-2",
+      "cgei-geo-unit-3-3",
+      "cgei-geo-unit-3-6",
+      "cgei-geo-unit-3-8",
+      "cgei-geo-unit-3-9"
+    ],
+    "exitCriteria": [
+      "Package runs or opens from a clean environment with documented CRS",
+      "All four deliverables present and consistent",
+      "No area/distance claims in geographic or Web Mercator CRS",
+      "Licence/attribution complete for every open layer used"
+    ],
+    "failureModes": [
+      "Buffering in degrees labelled as metres",
+      "Choropleth of raw counts without normalisation",
+      "Missing OSM/ODbL attribution",
+      "Random train/test split sold as spatial validation"
+    ]
+  }
+] as const;
