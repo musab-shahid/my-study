@@ -25,7 +25,13 @@ const source = ts.createSourceFile(questionPath, questionText, ts.ScriptTarget.L
 const questions = exportedArray(source, 'questions');
 const topics = exportedArray(source, 'topics');
 const lessonTitle = stringProperty(located.lesson, 'title') ?? lessonId;
-const topicId = lessonId;
+const existingLessonQuestion = questions.elements.find((element) =>
+  ts.isObjectLiteralExpression(element) && stringProperty(element, 'lessonId') === lessonId);
+const existingLessonTopicId = existingLessonQuestion && ts.isObjectLiteralExpression(existingLessonQuestion)
+  ? stringProperty(existingLessonQuestion, 'topicId')
+  : undefined;
+const sourceTopicId = stringProperty(located.lesson, 'sourceTopicId');
+const topicId = existingLessonTopicId ?? (sourceTopicId && objectById(topics, sourceTopicId) ? sourceTopicId : lessonId);
 const existingTopic = objectById(topics, topicId);
 const unitCode = stringProperty(located.unit, 'code');
 if (!unitCode) throw new Error('Parent unit has no code.');
@@ -73,5 +79,5 @@ if (!existingTopic) {
 }
 writeFileSync(questionPath, applyEdits(questionText, edits), 'utf8');
 console.log('Added draft ' + id + ' and its quiz-topic metadata to ' + questionPath);
-console.log('topicId is the canonical lesson ID; no legacy global topic registry edit is required.');
+console.log('Reuses a subject-local quiz topic when available; otherwise the canonical lesson ID is used. No legacy global topic lookup is required.');
 console.log('Complete the TODO fields, then run npm run cgei:sync -- --reason="add ' + id + '".');

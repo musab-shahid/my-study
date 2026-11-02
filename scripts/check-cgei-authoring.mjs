@@ -67,6 +67,7 @@ try {
   run('cgei-new-unit.ts', ['--subject', 'cgei-data-science', '--code', '99.91', '--title', 'Authoring smoke unit']);
   run('cgei-new-lesson.ts', ['--unit', unitId, '--title', 'Authoring smoke lesson']);
   run('cgei-new-question.ts', ['--lesson', lessonId]);
+  run('cgei-new-question.ts', ['--lesson', lessonId]);
 
   const topicsPath = join(temp, 'src/data/cgei/data-science/topics-data-science.ts');
   const questionsPath = join(temp, 'src/data/cgei/data-science/questions-data-science.ts');
@@ -95,12 +96,14 @@ try {
     'parent unit.lessonIds is updated');
 
   const questions = exportedArray(questionsPath, 'questions');
-  const question = questions.elements.find((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'lessonId') === lessonId);
-  assert.ok(question && ts.isObjectLiteralExpression(question), 'question is written to the questions file');
-  assert.equal(objectString(question, 'topicId'), lessonId, 'canonical lesson ID is used as the quiz topic');
+  const questionsForLesson = questions.elements.filter((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'lessonId') === lessonId);
+  assert.equal(questionsForLesson.length, 2, 'repeated question authoring adds both questions');
+  const questionTopicIds = questionsForLesson.map((item) => objectString(item, 'topicId'));
+  assert.equal(questionTopicIds[0], lessonId, 'canonical lesson ID is used as the initial quiz topic');
+  assert.equal(questionTopicIds[1], questionTopicIds[0], 'later questions reuse the lesson quiz topic');
   const quizTopics = exportedArray(questionsPath, 'topics');
-  assert.ok(quizTopics.elements.some((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'id') === lessonId),
-    'quiz-topic metadata is written to the same questions file');
+  assert.equal(quizTopics.elements.filter((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'id') === lessonId).length, 1,
+    'quiz-topic metadata is written once to the same questions file');
 
   assert.deepEqual(readdirSync(join(temp, 'src/data/cgei/data-science')).sort(),
     ['questions-data-science.ts', 'topics-data-science.ts'], 'subject folder remains exactly two data files');
