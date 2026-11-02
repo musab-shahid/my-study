@@ -38,13 +38,15 @@ const expected = [
   ["CGEI-025-Q007", "2-5-1", "cgei-cl-o-25-time", "analyze"],
   ["CGEI-025-Q008", "2-8-1", "cgei-cl-o-28-seasons", "understand"],
   ["CGEI-025-Q009", "2-5-2", "cgei-cl-o-25-aggregate", "analyze"],
-  ["CGEI-025-Q010", "2-5-1", "cgei-cl-o-25-time", "apply"]
+  ["CGEI-025-Q010", "2-5-1", "cgei-cl-o-25-time", "apply"],
+  ["CGEI-02-Q001", "2-6-1", "cgei-cl-o-26-threshold", "understand"],
+  ["CGEI-02-Q003", "2-6-2", "cgei-cl-o-26-trend", "analyze"]
 ] as const;
 
 describe('legacy Climate question lesson mapping', () => {
-  it('maps all 35 lesson-supported legacy IDs to the reviewed canonical lesson and objective', () => {
+  it('maps all 37 legacy IDs to the reviewed canonical lesson and objective', () => {
     const byId = new Map(climateQuestions.map((question) => [question.id, question]));
-    assert.equal(expected.length, 35);
+    assert.equal(expected.length, 37);
     for (const [id, lessonSuffix, objectiveId, cognitiveLevel] of expected) {
       const question = byId.get(id);
       assert.ok(question, `missing retained question ${id}`);
@@ -58,23 +60,13 @@ describe('legacy Climate question lesson mapping', () => {
     }
   });
 
-  it('preserves all 37 legacy IDs and links only the 35 supported by current lesson content', () => {
+  it('preserves all 37 legacy IDs and links each to its reviewed lesson and objective', () => {
     const legacy = climateQuestions
       .map((question) => question.id)
       .filter((id) => /^(CGEI-02-Q|CGEI-024-Q|CGEI-025-Q)/.test(id))
       .sort();
-    const engineOnly = [['CGEI-02-Q001', 'understand'], ['CGEI-02-Q003', 'analyze']] as const;
-    const engineOnlyIds = engineOnly.map(([id]) => id);
     assert.equal(legacy.length, 37);
-    assert.deepEqual(legacy, [...expected.map(([id]) => id), ...engineOnlyIds].sort());
-    const byId = new Map(climateQuestions.map((question) => [question.id, question]));
-    for (const [id, cognitiveLevel] of engineOnly) {
-      const question = byId.get(id);
-      assert.ok(question, `missing retained engine-only question ${id}`);
-      assert.equal(question.lessonId, undefined, `${id} must not be forced into an unrelated lesson`);
-      assert.equal(question.objectiveIds, undefined, `${id} must not claim an unsupported objective`);
-      assert.equal(question.cognitiveLevel, cognitiveLevel, `${id} cognitive level drifted`);
-    }
+    assert.deepEqual(legacy, expected.map(([id]) => id).sort());
     assert.equal(new Set(expected.map(([, lesson]) => lesson)).size, 10);
   });
 });

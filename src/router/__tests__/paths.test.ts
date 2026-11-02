@@ -163,11 +163,10 @@ describe('Phase A path mapping', () => {
   });
 
   it('routes roadmap-only CGEI sections to the subject orientation', () => {
-    // CGEI-01 now has 14 unit quiz topics — no longer roadmap-only.
     // Use a section that still has topicCount === 1.
-    assert.deepEqual(pathToRoute('/section/CGEI-03'), {
+    assert.deepEqual(pathToRoute('/section/CGEI-06'), {
       screen: 'learn',
-      subjectId: 'cgei-geospatial',
+      subjectId: 'cgei-ml-geoai',
     });
   });
 
