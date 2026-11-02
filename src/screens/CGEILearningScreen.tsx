@@ -1,8 +1,9 @@
 import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3 } from 'lucide-react';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
+import type { SubjectId } from '@/types';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { subjectsByTrack } from '@/data/subjects';
@@ -163,9 +164,16 @@ function CGEILearningHomeScreen() {
 }
 
 function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
-  const { data } = useData();
+  const { data, trackMembership, setActiveEnrolledTrack } = useData();
+  const { setActiveTrack } = useSubjectSelection();
   const { navigate } = useRouter();
   const { subject, units, lessons } = subjectLessons(subjectId);
+
+  useEffect(() => {
+    if (trackMembership.activeTrackId === 'cgei') return;
+    const switched = setActiveEnrolledTrack('cgei');
+    if (switched.ok) setActiveTrack('cgei');
+  }, [trackMembership.activeTrackId, setActiveEnrolledTrack, setActiveTrack]);
   const subjectDefinition = subjectsByTrack('cgei').find((item) => item.id === subjectId);
   const studiedCount = lessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
   const lastLesson = data.lastOpenedCurriculumLesson
@@ -173,7 +181,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
     : undefined;
   const nextLesson = lessons.find((lesson) => !lessonIsStudied(lesson, data) && hasSubstantiveLessonContent(lesson));
   const authoredCount = lessons.filter(hasSubstantiveLessonContent).length;
-  const style = getSubjectStyle(subjectId as import('@/types').SubjectId);
+  const style = getSubjectStyle(subjectId as SubjectId);
   const Icon = subjectDefinition?.lucideIcon ?? GraduationCap;
 
   if (!subjectDefinition) {
@@ -231,7 +239,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
       <Card className="p-4 sm:p-5 border border-success-200 bg-white">
         <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
           <div><h2 className="text-base font-semibold text-ink">Learning path</h2><p className="text-xs text-muted mt-1">{lessons.length > 0 ? `${studiedCount} of ${lessons.length} lessons marked studied · follow units in order` : 'Units registered · lessons still being integrated'}</p></div>
-          {lastLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastLesson.id })}>Resume last lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : nextLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Start next lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : null}
+          {lastLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lastLesson.id })}>Resume last lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : nextLesson ? <Button type="button" size="sm" onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Open next authored lesson <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button> : null}
         </div>
         {units.length ? <div className="space-y-2">{units.map((unit) => {
           const unitLessons = unit.lessonIds.map((id) => cgeiCurriculum.lessons.find((lesson) => lesson.id === id)).filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson));
