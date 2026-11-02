@@ -179,7 +179,7 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await page.setViewportSize(VIEWPORT);
     await seedWorkspace(page);
     const bar = page.getByRole('navigation', { name: 'Primary' });
-    for (const label of ['Home', 'Learn', 'Practice', 'Review', 'Progress']) {
+    for (const label of ['Home', 'Learn', 'Practice', 'Revision queue', 'Progress']) {
       await expect(bar.getByRole('button', { name: label, exact: true })).toHaveCount(1);
     }
     await expect(bar.getByRole('button', { name: 'Tracks', exact: true })).toHaveCount(0);
