@@ -1,10 +1,12 @@
 import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3 } from 'lucide-react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
-import type { SubjectId } from '@/types';
+import type { SubjectId, Topic } from '@/types';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
+import { cgeiOverviewTopicIdForSubject } from '@/data/cgei/overview';
+import { getTopicAsync } from '@/data/topics';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { subjectsByTrack } from '@/data/subjects';
 import { isTrackEnrolled } from '@/lib/track-access';
@@ -47,7 +49,7 @@ function CGEILearningHomeScreen() {
   const authoredLessons = allLessons.filter(hasSubstantiveLessonContent);
   const studiedCount = authoredLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
   const lastLesson = data.lastOpenedCurriculumLesson
-    ? allLessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
+    ? allLessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson && hasSubstantiveLessonContent(lesson))
     : undefined;
   const recommendedLesson = authoredLessons.find((lesson) => !lessonIsStudied(lesson, data));
   const resumeLesson = lastLesson ?? recommendedLesson;
@@ -92,7 +94,7 @@ function CGEILearningHomeScreen() {
               <p className="text-xs text-muted mt-1">{resumeLesson.readiness} · {resumeLesson.estimatedMinutes ? `${resumeLesson.estimatedMinutes} minutes` : 'Lesson'}</p>
               <p className="text-xs text-muted mt-1">{lastLesson ? 'Return to the last lesson you opened.' : 'Start with the first lesson that contains substantive learning material.'}</p>
             </div>
-            <Button type="button" onClick={() => openLesson(resumeLesson.id)}> {lastLesson ? 'Resume lesson' : 'Start lesson'} <ArrowRight className="w-4 h-4 ml-1" /></Button>
+            <Button type="button" onClick={() => openLesson(resumeLesson.id)}> {lastLesson ? 'Resume lesson' : 'Open recommended lesson'} <ArrowRight className="w-4 h-4 ml-1" /></Button>
           </div>
         </Card>
       ) : authoredLessons.length > 0 ? (
@@ -171,6 +173,18 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
   const { setActiveTrack } = useSubjectSelection();
   const { navigate } = useRouter();
   const { subject, units, lessons } = subjectLessons(subjectId);
+  const roadmapTopicId = cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
+  const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    setRoadmapTopic(null);
+    if (!roadmapTopicId) return () => { active = false; };
+    getTopicAsync(roadmapTopicId)
+      .then((topic) => { if (active) setRoadmapTopic(topic ?? null); })
+      .catch(() => { if (active) setRoadmapTopic(null); });
+    return () => { active = false; };
+  }, [roadmapTopicId]);
 
   useEffect(() => {
     if (trackMembership.activeTrackId === 'cgei') return;
@@ -181,7 +195,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
   const authoredLessons = lessons.filter(hasSubstantiveLessonContent);
   const studiedCount = authoredLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
   const lastLesson = data.lastOpenedCurriculumLesson
-    ? lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
+    ? lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson && hasSubstantiveLessonContent(lesson))
     : undefined;
   const nextLesson = lessons.find((lesson) => !lessonIsStudied(lesson, data) && hasSubstantiveLessonContent(lesson));
   const authoredCount = lessons.filter(hasSubstantiveLessonContent).length;
@@ -235,7 +249,11 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
             {subject?.overview ? <p className="text-sm text-muted leading-relaxed">{subject.overview}</p> : null}
             {subject?.purpose ? <p className="text-sm text-muted leading-relaxed"><strong className="text-ink">Purpose. </strong>{subject.purpose}</p> : null}
             {subject?.prerequisites?.length ? <ul className="list-disc pl-5 space-y-1 text-sm text-muted">{subject.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul> : null}
-            <p className="text-xs text-muted">Orientation is context only. It is not counted as a lesson or mastery item.</p>
+            {roadmapTopic?.definition ? <p className="text-sm text-muted leading-relaxed">{roadmapTopic.definition}</p> : null}
+            {roadmapTopic?.explanationSections?.map((section) => <div key={section.heading}><h3 className="text-sm font-semibold text-ink">{section.heading}</h3><p className="text-sm text-muted leading-relaxed mt-1">{section.body}</p></div>)}
+            {roadmapTopic?.keyFacts?.length ? <div><h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Orientation notes</h3><ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul></div> : null}
+            {roadmapTopic?.examPoints?.length ? <div><h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Learning principles</h3><ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{point}</span></li>)}</ul></div> : null}
+            <p className="text-xs text-muted">Orientation is context only. It is not counted as a lesson or mastery item. Continue through the canonical units below.</p>
           </div>
         </details>
       </Card>
