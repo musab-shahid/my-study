@@ -19,7 +19,7 @@ describe('getLearnerReadinessPresentation', () => {
   });
 
   it('labels planned and outlined material Coming soon, even if content blocks exist', () => {
-    for (const readiness of ['planned', 'outlined', 'validated', 'released'] as const) {
+    for (const readiness of ['planned', 'outlined'] as const) {
       assert.equal(getLearnerReadinessPresentation(readiness, true).label, 'Coming soon');
     }
   });
