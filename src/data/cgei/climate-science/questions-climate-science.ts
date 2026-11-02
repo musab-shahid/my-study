@@ -20,8 +20,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-1',
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'understand',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'easy',
     type: 'single',
     question: 'Which statement correctly distinguishes SPEI from SPI?',
@@ -41,19 +41,19 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-2',
     objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'analyze',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'single',
     question:
       'A yearly rainfall series has strong positive serial correlation. What is the main problem with applying a standard Mann–Kendall test as if the years were independent?',
     options: [
-      'It will overstate the significance of a trend, producing too many false positives',
       'It will always miss real trends',
+      'It will overstate the significance of a trend, producing too many false positives',
       'It converts the series to a different unit',
-      'It can only be used on temperature data',
+      'It can only be used on temperature data'
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation:
       'Positive autocorrelation reduces the effective number of independent observations, so a test that assumes independence reports trends as more significant than they are. Use an autocorrelation-aware variant, prewhitening, or a block bootstrap.',
     sourceCitation: SRC,
@@ -63,19 +63,19 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-2',
     objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'analyze',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'single',
     question:
       'You run a trend test at 5% significance in every cell of a gridded map and about 5% of cells come out significant. What is the right interpretation?',
     options: [
-      'That is roughly what chance alone would produce, so control the false discovery rate before claiming a field-significant pattern',
       'The whole region has a significant trend',
       'The test is invalid because grids cannot be tested',
-      'Every significant cell is confirmed as a real trend',
+      'That is roughly what chance alone would produce, so control the false discovery rate before claiming a field-significant pattern',
+      'Every significant cell is confirmed as a real trend'
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation:
       'With many local tests, a share equal to the significance level appears significant by chance. Field significance and false-discovery-rate control address this multiplicity.',
     sourceCitation: SRC,
@@ -85,19 +85,19 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-1',
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'analyze',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'single',
     question:
       'Heatwave counts for a city fall by half when you change the definition from the 90th to the 95th percentile threshold. What does this show?',
     options: [
-      'Heatwave counts are sensitive to threshold, duration and reference period, so these choices must be reported',
       'The climate cooled between the two analyses',
       'The 95th percentile is always the correct choice',
       'The data contain missing values',
+      'Heatwave counts are sensitive to threshold, duration and reference period, so these choices must be reported'
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation:
       'Event counts depend on how an extreme is defined. Reporting the threshold, minimum duration and reference period is part of the inference discipline for every extremes result.',
     sourceCitation: SRC,
@@ -107,8 +107,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-5-1',
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'apply',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
     type: 'single',
     question:
@@ -129,8 +129,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-1',
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'understand',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'easy',
     type: 'true_false',
     question: 'Rx1day computed from daily data can tell you how intense a one-hour cloudburst was.',
@@ -145,8 +145,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-4-3',
     objectiveIds: ['cgei-cl-o-24-select'],
     cognitiveLevel: 'analyze',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-climate-data-products',
     difficulty: 'easy',
     type: 'true_false',
     question: 'A trend found in a reanalysis variable is a statement about the product as well as about the climate.',
@@ -161,8 +161,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-8-2',
     objectiveIds: ['cgei-cl-o-28-multan'],
     cognitiveLevel: 'evaluate',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-regional-climate-literacy',
     difficulty: 'hard',
     type: 'multi',
     question:
@@ -183,8 +183,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-5-1',
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'analyze',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
     type: 'multi',
     question: 'Select ALL of the following that are common failure modes in climate-data work.',
@@ -204,8 +204,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-1',
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'remember',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'easy',
     type: 'fill_blank',
     question: 'The ETCCDI index for the longest run of consecutive dry days is abbreviated ____.',
@@ -220,13 +220,18 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-2',
     objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'understand',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'easy',
     type: 'fill_blank',
     question: "Sen's slope is the ____ of all pairwise slopes in a series, which makes it robust to outliers.",
-    options: ['median', 'mean', 'mode', 'maximum'],
-    correctAnswer: 0,
+    options: [
+      'mean',
+      'median',
+      'mode',
+      'maximum'
+    ],
+    correctAnswer: 1,
     explanation:
       'Taking the median of the slopes between every pair of observations limits the influence of outliers, unlike an ordinary least-squares slope.',
     sourceCitation: SRC,
@@ -236,13 +241,18 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-5-1',
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'remember',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
     type: 'fill_blank',
     question: 'Pakistan Standard Time is UTC plus how many hours?',
-    options: ['5', '3', '0', '8'],
-    correctAnswer: 0,
+    options: [
+      '3',
+      '0',
+      '5',
+      '8'
+    ],
+    correctAnswer: 2,
     explanation: 'PKT is UTC+5. Convert before defining local days, seasons or daily extremes.',
     sourceCitation: SRC,
   },
@@ -251,8 +261,8 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-1',
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'apply',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'matching',
     question: 'Match each ETCCDI rainfall index to what it measures.',
@@ -273,14 +283,19 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-5-1',
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'apply',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
     type: 'single',
     question:
       'An ERA5 hourly total precipitation value is 0.0032 m for one hour. What is this in millimetres?',
-    options: ['3.2 mm', '0.32 mm', '32 mm', '0.0032 mm'],
-    correctAnswer: 0,
+    options: [
+      '0.32 mm',
+      '32 mm',
+      '0.0032 mm',
+      '3.2 mm'
+    ],
+    correctAnswer: 3,
     explanation:
       'ERA5 total precipitation is stored in metres of water accumulated over the period. Multiply by 1000 to get millimetres. Always check the accumulation period before summing hours to days.',
     sourceCitation: SRC,
@@ -290,14 +305,19 @@ export const questions: Question[] = [
     lessonId: 'cgei-cl-lesson-2-6-2',
     objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'apply',
-    sectionId: SID,
-    topicId: TID,
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'single',
     question:
       "The pairwise slopes between observations are −0.1, 0.1, 0.2, 0.3, 0.5 (mm per year). What is Sen's slope?",
-    options: ['0.2 mm per year', '0.1 mm per year', '0.3 mm per year', '0.0 mm per year'],
-    correctAnswer: 0,
+    options: [
+      '0.1 mm per year',
+      '0.3 mm per year',
+      '0.0 mm per year',
+      '0.2 mm per year'
+    ],
+    correctAnswer: 3,
     explanation:
       "Sen's slope is the median of the pairwise slopes. Sorted: −0.1, 0.1, 0.2, 0.3, 0.5 — the median is 0.2.",
     sourceCitation: SRC,
@@ -351,8 +371,13 @@ export const questions: Question[] = [
     difficulty: 'easy',
     type: 'single',
     question: 'Approximate native horizontal resolution often cited for ERA5 is:',
-    options: ['About 0.25°', 'About 5°', '1 km global everywhere', 'Only point stations'],
-    correctAnswer: 0,
+    options: [
+      'About 5°',
+      'About 0.25°',
+      '1 km global everywhere',
+      'Only point stations'
+    ],
+    correctAnswer: 1,
     explanation:
       'ERA5 is commonly described at roughly 0.25° horizontal resolution. Always state the grid you actually downloaded or aggregated.',
     sourceCitation: 'Master Study TOC · Unit 2.4 Climate data products',
@@ -368,12 +393,12 @@ export const questions: Question[] = [
     type: 'single',
     question: 'A paper plots “observed monsoon rainfall” but the methods only cite ERA5. What is the main issue?',
     options: [
-      'Product class is mislabelled — ERA5 is reanalysis, not pure station observations',
       'ERA5 cannot contain precipitation at all',
       'Monsoon rainfall can only be measured from space',
-      'There is no issue if the colours look realistic',
+      'Product class is mislabelled — ERA5 is reanalysis, not pure station observations',
+      'There is no issue if the colours look realistic'
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation:
       'Reanalysis is a distinct product class. Honest methods name reanalysis (and version) rather than implying gauge observations.',
     sourceCitation: 'Master Study TOC · Unit 2.4 Climate data products',
@@ -384,17 +409,17 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-29-scenarios'],
     cognitiveLevel: 'understand',
     sectionId: 'CGEI-024',
-    topicId: 'cgei-climate-data-products',
+    topicId: 'cgei-climate-models-projections',
     difficulty: 'medium',
     type: 'single',
     question: 'CMIP6 scenario runs are best classified as:',
     options: [
-      'Climate model projections under specified forcings — not historical reanalysis',
       'Identical to ERA5 by construction',
       'Rain-gauge networks',
       'Only useful for daily weather forecasts for tomorrow',
+      'Climate model projections under specified forcings — not historical reanalysis'
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation:
       'CMIP projections explore forced future (or other experimental) climates. They are not a drop-in substitute for historical reanalysis “obs”.',
     sourceCitation: 'Master Study TOC · Unit 2.4 Climate data products',
@@ -405,7 +430,7 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
-    topicId: 'cgei-climate-data-products',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'medium',
     type: 'multi',
     question: 'Which pieces of information belong in a minimum data manifest for a climate figure? (Select all that apply.)',
@@ -490,7 +515,7 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-25-time'],
     cognitiveLevel: 'apply',
     sectionId: 'CGEI-024',
-    topicId: 'cgei-climate-data-products',
+    topicId: 'cgei-time-units-daily',
     difficulty: 'easy',
     type: 'single',
     question: 'Best first step before analysing a new climate NetCDF/GRIB file?',
@@ -516,12 +541,12 @@ export const questions: Question[] = [
     type: 'single',
     question: 'You need dense spatial coverage where stations are sparse. Which trade-off is most accurate?',
     options: [
-      'Blended or reanalysis fields improve coverage but add model/satellite processing assumptions',
       'Stations alone always give complete spatial fields',
+      'Blended or reanalysis fields improve coverage but add model/satellite processing assumptions',
       'Reanalysis removes all uncertainty',
-      'Blended products never use gauges',
+      'Blended products never use gauges'
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation:
       'Coverage gains come with product assumptions. State them; do not pretend the field is pure dense gauging.',
     sourceCitation: 'Master Study TOC · Unit 2.4 Climate data products',
@@ -532,17 +557,17 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-26-inference'],
     cognitiveLevel: 'evaluate',
     sectionId: 'CGEI-024',
-    topicId: 'cgei-climate-data-products',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'hard',
     type: 'single',
     question: 'Which claim is appropriately cautious for a 10-year ERA5 area-average rainfall increase?',
     options: [
-      'Over this product, period, and domain, the series rises — longer records and independent data are needed for stronger climate-change language',
       'This proves global climate change at the city scale',
       'Floods next year are certain',
-      'Gauge observations are unnecessary forever',
+      'Over this product, period, and domain, the series rises — longer records and independent data are needed for stronger climate-change language',
+      'Gauge observations are unnecessary forever'
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation:
       'Short product windows support descriptive, product-scoped statements — not automatic attribution or impact certainty.',
     sourceCitation: 'Master Study TOC · Unit 2.4 Climate data products',
@@ -611,12 +636,12 @@ export const questions: Question[] = [
     type: 'single',
     question: 'Building daily maximum temperature with UTC midnights for a Multan impact study mainly risks:',
     options: [
-      'Shifting events across local calendar dates relative to PKT days',
       'Changing the speed of light in the model',
+      'Shifting events across local calendar dates relative to PKT days',
       'Removing all diurnal variation automatically',
-      'Converting °C to °F without warning',
+      'Converting °C to °F without warning'
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation:
       'A five-hour offset can move night-time peaks across local dates. State UTC vs PKT conventions explicitly.',
     sourceCitation: 'Master Study TOC · Unit 2.5 Time, units & daily construction',
@@ -627,17 +652,17 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'understand',
     sectionId: 'CGEI-025',
-    topicId: 'cgei-time-units-daily',
+    topicId: 'cgei-extremes-and-trend-analysis',
     difficulty: 'medium',
     type: 'single',
     question: 'Percentile-based extreme thresholds (e.g. 90th percentile hot days) require:',
     options: [
-      'An explicit baseline period used to define the percentile',
       'No baseline — percentiles are universal constants',
       'Only future scenario data',
-      'Satellite visible imagery only',
+      'An explicit baseline period used to define the percentile',
+      'Satellite visible imagery only'
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation:
       'The baseline period is part of the definition. Changing 1991–2020 vs 1961–1990 changes the threshold.',
     sourceCitation: 'Master Study TOC · Unit 2.5 Time, units & daily construction',
@@ -690,7 +715,7 @@ export const questions: Question[] = [
     objectiveIds: ['cgei-cl-o-28-seasons'],
     cognitiveLevel: 'understand',
     sectionId: 'CGEI-025',
-    topicId: 'cgei-time-units-daily',
+    topicId: 'cgei-regional-climate-literacy',
     difficulty: 'medium',
     type: 'true_false',
     question: 'JJA and JJAS seasonal totals are always interchangeable without comment.',
@@ -711,12 +736,12 @@ export const questions: Question[] = [
     type: 'single',
     question: 'Land–sea masks and missing data mainly affect area averages by:',
     options: [
-      'Changing which cells enter the mean — coverage must be documented',
       'Having no effect on spatial means',
       'Only affecting wind direction',
       'Removing the need for units',
+      'Changing which cells enter the mean — coverage must be documented'
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation:
       'Which cells are included changes the average. Report valid-cover fractions for honest interpretation.',
     sourceCitation: 'Master Study TOC · Unit 2.5 Time, units & daily construction',
@@ -1356,12 +1381,12 @@ export const questions: Question[] = [
     type: "single",
     question: "The generalised extreme value (GEV) distribution is the limiting distribution of:",
     options: [
-      "Block maxima (e.g. annual maxima) under suitable conditions",
       "Any daily temperature without blocking",
+      "Block maxima (e.g. annual maxima) under suitable conditions",
       "Only Gaussian residuals from OLS trends",
       "Satellite brightness temperatures alone"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Classical extreme-value theory states that suitably normalised block maxima converge to a GEV (location, scale, shape). Peaks-over-threshold are linked to the generalised Pareto distribution (GPD).",
     sourceCitation: "CGEI curriculum Unit 2.7",
     lessonId: "cgei-cl-lesson-2-7-1",
@@ -1377,11 +1402,11 @@ export const questions: Question[] = [
     question: "A return period of 20 years for a defined annual maximum means:",
     options: [
       "The event is scheduled exactly every 20th calendar year",
-      "Under the stated model and stationarity assumptions, the mean waiting time between exceedances is about 20 years — not a fixed calendar schedule",
       "The event cannot occur twice in one decade",
+      "Under the stated model and stationarity assumptions, the mean waiting time between exceedances is about 20 years — not a fixed calendar schedule",
       "Attribution to greenhouse gases is complete"
     ],
-    correctAnswer: 1,
+    correctAnswer: 2,
     explanation: "Return period is a probability-based mean recurrence under model assumptions. It is not a deterministic timetable.",
     sourceCitation: "CGEI curriculum Unit 2.7",
     lessonId: "cgei-cl-lesson-2-7-1",
@@ -1396,12 +1421,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Before trusting a fitted GEV return level far beyond the record length, you should:",
     options: [
-      "Report confidence intervals, check diagnostics (e.g. QQ/PP), and state how far extrapolation is defensible given sample size",
       "Always publish the 1000-year level without intervals",
       "Replace the fit with the sample maximum only",
-      "Ignore the shape parameter"
+      "Ignore the shape parameter",
+      "Report confidence intervals, check diagnostics (e.g. QQ/PP), and state how far extrapolation is defensible given sample size"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "Small samples and heavy tails make far extrapolation fragile. Diagnostics and honest uncertainty statements are required.",
     sourceCitation: "CGEI curriculum Unit 2.7",
     lessonId: "cgei-cl-lesson-2-7-2",
@@ -1436,12 +1461,12 @@ export const questions: Question[] = [
     type: "single",
     question: "When communicating a 50-year flood peak to a planner, which metadata set is most responsible?",
     options: [
-      "Series length, block/threshold choice, stationarity assumption, and uncertainty on the return level",
       "Only the single point estimate with no context",
+      "Series length, block/threshold choice, stationarity assumption, and uncertainty on the return level",
       "A colour map without units",
       "The claim that the event cannot occur before year 50"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Design-relevant communication requires record length, event definition, stationarity note, and uncertainty — not a bare number treated as a calendar schedule.",
     sourceCitation: "CGEI curriculum Unit 2.7",
     lessonId: "cgei-cl-lesson-2-7-4",
@@ -1458,12 +1483,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Relative to a GCM, a regional climate model (RCM) typically:",
     options: [
-      "Runs over a limited domain at higher resolution, nested in large-scale boundary conditions from a GCM or reanalysis",
       "Replaces all observations worldwide",
       "Has no parameterisations",
+      "Runs over a limited domain at higher resolution, nested in large-scale boundary conditions from a GCM or reanalysis",
       "Is identical to a weather forecast for tomorrow only"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "RCMs dynamically downscale over a regional domain; they inherit large-scale driving conditions and add regional detail at higher cost.",
     sourceCitation: "CGEI curriculum Unit 2.9",
     lessonId: "cgei-cl-lesson-2-9-1",
@@ -1478,12 +1503,12 @@ export const questions: Question[] = [
     type: "single",
     question: "SSP scenarios in CMIP6 are best described as:",
     options: [
-      "Storylines of socioeconomic development paired with radiative forcing pathways — not historical reanalysis",
       "Identical copies of ERA5",
       "Rain-gauge networks",
-      "Guaranteed forecasts of the exact year 2050 weather"
+      "Guaranteed forecasts of the exact year 2050 weather",
+      "Storylines of socioeconomic development paired with radiative forcing pathways — not historical reanalysis"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "SSPs combine socioeconomic pathways with forcing levels; projections are conditional scenario statements, not initialised forecasts of the real future year-by-year sequence.",
     sourceCitation: "CGEI curriculum Unit 2.9",
     lessonId: "cgei-cl-lesson-2-9-2",
@@ -1518,12 +1543,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Quantile mapping bias adjustment mainly assumes that:",
     options: [
-      "The historical model-to-observation relationship remains valid under future climate — an assumption that cannot be verified for the future itself",
       "Models have zero bias forever",
+      "The historical model-to-observation relationship remains valid under future climate — an assumption that cannot be verified for the future itself",
       "Only the mean matters and tails are irrelevant",
       "Observations will be replaced by the model"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Bias adjustment transfers a fitted correction; stationarity of the correction under climate change is an assumption, and extremes are especially sensitive to artefacts.",
     sourceCitation: "CGEI curriculum Unit 2.9",
     lessonId: "cgei-cl-lesson-2-9-4",
@@ -1538,12 +1563,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Statistical downscaling differs from dynamical downscaling primarily in that it:",
     options: [
-      "Learns empirical links from large-scale predictors to local predictands, at lower cost but with transfer/stationarity assumptions",
       "Always resolves convection explicitly at 1 km globally",
       "Requires no observational training data",
+      "Learns empirical links from large-scale predictors to local predictands, at lower cost but with transfer/stationarity assumptions",
       "Eliminates all uncertainty"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "Statistical (and ML) methods are data-driven and cheap relative to nested RCMs, but inherit stationarity and training-coverage limits.",
     sourceCitation: "CGEI curriculum Unit 2.9",
     lessonId: "cgei-cl-lesson-2-9-5",
@@ -1558,12 +1583,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Projection uncertainty is usefully decomposed into:",
     options: [
-      "Scenario, model structural, internal variability, and observational sources — with relative weights depending on lead time and scale",
       "Only coding bugs",
       "A single number that never changes",
-      "Weather forecast initial-condition error alone"
+      "Weather forecast initial-condition error alone",
+      "Scenario, model structural, internal variability, and observational sources — with relative weights depending on lead time and scale"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "Near-term local scales often emphasise internal variability; long-term global means emphasise scenario and model differences.",
     sourceCitation: "CGEI curriculum Unit 2.9",
     lessonId: "cgei-cl-lesson-2-9-6",
@@ -1600,12 +1625,12 @@ export const questions: Question[] = [
     type: "single",
     question: "When selecting models for a regional application, best practice is to:",
     options: [
-      "Document exclusions and reasons, report ensemble range and agreement, and avoid a bare multi-model mean as the only number",
       "Always average every available model without evaluation",
+      "Document exclusions and reasons, report ensemble range and agreement, and avoid a bare multi-model mean as the only number",
       "Pick only the hottest model",
       "Omit provenance from the manifest"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Screening by regional evaluation, documenting exclusions, and showing spread/agreement beats an unexamined mean.",
     sourceCitation: "CGEI curriculum Unit 2.10",
     lessonId: "cgei-cl-lesson-2-10-2",
@@ -1637,12 +1662,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Detection asks whether an observed change is unusual relative to internal variability; attribution additionally:",
     options: [
-      "Assigns that change, wholly or in part, to specific causes (e.g. anthropogenic forcing) using fingerprint or factual/counterfactual framing",
       "Only plots the raw series",
       "Requires no models",
+      "Assigns that change, wholly or in part, to specific causes (e.g. anthropogenic forcing) using fingerprint or factual/counterfactual framing",
       "Is identical to a single weather forecast verification"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "Detection is signal-vs-noise; attribution links the signal to causes. A single observed record alone cannot separate forced response from internal variability.",
     sourceCitation: "CGEI curriculum Unit 2.11",
     lessonId: "cgei-cl-lesson-2-11-1",
@@ -1656,8 +1681,13 @@ export const questions: Question[] = [
     difficulty: "medium",
     type: "single",
     question: "In a probabilistic event-attribution study, fraction of attributable risk (FAR) = 1 − p0/p1 when p1 > 0. If p1 = 0.015 and p0 = 0.003, FAR is:",
-    options: ["0.8", "5", "0.015", "0"],
-    correctAnswer: 0,
+    options: [
+      "5",
+      "0.015",
+      "0",
+      "0.8"
+    ],
+    correctAnswer: 3,
     explanation: "FAR = 1 − 0.003/0.015 = 0.8. Probability ratio PR = p1/p0 = 5. Both are ensemble- and definition-dependent.",
     sourceCitation: "CGEI curriculum Unit 2.11",
     lessonId: "cgei-cl-lesson-2-11-2",
@@ -1694,12 +1724,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Before claiming that an ML downscaler is skillful, you must:",
     options: [
-      "Beat named statistical baselines (e.g. delta change, quantile mapping, regression) on an independent-period hold-out, and report skill relative to the strongest baseline",
       "Only show training-set accuracy",
+      "Beat named statistical baselines (e.g. delta change, quantile mapping, regression) on an independent-period hold-out, and report skill relative to the strongest baseline",
       "Compare solely against the weakest baseline",
       "Skip spatial or temporal hold-out"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Honest ML evaluation requires classical baselines and proper hold-out; improvement vs the weakest baseline is misleading.",
     sourceCitation: "CGEI curriculum Unit 2.12",
     lessonId: "cgei-cl-lesson-2-12-1",
@@ -1714,12 +1744,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Brier Skill Score (BSS) relative to climatology is preferred over a raw Brier score for rare events because:",
     options: [
-      "Raw Brier can look favourable for unhelpful forecasts when base-rate uncertainty is small; BSS measures improvement over climatology",
       "Brier scores are illegal for rare events",
       "Climatology has infinite skill",
+      "Raw Brier can look favourable for unhelpful forecasts when base-rate uncertainty is small; BSS measures improvement over climatology",
       "BSS ignores reliability"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "For rare events, report skill relative to a climatological reference and inspect reliability/sharpness diagnostics.",
     sourceCitation: "CGEI curriculum Unit 2.12",
     lessonId: "cgei-cl-lesson-2-12-2",
@@ -1734,12 +1764,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Using an open operational AI forecast (e.g. ECMWF AIFS) for a Multan case study first requires:",
     options: [
-      "Station-based verification and local post-processing (bias correction) before treating grid-point output as local truth",
       "Accepting raw grid values without any check",
       "Ignoring uncertainty",
-      "Assuming zero bias everywhere"
+      "Assuming zero bias everywhere",
+      "Station-based verification and local post-processing (bias correction) before treating grid-point output as local truth"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "AI forecasts still carry local bias; verify against stations and apply post-processing as with classical NWP.",
     sourceCitation: "CGEI curriculum Unit 2.12",
     lessonId: "cgei-cl-lesson-2-12-3",
@@ -1774,12 +1804,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Kilometre-scale digital-twin style models primarily add value by:",
     options: [
-      "Resolving convection-permitting and fine orographic/urban detail that coarse grids smooth away — at large data-volume and access cost",
       "Eliminating the need for observations",
+      "Resolving convection-permitting and fine orographic/urban detail that coarse grids smooth away — at large data-volume and access cost",
       "Making bulk download of global hourly fields trivial for every user",
       "Removing all uncertainty"
     ],
-    correctAnswer: 0,
+    correctAnswer: 1,
     explanation: "Resolution gains are real for some processes; users face data-volume constraints and must record subset/query parameters for reproducibility.",
     sourceCitation: "CGEI curriculum Unit 2.12",
     lessonId: "cgei-cl-lesson-2-12-5",
@@ -1796,12 +1826,12 @@ export const questions: Question[] = [
     type: "single",
     question: "Hindcasts in seasonal prediction systems are primarily used to:",
     options: [
-      "Build a reference distribution for calibration so that raw ensemble frequencies become usable probabilities",
       "Replace all observations",
       "Guarantee perfect local rainfall forecasts at week 6",
+      "Build a reference distribution for calibration so that raw ensemble frequencies become usable probabilities",
       "Remove the need to state lead time"
     ],
-    correctAnswer: 0,
+    correctAnswer: 2,
     explanation: "Without hindcast-based calibration, ensemble spread is not a calibrated probability. Always state the centre’s lead-time convention.",
     sourceCitation: "CGEI curriculum Unit 2.13",
     lessonId: "cgei-cl-lesson-2-13-1",
@@ -1816,12 +1846,12 @@ export const questions: Question[] = [
     type: "single",
     question: "South Asian monsoon rainfall seasonal skill is typically:",
     options: [
-      "Modest relative to temperature skill, and strongly region-, season- and variable-dependent — evaluate locally before decision use",
       "Perfect at all leads for every district",
       "Irrelevant to tercile outlooks",
-      "Identical to medium-range weather skill"
+      "Identical to medium-range weather skill",
+      "Modest relative to temperature skill, and strongly region-, season- and variable-dependent — evaluate locally before decision use"
     ],
-    correctAnswer: 0,
+    correctAnswer: 3,
     explanation: "RPSS/ROC and related metrics vary by region and variable; monsoon rainfall skill is often modest compared with temperature.",
     sourceCitation: "CGEI curriculum Unit 2.13",
     lessonId: "cgei-cl-lesson-2-13-2",
@@ -1848,17 +1878,218 @@ export const questions: Question[] = [
     objectiveIds: ["cgei-cl-o-213-decisions"],
     cognitiveLevel: "apply"
   }
+,
+
+  {
+    id: 'CGEI-021-Q001',
+    lessonId: 'cgei-cl-lesson-2-1-1',
+    objectiveIds: ['cgei-cl-o-21-weather-climate'],
+    cognitiveLevel: 'understand',
+    sectionId: 'CGEI-021',
+    topicId: 'cgei-weather-climate-baselines',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'Weather and climate are best distinguished as:',
+    options: [
+      'Climate is only global mean temperature; weather is only rainfall',
+      'Climate is the statistics of weather over a stated period and domain; weather is the short-term state',
+      'They are synonyms in scientific usage',
+      'Climate is what models produce; weather is what stations measure'
+    ],
+    correctAnswer: 1,
+    explanation:
+      'Climate is a distributional description of weather over an explicit period and domain. A single extreme month is weather, not a refutation of the climate distribution.',
+    sourceCitation: 'Master Study TOC · Unit 2.1',
+  },
+  {
+    id: 'CGEI-021-Q002',
+    lessonId: 'cgei-cl-lesson-2-1-1',
+    objectiveIds: ['cgei-cl-o-21-weather-climate'],
+    cognitiveLevel: 'apply',
+    sectionId: 'CGEI-021',
+    topicId: 'cgei-weather-climate-baselines',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'An anomaly is published without naming the baseline period. The main problem is:',
+    options: [
+      'Baselines are optional for Multan analyses',
+      'Anomalies can only be computed in kelvin',
+      'Anomalies are undefined without an explicit normal/baseline period',
+      'Only satellite products allow anomalies',
+    ],
+    correctAnswer: 2,
+    explanation:
+      'Anomaly = observation − normal. Changing 1961–1990 to 1991–2020 changes every anomaly without changing the raw series. Report the baseline with every anomaly.',
+    sourceCitation: 'Master Study TOC · Unit 2.1',
+  },
+  {
+    id: 'CGEI-021-Q003',
+    lessonId: 'cgei-cl-lesson-2-1-1',
+    objectiveIds: ['cgei-cl-o-21-weather-climate'],
+    cognitiveLevel: 'analyze',
+    sectionId: 'CGEI-021',
+    topicId: 'cgei-weather-climate-baselines',
+    difficulty: 'medium',
+    type: 'true_false',
+    question: 'A single unusually cold month in Multan disproves a multi-decadal warming trend in the same region.',
+    options: ['True', 'False'],
+    correctAnswer: 1,
+    explanation:
+      'One month is weather. Trends describe the distribution over decades; a cold month is compatible with a warming climate.',
+    sourceCitation: 'Master Study TOC · Unit 2.1',
+  },
+  {
+    id: 'CGEI-022-Q001',
+    lessonId: 'cgei-cl-lesson-2-2-1',
+    objectiveIds: ['cgei-cl-o-22-energy'],
+    cognitiveLevel: 'understand',
+    sectionId: 'CGEI-022',
+    topicId: 'cgei-climate-system-processes',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'In the one-layer greenhouse teaching model, surface temperature Ts relates to the emitting temperature Te approximately as:',
+    options: [
+      'Ts = Te / 2',
+      'Ts = Te²',
+      'Ts is independent of Te',
+      'Ts ≈ Te × 2^{1/4}'
+    ],
+    correctAnswer: 3,
+    explanation:
+      'With one longwave-absorbing layer in the simple model, the surface runs warmer than the level that balances absorbed solar: Ts ≈ Te × 2^{1/4}.',
+    sourceCitation: 'Master Study TOC · Unit 2.2',
+  },
+  {
+    id: 'CGEI-022-Q002',
+    lessonId: 'cgei-cl-lesson-2-2-4',
+    objectiveIds: ['cgei-cl-o-22-uhi'],
+    cognitiveLevel: 'understand',
+    sectionId: 'CGEI-022',
+    topicId: 'cgei-climate-system-processes',
+    difficulty: 'easy',
+    type: 'single',
+    question: 'Surface urban heat island (from land surface temperature) and canopy-layer UHI (from air temperature) differ primarily because:',
+    options: [
+      'They measure different surfaces of the energy balance and are not interchangeable exposure metrics',
+      'They are always identical by definition',
+      'Only satellites can measure canopy UHI',
+      'UHI only exists in coastal cities'
+    ],
+    correctAnswer: 0,
+    explanation:
+      'LST-based surface UHI and station air-temperature canopy UHI answer different questions. Personal heat exposure is closer to canopy-layer metrics with a justified rural reference.',
+    sourceCitation: 'Master Study TOC · Unit 2.2',
+  },
+  {
+    id: 'CGEI-026-Q016',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
+    cognitiveLevel: 'analyze',
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
+    difficulty: 'hard',
+    type: 'single',
+    question:
+      'A map shows local Mann–Kendall tests at α = 0.05 with roughly 5% of cells “significant” and no FDR control. The most honest reading is:',
+    options: [
+      'The entire domain has a confirmed climate-change trend',
+      'This is about what chance alone can produce; do not claim a field-significant regional pattern without multiplicity control',
+      'Every significant cell is a forced response',
+      'Grid tests are invalid so the map should be discarded without comment'
+    ],
+    correctAnswer: 1,
+    explanation:
+      'Under pure noise, about α of independent tests appear significant. Field significance or FDR control is required before interpreting a spatial pattern of local tests.',
+    sourceCitation: 'Master Study TOC · Unit 2.6',
+  },
+  {
+    id: 'CGEI-026-Q017',
+    lessonId: 'cgei-cl-lesson-2-6-3',
+    objectiveIds: ['cgei-cl-o-26-inference'],
+    cognitiveLevel: 'understand',
+    sectionId: 'CGEI-02',
+    topicId: 'cgei-extremes-and-trend-analysis',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'Heat concurrent with drought in the same season is best described as:',
+    options: [
+      'Proof that rainfall indices are unnecessary',
+      'Identical to Rx1day',
+      'A compound event whose components and co-occurrence window must be defined explicitly',
+      'Automatically attributable to greenhouse gases without further analysis'
+    ],
+    correctAnswer: 2,
+    explanation:
+      'Compound hazards need explicit definitions of each component and the temporal window. Co-occurrence is not by itself attribution or impact proof.',
+    sourceCitation: 'Master Study TOC · Unit 2.6',
+  },
+  {
+    id: 'CGEI-028-Q001',
+    lessonId: 'cgei-cl-lesson-2-8-1',
+    objectiveIds: ['cgei-cl-o-28-seasons'],
+    cognitiveLevel: 'apply',
+    sectionId: 'CGEI-028',
+    topicId: 'cgei-regional-climate-literacy',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'For a Multan monsoon rainfall study, using default JJA without justification is risky mainly because:',
+    options: [
+      'JJA is illegal in Pakistan',
+      'Only annual totals are allowed',
+      'Multan has no seasonal cycle',
+      'Local season definitions (e.g. PMD-style bins) may differ from generic JJA and should be declared',
+    ],
+    correctAnswer: 3,
+    explanation:
+      'Season bins change totals and extremes. Declare PMD-style or other local definitions rather than silently assuming mid-latitude defaults.',
+    sourceCitation: 'Master Study TOC · Unit 2.8',
+  },
+  {
+    id: 'CGEI-028-Q002',
+    lessonId: 'cgei-cl-lesson-2-8-2',
+    objectiveIds: ['cgei-cl-o-28-evidence'],
+    cognitiveLevel: 'evaluate',
+    sectionId: 'CGEI-028',
+    topicId: 'cgei-regional-climate-literacy',
+    difficulty: 'hard',
+    type: 'true_false',
+    question: 'When restricted PMD station series are unavailable, it is acceptable to invent plausible Multan monthly means to complete a figure.',
+    options: ['True', 'False'],
+    correctAnswer: 1,
+    explanation:
+      'Never fabricate station numbers. Use open products with honest support limits, or labelled synthetic fixtures for method checks only.',
+    sourceCitation: 'Master Study TOC · Unit 2.8',
+  },
+  {
+    id: 'CGEI-027-Q001',
+    lessonId: 'cgei-cl-lesson-2-7-1',
+    objectiveIds: ['cgei-cl-o-27-theory'],
+    cognitiveLevel: 'understand',
+    sectionId: 'CGEI-027',
+    topicId: 'cgei-extreme-value-statistics',
+    difficulty: 'medium',
+    type: 'single',
+    question: 'A 100-year return level is best interpreted as:',
+    options: [
+      'A level with mean recurrence interval of 100 years under stated assumptions — not a schedule for the calendar year 100 years from now',
+      'A guarantee that the event happens once every century on a fixed date',
+      'Only applicable to temperature, never rainfall',
+      'Identical to the sample maximum'
+    ],
+    correctAnswer: 0,
+    explanation:
+      'Return period is a mean recurrence concept under distributional assumptions. It is not a fixed calendar schedule.',
+    sourceCitation: 'Master Study TOC · Unit 2.7',
+  },
 
 ];
-
-
 /** Quiz topic metadata belongs with the quiz bank; curriculum hierarchy is in topics-climate-science.ts. */
 export const topics: Topic[] = [
   // ── Unit 2.4 ──────────────────────────────────────────────────────────────
   {
     id: "cgei-climate-data-products",
     sectionId: "CGEI-024",
-    order: 1,
+    order: 4,
     title: "Climate data products & reanalysis",
     definition:
       "Climate analysis starts by naming the product class: station observations, gridded observations, satellite or gauge-blended fields, and reanalysis. Reanalysis combines a numerical weather model with observations through data assimilation to produce a spatially complete, time-consistent archive. Every product has resolution, units, accumulation rules, known biases, and a licence — none is “the truth” without a stated purpose.",
@@ -1967,8 +2198,8 @@ export const topics: Topic[] = [
       "cgei-extremes-and-trend-analysis",
     ],
     content: true,
-    buildsOn: [],
-    leadsTo: ["cgei-time-units-daily", "cgei-extremes-and-trend-analysis"],
+    buildsOn: ["cgei-weather-climate-baselines"],
+    leadsTo: ["cgei-time-units-daily", "cgei-climate-models-projections"],
     usedIn: ["cgei-extremes-and-trend-analysis"],
   },
 
@@ -1976,7 +2207,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-time-units-daily",
     sectionId: "CGEI-025",
-    order: 1,
+    order: 5,
     title: "Time, units & daily construction",
     definition:
       "Climate numbers are meaningless without clocks and units. Precipitation may be instantaneous rates or accumulated depths; temperatures may be instantaneous or daily max/min. Time zones (UTC vs Pakistan Standard Time, UTC+5), day boundaries, season definitions, and baseline periods must be fixed before any extreme count or trend test.",
@@ -2073,7 +2304,7 @@ export const topics: Topic[] = [
       "cgei-extremes-and-trend-analysis",
     ],
     content: true,
-    buildsOn: ["cgei-climate-data-products"],
+    buildsOn: ["cgei-climate-data-products", "cgei-weather-climate-baselines"],
     leadsTo: ["cgei-extremes-and-trend-analysis"],
     usedIn: ["cgei-extremes-and-trend-analysis"],
   },
@@ -2082,7 +2313,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-extremes-and-trend-analysis",
     sectionId: "CGEI-02",
-    order: 1,
+    order: 6,
     title: "Extremes and trend analysis",
     definition:
       "Extremes and trend analysis turns climate time series into defensible statements about rare events and change over time. Counts of heatwaves, dry spells, or heavy-rain days depend on explicit thresholds, durations, and reference periods. Trend tests require honest handling of serial correlation, multiplicity across grids, and the difference between a short product window and a climate-change claim.",
@@ -2179,8 +2410,8 @@ export const topics: Topic[] = [
     ],
     relatedTopics: ["cgei-climate-data-products", "cgei-time-units-daily"],
     content: true,
-    buildsOn: ["cgei-climate-data-products", "cgei-time-units-daily"],
-    leadsTo: ["cgei-extreme-value-statistics", "cgei-regional-climate-literacy"],
+    buildsOn: ["cgei-time-units-daily", "cgei-weather-climate-baselines"],
+    leadsTo: ["cgei-extreme-value-statistics", "cgei-regional-climate-literacy", "cgei-detection-attribution"],
     usedIn: [],
   },
 
@@ -2218,7 +2449,7 @@ export const topics: Topic[] = [
     relatedTopics: ["cgei-time-units-daily", "cgei-extremes-and-trend-analysis"],
     content: true,
     buildsOn: [],
-    leadsTo: ["cgei-climate-system-processes", "cgei-extremes-and-trend-analysis"],
+    leadsTo: ["cgei-climate-system-processes", "cgei-time-units-daily", "cgei-extremes-and-trend-analysis"],
     usedIn: [],
   },
 
@@ -2226,7 +2457,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-climate-system-processes",
     sectionId: "CGEI-022",
-    order: 1,
+    order: 2,
     title: "Climate system processes",
     definition:
       "Planetary energy budget, greenhouse teaching model, surface energy balance, feedbacks, South Asian monsoon and western disturbances, and urban heat-island definitions.",
@@ -2264,7 +2495,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-atmospheric-thermo-dynamics",
     sectionId: "CGEI-023",
-    order: 1,
+    order: 3,
     title: "Atmospheric thermodynamics, dynamics and PBL",
     definition:
       "Humidity variables, Clausius–Clapeyron scaling, boundary-layer evolution, and NWP/ensemble literacy for interpreting humid heat and precipitation risk.",
@@ -2301,7 +2532,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-extreme-value-statistics",
     sectionId: "CGEI-027",
-    order: 1,
+    order: 7,
     title: "Extreme value statistics and return levels",
     definition:
       "GEV for block maxima, GPD for peaks-over-threshold, return levels with uncertainty, declustering, and non-stationary extensions — communicated without treating return periods as fixed calendars.",
@@ -2338,7 +2569,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-regional-climate-literacy",
     sectionId: "CGEI-028",
-    order: 1,
+    order: 8,
     title: "Regional climate literacy (Pakistan / southern Punjab)",
     definition:
       "Local season definitions, Multan land–climate setting (arid plain, irrigation, heat/dust/fog/smog), and disciplined use of national data institutions and evidence types.",
@@ -2366,7 +2597,7 @@ export const topics: Topic[] = [
     subtopics: [],
     relatedTopics: ["cgei-weather-climate-baselines", "cgei-climate-data-products"],
     content: true,
-    buildsOn: ["cgei-weather-climate-baselines", "cgei-climate-data-products"],
+    buildsOn: ["cgei-weather-climate-baselines", "cgei-climate-data-products", "cgei-extremes-and-trend-analysis"],
     leadsTo: ["cgei-climate-models-projections"],
     usedIn: [],
   },
@@ -2375,7 +2606,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-climate-models-projections",
     sectionId: "CGEI-029",
-    order: 1,
+    order: 9,
     title: "Climate models and projections",
     definition:
       "GCM/ESM/RCM hierarchy, SSP scenarios, evaluation, bias adjustment, downscaling, and responsible use of projections versus forecasts.",
@@ -2413,7 +2644,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-regional-projection-products",
     sectionId: "CGEI-0210",
-    order: 1,
+    order: 10,
     title: "Regional projection products and CMIP7 awareness",
     definition:
       "CORDEX, NEX-GDDP, ISIMIP, WorldClim/CHELSA families; model selection manifests; planning for CMIP7/AR7 convention changes.",
@@ -2449,7 +2680,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-detection-attribution",
     sectionId: "CGEI-0211",
-    order: 1,
+    order: 11,
     title: "Detection, attribution and event interpretation",
     definition:
       "Signal/noise/fingerprint detection vs causal attribution; probabilistic event attribution (PR, FAR); limits for rainfall, compounds and data-poor regions.",
@@ -2486,7 +2717,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-ml-ai-climate-services",
     sectionId: "CGEI-0212",
-    order: 1,
+    order: 12,
     title: "ML, open AI forecasts, climate services and digital twins",
     definition:
       "Evaluate ML against statistical baselines; probabilistic skill (BSS, reliability); post-process open AI forecasts; design climate services; recognise km-scale data costs.",
@@ -2523,7 +2754,7 @@ export const topics: Topic[] = [
   {
     id: "cgei-s2s-prediction",
     sectionId: "CGEI-0213",
-    order: 1,
+    order: 13,
     title: "Seasonal-to-subseasonal prediction and verification",
     definition:
       "Seasonal multi-model systems, hindcast calibration, tercile skill (RPSS, ROC), and cost-loss decision use without false certainty.",
@@ -2551,7 +2782,7 @@ export const topics: Topic[] = [
     subtopics: [],
     relatedTopics: ["cgei-ml-ai-climate-services", "cgei-weather-climate-baselines"],
     content: true,
-    buildsOn: ["cgei-weather-climate-baselines", "cgei-extremes-and-trend-analysis"],
+    buildsOn: ["cgei-weather-climate-baselines", "cgei-extremes-and-trend-analysis", "cgei-ml-ai-climate-services"],
     leadsTo: [],
     usedIn: [],
   },
