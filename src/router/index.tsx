@@ -21,7 +21,7 @@ export type ScreenName =
 
 export type Route =
   | { screen: 'home' }
-  | { screen: 'learn'; subjectId?: string }
+  | { screen: 'learn'; subjectId?: string; trackId?: string }
   | { screen: 'section'; sectionId: string }
   | { screen: 'topic'; topicId: string }
   | { screen: 'formulas' }
@@ -82,7 +82,7 @@ const RouterContext = createContext<RouterContext | null>(null);
 function buildRoute(options: NavigateOptions): Route {
   switch (options.screen) {
     case 'home': return { screen: 'home' };
-    case 'learn': return { screen: 'learn', subjectId: options.subjectId };
+    case 'learn': return { screen: 'learn', subjectId: options.subjectId, trackId: options.trackId };
     case 'section': {
       if (!options.sectionId) return { screen: 'learn' };
       const section = sectionMap[options.sectionId];
@@ -128,7 +128,7 @@ function buildRoute(options: NavigateOptions): Route {
 export function routeLabel(route: Route): string {
   switch (route.screen) {
     case 'home': return 'Home';
-    case 'learn': return route.subjectId ? (subjectMap[route.subjectId]?.title ?? 'Subject') : 'Learn';
+    case 'learn': return route.subjectId ? (subjectMap[route.subjectId]?.title ?? 'Subject') : route.trackId === 'cgei' ? 'CGEI Learning' : 'Learn';
     case 'section': return `Section ${route.sectionId}`;
     case 'topic': {
       const t = getTopic(route.topicId);
