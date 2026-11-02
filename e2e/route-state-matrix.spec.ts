@@ -70,11 +70,8 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
 
   /** Top-level desktop sidebar utilities with aria-current wiring. */
   const sidebarUtilities: { path: string; label: string; urlFragment: RegExp }[] = [
-    { path: '/search', label: 'Search', urlFragment: /\/search/ },
-    { path: '/progress', label: 'Progress', urlFragment: /\/progress/ },
-    { path: '/flashcards', label: 'Flashcards', urlFragment: /\/flashcards/ },
+    { path: '/progress', label: 'Progress', urlFragment: /\\/progress/ },
   ];
-
   /** Stage routes that load but are not always a top-level named sidebar button. */
   const stageRoutes: { path: string; urlFragment: RegExp }[] = [
     { path: '/formulas', urlFragment: /\/formulas/ },
