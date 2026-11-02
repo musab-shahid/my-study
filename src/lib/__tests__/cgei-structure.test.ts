@@ -41,7 +41,7 @@ describe('CGEI curriculum structure', () => {
   const cgeiSubjects = subjectsByTrack('cgei');
   const baseline = loadStructureBaseline();
 
-  it('registers all 14 domains from the Master Study TOC', () => {
+  it('registers the 13 canonical domains and keeps optional branches outside the subject registry', () => {
     assertRatchet(cgeiSubjects.length, baseline.subjects, 'subjects');
     assert.equal(cgeiSubjects.length, baseline.subjects);
     assert.deepEqual(
@@ -65,9 +65,9 @@ describe('CGEI curriculum structure', () => {
         'cgei-software-engineering',
         'cgei-advanced-ai',
         'cgei-capstone',
-        'cgei-advanced-branches',
       ],
     );
+    assert.equal(cgeiSubjects.some((subject) => subject.id === 'cgei-advanced-branches'), false);
   });
 
   it('keeps course orientation out of Topic progress and registers canonical lesson units', () => {

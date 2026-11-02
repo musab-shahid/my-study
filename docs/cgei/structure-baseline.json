@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "description": "CGEI structure ratchet: counts may grow, never shrink. Updated only when content intentionally expands.",
-  "subjects": 14,
+  "description": "CGEI canonical-subject structure ratchet: counts may grow, never shrink. Optional specialist branches are not canonical subjects.",
+  "subjects": 13,
   "units": 82,
   "lessons": 253,
   "questions": 568,
