@@ -911,7 +911,7 @@ export const units: CurriculumUnit[] = [
     "order": 206,
     "kind": "unit",
     "readiness": "review",
-    "summary": "Define thresholds and extreme indices, estimate trends with explicit units and dependence awareness, and report results without overstating return periods or attribution.",
+    "summary": "Define thresholds and extreme indices (including SPI/SPEI drought timescales), estimate trends with explicit units and dependence awareness, and report results without overstating return periods or attribution.",
     "estimatedHours": 8,
     "prerequisites": [
       "Unit 2.5"
@@ -2786,7 +2786,7 @@ export const lessons: CurriculumLesson[] = [
   {
     "id": "cgei-cl-lesson-2-6-1",
     "kind": "lesson",
-    "title": "Thresholds, heat and rainfall extremes",
+    "title": "Thresholds, heat, rainfall and drought extremes",
     "order": 1,
     "readiness": "review",
     "level": "L3",
@@ -2810,7 +2810,13 @@ export const lessons: CurriculumLesson[] = [
         "body": "An extreme is defined relative to a threshold: absolute (e.g. Tmax ≥ 40 °C) or percentile-based (e.g. above the 90th percentile of a reference period). Frequency, intensity, duration, timing and spatial extent answer different questions. Changing the baseline period changes percentile thresholds and therefore counts. Heat metrics (percentile spells, tropical nights, heat index, UTCI, WBGT) require different inputs and must not be treated as interchangeable. ETCCDI-style rainfall indices (Rx1day, R95pTOT, CDD, R10mm, …) are resolution-sensitive; daily data cannot resolve sub-daily intensities."
       },
       {
-        "id": "cgei-cl-26-1-r10mm",
+        {
+        "id": "cgei-cl-26-1-heat-metrics",
+        "kind": "prose",
+        "title": "Heat metrics are not interchangeable",
+        "body": "Percentile-based heat spells, tropical nights (Tmin above a threshold), excess heat factor, heat index, wet-bulb temperature, UTCI and WBGT answer different questions and need different inputs. Wet-bulb and WBGT speak to humid-heat stress; tropical nights speak to night-time recovery; percentile spells need a declared baseline. For Multan, report the metric name, threshold, duration rule and baseline — do not relabel one as another."
+      },
+      "id": "cgei-cl-26-1-r10mm",
         "kind": "prose",
         "title": "R10mm: heavy precipitation days (pedagogical)",
         "body": "ETCCDI-style R10mm counts days with precipitation ≥ 10 mm. Units are days over the stated period. Comparison is inclusive. Missing observations must not be coerced to 0 mm — that invents dry days and biases rates if you later divide by period length. The teaching implementation uses a short synthetic daily series; it is not a full ETCCDI software stack and is not station-validated."
@@ -2830,6 +2836,22 @@ export const lessons: CurriculumLesson[] = [
           "Consecutive hot days are not independent Bernoulli trials.",
           "Spell length distributions matter for health and agriculture impacts.",
           "Declustering belongs with formal EVT (Unit 2.7); here, at least do not pretend days are independent without saying so."
+        ]
+      },
+      {
+        "id": "cgei-cl-26-1-spi-spei",
+        "kind": "prose",
+        "title": "Drought indices: SPI versus SPEI",
+        "body": "SPI (Standardized Precipitation Index) is built from precipitation alone, standardised over a chosen timescale (commonly 1, 3, 6 or 12 months). SPEI (Standardized Precipitation–Evapotranspiration Index) uses a water-balance framing that includes potential evapotranspiration (PET), so warming-driven demand can push SPEI toward drought even when rainfall is unchanged. Neither index is a flood metric; both are sensitive to the timescale, the PET method (for SPEI), and the calibration period. Under rising temperature, treating SPI and SPEI as interchangeable misstates the demand contribution. Report timescale and baseline with every SPI/SPEI claim."
+      },
+      {
+        "id": "cgei-cl-26-1-spi-table",
+        "kind": "table",
+        "title": "SPI vs SPEI (teaching anchors)",
+        "headers": ["Index", "Inputs", "Why it matters under warming"],
+        "rows": [
+          ["SPI", "Precipitation only", "Drought signal from rainfall deficits alone"],
+          ["SPEI", "Precipitation + PET", "Demand can worsen the drought signal without a rainfall change"]
         ]
       },
       {
@@ -2908,6 +2930,12 @@ export const lessons: CurriculumLesson[] = [
         "kind": "prose",
         "title": "Regressing out ENSO and other modes before interpreting trends",
         "body": "A raw trend can mix forced change with low-frequency internal variability. A common diagnostic is to regress the target series on an ENSO index (and optionally other modes), then trend the residuals. Residual trends are not “the forced signal” by themselves — the regression is linear and contemporaneous (or fixed-lag), teleconnections are imperfect, and modes are not orthogonal to forced change. Report both raw and residual trends, the index and lag used, and treat residualisation as sensitivity analysis, not as definitive attribution (Unit 2.11)."
+      },
+      {
+        "id": "cgei-cl-26-2-multiplicity",
+        "kind": "prose",
+        "title": "Multiplicity on maps of local tests",
+        "body": "Testing a trend at every grid cell at the 5% level yields about 5% significant cells under pure noise. Field significance and false-discovery-rate (FDR) control (Wilks-style approaches) address this multiplicity before a regional pattern is claimed. Prefer effect sizes and Sen slopes alongside any p-value map."
       },
       {
         "id": "cgei-cl-26-2-enso-callout",
@@ -2993,6 +3021,12 @@ export const lessons: CurriculumLesson[] = [
           "Document every adjustment or segment choice.",
           "Changepoint ≠ attribution of cause."
         ]
+      },
+      {
+        "id": "cgei-cl-26-3-compound",
+        "kind": "prose",
+        "title": "Compound events",
+        "body": "Heat with drought, or heavy rain on wet soils with drainage failure, are compound hazards. Counting single-variable extremes understates joint risk. Define each component and the temporal window of co-occurrence explicitly; co-occurrence is not automatic causation of impacts."
       }
     ],
     "activityIds": [
