@@ -153,7 +153,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
 
           <section role="region" aria-labelledby="more-tracks-heading">
-            <p id="more-tracks-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
+            <p id="more-tracks-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2 flex items-center gap-2"><FEATURE_ICONS.tracks className="w-4 h-4" aria-hidden />Learning tracks</p>
             <div className="space-y-0.5">
               {trackRows.map((row) => (
                 <button
