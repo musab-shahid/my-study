@@ -176,7 +176,7 @@ export function CGEITrackOverviewScreen() {
                 const Icon = subject.lucideIcon ?? BookOpen;
                 const subjectStyle = getSubjectStyle(subject.id);
                 const detail = canonical
-                  ? `Canonical curriculum · ${canonical.readiness} · ${units.length} units · ${authoredLessons}/${subjectLessons.length} lessons with substantive content · Lesson readiness: ${subjectLessons.length ? readinessSummary : 'no lessons mapped'}`
+                  ? `Canonical curriculum · subject readiness: ${canonical.readiness} · ${units.length} units · ${authoredLessons}/${subjectLessons.length} lessons with substantive content · Lesson readiness: ${subjectLessons.length ? readinessSummary : 'no lessons mapped'}`
                   : hasTopicContent
                     ? `Legacy topic content · ${subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked.`
                     : hasTopicOutlines
