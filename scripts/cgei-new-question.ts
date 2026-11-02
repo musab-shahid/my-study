@@ -35,15 +35,10 @@ const topicId = existingLessonTopicId ?? (sourceTopicId && objectById(topics, so
 const existingTopic = objectById(topics, topicId);
 const unitCode = stringProperty(located.unit, 'code');
 if (!unitCode) throw new Error('Parent unit has no code.');
-const abbreviations: Record<string, string> = {
-  'env-systems': 'es', 'climate-science': 'cl', 'geospatial': 'geo', 'remote-sensing': 'rs',
-  'data-science': 'ds', 'ml-geoai': 'ml', 'climate-risk': 'risk', 'research-practice': 'rp',
-  'decision-support': 'dspt', 'climate-policy': 'pol', 'software-engineering': 'se',
-  'advanced-ai': 'ai', 'capstone': 'cap',
-};
-const abbr = abbreviations[located.folder];
-if (!abbr) throw new Error('Unknown canonical subject folder: ' + located.folder);
-const prefix = 'cgei-' + abbr + '-q-' + unitCode.toLowerCase().replace(/[^a-z0-9]/g, '') + '-';
+const unitId = stringProperty(located.unit, 'id');
+if (!unitId || !unitId.includes('-unit-')) throw new Error('Parent unit ID does not have the canonical unit form.');
+const subjectPrefix = unitId.slice(0, unitId.indexOf('-unit-'));
+const prefix = subjectPrefix + '-q-' + unitCode.toLowerCase().replace(/[^a-z0-9]/g, '') + '-';
 const ledgerPath = resolve(process.cwd(), 'docs/cgei/question-id-ledger.json');
 const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8')) as { questions?: Record<string, unknown> };
 const ids = new Set(Object.keys(ledger.questions ?? {}));

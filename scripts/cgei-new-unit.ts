@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import * as ts from 'typescript';
-import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findSubjectModule, listSubjectModules, numberProperty, objectById, renderObject } from './lib/cgei-authoring';
+import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findSubjectModule, listSubjectModules, numberProperty, objectById, renderObject, stringProperty } from './lib/cgei-authoring';
 
 function arg(name: string): string | undefined {
   const index = process.argv.indexOf('--' + name);
@@ -13,20 +13,16 @@ if (!subjectId || !code) {
   console.error('Usage: npm run new:unit -- --subject cgei-data-science --code 5.13 --title "Unit title"');
   process.exit(2);
 }
-const folder = subjectId.replace(/^cgei-/, '');
-const prefixes: Record<string, string> = {
-  'env-systems': 'es', 'climate-science': 'cl', 'geospatial': 'geo', 'remote-sensing': 'rs',
-  'data-science': 'ds', 'ml-geoai': 'ml', 'climate-risk': 'risk', 'research-practice': 'rp',
-  'decision-support': 'dspt', 'climate-policy': 'pol', 'software-engineering': 'se',
-  'advanced-ai': 'ai', 'capstone': 'cap',
-};
-const prefix = prefixes[folder];
-if (!prefix) throw new Error('Subject is not in the canonical CGEI registry: ' + subjectId);
 const module = findSubjectModule(subjectId);
 const units = exportedArray(module.source, 'units');
 const unitIds = arrayProperty(module.subject, 'unitIds');
+const firstUnitId = units.elements.filter(ts.isObjectLiteralExpression)
+  .map((element) => stringProperty(element, 'id'))
+  .find((id) => id?.includes('-unit-'));
+if (!firstUnitId) throw new Error('Cannot derive the subject ID prefix: no existing canonical unit ID was found.');
+const subjectPrefix = firstUnitId.slice(0, firstUnitId.indexOf('-unit-'));
 const slug = code.trim().replace(/\./g, '-');
-const unitId = 'cgei-' + prefix + '-unit-' + slug;
+const unitId = subjectPrefix + '-unit-' + slug;
 if (objectById(units, unitId) || arrayStrings(unitIds).includes(unitId)) throw new Error('Unit already exists: ' + unitId);
 const orders = listSubjectModules().flatMap((subjectModule) =>
   exportedArray(subjectModule.source, 'units').elements.filter(ts.isObjectLiteralExpression)
