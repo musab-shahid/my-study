@@ -19,7 +19,7 @@ export function getLearnerReadinessPresentation(
   readiness: ReadinessStatus,
   hasSubstantiveContent: boolean,
 ): LearnerReadinessPresentation {
-  if (!hasSubstantiveContent) {
+  if (!hasSubstantiveContent || readiness === 'planned' || readiness === 'outlined') {
     return {
       label: 'Coming soon',
       tone: 'coming-soon',
