@@ -10,7 +10,6 @@ import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { isTrackEnrolled } from '@/lib/track-access';
 import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
-import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
