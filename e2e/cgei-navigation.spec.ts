@@ -84,7 +84,10 @@ test.describe('CGEI curriculum navigation and orientation', () => {
       localStorage.setItem(key, JSON.stringify(value));
     }, APP_DATA_KEY);
     await page.reload();
-    await page.goto('/learn/track/cgei');
+    await page.goto('/track/cgei');
+    await expect(page.getByRole('button', { name: 'Open CGEI Learning', exact: true })).toBeEnabled();
+    await page.getByRole('button', { name: 'Open CGEI Learning', exact: true }).click();
+    await expect(page).toHaveURL(/\\/learn\\/track\\/cgei$/);
     await expect(page.getByText('Start the CGEI learning pathway', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Explore and enroll', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Open domain' }).first()).toBeDisabled();
