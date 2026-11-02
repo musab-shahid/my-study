@@ -16,7 +16,7 @@ function walk(dir, files = []) {
 
 // Catch direct JSX interpolation of internal readiness values. Comparisons
 // used to derive the presentation model remain allowed.
-const directReadinessOutput = /(?:\\{\\s*[\\w$.?]+\\.readiness\\s*\\}|\\$\\{\\s*[\\w$.?]+\\.readiness\\s*\\})/g;
+const directReadinessOutput = /(?:\{\s*[\w$.?]+\.readiness\s*\}|\$\{\s*[\w$.?]+\.readiness\s*\})/g;
 const violations = [];
 
 for (const path of walk(SRC)) {
