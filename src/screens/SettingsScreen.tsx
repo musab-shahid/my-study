@@ -563,7 +563,7 @@ export function SettingsScreen() {
 
       <section id="about-settings" aria-labelledby="about-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
       <h2 id="about-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About</h2>
-      <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
+      <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
             <BookOpenCheck className="w-7 h-7 text-white" />
@@ -573,7 +573,7 @@ export function SettingsScreen() {
             <p className="text-muted text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
+        <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border">
           <InfoStat icon={<BookOpen className="w-4 h-4 text-brand-500" />} value={`${subjects.length}`} label="subjects" />
           <InfoStat icon={<FileText className="w-4 h-4 text-brand-500" />} value={`${globalTopicCount}`} label="topics" />
           <InfoStat icon={<Database className="w-4 h-4 text-brand-500" />} value={`${globalQuestionCount}`} label="questions" />
