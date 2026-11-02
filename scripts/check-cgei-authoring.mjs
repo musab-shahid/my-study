@@ -18,7 +18,7 @@ const tsconfig = resolve(root, 'tsconfig.app.json');
 const unitId = 'cgei-ds-unit-99-91';
 const lessonId = 'cgei-ds-lesson-99-91-1';
 
-function exportedArray(file: string, name: string): ts.ArrayLiteralExpression {
+function exportedArray(file, name) {
   const text = readFileSync(file, 'utf8');
   const source = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   for (const statement of source.statements) {
@@ -30,7 +30,7 @@ function exportedArray(file: string, name: string): ts.ArrayLiteralExpression {
   }
   throw new Error('Missing array ' + name + ' in ' + file);
 }
-function objectString(object: ts.ObjectLiteralExpression, key: string): string | undefined {
+function objectString(object, key) {
   const item = object.properties.find((property) =>
     ts.isPropertyAssignment(property) &&
     (ts.isIdentifier(property.name) || ts.isStringLiteral(property.name)) &&
@@ -39,7 +39,7 @@ function objectString(object: ts.ObjectLiteralExpression, key: string): string |
     ? item.initializer.text
     : undefined;
 }
-function run(script: string, args: string[]): void {
+function run(script, args) {
   const result = spawnSync(process.execPath, [tsxCli, '--tsconfig', tsconfig, resolve(root, 'scripts', script), ...args], {
     cwd: temp,
     encoding: 'utf8',
