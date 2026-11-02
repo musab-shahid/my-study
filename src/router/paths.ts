@@ -13,7 +13,7 @@ import type { DifficultyFilter, PracticeMode, TimeLimitSetting } from '@/types';
 /** Local mirror of router.Route to avoid circular imports with index.tsx */
 export type PathRoute =
   | { screen: 'home' }
-  | { screen: 'learn'; subjectId?: string }
+  | { screen: 'learn'; subjectId?: string; trackId?: string }
   | { screen: 'section'; sectionId: string }
   | { screen: 'topic'; topicId: string }
   | { screen: 'formulas' }
@@ -47,7 +47,7 @@ export function routeToPath(route: PathRoute): string {
     case 'home':
       return '/';
     case 'learn':
-      return route.subjectId ? `/learn/${encodeURIComponent(route.subjectId)}` : '/learn';
+      return route.subjectId ? `/learn/${encodeURIComponent(route.subjectId)}` : route.trackId ? `/learn/track/${encodeURIComponent(route.trackId)}` : '/learn';
     case 'section':
       return `/section/${encodeURIComponent(route.sectionId)}`;
     case 'topic':
@@ -99,6 +99,7 @@ export function pathToRoute(pathname: string): PathRoute {
     switch (head) {
     case 'learn': {
       if (!a) return { screen: 'learn' };
+      if (a === 'track' && b && isTrackId(decodeURIComponent(b))) return { screen: 'learn', trackId: decodeURIComponent(b) };
       const subjectId = decodeURIComponent(a);
       return subjectMap[subjectId] ? { screen: 'learn', subjectId } : { screen: 'learn' };
     }
@@ -181,6 +182,7 @@ export function breadcrumbForRoute(route: PathRoute): { label: string; route: Pa
     case 'home':
       return [home];
     case 'learn': {
+      if (route.trackId && isTrackId(route.trackId)) return [home, { label: getTrackDefinition(route.trackId).shortTitle, route: { screen: 'track', trackId: route.trackId } }, { label: `${getTrackDefinition(route.trackId).shortTitle} Learning`, route }];
       const subject = route.subjectId ? subjectMap[route.subjectId] : undefined;
       if (subject && isTrackId(subject.track)) {
         return [
