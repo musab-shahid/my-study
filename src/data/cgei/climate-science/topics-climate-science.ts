@@ -6593,195 +6593,138 @@ export const outcomes: CurriculumOutcome[] = [
 export const resources: CurriculumResource[] = [
   {
     id: "cgei-cl-res-ipcc-ar6-wg1",
-    kind: "assessment-report",
+    kind: "reference",
     title: "IPCC AR6 Working Group I — The Physical Science Basis",
-    description:
+    purpose:
       "Authoritative assessed ranges for ECS/TCR, detection and attribution headlines, regional fact sheets, and the Interactive Atlas. Use for calibrated likelihood language and for stating what is assessed versus what a learner recomputes from a short series.",
     url: "https://www.ipcc.ch/report/ar6/wg1/",
-    access: "open",
-    citation:
-      "IPCC, 2021: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change.",
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-2",
-      "cgei-cl-unit-2-9",
-      "cgei-cl-unit-2-11"
-    ],
-    tags: ["attribution", "sensitivity", "regional", "likelihood-language"]
+    authorOrPublisher: "IPCC, 2021: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change."
   },
   {
     id: "cgei-cl-res-ipcc-atlas",
-    kind: "portal",
+    kind: "tool",
     title: "IPCC Interactive Atlas",
-    description:
+    purpose:
       "First-look regional maps of observed and projected changes. Orientation only — not a substitute for local product evaluation, bias adjustment, or station verification.",
     url: "https://interactive-atlas.ipcc.ch/",
-    access: "open",
-    citation: "IPCC Interactive Atlas (AR6).",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["projections", "regional", "screening"]
+    authorOrPublisher: "IPCC Interactive Atlas (AR6)."
   },
   {
     id: "cgei-cl-res-era5-cds",
     kind: "dataset",
     title: "ERA5 reanalysis via Copernicus Climate Data Store",
-    description:
+    purpose:
       "Global reanalysis (≈0.25°) used throughout this subject for teaching workflows. Always record variable short name, units, accumulation, grid, and download date. Precipitation is in metres of water equivalent.",
     url: "https://cds.climate.copernicus.eu/",
-    access: "open-registration",
-    citation:
-      "Hersbach, H., et al. (2020). The ERA5 global reanalysis. QJRMS. CDS: ERA5 hourly/monthly products.",
-    unitIds: [
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
-    tags: ["reanalysis", "ERA5", "CDS", "Multan-workflow"]
+    authorOrPublisher: "Hersbach, H., et al. (2020). The ERA5 global reanalysis. QJRMS. CDS: ERA5 hourly/monthly products."
   },
   {
     id: "cgei-cl-res-era5-doc",
     kind: "documentation",
     title: "ERA5 documentation — variables, accumulation, known issues",
-    description:
+    purpose:
       "Essential before any quantitative notebook: accumulation conventions, temperature units (often kelvin), land-sea mask behaviour, and version notes that affect trends.",
     url: "https://confluence.ecmwf.int/display/CKB/ERA5",
-    access: "open",
-    citation: "ECMWF ERA5 documentation (Climate Knowledge Base).",
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5"],
-    tags: ["metadata", "units", "QC"]
+    authorOrPublisher: "ECMWF ERA5 documentation (Climate Knowledge Base)."
   },
   {
     id: "cgei-cl-res-wmo-normals",
-    kind: "guidance",
+    kind: "documentation",
     title: "WMO climatological standard normals",
-    description:
+    purpose:
       "Defines successive 30-year normals (current standard 1991–2020) and practice for anomalies. Changing the normal changes every anomaly value without changing raw observations.",
     url: "https://community.wmo.int/en/activity-areas/climate/wmo-climate-normals",
-    access: "open",
-    citation: "WMO Guidelines on the Calculation of Climate Normals (WMO-No. 1203) and updates.",
-    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-6"],
-    tags: ["baseline", "normals", "anomaly"]
+    authorOrPublisher: "WMO Guidelines on the Calculation of Climate Normals (WMO-No. 1203) and updates."
   },
   {
     id: "cgei-cl-res-etccdi",
-    kind: "index-definition",
+    kind: "reference",
     title: "ETCCDI / Climdex extreme indices",
-    description:
+    purpose:
       "Standard definitions for Rx1day, CDD, CWD, R95pTOT, percentile-based hot days, and related indices. Threshold, duration and baseline period are part of the definition — report them.",
     url: "https://www.climdex.org/learn/indices/",
-    access: "open",
-    citation: "Expert Team on Climate Change Detection and Indices (ETCCDI); Climdex index list.",
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
-    tags: ["extremes", "indices", "thresholds"]
+    authorOrPublisher: "Expert Team on Climate Change Detection and Indices (ETCCDI); Climdex index list."
   },
   {
     id: "cgei-cl-res-cordex-sa",
     kind: "dataset",
     title: "CORDEX South Asia (ESGF)",
-    description:
+    purpose:
       "Dynamically downscaled RCM simulations over the South Asian domain (commonly 0.44° / 0.22°). Cite RCM–GCM pair; evaluate regional monsoon and heat processes before ensemble averaging.",
     url: "https://cordex.org/domains/region-6-south-asia-was/",
-    access: "open-via-ESGF",
-    citation: "CORDEX South Asia; access via ESGF nodes. Cite driving GCM and RCM.",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["downscaling", "RCM", "South-Asia"]
+    authorOrPublisher: "CORDEX South Asia; access via ESGF nodes. Cite driving GCM and RCM."
   },
   {
     id: "cgei-cl-res-nex-gddp",
     kind: "dataset",
     title: "NEX-GDDP-CMIP6",
-    description:
+    purpose:
       "Statistically downscaled (BCSD-type) daily CMIP6 fields on a global ~0.25° grid for core variables (tasmax, tasmin, precip). Different method class from CORDEX — do not treat as interchangeable.",
     url: "https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6",
-    access: "open",
-    citation: "Thrasher et al., NEX-GDDP-CMIP6; NASA NCCS / Earthdata access.",
-    unitIds: ["cgei-cl-unit-2-10"],
-    tags: ["statistical-downscaling", "CMIP6", "daily"]
+    authorOrPublisher: "Thrasher et al., NEX-GDDP-CMIP6; NASA NCCS / Earthdata access."
   },
   {
     id: "cgei-cl-res-isimip",
     kind: "dataset",
     title: "ISIMIP bias-adjusted forcing",
-    description:
+    purpose:
       "Protocol-standardised, bias-adjusted climate forcing designed as input to impact models. Document protocol round, observational reference, and which CMIP subset is included.",
     url: "https://www.isimip.org/",
-    access: "open",
-    citation: "ISIMIP protocol and input-data documentation (cite round and reference dataset).",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["bias-adjustment", "impacts", "forcing"]
+    authorOrPublisher: "ISIMIP protocol and input-data documentation (cite round and reference dataset)."
   },
   {
     id: "cgei-cl-res-c3s-seasonal",
-    kind: "portal",
+    kind: "tool",
     title: "Copernicus C3S seasonal multi-model products",
-    description:
+    purpose:
       "Operational seasonal multi-model ensemble outlooks and hindcast-based verification context. State issuing system, initialisation, lead definition, and variable before decision use.",
     url: "https://climate.copernicus.eu/seasonal-forecasts",
-    access: "open",
-    citation: "Copernicus Climate Change Service (C3S) seasonal forecast products.",
-    unitIds: ["cgei-cl-unit-2-13"],
-    tags: ["S2S", "seasonal", "multi-model"]
+    authorOrPublisher: "Copernicus Climate Change Service (C3S) seasonal forecast products."
   },
   {
     id: "cgei-cl-res-sascof",
-    kind: "outlook",
+    kind: "reference",
     title: "South Asian Climate Outlook Forum (SASCOF)",
-    description:
+    purpose:
       "Regional consensus seasonal outlooks for South Asia. National services (e.g. PMD) tailor these for sector decisions — co-production belongs at that national/local step.",
     url: "https://www.imdpune.gov.in/Casweb/Sascof/",
-    access: "open-summary",
-    citation: "SASCOF consensus statements (issue date and season must be recorded).",
-    unitIds: ["cgei-cl-unit-2-12", "cgei-cl-unit-2-13", "cgei-cl-unit-2-8"],
-    tags: ["RCOF", "seasonal-outlook", "South-Asia"]
+    authorOrPublisher: "SASCOF consensus statements (issue date and season must be recorded)."
   },
   {
     id: "cgei-cl-res-pmd-access",
-    kind: "institutional",
+    kind: "reference",
     title: "Pakistan Meteorological Department — data access practice",
-    description:
+    purpose:
       "National authority for meteorological records. Public versus restricted products must be verified per series; listing PMD is not a download right. Prefer documented request trails and licences; use global layers with honest representativeness limits when local series are unavailable.",
     url: "https://www.pmd.gov.pk/",
-    access: "mixed-verify-per-product",
-    citation: "Pakistan Meteorological Department (PMD). Access terms vary by product.",
-    unitIds: ["cgei-cl-unit-2-8", "cgei-cl-unit-2-4"],
-    tags: ["Pakistan", "national-data", "access-limits"]
+    authorOrPublisher: "Pakistan Meteorological Department (PMD). Access terms vary by product."
   },
   {
     id: "cgei-cl-res-cf-conventions",
-    kind: "standard",
+    kind: "documentation",
     title: "CF (Climate and Forecast) metadata conventions",
-    description:
+    purpose:
       "Standard names, units, cell methods, and time encodings for NetCDF climate data. CF-style checks catch accumulation and calendar errors before analysis.",
     url: "https://cfconventions.org/",
-    access: "open",
-    citation: "CF Conventions and Metadata (current version as of access date).",
-    unitIds: ["cgei-cl-unit-2-5"],
-    tags: ["metadata", "NetCDF", "units"]
+    authorOrPublisher: "CF Conventions and Metadata (current version as of access date)."
   },
   {
     id: "cgei-cl-res-extremes-guidance",
-    kind: "guidance",
+    kind: "documentation",
     title: "WMO Guidelines on extreme weather and climate events",
-    description:
+    purpose:
       "Supports consistent event definitions, threshold choices, and monitoring language — aligned with the subject’s insistence that threshold, duration and baseline are part of every extremes claim.",
     url: "https://library.wmo.int/",
-    access: "open",
-    citation: "WMO Guidelines on the Definition and Monitoring of Extreme Weather and Climate Events (current edition).",
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
-    tags: ["extremes", "definitions", "monitoring"]
+    authorOrPublisher: "WMO Guidelines on the Definition and Monitoring of Extreme Weather and Climate Events (current edition)."
   },
   {
     id: "cgei-cl-res-worldclim-chelsa",
     kind: "dataset",
     title: "WorldClim / CHELSA future climatological layers",
-    description:
+    purpose:
       "Fine-resolution downscaled climatological normals for ecological applications — not daily impact-model forcing. Different access pattern (GeoTIFF tiles, no internal time dimension).",
     url: "https://www.worldclim.org/",
-    access: "open",
-    citation: "WorldClim; CHELSA (cite version and base period).",
-    unitIds: ["cgei-cl-unit-2-10"],
-    tags: ["climatology", "ecology", "fine-grid"]
+    authorOrPublisher: "WorldClim; CHELSA (cite version and base period)."
   }
 ] as const;
 
