@@ -152,7 +152,7 @@ function CGEILearningHomeScreen() {
             value={domainQuery}
             onChange={(event) => setDomainQuery(event.target.value)}
             placeholder="Find a domain…"
-            className="min-h-11 w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30"
+            className="min-h-11 w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-700/30"
           />
         </label>
         {domainQuery.trim() && <p className="mt-2 text-xs text-muted" role="status">{filteredDomainGroups.reduce((count, group) => count + group.subjectIds.length, 0)} matching domains</p>}

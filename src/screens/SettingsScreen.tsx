@@ -247,7 +247,7 @@ export function SettingsScreen() {
           ['app-settings', 'App'],
           ['reset-settings', 'Reset'],
         ].map(([id, label]) => (
-          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">
             {label}
           </a>
         ))}
