@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ArrowLeft, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
@@ -15,6 +15,7 @@ import {
   type LessonCheckItem,
 } from '@/lib/cgei-lesson-questions';
 import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
+import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { PageContainer, Card, EmptyState, Button, Heading } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 
@@ -117,16 +118,18 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
       <section className="mb-6">
         <div className="flex items-end justify-between gap-3 mb-3">
           <Heading level={2} className="text-lg font-semibold">Lessons</Heading>
-          <span className="text-xs text-muted">{lessons.length} mapped</span>
+          <span className="text-xs text-muted flex items-center gap-1"><span>{lessons.length} mapped</span><span aria-hidden="true">·</span><span>{lessons.filter(hasSubstantiveLessonContent).length} with authored material</span></span>
         </div>
         {lessons.length ? <div className="space-y-2">{lessons.map((lesson) => {
           const studied = lesson.sourceTopicId ? data.studiedTopics.includes(lesson.sourceTopicId) : (data.studiedCurriculumLessons ?? []).includes(lesson.id);
-          return <button key={lesson.id} onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lesson.id })} className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 p-4 text-left transition-colors">
+          const hasMaterial = hasSubstantiveLessonContent(lesson);
+          const releaseReady = lesson.readiness === 'validated' || lesson.readiness === 'released';
+          return <button key={lesson.id} disabled={!hasMaterial} onClick={() => navigate({ screen: 'curriculum-lesson', lessonId: lesson.id })} className="w-full rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:opacity-80 p-4 text-left transition-colors">
             <div className="flex items-start gap-3">
               <span className="w-8 h-8 rounded-lg bg-brand-50 text-brand-800 flex items-center justify-center text-xs font-bold shrink-0">{lesson.order}</span>
               <span className="min-w-0 flex-1">
                 <span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-ink">{lesson.title}</span><span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label capitalize">{lesson.readiness}</span></span>
-                <span className="flex flex-wrap items-center gap-2 text-xs text-muted mt-1">{lesson.estimatedMinutes ? <span className="inline-flex items-center gap-1"><Clock3 className="w-3 h-3" />{lesson.estimatedMinutes} min</span> : null}<span>{lesson.objectives.length} learning outcomes</span><span>{lesson.activityIds.length} practice activities</span></span>
+                <span className="flex flex-wrap items-center gap-2 text-xs text-muted mt-1">{lesson.estimatedMinutes ? <span className="inline-flex items-center gap-1"><Clock3 className="w-3 h-3" />{lesson.estimatedMinutes} min</span> : null}<span>{lesson.objectives.length} learning outcomes</span><span>{lesson.activityIds.length} practice activities</span><span className={hasMaterial ? releaseReady ? 'text-success-700 font-medium' : 'text-warning-700 font-medium' : 'text-muted font-medium'}>{!hasMaterial ? 'Outline only · not ready to study' : releaseReady ? 'Available to study' : `Authored material · ${lesson.readiness}`}</span></span>
               </span>
               {studied ? <CheckCircle2 className="w-5 h-5 text-success-600 shrink-0" /> : <ChevronRight className="w-5 h-5 text-muted shrink-0" />}
             </div>
@@ -155,6 +158,19 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const activities = lesson?.activityIds.map((id) => cgeiCurriculum.activities.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const assessments = lesson?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const assessmentQuestionIds = assessments.flatMap((a) => a.questionIds ?? []);
+  const subjectUnits = subject?.unitIds
+    .map((id) => cgeiCurriculum.units.find((item) => item.id === id))
+    .filter((item): item is NonNullable<typeof item> => Boolean(item))
+    .sort((a, b) => a.order - b.order) ?? [];
+  const subjectLessonSequence = subjectUnits.flatMap((item) =>
+    item.lessonIds
+      .map((id) => cgeiCurriculum.lessons.find((candidate) => candidate.id === id))
+      .filter((item): item is NonNullable<typeof item> => Boolean(item))
+      .sort((a, b) => a.order - b.order),
+  );
+  const lessonSequenceIndex = subjectLessonSequence.findIndex((item) => item.id === lessonId);
+  const previousLesson = subjectLessonSequence.slice(0, lessonSequenceIndex).reverse().find(hasSubstantiveLessonContent);
+  const nextLesson = subjectLessonSequence.slice(lessonSequenceIndex + 1).find(hasSubstantiveLessonContent);
   const subjectId = (subject?.subjectId ?? '') as SubjectId;
   const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
   const [expandedLessonId, setExpandedLessonId] = useState<string | null>(null);
@@ -210,7 +226,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6">
-        <div className="flex flex-wrap items-center gap-2 mb-2"><span className="rounded-full bg-brand-50 text-brand-800 px-3 py-1 text-xs font-bold">{unit ? `Unit ${unit.code}` : 'CGEI lesson'}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs capitalize">{lesson.readiness}</span>{lesson.estimatedMinutes ? <span className="text-xs text-muted">{lesson.estimatedMinutes} minutes</span> : null}</div>
+        <div className="flex flex-wrap items-center gap-2 mb-2"><span className="rounded-full bg-brand-50 text-brand-800 px-3 py-1 text-xs font-bold">{unit ? `Unit ${unit.code}` : 'CGEI lesson'}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs capitalize">{lesson.readiness}</span>{lesson.estimatedMinutes ? <span className="text-xs text-muted">{lesson.estimatedMinutes} minutes</span> : null}<span className={hasSubstantiveLessonContent(lesson) ? lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'text-xs font-semibold text-success-700' : 'text-xs font-semibold text-warning-700' : 'text-xs font-semibold text-muted'}>{!hasSubstantiveLessonContent(lesson) ? 'Outline only · content in development' : lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'Available to study' : `Authored material · ${lesson.readiness}`}</span></div>
         <Heading level={1} className="font-semibold leading-tight">{lesson.title}</Heading>
         {unit && <button onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="text-sm text-brand-800 hover:underline mt-2 inline-flex items-center gap-1"><ArrowLeft className="w-3 h-3" /> Back to Unit {unit.code}</button>}
       </div>
@@ -227,7 +243,12 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit?.id ?? '' })} disabled={!unit}><ArrowLeft className="w-4 h-4 mr-1" /> Unit overview</Button>
-        <Button onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
+        <Button disabled={!hasSubstantiveLessonContent(lesson)} onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
+      </div>
+      <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <Button type="button" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous lesson</Button>
+        <span className="text-xs text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${subjectLessonSequence.length}` : 'CGEI lesson'}</span>
+        <Button type="button" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
       </div>
       {isLessonStudied && <p className="text-xs text-success-700 mt-3 text-right">This lesson is marked as studied.</p>}
     </PageContainer>

@@ -186,9 +186,19 @@ function AppContent() {
     ? `${focusDef.shortTitle}${focusProfile ? ` · ${focusProfile.shortLabel ?? focusProfile.title}` : ''}`
     : null;
 
-  // Subject context on stage screens; always prefix with workspace when enrolled
+  // CGEI Learn has its own route-owned context; never leak a saved global
+  // "All Subjects" preference into its header or dedicated learning screens.
   let finalSubtitle = subtitle;
-  if ((STAGE_SCREENS as readonly string[]).includes(route.screen)) {
+  const cgeiLearnSubject = route.screen === 'learn' && route.subjectId
+    && subjectMap[route.subjectId]?.track === 'cgei'
+    ? subjectMap[route.subjectId]
+    : undefined;
+  const isCgeiLearningHome = route.screen === 'learn' && !route.subjectId && focusId === 'cgei';
+  if (cgeiLearnSubject) {
+    finalSubtitle = `${getTrackDefinition('cgei').shortTitle} · ${cgeiLearnSubject.title}`;
+  } else if (isCgeiLearningHome) {
+    finalSubtitle = `${getTrackDefinition('cgei').shortTitle} · Learning`;
+  } else if ((STAGE_SCREENS as readonly string[]).includes(route.screen)) {
     const subj = getActiveSubject(route.screen as StageScreen);
     const subjLabel = subj === 'all' ? 'All Subjects' : subjectMap[subj]?.title ?? 'All Subjects';
     finalSubtitle = workspaceLabel ? `${workspaceLabel} · ${subjLabel}` : subjLabel;

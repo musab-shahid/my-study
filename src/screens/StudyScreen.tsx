@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
+import { CGEILearningScreen } from '@/screens/CGEILearningScreen';
 import { BookOpen, ChevronRight, ChevronLeft, ChevronDown, Cloud, Calculator, MapIcon, GraduationCap, ArrowRight, AlertTriangle, BookCopy, Star, XCircle } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useSubjectData } from '@/hooks/useSubjectData';
@@ -41,7 +42,7 @@ import {
 } from '@/components/study/TopicContentBlocks';
 
 // ---- Learn Landing ----
-export function StudyScreen() {
+function GenericStudyScreen() {
   const { navigate, currentRoute, route } = useRouter();
   const sd = useSubjectData();
   const { getActiveSubject, setActiveSubjectForScreen, activeTrack, setActiveTrack } = useSubjectSelection();
@@ -515,6 +516,26 @@ export function StudyScreen() {
       )}
     </PageContainer>
   );
+}
+
+/**
+ * Route context is authoritative for CGEI. The shared subject preference
+ * (including a historical "All Subjects" preference) must never override a
+ * CGEI deep link or bring the generic selector into the CGEI experience.
+ */
+export function StudyScreen() {
+  const { route } = useRouter();
+  const { activeTrack } = useSubjectSelection();
+  const cgeiSubjectId = route.screen === 'learn' && route.subjectId
+    && subjectMap[route.subjectId]?.track === 'cgei'
+    ? route.subjectId
+    : undefined;
+  const isCgeiLearningHome = route.screen === 'learn' && !route.subjectId && activeTrack === 'cgei';
+
+  if (cgeiSubjectId || isCgeiLearningHome) {
+    return <CGEILearningScreen subjectId={cgeiSubjectId} />;
+  }
+  return <GenericStudyScreen />;
 }
 
 // ---- Section → Topic List ----

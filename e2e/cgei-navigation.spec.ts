@@ -56,6 +56,37 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('Optional Advanced Environmental Branches', { exact: true })).toHaveCount(0);
   });
 
+  test('Learn opens the dedicated CGEI learning home, independent of the saved All Subjects preference', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/learn');
+
+    await expect(page.getByRole('heading', { name: 'CGEI Learning', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('heading', { name: 'Your 13 learning domains', exact: true })).toBeVisible();
+    await expect(page.getByText('All Subjects', { exact: true })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Open domain' })).toHaveCount(13);
+    await expect(page.getByRole('button', { name: 'Track overview', exact: true })).toBeVisible();
+  });
+
+  test('track overview opens the CGEI learning home explicitly', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/track/cgei');
+    await page.getByRole('button', { name: 'Open CGEI Learning', exact: true }).click();
+    await expect(page).toHaveURL(/\/learn$/);
+    await expect(page.getByRole('heading', { name: 'CGEI Learning', exact: true })).toBeVisible();
+  });
+
+  test('lesson navigation moves through authored lessons without marking them studied', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/curriculum/lesson/cgei-ds-lesson-5-1-1');
+
+    const next = page.getByRole('button', { name: /Next lesson/ });
+    await expect(next).toBeEnabled({ timeout: 20_000 });
+    await next.click();
+    await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-ds-lesson-5-1-2$/);
+    await expect(page.getByRole('button', { name: /Previous lesson/ })).toBeEnabled();
+    await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toHaveCount(0);
+  });
+
   test('all registered canonical subjects expose their unit hierarchy', async ({ page }) => {
     await seedCgeiWorkspace(page);
 
@@ -72,6 +103,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     for (const subject of subjects) {
       await page.goto(`/learn/${subject.id}`);
       await expect(page.getByRole('heading', { name: 'Learning path', exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText('All Subjects', { exact: true })).toHaveCount(0);
       // The orientation's ordered unit list is intentionally inside collapsed <details>.
       // Assert the actual, always-visible learning-path unit controls rather than the
       // duplicate codes in that hidden orientation list.
@@ -80,7 +112,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     }
 
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/0 of \d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/^0 of \d+ authored lessons marked studied$/, { exact: true })).toBeVisible();
     await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
     await expect(page).toHaveURL(/curriculum\/unit\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
@@ -94,7 +126,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toBeVisible();
     await page.goto('/learn/cgei-data-science');
-    await expect(page.getByText(/1 of \d+ lessons marked studied/)).toBeVisible();
+    await expect(page.getByText(/^1 of \d+ authored lessons marked studied$/, { exact: true })).toBeVisible();
   });
 
   test('legacy roadmap deep links open orientation, not a study lesson', async ({ page }) => {
