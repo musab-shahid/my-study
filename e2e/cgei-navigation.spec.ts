@@ -51,7 +51,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('heading', { name: 'Research & professional practice' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
     await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(13);
-    await expect(page.getByText(/Canonical curriculum · subject readiness:/).first()).toBeVisible();
+    await expect(page.getByText(/Canonical curriculum · (Ready|Preview|Coming soon)/).first()).toBeVisible();
     await expect(page.getByText('Orientation only', { exact: true })).toHaveCount(0);
     await expect(page.getByText('Optional Advanced Environmental Branches', { exact: true })).toHaveCount(0);
   });
