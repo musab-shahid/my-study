@@ -90,6 +90,19 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('button', { name: 'Open domain' }).first()).toBeDisabled();
   });
 
+  test('CGEI home routing follows persisted workspace membership, not a stale selector preference', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.evaluate((key) => {
+      const value = JSON.parse(localStorage.getItem(key) ?? '{}');
+      value.trackMembership.activeTrackId = null;
+      localStorage.setItem(key, JSON.stringify(value));
+    }, APP_DATA_KEY);
+    await page.reload();
+    await page.goto('/learn');
+    await expect(page.getByRole('heading', { name: 'CGEI Learning', exact: true })).toHaveCount(0);
+    await expect(page.getByText('All Subjects', { exact: true }).first()).toBeVisible();
+  });
+
   test('track overview opens the CGEI learning home explicitly', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/track/cgei');

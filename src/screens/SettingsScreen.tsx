@@ -1,6 +1,6 @@
 import {
   RefreshCw,
-  Library, Flame, TrendingUp, BookOpen, Target,
+  BookOpenCheck, Flame, TrendingUp, BookOpen, Target,
   Check, CheckCircle2, AlertTriangle, FileText, Database,
   Share,
 } from 'lucide-react';
@@ -221,7 +221,7 @@ export function SettingsScreen() {
     <PageContainer>
       <ScreenHeader
         title="Settings"
-        subtitle="Manage your workspace, data, installation, and study preferences."
+        subtitle="Manage your workspace, account, data, and app."
         className="animate-fade-in-up"
       />
 
@@ -241,6 +241,7 @@ export function SettingsScreen() {
       <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-slate-200 sm:bg-white/95">
         {[
           ['workspace-settings', 'Workspace'],
+          ['overview-settings', 'Overview'],
           ['account-settings', 'Account'],
           ['data-settings', 'Data & privacy'],
           ['app-settings', 'App'],
@@ -258,10 +259,12 @@ export function SettingsScreen() {
         <ExamScheduleSettings />
       </section>
 
+      <section id="overview-settings" aria-labelledby="overview-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="overview-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About My Study and your activity</h2>
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
-            <Library className="w-7 h-7 text-white" />
+            <BookOpenCheck className="w-7 h-7 text-white" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-ink text-base leading-tight">My Study</p>
@@ -306,7 +309,9 @@ export function SettingsScreen() {
 
       <section id="account-settings" aria-labelledby="account-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
         <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account and sync</h2>
-        <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+        </section>
+
+      <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
       </section>
 
       <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
