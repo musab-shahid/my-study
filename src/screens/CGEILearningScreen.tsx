@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3 } from 'lucide-react';
+import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
@@ -43,6 +43,7 @@ function CGEILearningHomeScreen() {
   const { data, setActiveEnrolledTrack } = useData();
   const { setActiveTrack } = useSubjectSelection();
   const { navigate, currentRoute } = useRouter();
+  const [domainQuery, setDomainQuery] = useState('');
   const enrolled = isTrackEnrolled(data, 'cgei');
   const subjects = subjectsByTrack('cgei');
   const allLessons = cgeiCurriculum.lessons;
@@ -54,6 +55,15 @@ function CGEILearningHomeScreen() {
   const recommendedLesson = authoredLessons.find((lesson) => !lessonIsStudied(lesson, data));
   const resumeLesson = lastLesson ?? recommendedLesson;
   const resumeLabel = lastLesson ? 'Continue learning' : 'Recommended starting point';
+  const filteredDomainGroups = CGEI_DOMAIN_GROUPS
+    .map((group) => ({
+      ...group,
+      subjectIds: group.subjectIds.filter((id) => {
+        const subject = subjects.find((item) => item.id === id);
+        return subject?.title.toLocaleLowerCase().includes(domainQuery.trim().toLocaleLowerCase());
+      }),
+    }))
+    .filter((group) => group.subjectIds.length > 0);
 
   const activateCgei = () => {
     const result = setActiveEnrolledTrack('cgei');
@@ -85,7 +95,17 @@ function CGEILearningHomeScreen() {
         </div>
       </div>
 
-      {resumeLesson ? (
+      {!enrolled ? (
+        <Card className="p-4 sm:p-5 mb-6 border border-brand-200 bg-brand-50/50">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div>
+              <p className="font-semibold text-ink">Start the CGEI learning pathway</p>
+              <p className="text-sm text-muted mt-1">You can explore the 13 domains below. Enroll in the CGEI track to open lessons, resume learning and record progress.</p>
+            </div>
+            <Button type="button" onClick={() => navigate({ screen: 'track', trackId: 'cgei', parent: currentRoute })}>Explore and enroll <ArrowRight className="w-4 h-4 ml-1" /></Button>
+          </div>
+        </Card>
+      ) : resumeLesson ? (
         <Card className="p-4 sm:p-5 mb-6 border border-brand-200 bg-brand-50/50">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="min-w-0">
@@ -123,10 +143,22 @@ function CGEILearningHomeScreen() {
 
       <div className="mb-4">
         <h2 className="text-xl font-bold text-ink">Your 13 learning domains</h2>
-        <p className="text-sm text-muted mt-1">Select a domain to see its purpose, orientation and ordered unit progression.</p>
+        <p className="text-sm text-muted mt-1">Search the pathway while keeping the original curriculum grouping and order.</p>
+        <label className="relative mt-3 block max-w-xl">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted" aria-hidden />
+          <span className="sr-only">Search learning domains</span>
+          <input
+            type="search"
+            value={domainQuery}
+            onChange={(event) => setDomainQuery(event.target.value)}
+            placeholder="Find a domain…"
+            className="min-h-11 w-full rounded-xl border border-border bg-white py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-700/30"
+          />
+        </label>
+        {domainQuery.trim() && <p className="mt-2 text-xs text-muted" role="status">{filteredDomainGroups.reduce((count, group) => count + group.subjectIds.length, 0)} matching domains</p>}
       </div>
       <div className="space-y-6">
-        {CGEI_DOMAIN_GROUPS.map((group) => (
+        {filteredDomainGroups.map((group) => (
           <section key={group.id} aria-labelledby={`cgei-learning-${group.id}`}>
             <div className="mb-3">
               <h3 id={`cgei-learning-${group.id}`} className="font-bold text-ink">{group.title.replace(/^\d+ · /, '')}</h3>
@@ -141,6 +173,7 @@ function CGEILearningHomeScreen() {
                 const lessons = canonical ? subjectLessons(id).lessons : [];
                 const authored = lessons.filter(hasSubstantiveLessonContent).length;
                 const studied = lessons.filter((lesson) => hasSubstantiveLessonContent(lesson) && lessonIsStudied(lesson, data)).length;
+                const nextLesson = lessons.find((lesson) => hasSubstantiveLessonContent(lesson) && !lessonIsStudied(lesson, data));
                 const style = getSubjectStyle(id);
                 const Icon = subject.lucideIcon ?? Layers3;
                 return (
@@ -150,6 +183,7 @@ function CGEILearningHomeScreen() {
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-ink">{subject.title}</h4>
                         <p className="text-xs text-muted mt-1">{units} units · {authored} authored lessons · {studied} studied</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted">{nextLesson ? `Next: ${nextLesson.title}` : authored === 0 ? 'Lesson material is being prepared' : 'All authored lessons marked studied'}</p>
                         {lessons.length > 0 ? <div className="mt-2"><ProgressBar value={(authored ? studied / authored : 0) * 100} /></div> : <p className="text-xs text-muted mt-2">Unit and lesson content is being developed.</p>}
                       </div>
                     </div>
@@ -163,6 +197,13 @@ function CGEILearningHomeScreen() {
             </div>
           </section>
         ))}
+        {filteredDomainGroups.length === 0 && (
+          <Card className="border border-dashed border-border p-5 text-center">
+            <p className="font-semibold text-ink">No matching domains</p>
+            <p className="mt-1 text-sm text-muted">Try another name or clear your search.</p>
+            <Button type="button" variant="secondary" size="sm" className="mt-3" onClick={() => setDomainQuery('')}>Clear search</Button>
+          </Card>
+        )}
       </div>
     </PageContainer>
   );
@@ -250,7 +291,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
             <span className="text-xs text-brand-700 font-semibold">Orientation</span>
           </summary>
           <div className="pt-4 mt-3 border-t border-slate-200 space-y-3">
-            {subject?.prerequisites?.length ? <ul className="list-disc pl-5 space-y-1 text-sm text-muted">{subject.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul> : null}
+            {subject?.prerequisites?.length ? <p className="text-xs text-muted">Prerequisites are listed above; this orientation adds context and study guidance.</p> : null}
             {roadmapTopic?.definition ? <p className="text-sm text-muted leading-relaxed">{roadmapTopic.definition}</p> : null}
             {roadmapTopic?.explanationSections?.map((section) => <div key={section.heading}><h3 className="text-sm font-semibold text-ink">{section.heading}</h3><p className="text-sm text-muted leading-relaxed mt-1">{section.body}</p></div>)}
             {roadmapTopic?.keyFacts?.length ? <div><h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Orientation notes</h3><ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul></div> : null}
@@ -272,7 +313,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
           return <Button key={unit.id} type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left">
             <span className="flex items-start gap-3 w-full"><span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-sm text-ink">{unit.title}</span><Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge></span><span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span><span className="block text-xs text-muted mt-1">{unitAuthored} authored / {unitLessons.length} lessons · {unitStudied} studied</span></span><ArrowRight className="w-4 h-4 text-success-700 shrink-0 mt-1" /></span>
           </Button>;
-        })}</div> : <div className="rounded-xl border border-dashed border-slate-300 p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
+        })}</div> : <div className="rounded-xl border border-dashed border-border p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
       </Card>
     </PageContainer>
   );

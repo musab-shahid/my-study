@@ -83,6 +83,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
   const assessments = unit?.assessmentIds.map((id) => cgeiCurriculum.assessments.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const resources = unit?.resourceIds.map((id) => cgeiCurriculum.resources.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
   const deliverables = unit?.deliverableIds.map((id) => cgeiCurriculum.deliverables.find((item) => item.id === id)).filter((item): item is NonNullable<typeof item> => Boolean(item)) ?? [];
+  const supportingItemCount = activities.length + assessments.length + deliverables.length + resources.length;
 
   if (!unit) return <PageContainer><BackButton /><EmptyState title="Curriculum unit not found" message="This unit is not registered in the current curriculum." action={<Button variant="secondary" onClick={() => navigate({ screen: 'learn' })}>Back to Learn</Button>} /></PageContainer>;
 
@@ -137,6 +138,12 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
         })}</div> : <Card className="p-5 border border-dashed border-slate-300 bg-slate-50"><p className="font-medium text-ink">Lesson content is being developed</p><p className="text-sm text-muted mt-1">This unit is registered in the curriculum, but its lessons have not yet been authored and validated. It is intentionally not presented as complete.</p>{unit.sourceDocument && <p className="text-xs text-muted mt-3">Source manuscript: <code>{unit.sourceDocument}</code></p>}</Card>}
       </section>
 
+      {supportingItemCount > 0 && <details className="mb-6 rounded-xl border border-border bg-white">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-4 font-semibold text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset">
+          <span>Supporting materials</span>
+          <span className="text-xs font-medium text-muted">{supportingItemCount} items · activities, assessments, portfolio and resources</span>
+        </summary>
+        <div className="border-t border-border p-4 sm:p-5 space-y-6">
       {activities.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Practice activities</Heading><div className="grid md:grid-cols-2 gap-3">{activities.map((activity) => <Card key={activity.id} className="p-card-pad border border-slate-200"><div className="flex flex-wrap gap-2 items-center"><h3 className="font-semibold text-sm text-ink">{activity.title}</h3><span className="text-label bg-slate-100 rounded-full px-2 py-0.5">{activity.level}</span></div><p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-brand-800 mt-2"><strong>Evidence:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}</Card>)}</div></section>}
 
       {assessments.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Assessments</Heading><div className="grid md:grid-cols-2 gap-3">{assessments.map((assessment) => <Card key={assessment.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{assessment.title}</h3><p className="text-sm text-muted mt-2">{assessment.purpose}</p>{assessment.passThreshold !== undefined ? <p className="text-xs text-muted mt-2">Target score: {Math.round(assessment.passThreshold * 100)}%</p> : null}{assessment.questionIds?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800 hover:underline">{assessment.questionIds.length} questions · Open assessment</summary><div className="space-y-3 mt-3">{assessment.questionIds.map((questionId) => cgeiCurriculum.questions.find((question) => question.id === questionId)).filter((question): question is CurriculumQuestion => Boolean(question)).map((question) => <CurriculumQuestionCard key={question.id} item={curriculumQuestionToCheck(question)} />)}</div></details> : null}</Card>)}</div></section>}
@@ -144,6 +151,8 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
       {deliverables.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Portfolio evidence</Heading><div className="space-y-2">{deliverables.map((item) => <Card key={item.id} className="p-card-pad border border-slate-200"><h3 className="font-semibold text-sm text-ink">{item.title}</h3><p className="text-sm text-muted mt-1">{item.description}</p><ul className="list-disc pl-5 mt-2 text-xs text-muted space-y-1">{item.acceptanceCriteria.map((criterion) => <li key={criterion}>{criterion}</li>)}</ul></Card>)}</div></section>}
 
       {resources.length > 0 && <section><Heading level={2} className="text-lg font-semibold mb-3">Resources</Heading><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-ink">{resource.title}</span>}</div><p className="text-sm text-muted mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-muted mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
+        </div>
+      </details>}
     </PageContainer>
   );
 }
@@ -168,9 +177,10 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
       .filter((item): item is NonNullable<typeof item> => Boolean(item))
       .sort((a, b) => a.order - b.order),
   );
-  const lessonSequenceIndex = subjectLessonSequence.findIndex((item) => item.id === lessonId);
-  const previousLesson = subjectLessonSequence.slice(0, lessonSequenceIndex).reverse().find(hasSubstantiveLessonContent);
-  const nextLesson = subjectLessonSequence.slice(lessonSequenceIndex + 1).find(hasSubstantiveLessonContent);
+  const navigableLessonSequence = subjectLessonSequence.filter(hasSubstantiveLessonContent);
+  const lessonSequenceIndex = navigableLessonSequence.findIndex((item) => item.id === lessonId);
+  const previousLesson = lessonSequenceIndex > 0 ? navigableLessonSequence[lessonSequenceIndex - 1] : undefined;
+  const nextLesson = lessonSequenceIndex >= 0 ? navigableLessonSequence[lessonSequenceIndex + 1] : undefined;
   const subjectId = (subject?.subjectId ?? '') as SubjectId;
   const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
   const [expandedLessonId, setExpandedLessonId] = useState<string | null>(null);
@@ -225,6 +235,11 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   return (
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
+      <nav aria-label="Lesson navigation" className="sticky top-16 z-20 -mx-4 mb-5 flex items-center justify-between gap-2 border-y border-border bg-white/95 px-4 py-2 backdrop-blur sm:mx-0 sm:rounded-xl sm:border">
+        <Button type="button" size="sm" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" / > Previous lesson</Button>
+        <span className="min-w-0 text-center text-xs font-medium tabular-nums text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${navigableLessonSequence.length}` : 'CGEI lesson'}</span>
+        <Button type="button" size="sm" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
+      </nav>
       <div className="mb-6">
         <div className="flex flex-wrap items-center gap-2 mb-2"><span className="rounded-full bg-brand-50 text-brand-800 px-3 py-1 text-xs font-bold">{unit ? `Unit ${unit.code}` : 'CGEI lesson'}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs capitalize">{lesson.readiness}</span>{lesson.estimatedMinutes ? <span className="text-xs text-muted">{lesson.estimatedMinutes} minutes</span> : null}<span className={hasSubstantiveLessonContent(lesson) ? lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'text-xs font-semibold text-success-700' : 'text-xs font-semibold text-warning-700' : 'text-xs font-semibold text-muted'}>{!hasSubstantiveLessonContent(lesson) ? 'Outline only · content in development' : lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'Available to study' : `Authored material · ${lesson.readiness}`}</span></div>
         <Heading level={1} className="font-semibold leading-tight">{lesson.title}</Heading>
@@ -244,11 +259,6 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
       <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit?.id ?? '' })} disabled={!unit}><ArrowLeft className="w-4 h-4 mr-1" /> Unit overview</Button>
         <Button disabled={!hasSubstantiveLessonContent(lesson)} onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
-      </div>
-      <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
-        <Button type="button" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous lesson</Button>
-        <span className="text-xs text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${subjectLessonSequence.length}` : 'CGEI lesson'}</span>
-        <Button type="button" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
       </div>
       {isLessonStudied && <p className="text-xs text-success-700 mt-3 text-right">This lesson is marked as studied.</p>}
     </PageContainer>

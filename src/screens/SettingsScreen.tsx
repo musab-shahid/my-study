@@ -1,6 +1,6 @@
 import {
   RefreshCw,
-  Library, Flame, TrendingUp, BookOpen, Target,
+  BookOpenCheck, BookOpen,
   Check, CheckCircle2, AlertTriangle, FileText, Database,
   Share,
 } from 'lucide-react';
@@ -15,7 +15,6 @@ import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
 import { ExamScheduleSettings } from '@/components/ExamScheduleSettings';
 import { AuthAccountCard } from '@/components/AuthAccountCard';
-import { computeStreak, getTodayActivity, getWeekActivity } from '@/lib/streak';
 import { downloadBackupFile, getLocalMutationAt } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';
 import {
@@ -89,16 +88,15 @@ export function SettingsScreen() {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [showInstall, setShowInstall] = useState(false);
 
-  const streak = computeStreak(data);
-  const today = getTodayActivity(data);
-  const week = getWeekActivity(data);
-
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
 
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
   const isFullReset = allSelected;
+  const selectedSubjectNames = subjects
+    .filter((subject) => selectedSubjects.has(subject.id as SubjectId))
+    .map((subject) => subject.title);
 
 
   const toggleSubject = (id: SubjectId) => {
@@ -218,7 +216,7 @@ export function SettingsScreen() {
     <PageContainer>
       <ScreenHeader
         title="Settings"
-        subtitle="Manage your workspace, data, installation, and study preferences."
+        subtitle="Manage your workspace, account, data, and app."
         className="animate-fade-in-up"
       />
 
@@ -235,13 +233,33 @@ export function SettingsScreen() {
         </div>
       )}
 
-      <WorkspaceSettingsCard />
-      <ExamScheduleSettings />
+      <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-border sm:bg-white/95">
+        {[
+          ['workspace-settings', 'Workspace'],
+          ['overview-settings', 'Overview'],
+          ['account-settings', 'Account'],
+          ['data-settings', 'Data & privacy'],
+          ['app-settings', 'App'],
+          ['reset-settings', 'Reset'],
+        ].map(([id, label]) => (
+          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-border px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">
+            {label}
+          </a>
+        ))}
+      </nav>
 
+      <section id="workspace-settings" aria-labelledby="workspace-settings-heading" className="scroll-mt-24 mb-6 space-y-4">
+        <h2 id="workspace-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Workspace and exams</h2>
+        <WorkspaceSettingsCard />
+        <ExamScheduleSettings />
+      </section>
+
+      <section id="overview-settings" aria-labelledby="overview-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="overview-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About My Study</h2>
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
-            <Library className="w-7 h-7 text-white" />
+            <BookOpenCheck className="w-7 h-7 text-white" />
           </div>
           <div className="flex-1 min-w-0">
             <p className="font-bold text-ink text-base leading-tight">My Study</p>
@@ -255,37 +273,15 @@ export function SettingsScreen() {
         </div>
       </Card>
 
-      <div className="grid grid-cols-3 gap-3 mb-4 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Flame className={`w-4 h-4 ${streak.streak > 0 ? 'text-warning-500' : 'text-muted'}`} />
-            <span className="text-muted text-xs font-medium">Streak</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{streak.streak}<span className="text-sm font-normal text-muted">d</span></p>
-          <p className="text-muted text-xs mt-0.5 truncate">
-            {streak.studiedToday ? 'On track' : streak.atRisk ? 'At risk' : 'Start today'}
-          </p>
-        </Card>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <TrendingUp className="w-4 h-4 text-brand-500" />
-            <span className="text-muted text-xs font-medium">Today</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{today.questionsAnswered}</p>
-          <p className="text-muted text-xs mt-0.5 truncate">{today.quizCount} quizzes</p>
-        </Card>
-        <Card className="p-3">
-          <div className="flex items-center gap-1.5 mb-1">
-            <Target className="w-4 h-4 text-success-500" />
-            <span className="text-muted text-xs font-medium">Week</span>
-          </div>
-          <p className="text-xl font-bold text-ink leading-tight">{week.avgAccuracy}<span className="text-sm font-normal text-muted">%</span></p>
-          <p className="text-muted text-xs mt-0.5 truncate">{week.questionsAnswered} answered</p>
-        </Card>
-      </div>
+      </section>
 
-      <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+      <section id="account-settings" aria-labelledby="account-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+        <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account and sync</h2>
+        <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+      </section>
 
+      <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="data-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Data and privacy</h2>
       <Card className="p-card-pad mb-4">
         <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
         <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
@@ -450,6 +446,10 @@ export function SettingsScreen() {
         </div>
       </Card>
 
+      </section>
+
+      <section id="app-settings" aria-labelledby="app-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="app-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">App and installation</h2>
       <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm">
@@ -513,6 +513,10 @@ export function SettingsScreen() {
         </Card>
       )}
 
+      </section>
+
+      <section id="reset-settings" aria-labelledby="reset-settings-heading" className="scroll-mt-24 mb-6">
+      <h2 id="reset-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted mb-3">Reset and recovery</h2>
       <Card className="p-card-pad mb-4">
         <p className="font-semibold text-ink text-sm mb-2">Reset progress</p>
         <p className="text-muted text-xs mb-3 leading-relaxed">
@@ -537,7 +541,7 @@ export function SettingsScreen() {
                 type="button"
                 onClick={() => toggleSubject(s.id as SubjectId)}
                 className={`inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
-                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-muted'
+                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-border text-muted'
                 }`}
               >
                 {selected ? <Check className="w-3.5 h-3.5 shrink-0 text-brand-700" aria-hidden /> : null}
@@ -551,16 +555,28 @@ export function SettingsScreen() {
             Reset selected
           </Button>
         ) : (
-          <div className="flex flex-wrap gap-2">
-            <Button variant="danger" onClick={handleReset}>
-              Confirm reset
-            </Button>
-            <Button variant="secondary" onClick={() => setConfirming(false)}>
-              Cancel
-            </Button>
+          <div className="mt-3 rounded-xl border border-danger-200 bg-danger-50 p-3" role="alert">
+            <p className="text-sm font-semibold text-danger-900">
+              {isFullReset ? 'Full reset: all study data will be cleared.' : `Partial reset: ${selectedSubjects.size} selected subject${selectedSubjects.size === 1 ? '' : 's'} will be cleared.`}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-danger-800">
+              {isFullReset ? 'This includes all subjects, quiz history and saved learning progress.' : selectedSubjectNames.join(' · ')}
+            </p>
+            <p className="mt-2 text-xs font-medium text-danger-800">
+              A recovery backup will be saved before the reset. If the backup or save fails, the reset is cancelled and your current progress is kept.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="danger" onClick={handleReset}>
+                {isFullReset ? 'Reset all data' : `Reset ${selectedSubjects.size} selected subject${selectedSubjects.size === 1 ? '' : 's'}`}
+              </Button>
+              <Button variant="secondary" onClick={() => setConfirming(false)}>
+                Cancel
+              </Button>
+            </div>
           </div>
         )}
       </Card>
+      </section>
     </PageContainer>
   );
 }

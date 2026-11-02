@@ -525,12 +525,13 @@ function GenericStudyScreen() {
  */
 export function StudyScreen() {
   const { route } = useRouter();
-  const { activeTrack } = useSubjectSelection();
+  const { trackMembership } = useData();
   const cgeiSubjectId = route.screen === 'learn' && route.subjectId
     && subjectMap[route.subjectId]?.track === 'cgei'
     ? route.subjectId
     : undefined;
-  const isCgeiLearningHome = route.screen === 'learn' && !route.subjectId && activeTrack === 'cgei';
+  const isCgeiLearningHome = route.screen === 'learn' && !route.subjectId
+    && trackMembership.activeTrackId === 'cgei';
 
   if (cgeiSubjectId || isCgeiLearningHome) {
     return <CGEILearningScreen subjectId={cgeiSubjectId} />;
