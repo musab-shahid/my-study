@@ -17,6 +17,8 @@ export const questions: Question[] = [
 
   {
     id: 'CGEI-02-Q001',
+    lessonId: 'cgei-cl-lesson-2-6-1',
+    objectiveIds: ['cgei-cl-o-26-threshold'],
     cognitiveLevel: 'understand',
     sectionId: SID,
     topicId: TID,
@@ -58,6 +60,8 @@ export const questions: Question[] = [
   },
   {
     id: 'CGEI-02-Q003',
+    lessonId: 'cgei-cl-lesson-2-6-2',
+    objectiveIds: ['cgei-cl-o-26-trend'],
     cognitiveLevel: 'analyze',
     sectionId: SID,
     topicId: TID,
@@ -736,8 +740,8 @@ export const questions: Question[] = [
 
   {
     "id": "cgei-cl-q-21-001",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-021",
+    "topicId": "cgei-weather-climate-baselines",
     "difficulty": "easy",
     "type": "single",
     "question": "A single unusually cold month most correctly indicates:",
@@ -755,8 +759,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-21-002",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-021",
+    "topicId": "cgei-weather-climate-baselines",
     "difficulty": "easy",
     "type": "single",
     "question": "An anomaly is defined relative to:",
@@ -774,8 +778,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-21-003",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-021",
+    "topicId": "cgei-weather-climate-baselines",
     "difficulty": "medium",
     "type": "single",
     "question": "Treating a missing monthly temperature as 0°C when computing a mean will:",
@@ -793,8 +797,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-21-004",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-021",
+    "topicId": "cgei-weather-climate-baselines",
     "difficulty": "medium",
     "type": "single",
     "question": "A positive linear trend on a short local series is sufficient to conclude:",
@@ -812,8 +816,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-22-001",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-022",
+    "topicId": "cgei-climate-system-processes",
     "difficulty": "medium",
     "type": "single",
     "question": "In the one-layer greenhouse teaching model, surface temperature Ts relates to Te by:",
@@ -831,8 +835,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-22-002",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-022",
+    "topicId": "cgei-climate-system-processes",
     "difficulty": "medium",
     "type": "single",
     "question": "Increasing latent heat flux Q_E while holding Q* and Q_H fixed tends to:",
@@ -850,8 +854,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-22-003",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-022",
+    "topicId": "cgei-climate-system-processes",
     "difficulty": "easy",
     "type": "single",
     "question": "AR6 likely ECS range is approximately:",
@@ -869,8 +873,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-22-004",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-022",
+    "topicId": "cgei-climate-system-processes",
     "difficulty": "easy",
     "type": "single",
     "question": "Western disturbances primarily influence:",
@@ -888,8 +892,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-22-005",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-022",
+    "topicId": "cgei-climate-system-processes",
     "difficulty": "medium",
     "type": "single",
     "question": "Canopy-layer UHI is best described as:",
@@ -907,8 +911,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-24-001",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-024",
+    "topicId": "cgei-climate-data-products",
     "difficulty": "easy",
     "type": "single",
     "question": "Replacing a missing daily temperature with 0°C before averaging will typically:",
@@ -926,8 +930,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-24-002",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-024",
+    "topicId": "cgei-climate-data-products",
     "difficulty": "easy",
     "type": "single",
     "question": "A persistence QC flag is intended to catch:",
@@ -945,8 +949,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-24-003",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-024",
+    "topicId": "cgei-climate-data-products",
     "difficulty": "medium",
     "type": "single",
     "question": "An ERA5 grid-cell temperature is best described as:",
@@ -964,8 +968,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-24-004",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-024",
+    "topicId": "cgei-climate-data-products",
     "difficulty": "medium",
     "type": "single",
     "question": "Agreement between two gridded products is sufficient to conclude:",
@@ -983,8 +987,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-001",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "easy",
     "type": "single",
     "question": "Pakistan Standard Time (PKT) is offset from UTC by:",
@@ -1002,8 +1006,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-002",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "medium",
     "type": "single",
     "question": "Before differencing accumulated precipitation fields from two products, you should first:",
@@ -1021,8 +1025,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-003",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "easy",
     "type": "single",
     "question": "With baseline July mean 32°C, an observed July value of 35°C has anomaly:",
@@ -1040,8 +1044,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-004",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "medium",
     "type": "single",
     "question": "A complete processing record for climate data handling should include at least:",
@@ -1059,8 +1063,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-kelvin",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "easy",
     "type": "single",
     "question": "ERA5 2 m temperature is often stored in kelvin. The correct conversion to Celsius is:",
@@ -1078,8 +1082,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-25-accum",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-025",
+    "topicId": "cgei-time-units-daily",
     "difficulty": "medium",
     "type": "single",
     "question": "A negative jump in a precipitation accumulation series most carefully indicates:",
@@ -1173,8 +1177,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-28-001",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-028",
+    "topicId": "cgei-regional-climate-literacy",
     "difficulty": "easy",
     "type": "single",
     "question": "Using JJA by default for every Pakistan monsoon analysis is risky because:",
@@ -1192,8 +1196,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-28-002",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-028",
+    "topicId": "cgei-regional-climate-literacy",
     "difficulty": "medium",
     "type": "single",
     "question": "ENSO or IOD anomalies should be treated as:",
@@ -1211,8 +1215,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-28-003",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-028",
+    "topicId": "cgei-regional-climate-literacy",
     "difficulty": "medium",
     "type": "single",
     "question": "A Multan station temperature and a coarse reanalysis grid cell for the same day can differ because:",
@@ -1230,8 +1234,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-28-004",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-028",
+    "topicId": "cgei-regional-climate-literacy",
     "difficulty": "easy",
     "type": "single",
     "question": "When a local PMD series is restricted, the correct practice is to:",
@@ -1249,8 +1253,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-23-cc",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-023",
+    "topicId": "cgei-atmospheric-thermo-dynamics",
     "difficulty": "medium",
     "type": "single",
     "question": "Clausius–Clapeyron scaling of ~6–7% per K near typical surface temperatures primarily describes:",
@@ -1268,8 +1272,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-23-tw",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-023",
+    "topicId": "cgei-atmospheric-thermo-dynamics",
     "difficulty": "medium",
     "type": "single",
     "question": "Wet-bulb temperature is most directly related to:",
@@ -1287,8 +1291,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-23-pbl",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-023",
+    "topicId": "cgei-atmospheric-thermo-dynamics",
     "difficulty": "medium",
     "type": "single",
     "question": "Urban night-time warmth relative to rural areas is often sustained by:",
@@ -1306,8 +1310,8 @@ export const questions: Question[] = [
   },
   {
     "id": "cgei-cl-q-23-ens",
-    "sectionId": "CGEI-02",
-    "topicId": "cgei-extremes-and-trend-analysis",
+    "sectionId": "CGEI-023",
+    "topicId": "cgei-atmospheric-thermo-dynamics",
     "difficulty": "medium",
     "type": "single",
     "question": "Ensemble forecast spread is best interpreted as:",
@@ -1341,6 +1345,508 @@ export const questions: Question[] = [
     "sourceCitation": "Santer, B.D., et al. (2000). Statistical significance of trends and trend differences in layer-average atmospheric temperature time series. Journal of Geophysical Research: Atmospheres, 105(D6), 7337–7356. https://doi.org/10.1029/1999JD901105",
     "lessonId": "cgei-cl-lesson-2-6-2",
     "cognitiveLevel": "analyze"
+  },
+
+  // ── Unit 2.7 — Extreme value statistics ───────────────────────────────────
+  {
+    id: "cgei-cl-q-27-001",
+    sectionId: "CGEI-027",
+    topicId: "cgei-extreme-value-statistics",
+    difficulty: "medium",
+    type: "single",
+    question: "The generalised extreme value (GEV) distribution is the limiting distribution of:",
+    options: [
+      "Block maxima (e.g. annual maxima) under suitable conditions",
+      "Any daily temperature without blocking",
+      "Only Gaussian residuals from OLS trends",
+      "Satellite brightness temperatures alone"
+    ],
+    correctAnswer: 0,
+    explanation: "Classical extreme-value theory states that suitably normalised block maxima converge to a GEV (location, scale, shape). Peaks-over-threshold are linked to the generalised Pareto distribution (GPD).",
+    sourceCitation: "CGEI curriculum Unit 2.7",
+    lessonId: "cgei-cl-lesson-2-7-1",
+    objectiveIds: ["cgei-cl-o-27-theory"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-27-002",
+    sectionId: "CGEI-027",
+    topicId: "cgei-extreme-value-statistics",
+    difficulty: "medium",
+    type: "single",
+    question: "A return period of 20 years for a defined annual maximum means:",
+    options: [
+      "The event is scheduled exactly every 20th calendar year",
+      "Under the stated model and stationarity assumptions, the mean waiting time between exceedances is about 20 years — not a fixed calendar schedule",
+      "The event cannot occur twice in one decade",
+      "Attribution to greenhouse gases is complete"
+    ],
+    correctAnswer: 1,
+    explanation: "Return period is a probability-based mean recurrence under model assumptions. It is not a deterministic timetable.",
+    sourceCitation: "CGEI curriculum Unit 2.7",
+    lessonId: "cgei-cl-lesson-2-7-1",
+    objectiveIds: ["cgei-cl-o-27-theory"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-27-003",
+    sectionId: "CGEI-027",
+    topicId: "cgei-extreme-value-statistics",
+    difficulty: "medium",
+    type: "single",
+    question: "Before trusting a fitted GEV return level far beyond the record length, you should:",
+    options: [
+      "Report confidence intervals, check diagnostics (e.g. QQ/PP), and state how far extrapolation is defensible given sample size",
+      "Always publish the 1000-year level without intervals",
+      "Replace the fit with the sample maximum only",
+      "Ignore the shape parameter"
+    ],
+    correctAnswer: 0,
+    explanation: "Small samples and heavy tails make far extrapolation fragile. Diagnostics and honest uncertainty statements are required.",
+    sourceCitation: "CGEI curriculum Unit 2.7",
+    lessonId: "cgei-cl-lesson-2-7-2",
+    objectiveIds: ["cgei-cl-o-27-estimate"],
+    cognitiveLevel: "analyze"
+  },
+  {
+    id: "cgei-cl-q-27-004",
+    sectionId: "CGEI-027",
+    topicId: "cgei-extreme-value-statistics",
+    difficulty: "medium",
+    type: "single",
+    question: "A non-stationary GEV with a time covariate in the location parameter is used when:",
+    options: [
+      "The extreme distribution may shift systematically (e.g. with warming) and a stationary fit would misrepresent risk",
+      "The series is guaranteed white noise",
+      "Only matching scores are needed",
+      "Return periods must be integer decades"
+    ],
+    correctAnswer: 0,
+    explanation: "Non-stationary EVT lets location (and sometimes scale/shape) depend on covariates so that return levels can evolve with climate.",
+    sourceCitation: "CGEI curriculum Unit 2.7",
+    lessonId: "cgei-cl-lesson-2-7-3",
+    objectiveIds: ["cgei-cl-o-27-extend"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-27-005",
+    sectionId: "CGEI-027",
+    topicId: "cgei-extreme-value-statistics",
+    difficulty: "medium",
+    type: "single",
+    question: "When communicating a 50-year flood peak to a planner, which metadata set is most responsible?",
+    options: [
+      "Series length, block/threshold choice, stationarity assumption, and uncertainty on the return level",
+      "Only the single point estimate with no context",
+      "A colour map without units",
+      "The claim that the event cannot occur before year 50"
+    ],
+    correctAnswer: 0,
+    explanation: "Design-relevant communication requires record length, event definition, stationarity note, and uncertainty — not a bare number treated as a calendar schedule.",
+    sourceCitation: "CGEI curriculum Unit 2.7",
+    lessonId: "cgei-cl-lesson-2-7-4",
+    objectiveIds: ["cgei-cl-o-27-apply"],
+    cognitiveLevel: "evaluate"
+  },
+
+  // ── Unit 2.9 — Climate models and projections ────────────────────────────
+  {
+    id: "cgei-cl-q-29-001",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "easy",
+    type: "single",
+    question: "Relative to a GCM, a regional climate model (RCM) typically:",
+    options: [
+      "Runs over a limited domain at higher resolution, nested in large-scale boundary conditions from a GCM or reanalysis",
+      "Replaces all observations worldwide",
+      "Has no parameterisations",
+      "Is identical to a weather forecast for tomorrow only"
+    ],
+    correctAnswer: 0,
+    explanation: "RCMs dynamically downscale over a regional domain; they inherit large-scale driving conditions and add regional detail at higher cost.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-1",
+    objectiveIds: ["cgei-cl-o-29-hierarchy"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-29-002",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "medium",
+    type: "single",
+    question: "SSP scenarios in CMIP6 are best described as:",
+    options: [
+      "Storylines of socioeconomic development paired with radiative forcing pathways — not historical reanalysis",
+      "Identical copies of ERA5",
+      "Rain-gauge networks",
+      "Guaranteed forecasts of the exact year 2050 weather"
+    ],
+    correctAnswer: 0,
+    explanation: "SSPs combine socioeconomic pathways with forcing levels; projections are conditional scenario statements, not initialised forecasts of the real future year-by-year sequence.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-2",
+    objectiveIds: ["cgei-cl-o-29-scenarios"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-29-003",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "medium",
+    type: "single",
+    question: "Evaluating a climate model only on the global mean temperature and ignoring regional monsoon timing is incomplete because:",
+    options: [
+      "Process-based and regional metrics (seasonal cycle, extremes, spatial pattern) can reveal compensating errors that a global mean hides",
+      "Regional metrics are illegal in CMIP",
+      "Only global means matter for every decision",
+      "Monsoon timing is not a climate variable"
+    ],
+    correctAnswer: 0,
+    explanation: "AR6-style evaluation uses multiple facets: mean, seasonal cycle, variability, trends, extremes, and processes — not a single scalar.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-3",
+    objectiveIds: ["cgei-cl-o-29-evaluation"],
+    cognitiveLevel: "analyze"
+  },
+  {
+    id: "cgei-cl-q-29-004",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "medium",
+    type: "single",
+    question: "Quantile mapping bias adjustment mainly assumes that:",
+    options: [
+      "The historical model-to-observation relationship remains valid under future climate — an assumption that cannot be verified for the future itself",
+      "Models have zero bias forever",
+      "Only the mean matters and tails are irrelevant",
+      "Observations will be replaced by the model"
+    ],
+    correctAnswer: 0,
+    explanation: "Bias adjustment transfers a fitted correction; stationarity of the correction under climate change is an assumption, and extremes are especially sensitive to artefacts.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-4",
+    objectiveIds: ["cgei-cl-o-29-bias-adjust"],
+    cognitiveLevel: "analyze"
+  },
+  {
+    id: "cgei-cl-q-29-005",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "medium",
+    type: "single",
+    question: "Statistical downscaling differs from dynamical downscaling primarily in that it:",
+    options: [
+      "Learns empirical links from large-scale predictors to local predictands, at lower cost but with transfer/stationarity assumptions",
+      "Always resolves convection explicitly at 1 km globally",
+      "Requires no observational training data",
+      "Eliminates all uncertainty"
+    ],
+    correctAnswer: 0,
+    explanation: "Statistical (and ML) methods are data-driven and cheap relative to nested RCMs, but inherit stationarity and training-coverage limits.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-5",
+    objectiveIds: ["cgei-cl-o-29-downscale"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-29-006",
+    sectionId: "CGEI-029",
+    topicId: "cgei-climate-models-projections",
+    difficulty: "medium",
+    type: "single",
+    question: "Projection uncertainty is usefully decomposed into:",
+    options: [
+      "Scenario, model structural, internal variability, and observational sources — with relative weights depending on lead time and scale",
+      "Only coding bugs",
+      "A single number that never changes",
+      "Weather forecast initial-condition error alone"
+    ],
+    correctAnswer: 0,
+    explanation: "Near-term local scales often emphasise internal variability; long-term global means emphasise scenario and model differences.",
+    sourceCitation: "CGEI curriculum Unit 2.9",
+    lessonId: "cgei-cl-lesson-2-9-6",
+    objectiveIds: ["cgei-cl-o-29-use"],
+    cognitiveLevel: "understand"
+  },
+
+  // ── Unit 2.10 — Regional projection products ──────────────────────────────
+  {
+    id: "cgei-cl-q-210-001",
+    sectionId: "CGEI-0210",
+    topicId: "cgei-regional-projection-products",
+    difficulty: "medium",
+    type: "single",
+    question: "CORDEX South Asia and NEX-GDDP-CMIP6 differ mainly in that:",
+    options: [
+      "CORDEX is dynamical RCM downscaling over a regional domain; NEX-GDDP is statistical (BCSD-type) downscaling of GCMs on a global ~0.25° grid",
+      "Both are pure station networks",
+      "NEX-GDDP is only for paleoclimate",
+      "CORDEX has no precipitation variable"
+    ],
+    correctAnswer: 0,
+    explanation: "Product families differ in method, domain, variables, ensemble size and licence — choose by fitness for purpose.",
+    sourceCitation: "CGEI curriculum Unit 2.10",
+    lessonId: "cgei-cl-lesson-2-10-1",
+    objectiveIds: ["cgei-cl-o-210-families"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-210-002",
+    sectionId: "CGEI-0210",
+    topicId: "cgei-regional-projection-products",
+    difficulty: "medium",
+    type: "single",
+    question: "When selecting models for a regional application, best practice is to:",
+    options: [
+      "Document exclusions and reasons, report ensemble range and agreement, and avoid a bare multi-model mean as the only number",
+      "Always average every available model without evaluation",
+      "Pick only the hottest model",
+      "Omit provenance from the manifest"
+    ],
+    correctAnswer: 0,
+    explanation: "Screening by regional evaluation, documenting exclusions, and showing spread/agreement beats an unexamined mean.",
+    sourceCitation: "CGEI curriculum Unit 2.10",
+    lessonId: "cgei-cl-lesson-2-10-2",
+    objectiveIds: ["cgei-cl-o-210-select"],
+    cognitiveLevel: "evaluate"
+  },
+  {
+    id: "cgei-cl-q-210-003",
+    sectionId: "CGEI-0210",
+    topicId: "cgei-regional-projection-products",
+    difficulty: "easy",
+    type: "true_false",
+    question: "CMIP7 scenario names, forcing datasets and data-request tables should be treated as fixed forever based on CMIP6 conventions.",
+    options: ["True", "False"],
+    correctAnswer: 1,
+    explanation: "CMIP7/AR7 transition implies new conventions; design code to be model- and scenario-agnostic and verify current documentation for time-sensitive details.",
+    sourceCitation: "CGEI curriculum Unit 2.10",
+    lessonId: "cgei-cl-lesson-2-10-3",
+    objectiveIds: ["cgei-cl-o-210-cmip7"],
+    cognitiveLevel: "understand"
+  },
+
+  // ── Unit 2.11 — Detection and attribution ─────────────────────────────────
+  {
+    id: "cgei-cl-q-211-001",
+    sectionId: "CGEI-0211",
+    topicId: "cgei-detection-attribution",
+    difficulty: "medium",
+    type: "single",
+    question: "Detection asks whether an observed change is unusual relative to internal variability; attribution additionally:",
+    options: [
+      "Assigns that change, wholly or in part, to specific causes (e.g. anthropogenic forcing) using fingerprint or factual/counterfactual framing",
+      "Only plots the raw series",
+      "Requires no models",
+      "Is identical to a single weather forecast verification"
+    ],
+    correctAnswer: 0,
+    explanation: "Detection is signal-vs-noise; attribution links the signal to causes. A single observed record alone cannot separate forced response from internal variability.",
+    sourceCitation: "CGEI curriculum Unit 2.11",
+    lessonId: "cgei-cl-lesson-2-11-1",
+    objectiveIds: ["cgei-cl-o-211-concepts"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-211-002",
+    sectionId: "CGEI-0211",
+    topicId: "cgei-detection-attribution",
+    difficulty: "medium",
+    type: "single",
+    question: "In a probabilistic event-attribution study, fraction of attributable risk (FAR) = 1 − p0/p1 when p1 > 0. If p1 = 0.015 and p0 = 0.003, FAR is:",
+    options: ["0.8", "5", "0.015", "0"],
+    correctAnswer: 0,
+    explanation: "FAR = 1 − 0.003/0.015 = 0.8. Probability ratio PR = p1/p0 = 5. Both are ensemble- and definition-dependent.",
+    sourceCitation: "CGEI curriculum Unit 2.11",
+    lessonId: "cgei-cl-lesson-2-11-2",
+    objectiveIds: ["cgei-cl-o-211-event"],
+    cognitiveLevel: "apply"
+  },
+  {
+    id: "cgei-cl-q-211-003",
+    sectionId: "CGEI-0211",
+    topicId: "cgei-detection-attribution",
+    difficulty: "medium",
+    type: "single",
+    question: "Heat attribution is generally more robust than convective rainfall or drought attribution mainly because:",
+    options: [
+      "Heat links more directly to well-modelled thermodynamic greenhouse warming, whereas rainfall extremes and drought depend more on circulation and multi-causal drivers",
+      "Rainfall is never observed",
+      "Drought has no definition",
+      "Models cannot simulate temperature"
+    ],
+    correctAnswer: 0,
+    explanation: "Thermodynamic heat signals have higher signal-to-noise in many settings; convective scales, compounds and data-poor regions weaken attribution confidence.",
+    sourceCitation: "CGEI curriculum Unit 2.11",
+    lessonId: "cgei-cl-lesson-2-11-3",
+    objectiveIds: ["cgei-cl-o-211-limits"],
+    cognitiveLevel: "analyze"
+  },
+
+  // ── Unit 2.12 — ML, AI forecasts, services, digital twins ─────────────────
+  {
+    id: "cgei-cl-q-212-001",
+    sectionId: "CGEI-0212",
+    topicId: "cgei-ml-ai-climate-services",
+    difficulty: "medium",
+    type: "single",
+    question: "Before claiming that an ML downscaler is skillful, you must:",
+    options: [
+      "Beat named statistical baselines (e.g. delta change, quantile mapping, regression) on an independent-period hold-out, and report skill relative to the strongest baseline",
+      "Only show training-set accuracy",
+      "Compare solely against the weakest baseline",
+      "Skip spatial or temporal hold-out"
+    ],
+    correctAnswer: 0,
+    explanation: "Honest ML evaluation requires classical baselines and proper hold-out; improvement vs the weakest baseline is misleading.",
+    sourceCitation: "CGEI curriculum Unit 2.12",
+    lessonId: "cgei-cl-lesson-2-12-1",
+    objectiveIds: ["cgei-cl-o-212-ml"],
+    cognitiveLevel: "evaluate"
+  },
+  {
+    id: "cgei-cl-q-212-002",
+    sectionId: "CGEI-0212",
+    topicId: "cgei-ml-ai-climate-services",
+    difficulty: "medium",
+    type: "single",
+    question: "Brier Skill Score (BSS) relative to climatology is preferred over a raw Brier score for rare events because:",
+    options: [
+      "Raw Brier can look favourable for unhelpful forecasts when base-rate uncertainty is small; BSS measures improvement over climatology",
+      "Brier scores are illegal for rare events",
+      "Climatology has infinite skill",
+      "BSS ignores reliability"
+    ],
+    correctAnswer: 0,
+    explanation: "For rare events, report skill relative to a climatological reference and inspect reliability/sharpness diagnostics.",
+    sourceCitation: "CGEI curriculum Unit 2.12",
+    lessonId: "cgei-cl-lesson-2-12-2",
+    objectiveIds: ["cgei-cl-o-212-prob"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-212-003",
+    sectionId: "CGEI-0212",
+    topicId: "cgei-ml-ai-climate-services",
+    difficulty: "medium",
+    type: "single",
+    question: "Using an open operational AI forecast (e.g. ECMWF AIFS) for a Multan case study first requires:",
+    options: [
+      "Station-based verification and local post-processing (bias correction) before treating grid-point output as local truth",
+      "Accepting raw grid values without any check",
+      "Ignoring uncertainty",
+      "Assuming zero bias everywhere"
+    ],
+    correctAnswer: 0,
+    explanation: "AI forecasts still carry local bias; verify against stations and apply post-processing as with classical NWP.",
+    sourceCitation: "CGEI curriculum Unit 2.12",
+    lessonId: "cgei-cl-lesson-2-12-3",
+    objectiveIds: ["cgei-cl-o-212-ai-forecast"],
+    cognitiveLevel: "apply"
+  },
+  {
+    id: "cgei-cl-q-212-004",
+    sectionId: "CGEI-0212",
+    topicId: "cgei-ml-ai-climate-services",
+    difficulty: "easy",
+    type: "single",
+    question: "A climate service is characterised by users, decisions, timescale, format, provenance, trust requirements and:",
+    options: [
+      "Update cadence",
+      "Favourite map projection only",
+      "Absence of any verification",
+      "Mandatory deterministic single maps only"
+    ],
+    correctAnswer: 0,
+    explanation: "Update cadence closes the seven design dimensions; co-production aligns these with real decisions (e.g. SASCOF + national tailoring).",
+    sourceCitation: "CGEI curriculum Unit 2.12",
+    lessonId: "cgei-cl-lesson-2-12-4",
+    objectiveIds: ["cgei-cl-o-212-services"],
+    cognitiveLevel: "remember"
+  },
+  {
+    id: "cgei-cl-q-212-005",
+    sectionId: "CGEI-0212",
+    topicId: "cgei-ml-ai-climate-services",
+    difficulty: "medium",
+    type: "single",
+    question: "Kilometre-scale digital-twin style models primarily add value by:",
+    options: [
+      "Resolving convection-permitting and fine orographic/urban detail that coarse grids smooth away — at large data-volume and access cost",
+      "Eliminating the need for observations",
+      "Making bulk download of global hourly fields trivial for every user",
+      "Removing all uncertainty"
+    ],
+    correctAnswer: 0,
+    explanation: "Resolution gains are real for some processes; users face data-volume constraints and must record subset/query parameters for reproducibility.",
+    sourceCitation: "CGEI curriculum Unit 2.12",
+    lessonId: "cgei-cl-lesson-2-12-5",
+    objectiveIds: ["cgei-cl-o-212-digital-twin"],
+    cognitiveLevel: "understand"
+  },
+
+  // ── Unit 2.13 — S2S prediction and verification ───────────────────────────
+  {
+    id: "cgei-cl-q-213-001",
+    sectionId: "CGEI-0213",
+    topicId: "cgei-s2s-prediction",
+    difficulty: "medium",
+    type: "single",
+    question: "Hindcasts in seasonal prediction systems are primarily used to:",
+    options: [
+      "Build a reference distribution for calibration so that raw ensemble frequencies become usable probabilities",
+      "Replace all observations",
+      "Guarantee perfect local rainfall forecasts at week 6",
+      "Remove the need to state lead time"
+    ],
+    correctAnswer: 0,
+    explanation: "Without hindcast-based calibration, ensemble spread is not a calibrated probability. Always state the centre’s lead-time convention.",
+    sourceCitation: "CGEI curriculum Unit 2.13",
+    lessonId: "cgei-cl-lesson-2-13-1",
+    objectiveIds: ["cgei-cl-o-213-systems"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-213-002",
+    sectionId: "CGEI-0213",
+    topicId: "cgei-s2s-prediction",
+    difficulty: "medium",
+    type: "single",
+    question: "South Asian monsoon rainfall seasonal skill is typically:",
+    options: [
+      "Modest relative to temperature skill, and strongly region-, season- and variable-dependent — evaluate locally before decision use",
+      "Perfect at all leads for every district",
+      "Irrelevant to tercile outlooks",
+      "Identical to medium-range weather skill"
+    ],
+    correctAnswer: 0,
+    explanation: "RPSS/ROC and related metrics vary by region and variable; monsoon rainfall skill is often modest compared with temperature.",
+    sourceCitation: "CGEI curriculum Unit 2.13",
+    lessonId: "cgei-cl-lesson-2-13-2",
+    objectiveIds: ["cgei-cl-o-213-skill"],
+    cognitiveLevel: "understand"
+  },
+  {
+    id: "cgei-cl-q-213-003",
+    sectionId: "CGEI-0213",
+    topicId: "cgei-s2s-prediction",
+    difficulty: "medium",
+    type: "single",
+    question: "In cost-loss decision theory, act when forecast probability p exceeds:",
+    options: [
+      "The cost-loss ratio C/L (decision-specific threshold, not a universal 50%)",
+      "Always 0.99 regardless of costs",
+      "Zero only",
+      "The climatological mean temperature"
+    ],
+    correctAnswer: 0,
+    explanation: "The rational threshold is C/L. Communicate full tercile probabilities and state when the forecast does not flip the optimal action relative to climatology.",
+    sourceCitation: "CGEI curriculum Unit 2.13",
+    lessonId: "cgei-cl-lesson-2-13-3",
+    objectiveIds: ["cgei-cl-o-213-decisions"],
+    cognitiveLevel: "apply"
   }
 
 ];
@@ -1674,6 +2180,378 @@ export const topics: Topic[] = [
     relatedTopics: ["cgei-climate-data-products", "cgei-time-units-daily"],
     content: true,
     buildsOn: ["cgei-climate-data-products", "cgei-time-units-daily"],
+    leadsTo: ["cgei-extreme-value-statistics", "cgei-regional-climate-literacy"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.1 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-weather-climate-baselines",
+    sectionId: "CGEI-021",
+    order: 1,
+    title: "Weather, climate and baselines",
+    definition:
+      "Weather is the short-term atmospheric state; climate is the statistics of weather over a stated period and domain. Normals (baselines), anomalies, and careful language separate description from attribution.",
+    keyFacts: [
+      "Weather ≠ climate distribution",
+      "Anomaly = observation − stated baseline normal",
+      "WMO standard normal periods (e.g. 1991–2020); older series often use 1961–1990",
+      "One extreme month does not falsify a multi-decadal trend",
+      "Missing values must not be replaced by zero in means",
+    ],
+    explanationSections: [
+      {
+        heading: "Baseline discipline",
+        body: "Every anomaly and percentile threshold inherits its baseline period. Changing 1961–1990 to 1991–2020 changes numerical anomalies without changing the raw observations. Report baseline, domain, units and statistic with every claim.",
+      },
+    ],
+    examPoints: [
+      "Anomaly requires explicit baseline",
+      "Cold month ≠ climate disproof",
+      "Do not fill missing with 0°C",
+    ],
+    commonMistakes: [
+      "Publishing anomalies without baseline period",
+      "Treating weather extremes as climate attribution",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-time-units-daily", "cgei-extremes-and-trend-analysis"],
+    content: true,
+    buildsOn: [],
+    leadsTo: ["cgei-climate-system-processes", "cgei-extremes-and-trend-analysis"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.2 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-climate-system-processes",
+    sectionId: "CGEI-022",
+    order: 1,
+    title: "Climate system processes",
+    definition:
+      "Planetary energy budget, greenhouse teaching model, surface energy balance, feedbacks, South Asian monsoon and western disturbances, and urban heat-island definitions.",
+    keyFacts: [
+      "One-layer model: Ts ≈ Te × 2^{1/4}",
+      "Surface budget: state the sign convention for Q_H and Q_E",
+      "AR6 ECS likely ~2.5–4 °C; TCR ~1.4–2.2 °C",
+      "Western disturbances: winter precip over northern Pakistan",
+      "Surface UHI (LST) ≠ canopy-layer UHI (air temperature)",
+    ],
+    explanationSections: [
+      {
+        heading: "Energy and regional processes",
+        body: "Greenhouse gases redistribute infrared fluxes; latent heat changes the residual for sensible heat and storage. Regional narratives for Pakistan must separate monsoon moisture pathways from western-disturbance winter systems and name irrigation/dust as surface modifiers.",
+      },
+    ],
+    examPoints: [
+      "Ts = Te × 2^{1/4} in the one-layer model",
+      "ECS is a range, not a single truth",
+      "Canopy UHI uses air temperature vs rural reference",
+    ],
+    commonMistakes: [
+      "Treating urban heat as pure greenhouse forcing",
+      "Equating LST-based SUHI with personal heat exposure",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-weather-climate-baselines", "cgei-atmospheric-thermo-dynamics"],
+    content: true,
+    buildsOn: ["cgei-weather-climate-baselines"],
+    leadsTo: ["cgei-atmospheric-thermo-dynamics", "cgei-regional-climate-literacy"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.3 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-atmospheric-thermo-dynamics",
+    sectionId: "CGEI-023",
+    order: 1,
+    title: "Atmospheric thermodynamics, dynamics and PBL",
+    definition:
+      "Humidity variables, Clausius–Clapeyron scaling, boundary-layer evolution, and NWP/ensemble literacy for interpreting humid heat and precipitation risk.",
+    keyFacts: [
+      "CC scaling ≈ 6–7% K⁻¹ for saturation vapour pressure near surface temperatures",
+      "Wet-bulb temperature reflects evaporative cooling to saturation",
+      "Urban nocturnal warmth: storage, geometry, stability",
+      "Ensemble spread ≠ automatically calibrated probability",
+    ],
+    explanationSections: [
+      {
+        heading: "Moisture and models",
+        body: "CC governs moisture capacity, not automatic rainfall totals. NWP parameterises sub-grid processes; high resolution is not guaranteed skill. Use ensembles and verification language.",
+      },
+    ],
+    examPoints: [
+      "CC ≈ 7%/K for e_sat, not guaranteed rain totals",
+      "Tw is humid-heat relevant",
+      "Ensemble spread needs calibration/verification",
+    ],
+    commonMistakes: [
+      "Reading RH fall as absolute drying under warming",
+      "Treating one deterministic NWP run as climate truth",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-climate-system-processes", "cgei-extremes-and-trend-analysis"],
+    content: true,
+    buildsOn: ["cgei-climate-system-processes"],
+    leadsTo: ["cgei-extremes-and-trend-analysis"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.7 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-extreme-value-statistics",
+    sectionId: "CGEI-027",
+    order: 1,
+    title: "Extreme value statistics and return levels",
+    definition:
+      "GEV for block maxima, GPD for peaks-over-threshold, return levels with uncertainty, declustering, and non-stationary extensions — communicated without treating return periods as fixed calendars.",
+    keyFacts: [
+      "GEV = limit of block maxima; GPD = limit of peaks-over-threshold",
+      "Return period is mean recurrence under assumptions, not a schedule",
+      "Declustering and extremal index address dependence of exceedances",
+      "Far extrapolation needs diagnostics and sample-size honesty",
+    ],
+    explanationSections: [
+      {
+        heading: "Inference limits",
+        body: "Small samples and nonstationarity limit how far return levels can be pushed. Report series length, event definition, method, and intervals.",
+      },
+    ],
+    examPoints: [
+      "GEV vs GPD framing",
+      "Return period ≠ calendar schedule",
+      "State extrapolation limits",
+    ],
+    commonMistakes: [
+      "Publishing 1000-year levels from short records without intervals",
+      "Ignoring clustering of exceedances",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-extremes-and-trend-analysis"],
+    content: true,
+    buildsOn: ["cgei-extremes-and-trend-analysis"],
+    leadsTo: ["cgei-detection-attribution"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.8 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-regional-climate-literacy",
+    sectionId: "CGEI-028",
+    order: 1,
+    title: "Regional climate literacy (Pakistan / southern Punjab)",
+    definition:
+      "Local season definitions, Multan land–climate setting (arid plain, irrigation, heat/dust/fog/smog), and disciplined use of national data institutions and evidence types.",
+    keyFacts: [
+      "Justify season bins (PMD-style vs default JJA)",
+      "ENSO/IOD are context, not one-line local causes",
+      "Station ≠ grid-cell support",
+      "Document access limits; do not invent restricted series",
+    ],
+    explanationSections: [
+      {
+        heading: "Evidence classes",
+        body: "Keep synthetic fixtures, observed series, and assessed IPCC-style statements in separate evidence classes. Multan analyses need explicit baseline, season and product.",
+      },
+    ],
+    examPoints: [
+      "Declare season definition",
+      "Point vs grid support",
+      "No fabricated station numbers",
+    ],
+    commonMistakes: [
+      "National generalisations forced onto Multan without local seasonality",
+      "Treating teleconnection phase as deterministic local weather",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-weather-climate-baselines", "cgei-climate-data-products"],
+    content: true,
+    buildsOn: ["cgei-weather-climate-baselines", "cgei-climate-data-products"],
+    leadsTo: ["cgei-climate-models-projections"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.9 ──────────────────────────────────────────────────────────────
+  {
+    id: "cgei-climate-models-projections",
+    sectionId: "CGEI-029",
+    order: 1,
+    title: "Climate models and projections",
+    definition:
+      "GCM/ESM/RCM hierarchy, SSP scenarios, evaluation, bias adjustment, downscaling, and responsible use of projections versus forecasts.",
+    keyFacts: [
+      "RCM: limited domain, higher resolution, driven by GCM/reanalysis boundaries",
+      "SSPs are scenario storylines, not reanalysis",
+      "Evaluate mean, seasonal cycle, extremes, processes — not only global mean",
+      "Bias adjustment assumes transferable corrections",
+      "Uncertainty: scenario + model + internal variability (+ observational)",
+    ],
+    explanationSections: [
+      {
+        heading: "Responsible use",
+        body: "Projections are conditional. Prefer baselines/anomalies, warming levels, and ensemble ranges. Do not treat bias-adjusted output as observation.",
+      },
+    ],
+    examPoints: [
+      "Projection ≠ weather forecast",
+      "Bias adjustment stationarity is an assumption",
+      "Report ensemble range, not only the mean",
+    ],
+    commonMistakes: [
+      "Counting models instead of evaluating them",
+      "Equating adjusted fields with gauges",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-climate-data-products", "cgei-regional-projection-products"],
+    content: true,
+    buildsOn: ["cgei-climate-system-processes", "cgei-extremes-and-trend-analysis"],
+    leadsTo: ["cgei-regional-projection-products", "cgei-detection-attribution"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.10 ─────────────────────────────────────────────────────────────
+  {
+    id: "cgei-regional-projection-products",
+    sectionId: "CGEI-0210",
+    order: 1,
+    title: "Regional projection products and CMIP7 awareness",
+    definition:
+      "CORDEX, NEX-GDDP, ISIMIP, WorldClim/CHELSA families; model selection manifests; planning for CMIP7/AR7 convention changes.",
+    keyFacts: [
+      "CORDEX: dynamical RCM; NEX-GDDP: statistical BCSD-type global 0.25°",
+      "Document exclusions and provenance",
+      "Report range and agreement, not bare mean",
+      "CMIP7 conventions may change — keep code scenario-agnostic",
+    ],
+    explanationSections: [
+      {
+        heading: "Fitness for purpose",
+        body: "Choose product family by method, variables, ensemble, licence and regional evaluation — then write a manifest.",
+      },
+    ],
+    examPoints: [
+      "CORDEX vs NEX-GDDP method difference",
+      "Manifest fields for every dataset",
+      "Verify CMIP7 details before citing unavailable products",
+    ],
+    commonMistakes: [
+      "Citing CMIP7 products not yet available for the variable/region",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-climate-models-projections"],
+    content: true,
+    buildsOn: ["cgei-climate-models-projections"],
+    leadsTo: [],
+    usedIn: [],
+  },
+
+  // ── Unit 2.11 ─────────────────────────────────────────────────────────────
+  {
+    id: "cgei-detection-attribution",
+    sectionId: "CGEI-0211",
+    order: 1,
+    title: "Detection, attribution and event interpretation",
+    definition:
+      "Signal/noise/fingerprint detection vs causal attribution; probabilistic event attribution (PR, FAR); limits for rainfall, compounds and data-poor regions.",
+    keyFacts: [
+      "Detection ≠ attribution",
+      "Single observed record mixes forced response and internal variability",
+      "FAR = 1 − p0/p1; PR = p1/p0",
+      "Heat attribution generally stronger than convective rain or drought",
+      "Use IPCC calibrated likelihood language with explicit event definition",
+    ],
+    explanationSections: [
+      {
+        heading: "Communication",
+        body: "State the event definition beside every number. Do not equate trend detection with single-event causation.",
+      },
+    ],
+    examPoints: [
+      "Detection vs attribution",
+      "FAR/PR definitions",
+      "Heat vs rainfall attribution robustness",
+    ],
+    commonMistakes: [
+      "“This heatwave was caused by climate change” without probabilistic framing",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-extremes-and-trend-analysis", "cgei-climate-models-projections"],
+    content: true,
+    buildsOn: ["cgei-extremes-and-trend-analysis", "cgei-climate-models-projections"],
+    leadsTo: [],
+    usedIn: [],
+  },
+
+  // ── Unit 2.12 ─────────────────────────────────────────────────────────────
+  {
+    id: "cgei-ml-ai-climate-services",
+    sectionId: "CGEI-0212",
+    order: 1,
+    title: "ML, open AI forecasts, climate services and digital twins",
+    definition:
+      "Evaluate ML against statistical baselines; probabilistic skill (BSS, reliability); post-process open AI forecasts; design climate services; recognise km-scale data costs.",
+    keyFacts: [
+      "ML must beat delta/QM/regression on hold-out",
+      "BSS vs climatology for rare events",
+      "AI forecasts need station verification and bias correction",
+      "Climate service: users, decisions, timescale, format, provenance, trust, cadence",
+      "Km-scale resolves convection/orography at high data volume",
+    ],
+    explanationSections: [
+      {
+        heading: "Honest innovation",
+        body: "New methods add value only under baselines and verification. Co-produced services beat supply-driven maps for decisions.",
+      },
+    ],
+    examPoints: [
+      "Baselines before ML claims",
+      "Seven service dimensions",
+      "Post-process AI forecasts locally",
+    ],
+    commonMistakes: [
+      "Deploying ML downscaling without a simple baseline or spatial hold-out",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-climate-models-projections", "cgei-s2s-prediction"],
+    content: true,
+    buildsOn: ["cgei-climate-models-projections"],
+    leadsTo: ["cgei-s2s-prediction"],
+    usedIn: [],
+  },
+
+  // ── Unit 2.13 ─────────────────────────────────────────────────────────────
+  {
+    id: "cgei-s2s-prediction",
+    sectionId: "CGEI-0213",
+    order: 1,
+    title: "Seasonal-to-subseasonal prediction and verification",
+    definition:
+      "Seasonal multi-model systems, hindcast calibration, tercile skill (RPSS, ROC), and cost-loss decision use without false certainty.",
+    keyFacts: [
+      "Hindcasts enable calibration of ensemble probabilities",
+      "Lead-time conventions differ by centre — state them",
+      "Monsoon rainfall skill often modest vs temperature",
+      "Act when p > C/L in cost-loss reasoning",
+      "Quote all tercile probabilities, not only the mode",
+    ],
+    explanationSections: [
+      {
+        heading: "Decision alignment",
+        body: "Match decision lead to documented skill. Prefer probabilistic thresholds. Record product version and issue time.",
+      },
+    ],
+    examPoints: [
+      "Hindcast role in calibration",
+      "RPSS / region–season dependence",
+      "Cost-loss threshold = C/L",
+    ],
+    commonMistakes: [
+      "Using S2S as a deterministic weather forecast beyond skill horizon",
+    ],
+    subtopics: [],
+    relatedTopics: ["cgei-ml-ai-climate-services", "cgei-weather-climate-baselines"],
+    content: true,
+    buildsOn: ["cgei-weather-climate-baselines", "cgei-extremes-and-trend-analysis"],
     leadsTo: [],
     usedIn: [],
   },
