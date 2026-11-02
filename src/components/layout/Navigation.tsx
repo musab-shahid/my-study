@@ -60,7 +60,7 @@ export function Sidebar() {
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
               ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/25'
-              : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              : 'text-white/80 hover:text-white hover:bg-slate-800'
           }`}
         >
           <Home className="w-5 h-5 shrink-0" />
@@ -68,7 +68,7 @@ export function Sidebar() {
         </button>
         {/* My Tracks — enrolled only */}
         {enrolledIds.length > 0 && (
-          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-slate-300">
+          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-white/80">
             My Tracks
           </p>
         )}
@@ -99,7 +99,7 @@ export function Sidebar() {
                 className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium transition-all duration-DEFAULT border-l-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                   isTrackRouteActive
                     ? `${styles.activeBorder} text-white bg-slate-800`
-                    : 'border-transparent text-slate-300 hover:text-white hover:bg-slate-800'
+                    : 'border-transparent text-white/80 hover:text-white hover:bg-slate-800'
                 }`}
               >
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
@@ -134,7 +134,7 @@ export function Sidebar() {
                   navigate({ screen, parent: null });
                 }}
                 aria-current={active ? 'page' : undefined}
-                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-btn text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${active ? 'bg-brand-700 text-white' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-btn text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${active ? 'bg-brand-700 text-white' : 'text-white/80 hover:text-white hover:bg-slate-800'}`}
               >
                 <Icon className="w-5 h-5 shrink-0" aria-hidden />
                 {label}
@@ -145,7 +145,7 @@ export function Sidebar() {
 
         {/* Explore Tracks — not yet enrolled */}
         {exploreIds.length > 0 && (
-          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-slate-300">
+          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-white/80">
             Explore · not started
           </p>
         )}
@@ -164,18 +164,18 @@ export function Sidebar() {
               className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium border-l-2 mb-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                 active
                   ? `${styles.activeBorder} text-white ${styles.activeBg}`
-                  : 'border-transparent text-slate-300 hover:text-white hover:bg-slate-800'
+                  : 'border-transparent text-white/80 hover:text-white hover:bg-slate-800'
               }`}
             >
               <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
               <span className="flex-1 text-left">{track.title}</span>
-              <span className={`text-label ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
+              <span className={`text-label ${active ? styles.iconColor : 'text-white/70'}`}>Preview</span>
             </button>
           );
         })}
 
         {/* Tools header */}
-        <p className="text-slate-500 text-xs font-medium uppercase tracking-wide px-4 py-2 mt-3">Tools</p>
+        <p className="text-white/70 text-xs font-medium uppercase tracking-wide px-4 py-2 mt-3">Tools</p>
         <div className="space-y-0.5">
           <button
             onClick={() => { setActiveSubjectForScreen('search', 'all'); navigate({ screen: 'search', parent: null }); }}
@@ -183,7 +183,7 @@ export function Sidebar() {
             className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
               currentScreen === 'search'
                 ? 'text-white bg-slate-800'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800'
+                : 'text-white/80 hover:text-white hover:bg-slate-800'
             }`}
           >
             <Search className="w-5 h-5 shrink-0" />
@@ -192,7 +192,7 @@ export function Sidebar() {
           <button
             onClick={() => navigate({ screen: 'formulas', parent: null })}
             aria-current={currentScreen === 'formulas' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${currentScreen === 'formulas' ? 'text-white bg-slate-800' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
+            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${currentScreen === 'formulas' ? 'text-white bg-slate-800' : 'text-white/80 hover:text-white hover:bg-slate-800'}`}
           >
             <FEATURE_ICONS.formulas className="w-5 h-5 shrink-0" aria-hidden />
             Formulas
@@ -208,7 +208,7 @@ export function Sidebar() {
           className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'settings'
               ? 'text-white bg-slate-800'
-              : 'text-slate-300 hover:text-white hover:bg-slate-800'
+              : 'text-white/80 hover:text-white hover:bg-slate-800'
           }`}
         >
           <SettingsIcon className="w-5 h-5 shrink-0" />
@@ -256,7 +256,7 @@ export function MobileNav() {
     { icon: FEATURE_ICONS.home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },
     { icon: FEATURE_ICONS.learn, label: 'Learn', screen: 'learn' as ScreenName, onClick: () => goToStage('learn') },
     { icon: FEATURE_ICONS.practice, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
-    { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as ScreenName, onClick: () => goToStage('review') },
+    { icon: FEATURE_ICONS.review, label: 'Revision queue', screen: 'review' as ScreenName, onClick: () => goToStage('review') },
     { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as ScreenName, onClick: () => goToStage('progress') },
   ];
   const reviewDue = (() => {
@@ -296,7 +296,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-                  active ? activeColor : 'text-slate-300 hover:text-white'
+                  active ? activeColor : 'text-white/80 hover:text-white'
                 }`}
               >
                 {active && (
@@ -320,7 +320,7 @@ export function MobileNav() {
             aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-              moreActive ? 'text-brand-400' : 'text-slate-300 hover:text-white'
+              moreActive ? 'text-brand-400' : 'text-white/80 hover:text-white'
             }`}
           >
             {moreActive && (
