@@ -138,10 +138,11 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
     await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
-    await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
     await expect(page.getByText('Supporting materials', { exact: true })).toBeVisible();
     const supporting = page.locator('details').filter({ hasText: 'Supporting materials' });
     await expect(supporting).not.toHaveAttribute('open', '');
+    await supporting.locator('summary').click();
+    await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
     await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
