@@ -52,7 +52,8 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
     await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(13);
     await expect(page.getByText(/Canonical curriculum · subject readiness:/).first()).toBeVisible();
-    await expect(page.getByText('Orientation only', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Orientation only', { exact: true })).toHaveCount(0);
+    await expect(page.getByText('Optional Advanced Environmental Branches', { exact: true })).toHaveCount(0);
   });
 
   test('all registered canonical subjects expose their unit hierarchy', async ({ page }) => {
