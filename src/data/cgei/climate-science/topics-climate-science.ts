@@ -18,12 +18,12 @@ export const subject: CurriculumSubject = {
   "id": "cgei-subject-2-climate",
   "subjectId": "cgei-climate-science",
   "title": "Climate Science",
-  "subtitle": "Weather–climate distinction, observations and the statistical language of change",
+  "subtitle": "From weather–climate discipline through observations, extremes, regional literacy, models and S2S decision use",
   "version": 1,
-  "readiness": "draft",
+  "readiness": "review",
   "audience": "Learners who will interpret climate data, extremes and projections for environmental intelligence.",
-  "purpose": "Establish correct weather–climate reasoning, baseline practice and statistical description before regional climate and model products.",
-  "overview": "Units 2.1–2.2 and 2.4–2.6 plus 2.8 cover foundations through regional climate literacy. Units 2.3/2.7 Support not yet implemented. Draft slice only.",
+  "purpose": "Build defensible climate reasoning end-to-end: weather versus climate, energy and regional processes, observations and reproducible data handling, extremes and EVT, Pakistan/southern Punjab literacy, models and projections, detection/attribution limits, and responsible S2S and climate-service use.",
+  "overview": "Units 2.1–2.13 cover weather–climate foundations, energy and regional processes, observations and data handling, extremes and EVT, Pakistan/southern Punjab literacy, models and projections, detection/attribution, emerging ML/AI/services, and S2S prediction. Core priority path: 2.1, 2.2, 2.4–2.6, 2.8. Support: 2.3, 2.7, 2.9, 2.10, 2.12. Optional: 2.11, 2.13. Exit gate: reproducible Multan/southern Punjab climate notebook. Full draft ready for review.",
   "prerequisites": [
     "Unit 1.1 radiation and Earth-system vocabulary"
   ],
@@ -498,9 +498,27 @@ export const subject: CurriculumSubject = {
     "cgei-cl-unit-2-12",
     "cgei-cl-unit-2-13"
   ],
-  "projectIds": [],
-  "resourceIds": [],
-  "estimatedHours": 6
+  "projectIds": [
+    "cgei-cl-proj-exit-notebook"
+  ],
+  "resourceIds": [
+    "cgei-cl-res-ipcc-ar6-wg1",
+    "cgei-cl-res-ipcc-atlas",
+    "cgei-cl-res-era5-cds",
+    "cgei-cl-res-era5-doc",
+    "cgei-cl-res-wmo-normals",
+    "cgei-cl-res-etccdi",
+    "cgei-cl-res-cordex-sa",
+    "cgei-cl-res-nex-gddp",
+    "cgei-cl-res-isimip",
+    "cgei-cl-res-c3s-seasonal",
+    "cgei-cl-res-sascof",
+    "cgei-cl-res-pmd-access",
+    "cgei-cl-res-cf-conventions",
+    "cgei-cl-res-extremes-guidance",
+    "cgei-cl-res-worldclim-chelsa"
+  ],
+  "estimatedHours": 97
 } as const;
 
 export const units: CurriculumUnit[] = [
@@ -563,8 +581,14 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-21-stats",
       "cgei-cl-assess-21-evidence"
     ],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "resourceIds": [
+      "cgei-cl-res-wmo-normals",
+      "cgei-cl-res-ipcc-ar6-wg1"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-baseline-anomaly-brief",
+      "cgei-cl-del-cautious-conclusions"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.1 (Core)",
     "notes": [
       "Core unit per Master TOC priority path.",
@@ -644,7 +668,9 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-22-regional",
       "cgei-cl-assess-22-uhi"
     ],
-    "resourceIds": [],
+    "resourceIds": [
+      "cgei-cl-res-ipcc-ar6-wg1"
+    ],
     "deliverableIds": [],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.2 (Core)",
     "notes": [
@@ -712,7 +738,9 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-23-pbl",
       "cgei-cl-assess-23-nwp"
     ],
-    "resourceIds": [],
+    "resourceIds": [
+      "cgei-cl-res-ipcc-ar6-wg1"
+    ],
     "deliverableIds": [],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.3 (Support)",
     "notes": [
@@ -780,8 +808,15 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-24-products",
       "cgei-cl-assess-24-select"
     ],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "resourceIds": [
+      "cgei-cl-res-era5-cds",
+      "cgei-cl-res-era5-doc",
+      "cgei-cl-res-pmd-access"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-provenance-record",
+      "cgei-cl-del-product-manifest"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.4 (Core)",
     "notes": [
       "Core unit per Master TOC priority path.",
@@ -849,8 +884,17 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-25-aggregate",
       "cgei-cl-assess-25-workflow"
     ],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "resourceIds": [
+      "cgei-cl-res-era5-cds",
+      "cgei-cl-res-era5-doc",
+      "cgei-cl-res-cf-conventions",
+      "cgei-cl-res-wmo-normals"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-provenance-record",
+      "cgei-cl-del-baseline-anomaly-brief",
+      "cgei-cl-del-notebook-repro"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.5 (Core)",
     "notes": [
       "Core unit per Master TOC priority path.",
@@ -918,8 +962,16 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-26-trend",
       "cgei-cl-assess-26-inference"
     ],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "resourceIds": [
+      "cgei-cl-res-etccdi",
+      "cgei-cl-res-extremes-guidance",
+      "cgei-cl-res-era5-cds",
+      "cgei-cl-res-wmo-normals"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-extremes-trend-card",
+      "cgei-cl-del-cautious-conclusions"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.6 (Core)",
     "notes": [
       "Core unit per Master TOC priority path.",
@@ -995,9 +1047,19 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-a-27-extend",
       "cgei-cl-a-27-apply"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-27-theory",
+      "cgei-cl-assess-27-estimate",
+      "cgei-cl-assess-27-extend",
+      "cgei-cl-assess-27-apply"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-etccdi",
+      "cgei-cl-res-extremes-guidance"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-extremes-trend-card"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.7 (Support)",
     "notes": [
       "Support unit per Master TOC priority path.",
@@ -1066,8 +1128,16 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-assess-28-multan",
       "cgei-cl-assess-28-evidence"
     ],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "resourceIds": [
+      "cgei-cl-res-pmd-access",
+      "cgei-cl-res-era5-cds",
+      "cgei-cl-res-sascof"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-regional-literacy-brief",
+      "cgei-cl-del-cautious-conclusions",
+      "cgei-cl-del-notebook-repro"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.8 (Core)",
     "notes": [
       "Core unit per Master TOC priority path.",
@@ -1162,12 +1232,29 @@ export const units: CurriculumUnit[] = [
     ],
     "activityIds": [
       "cgei-cl-a-29-hierarchy",
+      "cgei-cl-a-29-scenarios",
       "cgei-cl-a-29-eval",
-      "cgei-cl-a-29-bias"
+      "cgei-cl-a-29-bias",
+      "cgei-cl-a-29-downscale",
+      "cgei-cl-a-29-use"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-29-hierarchy",
+      "cgei-cl-assess-29-scenarios",
+      "cgei-cl-assess-29-evaluation",
+      "cgei-cl-assess-29-bias",
+      "cgei-cl-assess-29-downscale",
+      "cgei-cl-assess-29-use"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-ipcc-ar6-wg1",
+      "cgei-cl-res-ipcc-atlas",
+      "cgei-cl-res-cordex-sa",
+      "cgei-cl-res-isimip"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-product-manifest"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.9 (Support)",
     "notes": [
       "Support unit per Master TOC priority path.",
@@ -1231,9 +1318,21 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-a-210-select",
       "cgei-cl-a-210-cmip7"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-210-families",
+      "cgei-cl-assess-210-select",
+      "cgei-cl-assess-210-cmip7"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-cordex-sa",
+      "cgei-cl-res-nex-gddp",
+      "cgei-cl-res-isimip",
+      "cgei-cl-res-worldclim-chelsa",
+      "cgei-cl-res-ipcc-atlas"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-product-manifest"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.10 (Support)",
     "notes": [
       "Support unit per Master TOC priority path.",
@@ -1298,9 +1397,17 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-a-211-event",
       "cgei-cl-a-211-limits"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-211-concepts",
+      "cgei-cl-assess-211-event",
+      "cgei-cl-assess-211-limits"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-ipcc-ar6-wg1"
+    ],
+    "deliverableIds": [
+      "cgei-cl-del-cautious-conclusions"
+    ],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.11 (Optional)",
     "notes": [
       "Optional unit per Master TOC priority path.",
@@ -1384,11 +1491,22 @@ export const units: CurriculumUnit[] = [
     ],
     "activityIds": [
       "cgei-cl-a-212-ml",
+      "cgei-cl-a-212-prob",
+      "cgei-cl-a-212-baseline",
       "cgei-cl-a-212-services",
-      "cgei-cl-a-212-baseline"
+      "cgei-cl-a-212-digital"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-212-ml",
+      "cgei-cl-assess-212-prob",
+      "cgei-cl-assess-212-ai",
+      "cgei-cl-assess-212-services",
+      "cgei-cl-assess-212-digital"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-sascof",
+      "cgei-cl-res-c3s-seasonal"
+    ],
     "deliverableIds": [],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.12 (Support)",
     "notes": [
@@ -1454,8 +1572,15 @@ export const units: CurriculumUnit[] = [
       "cgei-cl-a-213-skill",
       "cgei-cl-a-213-decisions"
     ],
-    "assessmentIds": [],
-    "resourceIds": [],
+    "assessmentIds": [
+      "cgei-cl-assess-213-systems",
+      "cgei-cl-assess-213-skill",
+      "cgei-cl-assess-213-decisions"
+    ],
+    "resourceIds": [
+      "cgei-cl-res-c3s-seasonal",
+      "cgei-cl-res-sascof"
+    ],
     "deliverableIds": [],
     "sourceDocument": "Master Study TOC Subject 2 Unit 2.13 (Optional)",
     "notes": [
@@ -3253,6 +3378,12 @@ export const lessons: CurriculumLesson[] = [
         "body": "Multan sits on an arid to semi-arid plain in southern Punjab with intensive irrigation, a river and canal network, and strong seasonal contrasts between the cool season, pre-monsoon heat and monsoon moisture. Urban expansion, irrigated agriculture and bare soil create a mosaic of surface properties that matter for temperature, humidity and dust. Heat stress is a core applied theme; rainfall extremes and dry spells both matter for agriculture and water demand."
       },
       {
+        "id": "cgei-cl-28-2-heat-dust",
+        "kind": "prose",
+        "title": "Heat, dust, fog and smog as regional climate features",
+        "body": "Pre-monsoon and early-summer heatwaves are a defining hazard for southern Punjab; humid-heat metrics (wet-bulb or heat-index style) matter because irrigation and the Indus corridor raise moisture relative to surrounding dry plains. Dust storms and elevated aerosol loading reduce visibility, modify shortwave radiation and can couple to boundary-layer stability. Winter fog and urban/industrial smog episodes are shaped by radiative cooling, residual moisture, emissions and stable nocturnal boundary layers — processes that link Units 2.2–2.3 to local air-quality and transport impacts. These features belong in any Multan seasonal narrative; they are not optional colour."
+      },
+      {
         "id": "cgei-cl-28-2-2",
         "kind": "prose",
         "title": "What different data can represent",
@@ -4512,26 +4643,37 @@ export const lessons: CurriculumLesson[] = [
         "kind": "checklist",
         "title": "What defines a climate service: seven design dimensions",
         "items": [
-          "Users",
-          "Decisions",
-          "Timescale",
-          "Format",
-          "Provenance",
-          "Trust",
-          "Update cadence"
+          "Users — who decides and who is affected",
+          "Decisions — the action the product is meant to inform",
+          "Timescale — weather, S2S, seasonal, decadal or multi-decadal",
+          "Format — map, tercile, threshold probability, narrative, API",
+          "Provenance — models, observations, calibration period, version",
+          "Trust — verification history, uncertainty language, institutional standing",
+          "Update cadence — how often the product is refreshed and how users are notified"
         ]
       },
       {
         "id": "cgei-cl-212-4-2",
         "kind": "prose",
         "title": "Co-production versus supply-driven products",
-        "body": "Supply-driven products risk mismatch with decisions. Co-production designs variable, timescale, format and thresholds with users from the outset."
+        "body": "Supply-driven products push available model output toward users and risk mismatch with the decisions that matter. Co-production starts from the decision (sowing window, irrigation trigger, heat-health threshold, reservoir release) and designs the variable, timescale, spatial support, format and action thresholds with users from the outset. Trust is earned by transparent provenance, published verification and honest statements of when skill is modest."
       },
       {
         "id": "cgei-cl-212-4-3",
         "kind": "prose",
         "title": "Regional Climate Outlook Forums and national outlook products",
-        "body": "RCOFs (e.g. SASCOF) produce regional multi-model consensus seasonal outlooks. National services tailor products to sector decisions — where co-production should happen."
+        "body": "RCOFs such as SASCOF (South Asian Climate Outlook Forum) produce regional multi-model consensus seasonal outlooks, typically as tercile probabilities for rainfall and temperature. National meteorological services (e.g. PMD) tailor or reinterpret these products for sector decisions — agriculture, water, health, disaster management. That national tailoring step is where co-production should occur: thresholds, districts, lead times and language that match local practice rather than generic global maps."
+      },
+      {
+        "id": "cgei-cl-212-4-4",
+        "kind": "key-points",
+        "title": "Service literacy for Multan / southern Punjab use",
+        "items": [
+          "Ask which decision the product is intended to support and at what lead.",
+          "Prefer products that publish verification (RPSS, ROC, reliability) for the region and season of interest.",
+          "Separate the RCOF consensus statement from the national or district-scale interpretation.",
+          "Document product version, issue date and baseline in any decision brief."
+        ]
       },
       {
         "id": "cgei-cl-212-4-callout",
@@ -4539,8 +4681,9 @@ export const lessons: CurriculumLesson[] = [
         "title": "Limits",
         "tone": "warning",
         "items": [
-          "Seven-dimension checklist is a course organising framework.",
-          "No specific RCOF season is scored numerically."
+          "Seven-dimension checklist is a course organising framework, not an ISO standard.",
+          "No specific RCOF season is scored numerically in this unit.",
+          "Co-production is a process ideal; many operational products remain supply-driven."
         ]
       }
     ],
@@ -5131,6 +5274,39 @@ export const activities: CurriculumActivity[] = [
     ]
   },
   {
+    "id": "cgei-cl-a-29-scenarios",
+    "kind": "guided-practice",
+    "title": "SSP and forced-vs-internal literacy",
+    "instructions": "In four sentences, distinguish a historical experiment from an SSP projection, state what internal variability still contributes at regional scale, and name one reason the highest-emission scenario is debated for plausibility — without inventing concentration pathways.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": [
+      "cgei-cl-o-29-scenarios"
+    ]
+  },
+  {
+    "id": "cgei-cl-a-29-downscale",
+    "kind": "critique",
+    "title": "Downscaling assumption check",
+    "instructions": "Compare dynamical and statistical downscaling on stationarity/transfer assumptions and cost. State one failure mode of each for a Multan heat question.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": [
+      "cgei-cl-o-29-downscale"
+    ]
+  },
+  {
+    "id": "cgei-cl-a-29-use",
+    "kind": "guided-practice",
+    "title": "Projection uncertainty decomposition",
+    "instructions": "For a 20-year local heat projection, rank scenario, model structural, and internal-variability uncertainty by expected contribution and justify the ranking in three sentences.",
+    "level": "L2",
+    "estimatedMinutes": 20,
+    "objectiveIds": [
+      "cgei-cl-o-29-use"
+    ]
+  },
+  {
     "id": "cgei-cl-a-210-families",
     "kind": "guided-practice",
     "title": "Product family choice",
@@ -5229,6 +5405,29 @@ export const activities: CurriculumActivity[] = [
       "cgei-cl-o-212-ai-forecast"
     ]
   },
+  {
+    "id": "cgei-cl-a-212-prob",
+    "kind": "guided-practice",
+    "title": "Brier skill vs climatology",
+    "instructions": "Explain why a raw Brier score can look favourable for a rare-event forecast that is barely better than climatology, and write the BSS formula relative to a climatological reference in one line.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": [
+      "cgei-cl-o-212-prob"
+    ]
+  },
+  {
+    "id": "cgei-cl-a-212-digital",
+    "kind": "critique",
+    "title": "Kilometre-scale data cost",
+    "instructions": "State what convection-permitting resolution resolves that a 50 km grid cannot, and give one order-of-magnitude data-volume implication for a user who needs hourly multi-variable fields.",
+    "level": "L2",
+    "estimatedMinutes": 15,
+    "objectiveIds": [
+      "cgei-cl-o-212-digital-twin"
+    ]
+  },
+
   {
     "id": "cgei-cl-a-213-systems",
     "kind": "guided-practice",
@@ -5624,6 +5823,319 @@ export const assessments: CurriculumAssessment[] = [
       "cgei-cl-q-23-ens"
     ],
     "required": true
+  },
+  {
+    "id": "cgei-cl-assess-27-theory",
+    "kind": "formative",
+    "title": "EVT theory",
+    "purpose": "Assess GEV/GPD framing, return levels and declustering concepts.",
+    "objectiveIds": [
+      "cgei-cl-o-27-theory"
+    ],
+    "questionIds": [
+      "cgei-cl-q-27-001",
+      "cgei-cl-q-27-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-27-estimate",
+    "kind": "formative",
+    "title": "EVT estimation",
+    "purpose": "Assess fit diagnostics and extrapolation limits.",
+    "objectiveIds": [
+      "cgei-cl-o-27-estimate"
+    ],
+    "questionIds": [
+      "cgei-cl-q-27-003"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-27-extend",
+    "kind": "formative",
+    "title": "EVT extensions",
+    "purpose": "Assess non-stationarity and dependence language.",
+    "objectiveIds": [
+      "cgei-cl-o-27-extend"
+    ],
+    "questionIds": [
+      "cgei-cl-q-27-004"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-27-apply",
+    "kind": "formative",
+    "title": "EVT communication",
+    "purpose": "Assess responsible return-level reporting.",
+    "objectiveIds": [
+      "cgei-cl-o-27-apply"
+    ],
+    "questionIds": [
+      "cgei-cl-q-27-005"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-hierarchy",
+    "kind": "formative",
+    "title": "Model hierarchy",
+    "purpose": "Assess GCM/RCM/reanalysis distinctions.",
+    "objectiveIds": [
+      "cgei-cl-o-29-hierarchy"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-001"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-scenarios",
+    "kind": "formative",
+    "title": "Scenarios and ensembles",
+    "purpose": "Assess SSP/RCP and forced-vs-internal literacy.",
+    "objectiveIds": [
+      "cgei-cl-o-29-scenarios"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-evaluation",
+    "kind": "formative",
+    "title": "Model evaluation",
+    "purpose": "Assess skill metrics and process-based checks.",
+    "objectiveIds": [
+      "cgei-cl-o-29-evaluation"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-003"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-bias",
+    "kind": "formative",
+    "title": "Bias adjustment",
+    "purpose": "Assess methods, stationarity assumptions and artefacts.",
+    "objectiveIds": [
+      "cgei-cl-o-29-bias-adjust"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-004"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-downscale",
+    "kind": "formative",
+    "title": "Downscaling approaches",
+    "purpose": "Assess dynamical vs statistical vs ML trade-offs.",
+    "objectiveIds": [
+      "cgei-cl-o-29-downscale"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-005"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-29-use",
+    "kind": "formative",
+    "title": "Using projections",
+    "purpose": "Assess uncertainty decomposition and responsible framing.",
+    "objectiveIds": [
+      "cgei-cl-o-29-use"
+    ],
+    "questionIds": [
+      "cgei-cl-q-29-006"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-210-families",
+    "kind": "formative",
+    "title": "Product families",
+    "purpose": "Assess CORDEX/NEX/ISIMIP/WorldClim comparison.",
+    "objectiveIds": [
+      "cgei-cl-o-210-families"
+    ],
+    "questionIds": [
+      "cgei-cl-q-210-001"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-210-select",
+    "kind": "formative",
+    "title": "Model selection and manifest",
+    "purpose": "Assess documentation and ensemble-reporting discipline.",
+    "objectiveIds": [
+      "cgei-cl-o-210-select"
+    ],
+    "questionIds": [
+      "cgei-cl-q-210-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-210-cmip7",
+    "kind": "formative",
+    "title": "CMIP7 awareness",
+    "purpose": "Assess transition planning and verification flags.",
+    "objectiveIds": [
+      "cgei-cl-o-210-cmip7"
+    ],
+    "questionIds": [
+      "cgei-cl-q-210-003"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-211-concepts",
+    "kind": "formative",
+    "title": "Detection vs attribution",
+    "purpose": "Assess signal/noise/fingerprint and single-record limits.",
+    "objectiveIds": [
+      "cgei-cl-o-211-concepts"
+    ],
+    "questionIds": [
+      "cgei-cl-q-211-001"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-211-event",
+    "kind": "formative",
+    "title": "Event attribution framing",
+    "purpose": "Assess PR/FAR and rapid-protocol stages.",
+    "objectiveIds": [
+      "cgei-cl-o-211-event"
+    ],
+    "questionIds": [
+      "cgei-cl-q-211-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-211-limits",
+    "kind": "formative",
+    "title": "Attribution limits and language",
+    "purpose": "Assess hard cases and calibrated likelihood language.",
+    "objectiveIds": [
+      "cgei-cl-o-211-limits"
+    ],
+    "questionIds": [
+      "cgei-cl-q-211-003"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-212-ml",
+    "kind": "formative",
+    "title": "ML vs statistical baselines",
+    "purpose": "Assess required baselines before claiming ML skill.",
+    "objectiveIds": [
+      "cgei-cl-o-212-ml"
+    ],
+    "questionIds": [
+      "cgei-cl-q-212-001"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-212-prob",
+    "kind": "formative",
+    "title": "Probabilistic skill",
+    "purpose": "Assess Brier decomposition and rare-event skill.",
+    "objectiveIds": [
+      "cgei-cl-o-212-prob"
+    ],
+    "questionIds": [
+      "cgei-cl-q-212-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-212-ai",
+    "kind": "formative",
+    "title": "Open AI forecast use",
+    "purpose": "Assess post-processing and blending discipline.",
+    "objectiveIds": [
+      "cgei-cl-o-212-ai-forecast"
+    ],
+    "questionIds": [
+      "cgei-cl-q-212-003"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-212-services",
+    "kind": "formative",
+    "title": "Climate services",
+    "purpose": "Assess service design dimensions and co-production.",
+    "objectiveIds": [
+      "cgei-cl-o-212-services"
+    ],
+    "questionIds": [
+      "cgei-cl-q-212-004"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-212-digital",
+    "kind": "formative",
+    "title": "Digital twins and km-scale",
+    "purpose": "Assess resolution gains and data-volume constraints.",
+    "objectiveIds": [
+      "cgei-cl-o-212-digital-twin"
+    ],
+    "questionIds": [
+      "cgei-cl-q-212-005"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-213-systems",
+    "kind": "formative",
+    "title": "S2S systems",
+    "purpose": "Assess seasonal/subseasonal systems and lead conventions.",
+    "objectiveIds": [
+      "cgei-cl-o-213-systems"
+    ],
+    "questionIds": [
+      "cgei-cl-q-213-001"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-213-skill",
+    "kind": "formative",
+    "title": "S2S skill and verification",
+    "purpose": "Assess RPSS/ROC and region/season/variable dependence.",
+    "objectiveIds": [
+      "cgei-cl-o-213-skill"
+    ],
+    "questionIds": [
+      "cgei-cl-q-213-002"
+    ],
+    "required": false
+  },
+  {
+    "id": "cgei-cl-assess-213-decisions",
+    "kind": "formative",
+    "title": "S2S decision use",
+    "purpose": "Assess cost-loss thresholds and outlook communication.",
+    "objectiveIds": [
+      "cgei-cl-o-213-decisions"
+    ],
+    "questionIds": [
+      "cgei-cl-q-213-003"
+    ],
+    "required": false
   }
 ] as const;
 
@@ -6078,8 +6590,428 @@ export const outcomes: CurriculumOutcome[] = [
   }
 ] as const;
 
-export const resources: CurriculumResource[] = [] as const;
+export const resources: CurriculumResource[] = [
+  {
+    id: "cgei-cl-res-ipcc-ar6-wg1",
+    kind: "assessment-report",
+    title: "IPCC AR6 Working Group I — The Physical Science Basis",
+    description:
+      "Authoritative assessed ranges for ECS/TCR, detection and attribution headlines, regional fact sheets, and the Interactive Atlas. Use for calibrated likelihood language and for stating what is assessed versus what a learner recomputes from a short series.",
+    url: "https://www.ipcc.ch/report/ar6/wg1/",
+    access: "open",
+    citation:
+      "IPCC, 2021: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change.",
+    unitIds: [
+      "cgei-cl-unit-2-1",
+      "cgei-cl-unit-2-2",
+      "cgei-cl-unit-2-9",
+      "cgei-cl-unit-2-11"
+    ],
+    tags: ["attribution", "sensitivity", "regional", "likelihood-language"]
+  },
+  {
+    id: "cgei-cl-res-ipcc-atlas",
+    kind: "portal",
+    title: "IPCC Interactive Atlas",
+    description:
+      "First-look regional maps of observed and projected changes. Orientation only — not a substitute for local product evaluation, bias adjustment, or station verification.",
+    url: "https://interactive-atlas.ipcc.ch/",
+    access: "open",
+    citation: "IPCC Interactive Atlas (AR6).",
+    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+    tags: ["projections", "regional", "screening"]
+  },
+  {
+    id: "cgei-cl-res-era5-cds",
+    kind: "dataset",
+    title: "ERA5 reanalysis via Copernicus Climate Data Store",
+    description:
+      "Global reanalysis (≈0.25°) used throughout this subject for teaching workflows. Always record variable short name, units, accumulation, grid, and download date. Precipitation is in metres of water equivalent.",
+    url: "https://cds.climate.copernicus.eu/",
+    access: "open-registration",
+    citation:
+      "Hersbach, H., et al. (2020). The ERA5 global reanalysis. QJRMS. CDS: ERA5 hourly/monthly products.",
+    unitIds: [
+      "cgei-cl-unit-2-4",
+      "cgei-cl-unit-2-5",
+      "cgei-cl-unit-2-6",
+      "cgei-cl-unit-2-8"
+    ],
+    tags: ["reanalysis", "ERA5", "CDS", "Multan-workflow"]
+  },
+  {
+    id: "cgei-cl-res-era5-doc",
+    kind: "documentation",
+    title: "ERA5 documentation — variables, accumulation, known issues",
+    description:
+      "Essential before any quantitative notebook: accumulation conventions, temperature units (often kelvin), land-sea mask behaviour, and version notes that affect trends.",
+    url: "https://confluence.ecmwf.int/display/CKB/ERA5",
+    access: "open",
+    citation: "ECMWF ERA5 documentation (Climate Knowledge Base).",
+    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5"],
+    tags: ["metadata", "units", "QC"]
+  },
+  {
+    id: "cgei-cl-res-wmo-normals",
+    kind: "guidance",
+    title: "WMO climatological standard normals",
+    description:
+      "Defines successive 30-year normals (current standard 1991–2020) and practice for anomalies. Changing the normal changes every anomaly value without changing raw observations.",
+    url: "https://community.wmo.int/en/activity-areas/climate/wmo-climate-normals",
+    access: "open",
+    citation: "WMO Guidelines on the Calculation of Climate Normals (WMO-No. 1203) and updates.",
+    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-6"],
+    tags: ["baseline", "normals", "anomaly"]
+  },
+  {
+    id: "cgei-cl-res-etccdi",
+    kind: "index-definition",
+    title: "ETCCDI / Climdex extreme indices",
+    description:
+      "Standard definitions for Rx1day, CDD, CWD, R95pTOT, percentile-based hot days, and related indices. Threshold, duration and baseline period are part of the definition — report them.",
+    url: "https://www.climdex.org/learn/indices/",
+    access: "open",
+    citation: "Expert Team on Climate Change Detection and Indices (ETCCDI); Climdex index list.",
+    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
+    tags: ["extremes", "indices", "thresholds"]
+  },
+  {
+    id: "cgei-cl-res-cordex-sa",
+    kind: "dataset",
+    title: "CORDEX South Asia (ESGF)",
+    description:
+      "Dynamically downscaled RCM simulations over the South Asian domain (commonly 0.44° / 0.22°). Cite RCM–GCM pair; evaluate regional monsoon and heat processes before ensemble averaging.",
+    url: "https://cordex.org/domains/region-6-south-asia-was/",
+    access: "open-via-ESGF",
+    citation: "CORDEX South Asia; access via ESGF nodes. Cite driving GCM and RCM.",
+    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+    tags: ["downscaling", "RCM", "South-Asia"]
+  },
+  {
+    id: "cgei-cl-res-nex-gddp",
+    kind: "dataset",
+    title: "NEX-GDDP-CMIP6",
+    description:
+      "Statistically downscaled (BCSD-type) daily CMIP6 fields on a global ~0.25° grid for core variables (tasmax, tasmin, precip). Different method class from CORDEX — do not treat as interchangeable.",
+    url: "https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6",
+    access: "open",
+    citation: "Thrasher et al., NEX-GDDP-CMIP6; NASA NCCS / Earthdata access.",
+    unitIds: ["cgei-cl-unit-2-10"],
+    tags: ["statistical-downscaling", "CMIP6", "daily"]
+  },
+  {
+    id: "cgei-cl-res-isimip",
+    kind: "dataset",
+    title: "ISIMIP bias-adjusted forcing",
+    description:
+      "Protocol-standardised, bias-adjusted climate forcing designed as input to impact models. Document protocol round, observational reference, and which CMIP subset is included.",
+    url: "https://www.isimip.org/",
+    access: "open",
+    citation: "ISIMIP protocol and input-data documentation (cite round and reference dataset).",
+    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+    tags: ["bias-adjustment", "impacts", "forcing"]
+  },
+  {
+    id: "cgei-cl-res-c3s-seasonal",
+    kind: "portal",
+    title: "Copernicus C3S seasonal multi-model products",
+    description:
+      "Operational seasonal multi-model ensemble outlooks and hindcast-based verification context. State issuing system, initialisation, lead definition, and variable before decision use.",
+    url: "https://climate.copernicus.eu/seasonal-forecasts",
+    access: "open",
+    citation: "Copernicus Climate Change Service (C3S) seasonal forecast products.",
+    unitIds: ["cgei-cl-unit-2-13"],
+    tags: ["S2S", "seasonal", "multi-model"]
+  },
+  {
+    id: "cgei-cl-res-sascof",
+    kind: "outlook",
+    title: "South Asian Climate Outlook Forum (SASCOF)",
+    description:
+      "Regional consensus seasonal outlooks for South Asia. National services (e.g. PMD) tailor these for sector decisions — co-production belongs at that national/local step.",
+    url: "https://www.imdpune.gov.in/Casweb/Sascof/",
+    access: "open-summary",
+    citation: "SASCOF consensus statements (issue date and season must be recorded).",
+    unitIds: ["cgei-cl-unit-2-12", "cgei-cl-unit-2-13", "cgei-cl-unit-2-8"],
+    tags: ["RCOF", "seasonal-outlook", "South-Asia"]
+  },
+  {
+    id: "cgei-cl-res-pmd-access",
+    kind: "institutional",
+    title: "Pakistan Meteorological Department — data access practice",
+    description:
+      "National authority for meteorological records. Public versus restricted products must be verified per series; listing PMD is not a download right. Prefer documented request trails and licences; use global layers with honest representativeness limits when local series are unavailable.",
+    url: "https://www.pmd.gov.pk/",
+    access: "mixed-verify-per-product",
+    citation: "Pakistan Meteorological Department (PMD). Access terms vary by product.",
+    unitIds: ["cgei-cl-unit-2-8", "cgei-cl-unit-2-4"],
+    tags: ["Pakistan", "national-data", "access-limits"]
+  },
+  {
+    id: "cgei-cl-res-cf-conventions",
+    kind: "standard",
+    title: "CF (Climate and Forecast) metadata conventions",
+    description:
+      "Standard names, units, cell methods, and time encodings for NetCDF climate data. CF-style checks catch accumulation and calendar errors before analysis.",
+    url: "https://cfconventions.org/",
+    access: "open",
+    citation: "CF Conventions and Metadata (current version as of access date).",
+    unitIds: ["cgei-cl-unit-2-5"],
+    tags: ["metadata", "NetCDF", "units"]
+  },
+  {
+    id: "cgei-cl-res-extremes-guidance",
+    kind: "guidance",
+    title: "WMO Guidelines on extreme weather and climate events",
+    description:
+      "Supports consistent event definitions, threshold choices, and monitoring language — aligned with the subject’s insistence that threshold, duration and baseline are part of every extremes claim.",
+    url: "https://library.wmo.int/",
+    access: "open",
+    citation: "WMO Guidelines on the Definition and Monitoring of Extreme Weather and Climate Events (current edition).",
+    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
+    tags: ["extremes", "definitions", "monitoring"]
+  },
+  {
+    id: "cgei-cl-res-worldclim-chelsa",
+    kind: "dataset",
+    title: "WorldClim / CHELSA future climatological layers",
+    description:
+      "Fine-resolution downscaled climatological normals for ecological applications — not daily impact-model forcing. Different access pattern (GeoTIFF tiles, no internal time dimension).",
+    url: "https://www.worldclim.org/",
+    access: "open",
+    citation: "WorldClim; CHELSA (cite version and base period).",
+    unitIds: ["cgei-cl-unit-2-10"],
+    tags: ["climatology", "ecology", "fine-grid"]
+  }
+] as const;
 
-export const deliverables: CurriculumDeliverable[] = [] as const;
+export const deliverables: CurriculumDeliverable[] = [
+  {
+    id: "cgei-cl-del-provenance-record",
+    kind: "processing-record",
+    title: "Climate-data processing and provenance record",
+    description:
+      "A structured record sufficient for independent re-execution: product name and version, variable and units, spatial domain and support, time zone/calendar rule, baseline period, completeness threshold, aggregation method, access date, licence, and checksum or script commit hash. No fabricated station numbers.",
+    format: "markdown-table or YAML sidecar",
+    estimatedMinutes: 25,
+    objectiveIds: [
+      "cgei-cl-o-25-anomaly",
+      "cgei-cl-o-24-select",
+      "cgei-cl-o-28-evidence"
+    ],
+    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+    acceptanceCriteria: [
+      "Every field listed in the Unit 2.5 workflow checklist is present",
+      "UTC vs PKT (or other local) convention is explicit",
+      "Missing-data rule is stated (missing ≠ zero)",
+      "A second analyst could re-run the path from the record alone"
+    ]
+  },
+  {
+    id: "cgei-cl-del-product-manifest",
+    kind: "manifest",
+    title: "Product and model-member selection manifest",
+    description:
+      "For any multi-product or multi-model comparison: list models/products considered, those retained, those excluded and why (regional skill, implausible trend, hot-model concern, licence), grid, scenario/experiment, bias-adjustment method and reference, download date and DOI/URL.",
+    format: "table (CSV or markdown)",
+    estimatedMinutes: 30,
+    objectiveIds: [
+      "cgei-cl-o-24-select",
+      "cgei-cl-o-210-select",
+      "cgei-cl-o-29-evaluation"
+    ],
+    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+    acceptanceCriteria: [
+      "Exclusions are reasoned, not silent",
+      "Ensemble range and agreement fraction appear alongside any mean",
+      "No bare multi-model mean as the sole reported number"
+    ]
+  },
+  {
+    id: "cgei-cl-del-baseline-anomaly-brief",
+    kind: "analysis-brief",
+    title: "Baseline, season and anomaly definition brief",
+    description:
+      "One-page statement of the normal period, season definition (PMD-style vs JJA/JJAS), domain, variable, units, and the exact anomaly formula used. Required before any trend or extremes count in the exit notebook.",
+    format: "one-page markdown or PDF",
+    estimatedMinutes: 20,
+    objectiveIds: [
+      "cgei-cl-o-21-weather-climate",
+      "cgei-cl-o-25-anomaly",
+      "cgei-cl-o-28-seasons"
+    ],
+    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+    acceptanceCriteria: [
+      "Baseline period is named and justified",
+      "Season months are listed explicitly",
+      "Domain/support (station, grid, district) is stated",
+      "No claim that a single extreme falsifies the climate distribution"
+    ]
+  },
+  {
+    id: "cgei-cl-del-extremes-trend-card",
+    kind: "results-card",
+    title: "Extremes and trend results card",
+    description:
+      "Threshold definition (absolute or percentile + baseline), exceedance counts and max spell length, OLS and Sen slopes with units, and a one-paragraph note on autocorrelation/multiplicity limits. Distinguishes description from attribution and empirical return periods from fitted EVT levels.",
+    format: "structured card (markdown sections)",
+    estimatedMinutes: 35,
+    objectiveIds: [
+      "cgei-cl-o-26-threshold",
+      "cgei-cl-o-26-trend",
+      "cgei-cl-o-26-inference"
+    ],
+    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
+    acceptanceCriteria: [
+      "Threshold, duration rule and baseline are reported",
+      "Slopes carry explicit units and window",
+      "Return-period language is non-calendar (no “due next year”)",
+      "Product and period appear in the same card as the numbers"
+    ]
+  },
+  {
+    id: "cgei-cl-del-cautious-conclusions",
+    kind: "conclusions-note",
+    title: "Cautious conclusions and non-claims note",
+    description:
+      "Explicit list of what the analysis supports (descriptive, product-scoped statements) and what it does not support (attribution, flood causation from area-average reanalysis alone, long-term climate-change proof from a short window). Uses calibrated language.",
+    format: "half-page markdown",
+    estimatedMinutes: 20,
+    objectiveIds: [
+      "cgei-cl-o-21-evidence",
+      "cgei-cl-o-26-inference",
+      "cgei-cl-o-28-evidence",
+      "cgei-cl-o-211-limits"
+    ],
+    unitIds: [
+      "cgei-cl-unit-2-1",
+      "cgei-cl-unit-2-6",
+      "cgei-cl-unit-2-8",
+      "cgei-cl-unit-2-11"
+    ],
+    acceptanceCriteria: [
+      "At least three explicit non-claims are listed",
+      "Evidence classes (synthetic / observed / assessed) are not mixed",
+      "No sentence equates a short local trend with global attribution"
+    ]
+  },
+  {
+    id: "cgei-cl-del-regional-literacy-brief",
+    kind: "regional-brief",
+    title: "Multan / southern Punjab regional literacy brief",
+    description:
+      "Geography (arid plain, irrigation, canal/river network), season definition, heat/dust/fog/smog as named regional features, what station vs grid can represent, institutions and access limits, and the next data need — without inventing station statistics.",
+    format: "one-page brief",
+    estimatedMinutes: 30,
+    objectiveIds: [
+      "cgei-cl-o-28-seasons",
+      "cgei-cl-o-28-multan",
+      "cgei-cl-o-28-evidence"
+    ],
+    unitIds: ["cgei-cl-unit-2-8"],
+    acceptanceCriteria: [
+      "Season definition is declared",
+      "Heat, dust, fog/smog appear as process features, not decoration",
+      "Access limits for national data are documented",
+      "No fabricated Multan station means"
+    ]
+  },
+  {
+    id: "cgei-cl-del-notebook-repro",
+    kind: "executable-notebook",
+    title: "Reproducible climate-data notebook (exit artefact)",
+    description:
+      "Executable notebook (or script + README) that: loads a declared product, applies QC/completeness rules, builds fixed-baseline anomalies, computes at least one extremes index and one trend diagnostic, writes the provenance record, and ends with the cautious conclusions note. Synthetic fixtures are allowed when live restricted data cannot be used; label evidence class clearly.",
+    format: "Jupyter notebook or plain script + README + sidecar manifest",
+    estimatedMinutes: 180,
+    objectiveIds: [
+      "cgei-cl-o-24-select",
+      "cgei-cl-o-25-time",
+      "cgei-cl-o-25-aggregate",
+      "cgei-cl-o-25-anomaly",
+      "cgei-cl-o-26-threshold",
+      "cgei-cl-o-26-trend",
+      "cgei-cl-o-26-inference",
+      "cgei-cl-o-28-evidence"
+    ],
+    unitIds: [
+      "cgei-cl-unit-2-4",
+      "cgei-cl-unit-2-5",
+      "cgei-cl-unit-2-6",
+      "cgei-cl-unit-2-8"
+    ],
+    acceptanceCriteria: [
+      "Runs end-to-end from a clean environment with pinned dependencies",
+      "Provenance record and conclusions note are generated or attached",
+      "Baseline, season, product and units appear in outputs",
+      "Evidence class of every plotted series is labelled (synthetic / open product / restricted)"
+    ]
+  }
+] as const;
 
-export const projects: CurriculumProject[] = [] as const;
+export const projects: CurriculumProject[] = [
+  {
+    id: "cgei-cl-proj-exit-notebook",
+    kind: "exit-gate",
+    title: "Subject 2 exit gate — reproducible Multan / southern Punjab climate notebook",
+    summary:
+      "Produce one reproducible analysis package that demonstrates weather–climate discipline, product selection, correct clocks and units, baseline anomalies, extremes and trend diagnostics, and cautious conclusions for a Multan or southern Punjab question.",
+    description:
+      "This is the competence target named across Core unit notes: a reproducible climate-data notebook (or script package) with metadata, baseline/season, trend or extremes diagnostics, validation note, and cautious conclusions. Learners choose a focused question (e.g. pre-monsoon heat threshold exceedances, monsoon rainfall variability in a declared season window, or dry-spell statistics) over Multan or a clearly defined southern Punjab domain. Open products (ERA5 or documented blends) are the default when PMD series are restricted; synthetic fixtures from unit labs may support method checks but must be labelled as synthetic. The package must not invent station numbers, must not equate a short product window with attribution, and must separate description from causal language.",
+    estimatedHours: 12,
+    level: "L3",
+    objectiveIds: [
+      "cgei-cl-o-21-weather-climate",
+      "cgei-cl-o-21-evidence",
+      "cgei-cl-o-24-select",
+      "cgei-cl-o-25-time",
+      "cgei-cl-o-25-aggregate",
+      "cgei-cl-o-25-anomaly",
+      "cgei-cl-o-26-threshold",
+      "cgei-cl-o-26-trend",
+      "cgei-cl-o-26-inference",
+      "cgei-cl-o-28-seasons",
+      "cgei-cl-o-28-multan",
+      "cgei-cl-o-28-evidence"
+    ],
+    deliverableIds: [
+      "cgei-cl-del-provenance-record",
+      "cgei-cl-del-product-manifest",
+      "cgei-cl-del-baseline-anomaly-brief",
+      "cgei-cl-del-extremes-trend-card",
+      "cgei-cl-del-cautious-conclusions",
+      "cgei-cl-del-regional-literacy-brief",
+      "cgei-cl-del-notebook-repro"
+    ],
+    resourceIds: [
+      "cgei-cl-res-era5-cds",
+      "cgei-cl-res-era5-doc",
+      "cgei-cl-res-wmo-normals",
+      "cgei-cl-res-etccdi",
+      "cgei-cl-res-pmd-access",
+      "cgei-cl-res-cf-conventions",
+      "cgei-cl-res-ipcc-ar6-wg1"
+    ],
+    unitIds: [
+      "cgei-cl-unit-2-1",
+      "cgei-cl-unit-2-4",
+      "cgei-cl-unit-2-5",
+      "cgei-cl-unit-2-6",
+      "cgei-cl-unit-2-8"
+    ],
+    exitCriteria: [
+      "Executable package runs from a clean environment",
+      "All seven linked deliverables are present and consistent with each other",
+      "Baseline, season definition, product, domain and units are stated wherever numbers appear",
+      "Cautious conclusions list explicit non-claims (no short-window attribution; no gauge-equivalence for area averages; no invented observations)",
+      "Evidence classes are never mixed in a single plot or sentence without a label"
+    ],
+    failureModes: [
+      "Calling a 10-year ERA5 window a climate-change proof",
+      "UTC daily extremes presented as local PKT impact statistics without disclosure",
+      "Missing values zero-filled",
+      "Bare multi-model or multi-product mean without range or exclusion log",
+      "Fabricated Multan station series"
+    ]
+  }
+] as const;
