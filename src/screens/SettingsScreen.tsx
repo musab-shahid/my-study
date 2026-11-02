@@ -307,11 +307,11 @@ export function SettingsScreen() {
         </Card>
       </div>
 
+      </section>
+
       <section id="account-settings" aria-labelledby="account-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
         <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account and sync</h2>
-        </section>
-
-      <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+        <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
       </section>
 
       <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
