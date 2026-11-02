@@ -139,10 +139,14 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
+    await expect(page.getByText('Supporting materials', { exact: true })).toBeVisible();
+    const supporting = page.locator('details').filter({ hasText: 'Supporting materials' });
+    await expect(supporting).not.toHaveAttribute('open', '');
 
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
     await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
     await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Lesson navigation' })).toBeVisible();
     await expect(page.getByText('Unrecorded knowledge check', { exact: true }).first()).toBeVisible();
     await expect(page.getByText(/does not establish mastery/).first()).toBeVisible();
     await page.getByRole('button', { name: /Mark lesson studied/ }).click();
@@ -195,6 +199,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('navigation', { name: 'Settings sections' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Workspace' })).toHaveAttribute('href', '#workspace-settings');
     await expect(page.getByRole('heading', { name: 'Account and sync', exact: true })).toBeVisible();
+    await expect(page.getByText('Streak', { exact: true })).toHaveCount(0);
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await page.getByRole('button', { name: 'Reset selected', exact: true }).click();
     await expect(page.getByText('Full reset: all study data will be cleared.', { exact: true })).toBeVisible();

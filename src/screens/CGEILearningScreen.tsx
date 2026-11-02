@@ -173,6 +173,7 @@ function CGEILearningHomeScreen() {
                 const lessons = canonical ? subjectLessons(id).lessons : [];
                 const authored = lessons.filter(hasSubstantiveLessonContent).length;
                 const studied = lessons.filter((lesson) => hasSubstantiveLessonContent(lesson) && lessonIsStudied(lesson, data)).length;
+                const nextLesson = lessons.find((lesson) => hasSubstantiveLessonContent(lesson) && !lessonIsStudied(lesson, data));
                 const style = getSubjectStyle(id);
                 const Icon = subject.lucideIcon ?? Layers3;
                 return (
@@ -182,6 +183,7 @@ function CGEILearningHomeScreen() {
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-ink">{subject.title}</h4>
                         <p className="text-xs text-muted mt-1">{units} units · {authored} authored lessons · {studied} studied</p>
+                        <p className="mt-1 text-xs leading-relaxed text-muted">{nextLesson ? `Next: ${nextLesson.title}` : authored === 0 ? 'Lesson material is being prepared' : 'All authored lessons marked studied'}</p>
                         {lessons.length > 0 ? <div className="mt-2"><ProgressBar value={(authored ? studied / authored : 0) * 100} /></div> : <p className="text-xs text-muted mt-2">Unit and lesson content is being developed.</p>}
                       </div>
                     </div>

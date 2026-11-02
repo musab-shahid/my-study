@@ -255,7 +255,7 @@ export function SettingsScreen() {
       </section>
 
       <section id="overview-settings" aria-labelledby="overview-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
-      <h2 id="overview-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About My Study and your activity</h2>
+      <h2 id="overview-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About My Study</h2>
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
