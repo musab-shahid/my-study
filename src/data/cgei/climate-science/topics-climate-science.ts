@@ -2815,7 +2815,8 @@ export const lessons: CurriculumLesson[] = [
         "title": "Heat metrics are not interchangeable",
         "body": "Percentile-based heat spells, tropical nights (Tmin above a threshold), excess heat factor, heat index, wet-bulb temperature, UTCI and WBGT answer different questions and need different inputs. Wet-bulb and WBGT speak to humid-heat stress; tropical nights speak to night-time recovery; percentile spells need a declared baseline. For Multan, report the metric name, threshold, duration rule and baseline — do not relabel one as another."
       },
-      "id": "cgei-cl-26-1-r10mm",
+      {
+        "id": "cgei-cl-26-1-r10mm",
         "kind": "prose",
         "title": "R10mm: heavy precipitation days (pedagogical)",
         "body": "ETCCDI-style R10mm counts days with precipitation ≥ 10 mm. Units are days over the stated period. Comparison is inclusive. Missing observations must not be coerced to 0 mm — that invents dry days and biases rates if you later divide by period length. The teaching implementation uses a short synthetic daily series; it is not a full ETCCDI software stack and is not station-validated."
