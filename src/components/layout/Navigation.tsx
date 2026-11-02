@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
-  Home, TrendingUp, Search, Clock, Settings as SettingsIcon, Cloud,
+  Home,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
 import { listTrackDefinitions, isTrackId } from '@/data/tracks';
 import { enrolledTrackIds, trackIcon, allTrackIds } from '@/lib/track-chrome';
-import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
+import { getTrackStyle } from '@/data/subject-colors';
 import { useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useData } from '@/hooks/useData';
@@ -16,22 +16,11 @@ import {
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
-import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
+import { STAGE_SCREENS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
 import { AppBrand } from '@/components/ui';
 import { FEATURE_ICONS } from '@/lib/feature-icons';
 import { INTERACTION_ICONS } from '@/lib/interaction-icons';
-
-const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
-
-const stageIcons: Record<StageScreen, typeof FEATURE_ICONS.learn> = {
-  learn: FEATURE_ICONS.learn,
-  practice: FEATURE_ICONS.practice,
-  review: FEATURE_ICONS.review,
-  formulas: FEATURE_ICONS.formulas,
-  progress: FEATURE_ICONS.progress,
-  search: FEATURE_ICONS.search,
-};
 
 function trackNavStyles(trackId: ExamTrack) {
   const trackStyle = getTrackStyle(trackId);
@@ -39,25 +28,16 @@ function trackNavStyles(trackId: ExamTrack) {
     activeBorder: trackStyle.navBorder,
     activeBg: trackStyle.navActiveBg,
     iconColor: trackStyle.accent,
-    stageActive: `${trackStyle.accent} bg-slate-800`,
   };
 }
 
 export function Sidebar() {
   const { route, navigate } = useRouter();
+  const [moreOpen, setMoreOpen] = useState(false);
   const { getActiveSubject, setActiveSubjectForScreen, setActiveTrack } = useSubjectSelection();
   const { trackMembership, setActiveEnrolledTrack } = useData();
   const enrolledIds = enrolledTrackIds(trackMembership.enrollments);
   const exploreIds = allTrackIds().filter((id) => !trackMembership.enrollments[id]);
-  const [expandedSubject, setExpandedSubject] = useState<string | null>(() => {
-    try { return localStorage.getItem(SIDEBAR_EXPANDED_KEY); } catch { return null; }
-  });
-  useEffect(() => {
-    try {
-      if (expandedSubject) localStorage.setItem(SIDEBAR_EXPANDED_KEY, expandedSubject);
-      else localStorage.removeItem(SIDEBAR_EXPANDED_KEY);
-    } catch { /* ignore */ }
-  }, [expandedSubject]);
   const currentScreen = route.screen;
   const isTrackLandingActive = (trackId: ExamTrackId) => {
     const landing = getLandingScreenForTrack(trackId);
@@ -81,7 +61,7 @@ export function Sidebar() {
           className={`w-full flex items-center gap-3 px-4 py-3 rounded-btn text-sm font-medium transition-all duration-DEFAULT mb-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
             currentScreen === 'home'
               ? 'bg-brand-700 text-white shadow-lg shadow-brand-700/25'
-              : 'text-slate-600 hover:text-white hover:bg-slate-800'
+              : 'text-white/80 hover:text-white hover:bg-slate-800'
           }`}
         >
           <Home className="w-5 h-5 shrink-0" />
@@ -89,7 +69,7 @@ export function Sidebar() {
         </button>
         {/* My Tracks — enrolled only */}
         {enrolledIds.length > 0 && (
-          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-2 pb-1 text-label font-semibold uppercase tracking-wider text-white/80">
             My Tracks
           </p>
         )}
@@ -120,7 +100,7 @@ export function Sidebar() {
                 className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium transition-all duration-DEFAULT border-l-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                   isTrackRouteActive
                     ? `${styles.activeBorder} text-white bg-slate-800`
-                    : 'border-transparent text-slate-600 hover:text-white hover:bg-slate-800'
+                    : 'border-transparent text-white/80 hover:text-white hover:bg-slate-800'
                 }`}
               >
                 <TrackIcon className={`w-5 h-5 shrink-0 ${isTrackRouteActive ? styles.iconColor : ''}`} aria-hidden />
@@ -129,78 +109,44 @@ export function Sidebar() {
                   <span className="text-label text-success-400 font-semibold">Active</span>
                 )}
               </button>
-              {trackMembership.activeTrackId === trackId && (
-                <div className="ml-2 mt-0.5 space-y-0.5">
-                  {trackSubs.map((sub) => {
-                    const subjectId = sub.id as SubjectId;
-                    const colors = getSubjectStyle(subjectId);
-                    const Icon = sub.lucideIcon ?? FEATURE_ICONS.learn;
-                    const expanded = expandedSubject === subjectId;
-                    return (
-                      <div key={subjectId}>
-                        <button
-                          type="button"
-                          aria-expanded={expanded}
-                          aria-controls={`subject-nav-${subjectId}`}
-                          onClick={() => {
-                            setActiveSubjectForScreen('learn', subjectId);
-                            setExpandedSubject((prev) => (prev === subjectId ? null : subjectId));
-                          }}
-                          className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                            expanded ? 'text-white bg-slate-800' : 'text-slate-600 hover:text-white hover:bg-slate-800/80'
-                          }`}
-                        >
-                          <Icon className={`w-3.5 h-3.5 shrink-0 ${colors.text}`} />
-                          <span className="flex-1 text-left truncate">{sub.title}</span>
-                          <INTERACTION_ICONS.expand className={`w-3.5 h-3.5 transition-transform ${expanded ? 'rotate-180' : ''}`} aria-hidden />
-                        </button>
-                        {expanded && (
-                          <div id={`subject-nav-${subjectId}`} className="ml-2 mb-1 space-y-0.5">
-                            {STAGE_SCREENS.filter((s) => s !== 'search').map((stage) => {
-                              const StageIcon = stageIcons[stage];
-                              const active = currentScreen === stage && getActiveSubject(stage) === subjectId;
-                              return (
-                                <button
-                                  key={stage}
-                                  type="button"
-                                  onClick={() => {
-                                    setActiveSubjectForScreen(stage, subjectId);
-                                    navigate({ screen: stage, parent: null });
-                                  }}
-                                  aria-current={active ? 'page' : undefined}
-                                  className={`w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs capitalize focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-                                    active ? styles.stageActive : 'text-slate-500 hover:text-slate-500 hover:bg-slate-800/60'
-                                  }`}
-                                >
-                                  <StageIcon className="w-3.5 h-3.5 shrink-0" />
-                                  {stage}
-                                </button>
-                              );
-                            })}
-                            {subjectId === 'meteo-climatology' && (
-                              <button
-                                type="button"
-                                onClick={() => navigate({ screen: 'cloud-atlas', parent: null })}
-                                className="w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-slate-500 hover:text-slate-500 hover:bg-slate-800/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
-                              >
-                                <Cloud className="w-3.5 h-3.5 shrink-0" />
-                                Cloud Atlas
-                              </button>
-                            )}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
-                </div>
-              )}
+
             </div>
           );
         })}
 
+
+        {/* Primary destinations — task-based; tracks above are workspace context. */}
+        <div className="mt-4 border-t border-slate-800 pt-3 space-y-0.5">
+          {([
+            { screen: 'learn' as const, label: 'Learn', icon: FEATURE_ICONS.learn },
+            { screen: 'practice' as const, label: 'Practice', icon: FEATURE_ICONS.practice },
+            { screen: 'review' as const, label: 'Revision queue', icon: FEATURE_ICONS.review },
+            { screen: 'progress' as const, label: 'Progress', icon: FEATURE_ICONS.progress },
+          ]).map(({ screen, label, icon: Icon }) => {
+            const active = currentScreen === screen;
+            return (
+              <button
+                key={screen}
+                type="button"
+                onClick={() => {
+                  if (screen === 'learn' || screen === 'practice' || screen === 'review' || screen === 'progress') {
+                    setActiveSubjectForScreen(screen, getActiveSubject(screen));
+                  }
+                  navigate({ screen, parent: null });
+                }}
+                aria-current={active ? 'page' : undefined}
+                className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-btn text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${active ? 'bg-brand-700 text-white' : 'text-white/80 hover:text-white hover:bg-slate-800'}`}
+              >
+                <Icon className="w-5 h-5 shrink-0" aria-hidden />
+                {label}
+              </button>
+            );
+          })}
+        </div>
+
         {/* Explore Tracks — not yet enrolled */}
         {exploreIds.length > 0 && (
-          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-slate-500">
+          <p className="px-4 pt-3 pb-1 text-label font-semibold uppercase tracking-wider text-white/80">
             Explore · not started
           </p>
         )}
@@ -219,84 +165,31 @@ export function Sidebar() {
               className={`w-full flex items-center gap-3 px-4 py-2 rounded-btn text-sm font-medium border-l-2 mb-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
                 active
                   ? `${styles.activeBorder} text-white ${styles.activeBg}`
-                  : 'border-transparent text-slate-600 hover:text-white hover:bg-slate-800'
+                  : 'border-transparent text-white/80 hover:text-white hover:bg-slate-800'
               }`}
             >
               <TrackIcon className={`w-5 h-5 shrink-0 ${active ? styles.iconColor : ''}`} aria-hidden />
               <span className="flex-1 text-left">{track.title}</span>
-              <span className={`text-label ${active ? styles.iconColor : 'text-slate-500'}`}>Preview</span>
+              <span className={`text-label ${active ? styles.iconColor : 'text-white/70'}`}>Preview</span>
             </button>
           );
         })}
 
-        {/* Tools header */}
-        <p className="text-slate-500 text-xs font-medium uppercase tracking-wide px-4 py-2 mt-3">Tools</p>
-        <div className="space-y-0.5">
-          <button
-            onClick={() => { setActiveSubjectForScreen('search', 'all'); navigate({ screen: 'search', parent: null }); }}
-            aria-current={currentScreen === 'search' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'search'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-600 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Search className="w-5 h-5 shrink-0" />
-            Search
-          </button>
-          <button
-            onClick={() => { setActiveSubjectForScreen('practice', 'all'); navigate({ screen: 'practice', mode: 'mock', parent: null }); }}
-            aria-current={route.screen === 'practice' && route.mode === 'mock' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              route.screen === 'practice' && route.mode === 'mock'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-600 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Clock className="w-5 h-5 shrink-0" />
-            Mock Exam
-          </button>
-          <button
-            onClick={() => navigate({ screen: 'flashcards', parent: null })}
-            aria-current={currentScreen === 'flashcards' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'flashcards'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-600 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <FEATURE_ICONS.flashcards className="w-5 h-5 shrink-0" aria-hidden />
-            Flashcards
-          </button>
-          <button
-            onClick={() => { setActiveSubjectForScreen('progress', 'all'); navigate({ screen: 'progress', parent: null }); }}
-            aria-current={currentScreen === 'progress' && getActiveSubject('progress') === 'all' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'progress' && getActiveSubject('progress') === 'all'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-600 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <TrendingUp className="w-5 h-5 shrink-0" />
-            Progress
-          </button>
-        </div>
       </nav>
-      {/* Bottom: Settings */}
-      <div className="px-3 py-3 border-t border-slate-800 relative">
+      <div className="px-3 py-3 border-t border-slate-800">
         <button
-          onClick={() => navigate({ screen: 'settings', parent: null })}
-          aria-current={currentScreen === 'settings' ? 'page' : undefined}
-          className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-            currentScreen === 'settings'
-              ? 'text-white bg-slate-800'
-              : 'text-slate-600 hover:text-white hover:bg-slate-800'
-          }`}
+          type="button"
+          onClick={() => setMoreOpen(true)}
+          aria-haspopup="dialog"
+          aria-expanded={moreOpen}
+          aria-controls="desktop-tools-tray"
+          className="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:text-white hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
         >
-          <SettingsIcon className="w-5 h-5 shrink-0" />
-          Settings
+          <INTERACTION_ICONS.more className="w-5 h-5 shrink-0" aria-hidden />
+          More
         </button>
       </div>
+      <ToolsTray idPrefix="desktop" isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
     </aside>
   );
 }
@@ -338,7 +231,8 @@ export function MobileNav() {
     { icon: FEATURE_ICONS.home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },
     { icon: FEATURE_ICONS.learn, label: 'Learn', screen: 'learn' as ScreenName, onClick: () => goToStage('learn') },
     { icon: FEATURE_ICONS.practice, label: 'Practice', screen: 'practice' as ScreenName, onClick: () => goToStage('practice') },
-    { icon: FEATURE_ICONS.tracks, label: 'Tracks', screen: 'track' as ScreenName, onClick: tracksClick },
+    { icon: FEATURE_ICONS.review, label: 'Revision queue', screen: 'review' as ScreenName, onClick: () => goToStage('review') },
+    { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as ScreenName, onClick: () => goToStage('progress') },
   ];
   const reviewDue = (() => {
     try {
@@ -352,10 +246,10 @@ export function MobileNav() {
     }
   })();
   // Keep the More destination indicator aligned with every secondary destination.
-  // FPSC/HAT belong to the Tracks item in the primary bar, so they are excluded here.
+  // Tracks are workspace context and remain available from More.
   const moreActive =
     moreOpen ||
-    (['review', 'formulas', 'progress', 'search', 'settings', 'flashcards', 'cloud-atlas'] as string[]).includes(currentScreen);
+    (['formulas', 'search', 'settings', 'flashcards', 'cloud-atlas', 'track', 'fpsc', 'hat'] as string[]).includes(currentScreen);
 
   return (
     <>
@@ -365,7 +259,7 @@ export function MobileNav() {
       >
         <div className="flex items-center justify-around px-1 pt-1.5 pb-1">
           {navItems.map((item) => {
-            const active = item.screen === 'track' ? tracksActive : currentScreen === item.screen;
+            const active = currentScreen === item.screen;
             const Icon = item.icon;
             const activeColor = activeEnrolled && isTrackId(activeEnrolled)
               ? getTrackStyle(activeEnrolled).accent
@@ -377,7 +271,7 @@ export function MobileNav() {
                 onClick={item.onClick}
                 aria-current={active ? 'page' : undefined}
                 className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-                  active ? activeColor : 'text-slate-500 hover:text-slate-500'
+                  active ? activeColor : 'text-white/80 hover:text-white'
                 }`}
               >
                 {active && (
@@ -401,7 +295,7 @@ export function MobileNav() {
             aria-controls="mobile-tools-tray"
             aria-label={reviewDue > 0 ? `More, ${reviewDue} reviews due` : 'More'}
             className={`flex flex-col items-center gap-0.5 px-1.5 py-1 rounded-btn transition-colors duration-DEFAULT relative min-w-[48px] min-h-touch touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
-              moreActive ? 'text-brand-400' : 'text-slate-500 hover:text-slate-500'
+              moreActive ? 'text-brand-400' : 'text-white/80 hover:text-white'
             }`}
           >
             {moreActive && (
@@ -419,7 +313,7 @@ export function MobileNav() {
           </button>
         </div>
       </nav>
-      <ToolsTray isOpen={moreOpen} onClose={closeMore} />
+      <ToolsTray idPrefix="mobile" isOpen={moreOpen} onClose={closeMore} />
     </>
   );
 }

@@ -55,7 +55,7 @@ for (const id of requiredOnAny) {
 
 // Sidebar stages must use registry for learn/practice/formulas/progress
 const nav = readFileSync('src/components/layout/Navigation.tsx', 'utf8');
-for (const id of ['learn', 'practice', 'formulas', 'progress']) {
+for (const id of ['learn', 'practice', 'progress']) {
   if (!new RegExp(`FEATURE_ICONS\\.${id}\\b`).test(nav)) {
     errors.push(`Navigation.tsx must use FEATURE_ICONS.${id}`);
   }

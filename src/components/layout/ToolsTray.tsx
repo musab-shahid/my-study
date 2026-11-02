@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Cloud } from 'lucide-react';
 import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 import { IconButton } from '@/components/ui';
 import { useRouter } from '@/router';
@@ -11,18 +12,19 @@ import { FEATURE_ICONS } from '@/lib/feature-icons';
 interface ToolsTrayProps {
   isOpen: boolean;
   onClose: () => void;
+  idPrefix: 'mobile' | 'desktop';
 }
 
 type MoreNavItem =
-  | { icon: typeof FEATURE_ICONS.review; label: string; screen: 'review' | 'formulas' | 'progress' | 'flashcards' | 'search' | 'settings' }
+  | { icon: typeof FEATURE_ICONS.review; label: string; screen: 'review' | 'formulas' | 'progress' | 'flashcards' | 'search' | 'settings' | 'cloud-atlas' }
   | { icon: typeof FEATURE_ICONS.mockExam; label: string; screen: 'practice'; mode: 'mock' };
 
 
 const studyTools: MoreNavItem[] = [
-  { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
+  { icon: FEATURE_ICONS.review, label: 'Revision queue', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
-  { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
   { icon: FEATURE_ICONS.flashcards, label: 'Flashcards', screen: 'flashcards' as const },
+  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
   { icon: FEATURE_ICONS.mockExam, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
@@ -37,7 +39,7 @@ function isTrackActive(screen: string, trackId: TrackId, routeTrackId?: string):
   return screen === trackId;
 }
 
-export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
+export function ToolsTray({ isOpen, onClose, idPrefix }: ToolsTrayProps) {
   const { route, navigate } = useRouter();
   const sheetRef = useRef<HTMLDivElement>(null);
 
@@ -90,18 +92,18 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
         aria-hidden
       />
       <div
-        id="mobile-tools-tray"
+        id={`${idPrefix}-tools-tray`}
         role="dialog"
         tabIndex={-1}
         aria-modal="true"
-        aria-labelledby="mobile-tools-title"
+        aria-labelledby={`${idPrefix}-tools-title`}
         ref={sheetRef}
         className="fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-2xl max-h-[85vh] overflow-y-auto pb-safe animate-fade-in-up"
       >
         <div className="sticky top-0 bg-white/95 backdrop-blur-sm z-10 pt-3 pb-2 border-b border-slate-100">
           <div className="sheet-handle mb-3" aria-hidden />
           <div className="flex items-center justify-between px-5">
-            <h3 id="mobile-tools-title" className="font-bold text-ink text-base tracking-tight">More</h3>
+            <h3 id={`${idPrefix}-tools-title`} className="font-bold text-ink text-base tracking-tight">More</h3>
             <IconButton label="Close" onClick={onClose} className="text-ink-muted">
               <INTERACTION_ICONS.close className="w-5 h-5" aria-hidden />
             </IconButton>
@@ -154,7 +156,7 @@ export function ToolsTray({ isOpen, onClose }: ToolsTrayProps) {
           </section>
 
           <section role="region" aria-labelledby="more-tracks-heading">
-            <p id="more-tracks-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2">Learning tracks</p>
+            <p id="more-tracks-heading" className="text-ink-muted text-xs font-semibold uppercase tracking-wide mb-2 flex items-center gap-2"><FEATURE_ICONS.tracks className="w-4 h-4" aria-hidden />Learning tracks</p>
             <div className="space-y-0.5">
               {trackRows.map((row) => (
                 <button

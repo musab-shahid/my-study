@@ -36,7 +36,7 @@ async function seedCgeiWorkspace(page: import('@playwright/test').Page) {
     { appKey: APP_DATA_KEY, subjectKey: SUBJECT_SELECTION_KEY, enrolledAt: now },
   );
   await page.reload();
-  await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 }
 
 test.describe('CGEI curriculum navigation and orientation', () => {

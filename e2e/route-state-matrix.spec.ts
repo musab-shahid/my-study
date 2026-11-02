@@ -70,11 +70,8 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
 
   /** Top-level desktop sidebar utilities with aria-current wiring. */
   const sidebarUtilities: { path: string; label: string; urlFragment: RegExp }[] = [
-    { path: '/search', label: 'Search', urlFragment: /\/search/ },
     { path: '/progress', label: 'Progress', urlFragment: /\/progress/ },
-    { path: '/flashcards', label: 'Flashcards', urlFragment: /\/flashcards/ },
   ];
-
   /** Stage routes that load but are not always a top-level named sidebar button. */
   const stageRoutes: { path: string; urlFragment: RegExp }[] = [
     { path: '/formulas', urlFragment: /\/formulas/ },
@@ -93,9 +90,29 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
       await page.setViewportSize({ width: 1280, height: 900 });
       const desktopNav = page.locator('aside');
       await expect(desktopNav).toBeVisible();
-      const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
-      await expect(desktopBtn).toBeVisible();
-      await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+      if (route.label === 'Progress') {
+        const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
+        await expect(desktopBtn).toBeVisible();
+        await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+      }
+    });
+  }
+
+  for (const route of [
+    { path: '/search', label: 'Search' },
+    { path: '/flashcards', label: 'Flashcards' },
+    { path: '/formulas', label: 'Formulas' },
+  ]) {
+    test(`desktop More tray exposes ${route.label}`, async ({ page }) => {
+      await page.setViewportSize(VIEWPORT);
+      await seedWorkspace(page);
+      await page.goto(route.path);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      const aside = page.locator('aside');
+      await aside.getByRole('button', { name: 'More', exact: true }).click();
+      const dialog = page.getByRole('dialog', { name: 'More' });
+      await expect(dialog.getByRole('button', { name: route.label, exact: true })).toBeVisible();
+      await expect(dialog.getByRole('button', { name: route.label, exact: true })).toHaveAttribute('aria-current', 'page');
     });
   }
 
@@ -162,16 +179,47 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     );
   });
 
-  test('track landing route keeps the Tracks item active on mobile', async ({ page }) => {
+  test('track landing remains reachable from More on mobile', async ({ page }) => {
     await page.setViewportSize(VIEWPORT);
     await seedWorkspace(page, 'fpsc');
 
     await page.goto('/track/fpsc');
     await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await expect(dialog.getByRole('button', { name: /FPSC/ })).toHaveAttribute('aria-current', 'page');
+  });
+
+  test('desktop sidebar inactive labels meet WCAG AA contrast', async ({ page }) => {
+    await page.setViewportSize(VIEWPORT);
+    await seedWorkspace(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    const ratio = await page.locator('aside').getByRole('button', { name: 'Learn', exact: true }).evaluate((el) => {
+      const parse = (value: string) => value.match(/[\d.]+/g)?.map(Number) ?? [];
+      const foreground = parse(getComputedStyle(el).color);
+      const background = parse(getComputedStyle(el.closest('aside')!).backgroundColor);
+      const alpha = foreground[3] ?? 1;
+      const bg = background.slice(0, 3).map((v) => v / 255);
+      const fg = foreground.slice(0, 3).map((v, i) => (v * alpha + background[i] * (1 - alpha)) / 255);
+      const linear = (v: number) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
+      const luminance = (rgb: number[]) => 0.2126 * linear(rgb[0]) + 0.7152 * linear(rgb[1]) + 0.0722 * linear(rgb[2]);
+      const foregroundLuminance = luminance(fg);
+      const backgroundLuminance = luminance(bg);
+      return (Math.max(foregroundLuminance, backgroundLuminance) + 0.05) / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
+    });
+    expect(ratio).toBeGreaterThanOrEqual(4.5);
+  });
+
+  test('mobile primary navigation exposes the five task destinations once', async ({ page }) => {
+    await page.setViewportSize(VIEWPORT);
+    await seedWorkspace(page);
     const bar = page.getByRole('navigation', { name: 'Primary' });
-    const tracksBtn = bar.getByRole('button', { name: 'Tracks', exact: true });
-    await expect(tracksBtn).toHaveAttribute('aria-current', 'page');
+    for (const label of ['Home', 'Learn', 'Practice', 'Revision queue', 'Progress']) {
+      await expect(bar.getByRole('button', { name: label, exact: true })).toHaveCount(1);
+    }
+    await expect(bar.getByRole('button', { name: 'Tracks', exact: true })).toHaveCount(0);
   });
 
   test('quiz route resolves without crashing', async ({ page }) => {
