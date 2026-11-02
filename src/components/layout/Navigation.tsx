@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import {
-  Home, Search, Settings as SettingsIcon,
+  Home,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
@@ -33,6 +33,7 @@ function trackNavStyles(trackId: ExamTrack) {
 
 export function Sidebar() {
   const { route, navigate } = useRouter();
+  const [moreOpen, setMoreOpen] = useState(false);
   const { getActiveSubject, setActiveSubjectForScreen, setActiveTrack } = useSubjectSelection();
   const { trackMembership, setActiveEnrolledTrack } = useData();
   const enrolledIds = enrolledTrackIds(trackMembership.enrollments);
@@ -174,47 +175,20 @@ export function Sidebar() {
           );
         })}
 
-        {/* Tools header */}
-        <p className="text-white/70 text-xs font-medium uppercase tracking-wide px-4 py-2 mt-3">Tools</p>
-        <div className="space-y-0.5">
-          <button
-            onClick={() => { setActiveSubjectForScreen('search', 'all'); navigate({ screen: 'search', parent: null }); }}
-            aria-current={currentScreen === 'search' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'search'
-                ? 'text-white bg-slate-800'
-                : 'text-white/80 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <Search className="w-5 h-5 shrink-0" />
-            Search
-          </button>
-          <button
-            onClick={() => navigate({ screen: 'formulas', parent: null })}
-            aria-current={currentScreen === 'formulas' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${currentScreen === 'formulas' ? 'text-white bg-slate-800' : 'text-white/80 hover:text-white hover:bg-slate-800'}`}
-          >
-            <FEATURE_ICONS.formulas className="w-5 h-5 shrink-0" aria-hidden />
-            Formulas
-          </button>
-
-        </div>
       </nav>
-      {/* Bottom: Settings */}
-      <div className="px-3 py-3 border-t border-slate-800 relative">
+      <div className="px-3 py-3 border-t border-slate-800">
         <button
-          onClick={() => navigate({ screen: 'settings', parent: null })}
-          aria-current={currentScreen === 'settings' ? 'page' : undefined}
-          className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-            currentScreen === 'settings'
-              ? 'text-white bg-slate-800'
-              : 'text-white/80 hover:text-white hover:bg-slate-800'
-          }`}
+          type="button"
+          onClick={() => setMoreOpen(true)}
+          aria-haspopup="dialog"
+          aria-expanded={moreOpen}
+          className="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:text-white hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
         >
-          <SettingsIcon className="w-5 h-5 shrink-0" />
-          Settings
+          <INTERACTION_ICONS.more className="w-5 h-5 shrink-0" aria-hidden />
+          More
         </button>
       </div>
+      <ToolsTray isOpen={moreOpen} onClose={() => setMoreOpen(false)} />
     </aside>
   );
 }
