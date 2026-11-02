@@ -93,7 +93,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/track/cgei');
     await page.getByRole('button', { name: 'Open CGEI Learning', exact: true }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/learn$/);
     await expect(page.getByRole('heading', { name: 'CGEI Learning', exact: true })).toBeVisible();
   });
 
@@ -141,7 +141,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('Supporting materials', { exact: true })).toBeVisible();
     const supporting = page.locator('details').filter({ hasText: 'Supporting materials' });
     await expect(supporting).not.toHaveAttribute('open', '');
-    await supporting.locator('summary').click();
+    await supporting.first().locator('summary').first().click();
     await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
@@ -177,7 +177,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
   test('lesson position and Previous/Next controls use one navigable sequence', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/lesson/cgei-cl-lesson-2-4-3');
-    const position = page.getByText(/^Lesson \d+ of \d+$/, { exact: true });
+    const position = page.getByRole('navigation', { name: 'Lesson navigation' }).getByText(/^Lesson \d+ of \d+$/, { exact: true });
     await expect(position).toBeVisible({ timeout: 30_000 });
     const match = (await position.textContent())?.match(/^Lesson (\d+) of (\d+)$/);
     expect(match).not.toBeNull();

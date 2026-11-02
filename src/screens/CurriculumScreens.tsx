@@ -236,9 +236,9 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <nav aria-label="Lesson navigation" className="sticky top-16 z-20 -mx-4 mb-5 flex items-center justify-between gap-2 border-y border-border bg-white/95 px-4 py-2 backdrop-blur sm:mx-0 sm:rounded-xl sm:border">
-        <Button type="button" size="sm" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous</Button>
+        <Button type="button" size="sm" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" / > Previous lesson</Button>
         <span className="min-w-0 text-center text-xs font-medium tabular-nums text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${navigableLessonSequence.length}` : 'CGEI lesson'}</span>
-        <Button type="button" size="sm" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next <ChevronRight className="w-4 h-4 ml-1" /></Button>
+        <Button type="button" size="sm" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
       </nav>
       <div className="mb-6">
         <div className="flex flex-wrap items-center gap-2 mb-2"><span className="rounded-full bg-brand-50 text-brand-800 px-3 py-1 text-xs font-bold">{unit ? `Unit ${unit.code}` : 'CGEI lesson'}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs font-semibold">{lesson.level}</span><span className="rounded-full bg-slate-100 text-muted px-3 py-1 text-xs capitalize">{lesson.readiness}</span>{lesson.estimatedMinutes ? <span className="text-xs text-muted">{lesson.estimatedMinutes} minutes</span> : null}<span className={hasSubstantiveLessonContent(lesson) ? lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'text-xs font-semibold text-success-700' : 'text-xs font-semibold text-warning-700' : 'text-xs font-semibold text-muted'}>{!hasSubstantiveLessonContent(lesson) ? 'Outline only · content in development' : lesson.readiness === 'validated' || lesson.readiness === 'released' ? 'Available to study' : `Authored material · ${lesson.readiness}`}</span></div>
@@ -259,11 +259,6 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
       <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit?.id ?? '' })} disabled={!unit}><ArrowLeft className="w-4 h-4 mr-1" /> Unit overview</Button>
         <Button disabled={!hasSubstantiveLessonContent(lesson)} onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
-      </div>
-      <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
-        <Button type="button" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous lesson</Button>
-        <span className="text-xs text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${navigableLessonSequence.length}` : 'CGEI lesson'}</span>
-        <Button type="button" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
       </div>
       {isLessonStudied && <p className="text-xs text-success-700 mt-3 text-right">This lesson is marked as studied.</p>}
     </PageContainer>
