@@ -23,7 +23,7 @@ export const subject: CurriculumSubject = {
   "readiness": "review",
   "audience": "Learners who will analyse climate and environmental data on maps and grids before remote sensing, risk, and GeoAI subjects.",
   "purpose": "Build defensible geospatial reasoning: vector/raster models, CRS and transforms, desktop and Python GIS operations, terrain and network workflows, honest cartography, and spatial statistics with leakage-aware validation — so later remote-sensing and risk work does not misuse coordinates, support, or maps.",
-  "overview": "Registered units: 3.1 spatial data models; 3.2 CRS; 3.3 desktop GIS operations; 3.4 terrain/network/field (Support); 3.5 Python geospatial stack; 3.6 cartography; 3.9 spatial statistics and geostatistics. Core priority path: 3.1–3.3, 3.5–3.6, 3.9. All TOC units 3.1–3.11 registered (Core: 3.1–3.3, 3.5–3.6, 3.9; Support: 3.4, 3.7, 3.8, 3.10; Optional: 3.11). Draft depth on 3.7–3.11.",
+  "overview": "Subject 3 is the geospatial bridge before Earth observation (Subject 4) and spatial ML (Subject 6). Core path: spatial models and quality (3.1), CRS discipline including Multan/UTM 42N practice (3.2), desktop GIS operations (3.3), Python stack (3.5), honest cartography (3.6), and spatial statistics with leakage-aware validation (3.9). Support: terrain/networks/field (3.4), spatial databases (3.7), open data and standards (3.8), cloud-native geospatial (3.10). Optional: lidar/UAV/3D urban form (3.11). Exit gate: Multan spatial analysis package with CRS log, licence manifest, honest map, and spatial validation note. All eleven TOC units are registered at review readiness for the Core path.",
   "prerequisites": [
     "Basic geometry",
     "Unit conversions",
@@ -1536,9 +1536,11 @@ export const lessons: CurriculumLesson[] = [
     "estimatedMinutes": 40,
     "objectives": [{"id": "cgei-geo-o-31-quality", "statement": "Name ISO 19157 quality components (positional and attribute accuracy, logical consistency, completeness, lineage) and state why stacked overlays compound error.", "action": "name and explain", "level": "L2", "competencyIds": ["cgei-comp-quantitative-reasoning", "cgei-comp-reproducibility"]}],
     "content": [
-      {"id": "cgei-geo-31-4-1", "kind": "prose", "title": "ISO 19157 quality components", "body": "Positional accuracy, attribute accuracy, logical consistency, completeness, and lineage are the standard vocabulary for spatial data quality. Metadata (ISO 19115) and FAIR practice require a minimum record per layer: CRS, extent, source, date, and known limits."},
-      {"id": "cgei-geo-31-4-2", "kind": "prose", "title": "Error propagation in overlays", "body": "Map algebra and multi-layer overlays compound positional and classification error. A third overlay is not three times as trustworthy as one—uncertainty stacks. Document lineage so downstream users can judge fitness."},
-      {"id": "cgei-geo-31-4-3", "kind": "key-points", "title": "Quality checklist", "items": ["Name which quality component a claim rests on", "Minimum metadata per layer", "Stacked layers compound error", "Lineage is not optional for decision maps"]}
+      {"id": "cgei-geo-31-4-1", "kind": "prose", "title": "ISO 19157 quality components", "body": "Positional accuracy, attribute accuracy, logical consistency, completeness, and lineage are the standard vocabulary for spatial data quality (ISO 19157). A Multan land-use map that looks sharp can still fail attribute accuracy (wrong class labels), completeness (missing informal settlements), or lineage (unknown source year). Name the component you are claiming before treating a layer as decision-ready."},
+      {"id": "cgei-geo-31-4-2", "kind": "prose", "title": "Metadata and FAIR minimums", "body": "ISO 19115-style metadata and FAIR practice require a minimum record per layer: CRS, extent, source, version or date accessed, licence, and known limits. Without that record, a downstream zonal statistic cannot be audited. Prefer a short manifest table over memory."},
+      {"id": "cgei-geo-31-4-3", "kind": "prose", "title": "Error propagation in overlays", "body": "Map algebra and multi-layer overlays compound positional and classification error. Intersecting a 30 m land-cover product with a noisy district boundary does not produce 30 m truth at the boundary. A third overlay is not three times as trustworthy as one—uncertainty stacks. Document lineage so downstream users can judge fitness for Multan-scale heat or flood questions."},
+      {"id": "cgei-geo-31-4-4", "kind": "callout", "title": "Failure mode", "tone": "warning", "items": ["Publishing a composite risk map with no lineage for any input layer", "Treating visual smoothness as positional accuracy"]},
+      {"id": "cgei-geo-31-4-5", "kind": "key-points", "title": "Quality checklist", "items": ["Name which quality component a claim rests on", "Minimum metadata per layer: CRS, source, date, licence, limits", "Stacked layers compound error", "Lineage is not optional for decision maps"]}
     ],
     "activityIds": ["cgei-geo-a-31-quality"],
     "assessmentIds": ["cgei-geo-assess-31-quality"],
@@ -1555,9 +1557,10 @@ export const lessons: CurriculumLesson[] = [
     "estimatedMinutes": 35,
     "objectives": [{"id": "cgei-geo-o-31-gnss", "statement": "Distinguish GNSS accuracy classes and record accuracy estimates and datum for field points used in GIS.", "action": "distinguish and record", "level": "L2", "competencyIds": ["cgei-comp-reproducibility", "cgei-comp-quantitative-reasoning"]}],
     "content": [
-      {"id": "cgei-geo-31-5-1", "kind": "prose", "title": "GNSS accuracy classes", "body": "Consumer GNSS, SBAS-aided, and RTK/PPK classes differ by metres to centimetres. Multipath in urban canyons degrades results. Horizontal and vertical error are not interchangeable. Field points used in GIS need recorded accuracy estimates and averaging protocols."},
-      {"id": "cgei-geo-31-5-2", "kind": "prose", "title": "Datum of field coordinates", "body": "Modern GNSS typically reports in WGS 84 / ITRF-related frames. Legacy local datums on older maps are not the same. Document the datum before overlaying field points on administrative or cadastral layers."},
-      {"id": "cgei-geo-31-5-3", "kind": "key-points", "title": "Field coordinate rules", "items": ["Record accuracy class or estimated metres", "State datum", "Do not treat consumer GPS as survey-grade", "Urban multipath is a known failure mode"]}
+      {"id": "cgei-geo-31-5-1", "kind": "prose", "title": "GNSS accuracy classes", "body": "Consumer GNSS (often 3–10 m under open sky), SBAS-aided, and RTK/PPK classes differ by metres to centimetres. Multipath in Multan-style urban canyons and near dense tree cover degrades results further. Horizontal and vertical error are not interchangeable—vertical is often worse. Field points used in GIS need recorded accuracy estimates and averaging protocols, not only a plotted symbol."},
+      {"id": "cgei-geo-31-5-2", "kind": "prose", "title": "Datum of field coordinates", "body": "Modern GNSS typically reports in WGS 84 / ITRF-related frames. Legacy Survey of Pakistan sheets and older cadastral layers may use local datums or grids. Document the datum before overlaying field points on administrative boundaries. Assigning EPSG:4326 to numbers that were never transformed is not a transform."},
+      {"id": "cgei-geo-31-5-3", "kind": "worked-example", "title": "Minimum field-point metadata", "body": "For each survey point record at least: unique ID, longitude, latitude, horizontal accuracy estimate (or class), vertical accuracy if used, datum/CRS, timestamp, and collector protocol (single fix vs averaged). Without accuracy metadata, a 5 m building footprint cannot be validated against a consumer-GPS tree survey."},
+      {"id": "cgei-geo-31-5-4", "kind": "key-points", "title": "Field coordinate rules", "items": ["Record accuracy class or estimated metres", "State datum and whether a transform was applied", "Do not treat consumer GPS as survey-grade", "Urban multipath is a known failure mode in dense Multan streets"]}
     ],
     "activityIds": ["cgei-geo-a-31-gnss"],
     "assessmentIds": ["cgei-geo-assess-31-gnss"],
@@ -2195,25 +2198,30 @@ export const lessons: CurriculumLesson[] = [
       {
         "id": "cgei-geo-33-3-1",
         "kind": "prose",
-        "title": "Summarise cells inside zones",
-        "body": "Zonal statistics aggregate raster cell values within polygon zones (or zone masks). Mean, sum, count, min and max answer different questions. Inclusion rules (cell centre, majority, exact area fraction) change results at coarse resolution. Equal-area considerations from Unit 3.2 still apply when interpreting physical totals."
+        "title": "Zones as membership masks",
+        "body": "Zonal statistics summarise raster values inside polygons or zone rasters. The teaching invariant is explicit membership: only cells whose centre (or fractional coverage rule) belongs to the zone contribute. State the membership rule—centre-in-polygon versus exactextract-style fractional coverage—because edge cells change district means on fine grids."
       },
       {
-        "id": "cgei-geo-33-3-lab",
-        "kind": "worked-example",
-        "title": "Lab: mask-based zonal mean with NoData",
-        "body": "Fixture unit_3_3_zonal_stats_check.py uses a 3×3 value grid and aligned zone IDs. Zone 1 valid cells {10,20,30} → mean 20, sum 60, count 3 (NoData cell excluded). Zone 2 {40,50,60,70} → mean 55. Zero is counted as a valid value. Empty zones return count 0 and mean None. Membership is an explicit mask—this validates aggregation, not polygon rasterization."
+        "id": "cgei-geo-33-3-2",
+        "kind": "prose",
+        "title": "NoData versus zero",
+        "body": "NoData cells are excluded from means and sums; zero is a valid measurement (for example zero rainfall) unless the product documents zero as a fill. Treating −9999 as a real temperature value biases Multan summer means downward. Always inspect the product’s NoData flag before zonal summaries."
       },
       {
         "id": "cgei-geo-33-3-3",
-        "kind": "callout",
-        "title": "Scientific limits",
-        "tone": "warning",
+        "kind": "worked-example",
+        "title": "Teaching fixture",
+        "body": "Zone 1 cells: 10, 20, NoData → mean = 15 only if both valid cells are used; if software inserts NoData as zero the mean is wrong. Report count of valid cells beside the mean so sparse zones are visible."
+      },
+      {
+        "id": "cgei-geo-33-3-4",
+        "kind": "key-points",
+        "title": "Zonal checklist",
         "items": [
-          "NoData is not zero",
-          "Cell mean ≠ area-weighted mean when cell areas differ",
-          "Mask membership ≠ full GIS zonal pipeline",
-          "Do not treat zonal means as causal exposure without design"
+          "State membership rule",
+          "Exclude NoData; do not confuse with zero",
+          "Report valid-cell count",
+          "CRS of zones and raster must agree before summary"
         ]
       }
     ],
@@ -2307,33 +2315,24 @@ export const lessons: CurriculumLesson[] = [
       {
         "id": "cgei-geo-33-5-1",
         "kind": "prose",
-        "title": "Projects, folders and processing logs",
-        "body": "TOC Unit 3.3 expects desktop GIS proficiency. A reproducible workflow uses a fixed folder layout (raw/work/out/docs), records CRS before geoprocessing, names outputs explicitly, and logs tool parameters. Full lab steps live in content-drafts/chapter-05-scientific-computing/labs/unit-3-3-qgis-workflow.md. CI does not launch QGIS; numerical reclass rules are checked by the Python fixture."
+        "title": "Projects as reproducible containers",
+        "body": "A QGIS project stores layer paths, CRS, symbology, and layout state. Relative paths and a documented data folder beat absolute paths on one laptop. Processing models and batch tools record parameters that screenshots cannot."
       },
       {
         "id": "cgei-geo-33-5-2",
-        "kind": "checklist",
-        "title": "Minimum QGIS session checklist",
-        "items": [
-          "Create project folder structure",
-          "Set project CRS (metres for buffers)",
-          "Load layers and read CRS/extent/NoData",
-          "Run one overlay and one raster reclass",
-          "Write processing_log.md with tools and parameters",
-          "Compare reclass output to the locked teaching table"
-        ]
+        "kind": "prose",
+        "title": "Log what the GUI hides",
+        "body": "Every analysis step should leave a processing log: input CRS, tool name, parameters (buffer distance and units, join type, zonal statistic), output path, and a verification against a known table or landmark. GUI convenience is not provenance."
       },
       {
         "id": "cgei-geo-33-5-3",
-        "kind": "callout",
-        "title": "Common failure modes",
-        "tone": "warning",
+        "kind": "key-points",
+        "title": "QGIS hygiene",
         "items": [
-          "Buffering in geographic degrees",
-          "Ignoring NoData (treated as zero)",
-          "Overwriting inputs without versioned outputs",
-          "No record of tool parameters",
-          "Assuming same resolution implies cell alignment"
+          "Project CRS explicit",
+          "Layer CRS checked on load",
+          "Tool parameters logged",
+          "Outputs verified against fixtures or landmarks"
         ]
       }
     ],
@@ -2734,25 +2733,24 @@ export const lessons: CurriculumLesson[] = [
       {
         "id": "cgei-geo-34-2-1",
         "kind": "prose",
-        "title": "Terrain derivatives",
-        "body": "Slope measures steepness (degrees or percent rise). Aspect is the downslope direction. Hillshade is a visualisation, not a physical flux. Algorithms differ (finite difference vs Horn). Horizontal and vertical units must match; degree-cell DEMs must be projected before metric slope."
+        "title": "Slope from finite differences",
+        "body": "Slope quantifies steepness from elevation neighbours under a stated finite-difference scheme. Units may be degrees or percent rise—label them. On Multan’s flat irrigated plain, numerical slope is often near zero; noise and DEM vertical error can dominate tiny gradients, so interpret with vertical accuracy in mind."
       },
       {
-        "id": "cgei-geo-34-2-lab",
-        "kind": "worked-example",
-        "title": "Lab: centre-cell finite-difference slope",
-        "body": "On a 3×3 grid with Δx=Δy=30 m and centre neighbourhood elevations west=100, east=130, south=105, north=110 (m), dz/dx=0.5 and dz/dy≈0.0833, giving slope ≈26.9°. Fixture unit_3_4_terrain_slope_check.py locks these values. QGIS Horn slopes may differ slightly—document the method."
+        "id": "cgei-geo-34-2-2",
+        "kind": "prose",
+        "title": "Aspect and hillshade",
+        "body": "Aspect is the downslope direction; hillshade is an illumination model for visualization, not a physical temperature field. Do not treat hillshade values as solar radiation without a proper radiation model. Sky-view factor and openness are related terrain metrics used in urban climate work."
       },
       {
         "id": "cgei-geo-34-2-3",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
+        "kind": "key-points",
+        "title": "Terrain derivative rules",
         "items": [
-          "Teaching stencil ≠ Horn production algorithm",
-          "Slope ≠ landslide susceptibility by itself",
-          "Edge cells need explicit padding rules",
-          "Percent slope = 100×rise/run, not degrees"
+          "State slope units",
+          "DEM resolution limits fine-scale slope",
+          "Hillshade is visualization aid",
+          "Flat plains: noise versus real gradient"
         ]
       }
     ],
@@ -3182,24 +3180,24 @@ export const lessons: CurriculumLesson[] = [
         "id": "cgei-geo-35-2-1",
         "kind": "prose",
         "title": "Rasterio sits on GDAL",
-        "body": "Rasterio exposes GDAL datasets with Pythonic windowed reading, masks, and nodata handling. Reproject and resample must state the resampling method (nearest for classes; bilinear/cubic for continuous fields—Unit 3.2). Cloud-Optimized GeoTIFF (COG) enables range requests and overviews for large rasters. rioxarray attaches rasterio CRS/transform metadata to xarray objects for labelled workflows."
+        "body": "Rasterio exposes GDAL datasets with Pythonic windowed reading, masks, and NoData handling. Reproject and resample must state the resampling method: nearest for categorical classes; bilinear or cubic for continuous fields. Silent nearest on continuous LST softens peaks incorrectly; bilinear on land-cover classes invents hybrid codes."
       },
       {
         "id": "cgei-geo-35-2-2",
-        "kind": "key-points",
-        "title": "Operational checklist",
-        "items": [
-          "Always read nodata and valid range from metadata",
-          "Windowed reads for large files",
-          "Document resampling when warping",
-          "COG does not fix wrong CRS"
-        ]
+        "kind": "prose",
+        "title": "COG and windowed reads",
+        "body": "Cloud-Optimized GeoTIFF enables HTTP range reads and overviews so Multan AOI extracts need not download a continental mosaic. Windowed reads and masks keep memory bounded. Always read the NoData flag from metadata rather than assuming −9999."
       },
       {
         "id": "cgei-geo-35-2-3",
-        "kind": "worked-example",
-        "title": "Nodata exclusion in a window mean",
-        "body": "Given values [10, 12, nodata, 14] with nodata=-9999, the mean of valid cells is 12. Fixture locks nodata exclusion. Treating nodata as zero biases climate and EO means—especially sparse masks."
+        "kind": "key-points",
+        "title": "Raster stack rules",
+        "items": [
+          "Resampling method matches data type",
+          "NoData excluded from reductions",
+          "COG for efficient AOI access",
+          "CRS and transform documented on write"
+        ]
       }
     ],
     "activityIds": [
@@ -3716,24 +3714,40 @@ export const lessons: CurriculumLesson[] = [
         "id": "cgei-geo-39-3-1",
         "kind": "prose",
         "title": "Blocks, buffers and residual maps",
-        "body": "Spatial block cross-validation and buffered holdouts reduce leakage relative to random folds. Leave-location-out evaluates transfer to new sites. Residual maps should be inspected for remaining spatial structure. Block size can be informed by the dependence range—not by convenience alone."
+        "body": "Spatial block cross-validation and buffered holdouts reduce leakage relative to random folds. Leave-location-out evaluates transfer to new sites. Residual maps show where the model systematically fails—often along canals, dense cores, or data-sparse margins around Multan."
       },
       {
         "id": "cgei-geo-39-3-2",
         "kind": "prose",
-        "title": "Change of support",
-        "body": "Aggregating point predictions to districts (or downscaling counts) changes the support of the data. Area-weighted and dasymetric approaches make different assumptions. Uncertainty in inputs propagates; Monte Carlo schemes make that explicit when feasible. Spatially balanced sampling improves reference designs for validation (Unit 4.11)."
+        "title": "Match validation to the claim",
+        "body": "A random 80/20 split of grid cells can look excellent while still leaking neighbourhood structure. If the claim is performance at new, distant sites, use blocks or leave-location-out. If the claim is interpolation within the sampled convex hull, LOO among sample points is more honest than a map that only looks smooth."
       },
       {
         "id": "cgei-geo-39-3-3",
-        "kind": "key-points",
-        "title": "Reporting checklist",
+        "kind": "prose",
+        "title": "Change of support",
+        "body": "Areal interpolation (area-weighted, dasymetric) changes the support of counts and rates. Downscaling district populations to grid cells without ancillary data invents spatial detail. State the support of every reported number: point, pixel, or polygon."
+      },
+      {
+        "id": "cgei-geo-39-3-4",
+        "kind": "callout",
+        "title": "Core failure mode",
+        "tone": "warning",
         "items": [
-          "Neighbourhood / bandwidth definition",
-          "Null model for point patterns",
-          "Interpolation method and parameters",
-          "Validation design (not only R²)",
-          "Support of predictions vs decisions"
+          "Selling random train/test R² as proof of spatial generalisation",
+          "Smooth IDW surfaces without LOO or residual checks",
+          "Ignoring residual Moran structure after regression"
+        ]
+      },
+      {
+        "id": "cgei-geo-39-3-5",
+        "kind": "key-points",
+        "title": "Validation checklist",
+        "items": [
+          "Validation design matches deployment claim",
+          "Block size informed by range of spatial dependence when possible",
+          "Residual maps inspected",
+          "Support of predictions stated"
         ]
       }
     ],
@@ -3933,9 +3947,29 @@ export const lessons: CurriculumLesson[] = [
     "estimatedMinutes": 30,
     "objectives": [{"id": "cgei-geo-o-38-licence", "statement": "Apply attribution and share-alike obligations, record dataset version and access date, and state when aggregation is required before publishing sensitive locations.", "action": "apply and record", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
     "content": [
-      {"id": "cgei-geo-38-3-1", "kind": "prose", "title": "Attribution, share-alike, non-commercial", "body": "Open licences differ: attribution-only, share-alike (e.g. ODbL), and non-commercial clauses change what you may publish and how derivatives must be shared. Obligations travel with derived products—not only the original download."},
-      {"id": "cgei-geo-38-3-2", "kind": "prose", "title": "Sensitive locations and citation", "body": "Precise household or facility coordinates from surveys may require aggregation before public maps. Citation is dataset version + access date + DOI when available—not only a homepage URL. Record licence text in the data manifest (Subject 3 exit deliverable)."},
-      {"id": "cgei-geo-38-3-3", "kind": "callout", "title": "Failure modes", "tone": "warning", "items": ["Publishing precise home locations from field surveys", "Omitting ODbL attribution on OSM-derived maps", "Redistributing GADM or other restricted boundaries against licence terms"]}
+      {
+        "id": "cgei-geo-38-3-1",
+        "kind": "prose",
+        "title": "Attribution, share-alike, non-commercial",
+        "body": "Open licences differ: attribution-only, share-alike (e.g. ODbL for OSM), and non-commercial clauses change what you may publish and how derivatives must be shared. Obligations travel with derived products—not only the original download. A Multan web map built on OSM tiles still needs attribution."
+      },
+      {
+        "id": "cgei-geo-38-3-2",
+        "kind": "prose",
+        "title": "Sensitive locations and citation",
+        "body": "Precise household or facility coordinates from surveys may require aggregation before public maps. Citation is dataset version + access date + DOI when available—not only a homepage URL. Record licence text in the data manifest (Subject 3 exit deliverable)."
+      },
+      {
+        "id": "cgei-geo-38-3-3",
+        "kind": "callout",
+        "title": "Failure modes",
+        "tone": "warning",
+        "items": [
+          "Publishing precise home locations from field surveys",
+          "Omitting ODbL attribution on OSM-derived maps",
+          "Redistributing GADM or other restricted boundaries against licence terms"
+        ]
+      }
     ],
     "activityIds": ["cgei-geo-a-38-licence"],
     "assessmentIds": ["cgei-geo-assess-38-licence"],
@@ -3991,8 +4025,33 @@ export const lessons: CurriculumLesson[] = [
     "estimatedMinutes": 35,
     "objectives": [{"id": "cgei-geo-o-310-compute", "statement": "Compare Earth Engine, local Python, and cloud/HPC for a Multan-scale EO task using data volume, licence, reproducibility, and cost criteria.", "action": "compare and justify", "level": "L2", "competencyIds": ["cgei-comp-reproducibility"]}],
     "content": [
-      {"id": "cgei-geo-310-3-1", "kind": "prose", "title": "Criteria over habit", "body": "Earth Engine accelerates some EO stacks but ties workflows to a platform and quota. Local Python maximises reproducibility for Multan-scale regions. Cloud/HPC fits heavy multi-scene or continental work. Criteria: data volume, licence, reproducibility, cost, and exit path—not default brand preference."},
-      {"id": "cgei-geo-310-3-2", "kind": "table", "title": "Platform comparison (teaching)", "headers": ["Platform", "Strength", "Risk"], "rows": [["Earth Engine", "Fast EO prototypes, large catalogs", "Quota, platform lock-in"], ["Local Python", "Full control, offline", "Data volume limits"], ["Cloud/HPC", "Scale", "Cost and ops complexity"]]}
+      {
+        "id": "cgei-geo-310-3-1",
+        "kind": "prose",
+        "title": "Criteria over habit",
+        "body": "Earth Engine accelerates some EO stacks but ties workflows to a platform and quota. Local Python maximises reproducibility for Multan-scale regions and keeps intermediate COGs or GeoPackages under your control. Cloud/HPC fits heavy multi-scene or continental work. Choose using data volume, licence, reproducibility, cost, and exit path—not default brand preference."
+      },
+      {
+        "id": "cgei-geo-310-3-2",
+        "kind": "table",
+        "title": "Platform comparison (teaching)",
+        "headers": ["Platform", "Strength", "Risk"],
+        "rows": [
+          ["Earth Engine", "Fast EO prototypes, large catalogs", "Quota, platform lock-in, quota numbers change"],
+          ["Local Python", "Full control, offline, open intermediates", "Data volume and disk limits"],
+          ["Cloud/HPC", "Scale for multi-scene workloads", "Cost, ops complexity, egress"]
+        ]
+      },
+      {
+        "id": "cgei-geo-310-3-3",
+        "kind": "key-points",
+        "title": "Decision rule",
+        "items": [
+          "Multan city AOI often fits local Python + COG",
+          "Document why the platform was chosen",
+          "Keep an exit path in open formats regardless of platform"
+        ]
+      }
     ],
     "activityIds": ["cgei-geo-a-310-compute"],
     "assessmentIds": ["cgei-geo-assess-310-compute"],
@@ -5675,7 +5734,7 @@ export const projects: CurriculumProject[] = [
       "Produce a reproducible spatial package for a Multan/southern Punjab question demonstrating CRS safety, documented data lineage, one honest map, and spatial validation or integrity checks.",
     purpose:
       "Exit mastery gate for Subject 3. Choose a focused question (e.g. district zonal summary of a continuous field, accessibility to a facility class, or a simple interpolation with leave-one-out checks) and show that the whole package holds together.",
-    readiness: "draft",
+    readiness: "review",
     level: "L3",
     objectiveIds: [
       "cgei-geo-o-32-transform",
