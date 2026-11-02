@@ -162,7 +162,7 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     );
   });
 
-  test('track landing route keeps the Tracks item active on mobile', async ({ page }) => {
+  test('track landing remains reachable from More on mobile', async ({ page }) => {
     await page.setViewportSize(VIEWPORT);
     await seedWorkspace(page, 'fpsc');
 
@@ -170,8 +170,10 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 
     const bar = page.getByRole('navigation', { name: 'Primary' });
-    const tracksBtn = bar.getByRole('button', { name: 'Tracks', exact: true });
-    await expect(tracksBtn).toHaveAttribute('aria-current', 'page');
+    const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
+    await trigger.click();
+    const dialog = page.getByRole('dialog', { name: 'More' });
+    await expect(dialog.getByRole('button', { name: /FPSC/ })).toHaveAttribute('aria-current', 'page');
   });
 
   test('quiz route resolves without crashing', async ({ page }) => {
