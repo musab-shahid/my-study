@@ -120,7 +120,7 @@ export function Sidebar() {
           {([
             { screen: 'learn' as const, label: 'Learn', icon: FEATURE_ICONS.learn },
             { screen: 'practice' as const, label: 'Practice', icon: FEATURE_ICONS.practice },
-            { screen: 'review' as const, label: 'Review', icon: FEATURE_ICONS.review },
+            { screen: 'review' as const, label: 'Revision queue', icon: FEATURE_ICONS.review },
             { screen: 'progress' as const, label: 'Progress', icon: FEATURE_ICONS.progress },
           ]).map(({ screen, label, icon: Icon }) => {
             const active = currentScreen === screen;
@@ -245,10 +245,10 @@ export function MobileNav() {
     }
   })();
   // Keep the More destination indicator aligned with every secondary destination.
-  // FPSC/HAT belong to the Tracks item in the primary bar, so they are excluded here.
+  // Tracks are workspace context and remain available from More.
   const moreActive =
     moreOpen ||
-    (['formulas', 'search', 'settings', 'flashcards', 'cloud-atlas'] as string[]).includes(currentScreen);
+    (['formulas', 'search', 'settings', 'flashcards', 'cloud-atlas', 'track', 'fpsc', 'hat'] as string[]).includes(currentScreen);
 
   return (
     <>
