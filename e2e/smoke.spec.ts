@@ -239,7 +239,7 @@ async function seedCgeiWorkspace(page: import('@playwright/test').Page) {
     { appKey: CGEI_APP_DATA_KEY, subjectKey: CGEI_SUBJECT_SELECTION_KEY, enrolledAt: now },
   );
   await page.reload();
-  await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible({ timeout: 30_000 });
 }
 
 test.describe('CGEI Unit 5.8 lesson rendering', () => {
