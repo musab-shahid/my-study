@@ -152,7 +152,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
 
       {resources.length > 0 && <section><Heading level={2} className="text-lg font-semibold mb-3">Resources</Heading><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-ink">{resource.title}</span>}</div><p className="text-sm text-muted mt-2">{resource.purpose}</p>{resource.authorOrPublisher ? <p className="text-xs text-muted mt-1">{resource.authorOrPublisher}</p> : null}</Card>)}</div></section>}
         </div>
-      </details>
+      </details>}
     </PageContainer>
   );
 }
