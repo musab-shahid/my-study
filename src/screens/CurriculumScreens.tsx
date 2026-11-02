@@ -118,7 +118,7 @@ export function CurriculumUnitScreen({ unitId }: { unitId: string }) {
       <section className="mb-6">
         <div className="flex items-end justify-between gap-3 mb-3">
           <Heading level={2} className="text-lg font-semibold">Lessons</Heading>
-          <span className="text-xs text-muted">{lessons.length} mapped · {lessons.filter(hasSubstantiveLessonContent).length} with authored material</span>
+          <span className="text-xs text-muted flex items-center gap-1"><span>{lessons.length} mapped</span><span aria-hidden="true">·</span><span>{lessons.filter(hasSubstantiveLessonContent).length} with authored material</span></span>
         </div>
         {lessons.length ? <div className="space-y-2">{lessons.map((lesson) => {
           const studied = lesson.sourceTopicId ? data.studiedTopics.includes(lesson.sourceTopicId) : (data.studiedCurriculumLessons ?? []).includes(lesson.id);
