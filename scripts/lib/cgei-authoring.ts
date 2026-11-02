@@ -6,6 +6,11 @@ export const CGEI_ROOT = resolve(process.cwd(), 'src/data/cgei');
 export interface SubjectModule { folder: string; topicsPath: string; text: string; source: ts.SourceFile; subject: ts.ObjectLiteralExpression; }
 export interface LocatedUnit extends SubjectModule { unit: ts.ObjectLiteralExpression; }
 
+function unwrap(expression: ts.Expression): ts.Expression {
+  let current = expression;
+  while (ts.isAsExpression(current) || ts.isSatisfiesExpression(current) || ts.isParenthesizedExpression(current) || ts.isTypeAssertionExpression(current)) current = current.expression;
+  return current;
+}
 function propertyName(name: ts.PropertyName | undefined): string | undefined {
   return name && (ts.isIdentifier(name) || ts.isStringLiteral(name) || ts.isNumericLiteral(name)) ? name.text : undefined;
 }
@@ -30,7 +35,10 @@ export function exportedArray(source: ts.SourceFile, name: string): ts.ArrayLite
   for (const statement of source.statements) {
     if (!ts.isVariableStatement(statement)) continue;
     for (const declaration of statement.declarationList.declarations) {
-      if (ts.isIdentifier(declaration.name) && declaration.name.text === name && declaration.initializer && ts.isArrayLiteralExpression(declaration.initializer)) return declaration.initializer;
+      if (ts.isIdentifier(declaration.name) && declaration.name.text === name && declaration.initializer) {
+        const initializer = unwrap(declaration.initializer);
+        if (ts.isArrayLiteralExpression(initializer)) return initializer;
+      }
     }
   }
   throw new Error('Could not find exported ' + name + ' array.');
@@ -69,7 +77,10 @@ function objectByDeclaration(source: ts.SourceFile, name: string): ts.ObjectLite
   for (const statement of source.statements) {
     if (!ts.isVariableStatement(statement)) continue;
     for (const declaration of statement.declarationList.declarations) {
-      if (ts.isIdentifier(declaration.name) && declaration.name.text === name && declaration.initializer && ts.isObjectLiteralExpression(declaration.initializer)) return declaration.initializer;
+      if (ts.isIdentifier(declaration.name) && declaration.name.text === name && declaration.initializer) {
+        const initializer = unwrap(declaration.initializer);
+        if (ts.isObjectLiteralExpression(initializer)) return initializer;
+      }
     }
   }
   return undefined;

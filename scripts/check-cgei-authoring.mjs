@@ -18,14 +18,21 @@ const tsconfig = resolve(root, 'tsconfig.app.json');
 const unitId = 'cgei-ds-unit-99-91';
 const lessonId = 'cgei-ds-lesson-99-91-1';
 
+function unwrap(expression) {
+  let current = expression;
+  while (ts.isAsExpression(current) || ts.isSatisfiesExpression(current) || ts.isParenthesizedExpression(current) || ts.isTypeAssertionExpression(current)) current = current.expression;
+  return current;
+}
 function exportedArray(file, name) {
   const text = readFileSync(file, 'utf8');
   const source = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TS);
   for (const statement of source.statements) {
     if (!ts.isVariableStatement(statement)) continue;
     for (const declaration of statement.declarationList.declarations) {
-      if (ts.isIdentifier(declaration.name) && declaration.name.text === name &&
-          declaration.initializer && ts.isArrayLiteralExpression(declaration.initializer)) return declaration.initializer;
+      if (ts.isIdentifier(declaration.name) && declaration.name.text === name && declaration.initializer) {
+        const initializer = unwrap(declaration.initializer);
+        if (ts.isArrayLiteralExpression(initializer)) return initializer;
+      }
     }
   }
   throw new Error('Missing array ' + name + ' in ' + file);
@@ -68,12 +75,13 @@ try {
   const subjectDecl = topicsSource.statements.flatMap((statement) =>
     ts.isVariableStatement(statement) ? [...statement.declarationList.declarations] : [])
     .find((declaration) => ts.isIdentifier(declaration.name) && declaration.name.text === 'subject');
-  assert.ok(subjectDecl?.initializer && ts.isObjectLiteralExpression(subjectDecl.initializer));
+  const subjectObject = subjectDecl?.initializer ? unwrap(subjectDecl.initializer) : undefined;
+  assert.ok(subjectObject && ts.isObjectLiteralExpression(subjectObject));
   const unitArray = exportedArray(topicsPath, 'units');
   const lessonArray = exportedArray(topicsPath, 'lessons');
   const newUnit = unitArray.elements.find((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'id') === unitId);
   assert.ok(newUnit && ts.isObjectLiteralExpression(newUnit), 'unit record is written to the topics file');
-  assert.ok(subjectDecl.initializer.properties.some((property) =>
+  assert.ok(subjectObject.properties.some((property) =>
     ts.isPropertyAssignment(property) && ts.isIdentifier(property.name) && property.name.text === 'unitIds' &&
     ts.isArrayLiteralExpression(property.initializer) &&
     property.initializer.elements.some((item) => ts.isStringLiteralLike(item) && item.text === unitId)),
