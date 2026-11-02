@@ -176,8 +176,9 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
   });
 
   test('desktop sidebar inactive labels meet WCAG AA contrast', async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.setViewportSize(VIEWPORT);
     await seedWorkspace(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
     const ratio = await page.locator('aside').getByRole('button', { name: 'Learn', exact: true }).evaluate((el) => {
       const parse = (value: string) => value.match(/[\\d.]+/g)?.slice(0, 3).map(Number) ?? [0, 0, 0];
       const [r, g, b] = parse(getComputedStyle(el).color).map((v) => v / 255);
