@@ -243,7 +243,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       <div className="pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit?.id ?? '' })} disabled={!unit}><ArrowLeft className="w-4 h-4 mr-1" /> Unit overview</Button>
-        <Button onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
+        <Button disabled={!hasSubstantiveLessonContent(lesson)} onClick={() => lesson.sourceTopicId ? markStudied(lesson.sourceTopicId) : markCurriculumLessonStudied(lesson.id)}><CheckCircle2 className="w-4 h-4 mr-1" /> Mark lesson studied</Button>
       </div>
       <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button type="button" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous lesson</Button>
