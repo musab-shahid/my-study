@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Cloud } from 'lucide-react';
 import { INTERACTION_ICONS } from '@/lib/interaction-icons';
 import { IconButton } from '@/components/ui';
 import { useRouter } from '@/router';
@@ -14,7 +15,7 @@ interface ToolsTrayProps {
 }
 
 type MoreNavItem =
-  | { icon: typeof FEATURE_ICONS.review; label: string; screen: 'review' | 'formulas' | 'progress' | 'flashcards' | 'search' | 'settings' }
+  | { icon: typeof FEATURE_ICONS.review; label: string; screen: 'review' | 'formulas' | 'progress' | 'flashcards' | 'search' | 'settings' | 'cloud-atlas' }
   | { icon: typeof FEATURE_ICONS.mockExam; label: string; screen: 'practice'; mode: 'mock' };
 
 
@@ -22,6 +23,7 @@ const studyTools: MoreNavItem[] = [
   { icon: FEATURE_ICONS.review, label: 'Revision queue', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.flashcards, label: 'Flashcards', screen: 'flashcards' as const },
+  { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
   { icon: FEATURE_ICONS.mockExam, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
