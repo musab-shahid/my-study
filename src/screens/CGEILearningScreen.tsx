@@ -152,7 +152,7 @@ function CGEILearningHomeScreen() {
             value={domainQuery}
             onChange={(event) => setDomainQuery(event.target.value)}
             placeholder="Find a domain…"
-            className="min-h-11 w-full rounded-xl border border-slate-300 bg-white py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-700/30"
+            className="min-h-11 w-full rounded-xl border border-border bg-white py-2 pl-10 pr-3 text-sm text-ink placeholder:text-muted focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-700/30"
           />
         </label>
         {domainQuery.trim() && <p className="mt-2 text-xs text-muted" role="status">{filteredDomainGroups.reduce((count, group) => count + group.subjectIds.length, 0)} matching domains</p>}
@@ -196,7 +196,7 @@ function CGEILearningHomeScreen() {
           </section>
         ))}
         {filteredDomainGroups.length === 0 && (
-          <Card className="border border-dashed border-slate-300 p-5 text-center">
+          <Card className="border border-dashed border-border p-5 text-center">
             <p className="font-semibold text-ink">No matching domains</p>
             <p className="mt-1 text-sm text-muted">Try another name or clear your search.</p>
             <Button type="button" variant="secondary" size="sm" className="mt-3" onClick={() => setDomainQuery('')}>Clear search</Button>
@@ -311,7 +311,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
           return <Button key={unit.id} type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left">
             <span className="flex items-start gap-3 w-full"><span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-sm text-ink">{unit.title}</span><Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge></span><span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span><span className="block text-xs text-muted mt-1">{unitAuthored} authored / {unitLessons.length} lessons · {unitStudied} studied</span></span><ArrowRight className="w-4 h-4 text-success-700 shrink-0 mt-1" /></span>
           </Button>;
-        })}</div> : <div className="rounded-xl border border-dashed border-slate-300 p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
+        })}</div> : <div className="rounded-xl border border-dashed border-border p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
       </Card>
     </PageContainer>
   );

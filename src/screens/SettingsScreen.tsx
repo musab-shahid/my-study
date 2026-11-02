@@ -238,7 +238,7 @@ export function SettingsScreen() {
         </div>
       )}
 
-      <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-slate-200 sm:bg-white/95">
+      <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-border sm:bg-white/95">
         {[
           ['workspace-settings', 'Workspace'],
           ['overview-settings', 'Overview'],
@@ -247,7 +247,7 @@ export function SettingsScreen() {
           ['app-settings', 'App'],
           ['reset-settings', 'Reset'],
         ].map(([id, label]) => (
-          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">
+          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-border px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">
             {label}
           </a>
         ))}
@@ -575,7 +575,7 @@ export function SettingsScreen() {
                 type="button"
                 onClick={() => toggleSubject(s.id as SubjectId)}
                 className={`inline-flex items-center gap-1 text-xs px-2.5 py-1.5 rounded-full border min-h-touch ${
-                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-slate-200 text-muted'
+                  selected ? 'bg-brand-100 border-brand-300 text-brand-800' : 'bg-white border-border text-muted'
                 }`}
               >
                 {selected ? <Check className="w-3.5 h-3.5 shrink-0 text-brand-700" aria-hidden /> : null}
