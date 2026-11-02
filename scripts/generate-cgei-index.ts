@@ -18,7 +18,7 @@ const checkOnly = process.argv.includes('--check');
 function stableJson(value: unknown): string {
   const json = JSON.stringify(value, null, 2);
   if (!json) throw new Error('Could not serialize CGEI index metadata');
-  return json.replace(/[^\x00-\x7F]/g, (character) =>
+  return json.replace(/[\u0080-\uFFFF]/g, (character) =>
     '\\u' + character.charCodeAt(0).toString(16).padStart(4, '0'),
   );
 }

@@ -351,13 +351,6 @@ export const subjectStyles: Record<string, SubjectStyle> = {
     border: 'border-yellow-200', borderActive: 'border-yellow-600', hoverBorder: 'hover:border-yellow-500',
     glow: 'shadow-yellow-500/20', gradient: 'from-yellow-500 to-amber-600', lightGradient: 'from-yellow-50 to-amber-50',
   },
-  'cgei-advanced-branches': {
-    dot: '#65a30d', dotBg: 'bg-lime-600', bar: 'bg-lime-600', tint: 'bg-lime-50',
-    text: 'text-lime-800', borderLeft: 'border-l-lime-600', bg: 'bg-lime-600',
-    border: 'border-lime-200', borderActive: 'border-lime-600', hoverBorder: 'hover:border-lime-500',
-    glow: 'shadow-lime-500/20', gradient: 'from-lime-500 to-green-600', lightGradient: 'from-lime-50 to-green-50',
-  },
-
 };
 
 export const allSubjectsStyle: SubjectStyle = {

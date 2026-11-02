@@ -10,10 +10,6 @@ const cgeiDataRoot = resolve(dirname(fileURLToPath(import.meta.url)), '../../dat
 
 const NON_SUBJECT_DIRECTORIES = new Set(['lib']);
 
-// Known legacy debt: a single questions file with no topics file and no curriculum registration.
-// Remove this entry when the folder is isolated or retired.
-const KNOWN_LEGACY_SUBJECT_FOLDERS = new Set(['advanced-branches']);
-
 describe('CGEI two-file subject data architecture', () => {
   it('keeps each registered subject in exactly one topics file and one questions file', () => {
     for (const subject of cgeiCurriculum.subjects) {
@@ -34,8 +30,7 @@ describe('CGEI two-file subject data architecture', () => {
     const registeredFolders = new Set(cgeiCurriculum.subjects.map((subject) => subject.subjectId.replace(/^cgei-/, '')));
     const folders = readdirSync(cgeiDataRoot, { withFileTypes: true })
       .filter((entry) => entry.isDirectory() && !NON_SUBJECT_DIRECTORIES.has(entry.name))
-      .map((entry) => entry.name)
-      .filter((name) => !KNOWN_LEGACY_SUBJECT_FOLDERS.has(name));
+      .map((entry) => entry.name);
 
     for (const folder of folders) {
       assert.ok(registeredFolders.has(folder), `${folder} is a CGEI folder but is not a registered subject`);
