@@ -95,6 +95,11 @@ function CGEILearningHomeScreen() {
             <Button type="button" onClick={() => openLesson(resumeLesson.id)}> {lastLesson ? 'Resume lesson' : 'Start lesson'} <ArrowRight className="w-4 h-4 ml-1" /></Button>
           </div>
         </Card>
+      ) : authoredLessons.length > 0 ? (
+        <Card className="p-4 mb-6">
+          <p className="font-semibold text-ink">You have studied the currently authored lessons</p>
+          <p className="text-sm text-muted mt-1">Explore another domain or return to the track overview. Additional lessons will appear as they are authored.</p>
+        </Card>
       ) : (
         <Card className="p-4 mb-6">
           <p className="font-semibold text-ink">Your learning path is being prepared</p>
@@ -133,7 +138,7 @@ function CGEILearningHomeScreen() {
                 const units = canonical?.unitIds.length ?? 0;
                 const lessons = canonical ? subjectLessons(id).lessons : [];
                 const authored = lessons.filter(hasSubstantiveLessonContent).length;
-                const studied = lessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
+                const studied = lessons.filter((lesson) => hasSubstantiveLessonContent(lesson) && lessonIsStudied(lesson, data)).length;
                 const style = getSubjectStyle(id);
                 const Icon = subject.lucideIcon ?? Layers3;
                 return (
@@ -143,7 +148,7 @@ function CGEILearningHomeScreen() {
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-ink">{subject.title}</h4>
                         <p className="text-xs text-muted mt-1">{units} units · {authored} authored lessons · {studied} studied</p>
-                        {lessons.length > 0 ? <div className="mt-2"><ProgressBar value={studied / lessons.length * 100} /></div> : <p className="text-xs text-muted mt-2">Unit and lesson content is being developed.</p>}
+                        {lessons.length > 0 ? <div className="mt-2"><ProgressBar value={(authored ? studied / authored : 0) * 100} /></div> : <p className="text-xs text-muted mt-2">Unit and lesson content is being developed.</p>}
                       </div>
                     </div>
                     <div className="flex items-center justify-between gap-3 mt-4">
