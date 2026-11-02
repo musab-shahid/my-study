@@ -173,9 +173,9 @@ test.describe('CGEI curriculum navigation and orientation', () => {
   test('lesson position and Previous/Next controls use one navigable sequence', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/lesson/cgei-cl-lesson-2-4-3');
-    const position = page.getByText(/^Lesson \\d+ of \\d+$/, { exact: true });
+    const position = page.getByText(/^Lesson \d+ of \d+$/, { exact: true });
     await expect(position).toBeVisible({ timeout: 30_000 });
-    const match = (await position.textContent())?.match(/^Lesson (\\d+) of (\\d+)$/);
+    const match = (await position.textContent())?.match(/^Lesson (\d+) of (\d+)$/);
     expect(match).not.toBeNull();
     const current = Number(match?.[1]);
     const total = Number(match?.[2]);

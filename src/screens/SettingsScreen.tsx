@@ -238,7 +238,7 @@ export function SettingsScreen() {
         </div>
       )}
 
-      <nav aria-label="Settings sections" className="sticky top-0 z-20 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-slate-200 sm:bg-white/95">
+      <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-slate-200 sm:bg-white/95">
         {[
           ['workspace-settings', 'Workspace'],
           ['account-settings', 'Account'],
