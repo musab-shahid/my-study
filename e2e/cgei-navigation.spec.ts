@@ -40,17 +40,17 @@ async function seedCgeiWorkspace(page: import('@playwright/test').Page) {
 }
 
 test.describe('CGEI curriculum navigation and orientation', () => {
-  test('shows the grouped 14-domain pathway and its implementation stages', async ({ page }) => {
+  test('shows the grouped 13-domain pathway and its implementation stages', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/track/cgei');
 
-    await expect(page.getByText('14 connected domains', { exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('13 connected domains', { exact: true })).toBeVisible({ timeout: 20_000 });
     await expect(page.getByRole('heading', { name: 'Explore the pathway', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Foundations & Earth systems' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Applied environmental intelligence' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Research & professional practice' })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Advanced pathways & capstone' })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(14);
+    await expect(page.getByRole('button', { name: /Explore/ })).toHaveCount(13);
     await expect(page.getByText(/Canonical curriculum · subject readiness:/).first()).toBeVisible();
     await expect(page.getByText('Orientation only', { exact: true }).first()).toBeVisible();
   });
