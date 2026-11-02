@@ -19,11 +19,9 @@ type MoreNavItem =
 
 
 const studyTools: MoreNavItem[] = [
-  { icon: FEATURE_ICONS.review, label: 'Review', screen: 'review' as const },
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
-  { icon: FEATURE_ICONS.progress, label: 'Progress', screen: 'progress' as const },
   { icon: FEATURE_ICONS.flashcards, label: 'Flashcards', screen: 'flashcards' as const },
-  { icon: FEATURE_ICONS.mockExam, label: 'Mock Exam', screen: 'practice' as const, mode: 'mock' as const },
+  { icon: FEATURE_ICONS.mockExam, label: 'Missed questions', screen: 'practice' as const, mode: 'mock' as const },
 ];
 
 const tools: MoreNavItem[] = [
