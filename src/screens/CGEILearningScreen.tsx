@@ -41,7 +41,7 @@ export function CGEILearningScreen({ subjectId }: { subjectId?: string }) {
 
 function CGEILearningHomeScreen() {
   const { data, setActiveEnrolledTrack } = useData();
-  const { setActiveTrack, setActiveSubjectForScreen } = useSubjectSelection();
+  const { setActiveTrack } = useSubjectSelection();
   const { navigate, currentRoute } = useRouter();
   const enrolled = isTrackEnrolled(data, 'cgei');
   const subjects = subjectsByTrack('cgei');
@@ -170,7 +170,7 @@ function CGEILearningHomeScreen() {
 
 function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
   const { data, trackMembership, setActiveEnrolledTrack } = useData();
-  const { setActiveTrack } = useSubjectSelection();
+  const { setActiveTrack, setActiveSubjectForScreen } = useSubjectSelection();
   const { navigate } = useRouter();
   const { subject, units, lessons } = subjectLessons(subjectId);
   const roadmapTopicId = cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
