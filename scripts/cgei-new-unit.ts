@@ -1,84 +1,49 @@
-/**
- * Phase D — scaffold a draft unit shell and traceability note. No fake fixture is created.
- *
- *   npm run new:unit -- --subject cgei-data-science --code 5.13 --title "My unit"
- *
- * Creates:
- *   - no fixture file; add one only when executable assertions exist
- *   - docs/cgei/unit-<code>-traceability-stub.csv
- *   - prints the topics-<subject>.ts unit object to paste (does not auto-edit large modules)
- */
-import { writeFileSync, existsSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import * as ts from 'typescript';
+import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findSubjectModule, numberProperty, objectById, renderObject } from './lib/cgei-authoring';
 
 function arg(name: string): string | undefined {
-  const i = process.argv.indexOf(`--${name}`);
-  if (i >= 0 && process.argv[i + 1] && !process.argv[i + 1].startsWith('--')) {
-    return process.argv[i + 1];
-  }
-  return undefined;
+  const index = process.argv.indexOf('--' + name);
+  return index >= 0 && process.argv[index + 1] && !process.argv[index + 1].startsWith('--') ? process.argv[index + 1] : undefined;
 }
-
-function main(): void {
-  const subject = arg('subject');
-  const code = arg('code');
-  const title = arg('title') ?? 'TODO unit title';
-  if (!subject || !code) {
-    console.error('Usage: npm run new:unit -- --subject cgei-data-science --code 5.13 [--title "..."]');
-    process.exit(2);
-  }
-
-  const codeSlug = code.replace(/\./g, '-');
-  const prefixes: Record<string, string> = {
-    'cgei-env-systems': 'cgei-es',
-    'cgei-climate-science': 'cgei-cl',
-    'cgei-geospatial': 'cgei-geo',
-    'cgei-remote-sensing': 'cgei-rs',
-    'cgei-data-science': 'cgei-ds',
-    'cgei-ml-geoai': 'cgei-ml',
-    'cgei-climate-risk': 'cgei-risk',
-    'cgei-research-practice': 'cgei-rp',
-    'cgei-decision-support': 'cgei-dspt',
-    'cgei-climate-policy': 'cgei-pol',
-    'cgei-software-engineering': 'cgei-se',
-    'cgei-advanced-ai': 'cgei-ai',
-    'cgei-capstone': 'cgei-cap',
-  };
-  const prefix = prefixes[subject];
-  if (!prefix) throw new Error(`Unsupported canonical CGEI subject: ${subject}`);
-  const unitId = `${prefix}-unit-${codeSlug}`;
-
-  // Never create a passing placeholder fixture. Scientific-smoke only discovers
-  // executable unit_*_check.py files with real assertions.
-  console.log('No fixture stub created. Add a real unit_*_check.py only when it contains executable checks.');
-
-  // Traceability stub
-  const tracePath = resolve(process.cwd(), 'docs/cgei', `unit-${codeSlug}-traceability-stub.csv`);
-  if (!existsSync(tracePath)) {
-    writeFileSync(
-      tracePath,
-      'source_subtopic_path,source_subtopic_title,priority,app_lesson_id,disposition,evidence_note\n'
-      + `${code}.1,TODO source leaf,Core,,unmapped,Phase D stub — map when lesson exists\n`,
-      'utf8',
-    );
-    console.log('Wrote', tracePath);
-  }
-
-  console.log('\nPaste this unit shell into topics-<subject>.ts (units array) and wire subject.unitIds:\n');
-  console.log(`{
-  "id": "${unitId}",
-  "code": "${code}",
-  "title": ${JSON.stringify(title)},
-  "readiness": "draft",
-  "lessonIds": [],
-  "activityIds": [],
-  "assessmentIds": [],
-  "resourceIds": [],
-  "deliverableIds": [],
-  "outcomes": []
-}`);
-  console.log('\nThen: npm run new:lesson -- --unit', unitId);
-  console.log('PR checklist: docs/cgei/UNIT_PR_CHECKLIST.md');
+const subjectId = arg('subject');
+const code = arg('code');
+if (!subjectId || !code) {
+  console.error('Usage: npm run new:unit -- --subject cgei-data-science --code 5.13 --title "Unit title"');
+  process.exit(2);
 }
-
-main();
+const folder = subjectId.replace(/^cgei-/, '');
+const prefixes: Record<string, string> = {
+  'env-systems': 'es', 'climate-science': 'cl', 'geospatial': 'geo', 'remote-sensing': 'rs',
+  'data-science': 'ds', 'ml-geoai': 'ml', 'climate-risk': 'risk', 'research-practice': 'rp',
+  'decision-support': 'dspt', 'climate-policy': 'pol', 'software-engineering': 'se',
+  'advanced-ai': 'ai', 'capstone': 'cap',
+};
+const prefix = prefixes[folder];
+if (!prefix) throw new Error('Subject is not in the canonical CGEI registry: ' + subjectId);
+const module = findSubjectModule(subjectId);
+const units = exportedArray(module.source, 'units');
+const unitIds = arrayProperty(module.subject, 'unitIds');
+const slug = code.trim().replace(/\./g, '-');
+const unitId = 'cgei-' + prefix + '-unit-' + slug;
+if (objectById(units, unitId) || arrayStrings(unitIds).includes(unitId)) throw new Error('Unit already exists: ' + unitId);
+const orders = units.elements.filter(ts.isObjectLiteralExpression).map((element) => numberProperty(element, 'order') ?? 0);
+const unitRecord = {
+  id: unitId, code: code.trim(), title: arg('title') ?? 'TODO: unit title',
+  order: Math.max(0, ...orders) + 1, kind: 'unit', readiness: 'planned',
+  summary: arg('summary') ?? 'TODO: describe the unit scope and learning purpose.',
+  prerequisites: [], outcomes: [], lessonIds: [], activityIds: [], assessmentIds: [], resourceIds: [], deliverableIds: [],
+};
+const updated = applyEdits(module.text, [
+  appendArrayEdit(module.text, module.source, units, renderObject(unitRecord)),
+  appendArrayEdit(module.text, module.source, unitIds, JSON.stringify(unitId)),
+]);
+writeFileSync(module.topicsPath, updated, 'utf8');
+console.log('Added ' + unitId + ' directly to ' + module.topicsPath);
+const generated = spawnSync('npm', ['run', 'generate:cgei-index'], { stdio: 'inherit', shell: process.platform === 'win32' });
+if (generated.status !== 0) {
+  console.error('Unit was written, but the generated navigation index did not refresh. Run npm run generate:cgei-index.');
+  process.exit(generated.status ?? 1);
+}
+console.log('subject.unitIds and the generated navigation index were updated automatically.');

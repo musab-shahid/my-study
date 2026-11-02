@@ -360,7 +360,6 @@ export const topicMetadata: TopicMeta[] = [
   {"id":"cgei-software-engineering-roadmap","sectionId":"CGEI-11","order":1,"title":"Software Engineering, Data Engineering & Reliable Scientific Computing — roadmap","content":true},
   {"id":"cgei-advanced-ai-roadmap","sectionId":"CGEI-12","order":1,"title":"Advanced AI Systems & AI-Assisted Scientific Workflows — roadmap","content":true},
   {"id":"cgei-capstone-roadmap","sectionId":"CGEI-13","order":1,"title":"Applied Capstone, Professional Portfolio & Career/Research Pathways — roadmap","content":true},
-  {"id":"cgei-advanced-branches-roadmap","sectionId":"CGEI-14","order":1,"title":"Optional Advanced Environmental Branches — roadmap","content":true},
 ];
 
 export const topicMetaMap: Record<string, TopicMeta> = Object.fromEntries(

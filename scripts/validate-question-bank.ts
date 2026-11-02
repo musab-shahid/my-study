@@ -12,14 +12,15 @@ import { writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { resolve } from 'node:path';
 
-import type { Question, SubjectId } from '../src/types';
+import type { Question, SubjectId, Topic } from '../src/types';
+import { cgeiCurriculum } from '../src/data/cgei/curriculum';
 import { sections, sectionMap } from '../src/data/sections';
 import { topics } from '../src/data/topics';
 import { activeSubjects } from '../src/data/lazy-data';
 import { hasSubstantiveQuestionText, normalizeAnswerOption } from '../src/data/question-quality';
 
 // ── Loaders (same map as lazy-data, but eager for CI) ──
-const questionLoaders: Record<string, () => Promise<{ questions: Question[] }>> = {
+const questionLoaders: Record<string, () => Promise<{ questions: Question[]; topics?: Topic[] }>> = {
   'meteo-climatology': () => import('../src/data/fpsc/meteorology/questions-meteorology'),
   'earth-science': () => import('../src/data/fpsc/earth-sciences/questions-earth-sciences'),
   'physics': () => import('../src/data/fpsc/physics/questions-physics'),
@@ -44,7 +45,6 @@ const questionLoaders: Record<string, () => Promise<{ questions: Question[] }>> 
   'cgei-software-engineering': () => import('../src/data/cgei/software-engineering/questions-software-engineering'),
   'cgei-advanced-ai': () => import('../src/data/cgei/advanced-ai/questions-advanced-ai'),
   'cgei-capstone': () => import('../src/data/cgei/capstone/questions-capstone'),
-  'cgei-advanced-branches': () => import('../src/data/cgei/advanced-branches/questions-advanced-branches'),
 };
 
 type Severity = 'critical' | 'warning';
@@ -76,6 +76,7 @@ const POLICY_WARN: { re: RegExp; code: string }[] = [
 ];
 
 const topicById = new Map(topics.map((t) => [t.id, t]));
+const canonicalLessonIds = new Set(cgeiCurriculum.lessons.map((lesson) => lesson.id));
 const findings: Finding[] = [];
 const seenIds = new Map<string, string>(); // id -> subjectId
 
@@ -142,9 +143,10 @@ q: Question, subjectId: string) {
   }
 
   const topic = topicById.get(q.topicId);
-  if (!q.topicId || !topic) {
+  const canonicalLessonTopic = subjectId.startsWith('cgei-') && q.topicId === q.lessonId && !!q.lessonId && canonicalLessonIds.has(q.lessonId);
+  if (!q.topicId || (!topic && !canonicalLessonTopic)) {
     add('critical', subjectId, id, 'INVALID_TOPIC', `Unknown topicId "${q.topicId}"`);
-  } else if (q.sectionId && topic.sectionId !== q.sectionId) {
+  } else if (topic && q.sectionId && topic.sectionId !== q.sectionId) {
     add(
       'critical',
       subjectId,
@@ -289,7 +291,13 @@ async function main() {
       const list = mod.questions ?? [];
       bySubject[subjectId].total = list.length;
       totalQuestions += list.length;
-      for (const q of list) validateQuestion(q, subjectId);
+      const moduleTopicIds = new Set((mod.topics ?? []).map((topic) => topic.id));
+      for (const q of list) {
+        validateQuestion(q, subjectId);
+        if (subjectId.startsWith('cgei-') && q.topicId === q.lessonId && !moduleTopicIds.has(q.topicId)) {
+          add('critical', subjectId, q.id, 'MISSING_CANONICAL_QUIZ_TOPIC', 'A lesson-routed question must have matching quiz-topic metadata in this subject question file.');
+        }
+      }
     } catch (e) {
       add('critical', subjectId, '—', 'LOAD_FAILED', String(e));
     }

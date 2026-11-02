@@ -16,7 +16,6 @@ export const CGEI_OVERVIEW_TOPIC_BY_SUBJECT: Partial<Record<SubjectId, string>> 
   'cgei-software-engineering': 'cgei-software-engineering-roadmap',
   'cgei-advanced-ai': 'cgei-advanced-ai-roadmap',
   'cgei-capstone': 'cgei-capstone-roadmap',
-  'cgei-advanced-branches': 'cgei-advanced-branches-roadmap',
 };
 
 const CGEI_OVERVIEW_TOPIC_IDS = new Set(Object.values(CGEI_OVERVIEW_TOPIC_BY_SUBJECT));

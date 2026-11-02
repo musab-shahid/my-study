@@ -171,13 +171,6 @@ export const subjects: SubjectWithMeta[] = [
     lucideIcon: Trophy,
     track: 'cgei',
   },
-  {
-    id: 'cgei-advanced-branches',
-    title: 'Optional Advanced Environmental Branches',
-    color: 'stone',
-    lucideIcon: Globe,
-    track: 'cgei',
-  },
 ];
 
 export const subjectMap: Record<string, SubjectWithMeta> = Object.fromEntries(

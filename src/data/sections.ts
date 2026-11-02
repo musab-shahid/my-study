@@ -157,7 +157,6 @@ export const sections: Section[] = [
   { id: 'CGEI-11', subjectId: 'cgei-software-engineering', title: 'Software & data engineering', topicCount: 1, questionCount: 8 },
   { id: 'CGEI-12', subjectId: 'cgei-advanced-ai', title: 'Advanced AI workflows', topicCount: 1, questionCount: 10 },
   { id: 'CGEI-13', subjectId: 'cgei-capstone', title: 'Applied capstone & portfolio', topicCount: 1, questionCount: 15 },
-  { id: 'CGEI-14', subjectId: 'cgei-advanced-branches', title: 'Optional environmental branches', topicCount: 1, questionCount: 0 },
 ];
 
 export const sectionMap: Record<string, Section> = Object.fromEntries(
