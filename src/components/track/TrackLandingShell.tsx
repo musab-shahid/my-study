@@ -97,7 +97,7 @@ export function TrackSubjectRow({
       {icon ?? (dotClass ? <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} aria-hidden /> : null)}
       <div className="min-w-0 flex-1">
         <p className="text-card-title font-semibold text-ink break-words">{title}</p>
-        <p className="text-caption text-ink-muted mt-0.5 break-words leading-relaxed">{meta}</p>
+        <div className="text-caption text-ink-muted mt-0.5 break-words leading-relaxed">{meta}</div>
         {typeof progressPct === 'number' && (
           <div className="mt-1.5 h-1 w-full max-w-[12rem] rounded-full bg-slate-200 overflow-hidden">
             <div
