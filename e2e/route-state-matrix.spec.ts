@@ -93,9 +93,29 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
       await page.setViewportSize({ width: 1280, height: 900 });
       const desktopNav = page.locator('aside');
       await expect(desktopNav).toBeVisible();
-      const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
-      await expect(desktopBtn).toBeVisible();
-      await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+      if (route.label === 'Progress') {
+        const desktopBtn = desktopNav.getByRole('button', { name: route.label, exact: true });
+        await expect(desktopBtn).toBeVisible();
+        await expect(desktopBtn).toHaveAttribute('aria-current', 'page');
+      }
+    });
+  }
+
+  for (const route of [
+    { path: '/search', label: 'Search' },
+    { path: '/flashcards', label: 'Flashcards' },
+    { path: '/formulas', label: 'Formulas' },
+  ]) {
+    test(`desktop More tray exposes ${route.label}`, async ({ page }) => {
+      await page.setViewportSize(VIEWPORT);
+      await seedWorkspace(page);
+      await page.goto(route.path);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      const aside = page.locator('aside');
+      await aside.getByRole('button', { name: 'More', exact: true }).click();
+      const dialog = page.getByRole('dialog', { name: 'More' });
+      await expect(dialog.getByRole('button', { name: route.label, exact: true })).toBeVisible();
+      await expect(dialog.getByRole('button', { name: route.label, exact: true })).toHaveAttribute('aria-current', 'page');
     });
   }
 
