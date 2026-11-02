@@ -1190,6 +1190,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   const correctAns = isCorrect(currentQ, state.selectedIndices);
   const difficultyLabel = currentQ.difficulty.charAt(0).toUpperCase() + currentQ.difficulty.slice(1);
   const topicInfo = getTopic(currentQ.topicId);
+  const subjectInfo = subjectId ? subjectMap[subjectId] : undefined;
+  const focusContextLabel = topicInfo?.title ?? subjectInfo?.title ?? (mode === 'mock' ? 'Mock exam' : 'Practice');
 
   const mockShortPool = mode === 'mock' && state.questions.length > 0 && state.questions.length < 60;
 
@@ -1210,7 +1212,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
             <IconButton label="Exit quiz" onClick={handleExit} className="shrink-0">
               <ArrowLeft className="w-5 h-5" />
             </IconButton>
-            <span className="text-sm font-medium text-muted truncate hidden sm:inline">Quiz</span>
+            <span className="text-sm font-medium text-ink truncate max-w-[12rem] sm:max-w-[20rem]" title={focusContextLabel}>{focusContextLabel}</span>
           </div>
           <div className="flex items-center gap-1">
             <IconButton label="Keyboard shortcuts" onClick={() => setShowKeysHelp(true)} className="hidden sm:inline-flex">
@@ -1245,9 +1247,6 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       {/* Topic + difficulty + source citation */}
       {topicInfo && (
         <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span className="text-xs font-medium px-2 py-1 rounded-full bg-slate-100 text-muted">
-            Topic: {topicInfo.title}
-          </span>
           <span
             className={`text-xs font-medium px-2 py-1 rounded-full ${
               currentQ.difficulty === 'easy'
