@@ -169,11 +169,20 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await page.goto('/track/fpsc');
     await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 
-    const bar = page.getByRole('navigation', { name: 'Primary' });
     const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
     await expect(dialog.getByRole('button', { name: /FPSC/ })).toHaveAttribute('aria-current', 'page');
+  });
+
+  test('mobile primary navigation exposes the five task destinations once', async ({ page }) => {
+    await page.setViewportSize(VIEWPORT);
+    await seedWorkspace(page);
+    const bar = page.getByRole('navigation', { name: 'Primary' });
+    for (const label of ['Home', 'Learn', 'Practice', 'Review', 'Progress']) {
+      await expect(bar.getByRole('button', { name: label, exact: true })).toHaveCount(1);
+    }
+    await expect(bar.getByRole('button', { name: 'Tracks', exact: true })).toHaveCount(0);
   });
 
   test('quiz route resolves without crashing', async ({ page }) => {
