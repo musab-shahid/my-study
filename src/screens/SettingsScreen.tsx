@@ -99,6 +99,9 @@ export function SettingsScreen() {
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
   const isFullReset = allSelected;
+  const selectedSubjectNames = subjects
+    .filter((subject) => selectedSubjects.has(subject.id as SubjectId))
+    .map((subject) => subject.title);
 
 
   const toggleSubject = (id: SubjectId) => {
@@ -235,8 +238,25 @@ export function SettingsScreen() {
         </div>
       )}
 
-      <WorkspaceSettingsCard />
-      <ExamScheduleSettings />
+      <nav aria-label="Settings sections" className="sticky top-0 z-20 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-slate-200 sm:bg-white/95">
+        {[
+          ['workspace-settings', 'Workspace'],
+          ['account-settings', 'Account'],
+          ['data-settings', 'Data & privacy'],
+          ['app-settings', 'App'],
+          ['reset-settings', 'Reset'],
+        ].map(([id, label]) => (
+          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-slate-200 px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600">
+            {label}
+          </a>
+        ))}
+      </nav>
+
+      <section id="workspace-settings" aria-labelledby="workspace-settings-heading" className="scroll-mt-24 mb-6 space-y-4">
+        <h2 id="workspace-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Workspace and exams</h2>
+        <WorkspaceSettingsCard />
+        <ExamScheduleSettings />
+      </section>
 
       <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
         <div className="flex items-center gap-4 mb-4">
@@ -284,8 +304,13 @@ export function SettingsScreen() {
         </Card>
       </div>
 
-      <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+      <section id="account-settings" aria-labelledby="account-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+        <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account and sync</h2>
+        <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
+      </section>
 
+      <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="data-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Data and privacy</h2>
       <Card className="p-card-pad mb-4">
         <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
         <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
@@ -450,6 +475,10 @@ export function SettingsScreen() {
         </div>
       </Card>
 
+      </section>
+
+      <section id="app-settings" aria-labelledby="app-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="app-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">App and installation</h2>
       <Card className="p-card-pad mb-4 animate-fade-in-up" style={{ animationDelay: '0.12s' }}>
         <div className="flex items-start gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm">
@@ -513,6 +542,10 @@ export function SettingsScreen() {
         </Card>
       )}
 
+      </section>
+
+      <section id="reset-settings" aria-labelledby="reset-settings-heading" className="scroll-mt-24 mb-6">
+      <h2 id="reset-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted mb-3">Reset and recovery</h2>
       <Card className="p-card-pad mb-4">
         <p className="font-semibold text-ink text-sm mb-2">Reset progress</p>
         <p className="text-muted text-xs mb-3 leading-relaxed">
@@ -551,16 +584,28 @@ export function SettingsScreen() {
             Reset selected
           </Button>
         ) : (
-          <div className="flex flex-wrap gap-2">
-            <Button variant="danger" onClick={handleReset}>
-              Confirm reset
-            </Button>
-            <Button variant="secondary" onClick={() => setConfirming(false)}>
-              Cancel
-            </Button>
+          <div className="mt-3 rounded-xl border border-danger-200 bg-danger-50 p-3" role="alert">
+            <p className="text-sm font-semibold text-danger-900">
+              {isFullReset ? 'Full reset: all study data will be cleared.' : `Partial reset: ${selectedSubjects.size} selected subject${selectedSubjects.size === 1 ? '' : 's'} will be cleared.`}
+            </p>
+            <p className="mt-1 text-xs leading-relaxed text-danger-800">
+              {isFullReset ? 'This includes all subjects, quiz history and saved learning progress.' : selectedSubjectNames.join(' · ')}
+            </p>
+            <p className="mt-2 text-xs font-medium text-danger-800">
+              A recovery backup will be saved before the reset. If the backup or save fails, the reset is cancelled and your current progress is kept.
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <Button variant="danger" onClick={handleReset}>
+                {isFullReset ? 'Reset all data' : `Reset ${selectedSubjects.size} selected subject${selectedSubjects.size === 1 ? '' : 's'}`}
+              </Button>
+              <Button variant="secondary" onClick={() => setConfirming(false)}>
+                Cancel
+              </Button>
+            </div>
           </div>
         )}
       </Card>
+      </section>
     </PageContainer>
   );
 }

@@ -168,9 +168,10 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
       .filter((item): item is NonNullable<typeof item> => Boolean(item))
       .sort((a, b) => a.order - b.order),
   );
-  const lessonSequenceIndex = subjectLessonSequence.findIndex((item) => item.id === lessonId);
-  const previousLesson = subjectLessonSequence.slice(0, lessonSequenceIndex).reverse().find(hasSubstantiveLessonContent);
-  const nextLesson = subjectLessonSequence.slice(lessonSequenceIndex + 1).find(hasSubstantiveLessonContent);
+  const navigableLessonSequence = subjectLessonSequence.filter(hasSubstantiveLessonContent);
+  const lessonSequenceIndex = navigableLessonSequence.findIndex((item) => item.id === lessonId);
+  const previousLesson = lessonSequenceIndex > 0 ? navigableLessonSequence[lessonSequenceIndex - 1] : undefined;
+  const nextLesson = lessonSequenceIndex >= 0 ? navigableLessonSequence[lessonSequenceIndex + 1] : undefined;
   const subjectId = (subject?.subjectId ?? '') as SubjectId;
   const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
   const [expandedLessonId, setExpandedLessonId] = useState<string | null>(null);
@@ -247,7 +248,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
       </div>
       <div className="mt-5 pt-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
         <Button type="button" variant="secondary" disabled={!previousLesson} onClick={() => previousLesson && navigate({ screen: 'curriculum-lesson', lessonId: previousLesson.id })}><ArrowLeft className="w-4 h-4 mr-1" /> Previous lesson</Button>
-        <span className="text-xs text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${subjectLessonSequence.length}` : 'CGEI lesson'}</span>
+        <span className="text-xs text-muted">{lessonSequenceIndex >= 0 ? `Lesson ${lessonSequenceIndex + 1} of ${navigableLessonSequence.length}` : 'CGEI lesson'}</span>
         <Button type="button" disabled={!nextLesson} onClick={() => nextLesson && navigate({ screen: 'curriculum-lesson', lessonId: nextLesson.id })}>Next lesson <ChevronRight className="w-4 h-4 ml-1" /></Button>
       </div>
       {isLessonStudied && <p className="text-xs text-success-700 mt-3 text-right">This lesson is marked as studied.</p>}
