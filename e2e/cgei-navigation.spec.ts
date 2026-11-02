@@ -56,6 +56,17 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('Optional Advanced Environmental Branches', { exact: true })).toHaveCount(0);
   });
 
+  test('Learn opens the dedicated CGEI learning home, independent of the saved All Subjects preference', async ({ page }) => {
+    await seedCgeiWorkspace(page);
+    await page.goto('/learn');
+
+    await expect(page.getByRole('heading', { name: 'CGEI Learning', exact: true })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('heading', { name: 'Your 13 learning domains', exact: true })).toBeVisible();
+    await expect(page.getByText('All Subjects', { exact: true })).toHaveCount(0);
+    await expect(page.getByRole('button', { name: 'Open domain' })).toHaveCount(13);
+    await expect(page.getByRole('button', { name: 'Track overview', exact: true })).toBeVisible();
+  });
+
   test('all registered canonical subjects expose their unit hierarchy', async ({ page }) => {
     await seedCgeiWorkspace(page);
 
@@ -72,6 +83,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     for (const subject of subjects) {
       await page.goto(`/learn/${subject.id}`);
       await expect(page.getByRole('heading', { name: 'Learning path', exact: true })).toBeVisible({ timeout: 20_000 });
+      await expect(page.getByText('All Subjects', { exact: true })).toHaveCount(0);
       // The orientation's ordered unit list is intentionally inside collapsed <details>.
       // Assert the actual, always-visible learning-path unit controls rather than the
       // duplicate codes in that hidden orientation list.
