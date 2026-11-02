@@ -200,7 +200,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByRole('navigation', { name: 'Settings sections' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Workspace' })).toHaveAttribute('href', '#workspace-settings');
     await expect(page.getByRole('navigation', { name: 'Settings sections' }).locator('a')).toHaveText([
-      'Workspace', 'Exams', 'Account & sync', 'Data & privacy', 'App', 'Reset', 'About',
+      'Workspace', 'Exam planning', 'Account & sync', 'Data & privacy', 'App', 'Reset', 'About',
     ]);
     const settingsSections = page.locator('section[id$="-settings"]');
     await expect(settingsSections.evaluateAll((elements) => elements.map((element) => element.id))).resolves.toEqual([
