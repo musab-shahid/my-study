@@ -9,6 +9,8 @@ import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { isTrackEnrolled } from '@/lib/track-access';
+import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
+import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
@@ -166,17 +168,15 @@ export function CGEITrackOverviewScreen() {
                   .map((id) => cgeiCurriculum.lessons.find((item) => item.id === id))
                   .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson)));
                 const authoredLessons = subjectLessons.filter(hasSubstantiveLessonContent).length;
-                const lessonReadiness = subjectLessons.reduce<Record<string, number>>((counts, lesson) => {
-                  counts[lesson.readiness] = (counts[lesson.readiness] ?? 0) + 1;
+                const readinessCounts = subjectLessons.reduce((counts, lesson) => {
+                  const label = getLearnerReadinessPresentation(lesson.readiness, hasSubstantiveLessonContent(lesson)).label;
+                  counts[label] = (counts[label] ?? 0) + 1;
                   return counts;
-                }, {});
-                const readinessSummary = ['planned', 'outlined', 'draft', 'review', 'validated', 'released']
-                  .map((status) => `${lessonReadiness[status] ?? 0} ${status}`)
-                  .join(' · ');
+                }, { Ready: 0, Preview: 0, 'Coming soon': 0 } as Record<string, number>);
                 const Icon = subject.lucideIcon ?? BookOpen;
                 const subjectStyle = getSubjectStyle(subject.id);
                 const detail = canonical
-                  ? `Canonical curriculum · subject readiness: ${canonical.readiness} · ${units.length} units · ${authoredLessons}/${subjectLessons.length} lessons with substantive content · Lesson readiness: ${subjectLessons.length ? readinessSummary : 'no lessons mapped'}`
+                  ? `Canonical curriculum · subject readiness: ${getLearnerReadinessPresentation(canonical.readiness, authoredLessons > 0).label} · ${units.length} units · ${authoredLessons}/${subjectLessons.length} lessons with substantive content · Lesson availability: ${subjectLessons.length ? `${readinessCounts.Ready} ready · ${readinessCounts.Preview} preview · ${readinessCounts['Coming soon']} coming soon` : 'no lessons mapped'}`
                   : hasTopicContent
                     ? `Legacy topic content · ${subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked.`
                     : hasTopicOutlines
@@ -187,17 +187,8 @@ export function CGEITrackOverviewScreen() {
                   <TrackSubjectRow
                     key={subject.id}
                     title={subject.title}
-                    meta={
-                      <div className="space-y-1">
-                        <p>{detail}</p>
-                        <p className="font-semibold">{pathLabel}</p>
-                      </div>
-                    }
-                    icon={
-                      <div className={`rounded-btn ${subjectStyle.tint} p-2.5 shrink-0`}>
-                        <Icon className={`w-5 h-5 ${subjectStyle.text}`} aria-hidden />
-                      </div>
-                    }
+                    meta={<div className="space-y-1"><p>{detail}</p><p className="font-semibold">{pathLabel}</p></div>}
+                    icon={<div className={`rounded-btn ${subjectStyle.tint} p-2.5 shrink-0`}><Icon className={`w-5 h-5 ${subjectStyle.text}`} aria-hidden /></div>}
                     disabled={!enrolled}
                     actionLabel={enrolled ? 'Explore' : 'Locked'}
                     onOpen={() => openSubject(subject.id as SubjectId)}
