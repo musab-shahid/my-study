@@ -10,7 +10,7 @@ describe('getLearnerReadinessPresentation', () => {
   });
 
   it('labels authored but unverified material Preview without exposing workflow states', () => {
-    for (const readiness of ['draft', 'review', 'outlined', 'planned'] as const) {
+    for (const readiness of ['draft', 'review'] as const) {
       const result = getLearnerReadinessPresentation(readiness, true);
       assert.equal(result.label, 'Preview');
       assert.equal(result.description, 'This material is still being checked.');
@@ -18,8 +18,14 @@ describe('getLearnerReadinessPresentation', () => {
     }
   });
 
-  it('labels outline-only material Coming soon even if its workflow status claims validation', () => {
-    for (const readiness of ['planned', 'outlined', 'draft', 'review', 'validated', 'released'] as const) {
+  it('labels planned and outlined material Coming soon, even if content blocks exist', () => {
+    for (const readiness of ['planned', 'outlined', 'validated', 'released'] as const) {
+      assert.equal(getLearnerReadinessPresentation(readiness, true).label, 'Coming soon');
+    }
+  });
+
+  it('never labels empty validated or released records Ready', () => {
+    for (const readiness of ['validated', 'released'] as const) {
       assert.equal(getLearnerReadinessPresentation(readiness, false).label, 'Coming soon');
     }
   });
