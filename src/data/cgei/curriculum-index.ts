@@ -1505,7 +1505,7 @@ export const cgeiIndexLessons: readonly CgeiIndexLesson[] = [
   },
   {
     "id": "cgei-cl-lesson-2-6-1",
-    "title": "Thresholds, heat and rainfall extremes",
+    "title": "Thresholds, heat, rainfall and drought extremes",
     "unitId": "cgei-cl-unit-2-6",
     "unitTitle": "Extremes and trend analysis",
     "subjectId": "cgei-climate-science",
