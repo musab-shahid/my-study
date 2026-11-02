@@ -235,7 +235,7 @@ export function SettingsScreen() {
 
       <nav aria-label="Settings sections" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-3">
         {[
-          ['workspace-settings', 'Workspace'], ['exam-settings', 'Exams'],
+          ['workspace-settings', 'Workspace'], ['exam-settings', 'Exam planning'],
           ['account-settings', 'Account & sync'], ['data-settings', 'Data & privacy'],
           ['app-settings', 'App'], ['reset-settings', 'Reset'], ['about-settings', 'About'],
         ].map(([id, label]) => (
