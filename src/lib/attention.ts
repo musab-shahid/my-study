@@ -232,7 +232,7 @@ export function getAttentionItems(
 
 /**
  * Priority:
- *  1. Review due ≥ 3 topics
+ *  1. Any reviews due today
  *  2. Continue unfinished topic
  *  3. Weak topics ≥ 3
  *  4. No activity in last 24 h → Quick Practice
@@ -285,7 +285,7 @@ export function getDashboardRecommendation(
 ): DashboardRecommendation {
   const { dueReviewCount, weakTopics, unfinished, daysSinceLastActivity } = attention;
 
-  if (dueReviewCount >= 3) {
+  if (dueReviewCount > 0) {
     return {
       kind: 'review',
       headline: `${dueReviewCount} topics due for review`,
