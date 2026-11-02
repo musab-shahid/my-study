@@ -12,6 +12,7 @@ import { isTrackEnrolled } from '@/lib/track-access';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
+import { TrackSubjectList, TrackSubjectRow } from '@/components/track/TrackLandingShell';
 import { getSubjectStyle } from '@/data/subject-colors';
 import type { SubjectId } from '@/types';
 
@@ -150,7 +151,7 @@ export function CGEITrackOverviewScreen() {
               <h3 id={`cgei-group-${group.id}`} className="font-bold text-ink">{group.title}</h3>
               <p className="text-sm text-muted mt-0.5">{group.description}</p>
             </div>
-            <div className="grid md:grid-cols-2 gap-3">
+            <TrackSubjectList>
               {group.subjectIds.map((subjectId) => {
                 const subject = subjects.find((item) => item.id === subjectId);
                 if (!subject) return null;
@@ -174,51 +175,35 @@ export function CGEITrackOverviewScreen() {
                   .join(' · ');
                 const Icon = subject.lucideIcon ?? BookOpen;
                 const subjectStyle = getSubjectStyle(subject.id);
+                const detail = canonical
+                  ? `Canonical curriculum · ${canonical.readiness} · ${units.length} units · ${authoredLessons}/${subjectLessons.length} lessons with substantive content · Lesson readiness: ${subjectLessons.length ? readinessSummary : 'no lessons mapped'}`
+                  : hasTopicContent
+                    ? `Legacy topic content · ${subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked.`
+                    : hasTopicOutlines
+                      ? `Partial topic outline · ${subjectTopics.length} topic records exist, but none is marked as content-bearing.`
+                      : 'Orientation only · roadmap available; no non-orientation study topics or canonical lessons are registered yet.';
+                const pathLabel = canonical ? 'Structured pathway' : hasTopicContent ? 'Legacy topic content' : hasTopicOutlines ? 'Partial topic outline' : 'Orientation only';
                 return (
-                  <Card key={subject.id} className={`p-card-pad border ${subjectStyle.border} ${subjectStyle.hoverBorder} transition-colors`}>
-                    <div className="flex items-start gap-3">
+                  <TrackSubjectRow
+                    key={subject.id}
+                    title={subject.title}
+                    meta={
+                      <div className="space-y-1">
+                        <p>{detail}</p>
+                        <p className="font-semibold">{pathLabel}</p>
+                      </div>
+                    }
+                    icon={
                       <div className={`rounded-btn ${subjectStyle.tint} p-2.5 shrink-0`}>
                         <Icon className={`w-5 h-5 ${subjectStyle.text}`} aria-hidden />
                       </div>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-ink leading-snug">{subject.title}</h4>
-                        {canonical ? (
-                          <>
-                            <p className="text-caption text-ink font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
-                            <p className="text-caption text-muted mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
-                            <p className="text-caption text-muted mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
-                          </>
-                        ) : hasTopicContent ? (
-                          <>
-                            <p className="text-caption text-muted font-semibold mt-1">Legacy topic content · release status not tracked</p>
-                            <p className="text-caption text-muted mt-1">{subjectTopics.filter((topic) => topic.content).length} content-bearing topic records; canonical lesson readiness and release evidence are not yet tracked for this domain.</p>
-                          </>
-                        ) : hasTopicOutlines ? (
-                          <>
-                            <p className="text-caption text-muted font-semibold mt-1">Partial topic outline</p>
-                            <p className="text-caption text-muted mt-1">{subjectTopics.length} topic records exist, but none is marked as content-bearing; structured lessons and assessments are still needed.</p>
-                          </>
-                        ) : (
-                          <>
-                            <p className="text-caption text-muted font-semibold mt-1">Orientation only</p>
-                            <p className="text-caption text-muted mt-1">The roadmap is available; no non-orientation study topics or canonical lessons are registered yet.</p>
-                          </>
-                        )}
-                      </div>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between gap-3">
-                      <span className="text-caption text-muted flex items-center gap-1">
-                        {canonical ? <CheckCircle2 className="w-3.5 h-3.5 text-success-700" aria-hidden /> : <Sparkles className="w-3.5 h-3.5" aria-hidden />}
-                        {canonical ? 'Structured pathway' : hasTopicContent ? 'Legacy topic content' : hasTopicOutlines ? 'Partial topic outline' : 'Orientation only'}
-                      </span>
-                      <Button size="sm" variant="secondary" disabled={!enrolled} onClick={() => openSubject(subject.id as SubjectId)}>
-                        {enrolled ? 'Explore' : 'Locked'} <ArrowRight className="w-3.5 h-3.5 ml-1" />
-                      </Button>
-                    </div>
-                  </Card>
-                );
+                    }
+                    disabled={!enrolled}
+                    actionLabel={enrolled ? 'Explore' : 'Locked'}
+                    onOpen={() => openSubject(subject.id as SubjectId)}
+                  />
               })}
-            </div>
+            </TrackSubjectList>
           </section>
         ))}
       </div>
