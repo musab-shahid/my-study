@@ -182,6 +182,7 @@ export function Sidebar() {
           onClick={() => setMoreOpen(true)}
           aria-haspopup="dialog"
           aria-expanded={moreOpen}
+          aria-controls="mobile-tools-tray"
           className="w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium text-white/80 hover:text-white hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900"
         >
           <INTERACTION_ICONS.more className="w-5 h-5 shrink-0" aria-hidden />
