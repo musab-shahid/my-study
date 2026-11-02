@@ -15,7 +15,7 @@ import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { getSubjectStyle } from '@/data/subject-colors';
 import type { SubjectId } from '@/types';
 
-const DOMAIN_GROUPS = [
+export const CGEI_DOMAIN_GROUPS = [
   {
     id: 'foundations',
     title: '01 · Foundations & Earth systems',
@@ -89,6 +89,11 @@ export function CGEITrackOverviewScreen() {
           onBegin={begin}
           onContinue={continueTrack}
         />
+        <div className="flex justify-end">
+          <Button type="button" variant="secondary" disabled={!enrolled} onClick={() => navigate({ screen: 'learn', parent: currentRoute })}>
+            Open CGEI Learning <ArrowRight className="w-4 h-4 ml-1" />
+          </Button>
+        </div>
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
           <div className="rounded-card bg-brand-50 border border-brand-100 p-card-pad">
             <Compass className="w-5 h-5 text-brand-800 mb-2" aria-hidden />
@@ -134,7 +139,7 @@ export function CGEITrackOverviewScreen() {
       </div>
 
       <div className="space-y-6">
-        {DOMAIN_GROUPS.map((group) => (
+        {CGEI_DOMAIN_GROUPS.map((group) => (
           <section key={group.id} aria-labelledby={`cgei-group-${group.id}`}>
             <div className="mb-3">
               <h3 id={`cgei-group-${group.id}`} className="font-bold text-ink">{group.title}</h3>
