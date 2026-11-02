@@ -94,7 +94,7 @@ export function CGEITrackOverviewScreen() {
             const result = setActiveEnrolledTrack('cgei');
             if (!result.ok) return;
             setActiveTrack('cgei');
-            navigate({ screen: 'learn', parent: currentRoute });
+            navigate({ screen: 'learn', trackId: 'cgei', parent: currentRoute });
           }}>
             Open CGEI Learning <ArrowRight className="w-4 h-4 ml-1" />
           </Button>
