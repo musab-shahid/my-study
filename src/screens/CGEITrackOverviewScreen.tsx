@@ -56,7 +56,7 @@ export function CGEITrackOverviewScreen() {
   const accent = trackAccentClasses('cgei');
   const subjects = subjectsByTrack('cgei');
   const lastLesson = data.lastOpenedCurriculumLesson
-    ? cgeiCurriculum.lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson)
+    ? cgeiCurriculum.lessons.find((lesson) => lesson.id === data.lastOpenedCurriculumLesson && hasSubstantiveLessonContent(lesson))
     : undefined;
 
   const begin = () => {
