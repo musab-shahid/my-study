@@ -29,11 +29,12 @@ const routes = [
 
 const viewports = [
   { width: 390, height: 844 },
+  { width: 768, height: 1024 },
   { width: 1280, height: 900 },
 ] as const;
 
 test('captures visual references for representative routes at mobile and desktop widths', async ({ page }, testInfo) => {
-  test.setTimeout(180_000);
+  test.setTimeout(300_000);
   await page.emulateMedia({ reducedMotion: 'reduce' });
 
   for (const viewport of viewports) {
@@ -56,11 +57,18 @@ test('captures visual references for representative routes at mobile and desktop
         route.slug + ' should not overflow horizontally at ' + viewport.width + 'px',
       ).toBe(false);
 
-      const output = testInfo.outputPath('visual-reference', route.slug + '-' + viewport.width + '.png');
-      mkdirSync(dirname(output), { recursive: true });
-      await page.screenshot({ path: output, fullPage: true, animations: 'disabled' });
-      await testInfo.attach(route.slug + '-' + viewport.width, {
-        path: output,
+      const outputDir = testInfo.outputPath('visual-reference');
+      mkdirSync(outputDir, { recursive: true });
+      const viewportOutput = testInfo.outputPath('visual-reference', route.slug + '-' + viewport.width + '-viewport.png');
+      const fullPageOutput = testInfo.outputPath('visual-reference', route.slug + '-' + viewport.width + '-full.png');
+      await page.screenshot({ path: viewportOutput, fullPage: false, animations: 'disabled' });
+      await page.screenshot({ path: fullPageOutput, fullPage: true, animations: 'disabled' });
+      await testInfo.attach(route.slug + '-' + viewport.width + '-viewport', {
+        path: viewportOutput,
+        contentType: 'image/png',
+      });
+      await testInfo.attach(route.slug + '-' + viewport.width + '-full', {
+        path: fullPageOutput,
         contentType: 'image/png',
       });
     }
