@@ -256,7 +256,7 @@ test.describe('CGEI Unit 5.8 lesson rendering', () => {
       await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
@@ -269,7 +269,7 @@ test.describe('CGEI Unit 5.8 lesson rendering', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-8');
     await expect(page.getByRole('heading', { name: 'Multivariate analysis, PCA and EOF', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) {
       await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')) })).toBeVisible();
     }
@@ -292,7 +292,7 @@ test.describe('CGEI Unit 5.9 lesson rendering', () => {
       await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
@@ -305,7 +305,7 @@ test.describe('CGEI Unit 5.9 lesson rendering', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-9');
     await expect(page.getByRole('heading', { name: 'GLMs, mixed models and Bayesian modelling', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) {
       await expect(page.getByRole('button', { name: new RegExp(lesson.title.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&')) })).toBeVisible();
     }
@@ -327,7 +327,7 @@ test.describe('CGEI Unit 5.10 lesson rendering', () => {
       await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
@@ -339,7 +339,7 @@ test.describe('CGEI Unit 5.10 lesson rendering', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-10');
     await expect(page.getByRole('heading', { name: 'Causal inference for environmental questions', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) await expect(page.getByRole('button', { name: lesson.title })).toBeVisible();
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
@@ -359,7 +359,7 @@ test.describe('CGEI Unit 5.11 lesson rendering', () => {
       await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
@@ -371,7 +371,7 @@ test.describe('CGEI Unit 5.11 lesson rendering', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-11');
     await expect(page.getByRole('heading', { name: 'Research software engineering', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) await expect(page.getByRole('button', { name: lesson.title })).toBeVisible();
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
@@ -391,7 +391,7 @@ test.describe('CGEI Unit 5.12 lesson rendering', () => {
       await seedCgeiWorkspace(page);
       await page.goto(`/curriculum/lesson/${lesson.id}`);
       await expect(page.getByRole('heading', { name: lesson.title, exact: true })).toBeVisible({ timeout: 20_000 });
-      await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+      await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Practice and application', exact: true })).toBeVisible();
       await expect(page.getByRole('heading', { name: 'Check your understanding', exact: true })).toBeVisible();
@@ -403,7 +403,7 @@ test.describe('CGEI Unit 5.12 lesson rendering', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/curriculum/unit/cgei-ds-unit-5-12');
     await expect(page.getByRole('heading', { name: 'xarray and scalable environmental pipelines', exact: true })).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('draft', { exact: true }).first()).toBeVisible();
+    await expect(page.getByText('Preview', { exact: true }).first()).toBeVisible();
     for (const lesson of lessons) await expect(page.getByRole('button', { name: lesson.title })).toBeVisible();
     await expect(page.getByText('5 mapped', { exact: true })).toBeVisible();
   });
