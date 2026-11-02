@@ -28,7 +28,6 @@ const topicLoaders: Record<string, () => Promise<TopicModule>> = {
   'cgei-software-engineering': () => import('./cgei/software-engineering/questions-software-engineering'),
   'cgei-advanced-ai': () => import('./cgei/advanced-ai/questions-advanced-ai'),
   'cgei-capstone': () => import('./cgei/capstone/questions-capstone'),
-  'cgei-advanced-branches': () => import('./cgei/advanced-branches/questions-advanced-branches'),
 };
 
 
@@ -56,7 +55,6 @@ const questionLoaders: Record<string, () => Promise<QuestionModule>> = {
   'cgei-software-engineering': () => import('./cgei/software-engineering/questions-software-engineering'),
   'cgei-advanced-ai': () => import('./cgei/advanced-ai/questions-advanced-ai'),
   'cgei-capstone': () => import('./cgei/capstone/questions-capstone'),
-  'cgei-advanced-branches': () => import('./cgei/advanced-branches/questions-advanced-branches'),
 };
 
 

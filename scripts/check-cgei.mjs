@@ -12,6 +12,8 @@ import path from 'node:path';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const steps = [
+  ['node', ['scripts/check-cgei-subject-boundary.mjs']],
+  ['node', ['scripts/check-cgei-authoring.mjs']],
   ['npm', ['run', 'check:cgei-sync']],
   ['npm', ['run', 'report:cgei-unit', '--', '--unit', 'cgei-cl-unit-2-4', '--check-structure']],
   ['npm', ['run', 'check:cgei-readiness-transitions']],

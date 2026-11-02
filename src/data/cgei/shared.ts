@@ -23,7 +23,6 @@ export const cgeiTrack: CurriculumTrack = {
     "cgei-software-engineering",
     "cgei-advanced-ai",
     "cgei-capstone",
-    "cgei-advanced-branches",
   ],
   recommendedOrder: [
     "cgei-env-systems",
@@ -39,6 +38,5 @@ export const cgeiTrack: CurriculumTrack = {
     "cgei-software-engineering",
     "cgei-advanced-ai",
     "cgei-capstone",
-    "cgei-advanced-branches",
   ],
 };

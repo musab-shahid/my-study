@@ -16,6 +16,7 @@ const files = [
   'docs/cgei/question-id-ledger.json',
   'src/data/sections.ts',
   'src/data/cgei/curriculum-index.ts',
+  'src/data/topic-metadata.ts',
 ];
 
 // Snapshot before

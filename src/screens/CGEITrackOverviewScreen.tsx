@@ -38,7 +38,7 @@ const DOMAIN_GROUPS = [
     id: 'advanced',
     title: '04 · Advanced pathways & capstone',
     description: 'Extend into advanced AI, a portfolio-grade capstone, or optional specialist branches.',
-    subjectIds: ['cgei-advanced-ai', 'cgei-capstone', 'cgei-advanced-branches'],
+    subjectIds: ['cgei-advanced-ai', 'cgei-capstone'],
   },
 ] as const;
 
@@ -92,7 +92,7 @@ export function CGEITrackOverviewScreen() {
         <div className="grid sm:grid-cols-3 gap-3 mt-5">
           <div className="rounded-card bg-brand-50 border border-brand-100 p-card-pad">
             <Compass className="w-5 h-5 text-brand-800 mb-2" aria-hidden />
-            <p className="font-semibold text-sm text-ink">14 connected domains</p>
+            <p className="font-semibold text-sm text-ink">{subjects.length} connected domains</p>
             <p className="text-caption leading-relaxed text-ink-muted mt-1">A pathway from environmental foundations to applied intelligence and research.</p>
           </div>
           <div className="rounded-xl bg-slate-50 border border-slate-200 p-3">
