@@ -202,6 +202,7 @@ export function CGEITrackOverviewScreen() {
                     actionLabel={enrolled ? 'Explore' : 'Locked'}
                     onOpen={() => openSubject(subject.id as SubjectId)}
                   />
+                );
               })}
             </TrackSubjectList>
           </section>
