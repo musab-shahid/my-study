@@ -41,7 +41,7 @@ export function CGEILearningScreen({ subjectId }: { subjectId?: string }) {
 
 function CGEILearningHomeScreen() {
   const { data, setActiveEnrolledTrack } = useData();
-  const { setActiveTrack } = useSubjectSelection();
+  const { setActiveTrack, setActiveSubjectForScreen } = useSubjectSelection();
   const { navigate, currentRoute } = useRouter();
   const enrolled = isTrackEnrolled(data, 'cgei');
   const subjects = subjectsByTrack('cgei');
@@ -187,10 +187,14 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
   }, [roadmapTopicId]);
 
   useEffect(() => {
-    if (trackMembership.activeTrackId === 'cgei') return;
-    const switched = setActiveEnrolledTrack('cgei');
-    if (switched.ok) setActiveTrack('cgei');
-  }, [trackMembership.activeTrackId, setActiveEnrolledTrack, setActiveTrack]);
+    if (trackMembership.activeTrackId !== 'cgei') {
+      const switched = setActiveEnrolledTrack('cgei');
+      if (switched.ok) setActiveTrack('cgei');
+      return;
+    }
+    // Keep sidebar context in sync with the canonical subject URL.
+    setActiveSubjectForScreen('learn', subjectId as SubjectId);
+  }, [trackMembership.activeTrackId, setActiveEnrolledTrack, setActiveSubjectForScreen, setActiveTrack, subjectId]);
   const subjectDefinition = subjectsByTrack('cgei').find((item) => item.id === subjectId);
   const authoredLessons = lessons.filter(hasSubstantiveLessonContent);
   const studiedCount = authoredLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
