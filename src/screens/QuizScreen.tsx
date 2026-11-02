@@ -1537,7 +1537,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
               <h3 id="exit-modal-title" className="font-bold text-ink text-lg">Exit quiz?</h3>
             </div>
             <p className="text-muted text-sm mb-5">
-              You&apos;ve answered {state.answers.length} of {state.questions.length} questions. Your progress will be lost.
+              Your progress is saved on this device. You can resume this quiz from Home.
             </p>
             <div className="flex gap-3">
               <Button variant="secondary" onClick={() => setShowExitConfirm(false)} className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
@@ -1547,7 +1547,6 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
                 variant="danger"
                 onClick={() => {
                   setShowExitConfirm(false);
-                  clearQuizProgress();
                   exitToOrigin();
                 }}
                 className="min-h-11 flex-1 focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
