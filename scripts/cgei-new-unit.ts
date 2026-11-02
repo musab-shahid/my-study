@@ -1,7 +1,7 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import * as ts from 'typescript';
-import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findSubjectModule, numberProperty, objectById, renderObject } from './lib/cgei-authoring';
+import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findSubjectModule, listSubjectModules, numberProperty, objectById, renderObject } from './lib/cgei-authoring';
 
 function arg(name: string): string | undefined {
   const index = process.argv.indexOf('--' + name);
@@ -28,7 +28,9 @@ const unitIds = arrayProperty(module.subject, 'unitIds');
 const slug = code.trim().replace(/\./g, '-');
 const unitId = 'cgei-' + prefix + '-unit-' + slug;
 if (objectById(units, unitId) || arrayStrings(unitIds).includes(unitId)) throw new Error('Unit already exists: ' + unitId);
-const orders = units.elements.filter(ts.isObjectLiteralExpression).map((element) => numberProperty(element, 'order') ?? 0);
+const orders = listSubjectModules().flatMap((subjectModule) =>
+  exportedArray(subjectModule.source, 'units').elements.filter(ts.isObjectLiteralExpression)
+    .map((element) => numberProperty(element, 'order') ?? 0));
 const unitRecord = {
   id: unitId, code: code.trim(), title: arg('title') ?? 'TODO: unit title',
   order: Math.max(0, ...orders) + 1, kind: 'unit', readiness: 'planned',

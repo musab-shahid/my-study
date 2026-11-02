@@ -1,6 +1,6 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findUnit, renderObject } from './lib/cgei-authoring';
+import { arrayProperty, arrayStrings, appendArrayEdit, applyEdits, exportedArray, findUnit, objectById, renderObject } from './lib/cgei-authoring';
 
 function arg(name: string): string | undefined {
   const index = process.argv.indexOf('--' + name);
@@ -16,8 +16,8 @@ const lessonIds = arrayProperty(module.unit, 'lessonIds');
 const existingIds = arrayStrings(lessonIds);
 const nextOrder = existingIds.length + 1;
 const lessonId = unitId.replace(/-unit-/, '-lesson-') + '-' + nextOrder;
-if (existingIds.includes(lessonId)) throw new Error('Lesson already exists: ' + lessonId);
 const lessons = exportedArray(module.source, 'lessons');
+if (existingIds.includes(lessonId) || objectById(lessons, lessonId)) throw new Error('Lesson already exists: ' + lessonId);
 const lessonRecord = {
   id: lessonId, kind: 'lesson', title: arg('title') ?? 'TODO: lesson title',
   order: nextOrder, readiness: 'draft', level: 'L3',
