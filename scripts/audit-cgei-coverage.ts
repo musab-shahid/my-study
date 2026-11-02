@@ -55,7 +55,7 @@ function classify(
 
 async function main() {
   const subjects = subjectsByTrack('cgei');
-  if (subjects.length !== 14) errors.push(`Expected 14 CGEI domains; found ${subjects.length}`);
+  if (subjects.length !== 13) errors.push(`Expected 13 canonical CGEI subjects; found ${subjects.length}`);
   const seen = new Set<string>();
   const rows: Array<{
     subject: string;
