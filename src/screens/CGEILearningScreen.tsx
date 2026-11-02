@@ -10,6 +10,7 @@ import { getTopicAsync } from '@/data/topics';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { subjectsByTrack } from '@/data/subjects';
 import { isTrackEnrolled } from '@/lib/track-access';
+import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { getSubjectStyle } from '@/data/subject-colors';
 import { PageContainer, Card, Button, Badge, ProgressBar } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
@@ -111,7 +112,7 @@ function CGEILearningHomeScreen() {
             <div className="min-w-0">
               <p className="text-xs font-bold uppercase tracking-wide text-brand-800 flex items-center gap-2"><BookOpen className="w-4 h-4" />{resumeLabel}</p>
               <p className="font-semibold text-ink mt-1">{resumeLesson.title}</p>
-              <p className="text-xs text-muted mt-1">{resumeLesson.readiness} · {resumeLesson.estimatedMinutes ? `${resumeLesson.estimatedMinutes} minutes` : 'Lesson'}</p>
+              <p className="text-xs text-muted mt-1">{getLearnerReadinessPresentation(resumeLesson.readiness, hasSubstantiveLessonContent(resumeLesson)).label} · {resumeLesson.estimatedMinutes ? `${resumeLesson.estimatedMinutes} minutes` : 'Lesson'}</p>
               <p className="text-xs text-muted mt-1">{lastLesson ? 'Return to the last lesson you opened.' : 'Start with the first lesson that contains substantive learning material.'}</p>
             </div>
             <Button type="button" onClick={() => openLesson(resumeLesson.id)}> {lastLesson ? 'Resume lesson' : 'Open recommended lesson'} <ArrowRight className="w-4 h-4 ml-1" /></Button>
@@ -188,7 +189,7 @@ function CGEILearningHomeScreen() {
                       </div>
                     </div>
                     <div className="flex items-center justify-between gap-3 mt-4">
-                      <span className="text-xs text-muted">{canonical?.readiness ?? 'roadmap'}</span>
+                      <span className="text-xs text-muted">{canonical ? getLearnerReadinessPresentation(canonical.readiness, authored > 0).label : 'Coming soon'}</span>
                       <Button type="button" size="sm" variant="secondary" disabled={!enrolled} onClick={() => openSubject(id)}>Open domain <ArrowRight className="w-3.5 h-3.5 ml-1" /></Button>
                     </div>
                   </Card>
@@ -311,7 +312,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
           const unitStudied = unitLessons.filter((lesson) => lessonIsStudied(lesson, data)).length;
           const unitAuthored = unitLessons.filter(hasSubstantiveLessonContent).length;
           return <Button key={unit.id} type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left">
-            <span className="flex items-start gap-3 w-full"><span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-sm text-ink">{unit.title}</span><Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge></span><span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span><span className="block text-xs text-muted mt-1">{unitAuthored} authored / {unitLessons.length} lessons · {unitStudied} studied</span></span><ArrowRight className="w-4 h-4 text-success-700 shrink-0 mt-1" /></span>
+            <span className="flex items-start gap-3 w-full"><span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-sm text-ink">{unit.title}</span><Badge color={getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).tone === 'ready' ? 'green' : getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).tone === 'preview' ? 'amber' : 'slate'}>{getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).label}</Badge></span><span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span><span className="block text-xs text-muted mt-1">{unitAuthored} authored / {unitLessons.length} lessons · {unitStudied} studied</span></span><ArrowRight className="w-4 h-4 text-success-700 shrink-0 mt-1" /></span>
           </Button>;
         })}</div> : <div className="rounded-xl border border-dashed border-border p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
       </Card>

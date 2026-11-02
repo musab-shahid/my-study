@@ -9,6 +9,7 @@ import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { isTrackEnrolled } from '@/lib/track-access';
+import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { trackAccentClasses } from '@/lib/track-chrome';
 import { TrackEnrollmentBanner } from '@/components/track/TrackEnrollmentBanner';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
@@ -165,13 +166,11 @@ export function CGEITrackOverviewScreen() {
                   .map((id) => cgeiCurriculum.lessons.find((item) => item.id === id))
                   .filter((lesson): lesson is NonNullable<typeof lesson> => Boolean(lesson)));
                 const authoredLessons = subjectLessons.filter(hasSubstantiveLessonContent).length;
-                const lessonReadiness = subjectLessons.reduce<Record<string, number>>((counts, lesson) => {
-                  counts[lesson.readiness] = (counts[lesson.readiness] ?? 0) + 1;
+                const readinessCounts = subjectLessons.reduce((counts, lesson) => {
+                  const label = getLearnerReadinessPresentation(lesson.readiness, hasSubstantiveLessonContent(lesson)).label;
+                  counts[label] = (counts[label] ?? 0) + 1;
                   return counts;
-                }, {});
-                const readinessSummary = ['planned', 'outlined', 'draft', 'review', 'validated', 'released']
-                  .map((status) => `${lessonReadiness[status] ?? 0} ${status}`)
-                  .join(' · ');
+                }, { Ready: 0, Preview: 0, 'Coming soon': 0 } as Record<string, number>);
                 const Icon = subject.lucideIcon ?? BookOpen;
                 const subjectStyle = getSubjectStyle(subject.id);
                 return (
@@ -184,9 +183,8 @@ export function CGEITrackOverviewScreen() {
                         <h4 className="font-semibold text-ink leading-snug">{subject.title}</h4>
                         {canonical ? (
                           <>
-                            <p className="text-caption text-ink font-semibold mt-1">Canonical curriculum · subject readiness: {canonical.readiness}</p>
-                            <p className="text-caption text-muted mt-1">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content</p>
-                            <p className="text-caption text-muted mt-1">Lesson readiness (zero counts included): {subjectLessons.length ? readinessSummary : 'no lessons mapped'}.</p>
+                            <p className="text-caption text-ink font-semibold mt-1">Canonical curriculum · {getLearnerReadinessPresentation(canonical.readiness, authoredLessons > 0).label}</p>
+                            <details className="mt-2 text-caption text-muted"><summary className="cursor-pointer font-medium text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">About this course</summary><p className="mt-2">{units.length} registered units · {authoredLessons}/{subjectLessons.length} lessons with substantive content.</p><p className="mt-1">Lesson availability: {subjectLessons.length ? `${readinessCounts.Ready} ready · ${readinessCounts.Preview} preview · ${readinessCounts['Coming soon']} coming soon` : 'No lessons mapped yet.'}</p></details>
                           </>
                         ) : hasTopicContent ? (
                           <>
