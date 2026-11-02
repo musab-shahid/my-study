@@ -13,10 +13,10 @@
 import { env } from './runtime-env.ts';
 import {
   getProgressSyncAccessToken,
-  setProgressSyncAccessToken,
   isProgressSyncConfigured,
 } from './progress-sync.ts';
 import { getRefreshToken, setSessionTokens } from './session-tokens.ts';
+import { mapAuthError } from './auth-errors.ts';
 
 const USER_EMAIL_KEY = 'examprep-supabase-user-email';
 
@@ -60,28 +60,6 @@ function anonHeaders(): HeadersInit {
 export type AuthResult =
   | { ok: true; email: string }
   | { ok: false; error: string };
-
-function mapAuthError(status: number, body: unknown): string {
-  const msg =
-    body && typeof body === 'object' && 'error_description' in body
-      ? String((body as { error_description?: string }).error_description || '')
-      : body && typeof body === 'object' && 'msg' in body
-        ? String((body as { msg?: string }).msg || '')
-        : body && typeof body === 'object' && 'message' in body
-          ? String((body as { message?: string }).message || '')
-          : '';
-  if (status === 400 && /confirm|credentials|invalid/i.test(msg)) {
-    return 'Incorrect email or password.';
-  }
-  if (status === 422 || /already|registered|exists/i.test(msg)) {
-    return 'An account with this email already exists. Sign in instead.';
-  }
-  if (status === 429) return 'Too many attempts. Wait a moment and try again.';
-  if (/confirm|verify|email/i.test(msg) && /not.*confirm|confirm.*email/i.test(msg)) {
-    return 'Check your email to confirm the account, then sign in.';
-  }
-  return msg || `Auth failed (HTTP ${status})`;
-}
 
 async function applySession(data: {
   access_token?: string;
@@ -208,7 +186,7 @@ export async function requestPasswordReset(email: string): Promise<{ ok: boolean
   if (!isAuthConfigured()) {
     return { ok: false, error: 'Cloud account is not configured in this build.' };
   }
-  const trimmed = email.trim();
+  const trimmed = email.trim().toLowerCase();
   if (!trimmed) return { ok: false, error: 'Enter an email address.' };
   const redirectTo =
     typeof window !== 'undefined' ? `${window.location.origin}/` : undefined;
