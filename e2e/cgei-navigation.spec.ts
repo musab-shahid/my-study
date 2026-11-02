@@ -70,8 +70,8 @@ test.describe('CGEI curriculum navigation and orientation', () => {
   test('domain search filters the grouped catalogue without changing curriculum order', async ({ page }) => {
     await seedCgeiWorkspace(page);
     await page.goto('/learn');
-    await page.getByRole('searchbox', { name: 'Search learning domains' }).fill('Climate Science');
-    await expect(page.getByRole('heading', { name: 'Climate Science', exact: true })).toBeVisible();
+    await page.getByRole('searchbox', { name: 'Search learning domains' }).fill('Climate Science & Climate Data');
+    await expect(page.getByRole('heading', { name: 'Climate Science & Climate Data', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Open domain' })).toHaveCount(1);
     await expect(page.getByText('No matching domains', { exact: true })).toHaveCount(0);
   });
@@ -84,7 +84,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
       localStorage.setItem(key, JSON.stringify(value));
     }, APP_DATA_KEY);
     await page.reload();
-    await page.goto('/learn');
+    await page.goto('/learn/track/cgei');
     await expect(page.getByText('Start the CGEI learning pathway', { exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Explore and enroll', exact: true })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Open domain' }).first()).toBeDisabled();
