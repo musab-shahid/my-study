@@ -70,7 +70,7 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
 
   /** Top-level desktop sidebar utilities with aria-current wiring. */
   const sidebarUtilities: { path: string; label: string; urlFragment: RegExp }[] = [
-    { path: '/progress', label: 'Progress', urlFragment: /\\/progress/ },
+    { path: '/progress', label: 'Progress', urlFragment: /\/progress/ },
   ];
   /** Stage routes that load but are not always a top-level named sidebar button. */
   const stageRoutes: { path: string; urlFragment: RegExp }[] = [
@@ -197,7 +197,7 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await seedWorkspace(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     const ratio = await page.locator('aside').getByRole('button', { name: 'Learn', exact: true }).evaluate((el) => {
-      const parse = (value: string) => value.match(/[\\d.]+/g)?.slice(0, 3).map(Number) ?? [0, 0, 0];
+      const parse = (value: string) => value.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [0, 0, 0];
       const [r, g, b] = parse(getComputedStyle(el).color).map((v) => v / 255);
       const [br, bg, bb] = parse(getComputedStyle(el.parentElement!.parentElement!.parentElement!).backgroundColor).map((v) => v / 255);
       const linear = (v: number) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
