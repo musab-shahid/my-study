@@ -3,13 +3,14 @@ import { test, expect } from '@playwright/test';
 test.describe('App shell & navigation', () => {
   test('loads home and shows primary navigation labels', async ({ page }) => {
     await page.goto('/');
-    await expect(page.getByText('Home', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
-    await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Primary' })).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByRole('button', { name: 'More', exact: true })).toBeVisible();
   });
 
   test('opens Settings and exposes local backup export', async ({ page }) => {
     await page.goto('/');
-    await page.getByText('Settings', { exact: true }).first().click();
+    await page.getByRole('button', { name: 'More', exact: true }).click();
+    await page.getByRole('dialog', { name: 'More' }).getByRole('button', { name: 'Settings', exact: true }).click();
     await expect(page.getByText(/Download a JSON backup|Download backup|Export/i).first()).toBeVisible({
       timeout: 15_000,
     });
@@ -79,7 +80,7 @@ test.describe('Mobile More sheet accessibility', () => {
 });
 
 test.describe('Mobile primary bar', () => {
-  test('orders Home, Learn, Practice, Tracks before More', async ({ page }) => {
+  test('orders the five task destinations in the primary bar', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('/');
     const bar = page.getByRole('navigation', { name: 'Primary' });
@@ -89,8 +90,10 @@ test.describe('Mobile primary bar', () => {
     expect(idx('Home')).toBeGreaterThanOrEqual(0);
     expect(idx('Learn')).toBeGreaterThan(idx('Home'));
     expect(idx('Practice')).toBeGreaterThan(idx('Learn'));
-    expect(idx('Tracks')).toBeGreaterThan(idx('Practice'));
-    expect(idx('More')).toBeGreaterThan(idx('Tracks'));
+    expect(idx('Revision queue')).toBeGreaterThan(idx('Practice'));
+    expect(idx('Progress')).toBeGreaterThan(idx('Revision queue'));
+    expect(idx('More')).toBeGreaterThan(idx('Progress'));
+    expect(idx('Tracks')).toBe(-1);
   });
 });
 
@@ -146,12 +149,14 @@ test.describe('Mobile More menu consistency', () => {
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
   });
 
-  test('desktop sidebar exposes Flashcards as a global tool; Cloud Atlas stays subject-scoped', async ({ page }) => {
+  test('desktop More tray exposes Flashcards; Cloud Atlas stays subject-scoped', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto('/');
 
     const sidebar = page.locator('aside').filter({ hasText: 'My Study' });
-    await expect(sidebar.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
+    await sidebar.getByRole('button', { name: 'More', exact: true }).click();
+    const more = page.getByRole('dialog', { name: 'More' });
+    await expect(more.getByRole('button', { name: 'Flashcards', exact: true })).toBeVisible();
     // Cloud Atlas is meteo-subject only — not a global Tools entry
     await expect(sidebar.getByRole('button', { name: 'Cloud Atlas', exact: true })).toHaveCount(0);
   });
