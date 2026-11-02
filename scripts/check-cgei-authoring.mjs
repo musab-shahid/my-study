@@ -89,7 +89,7 @@ try {
   assert.ok(lessonArray.elements.some((item) => ts.isObjectLiteralExpression(item) && objectString(item, 'id') === lessonId),
     'lesson record is written to the same topics file');
   assert.ok(newUnit.properties.some((property) =>
-    ts.isPropertyAssignment(property) && ts.isIdentifier(property.name) && property.name.text === 'lessonIds' &&
+    ts.isPropertyAssignment(property) && (ts.isIdentifier(property.name) || ts.isStringLiteral(property.name)) && property.name.text === 'lessonIds' &&
     ts.isArrayLiteralExpression(property.initializer) &&
     property.initializer.elements.some((item) => ts.isStringLiteralLike(item) && item.text === lessonId)),
     'parent unit.lessonIds is updated');
