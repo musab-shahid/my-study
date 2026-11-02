@@ -1617,7 +1617,7 @@ export const questions: Question[] = [
     sectionId: "CGEI-0210",
     topicId: "cgei-regional-projection-products",
     difficulty: "easy",
-    type: "true_false",
+    type: "single",
     question: "CMIP7 scenario names, forcing datasets and data-request tables should be treated as fixed forever based on CMIP6 conventions.",
     options: ["True", "False"],
     correctAnswer: 1,

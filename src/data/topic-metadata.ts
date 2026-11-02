@@ -342,6 +342,16 @@ export const topicMetadata: TopicMeta[] = [
   {"id":"cgei-advanced-ai-roadmap","sectionId":"CGEI-12","order":1,"title":"Advanced AI Systems & AI-Assisted Scientific Workflows — roadmap","content":true},
   {"id":"cgei-capstone-roadmap","sectionId":"CGEI-13","order":1,"title":"Applied Capstone, Professional Portfolio & Career/Research Pathways — roadmap","content":true},
   {"id":"cgei-advanced-branches-roadmap","sectionId":"CGEI-14","order":1,"title":"Optional Advanced Environmental Branches — roadmap","content":true},
+  {"id":"cgei-atmospheric-thermo-dynamics","sectionId":"CGEI-023","order":1,"title":"Atmospheric thermodynamics, dynamics and PBL","content":true},
+  {"id":"cgei-climate-models-projections","sectionId":"CGEI-029","order":1,"title":"Climate models and projections","content":true},
+  {"id":"cgei-climate-system-processes","sectionId":"CGEI-022","order":1,"title":"Climate system processes","content":true},
+  {"id":"cgei-detection-attribution","sectionId":"CGEI-0211","order":1,"title":"Detection, attribution and event interpretation","content":true},
+  {"id":"cgei-extreme-value-statistics","sectionId":"CGEI-027","order":1,"title":"Extreme value statistics and return levels","content":true},
+  {"id":"cgei-ml-ai-climate-services","sectionId":"CGEI-0212","order":1,"title":"ML, open AI forecasts, climate services and digital twins","content":true},
+  {"id":"cgei-regional-climate-literacy","sectionId":"CGEI-028","order":1,"title":"Regional climate literacy (Pakistan / southern Punjab)","content":true},
+  {"id":"cgei-regional-projection-products","sectionId":"CGEI-0210","order":1,"title":"Regional projection products and CMIP7 awareness","content":true},
+  {"id":"cgei-s2s-prediction","sectionId":"CGEI-0213","order":1,"title":"Seasonal-to-subseasonal prediction and verification","content":true},
+  {"id":"cgei-weather-climate-baselines","sectionId":"CGEI-021","order":1,"title":"Weather, climate and baselines","content":true},
 ];
 
 export const topicMetaMap: Record<string, TopicMeta> = Object.fromEntries(

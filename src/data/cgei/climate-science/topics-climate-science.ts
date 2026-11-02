@@ -6788,178 +6788,113 @@ export const resources: CurriculumResource[] = [
 export const deliverables: CurriculumDeliverable[] = [
   {
     id: "cgei-cl-del-provenance-record",
-    kind: "processing-record",
     title: "Climate-data processing and provenance record",
     description:
-      "A structured record sufficient for independent re-execution: product name and version, variable and units, spatial domain and support, time zone/calendar rule, baseline period, completeness threshold, aggregation method, access date, licence, and checksum or script commit hash. No fabricated station numbers.",
-    format: "markdown-table or YAML sidecar",
-    estimatedMinutes: 25,
-    objectiveIds: [
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+      "A structured record sufficient for independent re-execution: product name and version, variable and units, spatial domain and support, time zone/calendar rule, baseline period, completeness threshold, aggregation method, access date, licence, and checksum or script commit hash. No fabricated station numbers. Markdown table or YAML sidecar.",
+    artefactTypes: ["table"],
     acceptanceCriteria: [
       "Every field listed in the Unit 2.5 workflow checklist is present",
       "UTC vs PKT (or other local) convention is explicit",
       "Missing-data rule is stated (missing ≠ zero)",
-      "A second analyst could re-run the path from the record alone"
-    ]
+      "A second analyst could re-run the path from the record alone",
+    ],
   },
   {
     id: "cgei-cl-del-product-manifest",
-    kind: "manifest",
     title: "Product and model-member selection manifest",
     description:
-      "For any multi-product or multi-model comparison: list models/products considered, those retained, those excluded and why (regional skill, implausible trend, hot-model concern, licence), grid, scenario/experiment, bias-adjustment method and reference, download date and DOI/URL.",
-    format: "table (CSV or markdown)",
-    estimatedMinutes: 30,
-    objectiveIds: [
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-210-select",
-      "cgei-cl-o-29-evaluation"
-    ],
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+      "For any multi-product or multi-model comparison: list models/products considered, those retained, those excluded and why (regional skill, implausible trend, hot-model concern, licence), grid, scenario/experiment, bias-adjustment method and reference, download date and DOI/URL. Delivered as a CSV or markdown table.",
+    artefactTypes: ["table"],
     acceptanceCriteria: [
       "Exclusions are reasoned, not silent",
       "Ensemble range and agreement fraction appear alongside any mean",
-      "No bare multi-model mean as the sole reported number"
-    ]
+      "No bare multi-model mean as the sole reported number",
+    ],
   },
   {
     id: "cgei-cl-del-baseline-anomaly-brief",
-    kind: "analysis-brief",
     title: "Baseline, season and anomaly definition brief",
     description:
       "One-page statement of the normal period, season definition (PMD-style vs JJA/JJAS), domain, variable, units, and the exact anomaly formula used. Required before any trend or extremes count in the exit notebook.",
-    format: "one-page markdown or PDF",
-    estimatedMinutes: 20,
-    objectiveIds: [
-      "cgei-cl-o-21-weather-climate",
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-28-seasons"
-    ],
-    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+    artefactTypes: ["report"],
     acceptanceCriteria: [
       "Baseline period is named and justified",
       "Season months are listed explicitly",
       "Domain/support (station, grid, district) is stated",
-      "No claim that a single extreme falsifies the climate distribution"
-    ]
+      "No claim that a single extreme falsifies the climate distribution",
+    ],
   },
   {
     id: "cgei-cl-del-extremes-trend-card",
-    kind: "results-card",
     title: "Extremes and trend results card",
     description:
-      "Threshold definition (absolute or percentile + baseline), exceedance counts and max spell length, OLS and Sen slopes with units, and a one-paragraph note on autocorrelation/multiplicity limits. Distinguishes description from attribution and empirical return periods from fitted EVT levels.",
-    format: "structured card (markdown sections)",
-    estimatedMinutes: 35,
-    objectiveIds: [
-      "cgei-cl-o-26-threshold",
-      "cgei-cl-o-26-trend",
-      "cgei-cl-o-26-inference"
-    ],
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
+      "Threshold definition (absolute or percentile + baseline), exceedance counts and max spell length, OLS and Sen slopes with units, and a one-paragraph note on autocorrelation/multiplicity limits. Distinguishes description from attribution and empirical return periods from fitted EVT levels. Structured card with markdown sections.",
+    artefactTypes: ["report", "table"],
     acceptanceCriteria: [
       "Threshold, duration rule and baseline are reported",
       "Slopes carry explicit units and window",
       "Return-period language is non-calendar (no “due next year”)",
-      "Product and period appear in the same card as the numbers"
-    ]
+      "Product and period appear in the same card as the numbers",
+    ],
   },
   {
     id: "cgei-cl-del-cautious-conclusions",
-    kind: "conclusions-note",
     title: "Cautious conclusions and non-claims note",
     description:
-      "Explicit list of what the analysis supports (descriptive, product-scoped statements) and what it does not support (attribution, flood causation from area-average reanalysis alone, long-term climate-change proof from a short window). Uses calibrated language.",
-    format: "half-page markdown",
-    estimatedMinutes: 20,
-    objectiveIds: [
-      "cgei-cl-o-21-evidence",
-      "cgei-cl-o-26-inference",
-      "cgei-cl-o-28-evidence",
-      "cgei-cl-o-211-limits"
-    ],
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8",
-      "cgei-cl-unit-2-11"
-    ],
+      "Explicit list of what the analysis supports (descriptive, product-scoped statements) and what it does not support (attribution, flood causation from area-average reanalysis alone, long-term climate-change proof from a short window). Uses calibrated language. Half-page markdown.",
+    artefactTypes: ["report"],
     acceptanceCriteria: [
       "At least three explicit non-claims are listed",
       "Evidence classes (synthetic / observed / assessed) are not mixed",
-      "No sentence equates a short local trend with global attribution"
-    ]
+      "No sentence equates a short local trend with global attribution",
+    ],
   },
   {
     id: "cgei-cl-del-regional-literacy-brief",
-    kind: "regional-brief",
     title: "Multan / southern Punjab regional literacy brief",
     description:
-      "Geography (arid plain, irrigation, canal/river network), season definition, heat/dust/fog/smog as named regional features, what station vs grid can represent, institutions and access limits, and the next data need — without inventing station statistics.",
-    format: "one-page brief",
-    estimatedMinutes: 30,
-    objectiveIds: [
-      "cgei-cl-o-28-seasons",
-      "cgei-cl-o-28-multan",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: ["cgei-cl-unit-2-8"],
+      "Geography (arid plain, irrigation, canal/river network), season definition, heat/dust/fog/smog as named regional features, what station vs grid can represent, institutions and access limits, and the next data need — without inventing station statistics. One-page brief.",
+    artefactTypes: ["report"],
     acceptanceCriteria: [
       "Season definition is declared",
       "Heat, dust, fog/smog appear as process features, not decoration",
       "Access limits for national data are documented",
-      "No fabricated Multan station means"
-    ]
+      "No fabricated Multan station means",
+    ],
   },
   {
     id: "cgei-cl-del-notebook-repro",
-    kind: "executable-notebook",
     title: "Reproducible climate-data notebook (exit artefact)",
     description:
-      "Executable notebook (or script + README) that: loads a declared product, applies QC/completeness rules, builds fixed-baseline anomalies, computes at least one extremes index and one trend diagnostic, writes the provenance record, and ends with the cautious conclusions note. Synthetic fixtures are allowed when live restricted data cannot be used; label evidence class clearly.",
-    format: "Jupyter notebook or plain script + README + sidecar manifest",
-    estimatedMinutes: 180,
-    objectiveIds: [
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-25-time",
-      "cgei-cl-o-25-aggregate",
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-26-threshold",
-      "cgei-cl-o-26-trend",
-      "cgei-cl-o-26-inference",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: [
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
+      "Executable notebook (or script + README) that: loads a declared product, applies QC/completeness rules, builds fixed-baseline anomalies, computes at least one extremes index and one trend diagnostic, writes the provenance record, and ends with the cautious conclusions note. Synthetic fixtures are allowed when live restricted data cannot be used; label evidence class clearly. Jupyter notebook or plain script with README and sidecar manifest.",
+    artefactTypes: ["notebook", "script"],
     acceptanceCriteria: [
       "Runs end-to-end from a clean environment with pinned dependencies",
       "Provenance record and conclusions note are generated or attached",
       "Baseline, season, product and units appear in outputs",
-      "Evidence class of every plotted series is labelled (synthetic / open product / restricted)"
-    ]
-  }
-] as const;
+      "Evidence class of every plotted series is labelled (synthetic / open product / restricted)",
+    ],
+  },
+];
 
 export const projects: CurriculumProject[] = [
   {
     id: "cgei-cl-proj-exit-notebook",
-    kind: "exit-gate",
+    kind: "capstone",
     title: "Subject 2 exit gate — reproducible Multan / southern Punjab climate notebook",
-    summary:
+    problemStatement:
       "Produce one reproducible analysis package that demonstrates weather–climate discipline, product selection, correct clocks and units, baseline anomalies, extremes and trend diagnostics, and cautious conclusions for a Multan or southern Punjab question.",
-    description:
+    purpose:
       "This is the competence target named across Core unit notes: a reproducible climate-data notebook (or script package) with metadata, baseline/season, trend or extremes diagnostics, validation note, and cautious conclusions. Learners choose a focused question (e.g. pre-monsoon heat threshold exceedances, monsoon rainfall variability in a declared season window, or dry-spell statistics) over Multan or a clearly defined southern Punjab domain. Open products (ERA5 or documented blends) are the default when PMD series are restricted; synthetic fixtures from unit labs may support method checks but must be labelled as synthetic. The package must not invent station numbers, must not equate a short product window with attribution, and must separate description from causal language.",
-    estimatedHours: 12,
+    readiness: "review",
     level: "L3",
+    prerequisiteUnitIds: [
+      "cgei-cl-unit-2-1",
+      "cgei-cl-unit-2-4",
+      "cgei-cl-unit-2-5",
+      "cgei-cl-unit-2-6",
+      "cgei-cl-unit-2-8",
+    ],
     objectiveIds: [
       "cgei-cl-o-21-weather-climate",
       "cgei-cl-o-21-evidence",
@@ -6972,17 +6907,51 @@ export const projects: CurriculumProject[] = [
       "cgei-cl-o-26-inference",
       "cgei-cl-o-28-seasons",
       "cgei-cl-o-28-multan",
-      "cgei-cl-o-28-evidence"
+      "cgei-cl-o-28-evidence",
     ],
-    deliverableIds: [
-      "cgei-cl-del-provenance-record",
-      "cgei-cl-del-product-manifest",
-      "cgei-cl-del-baseline-anomaly-brief",
-      "cgei-cl-del-extremes-trend-card",
-      "cgei-cl-del-cautious-conclusions",
-      "cgei-cl-del-regional-literacy-brief",
-      "cgei-cl-del-notebook-repro"
+    milestones: [
+      {
+        id: "cgei-cl-proj-exit-m1",
+        title: "Question, product and baseline",
+        instructions:
+          "Choose a focused Multan or southern Punjab question, select and justify the product, and fix the baseline, season and anomaly definition before any diagnostics.",
+        deliverableIds: [
+          "cgei-cl-del-provenance-record",
+          "cgei-cl-del-product-manifest",
+          "cgei-cl-del-baseline-anomaly-brief",
+        ],
+        acceptanceCriteria: [
+          "Product choice and exclusions are reasoned",
+          "Baseline, season and units are stated",
+          "Provenance record allows independent re-execution",
+        ],
+      },
+      {
+        id: "cgei-cl-proj-exit-m2",
+        title: "Extremes, trends and reproducible notebook",
+        instructions:
+          "Compute threshold and trend diagnostics on the declared baseline and package the full analysis as a rerunnable notebook or script.",
+        deliverableIds: ["cgei-cl-del-extremes-trend-card", "cgei-cl-del-notebook-repro"],
+        acceptanceCriteria: [
+          "Threshold, slope and window are reported with units",
+          "Notebook runs from a clean environment",
+          "Evidence class of every plotted series is labelled",
+        ],
+      },
+      {
+        id: "cgei-cl-proj-exit-m3",
+        title: "Cautious conclusions and regional brief",
+        instructions:
+          "State what the analysis supports and what it does not, and situate the results in the Multan regional context without inventing station statistics.",
+        deliverableIds: ["cgei-cl-del-cautious-conclusions", "cgei-cl-del-regional-literacy-brief"],
+        acceptanceCriteria: [
+          "At least three explicit non-claims are listed",
+          "No short-window attribution language",
+          "Access limits for national data are documented",
+        ],
+      },
     ],
+    deliverables,
     resourceIds: [
       "cgei-cl-res-era5-cds",
       "cgei-cl-res-era5-doc",
@@ -6990,28 +6959,7 @@ export const projects: CurriculumProject[] = [
       "cgei-cl-res-etccdi",
       "cgei-cl-res-pmd-access",
       "cgei-cl-res-cf-conventions",
-      "cgei-cl-res-ipcc-ar6-wg1"
+      "cgei-cl-res-ipcc-ar6-wg1",
     ],
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
-    exitCriteria: [
-      "Executable package runs from a clean environment",
-      "All seven linked deliverables are present and consistent with each other",
-      "Baseline, season definition, product, domain and units are stated wherever numbers appear",
-      "Cautious conclusions list explicit non-claims (no short-window attribution; no gauge-equivalence for area averages; no invented observations)",
-      "Evidence classes are never mixed in a single plot or sentence without a label"
-    ],
-    failureModes: [
-      "Calling a 10-year ERA5 window a climate-change proof",
-      "UTC daily extremes presented as local PKT impact statistics without disclosure",
-      "Missing values zero-filled",
-      "Bare multi-model or multi-product mean without range or exclusion log",
-      "Fabricated Multan station series"
-    ]
-  }
-] as const;
+  },
+];
