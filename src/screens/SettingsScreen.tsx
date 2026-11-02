@@ -216,7 +216,7 @@ export function SettingsScreen() {
     <PageContainer>
       <ScreenHeader
         title="Settings"
-        subtitle="Manage your workspace, account, data, and app."
+        subtitle="Set up your workspace, plan exams, and manage your account, data, and app."
         className="animate-fade-in-up"
       />
 
@@ -233,105 +233,30 @@ export function SettingsScreen() {
         </div>
       )}
 
-      <nav aria-label="Settings sections" className="relative z-10 -mx-2 mb-5 flex gap-2 overflow-x-auto bg-white/95 px-2 py-2 backdrop-blur-sm sm:mx-0 sm:rounded-xl sm:border sm:border-border sm:bg-white/95">
+      <nav aria-label="Settings sections" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-3">
         {[
-          ['workspace-settings', 'Workspace'],
-          ['overview-settings', 'Overview'],
-          ['account-settings', 'Account'],
-          ['data-settings', 'Data & privacy'],
-          ['app-settings', 'App'],
-          ['reset-settings', 'Reset'],
+          ['workspace-settings', 'Workspace'], ['exam-settings', 'Exams'],
+          ['account-settings', 'Account & sync'], ['data-settings', 'Data & privacy'],
+          ['app-settings', 'App'], ['reset-settings', 'Reset'], ['about-settings', 'About'],
         ].map(([id, label]) => (
-          <a key={id} href={`#${id}`} className="shrink-0 rounded-full border border-border px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">
-            {label}
-          </a>
+          <a key={id} href={`#${id}`} className="rounded-full border border-border bg-white px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">{label}</a>
         ))}
       </nav>
 
       <section id="workspace-settings" aria-labelledby="workspace-settings-heading" className="scroll-mt-24 mb-6 space-y-4">
-        <h2 id="workspace-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Workspace and exams</h2>
+        <h2 id="workspace-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Workspace</h2>
         <WorkspaceSettingsCard />
+      </section>
+
+
+      <section id="exam-settings" aria-labelledby="exam-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+        <h2 id="exam-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Exam planning</h2>
         <ExamScheduleSettings />
       </section>
 
-      <section id="overview-settings" aria-labelledby="overview-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
-      <h2 id="overview-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About My Study</h2>
-      <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up" style={{ animationDelay: '0.05s' }}>
-        <div className="flex items-center gap-4 mb-4">
-          <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
-            <BookOpenCheck className="w-7 h-7 text-white" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="font-bold text-ink text-base leading-tight">My Study</p>
-            <p className="text-muted text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-3 gap-3 pt-3 border-t border-slate-100">
-          <InfoStat icon={<BookOpen className="w-4 h-4 text-brand-500" />} value={`${subjects.length}`} label="subjects" />
-          <InfoStat icon={<FileText className="w-4 h-4 text-brand-500" />} value={`${globalTopicCount}`} label="topics" />
-          <InfoStat icon={<Database className="w-4 h-4 text-brand-500" />} value={`${globalQuestionCount}`} label="questions" />
-        </div>
-      </Card>
-
-      </section>
-
       <section id="account-settings" aria-labelledby="account-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
-        <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account and sync</h2>
+        <h2 id="account-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Account & sync</h2>
         <AuthAccountCard onSessionChange={() => setSessionTick((t) => t + 1)} />
-      </section>
-
-      <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
-      <h2 id="data-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Data and privacy</h2>
-      <Card className="p-card-pad mb-4">
-        <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
-        <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
-          <p>
-            <strong className="font-medium">On this device.</strong>{' '}
-            Study progress, quiz history, and preferences are stored in your browser
-            (localStorage). They stay on the device until you clear site data or restore a backup.
-          </p>
-          <p>
-            <strong className="font-medium">Cloud backup (optional).</strong>{' '}
-            If you sign in, a copy of that progress can be uploaded to our database under your
-            account so you can restore it on another device. Sync is snapshot-based; the last
-            successful upload for a device wins.
-          </p>
-          <p>
-            <strong className="font-medium">AI tutor.</strong>{' '}
-            When you use the tutor, the question text and a short learning-state summary are sent
-            through our proxy to third-party model providers. We do not send your password. Avoid
-            pasting sensitive personal data into tutor messages.
-          </p>
-          <p>
-            <strong className="font-medium">Deletion.</strong>{' '}
-            Export or clear local data from this Settings screen. While signed in, use
-            &quot;Delete cloud account&quot; on the Account card to remove the cloud account and
-            synced backups (requires the delete-account function to be deployed).
-          </p>
-        </div>
-      </Card>
-
-      <Card className="p-card-pad mb-4">
-        <h2 className="font-semibold text-ink text-sm">Diagnostics</h2>
-        <p className="mt-1 text-xs text-ink-muted leading-relaxed">
-          Optionally send crash diagnostics (error message, route, app version). Tokens and
-          emails are scrubbed. No report is sent unless you enable this.
-        </p>
-        <label className="mt-3 flex items-center gap-2 text-sm text-ink">
-          <input
-            type="checkbox"
-            className="rounded"
-            checked={errorReporting}
-            onChange={(e) => {
-              const on = e.target.checked;
-              setErrorReportingEnabled(on);
-              setErrorReporting(on);
-            }}
-          />
-          Share crash diagnostics
-        </label>
-      </Card>
-
       {isProgressSyncConfigured() && (
         <Card className="p-card-pad mb-4">
           <div className="flex flex-col gap-3">
@@ -426,6 +351,62 @@ export function SettingsScreen() {
           </div>
         </Card>
       )}
+      </section>
+
+
+      <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="data-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Data & privacy</h2>
+      <Card className="p-card-pad mb-4">
+        <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
+        <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
+          <p>
+            <strong className="font-medium">On this device.</strong>{' '}
+            Study progress, quiz history, and preferences are stored in your browser
+            (localStorage). They stay on the device until you clear site data or restore a backup.
+          </p>
+          <p>
+            <strong className="font-medium">Cloud backup (optional).</strong>{' '}
+            If you sign in, a copy of that progress can be uploaded to our database under your
+            account so you can restore it on another device. Sync is snapshot-based; the last
+            successful upload for a device wins.
+          </p>
+          <p>
+            <strong className="font-medium">AI tutor.</strong>{' '}
+            When you use the tutor, the question text and a short learning-state summary are sent
+            through our proxy to third-party model providers. We do not send your password. Avoid
+            pasting sensitive personal data into tutor messages.
+          </p>
+          <p>
+            <strong className="font-medium">Deletion.</strong>{' '}
+            Export or clear local data from this Settings screen. While signed in, use
+            &quot;Delete cloud account&quot; on the Account card to remove the cloud account and
+            synced backups (requires the delete-account function to be deployed).
+          </p>
+        </div>
+      </Card>
+
+      <Card className="p-card-pad mb-4">
+        <h2 className="font-semibold text-ink text-sm">Diagnostics</h2>
+        <p className="mt-1 text-xs text-ink-muted leading-relaxed">
+          Optionally send crash diagnostics (error message, route, app version). Tokens and
+          emails are scrubbed. No report is sent unless you enable this.
+        </p>
+        <label className="mt-3 flex items-center gap-2 text-sm text-ink">
+          <input
+            type="checkbox"
+            className="rounded"
+            checked={errorReporting}
+            onChange={(e) => {
+              const on = e.target.checked;
+              setErrorReportingEnabled(on);
+              setErrorReporting(on);
+            }}
+          />
+          Share crash diagnostics
+        </label>
+      </Card>
+
+
 
       <Card className="p-card-pad mb-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
@@ -447,6 +428,7 @@ export function SettingsScreen() {
       </Card>
 
       </section>
+
 
       <section id="app-settings" aria-labelledby="app-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
       <h2 id="app-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">App and installation</h2>
@@ -515,6 +497,7 @@ export function SettingsScreen() {
 
       </section>
 
+
       <section id="reset-settings" aria-labelledby="reset-settings-heading" className="scroll-mt-24 mb-6">
       <h2 id="reset-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted mb-3">Reset and recovery</h2>
       <Card className="p-card-pad mb-4">
@@ -577,6 +560,29 @@ export function SettingsScreen() {
         )}
       </Card>
       </section>
+
+      <section id="about-settings" aria-labelledby="about-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
+      <h2 id="about-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">About</h2>
+      <Card className="p-card-pad sm:p-card-pad-lg mb-4 animate-fade-in-up">
+        <div className="flex items-center gap-4 mb-4">
+          <div className="w-12 h-12 rounded-card bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center shrink-0 shadow-sm shadow-brand-500/20">
+            <BookOpenCheck className="w-7 h-7 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-ink text-base leading-tight">My Study</p>
+            <p className="text-muted text-sm leading-tight">Learning and assessment · v{__APP_VERSION__}</p>
+          </div>
+        </div>
+        <div className="grid grid-cols-3 gap-3 pt-3 border-t border-border">
+          <InfoStat icon={<BookOpen className="w-4 h-4 text-brand-500" />} value={`${subjects.length}`} label="subjects" />
+          <InfoStat icon={<FileText className="w-4 h-4 text-brand-500" />} value={`${globalTopicCount}`} label="topics" />
+          <InfoStat icon={<Database className="w-4 h-4 text-brand-500" />} value={`${globalQuestionCount}`} label="questions" />
+        </div>
+      </Card>
+
+      </section>
+
+
     </PageContainer>
   );
 }

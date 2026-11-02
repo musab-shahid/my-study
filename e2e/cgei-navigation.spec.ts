@@ -199,7 +199,18 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/settings');
     await expect(page.getByRole('navigation', { name: 'Settings sections' })).toBeVisible();
     await expect(page.getByRole('link', { name: 'Workspace' })).toHaveAttribute('href', '#workspace-settings');
-    await expect(page.getByRole('heading', { name: 'Account and sync', exact: true })).toBeVisible();
+    await expect(page.getByRole('navigation', { name: 'Settings sections' }).locator('a')).toHaveText([
+      'Workspace', 'Exams', 'Account & sync', 'Data & privacy', 'App', 'Reset', 'About',
+    ]);
+    const settingsSections = page.locator('section[id$="-settings"]');
+    await expect(settingsSections.evaluateAll((elements) => elements.map((element) => element.id))).resolves.toEqual([
+      'workspace-settings', 'exam-settings', 'account-settings', 'data-settings',
+      'app-settings', 'reset-settings', 'about-settings',
+    ]);
+    await expect(page.getByRole('heading', { name: 'Exam planning', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Account & sync', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Data & privacy', exact: true })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'About', exact: true })).toBeVisible();
     await expect(page.getByText('Streak', { exact: true })).toHaveCount(0);
     await page.getByRole('button', { name: 'Select all', exact: true }).click();
     await page.getByRole('button', { name: 'Reset selected', exact: true }).click();
