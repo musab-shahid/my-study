@@ -246,8 +246,6 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
             <span className="text-xs text-brand-700 font-semibold">Orientation</span>
           </summary>
           <div className="pt-4 mt-3 border-t border-slate-200 space-y-3">
-            {subject?.overview ? <p className="text-sm text-muted leading-relaxed">{subject.overview}</p> : null}
-            {subject?.purpose ? <p className="text-sm text-muted leading-relaxed"><strong className="text-ink">Purpose. </strong>{subject.purpose}</p> : null}
             {subject?.prerequisites?.length ? <ul className="list-disc pl-5 space-y-1 text-sm text-muted">{subject.prerequisites.map((item) => <li key={item}>{item}</li>)}</ul> : null}
             {roadmapTopic?.definition ? <p className="text-sm text-muted leading-relaxed">{roadmapTopic.definition}</p> : null}
             {roadmapTopic?.explanationSections?.map((section) => <div key={section.heading}><h3 className="text-sm font-semibold text-ink">{section.heading}</h3><p className="text-sm text-muted leading-relaxed mt-1">{section.body}</p></div>)}
