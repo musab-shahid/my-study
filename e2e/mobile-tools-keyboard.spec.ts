@@ -13,7 +13,7 @@ test.describe('Mobile More tray — keyboard & overlay regression matrix', () =>
     await expect(dialog).toBeVisible();
 
     // Click outside the sheet, on the backdrop.
-    const backdrop = page.locator('.fixed.inset-0.bg-black\\/40').first();
+    const backdrop = page.locator('.fixed.inset-0.bg-black\\/40:visible').last();
     await backdrop.click({ position: { x: 20, y: 50 } });
 
     await expect(dialog).toBeHidden();
