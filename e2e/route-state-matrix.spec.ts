@@ -197,14 +197,17 @@ test.describe('Route-state matrix — desktop sidebar & mobile nav', () => {
     await seedWorkspace(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     const ratio = await page.locator('aside').getByRole('button', { name: 'Learn', exact: true }).evaluate((el) => {
-      const parse = (value: string) => value.match(/[\d.]+/g)?.slice(0, 3).map(Number) ?? [0, 0, 0];
-      const [r, g, b] = parse(getComputedStyle(el).color).map((v) => v / 255);
-      const [br, bg, bb] = parse(getComputedStyle(el.parentElement!.parentElement!.parentElement!).backgroundColor).map((v) => v / 255);
+      const parse = (value: string) => value.match(/[\d.]+/g)?.map(Number) ?? [];
+      const foreground = parse(getComputedStyle(el).color);
+      const background = parse(getComputedStyle(el.closest('aside')!).backgroundColor);
+      const alpha = foreground[3] ?? 1;
+      const bg = background.slice(0, 3).map((v) => v / 255);
+      const fg = foreground.slice(0, 3).map((v, i) => (v * alpha + background[i] * (1 - alpha)) / 255);
       const linear = (v: number) => v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4;
       const luminance = (rgb: number[]) => 0.2126 * linear(rgb[0]) + 0.7152 * linear(rgb[1]) + 0.0722 * linear(rgb[2]);
-      const foreground = luminance([r, g, b]);
-      const background = luminance([br, bg, bb]);
-      return (Math.max(foreground, background) + 0.05) / (Math.min(foreground, background) + 0.05);
+      const foregroundLuminance = luminance(fg);
+      const backgroundLuminance = luminance(bg);
+      return (Math.max(foregroundLuminance, backgroundLuminance) + 0.05) / (Math.min(foregroundLuminance, backgroundLuminance) + 0.05);
     });
     expect(ratio).toBeGreaterThanOrEqual(4.5);
   });
