@@ -1,12 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback } from 'react';
 import {
-  Home, TrendingUp, Search, Clock, Settings as SettingsIcon, Cloud,
+  Home, Search, Settings as SettingsIcon,
 } from 'lucide-react';
 import { useRouter, type ScreenName } from '@/router';
 import { subjectsByTrack, type ExamTrack } from '@/data/subjects';
 import { listTrackDefinitions, isTrackId } from '@/data/tracks';
 import { enrolledTrackIds, trackIcon, allTrackIds } from '@/lib/track-chrome';
-import { getSubjectStyle, getTrackStyle } from '@/data/subject-colors';
+import { getTrackStyle } from '@/data/subject-colors';
 import { useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useData } from '@/hooks/useData';
@@ -16,22 +16,11 @@ import {
   type ExamTrackId,
 } from '@/lib/exam-track';
 import { openTrackOptions } from '@/router/openTrack';
-import { STAGE_SCREENS, STORAGE_KEYS } from '@/lib/constants';
+import { STAGE_SCREENS } from '@/lib/constants';
 import type { SubjectId } from '@/types';
 import { AppBrand } from '@/components/ui';
 import { FEATURE_ICONS } from '@/lib/feature-icons';
 import { INTERACTION_ICONS } from '@/lib/interaction-icons';
-
-const SIDEBAR_EXPANDED_KEY = STORAGE_KEYS.sidebarExpanded;
-
-const stageIcons: Record<StageScreen, typeof FEATURE_ICONS.learn> = {
-  learn: FEATURE_ICONS.learn,
-  practice: FEATURE_ICONS.practice,
-  review: FEATURE_ICONS.review,
-  formulas: FEATURE_ICONS.formulas,
-  progress: FEATURE_ICONS.progress,
-  search: FEATURE_ICONS.search,
-};
 
 function trackNavStyles(trackId: ExamTrack) {
   const trackStyle = getTrackStyle(trackId);
@@ -39,7 +28,6 @@ function trackNavStyles(trackId: ExamTrack) {
     activeBorder: trackStyle.navBorder,
     activeBg: trackStyle.navActiveBg,
     iconColor: trackStyle.accent,
-    stageActive: `${trackStyle.accent} bg-slate-800`,
   };
 }
 
@@ -49,15 +37,6 @@ export function Sidebar() {
   const { trackMembership, setActiveEnrolledTrack } = useData();
   const enrolledIds = enrolledTrackIds(trackMembership.enrollments);
   const exploreIds = allTrackIds().filter((id) => !trackMembership.enrollments[id]);
-  const [expandedSubject, setExpandedSubject] = useState<string | null>(() => {
-    try { return localStorage.getItem(SIDEBAR_EXPANDED_KEY); } catch { return null; }
-  });
-  useEffect(() => {
-    try {
-      if (expandedSubject) localStorage.setItem(SIDEBAR_EXPANDED_KEY, expandedSubject);
-      else localStorage.removeItem(SIDEBAR_EXPANDED_KEY);
-    } catch { /* ignore */ }
-  }, [expandedSubject]);
   const currentScreen = route.screen;
   const isTrackLandingActive = (trackId: ExamTrackId) => {
     const landing = getLandingScreenForTrack(trackId);
@@ -211,41 +190,14 @@ export function Sidebar() {
             Search
           </button>
           <button
-            onClick={() => { setActiveSubjectForScreen('practice', 'all'); navigate({ screen: 'practice', mode: 'mock', parent: null }); }}
-            aria-current={route.screen === 'practice' && route.mode === 'mock' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              route.screen === 'practice' && route.mode === 'mock'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800'
-            }`}
+            onClick={() => navigate({ screen: 'formulas', parent: null })}
+            aria-current={currentScreen === 'formulas' ? 'page' : undefined}
+            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${currentScreen === 'formulas' ? 'text-white bg-slate-800' : 'text-slate-300 hover:text-white hover:bg-slate-800'}`}
           >
-            <Clock className="w-5 h-5 shrink-0" />
-            Mock Exam
+            <FEATURE_ICONS.formulas className="w-5 h-5 shrink-0" aria-hidden />
+            Formulas
           </button>
-          <button
-            onClick={() => navigate({ screen: 'flashcards', parent: null })}
-            aria-current={currentScreen === 'flashcards' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'flashcards'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <FEATURE_ICONS.flashcards className="w-5 h-5 shrink-0" aria-hidden />
-            Flashcards
-          </button>
-          <button
-            onClick={() => { setActiveSubjectForScreen('progress', 'all'); navigate({ screen: 'progress', parent: null }); }}
-            aria-current={currentScreen === 'progress' && getActiveSubject('progress') === 'all' ? 'page' : undefined}
-            className={`w-full flex items-center gap-3 px-4 py-2 rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-900 ${
-              currentScreen === 'progress' && getActiveSubject('progress') === 'all'
-                ? 'text-white bg-slate-800'
-                : 'text-slate-300 hover:text-white hover:bg-slate-800'
-            }`}
-          >
-            <TrendingUp className="w-5 h-5 shrink-0" />
-            Progress
-          </button>
+
         </div>
       </nav>
       {/* Bottom: Settings */}
