@@ -1,5 +1,5 @@
 /**
- * Canonical Climate Science module — hand-authored; the source of truth for this subject
+ * Canonical Scientific Computing & Data Science module — hand-authored; the source of truth for this subject
  * Quiz topics for the quiz engine live in the subject's questions file (two-file architecture).
  */
 import type {
@@ -12,7006 +12,11290 @@ import type {
   CurriculumResource,
   CurriculumDeliverable,
   CurriculumProject,
-} from '@/types/curriculum';
+} from "@/types/curriculum";
 
 export const subject: CurriculumSubject = {
-  "id": "cgei-subject-2-climate",
-  "subjectId": "cgei-climate-science",
-  "title": "Climate Science",
-  "subtitle": "From weather–climate discipline through observations, extremes, regional literacy, models and S2S decision use",
-  "version": 1,
-  "readiness": "review",
-  "audience": "Learners who will interpret climate data, extremes and projections for environmental intelligence.",
-  "purpose": "Build defensible climate reasoning end-to-end: weather versus climate, energy and regional processes, observations and reproducible data handling, extremes and EVT, Pakistan/southern Punjab literacy, models and projections, detection/attribution limits, and responsible S2S and climate-service use.",
-  "overview": "Units 2.1–2.13 cover weather–climate foundations, energy and regional processes, observations and data handling, extremes and EVT, Pakistan/southern Punjab literacy, models and projections, detection/attribution, emerging ML/AI/services, and S2S prediction. Core priority path: 2.1, 2.2, 2.4–2.6, 2.8. Support: 2.3, 2.7, 2.9, 2.10, 2.12. Optional: 2.11, 2.13. Exit gate: reproducible Multan/southern Punjab climate notebook. Full draft ready for review.",
-  "prerequisites": [
-    "Unit 1.1 radiation and Earth-system vocabulary"
+  id: "cgei-subject-5-data-science",
+  subjectId: "cgei-data-science",
+  title: "Scientific Computing & Data Science",
+  subtitle:
+    "The quantitative and computational working method across the CGEI track",
+  version: 1,
+  readiness: "review",
+  audience:
+    "Environmental science, climate, geospatial and Earth-observation learners who need to analyse data reproducibly.",
+  purpose:
+    "Build reliable quantitative reasoning and scientific computing practice that can be reused across environmental and climate-intelligence workflows.",
+  overview:
+    "This subject connects mathematical foundations, scientific Python, exploratory analysis, statistical inference, data workflow engineering, time series, multivariate methods, modelling, causal reasoning, research software, and scalable environmental pipelines. The canonical registry contains Units 5.1–5.12. Unit 5.1 retains a legacy compatibility bridge alongside canonical lessons; Units 5.2–5.12 have canonical lesson content but remain draft pending their unit-specific validation gates. Registry presence does not imply release or complete source-TOC subtopic coverage. Units 5.2–5.5 require example/fixture and UI validation; Units 5.6–5.12 require their documented scientific smoke checks, example execution and scientific/UI review. Subject readiness remains review, not released.",
+  prerequisites: [
+    "Algebra and functions",
+    "Means and variances",
+    "Basic file and spreadsheet handling",
   ],
-  "outcomes": [
+  outcomes: [
     {
-      "id": "cgei-cl-o-21-weather-climate",
-      "statement": "Distinguish weather from climate, select and justify a baseline normal, and compute anomalies with explicit units, period, domain and time zone, without treating a single extreme as climate disproof.",
-      "action": "distinguish, select and compute",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
+      id: "cgei-ds-o-reproducible-analysis",
+      statement:
+        "Build an analysis that can be rerun, checked, and understood by another researcher.",
+      action: "build and document",
+      level: "L3",
+      competencyIds: ["cgei-comp-reproducibility"],
     },
     {
-      "id": "cgei-cl-o-21-stats",
-      "statement": "Describe a climate series with mean, spread, percentiles and threshold exceedances; demonstrate that trend estimates and return-period interpretations depend on window, event definition and stationarity assumptions.",
-      "action": "describe and demonstrate",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-21-evidence",
-      "statement": "Assemble the metadata required for a climate claim, use teleconnection indices without causal over-reading, and separate descriptive trend language from attribution language.",
-      "action": "document and separate",
-      "level": "L2",
-      "competencyIds": [
+      id: "cgei-ds-o-environmental-inference",
+      statement:
+        "Choose and critique quantitative methods for environmental data while stating assumptions and limitations.",
+      action: "select and critique",
+      level: "L3",
+      competencyIds: [
         "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-22-energy",
-      "statement": "Explain the planetary energy budget and greenhouse effect with a one-layer teaching model, write the surface energy balance with a stated sign convention, and show how latent heat changes the residual available for sensible heat and storage.",
-      "action": "explain and compute",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-mathematical-modeling"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-22-feedback",
-      "statement": "Distinguish major climate feedbacks from forcings, state AR6 assessed ranges for ECS and TCR as ranges rather than point truths, and link TCRE conceptually to cumulative carbon without recomputing budgets.",
-      "action": "distinguish and state",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-22-regional",
-      "statement": "Describe South Asian monsoon drivers, western disturbances, intraseasonal active/break structure and land–atmosphere modifiers (irrigation, dust) at process level, and apply a case-study template without claiming attribution.",
-      "action": "describe and apply",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-22-uhi",
-      "statement": "Distinguish surface and canopy-layer UHI, justify rural-reference choice (including arid-city cool-island cases), and list the main urban energy-balance controls including anthropogenic heat.",
-      "action": "distinguish and justify",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-23-moisture",
-      "statement": "Apply ideal-gas and hydrostatic relations at conceptual level, distinguish humidity variables, and use Clausius–Clapeyron scaling to reason about humid heat and extreme rainfall capacity.",
-      "action": "apply and distinguish",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-23-pbl",
-      "statement": "Explain diurnal boundary-layer evolution, turbulent flux partition (including Bowen ratio), and why urban night-time temperatures depend on storage, geometry and stability.",
-      "action": "explain",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-23-nwp",
-      "statement": "Describe cloud/precipitation process families, NWP grids and parameterisation, ensembles, and the difference between initial-condition and model uncertainty without treating high resolution as guaranteed skill.",
-      "action": "describe and critique",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-24-station",
-      "statement": "Apply basic station QC checks (range, step, spike, persistence, internal consistency), distinguish missing values from valid zeros, and state why homogenisation is needed without claiming to have applied SNHT/Pettitt.",
-      "action": "apply and distinguish",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-reproducibility",
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-24-products",
-      "statement": "Distinguish in-situ observations, gridded observational products and reanalysis estimates; explain why a grid-cell value is not a station observation; and use cross-product spread as an uncertainty signal.",
-      "action": "distinguish and explain",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-24-select",
-      "statement": "Select a climate data product using a fitness-for-purpose checklist (variable, resolution, record length, licence, known limitations, spatial support) and document provenance before comparison.",
-      "action": "select and justify",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-25-time",
-      "statement": "Distinguish accumulated versus instantaneous variables, apply CF-style metadata checks, and show how UTC versus local (PKT) day boundaries change daily maxima and rainfall-day assignment.",
-      "action": "distinguish and demonstrate",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-25-aggregate",
-      "statement": "Aggregate climate series with variable-specific rules and completeness thresholds, without treating missing values as zero, and compute area-aware regional means when appropriate.",
-      "action": "aggregate and validate",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-25-anomaly",
-      "statement": "Compute monthly anomalies against a pre-declared baseline, document units, baseline period and processing steps, and maintain a provenance record sufficient for independent re-execution.",
-      "action": "compute and document",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-26-threshold",
-      "statement": "Define absolute and percentile thresholds with a declared baseline, count exceedances and spell durations, and state when day-to-day dependence makes independent-event assumptions invalid.",
-      "action": "define and count",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-26-trend",
-      "statement": "Estimate ordinary least-squares and Sen slopes with explicit units, and explain why autocorrelation affects uncertainty even when the slope point estimate is unchanged.",
-      "action": "estimate and interpret",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-26-inference",
-      "statement": "Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and empirical return periods from fitted EVT levels.",
-      "action": "report with limits",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-27-theory",
-      "statement": "State the GEV family (location, scale, shape) as the limit of block maxima and the GPD as the limit of peaks-over-threshold, define return period/level/exceedance probability with appropriate confidence-interval methods, and quantify exceedance clustering via the extremal index.",
-      "action": "state and quantify",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-mathematical-modeling"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-27-estimate",
-      "statement": "Fit a GEV/Gumbel model by a stated method, assess fit using named diagnostic plots and a leave-out check, and state how far a small-sample fit can be extrapolated defensibly.",
-      "action": "fit and diagnose",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-27-extend",
-      "statement": "Incorporate a covariate into a non-stationary GEV location parameter, describe regional frequency analysis and Bayesian extensions, and distinguish copula-based joint-extreme modelling from simple co-occurrence counting.",
-      "action": "extend and distinguish",
-      "level": "L2",
-      "competencyIds": [
         "cgei-comp-mathematical-modeling",
-        "cgei-comp-uncertainty"
-      ]
+      ],
     },
     {
-      "id": "cgei-cl-o-27-apply",
-      "statement": "Apply EVT to heat, rainfall and flood-peak extremes and communicate return levels and horizon probabilities, including the named software ecosystem, without implying a return period is a fixed calendar schedule.",
-      "action": "apply and communicate",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
+      id: "cgei-ds-o-data-product",
+      statement:
+        "Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.",
+      action: "produce and validate",
+      level: "L3",
+      competencyIds: ["cgei-comp-reproducibility"],
     },
-    {
-      "id": "cgei-cl-o-28-seasons",
-      "statement": "Justify local seasonal definitions for Pakistan analyses, distinguish PMD-style season bins from default JJA, and treat ENSO/IOD as context rather than one-line local causes.",
-      "action": "justify and distinguish",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-28-multan",
-      "statement": "Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent, with explicit baseline and support statements.",
-      "action": "describe",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-28-evidence",
-      "statement": "Identify appropriate national data institutions and evidence types, document access limits, and keep synthetic, observed and assessed claims in separate evidence classes.",
-      "action": "identify and document",
-      "level": "L3",
-      "competencyIds": [
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-hierarchy",
-      "statement": "Distinguish GCMs/ESMs from RCMs by resolution, domain, and process coverage, and explain how both relate to — and differ from — reanalysis and direct observations.",
-      "action": "distinguish and explain",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-mathematical-modeling"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-scenarios",
-      "statement": "Describe historical experiments and the forced-versus-internal-variability distinction, the SSP naming convention and SSP–RCP matrix including the plausibility debate around the highest-emission scenario, and CMIP6 ensemble and metadata conventions.",
-      "action": "describe and interpret",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-evaluation",
-      "statement": "Evaluate model output against observations across mean, seasonal cycle, variability, trends, extremes and spatial pattern, correctly separating regridding/resolution artefacts from genuine skill, and apply process-based evaluation criteria.",
-      "action": "evaluate and diagnose",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-bias-adjust",
-      "statement": "Apply and critique named bias-adjustment methods, state what each assumes about stationarity, identify adjustment artefacts, and evaluate adjusted output on independent periods and on extremes rather than only on means.",
-      "action": "apply and critique",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-mathematical-modeling",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-downscale",
-      "statement": "Compare dynamical, statistical and machine-learning downscaling approaches on their stationarity and transfer assumptions, operational cost, and failure modes.",
-      "action": "compare and assess",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-mathematical-modeling",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-29-use",
-      "statement": "Decompose projection uncertainty into its named sources, use baselines/anomalies/time slices and global warming levels appropriately, distinguish projections from forecasts and short observed trends, and apply screening and complementary (storyline, emergent-constraint, Interactive Atlas) approaches responsibly.",
-      "action": "decompose and apply",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-210-families",
-      "statement": "Identify the major downscaled and bias-adjusted climate product families (CORDEX South Asia, NEX-GDDP-CMIP6, ISIMIP, WorldClim/CHELSA future layers), compare them on method, base period, variables, ensemble size and licence, and locate their access routes and file conventions.",
-      "action": "identify and compare",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-210-select",
-      "statement": "Select models and members for a given application using regional-evaluation criteria, document exclusions and full provenance in a manifest, and report ensemble ranges and agreement rather than a bare mean.",
-      "action": "select and document",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-reproducibility",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-210-cmip7",
-      "statement": "Describe the CMIP7/AR7 transition at a planning level, anticipate new scenario, forcing and data-request conventions by designing model- and scenario-agnostic code, and identify the IPCC Cities Special Report as an emerging source for urban-heat information, while flagging time-sensitive details for independent verification.",
-      "action": "describe and plan for",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-reproducibility",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-211-concepts",
-      "statement": "Distinguish detection from attribution via the signal/noise/fingerprint framing, distinguish observed from attributed trends and hazard from impact attribution, and explain why a single observed record cannot by itself separate forced response from internal variability.",
-      "action": "distinguish and explain",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-211-event",
-      "statement": "Apply the probabilistic factual/counterfactual framing to compute a probability ratio and fraction of attributable risk, describe the stages of a rapid-attribution protocol, and distinguish storyline/thermodynamic-dynamic decomposition from a full probabilistic attribution.",
-      "action": "apply and describe",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-mathematical-modeling"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-211-limits",
-      "statement": "Identify why convective rainfall, compound events, and data-poor regions make attribution harder, explain why heat attribution is generally stronger than rainfall or drought attribution, and communicate attribution results using calibrated likelihood language alongside an explicit event definition.",
-      "action": "identify and communicate",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-uncertainty",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-212-ml",
-      "statement": "Evaluate ML bias-correction and downscaling methods against required statistical baselines (delta change, quantile mapping, regression) and against ML emulators of full climate models, quantifying skill improvement and computational speed-up.",
-      "action": "evaluate and quantify",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-mathematical-modeling"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-212-prob",
-      "statement": "Decompose probabilistic forecast skill into reliability, resolution, and uncertainty components, compute a Brier Skill Score relative to a climatological reference, and interpret reliability and sharpness diagnostics for probabilistic climate output.",
-      "action": "decompose and interpret",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-212-ai-forecast",
-      "statement": "Describe how an open operational AI forecast (e.g. ECMWF AIFS) is verified against stations and used as input to local post-processing, apply station-based post-processing correction, and compute an uncertainty-weighted blend of model and observational estimates.",
-      "action": "describe and apply",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-212-services",
-      "statement": "Characterise a climate service by its users, decisions, timescale, format, provenance, trust requirements and update cadence, distinguish co-produced from supply-driven products, and identify the role of Regional Climate Outlook Forums and national outlook products.",
-      "action": "characterise and distinguish",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-reproducibility",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-212-digital-twin",
-      "statement": "Describe digital-twin and kilometre-scale modelling initiatives as emerging data sources, explain what kilometre-scale resolution resolves that coarser models cannot, and quantify the resulting data-volume and access constraints for users.",
-      "action": "describe and quantify",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-213-systems",
-      "statement": "Describe seasonal multi-model ensemble systems (e.g. Copernicus C3S) and subseasonal products, explain the role of hindcasts in calibration, distinguish statistical/hybrid outlook approaches from dynamical ones, and state lead-time and initialisation-date conventions precisely enough to avoid ambiguity.",
-      "action": "describe and distinguish",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-reproducibility"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-213-skill",
-      "statement": "Compute and interpret tercile-based skill scores (RPSS) and discrimination diagnostics (ROC), state that skill is region-, season-, and variable-dependent with South Asian monsoon rainfall skill modest relative to temperature, and distinguish deterministic from probabilistic verification metrics.",
-      "action": "compute and interpret",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    },
-    {
-      "id": "cgei-cl-o-213-decisions",
-      "statement": "Apply cost-loss reasoning to translate a forecast probability into an action threshold, communicate seasonal outlooks without implying false certainty, and apply tercile-outlook-weighted expected-value reasoning to a worked sowing or irrigation decision.",
-      "action": "apply and communicate",
-      "level": "L2",
-      "competencyIds": [
-        "cgei-comp-quantitative-reasoning",
-        "cgei-comp-uncertainty"
-      ]
-    }
   ],
-  "competencyIds": [
+  competencyIds: [
     "cgei-comp-quantitative-reasoning",
+    "cgei-comp-mathematical-modeling",
+    "cgei-comp-environmental-accounting",
     "cgei-comp-uncertainty",
     "cgei-comp-reproducibility",
-    "cgei-comp-mathematical-modeling"
   ],
-  "unitIds": [
-    "cgei-cl-unit-2-1",
-    "cgei-cl-unit-2-2",
-    "cgei-cl-unit-2-3",
-    "cgei-cl-unit-2-4",
-    "cgei-cl-unit-2-5",
-    "cgei-cl-unit-2-6",
-    "cgei-cl-unit-2-7",
-    "cgei-cl-unit-2-8",
-    "cgei-cl-unit-2-9",
-    "cgei-cl-unit-2-10",
-    "cgei-cl-unit-2-11",
-    "cgei-cl-unit-2-12",
-    "cgei-cl-unit-2-13"
+  unitIds: [
+    "cgei-ds-unit-5-1",
+    "cgei-ds-unit-5-2",
+    "cgei-ds-unit-5-3",
+    "cgei-ds-unit-5-4",
+    "cgei-ds-unit-5-5",
+    "cgei-ds-unit-5-6",
+    "cgei-ds-unit-5-7",
+    "cgei-ds-unit-5-8",
+    "cgei-ds-unit-5-9",
+    "cgei-ds-unit-5-10",
+    "cgei-ds-unit-5-11",
+    "cgei-ds-unit-5-12",
   ],
-  "projectIds": [
-    "cgei-cl-proj-exit-notebook"
+  projectIds: ["cgei-ds-capstone"],
+  resourceIds: [
+    "cgei-ds-r-usgs-l2-scaling",
+    "cgei-ds-r-era5-precipitation",
+    "cgei-ds-r-numpy-linalg",
+    "cgei-ds-r-scipy-solve-ivp",
   ],
-  "resourceIds": [
-    "cgei-cl-res-ipcc-ar6-wg1",
-    "cgei-cl-res-ipcc-atlas",
-    "cgei-cl-res-era5-cds",
-    "cgei-cl-res-era5-doc",
-    "cgei-cl-res-wmo-normals",
-    "cgei-cl-res-etccdi",
-    "cgei-cl-res-cordex-sa",
-    "cgei-cl-res-nex-gddp",
-    "cgei-cl-res-isimip",
-    "cgei-cl-res-c3s-seasonal",
-    "cgei-cl-res-sascof",
-    "cgei-cl-res-pmd-access",
-    "cgei-cl-res-cf-conventions",
-    "cgei-cl-res-extremes-guidance",
-    "cgei-cl-res-worldclim-chelsa"
-  ],
-  "estimatedHours": 97
 } as const;
 
 export const units: CurriculumUnit[] = [
   {
-    "id": "cgei-cl-unit-2-1",
-    "code": "2.1",
-    "title": "Weather, climate, and time scales",
-    "order": 201,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Distinguish weather from climate, compute anomalies against stated normals, and interpret variability and trends without confusing description with attribution.",
-    "estimatedHours": 6,
-    "prerequisites": [
-      "Unit 1.1"
-    ],
-    "outcomes": [
+    id: "cgei-ds-unit-5-1",
+    code: "5.1",
+    title: "Mathematical and physical foundations",
+    order: 1,
+    kind: "unit",
+    readiness: "review",
+    legacySectionId: "CGEI-051",
+    summary:
+      "Build the mathematical language needed to interpret environmental quantities, fields, matrices, stock–flux systems, energy/mass balances and uncertainty.",
+    estimatedHours: 12.5,
+    prerequisites: ["Algebra and functions", "Means and variances"],
+    outcomes: [
       {
-        "id": "cgei-cl-o-21-weather-climate",
-        "statement": "Distinguish weather from climate, select and justify a baseline normal, and compute anomalies with explicit units, period, domain and time zone, without treating a single extreme as climate disproof.",
-        "action": "distinguish, select and compute",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-quantities",
+        statement:
+          "Convert environmental quantities and diagnose dimensional or order-of-magnitude errors.",
+        action: "convert and validate",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
       },
       {
-        "id": "cgei-cl-o-21-stats",
-        "statement": "Describe a climate series with mean, spread, percentiles and threshold exceedances; demonstrate that trend estimates and return-period interpretations depend on window, event definition and stationarity assumptions.",
-        "action": "describe and demonstrate",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-calculus",
+        statement:
+          "Estimate rates and gradients and integrate a rate over a stated interval with correct units.",
+        action: "calculate and interpret",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
       },
       {
-        "id": "cgei-cl-o-21-evidence",
-        "statement": "Assemble the metadata required for a climate claim, use teleconnection indices without causal over-reading, and separate descriptive trend language from attribution language.",
-        "action": "document and separate",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-linear-algebra",
+        statement:
+          "Interpret matrix operations and calculate a small least-squares fit, including residual checks.",
+        action: "calculate and verify",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+      {
+        id: "cgei-ds-o-eigen-svd",
+        statement:
+          "Verify a simple eigenpair and explain the relationship and distinction between covariance eigenstructure, SVD, and PCA.",
+        action: "verify and explain",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+      {
+        id: "cgei-ds-o-odes",
+        statement:
+          "Formulate a stock–flux ODE, compute a steady state, and explain a numerical integration limitation.",
+        action: "formulate and check",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+      {
+        id: "cgei-ds-o-water-balance",
+        statement:
+          "Close a water balance using a consistent control volume, period, and unit convention.",
+        action: "calculate and critique",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+      {
+        id: "cgei-ds-o-energy-balance",
+        statement:
+          "Apply a stated surface-energy sign convention and distinguish land-surface temperature from near-surface air temperature.",
+        action: "calculate and distinguish",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+      {
+        id: "cgei-ds-o-uncertainty",
+        statement:
+          "Calculate a conventional standard error and identify when dependence undermines an independent-sample interpretation.",
+        action: "calculate and diagnose",
+        level: "L2",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+      {
+        id: "cgei-ds-o-div-curl",
+        statement:
+          "Interpret divergence and curl as local spreading and rotation diagnostics for environmental vector fields.",
+        action: "interpret and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
+      {
+        id: "cgei-ds-o-taylor-error",
+        statement:
+          "Linearise a smooth map with a first-order Taylor expansion and propagate uncertainty through a derivative scaling.",
+        action: "approximate and propagate",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
+      {
+        id: "cgei-ds-o-num-stability",
+        statement:
+          "Identify time-step and floating-point limits that make a numerical scheme inaccurate or unstable.",
+        action: "diagnose and constrain",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+      {
+        id: "cgei-ds-o-optimisation",
+        statement:
+          "Contrast least-squares fitting with iterative gradient descent and state when a constraint changes the feasible set.",
+        action: "compare and select",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+      {
+        id: "cgei-ds-o-continuity",
+        statement:
+          "Connect continuity, diffusion and advection forms to conservation statements in a fixed control volume.",
+        action: "formulate and relate",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+      {
+        id: "cgei-ds-o-buckingham",
+        statement:
+          "Reduce a dimensional relationship with Buckingham Pi reasoning and interpret a non-dimensional group.",
+        action: "reduce and interpret",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
+      {
+        id: "cgei-ds-o-heat-transfer",
+        statement:
+          "Distinguish conduction, convection and radiative transfer pathways in a surface energy context.",
+        action: "distinguish and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+      {
+        id: "cgei-ds-o-clt-lln",
+        statement:
+          "State when the law of large numbers and central limit theorem apply and name common distribution families used as environmental models.",
+        action: "state and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-1-1",
-      "cgei-cl-lesson-2-1-2",
-      "cgei-cl-lesson-2-1-3"
+    lessonIds: [
+      "cgei-ds-lesson-5-1-1",
+      "cgei-ds-lesson-5-1-2",
+      "cgei-ds-lesson-5-1-9",
+      "cgei-ds-lesson-5-1-3",
+      "cgei-ds-lesson-5-1-4",
+      "cgei-ds-lesson-5-1-10",
+      "cgei-ds-lesson-5-1-5",
+      "cgei-ds-lesson-5-1-11",
+      "cgei-ds-lesson-5-1-12",
+      "cgei-ds-lesson-5-1-6",
+      "cgei-ds-lesson-5-1-13",
+      "cgei-ds-lesson-5-1-14",
+      "cgei-ds-lesson-5-1-7",
+      "cgei-ds-lesson-5-1-15",
+      "cgei-ds-lesson-5-1-8",
+      "cgei-ds-lesson-5-1-16",
     ],
-    "activityIds": [
-      "cgei-cl-a-21-baseline",
-      "cgei-cl-a-21-stats",
-      "cgei-cl-a-21-evidence"
+    activityIds: [
+      "cgei-ds-a-unit-audit",
+      "cgei-ds-a-rate-gradient",
+      "cgei-ds-a-div-curl",
+      "cgei-ds-a-least-squares",
+      "cgei-ds-a-eigen-check",
+      "cgei-ds-a-taylor-error",
+      "cgei-ds-a-stock-flux",
+      "cgei-ds-a-num-stability",
+      "cgei-ds-a-optimisation",
+      "cgei-ds-a-water-balance",
+      "cgei-ds-a-continuity",
+      "cgei-ds-a-buckingham",
+      "cgei-ds-a-energy-signs",
+      "cgei-ds-a-heat-transfer",
+      "cgei-ds-a-uncertainty-audit",
+      "cgei-ds-a-clt-lln",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-21-baseline",
-      "cgei-cl-assess-21-stats",
-      "cgei-cl-assess-21-evidence"
+    assessmentIds: [
+      "cgei-ds-assess-unit-diagnostic",
+      "cgei-ds-assess-unit-quiz",
     ],
-    "resourceIds": [
-      "cgei-cl-res-wmo-normals",
-      "cgei-cl-res-ipcc-ar6-wg1"
+    resourceIds: [
+      "cgei-ds-r-usgs-l2-scaling",
+      "cgei-ds-r-era5-precipitation",
+      "cgei-ds-r-numpy-linalg",
+      "cgei-ds-r-scipy-solve-ivp",
     ],
-    "deliverableIds": [
-      "cgei-cl-del-baseline-anomaly-brief",
-      "cgei-cl-del-cautious-conclusions"
+    deliverableIds: [
+      "cgei-ds-d-unit-sheet",
+      "cgei-ds-d-linear-algebra-notebook",
+      "cgei-ds-d-balance-notebook",
+      "cgei-ds-d-uncertainty-note",
+      "cgei-ds-d-rate-note",
     ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.1 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Defines weather, climate, normals, variability, and indices. Outcome: state a baseline, season, and statistical description for any climate claim.",
-      "Failure mode: Calling weather a climate trend; omitting baseline period or season definition.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.1-mathematical-physical-foundations.md",
+    notes: [
+      "The subject overview is not a lesson.",
+      "Sixteen lessons bridge to stable legacy Topic IDs during migration (eight original plus eight 2026 expansion topics).",
+      "Readiness remains review; expanded topics have not yet been re-reviewed with readinessEvidence.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-2",
-    "code": "2.2",
-    "title": "Climate system processes",
-    "order": 202,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Explain greenhouse and surface-energy processes, climate feedbacks and sensitivity ranges, regional monsoon/WD systems, and urban heat-island definitions.",
-    "estimatedHours": 8,
-    "prerequisites": [
-      "Unit 2.1",
-      "Unit 1.1"
+    id: "cgei-ds-unit-5-2",
+    code: "5.2",
+    title: "Python for scientific work",
+    order: 2,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Turn Python knowledge into reproducible environmental-data work: well-structured functions, disciplined NumPy shapes and missingness, timezone-safe Pandas aggregation, documented environments, open formats, metadata parsing and Python–R hand-offs.",
+    estimatedHours: 6.5,
+    prerequisites: [
+      "Unit 5.1 mathematical and physical foundations",
+      "Basic Python syntax, functions and data structures",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-22-energy",
-        "statement": "Explain the planetary energy budget and greenhouse effect with a one-layer teaching model, write the surface energy balance with a stated sign convention, and show how latent heat changes the residual available for sensible heat and storage.",
-        "action": "explain and compute",
-        "level": "L3",
-        "competencyIds": [
+        id: "cgei-ds-o-52-structure",
+        statement:
+          "Refactor a notebook calculation into a documented function and importable module with explicit inputs, outputs, and checks.",
+        action: "refactor and test",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-52-arrays",
+        statement:
+          "Use NumPy array shapes, broadcasting, NaN-safe summaries, and seeded randomness without silent shape or missing-value errors.",
+        action: "implement and diagnose",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-22-feedback",
-        "statement": "Distinguish major climate feedbacks from forcings, state AR6 assessed ranges for ECS and TCR as ranges rather than point truths, and link TCRE conceptually to cumulative carbon without recomputing budgets.",
-        "action": "distinguish and state",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-22-regional",
-        "statement": "Describe South Asian monsoon drivers, western disturbances, intraseasonal active/break structure and land–atmosphere modifiers (irrigation, dust) at process level, and apply a case-study template without claiming attribution.",
-        "action": "describe and apply",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-22-uhi",
-        "statement": "Distinguish surface and canopy-layer UHI, justify rural-reference choice (including arid-city cool-island cases), and list the main urban energy-balance controls including anthropogenic heat.",
-        "action": "distinguish and justify",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-2-1",
-      "cgei-cl-lesson-2-2-2",
-      "cgei-cl-lesson-2-2-3",
-      "cgei-cl-lesson-2-2-4"
-    ],
-    "activityIds": [
-      "cgei-cl-a-22-energy",
-      "cgei-cl-a-22-feedback",
-      "cgei-cl-a-22-regional",
-      "cgei-cl-a-22-uhi"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-22-energy",
-      "cgei-cl-assess-22-feedback",
-      "cgei-cl-assess-22-regional",
-      "cgei-cl-assess-22-uhi"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-ipcc-ar6-wg1"
-    ],
-    "deliverableIds": [],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.2 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Energy budget, forcing/feedbacks, circulation and monsoon, teleconnections, extreme-event cases, urban climate. Outcome: explain a regional heat or rainfall event mechanistically.",
-      "Failure mode: Treating urban heat as pure greenhouse forcing; ignoring surface-energy terms.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-3",
-    "code": "2.3",
-    "title": "Atmospheric thermodynamics, dynamics, and the boundary layer",
-    "order": 203,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Connect moist thermodynamics, boundary-layer processes, and NWP concepts to humid-heat and precipitation risk interpretation.",
-    "estimatedHours": 10,
-    "prerequisites": [
-      "Unit 2.1",
-      "Unit 2.2"
-    ],
-    "outcomes": [
-      {
-        "id": "cgei-cl-o-23-moisture",
-        "statement": "Apply ideal-gas and hydrostatic relations at conceptual level, distinguish humidity variables, and use Clausius–Clapeyron scaling to reason about humid heat and extreme rainfall capacity.",
-        "action": "apply and distinguish",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-23-pbl",
-        "statement": "Explain diurnal boundary-layer evolution, turbulent flux partition (including Bowen ratio), and why urban night-time temperatures depend on storage, geometry and stability.",
-        "action": "explain",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-23-nwp",
-        "statement": "Describe cloud/precipitation process families, NWP grids and parameterisation, ensembles, and the difference between initial-condition and model uncertainty without treating high resolution as guaranteed skill.",
-        "action": "describe and critique",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-3-1",
-      "cgei-cl-lesson-2-3-2",
-      "cgei-cl-lesson-2-3-3"
-    ],
-    "activityIds": [
-      "cgei-cl-a-23-moisture",
-      "cgei-cl-a-23-pbl",
-      "cgei-cl-a-23-nwp"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-23-moisture",
-      "cgei-cl-assess-23-pbl",
-      "cgei-cl-assess-23-nwp"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-ipcc-ar6-wg1"
-    ],
-    "deliverableIds": [],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.3 (Support)",
-    "notes": [
-      "Support unit per Master TOC priority path.",
-      "Scope: Thermodynamics, dynamics, PBL, clouds/aerosols, NWP concepts. Outcome: connect moisture and dynamics language to observed weather and model fields.",
-      "Failure mode: Using NWP output as climate truth without stating lead time and resolution.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-4",
-    "code": "2.4",
-    "title": "Observations, reanalysis, and gridded products",
-    "order": 204,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Quality-control station series, distinguish observations from gridded products and reanalysis, and select datasets with an explicit fitness-for-purpose checklist.",
-    "estimatedHours": 7,
-    "prerequisites": [
-      "Unit 2.1"
-    ],
-    "outcomes": [
-      {
-        "id": "cgei-cl-o-24-station",
-        "statement": "Apply basic station QC checks (range, step, spike, persistence, internal consistency), distinguish missing values from valid zeros, and state why homogenisation is needed without claiming to have applied SNHT/Pettitt.",
-        "action": "apply and distinguish",
-        "level": "L3",
-        "competencyIds": [
           "cgei-comp-reproducibility",
-          "cgei-comp-quantitative-reasoning"
-        ]
+        ],
       },
       {
-        "id": "cgei-cl-o-24-products",
-        "statement": "Distinguish in-situ observations, gridded observational products and reanalysis estimates; explain why a grid-cell value is not a station observation; and use cross-product spread as an uncertainty signal.",
-        "action": "distinguish and explain",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-52-time",
+        statement:
+          "Convert UTC observations to Pakistan local time before daily aggregation and validate joins and row counts.",
+        action: "transform and verify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-environmental-accounting",
+        ],
       },
       {
-        "id": "cgei-cl-o-24-select",
-        "statement": "Select a climate data product using a fitness-for-purpose checklist (variable, resolution, record length, licence, known limitations, spatial support) and document provenance before comparison.",
-        "action": "select and justify",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-52-environment",
+        statement:
+          "Create a reproducible project environment, data dictionary, and provenance manifest for an environmental data product.",
+        action: "package and document",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-52-metadata",
+        statement:
+          "Parse structured metadata with tested regular expressions and exchange analysis-ready data across Python and R using documented open formats.",
+        action: "parse and exchange",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-4-1",
-      "cgei-cl-lesson-2-4-2",
-      "cgei-cl-lesson-2-4-3"
+    lessonIds: [
+      "cgei-ds-lesson-5-2-1",
+      "cgei-ds-lesson-5-2-2",
+      "cgei-ds-lesson-5-2-3",
+      "cgei-ds-lesson-5-2-4",
+      "cgei-ds-lesson-5-2-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-24-qc",
-      "cgei-cl-a-24-products",
-      "cgei-cl-a-24-select"
+    activityIds: [
+      "cgei-ds-a-52-functions",
+      "cgei-ds-a-52-numpy",
+      "cgei-ds-a-52-pkt-daily",
+      "cgei-ds-a-52-package",
+      "cgei-ds-a-52-regex",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-24-qc",
-      "cgei-cl-assess-24-products",
-      "cgei-cl-assess-24-select"
+    assessmentIds: [
+      "cgei-ds-assess-52-structure",
+      "cgei-ds-assess-52-arrays",
+      "cgei-ds-assess-52-time",
+      "cgei-ds-assess-52-package",
+      "cgei-ds-assess-52-metadata",
     ],
-    "resourceIds": [
-      "cgei-cl-res-era5-cds",
-      "cgei-cl-res-era5-doc",
-      "cgei-cl-res-pmd-access"
+    resourceIds: [
+      "cgei-ds-r-52-python-venv",
+      "cgei-ds-r-52-good-practices",
+      "cgei-ds-r-52-numpy-broadcast",
+      "cgei-ds-r-52-pandas-time",
+      "cgei-ds-r-52-parquet",
+      "cgei-ds-r-52-python-regex",
     ],
-    "deliverableIds": [
-      "cgei-cl-del-provenance-record",
-      "cgei-cl-del-product-manifest"
+    deliverableIds: [
+      "cgei-ds-d-52-module",
+      "cgei-ds-d-52-daily-package",
+      "cgei-ds-d-52-mini-package",
     ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.4 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Stations, satellite/gridded products, reanalysis, product choice, representativeness. Outcome: select and justify a climate product with uncertainty language.",
-      "Failure mode: Reading area-mean reanalysis rainfall as a gauge; ignoring product version.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.2-python-scientific-work.md",
+    notes: [
+      "Content is authored in canonical typed blocks rather than migrated from legacy Topic fields.",
+      "Readiness remains draft until Python examples and route/rendering checks are verified.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-5",
-    "code": "2.5",
-    "title": "Climate data handling",
-    "order": 205,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Handle climate data with correct time/accumulation conventions, variable-specific aggregation, completeness rules, anomalies and reproducible provenance.",
-    "estimatedHours": 8,
-    "prerequisites": [
-      "Unit 2.4"
+    id: "cgei-ds-unit-5-3",
+    code: "5.3",
+    title: "Exploratory data analysis and visualisation",
+    order: 3,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Use EDA as a scientific question sequence: profile data quality, choose distributional/relational and temporal graphics, make analytical maps with complete metadata, and communicate uncertainty and non-claims.",
+    estimatedHours: 6,
+    prerequisites: [
+      "Unit 5.1 mathematical and physical foundations",
+      "Unit 5.2 scientific Python",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-25-time",
-        "statement": "Distinguish accumulated versus instantaneous variables, apply CF-style metadata checks, and show how UTC versus local (PKT) day boundaries change daily maxima and rainfall-day assignment.",
-        "action": "distinguish and demonstrate",
-        "level": "L3",
-        "competencyIds": [
+        id: "cgei-ds-o-53-eda-questions",
+        statement:
+          "Plan exploratory analysis around explicit environmental questions, observational units, missingness and data-quality checks.",
+        action: "plan and diagnose",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-25-aggregate",
-        "statement": "Aggregate climate series with variable-specific rules and completeness thresholds, without treating missing values as zero, and compute area-aware regional means when appropriate.",
-        "action": "aggregate and validate",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-25-anomaly",
-        "statement": "Compute monthly anomalies against a pre-declared baseline, document units, baseline period and processing steps, and maintain a provenance record sufficient for independent re-execution.",
-        "action": "compute and document",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-5-1",
-      "cgei-cl-lesson-2-5-2",
-      "cgei-cl-lesson-2-5-3"
-    ],
-    "activityIds": [
-      "cgei-cl-a-25-time",
-      "cgei-cl-a-25-aggregate",
-      "cgei-cl-a-25-workflow"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-25-time",
-      "cgei-cl-assess-25-aggregate",
-      "cgei-cl-assess-25-workflow"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-era5-cds",
-      "cgei-cl-res-era5-doc",
-      "cgei-cl-res-cf-conventions",
-      "cgei-cl-res-wmo-normals"
-    ],
-    "deliverableIds": [
-      "cgei-cl-del-provenance-record",
-      "cgei-cl-del-baseline-anomaly-brief",
-      "cgei-cl-del-notebook-repro"
-    ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.5 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Formats, time/accumulation conventions, access, workflow, tools, Multan ERA5 case. Outcome: run a reproducible climate-data notebook with correct units and clocks.",
-      "Failure mode: UTC vs local daily extremes; wrong accumulation conventions.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-6",
-    "code": "2.6",
-    "title": "Extremes and trend analysis",
-    "order": 206,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Define thresholds and extreme indices, estimate trends with explicit units and dependence awareness, and report results without overstating return periods or attribution.",
-    "estimatedHours": 8,
-    "prerequisites": [
-      "Unit 2.5"
-    ],
-    "outcomes": [
-      {
-        "id": "cgei-cl-o-26-threshold",
-        "statement": "Define absolute and percentile thresholds with a declared baseline, count exceedances and spell durations, and state when day-to-day dependence makes independent-event assumptions invalid.",
-        "action": "define and count",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-26-trend",
-        "statement": "Estimate ordinary least-squares and Sen slopes with explicit units, and explain why autocorrelation affects uncertainty even when the slope point estimate is unchanged.",
-        "action": "estimate and interpret",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-26-inference",
-        "statement": "Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and empirical return periods from fitted EVT levels.",
-        "action": "report with limits",
-        "level": "L3",
-        "competencyIds": [
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        ],
+      },
+      {
+        id: "cgei-ds-o-53-distributions",
+        statement:
+          "Choose and interpret distributional and relational graphics while checking overplotting, skew and residual patterns.",
+        action: "select and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-53-temporal",
+        statement:
+          "Plot climate series and anomalies against a stated baseline and inspect temporal dependence before inferential claims.",
+        action: "visualise and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+      {
+        id: "cgei-ds-o-53-maps",
+        statement:
+          "Produce analytical maps with complete variable, time, resolution, CRS, colour-scale and missing-data metadata.",
+        action: "design and document",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-53-communication",
+        statement:
+          "Communicate uncertainty, data limitations and non-causal interpretations in figure captions and an EDA memo.",
+        action: "communicate and qualify",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-6-1",
-      "cgei-cl-lesson-2-6-2",
-      "cgei-cl-lesson-2-6-3"
+    lessonIds: [
+      "cgei-ds-lesson-5-3-1",
+      "cgei-ds-lesson-5-3-2",
+      "cgei-ds-lesson-5-3-3",
+      "cgei-ds-lesson-5-3-4",
+      "cgei-ds-lesson-5-3-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-26-threshold",
-      "cgei-cl-a-26-trend",
-      "cgei-cl-a-26-inference"
+    activityIds: [
+      "cgei-ds-a-53-question-plan",
+      "cgei-ds-a-53-distribution",
+      "cgei-ds-a-53-time",
+      "cgei-ds-a-53-map-caption",
+      "cgei-ds-a-53-uncertainty",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-26-threshold",
-      "cgei-cl-assess-26-trend",
-      "cgei-cl-assess-26-inference"
+    assessmentIds: [
+      "cgei-ds-assess-53-questions",
+      "cgei-ds-assess-53-distribution",
+      "cgei-ds-assess-53-time",
+      "cgei-ds-assess-53-maps",
+      "cgei-ds-assess-53-communication",
     ],
-    "resourceIds": [
-      "cgei-cl-res-etccdi",
-      "cgei-cl-res-extremes-guidance",
-      "cgei-cl-res-era5-cds",
-      "cgei-cl-res-wmo-normals"
+    resourceIds: [
+      "cgei-ds-r-53-pandas-eda",
+      "cgei-ds-r-53-seaborn-distributions",
+      "cgei-ds-r-53-seaborn-relational",
+      "cgei-ds-r-53-matplotlib",
+      "cgei-ds-r-53-cartopy",
+      "cgei-ds-r-53-colormaps",
+      "cgei-ds-r-53-wilke",
     ],
-    "deliverableIds": [
-      "cgei-cl-del-extremes-trend-card",
-      "cgei-cl-del-cautious-conclusions"
+    deliverableIds: [
+      "cgei-ds-d-53-eda-notebook",
+      "cgei-ds-d-53-figure-audit",
+      "cgei-ds-d-53-eda-memo",
     ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.6 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Thresholds, heat/rain/drought extremes, trends, significance, inference discipline. Outcome: compute extremes and trends without over-claiming causation.",
-      "Failure mode: Short-record trends as climate-change proof; multiple testing ignored.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.3-exploration-visualisation.md",
+    notes: [
+      "Content is authored in canonical typed blocks and remains draft pending browser review.",
+      "Figure examples are illustrative; they require a real dataset before empirical claims can be made.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-7",
-    "code": "2.7",
-    "title": "Extreme value statistics and return levels",
-    "order": 207,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Apply GEV/GPD concepts, return levels and diagnostics, and communicate extremes with explicit stationarity and sample-size limits.",
-    "estimatedHours": 8,
-    "prerequisites": [
-      "Unit 2.6"
+    id: "cgei-ds-unit-5-4",
+    code: "5.4",
+    title: "Introductory statistics for environmental data",
+    order: 4,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Move from probability models and distribution diagnostics through sampling, uncertainty, hypothesis tests, effect sizes and non-parametric methods to correlation/regression and defensible environmental inference.",
+    estimatedHours: 6.5,
+    prerequisites: [
+      "Unit 5.1 probability foundations",
+      "Unit 5.2 scientific Python",
+      "Unit 5.3 EDA and visualisation",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-27-theory",
-        "statement": "State the GEV family (location, scale, shape) as the limit of block maxima and the GPD as the limit of peaks-over-threshold, define return period/level/exceedance probability with appropriate confidence-interval methods, and quantify exceedance clustering via the extremal index.",
-        "action": "state and quantify",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-54-categorical",
+        statement:
+          "Choose and interpret introductory ANOVA and chi-square methods for environmental group comparisons and categorical verification tables.",
+        action: "choose and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
+          "cgei-comp-uncertainty",
+        ],
       },
       {
-        "id": "cgei-cl-o-27-estimate",
-        "statement": "Fit a GEV/Gumbel model by a stated method, assess fit using named diagnostic plots and a leave-out check, and state how far a small-sample fit can be extrapolated defensibly.",
-        "action": "fit and diagnose",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-54-distributions",
+        statement:
+          "Select and assess probability distributions for environmental variables, explaining support, moments and goodness-of-fit limitations.",
+        action: "select and assess",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+          "cgei-comp-uncertainty",
+        ],
       },
       {
-        "id": "cgei-cl-o-27-extend",
-        "statement": "Incorporate a covariate into a non-stationary GEV location parameter, describe regional frequency analysis and Bayesian extensions, and distinguish copula-based joint-extreme modelling from simple co-occurrence counting.",
-        "action": "extend and distinguish",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-54-sampling",
+        statement:
+          "Define population, sample support and sampling design before generalising an environmental estimate.",
+        action: "define and critique",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-54-intervals",
+        statement:
+          "Calculate and interpret confidence intervals and bootstrap uncertainty while stating dependence assumptions.",
+        action: "calculate and interpret",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+      {
+        id: "cgei-ds-o-54-tests",
+        statement:
+          "Interpret p-values and multiple-testing adjustments without substituting significance for practical importance.",
+        action: "interpret and adjust",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+      {
+        id: "cgei-ds-o-54-regression",
+        statement:
+          "Fit a simple regression with interpretable units and diagnose residual patterns before reporting a slope.",
+        action: "fit and diagnose",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-54-effect-size",
+        statement:
+          "Report effect sizes and justify rank-based or bootstrap methods with their remaining assumptions stated.",
+        action: "compare and justify",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    lessonIds: [
+      "cgei-ds-lesson-5-4-distributions",
+      "cgei-ds-lesson-5-4-1",
+      "cgei-ds-lesson-5-4-2",
+      "cgei-ds-lesson-5-4-3",
+      "cgei-ds-lesson-5-4-5",
+      "cgei-ds-lesson-5-4-4",
+    ],
+    activityIds: [
+      "cgei-ds-a-54-distributions",
+      "cgei-ds-a-54-sampling",
+      "cgei-ds-a-54-interval",
+      "cgei-ds-a-54-tests",
+      "cgei-ds-a-54-effect-size",
+      "cgei-ds-a-54-regression",
+    ],
+    assessmentIds: [
+      "cgei-ds-assess-54-distributions",
+      "cgei-ds-assess-54-sampling",
+      "cgei-ds-assess-54-intervals",
+      "cgei-ds-assess-54-tests",
+      "cgei-ds-assess-54-effect-size",
+      "cgei-ds-assess-54-regression",
+    ],
+    resourceIds: [
+      "cgei-ds-r-54-wilks",
+      "cgei-ds-r-54-scipy-bootstrap",
+      "cgei-ds-r-54-statsmodels-multitest",
+      "cgei-ds-r-54-statsmodels-ols",
+      "cgei-ds-r-54-nist",
+    ],
+    deliverableIds: [
+      "cgei-ds-d-54-brief",
+      "cgei-ds-d-54-inference-checklist",
+      "cgei-ds-d-54-regression-notebook",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.4-introductory-statistics.md",
+    notes: [
+      "Examples are instructional; validate code snippets and review licensing/security guidance before release.",
+      "API examples are patterns, not a guarantee that any provider endpoint remains stable.",
+    ],
+  },
+  {
+    id: "cgei-ds-unit-5-5",
+    code: "5.5",
+    title: "Data workflow engineering",
+    order: 5,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Build idempotent acquisition-to-publication workflows with relational SQL, reliable HTTP/API acquisition, manifests, licence-aware provenance, safe credentials and a reproducible package.",
+    estimatedHours: 6.5,
+    prerequisites: [
+      "Unit 5.2 scientific Python",
+      "Basic SQL and structured-data concepts",
+    ],
+    outcomes: [
+      {
+        id: "cgei-ds-o-55-workflow",
+        statement:
+          "Design an idempotent environmental-data workflow with separate raw, interim and processed products plus a reproducibility manifest.",
+        action: "design and validate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-55-sql",
+        statement:
+          "Query relational environmental data with explicit keys, filters, joins and grouped summaries, then verify row counts and key uniqueness.",
+        action: "query and verify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-quantitative-reasoning",
+        ],
+      },
+      {
+        id: "cgei-ds-o-55-api",
+        statement:
+          "Acquire public environmental data through HTTP/API clients with timeouts, status checks, bounded retries, pagination awareness and local caching.",
+        action: "acquire and validate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-55-provenance",
+        statement:
+          "Document source versions, requests, licence obligations and ethical limits while keeping credentials out of source control.",
+        action: "document and protect",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-55-package",
+        statement:
+          "Deliver a reproducible acquisition package that another researcher can rerun and audit without access to private credentials.",
+        action: "package and demonstrate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    lessonIds: [
+      "cgei-ds-lesson-5-5-1",
+      "cgei-ds-lesson-5-5-2",
+      "cgei-ds-lesson-5-5-3",
+      "cgei-ds-lesson-5-5-4",
+      "cgei-ds-lesson-5-5-5",
+    ],
+    activityIds: [
+      "cgei-ds-a-55-workflow",
+      "cgei-ds-a-55-sql",
+      "cgei-ds-a-55-api",
+      "cgei-ds-a-55-provenance",
+      "cgei-ds-a-55-package",
+    ],
+    assessmentIds: [
+      "cgei-ds-assess-55-workflow",
+      "cgei-ds-assess-55-sql",
+      "cgei-ds-assess-55-api",
+      "cgei-ds-assess-55-provenance",
+      "cgei-ds-assess-55-package",
+    ],
+    resourceIds: [
+      "cgei-ds-r-55-good-practices",
+      "cgei-ds-r-55-sqlite",
+      "cgei-ds-r-55-requests",
+      "cgei-ds-r-55-cds-licence",
+      "cgei-ds-r-55-secret-scanning",
+    ],
+    deliverableIds: [
+      "cgei-ds-d-55-acquisition-package",
+      "cgei-ds-d-55-sql-query",
+      "cgei-ds-d-55-provenance-note",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.5-data-workflow-engineering.md",
+    notes: [
+      "This is an integrated draft, not released content; the acquisition workflow must be validated with a deterministic fixture before release.",
+    ],
+  },
+  {
+    id: "cgei-ds-unit-5-6",
+    code: "5.6",
+    title: "Intermediate inference and model validation",
+    order: 6,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Interpret multiple regression, diagnose assumptions, quantify uncertainty, respect spatial/temporal dependence and compare models under leakage-aware validation.",
+    estimatedHours: 8,
+    prerequisites: [
+      "Unit 5.4 introductory statistics",
+      "Unit 5.5 data workflow engineering",
+    ],
+    outcomes: [
+      {
+        id: "cgei-ds-o-56-multiple",
+        statement:
+          "Specify and interpret multiple regression terms, categorical predictors and interactions in an environmental question.",
+        action: "specify and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-mathematical-modeling",
-          "cgei-comp-uncertainty"
-        ]
+          "cgei-comp-quantitative-reasoning",
+        ],
       },
       {
-        "id": "cgei-cl-o-27-apply",
-        "statement": "Apply EVT to heat, rainfall and flood-peak extremes and communicate return levels and horizon probabilities, including the named software ecosystem, without implying a return period is a fixed calendar schedule.",
-        "action": "apply and communicate",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-56-diagnostics",
+        statement:
+          "Diagnose collinearity, non-linearity, heteroscedasticity and influential observations using residual-focused checks.",
+        action: "diagnose and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        ],
+      },
+      {
+        id: "cgei-ds-o-56-uncertainty",
+        statement:
+          "Distinguish parameter confidence intervals, prediction intervals and major sources of uncertainty.",
+        action: "calculate and distinguish",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+      {
+        id: "cgei-ds-o-56-dependence",
+        statement:
+          "Choose uncertainty estimates and validation splits that respect station, scene, region or time dependence.",
+        action: "select and defend",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-56-comparison",
+        statement:
+          "Compare candidate models with simple baselines under the same leakage-aware validation design and communicate limits.",
+        action: "compare and communicate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-reproducibility",
+        ],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-7-1",
-      "cgei-cl-lesson-2-7-2",
-      "cgei-cl-lesson-2-7-3",
-      "cgei-cl-lesson-2-7-4"
+    lessonIds: [
+      "cgei-ds-lesson-5-6-1",
+      "cgei-ds-lesson-5-6-2",
+      "cgei-ds-lesson-5-6-3",
+      "cgei-ds-lesson-5-6-4",
+      "cgei-ds-lesson-5-6-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-27-theory",
-      "cgei-cl-a-27-estimate",
-      "cgei-cl-a-27-extend",
-      "cgei-cl-a-27-apply"
+    activityIds: [
+      "cgei-ds-a-56-multiple",
+      "cgei-ds-a-56-diagnostics",
+      "cgei-ds-a-56-uncertainty",
+      "cgei-ds-a-56-dependence",
+      "cgei-ds-a-56-comparison",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-27-theory",
-      "cgei-cl-assess-27-estimate",
-      "cgei-cl-assess-27-extend",
-      "cgei-cl-assess-27-apply"
+    assessmentIds: [
+      "cgei-ds-assess-56-multiple",
+      "cgei-ds-assess-56-diagnostics",
+      "cgei-ds-assess-56-uncertainty",
+      "cgei-ds-assess-56-dependence",
+      "cgei-ds-assess-56-comparison",
     ],
-    "resourceIds": [
-      "cgei-cl-res-etccdi",
-      "cgei-cl-res-extremes-guidance"
+    resourceIds: [
+      "cgei-ds-r-56-statsmodels-ols",
+      "cgei-ds-r-56-vif",
+      "cgei-ds-r-56-groupkfold",
     ],
-    "deliverableIds": [
-      "cgei-cl-del-extremes-trend-card"
+    deliverableIds: [
+      "cgei-ds-d-56-model-memo",
+      "cgei-ds-d-56-diagnostic-sheet",
+      "cgei-ds-d-56-validation-memo",
     ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.7 (Support)",
-    "notes": [
-      "Support unit per Master TOC priority path.",
-      "Scope: GEV/GPD theory, estimation, extensions, applications. Outcome: fit a simple extreme-value model and report return levels with stated extrapolation limits.",
-      "Failure mode: Extrapolating return levels far beyond record length without intervals.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.6-intermediate-inference.md",
+    notes: [
+      "Draft lesson content integrated from the manuscript; computational examples still require execution against a synthetic fixture.",
+      "Validation design is chosen to match the target generalisation claim, not as a universal split rule.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-8",
-    "code": "2.8",
-    "title": "Regional climate literacy (Pakistan / southern Punjab)",
-    "order": 208,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Interpret Pakistan and southern Punjab seasonal climate context, Multan land–climate setting, and data-institution access practice with disciplined evidence types.",
-    "estimatedHours": 7,
-    "prerequisites": [
-      "Unit 2.1",
-      "Unit 2.4",
-      "Unit 2.6"
+    id: "cgei-ds-unit-5-7",
+    code: "5.7",
+    title: "Time-series analysis",
+    order: 7,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Audit temporal structure, describe trend and seasonality, diagnose serial dependence, estimate uncertainty, and evaluate forecasts using leakage-aware chronological validation.",
+    estimatedHours: 6,
+    prerequisites: [
+      "Unit 5.4 introductory statistics",
+      "Unit 5.5 reproducible data workflows",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-28-seasons",
-        "statement": "Justify local seasonal definitions for Pakistan analyses, distinguish PMD-style season bins from default JJA, and treat ENSO/IOD as context rather than one-line local causes.",
-        "action": "justify and distinguish",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-57-structure",
+        statement:
+          "Audit a time index, frequency, missing intervals and observational support before analysing a series.",
+        action: "audit and define",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
       },
       {
-        "id": "cgei-cl-o-28-multan",
-        "statement": "Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent, with explicit baseline and support statements.",
-        "action": "describe",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-57-decompose",
+        statement:
+          "Construct season-specific anomalies against a baseline chosen before analysis and explain decomposition assumptions.",
+        action: "decompose and interpret",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
       },
       {
-        "id": "cgei-cl-o-28-evidence",
-        "statement": "Identify appropriate national data institutions and evidence types, document access limits, and keep synthetic, observed and assessed claims in separate evidence classes.",
-        "action": "identify and document",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-57-dependence",
+        statement:
+          "Interpret autocorrelation and estimate a trend with uncertainty appropriate to serial dependence.",
+        action: "diagnose and estimate",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-57-forecast",
+        statement:
+          "Evaluate forecasts with chronological or rolling-origin splits that prevent future information leakage.",
+        action: "evaluate and prevent leakage",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-57-compare",
+        statement:
+          "Compare forecast models with simple baselines and communicate residual, subgroup and regime-shift failures.",
+        action: "compare and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-8-1",
-      "cgei-cl-lesson-2-8-2",
-      "cgei-cl-lesson-2-8-3"
+    lessonIds: [
+      "cgei-ds-lesson-5-7-1",
+      "cgei-ds-lesson-5-7-2",
+      "cgei-ds-lesson-5-7-3",
+      "cgei-ds-lesson-5-7-4",
+      "cgei-ds-lesson-5-7-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-28-seasons",
-      "cgei-cl-a-28-multan",
-      "cgei-cl-a-28-evidence"
+    activityIds: [
+      "cgei-ds-a-57-audit",
+      "cgei-ds-a-57-decompose",
+      "cgei-ds-a-57-trend",
+      "cgei-ds-a-57-temporal",
+      "cgei-ds-a-57-failure",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-28-seasons",
-      "cgei-cl-assess-28-multan",
-      "cgei-cl-assess-28-evidence"
+    assessmentIds: [
+      "cgei-ds-assess-57-audit",
+      "cgei-ds-assess-57-decompose",
+      "cgei-ds-assess-57-trend",
+      "cgei-ds-assess-57-temporal",
+      "cgei-ds-assess-57-failure",
     ],
-    "resourceIds": [
-      "cgei-cl-res-pmd-access",
-      "cgei-cl-res-era5-cds",
-      "cgei-cl-res-sascof"
+    resourceIds: [
+      "cgei-ds-r-57-statsmodels",
+      "cgei-ds-r-57-timeseriescv",
+      "cgei-ds-r-57-fpp3",
     ],
-    "deliverableIds": [
-      "cgei-cl-del-regional-literacy-brief",
-      "cgei-cl-del-cautious-conclusions",
-      "cgei-cl-del-notebook-repro"
+    deliverableIds: [
+      "cgei-ds-d-57-audit",
+      "cgei-ds-d-57-anomaly",
+      "cgei-ds-d-57-memo",
     ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.8 (Core)",
-    "notes": [
-      "Core unit per Master TOC priority path.",
-      "Scope: Pakistan/southern Punjab seasons, heat/dust/fog/smog, Multan context, data institutions. Outcome: place Multan evidence in correct seasonal and institutional context.",
-      "Failure mode: National generalisations applied to Multan without local seasonality.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.7-time-series.md",
+    notes: [
+      "Five canonical lessons and their outcomes are integrated; readiness remains draft pending content and UI review.",
+      "Scientific smoke checks cover synthetic decomposition, anomaly baselines, HAC covariance and chronological splitting.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-9",
-    "code": "2.9",
-    "title": "Climate models and projections",
-    "order": 209,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Navigate GCM/ESM/RCM hierarchy, CMIP scenarios and ensembles, evaluation, bias adjustment, downscaling, and responsible projection use.",
-    "estimatedHours": 10,
-    "prerequisites": [
-      "Unit 2.2",
-      "Unit 2.6"
+    id: "cgei-ds-unit-5-8",
+    code: "5.8",
+    title: "Multivariate analysis, PCA and EOF",
+    order: 8,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Construct multivariate matrices, justify area weighting, compute PCA/EOF, test mode stability, and interpret indices/composites with multiplicity awareness.",
+    estimatedHours: 6,
+    prerequisites: [
+      "Unit 5.1 linear algebra",
+      "Unit 5.6 intermediate inference",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-29-hierarchy",
-        "statement": "Distinguish GCMs/ESMs from RCMs by resolution, domain, and process coverage, and explain how both relate to — and differ from — reanalysis and direct observations.",
-        "action": "distinguish and explain",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-58-matrix",
+        statement:
+          "Construct a documented time-by-space or observation-by-variable matrix with justified centring, scaling and missing-data handling.",
+        action: "construct and document",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
+          "cgei-comp-reproducibility",
+        ],
       },
       {
-        "id": "cgei-cl-o-29-scenarios",
-        "statement": "Describe historical experiments and the forced-versus-internal-variability distinction, the SSP naming convention and SSP–RCP matrix including the plausibility debate around the highest-emission scenario, and CMIP6 ensemble and metadata conventions.",
-        "action": "describe and interpret",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-58-weighting",
+        statement:
+          "Apply area weighting where grid geometry requires it and explain the covariance target.",
+        action: "weight and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
+        ],
       },
       {
-        "id": "cgei-cl-o-29-evaluation",
-        "statement": "Evaluate model output against observations across mean, seasonal cycle, variability, trends, extremes and spatial pattern, correctly separating regridding/resolution artefacts from genuine skill, and apply process-based evaluation criteria.",
-        "action": "evaluate and diagnose",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-58-modes",
+        statement:
+          "Compute PCA/EOF with SVD or eigenanalysis and interpret variance fractions, scores, loadings and sign ambiguity.",
+        action: "compute and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+          "cgei-comp-uncertainty",
+        ],
       },
       {
-        "id": "cgei-cl-o-29-bias-adjust",
-        "statement": "Apply and critique named bias-adjustment methods, state what each assumes about stationarity, identify adjustment artefacts, and evaluate adjusted output on independent periods and on extremes rather than only on means.",
-        "action": "apply and critique",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-58-stability",
+        statement:
+          "Justify retained modes using sampling uncertainty and stability as well as variance summaries.",
+        action: "select and stress-test",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-58-maps",
+        statement:
+          "Interpret indices and composite/regression maps with sample sizes and multiplicity awareness, without equating patterns with mechanisms.",
+        action: "summarise and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    lessonIds: [
+      "cgei-ds-lesson-5-8-1",
+      "cgei-ds-lesson-5-8-2",
+      "cgei-ds-lesson-5-8-3",
+      "cgei-ds-lesson-5-8-4",
+      "cgei-ds-lesson-5-8-5",
+    ],
+    activityIds: [
+      "cgei-ds-a-58-matrix",
+      "cgei-ds-a-58-weighting",
+      "cgei-ds-a-58-svd",
+      "cgei-ds-a-58-stability",
+      "cgei-ds-a-58-maps",
+    ],
+    assessmentIds: [
+      "cgei-ds-assess-58-matrix",
+      "cgei-ds-assess-58-weighting",
+      "cgei-ds-assess-58-svd",
+      "cgei-ds-assess-58-stability",
+      "cgei-ds-assess-58-maps",
+    ],
+    resourceIds: [
+      "cgei-ds-r-58-sklearn",
+      "cgei-ds-r-58-numpy",
+      "cgei-ds-r-58-climatebook",
+    ],
+    deliverableIds: [
+      "cgei-ds-d-58-notebook",
+      "cgei-ds-d-58-weighting",
+      "cgei-ds-d-58-stability",
+      "cgei-ds-d-58-map-brief",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.8-multivariate.md",
+    notes: [
+      "Five draft lessons integrate core manuscript outcomes; release remains gated on CI, UI review and scientific review.",
+      "Synthetic EOF smoke checks test recovery of a known spatial mode; no real-data claims are implied.",
+    ],
+  },
+  {
+    id: "cgei-ds-unit-5-9",
+    code: "5.9",
+    title: "GLMs, mixed models and Bayesian modelling",
+    order: 9,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Choose GLM families and links, represent grouped environmental observations, specify and diagnose Bayesian models, and report interpretable effects with defensible uncertainty.",
+    estimatedHours: 7,
+    prerequisites: [
+      "Unit 5.4 introductory statistics",
+      "Unit 5.6 intermediate inference",
+      "Unit 5.7 time-series structure",
+    ],
+    outcomes: [
+      {
+        id: "cgei-ds-o-59-family",
+        statement:
+          "Choose a generalized linear model family and link that matches outcome support, mean–variance behaviour and the scientific estimand.",
+        action: "select and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-59-dependence",
+        statement:
+          "Represent repeated observations or grouped sampling with defensible random-effects structure and distinguish within-group from between-group variation.",
+        action: "model and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-mathematical-modeling",
-          "cgei-comp-uncertainty"
-        ]
+          "cgei-comp-uncertainty",
+        ],
       },
       {
-        "id": "cgei-cl-o-29-downscale",
-        "statement": "Compare dynamical, statistical and machine-learning downscaling approaches on their stationarity and transfer assumptions, operational cost, and failure modes.",
-        "action": "compare and assess",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-59-bayes",
+        statement:
+          "Specify Bayesian priors, likelihood and posterior summaries, then evaluate computation and prior sensitivity.",
+        action: "specify and evaluate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-59-diagnostics",
+        statement:
+          "Diagnose residual, overdispersion, convergence and predictive calibration problems without treating one diagnostic as a universal pass/fail test.",
+        action: "diagnose and stress-test",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+      {
+        id: "cgei-ds-o-59-report",
+        statement:
+          "Report model scale, effect contrasts, uncertainty, validation design and limits of generalisation for environmental decisions.",
+        action: "report and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    lessonIds: [
+      "cgei-ds-lesson-5-9-1",
+      "cgei-ds-lesson-5-9-2",
+      "cgei-ds-lesson-5-9-3",
+      "cgei-ds-lesson-5-9-4",
+      "cgei-ds-lesson-5-9-5",
+    ],
+    activityIds: [
+      "cgei-ds-a-59-family",
+      "cgei-ds-a-59-mixed",
+      "cgei-ds-a-59-bayes",
+      "cgei-ds-a-59-diagnostics",
+      "cgei-ds-a-59-report",
+    ],
+    assessmentIds: [
+      "cgei-ds-assess-59-family",
+      "cgei-ds-assess-59-mixed",
+      "cgei-ds-assess-59-bayes",
+      "cgei-ds-assess-59-diagnostics",
+      "cgei-ds-assess-59-report",
+    ],
+    resourceIds: [
+      "cgei-ds-r-59-statsmodels",
+      "cgei-ds-r-59-r-glm",
+      "cgei-ds-r-59-lme4",
+      "cgei-ds-r-59-stan",
+      "cgei-ds-r-59-bda",
+      "cgei-ds-r-59-diagnostics",
+    ],
+    deliverableIds: [
+      "cgei-ds-d-59-model-card",
+      "cgei-ds-d-59-bayes-note",
+      "cgei-ds-d-59-diagnostics",
+      "cgei-ds-d-59-report",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.9-glm-mixed-bayesian.md",
+    notes: [
+      "Five draft lessons cover GLM family choice, grouped data, Bayesian workflow, diagnostics and reporting.",
+      "Readiness remains draft pending CI, route/rendering checks, scientific review and executed examples.",
+    ],
+  },
+  {
+    id: "cgei-ds-unit-5-10",
+    code: "5.10",
+    title: "Causal inference for environmental questions",
+    order: 10,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Define causal estimands, draw and critique DAGs, justify identification and design assumptions, compare causal designs, and report sensitivity honestly.",
+    estimatedHours: 7,
+    prerequisites: [
+      "Unit 5.4 introductory statistics",
+      "Unit 5.6 intermediate inference",
+      "Unit 5.9 GLMs and model diagnostics",
+    ],
+    outcomes: [
+      {
+        id: "cgei-ds-o-510-dag",
+        statement:
+          "Translate an environmental research question into a causal diagram that distinguishes exposures, outcomes, confounders, mediators, colliders and selection mechanisms.",
+        action: "draw and justify",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-mathematical-modeling",
-          "cgei-comp-reproducibility"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-29-use",
-        "statement": "Decompose projection uncertainty into its named sources, use baselines/anomalies/time slices and global warming levels appropriately, distinguish projections from forecasts and short observed trends, and apply screening and complementary (storyline, emergent-constraint, Interactive Atlas) approaches responsibly.",
-        "action": "decompose and apply",
-        "level": "L2",
-        "competencyIds": [
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-9-1",
-      "cgei-cl-lesson-2-9-2",
-      "cgei-cl-lesson-2-9-3",
-      "cgei-cl-lesson-2-9-4",
-      "cgei-cl-lesson-2-9-5",
-      "cgei-cl-lesson-2-9-6"
-    ],
-    "activityIds": [
-      "cgei-cl-a-29-hierarchy",
-      "cgei-cl-a-29-scenarios",
-      "cgei-cl-a-29-eval",
-      "cgei-cl-a-29-bias",
-      "cgei-cl-a-29-downscale",
-      "cgei-cl-a-29-use"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-29-hierarchy",
-      "cgei-cl-assess-29-scenarios",
-      "cgei-cl-assess-29-evaluation",
-      "cgei-cl-assess-29-bias",
-      "cgei-cl-assess-29-downscale",
-      "cgei-cl-assess-29-use"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-ipcc-ar6-wg1",
-      "cgei-cl-res-ipcc-atlas",
-      "cgei-cl-res-cordex-sa",
-      "cgei-cl-res-isimip"
-    ],
-    "deliverableIds": [
-      "cgei-cl-del-product-manifest"
-    ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.9 (Support)",
-    "notes": [
-      "Support unit per Master TOC priority path.",
-      "Scope: Model hierarchy, scenarios, evaluation, bias adjustment, downscaling, using projections. Outcome: justify a model subset and method for a regional question.",
-      "Failure mode: Counting models instead of evaluating them; treating bias-adjusted output as observation.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-10",
-    "code": "2.10",
-    "title": "Regional projection products and the CMIP7 transition",
-    "order": 210,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Compare CORDEX, NEX-GDDP, ISIMIP and related families; document model/member choices; maintain CMIP7/AR7 awareness.",
-    "estimatedHours": 6,
-    "prerequisites": [
-      "Unit 2.9"
-    ],
-    "outcomes": [
+        ],
+      },
       {
-        "id": "cgei-cl-o-210-families",
-        "statement": "Identify the major downscaled and bias-adjusted climate product families (CORDEX South Asia, NEX-GDDP-CMIP6, ISIMIP, WorldClim/CHELSA future layers), compare them on method, base period, variables, ensemble size and licence, and locate their access routes and file conventions.",
-        "action": "identify and compare",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-510-estimand",
+        statement:
+          "Define a target population, treatment or exposure contrast, outcome, time horizon and estimand before selecting a causal estimator.",
+        action: "define and operationalise",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-210-select",
-        "statement": "Select models and members for a given application using regional-evaluation criteria, document exclusions and full provenance in a manifest, and report ensemble ranges and agreement rather than a bare mean.",
-        "action": "select and document",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-210-cmip7",
-        "statement": "Describe the CMIP7/AR7 transition at a planning level, anticipate new scenario, forcing and data-request conventions by designing model- and scenario-agnostic code, and identify the IPCC Cities Special Report as an emerging source for urban-heat information, while flagging time-sensitive details for independent verification.",
-        "action": "describe and plan for",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-10-1",
-      "cgei-cl-lesson-2-10-2",
-      "cgei-cl-lesson-2-10-3"
-    ],
-    "activityIds": [
-      "cgei-cl-a-210-families",
-      "cgei-cl-a-210-select",
-      "cgei-cl-a-210-cmip7"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-210-families",
-      "cgei-cl-assess-210-select",
-      "cgei-cl-assess-210-cmip7"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-cordex-sa",
-      "cgei-cl-res-nex-gddp",
-      "cgei-cl-res-isimip",
-      "cgei-cl-res-worldclim-chelsa",
-      "cgei-cl-res-ipcc-atlas"
-    ],
-    "deliverableIds": [
-      "cgei-cl-del-product-manifest"
-    ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.10 (Support)",
-    "notes": [
-      "Support unit per Master TOC priority path.",
-      "Scope: Product families, documentation, CMIP7/AR7 awareness. Outcome: document product choice for a regional projection workflow.",
-      "Failure mode: Citing CMIP7 products that are not yet available for the variable/region.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-11",
-    "code": "2.11",
-    "title": "Detection, attribution, and event-based interpretation",
-    "order": 211,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Separate detection from attribution, frame event attribution probabilistically, and communicate limits for hard cases.",
-    "estimatedHours": 6,
-    "prerequisites": [
-      "Unit 2.6",
-      "Unit 2.9"
-    ],
-    "outcomes": [
-      {
-        "id": "cgei-cl-o-211-concepts",
-        "statement": "Distinguish detection from attribution via the signal/noise/fingerprint framing, distinguish observed from attributed trends and hazard from impact attribution, and explain why a single observed record cannot by itself separate forced response from internal variability.",
-        "action": "distinguish and explain",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-211-event",
-        "statement": "Apply the probabilistic factual/counterfactual framing to compute a probability ratio and fraction of attributable risk, describe the stages of a rapid-attribution protocol, and distinguish storyline/thermodynamic-dynamic decomposition from a full probabilistic attribution.",
-        "action": "apply and describe",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-211-limits",
-        "statement": "Identify why convective rainfall, compound events, and data-poor regions make attribution harder, explain why heat attribution is generally stronger than rainfall or drought attribution, and communicate attribution results using calibrated likelihood language alongside an explicit event definition.",
-        "action": "identify and communicate",
-        "level": "L2",
-        "competencyIds": [
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-11-1",
-      "cgei-cl-lesson-2-11-2",
-      "cgei-cl-lesson-2-11-3"
-    ],
-    "activityIds": [
-      "cgei-cl-a-211-concepts",
-      "cgei-cl-a-211-event",
-      "cgei-cl-a-211-limits"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-211-concepts",
-      "cgei-cl-assess-211-event",
-      "cgei-cl-assess-211-limits"
-    ],
-    "resourceIds": [
-      "cgei-cl-res-ipcc-ar6-wg1"
-    ],
-    "deliverableIds": [
-      "cgei-cl-del-cautious-conclusions"
-    ],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.11 (Optional)",
-    "notes": [
-      "Optional unit per Master TOC priority path.",
-      "Scope: Detection/attribution concepts, event attribution, limits. Outcome: separate detection from attribution language and state what a single event cannot prove.",
-      "Failure mode: Equating a trend detection with single-event attribution.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  },
-  {
-    "id": "cgei-cl-unit-2-12",
-    "code": "2.12",
-    "title": "Emerging directions: ML, open AI forecasts, climate services, and digital twins",
-    "order": 212,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Critique ML downscaling and rare-event evaluation, use open AI forecasts responsibly, and place climate services and digital twins in an evidence hierarchy.",
-    "estimatedHours": 7,
-    "prerequisites": [
-      "Unit 2.9",
-      "Unit 2.10"
-    ],
-    "outcomes": [
-      {
-        "id": "cgei-cl-o-212-ml",
-        "statement": "Evaluate ML bias-correction and downscaling methods against required statistical baselines (delta change, quantile mapping, regression) and against ML emulators of full climate models, quantifying skill improvement and computational speed-up.",
-        "action": "evaluate and quantify",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
+        ],
       },
       {
-        "id": "cgei-cl-o-212-prob",
-        "statement": "Decompose probabilistic forecast skill into reliability, resolution, and uncertainty components, compute a Brier Skill Score relative to a climatological reference, and interpret reliability and sharpness diagnostics for probabilistic climate output.",
-        "action": "decompose and interpret",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-510-identification",
+        statement:
+          "Evaluate identification assumptions and choose a defensible adjustment set or design-based strategy for an environmental causal question.",
+        action: "identify and critique",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-uncertainty",
+        ],
       },
       {
-        "id": "cgei-cl-o-212-ai-forecast",
-        "statement": "Describe how an open operational AI forecast (e.g. ECMWF AIFS) is verified against stations and used as input to local post-processing, apply station-based post-processing correction, and compute an uncertainty-weighted blend of model and observational estimates.",
-        "action": "describe and apply",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-510-designs",
+        statement:
+          "Distinguish observational adjustment, matching/weighting, difference-in-differences and instrumental-variable assumptions and diagnostics.",
+        action: "compare and evaluate",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-212-services",
-        "statement": "Characterise a climate service by its users, decisions, timescale, format, provenance, trust requirements and update cadence, distinguish co-produced from supply-driven products, and identify the role of Regional Climate Outlook Forums and national outlook products.",
-        "action": "characterise and distinguish",
-        "level": "L2",
-        "competencyIds": [
           "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
+        ],
       },
       {
-        "id": "cgei-cl-o-212-digital-twin",
-        "statement": "Describe digital-twin and kilometre-scale modelling initiatives as emerging data sources, explain what kilometre-scale resolution resolves that coarser models cannot, and quantify the resulting data-volume and access constraints for users.",
-        "action": "describe and quantify",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-510-sensitivity",
+        statement:
+          "Report robustness checks, negative controls and sensitivity to unmeasured confounding without equating statistical significance with causality.",
+        action: "stress-test and report",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-12-1",
-      "cgei-cl-lesson-2-12-2",
-      "cgei-cl-lesson-2-12-3",
-      "cgei-cl-lesson-2-12-4",
-      "cgei-cl-lesson-2-12-5"
+    lessonIds: [
+      "cgei-ds-lesson-5-10-1",
+      "cgei-ds-lesson-5-10-2",
+      "cgei-ds-lesson-5-10-3",
+      "cgei-ds-lesson-5-10-4",
+      "cgei-ds-lesson-5-10-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-212-ml",
-      "cgei-cl-a-212-prob",
-      "cgei-cl-a-212-baseline",
-      "cgei-cl-a-212-services",
-      "cgei-cl-a-212-digital"
+    activityIds: [
+      "cgei-ds-a-510-dag",
+      "cgei-ds-a-510-estimand",
+      "cgei-ds-a-510-adjustment",
+      "cgei-ds-a-510-designs",
+      "cgei-ds-a-510-sensitivity",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-212-ml",
-      "cgei-cl-assess-212-prob",
-      "cgei-cl-assess-212-ai",
-      "cgei-cl-assess-212-services",
-      "cgei-cl-assess-212-digital"
+    assessmentIds: [
+      "cgei-ds-assess-510-dag",
+      "cgei-ds-assess-510-estimand",
+      "cgei-ds-assess-510-adjustment",
+      "cgei-ds-assess-510-designs",
+      "cgei-ds-assess-510-sensitivity",
     ],
-    "resourceIds": [
-      "cgei-cl-res-sascof",
-      "cgei-cl-res-c3s-seasonal"
+    resourceIds: [
+      "cgei-ds-r-510-hernan",
+      "cgei-ds-r-510-dagitty",
+      "cgei-ds-r-510-did",
     ],
-    "deliverableIds": [],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.12 (Support)",
-    "notes": [
-      "Support unit per Master TOC priority path.",
-      "Scope: ML downscaling, probabilistic evaluation, open AI forecasts, climate services, digital twins. Outcome: state when ML/AI adds value over a simple baseline under honest validation.",
-      "Failure mode: Deploying ML downscaling without a simple baseline or spatial holdout.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
+    deliverableIds: [
+      "cgei-ds-d-510-dag-memo",
+      "cgei-ds-d-510-estimand-sheet",
+      "cgei-ds-d-510-identification-memo",
+      "cgei-ds-d-510-design-critique",
+      "cgei-ds-d-510-causal-report",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.10-causal-inference.md",
+    notes: [
+      "Five draft lessons distinguish causal targets, identification assumptions and design-specific diagnostics.",
+      "Readiness remains draft pending CI, scientific review, rendered UI review and executed examples.",
+    ],
   },
   {
-    "id": "cgei-cl-unit-2-13",
-    "code": "2.13",
-    "title": "Seasonal-to-subseasonal prediction and verification",
-    "order": 213,
-    "kind": "unit",
-    "readiness": "review",
-    "summary": "Interpret S2S/seasonal systems, verify probabilistic outlooks, and apply cost-loss reasoning without false certainty.",
-    "estimatedHours": 6,
-    "prerequisites": [
-      "Unit 2.1",
-      "Unit 2.6"
+    id: "cgei-ds-unit-5-11",
+    code: "5.11",
+    title: "Research software engineering",
+    order: 11,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Build traceable, testable and reproducible environmental research software using version control, data contracts, scientific tests, managed environments and release checks.",
+    estimatedHours: 7,
+    prerequisites: [
+      "Python fundamentals",
+      "Unit 5.1 environmental data handling",
+      "Basic command-line and file-system literacy",
     ],
-    "outcomes": [
+    outcomes: [
       {
-        "id": "cgei-cl-o-213-systems",
-        "statement": "Describe seasonal multi-model ensemble systems (e.g. Copernicus C3S) and subseasonal products, explain the role of hindcasts in calibration, distinguish statistical/hybrid outlook approaches from dynamical ones, and state lead-time and initialisation-date conventions precisely enough to avoid ambiguity.",
-        "action": "describe and distinguish",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
+        id: "cgei-ds-o-511-vcs",
+        statement:
+          "Use version control to create traceable, reviewable changes to environmental analysis code and documentation.",
+        action: "commit and review",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
       },
       {
-        "id": "cgei-cl-o-213-skill",
-        "statement": "Compute and interpret tercile-based skill scores (RPSS) and discrimination diagnostics (ROC), state that skill is region-, season-, and variable-dependent with South Asian monsoon rainfall skill modest relative to temperature, and distinguish deterministic from probabilistic verification metrics.",
-        "action": "compute and interpret",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
+        id: "cgei-ds-o-511-design",
+        statement:
+          "Refactor an analysis into modular functions with explicit data contracts, configuration and actionable failure behaviour.",
+        action: "design and refactor",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
       },
       {
-        "id": "cgei-cl-o-213-decisions",
-        "statement": "Apply cost-loss reasoning to translate a forecast probability into an action threshold, communicate seasonal outlooks without implying false certainty, and apply tercile-outlook-weighted expected-value reasoning to a worked sowing or irrigation decision.",
-        "action": "apply and communicate",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-511-testing",
+        statement:
+          "Construct unit, integration and regression tests for data transformations and scientifically meaningful invariants.",
+        action: "test and diagnose",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
+        ],
+      },
+      {
+        id: "cgei-ds-o-511-environment",
+        statement:
+          "Specify dependencies, runtime, data provenance and execution steps to reproduce an analysis in a clean environment.",
+        action: "specify and reproduce",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
+      {
+        id: "cgei-ds-o-511-release",
+        statement:
+          "Configure automated quality checks and prepare documentation and release notes that accurately describe validation evidence and limits.",
+        action: "automate and release",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
     ],
-    "lessonIds": [
-      "cgei-cl-lesson-2-13-1",
-      "cgei-cl-lesson-2-13-2",
-      "cgei-cl-lesson-2-13-3"
+    lessonIds: [
+      "cgei-ds-lesson-5-11-1",
+      "cgei-ds-lesson-5-11-2",
+      "cgei-ds-lesson-5-11-3",
+      "cgei-ds-lesson-5-11-4",
+      "cgei-ds-lesson-5-11-5",
     ],
-    "activityIds": [
-      "cgei-cl-a-213-systems",
-      "cgei-cl-a-213-skill",
-      "cgei-cl-a-213-decisions"
+    activityIds: [
+      "cgei-ds-a-511-vcs",
+      "cgei-ds-a-511-contract",
+      "cgei-ds-a-511-tests",
+      "cgei-ds-a-511-env",
+      "cgei-ds-a-511-release",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-213-systems",
-      "cgei-cl-assess-213-skill",
-      "cgei-cl-assess-213-decisions"
+    assessmentIds: [
+      "cgei-ds-assess-511-vcs",
+      "cgei-ds-assess-511-contract",
+      "cgei-ds-assess-511-tests",
+      "cgei-ds-assess-511-env",
+      "cgei-ds-assess-511-release",
     ],
-    "resourceIds": [
-      "cgei-cl-res-c3s-seasonal",
-      "cgei-cl-res-sascof"
+    resourceIds: [
+      "cgei-ds-r-511-git",
+      "cgei-ds-r-511-packaging",
+      "cgei-ds-r-511-pytest",
+      "cgei-ds-r-511-scientific",
+      "cgei-ds-r-511-actions",
     ],
-    "deliverableIds": [],
-    "sourceDocument": "Master Study TOC Subject 2 Unit 2.13 (Optional)",
-    "notes": [
-      "Optional unit per Master TOC priority path.",
-      "Scope: S2S forecast systems, skill/verification, decision use. Outcome: interpret an S2S product with skill limits and decision-relevant uncertainty.",
-      "Failure mode: Using S2S as a deterministic weather forecast beyond skill horizon.",
-      "Competence: contribute evidence toward Subject 2 exit gate — reproducible climate-data notebook with metadata, baseline/season, trend or extremes diagnostics, validation note, cautious conclusions.",
-      "Anchors: verify ERA5/CMIP/IPCC references (Part 2.D.3) before citing."
-    ]
-  }
+    deliverableIds: [
+      "cgei-ds-d-511-repository",
+      "cgei-ds-d-511-contract",
+      "cgei-ds-d-511-tests",
+      "cgei-ds-d-511-env",
+      "cgei-ds-d-511-release",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.11-research-software-engineering.md",
+    notes: [
+      "Five draft lessons emphasize testable scientific invariants and reproducible engineering practices.",
+      "Readiness remains draft pending CI, clean-environment execution, route rendering and scientific review.",
+    ],
+  },
+  {
+    id: "cgei-ds-unit-5-12",
+    code: "5.12",
+    title: "xarray and scalable environmental pipelines",
+    order: 12,
+    kind: "unit",
+    readiness: "draft",
+    summary:
+      "Use labeled multidimensional arrays, coordinate-aware operations, lazy computation, chunking and validated spatiotemporal pipelines while preserving scientific meaning.",
+    estimatedHours: 8,
+    prerequisites: [
+      "Python arrays/dataframes",
+      "Basic statistics",
+      "CRS and temporal-support concepts",
+      "Unit 5.11 research software engineering",
+    ],
+    outcomes: [
+      {
+        id: "cgei-ds-o-512-model",
+        statement:
+          "Inspect a multidimensional xarray Dataset/DataArray and interpret dimensions, coordinates, variables, attributes, units and encodings.",
+        action: "inspect and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-reproducibility",
+        ],
+      },
+      {
+        id: "cgei-ds-o-512-alignment",
+        statement:
+          "Select, align, aggregate or combine arrays while explicitly checking spatial and temporal support.",
+        action: "align and validate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-512-chunking",
+        statement:
+          "Choose lazy-computation and chunking strategies suited to data layout, operation and available resources.",
+        action: "design and benchmark",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-reproducibility",
+        ],
+      },
+      {
+        id: "cgei-ds-o-512-pipeline",
+        statement:
+          "Build a validated spatiotemporal feature pipeline with explicit transformations, metadata and missing-data rules.",
+        action: "build and validate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-quantitative-reasoning",
+        ],
+      },
+      {
+        id: "cgei-ds-o-512-release",
+        statement:
+          "Compare eager and lazy results and report performance, provenance and limitations with reproducible evidence.",
+        action: "compare and report",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    lessonIds: [
+      "cgei-ds-lesson-5-12-1",
+      "cgei-ds-lesson-5-12-2",
+      "cgei-ds-lesson-5-12-3",
+      "cgei-ds-lesson-5-12-4",
+      "cgei-ds-lesson-5-12-5",
+    ],
+    activityIds: [
+      "cgei-ds-a-512-inventory",
+      "cgei-ds-a-512-align",
+      "cgei-ds-a-512-chunking",
+      "cgei-ds-a-512-pipeline",
+      "cgei-ds-a-512-validation",
+    ],
+    assessmentIds: [
+      "cgei-ds-assess-512-inventory",
+      "cgei-ds-assess-512-align",
+      "cgei-ds-assess-512-chunking",
+      "cgei-ds-assess-512-pipeline",
+      "cgei-ds-assess-512-validation",
+    ],
+    resourceIds: [
+      "cgei-ds-r-512-xarray",
+      "cgei-ds-r-512-dask",
+      "cgei-ds-r-512-zarr",
+      "cgei-ds-r-512-cf",
+      "cgei-ds-r-512-rasterio",
+    ],
+    deliverableIds: [
+      "cgei-ds-d-512-inventory",
+      "cgei-ds-d-512-alignment",
+      "cgei-ds-d-512-performance",
+      "cgei-ds-d-512-pipeline",
+      "cgei-ds-d-512-report",
+    ],
+    sourceDocument:
+      "content-drafts/chapter-05-scientific-computing/units/05.12-xarray-scalable-environmental-pipelines.md",
+    notes: [
+      "Five draft lessons distinguish coordinate semantics, alignment, chunking, feature pipelines and validation.",
+      "Readiness remains draft pending eager/lazy comparison, clean execution, route rendering and scientific review.",
+    ],
+  },
 ] as const;
 
 export const lessons: CurriculumLesson[] = [
   {
-    "id": "cgei-cl-lesson-2-1-1",
-    "kind": "lesson",
-    "title": "Weather versus climate and baselines",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
+    id: "cgei-ds-lesson-5-1-1",
+    kind: "lesson",
+    title: "Quantities, units and dimensional analysis",
+    order: 1,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectives: [
       {
-        "id": "cgei-cl-o-21-weather-climate",
-        "statement": "Distinguish weather from climate, select and justify a baseline normal, and compute anomalies with explicit units, period, domain and time zone, without treating a single extreme as climate disproof.",
-        "action": "distinguish, select and compute",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
+        id: "cgei-ds-o-quantities",
+        statement:
+          "Convert environmental quantities and diagnose dimensional or order-of-magnitude errors.",
+        action: "convert and validate",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
     ],
-    "content": [
+    sourceTopicId: "cgei-ds-units-dimensions",
+    content: [
       {
-        "id": "cgei-cl-21-1-1",
-        "kind": "prose",
-        "title": "Weather is a state; climate is a distribution",
-        "body": "Weather is the instantaneous or short-term state of the atmosphere (hours to days): temperature, humidity, wind, precipitation, cloud, pressure at a place. Climate is a statistical description of weather over a defined period and region. That description includes central tendency, spread, extremes, seasonality and the frequency of defined events. Confusing a single weather outcome with a climate distribution is the most common public and student error in this unit."
+        id: "cgei-ds-units-dimensions-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Every environmental number should answer four questions: quantity, unit, spatial support, and time period. Dimensional homogeneity requires both sides of an equation to share the same dimensions. Temperature in radiation laws must be in kelvin; precipitation depth and rate are different quantities.",
       },
       {
-        "id": "cgei-cl-21-1-key",
-        "kind": "key-points",
-        "title": "Definitions that must stay sharp",
-        "items": [
-          "Weather: short-term atmospheric state.",
-          "Climate: statistics of weather over a stated period and domain.",
-          "Normal (climatological normal): a reference average (or other statistic) computed over a fixed multi-year baseline window.",
-          "Anomaly: observation minus the chosen normal for the same calendar segment (month, day-of-year, season).",
-          "A cold month does not falsify a multi-decadal warming trend; a single heatwave is not, by itself, an attribution study."
-        ]
-      },
-      {
-        "id": "cgei-cl-21-1-2",
-        "kind": "prose",
-        "title": "Normals, baselines and WMO practice",
-        "body": "The World Meteorological Organization defines climatological standard normals over successive 30-year periods. The current standard normal period is 1991–2020. Many long-term monitoring products still publish anomalies relative to 1961–1990 so that the reference stays fixed while the climate evolves. Changing the baseline changes the numerical value of every anomaly without changing any raw observation. Therefore a published anomaly is incomplete unless the baseline period is stated. For local daily maxima and minima in Pakistan, convert timestamps to Asia/Karachi before assigning calendar days; UTC date boundaries do not match local days."
-      },
-      {
-        "id": "cgei-cl-21-1-table",
-        "kind": "table",
-        "title": "What must be reported with every climate number",
-        "headers": [
-          "Element",
-          "Why it matters"
+        id: "cgei-ds-units-dimensions-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "T_K = T_°C + 273.15 — convert deliberately before T⁴",
+          "ERA5 precipitation is often accumulated in metres — convert after reading product docs",
+          "Depth (mm) ≠ rate (mm day⁻¹); state the accumulation window",
+          "Satellite integer storage needs product-specific scale and offset",
+          "False precision from floats is not measurement accuracy",
+          "Fermi checks: is a 40 K urban–rural LST contrast plausible, or was a scale applied twice?",
         ],
-        "rows": [
-          [
-            "Variable and units",
-            "Tmax in °C is not the same quantity as daily mean or LST"
-          ],
-          [
-            "Domain / station / grid cell",
-            "Point support ≠ grid-cell support ≠ district average"
-          ],
-          [
-            "Period of record",
-            "Short windows are dominated by sampling and seasonality"
-          ],
-          [
-            "Baseline (normal) period",
-            "Anomaly value depends on the reference window"
-          ],
-          [
-            "Statistic",
-            "Mean, median, percentile, exceedance count answer different questions"
-          ],
-          [
-            "Time zone and calendar rule",
-            "UTC vs PKT shifts daily extremes and rainfall days"
-          ],
-          [
-            "Data source and version",
-            "Reanalysis, gauge and satellite products differ systematically"
-          ]
-        ]
       },
       {
-        "id": "cgei-cl-21-1-lab",
-        "kind": "worked-example",
-        "title": "Worked example: normal and anomaly on a synthetic monthly series",
-        "body": "A 36-month synthetic series combines a seasonal cycle, a weak upward trend and one cold spike. Using the first 12 months as a teaching normal gives a mean near 16.8 °C. Month 18 lies above that normal, so its anomaly is positive even though a cold spike exists elsewhere in the series. The calculation is locked in fixture unit_2_1_weather_climate_timescales_check.py. Data are synthetic: the point is the arithmetic and the reporting discipline, not a real climatology of Multan or Pakistan."
+        id: "cgei-ds-units-dimensions-explanation-1",
+        kind: "prose",
+        title: "Why units fail quietly",
+        body: "Silent notebook failures are often unit failures: °C in T⁴, metres treated as millimetres, or scale factors applied twice. Pakistan Standard Time is UTC+5 with no DST — local-day aggregation matters for extremes (developed further in Unit 5.2).",
       },
       {
-        "id": "cgei-cl-21-1-mistakes",
-        "kind": "callout",
-        "title": "Failure modes",
-        "tone": "warning",
-        "items": [
-          "Treating one extreme month as proof or disproof of long-term climate change.",
-          "Publishing anomalies without the baseline period.",
-          "Mixing UTC and local dates when forming daily Tmax/Tmin or rain-day counts.",
-          "Comparing anomalies computed against different baselines as if they were the same quantity."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-21-baseline"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-21-baseline"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-1-2",
-    "kind": "lesson",
-    "title": "Climate statistics and time windows",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 60,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-21-stats",
-        "statement": "Describe a climate series with mean, spread, percentiles and threshold exceedances; demonstrate that trend estimates and return-period interpretations depend on window, event definition and stationarity assumptions.",
-        "action": "describe and demonstrate",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-21-2-1",
-        "kind": "prose",
-        "title": "Mean, spread, extremes and time horizons",
-        "body": "A climate description needs more than a mean. Report spread (standard deviation, IQR) and extremes (percentiles, threshold exceedances, spell lengths). Near-surface temperature is often roughly unimodal and only mildly skewed; daily precipitation is strongly right-skewed with many zeros. Time horizons differ: synoptic (days), intraseasonal (weeks), seasonal, interannual, decadal and multi-decadal. Mixing horizons without labelling them confuses weather noise with climate signals."
+        id: "cgei-ds-units-dimensions-explanation-2",
+        kind: "prose",
+        title: "Dimensional homogeneity",
+        body: "A valid physical equation is dimensionally homogeneous. The catchment form P = E + R + ΔS requires every term to be depth (or volume per area) over the same period.",
       },
       {
-        "id": "cgei-cl-21-2-stationarity",
-        "kind": "prose",
-        "title": "Stationarity is an assumption, not a default",
-        "body": "Mean-stationarity means the expected level does not change over the window of interest; variance-stationarity means the spread is stable. Real climate series often violate both through smooth trends, step changes (site moves, instrument changes, land-use change around a station) and heteroskedasticity. Percentiles, return periods and classical standard errors all lean on stationarity. When the assumption is doubtful, say so and prefer methods that allow a changing baseline (covered further in Units 2.6 and 2.7)."
+        id: "cgei-ds-units-dimensions-equation-1",
+        kind: "equation",
+        title: "Celsius to kelvin",
+        expression: "T_{\\mathrm{K}} = T_{^{\\circ}\\mathrm{C}} + 273.15",
+        body: "Required for Stefan–Boltzmann and related radiation formulas.\nSymbols: T_K: Thermodynamic temperature (K); T_°C: Temperature (°C)",
       },
       {
-        "id": "cgei-cl-21-2-stat-ex",
-        "kind": "worked-example",
-        "title": "Worked example: two-window mean difference",
-        "body": "Fixture unit_2_1_stationarity_check.py compares three synthetic series: (1) stationary noise, (2) an abrupt mean shift, (3) a linear trend. The diagnostic is |mean(second half) − mean(first half)| against a threshold calibrated on the stationary series. Shift and trend exceed the threshold; the stationary series does not. This is a teaching screen only — not an Augmented Dickey–Fuller test, not homogenisation, and not attribution."
+        id: "cgei-ds-units-dimensions-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Express 28.5 °C in kelvin.\n\nSolution: T_K = 28.5 + 273.15 = 301.65 K.\n\nTakeaway: Keep the 0.15 when later radiation steps are temperature-sensitive.",
       },
       {
-        "id": "cgei-cl-21-2-lab",
-        "kind": "worked-example",
-        "title": "Worked example: window-dependent slopes",
-        "body": "On the same synthetic monthly series, ordinary least-squares slope over all 36 months is small and positive per month. The slope over the first 12 months differs because the seasonal cycle dominates the short window. Missing values must be excluded from means, not replaced by zero. Fixture unit_2_1_weather_climate_timescales_check.py asserts both behaviours. Linear slope is a descriptive summary, not a causal claim."
-      },
-      {
-        "id": "cgei-cl-21-2-percentile",
-        "kind": "prose",
-        "title": "Percentiles versus return periods",
-        "body": "An empirical percentile answers: what value has a given fraction of the sample at or below it? A return period answers a different question: for a defined event and time unit (often the year), what is the average waiting time between exceedances if the process is stationary? The elementary link is T = 1/AEP, where AEP is the annual exceedance probability. The p-th percentile is not a p-year return level. Small samples make both unstable; nonstationarity undermines the waiting-time interpretation. Formal extreme-value models (GEV, GPD) belong in Unit 2.7."
-      },
-      {
-        "id": "cgei-cl-21-2-rp-ex",
-        "kind": "worked-example",
-        "title": "Worked example: percentile is not return period",
-        "body": "Fixture unit_2_1_percentiles_return_periods_check.py uses ten synthetic annual maxima. The sample 90th percentile equals 22, but only one of the ten years exceeds 22, so AEP = 0.1 and T ≈ 10 years — not a 90-year event. Threshold 20 is exceeded twice (AEP = 0.2, T = 5 years). Nearest-rank percentiles and T = 1/AEP are locked. Limits: synthetic data, n = 10, not GEV, not design guidance."
-      },
-      {
-        "id": "cgei-cl-21-2-rp-callout",
-        "kind": "callout",
-        "title": "Common errors",
-        "tone": "warning",
-        "items": [
-          "Treating the p-th percentile as a p-year return level.",
-          "Leaving the event definition or time unit unspecified.",
-          "Applying T = 1/AEP under clear nonstationarity without stating the assumption.",
-          "Over-interpreting n ≈ 10 as a reliable extreme-value sample.",
-          "Reporting a trend slope without the window, units, or uncertainty."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-21-stats"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-21-stats"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-1-3",
-    "kind": "lesson",
-    "title": "Indices, past climate and evidence language",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-21-evidence",
-        "statement": "Assemble the metadata required for a climate claim, use teleconnection indices without causal over-reading, and separate descriptive trend language from attribution language.",
-        "action": "document and separate",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-21-3-1",
-        "kind": "prose",
-        "title": "Climate and teleconnection indices",
-        "body": "Indices compress large-scale variability into a single time series. Common examples: ONI (Oceanic Niño Index) for ENSO, IOD/DMI for the Indian Ocean Dipole, SOI, NAO, and MJO phase. Construction involves region choice, variable, smoothing and a reference period for standardisation. An index can be a useful covariate for seasonal outlooks; correlation with local temperature or rainfall is not automatic causation and often varies by season and decade. Over-reading a teleconnection map as a local forecast is a frequent error."
-      },
-      {
-        "id": "cgei-cl-21-3-idx-key",
-        "kind": "key-points",
-        "title": "Using indices responsibly",
-        "items": [
-          "Name the index, the source and the reference period used for standardisation.",
-          "Prefer physical mechanism plus lagged relationship over contemporaneous correlation alone.",
-          "Test whether the local relationship is stable across seasons and decades.",
-          "Do not treat index phase as a deterministic switch for Multan rainfall or heat."
-        ]
-      },
-      {
-        "id": "cgei-cl-21-3-2",
-        "kind": "prose",
-        "title": "Past climate, forcings and instrumental records",
-        "body": "Natural external drivers include orbital (Milankovitch) changes, solar variability and volcanic aerosols; the climate system also generates internal variability (ENSO, annular modes, etc.). Palaeoclimate archives — ice cores, tree rings, speleothems, lake and marine sediments — differ in the variable they record, time resolution and age-model uncertainty. Instrumental global temperature products (HadCRUT, GISTEMP, NOAAGlobalTemp, Berkeley Earth) are constructed from station and ocean data with quality control, infilling and uncertainty models; they are not raw thermometer readouts. IPCC AR6 states that human influence on the climate system is unequivocal. This unit treats that statement as an assessed headline, not as a calculation the learner re-derives from a short synthetic series."
-      },
-      {
-        "id": "cgei-cl-21-3-3",
-        "kind": "checklist",
-        "title": "Minimum climate-claim checklist",
-        "items": [
-          "Variable and units",
-          "Domain (station, catchment, grid, district)",
-          "Period of record and baseline/normal period",
-          "Statistic (mean, percentile, trend slope, exceedance count)",
-          "Data source, product version and known limits",
-          "Time zone / calendar rule if daily extremes are involved",
-          "What is explicitly not claimed (especially attribution)"
-        ]
-      },
-      {
-        "id": "cgei-cl-21-3-language",
-        "kind": "callout",
-        "title": "Language discipline",
-        "tone": "warning",
-        "items": [
-          "Descriptive: \"The 1991–2020 mean Tmax exceeds the 1961–1990 mean by …\"",
-          "Associative: \"Years with positive ONI tend to show … in this sample.\"",
-          "Attributional language requires formal detection-attribution methods (Unit 2.11) — do not jump there from a short trend slope.",
-          "Do not write \"proves climate change\" from a single station decade."
-        ]
-      },
-      {
-        "id": "cgei-cl-21-3-class",
-        "kind": "prose",
-        "title": "Climate classification systems (overview)",
-        "body": "Köppen–Geiger and related schemes map long-run temperature and precipitation regimes into named classes (e.g. BWh hot desert, Cwa humid subtropical with dry winter). They are useful for regional orientation and ecological analogues, not for event detection or trend attribution. Class boundaries are threshold-based and can shift under climate change; a change of class is a summary statement, not a substitute for the underlying continuous variables. For Multan/southern Punjab analyses, classification is context — always report the variables and baselines you actually computed."
-      },
-      {
-        "id": "cgei-cl-21-3-class-kp",
-        "kind": "key-points",
-        "title": "Classification literacy",
-        "items": [
-          "Köppen–Geiger (and similar) classes summarise climate regimes from T and P thresholds.",
-          "Use for orientation and comparison of regions — not as the sole evidence of change.",
-          "Prefer continuous anomalies and extremes (Units 2.1, 2.6) for impact-relevant analysis."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-21-evidence"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-21-evidence"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-2-1",
-    "kind": "lesson",
-    "title": "Radiation, greenhouse effect and surface energy",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-22-energy",
-        "statement": "Explain the planetary energy budget and greenhouse effect with a one-layer teaching model, write the surface energy balance with a stated sign convention, and show how latent heat changes the residual available for sensible heat and storage.",
-        "action": "explain and compute",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-22-1-1",
-        "kind": "prose",
-        "title": "Planetary budget and the greenhouse teaching model",
-        "body": "Globally averaged, absorbed solar radiation S(1−A)/4 is balanced by outgoing longwave radiation. The effective radiating temperature Te satisfies σ Te⁴ = S(1−A)/4. With S ≈ 1361 W m⁻² and A ≈ 0.30, Te is about 255 K. A one-layer longwave absorber that is transparent to solar and opaque to infrared yields σ Ts⁴ = 2 σ Te⁴, hence Ts = Te × 2^{1/4} ≈ 1.19 Te. The point is structural: an atmosphere that intercepts surface infrared raises surface temperature above Te. Real atmospheres are multi-layer, spectrally selective and cloudy; this model is not a GCM and is not a forecast tool."
-      },
-      {
-        "id": "cgei-cl-22-1-seb",
-        "kind": "prose",
-        "title": "Surface energy balance",
-        "body": "At the land surface a common statement of the energy balance is Q* + Q_F = Q_H + Q_E + ΔQ_S, where Q* is net all-wave radiation, Q_F anthropogenic heat (important in cities), Q_H sensible heat flux, Q_E latent heat flux, and ΔQ_S storage (soil, canopy, building fabric). Sign conventions must be stated: here positive Q_H and Q_E leave the surface. Soil moisture and vegetation strongly control how much of the available energy goes into Q_E versus Q_H (Bowen ratio). Urban materials and geometry change storage and the partition of fluxes compared with vegetated or irrigated rural land."
-      },
-      {
-        "id": "cgei-cl-22-1-lab",
-        "kind": "worked-example",
-        "title": "Worked example: Te, one-layer Ts, and latent-heat residual",
-        "body": "With S = 1361 W m⁻² and A = 0.30, Te ≈ 254.6 K and one-layer Ts ≈ 302.8 K. On a teaching surface budget, if the residual available after net radiation and Q_F is fixed, raising Q_E from 100 to 180 W m⁻² (stronger evaporative cooling) cuts energy left for storage and sensible heat from 150 to 70 W m⁻². Fixture unit_2_2_climate_system_processes_check.py locks these arithmetic results. Interpretation: moist surfaces can suppress daytime heating; dry bare ground cannot."
-      },
-      {
-        "id": "cgei-cl-22-1-3",
-        "kind": "key-points",
-        "title": "Energy-process cautions",
-        "items": [
-          "Greenhouse gases redistribute vertical infrared fluxes; they do not “create” energy.",
-          "Te is not surface air temperature and not LST.",
-          "Always state the surface-budget sign convention.",
-          "Q_E depends on moisture availability; arid and irrigated surfaces behave differently.",
-          "Link forward to urban residual practice in Unit 1.10 and UHI lesson 2-2-4."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-22-energy"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-22-energy"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-2-2",
-    "kind": "lesson",
-    "title": "Forcing, feedbacks and sensitivity",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-22-feedback",
-        "statement": "Distinguish major climate feedbacks from forcings, state AR6 assessed ranges for ECS and TCR as ranges rather than point truths, and link TCRE conceptually to cumulative carbon without recomputing budgets.",
-        "action": "distinguish and state",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-22-2-1",
-        "kind": "prose",
-        "title": "Forcing versus feedback",
-        "body": "A radiative forcing is an imposed change in the Earth–atmosphere energy budget (for example from CO₂, aerosols or solar output), often reported as effective radiative forcing (ERF). A feedback is a response of the climate system that amplifies or dampens the initial temperature change: Planck response (strong negative), water-vapour (positive), lapse-rate (typically negative, partially offsetting water vapour), surface albedo (positive when ice or snow retreats), and clouds (sign and magnitude still uncertain in detail). Ice–albedo chain in plain language: melt → lower albedo → more absorbed solar → further melt."
-      },
-      {
-        "id": "cgei-cl-22-2-2",
-        "kind": "table",
-        "title": "AR6 sensitivity ranges (stated, not fitted here)",
-        "headers": [
-          "Metric",
-          "AR6 likely range",
-          "Meaning"
+        id: "cgei-ds-units-dimensions-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Using °C inside T⁴ — correction: Convert to kelvin first. Thermodynamic laws require absolute temperature.",
+          "Hard-coding Landsat scale/offset from memory — correction: Use current product documentation. Encodings change by collection.",
         ],
-        "rows": [
-          [
-            "ECS",
-            "2.5–4 °C",
-            "Equilibrium warming for sustained 2×CO₂"
-          ],
-          [
-            "TCR",
-            "1.4–2.2 °C",
-            "Transient warming at CO₂ doubling in a 1% yr⁻¹ scenario"
-          ]
-        ]
       },
       {
-        "id": "cgei-cl-22-2-3",
-        "kind": "prose",
-        "title": "TCRE and carbon budget — conceptual link only",
-        "body": "Transient climate response to cumulative emissions (TCRE) relates global warming to cumulative CO₂ emissions, which is why remaining carbon budgets appear in mitigation discussions. Detailed budget arithmetic, pathway categories and equity issues belong in Subject 10. This lesson does not recompute ECS, TCR or remaining carbon from student data."
-      },
-      {
-        "id": "cgei-cl-22-2-callout",
-        "kind": "callout",
-        "title": "Scope limits",
-        "tone": "info",
-        "items": [
-          "Ranges are assessed intervals, not single “true” numbers.",
-          "Feedback magnitude, especially cloud feedback, remains an active research area.",
-          "Do not equate a local temperature trend with ECS."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-22-feedback"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-22-feedback"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-2-3",
-    "kind": "lesson",
-    "title": "Circulation, monsoon and teleconnections",
-    "order": 3,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-22-regional",
-        "statement": "Describe South Asian monsoon drivers, western disturbances, intraseasonal active/break structure and land–atmosphere modifiers (irrigation, dust) at process level, and apply a case-study template without claiming attribution.",
-        "action": "describe and apply",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-22-3-1",
-        "kind": "prose",
-        "title": "Regional process systems",
-        "body": "The general circulation organises meridional heat and moisture transport through cells, jets and monsoonal overturning. The South Asian monsoon’s onset and withdrawal are tied to land–ocean thermal contrast, moisture supply from the Arabian Sea and Bay of Bengal, and large-scale dynamical constraints (including Tibetan Plateau heating at conceptual level). Western disturbances — extratropical systems moving eastward — deliver much of the winter precipitation over northern Pakistan and the western Himalaya. Irrigation and dust alter surface fluxes and can modify regional coupling; they are modifiers, not optional colour."
-      },
-      {
-        "id": "cgei-cl-22-3-iso",
-        "kind": "prose",
-        "title": "Intraseasonal variability and teleconnections",
-        "body": "Monsoon summers are not uniform: active and break spells, monsoon lows and shifting moisture pathways create weeks-long rainfall variability. Teleconnections (ENSO, IOD, MJO/boreal summer ISO, and others) modulate the probability of seasonal anomalies. Mechanism and correlation are different standards of evidence. A significant correlation in one decade may weaken in another; always check season and period."
-      },
-      {
-        "id": "cgei-cl-22-3-2",
-        "kind": "prose",
-        "title": "Extreme-event case template",
-        "body": "When studying named events (for example major flood or heatwave years listed in the TOC), record: synoptic set-up, moisture source, antecedent land-surface conditions, impacts, and the datasets used. Consistent event definitions are required before comparing years. Rapid-attribution studies are a distinct evidence class (Unit 2.11); this lesson does not re-derive fractional attributable risk."
-      },
-      {
-        "id": "cgei-cl-22-3-key",
-        "kind": "key-points",
-        "title": "Process literacy checklist",
-        "items": [
-          "Name the season definition you are using (PMD-style vs analysis-specific).",
-          "Separate moisture supply, dynamical lift and antecedent conditions.",
-          "Treat ENSO/IOD as context, not one-line local causes.",
-          "Irrigation and dust are regional surface modifiers worth naming in Punjab analyses."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-22-regional"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-22-regional"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-2-4",
-    "kind": "lesson",
-    "title": "Urban heat island processes",
-    "order": 4,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-22-uhi",
-        "statement": "Distinguish surface and canopy-layer UHI, justify rural-reference choice (including arid-city cool-island cases), and list the main urban energy-balance controls including anthropogenic heat.",
-        "action": "distinguish and justify",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-22-4-1",
-        "kind": "prose",
-        "title": "Surface versus canopy UHI",
-        "body": "Surface urban heat island (SUHI) is a land-surface temperature contrast, typically retrieved from thermal satellite sensors. Canopy-layer UHI is an air-temperature contrast in the urban canopy layer (roughly street to roof level). Intensity is usually urban minus rural, so the rural reference controls both magnitude and sometimes sign. In arid and semi-arid cities, dry bare surroundings can be hotter at the surface than irrigated urban vegetation by day, producing a surface urban cool island. Night-time canopy UHI is often stronger because urban materials release stored heat and the canopy stays less stable."
-      },
-      {
-        "id": "cgei-cl-22-4-2",
-        "kind": "key-points",
-        "title": "Urban process controls",
-        "items": [
-          "Materials (albedo, thermal admittance), geometry (sky-view factor, H/W), vegetation and moisture.",
-          "Anthropogenic heat Q_F from traffic, HVAC and industry; air-conditioning can couple electricity demand to outdoor heat.",
-          "Local Climate Zones (Stewart and Oke) standardise urban form descriptors better than “urban vs rural” alone.",
-          "Day vs night and seasonal contrasts must be stated, not averaged away.",
-          "SUHI (LST) is not personal heat exposure and not 2 m air temperature."
-        ]
-      },
-      {
-        "id": "cgei-cl-22-4-arid",
-        "kind": "callout",
-        "title": "Arid-city reference trap",
-        "tone": "warning",
-        "items": [
-          "Irrigated rural or peri-urban fields can invert daytime surface contrasts.",
-          "Always document the rural or reference class (LCZ, NDVI, land cover).",
-          "Do not report a single “Multan UHI intensity” without time-of-day, season and reference definition."
-        ]
-      },
-      {
-        "id": "cgei-cl-22-4-link",
-        "kind": "prose",
-        "title": "Link to later methods",
-        "body": "This lesson builds process vocabulary only. Retrieval of LST, QA masking, SUHII calculation and validation belong in Subject 4 (especially Units 4.3 and 4.5). Heat hazard metrics and vulnerability layering belong in Subject 7. Keep process, measurement and risk layers separable."
-      },
-      {
-        "id": "cgei-cl-22-4-leadlag",
-        "kind": "prose",
-        "title": "Lead–lag relationships and seasonal predictability sources",
-        "body": "Seasonal predictability for South Asia is organised around slow boundary conditions and their lead–lag links to monsoon rainfall and temperature: ENSO (Niño 3.4 and related indices), the Indian Ocean Dipole (IOD), Eurasian/Himalayan snow anomalies, and land-surface pre-monsoon moisture. A lead–lag correlation (e.g. DJF Niño 3.4 versus JJAS rainfall) is a statistical association over a sample of years — not a causal proof and not a fixed teleconnection strength. Sign and magnitude vary by subregion and epoch; non-stationarity of teleconnections is an active research topic. Treat these indices as context and candidate predictors for seasonal outlooks (Unit 2.13), not as one-line explanations of every local anomaly (Unit 2.8)."
-      },
-      {
-        "id": "cgei-cl-22-4-leadlag-kp",
-        "kind": "key-points",
-        "title": "Predictability sources (conceptual)",
-        "items": [
-          "ENSO, IOD, snow cover, and land-surface state are primary seasonal predictors for the region.",
-          "Lead–lag statistics require declared seasons, domains, and sample periods.",
-          "Teleconnection strength can change; do not freeze a single historical correlation as law."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-22-uhi"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-22-uhi"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-3-1",
-    "kind": "lesson",
-    "title": "Moist thermodynamics and humidity variables",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-23-moisture",
-        "statement": "Apply ideal-gas and hydrostatic relations at conceptual level, distinguish humidity variables, and use Clausius–Clapeyron scaling to reason about humid heat and extreme rainfall capacity.",
-        "action": "apply and distinguish",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-23-1-1",
-        "kind": "prose",
-        "title": "Ideal gas, hydrostatic balance and potential temperature",
-        "body": "Dry air is treated as an ideal gas; the hydrostatic equation balances the vertical pressure gradient with gravity and yields the familiar decrease of pressure with height. Potential temperature θ is the temperature a parcel would reach if brought dry-adiabatically to a reference pressure (usually 1000 hPa). For unsaturated displacements θ is conserved, which makes it a useful tracer of static stability. The dry adiabatic lapse rate is about 9.8 K km⁻¹. Once condensation occurs, latent heat release reduces the magnitude of the cooling with height (moist adiabatic / saturated lapse rate). CAPE measures integrated buoyant energy for a lifted parcel; it is a useful diagnostic, not a forecast of storm occurrence by itself."
-      },
-      {
-        "id": "cgei-cl-23-1-2",
-        "kind": "table",
-        "title": "Humidity variables",
-        "headers": [
-          "Variable",
-          "Meaning",
-          "Typical use"
+        id: "cgei-ds-units-dimensions-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State units on every reported environmental quantity",
+          "Distinguish depth vs rate for precipitation products",
         ],
-        "rows": [
-          [
-            "Vapour pressure e",
-            "Partial pressure of water vapour",
-            "Compare with saturation vapour pressure"
-          ],
-          [
-            "Specific humidity q",
-            "Mass of vapour per mass of moist air",
-            "Budget and transport calculations"
-          ],
-          [
-            "Relative humidity RH",
-            "e / e_sat(T)",
-            "Nearness to saturation — not absolute moisture"
-          ],
-          [
-            "Dew point Td",
-            "Temperature to which air must cool at constant pressure to saturate",
-            "Nocturnal condensation and fog risk"
-          ],
-          [
-            "Wet-bulb temperature Tw",
-            "Temperature after adiabatic evaporation to saturation",
-            "Humid-heat stress (with ventilation and metabolic context)"
-          ]
-        ]
       },
       {
-        "id": "cgei-cl-23-1-3",
-        "kind": "worked-example",
-        "title": "Worked example: Clausius–Clapeyron scaling",
-        "body": "Saturation vapour pressure rises steeply with temperature. A widely used rule of thumb is about 6–7% increase in water-holding capacity per 1 K warming (often summarised as ~7% K⁻¹ near typical surface temperatures). Fixture unit_2_3_clausius_clapeyron_check.py locks a teaching calculation of fractional e_sat change over a small temperature step. Implications: (1) warmer air can hold more moisture before saturation; (2) extreme rainfall intensities can scale upward even without circulation change; (3) humid-heat metrics worsen when both T and moisture rise. This is a scaling argument, not a local flood forecast."
+        id: "cgei-ds-51-1-rate-depth-example",
+        kind: "worked-example",
+        title: "Worked example: convert an accumulated rainfall amount",
+        body: "Problem: a gridded product reports 0.0018 m of precipitation accumulated during one hour. Express the accumulation in millimetres, then calculate the depth over six identical hours if the hourly amount remains constant.\n\nCalculation: 0.0018 m × 1000 mm m⁻¹ = 1.8 mm per hour. Over six hours: 6 × 1.8 = 10.8 mm.\n\nInterpretation: 1.8 mm is a one-hour accumulation, not automatically a rate in mm day⁻¹. The six-hour total assumes all six hourly accumulations are valid and represent the intended period.",
       },
       {
-        "id": "cgei-cl-23-1-key",
-        "kind": "key-points",
-        "title": "Thermo literacy",
-        "items": [
-          "RH can fall while absolute moisture rises if temperature rises faster than e.",
-          "Wet-bulb and related heat-stress indices need moisture and ventilation context, not T alone.",
-          "Inversions (temperature increasing with height) suppress vertical mixing — central to winter smog and night-time urban warmth.",
-          "CAPE is necessary but not sufficient for organised severe convection."
-        ]
-      }
+        id: "cgei-ds-51-1-audit-checklist",
+        kind: "checklist",
+        title: "Before using any environmental number",
+        items: [
+          "Identify the physical quantity and its unit, including whether it is an amount, rate, anomaly or index.",
+          "Confirm the product, band/variable, version and any scale factor, offset, fill value and QA mask.",
+          "Align temporal windows and spatial support before comparing or aggregating values.",
+          "Check dimensional homogeneity and an order-of-magnitude range before interpreting results.",
+        ],
+      },
+      {
+        id: "cgei-ds-51-1-lab",
+        kind: "worked-example",
+        title: "Lab: unit conversion and rate bookkeeping",
+        body: "Fixture unit_5_1_foundations_check.py locks 0 °C = 273.15 K and 1 mm day⁻¹ = 1×10⁻³/86400 m s⁻¹. Omitting the seconds-per-day factor mis-scales fluxes by about 8.64×10⁴. Depth (mm) and rate (mm day⁻¹) are different quantities; state which one a product reports before combining with an energy or mass balance.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-23-moisture"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-23-moisture"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-unit-audit"],
+    assessmentIds: ["cgei-ds-assess-unit-check"],
+    resourceIds: ["cgei-ds-r-usgs-l2-scaling", "cgei-ds-r-era5-precipitation"],
+    deliverableIds: ["cgei-ds-d-unit-sheet"],
   },
   {
-    "id": "cgei-cl-lesson-2-3-2",
-    "kind": "lesson",
-    "title": "Dynamics, boundary layer and surface exchange",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
+    id: "cgei-ds-lesson-5-1-2",
+    kind: "lesson",
+    title: "Calculus, finite differences and environmental fields",
+    order: 2,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-23-pbl",
-        "statement": "Explain diurnal boundary-layer evolution, turbulent flux partition (including Bowen ratio), and why urban night-time temperatures depend on storage, geometry and stability.",
-        "action": "explain",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
+        id: "cgei-ds-o-calculus",
+        statement:
+          "Estimate rates and gradients and integrate a rate over a stated interval with correct units.",
+        action: "calculate and interpret",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
     ],
-    "content": [
+    sourceTopicId: "cgei-ds-rates-finite-diff",
+    content: [
       {
-        "id": "cgei-cl-23-2-dyn",
-        "kind": "prose",
-        "title": "Dynamics vocabulary (conceptual)",
-        "body": "Large-scale flow is shaped by pressure gradients, Coriolis acceleration and friction near the surface. Geostrophic balance is a useful first approximation above the boundary layer mid-latitudes; it is poorer in the deep tropics where Coriolis is weak. Jet streams, Rossby waves and blocking affect heatwaves and storm tracks. Regionally, heat lows, the monsoon trough, monsoon depressions and western disturbances are the workhorse systems for Pakistan-focused process narratives. This lesson builds vocabulary and causal chains — it is not a course in synoptic analysis or balanced-flow theory."
+        id: "cgei-ds-rates-finite-diff-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "The derivative is a local rate of change. Sampled environmental series use finite differences. Partial derivatives hold other variables fixed; the horizontal gradient points toward steepest increase. Integrals accumulate rates to totals — missing days and calendar rules matter.",
       },
       {
-        "id": "cgei-cl-23-2-1",
-        "kind": "prose",
-        "title": "Diurnal boundary-layer evolution",
-        "body": "After sunrise, surface heating grows a convective mixed layer; by afternoon the planetary boundary layer (PBL) may be 1–3 km deep over dry land. After sunset, the surface cools, a nocturnal stable layer forms, and turbulence collapses except where winds or urban heat maintain mixing. Urban night-time warmth is therefore not only “more energy input at noon”: heat stored in buildings and streets is released, sky-view factor limits longwave loss, and stability reduces dispersion of that heat."
+        id: "cgei-ds-rates-finite-diff-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Centred difference: [f(x+Δx) − f(x−Δx)] / (2Δx)",
+          "Daily Δt = 1 day estimates an average rate over that spacing",
+          "Always state the unit of the rate (°C day⁻¹ vs °C decade⁻¹)",
+          "∇T = (∂T/∂x, ∂T/∂y) for a spatial temperature field",
+          "Integrals turn rates into accumulated depth or totals",
+        ],
       },
       {
-        "id": "cgei-cl-23-2-2",
-        "kind": "prose",
-        "title": "Turbulent fluxes and Bowen ratio",
-        "body": "Net radiation at the surface is partitioned into sensible heat H, latent heat LE, ground heat G and storage. The Bowen ratio β = H/LE is high over dry ground and low over freely evaporating surfaces. Roughness length and displacement height formalise how vegetation and buildings extract momentum from the wind. Urban canopy layer and roughness sublayer are distinct from the inertial surface layer assumed in simple flux-profile relations — important when interpreting roof-level versus street-level sensors."
+        id: "cgei-ds-rates-finite-diff-explanation-1",
+        kind: "prose",
+        title: "Finite differences in practice",
+        body: "With daily temperatures T = [30, 32, 31, 33] °C, centred differences at the interior points are both 0.5 °C day⁻¹. That is a discrete estimate, not a claim of a smooth continuous derivative between samples.",
       },
       {
-        "id": "cgei-cl-23-2-3",
-        "kind": "key-points",
-        "title": "Regional circulation and PBL checklist",
-        "items": [
-          "Heat low and monsoon trough: thermal and dynamical structure at conceptual level.",
-          "Western disturbances: mid-latitude moisture and dynamics over northern Pakistan in winter.",
-          "Night-time urban temperatures respond to storage, geometry and stability together.",
-          "Surface UHI (LST) and canopy UHI (air temperature) remain different quantities (lesson 2-2-4)."
-        ]
-      }
+        id: "cgei-ds-rates-finite-diff-explanation-2",
+        kind: "prose",
+        title: "Fields and accumulation",
+        body: "A field T(x,y,t) has partial derivatives holding other variables fixed. Integrating a precipitation rate over time yields depth only if units and missing data are handled deliberately.",
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-explanation-3",
+        kind: "prose",
+        title: "Gradient example with units",
+        body: "For T(x,y) = 20 + 2x − 0.5y °C, where x and y are measured in kilometres, ∇T = (2, −0.5) °C km⁻¹. The local steepest increase points eastward and slightly southward under the chosen coordinate axes. If x and y were measured in metres instead, the numeric gradient would be (0.002, −0.0005) °C m⁻¹: same physical field, different coordinate units.",
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-explanation-4",
+        kind: "prose",
+        title: "Integrating a rate",
+        body: "A constant rainfall rate of 3 mm day⁻¹ over 10 complete days accumulates to 30 mm. This multiplication is valid only when the rate represents those days and no time interval is silently missing. For variable rates, approximate the integral by summing rate × interval duration.",
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-equation-1",
+        kind: "equation",
+        title: "Centred finite difference",
+        expression:
+          "f'(x) \\approx \\frac{f(x+\\Delta x)-f(x-\\Delta x)}{2\\Delta x}",
+        body: "Symbols: f(x): Sampled series or field value; Δx: Spacing (e.g. 1 day)",
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: A spatial temperature field is T(x,y) = 20 + 2x − 0.5y °C, with x and y in km. Find the gradient and the temperature change along a 3 km eastward displacement at fixed y.\n\nSolution: ∇T = (∂T/∂x, ∂T/∂y) = (2, −0.5) °C km⁻¹. At fixed y, ΔT = (2 °C km⁻¹)(3 km) = +6 °C for this linear field.\n\nTakeaway: A gradient has units of temperature per distance; a directional change also depends on the displacement direction.",
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Reporting a slope without units — correction: Attach °C day⁻¹, mm year⁻¹, etc.. Bare numbers cannot be checked for plausibility.",
+        ],
+      },
+      {
+        id: "cgei-ds-rates-finite-diff-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "Report the unit of every rate",
+          "Distinguish discrete rates from continuous derivatives",
+        ],
+      },
+      {
+        id: "cgei-ds-51-2-gradient-example",
+        kind: "worked-example",
+        title: "Worked example: estimate a spatial gradient",
+        body: "Suppose T(x,y) = 20 + 2x − 0.5y °C, with x and y measured in kilometres. Then ∂T/∂x = 2 °C km⁻¹ and ∂T/∂y = −0.5 °C km⁻¹, so ∇T = (2, −0.5) °C km⁻¹. The gradient points toward the steepest local increase; it is not the direction of heat transport by itself.\n\nFor sampled data, approximate a derivative with a finite difference and divide by the coordinate spacing. If spacing changes from 1 km to 2 km, the denominator must change too.",
+      },
+      {
+        id: "cgei-ds-51-2-numpy-example",
+        kind: "code",
+        title: "Compute a centred finite difference",
+        language: "python",
+        code: 'import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\nt_c = np.array([30.0, 32.0, 35.0])\ndt_dx = (t_c[2] - t_c[0]) / (x_km[2] - x_km[0])\nprint(f"centred estimate: {dt_dx:.2f} °C km⁻¹")  # 2.50 °C km⁻¹\n\n# Check that x is in kilometres; convert units if coordinates are metres.',
+      },
+      {
+        id: "cgei-ds-51-2-taylor-error",
+        kind: "worked-example",
+        title:
+          "Linearise a nonlinear environmental relationship and propagate uncertainty",
+        body: "For a smooth function f(x), a first-order Taylor approximation near x₀ is f(x) ≈ f(x₀) + f′(x₀)(x−x₀). If x has small standard uncertainty σₓ, a first-order approximation gives σ_f ≈ |f′(x₀)|σₓ. Example: for f(T)=T⁴ in a radiation calculation, the local derivative is 4T³, so temperature uncertainty has a much larger absolute effect at higher T. This approximation is local; check nonlinear curvature or use Monte Carlo propagation when uncertainty is large or the response is strongly nonlinear.",
+      },
+      {
+        id: "cgei-ds-51-2-lab",
+        kind: "worked-example",
+        title: "Lab: central difference on a quadratic",
+        body: "For y=t² at t=2 with step h=0.1, the central difference [y(2.1)−y(1.9)]/(2h) equals 4, matching dy/dt=2t. The forward difference [y(2.1)−y(2)]/h equals 4.1. Fixture unit_5_1_foundations_check.py locks both results. Always divide by the actual time interval with units; a sign error or omitted 2 in the central denominator is a common failure mode.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-23-pbl"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-23-pbl"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-rate-gradient"],
+    assessmentIds: ["cgei-ds-assess-calculus-check"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-rate-note"],
   },
   {
-    "id": "cgei-cl-lesson-2-3-3",
-    "kind": "lesson",
-    "title": "Clouds, precipitation and NWP concepts",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-1-9",
+    kind: "lesson",
+    title: "Divergence, curl and vector fields in environmental flows",
+    order: 3,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
       {
-        "id": "cgei-cl-o-23-nwp",
-        "statement": "Describe cloud/precipitation process families, NWP grids and parameterisation, ensembles, and the difference between initial-condition and model uncertainty without treating high resolution as guaranteed skill.",
-        "action": "describe and critique",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      }
+        id: "cgei-ds-o-div-curl",
+        statement:
+          "Interpret divergence and curl as local spreading and rotation diagnostics for environmental vector fields.",
+        action: "interpret and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
     ],
-    "content": [
+    sourceTopicId: "cgei-ds-div-curl-fields",
+    content: [
       {
-        "id": "cgei-cl-23-3-1",
-        "kind": "prose",
-        "title": "Clouds and precipitation processes",
-        "body": "Clouds form when air becomes saturated and condensate is sustained by ascent or radiative cooling. Convective systems are driven by buoyancy and can produce intense, localised rainfall; stratiform rainfall is more widespread and dynamically different. Orographic lift sharpens gradients along terrain. Warm-rain and ice-phase microphysics both matter; cloudburst-scale events occupy scales that coarse grids cannot resolve. Aerosols acting as cloud condensation nuclei can alter droplet number and precipitation efficiency; dust also exerts direct radiative effects. Process literacy here supports later interpretation of satellite products and model biases — it is not a microphysics course."
+        id: "cgei-ds-div-curl-fields-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Divergence measures the net outward flux per unit volume from a point in a vector field; curl (its vertical component in two dimensions) measures local rotation, i.e. relative vorticity. For a horizontal field F = (u, v), ∇·F = ∂u/∂x + ∂v/∂y and the vertical curl component is ζ = ∂v/∂x − ∂u/∂y. These are point properties that cannot be read off a single arrow on a map.",
       },
       {
-        "id": "cgei-cl-23-3-2",
-        "kind": "prose",
-        "title": "NWP literacy",
-        "body": "Numerical weather prediction integrates discretised equations of motion, thermodynamics and moisture on a grid. Processes smaller than the grid scale (deep convection on coarse grids, turbulence, detailed radiation) are parameterised. Data assimilation combines observations with a prior forecast to estimate the initial state. Chaos limits deterministic predictability; ensembles sample initial-condition uncertainty and, in some systems, model uncertainty. Convection-permitting resolutions reduce reliance on convective parameterisation but do not remove all sub-grid processes or guarantee skill."
+        id: "cgei-ds-div-curl-fields-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "∇·F = ∂u/∂x + ∂v/∂y for a 2-D horizontal field",
+          "Positive divergence ⇒ net outflow from a point; convergence is net inflow",
+          "ζ = ∂v/∂x − ∂u/∂y is the relative vorticity (vertical curl component)",
+          "Surface convergence forces rising motion by mass continuity (sets up Unit 5.1.3.1)",
+          "Typical synoptic-scale divergence/vorticity magnitudes are of order 10⁻⁵ s⁻¹",
+          "A finite-difference estimate on a lat–lon grid needs a map-factor correction near the poles",
+        ],
       },
       {
-        "id": "cgei-cl-23-3-3",
-        "kind": "callout",
-        "title": "Honest use of model output",
-        "tone": "warning",
-        "items": [
-          "Higher resolution is not automatic skill — verify against observations.",
-          "Raw ensemble spread is not a calibrated probability without statistical post-processing and verification.",
-          "Parameterisation choices affect surface fluxes that impact models inherit.",
-          "Do not treat a single deterministic run as a full uncertainty statement."
-        ]
+        id: "cgei-ds-div-curl-fields-explanation-1",
+        kind: "prose",
+        title: "Why this matters for environmental flows",
+        body: "Surface wind convergence is tied to rising air and precipitation processes through mass continuity (Unit 5.1.3.1); divergence aloft allows that rising air to spread out. Curl underlies cyclonic and anticyclonic rotation in both atmosphere and ocean.",
       },
       {
-        "id": "cgei-cl-23-3-link",
-        "kind": "prose",
-        "title": "Link forward",
-        "body": "Reanalysis products (Unit 2.4) are NWP-like systems run in retrospective mode with heavy observational constraint. Seasonal prediction (Unit 2.13) reuses similar model infrastructure at longer lead times with lower signal-to-noise. Keep the distinction between weather prediction, reanalysis and climate projection explicit in later units."
-      }
+        id: "cgei-ds-div-curl-fields-explanation-2",
+        kind: "prose",
+        title: "Worked divergence and curl calculation",
+        body: "For a wind field u(x,y) = 2×10⁻⁵x − 1×10⁻⁵y and v(x,y) = 1×10⁻⁵x + 3×10⁻⁵y, with x and y in metres and u, v in m s⁻¹, the partial derivatives are constants: ∂u/∂x = 2×10⁻⁵ s⁻¹, ∂v/∂y = 3×10⁻⁵ s⁻¹, ∂v/∂x = 1×10⁻⁵ s⁻¹, ∂u/∂y = −1×10⁻⁵ s⁻¹. These are realistic synoptic-scale magnitudes used purely to illustrate the arithmetic, not a specific observed field.",
+      },
+      {
+        id: "cgei-ds-div-curl-fields-equation-1",
+        kind: "equation",
+        title: "Divergence and curl of a 2-D field",
+        expression:
+          "\\nabla\\cdot\\mathbf{F} = \\frac{\\partial u}{\\partial x}+\\frac{\\partial v}{\\partial y}, \\qquad \\zeta = \\frac{\\partial v}{\\partial x}-\\frac{\\partial u}{\\partial y}",
+        body: "Symbols: u, v: Horizontal velocity (or flux) components; ζ: Relative vorticity (vertical curl component)",
+      },
+      {
+        id: "cgei-ds-div-curl-fields-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: For u(x,y) = 2×10⁻⁵x − 1×10⁻⁵y and v(x,y) = 1×10⁻⁵x + 3×10⁻⁵y (x, y in m; u, v in m s⁻¹), compute the divergence and the vertical curl component.\n\nSolution: Divergence = ∂u/∂x + ∂v/∂y = 2×10⁻⁵ + 3×10⁻⁵ = 5×10⁻⁵ s⁻¹ (net outflow). Curl ζ = ∂v/∂x − ∂u/∂y = 1×10⁻⁵ − (−1×10⁻⁵) = 2×10⁻⁵ s⁻¹ (cyclonic sense in this convention).\n\nTakeaway: Divergence and curl are both local rates with units of s⁻¹; a uniform wind of any speed has zero of both.",
+      },
+      {
+        id: "cgei-ds-div-curl-fields-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Assuming a strong uniform wind implies strong divergence — correction: Check the spatial derivatives, not the magnitude. A spatially uniform field has zero divergence and zero curl regardless of speed.",
+          "Finite-differencing a lat–lon grid as if grid spacing were constant in distance — correction: Apply the appropriate map-factor or reproject first. Longitude spacing in distance shrinks toward the poles.",
+        ],
+      },
+      {
+        id: "cgei-ds-div-curl-fields-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State units of divergence and vorticity (s⁻¹)",
+          "Do not infer divergence or curl from wind speed alone",
+        ],
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-23-nwp"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-23-nwp"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-div-curl"],
+    assessmentIds: ["cgei-ds-assess-div-curl"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-rate-note"],
   },
   {
-    "id": "cgei-cl-lesson-2-4-1",
-    "kind": "lesson",
-    "title": "In-situ stations and quality control",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-1-3",
+    kind: "lesson",
+    title: "Matrices, linear maps and least squares",
+    order: 4,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-24-station",
-        "statement": "Apply basic station QC checks (range, step, spike, persistence, internal consistency), distinguish missing values from valid zeros, and state why homogenisation is needed without claiming to have applied SNHT/Pettitt.",
-        "action": "apply and distinguish",
-        "level": "L3",
-        "competencyIds": [
+        id: "cgei-ds-o-linear-algebra",
+        statement:
+          "Interpret matrix operations and calculate a small least-squares fit, including residual checks.",
+        action: "calculate and verify",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-matrices-least-squares",
+    content: [
+      {
+        id: "cgei-ds-matrices-least-squares-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "A data matrix X with n rows and p columns stores n observations of p variables (usual regression convention). Dot products and matrix–vector products implement linear maps. Ordinary least squares finds coefficients that minimise the squared residual norm — fitted values are the projection of y onto the column space of X.",
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Rows = samples, columns = variables is the standard regression layout",
+          "Dot product measures alignment; matrix–vector product applies a linear map",
+          "OLS minimises ||y − Xβ||²",
+          "ŷ is the projection of y onto the column space of X",
+          "Geometry matters even when software forms the normal equations for you",
+        ],
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-explanation-1",
+        kind: "prose",
+        title: "Why this belongs in environmental computing",
+        body: "Multiple regression, PCA/EOF, and many spatial models are linear-algebra operations on tables of environmental measurements. Misreading sample versus variable axes is a common pipeline bug.",
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-explanation-2",
+        kind: "prose",
+        title: "A two-observation least-squares calculation",
+        body: "For a deliberately simple through-origin model y ≈ βx with x = [1, 2] and y = [2, 5], β̂ = (xᵀy)/(xᵀx) = (1×2 + 2×5)/(1² + 2²) = 12/5 = 2.4. Fitted values are [2.4, 4.8] and residuals y − ŷ = [−0.4, 0.2]. Their dot product with x is 1(−0.4) + 2(0.2) = 0, illustrating residual orthogonality for this least-squares fit. This model has no intercept; do not mistake it for a general regression specification.",
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-equation-1",
+        kind: "equation",
+        title: "OLS residual criterion",
+        expression:
+          "\\min_{\\beta}\\ \\|\\mathbf{y}-\\mathbf{X}\\boldsymbol{\\beta}\\|^2",
+        body: "Symbols: y: Response vector (n × 1); X: Design matrix (n × p); β: Coefficient vector (p × 1)",
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: For a through-origin least-squares fit with x = [1, 2] and y = [2, 5], calculate β̂, fitted values, and residuals.\n\nSolution: β̂ = (xᵀy)/(xᵀx) = 12/5 = 2.4. Therefore ŷ = [2.4, 4.8] and y − ŷ = [−0.4, 0.2]. The residual dot product xᵀ(y − ŷ) = −0.4 + 0.4 = 0.\n\nTakeaway: Least squares minimises squared residual length; this example uses a no-intercept model and two observations only.",
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Swapping samples and variables when forming X — correction: Document rows = samples before calling solvers. Shape errors produce silent wrong models.",
+        ],
+      },
+      {
+        id: "cgei-ds-matrices-least-squares-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State the shape convention you use for X",
+          "Interpret residuals as the part of y orthogonal to the column space (idealised geometry)",
+        ],
+      },
+      {
+        id: "cgei-ds-51-3-least-squares-example",
+        kind: "worked-example",
+        title: "Worked example: fit a line using matrix notation",
+        body: "Three sites have x = [0, 1, 2] km and measured temperatures y = [30, 32, 35] °C. Construct X = [[1,0],[1,1],[1,2]] and β = [intercept, slope]ᵀ. The least-squares estimate minimises ||Xβ − y||²; for these values, the fitted intercept is approximately 29.83 °C and the slope is 2.50 °C km⁻¹.\n\nThe residuals are observed minus fitted values. A small residual sum of squares describes fit to these points, not proof that distance causes temperature change or that the model generalises.",
+      },
+      {
+        id: "cgei-ds-51-3-numpy-example",
+        kind: "code",
+        title: "Solve a small least-squares problem",
+        language: "python",
+        code: 'import numpy as np\n\nx_km = np.array([0.0, 1.0, 2.0])\ny_c = np.array([30.0, 32.0, 35.0])\nX = np.column_stack([np.ones_like(x_km), x_km])\nbeta, residual_sum_squares, rank, singular_values = np.linalg.lstsq(X, y_c, rcond=None)\ny_hat = X @ beta\nprint("intercept, slope:", beta)  # about [29.833, 2.5]\nprint("residuals:", y_c - y_hat)\nprint("rank:", rank)',
+      },
+    ],
+    activityIds: ["cgei-ds-a-least-squares"],
+    assessmentIds: ["cgei-ds-assess-linear-algebra"],
+    resourceIds: ["cgei-ds-r-numpy-linalg"],
+    deliverableIds: ["cgei-ds-d-linear-algebra-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-4",
+    kind: "lesson",
+    title: "Eigenvalues, SVD and PCA foundations",
+    order: 5,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-eigen-svd",
+        statement:
+          "Verify a simple eigenpair and explain the relationship and distinction between covariance eigenstructure, SVD, and PCA.",
+        action: "verify and explain",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-eigen-svd-pca",
+    content: [
+      {
+        id: "cgei-ds-eigen-svd-pca-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "For square A, Av = λv means v is only stretched by A. In PCA, eigenvalues of a covariance (or singular values of centred data) measure variance along principal axes. An eigenvalue describes your matrix definition — domain, season, weighting — not a physical law by itself.",
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Av = λv: eigenvector direction, eigenvalue scale factor",
+          "SVD: X = UΣVᵀ for centred data matrices",
+          "Prefer numpy.linalg.eigh / svd for numerical work",
+          "Example: S = [[1, 0.8], [0.8, 1]] has λ ≈ 1.8 and 0.2; ~90% variance on the first axis",
+          "Sign of an EOF/PC pair can flip without changing the product",
+          "Mode ≠ mechanism (Unit 5.8 develops EOF practice)",
+        ],
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-explanation-1",
+        kind: "prose",
+        title: "Worked covariance example",
+        body: "For S = [[1.0, 0.8], [0.8, 1.0]], eigenvalues are 1.8 and 0.2. The first eigenvector lies along shared variability (about [0.707, 0.707]). Fraction of variance in the first component is 1.8/2.0 = 90%. Verify numerically with an eigh routine.",
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-explanation-2",
+        kind: "prose",
+        title: "Verify an eigenpair and distinguish SVD",
+        body: "For S = [[1, 0.8], [0.8, 1]], take v = [1, 1]ᵀ. Then Sv = [1.8, 1.8]ᵀ = 1.8v, so 1.8 is the eigenvalue for that direction. The orthogonal direction [1, −1]ᵀ has eigenvalue 0.2. By contrast, SVD factors a general matrix X as UΣVᵀ; singular values are non-negative and are not themselves the eigenvalues of X unless additional conditions apply. For centred data, squared singular values relate to covariance eigenvalues after the appropriate normalisation.",
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-equation-1",
+        kind: "equation",
+        title: "Eigenrelation",
+        expression: "\\mathbf{A}\\mathbf{v} = \\lambda\\mathbf{v}",
+        body: "Symbols: A: Square matrix (e.g. covariance); v: Eigenvector; λ: Eigenvalue",
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Verify that v = [1, 1]ᵀ is an eigenvector of S = [[1, 0.8], [0.8, 1]], and calculate its eigenvalue.\n\nSolution: Sv = [1×1 + 0.8×1, 0.8×1 + 1×1]ᵀ = [1.8, 1.8]ᵀ = 1.8[1, 1]ᵀ. Thus λ = 1.8.\n\nTakeaway: An eigenpair must satisfy Av = λv. SVD is a related but more general matrix factorisation.",
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Calling EOF1 “the climate-change signal” without further evidence — correction: Describe variance structure; link mechanism separately. Statistical modes mix processes and sampling choices.",
+        ],
+      },
+      {
+        id: "cgei-ds-eigen-svd-pca-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "Report variance fractions when discussing PCA/EOF",
+          "Never treat an eigenvalue as proof of a physical process alone",
+        ],
+      },
+      {
+        id: "cgei-ds-51-4-eigen-svd-example",
+        kind: "worked-example",
+        title: "Worked example: eigenvalues are not always singular values",
+        body: "Let A = [[2,0],[0,−1]]. For v₁ = [1,0]ᵀ, Av₁ = [2,0]ᵀ = 2v₁, so 2 is an eigenvalue. For v₂ = [0,1]ᵀ, Av₂ = [0,−1]ᵀ = −1v₂, so −1 is an eigenvalue.\n\nThe singular values of A are 2 and 1: they are non-negative and come from the square roots of the eigenvalues of AᵀA. The negative eigenvalue therefore demonstrates why eigenvalues and singular values must not be treated as interchangeable. PCA uses eigenvectors/eigenvalues of a covariance matrix (or an equivalent SVD formulation) to describe directions and variance.",
+      },
+      {
+        id: "cgei-ds-51-4-numpy-example",
+        kind: "code",
+        title: "Verify an eigenpair and inspect singular values",
+        language: "python",
+        code: 'import numpy as np\n\nA = np.array([[2.0, 0.0], [0.0, -1.0]])\nvalues, vectors = np.linalg.eig(A)\nfor i, value in enumerate(values):\n    v = vectors[:, i]\n    assert np.allclose(A @ v, value * v)\nprint("eigenvalues:", values)       # 2 and -1\nprint("singular values:", np.linalg.svd(A, compute_uv=False))  # 2 and 1',
+      },
+    ],
+    activityIds: ["cgei-ds-a-eigen-check"],
+    assessmentIds: ["cgei-ds-assess-eigen-svd"],
+    resourceIds: ["cgei-ds-r-numpy-linalg"],
+    deliverableIds: ["cgei-ds-d-linear-algebra-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-10",
+    kind: "lesson",
+    title: "Taylor expansion, linearisation and error propagation",
+    order: 6,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-taylor-error",
+        statement:
+          "Linearise a smooth map with a first-order Taylor expansion and propagate uncertainty through a derivative scaling.",
+        action: "approximate and propagate",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-taylor-error-propagation",
+    content: [
+      {
+        id: "cgei-ds-taylor-error-propagation-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "A Taylor series approximates a smooth function near a point using its derivatives there. First-order truncation gives a linear approximation (linearisation), valid close to the expansion point. The same first-order idea propagates independent measurement uncertainties through a formula (the delta method): small input errors scale by the local derivative to give output error.",
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "First-order Taylor: f(x) ≈ f(a) + f′(a)(x − a), valid near x = a",
+          "Delta method: σ_f² ≈ Σ (∂f/∂x_i)² σ_{x_i}² for independent inputs",
+          "Stefan–Boltzmann: dE/dT = 4σT³, so relative error in E is about 4× relative error in T",
+          "Linearisation breaks down when inputs vary widely or curvature is large",
+          "Second-order (curvature) terms matter outside a small neighbourhood of the expansion point",
+        ],
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-explanation-1",
+        kind: "prose",
+        title: "Linearising a familiar nonlinear law",
+        body: "Near T = 300 K, the Stefan–Boltzmann emitted flux E = σT⁴ has local slope dE/dT = 4σT³. A small temperature uncertainty ΔT propagates approximately as ΔE ≈ 4σT³ ΔT — this is first-order error propagation, the same mathematics as linearisation.",
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-explanation-2",
+        kind: "prose",
+        title: "Why the relative-error shortcut works",
+        body: "For E = σT⁴, differentiating the logarithm gives d(ln E)/d(ln T) = 4, so a small relative change in T produces about four times that relative change in E. This shortcut only holds for small perturbations around the expansion point.",
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-equation-1",
+        kind: "equation",
+        title: "First-order Taylor linearisation and error propagation",
+        expression:
+          "f(x) \\approx f(a) + f'(a)(x-a), \\qquad \\sigma_f^2 \\approx \\sum_i \\left(\\frac{\\partial f}{\\partial x_i}\\right)^2 \\sigma_{x_i}^2",
+        body: "Assumes independent inputs and a locally smooth, well-approximated-by-linear function.\nSymbols: a: Expansion point; σ_{x_i}: Standard uncertainty of input i (assumed independent)",
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: At T = 300 K with uncertainty σ_T = 0.5 K, estimate the propagated uncertainty in E = σT⁴ (σ = 5.670374419×10⁻⁸ W m⁻² K⁻⁴).\n\nSolution: E(300) = 5.670374419×10⁻⁸ × 300⁴ ≈ 459.3 W m⁻². dE/dT = 4σT³ ≈ 4 × 5.670374419×10⁻⁸ × 300³ ≈ 6.124 W m⁻² K⁻¹. ΔE ≈ 6.124 × 0.5 ≈ 3.06 W m⁻² (about 0.67% of E, matching 4× the 0.167% relative error in T).\n\nTakeaway: First-order error propagation is just a local linearisation applied to uncertainty; it requires independence and small perturbations.",
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Applying linear error propagation to a strongly nonlinear formula over a wide input range — correction: Use the exact formula or include second-order terms. The linear approximation degrades away from the expansion point.",
+          "Summing squared partial-derivative terms for correlated inputs — correction: Add covariance cross-terms or state that inputs are treated as independent. The simple delta-method formula assumes independence.",
+        ],
+      },
+      {
+        id: "cgei-ds-taylor-error-propagation-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State the expansion point before quoting a linearised sensitivity",
+          "State the independence assumption before summing squared partial-derivative terms",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-taylor-error"],
+    assessmentIds: ["cgei-ds-assess-taylor-error"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-rate-note"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-5",
+    kind: "lesson",
+    title: "Stock–flux systems, ODEs and numerical integration",
+    order: 7,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-odes",
+        statement:
+          "Formulate a stock–flux ODE, compute a steady state, and explain a numerical integration limitation.",
+        action: "formulate and check",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-ode-numerical",
+    content: [
+      {
+        id: "cgei-ds-ode-numerical-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Many box models are stock–flux ODEs: dS/dt = F_in − F_out(S). Forward Euler steps S forward with S_{n+1} = S_n + Δt f(t_n, S_n). Euler can be unstable or biased for large steps; production work uses adaptive integrators such as scipy.solve_ivp. Steady-state checks catch implementation errors.",
+      },
+      {
+        id: "cgei-ds-ode-numerical-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Stock–flux form organises environmental mass/energy boxes",
+          "Lake example: dM/dt = L − (k + Q/V)M; steady state M = L/(k+Q/V)",
+          "Euler: S_{n+1} = S_n + Δt f(t_n, S_n)",
+          "Example: dC/dt = −0.5 C, C(0)=10, Δt=1 → Euler path 5.0 then 2.5 vs exact ~6.07, 3.68",
+          "Learn Euler to understand what library integrators improve",
+        ],
+      },
+      {
+        id: "cgei-ds-ode-numerical-explanation-1",
+        kind: "prose",
+        title: "Stability and truncation (conceptual)",
+        body: "Large Δt relative to the fastest timescale can make Euler unstable or inaccurate. Adaptive methods adjust step size. Always compare endpoints to steady-state or analytical checks when available. The precise stability threshold for linear decay is developed in the next topic.",
+      },
+      {
+        id: "cgei-ds-ode-numerical-explanation-2",
+        kind: "prose",
+        title: "Lake stock–flux equilibrium",
+        body: "For dM/dt = L − (k + Q/V)M, set dM/dt = 0 at steady state: M* = L/(k + Q/V). If L = 10 kg day⁻¹, k = 0.2 day⁻¹ and Q/V = 0.3 day⁻¹, then M* = 10/0.5 = 20 kg. The denominator has units day⁻¹, so the result is a mass. This is an equilibrium calculation, not a claim that the lake reaches equilibrium instantly.",
+      },
+      {
+        id: "cgei-ds-ode-numerical-equation-1",
+        kind: "equation",
+        title: "Forward Euler",
+        expression: "S_{n+1} = S_n + \\Delta t\\, f(t_n, S_n)",
+        body: "Symbols: S_n: State at step n; Δt: Time step; f: Right-hand side dS/dt",
+      },
+      {
+        id: "cgei-ds-ode-numerical-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: For dC/dt = −0.5 C with C(0)=10 and Δt=1 day, compute two Euler steps and compare to C(t)=10 e^{−0.5 t}.\n\nSolution: C_1 = 10 + 1×(−0.5×10) = 5.0; C_2 = 5 + 1×(−0.5×5) = 2.5. Exact: ≈6.07 and ≈3.68.\n\nTakeaway: Euler underestimates the true path here; step size and method matter.",
+      },
+      {
+        id: "cgei-ds-ode-numerical-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Trusting a long Euler simulation without a step-size or method check — correction: Compare to solve_ivp or analytical limits. Numerical bias can look like physical decay.",
+        ],
+      },
+      {
+        id: "cgei-ds-ode-numerical-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State units on stocks and fluxes",
+          "Use steady state as a debugging check",
+        ],
+      },
+      {
+        id: "cgei-ds-51-5-stock-flux-example",
+        kind: "worked-example",
+        title: "Worked example: a stock approaches equilibrium",
+        body: "Consider dS/dt = I − kS, where S is stored water in mm, I = 10 mm day⁻¹ is constant inflow, and k = 0.2 day⁻¹ is a loss coefficient. At S = 20 mm, dS/dt = 10 − (0.2 × 20) = 6 mm day⁻¹.\n\nWith a one-day forward-Euler step, S₁ = S₀ + Δt(I − kS₀) = 20 + 1 × 6 = 26 mm. The steady state satisfies dS/dt = 0, so S* = I/k = 50 mm. Euler results depend on the step size; a numerically produced value is not automatically stable or physically plausible.",
+      },
+      {
+        id: "cgei-ds-51-5-euler-code",
+        kind: "code",
+        title: "Run and check a forward-Euler simulation",
+        language: "python",
+        code: 'import numpy as np\n\nS_mm = 20.0\ninflow_mm_day = 10.0\nk_per_day = 0.2\ndt_day = 1.0\nfor day in range(5):\n    dS_dt = inflow_mm_day - k_per_day * S_mm\n    S_mm = S_mm + dt_day * dS_dt\n    print(day + 1, round(S_mm, 2), "mm")\n\nsteady_state_mm = inflow_mm_day / k_per_day\nprint("equilibrium:", steady_state_mm, "mm")\n# Keep units consistent and test whether changing dt changes the path.',
+      },
+      {
+        id: "cgei-ds-51-5-stability",
+        kind: "worked-example",
+        title: "Check forward-Euler stability by changing the time step",
+        body: "For dS/dt = −kS, forward Euler gives Sₙ₊₁=(1−kΔt)Sₙ. For this linear decay equation, stability requires |1−kΔt|<1, or 0<kΔt<2. If k=0.8 day⁻¹, Δt=1 day gives a factor 0.2, while Δt=3 days gives −1.4 and produces alternating growth in magnitude. A numerical trajectory can therefore be unstable even when the physical system decays. Compare time steps and report the method's limitations.",
+      },
+      {
+        id: "cgei-ds-51-5-lab",
+        kind: "worked-example",
+        title: "Lab: Euler lake mass balance",
+        body: "With V₀=1×10⁶ m³, Q_in=2.0 m³ s⁻¹, Q_out=1.5 m³ s⁻¹ and Δt=3600 s, Euler update V←V+Δt(Q_in−Q_out) yields V₁=1 001 800 m³. Fixture unit_5_1_foundations_check.py locks this step. Treating Δt as 1 hour while leaving Q in m³ s⁻¹ understates the volume change by a factor of 3600. This is a teaching discretisation, not a calibrated reservoir model.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-stock-flux"],
+    assessmentIds: ["cgei-ds-assess-ode-check"],
+    resourceIds: ["cgei-ds-r-scipy-solve-ivp"],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-11",
+    kind: "lesson",
+    title: "Numerical stability, time-stepping limits and floating-point error",
+    order: 8,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-num-stability",
+        statement:
+          "Identify time-step and floating-point limits that make a numerical scheme inaccurate or unstable.",
+        action: "diagnose and constrain",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-numerical-stability-floats",
+    content: [
+      {
+        id: "cgei-ds-numerical-stability-floats-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Numerical stability asks whether small errors grow or decay as a scheme is iterated. Explicit schemes such as forward Euler have a maximum stable step size set by the fastest process rate in the system. Separately, IEEE 754 floating-point numbers carry finite precision, so subtracting nearly equal large values loses significant digits (catastrophic cancellation) and exact equality tests on floats are unreliable.",
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Forward Euler on dS/dt = −kS has amplification factor g = 1 − kΔt per step",
+          "Stability requires |g| ≤ 1, i.e. Δt ≤ 2/k",
+          "Example: k = 0.5 day⁻¹ gives a stability bound Δt < 4 days",
+          "IEEE 754 double precision carries about 15–17 significant decimal digits",
+          "Catastrophic cancellation: subtracting two nearly equal large floats loses precision",
+          "Use a relative tolerance (e.g. np.isclose) instead of == for float comparisons",
+        ],
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-explanation-1",
+        kind: "prose",
+        title: "Where the stability bound comes from",
+        body: "For dS/dt = −kS, the Euler update is S_{n+1} = S_n + Δt(−kS_n) = (1 − kΔt)S_n. The amplification factor g = 1 − kΔt must satisfy |g| ≤ 1 for errors not to grow step to step; solving gives 0 ≤ Δt ≤ 2/k.",
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-explanation-2",
+        kind: "prose",
+        title: "Floating-point hazards in accumulation",
+        body: "Summing many small daily fluxes into a running annual total accumulates rounding error; the order of summation can change the last few digits of the result. In most languages, 0.1 + 0.2 does not exactly equal 0.3 in double precision — a standard illustration of why exact equality tests on floats fail.",
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-equation-1",
+        kind: "equation",
+        title: "Euler amplification factor and stability bound",
+        expression:
+          "g = 1-k\\Delta t, \\qquad |g|\\le 1 \\iff \\Delta t \\le \\frac{2}{k}",
+        body: "Symbols: k: Decay rate (time⁻¹); Δt: Time step",
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: For dS/dt = −kS with k = 0.5 day⁻¹, find the Euler stability bound and evaluate the amplification factor at Δt = 1 day and Δt = 5 days.\n\nSolution: Stability bound: Δt < 2/0.5 = 4 days. At Δt = 1: g = 1 − 0.5×1 = 0.5 (|g| < 1, stable, monotone decay). At Δt = 5: g = 1 − 0.5×5 = −1.5 (|g| > 1, unstable — the numerical solution oscillates and grows in magnitude even though the true solution decays).\n\nTakeaway: A step size that looks reasonable by eye can still violate the stability bound for a given rate constant; check 2/k before trusting the run.",
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Choosing a step size based on accuracy intuition alone — correction: Check it also satisfies the stability bound for the fastest process rate. A stable-looking but non-stiff-safe step can still diverge for faster components.",
+          "Testing if a running total equals an expected float exactly — correction: Compare within a stated relative or absolute tolerance. Floating-point rounding makes exact equality unreliable.",
+        ],
+      },
+      {
+        id: "cgei-ds-numerical-stability-floats-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State the stability bound for forward Euler on a linear decay before choosing Δt",
+          "Use tolerance-based comparisons, never ==, for floating-point values",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-num-stability"],
+    assessmentIds: ["cgei-ds-assess-num-stability"],
+    resourceIds: ["cgei-ds-r-scipy-solve-ivp"],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-12",
+    kind: "lesson",
+    title: "Optimisation: gradient descent and constrained concepts",
+    order: 9,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-optimisation",
+        statement:
+          "Contrast least-squares fitting with iterative gradient descent and state when a constraint changes the feasible set.",
+        action: "compare and select",
+        level: "L2",
+        competencyIds: ["cgei-comp-mathematical-modeling"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-optimisation-methods",
+    content: [
+      {
+        id: "cgei-ds-optimisation-methods-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Least squares is a closed-form special case of minimising a cost function. Gradient descent instead takes iterative steps opposite the gradient, θ_{n+1} = θ_n − η∇J(θ_n), useful when no closed form exists. Constrained optimisation restricts the search to a feasible region (e.g. non-negative fluxes), handled conceptually via Lagrange multipliers or bounded solvers.",
+      },
+      {
+        id: "cgei-ds-optimisation-methods-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Gradient descent update: θ_{n+1} = θ_n − η∇J(θ_n)",
+          "Learning rate η too large ⇒ divergence; too small ⇒ slow convergence",
+          "On a convex quadratic cost, gradient descent converges to the same optimum as the closed form",
+          "Constrained optimisation (e.g. flux ≥ 0) is handled with bounded solvers or Lagrange multipliers",
+          "Many calibration problems in climate and ML use gradient descent because no closed form exists",
+        ],
+      },
+      {
+        id: "cgei-ds-optimisation-methods-explanation-1",
+        kind: "prose",
+        title: "Worked gradient descent on a quadratic cost",
+        body: "For J(θ) = (θ − 3)², dJ/dθ = 2(θ − 3). Starting from θ₀ = 0 with learning rate η = 0.1: θ₁ = 0.6, θ₂ = 1.08, θ₃ = 1.464. The distance to the minimum shrinks by a constant factor (1 − 2η) = 0.8 each step, so convergence toward θ = 3 is geometric for this convex quadratic.",
+      },
+      {
+        id: "cgei-ds-optimisation-methods-explanation-2",
+        kind: "prose",
+        title: "Constraints as part of the problem statement",
+        body: "Fitting a streamflow model may require a physically meaningful infiltration parameter to stay non-negative. A bounded solver enforces that constraint directly during the search, rather than allowing the optimiser to explore nonphysical parameter values and discarding them afterward.",
+      },
+      {
+        id: "cgei-ds-optimisation-methods-equation-1",
+        kind: "equation",
+        title: "Gradient descent update",
+        expression: "\\theta_{n+1} = \\theta_n - \\eta\\,\\nabla J(\\theta_n)",
+        body: "Symbols: η: Learning rate (step size); J(θ): Cost function to minimise",
+      },
+      {
+        id: "cgei-ds-optimisation-methods-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Minimise J(θ) = (θ − 3)² starting from θ₀ = 0 with η = 0.1. Compute three gradient-descent steps.\n\nSolution: grad₀ = 2(0−3) = −6, θ₁ = 0 − 0.1×(−6) = 0.6. grad₁ = 2(0.6−3) = −4.8, θ₂ = 0.6 + 0.48 = 1.08. grad₂ = 2(1.08−3) = −3.84, θ₃ = 1.08 + 0.384 = 1.464.\n\nTakeaway: Gradient descent approaches the minimum geometrically here; for this quadratic, η ≥ 1 would make steps overshoot and diverge.",
+      },
+      {
+        id: "cgei-ds-optimisation-methods-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Choosing a learning rate that causes oscillation or divergence — correction: Reduce η or use an adaptive-step method. Too large a step overshoots the minimum repeatedly.",
+          "Fitting a parameter unconstrained and finding a nonphysical negative value — correction: Impose the physical bound in the solver itself. Post-hoc clipping distorts the fit rather than preventing the problem.",
+        ],
+      },
+      {
+        id: "cgei-ds-optimisation-methods-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State the learning rate and number of steps when reporting a gradient-descent result",
+          "Distinguish unconstrained optimisation from bounded/constrained optimisation",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-optimisation"],
+    assessmentIds: ["cgei-ds-assess-optimisation"],
+    resourceIds: ["cgei-ds-r-numpy-linalg"],
+    deliverableIds: ["cgei-ds-d-linear-algebra-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-6",
+    kind: "lesson",
+    title: "Environmental mass and water balance",
+    order: 10,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectives: [
+      {
+        id: "cgei-ds-o-water-balance",
+        statement:
+          "Close a water balance using a consistent control volume, period, and unit convention.",
+        action: "calculate and critique",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-water-mass-balance",
+    content: [
+      {
+        id: "cgei-ds-water-mass-balance-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "For a control volume, storage change equals inflows minus outflows over a defined period. Terms must share units (depth or volume) and the same time window. In the Indus irrigated plain, canal deliveries and groundwater abstraction belong in the conceptual balance — rainfall-only thinking misleads.",
+      },
+      {
+        id: "cgei-ds-water-mass-balance-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "ΔS = inflows − outflows (define the control volume)",
+          "P = E + R + ΔS requires consistent depth units over one period",
+          "Irrigation and tube wells can dominate local water accounting",
+          "Missing a flux term biases every residual storage estimate",
+        ],
+      },
+      {
+        id: "cgei-ds-water-mass-balance-explanation-1",
+        kind: "prose",
+        title: "Environmental judgment",
+        body: "A mathematically closed balance can still be scientifically wrong if a major process is omitted. Always list what is inside the system boundary.",
+      },
+      {
+        id: "cgei-ds-water-mass-balance-explanation-2",
+        kind: "prose",
+        title: "Worked annual water balance",
+        body: "Suppose a catchment receives P = 500 mm yr⁻¹, evapotranspiration is E = 350 mm yr⁻¹, runoff is R = 100 mm yr⁻¹, and storage change is ΔS = 50 mm yr⁻¹. Then P − E − R − ΔS = 500 − 350 − 100 − 50 = 0 mm yr⁻¹, so the stated terms close arithmetically. If storage change were unknown, the residual estimate would be ΔS = P − E − R = 50 mm yr⁻¹. Closure does not prove that every flux was measured or that irrigation and groundwater can be ignored.",
+      },
+      {
+        id: "cgei-ds-water-mass-balance-equation-1",
+        kind: "equation",
+        title: "Simplified catchment balance",
+        expression: "P = E + R + \\Delta S",
+        body: "All terms over the same period; expand for irrigation/groundwater when relevant.\nSymbols: P: Precipitation depth; E: Evapotranspiration depth; R: Runoff depth; ΔS: Storage change depth",
+      },
+      {
+        id: "cgei-ds-water-mass-balance-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Given P = 500, E = 350 and R = 100 mm yr⁻¹, estimate ΔS from P = E + R + ΔS.\n\nSolution: ΔS = P − E − R = 500 − 350 − 100 = 50 mm yr⁻¹.\n\nTakeaway: A residual can close the equation even when omitted or uncertain fluxes remain; define the control volume before interpreting it.",
+      },
+      {
+        id: "cgei-ds-water-mass-balance-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Mixing mm and mm day⁻¹ in one equation — correction: Convert every term to the same dimensions. Dimensional homogeneity is a validity check.",
+        ],
+      },
+      {
+        id: "cgei-ds-water-mass-balance-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State system boundary and period",
+          "Refuse rainfall-only stories where irrigation dominates",
+        ],
+      },
+      {
+        id: "cgei-ds-51-6-water-balance-example",
+        kind: "worked-example",
+        title: "Worked example: calculate storage change and diagnose closure",
+        body: "For one catchment-year, precipitation P = 420 mm, evapotranspiration ET = 310 mm and runoff R = 70 mm. Under ΔS = P − ET − R, the implied storage change is 420 − 310 − 70 = +40 mm.\n\nIf an independent storage estimate instead gives ΔS = +20 mm, the closure residual ε = P − ET − R − ΔS = 20 mm. That residual signals unrepresented fluxes, measurement error, mismatched periods/support, or model error; it should not be silently forced to zero.",
+      },
+      {
+        id: "cgei-ds-51-6-balance-checklist",
+        kind: "checklist",
+        title: "Water-balance audit",
+        items: [
+          "Use the same time interval and spatial boundary for every term.",
+          "Keep all terms in compatible depth units (for example, mm per year) or compatible volumes.",
+          "Define positive directions and whether storage change is final minus initial storage.",
+          "Report the closure residual and discuss plausible missing fluxes or measurement limitations.",
+        ],
+      },
+      {
+        id: "cgei-ds-51-6-transport",
+        kind: "prose",
+        title: "Conservation laws, advection and diffusion",
+        body: "A conservation statement balances accumulation with inflow, outflow and sources/sinks. In a continuum, the continuity equation expresses local conservation; advection transports a quantity with a flow, while diffusion spreads gradients. These mechanisms are distinct: advection can move a plume downstream, whereas diffusion smooths concentration gradients. The catchment balance in this lesson is a control-volume example, not a derivation of the full momentum or transport equations.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-water-balance"],
+    assessmentIds: ["cgei-ds-assess-water-check"],
+    resourceIds: ["cgei-ds-r-era5-precipitation"],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-13",
+    kind: "lesson",
+    title: "Continuity, diffusion and advection equations",
+    order: 11,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-continuity",
+        statement:
+          "Connect continuity, diffusion and advection forms to conservation statements in a fixed control volume.",
+        action: "formulate and relate",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-continuity-diffusion-advection",
+    content: [
+      {
+        id: "cgei-ds-continuity-diffusion-advection-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "The continuity equation states that local change in a conserved quantity equals minus the divergence of its flux plus any sources or sinks: ∂C/∂t = −∇·F + S. Advection transports a quantity with the flow (flux = velocity × concentration); diffusion moves it down its gradient (Fick's law, F = −D∇C). Combined, the advection–diffusion equation underlies pollutant, heat, and moisture transport models.",
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Continuity: ∂C/∂t = −∇·F + S (conserved scalar C, flux F, source/sink S)",
+          "Fick's diffusion flux: F = −D∇C (D is diffusivity)",
+          "1-D advection–diffusion: ∂C/∂t + u ∂C/∂x = D ∂²C/∂x² + S",
+          "Pure advection translates a profile without changing its shape",
+          "Pure diffusion spreads and flattens a profile without net displacement",
+          "Explicit finite-difference schemes for advection need a Courant-type stability criterion",
+        ],
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-explanation-1",
+        kind: "prose",
+        title: "From divergence to continuity",
+        body: "Divergence (Unit 5.1.1.1) is a local point property of a flux field. The continuity equation is the physical law that uses it: if more flux diverges away from a point than converges into it, the local concentration there must fall over time when there is no source (S = 0).",
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-explanation-2",
+        kind: "prose",
+        title: "Advection versus diffusion: a diagnostic contrast",
+        body: "Under pure advection with constant wind u and no diffusion, a concentration peak translates downwind with its shape unchanged. Under pure diffusion with no wind, the same peak would instead flatten and widen symmetrically about its original location, with no net displacement of its centre of mass. Distinguishing translation from spreading in observed data is the first diagnostic step before fitting a transport model.",
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-equation-1",
+        kind: "equation",
+        title: "Continuity and 1-D advection–diffusion",
+        expression:
+          "\\frac{\\partial C}{\\partial t} = -\\nabla\\cdot\\mathbf{F} + S, \\qquad \\frac{\\partial C}{\\partial t} + u\\frac{\\partial C}{\\partial x} = D\\frac{\\partial^2 C}{\\partial x^2} + S",
+        body: "Symbols: C: Conserved scalar concentration; F: Flux vector; D: Diffusivity; u: Advecting velocity",
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: A pollutant patch centred at x = 0 at t = 0 is carried by a constant wind u = 2 m s⁻¹ with negligible diffusion and no sources. Where is the patch centre at t = 150 s, and has its shape changed?\n\nSolution: Under pure advection, the centre moves a distance u×t = 2×150 = 300 m, to x = 300 m. The profile shape is unchanged because advection alone translates without spreading.\n\nTakeaway: Translation (advection) and spreading (diffusion) are distinguishable in the data before any parameter is fitted.",
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Fitting only a diffusion coefficient to a plume that has clearly also moved downwind — correction: Fit both advection and diffusion terms, or detrend the translation first. Ignoring advection biases the fitted diffusivity.",
+        ],
+      },
+      {
+        id: "cgei-ds-continuity-diffusion-advection-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "Write the continuity equation with explicit flux divergence before adding terms",
+          "Identify translation versus spreading in an observed concentration field before fitting D or u",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-continuity"],
+    assessmentIds: ["cgei-ds-assess-continuity"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-14",
+    kind: "lesson",
+    title: "Dimensional analysis, Buckingham Pi and non-dimensional numbers",
+    order: 12,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-buckingham",
+        statement:
+          "Reduce a dimensional relationship with Buckingham Pi reasoning and interpret a non-dimensional group.",
+        action: "reduce and interpret",
+        level: "L2",
+        competencyIds: ["cgei-comp-quantitative-reasoning"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-buckingham-pi-nondim",
+    content: [
+      {
+        id: "cgei-ds-buckingham-pi-nondim-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "The Buckingham Pi theorem states that a physically meaningful equation among n variables spanning k independent dimensions can be rewritten using n − k dimensionless groups. Standard non-dimensional numbers — Reynolds (inertial vs viscous forces), Froude (inertial vs gravity forces), Péclet (advective vs diffusive transport) — let results generalise across scales when the relevant groups match, which raw size alone does not guarantee.",
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Buckingham Pi: n variables, k independent dimensions ⇒ n − k dimensionless groups",
+          "Reynolds number Re = ρUL/μ (inertial vs viscous forces); high Re favours turbulence",
+          "Froude number Fr = U/√(gL) (inertial vs gravity-wave forces); used in open-channel flow",
+          "Péclet number Pe = UL/D compares advective to diffusive transport (links to Unit 5.1.3.1)",
+          "Matched Π groups, not matched absolute size, give dynamical similarity",
+        ],
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-explanation-1",
+        kind: "prose",
+        title: "Worked Reynolds number for open-channel flow",
+        body: "A canal has flow velocity U = 0.5 m s⁻¹, hydraulic depth L = 1.2 m, water density ρ = 1000 kg m⁻³, and dynamic viscosity μ ≈ 1.0×10⁻³ Pa·s. The resulting Reynolds number is far above the roughly 2000–4000 laminar–turbulent transition range typical of pipe and channel flow, consistent with essentially all natural open-channel and river flows being turbulent.",
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-explanation-2",
+        kind: "prose",
+        title: "Why Π groups, not raw size, govern similarity",
+        body: "A 1:50 scale physical model of a spillway cannot simply match the full-scale velocity; it must reproduce the relevant dimensionless numbers (e.g. the Froude number for free-surface, gravity-driven flow) to represent the full-scale wave and hydraulic-jump behaviour correctly.",
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-equation-1",
+        kind: "equation",
+        title: "Reynolds and Froude numbers",
+        expression:
+          "Re = \\frac{\\rho U L}{\\mu}, \\qquad Fr = \\frac{U}{\\sqrt{gL}}",
+        body: "Symbols: ρ: Fluid density; U: Characteristic velocity; L: Characteristic length scale; μ: Dynamic viscosity; g: Gravitational acceleration",
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Compute Re for canal flow with U = 0.5 m s⁻¹, L = 1.2 m, ρ = 1000 kg m⁻³, μ = 1.0×10⁻³ Pa·s, and state the flow regime.\n\nSolution: Re = (1000 × 0.5 × 1.2) / 0.001 = 600 / 0.001 = 6×10⁵. Since Re ≫ 4000, the flow is turbulent.\n\nTakeaway: A single dimensionless ratio summarises the balance of forces controlling flow regime, independent of the unit system chosen.",
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Mixing unit systems (e.g. viscosity in centipoise with SI density) when forming Re — correction: Convert every quantity to a consistent unit system first. Dimensionless numbers are only dimensionless if units are consistently defined.",
+          "Assuming a scaled physical model automatically represents the field case — correction: State which Π groups were matched in the scaling. Similarity requires matched dimensionless groups, not matched absolute size.",
+        ],
+      },
+      {
+        id: "cgei-ds-buckingham-pi-nondim-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State the physical meaning of a non-dimensional number before quoting its value",
+          "Check unit consistency across all quantities before computing Re, Fr, or Pe",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-buckingham"],
+    assessmentIds: ["cgei-ds-assess-buckingham"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-unit-sheet"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-7",
+    kind: "lesson",
+    title: "Surface energy balance and thermal radiation",
+    order: 13,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-energy-balance",
+        statement:
+          "Apply a stated surface-energy sign convention and distinguish land-surface temperature from near-surface air temperature.",
+        action: "calculate and distinguish",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-energy-balance",
+    content: [
+      {
+        id: "cgei-ds-energy-balance-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "A common surface energy balance form is R_n = H + LE + G, with terms in W m⁻² and a stated sign convention. Stefan–Boltzmann E = εσT⁴ uses temperature in kelvin. Land-surface temperature is not 2 m air temperature or personal heat exposure.",
+      },
+      {
+        id: "cgei-ds-energy-balance-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "State sign conventions before interpreting H, LE, and G",
+          "σ ≈ 5.670374419×10⁻⁸ W m⁻² K⁻⁴; T in kelvin",
+          "Night sketch under stated signs: R_n=−40, G=−15, LE≈0 → H=−25 W m⁻²",
+          "LST ≠ Ta ≠ personal heat stress",
+          "Association of LST with NDVI is not causal cooling proof",
+        ],
+      },
+      {
+        id: "cgei-ds-energy-balance-explanation-1",
+        kind: "prose",
+        title: "Sign conventions",
+        body: "Different texts orient fluxes into or out of the surface. The night-time arithmetic H = R_n − LE − G only means something after signs are defined for that convention.",
+      },
+      {
+        id: "cgei-ds-energy-balance-explanation-2",
+        kind: "prose",
+        title: "Night-time balance calculation",
+        body: "Under the convention R_n = H + LE + G, let R_n = −40 W m⁻², LE = 0 W m⁻², and G = −15 W m⁻². Rearranging gives H = R_n − LE − G = −40 − 0 − (−15) = −25 W m⁻². The double negative matters. Under a different flux orientation, the written signs and interpretation must be adjusted consistently.",
+      },
+      {
+        id: "cgei-ds-energy-balance-equation-1",
+        kind: "equation",
+        title: "Surface energy balance (example form)",
+        expression: "R_n = H + LE + G",
+        body: "Symbols: R_n: Net radiation (W m⁻²); H: Sensible heat flux (W m⁻²); LE: Latent heat flux (W m⁻²); G: Ground heat flux (W m⁻²)",
+      },
+      {
+        id: "cgei-ds-energy-balance-equation-2",
+        kind: "equation",
+        title: "Stefan–Boltzmann",
+        expression: "E = \\varepsilon\\sigma T^4",
+        body: "Symbols: E: Emitted flux density (W m⁻²); ε: Emissivity; σ: Stefan–Boltzmann constant; T: Temperature (K)",
+      },
+      {
+        id: "cgei-ds-energy-balance-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Using R_n = H + LE + G, calculate H when R_n = −40, LE = 0 and G = −15 W m⁻².\n\nSolution: H = R_n − LE − G = −40 − 0 − (−15) = −25 W m⁻².\n\nTakeaway: Write the balance and sign convention before substituting numbers; do not discard a negative sign.",
+      },
+      {
+        id: "cgei-ds-energy-balance-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Equating pixel LST–NDVI correlation with causal urban cooling — correction: Report association unless a causal design supports more. Moisture, irrigation, season, and materials also drive both variables.",
+        ],
+      },
+      {
+        id: "cgei-ds-energy-balance-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "Check temperature units before radiation calculations",
+          "Separate LST from air temperature in captions",
+        ],
+      },
+      {
+        id: "cgei-ds-51-7-energy-example",
+        kind: "worked-example",
+        title: "Worked example: close a surface energy budget",
+        body: "Adopt this convention: net radiation Rn is positive into the surface; sensible heat H, latent heat LE, ground heat G and storage change ΔQ are positive away from the surface. The balance residual is ε = Rn − H − LE − G − ΔQ.\n\nFor Rn = 500, H = 100, LE = 250, G = 50 and ΔQ = 40 W m⁻², ε = 500 − 100 − 250 − 50 − 40 = 60 W m⁻². A non-zero residual may reflect omitted terms, non-synchronous measurements, sign mistakes or uncertainty. If the sign convention changes, the equation must change consistently too.",
+      },
+      {
+        id: "cgei-ds-51-7-sign-checklist",
+        kind: "checklist",
+        title: "Before interpreting an energy-balance equation",
+        items: [
+          "Write the positive direction beside each flux before substituting numbers.",
+          "Keep every flux in W m⁻² and align averaging periods.",
+          "Distinguish land-surface temperature from near-surface air temperature; they are different variables.",
+          "Do not interpret a closure residual as a measured physical flux without further evidence.",
+        ],
+      },
+      {
+        id: "cgei-ds-51-7-heat-transfer",
+        kind: "prose",
+        title:
+          "Conduction, convection and radiation are different transfer mechanisms",
+        body: "Conduction transfers energy through molecular interactions within matter; convection transports energy with moving fluid; radiation transfers energy through electromagnetic emission and absorption. Surface energy budgets combine fluxes from several mechanisms, but a residual does not identify which process is missing. State sign conventions, measurement heights and averaging periods before comparing terms.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-energy-signs"],
+    assessmentIds: ["cgei-ds-assess-energy-check"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-15",
+    kind: "lesson",
+    title: "Waves, conduction and convection in heat transfer",
+    order: 14,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-heat-transfer",
+        statement:
+          "Distinguish conduction, convection and radiative transfer pathways in a surface energy context.",
+        action: "distinguish and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-environmental-accounting"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-waves-conduction-convection",
+    content: [
+      {
+        id: "cgei-ds-waves-conduction-convection-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Heat moves by conduction (diffusion through a stationary medium, Fourier's law), convection (transport by fluid motion, often parameterised with a bulk transfer coefficient), and radiation (Stefan–Boltzmann, covered already). Waves — surface gravity waves, Rossby waves, or simple harmonic temperature cycles — are described by amplitude, wavelength or period, and phase speed.",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "Fourier conduction: F = −k dT/dx (k = thermal conductivity, W m⁻¹ K⁻¹)",
+          "Convective heat flux approximation: H = h(T_s − T_a), h a bulk transfer coefficient (W m⁻² K⁻¹)",
+          "Nusselt number Nu = hL/k compares convective to conductive heat transfer (non-dimensional, Unit 5.1.3.2)",
+          "A simple travelling wave: y(x,t) = A sin(kx − ωt); phase speed c = ω/k = λ/T_period",
+          "Annual or diurnal temperature cycles are often modelled as a sinusoid plus trend (links to Unit 5.7)",
+        ],
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-explanation-1",
+        kind: "prose",
+        title: "Worked conduction example",
+        body: "For dry sandy soil with thermal conductivity k ≈ 0.3 W m⁻¹ K⁻¹ and a near-surface temperature gradient of about 200 K m⁻¹ (20 K change over 0.1 m depth), the conductive flux magnitude F = k × dT/dx = 0.3 × 200 = 60 W m⁻² — comparable in order of magnitude to typical daytime ground heat flux values used in the surface energy balance of Unit 5.1.3.3.",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-explanation-2",
+        kind: "prose",
+        title: "Worked convective example",
+        body: "With a bulk transfer coefficient h = 15 W m⁻² K⁻¹, surface temperature T_s = 35 °C, and air temperature T_a = 30 °C, H = h(T_s − T_a) = 15 × 5 = 75 W m⁻², a sensible heat flux of plausible daytime magnitude.",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-explanation-3",
+        kind: "prose",
+        title: "A simple travelling wave",
+        body: "For y(x,t) = A sin(kx − ωt) with wavenumber k = 2π/λ and angular frequency ω = 2π/T_period, the phase speed is c = ω/k = λ/T_period. A disturbance of wavelength 500 km and period 5 days has phase speed about 500 km / 5 days ≈ 100 km day⁻¹ ≈ 1.16 m s⁻¹ — an illustrative calculation, not a named physical wave mode.",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-equation-1",
+        kind: "equation",
+        title: "Fourier's law of conduction",
+        expression: "F = -k\\frac{dT}{dx}",
+        body: "Symbols: k: Thermal conductivity (W m⁻¹ K⁻¹); dT/dx: Temperature gradient",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-equation-2",
+        kind: "equation",
+        title: "Bulk convective flux and wave phase speed",
+        expression:
+          "H = h(T_s-T_a), \\qquad c = \\frac{\\omega}{k} = \\frac{\\lambda}{T_{period}}",
+        body: "Symbols: h: Bulk heat transfer coefficient (W m⁻² K⁻¹); λ, T_period: Wavelength and period",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: A soil layer has k = 0.3 W m⁻¹ K⁻¹ and a near-surface temperature gradient of 200 K m⁻¹ at midday. Estimate the conductive heat flux magnitude.\n\nSolution: F = k × dT/dx = 0.3 × 200 = 60 W m⁻².\n\nTakeaway: Order-of-magnitude conduction and convection estimates can be cross-checked against typical surface energy balance terms (tens to a few hundred W m⁻²).",
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Dropping the minus sign in Fourier's law and mis-stating flux direction — correction: Keep the sign: flux runs down the temperature gradient. Heat flows from hot to cold; the sign encodes that direction.",
+          "Quoting a bulk transfer coefficient without its reference height or wind speed — correction: State the conditions the coefficient was calibrated under. h is empirical and condition-dependent, not a universal constant.",
+        ],
+      },
+      {
+        id: "cgei-ds-waves-conduction-convection-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State units for k (W m⁻¹ K⁻¹) and h (W m⁻² K⁻¹) explicitly",
+          "Cross-check a computed flux against plausible energy-balance magnitudes",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-heat-transfer"],
+    assessmentIds: ["cgei-ds-assess-heat-transfer"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-balance-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-8",
+    kind: "lesson",
+    title: "Probability, uncertainty and dependent observations",
+    order: 15,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-uncertainty",
+        statement:
+          "Calculate a conventional standard error and identify when dependence undermines an independent-sample interpretation.",
+        action: "calculate and diagnose",
+        level: "L2",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-probability-dependence",
+    content: [
+      {
+        id: "cgei-ds-probability-dependence-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "Expectation, variance, and conditional probability support measurement-error reasoning. Working distributions include Normal, Poisson, Gamma, and empirical. Bayes updates priors with likelihoods. SE = σ/√n assumes independent observations; autocorrelation shrinks effective sample size.",
+      },
+      {
+        id: "cgei-ds-probability-dependence-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "P(A|B) = P(B|A)P(A)/P(B)",
+          "Low base rate can keep posterior modest after a positive alarm",
+          "Normal / Poisson / Gamma / empirical — match distribution to data type",
+          "i.i.d. SE is often invalid for daily climate series and spatial pixels",
+          "Correlation is not causation",
+        ],
+      },
+      {
+        id: "cgei-ds-probability-dependence-explanation-1",
+        kind: "prose",
+        title: "Base-rate calculation",
+        body: "If P(alarm|pollution)=0.9, P(alarm|clean)=0.1, and prior P(pollution)=0.05, then P(alarm)=0.14 and P(pollution|alarm)≈0.32.",
+      },
+      {
+        id: "cgei-ds-probability-dependence-explanation-2",
+        kind: "prose",
+        title: "Dependence",
+        body: "Reporting σ/√n for one season of daily temperatures as if days were independent overstates precision. Spatial pixels are not independent samples either (Units 5.6–5.7).",
+      },
+      {
+        id: "cgei-ds-probability-dependence-explanation-3",
+        kind: "prose",
+        title: "Choose a distribution from the data-generating process",
+        body: "A Normal model is often a working approximation for continuous errors around a mean; Poisson models counts over a defined exposure when its assumptions are plausible; Gamma models positive continuous quantities such as some waiting times or skewed flux magnitudes. These are starting points, not automatic labels: inspect zeros, over-dispersion, tails, dependence and the sampling design. An empirical distribution may be safer when a simple parametric form is not justified. The next topic develops why the Normal approximation arises so often, and when it does not.",
+      },
+      {
+        id: "cgei-ds-probability-dependence-explanation-4",
+        kind: "prose",
+        title: "Standard-error calculation and its assumption",
+        body: "If independent observations have standard deviation σ = 4 units and n = 16, the conventional standard error is 4/√16 = 1 unit. That calculation relies on the independent-sample model. With serially correlated daily observations or spatially clustered pixels, the effective information can be much smaller than n suggests.",
+      },
+      {
+        id: "cgei-ds-probability-dependence-equation-1",
+        kind: "equation",
+        title: "Bayes’ rule",
+        expression: "P(A\\mid B) = \\frac{P(B\\mid A)\\,P(A)}{P(B)}",
+        body: "Symbols: A: Event of interest; B: Evidence",
+      },
+      {
+        id: "cgei-ds-probability-dependence-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: A set of 16 independent measurements has sample standard deviation 4 units. Calculate the conventional standard error of the mean.\n\nSolution: SE = s/√n = 4/√16 = 1 unit.\n\nTakeaway: The arithmetic is straightforward; whether the independent-observation assumption is defensible is a separate scientific question.",
+      },
+      {
+        id: "cgei-ds-probability-dependence-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Treating n pixels as independent in LST~NDVI regression — correction: Use spatial dependence handling or blocked validation. Nearby pixels share weather and land structure.",
+        ],
+      },
+      {
+        id: "cgei-ds-probability-dependence-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "State when a standard error assumes independence",
+          "Separate association from causal language",
+        ],
+      },
+      {
+        id: "cgei-ds-51-8-uncertainty-example",
+        kind: "worked-example",
+        title: "Worked example: uncertainty in a heat-exceedance proportion",
+        body: "Suppose 8 of 20 observed days exceed a defined heat threshold. The estimated exceedance proportion is p̂ = 8/20 = 0.40. Under a simple independent Bernoulli approximation, SE(p̂) = √[p̂(1 − p̂)/n] = √[0.4 × 0.6/20] ≈ 0.11.\n\nThis rough standard error is large relative to the estimate. Consecutive weather days are dependent, so the independent-observation formula may understate uncertainty. State the sampling unit, threshold, valid-day count and dependence limitation.",
+      },
+      {
+        id: "cgei-ds-51-8-distribution-choice",
+        kind: "key-points",
+        title: "Match the probability model to the data-generating question",
+        items: [
+          "A Bernoulli model describes one binary event; a binomial model describes the number of events across a fixed number of trials under its assumptions.",
+          "A normal model can be useful for approximately symmetric continuous errors, but inspect tails and dependence rather than assuming normality by habit.",
+          "A Poisson model can describe event counts per interval under specific rate and independence assumptions; clustered extremes may violate them.",
+          "A standard error describes uncertainty in an estimator, not the spread of raw observations or the probability that a fixed parameter is true.",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-uncertainty-audit"],
+    assessmentIds: ["cgei-ds-assess-probability-check"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-uncertainty-note"],
+  },
+  {
+    id: "cgei-ds-lesson-5-1-16",
+    kind: "lesson",
+    title:
+      "Law of large numbers, central limit theorem, and common distributions",
+    order: 16,
+    readiness: "review",
+    level: "L2",
+    estimatedMinutes: 30,
+    objectives: [
+      {
+        id: "cgei-ds-o-clt-lln",
+        statement:
+          "State when the law of large numbers and central limit theorem apply and name common distribution families used as environmental models.",
+        action: "state and apply",
+        level: "L2",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    sourceTopicId: "cgei-ds-clt-lln-distributions",
+    content: [
+      {
+        id: "cgei-ds-clt-lln-distributions-definition",
+        kind: "prose",
+        title: "Core idea",
+        body: "The law of large numbers (LLN) says a sample mean converges to the population mean as n grows. The central limit theorem (CLT) says a standardised sample mean approaches a Normal distribution as n grows, provided the underlying distribution has finite variance and dependence is weak. Both can fail or converge very slowly under heavy tails or strong dependence. Many environmental extremes instead follow Poisson, exponential, or extreme-value distributions, each tied to a distinct physical generating process.",
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-key-points",
+        kind: "key-points",
+        title: "Key points",
+        items: [
+          "LLN: sample mean → population mean as n → ∞ (for finite-mean distributions)",
+          "CLT: standardised sample mean → Normal as n → ∞, for finite-variance, weakly dependent data",
+          "Heavy-tailed distributions can have very large or infinite variance, slowing or breaking CLT convergence",
+          "Normal often arises physically as the sum of many small independent additive effects (CLT in action)",
+          "Poisson: counts of rare, independent events at a constant rate over fixed exposure",
+          "Exponential: waiting time between independent Poisson events; memoryless",
+          "Generalised extreme value (GEV) distributions arise as limits of block maxima (e.g. annual maximum daily rainfall), not from the CLT",
+        ],
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-explanation-1",
+        kind: "prose",
+        title: "A Poisson physical origin",
+        body: "If lightning strikes occur independently at a constant average rate λ per year in a grid cell, the yearly count follows approximately a Poisson(λ) distribution — the discrete-count counterpart of a constant-rate, memoryless process whose waiting times would be Exponential.",
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-explanation-2",
+        kind: "prose",
+        title: "Why the CLT does not rescue extremes",
+        body: "Averaging many days of rainfall converges, by LLN and CLT, toward a roughly Normal distribution for the sample mean. The annual maximum daily value is a different quantity altogether, governed by extreme-value theory (a distinct limiting law for block maxima), not by the CLT — a common confusion in environmental statistics.",
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-equation-1",
+        kind: "equation",
+        title: "Poisson probability mass function and CLT standardisation",
+        expression:
+          "P(X=k) = \\frac{e^{-\\lambda}\\lambda^k}{k!}, \\qquad \\frac{\\bar X - \\mu}{\\sigma/\\sqrt{n}} \\xrightarrow{d} N(0,1)",
+        body: "Symbols: λ: Mean rate (events per unit exposure); X̄: Sample mean of n observations",
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-worked-example-1",
+        kind: "worked-example",
+        title: "Worked example 1",
+        body: "Problem: Lightning strikes in a grid cell average λ = 3 per year and are modelled as Poisson. Calculate the probability of exactly 5 strikes in a given year.\n\nSolution: P(X=5) = e⁻³ × 3⁵/5! = 0.0498 × 243/120 = 0.0498 × 2.025 ≈ 0.1008 (about 10.1%).\n\nTakeaway: A physical count process with a constant, independent rate naturally produces a Poisson distribution; matching distribution to generating process matters more than defaulting to Normal.",
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-common-mistakes",
+        kind: "callout",
+        title: "Common mistakes",
+        tone: "warning",
+        items: [
+          "Using a Normal approximation for small-count Poisson data (e.g. rare wildfire counts per year) — correction: Use the Poisson (or negative binomial if overdispersed) model directly. A Normal approximation can assign nontrivial probability to impossible negative counts.",
+          "Applying CLT reasoning to annual maxima instead of extreme-value theory — correction: Use a block-maxima (GEV) or threshold-exceedance framework for extremes. The CLT governs sums/means, not maxima; a different limiting theorem applies to maxima.",
+        ],
+      },
+      {
+        id: "cgei-ds-clt-lln-distributions-review-points",
+        kind: "checklist",
+        title: "Check your understanding",
+        items: [
+          "Match the distribution to the physical generating process (constant-rate process ⇒ Poisson/exponential; block maxima ⇒ extreme value)",
+          "State the conditions under which the CLT applies (finite variance, weak dependence) before invoking it",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-clt-lln"],
+    assessmentIds: ["cgei-ds-assess-clt-lln"],
+    resourceIds: [],
+    deliverableIds: ["cgei-ds-d-uncertainty-note"],
+  },
+  {
+    id: "cgei-ds-lesson-5-2-1",
+    kind: "lesson",
+    title: "Scientific Python structure, functions and defensive checks",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-52-structure",
+        statement:
+          "Refactor a notebook calculation into a documented function and importable module with explicit inputs, outputs, and checks.",
+        action: "refactor and test",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-52-1-structures",
+        kind: "code",
+        title: "Choose Python containers and use a comprehension",
+        language: "python",
+        code: 'station = {"id": "S17", "elevation_m": 1450.0}\nvalid_months = (1, 2, 3, 4, 5, 6)\nflags = {"cloud", "shadow", "saturation"}\nvalid = [m for m in range(1, 13) if m not in {7, 8, 9}]\nassert station["elevation_m"] > 0 and len(flags) == 3',
+        body: "Use lists for ordered mutable sequences, tuples for fixed records, dictionaries for keyed lookup, and sets for uniqueness/membership. Comprehensions are concise transformations, not a reason to hide complex logic. Choose a structure that makes the data contract clear.",
+      },
+      {
+        id: "cgei-ds-52-1-core",
+        kind: "prose",
+        title: "Why structure is part of scientific validity",
+        body: "A result is only as trustworthy as the path that produced it. Scientific code should make inputs, transformations, units, assumptions, and outputs inspectable. Keep exploratory questions in notebooks, but move repeated or consequential transformations into importable functions and modules. A notebook should run from a clean kernel in order, without relying on variables left behind by earlier cells.",
+      },
+      {
+        id: "cgei-ds-52-1-principles",
+        kind: "key-points",
+        title: "A practical minimum standard",
+        items: [
+          "Use names that encode meaning and units, such as t2m_c or precip_mm_day.",
+          "Keep file I/O separate from transformation and analysis logic.",
+          "Raise an informative error when assumptions fail; do not silently continue with an empty mask.",
+          "Use docstrings to state units, accepted shapes, missing-value behaviour, and return values.",
+          "Keep paths configurable; never embed a personal machine path in reusable code.",
+          'Use if __name__ == "__main__": for script entry points.',
+        ],
+      },
+      {
+        id: "cgei-ds-52-1-code",
+        kind: "code",
+        title: "A small tested scientific function",
+        language: "python",
+        code: 'def celsius_to_kelvin(temp_c: float) -> float:\n    """Convert Celsius to kelvin; input and output are scalar temperatures."""\n    if temp_c < -273.15:\n        raise ValueError("Temperature is below absolute zero")\n    return temp_c + 273.15\n\n\ndef main() -> None:\n    assert abs(celsius_to_kelvin(0.0) - 273.15) < 1e-10\n    assert abs(celsius_to_kelvin(25.0) - 298.15) < 1e-10\n    print("temperature conversion checks passed")\n\n\nif __name__ == "__main__":\n    main()',
+      },
+      {
+        id: "cgei-ds-52-1-example",
+        kind: "worked-example",
+        title: "Worked example: turn a notebook cell into a reusable function",
+        body: "Problem: a notebook repeatedly converts a temperature column and one copy uses 273.15 while another uses a rounded constant.\n\nSolution: define one named conversion function, state the unit in the parameter name/docstring, and test known values plus an impossible input. Import that function from the analysis notebook or module.\n\nVerification: 0 °C → 273.15 K; 25 °C → 298.15 K. Both checks should pass within a stated floating-point tolerance.\n\nTakeaway: centralising a transformation prevents duplicated logic from drifting.",
+      },
+      {
+        id: "cgei-ds-52-1-mistakes",
+        kind: "callout",
+        title: "Common failure modes",
+        tone: "warning",
+        items: [
+          "A notebook only works after running cells out of order.",
+          "A function silently changes units or fills missing values.",
+          "A script runs automatically when imported because its work is not guarded.",
+          "A hard-coded local path makes the analysis impossible to reproduce elsewhere.",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-52-functions"],
+    assessmentIds: ["cgei-ds-assess-52-structure"],
+    resourceIds: ["cgei-ds-r-52-python-venv", "cgei-ds-r-52-good-practices"],
+    deliverableIds: ["cgei-ds-d-52-module"],
+  },
+  {
+    id: "cgei-ds-lesson-5-2-2",
+    kind: "lesson",
+    title: "NumPy arrays, broadcasting and missing values",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-52-arrays",
+        statement:
+          "Use NumPy array shapes, broadcasting, NaN-safe summaries, and seeded randomness without silent shape or missing-value errors.",
+        action: "implement and diagnose",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
           "cgei-comp-reproducibility",
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-24-1-1",
-        "kind": "prose",
-        "title": "What a station actually measures",
-        "body": "An in-situ meteorological station records high-frequency values at a point: typically screen-height air temperature, precipitation, humidity, wind and pressure, with siting and instrument rules that determine representativeness. Spatial support is local; a station does not observe a 0.25° grid cell. Major archives (GHCN-Daily, ISD, GSOD, and national holdings such as PMD) differ in variables, completeness, time stamps and metadata quality. Always record station ID, elevation, instrument height, time zone and observing practice before analysis."
+        id: "cgei-ds-52-2-core",
+        kind: "prose",
+        title: "Shapes describe meaning, not just storage",
+        body: "An array shape should match the scientific dimensions represented by the data. A vector with shape (time,) is not automatically aligned with a grid shaped (latitude, longitude). NumPy broadcasting compares dimensions from the right; dimensions are compatible when they are equal or one is 1. Always inspect shapes before combining arrays.",
       },
       {
-        "id": "cgei-cl-24-1-homo",
-        "kind": "prose",
-        "title": "Homogenisation need (concept only)",
-        "body": "Station moves, instrument changes, screen replacements and land-use change around the site introduce artificial jumps and trends. Homogenisation methods (e.g. SNHT, Pettitt, relative methods against neighbours) attempt to detect and adjust such breaks. This unit requires you to know why homogenisation exists and to flag unadjusted series when interpreting long trends — it does not implement break-detection software."
+        id: "cgei-ds-52-2-code",
+        kind: "code",
+        title: "Broadcast a time offset over a small spatial grid",
+        language: "python",
+        code: 'import numpy as np\n\nbaseline_c = np.array([[30.0, 31.0], [32.0, 33.0]])  # (lat, lon)\ntime_offset_c = np.array([0.0, 1.0, 2.0])[:, None, None]  # (time, 1, 1)\nfield = baseline_c[None, :, :] + time_offset_c\nassert field.shape == (3, 2, 2)\nprint("baseline:", baseline_c.shape)\nprint("offset:", time_offset_c.shape)\nprint("result:", field.shape)\n\nvalues = np.array([30.0, np.nan, 32.0])\nprint("valid count:", np.isfinite(values).sum())\nprint("NaN-safe mean:", np.nanmean(values))  # 31.0',
       },
       {
-        "id": "cgei-cl-24-1-lab",
-        "kind": "worked-example",
-        "title": "Worked example: synthetic station QC",
-        "body": "On a synthetic daily Tmax series, teaching checks flag: range violations (e.g. 65 °C, 80 °C), implausible steps between consecutive days, isolated spikes, and long persistence runs that suggest stuck sensors. Missing values are excluded from means and must never be replaced by zero (zero is a valid physical value for precipitation, not for temperature). Fixture unit_2_4_data_products_check.py locks these behaviours."
+        id: "cgei-ds-52-2-scale-helper",
+        kind: "code",
+        title: "Keep product scale factors explicit",
+        language: "python",
+        code: 'import numpy as np\n\ndef decode_st(raw: np.ndarray, scale: float, offset: float) -> np.ndarray:\n    """Decode stored values using scale/offset from the current product guide."""\n    return raw.astype(np.float64) * scale + offset\n\n# Supply scale and offset from the exact sensor/product documentation.\n# Mask fill values and QA failures before calculating summaries.',
       },
       {
-        "id": "cgei-cl-24-1-3",
-        "kind": "key-points",
-        "title": "QC rules of thumb",
-        "items": [
-          "Range, step, spike, persistence, internal consistency (e.g. Tmin ≤ Tmax).",
-          "Missing ≠ 0; treat precipitation zeros as real unless flagged.",
-          "Metadata: station, height, instrument, period, time zone, observing rules.",
-          "Document every exclusion; silent dropping of extremes biases trend and EVT work."
-        ]
-      }
+        id: "cgei-ds-52-2-points",
+        kind: "key-points",
+        title: "Rules that prevent silent data damage",
+        items: [
+          "Print and assert expected shapes before combining time, band, latitude and longitude axes.",
+          "np.mean propagates NaN; np.nanmean ignores NaN but does not repair systematic missingness.",
+          "Mask product fill values and QA failures before summaries; −9999 is not a plausible temperature.",
+          "Use np.random.default_rng(seed=42) and record the seed when randomness affects results.",
+          "Vectorise repeated array calculations where practical, but check memory use for large raster cubes.",
+          "Avoid materialising huge broadcasted arrays unnecessarily; vectorisation can still consume excessive memory.",
+        ],
+      },
+      {
+        id: "cgei-ds-52-2-example",
+        kind: "worked-example",
+        title: "Diagnose a shape mismatch",
+        body: "Problem: a time vector with shape (3,) is added to a 2 × 2 spatial grid.\n\nWhy it fails: the trailing dimensions 3 and 2 are neither equal nor 1, so broadcasting cannot align them.\n\nCorrection: decide the intended axis semantics, reshape the time vector to (3, 1, 1), and the grid to (1, 2, 2). The result has shape (3, 2, 2), with time as the first axis.\n\nCheck: confirm the shape and inspect one expected cell; do not treat a successful operation as proof that axes are scientifically aligned.",
+      },
+      {
+        id: "cgei-ds-52-2-dtype",
+        kind: "prose",
+        title: "dtypes and numerical precision",
+        body: "An ndarray has a dtype (e.g. float64, int32, bool). Mixing integer arrays with division can truncate; float32 can lose precision relative to float64 for cumulative sums. Cast deliberately when decoding scaled integers from remote-sensing products. Document the dtype you intend for storage versus computation.",
+      },
+      {
+        id: "cgei-ds-52-2-mask",
+        kind: "prose",
+        title: "Boolean masks and fancy indexing",
+        body: "Boolean masks select elements where a condition is true (e.g. valid & ~cloud). Fancy indexing uses integer arrays of positions. Both can return copies rather than views—do not assume in-place updates. Prefer explicit masks for QA flags over silent sentinel arithmetic.",
+      },
+      {
+        id: "cgei-ds-52-2-rng",
+        kind: "code",
+        title: "Seeded RNG for reproducible Monte Carlo draws",
+        language: "python",
+        code: "import numpy as np\nrng = np.random.default_rng(seed=42)\na = rng.normal(0.0, 1.0, size=5)\nrng2 = np.random.default_rng(seed=42)\nb = rng2.normal(0.0, 1.0, size=5)\nassert np.allclose(a, b)  # same seed => same sequence",
+        body: "Use Generator APIs with an explicit seed for teaching demos and tests. Reseed deliberately; do not rely on global np.random state across modules.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-24-qc"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-24-qc"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-52-numpy"],
+    assessmentIds: ["cgei-ds-assess-52-arrays"],
+    resourceIds: ["cgei-ds-r-52-numpy-broadcast"],
+    deliverableIds: ["cgei-ds-d-52-module"],
   },
   {
-    "id": "cgei-cl-lesson-2-4-2",
-    "kind": "lesson",
-    "title": "Gridded products and reanalysis",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-2-3",
+    kind: "lesson",
+    title: "Pandas time zones, daily summaries and safe joins",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
       {
-        "id": "cgei-cl-o-24-products",
-        "statement": "Distinguish in-situ observations, gridded observational products and reanalysis estimates; explain why a grid-cell value is not a station observation; and use cross-product spread as an uncertainty signal.",
-        "action": "distinguish and explain",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      }
+        id: "cgei-ds-o-52-time",
+        statement:
+          "Convert UTC observations to Pakistan local time before daily aggregation and validate joins and row counts.",
+        action: "transform and verify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-environmental-accounting",
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-24-2-1",
-        "kind": "prose",
-        "title": "Grids are constructed estimates",
-        "body": "Gridded temperature and precipitation products (CRU TS, Berkeley Earth, CHIRPS, IMERG, GPCC, MSWEP, Aphrodite, and others) combine gauges and/or satellites through interpolation or merging. Each cell is a product estimate with an error structure, not a dense network of micro-stations. Satellite precipitation and temperature retrievals depend on algorithms, orbits and calibration eras; version changes can shift climatologies."
+        id: "cgei-ds-52-3-reshape",
+        kind: "worked-example",
+        title: "Reshape station observations into a tidy analysis table",
+        body: "Tidy data uses one observational unit per row, one variable per column, and one value per cell. Use melt to move repeated month columns into a month/value pair; use pivot only when the key combination uniquely identifies a cell, and check duplicates before reshaping. A pivot failure often reveals a real data-integrity problem rather than a formatting nuisance.",
       },
       {
-        "id": "cgei-cl-24-2-2",
-        "kind": "prose",
-        "title": "Reanalysis idea",
-        "body": "Reanalysis systems (ERA5, ERA5-Land, MERRA-2, JRA-3Q, and successors) assimilate observations into a numerical model to produce a physically coherent four-dimensional state estimate. Grid values remain estimates: observational constraint is stronger for some variables and eras than others. Spread across independent reanalyses is a practical uncertainty signal. Keep analysis code product-agnostic so that ERA6 or alternative land products can be swapped without rewriting science logic."
+        id: "cgei-ds-52-3-reshape-code",
+        kind: "code",
+        title: "Melt and pivot with explicit keys",
+        language: "python",
+        code: 'long = wide.melt(id_vars=["station_id", "year"], var_name="month", value_name="rain_mm")\nassert not long.duplicated(["station_id", "year", "month"]).any()\nwide_again = long.pivot(index=["station_id", "year"], columns="month", values="rain_mm")\nassert len(wide_again) == wide[["station_id", "year"]].drop_duplicates().shape[0]',
+        body: "Adapt column names to the real table and validate key uniqueness before reshaping. stack/unstack provide related index-based operations; always verify row counts and the observational unit after a transformation.",
       },
       {
-        "id": "cgei-cl-24-2-lab",
-        "kind": "worked-example",
-        "title": "Worked example: point versus cell mean",
-        "body": "A synthetic 2×2 grid mean of 21.5 °C need not equal a station reading of 25 °C inside the same cell — spatial support differs. Fixture unit_2_4_data_products_check.py asserts the inequality. Consequence: validating a reanalysis cell with a single urban station, or vice versa, requires an explicit representativeness argument."
+        id: "cgei-ds-52-3-core",
+        kind: "prose",
+        title: "The day belongs to the study question",
+        body: "UTC is a stable storage and exchange reference. Pakistan Standard Time (Asia/Karachi) is UTC+05:00 and currently has no daylight-saving transition. If the question is a local calendar day—such as daily maximum temperature or a rainfall day—convert timestamps to the intended local timezone before grouping by date. Grouping by UTC date can assign evening UTC observations to the wrong local day.",
       },
       {
-        "id": "cgei-cl-24-2-key",
-        "kind": "key-points",
-        "title": "Product-class distinctions",
-        "items": [
-          "In-situ: high temporal fidelity, limited spatial support.",
-          "Gridded observational: interpolated/merged estimates; method-dependent.",
-          "Reanalysis: model + assimilation; physically coherent but not pure observation.",
-          "Never label a grid cell as “the Multan station value” without support discussion."
-        ]
-      }
+        id: "cgei-ds-52-3-code",
+        kind: "code",
+        title: "Convert UTC timestamps before daily aggregation",
+        language: "python",
+        code: 'import pandas as pd\n\ndf = pd.read_csv("station_hourly.csv", parse_dates=["time_utc"])\ndf["time_utc"] = pd.to_datetime(df["time_utc"], utc=True)\ndf["time_pkt"] = df["time_utc"].dt.tz_convert("Asia/Karachi")\ndf["local_date"] = df["time_pkt"].dt.date\ndaily_max = df.groupby("local_date")["t2m_c"].agg(["max", "count"])\ndaily_max = daily_max.rename(columns={"max": "tmax_c", "count": "n_valid_hours"})\nprint(daily_max.head())\n\n# 2026-06-01 19:00 UTC becomes 2026-06-02 00:00 PKT.',
+      },
+      {
+        id: "cgei-ds-52-3-points",
+        kind: "key-points",
+        title: "Before trusting a join or resample",
+        items: [
+          "State the observational unit: station-hour, station-day, pixel-date, or something else.",
+          "Report valid-observation counts alongside daily summaries; a maximum from two hours is not equivalent to one from 24.",
+          "Check duplicates and missing timestamps before resampling.",
+          "Use stable station or feature IDs for joins; floating-point coordinate joins are fragile.",
+          "Compare row counts before and after merges and assert expected key uniqueness.",
+          "Use .loc for assignments and make missing-value rules explicit.",
+        ],
+      },
+      {
+        id: "cgei-ds-52-3-example",
+        kind: "worked-example",
+        title: "Why local-date conversion changes the result",
+        body: "Problem: an observation at 19:00 UTC is labelled 1 June by its UTC date.\n\nCalculation: add five hours for PKT: 19:00 + 05:00 = 24:00, i.e. 00:00 on 2 June.\n\nInterpretation: if the target is a Pakistan local daily maximum, that observation belongs to 2 June. The same issue affects rainfall-day totals and exceedance counts.\n\nValidation: test at least one timestamp around a UTC/local midnight boundary.",
+      },
+      {
+        id: "cgei-ds-52-3-loc",
+        kind: "prose",
+        title: "Indexing, filtering and assignment",
+        body: "Prefer label-based .loc for readable row/column selection and explicit assignment. Boolean filters return subsets; chain assignment can fail silently—assign into a clear copy or use .loc. Always check row counts before and after filters when building analysis tables.",
+      },
+      {
+        id: "cgei-ds-52-3-cat",
+        kind: "prose",
+        title: "Categoricals and missing-data patterns",
+        body: "Categorical dtype stores repeated labels efficiently and preserves ordered levels (e.g. land-cover classes). Missingness patterns matter: random gaps differ from systematic sensor or QA gaps. Summarise valid-N alongside means; never treat fill values as real measurements.",
+      },
+      {
+        id: "cgei-ds-52-3-resample",
+        kind: "prose",
+        title: "Resampling time series",
+        body: "resample aggregates a time-indexed series to a new frequency (daily max, monthly mean) with an explicit aggregation. Choose the closed/label side deliberately for climate days. Resampling is not interpolation—state when you fill gaps versus leaving NA.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-24-products"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-24-products"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-52-pkt-daily"],
+    assessmentIds: ["cgei-ds-assess-52-time"],
+    resourceIds: ["cgei-ds-r-52-pandas-time"],
+    deliverableIds: ["cgei-ds-d-52-daily-package"],
   },
   {
-    "id": "cgei-cl-lesson-2-4-3",
-    "kind": "lesson",
-    "title": "Choosing products and representativeness",
-    "order": 3,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 45,
-    "objectives": [
+    id: "cgei-ds-lesson-5-2-4",
+    kind: "lesson",
+    title: "Environments, formats and data provenance",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
       {
-        "id": "cgei-cl-o-24-select",
-        "statement": "Select a climate data product using a fitness-for-purpose checklist (variable, resolution, record length, licence, known limitations, spatial support) and document provenance before comparison.",
-        "action": "select and justify",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-52-environment",
+        statement:
+          "Create a reproducible project environment, data dictionary, and provenance manifest for an environmental data product.",
+        action: "package and document",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-24-3-1",
-        "kind": "checklist",
-        "title": "Fitness-for-purpose checklist",
-        "items": [
-          "Variable and units",
-          "Spatial and temporal resolution and coverage",
-          "Record length, completeness and latency",
-          "Licence, citation and redistribution rules",
-          "Known biases and any regional validation literature",
-          "Missing-data pattern and how you will treat it",
-          "Whether the scientific question needs a point, a grid cell, a catchment mean or a canopy-scale quantity"
-        ]
+        id: "cgei-ds-52-4-units-time-regex",
+        kind: "code",
+        title: "Validate units, localise timestamps and parse filenames",
+        language: "python",
+        code: "from zoneinfo import ZoneInfo\nfrom datetime import datetime\nimport re\n\nlocal = datetime(2026, 6, 1, 19, 0, tzinfo=ZoneInfo('UTC')).astimezone(ZoneInfo('Asia/Karachi'))\npattern = re.compile(r'(?P<sensor>Landsat\\\\d+)_(?P<date>\\\\d{8})_(?P<band>B\\\\d+)\\\\.tif')\nmatch = pattern.fullmatch('Landsat8_20260615_B4.tif')\nassert local.date().isoformat() == '2026-06-02'\nassert match and match.group('date') == '20260615'",
+        body: "For physical quantities, use a units-aware library such as Pint when conversions and dimensional consistency need to be enforced. Use zoneinfo for timezone-aware conversion, and regular expressions only when the filename/text grammar is explicit and tested. The timezone and regex checks above are runnable standard-library examples; install and validate Pint separately when using quantity objects.",
       },
       {
-        "id": "cgei-cl-24-3-2",
-        "kind": "prose",
-        "title": "Agreement is not validation",
-        "body": "Two products can agree and both be biased relative to the truth. Disagreement can reflect different methods, periods, or spatial support rather than a simple right/wrong label. Satellite climate data records are sensitive to orbit drift, sensor transitions and reprocessing. Document product name, version, DOI or dataset ID, download date and any subsetting before comparing series or publishing maps."
+        id: "cgei-ds-52-4-core",
+        kind: "prose",
+        title: "A reproducible project has more than a notebook",
+        body: "Keep raw inputs unchanged, write transformations as explicit steps, and save analysis-ready outputs with metadata. A minimal structure separates data/raw, data/interim, data/processed, src, tests and docs. A virtual environment isolates dependencies; a lockfile or pinned requirements record the tested software versions. Never commit the environment directory, secrets, or private credentials.",
       },
       {
-        "id": "cgei-cl-24-3-3",
-        "kind": "callout",
-        "title": "Scope honesty",
-        "tone": "info",
-        "items": [
-          "No live ERA5/CHIRPS download required in CI fixtures.",
-          "Homogenisation algorithms are named, not implemented.",
-          "Formal trend and EVT inference continue in Units 2.6–2.7."
-        ]
+        id: "cgei-ds-52-4-code",
+        kind: "code",
+        title: "Create and record a project environment",
+        language: "bash",
+        code: "python -m venv .venv\n# Windows PowerShell: .venv\\Scripts\\Activate.ps1\n# macOS/Linux: source .venv/bin/activate\npython -m pip install --upgrade pip\npython -m pip install numpy pandas pyarrow\npython -m pip freeze > requirements.txt",
       },
       {
-        "id": "cgei-cl-24-3-agro",
-        "kind": "prose",
-        "title": "Agro-climate and specialised meteorological resources",
-        "body": "Beyond generic reanalysis and gauge products, applied work often draws on specialised layers: NASA POWER (solar and meteorological parameters for agriculture and energy), ERA5-HEAT / UTCI-related products for heat stress, and crop-oriented agrometeorological consolidations from national or FAO-linked sources. Selection still follows the fitness-for-purpose checklist: variable definition (e.g. which heat index), spatial support, latency, and licence. A POWER grid-cell value is not a field lysimeter; UTCI is not dry-bulb temperature. Document product name, version, and the decision the layer is meant to support."
+        id: "cgei-ds-52-4-manifest",
+        kind: "code",
+        title: "A small data dictionary and provenance manifest",
+        language: "python",
+        code: 'data_dictionary = {\n    "t2m_c": {"unit": "degree_Celsius", "meaning": "2 m air temperature", "missing": "NA"},\n    "precip_mm_day": {"unit": "mm day-1", "meaning": "daily precipitation depth", "missing": "NA"},\n}\nmanifest = {\n    "source": "document the provider and product version",\n    "retrieved_utc": "YYYY-MM-DDTHH:MM:SSZ",\n    "time_zone_for_daily_groups": "Asia/Karachi",\n    "script_version": "git commit SHA",\n    "random_seed": 42,\n}',
       },
       {
-        "id": "cgei-cl-24-3-agro-kp",
-        "kind": "key-points",
-        "title": "Specialised product notes",
-        "items": [
-          "NASA POWER: solar + meteo for ag/energy — check native resolution and parameter dictionary.",
-          "Heat-stress products (e.g. UTCI-related): require the index definition, not only “temperature”.",
-          "Same provenance rules as Unit 2.4.3 checklist apply."
-        ]
-      }
+        id: "cgei-ds-52-4-points",
+        kind: "key-points",
+        title: "Choose formats for the task",
+        items: [
+          "CSV is transparent and broadly interoperable; specify parsing and types.",
+          "Parquet preserves column types efficiently for tabular data and can be read from both Python and R.",
+          "NetCDF/Zarr suit labelled multidimensional arrays and are covered in Unit 5.12.",
+          "GeoPackage suits vector geospatial data; preserve CRS and geometry metadata.",
+          "Record variable units, missingness, temporal coverage, spatial support, source/version, and transformations.",
+        ],
+      },
+      {
+        id: "cgei-ds-52-4-mistakes",
+        kind: "callout",
+        title: "Reproducibility failures",
+        tone: "warning",
+        items: [
+          "An environment file exists but was never tested from a clean environment.",
+          "The README omits the order of steps or expected outputs.",
+          "The manifest records a retrieval date but not the source product/version.",
+          "Raw files are overwritten by cleaned outputs, eliminating the audit trail.",
+        ],
+      },
+      {
+        id: "cgei-ds-52-4-pathlib",
+        kind: "prose",
+        title: "CLI hygiene and pathlib",
+        body: "Use pathlib.Path for join/resolve operations instead of string concatenation. Basic shell tools (ls, grep, find) support file inventory; cron schedules batch jobs—version the scripts they call. Keep raw/, work/, and publish/ trees separate so intermediates are disposable and inputs are immutable.",
+      },
+      {
+        id: "cgei-ds-52-4-env",
+        kind: "prose",
+        title: "Environments and pyproject.toml",
+        body: "conda/mamba, uv, and pip+venv isolate dependencies. Prefer a locked environment file or pyproject.toml with pinned versions for shared projects. Jupyter and editors should use the same environment as batch scripts so notebook results are reproducible outside the UI.",
+      },
+      {
+        id: "cgei-ds-52-4-formats",
+        kind: "prose",
+        title: "Common scientific formats",
+        body: "CSV is universal but lossy for types; Parquet preserves columnar types; NetCDF/HDF5 suit gridded arrays with metadata; GeoTIFF for rasters; GeoJSON for vectors; Zarr for chunked cloud arrays. Choose libraries intentionally (pandas/pyarrow, xarray, rasterio, geopandas) and record format versions in the manifest.",
+      },
+      {
+        id: "cgei-ds-52-4-units",
+        kind: "prose",
+        title: "Units, time zones and messy text",
+        body: "Units-aware tools (e.g. Pint) attach units to quantities and catch inconsistent arithmetic. zoneinfo handles time zones without external data files on modern Python. Regular expressions extract fields from messy filenames or headers—always test false positives and document the pattern.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-24-select"
+    activityIds: ["cgei-ds-a-52-package"],
+    assessmentIds: ["cgei-ds-assess-52-package"],
+    resourceIds: [
+      "cgei-ds-r-52-python-venv",
+      "cgei-ds-r-52-parquet",
+      "cgei-ds-r-52-good-practices",
     ],
-    "assessmentIds": [
-      "cgei-cl-assess-24-select"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    deliverableIds: ["cgei-ds-d-52-daily-package"],
   },
   {
-    "id": "cgei-cl-lesson-2-5-1",
-    "kind": "lesson",
-    "title": "Formats, metadata and time conventions",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-2-5",
+    kind: "lesson",
+    title: "Regex, metadata validation and Python–R interoperability",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-25-time",
-        "statement": "Distinguish accumulated versus instantaneous variables, apply CF-style metadata checks, and show how UTC versus local (PKT) day boundaries change daily maxima and rainfall-day assignment.",
-        "action": "distinguish and demonstrate",
-        "level": "L3",
-        "competencyIds": [
+        id: "cgei-ds-o-52-metadata",
+        statement:
+          "Parse structured metadata with tested regular expressions and exchange analysis-ready data across Python and R using documented open formats.",
+        action: "parse and exchange",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-52-5-r-choice",
+        kind: "prose",
+        title: "Choose a second language by the task and evidence",
+        body: "Use R when the required method, package, collaborator workflow or target literature is materially better supported there—not simply from personal preference. Before translating a pipeline, compare data semantics, package maturity, maintenance, licence, performance and reproducibility costs. Shared formats such as Parquet/CSV/NetCDF plus a data dictionary can support interoperability, but do not guarantee identical missing-value, date or factor behaviour.",
+      },
+      {
+        id: "cgei-ds-52-5-r-code",
+        kind: "code",
+        title: "A minimal cross-language handoff",
+        language: "r",
+        code: 'library(arrow)\nd <- read_parquet("station_daily.parquet")\nstopifnot(all(c("station_id", "date", "tmax_c") %in% names(d)))\nsummary(d$tmax_c)\n# terra can read raster products; document CRS, units and nodata rules.',
+        body: "This is an interoperability sketch, not a full tidyverse/terra tutorial. Verify factor/category handling, date/time zones, units and spatial metadata at the handoff.",
+      },
+      {
+        id: "cgei-ds-52-5-core",
+        kind: "prose",
+        title: "Treat filenames and metadata as data",
+        body: "Satellite and climate workflows often rely on filenames that encode sensor, date, tile, band, or processing level. Parse these fields into explicit columns and validate the pattern; do not assume every filename is valid. Prefer named regex groups and raw string literals. For Python–R collaboration, share documented open formats and a common data dictionary rather than maintaining two divergent cleaning pipelines.",
+      },
+      {
+        id: "cgei-ds-52-5-code",
+        kind: "code",
+        title: "Parse and test a Landsat-style filename",
+        language: "python",
+        code: 'import re\n\npattern = re.compile(r"(?P<sensor>Landsat\\d+)_(?P<date>\\d{8})_(?P<band>B\\d+)\\.tif")\nfilename = "Landsat8_20260615_B4.tif"\nmatch = pattern.fullmatch(filename)\nif match is None:\n    raise ValueError(f"Unexpected filename format: {filename}")\nmetadata = match.groupdict()\nassert metadata == {"sensor": "Landsat8", "date": "20260615", "band": "B4"}\n\n# Include negative tests for malformed dates, missing bands and extra suffixes.',
+      },
+      {
+        id: "cgei-ds-52-5-points",
+        kind: "key-points",
+        title: "Interoperability checklist",
+        items: [
+          "Validate date values after parsing; a regex match only checks the text shape, not calendar validity.",
+          "Keep identifiers stable and unique across CSV/Parquet exports.",
+          "Use explicit schemas and data dictionaries so column meanings survive hand-offs.",
+          "Test both expected and malformed filenames.",
+          "Record which software and library versions produced the shared table.",
+        ],
+      },
+      {
+        id: "cgei-ds-52-5-example",
+        kind: "worked-example",
+        title: "From a filename to a traceable table",
+        body: "Input: Landsat8_20260615_B4.tif.\n\nParse: sensor=Landsat8, date=20260615, band=B4.\n\nValidate: parse the date with a calendar-aware parser, confirm the expected band naming scheme for the product, and reject unexpected filename forms rather than guessing.\n\nDeliver: write metadata rows to CSV or Parquet with a README explaining columns, units, and product version. The filename is a source of metadata, not proof that the underlying raster is valid.",
+      },
+      {
+        id: "cgei-ds-52-5-r",
+        kind: "prose",
+        title: "R as a complement",
+        body: "Use R when a required library or literature workflow is R-native (e.g. some spatial-statistics or tidyverse examples). Interoperate via shared on-disk formats (CSV, Parquet, Arrow) and a data dictionary—not by rewriting every analysis twice. Choose a second language for library availability and peer review norms, not preference alone.",
+      },
+      {
+        id: "cgei-ds-52-5-r-eq",
+        kind: "prose",
+        title: "Equivalent R workflows (orientation)",
+        body: "tidyverse verbs (filter, mutate, group_by, summarise) parallel pandas pipelines; terra supports raster workflows analogous to rasterio/xarray for many tasks. Read R examples in papers by mapping verbs to Python equivalents rather than translating line-by-line. Full terra proficiency is not required here—recognize patterns and decide when to call an R script from a Python pipeline.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-52-regex"],
+    assessmentIds: ["cgei-ds-assess-52-metadata"],
+    resourceIds: ["cgei-ds-r-52-python-regex", "cgei-ds-r-52-parquet"],
+    deliverableIds: ["cgei-ds-d-52-mini-package"],
+  },
+  {
+    id: "cgei-ds-lesson-5-3-1",
+    kind: "lesson",
+    title: "EDA as scientific questioning and data profiling",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-53-eda-questions",
+        statement:
+          "Plan exploratory analysis around explicit environmental questions, observational units, missingness and data-quality checks.",
+        action: "plan and diagnose",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-25-1-1",
-        "kind": "prose",
-        "title": "Structure before arithmetic",
-        "body": "NetCDF, GRIB and related formats encode coordinates, units and standard names. CF conventions (Climate and Forecast) provide shared vocabulary for standard_name, units and cell methods. Model calendars may be 360-day or no-leap rather than Gregorian. Accumulated fields (precipitation over a forecast step, energy flux integrals) differ from instantaneous temperatures. Longitude may be 0–360 or −180–180. Time zone is not optional decoration: Pakistan Standard Time is UTC+5, and deriving daily Tmax on UTC calendar days versus local days can move a post-midnight peak onto the previous or next local date, biasing heat-day counts."
-      },
-      {
-        "id": "cgei-cl-25-1-netcdf",
-        "kind": "prose",
-        "title": "NetCDF-like cubes: dimensions, variables, attributes",
-        "body": "A multidimensional climate array is not just a matrix. Named dimensions (time, lat, lon, level) fix axis lengths; variables bind data arrays to those dimensions; attributes carry units, standard_name or long_name, missing_value/_FillValue and provenance. Shape must equal the product of dimension sizes along each axis. Missing units or unknown dimension names are structural defects — catch them before any climate arithmetic."
-      },
-      {
-        "id": "cgei-cl-25-1-netcdf-ex",
-        "kind": "worked-example",
-        "title": "Worked example: validate a synthetic CF-style cube",
-        "body": "Fixture unit_2_5_netcdf_structure_check.py builds a dict cube with dimensions time=3, lat=2 and variable tas[time,lat] in kelvin with a standard_name. It rejects shape mismatches, missing units and unknown dimensions. This teaches the structural contract; it is not a full CF compliance suite."
-      },
-      {
-        "id": "cgei-cl-25-1-time",
-        "kind": "key-points",
-        "title": "Time-handling rules",
-        "items": [
-          "State whether daily statistics use UTC or Asia/Karachi boundaries.",
-          "Convert timestamps before assigning calendar days for Tmax/Tmin and rain days.",
-          "Know whether precipitation is instantaneous rate, step accumulation or daily total.",
-          "Document calendar type when using model or reanalysis output."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-25-time"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-25-time"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-5-2",
-    "kind": "lesson",
-    "title": "Aggregation, completeness and anomalies",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-25-aggregate",
-        "statement": "Aggregate climate series with variable-specific rules and completeness thresholds, without treating missing values as zero, and compute area-aware regional means when appropriate.",
-        "action": "aggregate and validate",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      },
-      {
-        "id": "cgei-cl-o-25-anomaly",
-        "statement": "Compute monthly anomalies against a pre-declared baseline, document units, baseline period and processing steps, and maintain a provenance record sufficient for independent re-execution.",
-        "action": "compute and document",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-25-2-1",
-        "kind": "prose",
-        "title": "Variable-specific aggregation",
-        "body": "Daily maximum temperature is the maximum of valid sub-daily samples; daily precipitation is usually a sum; daily mean temperature may be (Tmax+Tmin)/2 or a true mean of higher-frequency samples — these are not interchangeable. Monthly and seasonal values inherit those rules. Completeness thresholds (e.g. require ≥80% of days present) prevent a handful of observations from standing in for a full month. Never replace temperature missing values with zero; for precipitation, zero is a valid reading and missing is a different state."
-      },
-      {
-        "id": "cgei-cl-25-2-lab",
-        "kind": "worked-example",
-        "title": "Worked example: completeness and anomaly",
-        "body": "A month with only 2 of 10 valid days fails an 80% completeness rule and is marked incomplete rather than averaged. On dense data the mean is 4.5. Anomaly of 35 °C against a July baseline of 32 °C is +3 °C. Fixture unit_2_5_climate_data_handling_check.py locks these results. Anomaly formula: A_t = X_t − X̄_baseline,m(t) with baseline period declared before analysis (e.g. 1991–2020)."
-      },
-      {
-        "id": "cgei-cl-25-2-area",
-        "kind": "prose",
-        "title": "Regional means and area weighting",
-        "body": "A simple arithmetic mean of grid cells overweights polar cells relative to their area. For regional energy or precipitation totals, weight by cell area (often approximated by cos(latitude) on a regular lon–lat grid). State the mask (administrative boundary, basin, bounding box) and whether land-only cells are used."
-      },
-      {
-        "id": "cgei-cl-25-2-3",
-        "kind": "callout",
-        "title": "xarray workflow pointer",
-        "tone": "info",
-        "items": [
-          "Labelled arrays, groupby, resample and weighted means are the production pattern.",
-          "Area-weighting by cos(latitude) matters for honest regional means.",
-          "This unit’s fixtures stay stdlib-level; Subject 5 deepens xarray pipelines."
-        ]
-      },
-      {
-        "id": "cgei-cl-25-2-units",
-        "kind": "prose",
-        "title": "Unit and sign conventions",
-        "body": "Temperature in model output is often kelvin; convert explicitly (°C = K − 273.15) and never mix K anomalies with °C thresholds without conversion. Precipitation may appear as kg m⁻² s⁻¹ (flux) or as mm/day after scaling — check units attributes. Radiative and turbulent fluxes carry sign conventions (positive downward vs positive upward) that differ across communities and products; wrong sign flips energy-balance interpretation. Document every conversion in the processing record."
-      },
-      {
-        "id": "cgei-cl-25-2-units-kp",
-        "kind": "key-points",
-        "title": "Unit discipline",
-        "items": [
-          "K ↔ °C: subtract/add 273.15; anomalies in K and °C have the same numeric size only after consistent conversion.",
-          "Precip: confirm flux vs depth and the exact scale factor to mm/day.",
-          "Fluxes: state positive-down or positive-up before interpreting budgets."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-25-aggregate"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-25-aggregate"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-5-3",
-    "kind": "lesson",
-    "title": "Reproducible workflow and Multan case template",
-    "order": 3,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-25-anomaly",
-        "statement": "Compute monthly anomalies against a pre-declared baseline, document units, baseline period and processing steps, and maintain a provenance record sufficient for independent re-execution.",
-        "action": "compute and document",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-25-3-1",
-        "kind": "prose",
-        "title": "From inventory to analysis-ready table",
-        "body": "A defensible workflow: inventory metadata → validate units and time axis → QC gaps and duplicates → aggregate with completeness rules → build fixed-baseline anomalies → align sources on a common calendar and grid if needed → record provenance (product, version, spatial/temporal extent, access date, licence, checksum or commit hash). Cloud access (Zarr, CDS API) requires pinned client versions and citable request scripts; continuous integration in this curriculum does not call live CDS endpoints."
-      },
-      {
-        "id": "cgei-cl-25-3-2",
-        "kind": "prose",
-        "title": "Multan monsoon/heat case (template)",
-        "body": "Define the region mask and justify ERA5 versus ERA5-Land (or station series). Fix variables (2 m temperature, dew point, precipitation, wind), units, accumulation convention and UTC versus PKT daily definitions. Derive local-day Tmax/Tmin and rainfall totals. Use a pre-declared 1991–2020 baseline for anomalies. Validate against stations or a second product where possible. Do not equate rainfall anomalies with flood causation without hydrology, exposure and drainage context (Subjects 1 and 7)."
-      },
-      {
-        "id": "cgei-cl-25-3-3",
-        "kind": "checklist",
-        "title": "Processing record fields",
-        "items": [
-          "Source product and version",
-          "Spatial and temporal extent",
-          "UTC vs local aggregation rule",
-          "Baseline period",
-          "Completeness threshold",
-          "Licence and citation",
-          "Code or notebook commit / environment lockfile"
-        ]
-      },
-      {
-        "id": "cgei-cl-25-3-esgf",
-        "kind": "prose",
-        "title": "CMIP6 access: ESGF and cloud catalogues",
-        "body": "CMIP6 (and related) archives are accessed primarily through ESGF federated nodes and, increasingly, cloud-hosted catalogues (e.g. analysis-ready mirrors). Before download, verify: variable name and table (e.g. tas, Amon), grid label (gn vs gr), experiment (historical, ssp245, …), model and member (r*i*p*f*), time coverage, and calendar. Filename conventions encode these fields (Unit 2.9.2.5). Prefer scripted, manifest-logged acquisition (Unit 2.10.2) over ad-hoc clicks. This curriculum does not require live ESGF calls in CI."
-      },
-      {
-        "id": "cgei-cl-25-3-esgf-check",
-        "kind": "checklist",
-        "title": "Pre-download CMIP checks",
-        "items": [
-          "Variable, frequency table, and units",
-          "Experiment and ensemble member",
-          "Grid label and nominal resolution",
-          "Calendar type (Gregorian / noleap / 360-day)",
-          "Version/dataset_id and access date for the manifest"
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-25-workflow"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-25-workflow"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-6-1",
-    "kind": "lesson",
-    "title": "Thresholds, heat and rainfall extremes",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-26-threshold",
-        "statement": "Define absolute and percentile thresholds with a declared baseline, count exceedances and spell durations, and state when day-to-day dependence makes independent-event assumptions invalid.",
-        "action": "define and count",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-26-1-1",
-        "kind": "prose",
-        "title": "Defining an extreme",
-        "body": "An extreme is defined relative to a threshold: absolute (e.g. Tmax ≥ 40 °C) or percentile-based (e.g. above the 90th percentile of a reference period). Frequency, intensity, duration, timing and spatial extent answer different questions. Changing the baseline period changes percentile thresholds and therefore counts. Heat metrics (percentile spells, tropical nights, heat index, UTCI, WBGT) require different inputs and must not be treated as interchangeable. ETCCDI-style rainfall indices (Rx1day, R95pTOT, CDD, R10mm, …) are resolution-sensitive; daily data cannot resolve sub-daily intensities."
-      },
-      {
-        "id": "cgei-cl-26-1-r10mm",
-        "kind": "prose",
-        "title": "R10mm: heavy precipitation days (pedagogical)",
-        "body": "ETCCDI-style R10mm counts days with precipitation ≥ 10 mm. Units are days over the stated period. Comparison is inclusive. Missing observations must not be coerced to 0 mm — that invents dry days and biases rates if you later divide by period length. The teaching implementation uses a short synthetic daily series; it is not a full ETCCDI software stack and is not station-validated."
-      },
-      {
-        "id": "cgei-cl-26-1-r10mm-ex",
-        "kind": "worked-example",
-        "title": "Worked example: synthetic 10-day series",
-        "body": "Series mm: [0, 12, 5, 10, 0, 25, missing, 8, 15, 3]. Valid days with ≥10 mm: 12, 10, 25, 15 → count = 4. Missing is skipped, not zero-filled. Fixture unit_2_6_extremes_trend_analysis_check.py locks the count. Spell duration (consecutive days above threshold) is a separate statistic from the count of exceedance days."
-      },
-      {
-        "id": "cgei-cl-26-1-dep",
-        "kind": "callout",
-        "title": "Dependence",
-        "tone": "warning",
-        "items": [
-          "Consecutive hot days are not independent Bernoulli trials.",
-          "Spell length distributions matter for health and agriculture impacts.",
-          "Declustering belongs with formal EVT (Unit 2.7); here, at least do not pretend days are independent without saying so."
-        ]
-      },
-      {
-        "id": "cgei-cl-26-1-local",
-        "kind": "prose",
-        "title": "Locally relevant extremes beyond heat and heavy rain",
-        "body": "For Pakistan and southern Punjab, impact-relevant extremes also include cold waves and frost (rabi crops), dense fog days (transport and health), and dust-storm days (air quality and aviation). Definitions are threshold- and duration-based and must be declared (e.g. Tmin below a percentile or absolute floor for N consecutive days; visibility or PM-based dust criteria where available). These indices are often absent from generic ETCCDI lists — build them explicitly and document data limits (visibility and dust observations are sparser than T and P)."
-      },
-      {
-        "id": "cgei-cl-26-1-local-kp",
-        "kind": "key-points",
-        "title": "Local extreme checklist",
-        "items": [
-          "Cold wave / frost: declare Tmin threshold and duration.",
-          "Fog days: need visibility or a justified proxy; station metadata matter.",
-          "Dust days: observations are incomplete; satellite AOD is a different quantity.",
-          "Same baseline and completeness rules as heat/rain indices apply."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-26-threshold"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-26-threshold"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-6-2",
-    "kind": "lesson",
-    "title": "Trend estimation",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-26-trend",
-        "statement": "Estimate ordinary least-squares and Sen slopes with explicit units, and explain why autocorrelation affects uncertainty even when the slope point estimate is unchanged.",
-        "action": "estimate and interpret",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-26-2-1",
-        "kind": "prose",
-        "title": "OLS and Sen slopes",
-        "body": "Ordinary least-squares (OLS) fits a linear trend by minimising squared residuals; the slope has explicit units (e.g. °C year⁻¹). The Sen (Theil–Sen) slope is the median of pairwise slopes and is more robust to outliers. Both are descriptive summaries of a sample path. Neither is, by itself, detection of forced climate change. Serial correlation reduces effective sample size and can inflate classical significance if ignored. Bootstrap, block-bootstrap and seasonal Mann–Kendall address dependence and seasonality at more advanced depth."
-      },
-      {
-        "id": "cgei-cl-26-2-lab",
-        "kind": "worked-example",
-        "title": "Worked example: OLS and Sen slopes",
-        "body": "For T_t = 30 + 0.2 t (°C), t = 0…9, both OLS and Sen slopes equal 0.2 °C year⁻¹. Fixture unit_2_6_extremes_trend_analysis_check.py asserts both. Autocorrelation is absent in this noise-free series; real climate series need dependence-aware uncertainty even when the slope formula is unchanged."
-      },
-      {
-        "id": "cgei-cl-26-2-3",
-        "kind": "callout",
-        "title": "What is deferred",
-        "tone": "warning",
-        "items": [
-          "Full Mann–Kendall p-value tables and variance correction for serial correlation",
-          "Field significance / FDR for maps (Wilks)",
-          "GEV/GPD fitting and formal return levels (Unit 2.7)"
-        ]
-      },
-      {
-        "id": "cgei-cl-26-2-enso",
-        "kind": "prose",
-        "title": "Regressing out ENSO and other modes before interpreting trends",
-        "body": "A raw trend can mix forced change with low-frequency internal variability. A common diagnostic is to regress the target series on an ENSO index (and optionally other modes), then trend the residuals. Residual trends are not “the forced signal” by themselves — the regression is linear and contemporaneous (or fixed-lag), teleconnections are imperfect, and modes are not orthogonal to forced change. Report both raw and residual trends, the index and lag used, and treat residualisation as sensitivity analysis, not as definitive attribution (Unit 2.11)."
-      },
-      {
-        "id": "cgei-cl-26-2-enso-callout",
-        "kind": "callout",
-        "title": "Residual trends are diagnostics",
-        "tone": "warning",
-        "items": [
-          "State the climate index, lag, and fit period.",
-          "Do not claim residual = forced response without a formal attribution design.",
-          "Short records remain short after residualisation."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-26-trend"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-26-trend"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-6-3",
-    "kind": "lesson",
-    "title": "Return periods and inference discipline",
-    "order": 3,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-26-inference",
-        "statement": "Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and empirical return periods from fitted EVT levels.",
-        "action": "report with limits",
-        "level": "L3",
-        "competencyIds": [
           "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-26-3-1",
-        "kind": "prose",
-        "title": "Probability is not a schedule",
-        "body": "Under stationarity and independence, an annual exceedance probability p corresponds to return period T ≈ 1/p years — not a promise the event occurs once every T years on a fixed calendar. Empirical T from k events in n years is T = n/k; when T ≫ n the estimate is weakly constrained. Non-stationarity breaks classical return-period interpretation; time-indexed or covariate-dependent levels belong in Unit 2.7."
+        id: "cgei-ds-53-1-outliers",
+        kind: "worked-example",
+        title: "Detecting an outlier is not deciding to delete it",
+        body: "Flag unusual observations using a plot, robust summaries or a documented rule, then investigate provenance, instrument QA, units, spatial context and neighbouring dates. A valid heat extreme may be the most decision-relevant observation. Correct a demonstrable data error, retain valid extremes, and compare defensible sensitivity analyses when influence is material; never delete a point solely because it weakens a preferred result.",
       },
       {
-        "id": "cgei-cl-26-3-lab",
-        "kind": "worked-example",
-        "title": "Worked example: empirical return period",
-        "body": "With 2 events in 10 years, empirical T = 5 years under the annual rate. Fixture unit_2_6_extremes_trend_analysis_check.py locks T = 5. This is not a fitted GEV return level and carries no confidence interval from extreme-value theory."
+        id: "cgei-ds-53-1-core",
+        kind: "prose",
+        title: "Ask before plotting",
+        body: "Exploratory data analysis (EDA) is a sequence of checks and questions, not a gallery of attractive figures. Before plotting, state the observational unit and support: station-hour, station-day, pixel-date, district-year, or another explicit unit. Ask whether values are plausible, how much is missing, whether missingness varies by season or location, and whether dependence or mixed populations could mislead pooled summaries.",
       },
       {
-        "id": "cgei-cl-26-3-2",
-        "kind": "checklist",
-        "title": "Reporting discipline",
-        "items": [
-          "Variable, units, product, domain",
-          "Period, baseline, season definition",
-          "Method and assumptions (including independence / stationarity)",
-          "Effect size, not only a p-value",
-          "Short records cannot alone prove long-term climate change",
-          "Reanalysis trends describe the product as well as the climate",
-          "Rainfall extremes ≠ flood causation without hydrology and exposure",
-          "Separate description from attribution language (Unit 2.11)"
-        ]
+        id: "cgei-ds-53-1-checklist",
+        kind: "checklist",
+        title: "A repeatable first pass",
+        items: [
+          "State the research question and the observational unit.",
+          "Inspect row count, column types, key uniqueness and time coverage.",
+          "Report valid counts and missingness by important season, sensor or location.",
+          "Check physical ranges, units, scale factors and fill values.",
+          "Compare mean, median, IQR and quantiles for skewed variables.",
+          "Write down the claim the figure can support and one claim it cannot support.",
+        ],
       },
       {
-        "id": "cgei-cl-26-3-change",
-        "kind": "prose",
-        "title": "Changepoints and homogeneity — when justified",
-        "body": "Abrupt shifts in a series may reflect climate, station moves, instrument changes, or observing practice (Unit 2.4 homogenisation). Statistical changepoint tests (e.g. Pettitt, SNHT-style procedures) flag candidates; they do not by themselves explain cause. Prefer metadata-informed assessment: if a break aligns with a documented station relocation, treat it as inhomogeneity; if not, consider climate and sampling. Multiple testing across many series inflates false breaks. For trend work, either homogenise with a documented method or analyse segments separately and state the choice."
+        id: "cgei-ds-53-1-code",
+        kind: "code",
+        title: "Profile a table before modelling",
+        language: "python",
+        code: 'summary = df["precip_mm_day"].describe(percentiles=[.05, .25, .50, .75, .95])\nmissing = df.isna().mean().sort_values(ascending=False)\nprint("rows:", len(df))\nprint("unique station IDs:", df["station_id"].nunique())\nprint("missing fraction by column:\\n", missing)\nprint("precipitation quantiles:\\n", summary)',
       },
       {
-        "id": "cgei-cl-26-3-change-kp",
-        "kind": "key-points",
-        "title": "Changepoint discipline",
-        "items": [
-          "Metadata first; tests second.",
-          "Document every adjustment or segment choice.",
-          "Changepoint ≠ attribution of cause."
-        ]
-      }
+        id: "cgei-ds-53-1-example",
+        kind: "worked-example",
+        title: "Why a mean is not enough",
+        body: "A precipitation table has a median of 0 mm/day but a much larger 95th percentile. The median describes the common dry day, while the upper quantile describes the wet tail. Report the valid count and distribution shape; do not infer a typical wet-day amount from the all-day mean alone.",
+      },
+      {
+        id: "cgei-ds-53-1-quality",
+        kind: "prose",
+        title: "Missingness, duplicates and impossible values",
+        body: "EDA starts with data contracts: duplicate keys, negative rainfall, temperatures outside physical bounds, and QA fill values mistaken for measurements. Profile missingness by variable and by time/space. Impossible values are errors until proven otherwise—document filters and never silently drop rows without a count.",
+      },
+      {
+        id: "cgei-ds-53-1-treat",
+        kind: "prose",
+        title: "Outlier treatment is a documented decision",
+        body: "Detection (plots, robust quantiles, domain thresholds) is separate from treatment. Options: keep with annotation, correct a proven instrument error, transform, or exclude with provenance. Deleting inconvenient points to improve fit without justification is not acceptable analysis practice.",
+      },
     ],
-    "activityIds": [
-      "cgei-cl-a-26-inference"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-26-inference"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-53-question-plan"],
+    assessmentIds: ["cgei-ds-assess-53-questions"],
+    resourceIds: ["cgei-ds-r-53-pandas-eda"],
+    deliverableIds: ["cgei-ds-d-53-eda-notebook"],
   },
   {
-    "id": "cgei-cl-lesson-2-7-1",
-    "kind": "lesson",
-    "title": "Core theory: GEV, GPD, return levels, and declustering",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-3-2",
+    kind: "lesson",
+    title: "Distributional and relational graphics",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
       {
-        "id": "cgei-cl-o-27-theory",
-        "statement": "State the GEV family (location, scale, shape) as the limit of block maxima and the GPD as the limit of peaks-over-threshold, define return period/level/exceedance probability with appropriate confidence-interval methods, and quantify exceedance clustering via the extremal index.",
-        "action": "state and quantify",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-53-distributions",
+        statement:
+          "Choose and interpret distributional and relational graphics while checking overplotting, skew and residual patterns.",
+        action: "select and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      }
+          "cgei-comp-uncertainty",
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-27-1-1",
-        "kind": "prose",
-        "title": "Block maxima and the GEV distribution",
-        "body": "Block maxima take the largest value in each block (e.g. annual maximum daily rainfall). By the Fisher–Tippett–Gnedenko theorem, suitably normalised block maxima converge to the Generalized Extreme Value (GEV) family: F(x) = exp{−[1 + ξ(x−μ)/σ]^(−1/ξ)} for 1+ξ(x−μ)/σ > 0, with location μ, scale σ>0 and shape ξ. ξ=0 (Gumbel, limit case), ξ>0 (Fréchet, heavy/unbounded upper tail), ξ<0 (Weibull-type, bounded upper tail) describe qualitatively different tail behaviour — a modelling choice with real consequences, not a technicality."
+        id: "cgei-ds-53-2-seaborn-plotly",
+        kind: "code",
+        title: "Static and interactive diagnostics",
+        language: "python",
+        code: 'import seaborn as sns\nimport plotly.express as px\n\nsns.scatterplot(data=df, x="ndvi", y="lst_c", hue="season")\nfig = px.scatter(df, x="ndvi", y="lst_c", color="season", hover_data=["station_id"])\n# Export a static figure for the paper and keep the interactive view for exploration.',
+        body: "Seaborn is useful for statistical graphics layered over Matplotlib; Plotly supports interactive inspection. Record filters and axes, and preserve a static, accessible figure for reports rather than making the interactive artifact the only evidence.",
       },
       {
-        "id": "cgei-cl-27-1-2",
-        "kind": "prose",
-        "title": "Peaks-over-threshold and the GPD",
-        "body": "Instead of one value per block, POT keeps every exceedance y = x−u over a high threshold u. By the Pickands–Balkema–de Haan theorem these exceedances are approximately Generalized Pareto Distributed: F(y) = 1 − (1+ξy/σ)^(−1/ξ) for y>0. POT uses data more efficiently than block maxima (a large second event in a block that already has a larger first event is not discarded) but adds a threshold-choice problem."
+        id: "cgei-ds-53-2-core",
+        kind: "prose",
+        title: "Match the graphic to the question",
+        body: "Histograms reveal approximate distribution shape but depend on bin width. ECDFs show the fraction of observations at or below each value without binning. Boxplots summarize median and spread but can hide multimodality; pair them with a histogram, violin or rug when that matters. Scatterplots reveal relationships, but overplotting can hide density and a smooth curve is exploratory—not a causal estimate.",
       },
       {
-        "id": "cgei-cl-27-1-2b",
-        "kind": "prose",
-        "title": "Threshold selection and stability plots",
-        "body": "Too low a threshold biases the fit because non-extreme body data contaminate the tail model; too high leaves too few exceedances for stable estimation. A parameter-stability plot re-fits the GPD shape ξ̂ and the modified scale σ̂* = σ̂ − ξ̂u across a range of candidate thresholds u; above the point where the true tail behaviour sets in, both estimates should be roughly flat (within their uncertainty) as u increases. A visibly drifting ξ̂ as u rises is evidence the threshold is still too low. This unit describes the diagnostic; it does not run one on a real series."
+        id: "cgei-ds-53-2-table",
+        kind: "table",
+        title: "Quick chart-selection guide",
+        headers: ["Question", "Useful starting graphic", "Main caution"],
+        rows: [
+          [
+            "What values and tails occur?",
+            "Histogram + ECDF",
+            "Histogram depends on bin width",
+          ],
+          [
+            "How do two variables relate?",
+            "Scatterplot or hexbin",
+            "Overplotting and confounding",
+          ],
+          [
+            "Do groups differ?",
+            "Box/violin + raw points",
+            "Unequal sample sizes and hidden multimodality",
+          ],
+          [
+            "Does a model miss structure?",
+            "Residual-vs-fitted plot",
+            "A funnel suggests non-constant variance",
+          ],
+          [
+            "How do variables co-vary?",
+            "Correlation heatmap",
+            "Nearby pixels and time series are dependent",
+          ],
+        ],
       },
       {
-        "id": "cgei-cl-27-1-lab",
-        "kind": "worked-example",
-        "title": "Lab: Gumbel return levels (hand-verified)",
-        "body": "Assume a Gumbel model (ξ=0) for synthetic annual-maximum daily rainfall with μ=80 mm, σ=20 mm. Inverting F(x)=exp(−exp(−(x−μ)/σ)) at non-exceedance probability p=1−1/T gives x = μ − σ·ln(−ln p). For T=10 (p=0.9): −ln p=0.10536, ln(0.10536)=−2.2504, so x=80+20·2.2504≈125.0 mm. For T=50 (p=0.98): −ln p=0.020203, ln(0.020203)=−3.9019, so x=80+20·3.9019≈158.0 mm."
+        id: "cgei-ds-53-2-code",
+        kind: "code",
+        title: "Make density and axes interpretable",
+        language: "python",
+        code: 'import matplotlib.pyplot as plt\n\nfig, axes = plt.subplots(1, 2, figsize=(9, 3.5))\naxes[0].hist(df["lst_c"].dropna(), bins=30, edgecolor="white")\naxes[0].set_xlabel("LST (°C)")\naxes[0].set_ylabel("Pixel count")\naxes[1].scatter(df["ndvi"], df["lst_c"], s=3, alpha=0.15)\naxes[1].set_xlabel("NDVI (dimensionless)")\naxes[1].set_ylabel("LST (°C)")\nfig.tight_layout()',
       },
       {
-        "id": "cgei-cl-27-1-ci",
-        "kind": "prose",
-        "title": "Interval estimation for return levels",
-        "body": "A point return level alone is incomplete without an interval. Three named approaches: the delta method propagates parameter-estimate variance through the (non-linear) return-level formula via a first-order Taylor expansion — fast but can misbehave when ξ is near its bounds; profile likelihood fixes the return level at a trial value, re-maximises the likelihood over the remaining parameters, and reads off the interval from where the profile drops by a fixed amount — generally preferred because it respects the skewed sampling distribution of ξ; the bootstrap resamples the data (or residuals) and refits, building an empirical interval that makes the fewest distributional assumptions but is the most computationally expensive. None of the three is computed numerically in this unit — they are named so a learner recognises them in software output."
+        id: "cgei-ds-53-2-mistakes",
+        kind: "callout",
+        title: "Interpretation guardrails",
+        tone: "warning",
+        items: [
+          "A correlation heatmap is not evidence of causality.",
+          "A fitted smooth can hide overplotting or subgroup structure.",
+          "A funnel-shaped residual plot can indicate heteroscedasticity.",
+          "Nearby pixels inflate apparent sample size because spatial dependence remains.",
+        ],
       },
       {
-        "id": "cgei-cl-27-1-decluster",
-        "kind": "worked-example",
-        "title": "Lab: declustering and the extremal index (hand-verified)",
-        "body": "A synthetic 60-day rainfall series exceeds threshold u=50 mm on days 10, 11, 12 (one multi-day storm) and day 50 (a separate event): 4 raw exceedances. Declustering with a minimum 2-day inter-cluster gap merges days 10–12 into one cluster (its maximum is the cluster representative) and keeps day 50 as a second cluster: 2 independent clusters. The extremal index θ∈(0,1] measures the degree of clustering; a simple runs-based estimator is θ̂ = (number of clusters)/(number of raw exceedances) = 2/4 = 0.5. θ̂=1 would mean no clustering (every exceedance already independent); θ̂=0.5 here says a naive i.i.d. GPD fit on the 4 raw exceedances would overstate the effective exceedance rate by roughly a factor of two."
+        id: "cgei-ds-53-2-bivar",
+        kind: "prose",
+        title: "Scatter diagnostics",
+        body: "Scatterplots show association, nonlinearity, clusters, and leverage points. Overplotting hides density—use transparency, hexbin, or a documented subsample rule. Residual-versus-fitted plots after a simple smooth test whether a linear story is adequate. Association is not causation.",
       },
-      {
-        "id": "cgei-cl-27-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Synthetic series only; no real station block-maxima/POT fitting performed",
-          "Gumbel (ξ=0) assumed for hand-tractable arithmetic — real data may need ξ≠0",
-          "Stability-plot and CI methods described, not numerically executed",
-          "Extremal index estimator shown is a simple teaching form, not a full runs/intervals-estimator comparison"
-        ]
-      }
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-53-distribution"],
+    assessmentIds: ["cgei-ds-assess-53-distribution"],
+    resourceIds: [
+      "cgei-ds-r-53-seaborn-distributions",
+      "cgei-ds-r-53-seaborn-relational",
+    ],
+    deliverableIds: ["cgei-ds-d-53-eda-notebook"],
   },
   {
-    "id": "cgei-cl-lesson-2-7-2",
-    "kind": "lesson",
-    "title": "Estimation and diagnostics",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-3-3",
+    kind: "lesson",
+    title: "Climate series, anomalies and temporal dependence",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-27-estimate",
-        "statement": "Fit a GEV/Gumbel model by a stated method, assess fit using named diagnostic plots and a leave-out check, and state how far a small-sample fit can be extrapolated defensibly.",
-        "action": "fit and diagnose",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-53-temporal",
+        statement:
+          "Plot climate series and anomalies against a stated baseline and inspect temporal dependence before inferential claims.",
+        action: "visualise and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-53-3-core",
+        kind: "prose",
+        title: "An anomaly needs a baseline",
+        body: "An anomaly is a departure from a defined reference period or climatology. State the baseline (for example, 1991–2020), season/calendar rule, aggregation method and valid-data requirement in the figure caption. Seasonal cycles can be summarized by month or day-of-year; small multiples by decade may reveal changes hidden in a single pooled line. Inspect autocorrelation and lag plots before treating observations as independent in a significance test.",
+      },
+      {
+        id: "cgei-ds-53-3-code",
+        kind: "code",
+        title: "Calculate a monthly anomaly against an explicit baseline",
+        language: "python",
+        code: '# df has one row per month, with columns time and tmean_c.\ndf["month"] = df["time"].dt.month\nbaseline = df.loc[df["time"].dt.year.between(1991, 2020)]\nclimatology = baseline.groupby("month")["tmean_c"].mean()\ndf["anomaly_c"] = df["tmean_c"] - df["month"].map(climatology)\n# Caption the baseline years and state how missing months were handled.',
+      },
+      {
+        id: "cgei-ds-53-3-points",
+        kind: "key-points",
+        title: "Before interpreting a climate time plot",
+        items: [
+          "Keep timestamps timezone-aware until the intended local or UTC aggregation is defined.",
+          "Label baseline period and season rule directly in the caption.",
+          "Show missing periods instead of silently interpolating them.",
+          "Use ACF/lag plots to inspect dependence before inference.",
+          "Use specialty plots only when they answer a clear question.",
+        ],
+      },
+      {
+        id: "cgei-ds-53-3-diag",
+        kind: "prose",
+        title: "Time-series and spatial diagnostic habits",
+        body: "Seasonal subseries and lag plots reveal periodicity and autocorrelation before modelling. Spatial maps of missingness, residuals, and local variance expose geographic failure modes that global metrics hide. Check units, sign conventions, and timestamp time zones before any model fit.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-53-time"],
+    assessmentIds: ["cgei-ds-assess-53-time"],
+    resourceIds: ["cgei-ds-r-53-matplotlib"],
+    deliverableIds: ["cgei-ds-d-53-eda-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-3-4",
+    kind: "lesson",
+    title: "Maps as analytical graphics",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-53-maps",
+        statement:
+          "Produce analytical maps with complete variable, time, resolution, CRS, colour-scale and missing-data metadata.",
+        action: "design and document",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-53-4-climate-plots",
+        kind: "prose",
+        title: "Specialist climate plots answer different questions",
+        body: "Climate stripes emphasise long-term change while suppressing detail; Hovmöller diagrams show a variable across time and one spatial dimension; Taylor diagrams compare correlation, standard deviation and centred RMSE; wind roses summarise directional distributions; ECDFs compare distributional shifts. Choose based on the scientific question, label the statistic and units, and avoid presenting a familiar plot as evidence it cannot provide.",
+      },
+      {
+        id: "cgei-ds-53-4-geospatial-code",
+        kind: "code",
+        title: "Map a spatial field with geospatial metadata",
+        language: "python",
+        code: 'import geopandas as gpd\nimport cartopy.crs as ccrs\n\nboundaries = gpd.read_file("study_boundary.geojson")\nassert boundaries.crs is not None\nax = plt.axes(projection=ccrs.PlateCarree())\n# Plot coordinates only after confirming the data CRS and transformation.\nax.set_extent([60, 78, 23, 38], crs=ccrs.PlateCarree())\nax.coastlines()',
+        body: "This is a setup sketch; add the actual field layer, shared colour scale and small-multiple layout for the selected dataset. Do not label a map scientifically complete until CRS, extent, resolution, time, units and missingness are documented.",
+      },
+      {
+        id: "cgei-ds-53-4-core",
+        kind: "prose",
+        title: "A map is a measurement display",
+        body: "An analytical map must make the mapped quantity and its support legible. State variable and units, date/period, sensor or product, spatial resolution, CRS or equal-area rationale, colour limits and missing-data treatment. Sequential palettes suit ordered magnitudes; diverging palettes suit deviations around a meaningful midpoint. Rainbow palettes and unexplained classification breaks can manufacture apparent boundaries.",
+      },
+      {
+        id: "cgei-ds-53-4-checklist",
+        kind: "checklist",
+        title: "Minimum map-caption metadata",
+        items: [
+          "Variable and units (for example, LST in °C).",
+          "Date/season or compositing period and baseline if anomalies are shown.",
+          "Sensor/product and spatial resolution.",
+          "CRS/projection or reason for an equal-area view.",
+          "Colour scale, limits, class breaks and palette logic.",
+          "Missing-data colour and any excluded QA/fill values.",
+          "Sample size or valid-pixel count where relevant.",
+        ],
+      },
+      {
+        id: "cgei-ds-53-4-example",
+        kind: "worked-example",
+        title: "Multan LST caption audit",
+        body: "A map titled “Multan temperature” is insufficient. A reviewable caption should identify whether the variable is land-surface temperature or near-surface air temperature, give units, scene/composite date, Landsat product and resolution, CRS, colour limits, QA masking and no-data treatment. If districts are summarized, report valid-pixel counts and dispersion; do not imply every district mean has equal precision.",
+      },
+      {
+        id: "cgei-ds-53-4-mistakes",
+        kind: "callout",
+        title: "Map design failures",
+        tone: "warning",
+        items: [
+          "Using a rainbow palette for a continuous scalar without justification.",
+          "Changing colour limits between panels while inviting direct comparison.",
+          "Leaving no-data pixels visually indistinguishable from low values.",
+          "Mapping model residuals nowhere and therefore hiding spatial failure.",
+        ],
+      },
+      {
+        id: "cgei-ds-53-4-mpl",
+        kind: "prose",
+        title: "Matplotlib fundamentals and static export",
+        body: "Figures contain axes; set labels, units, and titles explicitly. Save vector (PDF/SVG) or high-DPI PNG with tight layout for papers. Interactive tools (Plotly, Altair, hvPlot, Bokeh, Panel) support exploration—archive a static figure with fixed limits for review.",
+      },
+      {
+        id: "cgei-ds-53-4-sns",
+        kind: "prose",
+        title: "Seaborn and statistical graphics",
+        body: "Seaborn builds distributional and relational plots on Matplotlib. Use it to compare groups quickly, then customise axes for scientific honesty. Default styles are starting points, not publication finishes.",
+      },
+      {
+        id: "cgei-ds-53-4-maps",
+        kind: "prose",
+        title: "Shared colour scales and small multiples",
+        body: "State CRS and colour units on maps. Share colour scales across panels when inviting comparison. Small multiples beat overloaded single maps for seasonal or model–observation panels.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-53-map-caption"],
+    assessmentIds: ["cgei-ds-assess-53-maps"],
+    resourceIds: ["cgei-ds-r-53-cartopy", "cgei-ds-r-53-colormaps"],
+    deliverableIds: ["cgei-ds-d-53-figure-audit"],
+  },
+  {
+    id: "cgei-ds-lesson-5-3-5",
+    kind: "lesson",
+    title: "Uncertainty, captions and responsible visual claims",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-53-communication",
+        statement:
+          "Communicate uncertainty, data limitations and non-causal interpretations in figure captions and an EDA memo.",
+        action: "communicate and qualify",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-53-5-core",
+        kind: "prose",
+        title: "Show what the data cannot resolve",
+        body: "Use error bars, confidence bands, ensemble traces or explicit no-data regions when uncertainty matters. Do not draw a smooth surface that implies precision the sample cannot support. Avoid truncated axes that manufacture drama. Interactive graphics can support exploration, but static figures with fixed scale, provenance and captions are easier to archive, review and compare.",
+      },
+      {
+        id: "cgei-ds-53-5-code",
+        kind: "code",
+        title: "Label an association without implying causality",
+        language: "python",
+        code: 'import matplotlib.pyplot as plt\nfig, ax = plt.subplots(figsize=(5, 4))\nax.scatter(df["ndvi"], df["lst_c"], s=2, alpha=0.15, c="0.2")\nax.set_xlabel("NDVI (dimensionless)")\nax.set_ylabel("LST (°C)")\nax.set_title("Multan scene — association only; pixels not independent")',
+      },
+      {
+        id: "cgei-ds-53-5-checklist",
+        kind: "checklist",
+        title: "Caption: claim, evidence and non-claim",
+        items: [
+          "What question does the figure answer?",
+          "What are the observational unit and valid sample size?",
+          "What uncertainty or missingness is visible or described?",
+          "What baseline, scale, resolution and time period were used?",
+          "What tempting claim cannot be established from this figure alone?",
+          "Could dependence, confounding or classification choices change the interpretation?",
+        ],
+      },
+      {
+        id: "cgei-ds-53-5-example",
+        kind: "worked-example",
+        title: "LST versus NDVI: a disciplined conclusion",
+        body: "Supported: “In this scene, pixels with higher NDVI tended to have lower LST; the relationship is descriptive and nearby pixels are spatially dependent.” Not supported from this plot alone: “Increasing NDVI causes a specified cooling effect.” A causal claim needs a design and assumptions beyond exploratory association.",
+      },
+      {
+        id: "cgei-ds-53-5-honest",
+        kind: "prose",
+        title: "Honest axes, colour and scale choices",
+        body: "Uncertainty bands and error bars must match the quantity (pointwise vs simultaneous, SD vs SE). Truncated axes and dual axes can invent drama—prefer full ranges or clearly marked breaks. Log scales are appropriate for multiplicative processes but mislead when differences are additive. Design for greyscale and readable type size.",
+      },
+      {
+        id: "cgei-ds-53-5-climate",
+        kind: "prose",
+        title: "Climate and comparison plot types",
+        body: "Climate stripes, Hovmöller diagrams, Taylor diagrams, wind roses, anomaly bars, and ECDFs each answer specific questions—use them when the geometry matches the claim. For anomalies, distributions, seasonal cycles, and model–observation comparison, choose the plot that exposes the discrepancy you need to discuss, not the most decorative option.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-53-uncertainty"],
+    assessmentIds: ["cgei-ds-assess-53-communication"],
+    resourceIds: ["cgei-ds-r-53-wilke"],
+    deliverableIds: ["cgei-ds-d-53-eda-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-4-distributions",
+    kind: "lesson",
+    title: "Probability models and environmental distributions",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-54-distributions",
+        statement:
+          "Select and assess probability distributions for environmental variables, explaining support, moments and goodness-of-fit limitations.",
+        action: "select and assess",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
+          "cgei-comp-uncertainty",
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-27-2-1",
-        "kind": "prose",
-        "title": "Fitting methods and small-sample behaviour",
-        "body": "Production fitting uses maximum likelihood (MLE), probability-weighted moments (PWM), or L-moments. MLE is flexible (supports covariates, ties to profile likelihood) but can be unstable for small n, especially for ξ; L-moments/PWM are more robust in small samples but less flexible for non-stationary models. Because ξ’s sampling distribution is skewed, profile-likelihood confidence intervals for ξ are generally preferred over symmetric Wald intervals."
+        id: "cgei-ds-54-dist-rv",
+        kind: "prose",
+        title: "Random variables and moments",
+        body: "A random variable maps outcomes to a numeric quantity. Discrete variables assign probability to countable outcomes; continuous variables use a density, so probability is area over an interval. Expectation is a model-based long-run average; variance describes squared spread; covariance describes joint variation and depends on scale. Sample estimates inherit uncertainty from sampling design and dependence.",
       },
       {
-        "id": "cgei-cl-27-2-lab",
-        "kind": "worked-example",
-        "title": "Lab: method-of-moments Gumbel fit (hand-verified)",
-        "body": "Synthetic annual maxima (mm): 60, 70, 75, 90, 110. Mean x̄=81; sample variance (n−1=4 divisor) = 1520/4 = 380, s=√380≈19.49. Closed-form Gumbel method-of-moments: σ̂ = s·√6/π ≈ 19.49×0.7797 ≈ 15.20 mm; μ̂ = x̄ − 0.5772·σ̂ ≈ 81 − 8.77 ≈ 72.23 mm. The 50-year return level is x₅₀ = μ̂ + 3.9019·σ̂ ≈ 72.23 + 59.30 ≈ 131.5 mm."
+        id: "cgei-ds-54-dist-table",
+        kind: "table",
+        title: "Common environmental distributions",
+        headers: ["Model", "Potential use", "Caution"],
+        rows: [
+          [
+            "Normal",
+            "Real-valued anomalies and symmetric errors",
+            "May misrepresent skew and tails",
+          ],
+          [
+            "Log-normal",
+            "Positive right-skewed quantities",
+            "Requires positive values; zeros need explicit treatment",
+          ],
+          [
+            "Gamma",
+            "Positive rainfall amount conditional on wet days",
+            "Cannot represent an exact point mass at zero",
+          ],
+          [
+            "Weibull",
+            "Positive wind speed and related quantities",
+            "Check fit and parameter interpretation in the variable’s units",
+          ],
+        ],
       },
       {
-        "id": "cgei-cl-27-2-gof",
-        "kind": "prose",
-        "title": "Named diagnostic plots",
-        "body": "Three standard graphical checks: a QQ plot compares ordered sample values against fitted-model quantiles (points should lie near the 1:1 line); a return-level plot shows fitted return level against return period (often on a log-T axis) with the empirical points overlaid; a probability plot compares the fitted CDF against empirical plotting-position probabilities. Systematic curvature in any of these — especially at the largest observations — signals that ξ or the chosen family is wrong, not just estimation noise."
+        id: "cgei-ds-54-dist-moments-example",
+        kind: "worked-example",
+        title: "Calculate moments and covariance on a tiny sample",
+        body: "For the three equally weighted values x = [1, 2, 3], the empirical mean is 2 and the empirical population variance is ((1−2)² + (2−2)² + (3−2)²)/3 = 2/3. If y = [2, 4, 6], its mean is 4 and the empirical population covariance is mean((x−2)(y−4)) = (2 + 0 + 2)/3 = 4/3. The sample-variance convention divides by n−1 instead of n; state which convention is used. Covariance changes with units, so it is not directly comparable across differently scaled variables.",
       },
       {
-        "id": "cgei-cl-27-2-leaveout",
-        "kind": "worked-example",
-        "title": "Lab: a leave-out check (hand-verified)",
-        "body": "Refit the same method-of-moments Gumbel model excluding the single largest observation (110), using 60, 70, 75, 90: mean=73.75; sample variance (n−1=3) = (13.75²+3.75²+1.25²+16.25²)/3 = 468.75/3 = 156.25, s=12.5 exactly. σ̂=12.5×0.7797≈9.75 mm; μ̂=73.75−0.5772×9.75≈68.12 mm. The leave-out 50-year return level is x₅₀≈68.12+3.9019×9.75≈106.2 mm — a drop of about 25.4 mm (≈19%) from the full-sample estimate of 131.5 mm. With n=5, a single observation changes the headline return level by nearly a fifth: that sensitivity, not just the point estimate, is what a leave-out check is for."
+        id: "cgei-ds-54-dist-fit",
+        kind: "worked-example",
+        title: "Do not hide dry days in a rainfall fit",
+        body: "If daily rainfall contains many exact zeros and a long positive tail, a single gamma distribution is not suitable for all observations because its support is positive. A defensible first candidate separates rainfall occurrence from positive amount, then checks the wet-day model. Record units, period, missing-day treatment and dependence assumptions.",
       },
       {
-        "id": "cgei-cl-27-2-extrap",
-        "kind": "prose",
-        "title": "Extrapolation discipline",
-        "body": "A common hydrological rule of thumb is to treat return levels beyond roughly 2–3× the record length with explicit caution, since the model is extrapolating past any observed data and relies entirely on the assumed tail shape ξ. n=5 is deliberately tiny here so the arithmetic is hand-checkable; it is not a credible basis for an operational 50-year design value — real work needs longer records (often 30+ years) and ideally cross-checks against a second method or nearby stations, as the leave-out example above demonstrates directly."
+        id: "cgei-ds-54-dist-checks",
+        kind: "checklist",
+        title: "Distribution-fit checks",
+        items: [
+          "Inspect histogram and ECDF with units and sample period.",
+          "Use a Q–Q plot to identify systematic departures, especially in the tails.",
+          "Compare scientifically plausible families and account for parameter estimation in goodness-of-fit tests.",
+          "Document transformations and any back-transformation.",
+          "Check zeros, missingness, outliers and serial/spatial dependence.",
+        ],
       },
       {
-        "id": "cgei-cl-27-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "n=5 synthetic sample chosen for hand computation, not realism",
-          "Method-of-moments used for teaching tractability; MLE/L-moments are the production methods",
-          "QQ/return-level/probability plots described, not rendered as figures here",
-          "Leave-out check removes only the single largest point, not a full cross-validation scheme"
-        ]
-      }
+        id: "cgei-ds-54-gof-path",
+        kind: "worked-example",
+        title: "Fitting versus goodness-of-fit (synthetic positive amounts)",
+        body: "Fit: estimate log-normal parameters on synthetic wet-day amounts (mm/day) by method of moments or MLE. Evaluate: compare ECDF to the fitted CDF and inspect a normal QQ plot of log amounts. Decision example: systematic upper-tail departure means the fitted log-normal understates extremes—even if a classical KS p-value looks large after parameter estimation. Transformation: modelling log amount changes the estimand; back-transform means carefully and do not report geometric means as arithmetic rainfall totals without disclosure.",
+      },
+      {
+        id: "cgei-ds-54-dist-code",
+        kind: "code",
+        title: "Fit a positive-support candidate",
+        language: "python",
+        code: 'import numpy as np\nfrom scipy import stats\nwet = rainfall_mm[np.isfinite(rainfall_mm) & (rainfall_mm > 0)]\nshape, loc, scale = stats.gamma.fit(wet, floc=0)\nprint({"shape": shape, "scale_mm": scale, "n_wet": len(wet)})',
+        body: "Illustrative pattern: use only if positive wet-day values and the selection rule are justified. A fitted parameter alone does not establish adequate fit.",
+      },
+      {
+        id: "cgei-ds-54-dist-warning",
+        kind: "callout",
+        title: "A fit is not validation",
+        tone: "warning",
+        items: [
+          "Do not select a distribution from one plot or p-value alone.",
+          "Parameter estimation can change goodness-of-fit reference distributions.",
+          "Classical tests do not repair sampling bias or temporal/spatial dependence.",
+        ],
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-54-distributions"],
+    assessmentIds: ["cgei-ds-assess-54-distributions"],
+    resourceIds: ["cgei-ds-r-54-scipy-bootstrap"],
+    deliverableIds: ["cgei-ds-d-54-brief"],
   },
   {
-    "id": "cgei-cl-lesson-2-7-3",
-    "kind": "lesson",
-    "title": "Extensions: non-stationarity, regional analysis, and dependence",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
+    id: "cgei-ds-lesson-5-4-1",
+    kind: "lesson",
+    title: "Sampling designs, representativeness and environmental support",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-27-extend",
-        "statement": "Incorporate a covariate into a non-stationary GEV location parameter, describe regional frequency analysis and Bayesian extensions, and distinguish copula-based joint-extreme modelling from simple co-occurrence counting.",
-        "action": "extend and distinguish",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-54-sampling",
+        statement:
+          "Define population, sample support and sampling design before generalising an environmental estimate.",
+        action: "define and critique",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-54-1-core",
+        kind: "prose",
+        title: "Define what the sample represents",
+        body: "A population is the target set of units for inference: all summer days, all districts, or all eligible satellite pixels for a defined period. The sample is what was observed. Support describes where and when observations come from. A hundred adjacent pixels in one neighbourhood are not a random sample of a province; spatial dependence and sampling design limit generalisation.",
+      },
+      {
+        id: "cgei-ds-54-1-designs",
+        kind: "table",
+        title: "Sampling designs",
+        headers: ["Design", "Strength", "Caution"],
+        rows: [
+          [
+            "Simple random",
+            "Known inclusion mechanism",
+            "Can miss rare strata by chance",
+          ],
+          [
+            "Stratified",
+            "Ensures representation of named groups",
+            "Weights may be needed for population estimates",
+          ],
+          [
+            "Clustered",
+            "Can reduce field costs",
+            "Within-cluster dependence reduces effective information",
+          ],
+          [
+            "Convenience/monitoring network",
+            "Practical and often long-running",
+            "Selection may not support broad population claims",
+          ],
+        ],
+      },
+      {
+        id: "cgei-ds-54-1-points",
+        kind: "key-points",
+        title: "Parameter, statistic and standard error",
+        items: [
+          "A parameter describes the target population; a statistic is calculated from the sample.",
+          "A sampling distribution describes variation in a statistic across repeated samples under a design/model.",
+          "Standard error describes estimate precision, not the spread of raw observations.",
+          "State the observational unit and support before reporting n.",
+        ],
+      },
+      {
+        id: "cgei-ds-54-1-se-example",
+        kind: "worked-example",
+        title: "Standard-error worked example (synthetic annual means)",
+        body: "Synthetic series of 10 annual means (°C): 30.0, 31.0, 29.5, 30.5, 32.0, 30.0, 31.5, 29.0, 30.5, 31.0. Sample mean x̄ = 30.5 °C. Sample sd s ≈ 0.913 °C. Under an independent-sampling model, SE(x̄) = s/√n ≈ 0.289 °C. An approximate 95% normal interval is 30.5 ± 1.96×SE ≈ [29.93, 31.07] °C. Fixture unit_5_4_inference_check.py locks mean, SE and interval arithmetic. Positive autocorrelation would reduce effective n and widen uncertainty — the formula is not licence to ignore dependence.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-54-sampling"],
+    assessmentIds: ["cgei-ds-assess-54-sampling"],
+    resourceIds: ["cgei-ds-r-54-wilks"],
+    deliverableIds: ["cgei-ds-d-54-brief"],
+  },
+  {
+    id: "cgei-ds-lesson-5-4-2",
+    kind: "lesson",
+    title: "Estimation, confidence intervals and bootstrap",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-54-intervals",
+        statement:
+          "Calculate and interpret confidence intervals and bootstrap uncertainty while stating dependence assumptions.",
+        action: "calculate and interpret",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-54-2-numeric",
+        kind: "worked-example",
+        title: "SE and interval width scale with n",
+        body: "For an iid sample mean of a continuous variable with known σ, SE = σ/√n. Doubling n multiplies SE by 1/√2 ≈ 0.707—not by 1/2. A 95% interval under normal approx is roughly mean ± 1.96·SE when assumptions hold. Environmental series rarely meet iid; report dependence and prefer blocked bootstrap or model-based SE when dependence is material. Fixture unit_5_4_inference_check.py exercises related arithmetic on synthetic series.",
+      },
+      {
+        id: "cgei-ds-54-2-bootstrap",
+        kind: "worked-example",
+        title: "Bootstrap a statistic without breaking dependence",
+        body: "For independent sampling units, resample units with replacement. For serially dependent series, resample blocks. The bootstrap approximates the sampling distribution of a statistic under the resampling scheme you choose—it does not create independence where none exists.",
+      },
+      {
+        id: "cgei-ds-54-2-bootstrap-code",
+        kind: "code",
+        title: "Seeded block-bootstrap sketch",
+        language: "python",
+        code: "rng = np.random.default_rng(42)\nblock = 12  # example only; justify and sensitivity-check this length\nstarts = rng.integers(0, len(y) - block + 1, size=int(np.ceil(len(y) / block)))\nsample = np.concatenate([y[s:s + block] for s in starts])[:len(y)]\nboot_stat = np.mean(sample)\n# Repeat many times and retain the full statistic distribution.",
+        body: "The example demonstrates the resampling unit, not a universal block length or a complete interval implementation. Keep the seed, sampling assumptions and block-length sensitivity in the report.",
+      },
+      {
+        id: "cgei-ds-54-2-core",
+        kind: "prose",
+        title: "An interval is a procedure with assumptions",
+        body: "A frequentist 95% confidence-interval procedure covers the true parameter in 95% of repeated samples when its assumptions hold. It does not mean there is a 95% probability that the fixed parameter lies inside this one computed interval. Dependence reduces effective sample size and can make naive intervals too narrow.",
+      },
+      {
+        id: "cgei-ds-54-2-equation",
+        kind: "equation",
+        title: "Approximate interval for a mean",
+        expression: "x̄ ± z × s / √n",
+        body: "x̄ is the sample mean, s the sample standard deviation, n the sample size, and z ≈ 1.96 for a two-sided 95% normal approximation. Use an appropriate t critical value and account for dependence when observations are not independent.",
+      },
+      {
+        id: "cgei-ds-54-2-example",
+        kind: "worked-example",
+        title: "Monthly anomaly interval",
+        body: "For n = 30 approximately independent monthly anomalies, mean = 0.8 °C and sample SD = 1.2 °C: SE = 1.2 / √30 ≈ 0.22 °C. The approximate 95% interval is 0.8 ± 1.96 × 0.22, or about [0.37, 1.23] °C. If these were 30 consecutive winter days, independence would be implausible and the interval could be too narrow.",
+      },
+      {
+        id: "cgei-ds-54-2-code",
+        kind: "code",
+        title: "Reproduce the interval",
+        language: "python",
+        code: "import math\nn, mean_c, sd_c = 30, 0.8, 1.2\nse_c = sd_c / math.sqrt(n)\nprint(mean_c - 1.96 * se_c, mean_c + 1.96 * se_c)",
+      },
+    ],
+    activityIds: ["cgei-ds-a-54-interval"],
+    assessmentIds: ["cgei-ds-assess-54-intervals"],
+    resourceIds: ["cgei-ds-r-54-scipy-bootstrap"],
+    deliverableIds: ["cgei-ds-d-54-brief"],
+  },
+  {
+    id: "cgei-ds-lesson-5-4-3",
+    kind: "lesson",
+    title: "Hypothesis tests, p-values and multiple testing",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-54-tests",
+        statement:
+          "Interpret p-values and multiple-testing adjustments without substituting significance for practical importance.",
+        action: "interpret and adjust",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-54-3-core",
+        kind: "prose",
+        title: "A p-value is conditional on the null and model",
+        body: "A p-value is the probability, assuming the null hypothesis and model are true, of data at least as extreme as observed. It is not the probability that the null is true and does not measure effect size. Small p does not guarantee practical importance; large p does not prove no effect. Many pixel/station tests inflate false positives, so pre-specify primary tests or control false discovery rate.",
+      },
+      {
+        id: "cgei-ds-54-3-z-example",
+        kind: "worked-example",
+        title: "A complete one-sample z-test sketch (synthetic)",
+        body: "Using the same synthetic series (x̄ = 30.5 °C, SE ≈ 0.289 °C), test H₀: μ = 30 °C against a two-sided alternative under an independent normal model with known-SE approximation. Test statistic z = (x̄ − μ₀)/SE ≈ 1.73. At α = 0.05 the critical value is about ±1.96, so this sample would not reject H₀ under those assumptions. Report estimate, SE/interval, and assumptions — not z alone. Autocorrelated climate series need dependence-aware methods; this sketch does not claim a climate-change detection result.",
+      },
+      {
+        id: "cgei-ds-54-3-code",
+        kind: "code",
+        title: "Adjust a family of tests using FDR",
+        language: "python",
+        code: 'from statsmodels.stats.multitest import multipletests\np_values = [0.001, 0.012, 0.031, 0.20, 0.44]\nreject, adjusted, _, _ = multipletests(p_values, alpha=0.05, method="fdr_bh")\nfor raw, adj, keep in zip(p_values, adjusted, reject):\n    print(f"raw={raw:.3f}, adjusted={adj:.3f}, reject={keep}")',
+      },
+      {
+        id: "cgei-ds-54-3-mistakes",
+        kind: "callout",
+        title: "Avoid p-value theatre",
+        tone: "warning",
+        items: [
+          "Do not treat p < 0.05 as a publish button.",
+          "Report effect sizes and intervals alongside tests.",
+          "Classical tests on consecutive climate days need dependence-aware methods.",
+          "An FDR correction does not repair invalid sampling or model assumptions.",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-54-tests"],
+    assessmentIds: ["cgei-ds-assess-54-tests"],
+    resourceIds: ["cgei-ds-r-54-statsmodels-multitest"],
+    deliverableIds: ["cgei-ds-d-54-inference-checklist"],
+  },
+  {
+    id: "cgei-ds-lesson-5-4-5",
+    kind: "lesson",
+    title: "Effect sizes, power and rank-based methods",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-54-categorical",
+        statement:
+          "Choose and interpret introductory ANOVA and chi-square methods for environmental group comparisons and categorical verification tables.",
+        action: "choose and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+      {
+        id: "cgei-ds-o-54-effect-size",
+        statement:
+          "Report effect sizes and justify rank-based or bootstrap methods with their remaining assumptions stated.",
+        action: "compare and justify",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-54-5-rank-tests",
+        kind: "worked-example",
+        title: "Choose a rank test from the design, not a normality shortcut",
+        body: "Mann–Whitney compares two independent groups through their rank distributions; it is not automatically a test of medians unless additional distribution-shape assumptions hold. Wilcoxon signed-rank is for paired differences under symmetry assumptions; Kruskal–Wallis extends rank-based comparison to multiple independent groups. For dependent environmental time series, ordinary rank tests still need a dependence-aware design. Report the estimand, group structure, ties and effect-size interpretation.",
+      },
+      {
+        id: "cgei-ds-54-5-robust-ks",
+        kind: "worked-example",
+        title: "Use QQ plots, robust summaries and KS tests carefully",
+        body: "A Q–Q plot compares sample quantiles with reference quantiles: systematic curvature suggests shape mismatch, while tail departures can reveal outliers or heavy tails. The median and interquartile range are less sensitive to extreme values than the mean and standard deviation, but they answer different questions. A two-sample Kolmogorov–Smirnov test compares empirical distributions for independent samples; ties, parameter estimation and serial/spatial dependence can invalidate a naive reference calculation. Use plots and the scientific estimand to choose a method, not a normality-test gate.",
+      },
+      {
+        id: "cgei-ds-54-5-rank-numeric",
+        kind: "worked-example",
+        title: "Mann–Whitney rank sums on a tiny synthetic sample",
+        body: "Question: do two independent groups of synthetic site residuals differ in location under a rank comparison? Group A ranks among pooled values yield rank sum R_A = 8 on n_A = n_B = 3 (pooled ranks 1…6 with no ties). Under the null of exchangeable labels, extreme rank sums are unlikely; the point is the design (independent groups) and the estimand (stochastic dominance / rank location), not a median claim without shape assumptions. Serial dependence would invalidate treating the six values as independent ranks.",
+      },
+      {
+        id: "cgei-ds-54-5-ks-caveat",
+        kind: "callout",
+        tone: "warning",
+        title: "KS after fitting parameters is not the textbook KS",
+        body: "When location/scale are estimated from the same sample, the ordinary Kolmogorov–Smirnov critical values are too liberal. Prefer probability plots, ECDF overlays, and methods that account for estimation, or treat a classical KS p-value as exploratory only. QQ plots diagnose shape; they are not hypothesis tests and do not prove normality.",
+      },
+      {
+        id: "cgei-ds-54-5-power",
+        kind: "key-points",
+        title: "Power, error types and effective information",
+        items: [
+          "Type I error is rejecting a true null; Type II error is failing to reject a false null. Power is 1 − β for a specified alternative and design.",
+          "Power depends on effect magnitude, noise, sample size, significance threshold and the dependence structure—not sample size alone.",
+          "For a simple stationary AR(1)-like process with positive lag-one correlation ρ, n_eff ≈ n(1−ρ)/(1+ρ) is a rough heuristic, not a universal correction.",
+          "Use design-aware power or sample-size calculations; spatial clusters, seasonality, repeated measures and nonstationarity need more than the single-correlation heuristic.",
+        ],
+      },
+      {
+        id: "cgei-ds-54-5-power-numeric",
+        kind: "worked-example",
+        title: "A conceptual two-sample power sketch (equal n, known σ)",
+        body: "Suppose a balanced two-group comparison aims to detect a mean difference δ = 2 °C with common σ = 4 °C at two-sided α = 0.05 and approximate 80% power under independent sampling. A rough normal-theory planning formula uses n ≈ 2 (z_{1−α/2} + z_{1−β})² (σ/δ)² per group. With z_{0.975} ≈ 1.96 and z_{0.80} ≈ 0.84, n ≈ 2(1.96+0.84)² (4/2)² ≈ 2(2.80)² (2)² ≈ 2 × 7.84 × 4 ≈ 63 observations per group. This is a planning sketch, not a licence to ignore dependence: positive autocorrelation reduces effective sample size and can require larger designs or blocked analysis.",
+      },
+      {
+        id: "cgei-ds-54-5-neff",
+        kind: "worked-example",
+        title:
+          "Effective sample size under AR(1)-like dependence (approximation)",
+        body: "For a stationary AR(1)-like series with lag-1 autocorrelation ρ, a common approximation is n_eff ≈ n (1−ρ)/(1+ρ) for the variance of the sample mean (when |ρ|<1). Example: n = 100, ρ = 0.5 → n_eff ≈ 100×0.5/1.5 ≈ 33.3. Assumptions: approximate AR(1), large n, focus on the mean; this is not a universal fix for every spatial field or regression coefficient. Dependence-aware models or blocked designs remain preferable to plugging n_eff into an independence test and stopping.",
+      },
+      {
+        id: "cgei-ds-54-5-anova",
+        kind: "prose",
+        title: "ANOVA compares group means under a model",
+        body: "One-way ANOVA compares mean outcomes across three or more independent groups by contrasting between-group variation with within-group variation. It assumes an appropriate independent-error model and requires attention to residual shape and variance differences. A significant omnibus result says at least one group mean differs; it does not identify which groups differ or establish a meaningful effect. Report group summaries, an effect size and follow-up comparisons with multiplicity handled.",
+      },
+      {
+        id: "cgei-ds-54-5-anova-numeric",
+        kind: "worked-example",
+        title: "Calculate a one-way ANOVA F statistic",
+        body: "Three independent groups have values A = [20, 22, 21], B = [25, 27, 26], and C = [23, 24, 22] in °C. Their means are 21, 26 and 23 °C; the grand mean is 23.33 °C. The between-group sum of squares is 38 with 2 degrees of freedom, so MS_between = 19. The within-group sum of squares is 6 with 6 degrees of freedom, so MS_within = 1. Therefore F = 19/1 = 19. This arithmetic illustrates the statistic, not a blanket permission to use ANOVA: verify the sampling design, residual behaviour, variance assumptions and independence; if groups are spatially or temporally dependent, the naive reference distribution may be unsuitable.",
+      },
+      {
+        id: "cgei-ds-54-5-contingency",
+        kind: "worked-example",
+        title: "Build a contingency table before a chi-square test",
+        body: "For a forecast verification example, tabulate observed event versus forecast event into hits, misses, false alarms and correct negatives. A chi-square test of independence can assess association between categorical variables when expected counts and sampling assumptions are appropriate; it is not a substitute for reporting verification scores or checking class imbalance. Keep the table counts visible and document the event threshold and unit of verification. This links to the verification methods in Subject 7.",
+      },
+      {
+        id: "cgei-ds-54-5-chi-square-numeric",
+        kind: "worked-example",
+        title: "Compute expected counts before a chi-square test",
+        body: "Suppose the observed verification table is [[30 hits, 10 misses], [8 false alarms, 52 correct negatives]], with rows representing forecast event/no-event and columns observed event/no-event. Row totals are 40 and 60; column totals are 38 and 62; N = 100. Under independence, expected counts are row total × column total / N: 15.2, 24.8, 22.8 and 37.2. Pearson χ² = Σ(O−E)²/E ≈ 38.74. All expected counts exceed 5 in this example, but that alone does not prove independent sampling: repeated forecasts, nearby grid cells or clustered events may violate the test design. Also report the verification counts and scientifically relevant scores; do not interpret association as causation.",
+      },
+      {
+        id: "cgei-ds-54-5-core",
+        kind: "prose",
+        title: "Magnitude and practical meaning matter",
+        body: "Report a mean difference, slope, risk difference or other effect size in interpretable units alongside uncertainty. A tiny effect can be statistically significant in a huge sample and still be irrelevant to a decision. Power generally rises with larger effects and sample size and falls with noise, stricter alpha and dependence. Rank methods and bootstrap can help when distributional assumptions are weak, but they are not assumption-free; independence often remains important.",
+      },
+      {
+        id: "cgei-ds-54-5-example",
+        kind: "worked-example",
+        title: "Statistical versus practical importance",
+        body: "A very large pixel sample yields p < 0.001 for a 0.05 °C difference. The p-value alone does not say whether that difference matters for heat-risk decisions. Report the estimate, interval, measurement uncertainty, spatial support and decision-relevant threshold.",
+      },
+      {
+        id: "cgei-ds-54-5-cohens-d",
+        kind: "worked-example",
+        title: "Cohen's d for a two-group mean difference (synthetic)",
+        body: "Groups A = [20, 22, 21] and B = [25, 27, 26] (°C, synthetic). Means are 21 and 26 °C. Pooled sample sd for equal n is s_p = √((s_A² + s_B²)/2) = 1 °C in this toy design, so d = (26 − 21)/s_p = 5.0 — a large standardised separation. Report d with units of the raw difference (5 °C) and the assumptions; d does not prove practical importance for every decision context and does not establish causation. Fixture unit_5_4_inference_check.py locks the arithmetic.",
+      },
+      {
+        id: "cgei-ds-54-5-checklist",
+        kind: "checklist",
+        title: "A responsible statistical brief",
+        items: [
+          "Target population, sample support and sampling design.",
+          "Estimate and units, with interval or uncertainty measure.",
+          "Effect size and practical interpretation.",
+          "Diagnostics and dependence/representativeness limitations.",
+          "One supported claim and one explicit non-claim.",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-54-effect-size"],
+    assessmentIds: ["cgei-ds-assess-54-effect-size"],
+    resourceIds: ["cgei-ds-r-54-nist"],
+    deliverableIds: ["cgei-ds-d-54-brief", "cgei-ds-d-54-inference-checklist"],
+  },
+  {
+    id: "cgei-ds-lesson-5-4-4",
+    kind: "lesson",
+    title: "Correlation, simple regression and residual diagnostics",
+    order: 6,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-54-regression",
+        statement:
+          "Fit a simple regression with interpretable units and diagnose residual patterns before reporting a slope.",
+        action: "fit and diagnose",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-54-4-core",
+        kind: "prose",
+        title: "Interpret the slope with units",
+        body: "Pearson correlation summarizes linear association; Spearman summarizes rank association. Both are symmetric and non-causal. In simple regression, the slope describes expected change in Y per unit increase in X under the model, with units of Y divided by units of X. Environmental data often violate independent-error and constant-variance assumptions.",
+      },
+      {
+        id: "cgei-ds-54-4-partial",
+        kind: "worked-example",
+        title:
+          "Partial correlation removes shared linear association with a control",
+        body: "Suppose Pearson correlations among NDVI (X), LST (Y) and soil moisture (Z) are r_XY = −0.60, r_XZ = 0.50 and r_YZ = −0.40. The partial correlation of X and Y given Z is r_XY|Z = (r_XY − r_XZ r_YZ) / sqrt((1 − r_XZ²)(1 − r_YZ²)) = (−0.60 − (0.50)(−0.40)) / sqrt((1 − 0.25)(1 − 0.16)) = (−0.40) / sqrt(0.75 × 0.84) ≈ −0.40 / 0.794 ≈ −0.50. Controlling for moisture weakens the NDVI–LST association but does not make it causal: unmeasured confounders, non-linear structure and spatial dependence can remain.",
+      },
+      {
+        id: "cgei-ds-54-4-pearson-numeric",
+        kind: "worked-example",
+        title: "Pearson correlation on a known linear series",
+        body: "For synthetic pairs (x,y) = (1,2), (2,4), (3,6), (4,8), (5,10), Pearson r = 1.0 by construction. Perfect linear association is rare in environmental data; use this only to verify the formula. Rank (Spearman) correlation is more appropriate when relationships are monotonic but not linear. Correlation still does not imply causation — see the NDVI–LST confounding example.",
+      },
+      {
+        id: "cgei-ds-54-4-code",
+        kind: "code",
+        title: "Fit and inspect simple OLS",
+        language: "python",
+        code: 'import matplotlib.pyplot as plt\nimport statsmodels.api as sm\nX = sm.add_constant(df["ndvi"].values)\nmodel = sm.OLS(df["lst_c"].values, X).fit()\nprint(model.params)  # slope units: °C per NDVI unit\nfig, ax = plt.subplots()\nax.scatter(model.fittedvalues, model.resid, s=8, alpha=0.5)\nax.axhline(0, color="0.4", linewidth=1)\nax.set_xlabel("Fitted LST (°C)")\nax.set_ylabel("Residual (°C)")',
+      },
+      {
+        id: "cgei-ds-54-4-checklist",
+        kind: "checklist",
+        title: "Minimum regression diagnostics",
+        items: [
+          "Check functional form and residual spread.",
+          "Inspect QQ and residual-vs-time/space patterns.",
+          "Check influential points and subgroup structure.",
+          "State sample support and dependence assumptions.",
+          "Describe the slope as association, not causation.",
+        ],
+      },
+      {
+        id: "cgei-ds-54-4-diag-example",
+        kind: "worked-example",
+        title: "One diagnostic is not enough",
+        body: "A residual-versus-fitted plot that looks featureless does not prove the model is adequate: residuals may still be serially correlated in time or clustered in space. Conversely, mild non-normality of residuals may matter less for slope estimation than a strong nonlinear pattern or unequal variance by subgroup. Check linearity, residual variance, residual dependence, and leverage separately—and match the diagnostic to the claim you will make.",
+      },
+      {
+        id: "cgei-ds-54-4-example",
+        kind: "worked-example",
+        title: "A slope is not a causal cooling estimate",
+        body: "A negative LST~NDVI slope means higher NDVI is associated with lower LST in this sample under the fitted model. Moisture, irrigation, season, built materials and spatial dependence may also explain the relationship. A causal cooling effect requires a design and assumptions beyond ordinary least squares.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-54-regression"],
+    assessmentIds: ["cgei-ds-assess-54-regression"],
+    resourceIds: ["cgei-ds-r-54-statsmodels-ols"],
+    deliverableIds: ["cgei-ds-d-54-regression-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-5-1",
+    kind: "lesson",
+    title: "End-to-end workflows, idempotence and manifests",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-55-workflow",
+        statement:
+          "Design an idempotent environmental-data workflow with separate raw, interim and processed products plus a reproducibility manifest.",
+        action: "design and validate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-55-1-core",
+        kind: "prose",
+        title: "A workflow is a sequence of auditable transformations",
+        body: "A dependable scientific workflow separates acquisition, validation, transformation, analysis and publication. Preserve downloaded inputs under data/raw/; write intermediate products to data/interim/ and analysis-ready outputs to data/processed/. Do not overwrite raw files with cleaned results. Every stage should state its inputs, outputs, assumptions and failure conditions.",
+      },
+      {
+        id: "cgei-ds-55-1-idempotence",
+        kind: "key-points",
+        title: "Design for safe reruns",
+        items: [
+          "Idempotence means rerunning a stage with the same inputs does not silently append duplicates or change the intended result.",
+          "Use stable keys, explicit output paths and overwrite/skip rules; record software and source versions.",
+          "Validate schema, units, ranges, CRS, temporal coverage and completeness before analysis.",
+          "Keep a manifest with the exact source/product, variables, request parameters, dates, licence, checksum and transformation notes.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-1-manifest",
+        kind: "code",
+        title: "Example manifest for a climate-data request",
+        language: "yaml",
+        code: "dataset_id: era5_t2m_multan_2015_2024\nsource: Copernicus Climate Data Store\nvariable: 2m_temperature\nsource_units: K\nspatial_extent: documented bounding box\ntemporal_extent: 2015-01-01/2024-12-31\nrequest_file: requests/era5_request.json\nretrieved_utc: YYYY-MM-DDTHH:MM:SSZ\nlicence: verify the current dataset-specific terms\nsha256: record checksum of the downloaded file\nprocessing: daily maximum grouped by Asia/Karachi local date",
+      },
+      {
+        id: "cgei-ds-55-1-example",
+        kind: "worked-example",
+        title: "Diagnose a non-idempotent download stage",
+        body: "A script appends every downloaded daily row to an existing CSV each time it runs. A second run duplicates the same dates and inflates the sample size. Fix the stage by defining a stable key (for example, station_id + local_date), checking duplicates, and writing a deterministic output from the recorded raw input. Compare row counts and checksums before publishing.",
+      },
+      {
+        id: "cgei-ds-55-1-checksum",
+        kind: "code",
+        title: "Compute a SHA-256 checksum for the manifest",
+        language: "python",
+        code: "from hashlib import sha256\nfrom pathlib import Path\n\ndef sha256_file(path, chunk_size=1024 * 1024):\n    digest = sha256()\n    with Path(path).open('rb') as handle:\n        for chunk in iter(lambda: handle.read(chunk_size), b''):\n            digest.update(chunk)\n    return digest.hexdigest()\n\n# Hash raw bytes to identify the exact file contents.",
+      },
+      {
+        id: "cgei-ds-55-1-catalogue",
+        kind: "prose",
+        title: "Question and variable catalogue first",
+        body: "Before downloading, write the analysis question and a variable catalogue: quantity, units, spatial/temporal support, acceptable sources, and QA flags you will require. Discovery and ingestion follow the catalogue—not the other way around. Changing the question after acquisition is allowed, but then update the catalogue and re-check licence and fitness-for-purpose.",
+      },
+      {
+        id: "cgei-ds-55-1-stages",
+        kind: "prose",
+        title: "Discovery through reporting as stages",
+        body: "Name stages explicitly: discovery, access, ingestion, quality assessment, transformation, analysis, visualisation, reporting. Each stage has inputs, outputs, and failure modes. Lineage records which raw files and config versions produced each derived table so a reviewer can rerun the path.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-55-workflow"],
+    assessmentIds: ["cgei-ds-assess-55-workflow"],
+    resourceIds: ["cgei-ds-r-55-good-practices"],
+    deliverableIds: ["cgei-ds-d-55-acquisition-package"],
+  },
+  {
+    id: "cgei-ds-lesson-5-5-2",
+    kind: "lesson",
+    title: "Relational tables, SQL joins and grouped summaries",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-55-sql",
+        statement:
+          "Query relational environmental data with explicit keys, filters, joins and grouped summaries, then verify row counts and key uniqueness.",
+        action: "query and verify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-quantitative-reasoning",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-55-2-core",
+        kind: "prose",
+        title: "Model entities separately and connect them with keys",
+        body: "Store station metadata (one row per station) separately from observations (many rows per station and date). A primary key uniquely identifies a record; a foreign key links an observation to its station. Joining on display names is fragile because spelling and formatting can change. Use stable IDs and validate the expected one-to-many relationship.",
+      },
+      {
+        id: "cgei-ds-55-2-table",
+        kind: "table",
+        title: "A minimal relational model",
+        headers: ["Table", "Grain / key", "Example columns"],
+        rows: [
+          [
+            "stations",
+            "One row per station; primary key id",
+            "id, name, latitude, longitude, elevation_m",
+          ],
+          [
+            "daily",
+            "One row per station per local date; composite key station_id + date",
+            "station_id, date, tmax, n_valid_hours",
+          ],
+          [
+            "daily.station_id",
+            "Foreign key to stations.id",
+            "Must match an existing station unless intentionally flagged",
+          ],
+        ],
+      },
+      {
+        id: "cgei-ds-55-2-sql",
+        kind: "code",
+        title: "Mean June maximum temperature by station",
+        language: "sql",
+        code: "SELECT\n  s.id AS station_id,\n  s.name,\n  AVG(d.tmax) AS mean_june_tmax,\n  COUNT(d.tmax) AS n_valid\nFROM stations AS s\nJOIN daily AS d ON d.station_id = s.id\nWHERE d.date >= '2024-06-01'\n  AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;",
+      },
+      {
+        id: "cgei-ds-55-2-example",
+        kind: "worked-example",
+        title: "Check a join before trusting the aggregate",
+        body: "Suppose daily has 3,000 rows and stations has 25 unique station IDs. An inner join returning 2,700 rows may mean 300 observations refer to missing station IDs, or the filters excluded rows. Check unmatched keys, duplicate metadata IDs, and counts before and after the join. Never assume a plausible-looking mean proves the join was correct.",
+      },
+      {
+        id: "cgei-ds-55-2-advanced-sql",
+        kind: "code",
+        title:
+          "Use a CTE and window function for a transparent time-series query",
+        language: "sql",
+        code: "WITH ranked AS (\n  SELECT station_id, date, tmax,\n         ROW_NUMBER() OVER (PARTITION BY station_id ORDER BY date) AS day_n\n  FROM daily\n  WHERE tmax IS NOT NULL\n)\nSELECT station_id, date, tmax,\n       AVG(tmax) OVER (PARTITION BY station_id ORDER BY date ROWS BETWEEN 6 PRECEDING AND CURRENT ROW) AS trailing_7_obs_mean\nFROM ranked\nORDER BY station_id, date;",
+        body: "Window frames are observation-count windows here, not necessarily seven calendar days when dates are missing. Explicitly handle NULLs, date boundaries, duplicate keys and query plans; use indexes based on measured access patterns, not by reflex.",
+      },
+      {
+        id: "cgei-ds-55-2-null-dates",
+        kind: "worked-example",
+        title: "NULL handling and date filters change who is counted",
+        body: "In SQL, comparisons with NULL are unknown, not true. WHERE tmax > 40 drops rows where tmax IS NULL, which can silently shrink a heat-day sample if missingness is informative. Prefer explicit filters such as WHERE tmax IS NOT NULL AND date >= DATE '2024-06-01' AND date < DATE '2024-07-01', document the missing-data rule, and check counts before and after filtering. Date functions and formats are dialect-specific; store UTC instants or unambiguous local calendar dates with a stated time zone policy.",
+      },
+      {
+        id: "cgei-ds-55-2-schema",
+        kind: "prose",
+        title: "Keys, normalisation and indexes as design choices",
+        body: "Put each entity at a clear grain: stations (station_id) separate from daily observations (station_id, date). First normal form avoids repeating groups; further normalisation reduces update anomalies when metadata change. Indexes speed selective predicates and joins but cost write time and storage—index measured access patterns (for example station_id, date ranges), not every column. Denormalised analysis tables are acceptable as derived products when lineage from the normalised source remains auditable.",
+      },
+      {
+        id: "cgei-ds-55-2-worked-june",
+        kind: "worked-example",
+        title: "Synthetic June means (locked fixture)",
+        body: "Teaching tables: stations A/B/C; daily tmax for A on 2024-06-01..03 (40,42,44), B on 2024-06-01..02 (34,36), A on 2024-07-01 (99) outside the window, and C with no June rows. Half-open filter date >= 2024-06-01 AND date < 2024-07-01 excludes July. INNER JOIN aggregation yields Station A mean 42.0 with n_valid=3 and Station B mean 35.0 with n_valid=2. Station C does not appear. COUNT(tmax) ignores null measurements; COUNT(*) would count joined rows even when tmax is null.",
+      },
+      {
+        id: "cgei-ds-55-2-left-join",
+        kind: "code",
+        title: "LEFT JOIN retaining stations with no June observations",
+        language: "sql",
+        code: "SELECT s.id, s.name, AVG(d.tmax) AS mean_june_tmax, COUNT(d.tmax) AS n_valid\nFROM stations AS s\nLEFT JOIN daily AS d\n  ON d.station_id = s.id\n AND d.date >= '2024-06-01'\n AND d.date <  '2024-07-01'\nGROUP BY s.id, s.name\nORDER BY s.id;\n-- Expected: A 42.0 (3), B 35.0 (2), C NULL mean with n_valid=0",
+      },
+      {
+        id: "cgei-ds-55-2-on-vs-where",
+        kind: "callout",
+        title: "Date predicates in ON versus WHERE",
+        tone: "warning",
+        items: [
+          "With LEFT JOIN, put the observation-date filter in the ON clause so unmatched stations remain.",
+          "A WHERE filter on d.date after LEFT JOIN removes the unmatched station rows and behaves like an INNER JOIN.",
+          "Always state whether stations with zero valid days should appear in the product table.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-2-orphan",
+        kind: "prose",
+        title: "Referential integrity diagnostic",
+        body: "Orphan observation keys are daily.station_id values with no matching stations.id. Diagnose with a LEFT JOIN from daily to stations and WHERE stations.id IS NULL. Foreign keys help when enforced; imports can still introduce orphans if enforcement was off. Do not silently drop orphans—count them and decide repair or exclusion explicitly.",
+      },
+      {
+        id: "cgei-ds-55-2-guided",
+        kind: "prose",
+        title: "Guided practice",
+        body: "Using the same synthetic schema, compute mean June tmax and n_valid for stations that have at least two valid June days only (HAVING COUNT(d.tmax) >= 2). Compare row count to the unrestricted INNER JOIN result. Hint: filter dates in WHERE or ON consistently with an INNER JOIN; use HAVING after aggregation.",
+      },
+      {
+        id: "cgei-ds-55-2-fanout",
+        kind: "worked-example",
+        title: "Duplicate keys inflate aggregates (join fan-out)",
+        body: "Expected relationship: stations.id is unique; daily has at most one row per (station_id, date). If stations is accidentally duplicated (two rows with id=1), an INNER JOIN multiplies every matching daily row. Row count after join rises while COUNT(DISTINCT station_id) stays the same—AVG may still look plausible. Diagnostic: compare COUNT(*) to COUNT(DISTINCT station_id || '-' || date) on the joined result, and assert uniqueness of the parent key before joining. Fixture unit_5_5_sql_practice_check.py injects a duplicate station row and requires the fan-out detector to fire.",
+      },
+      {
+        id: "cgei-ds-55-2-integrity-habit",
+        kind: "key-points",
+        title: "Trust pipeline before interpretation",
+        items: [
+          "State expected grain and key uniqueness",
+          "Predict row counts for INNER vs LEFT JOIN",
+          "Compare actual vs expected counts and distinct entities",
+          "Check orphans, duplicates, and date bounds before reading the mean",
+        ],
+      },
+      {
+        id: "cgei-ds-55-2-independent",
+        kind: "prose",
+        title: "Independent practice",
+        body: "Add station D with two June tmax values (30.0, 32.0) and one null tmax on 2024-06-03. Report mean June tmax and n_valid for every station with a LEFT JOIN date-bounded ON clause. Expected for D: mean 31.0 and n_valid=2 (null day excluded from AVG/COUNT of tmax). Submit the SQL and a one-sentence integrity check for orphan keys. Bonus: explain how a duplicated stations.id would change COUNT(*) without changing the scientific target quantity.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-55-sql"],
+    assessmentIds: ["cgei-ds-assess-55-sql"],
+    resourceIds: ["cgei-ds-r-55-sqlite"],
+    deliverableIds: ["cgei-ds-d-55-sql-query"],
+  },
+  {
+    id: "cgei-ds-lesson-5-5-3",
+    kind: "lesson",
+    title: "HTTP APIs, retries, pagination and local caching",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-55-api",
+        statement:
+          "Acquire public environmental data through HTTP/API clients with timeouts, status checks, bounded retries, pagination awareness and local caching.",
+        action: "acquire and validate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-55-3-core",
+        kind: "prose",
+        title: "Treat data acquisition as a controlled experiment",
+        body: "An API request has an endpoint, parameters, authentication method, response status and often pagination or rate limits. Save the exact request parameters and client/library version. Set connection/read timeouts, call raise_for_status(), validate the returned schema and record the retrieval time. A successful JSON parse does not prove the HTTP response succeeded or that the payload represents the intended product.",
+      },
+      {
+        id: "cgei-ds-55-3-code",
+        kind: "code",
+        title: "A bounded retry pattern for idempotent GET requests",
+        language: "python",
+        code: "import time\nimport requests\n\nRETRYABLE = {429, 500, 502, 503, 504}\n\ndef get_json(url, params=None, attempts=5):\n    for attempt in range(attempts):\n        try:\n            response = requests.get(url, params=params, timeout=(5, 30))\n        except (requests.Timeout, requests.ConnectionError):\n            if attempt == attempts - 1:\n                raise\n            time.sleep(min(2 ** attempt, 60))\n            continue\n\n        if response.status_code in RETRYABLE and attempt < attempts - 1:\n            retry_after = response.headers.get('Retry-After', '')\n            wait = int(retry_after) if retry_after.isdigit() else 2 ** attempt\n            time.sleep(min(wait, 60))\n            continue\n        response.raise_for_status()\n        return response.json()\n    raise RuntimeError('Request attempts exhausted')\n\n# Add pagination handling and save exact request/response metadata.\n# Retry only safe, idempotent operations; keep attempts bounded.",
+      },
+      {
+        id: "cgei-ds-55-3-manual-extraction",
+        kind: "checklist",
+        title: "Manual extraction when no supported API exists",
+        items: [
+          "First check whether the provider publishes a bulk download, documented API, or machine-readable table.",
+          "Record the exact page/document URL, publisher, access date, version/date, table or page identifier, units and licence/terms.",
+          "Create a field dictionary and a repeatable extraction protocol; preserve the source file or lawful archival copy where terms permit.",
+          "Use double entry or independent spot-checking for critical numeric fields; reconcile disagreements against the source.",
+          "Validate row counts, totals, date ranges, units and missing values, and retain an audit log of corrections.",
+          "Read robots.txt and site terms; do not bypass authentication, technical controls or restrictions, and do not assume public visibility grants reuse rights.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-3-checklist",
+        kind: "checklist",
+        title: "Acquisition checklist",
+        items: [
+          "Set timeouts and handle non-success status codes explicitly.",
+          "Respect rate limits and numeric Retry-After when supplied; bound retries and backoff.",
+          "Follow pagination until the documented terminal condition, not until one page looks complete.",
+          "Cache original responses under data/raw/ with request metadata and checksums.",
+          "Validate units, schema, date coverage and expected spatial/temporal extent after download.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-3-auth",
+        kind: "prose",
+        title: "Authentication, rate limits and retries",
+        body: "APIs may use API keys, OAuth tokens, or signed URLs. Never commit secrets. Respect rate limits and Retry-After; use bounded exponential backoff for transient 429/5xx, not infinite loops. Distinguish 401/403 (authz) from 404 (missing) and 5xx (retryable). Pagination must follow the provider contract until a terminal page.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-55-api"],
+    assessmentIds: ["cgei-ds-assess-55-api"],
+    resourceIds: ["cgei-ds-r-55-requests"],
+    deliverableIds: ["cgei-ds-d-55-acquisition-package"],
+  },
+  {
+    id: "cgei-ds-lesson-5-5-4",
+    kind: "lesson",
+    title: "Provenance, licences, credentials and ethical access",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-55-provenance",
+        statement:
+          "Document source versions, requests, licence obligations and ethical limits while keeping credentials out of source control.",
+        action: "document and protect",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-55-4-core",
+        kind: "prose",
+        title: "Access is not the same as permission to redistribute",
+        body: "A dataset's access method does not determine its licence. Read the terms attached to the exact product and version, record attribution requirements, and check whether derived products or redistribution have additional conditions. Respect provider terms, minimise personal data, and aggregate sensitive locations before publication when disclosure could cause harm.",
+      },
+      {
+        id: "cgei-ds-55-4-fair",
+        kind: "key-points",
+        title: "FAIR metadata and dataset release",
+        items: [
+          "Findable: assign a stable identifier where possible and provide searchable descriptive metadata.",
+          "Accessible: document how the data and metadata can be retrieved, including any access restrictions.",
+          "Interoperable: use documented units, controlled vocabularies and machine-readable formats.",
+          "Reusable: include provenance, quality information, version, licence and sufficient method detail.",
+          "DataCite-style citation metadata helps identify and cite a dataset; ISO 19115 is relevant for geographic information metadata. Select the profile appropriate to the release and complete its required fields.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-4-licence",
+        kind: "table",
+        title: "Licence checks before combining or releasing data",
+        headers: [
+          "Licence / term pattern",
+          "What to verify",
+          "Workflow action",
+        ],
+        rows: [
+          [
+            "CC BY",
+            "Attribution and any product-specific notices",
+            "Preserve required citation and licence notice",
+          ],
+          [
+            "ODbL",
+            "Database rights, attribution and share-alike obligations for relevant database use",
+            "Review whether the planned extraction or derived database triggers obligations",
+          ],
+          [
+            "Non-commercial clause",
+            "How the provider defines permitted non-commercial use",
+            "Do not assume a research context automatically satisfies the clause",
+          ],
+          [
+            "Provider-specific terms",
+            "Exact product/version terms, redistribution, derived data and attribution",
+            "Record the checked terms and decision in the manifest",
+          ],
+        ],
+      },
+      {
+        id: "cgei-ds-55-4-provider-audit",
+        kind: "checklist",
+        title: "Check the actual source product, not the brand name",
+        items: [
+          "For USGS products, record the specific dataset/product and its stated terms and attribution.",
+          "For Copernicus products, verify the current terms attached to the particular service or dataset.",
+          "For CDS/ERA5 access, distinguish API credentials and access conditions from reuse/redistribution terms.",
+          "For demographic data, check jurisdiction, privacy, aggregation and any restricted-use conditions.",
+          "Keep the date and URL of the terms reviewed; re-check when the product or release changes.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-4-env",
+        kind: "code",
+        title: "Separate a committed template from local secrets",
+        language: "text",
+        code: ".env.example\nCDS_API_URL=https://example.invalid/api\nCDS_API_KEY=\n\n# Local .env (gitignored; never commit)\nCDS_API_KEY=your_real_secret_here",
+      },
+      {
+        id: "cgei-ds-55-4-env-load",
+        kind: "code",
+        title: "Read secrets from the environment, not the notebook body",
+        language: "python",
+        code: "import os\nfrom pathlib import Path\n\n# Load local .env only in development if you use python-dotenv; never commit it.\n# from dotenv import load_dotenv\n# load_dotenv(Path('.env'))\n\napi_key = os.environ.get('CDS_API_KEY')\nif not api_key:\n    raise RuntimeError('CDS_API_KEY is missing from the environment')\n# Use api_key in the client configuration; do not print it.",
+        body: "Fail closed when required secrets are absent. Keep .env in .gitignore and prefer secret managers in shared or production environments.",
+      },
+      {
+        id: "cgei-ds-55-4-checklist",
+        kind: "checklist",
+        title: "Repository safety and provenance checks",
+        items: [
+          "Commit .env.example with variable names and harmless placeholders; keep .env ignored.",
+          "Read the current licence for each product, including attribution and redistribution terms.",
+          "Record source, product/version, access date, request parameters and any transformations.",
+          "Never paste credentials into notebooks, issue reports, logs, screenshots or public repositories.",
+          "If a secret is exposed, revoke/rotate it; deleting the visible line alone does not invalidate it.",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-55-provenance"],
+    assessmentIds: ["cgei-ds-assess-55-provenance"],
+    resourceIds: ["cgei-ds-r-55-cds-licence", "cgei-ds-r-55-secret-scanning"],
+    deliverableIds: ["cgei-ds-d-55-provenance-note"],
+  },
+  {
+    id: "cgei-ds-lesson-5-5-5",
+    kind: "lesson",
+    title: "Build a reproducible environmental-data acquisition package",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-55-package",
+        statement:
+          "Deliver a reproducible acquisition package that another researcher can rerun and audit without access to private credentials.",
+        action: "package and demonstrate",
+        level: "L3",
+        competencyIds: ["cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-55-5-core",
+        kind: "prose",
+        title: "The package is the evidence",
+        body: "A robust deliverable includes an acquisition script, a small permitted sample or synthetic stub, a manifest, a licence/attribution note, a README with exact rerun steps, an environment record and a safe .env.example. A reviewer should be able to distinguish raw inputs from derived outputs and understand which checks would fail if a file, column, unit or licence changed.",
+      },
+      {
+        id: "cgei-ds-55-5-large-data",
+        kind: "prose",
+        title: "Select a large-data tool by the bottleneck",
+        body: "Parquet/Arrow provide columnar storage and efficient interchange; DuckDB can query local files with SQL; Polars offers eager/lazy DataFrame execution; Dask distributes chunked array/DataFrame work when data or compute exceed a single process. These tools are not interchangeable speed switches: inspect file size, row/column access, memory, joins, task overhead and deployment needs. Start with a bounded benchmark against a correct baseline and record memory/time as well as output equivalence.",
+      },
+      {
+        id: "cgei-ds-55-5-large-data-code",
+        kind: "code",
+        title: "A small DuckDB query over Parquet",
+        language: "python",
+        code: "import duckdb\n\nresult = duckdb.sql(\"\"\"\n    SELECT station_id, AVG(tmax_c) AS mean_tmax_c, COUNT(*) AS n\n    FROM read_parquet('station_daily.parquet')\n    WHERE date >= '2024-06-01' AND date < '2024-07-01'\n    GROUP BY station_id\n    ORDER BY station_id\n\"\"\").df()",
+        body: "Use a fixture small enough to test locally, then benchmark representative larger data. Keep SQL filters and units explicit; compare results to a trusted implementation before claiming performance or correctness.",
+      },
+      {
+        id: "cgei-ds-55-5-chunking",
+        kind: "prose",
+        title:
+          "Choose chunk sizes from a memory budget, then verify equivalence",
+        body: "Chunking is a memory-control strategy, not a guarantee of speed. The repository fixture script generates deterministic station/day observations and runs each chunk size in a fresh child process. It compares exact per-station integer sums and counts across chunk sizes, checks row/station invariants, and records elapsed time plus process peak RSS. Fresh processes make peak-RSS observations more comparable than reading ru_maxrss repeatedly in one process. The synthetic fixture is a correctness harness, not a performance ranking; use representative data and record hardware, versions and workload before drawing performance conclusions.",
+      },
+      {
+        id: "cgei-ds-55-5-benchmark-code",
+        kind: "code",
+        title: "Run the fixture-backed chunk-size comparison",
+        language: "python",
+        code: 'import subprocess\nimport sys\n\n# Run from the repository root; creates a deterministic temporary fixture.\nsubprocess.run([\n    sys.executable,\n    "content-drafts/chapter-05-scientific-computing/fixtures/chunked_csv_lab_check.py",\n], check=True)',
+        body: "The checked-in harness creates and removes a deterministic synthetic CSV, launches a fresh worker for each candidate chunk size, and fails if per-station sums/counts or row/station invariants differ. It prints elapsed time and peak process RSS for observation only; CI deliberately does not assert that one size is faster or smaller because such thresholds are machine-dependent.",
+      },
+      {
+        id: "cgei-ds-55-5-acceptance",
+        kind: "checklist",
+        title: "Acceptance criteria for the package",
+        items: [
+          "A clean run creates the documented outputs from recorded inputs without duplicate appends.",
+          "The script validates schema, units, date coverage and key uniqueness, and fails with useful errors.",
+          "The manifest records source/product version, request parameters, retrieval time, licence and checksum.",
+          "The README states installation, command order, expected files and known limitations.",
+          "No credentials or restricted source data are committed; licence and attribution are explicit.",
+        ],
+      },
+      {
+        id: "cgei-ds-55-5-example",
+        kind: "worked-example",
+        title: "A reviewer tries to reproduce the download",
+        body: "The reviewer starts from a clean environment and follows the README. If the provider endpoint has changed, the package should fail with an informative error and retain the recorded request/metadata—not silently substitute a different dataset. If access requires a personal key, the README explains how to set it locally without including the secret. Reproducibility means an auditable process, not a guarantee that every remote service will remain unchanged.",
+      },
+      {
+        id: "cgei-ds-55-5-tools",
+        kind: "prose",
+        title: "Large-data tools and memory fit",
+        body: "Arrow/Parquet enable columnar, often zero-copy exchange; Polars and DuckDB excel at single-node analytical queries; Dask targets parallel/out-of-core DataFrame workloads. Profile memory and time before scaling out. If a table fits comfortably in RAM, a simple pandas or DuckDB path may be clearer than a distributed framework. Chunk size is a measured trade-off—verify that chunked results match a full read on a sample.",
+      },
+      {
+        id: "cgei-ds-55-5-columnar",
+        kind: "prose",
+        title: "Columnar and chunked formats for repeated analysis",
+        body: "Repeated scans of wide CSV waste I/O. Columnar formats (Parquet) and chunked array stores (Zarr for n-D) speed selective column and region reads. Record compression, partition keys, and schema versions in the package manifest so collaborators read the same bytes.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-55-package"],
+    assessmentIds: ["cgei-ds-assess-55-package"],
+    resourceIds: ["cgei-ds-r-55-good-practices", "cgei-ds-r-55-cds-licence"],
+    deliverableIds: [
+      "cgei-ds-d-55-acquisition-package",
+      "cgei-ds-d-55-provenance-note",
+    ],
+  },
+  {
+    id: "cgei-ds-lesson-5-6-1",
+    kind: "lesson",
+    title: "Multiple regression, categorical predictors and interactions",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-56-multiple",
+        statement:
+          "Specify and interpret multiple regression terms, categorical predictors and interactions in an environmental question.",
+        action: "specify and interpret",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-mathematical-modeling",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-27-3-1",
-        "kind": "prose",
-        "title": "Non-stationary models with covariates",
-        "body": "Classical EVT assumes the extremes are i.i.d. — a stationarity assumption that a changing climate can violate. Non-stationary GEV models let parameters depend on covariates: a linear time trend in location μ(t)=μ₀+μ₁t, or dependence of μ or σ on a global-mean-temperature index or an ENSO index. Under non-stationarity, \"the 50-year return period\" is no longer time-invariant; it must be reported as an effective/time-indexed return level, e.g. \"the 50-year return level as of 2020 under this fitted trend.\""
-      },
-      {
-        "id": "cgei-cl-27-3-lab",
-        "kind": "worked-example",
-        "title": "Lab: location-shift return level (hand-verified)",
-        "body": "Take μ(t)=70+0.3t mm (t in years since 1990), σ=15 mm fixed, ξ=0. The 50-year return level is x₅₀(t)=μ(t)+3.9019·15=μ(t)+58.53. At t=0 (1990): x₅₀=128.53 mm. At t=30 (2020): x₅₀=137.53 mm. The 9.00 mm difference equals μ₁·Δt=0.3×30 exactly — a direct, checkable consequence of the model, not an empirical finding."
-      },
-      {
-        "id": "cgei-cl-27-3-2",
-        "kind": "prose",
-        "title": "Regional frequency analysis and Bayesian approaches",
-        "body": "Where a single site’s record is too short to constrain tail behaviour, regional frequency analysis (e.g. the index-flood method with L-moments) pools standardised data across sites assumed to share a common distributional shape, scaled by a site-specific index value — trading single-site sampling variance for a regional-homogeneity assumption that must itself be checked. Bayesian EVT approaches instead place priors on μ, σ, ξ (often informing ξ with regional or physical knowledge, since it is the hardest parameter to pin down from a single short record) and report full posterior distributions for return levels rather than single confidence intervals — useful precisely when data are too sparse for stable classical estimation."
-      },
-      {
-        "id": "cgei-cl-27-3-copula",
-        "kind": "prose",
-        "title": "Joint extremes and dependence: copulas",
-        "body": "A compound event is the joint occurrence of two or more conditions — individually possibly unremarkable — that together produce disproportionate impact: concurrent heat and drought, or storm surge coinciding with heavy inland rainfall (compound flooding). A copula models the dependence structure between two marginal extreme-value distributions separately from their individual shapes, giving a joint exceedance probability without forcing a single joint parametric family. This is categorically different from Unit 2.6’s simple co-occurrence count (a hot-dry day tally), which only counts coincidences in a sample and says nothing about the dependence structure or its tail behaviour."
-      },
-      {
-        "id": "cgei-cl-27-3-software",
-        "kind": "key-points",
-        "title": "Software named for this domain",
-        "items": [
-          "scipy.stats — general distribution fitting (genextreme, genpareto) in Python",
-          "pyextremes — Python workflow wrapper for block-maxima/POT, declustering and return levels",
-          "xclim — climate-index and some EVT-adjacent computations on gridded/xarray data",
-          "extRemes (R) — mature MLE/L-moments GEV/GPD fitting with diagnostics",
-          "climextRemes (R) — non-stationary and large-scale/gridded extreme-value fitting",
-          "None of these packages are invoked in this unit’s fixtures; all worked examples here are closed-form, hand-verified arithmetic"
-        ]
-      },
-      {
-        "id": "cgei-cl-27-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "No copula fitted numerically; dependence discussed conceptually only",
-          "No Bayesian posterior computed; concept only",
-          "Regional homogeneity assumption named as a risk, not tested on data"
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-7-4",
-    "kind": "lesson",
-    "title": "Applications and communicating return periods",
-    "order": 4,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-27-apply",
-        "statement": "Apply EVT to heat, rainfall and flood-peak extremes and communicate return levels and horizon probabilities, including the named software ecosystem, without implying a return period is a fixed calendar schedule.",
-        "action": "apply and communicate",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-27-4-1",
-        "kind": "prose",
-        "title": "Heat, rainfall, and flood-peak applications",
-        "body": "Block-maxima/POT machinery applies directly to daily temperature maxima/minima, design-storm rainfall depths (used in drainage and dam-spillway sizing), and flood peak discharges (used in flood-protection design levels). For heat-stress indices specifically (link Unit 2.3 wet-bulb/CC scaling), a complication: the index combines temperature and humidity non-linearly, so its tail behaviour is not simply inherited from the temperature tail alone — it must be assessed on the index itself, not assumed."
-      },
-      {
-        "id": "cgei-cl-27-4-lab",
-        "kind": "worked-example",
-        "title": "Lab: horizon probability, not a calendar promise (hand-verified)",
-        "body": "For an event with annual exceedance probability 1/T under stationarity, the probability of at least one occurrence within an N-year planning horizon is P = 1 − (1 − 1/T)^N. For T=50, N=30: 0.98³⁰. ln(0.98)×30=−0.60608, e^(−0.60608)≈0.5455, so P≈0.4545 — about 45%. A \"1-in-100-year event\" is likewise a statement that the annual exceedance probability is 1%, not a promise the event occurs once every 100 years on a fixed schedule; over a 30-year horizon the same formula with T=100 gives P=1−0.99³⁰≈1−e^(−0.30153)≈1−0.7397≈0.260, roughly 26%."
-      },
-      {
-        "id": "cgei-cl-27-4-checklist",
-        "kind": "checklist",
-        "title": "Return-level communication checklist",
-        "items": [
-          "State T and the exceedance definition explicitly",
-          "Report an interval (delta method, profile likelihood, or bootstrap), not a bare point estimate",
-          "State the stationarity assumption and flag it if the model is non-stationary",
-          "Translate T into a horizon probability (1−(1−1/T)^N) for decision-relevant communication",
-          "State what is not claimed: a return period is not a fixed calendar schedule"
-        ]
-      },
-      {
-        "id": "cgei-cl-27-4-workflow",
-        "kind": "key-points",
-        "title": "Worked workflow summary",
-        "items": [
-          "1. Threshold/block choice — stability plot for POT, or block length for GEV (Lesson 1)",
-          "2. Fit — MLE, PWM, or L-moments, aware of small-sample behaviour (Lesson 2)",
-          "3. Diagnostics — QQ, return-level, probability plots; leave-out sensitivity check (Lesson 2)",
-          "4. Return levels with intervals — delta method, profile likelihood, or bootstrap (Lesson 1)",
-          "5. Sensitivity to choices — re-run with a different threshold/method and compare, as the leave-out example did (≈19% shift from one point)"
-        ]
-      },
-      {
-        "id": "cgei-cl-27-4-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Horizon-probability formula assumes stationarity and independence across years",
-          "Heat-stress index tail behaviour not computed, only described",
-          "Design-storm/flood-peak examples are named applications, not executed case studies"
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-8-1",
-    "kind": "lesson",
-    "title": "Seasons and regional drivers",
-    "order": 1,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-28-seasons",
-        "statement": "Justify local seasonal definitions for Pakistan analyses, distinguish PMD-style season bins from default JJA, and treat ENSO/IOD as context rather than one-line local causes.",
-        "action": "justify and distinguish",
-        "level": "L3",
-        "competencyIds": [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-28-1-1",
-        "kind": "prose",
-        "title": "Local seasons, not default JJA",
-        "body": "Pakistan analyses often need season definitions justified by local timing — not automatic June–August (JJA). A PMD-style teaching partition groups winter, pre-monsoon, monsoon and post-monsoon months; monsoon onset and withdrawal timing varies by year and location. Fixture unit_2_8_regional_climate_literacy_check.py labels months under this teaching map and shows that September is treated as monsoon-style here while it is outside JJA. Always declare the season definition in methods text."
-      },
-      {
-        "id": "cgei-cl-28-1-2",
-        "kind": "prose",
-        "title": "Drivers with scale discipline",
-        "body": "Monsoon moisture transport from the Arabian Sea and Bay of Bengal, western disturbances (cool-season precipitation over northern Pakistan and the western Himalaya), and Indus snow/glacier melt timing structure the annual cycle. ENSO and IOD modulate seasonal probabilities but are not one-line causes of every local anomaly. Irrigation canals and the Indus system modify land–atmosphere fluxes and must be treated as climate-relevant human systems, not scenery (link Units 1.10 and 2.2)."
-      },
-      {
-        "id": "cgei-cl-28-1-3",
-        "kind": "key-points",
-        "title": "Seasonal literacy",
-        "items": [
-          "Declare the season definition used.",
-          "JJA ≠ local monsoon definition by default.",
-          "Teleconnections are context, not automatic attribution.",
-          "Irrigation and canal systems are part of the regional climate story."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-28-seasons"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-28-seasons"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-8-2",
-    "kind": "lesson",
-    "title": "Multan / southern Punjab setting",
-    "order": 2,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-28-multan",
-        "statement": "Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent, with explicit baseline and support statements.",
-        "action": "describe",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-28-2-1",
-        "kind": "prose",
-        "title": "Geography and land surface",
-        "body": "Multan sits on an arid to semi-arid plain in southern Punjab with intensive irrigation, a river and canal network, and strong seasonal contrasts between the cool season, pre-monsoon heat and monsoon moisture. Urban expansion, irrigated agriculture and bare soil create a mosaic of surface properties that matter for temperature, humidity and dust. Heat stress is a core applied theme; rainfall extremes and dry spells both matter for agriculture and water demand."
-      },
-      {
-        "id": "cgei-cl-28-2-heat-dust",
-        "kind": "prose",
-        "title": "Heat, dust, fog and smog as regional climate features",
-        "body": "Pre-monsoon and early-summer heatwaves are a defining hazard for southern Punjab; humid-heat metrics (wet-bulb or heat-index style) matter because irrigation and the Indus corridor raise moisture relative to surrounding dry plains. Dust storms and elevated aerosol loading reduce visibility, modify shortwave radiation and can couple to boundary-layer stability. Winter fog and urban/industrial smog episodes are shaped by radiative cooling, residual moisture, emissions and stable nocturnal boundary layers — processes that link Units 2.2–2.3 to local air-quality and transport impacts. These features belong in any Multan seasonal narrative; they are not optional colour."
-      },
-      {
-        "id": "cgei-cl-28-2-2",
-        "kind": "prose",
-        "title": "What different data can represent",
-        "body": "Station series represent point conditions with local siting effects. Gridded products and reanalysis estimate spatial fields with their own support and biases (Units 2.4–2.5). Typical analyses must declare baseline (e.g. 1991–2020) and period before computing anomalies or extremes (Units 2.1, 2.6). No fabricated Multan station means are claimed in this lesson; fixtures use synthetic or openly documented series only."
-      },
-      {
-        "id": "cgei-cl-28-2-3",
-        "kind": "callout",
-        "title": "Evidence discipline",
-        "tone": "warning",
-        "items": [
-          "Synthetic series in fixtures are not Multan observations.",
-          "Do not equate a hot season with a proven long-term trend.",
-          "Grid-cell averages are not every farm field.",
-          "Urban LST (Subject 4) is not 2 m air temperature at a PMD station."
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-28-multan"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-28-multan"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-8-3",
-    "kind": "lesson",
-    "title": "Data institutions and access practice",
-    "order": 3,
-    "readiness": "review",
-    "level": "L3",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-28-evidence",
-        "statement": "Identify appropriate national data institutions and evidence types, document access limits, and keep synthetic, observed and assessed claims in separate evidence classes.",
-        "action": "identify and document",
-        "level": "L3",
-        "competencyIds": [
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-28-3-1",
-        "kind": "prose",
-        "title": "Who holds what",
-        "body": "Pakistan Meteorological Department (PMD) holds core meteorological records — public versus restricted access must be verified per product. Related institutions include SUPARCO, NDMA, PDMA Punjab, PBS geography products, PMD Flood Forecasting Division, WAPDA, IRSA, Punjab Irrigation Department, PCRWR, PARC, Survey of Pakistan, PBS digital census products, and ICIMOD for Hindu Kush Himalaya context. Listing an institution is not a data download and does not imply unrestricted bulk access."
-      },
-      {
-        "id": "cgei-cl-28-3-2",
-        "kind": "prose",
-        "title": "Access trail",
-        "body": "When local series are unavailable, global layers (reanalysis, satellite blends) remain usable with honest representativeness limits. Document what is open, on-request or paid; keep request trails and licences. Local knowledge and farmer observation complement but do not replace instrumental series. Keep evidence tags separate: principle, assessment finding, observed result, synthetic example, unverified hypothesis."
-      },
-      {
-        "id": "cgei-cl-28-3-3",
-        "kind": "checklist",
-        "title": "Regional literacy brief fields",
-        "items": [
-          "Defined geography (e.g. Multan district or station radius)",
-          "Season definition",
-          "Variable and spatial support",
-          "Evidence type and source class",
-          "Period and baseline",
-          "Access status (open / request / restricted)",
-          "Limits and next data need"
-        ]
-      }
-    ],
-    "activityIds": [
-      "cgei-cl-a-28-evidence"
-    ],
-    "assessmentIds": [
-      "cgei-cl-assess-28-evidence"
-    ],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-1",
-    "kind": "lesson",
-    "title": "Model hierarchy: GCMs, ESMs, RCMs, and reanalysis",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-hierarchy",
-        "statement": "Distinguish GCMs/ESMs from RCMs by resolution, domain, and process coverage, and explain how both relate to — and differ from — reanalysis and direct observations.",
-        "action": "distinguish and explain",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-1-1",
-        "kind": "prose",
-        "title": "Global climate models and Earth system models",
-        "body": "A General/Global Circulation Model (GCM) simulates the physical climate system — atmosphere, ocean, sea ice, land surface — on a global grid, typically at ~100–250 km horizontal resolution in CMIP6-generation models. An Earth System Model (ESM) is a GCM extended with biogeochemical cycles: the carbon cycle, interactive vegetation, atmospheric chemistry, and sometimes dynamic ice sheets. The distinction matters for projections: a GCM takes atmospheric CO₂ concentration as an external input, while an ESM can simulate how CO₂ concentration itself responds to emissions, land-use change, and climate feedbacks — a different and more complex piece of physics than temperature response alone."
-      },
-      {
-        "id": "cgei-cl-29-1-2",
-        "kind": "prose",
-        "title": "Regional climate models",
-        "body": "A Regional Climate Model (RCM) solves the same physical equations as a GCM but over a limited geographic domain at much finer resolution — commonly 10–50 km in frameworks such as CORDEX. It is not free-running globally: it is driven at its domain boundary by time-varying conditions taken from a GCM or reanalysis (lateral boundary conditions), a technique previewed here and detailed as dynamical downscaling in Unit 2.9.5. Running at finer resolution lets an RCM represent terrain, coastlines, and some convective processes a coarse GCM grid cannot resolve, but it inherits any large-scale circulation error from its driving GCM at the boundary."
-      },
-      {
-        "id": "cgei-cl-29-1-lab",
-        "kind": "worked-example",
-        "title": "Lab: converting grid resolution to kilometres (hand-verified)",
-        "body": "Longitude distance per degree at latitude φ is approximately 111.32·cos(φ) km (the 111.32 km/degree figure is the meridian arc length; it shrinks with latitude because meridians converge toward the poles). For Delhi, φ≈28.6°N, cos(28.6°)≈0.878, so 1° of longitude ≈ 111.32×0.878 ≈ 97.7 km. A typical CMIP6 GCM grid spacing of ~1° therefore corresponds to roughly 98 km at this latitude. CORDEX South Asia at 0.44° resolution gives 0.44×97.7 ≈ 43.0 km; at 0.22° resolution, 0.22×97.7 ≈ 21.5 km. Latitude distance per degree is close to constant everywhere (≈110.6–111.7 km, varying only slightly with the Earth’s ellipsoidal shape) — so resolution in kilometres is not isotropic once expressed in degrees, and the effect is strongest at low latitudes."
-      },
-      {
-        "id": "cgei-cl-29-1-3",
-        "kind": "prose",
-        "title": "Relationship to reanalysis and observations",
-        "body": "Reanalysis (introduced in Unit 2.4) is not a pure observation product: it is a numerical weather-prediction model constrained at every step by data assimilation against the available observation network, producing a physically consistent, gridded best-estimate of the historical atmospheric state — including at locations and variables with no direct observation. A free-running climate model, by contrast, is never assimilation-constrained to match any specific historical day: a GCM’s \"year 2005\" is a statistically plausible year 2005 under the specified forcing, not a reconstruction of what actually happened on any given date. This is why climate-model historical runs are validated against observations/reanalysis statistically (climatology, variability, trend) rather than day-by-day, and why a model and reanalysis can legitimately disagree on any single date while both being considered fit for purpose."
-      },
-      {
-        "id": "cgei-cl-29-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Resolution figures (100 km GCM, 44/22 km CORDEX) are representative orders of magnitude, not a universal standard — actual grid spacing varies by model and experiment.",
-          "The 111.32 km/degree meridian figure and its longitude-direction scaling by cos(φ) are a spherical-Earth approximation; ellipsoidal corrections are small and omitted here.",
-          "No specific GCM, ESM or RCM output is evaluated in this lesson — concepts and scale only."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-2",
-    "kind": "lesson",
-    "title": "Experiments, scenarios, ensembles, and CMIP6 metadata",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-scenarios",
-        "statement": "Describe historical experiments and the forced-versus-internal-variability distinction, the SSP naming convention and SSP–RCP matrix including the plausibility debate around the highest-emission scenario, and CMIP6 ensemble and metadata conventions.",
-        "action": "describe and interpret",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-2-1",
-        "kind": "prose",
-        "title": "Historical experiments; forced versus internal variability",
-        "body": "A CMIP \"historical\" experiment runs a model with observed historical forcings — greenhouse gases, aerosols, solar variability, volcanic eruptions — typically from the mid-1800s to the near-present, so it can be checked against the observed record. The forced response is the component of climate change attributable to these external forcings; internal variability is the climate system’s own unforced, chaotic variability (e.g. El Niño–Southern Oscillation, decadal ocean modes) that occurs even with no forcing change at all. Separating the two matters directly for attribution (Unit 2.11): a single warm year can reflect forced trend, internal variability, or both, and no single year can tell them apart."
-      },
-      {
-        "id": "cgei-cl-29-2-lab",
-        "kind": "worked-example",
-        "title": "Lab: ensemble spread as an internal-variability estimate (hand-verified)",
-        "body": "A 5-member historical ensemble — identical model, identical forcing, different initial conditions — gives global-mean temperature anomalies for a given year of 0.62, 0.58, 0.71, 0.55, 0.64 °C. Mean = (0.62+0.58+0.71+0.55+0.64)/5 = 3.10/5 = 0.62 °C. Deviations from the mean: 0.00, −0.04, 0.09, −0.07, 0.02; squared: 0, 0.0016, 0.0081, 0.0049, 0.0004, summing to 0.0150. Sample variance (n−1=4 divisor) = 0.0150/4 = 0.00375, so the standard deviation ≈ 0.0612 °C, and the range is 0.71−0.55 = 0.16 °C. Because forcing is identical across members, this spread is attributable to internal variability alone, not to any uncertainty about the forcing or the model’s structural response."
-      },
-      {
-        "id": "cgei-cl-29-2-2",
-        "kind": "prose",
-        "title": "Scenarios and SSPs",
-        "body": "A Shared Socioeconomic Pathway (SSP) is a narrative of future population, GDP, technology, and policy development, defined independently of any particular emissions or radiative-forcing outcome. CMIP6 scenario names combine an SSP narrative with an approximate year-2100 radiative forcing target in W/m² relative to pre-industrial, e.g. SSP2-4.5 (\"middle of the road\" socioeconomics reaching ~4.5 W/m²), SSP1-2.6 (sustainability narrative, low forcing), SSP3-7.0 (regional rivalry, high forcing), SSP5-8.5 (fossil-fuelled development, highest forcing). The same socioeconomic narrative (SSP) can in principle be paired with different forcing levels depending on assumed mitigation policy, which is why the scenario name carries both parts."
-      },
-      {
-        "id": "cgei-cl-29-2-3",
-        "kind": "prose",
-        "title": "SSP–RCP matrix and the plausibility debate",
-        "body": "CMIP6 scenarios form a matrix of SSP narratives crossed with forcing targets inherited in naming convention from CMIP5’s Representative Concentration Pathways (RCP2.6/4.5/6.0/8.5) — hence names like SSP5-8.5 are read as \"SSP5 narrative reaching an RCP8.5-like forcing level.\" A significant and named debate in the literature (e.g. Hausfather & Peters, 2020) argues that SSP5-8.5, long used informally as a \"business as usual\" baseline, requires coal-use growth trajectories that look increasingly inconsistent with observed energy trends, and should be treated as a high-end, lower-likelihood bound rather than a central or default future — a caution this course applies whenever SSP5-8.5 results are quoted without qualification."
-      },
-      {
-        "id": "cgei-cl-29-2-4",
-        "kind": "prose",
-        "title": "Ensemble members and model families",
-        "body": "Within one model, ensemble members (CMIP6 label convention rXiYpZfW: realization, initialization, physics, and forcing indices) differ only in initial conditions and isolate internal variability, as in the worked example above. Across models, different model families — e.g. CESM2, UKESM1, MPI-ESM, ACCESS-CM2 — share no code and differ in resolution, parameterization choices (especially for clouds and convection), and sometimes climate sensitivity, producing structural model uncertainty that is categorically different from, and generally larger than, single-model internal variability. Both sources are named components of the uncertainty decomposition formalised in Unit 2.9.6.1."
-      },
-      {
-        "id": "cgei-cl-29-2-5",
-        "kind": "prose",
-        "title": "CMIP6 metadata: variable, grid, calendar, experiment, model, member",
-        "body": "A typical CMIP6 filename such as tas_Amon_CESM2_ssp245_r1i1p1f1_gn_201501-210012.nc encodes: variable (tas = near-surface air temperature), table/frequency (Amon = atmosphere, monthly), model (CESM2), experiment (ssp245), ensemble member (r1i1p1f1), grid label (gn = native model grid, versus gr = regridded to a common grid), and the covered time range. A practical trap: some models use non-Gregorian calendars — 365-day \"no-leap\" or even 360-day \"model calendars\" — so naive date arithmetic across models (e.g. assuming every February has either 28 or 29 days) can silently misalign or drop days when combining multi-model output."
-      },
-      {
-        "id": "cgei-cl-29-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "The 5-member ensemble in the worked example is synthetic, chosen for hand-tractable arithmetic, not drawn from an actual model archive.",
-          "SSP numeric values (e.g. \"4.5\", \"8.5\") are approximate 2100 forcing targets, not exact or fixed throughout the scenario period.",
-          "The SSP5-8.5 plausibility debate is summarised as a named position in the literature, not adjudicated here as settled."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-3",
-    "kind": "lesson",
-    "title": "Model evaluation: skill metrics and process-based checks",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-evaluation",
-        "statement": "Evaluate model output against observations across mean, seasonal cycle, variability, trends, extremes and spatial pattern, correctly separating regridding/resolution artefacts from genuine skill, and apply process-based evaluation criteria.",
-        "action": "evaluate and diagnose",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-3-1",
-        "kind": "prose",
-        "title": "Evaluating mean, seasonal cycle, variability, trends, extremes, and spatial pattern",
-        "body": "Model evaluation is not a single number: a model can reproduce the long-term climatological mean well while misrepresenting the seasonal cycle, variability, trend, extremes, or spatial pattern — each is a distinct test and a model can pass one and fail another. Mean bias checks the long-run average against observations; seasonal-cycle checks timing and amplitude of the annual cycle (e.g. is monsoon peak-month rainfall in the right month); variability checks whether the model’s year-to-year spread matches observed spread, not just its average; trend checks the sign and magnitude of change over the historical record; extremes checks the tail (linking to Unit 2.7’s EVT machinery); spatial pattern checks whether the geographic structure of a field is right even if the domain-average is."
-      },
-      {
-        "id": "cgei-cl-29-3-lab",
-        "kind": "worked-example",
-        "title": "Lab: pattern correlation versus mean bias (hand-verified)",
-        "body": "At 4 synthetic grid points, observed rainfall anomalies (mm) are 2, −1, 0, 3 (mean 1.0) and model anomalies are 1, −2, 1, 2 (mean 0.5). Deviations from each series’ own mean: obs (1, −2, −1, 2), model (0.5, −2.5, 0.5, 1.5). Products: 1×0.5=0.5, −2×−2.5=5.0, −1×0.5=−0.5, 2×1.5=3.0, summing to 8.0. Sum of squared deviations: obs 1+4+1+4=10, model 0.25+6.25+0.25+2.25=9.0; denominator √(10×9)=√90≈9.4868. Pearson pattern correlation r = 8.0/9.4868 ≈ 0.843 — a fairly strong spatial pattern match. But the domain-mean bias is 0.5−1.0 = −0.5 mm: the model underestimates the area-average anomaly by half a unit even while capturing where the anomaly is largest and smallest. Pattern correlation and mean bias are independent checks; neither substitutes for the other."
-      },
-      {
-        "id": "cgei-cl-29-3-2",
-        "kind": "prose",
-        "title": "Regridding, elevation, and resolution mismatch",
-        "body": "Comparing model and observational grids of different resolution requires regridding — commonly bilinear interpolation (smooth, can blur sharp features) or conservative remapping (preserves area-integrated quantities, better for fluxes like precipitation). Regridding to a finer grid does not add information: it only interpolates what the coarser grid already contains, so a fine output grid is not evidence of finer real-world skill — \"fine grids ≠ local certainty.\" A related and practically important failure mode is elevation mismatch: a model grid cell’s orography is a spatial average over the whole cell, which in steep terrain (the Himalaya, the Western Ghats) can sit hundreds of metres away from a specific station’s true elevation, biasing temperature and precipitation comparisons at that point for reasons that are topographic, not physical-process, errors."
-      },
-      {
-        "id": "cgei-cl-29-3-3",
-        "kind": "prose",
-        "title": "Process-based evaluation",
-        "body": "Getting a domain-mean or pattern statistic right for the wrong physical reason undermines confidence in a model’s future projections, because a compensating-errors agreement need not persist under a changed climate. Process-based evaluation instead checks whether the model gets the generating mechanism right: monsoon onset date and its interannual variability; the diurnal cycle of convective rainfall (many models trigger convection too early in the day relative to observations); large-scale circulation features such as jet position and the Walker circulation; and land–atmosphere coupling strength (whether soil-moisture anomalies feed back onto temperature and rainfall with realistic magnitude). A model that reproduces observed mean rainfall via the wrong mechanism is a weaker basis for trusting its projected change in that rainfall than one that gets the mechanism right."
-      },
-      {
-        "id": "cgei-cl-29-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "The 4-point pattern-correlation example is synthetic and far smaller than any real grid-evaluation exercise; it illustrates the arithmetic, not a realistic sample size.",
-          "Regridding method (bilinear vs conservative) is named but not executed numerically here.",
-          "Process-based evaluation criteria (monsoon onset, diurnal cycle, circulation, coupling) are described qualitatively; no specific model is scored against them in this unit."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-4",
-    "kind": "lesson",
-    "title": "Bias adjustment: methods, assumptions, and artefacts",
-    "order": 4,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-bias-adjust",
-        "statement": "Apply and critique named bias-adjustment methods, state what each assumes about stationarity, identify adjustment artefacts, and evaluate adjusted output on independent periods and on extremes rather than only on means.",
-        "action": "apply and critique",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-mathematical-modeling",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-4-1",
-        "kind": "prose",
-        "title": "Bias adjustment: additive, multiplicative, quantile mapping, trend-preserving methods",
-        "body": "Additive bias correction subtracts a constant historical model-minus-observation offset from every model value; natural for temperature. Multiplicative bias correction scales by a historical ratio of observed-to-model values; natural for precipitation bounded at zero. Quantile mapping fits a correction function quantile-by-quantile. Trend-preserving methods (quantile delta mapping, QDM) carry the model’s own projected quantile-specific change forward rather than only matching historical distributions."
-      },
-      {
-        "id": "cgei-cl-29-4-lab1",
-        "kind": "worked-example",
-        "title": "Lab: additive versus multiplicative correction (hand-verified)",
-        "body": "Temperature (additive): obs_hist 25 °C, model_hist 27 °C, model_future 30 °C → corrected = 30 − 2 = 28 °C, equivalently 25 + (30−27) = 28 °C. Precipitation (multiplicative): obs 4 mm/day, model 5 mm/day, future 6 mm/day → corrected = 6 × 0.8 = 4.8 mm/day, equivalently 4 × (6/5) = 4.8 mm/day."
-      },
-      {
-        "id": "cgei-cl-29-4-2",
-        "kind": "prose",
-        "title": "Delta-change, BCSD, LOCA-type, and QDM compared",
-        "body": "Delta-change adds the model’s projected change to the observed baseline. BCSD applies quantile mapping at coarse resolution then spatially disaggregates. LOCA selects historical observed days whose spatial pattern matches the model’s coarse pattern. QDM preserves the model’s projected quantile-dependent trend. All assume the historical model-to-observation relationship remains valid under future climate — an assumption that cannot be directly tested for the future."
-      },
-      {
-        "id": "cgei-cl-29-4-lab2",
-        "kind": "worked-example",
-        "title": "Lab: why trend-preserving quantile mapping matters at the extreme tail (hand-verified)",
-        "body": "Historical model 99th percentile 55 mm, observed 45 mm; future model 70 mm exceeds training range. QDM applies the model ratio 70/55 ≈ 1.2727 to the observed quantile: 45 × 1.2727 ≈ 57.3 mm — carrying forward relative change rather than extrapolating a value-to-value table past its trained range (link Unit 2.7)."
-      },
-      {
-        "id": "cgei-cl-29-4-3",
-        "kind": "prose",
-        "title": "Artefacts of adjustment; impact on extremes",
-        "body": "Per-variable, per-gridpoint adjustment can break physical consistency (e.g. unphysical relative humidity) and degrade spatial correlation. Extreme quantiles are estimated from the fewest training points, so tail correction factors are the least reliable — the same small-sample concern as EVT in Unit 2.7."
-      },
-      {
-        "id": "cgei-cl-29-4-4",
-        "kind": "prose",
-        "title": "Observational reference choice drives results",
-        "body": "Adjustment is only as good as the reference dataset. Gauge-based and reanalysis products can disagree in sparse networks. Switching reference changes the corrected projection for the same raw model output — document the reference choice."
-      },
-      {
-        "id": "cgei-cl-29-4-5",
-        "kind": "prose",
-        "title": "Independent-period and extremes-focused evaluation",
-        "body": "Fit on a training sub-period; evaluate on a held-out period, specifically on extreme statistics, not only the mean."
-      },
-      {
-        "id": "cgei-cl-29-4-lab3",
-        "kind": "worked-example",
-        "title": "Lab: independent-period validation (hand-verified)",
-        "body": "Training: obs 25 °C, model 27 °C → correction 2 °C. Validation: obs 24 °C, model 25.8 °C. Uncorrected bias 1.8 °C; corrected 23.8 °C → residual −0.2 °C. Improvement on unseen data, not perfect, because training and validation offsets differ."
-      },
-      {
-        "id": "cgei-cl-29-4-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "All numbers synthetic for hand arithmetic.",
-          "BCSD/LOCA concept-level only.",
-          "Single train/validation split, not full cross-validation."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-5",
-    "kind": "lesson",
-    "title": "Downscaling: dynamical, statistical, and machine-learning approaches",
-    "order": 5,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-downscale",
-        "statement": "Compare dynamical, statistical and machine-learning downscaling approaches on their stationarity and transfer assumptions, operational cost, and failure modes.",
-        "action": "compare and assess",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-mathematical-modeling",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-5-1",
-        "kind": "prose",
-        "title": "Downscaling overview: stationarity and transfer limits",
-        "body": "Dynamical, statistical and ML downscaling all assume the coarse-to-fine relationship transfers under future climate — an assumption that cannot be directly verified for the future."
-      },
-      {
-        "id": "cgei-cl-29-5-2",
-        "kind": "prose",
-        "title": "Dynamical downscaling: boundary conditions, nesting, and cost",
-        "body": "An RCM is nested inside a driving GCM/reanalysis with time-varying lateral boundary conditions; optional spectral nudging limits domain drift. Physically consistent across variables, but inherits large-scale errors and is computationally expensive."
-      },
-      {
-        "id": "cgei-cl-29-5-lab",
-        "kind": "worked-example",
-        "title": "Lab: computational cost of doubling resolution (hand-verified)",
-        "body": "50 km run costs 10 compute-hours. Halving spacing to 25 km: 4× grid cells and ~2× time steps → 8× cost ≈ 80 compute-hours."
-      },
-      {
-        "id": "cgei-cl-29-5-3",
-        "kind": "prose",
-        "title": "Statistical downscaling: perfect prognosis, MOS, and weather generators",
-        "body": "PP calibrates observed large-scale predictors to local predictands; MOS calibrates against the model’s own history; weather generators produce synthetic daily sequences matched to projected statistic changes."
-      },
-      {
-        "id": "cgei-cl-29-5-4",
-        "kind": "prose",
-        "title": "Machine-learning downscaling: training data and extrapolation risk",
-        "body": "ML learns coarse-to-fine maps from paired training data, shares transfer assumptions, and risks unreliable behaviour outside the training distribution plus plausible-looking but ungrounded fine-scale detail."
-      },
-      {
-        "id": "cgei-cl-29-5-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "8× cost scaling is an order-of-magnitude rule of thumb.",
-          "PP/MOS/WG conceptual only.",
-          "No ML model trained in this unit."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-9-6",
-    "kind": "lesson",
-    "title": "Using projections: uncertainty, warming levels, and responsible interpretation",
-    "order": 6,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 55,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-29-use",
-        "statement": "Decompose projection uncertainty into its named sources, use baselines/anomalies/time slices and global warming levels appropriately, distinguish projections from forecasts and short observed trends, and apply screening and complementary (storyline, emergent-constraint, Interactive Atlas) approaches responsibly.",
-        "action": "decompose and apply",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-29-6-1",
-        "kind": "prose",
-        "title": "Uncertainty decomposition",
-        "body": "Four sources: scenario, model structural, internal variability, and observational. Internal variability dominates near-term local scales; scenario uncertainty dominates long-term global means."
-      },
-      {
-        "id": "cgei-cl-29-6-lab1",
-        "kind": "worked-example",
-        "title": "Lab: an illustrative variance decomposition (hand-verified)",
-        "body": "Total variance 1.00 °C²: model 0.55, scenario 0.30, internal 0.15 (sums to 1.00). Nearer-term slices typically raise internal variability’s share."
-      },
-      {
-        "id": "cgei-cl-29-6-2",
-        "kind": "prose",
-        "title": "Baseline periods, anomalies versus absolutes, and time slices",
-        "body": "Anomalies relative to a declared baseline largely cancel model bias; time slices average out year-to-year noise when characterising a projected climate state."
-      },
-      {
-        "id": "cgei-cl-29-6-lab2",
-        "kind": "worked-example",
-        "title": "Lab: anomaly-based estimates recover the bias-corrected value (hand-verified)",
-        "body": "obs baseline 25 °C, model baseline 27 °C, model future 30 °C → anomaly +3 °C → 25+3 = 28 °C, same as additive bias correction in 2.9.4."
-      },
-      {
-        "id": "cgei-cl-29-6-3",
-        "kind": "prose",
-        "title": "Projections ≠ weather forecasts ≠ short observed trends",
-        "body": "Projections are conditional scenario statements, not initialised forecasts of the actual year sequence. Short observed trends are dominated by internal variability."
-      },
-      {
-        "id": "cgei-cl-29-6-4",
-        "kind": "prose",
-        "title": "The CMIP6 hot-model problem",
-        "body": "AR6 ECS likely 2.5–4.0 °C. Some CMIP6 models exceed 5 °C. Responses: screening, weighting, observational constraints."
-      },
-      {
-        "id": "cgei-cl-29-6-5",
-        "kind": "prose",
-        "title": "Global warming levels as an alternative framing",
-        "body": "GWL framing pools periods when models/scenarios first reach +1.5/+2/+3 °C, decoupling climate outcomes from the timing of a specific emissions pathway."
-      },
-      {
-        "id": "cgei-cl-29-6-lab3",
-        "kind": "worked-example",
-        "title": "Lab: time to reach a warming level under a linear-rate assumption (hand-verified)",
-        "body": "At +1.1 °C in 2020 and 0.3 °C/decade, reaching +2.0 °C takes 0.9/0.3 = 3 decades ≈ 2050 under this illustrative linear rate."
-      },
-      {
-        "id": "cgei-cl-29-6-6",
-        "kind": "prose",
-        "title": "Storyline and emergent-constraint approaches",
-        "body": "Storylines build a few physically coherent narratives; emergent constraints use present-day observables correlated with future change across the ensemble to narrow projected ranges."
-      },
-      {
-        "id": "cgei-cl-29-6-7",
-        "kind": "prose",
-        "title": "The IPCC Interactive Atlas as a first look",
-        "body": "Fast regional orientation from AR6; not a substitute for local evaluation, bias adjustment or downscaling."
-      },
-      {
-        "id": "cgei-cl-29-6-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "55/30/15 split is illustrative.",
-          "Linear time-to-GWL is a simplification.",
-          "ECS cited as assessed, not re-derived.",
-          "Atlas described, not operated."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-1",
-    "kind": "lesson",
-    "title": "Available product families: CORDEX, NEX-GDDP-CMIP6, ISIMIP, and WorldClim/CHELSA",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-210-families",
-        "statement": "Identify the major downscaled and bias-adjusted climate product families (CORDEX South Asia, NEX-GDDP-CMIP6, ISIMIP, WorldClim/CHELSA future layers), compare them on method, base period, variables, ensemble size and licence, and locate their access routes and file conventions.",
-        "action": "identify and compare",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-210-1-1",
-        "kind": "prose",
-        "title": "Four product families",
-        "body": "CORDEX South Asia provides dynamically downscaled RCM simulations over the South Asian domain, commonly at 0.44° or 0.22°. NEX-GDDP-CMIP6 provides statistically downscaled (BCSD-type) daily output from CMIP6 GCMs on a uniform global 0.25° grid for a limited core variable set. ISIMIP provides bias-adjusted forcing engineered as standardised input for impact models under a shared protocol. WorldClim and CHELSA provide downscaled future climatological normals at very fine resolution for ecological applications, not daily impact-model forcing."
-      },
-      {
-        "id": "cgei-cl-210-1-2",
-        "kind": "table",
-        "title": "Product family comparison",
-        "headers": [
-          "Product",
-          "Method",
-          "Base period",
-          "Typical variables",
-          "Ensemble",
-          "Licence"
         ],
-        "rows": [
-          [
-            "CORDEX South Asia",
-            "Dynamical downscaling (RCM nested in GCM)",
-            "Varies by pair, often ~1971–2000",
-            "Full RCM output",
-            "Multiple RCM–GCM pairings",
-            "Open via ESGF; cite RCM/GCM"
-          ],
-          [
-            "NEX-GDDP-CMIP6",
-            "Statistical downscaling (BCSD-type)",
-            "1950–2014 historical reference",
-            "Daily tasmax, tasmin, precip",
-            "Multiple CMIP6 models",
-            "Open (NASA); citation requested"
-          ],
-          [
-            "ISIMIP",
-            "Bias-adjusted forcing for impact models",
-            "Protocol-specific observational reference",
-            "Temp, precip, radiation, humidity, wind",
-            "Subset of CMIP models per round",
-            "Open via portal; citation required"
-          ],
-          [
-            "WorldClim / CHELSA (future)",
-            "Downscaled climatological normals",
-            "WorldClim ~1970–2000; CHELSA ~1981–2010",
-            "Monthly/annual normals, bioclim variables",
-            "Several GCMs/scenarios; no IV ensemble",
-            "Open, CC BY; citation required"
-          ]
-        ]
       },
-      {
-        "id": "cgei-cl-210-1-3",
-        "kind": "prose",
-        "title": "Access routes and file conventions",
-        "body": "CORDEX and ISIMIP are distributed primarily through ESGF or dedicated portals as netCDF with CMIP-style filenames. NEX-GDDP-CMIP6 is available via NASA NCCS/Earthdata as netCDF. WorldClim and CHELSA are distributed as per-variable GeoTIFF raster tiles with no internal time dimension — a different access pattern that affects pipeline design."
-      },
-      {
-        "id": "cgei-cl-210-1-lab",
-        "kind": "worked-example",
-        "title": "Lab: comparing resolution across families (hand-verified)",
-        "body": "Reusing Unit 2.9.1 (1° ≈ 97.7 km at Delhi): CORDEX 0.44° ≈ 43.0 km, 0.22° ≈ 21.5 km; NEX-GDDP 0.25° ≈ 24.4 km; WorldClim/CHELSA 30″ ≈ 0.81 km (~1 km). Finer nominal grid does not imply more process skill — fine grids ≠ local certainty (Unit 2.9.3.2)."
-      },
-      {
-        "id": "cgei-cl-210-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Table reflects representative characteristics; verify current product docs before use.",
-          "Resolution conversion is the spherical approximation from Unit 2.9.1.",
-          "No file from any family is downloaded or read in this unit."
-        ]
-      }
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-2",
-    "kind": "lesson",
-    "title": "Choosing models and members, and documenting the choice",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
+    content: [
       {
-        "id": "cgei-cl-o-210-select",
-        "statement": "Select models and members for a given application using regional-evaluation criteria, document exclusions and full provenance in a manifest, and report ensemble ranges and agreement rather than a bare mean.",
-        "action": "select and document",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-210-2-1",
-        "kind": "prose",
-        "title": "Choosing by regional evaluation; documenting exclusions",
-        "body": "Select models using Unit 2.9.3 evaluation criteria rather than including every available model by default. Document every exclusion and its reason (poor monsoon timing, implausible trend, hot-model concern) so later readers can judge the screening decision."
+        id: "cgei-ds-56-1-core",
+        kind: "prose",
+        title: "What a coefficient actually says",
+        body: "Multiple regression describes the conditional mean of an outcome given the predictors included in a specified model. In an LST analysis, predictors might include NDVI, built fraction, season and an NDVI × season interaction. A coefficient is conditional on the other included terms and model form; it does not mean every relevant cause has been controlled.",
       },
       {
-        "id": "cgei-cl-210-2-2",
-        "kind": "checklist",
-        "title": "Manifest fields to record for every dataset used",
-        "items": [
-          "Model / product name and version",
-          "Scenario or experiment identifier",
-          "Ensemble member / variant label",
-          "Grid label and nominal resolution",
-          "Download date and source URL or DOI",
-          "Bias adjustment or downscaling method and reference dataset",
-          "Models/members considered but excluded, and why"
-        ]
+        id: "cgei-ds-56-1-equation",
+        kind: "equation",
+        title: "A model with an interaction",
+        expression:
+          "LST_i = β_0 + β_1 NDVI_i + β_2 Built_i + β_3 Season_i + β_4(NDVI_i × Season_i) + ε_i",
+        body: "LST is in °C; NDVI and built fraction are unitless. If Season is an indicator, β₁ is the NDVI slope in the reference season and β₄ is the change in that slope in the other season. Name the reference category.",
       },
       {
-        "id": "cgei-cl-210-2-lab",
-        "kind": "worked-example",
-        "title": "Lab: reporting range and agreement, not just the mean (hand-verified)",
-        "body": "Eight models: −3, +2, +5, +8, +10, +12, +15, +18%. Mean ≈ +8.4%; range −3% to +18%; 7/8 = 87.5% agree on positive sign. Report mean, range and agreement fraction — not a bare mean alone."
+        id: "cgei-ds-56-1-example",
+        kind: "worked-example",
+        title: "Interpret a slope with units",
+        body: "If the fitted NDVI coefficient is −2.0 °C per NDVI unit, an increase of 0.10 NDVI corresponds to a modelled −0.20 °C difference in expected LST in the reference season, holding included predictors fixed. This is an association, not proof that planting vegetation causes that change.",
       },
       {
-        "id": "cgei-cl-210-2-3",
-        "kind": "prose",
-        "title": "Why this matters for decisions",
-        "body": "A tidy multi-model mean can hide disagreement on the direction of change. Range plus agreement fraction gives decision-makers robustness information that a single mean invites false precision about."
+        id: "cgei-ds-56-1-code",
+        kind: "code",
+        title: "Fit an interpretable model",
+        language: "Python · statsmodels",
+        code: 'import statsmodels.formula.api as smf\nfit = smf.ols("lst_c ~ ndvi * C(season) + built_frac", data=df).fit()\nprint(fit.summary())\n# Inspect units, reference category, residuals and support.',
       },
       {
-        "id": "cgei-cl-210-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "8-model example is synthetic.",
-          "87.5% agreement is an unweighted sign-count.",
-          "No real exclusion decision is made in this unit."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-10-3",
-    "kind": "lesson",
-    "title": "CMIP7 and AR7 awareness",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 35,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-210-cmip7",
-        "statement": "Describe the CMIP7/AR7 transition at a planning level, anticipate new scenario, forcing and data-request conventions by designing model- and scenario-agnostic code, and identify the IPCC Cities Special Report as an emerging source for urban-heat information, while flagging time-sensitive details for independent verification.",
-        "action": "describe and plan for",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-210-3-1",
-        "kind": "prose",
-        "title": "CMIP7 Assessment Fast Track and the AR7 timeline",
-        "body": "CMIP7 is organised around an Assessment Fast Track of priority experiments (reported as 58) intended to support the IPCC AR7 cycle. The AR7 overall timeline was expected to be settled at an IPCC plenary in October 2026."
-      },
-      {
-        "id": "cgei-cl-210-3-verify",
-        "kind": "callout",
-        "title": "Verify before relying on this",
-        "tone": "warning",
-        "items": [
-          "The October 2026 plenary date and the “58 priority experiments” figure reflect planning information at authoring time, not a confirmed outcome.",
-          "Check current WCRP/CMIP7 and IPCC documentation before using this in time-sensitive planning or published material.",
-          "This flag exists because the real subtopic explicitly instructs “check the outcome.”"
-        ]
-      },
-      {
-        "id": "cgei-cl-210-3-2",
-        "kind": "checklist",
-        "title": "Designing code to survive the CMIP6-to-CMIP7 transition",
-        "items": [
-          "Expect new scenario-naming conventions",
-          "Expect updated/harmonised forcing datasets",
-          "Expect revised data-request and variable-table conventions",
-          "Parameterise model, scenario, experiment, grid, and table names as configuration",
-          "Isolate generation-specific naming in a thin adapter layer",
-          "Do not assume CMIP6 filename or calendar conventions persist unchanged"
-        ]
-      },
-      {
-        "id": "cgei-cl-210-3-3",
-        "kind": "prose",
-        "title": "IPCC Special Report on Climate Change and Cities",
-        "body": "An IPCC Special Report on Climate Change and Cities (in preparation) matters because standard GCM/RCM grids cannot resolve city-scale UHI. Treat publication status and content as to-be-verified against current IPCC sources."
-      },
-      {
-        "id": "cgei-cl-210-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Forward-looking, time-sensitive planning information only.",
-          "No code adapter implemented in this unit.",
-          "Cities Special Report scope not assumed or previewed."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-1",
-    "kind": "lesson",
-    "title": "Concepts: detection, attribution, and the single-record problem",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-211-concepts",
-        "statement": "Distinguish detection from attribution via the signal/noise/fingerprint framing, distinguish observed from attributed trends and hazard from impact attribution, and explain why a single observed record cannot by itself separate forced response from internal variability.",
-        "action": "distinguish and explain",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-211-1-1",
-        "kind": "prose",
-        "title": "Detection versus attribution; signal, noise, and fingerprint",
-        "body": "Detection asks whether an observed change is unusual enough relative to internal variability to be a real signal rather than noise. Attribution assigns that detected change, wholly or in part, to a specific cause. A fingerprint is the spatial or temporal pattern a particular forcing is expected to produce, used to tell competing causes apart."
-      },
-      {
-        "id": "cgei-cl-211-1-lab",
-        "kind": "worked-example",
-        "title": "Lab: a simplified signal-to-noise check for detection (hand-verified)",
-        "body": "Five ensemble noise anomalies: +0.05, −0.03, +0.02, −0.04, 0.00 °C. Sample sd ≈ 0.0367 °C. Observed signal 0.15 °C/decade → S/N ≈ 4.1. Supports detection only; does not identify which forcing caused it. This is a teaching heuristic, not optimal fingerprinting."
-      },
-      {
-        "id": "cgei-cl-211-1-flag",
-        "kind": "callout",
-        "title": "This worked example is a simplified heuristic",
-        "tone": "warning",
-        "items": [
-          "Real D&A uses regression-based optimal fingerprinting and control-run noise, not a simple ensemble-spread ratio.",
-          "The “>2 sd” idea is a teaching simplification, not a formal published test.",
-          "Real studies separate multiple forcings simultaneously."
-        ]
-      },
-      {
-        "id": "cgei-cl-211-1-2",
-        "kind": "prose",
-        "title": "Observed versus attributed trend; hazard versus impact attribution",
-        "body": "An observed trend is empirical with no causal claim. An attributed trend requires factual vs counterfactual model runs. Hazard attribution concerns the physical event; impact attribution concerns real-world consequences and also depends on exposure and vulnerability."
-      },
-      {
-        "id": "cgei-cl-211-1-3",
-        "kind": "prose",
-        "title": "Observed trends, forced response, and internal variability in a single record",
-        "body": "A single observed series mixes forced response and internal variability inseparably. Multi-member ensembles or long control runs supply the noise estimate that observations alone cannot provide."
-      },
-      {
-        "id": "cgei-cl-211-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Synthetic 5-member ensemble only.",
-          "No fingerprint regression performed.",
-          "Impact attribution complexity described conceptually only."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-2",
-    "kind": "lesson",
-    "title": "Event attribution: probabilistic framing and rapid protocols",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-211-event",
-        "statement": "Apply the probabilistic factual/counterfactual framing to compute a probability ratio and fraction of attributable risk, describe the stages of a rapid-attribution protocol, and distinguish storyline/thermodynamic-dynamic decomposition from a full probabilistic attribution.",
-        "action": "apply and describe",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-211-2-1",
-        "kind": "prose",
-        "title": "Probabilistic framing: factual versus counterfactual worlds",
-        "body": "Event attribution asks how much more likely or severe an event of a defined type was made by climate change, comparing factual (actual forcing) and counterfactual (forcing removed) model worlds under otherwise identical design."
-      },
-      {
-        "id": "cgei-cl-211-2-lab",
-        "kind": "worked-example",
-        "title": "Lab: probability ratio and fraction of attributable risk (hand-verified)",
-        "body": "p1 = 15/1000 = 0.015; p0 = 3/1000 = 0.003. PR = p1/p0 = 5. FAR = 1 − p0/p1 = 0.8 = (PR−1)/PR. Event is five times more likely under actual forcing; 80% of occurrence risk is attributable to the forcing difference in this synthetic ensemble."
-      },
-      {
-        "id": "cgei-cl-211-2-2",
-        "kind": "prose",
-        "title": "Rapid-attribution protocols",
-        "body": "Generalised stages: (1) precise event definition; (2) observational trend analysis; (3) model evaluation as gatekeeping (Unit 2.9.3); (4) synthesis across methods with an explicit uncertainty range."
-      },
-      {
-        "id": "cgei-cl-211-2-3",
-        "kind": "prose",
-        "title": "Storyline approaches and thermodynamic-versus-dynamic decomposition",
-        "body": "Storyline approaches condition on the observed circulation, then ask how warming changed severity. Thermodynamic contributions are better constrained than dynamic (circulation) contributions; separating them avoids overclaiming circulation attribution."
-      },
-      {
-        "id": "cgei-cl-211-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "PR/FAR numbers are synthetic.",
-          "Protocol summary is generalised, not a verbatim organisational methodology.",
-          "No real thermo/dynamic split computed."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-11-3",
-    "kind": "lesson",
-    "title": "Limits: harder cases and communicating attribution results",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-211-limits",
-        "statement": "Identify why convective rainfall, compound events, and data-poor regions make attribution harder, explain why heat attribution is generally stronger than rainfall or drought attribution, and communicate attribution results using calibrated likelihood language alongside an explicit event definition.",
-        "action": "identify and communicate",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-uncertainty",
-          "cgei-comp-reproducibility"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-211-3-1",
-        "kind": "prose",
-        "title": "Convective rainfall, compound events, and data-poor regions",
-        "body": "Convective scales sit below coarse GCM resolution. Compound events require joint dependence structure. Data-poor regions weaken the observational leg of protocols. Results are sensitive to event definition."
-      },
-      {
-        "id": "cgei-cl-211-3-2",
-        "kind": "prose",
-        "title": "Why heat attribution is usually stronger than rainfall or drought attribution",
-        "body": "Heat links directly to well-modelled thermodynamic greenhouse warming. Rainfall extremes depend more on circulation. Drought is multi-causal, including non-climatic drivers."
-      },
-      {
-        "id": "cgei-cl-211-3-lab",
-        "kind": "worked-example",
-        "title": "Lab: contrasting detectability of a heat signal versus a rainfall signal (hand-verified)",
-        "body": "Heat S/N ≈ 4.1. Illustrative rainfall: signal 2 mm/decade, noise 8 mm/decade → S/N = 0.25. Ratio of ratios ≈ 16.4× — rainfall signal sits well inside internal-variability noise in this toy comparison."
-      },
-      {
-        "id": "cgei-cl-211-3-3",
-        "kind": "table",
-        "title": "IPCC calibrated likelihood language",
-        "headers": [
-          "Term",
-          "Probability range"
+        id: "cgei-ds-56-1-check",
+        kind: "checklist",
+        title: "Before interpreting",
+        items: [
+          "Define observational unit and target population.",
+          "Write units for the outcome and predictors.",
+          "Name the categorical reference level.",
+          "Plot simple slopes when an interaction is present.",
+          "Separate association from causal claims.",
         ],
-        "rows": [
-          [
-            "Virtually certain",
-            "99–100%"
-          ],
-          [
-            "Very likely",
-            "90–100%"
-          ],
-          [
-            "Likely",
-            "66–100%"
-          ],
-          [
-            "About as likely as not",
-            "33–66%"
-          ],
-          [
-            "Unlikely",
-            "0–33%"
-          ],
-          [
-            "Very unlikely",
-            "0–10%"
-          ],
-          [
-            "Exceptionally unlikely",
-            "0–1%"
-          ]
-        ]
       },
       {
-        "id": "cgei-cl-211-3-checklist",
-        "kind": "checklist",
-        "title": "Communicating an attribution result responsibly",
-        "items": [
-          "State the event definition precisely alongside any number",
-          "Use calibrated likelihood language",
-          "Report methods and whether models passed evaluation",
-          "State hazard vs impact explicitly",
-          "Flag event-definition sensitivity where material",
-          "Do not imply equal confidence across variables (heat ≠ drought)"
-        ]
+        id: "cgei-ds-56-1-reg",
+        kind: "prose",
+        title: "Regularisation (ridge and lasso) conceptually",
+        body: "When many correlated predictors compete, ordinary least squares coefficients can be unstable. Ridge (L2) shrinks coefficients toward zero without forcing them exactly to zero; lasso (L1) can set some coefficients to zero and act as a variable-selection device. Regularisation is a bias–variance trade-off controlled by a penalty strength chosen by validation—not a substitute for a scientific model or for causal design. Always state whether coefficients are reported on standardised predictors.",
       },
       {
-        "id": "cgei-cl-211-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Heat vs rainfall contrast uses illustrative numbers.",
-          "Likelihood table is a standard external convention.",
-          "No real event-definition sensitivity analysis is run."
-        ]
-      }
+        id: "cgei-ds-56-1-logit",
+        kind: "prose",
+        title: "Logistic regression for binary outcomes",
+        body: "Binary outcomes (flooded/not, exceedance/not) are modelled with logistic regression: log-odds of the event equal a linear predictor. A coefficient is a log-odds ratio for a one-unit change in the predictor holding others fixed; exp(β) is the odds ratio. Predicted probabilities need calibration checks. Do not treat a high probability as a causal claim, and do not apply ordinary linear R² narratives unchanged to classification problems.",
+      },
+      {
+        id: "cgei-ds-56-1-logit-ex",
+        kind: "worked-example",
+        title: "Odds ratio interpretation (synthetic)",
+        body: "Suppose a logistic model for “station day exceeds PM threshold” yields β_traffic = 0.405 on a standardised traffic index. Then exp(0.405) ≈ 1.50: the modelled odds of exceedance are about 1.5× higher for a one-SD increase in the traffic index, holding other terms fixed. This is association under the fitted model—not proof that traffic caused the exceedance without further design.",
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-56-multiple"],
+    assessmentIds: ["cgei-ds-assess-56-multiple"],
+    resourceIds: ["cgei-ds-r-56-statsmodels-ols"],
+    deliverableIds: ["cgei-ds-d-56-model-memo"],
   },
   {
-    "id": "cgei-cl-lesson-2-12-1",
-    "kind": "lesson",
-    "title": "ML in downscaling and bias correction",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
+    id: "cgei-ds-lesson-5-6-2",
+    kind: "lesson",
+    title: "Residual diagnostics and multicollinearity",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
       {
-        "id": "cgei-cl-o-212-ml",
-        "statement": "Evaluate ML bias-correction and downscaling methods against required statistical baselines (delta change, quantile mapping, regression) and against ML emulators of full climate models, quantifying skill improvement and computational speed-up.",
-        "action": "evaluate and quantify",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-56-diagnostics",
+        statement:
+          "Diagnose collinearity, non-linearity, heteroscedasticity and influential observations using residual-focused checks.",
+        action: "diagnose and justify",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-mathematical-modeling"
-        ]
-      }
+          "cgei-comp-uncertainty",
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-212-1-1",
-        "kind": "prose",
-        "title": "ML bias correction and downscaling against statistical baselines",
-        "body": "ML bias correction and downscaling must be evaluated against named statistical baselines on an independent-period hold-out, not reported as a bare accuracy number. Skill improvement is only meaningful relative to a specific, named baseline."
+        id: "cgei-ds-56-2-core",
+        kind: "prose",
+        title: "Diagnostics test the model story",
+        body: "Residuals are observed minus fitted outcomes. Curvature in residual-versus-fitted plots can indicate a misspecified mean; changing spread can indicate heteroscedasticity. Residuals against time, location or predictors may expose unmodelled structure. Investigate influential observations rather than automatically deleting them.",
       },
       {
-        "id": "cgei-cl-212-1-lab1",
-        "kind": "worked-example",
-        "title": "Lab: ML skill improvement over the best classical baseline (hand-verified)",
-        "body": "Hold-out MAE (mm/day): delta-change 2.1, QM 1.6, regression 1.4, ML 1.1. Improvement vs best classical (regression): (1.4−1.1)/1.4 ≈ 21.4%. Comparing only to the weakest baseline (delta-change ≈47.6%) is misleading."
+        id: "cgei-ds-56-2-points",
+        kind: "key-points",
+        title: "Collinearity is an interpretation problem",
+        items: [
+          "NDVI and EVI, or imperviousness and built fraction, may encode overlapping information.",
+          "VIF describes how collinearity inflates coefficient variance in a specified design matrix.",
+          "A VIF threshold is a diagnostic heuristic, not an automatic delete-variable rule.",
+          "Individual coefficients may be unstable while predictions remain comparatively stable.",
+          "Use scientific meaning, measurement quality and the research question to justify variable choices.",
+        ],
       },
       {
-        "id": "cgei-cl-212-1-2",
-        "kind": "prose",
-        "title": "Statistical and ML downscaling as a data-limited path; ML emulators",
-        "body": "Statistical and ML downscaling are data-limited by the observational training record. Emulators reproduce full-model output at a fraction of the cost for scenario/parameter exploration, limited by training-library coverage."
+        id: "cgei-ds-56-2-equation",
+        kind: "equation",
+        title: "Variance inflation factor",
+        expression: "VIF_j = 1 / (1 − R_j²)",
+        body: "R²_j comes from regressing predictor j on the other predictors. As R²_j approaches 1, VIF rises because that predictor contains little independent variation.",
       },
       {
-        "id": "cgei-cl-212-1-lab2",
-        "kind": "worked-example",
-        "title": "Lab: emulator computational speed-up (hand-verified)",
-        "body": "Full ESM: 30 days wall-clock = 43,200 minutes. Emulator: 10 minutes. Speed-up = 4,320×."
+        id: "cgei-ds-56-2-example",
+        kind: "worked-example",
+        title: "Diagnose before changing the model",
+        body: "If NDVI and EVI have VIF values of 9 and 11, do not automatically delete EVI. Inspect their relationship and measurement properties, decide whether both serve a defensible scientific purpose, then compare justified specifications under the same validation design. Record changes in coefficient signs, uncertainty and predictions.",
       },
       {
-        "id": "cgei-cl-212-1-3",
-        "kind": "checklist",
-        "title": "Baselines required before reporting ML skill",
-        "items": [
-          "Delta change",
-          "Quantile mapping",
-          "Simple regression",
-          "Identical independent-period hold-out for all methods",
-          "Report skill relative to the strongest baseline, not the weakest"
-        ]
+        id: "cgei-ds-56-2-code",
+        kind: "code",
+        title: "Residual checks",
+        language: "Python",
+        code: 'import matplotlib.pyplot as plt\nplt.scatter(fit.fittedvalues, fit.resid, alpha=0.5)\nplt.axhline(0, color="black", linewidth=1)\nplt.xlabel("Fitted LST (°C)")\nplt.ylabel("Residual (°C)")\nplt.show()',
       },
-      {
-        "id": "cgei-cl-212-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "MAE and emulator timings are synthetic.",
-          "No ML model is trained in this unit."
-        ]
-      }
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-56-diagnostics"],
+    assessmentIds: ["cgei-ds-assess-56-diagnostics"],
+    resourceIds: ["cgei-ds-r-56-vif"],
+    deliverableIds: ["cgei-ds-d-56-diagnostic-sheet"],
   },
   {
-    "id": "cgei-cl-lesson-2-12-2",
-    "kind": "lesson",
-    "title": "Probabilistic and rare-event evaluation",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-6-3",
+    kind: "lesson",
+    title: "Parameter uncertainty, prediction intervals and bootstrap",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
       {
-        "id": "cgei-cl-o-212-prob",
-        "statement": "Decompose probabilistic forecast skill into reliability, resolution, and uncertainty components, compute a Brier Skill Score relative to a climatological reference, and interpret reliability and sharpness diagnostics for probabilistic climate output.",
-        "action": "decompose and interpret",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-56-uncertainty",
+        statement:
+          "Distinguish parameter confidence intervals, prediction intervals and major sources of uncertainty.",
+        action: "calculate and distinguish",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-56-3-core",
+        kind: "prose",
+        title: "Name the uncertainty being reported",
+        body: "A confidence interval quantifies uncertainty in an estimated parameter or mean response under a procedure and its assumptions. A prediction interval concerns a new individual observation and is usually wider because it includes observation-level variation as well as uncertainty in the mean. Neither automatically includes measurement error, sampling bias, model-form uncertainty or future-scenario uncertainty.",
+      },
+      {
+        id: "cgei-ds-56-3-table",
+        kind: "table",
+        title: "Uncertainty sources are not interchangeable",
+        headers: ["Source", "Environmental example", "Possible response"],
+        rows: [
+          [
+            "Measurement",
+            "Sensor calibration or retrieval error",
+            "Calibration metadata; propagate known error",
+          ],
+          [
+            "Representativeness",
+            "Sampled pixels omit parts of the target population",
+            "Describe support; improve sampling design",
+          ],
+          [
+            "Parameter",
+            "Finite-sample estimates of regression coefficients",
+            "Model-based interval or suitable bootstrap",
+          ],
+          [
+            "Model structure",
+            "Linear model misses threshold behaviour",
+            "Diagnostics; compare justified alternatives",
+          ],
+          [
+            "Dependence",
+            "Nearby pixels share spatial structure",
+            "Spatial/temporal block design or dependence-aware uncertainty",
+          ],
+        ],
+      },
+      {
+        id: "cgei-ds-56-3-example",
+        kind: "worked-example",
+        title: "Confidence interval versus prediction interval",
+        body: "Suppose estimated mean LST is 38.0 °C with a 95% confidence interval of 37.4–38.6 °C. A prediction interval for a new observation at that profile might be 33.0–43.0 °C. These numbers are illustrative; the prediction interval is wider because it includes observation-level variation, and both intervals depend on model assumptions and sampling design.",
+      },
+      {
+        id: "cgei-ds-56-3-points",
+        kind: "key-points",
+        title: "Bootstrap the sampling structure you can defend",
+        items: [
+          "Independent cases may permit case resampling.",
+          "Serial observations may require time blocks or residual methods.",
+          "Spatially clustered observations may require spatial blocks or cluster resampling.",
+          "A bootstrap cannot repair a biased sampling frame or missing confounder.",
+          "State which uncertainty sources the interval includes and excludes.",
+        ],
+      },
+      {
+        id: "cgei-ds-56-3-sens",
+        kind: "prose",
+        title: "Sensitivity analysis",
+        body: "Sensitivity analysis asks how conclusions change when modelling choices change: alternative covariates, transformations, outlier handling, spatial subsets, or prior-year baselines. Report a primary analysis and a short sensitivity table rather than only the most favourable specification. If the sign or decision flips under defensible alternatives, the claim is not robust.",
+      },
+      {
+        id: "cgei-ds-56-3-mc",
+        kind: "prose",
+        title: "Monte Carlo simulation (introductory)",
+        body: "Monte Carlo methods draw many synthetic samples from a stated model or error distribution to approximate sampling distributions of estimators or to stress-test coverage of intervals. They answer “if this data-generating process were true, how would my procedure behave?”—not “this is the real climate system.” State the assumed generative model and what is held fixed.",
+      },
+      {
+        id: "cgei-ds-56-3-mc-ex",
+        kind: "worked-example",
+        title: "Toy Monte Carlo coverage check",
+        body: "Draw 500 synthetic samples of size n=40 from N(μ=10, σ=2). For each sample compute a nominal 95% normal CI for the mean. The fraction of intervals that contain 10 estimates the coverage under this generative model. Coverage near 0.95 supports the interval procedure under the assumed model; large under-coverage flags a broken variance formula or violated assumptions—not a property of a real environmental dataset unless those assumptions are justified.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-56-uncertainty"],
+    assessmentIds: ["cgei-ds-assess-56-uncertainty"],
+    resourceIds: ["cgei-ds-r-56-statsmodels-ols"],
+    deliverableIds: ["cgei-ds-d-56-model-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-6-4",
+    kind: "lesson",
+    title: "Temporal and spatial dependence; leakage-aware validation",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-56-dependence",
+        statement:
+          "Choose uncertainty estimates and validation splits that respect station, scene, region or time dependence.",
+        action: "select and defend",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-56-4-core",
+        kind: "prose",
+        title: "Nearby observations are not automatically independent",
+        body: "Repeated measurements from one station, pixels from one satellite scene and neighbouring grid cells often share weather, sensor, land-cover and processing effects. Treating all rows as independent can make standard errors too small and random train/test splits too optimistic for transfer to new places or times. Define what must be genuinely new at evaluation time.",
+      },
+      {
+        id: "cgei-ds-56-4-equation",
+        kind: "equation",
+        title: "An approximate effective sample size",
+        expression: "n_eff ≈ n(1 − ρ) / (1 + ρ)",
+        body: "This is a rough heuristic for a stationary AR(1)-like dependence pattern, not a universal correction. It does not replace an appropriate sampling design or dependence model.",
+      },
+      {
+        id: "cgei-ds-56-4-example",
+        kind: "worked-example",
+        title: "Why the split changes the claim",
+        body: "For n = 100 observations and lag-one correlation ρ = 0.60, n_eff ≈ 100 × 0.40 / 1.60 = 25. The row count may overstate independent information. To estimate performance in unseen districts, keep entire districts out of training; for future forecasting, use a time-ordered split.",
+      },
+      {
+        id: "cgei-ds-56-4-code",
+        kind: "code",
+        title: "Group-aware cross-validation",
+        language: "Python · scikit-learn",
+        code: 'from sklearn.model_selection import GroupKFold, cross_val_score\ncv = GroupKFold(n_splits=5)\nscores = cross_val_score(estimator, X, y, groups=district_id, cv=cv, scoring="neg_root_mean_squared_error")\nrmse = -scores',
+      },
+      {
+        id: "cgei-ds-56-4-warning",
+        kind: "callout",
+        tone: "warning",
+        title: "Robust standard errors are not a leakage fix",
+        body: "Cluster-robust standard errors can adjust coefficient uncertainty for some within-cluster dependence when there are enough independent clusters and assumptions are appropriate. They do not prevent neighbouring locations from appearing in both training and test data. Inference and predictive validation are distinct design decisions.",
+      },
+      {
+        id: "cgei-ds-56-4-blockboot",
+        kind: "prose",
+        title: "Block bootstrap and spatial block resampling",
+        body: "When observations are serially or spatially dependent, resampling individual rows understates uncertainty. A block bootstrap resamples contiguous time blocks or spatial tiles so within-block dependence is preserved. Spatial block resampling for validation and uncertainty should use blocks large enough to capture short-range correlation and should align with the prediction target (e.g. new regions vs new years). Document block size, alignment, and the number of resamples.",
+      },
+      {
+        id: "cgei-ds-56-4-block-ex",
+        kind: "worked-example",
+        title: "Why independent-case bootstrap fails under AR(1)",
+        body: "Synthetic series: n=100, AR(1) with φ=0.7. The variance of the sample mean is larger than σ²/n. An i.i.d. bootstrap of single time steps yields intervals that are too narrow; a moving-block bootstrap with block length chosen to match dependence recovers wider, more honest uncertainty under this generative model. Real climate series need a defended block design, not a default block length of 1.",
+      },
+      {
+        id: "cgei-ds-56-4-leakage-lab",
+        kind: "worked-example",
+        title: "Random split vs group hold-out (synthetic)",
+        body: "Fixture unit_5_6_leakage_split_check.py builds grouped data where y is mostly a group mean. A predictor that memorizes train-time group means looks strong when the same groups appear in the test fold (random row split) and collapses when entire groups are held out. Compare RMSE under both protocols before claiming spatial or station transfer. Commands: python content-drafts/chapter-05-scientific-computing/fixtures/unit_5_6_leakage_split_check.py. Limits: synthetic groups only—not Multan districts or production CV.",
+      },
+      {
+        id: "cgei-ds-56-4-guided",
+        kind: "prose",
+        title: "Predict the optimistic protocol",
+        body: "Before running the fixture, predict which protocol yields lower RMSE when y is a group effect: (A) random 75/25 row split or (B) hold out three entire groups. State whether train and test share groups under (A). Then run the fixture and compare your prediction to rmse_random vs rmse_group.",
+      },
+      {
+        id: "cgei-ds-56-4-independent",
+        kind: "prose",
+        title: "Design a non-leaking evaluation",
+        body: "A colleague proposes random shuffling of daily station rows to evaluate a model that should forecast the next season at new stations. Write three sentences: (1) the intended generalization target; (2) why row shuffling is the wrong unit of separation; (3) one alternative split (time-forward or station/group hold-out) and what remains unproven even if that split looks good.",
+      },
+      {
+        id: "cgei-ds-56-4-numeric",
+        kind: "worked-example",
+        title: "Blocked split changes the accuracy claim",
+        body: "Fixture unit_5_6_leakage_split_check.py builds a synthetic series where neighbouring times share a latent factor. A random 70/30 split yields an inflated holdout score because train and test share the latent structure. A contiguous blocked split (train earlier block, test later block) reduces the score under the same model class. Report the split rule with the metric—accuracy without the split design is incomplete. Synthetic only; not a claim about a particular climate product.",
+      },
+      {
+        id: "cgei-ds-56-4-guided-station",
+        kind: "prose",
+        title: "Guided practice: station and season transfer",
+        body: "For daily station temperatures with strong lag-1 autocorrelation, state whether a random day-level split is appropriate for “forecast next season at new stations,” and name one blocked alternative (time block, station block, or both).",
+      },
+    ],
+    activityIds: ["cgei-ds-a-56-dependence", "cgei-ds-a-56-leakage"],
+    assessmentIds: ["cgei-ds-assess-56-dependence"],
+    resourceIds: ["cgei-ds-r-56-groupkfold"],
+    deliverableIds: ["cgei-ds-d-56-validation-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-6-5",
+    kind: "lesson",
+    title: "Compare models against baselines and report failure cases",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-56-comparison",
+        statement:
+          "Compare candidate models with simple baselines under the same leakage-aware validation design and communicate limits.",
+        action: "compare and communicate",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-212-2-1",
-        "kind": "prose",
-        "title": "Probabilistic prediction, calibration, reliability, sharpness",
-        "body": "Probabilistic forecasts are judged on reliability (calibration) and sharpness. Always predicting climatology is perfectly reliable but has no sharpness; the goal is sharpness subject to reliability."
-      },
-      {
-        "id": "cgei-cl-212-2-lab1",
-        "kind": "worked-example",
-        "title": "Lab: Brier score decomposition (hand-verified)",
-        "body": "Two bins, n=5 each, perfectly calibrated (f=0.2 and f=0.8). Raw BS = 0.16. Decomposition: reliability=0, resolution=0.09, uncertainty=0.25 → BS = 0−0.09+0.25 = 0.16. Both routes agree."
-      },
-      {
-        "id": "cgei-cl-212-2-2",
-        "kind": "prose",
-        "title": "Rare-event and tail performance",
-        "body": "For rare events, raw Brier scores can look favourable for unhelpful forecasts because uncertainty ō(1−ō) is small. Report skill relative to climatology (BSS), not raw score alone."
-      },
-      {
-        "id": "cgei-cl-212-2-lab2",
-        "kind": "worked-example",
-        "title": "Lab: Brier Skill Score for a rare event (hand-verified)",
-        "body": "p=0.05; BS_climo=0.0475. Forecast BS=0.0380 → BSS = 1 − 0.0380/0.0475 = 0.20 (20% improvement over climatology)."
-      },
-      {
-        "id": "cgei-cl-212-2-3",
-        "kind": "prose",
-        "title": "Reliability and sharpness diagnostics",
-        "body": "Reliability diagram: observed frequency vs forecast probability. Sharpness histogram: distribution of issued probabilities. Rank histogram: ensemble dispersion (U-shaped = under-dispersed)."
-      },
-      {
-        "id": "cgei-cl-212-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "All BS values synthetic.",
-          "Diagrams described, not plotted.",
-          "CRPS not derived numerically here."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-3",
-    "kind": "lesson",
-    "title": "Using open AI forecasts: post-processing and blending",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-212-ai-forecast",
-        "statement": "Describe how an open operational AI forecast (e.g. ECMWF AIFS) is verified against stations and used as input to local post-processing, apply station-based post-processing correction, and compute an uncertainty-weighted blend of model and observational estimates.",
-        "action": "describe and apply",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
-    ],
-    "content": [
-      {
-        "id": "cgei-cl-212-3-1",
-        "kind": "prose",
-        "title": "Open operational AI forecasts as post-processing inputs",
-        "body": "ECMWF AIFS is an operational ML medium-range forecast. Raw grid-point output carries local bias; verify against stations before local use."
-      },
-      {
-        "id": "cgei-cl-212-3-lab1",
-        "kind": "worked-example",
-        "title": "Lab: simple station-based bias correction of a forecast (hand-verified)",
-        "body": "Historical offset +1.5 °C. Raw forecast 32.0 °C → corrected 30.5 °C (same additive logic as Unit 2.9.4)."
-      },
-      {
-        "id": "cgei-cl-212-3-2",
-        "kind": "prose",
-        "title": "Station-based post-processing of global forecasts",
-        "body": "Quantile mapping or regression against grid-point predictors, fitted on a representative verification record — same toolbox as climate bias adjustment, applied at forecast lead times."
-      },
-      {
-        "id": "cgei-cl-212-3-3",
-        "kind": "prose",
-        "title": "Uncertainty communication when blending model and observation",
-        "body": "Inverse-variance blending weights each source by precision; the combined estimate is pulled toward the better-constrained source."
-      },
-      {
-        "id": "cgei-cl-212-3-lab2",
-        "kind": "worked-example",
-        "title": "Lab: inverse-variance blending of model and observation (hand-verified)",
-        "body": "Model 30 °C (σ²=4), obs 28 °C (σ²=1). Blended mean = 28.4 °C; blended σ ≈ 0.894 °C."
-      },
-      {
-        "id": "cgei-cl-212-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Figures synthetic.",
-          "Blending assumes independent errors and accurate variances.",
-          "No AIFS data retrieved in this unit."
-        ]
-      }
-    ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  },
-  {
-    "id": "cgei-cl-lesson-2-12-4",
-    "kind": "lesson",
-    "title": "Climate services",
-    "order": 4,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
-      {
-        "id": "cgei-cl-o-212-services",
-        "statement": "Characterise a climate service by its users, decisions, timescale, format, provenance, trust requirements and update cadence, distinguish co-produced from supply-driven products, and identify the role of Regional Climate Outlook Forums and national outlook products.",
-        "action": "characterise and distinguish",
-        "level": "L2",
-        "competencyIds": [
           "cgei-comp-reproducibility",
-          "cgei-comp-uncertainty"
-        ]
-      }
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-212-4-1",
-        "kind": "checklist",
-        "title": "What defines a climate service: seven design dimensions",
-        "items": [
-          "Users — who decides and who is affected",
-          "Decisions — the action the product is meant to inform",
-          "Timescale — weather, S2S, seasonal, decadal or multi-decadal",
-          "Format — map, tercile, threshold probability, narrative, API",
-          "Provenance — models, observations, calibration period, version",
-          "Trust — verification history, uncertainty language, institutional standing",
-          "Update cadence — how often the product is refreshed and how users are notified"
-        ]
+        id: "cgei-ds-56-5-core",
+        kind: "prose",
+        title: "Complexity must earn its place",
+        body: "Compare every candidate against a baseline on the same held-out observations and validation scheme. A mean-only baseline may suit a stable cross-sectional target; climatology or persistence may be more informative for climate series. Never compare a random-split candidate score with a blocked-split baseline score as if they were equivalent.",
       },
       {
-        "id": "cgei-cl-212-4-2",
-        "kind": "prose",
-        "title": "Co-production versus supply-driven products",
-        "body": "Supply-driven products push available model output toward users and risk mismatch with the decisions that matter. Co-production starts from the decision (sowing window, irrigation trigger, heat-health threshold, reservoir release) and designs the variable, timescale, spatial support, format and action thresholds with users from the outset. Trust is earned by transparent provenance, published verification and honest statements of when skill is modest."
+        id: "cgei-ds-56-5-points",
+        kind: "key-points",
+        title: "Choose metrics for the decision",
+        items: [
+          "MAE is in outcome units and is less sensitive to large errors than RMSE.",
+          "RMSE penalises large errors more strongly and remains in outcome units.",
+          "Bias shows systematic over- or under-prediction.",
+          "R² is relative to a baseline and can be negative on held-out data.",
+          "For heat-risk work, report subgroup and tail performance when those affect decisions.",
+        ],
       },
       {
-        "id": "cgei-cl-212-4-3",
-        "kind": "prose",
-        "title": "Regional Climate Outlook Forums and national outlook products",
-        "body": "RCOFs such as SASCOF (South Asian Climate Outlook Forum) produce regional multi-model consensus seasonal outlooks, typically as tercile probabilities for rainfall and temperature. National meteorological services (e.g. PMD) tailor or reinterpret these products for sector decisions — agriculture, water, health, disaster management. That national tailoring step is where co-production should occur: thresholds, districts, lead times and language that match local practice rather than generic global maps."
+        id: "cgei-ds-56-5-code",
+        kind: "code",
+        title: "A transparent comparison skeleton",
+        language: "Python",
+        code: "from sklearn.metrics import mean_absolute_error, mean_squared_error\nimport numpy as np\nmae = mean_absolute_error(y_test, pred)\nrmse = np.sqrt(mean_squared_error(y_test, pred))\nbias = float(np.mean(pred - y_test))\n# Evaluate every candidate and baseline on identical test rows.",
       },
       {
-        "id": "cgei-cl-212-4-4",
-        "kind": "key-points",
-        "title": "Service literacy for Multan / southern Punjab use",
-        "items": [
-          "Ask which decision the product is intended to support and at what lead.",
-          "Prefer products that publish verification (RPSS, ROC, reliability) for the region and season of interest.",
-          "Separate the RCOF consensus statement from the national or district-scale interpretation.",
-          "Document product version, issue date and baseline in any decision brief."
-        ]
+        id: "cgei-ds-56-5-check",
+        kind: "checklist",
+        title: "Minimum model-comparison report",
+        items: [
+          "State prediction target and observational support.",
+          "Define the split before tuning and keep test data untouched.",
+          "Compare with a meaningful simple baseline.",
+          "Report units, MAE, RMSE and bias.",
+          "Inspect geography, season and important subgroups.",
+          "State the strongest supported claim and what remains unknown.",
+        ],
       },
       {
-        "id": "cgei-cl-212-4-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Seven-dimension checklist is a course organising framework, not an ISO standard.",
-          "No specific RCOF season is scored numerically in this unit.",
-          "Co-production is a process ideal; many operational products remain supply-driven."
-        ]
-      }
+        id: "cgei-ds-56-5-aic",
+        kind: "prose",
+        title: "AIC, BIC and out-of-sample error",
+        body: "AIC and BIC score fitted models using likelihood and a complexity penalty (BIC penalises complexity more at large n). They are not automatic truth finders and assume a comparable likelihood and data. Cross-validated out-of-sample error answers a predictive question under a defined split. Prefer the metric that matches the decision: exploratory model ranking vs operational forecast skill.",
+      },
+      {
+        id: "cgei-ds-56-5-gam",
+        kind: "prose",
+        title: "GAMs and quantile regression (orientation)",
+        body: "Generalised additive models replace some linear terms with smooth functions of predictors, useful when response curvature is expected (e.g. temperature response of vegetation). Quantile regression targets conditional quantiles (median, upper tail) rather than only the conditional mean—relevant for extremes, but still associational without a causal design. Both require careful validation and diagnostics; smoothness penalties and quantile choice are modelling decisions to report.",
+      },
+      {
+        id: "cgei-ds-56-5-baseline-lab",
+        kind: "worked-example",
+        title: "Mean baseline vs linear candidate on one hold-out",
+        body: "Fixture unit_5_6_baseline_compare_check.py fits a train-set mean baseline and a simple linear model, then scores MAE and RMSE on the same 20 test rows. Under the synthetic design y=2+1.5x+noise, the linear model should beat the mean. The teaching point is identical evaluation rows—not that linear models always win. Limits: synthetic, not climate persistence/climatology baselines.",
+      },
+      {
+        id: "cgei-ds-56-5-guided",
+        kind: "prose",
+        title: "Guided: refuse mismatched comparisons",
+        body: "A notebook reports candidate RMSE=1.1 on a random split and baseline RMSE=1.4 on a station-blocked split. Explain in two sentences why the comparison is invalid and what must be aligned before declaring a win.",
+      },
+      {
+        id: "cgei-ds-56-5-independent",
+        kind: "prose",
+        title: "Independent: choose baseline and metrics",
+        body: "Target: next-day station maximum temperature. Propose (1) a simple baseline, (2) MAE and RMSE on a time-forward hold-out, (3) one failure case you would report even if overall RMSE improves (e.g. a heat-wave week or a new station).",
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-56-comparison", "cgei-ds-a-56-baseline-lab"],
+    assessmentIds: ["cgei-ds-assess-56-comparison"],
+    resourceIds: ["cgei-ds-r-56-groupkfold"],
+    deliverableIds: ["cgei-ds-d-56-validation-memo"],
   },
   {
-    "id": "cgei-cl-lesson-2-12-5",
-    "kind": "lesson",
-    "title": "Digital twins and kilometre-scale models",
-    "order": 5,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
+    id: "cgei-ds-lesson-5-7-1",
+    kind: "lesson",
+    title: "Time-series structure, frequency and data quality",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
       {
-        "id": "cgei-cl-o-212-digital-twin",
-        "statement": "Describe digital-twin and kilometre-scale modelling initiatives as emerging data sources, explain what kilometre-scale resolution resolves that coarser models cannot, and quantify the resulting data-volume and access constraints for users.",
-        "action": "describe and quantify",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-57-structure",
+        statement:
+          "Audit a time index, frequency, missing intervals and observational support before analysing a series.",
+        action: "audit and define",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-212-5-1",
-        "kind": "prose",
-        "title": "Digital-twin and kilometre-scale initiatives as emerging data sources",
-        "body": "Destination Earth and similar initiatives aim for continuously updated kilometre-scale Earth-system simulations. Access routes and formats are still evolving."
+        id: "cgei-ds-57-1-1",
+        kind: "prose",
+        title: "Separate signal from data defects",
+        body: "A time series is an ordered set of observations indexed by time. Before modelling, state the time zone, frequency, temporal support, units, aggregation rule and intended target. Irregular timestamps, duplicate periods, missing intervals and instrument changes can mimic environmental signals.",
       },
       {
-        "id": "cgei-cl-212-5-2",
-        "kind": "prose",
-        "title": "What kilometre-scale resolves that coarse models do not",
-        "body": "Below ~4 km, models can be convection-permitting; km-scale also resolves orographic and urban detail coarse grids smooth away — at large computational and data cost."
+        id: "cgei-ds-57-1-2",
+        kind: "worked-example",
+        title: "Audit a monthly environmental series",
+        body: "For monthly rainfall, verify one record per year-month, inspect missing months and zero values separately, and confirm whether the source stores monthly totals or daily means. Never interpolate a long gap without recording the assumption and testing sensitivity.",
       },
       {
-        "id": "cgei-cl-212-5-lab",
-        "kind": "worked-example",
-        "title": "Lab: data-volume scaling from coarse to kilometre-scale (hand-verified)",
-        "body": "50,000 cells at 100 km → 500 million at 1 km (10,000×). One variable, one step: 200 KB vs 2.0 GB. Hourly × 10 variables for one day: 48 MB/day vs 480 GB/day."
+        id: "cgei-ds-57-1-3",
+        kind: "code",
+        title: "Check the time index",
+        language: "Python",
+        code: "import pandas as pd\\ndf = df.sort_values('time').copy()\\nassert df['time'].is_unique\\ndf = df.set_index('time').asfreq('MS')\\nprint(df.isna().sum())",
       },
       {
-        "id": "cgei-cl-212-5-3",
-        "kind": "prose",
-        "title": "Data volumes and access constraints for users",
-        "body": "Bulk download is impractical; providers shift to cloud-proximate subsetting. Reproducible workflows must record query/subset parameters, not only static file IDs."
+        id: "cgei-ds-57-1-4",
+        kind: "checklist",
+        title: "Minimum time-index audit",
+        items: [
+          "Confirm timezone and calendar",
+          "sort chronologically",
+          "check duplicates and gaps",
+          "state frequency and units",
+          "document any fills",
+          "preserve a missingness indicator.",
+        ],
       },
       {
-        "id": "cgei-cl-212-5-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Grid and byte figures are illustrative.",
-          "Single vertical level assumed.",
-          "No DestinE output is accessed in this unit."
-        ]
-      }
+        id: "cgei-ds-57-1-numeric",
+        kind: "worked-example",
+        title: "Frequency and support before modelling",
+        body: "State sampling interval, time zone, and whether values are instantaneous, period means, or accumulations. A daily total precipitation series must not be treated as an instantaneous rate without conversion. Fixture unit_5_7_timeseries_lab_check.py and unit_5_7_stationarity_adf_check.py lock synthetic lag-structure and windowed mean/variance checks—not a claim that a real series is stationary.",
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-57-audit"],
+    assessmentIds: ["cgei-ds-assess-57-audit"],
+    resourceIds: ["cgei-ds-r-57-statsmodels", "cgei-ds-r-57-timeseriescv"],
+    deliverableIds: ["cgei-ds-d-57-audit"],
   },
   {
-    "id": "cgei-cl-lesson-2-13-1",
-    "kind": "lesson",
-    "title": "Forecast systems: seasonal, subseasonal, statistical, and hybrid",
-    "order": 1,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 40,
-    "objectives": [
+    id: "cgei-ds-lesson-5-7-2",
+    kind: "lesson",
+    title: "Trend, seasonality, decomposition and anomalies",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
       {
-        "id": "cgei-cl-o-213-systems",
-        "statement": "Describe seasonal multi-model ensemble systems (e.g. Copernicus C3S) and subseasonal products, explain the role of hindcasts in calibration, distinguish statistical/hybrid outlook approaches from dynamical ones, and state lead-time and initialisation-date conventions precisely enough to avoid ambiguity.",
-        "action": "describe and distinguish",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-reproducibility"
-        ]
-      }
+        id: "cgei-ds-o-57-decompose",
+        statement:
+          "Construct season-specific anomalies against a baseline chosen before analysis and explain decomposition assumptions.",
+        action: "decompose and interpret",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-213-1-1",
-        "kind": "prose",
-        "title": "Seasonal multi-model ensembles and subseasonal products",
-        "body": "C3S-style seasonal systems combine multi-model ensembles to capture initial-condition and structural uncertainty. S2S targets ~2 weeks to 2 months — a predictability desert between medium-range weather and seasonal boundary-forced predictability."
+        id: "cgei-ds-57-2-1",
+        kind: "prose",
+        title: "Choose an additive or multiplicative story",
+        body: "An additive decomposition writes an observation as trend + seasonal component + remainder. STL estimates a flexible seasonal-trend decomposition for a chosen period. Decomposition is descriptive: the components depend on the method, frequency, window and data coverage.",
       },
       {
-        "id": "cgei-cl-213-1-2",
-        "kind": "prose",
-        "title": "Hindcasts and calibration",
-        "body": "Hindcasts re-run the system over past initialisations to build a reference distribution for calibration. Raw ensemble spread is not a calibrated probability without this step."
+        id: "cgei-ds-57-2-2",
+        kind: "equation",
+        title: "Seasonal anomaly",
+        expression:
+          "aₜ = xₜ − mean(x for the same season in a pre-specified baseline)",
+        body: "This expression is a conceptual definition; state the data frequency and baseline in application.",
       },
       {
-        "id": "cgei-cl-213-1-3",
-        "kind": "prose",
-        "title": "Statistical and hybrid seasonal outlooks",
-        "body": "Analogue and regression approaches use precursors (e.g. ENSO). Hybrid methods statistically correct known dynamical biases before issuing probabilities."
+        id: "cgei-ds-57-2-3",
+        kind: "worked-example",
+        title: "Monthly temperature anomaly",
+        body: "For June in year y, subtract the mean June temperature over the chosen baseline years. State the baseline, season definition, source product and missing-data rule in the figure caption. Do not choose the baseline after inspecting which period makes the trend strongest.",
       },
       {
-        "id": "cgei-cl-213-1-4",
-        "kind": "prose",
-        "title": "Lead-time definitions and initialisation dates",
-        "body": "Lead-time counting conventions differ by centre. Always state the issuing centre’s definition alongside any lead-time figure."
+        id: "cgei-ds-57-2-4",
+        kind: "code",
+        title: "Monthly decomposition",
+        language: "Python",
+        code: "from statsmodels.tsa.seasonal import STL\\nseries = df['temperature_c'].asfreq('MS')\\nfit = STL(series, period=12, robust=True).fit()\\ntrend, seasonal, remainder = fit.trend, fit.seasonal, fit.resid",
       },
       {
-        "id": "cgei-cl-213-1-lab",
-        "kind": "worked-example",
-        "title": "Lab: computing the lead-time gap in days (hand-verified)",
-        "body": "Init 1 May → JJA starts 1 June: 31-day lead. Same init → ASO starts 1 August: 31+30+31 = 92 days (~3 months). Target season must always be stated with lead time."
+        id: "cgei-ds-57-2-5",
+        kind: "checklist",
+        title: "Interpret components carefully",
+        items: [
+          "State period and method",
+          "inspect gaps",
+          "compare additive assumptions with data scale",
+          "pre-specify anomaly baseline",
+          "avoid treating a smooth component as a causal mechanism.",
+        ],
       },
       {
-        "id": "cgei-cl-213-1-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "Lead conventions vary by centre.",
-          "No C3S/S2S product is queried here.",
-          "No analogue/regression fit is performed."
-        ]
+        id: "cgei-ds-57-2-6",
+        kind: "prose",
+        title:
+          "Spectral analysis, wavelets and the limits of periodicity claims",
+        body: "The periodogram decomposes variance by frequency; peaks are candidate periodic components, not proof of a stable physical cycle. Check the sampling interval, record length, windowing and red-noise background, and distinguish cycles per sample from cycles per year. Wavelets localise power in time as well as frequency and can expose intermittent behaviour, but edge effects and scale-dependent significance matter. A periodicity claim should survive plausible detrending, baseline and sampling choices.",
       },
       {
-        "id": "cgei-cl-auto-0001",
-        "kind": "callout",
-        "title": "S2S skill is horizon- and region-dependent",
-        "body": "Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief."
+        id: "cgei-ds-57-2-7",
+        kind: "worked-example",
+        title: "Sampling interval can create a false cycle",
+        body: "Suppose a sensor records every 30 days. Variability faster than the Nyquist limit (periods shorter than about 60 days under ideal regular sampling) cannot be uniquely recovered and may alias into a slower apparent cycle. Plot the actual sampling times, check for irregular gaps, and do not interpret a spectral peak without verifying temporal resolution and record length.",
       },
       {
-        "id": "cgei-cl-auto-0002",
-        "kind": "key-points",
-        "title": "Decision-use checklist",
-        "items": [
-          "State the decision lead time and whether the forecast has documented skill at that lead",
-          "Prefer probabilistic thresholds over single deterministic maps",
-          "Separate climate-mode guidance from local hydrological response",
-          "Record product version and issue time in the manifest"
-        ]
-      }
+        id: "cgei-ds-57-2-8",
+        kind: "worked-example",
+        title: "Aliasing from undersampling (synthetic)",
+        body: "A synthetic daily oscillation with period 2 days sampled every 4 days can appear as a slower cycle: the Nyquist limit for sampling interval Δt is 1/(2Δt). Apparent periodicity is not physical truth when the sampling interval is coarser than half the true period. Always state Δt and the shortest resolvable cycle before interpreting spectral peaks.",
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-57-decompose"],
+    assessmentIds: ["cgei-ds-assess-57-decompose"],
+    resourceIds: ["cgei-ds-r-57-statsmodels", "cgei-ds-r-57-timeseriescv"],
+    deliverableIds: ["cgei-ds-d-57-anomaly"],
   },
   {
-    "id": "cgei-cl-lesson-2-13-2",
-    "kind": "lesson",
-    "title": "Skill and verification of probabilistic outlooks",
-    "order": 2,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 50,
-    "objectives": [
+    id: "cgei-ds-lesson-5-7-3",
+    kind: "lesson",
+    title: "Autocorrelation, stationarity and trend uncertainty",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
       {
-        "id": "cgei-cl-o-213-skill",
-        "statement": "Compute and interpret tercile-based skill scores (RPSS) and discrimination diagnostics (ROC), state that skill is region-, season-, and variable-dependent with South Asian monsoon rainfall skill modest relative to temperature, and distinguish deterministic from probabilistic verification metrics.",
-        "action": "compute and interpret",
-        "level": "L2",
-        "competencyIds": [
-          "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
+        id: "cgei-ds-o-57-dependence",
+        statement:
+          "Interpret autocorrelation and estimate a trend with uncertainty appropriate to serial dependence.",
+        action: "diagnose and estimate",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-213-2-1",
-        "kind": "prose",
-        "title": "Tercile probabilities, reliability diagrams, and ROC",
-        "body": "Seasonal outlooks are commonly tercile probabilities. Reliability checks calibration; ROC area summarises discrimination. Read both together."
+        id: "cgei-ds-57-3-1",
+        kind: "prose",
+        title: "Time-adjacent values share information",
+        body: "Autocorrelation measures association between a series and lagged values. Positive serial dependence reduces independent information and can make conventional standard errors too small. Stationarity concerns whether key distributional and dependence properties remain stable; differencing is a tool, not a universal fix.",
       },
       {
-        "id": "cgei-cl-213-2-lab1",
-        "kind": "worked-example",
-        "title": "Lab: a ranked probability skill score for one tercile forecast (hand-verified)",
-        "body": "Forecast (0.20, 0.35, 0.45); observed above-normal. RPS = 0.3425; RPS_climo = 5/9 ≈ 0.5556; RPSS ≈ 0.3835 (~38% improvement over climatology for this single case)."
+        id: "cgei-ds-57-3-2",
+        kind: "equation",
+        title: "Lag-k autocorrelation",
+        expression: "ρₖ = Corr(Xₜ, Xₜ₋ₖ)",
+        body: "This expression is a conceptual definition; state the data frequency and baseline in application.",
       },
       {
-        "id": "cgei-cl-213-2-2",
-        "kind": "prose",
-        "title": "Skill is region-, season-, and variable-dependent",
-        "body": "South Asian monsoon rainfall seasonal skill is modest relative to temperature skill. Evaluate locally for the specific region, season, and variable."
+        id: "cgei-ds-57-3-3",
+        kind: "worked-example",
+        title: "A trend is not automatically significant",
+        body: "Fit a linear trend, then inspect residual autocorrelation. HAC/Newey–West covariance estimates can make slope uncertainty more robust to specified short-range serial dependence; the lag choice still needs justification and sensitivity checks.",
       },
       {
-        "id": "cgei-cl-213-2-3",
-        "kind": "prose",
-        "title": "Deterministic versus probabilistic metrics",
-        "body": "MAE/RMSE/ACC score single values; Brier/RPS/CRPS score full distributions. Scoring only the central value of a probabilistic product discards calibration information."
+        id: "cgei-ds-57-3-4",
+        kind: "code",
+        title: "Trend with HAC covariance",
+        language: "Python",
+        code: "import numpy as np\\nimport statsmodels.api as sm\\nt = np.arange(len(y))\\nfit = sm.OLS(y, sm.add_constant(t)).fit(cov_type='HAC', cov_kwds={'maxlags': 3})\\nprint({'slope_per_step': fit.params[1], 'hac_se': fit.bse[1]})",
       },
       {
-        "id": "cgei-cl-213-2-lab2",
-        "kind": "worked-example",
-        "title": "Lab: MAE versus RMSE sensitivity to a single large error (hand-verified)",
-        "body": "Errors 1,1,1,5: MAE = 2.0; RMSE = √7 ≈ 2.65. RMSE weights the large error more."
+        id: "cgei-ds-57-3-5",
+        kind: "checklist",
+        title: "Defensible trend reporting",
+        items: [
+          "Report slope units and period",
+          "inspect ACF/residuals",
+          "justify HAC lag or robust alternative",
+          "distinguish product trend from attribution",
+          "avoid overinterpreting unit-root tests on short records.",
+        ],
       },
       {
-        "id": "cgei-cl-213-2-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "RPSS example is a single case.",
-          "Monsoon skill contrast is qualitative literature pattern, not re-derived.",
-          "ROC described, not plotted."
-        ]
+        id: "cgei-ds-57-3-6",
+        kind: "prose",
+        title: "ACF, PACF and stationarity tests are diagnostics, not verdicts",
+        body: "The ACF summarises correlation across lags; the PACF describes the additional association at a lag after accounting for shorter lags under the chosen estimator. ADF tests a unit-root null, whereas KPSS tests a stationarity null, so their outcomes must be interpreted jointly with plots, record length and structural-break risk. Neither test proves a series is stationary, and short or broken climate records can make conclusions fragile.",
       },
       {
-        "id": "cgei-cl-auto-0003",
-        "kind": "callout",
-        "title": "S2S skill is horizon- and region-dependent",
-        "body": "Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief."
+        id: "cgei-ds-57-3-7",
+        kind: "worked-example",
+        title: "Trending series can correlate without a shared mechanism",
+        body: "Two unrelated series can both rise over time and show a large correlation. Plot each series, inspect detrended anomalies, and compare a pre-specified detrending approach with first differencing; these transformations answer different questions and can change the estimand. Do not select the transformation because it produces the desired significance result. Record the sensitivity and retain the original-scale context.",
       },
       {
-        "id": "cgei-cl-auto-0004",
-        "kind": "key-points",
-        "title": "Decision-use checklist",
-        "items": [
-          "State the decision lead time and whether the forecast has documented skill at that lead",
-          "Prefer probabilistic thresholds over single deterministic maps",
-          "Separate climate-mode guidance from local hydrological response",
-          "Record product version and issue time in the manifest"
-        ]
-      }
+        id: "cgei-ds-57-3-lab",
+        kind: "worked-example",
+        title: "Lab: lag-1 autocorrelation on a deterministic series",
+        body: "Fixture unit_5_7_timeseries_lab_check.py builds a 48-point synthetic series with x_t = 0.75 x_{t-1} + e_t and a fixed innovation pattern (no random seed). The sample lag-1 autocorrelation is approximately 0.636. That value quantifies serial dependence under this construction; it is not a climate-process parameter. Always state units, missingness rules and the mean convention before reporting an ACF.",
+      },
+      {
+        id: "cgei-ds-57-3-adf-null",
+        kind: "prose",
+        title: "ADF null hypothesis and what rejection means",
+        body: "The Augmented Dickey–Fuller (ADF) family tests a unit-root null: after the chosen specification, the series behaves like a random walk rather than mean-reverting around a fixed level (or around a deterministic trend in trend-augmented variants). A sufficiently negative test statistic leads to rejection of that null at a stated significance level. Rejection supports evidence against a unit root under the maintained assumptions; it is not a certificate of strict stationarity, nor proof that a particular scientific process has stabilised.",
+      },
+      {
+        id: "cgei-ds-57-3-adf-worked",
+        kind: "worked-example",
+        title: "Worked synthetic comparison (pedagogical ADF t-stat)",
+        body: "Fixture unit_5_7_stationarity_adf_check.py builds two 40-point synthetic series without random seeds: (1) a drifting level-plus-noise path and (2) a mean-reverting AR(1)-like path. Window means rise across quarters for the trending path and stay near zero for the mean-reverting path. A simplified Dickey–Fuller regression Δy_t = a + b y_{t-1} + e_t yields locked teaching t-statistics approximately −0.40 (trend path; fail to reject an illustrative 5% critical value of −2.93) and −7.25 (mean-reverting path; reject). First differencing the trending path reduces lag-1 ACF from about 0.93 to about 0.16 in this construction. These numbers illustrate decision logic only—they are not climate parameters and omit lagged Δy terms used in full ADF software.",
+      },
+      {
+        id: "cgei-ds-57-3-adf-limits",
+        kind: "callout",
+        title: "Limits of unit-root tests on environmental records",
+        tone: "warning",
+        items: [
+          "Short series and structural breaks reduce power and can mislead p-value reading.",
+          "Critical values depend on sample size and whether a constant/trend is included—do not reuse a single textbook cutoff blindly.",
+          "Failing to reject is not proof of a unit root; rejecting is not proof of global stationarity.",
+          "Prefer joint evidence: plots, window moments, ACF, domain knowledge, and sensitivity to differencing/detrending.",
+          "Never difference solely to obtain a desired significance result.",
+        ],
+      },
+      {
+        id: "cgei-ds-57-3-adf-practice",
+        kind: "prose",
+        title: "Guided and independent stationarity practice",
+        body: "Guided: run unit_5_7_stationarity_adf_check.py and record window means, lag-1 ACF before/after differencing, and both pedagogical t-statistics with the illustrative decision rule. Independent: write three sentences deciding whether you would difference the trending series before a short-horizon forecast baseline, citing window drift, ACF change, and ADF interpretation limits—without claiming real climate validation.",
+      },
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
+    activityIds: ["cgei-ds-a-57-trend"],
+    assessmentIds: ["cgei-ds-assess-57-trend"],
+    resourceIds: ["cgei-ds-r-57-statsmodels", "cgei-ds-r-57-timeseriescv"],
+    deliverableIds: ["cgei-ds-d-57-trend"],
   },
   {
-    "id": "cgei-cl-lesson-2-13-3",
-    "kind": "lesson",
-    "title": "Use in decisions: thresholds, cost-loss reasoning, and a worked case",
-    "order": 3,
-    "readiness": "review",
-    "level": "L2",
-    "estimatedMinutes": 45,
-    "objectives": [
+    id: "cgei-ds-lesson-5-7-4",
+    kind: "lesson",
+    title: "Forecast baselines and leakage-aware temporal validation",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
       {
-        "id": "cgei-cl-o-213-decisions",
-        "statement": "Apply cost-loss reasoning to translate a forecast probability into an action threshold, communicate seasonal outlooks without implying false certainty, and apply tercile-outlook-weighted expected-value reasoning to a worked sowing or irrigation decision.",
-        "action": "apply and communicate",
-        "level": "L2",
-        "competencyIds": [
+        id: "cgei-ds-o-57-forecast",
+        statement:
+          "Evaluate forecasts with chronological or rolling-origin splits that prevent future information leakage.",
+        action: "evaluate and prevent leakage",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-57-4-1",
+        kind: "prose",
+        title: "Validation must respect the clock",
+        body: "Forecasting claims require that every training observation precede the forecast target. Random shuffling can leak future regimes, seasonal information or overlapping windows into training. Use chronological holdouts or rolling-origin evaluation and report performance by forecast horizon.",
+      },
+      {
+        id: "cgei-ds-57-4-2",
+        kind: "worked-example",
+        title: "Compare with a seasonal-naïve forecast",
+        body: "For monthly data, a seasonal-naïve forecast uses the observation from 12 months earlier. Evaluate it and the candidate model on the exact same rolling-origin test timestamps; a complex model that does not improve the baseline has not demonstrated added forecast value.",
+      },
+      {
+        id: "cgei-ds-57-4-3",
+        kind: "code",
+        title: "Expanding-window evaluation",
+        language: "Python",
+        code: "from sklearn.model_selection import TimeSeriesSplit\\ncv = TimeSeriesSplit(n_splits=5, test_size=12, gap=0)\\nfor train_idx, test_idx in cv.split(X):\\n    assert train_idx.max() < test_idx.min()\\n    # Fit transformations and model on train_idx only; score test_idx.",
+      },
+      {
+        id: "cgei-ds-57-4-4",
+        kind: "checklist",
+        title: "Prevent temporal leakage",
+        items: [
+          "Split before tuning",
+          "fit scaling/imputation on training folds only",
+          "use a gap when target windows overlap",
+          "keep baseline and candidate folds identical",
+          "report horizon-specific metrics.",
+        ],
+      },
+      {
+        id: "cgei-ds-57-4-lab",
+        kind: "worked-example",
+        title: "Lab: chronological split for lag-1 persistence",
+        body: "Using the same fixture series, form lag-1 pairs (predictor = y_{t-1}, target = y_t). A chronological holdout of the last 12 pairs yields persistence MAE ≈ 0.0779. A fixed mixed-order evaluation of 12 pairs yields MAE ≈ 0.0747 on this series. The lesson is not that leakage always looks better: it is that random or mixed pair selection can change the test set composition relative to the calendar. Production evaluation must keep every training observation strictly earlier than the forecast origin and apply the same timestamps to baselines and candidates. The fixture asserts train indices precede test indices.",
+      },
+      {
+        id: "cgei-ds-57-4-5",
+        kind: "prose",
+        title: "ARIMA, seasonal structure and state-space models",
+        body: "ARIMA combines autoregressive terms, differencing and moving-average errors; SARIMA adds seasonal structure. State-space models separate latent state evolution from an observation model and can represent time-varying hidden processes. Exogenous predictors such as a lagged ENSO index must be available at forecast time, aligned without future leakage, and evaluated for incremental skill against the same baseline and folds. Model order selection is not a substitute for residual and stability checks.",
+      },
+      {
+        id: "cgei-ds-57-4-6",
+        kind: "worked-example",
+        title:
+          "A lagged climate index is a predictor, not a causal explanation",
+        body: "To test whether a lagged climate index improves monthly rainfall forecasts, define the target and forecast horizon first; construct each lag using only values available at the forecast origin; compare a seasonal-naïve baseline with an ARIMAX or state-space candidate using identical rolling-origin folds. Report uncertainty and regime-specific errors. A useful predictor does not by itself establish a physical mechanism.",
+      },
+      {
+        id: "cgei-ds-57-4-7",
+        kind: "prose",
+        title: "Baselines: persistence and climatology",
+        body: "Before claiming forecast skill, beat simple baselines under the same chronological or rolling-origin protocol: persistence (ŷ_t = y_{t−1}) and climatology (seasonal mean from training years only). A model that loses to persistence is not operationally useful regardless of in-sample R². Never tune on the test window.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-57-temporal"],
+    assessmentIds: ["cgei-ds-assess-57-temporal"],
+    resourceIds: ["cgei-ds-r-57-statsmodels", "cgei-ds-r-57-timeseriescv"],
+    deliverableIds: ["cgei-ds-d-57-validation"],
+  },
+  {
+    id: "cgei-ds-lesson-5-7-5",
+    kind: "lesson",
+    title: "Forecast diagnostics, model comparison and failure analysis",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-57-compare",
+        statement:
+          "Compare forecast models with simple baselines and communicate residual, subgroup and regime-shift failures.",
+        action: "compare and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-57-5-1",
+        kind: "prose",
+        title: "A good score is not the whole result",
+        body: "Compare persistence, climatology or seasonal-naïve baselines with candidate forecasts under identical folds. MAE is interpretable in target units; RMSE penalises large misses more; bias reveals systematic over- or under-prediction. Inspect residual ACF, subgroup errors and performance during extremes or regime changes.",
+      },
+      {
+        id: "cgei-ds-57-5-2",
+        kind: "worked-example",
+        title: "A model fails during an extreme season",
+        body: "If overall RMSE improves but heatwave-period errors worsen, report both. Investigate coverage, changing variance, regime shifts and data provenance. Do not hide the failure behind a single average metric or imply that Granger-style predictability proves physical causation.",
+      },
+      {
+        id: "cgei-ds-57-5-3",
+        kind: "code",
+        title: "Compare forecast errors",
+        language: "Python",
+        code: "from sklearn.metrics import mean_absolute_error, mean_squared_error\\nimport numpy as np\\nmae = mean_absolute_error(y_test, pred)\\nrmse = np.sqrt(mean_squared_error(y_test, pred))\\nbias = float(np.mean(pred - y_test))",
+      },
+      {
+        id: "cgei-ds-57-5-4",
+        kind: "checklist",
+        title: "Minimum forecast memo",
+        items: [
+          "Define target and horizon",
+          "compare same folds",
+          "report baseline, MAE, RMSE and bias",
+          "inspect residual dependence and subgroup failures",
+          "state limitations and non-causal interpretation.",
+        ],
+      },
+      {
+        id: "cgei-ds-57-5-5",
+        kind: "prose",
+        title: "Irregular observations, gap filling and structural breaks",
+        body: "A missing timestamp is not an observed zero. Before filling, distinguish isolated sensor gaps from long outages, irregular sampling and changes in instrument or station practice. Linear interpolation can be a transparent short-gap sensitivity scenario but can suppress extremes and understate uncertainty; model-based imputation requires assumptions and diagnostics. Changepoint methods flag possible distributional shifts, but detected breaks need metadata review and sensitivity to penalty/window choices before environmental interpretation.",
+      },
+      {
+        id: "cgei-ds-57-5-6",
+        kind: "checklist",
+        title: "Gap-fill and changepoint review",
+        items: [
+          "Plot the observation schedule and mark missing intervals",
+          "Classify gap length and plausible missingness mechanism",
+          "Keep original values and a fill indicator",
+          "Compare unfilled and defensible short-gap sensitivity analyses",
+          "Test whether detected breaks align with metadata or known regime changes",
+          "Report uncertainty and do not silently smooth extremes",
+        ],
+      },
+      {
+        id: "cgei-ds-57-5-7",
+        kind: "worked-example",
+        title: "Spurious correlation of two independent trends",
+        body: "Two independent random-walk-like synthetic series can show large sample correlation because both wander. Differencing or detrending can remove the shared trend component; the correlation of differences may collapse toward zero. Report which transformation was applied and why—do not interpret raw trending series correlation as a mechanistic link.",
+      },
+      {
+        id: "cgei-ds-57-5-8",
+        kind: "prose",
+        title: "Gaps, irregular sampling and changepoints",
+        body: "Irregular gaps bias ACF and spectral estimates if ignored. Short-gap fills must be disclosed and sensitivity-checked; long gaps may require segmented models. Candidate changepoints should be aligned with metadata (instrument changes, regime shifts) before scientific interpretation—automatic break detection is a hypothesis generator, not proof of a climate discontinuity.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-57-failure"],
+    assessmentIds: ["cgei-ds-assess-57-failure"],
+    resourceIds: ["cgei-ds-r-57-statsmodels", "cgei-ds-r-57-timeseriescv"],
+    deliverableIds: ["cgei-ds-d-57-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-8-1",
+    kind: "lesson",
+    title: "Build a defensible multivariate data matrix",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-58-matrix",
+        statement:
+          "Construct a documented time-by-space or observation-by-variable matrix with justified centring, scaling and missing-data handling.",
+        action: "construct and document",
+        level: "L3",
+        competencyIds: [
           "cgei-comp-quantitative-reasoning",
-          "cgei-comp-uncertainty"
-        ]
-      }
+          "cgei-comp-reproducibility",
+        ],
+      },
     ],
-    "content": [
+    content: [
       {
-        "id": "cgei-cl-213-3-1",
-        "kind": "prose",
-        "title": "Translating probabilities into actions: cost-loss reasoning",
-        "body": "Act when forecast probability p exceeds cost-loss ratio C/L. The action threshold is decision-specific, not a universal 50%."
+        id: "cgei-ds-58-1-1",
+        kind: "prose",
+        title: "Choose rows, columns and the question",
+        body: "For climate EOF analysis, a common convention is rows = time and columns = stations or grid cells. For ordinary PCA, rows are observations and columns are variables. State the convention because a transpose changes score and loading interpretation.",
       },
       {
-        "id": "cgei-cl-213-3-lab1",
-        "kind": "worked-example",
-        "title": "Lab: a cost-loss threshold decision, both directions (hand-verified)",
-        "body": "C=200, L=1000 → threshold 0.20. At p=0.25 act (expected costs 200 vs 250). At p=0.15 do not act (200 vs 150)."
+        id: "cgei-ds-58-1-2",
+        kind: "worked-example",
+        title: "Centre a time-by-space matrix",
+        body: "For X shaped (40 months, 12 cells), subtract each cell’s temporal mean to analyse anomalies. Verify column means, document missing-data handling, and preserve the coordinate mapping for each column.",
       },
       {
-        "id": "cgei-cl-213-3-2",
-        "kind": "prose",
-        "title": "Communicating without false certainty",
-        "body": "A 45% above-normal category is the mode, not near-certainty — 55% of probability mass remains outside it. Quote all categories."
+        id: "cgei-ds-58-1-3",
+        kind: "key-points",
+        title: "Centring and scaling are distinct",
+        items: [
+          "Covariance PCA preserves variable scales.",
+          "Correlation PCA standardises variables and can amplify noisy low-variance variables.",
+          "Imputation changes covariance and must be documented.",
+          "For prediction, fit scaling on training folds only.",
+        ],
       },
       {
-        "id": "cgei-cl-213-3-lab2",
-        "kind": "worked-example",
-        "title": "Lab: a worked sowing decision using tercile-weighted expected profit (hand-verified)",
-        "body": "Outlook below/near/above = 0.40/0.35/0.25. Standard expected profit 2450; drought-resistant 2325. Standard still wins by 125 (vs 500 under climatology). Forecast narrows the margin without flipping the choice — decision-relevant downside-risk signal."
+        id: "cgei-ds-58-1-4",
+        kind: "checklist",
+        title: "Matrix audit",
+        items: [
+          "Orientation defined",
+          "Units and support recorded",
+          "Centring/scaling justified",
+          "Missingness documented",
+          "Column-to-location mapping retained",
+        ],
       },
-      {
-        "id": "cgei-cl-213-3-checklist",
-        "kind": "checklist",
-        "title": "Using a seasonal outlook for a real decision",
-        "items": [
-          "Quote all tercile probabilities",
-          "State system, lead definition, and local skill",
-          "Identify C and L; compute threshold C/L",
-          "Check decision timing vs forecast lead",
-          "Compare expected outcome under forecast vs climatology",
-          "State explicitly when the forecast does not flip the optimal decision"
-        ]
-      },
-      {
-        "id": "cgei-cl-213-3-callout",
-        "kind": "callout",
-        "title": "Limits",
-        "tone": "warning",
-        "items": [
-          "All C/L and profit figures are synthetic.",
-          "Cost-loss assumes full protection at fixed cost.",
-          "Risk aversion is named but not formally modelled."
-        ]
-      },
-      {
-        "id": "cgei-cl-auto-0005",
-        "kind": "callout",
-        "title": "S2S skill is horizon- and region-dependent",
-        "body": "Subseasonal-to-seasonal skill is typically higher for large-scale indices (e.g. MJO phase, ENSO) than for local daily rainfall. Always report the forecast system, initialisation, lead, and a verification metric before using S2S in a decision brief."
-      },
-      {
-        "id": "cgei-cl-auto-0006",
-        "kind": "key-points",
-        "title": "Decision-use checklist",
-        "items": [
-          "State the decision lead time and whether the forecast has documented skill at that lead",
-          "Prefer probabilistic thresholds over single deterministic maps",
-          "Separate climate-mode guidance from local hydrological response",
-          "Record product version and issue time in the manifest"
-        ]
-      }
     ],
-    "activityIds": [],
-    "assessmentIds": [],
-    "resourceIds": [],
-    "deliverableIds": []
-  }
+    activityIds: ["cgei-ds-a-58-matrix"],
+    assessmentIds: ["cgei-ds-assess-58-matrix"],
+    resourceIds: ["cgei-ds-r-58-sklearn"],
+    deliverableIds: ["cgei-ds-d-58-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-8-2",
+    kind: "lesson",
+    title: "Area weighting and covariance targets",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-58-weighting",
+        statement:
+          "Apply area weighting where grid geometry requires it and explain the covariance target.",
+        action: "weight and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-58-2-1",
+        kind: "prose",
+        title: "Why latitude–longitude grids need care",
+        body: "On a regular latitude–longitude grid, cells represent less area at higher absolute latitude. Equal cell weighting can distort spatial covariance. A common convention multiplies each column by the square root of relative cell area, often proportional to sqrt(cos(latitude)).",
+      },
+      {
+        id: "cgei-ds-58-2-2",
+        kind: "equation",
+        title: "Square-root area weighting",
+        expression: "Xᵂₜⱼ = Xₜⱼ √aⱼ,  aⱼ ∝ cos(φⱼ)",
+        body: "X is centred time-by-space data and φ is latitude. State the grid-specific convention and reverse weighting consistently for physical-space maps/reconstruction.",
+      },
+      {
+        id: "cgei-ds-58-2-3",
+        kind: "worked-example",
+        title: "Compare weighted and unweighted modes",
+        body: "Run EOF on a synthetic field with and without sqrt(cos(latitude)) weights. Compare pattern recovery and variance fractions. This validates the toy workflow, not every real grid or missing-data pattern.",
+      },
+      {
+        id: "cgei-ds-58-2-4",
+        kind: "callout",
+        title: "Weighting is not mechanical",
+        tone: "warning",
+        items: [
+          "Equal-area grids may not need latitude weights.",
+          "Irregular stations require a defensible sampling or area-of-influence choice.",
+          "Weighted EOF vectors need a consistent inverse transform for display.",
+        ],
+      },
+      {
+        id: "cgei-ds-58-2-lab",
+        kind: "worked-example",
+        title: "Lab: eigenvalues of a two-point covariance",
+        body: "Fixture unit_5_8_eof_weight_check.py locks the eigenstructure of S = [[1, 0.8], [0.8, 1]]: eigenvalues 1.8 and 0.2, so about 90% of variance lies on the shared mode. State area weights before interpreting variance shares on real grids; equal weights leave this toy eigenstructure unchanged. An eigenvalue is not a physical mechanism.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-58-weighting"],
+    assessmentIds: ["cgei-ds-assess-58-weighting"],
+    resourceIds: ["cgei-ds-r-58-climatebook"],
+    deliverableIds: ["cgei-ds-d-58-weighting"],
+  },
+  {
+    id: "cgei-ds-lesson-5-8-3",
+    kind: "lesson",
+    title: "PCA/EOF by eigenanalysis and SVD",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-58-modes",
+        statement:
+          "Compute PCA/EOF with SVD or eigenanalysis and interpret variance fractions, scores, loadings and sign ambiguity.",
+        action: "compute and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-58-3-1",
+        kind: "prose",
+        title: "Eigenvalues, patterns and scores",
+        body: "For centred X, SVD X = UΣVᵀ yields right singular vectors (patterns/loadings under the stated convention); scores are commonly UΣ. Covariance eigenvalues are proportional to squared singular values. State the matrix and covariance denominator.",
+      },
+      {
+        id: "cgei-ds-58-3-2",
+        kind: "worked-example",
+        title: "Calculate variance fractions",
+        body: "For singular values sᵢ, variance fraction i is sᵢ² / Σⱼsⱼ². State whether covariance or correlation analysis and area weights were used.",
+      },
+      {
+        id: "cgei-ds-58-3-3",
+        kind: "key-points",
+        title: "Interpret patterns cautiously",
+        items: [
+          "EOF signs are arbitrary: flip the pattern and PC together.",
+          "High explained variance does not prove causal importance.",
+          "Close eigenvalues can yield mixed or unstable modes.",
+          "Physical mechanisms need independent evidence.",
+        ],
+      },
+      {
+        id: "cgei-ds-58-3-4",
+        kind: "code",
+        title: "Minimal SVD workflow",
+        language: "python",
+        code: "Xc = X - X.mean(axis=0, keepdims=True)\nU, s, Vt = np.linalg.svd(Xc, full_matrices=False)\npc = U[:, :k] * s[:k]\nvariance_fraction = s**2 / np.sum(s**2)\npatterns = Vt[:k, :]",
+        body: "Apply documented weights before SVD where needed and transform patterns consistently for display.",
+      },
+      {
+        id: "cgei-ds-58-3-5",
+        kind: "prose",
+        title:
+          "Maximum covariance and canonical correlation answer different questions",
+        body: "Maximum covariance analysis uses paired fields to find spatial patterns whose associated time series maximise covariance; its results depend on scaling and can be dominated by high-variance fields. Canonical correlation analysis seeks linear combinations of two field sets with maximum correlation, which can be unstable when predictors are numerous or strongly collinear. Define each field's preprocessing, validate out of sample where prediction is intended, and use resampling to assess pattern stability. Neither method establishes a physical causal pathway.",
+      },
+      {
+        id: "cgei-ds-58-3-7",
+        kind: "prose",
+        title: "MCA and CCA for paired fields",
+        body: "Maximum covariance analysis (MCA) finds coupled patterns that maximise covariance between two fields (e.g. SST and precipitation). Canonical correlation analysis (CCA) maximises correlation of projected indices. Both inherit sign ambiguity and sampling uncertainty; both can produce coupled modes that are statistical, not mechanistic. Document preprocessing of each field and validate out of sample when prediction is the goal.",
+      },
+      {
+        id: "cgei-ds-58-3-8",
+        kind: "worked-example",
+        title: "North's rule of thumb (sampling error)",
+        body: "North et al. sampling-error guidance: when eigenvalue λ_k is close to neighbours relative to δλ ≈ λ √(2/N*), the corresponding EOFs are mixed and unstable. Example: λ1=1.8, λ2=0.2, N*=50 → δλ1≈1.8√(2/50)≈0.36; the large gap λ1−λ2=1.6 ≫ 0.36 supports separating mode 1, while near-degenerate eigenvalues warn against over-interpreting individual patterns. This is a rule of thumb, not a formal hypothesis test.",
+      },
+      {
+        id: "cgei-ds-58-3-numeric",
+        kind: "worked-example",
+        title: "2×2 covariance eigenvalues (locked)",
+        body: "For the teaching covariance S=[[1,0.8],[0.8,1]], eigenvalues are λ1=1.8 and λ2=0.2 (fixture unit_5_8_eof_weight_check.py). Variance share for mode 1 is 1.8/(1.8+0.2)=0.90. The leading eigenvector is proportional to (1,1). On latitude–longitude grids, area weights ∝ cos(φ) change relative cell influence—equal |latitude| cells share weight equally in the fixture. North-rule sampling scale δ≈λ√(2/N*): with N*=50, δ1≈0.36 < λ1−λ2, so separation is clear in the toy case. Real climate EOFs need resampling and physical interpretation; this arithmetic is not a field analysis.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-58-svd"],
+    assessmentIds: ["cgei-ds-assess-58-svd"],
+    resourceIds: ["cgei-ds-r-58-numpy"],
+    deliverableIds: ["cgei-ds-d-58-notebook"],
+  },
+  {
+    id: "cgei-ds-lesson-5-8-4",
+    kind: "lesson",
+    title: "Choose modes and test stability",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-58-stability",
+        statement:
+          "Justify retained modes using sampling uncertainty and stability as well as variance summaries.",
+        action: "select and stress-test",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-58-4-1",
+        kind: "prose",
+        title: "No universal variance cutoff",
+        body: "Scree plots and cumulative variance are useful summaries, but 95% or 99% is not a universal retention rule. Selection depends on the question, noise, record length and stability.",
+      },
+      {
+        id: "cgei-ds-58-4-2",
+        kind: "prose",
+        title: "Sampling uncertainty and close eigenvalues",
+        body: "When neighbouring eigenvalues are close relative to sampling uncertainty, eigenvectors can rotate or mix across samples. Check split-period or bootstrap stability and compare subspaces as well as individual patterns.",
+      },
+      {
+        id: "cgei-ds-58-4-3",
+        kind: "worked-example",
+        title: "A stability audit",
+        body: "Fit EOFs to two halves of a synthetic record, align signs, compare patterns and inspect eigenvalue gaps. If modes swap or rotate, report instability rather than claiming a unique settled mode.",
+      },
+      {
+        id: "cgei-ds-58-4-4",
+        kind: "checklist",
+        title: "Mode-retention decision",
+        items: [
+          "Scree and variance fractions shown",
+          "Question-specific rationale stated",
+          "Sampling uncertainty considered",
+          "Split/bootstrap stability checked",
+          "Unstable modes reported",
+        ],
+      },
+      {
+        id: "cgei-ds-58-4-5",
+        kind: "prose",
+        title: "North’s rule, scree plots and mode retention",
+        body: "A scree plot shows how explained variance declines across modes; it does not provide a universal cutoff. North’s rule of thumb approximates sampling uncertainty in EOF eigenvalues and warns that modes with eigenvalue uncertainty ranges that overlap may not be cleanly separable. It is a heuristic whose assumptions can be weak for short, autocorrelated records. Choose modes against the scientific question, record length, stability and predictive or reconstruction performance rather than a fixed percentage alone.",
+      },
+      {
+        id: "cgei-ds-58-4-6",
+        kind: "prose",
+        title: "Clustering, self-organising maps and regime validity",
+        body: "Clustering and self-organising maps can summarise recurring circulation patterns, but the resulting groups depend on scaling, distance metric, algorithm and selected number of regimes. Examine silhouette or other internal diagnostics alongside physical interpretability, sample support and sensitivity to initialisation. Compare cluster assignments across periods, resamples and independent datasets; a visually appealing composite is not sufficient evidence that regimes are stable or objectively discrete.",
+      },
+      {
+        id: "cgei-ds-58-4-7",
+        kind: "worked-example",
+        title: "Regime stability across periods",
+        body: "Fit the same pre-specified clustering workflow to an early and late period, align labels using pattern similarity, and compare assignments and composite patterns. Repeat across reasonable preprocessing and initialisation choices. Report unstable or rare regimes rather than forcing a one-to-one match; differences may reflect sampling noise, real change or a non-identifiable classification.",
+      },
+      {
+        id: "cgei-ds-58-4-8",
+        kind: "prose",
+        title: "Cluster validity and regime stability",
+        body: "SOMs and clustering partition circulation states; validity metrics (silhouette, stability under bootstrap or split periods) help reject forced over-partitioning. Align labels across periods carefully—cluster IDs are arbitrary. Prefer regimes that recur with similar composites and physical narrative over maximising within-sample separation alone.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-58-stability"],
+    assessmentIds: ["cgei-ds-assess-58-stability"],
+    resourceIds: ["cgei-ds-r-58-climatebook"],
+    deliverableIds: ["cgei-ds-d-58-stability"],
+  },
+  {
+    id: "cgei-ds-lesson-5-8-5",
+    kind: "lesson",
+    title: "Indices, composites and field significance",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-58-maps",
+        statement:
+          "Interpret indices and composite/regression maps with sample sizes and multiplicity awareness, without equating patterns with mechanisms.",
+        action: "summarise and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-58-5-1",
+        kind: "prose",
+        title: "Build an index with a declared reference",
+        body: "Document the PC or regional index sign, reference period, standardisation and missing-data rule. For prediction, fit transformations inside training folds to avoid leakage.",
+      },
+      {
+        id: "cgei-ds-58-5-2",
+        kind: "prose",
+        title: "Composite and regression maps",
+        body: "A high-minus-low composite compares a field conditional on an index threshold; report sample sizes and uncertainty. Regression maps are associational and do not establish physical causality.",
+      },
+      {
+        id: "cgei-ds-58-5-3",
+        kind: "prose",
+        title: "Many cells mean many tests",
+        body: "Cellwise p < 0.05 inflates false positives across a map. Consider false-discovery-rate control or a suitable field-significance procedure and state the tested family. Local stippling alone is not field-wide evidence.",
+      },
+      {
+        id: "cgei-ds-58-5-4",
+        kind: "callout",
+        title: "Keep claims proportional to evidence",
+        tone: "warning",
+        items: [
+          "A variance mode is not automatically a climate-change signal.",
+          "A composite is not proof of mechanism.",
+          "K-means land-cover clusters are not validated classes without reference data and accuracy assessment.",
+        ],
+      },
+      {
+        id: "cgei-ds-58-5-5",
+        kind: "checklist",
+        title: "Map caption audit",
+        items: [
+          "Variable, units, domain and period named",
+          "Threshold and sample sizes reported",
+          "Uncertainty/multiplicity method described",
+          "Weighting and preprocessing stated",
+          "One explicit non-claim included",
+        ],
+      },
+      {
+        id: "cgei-ds-58-5-6",
+        kind: "prose",
+        title: "Effective sample size and field significance",
+        body: "Serial dependence means the nominal number of time steps can overstate the information available for correlation or composite inference. Use an effective-sample-size approximation or dependence-aware resampling appropriate to the design, and state the assumptions. Across a map, thousands of cellwise tests create a multiple-testing problem; distinguish local inference from field-wide evidence and define the family before applying false-discovery-rate or a defensible field-significance procedure.",
+      },
+      {
+        id: "cgei-ds-58-5-7",
+        kind: "worked-example",
+        title: "Index construction and detrending sensitivity",
+        body: "For an ENSO-related index, state the source series, units, reference period, standardisation, sign convention and missing-data rule. If relating the index to spatial anomalies, pre-specify whether both index and field are detrended and explain the scientific question each choice addresses. Compare defensible alternatives as sensitivity analysis, not as a search for the strongest map. Regression and composite patterns remain statistical associations until independent physical evidence supports a mechanism.",
+      },
+      {
+        id: "cgei-ds-58-5-8",
+        kind: "prose",
+        title: "Field significance and index construction",
+        body: "Correlation and composite maps inflate apparent significance when many grid cells are tested and the field is spatially dependent. Use effective sample size and field-significance ideas; report multiplicity handling. Index construction (e.g. ENSO-regressed anomalies) must state region, season, and detrending choices—different detrends change the mode. A leading EOF is a statistical mode, not automatically a named physical oscillation.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-58-maps"],
+    assessmentIds: ["cgei-ds-assess-58-maps"],
+    resourceIds: ["cgei-ds-r-58-climatebook"],
+    deliverableIds: ["cgei-ds-d-58-map-brief"],
+  },
+  {
+    id: "cgei-ds-lesson-5-9-1",
+    kind: "lesson",
+    title: "Choose a GLM from outcome support and scientific question",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-59-family",
+        statement:
+          "Choose a generalized linear model family and link that matches outcome support, mean–variance behaviour and the scientific estimand.",
+        action: "select and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-59-1-1",
+        kind: "prose",
+        title: "Start with the response-generating process",
+        body: "A generalized linear model combines a response distribution, a linear predictor and a link function. Choose the family from outcome support and conditional variance, not from whichever model gives the smallest p-value. Gaussian identity models may suit approximately continuous errors; binomial models suit binary or successes/trials outcomes; Poisson models suit counts when assumptions are reasonable.",
+      },
+      {
+        id: "cgei-ds-59-1-2",
+        kind: "worked-example",
+        title: "Environmental outcomes are not interchangeable",
+        body: "Daily heat exceedance suggests a binomial model; fire detections per fixed area-time may suggest a count model; positive right-skewed concentration may call for a Gamma/log-link model or justified transformation. Record exposure/denominator and sampling unit before fitting.",
+      },
+      {
+        id: "cgei-ds-59-1-3",
+        kind: "equation",
+        title: "Mean structure and link",
+        expression: "g(E[Yᵢ | Xᵢ]) = β₀ + Xᵢβ",
+        body: "The inverse link maps the linear predictor to the response mean. Coefficients are on the link scale: a log-link coefficient is a log mean/rate ratio under the specified model, not a raw-unit change.",
+      },
+      {
+        id: "cgei-ds-59-1-4",
+        kind: "code",
+        title: "Fit and inspect a binomial GLM",
+        language: "Python",
+        code: "import statsmodels.api as sm\nmodel = sm.GLM(y, X, family=sm.families.Binomial())\nfit = model.fit()\nprint(fit.summary())\nprint(fit.conf_int())",
+        body: "Use a design matrix with explicit intercept and reference categories. Check rank deficiency, separation, missing-data handling and whether uncertainty matches the sampling design.",
+      },
+      {
+        id: "cgei-ds-59-1-5",
+        kind: "checklist",
+        title: "Before choosing a family",
+        items: [
+          "Define response and observational unit",
+          "State denominator or exposure",
+          "Inspect outcome support and mean–variance pattern",
+          "Choose link and reference categories",
+          "Define target contrast and uncertainty method",
+        ],
+      },
+      {
+        id: "cgei-ds-59-1-6",
+        kind: "worked-example",
+        title: "Model counts with an exposure offset",
+        body: "For fire detections recorded across districts with different monitored area and observation duration, the count alone is not comparable. A log-link rate model can include log(exposure) as an offset with coefficient fixed at one: log(E[count]) = log(exposure) + Xβ. Define exposure units and ensure the offset is positive; compare Poisson with negative-binomial dispersion diagnostics. An offset is not an ordinary predictor to estimate freely.",
+      },
+      {
+        id: "cgei-ds-59-1-7",
+        kind: "callout",
+        title: "Do not treat every count problem as Poisson",
+        tone: "warning",
+        items: [
+          "Check conditional mean–variance behaviour and overdispersion before relying on Poisson uncertainty.",
+          "Excess zeros can arise from heterogeneity or a distinct zero-generating process; zero-inflated models need a substantive rationale.",
+          "GAM smooths allow nonlinear mean structure but require basis/complexity checks and validation.",
+          "Gamma models require positive continuous outcomes; binomial models need the actual denominator when data are successes/trials.",
+        ],
+      },
+      {
+        id: "cgei-ds-59-1-lab",
+        kind: "worked-example",
+        title: "Lab: logistic probabilities from locked coefficients",
+        body: "Using the synthetic heat-exceedance fixture coefficients (Intercept ≈ −0.586, lst_anom_c ≈ 0.440, ndvi ≈ −2.365, built_frac ≈ 0.470), the inverse logit at (lst_anom_c=−1, ndvi=0.50, built_frac=0.20) is about 0.108 and at (2.0, 0.15, 0.70) is about 0.567. A +1 °C LST anomaly multiplies odds by about 1.55 when other predictors are held fixed. These numbers describe association under the fitted synthetic model; they are not causal heat-intervention effects and do not transfer to Multan or any real city without design assumptions.",
+      },
+      {
+        id: "cgei-ds-59-1-numeric",
+        kind: "worked-example",
+        title: "Logit probabilities and odds ratios (locked)",
+        body: "Using the Unit 5.9 synthetic logistic coefficients (fixture unit_5_9_logistic_interpret_check.py), predicted probability is σ(xβ)=1/(1+e^{-xβ}). At predictor setting A the fixture locks p≈0.1077; at B, p≈0.5668. An odds ratio for a continuous predictor is exp(β); for LST coefficient the locked OR≈1.55 per unit under the fit. Interpret on the odds scale; do not read β as a causal heat-risk effect or Multan field estimate.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-59-family"],
+    assessmentIds: ["cgei-ds-assess-59-family"],
+    resourceIds: ["cgei-ds-r-59-statsmodels", "cgei-ds-r-59-r-glm"],
+    deliverableIds: ["cgei-ds-d-59-model-card"],
+  },
+  {
+    id: "cgei-ds-lesson-5-9-2",
+    kind: "lesson",
+    title: "Mixed models for grouped and repeated environmental data",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-59-dependence",
+        statement:
+          "Represent repeated observations or grouped sampling with defensible random-effects structure and distinguish within-group from between-group variation.",
+        action: "model and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-59-2-1",
+        kind: "prose",
+        title: "Dependence follows the sampling design",
+        body: "Measurements from the same station, site, district or participant are rarely independent. Mixed models represent group-level variation with random effects while fixed effects describe population-level associations under the model. A random intercept allows group baselines to vary; random slopes allow a predictor relationship to vary when design and data support that complexity.",
+      },
+      {
+        id: "cgei-ds-59-2-2",
+        kind: "worked-example",
+        title: "Stations sampled across seasons",
+        body: "For repeated seasonal temperature measurements at stations, a random intercept can represent persistent station differences. If the vegetation–LST slope plausibly varies among districts, evaluate a random-slope structure, but do not add it mechanically when groups or within-group variation are sparse.",
+      },
+      {
+        id: "cgei-ds-59-2-3",
+        kind: "code",
+        title: "Random-intercept model in statsmodels",
+        language: "Python",
+        code: 'import statsmodels.formula.api as smf\nfit = smf.mixedlm("lst_c ~ ndvi + C(season)", data=df, groups=df["station_id"]).fit(reml=True)\nprint(fit.summary())',
+        body: "This Gaussian mixed model is a starting example, not a universal solution for spatial or temporal dependence. Check residual correlation, group count, singular fits and inference target.",
+      },
+      {
+        id: "cgei-ds-59-2-4",
+        kind: "key-points",
+        title: "Interpret levels carefully",
+        items: [
+          "Fixed effects describe conditional average relationships under the model.",
+          "Random effects are partially pooled estimates, not error-free station rankings.",
+          "A random intercept does not automatically remove spatial autocorrelation.",
+          "Report group counts, group-size imbalance and convergence warnings.",
+        ],
+      },
+      {
+        id: "cgei-ds-59-2-5",
+        kind: "checklist",
+        title: "Mixed-model structure audit",
+        items: [
+          "Sampling hierarchy drawn",
+          "Fixed effects tied to question",
+          "Random effects justified by grouped design",
+          "Residual dependence checked",
+          "Convergence and singularity assessed",
+        ],
+      },
+      {
+        id: "cgei-ds-59-2-6",
+        kind: "prose",
+        title: "Survey weights and design effects are not random effects",
+        body: "Household surveys may use unequal inclusion probabilities, stratification and cluster sampling. Survey weights, strata and primary sampling units reflect the design and target population; treating weights as arbitrary frequency counts or replacing a survey design with a mixed model can give the wrong estimand or uncertainty. Report weight construction, finite-population or replicate-weight approach where applicable, and design effects. This is a design-aware analysis requirement, distinct from partial pooling in hierarchical models.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-59-mixed"],
+    assessmentIds: ["cgei-ds-assess-59-mixed"],
+    resourceIds: ["cgei-ds-r-59-statsmodels", "cgei-ds-r-59-lme4"],
+    deliverableIds: ["cgei-ds-d-59-model-card"],
+  },
+  {
+    id: "cgei-ds-lesson-5-9-3",
+    kind: "lesson",
+    title: "Bayesian models: priors, posterior and computation",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-59-bayes",
+        statement:
+          "Specify Bayesian priors, likelihood and posterior summaries, then evaluate computation and prior sensitivity.",
+        action: "specify and evaluate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-59-3-1",
+        kind: "prose",
+        title: "The model is likelihood plus prior",
+        body: "Bayesian inference combines a likelihood with prior distributions to produce a posterior distribution. Priors should be expressed on meaningful parameter scales, checked for plausibility and justified before interpreting results. A prior is not a substitute for a sampling design or causal identification strategy.",
+      },
+      {
+        id: "cgei-ds-59-3-lab",
+        kind: "worked-example",
+        title: "Credible interval is a posterior probability statement",
+        body: "If a posterior for a rate parameter places 95% of its probability mass between 0.12 and 0.28, a calibrated Bayesian report says that interval has 95% posterior probability under the model and prior—not that 95% of repeated samples cover a fixed true value. Changing the prior can move the interval; report prior sensitivity for decision-relevant parameters. This curriculum does not treat a prose interval as a substitute for MCMC diagnostics on a fitted sampler.",
+      },
+      {
+        id: "cgei-ds-59-3-2",
+        kind: "equation",
+        title: "Posterior proportionality",
+        expression: "p(θ | y) ∝ p(y | θ) p(θ)",
+        body: "Posterior summaries can include medians, credible intervals and probabilities for pre-defined contrasts. A 95% credible interval has a posterior-probability interpretation conditional on the model and prior; it is not interchangeable with a frequentist confidence interval.",
+      },
+      {
+        id: "cgei-ds-59-3-3",
+        kind: "worked-example",
+        title: "Prior predictive checks before fitting",
+        body: "For a logistic model of heat-day occurrence, simulate plausible coefficients from proposed priors and inspect implied event probabilities across realistic covariates. If simulations imply near-certain events everywhere or implausibly sharp gradients, revise and document priors before interpreting the posterior.",
+      },
+      {
+        id: "cgei-ds-59-3-4",
+        kind: "key-points",
+        title: "Computation is part of the evidence",
+        items: [
+          "Inspect trace plots and chain mixing for MCMC.",
+          "Check effective sample size and diagnostics such as R-hat.",
+          "Divergences can indicate geometry or parameterisation problems.",
+          "Compare prior-sensitive results and posterior predictive behaviour.",
+          "A successful sampler exit code does not prove model adequacy.",
+        ],
+      },
+      {
+        id: "cgei-ds-59-3-5",
+        kind: "checklist",
+        title: "Bayesian reporting minimum",
+        items: [
+          "Likelihood and priors stated",
+          "Prior predictive implications inspected",
+          "Sampler and diagnostics reported",
+          "Posterior predictive checks shown",
+          "Sensitivity and limits disclosed",
+        ],
+      },
+      {
+        id: "cgei-ds-59-3-6",
+        kind: "prose",
+        title:
+          "Bayesian software is an implementation choice, not a diagnostic",
+        body: "PyMC and Stan expose probabilistic model construction and sampling workflows; Bambi provides a higher-level formula interface over PyMC, while brms provides a formula-based Bayesian modelling interface in R backed by Stan. Tool choice should follow the model, team ecosystem and reproducibility needs. Regardless of interface, report priors, sampler settings, R-hat, effective sample size, divergences, posterior predictive checks and prior-sensitivity results. A package's successful run does not establish convergence or model adequacy.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-59-bayes"],
+    assessmentIds: ["cgei-ds-assess-59-bayes"],
+    resourceIds: ["cgei-ds-r-59-stan", "cgei-ds-r-59-bda"],
+    deliverableIds: ["cgei-ds-d-59-bayes-note"],
+  },
+  {
+    id: "cgei-ds-lesson-5-9-4",
+    kind: "lesson",
+    title: "Diagnostics, overdispersion and predictive checks",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-59-diagnostics",
+        statement:
+          "Diagnose residual, overdispersion, convergence and predictive calibration problems without treating one diagnostic as a universal pass/fail test.",
+        action: "diagnose and stress-test",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-59-4-1",
+        kind: "prose",
+        title: "Diagnostics ask different questions",
+        body: "For GLMs, inspect family-appropriate residuals against fitted values, predictors, time and geography. For count data, overdispersion relative to the Poisson mean–variance assumption may make standard errors too small; consider negative-binomial or another defensible alternative when justified.",
+      },
+      {
+        id: "cgei-ds-59-4-2",
+        kind: "worked-example",
+        title: "A significant but misspecified model",
+        body: "A Poisson model may estimate a strong vegetation association yet understate uncertainty if counts are overdispersed or clustered. Compare dispersion diagnostics, residual patterns and plausible alternatives; do not choose a family solely because its p-values cross a threshold.",
+      },
+      {
+        id: "cgei-ds-59-4-3",
+        kind: "prose",
+        title: "Validation must match deployment",
+        body: "If the goal is prediction at unseen stations, hold out stations or use grouped cross-validation. If predicting future years, use chronological splits. Random row-wise splitting can leak station identity or adjacent time information and overstate generalisation.",
+      },
+      {
+        id: "cgei-ds-59-4-4",
+        kind: "code",
+        title: "Basic fitted-value and residual audit",
+        language: "Python",
+        code: 'import matplotlib.pyplot as plt\nmu = fit.fittedvalues\nresid = fit.resid_pearson\nplt.scatter(mu, resid, alpha=0.5)\nplt.axhline(0, color="black", linewidth=1)\nplt.xlabel("Fitted mean")\nplt.ylabel("Pearson residual")',
+        body: "This is one diagnostic only. Pair it with family-appropriate checks, influence, calibration or posterior predictive checks, and spatial/temporal residual inspection where relevant.",
+      },
+      {
+        id: "cgei-ds-59-4-5",
+        kind: "checklist",
+        title: "Model diagnostic record",
+        items: [
+          "Convergence and warnings logged",
+          "Residual patterns examined",
+          "Dispersion and influential cases assessed",
+          "Validation reflects intended use",
+          "Alternative models and failures compared",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-59-diagnostics"],
+    assessmentIds: ["cgei-ds-assess-59-diagnostics"],
+    resourceIds: ["cgei-ds-r-59-statsmodels", "cgei-ds-r-59-diagnostics"],
+    deliverableIds: ["cgei-ds-d-59-diagnostics"],
+  },
+  {
+    id: "cgei-ds-lesson-5-9-5",
+    kind: "lesson",
+    title: "Effect contrasts, uncertainty and scientific reporting",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectives: [
+      {
+        id: "cgei-ds-o-59-report",
+        statement:
+          "Report model scale, effect contrasts, uncertainty, validation design and limits of generalisation for environmental decisions.",
+        action: "report and critique",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-59-5-1",
+        kind: "prose",
+        title: "Translate coefficients to the question scale",
+        body: "A coefficient is not automatically the quantity a reader needs. For a logit model, exponentiation gives an odds ratio, not a risk ratio. Report predicted means or probabilities and pre-specified contrasts on an interpretable scale alongside link-scale estimates.",
+      },
+      {
+        id: "cgei-ds-59-5-2",
+        kind: "worked-example",
+        title: "Report an association without causal overclaim",
+        body: "If the adjusted odds ratio for a heat-exceedance indicator is 1.25 per specified NDVI contrast, report the contrast, interval, reference categories, sample size and checks. Describe a conditional association unless design and assumptions justify causal interpretation.",
+      },
+      {
+        id: "cgei-ds-59-5-3",
+        kind: "prose",
+        title: "Uncertainty includes more than a coefficient interval",
+        body: "Separate sampling uncertainty from model uncertainty, measurement error, spatial/temporal dependence and limited transportability. Sensitivity analysis can compare defensible families, covariate sets, priors or grouping structures. Avoid presenting one fitted model as the unique truth.",
+      },
+      {
+        id: "cgei-ds-59-5-4",
+        kind: "worked-example",
+        title: "Model card for an environmental analysis",
+        body: "Document purpose, target population, response and unit, source period, exclusions, predictors, family/link, random effects or priors, validation design, diagnostics, effect scale, uncertainty, subgroup failures and non-claims. Include a reproducible script/notebook and software environment.",
+      },
+      {
+        id: "cgei-ds-59-5-5",
+        kind: "checklist",
+        title: "Release-ready model report",
+        items: [
+          "Estimand and population stated",
+          "Family/link and structure justified",
+          "Effects shown on interpretable scale",
+          "Intervals and diagnostics reported",
+          "Validation matches intended use",
+          "Limitations and non-causal boundaries stated",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-59-report"],
+    assessmentIds: ["cgei-ds-assess-59-report"],
+    resourceIds: ["cgei-ds-r-59-bda", "cgei-ds-r-59-diagnostics"],
+    deliverableIds: ["cgei-ds-d-59-model-card", "cgei-ds-d-59-report"],
+  },
+  {
+    id: "cgei-ds-lesson-5-10-1",
+    kind: "lesson",
+    title: "Causal questions, DAGs and variable roles",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-510-dag",
+        statement:
+          "Translate an environmental research question into a causal diagram that distinguishes exposures, outcomes, confounders, mediators, colliders and selection mechanisms.",
+        action: "draw and justify",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-510-1-1",
+        kind: "prose",
+        title: "Prediction and causation are different targets",
+        body: "A predictive model estimates outcomes for cases drawn from a target distribution; a causal analysis asks what would change under a well-defined intervention or exposure contrast. Strong prediction, feature importance and temporal precedence alone do not identify a causal effect.",
+      },
+      {
+        id: "cgei-ds-510-1-2",
+        kind: "worked-example",
+        title: "Vegetation and urban heat",
+        body: "Suppose neighbourhood greenness is associated with lower land-surface temperature. Income, urban form, elevation, water access and development history may influence both greenness and temperature. Draw the hypothesised causal structure before choosing covariates; the diagram is an explicit assumption set, not proof that the structure is true.",
+      },
+      {
+        id: "cgei-ds-510-1-3",
+        kind: "key-points",
+        title: "Recognise common variable roles",
+        items: [
+          "A confounder causes or predicts both exposure and outcome under the causal graph.",
+          "A mediator lies on a causal pathway; adjusting for it changes the target from total to a form of direct effect.",
+          "A collider is caused by two variables; conditioning on it can create a non-causal association.",
+          "A proxy is not automatically a valid confounder measurement.",
+        ],
+      },
+      {
+        id: "cgei-ds-510-1-4",
+        kind: "checklist",
+        title: "DAG review checklist",
+        items: [
+          "Exposure and outcome are explicit",
+          "Temporal ordering is plausible",
+          "Confounders are distinguished from mediators and colliders",
+          "Selection and measurement processes are considered",
+          "Alternative plausible DAGs are recorded",
+        ],
+      },
+      {
+        id: "cgei-ds-510-1-5",
+        kind: "equation",
+        title: "Potential outcomes define the causal contrast",
+        expression: "ATE = E[Y(1) − Y(0)]",
+        body: "Y(1) and Y(0) are potential outcomes under two well-defined exposure strategies; for the same unit, only one is observed under ordinary consistency. The missing counterfactual is why causal effects require design or identification assumptions. State the population and intervention contrast before selecting an estimator.",
+      },
+      {
+        id: "cgei-ds-510-1-numeric",
+        kind: "worked-example",
+        title: "Crude vs stratified ATE (synthetic)",
+        body: "Synthetic table (T,C,Y): within C=0 and C=1 the treatment contrast is exactly +2 outcome units, but T is more common when C=1 and baseline Y is higher. Fixture unit_5_10_confounding_check.py locks stratum ATEs at +2 and a crude contrast ≈3.67. Equal-weight stratification recovers +2. Lesson: association after mixing strata is not the within-stratum causal contrast under the data-generating story. This does not identify a real environmental intervention.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-510-dag"],
+    assessmentIds: ["cgei-ds-assess-510-dag"],
+    resourceIds: ["cgei-ds-r-510-hernan", "cgei-ds-r-510-dagitty"],
+    deliverableIds: ["cgei-ds-d-510-dag-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-10-2",
+    kind: "lesson",
+    title: "Define estimands and target trials",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-510-estimand",
+        statement:
+          "Define a target population, treatment or exposure contrast, outcome, time horizon and estimand before selecting a causal estimator.",
+        action: "define and operationalise",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-510-2-1",
+        kind: "prose",
+        title: "Specify the causal quantity first",
+        body: "An estimand states the target population, exposure or intervention strategies, outcome, follow-up horizon and contrast. Average treatment effects, effects among treated units and controlled direct effects are different quantities; an estimator cannot repair an undefined target.",
+      },
+      {
+        id: "cgei-ds-510-2-2",
+        kind: "worked-example",
+        title: "An adaptation intervention",
+        body: "For a hypothetical urban tree-planting programme, specify eligible neighbourhoods, intervention versus comparator, a defined summer outcome period, temperature or heat-exceedance outcome, and a contrast such as the average difference in mean LST. Clarify whether the question concerns total programme impact or a pathway-specific effect.",
+      },
+      {
+        id: "cgei-ds-510-2-3",
+        kind: "key-points",
+        title: "Target-trial components",
+        items: [
+          "Eligibility criteria and time zero",
+          "Intervention strategies and assignment",
+          "Follow-up and outcome definition",
+          "Causal contrast and analysis plan",
+          "Consistency, positivity and no-interference assumptions where relevant",
+        ],
+      },
+      {
+        id: "cgei-ds-510-2-4",
+        kind: "checklist",
+        title: "Estimand statement",
+        items: [
+          "Target population defined",
+          "Exposure contrast is actionable and measurable",
+          "Outcome scale and time window stated",
+          "Summary measure chosen before results",
+          "Interference and treatment-version concerns documented",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-510-estimand"],
+    assessmentIds: ["cgei-ds-assess-510-estimand"],
+    resourceIds: ["cgei-ds-r-510-hernan"],
+    deliverableIds: ["cgei-ds-d-510-estimand-sheet"],
+  },
+  {
+    id: "cgei-ds-lesson-5-10-3",
+    kind: "lesson",
+    title: "Confounding, adjustment and identification",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-510-identification",
+        statement:
+          "Evaluate identification assumptions and choose a defensible adjustment set or design-based strategy for an environmental causal question.",
+        action: "identify and critique",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-510-3-1",
+        kind: "prose",
+        title: "Identification precedes estimation",
+        body: "Identification asks whether the observed-data distribution and stated assumptions determine the target causal quantity. Regression adjustment, matching and weighting are estimators that rely on assumptions such as conditional exchangeability, consistency and positivity; a fitted coefficient does not demonstrate these assumptions.",
+      },
+      {
+        id: "cgei-ds-510-3-2",
+        kind: "worked-example",
+        title: "Choose an adjustment set from the DAG",
+        body: "If baseline urban density and socioeconomic conditions cause both greenness and heat, they may belong in an adjustment set for a total-effect question. Do not automatically adjust for post-exposure cooling infrastructure if it mediates the intervention effect, or for a collider created by selection into a monitoring programme.",
+      },
+      {
+        id: "cgei-ds-510-3-3",
+        kind: "equation",
+        title: "Backdoor adjustment as a standardisation target",
+        expression:
+          "E[Y(1)-Y(0)] = Σₓ {E[Y | A=1,X=x] - E[Y | A=0,X=x]} P(X=x)",
+        body: "This expression is justified only when the chosen covariates suffice for identification, exposure probabilities are positive across the target covariate support, treatment versions are well-defined and the relevant consistency assumptions hold.",
+      },
+      {
+        id: "cgei-ds-510-3-4",
+        kind: "checklist",
+        title: "Identification audit",
+        items: [
+          "Adjustment set justified by a causal graph",
+          "Overlap/positivity inspected",
+          "Missingness and measurement error assessed",
+          "Target population and transport limits stated",
+          "Unmeasured confounding acknowledged",
+        ],
+      },
+      {
+        id: "cgei-ds-510-3-lab",
+        kind: "worked-example",
+        title: "Lab: crude association versus stratified treatment effect",
+        body: "Synthetic deterministic table (not observational evidence): within each level of confounder C the mean difference in Y between T=1 and T=0 is exactly +2. Because T is more common when C=1 (higher baseline Y), the crude T contrast is about +5.14. Fixture unit_5_10_confounding_check.py locks both numbers. Adjustment for C recovers the common stratified effect; without a causal design this arithmetic does not prove a real heat-mitigation programme works.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-510-adjustment"],
+    assessmentIds: ["cgei-ds-assess-510-adjustment"],
+    resourceIds: ["cgei-ds-r-510-hernan", "cgei-ds-r-510-dagitty"],
+    deliverableIds: ["cgei-ds-d-510-identification-memo"],
+  },
+  {
+    id: "cgei-ds-lesson-5-10-4",
+    kind: "lesson",
+    title: "Natural experiments, matching and difference-in-differences",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-510-designs",
+        statement:
+          "Distinguish observational adjustment, matching/weighting, difference-in-differences and instrumental-variable assumptions and diagnostics.",
+        action: "compare and evaluate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-510-4-1",
+        kind: "prose",
+        title: "Designs trade assumptions, not eliminate them",
+        body: "Matching and propensity weighting address measured covariates under overlap and conditional exchangeability; they cannot balance unmeasured confounders by magic. Difference-in-differences relies on a defensible parallel-trends counterfactual and careful treatment timing, while instrumental variables require relevance, exclusion, independence and a justified interpretation of the induced effect.",
+      },
+      {
+        id: "cgei-ds-510-4-2",
+        kind: "worked-example",
+        title: "A heat-action policy evaluation",
+        body: "If some districts adopt a heat-action policy earlier than others, define treated and comparison groups and pre/post windows. Plot pre-treatment trajectories, investigate concurrent policies and anticipation, assess staggered adoption issues, and use uncertainty estimates that reflect the assignment and clustering structure.",
+      },
+      {
+        id: "cgei-ds-510-4-3",
+        kind: "key-points",
+        title: "Design-specific diagnostics",
+        items: [
+          "Matching/weighting: overlap, extreme weights, standardised balance and effective sample size.",
+          "Difference-in-differences: pre-trend evidence, event-time effects and sensitivity to comparison groups.",
+          "Instrumental variables: first-stage strength plus substantive exclusion and independence arguments.",
+          "Regression discontinuity: assignment rule, manipulation checks and bandwidth sensitivity.",
+        ],
+      },
+      {
+        id: "cgei-ds-510-4-4",
+        kind: "checklist",
+        title: "Design choice record",
+        items: [
+          "Assignment mechanism explained",
+          "Required assumptions stated before fitting",
+          "Diagnostics tied to the design",
+          "Uncertainty matches grouping/assignment",
+          "Design-specific failure modes reported",
+        ],
+      },
+      {
+        id: "cgei-ds-510-4-5",
+        kind: "prose",
+        title: "Synthetic controls and interrupted time series",
+        body: "Synthetic control constructs a weighted combination of untreated units to approximate a treated unit's pre-intervention trajectory; assess pre-period fit, donor-pool contamination and sensitivity to donor choices. Interrupted time series estimates changes in level and/or trend around a defined intervention, but concurrent events, seasonality, autocorrelation and changes in measurement can mimic an effect. Neither design removes confounding automatically; pre-specify the intervention time, outcome window and falsification/sensitivity checks.",
+      },
+      {
+        id: "cgei-ds-510-4-6",
+        kind: "prose",
+        title:
+          "Spatial confounding and interference between neighbouring units",
+        body: "Nearby locations share climate, infrastructure, land use and measurement processes, so an unmeasured spatial factor can confound exposure–outcome associations. Interference occurs when one unit's treatment affects another unit's outcome—for example, tree canopy or smoke-control policy can have spillovers across neighbourhood boundaries. State the unit and exposure mapping, examine spatial structure and boundary sensitivity, and do not assume no interference merely because observations are stored as separate rows.",
+      },
+      {
+        id: "cgei-ds-510-4-7",
+        kind: "prose",
+        title: "Design menu for observational environmental questions",
+        body: "Matching and propensity weighting balance measured confounders but not unmeasured ones. Difference-in-differences needs parallel trends and no anticipation. Synthetic control builds a weighted donor pool for a treated unit. Regression discontinuity uses a threshold assignment rule. Instrumental variables need a valid instrument that affects outcome only through treatment. Interrupted time series needs a well-timed intervention and stable measurement. Choose the design from the assignment process you can defend—not from software defaults.",
+      },
+      {
+        id: "cgei-ds-510-4-8",
+        kind: "worked-example",
+        title: "Parallel trends is an assumption, not a plot decoration",
+        body: "DiD compares treated vs control change over time. Pre-period outcome paths that already diverge undermine the parallel-trends assumption. Event-study coefficients before the intervention should be near zero under the assumption; systematic pre-trends warn against a causal reading. Anticipation (behaviour changes before the official start date) also biases DiD. State these assumptions in methods; do not bury them.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-510-designs"],
+    assessmentIds: ["cgei-ds-assess-510-designs"],
+    resourceIds: ["cgei-ds-r-510-hernan", "cgei-ds-r-510-did"],
+    deliverableIds: ["cgei-ds-d-510-design-critique"],
+  },
+  {
+    id: "cgei-ds-lesson-5-10-5",
+    kind: "lesson",
+    title: "Sensitivity, negative controls and causal reporting",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-510-sensitivity",
+        statement:
+          "Report robustness checks, negative controls and sensitivity to unmeasured confounding without equating statistical significance with causality.",
+        action: "stress-test and report",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-510-5-1",
+        kind: "prose",
+        title: "Robustness is not a single p-value",
+        body: "Causal conclusions depend on assumptions that cannot all be tested from the observed data. Sensitivity analysis quantifies how conclusions change under plausible unmeasured confounding, alternate adjustment sets, outcome definitions, missing-data assumptions or model specifications.",
+      },
+      {
+        id: "cgei-ds-510-5-2",
+        kind: "worked-example",
+        title: "Negative controls as falsification checks",
+        body: "A negative-control outcome or exposure should be selected using domain knowledge so that the target causal pathway should not operate, while relevant bias mechanisms remain comparable. A non-null negative-control result can reveal problems; a null result does not prove absence of bias.",
+      },
+      {
+        id: "cgei-ds-510-5-3",
+        kind: "key-points",
+        title: "Report evidence in layers",
+        items: [
+          "State the estimand, design and identification assumptions.",
+          "Separate measured-data diagnostics from untestable assumptions.",
+          "Report effect estimates, intervals and sensitivity ranges.",
+          "Disclose missingness, overlap failures, negative-control results and analytic deviations.",
+          "Use causal language only to the extent warranted by design and assumptions.",
+        ],
+      },
+      {
+        id: "cgei-ds-510-5-4",
+        kind: "checklist",
+        title: "Causal analysis release checklist",
+        items: [
+          "DAG and estimand archived",
+          "Design-specific assumptions reviewed",
+          "Diagnostics and sensitivity analysis completed",
+          "Reproducible code and data provenance attached",
+          "Limitations and non-claims explicit",
+        ],
+      },
+      {
+        id: "cgei-ds-510-5-5",
+        kind: "worked-example",
+        title: "Make unmeasured-confounding sensitivity interpretable",
+        body: "Define a plausible unmeasured factor, explain how strongly it could relate to exposure and outcome, and report how the estimated contrast or interval changes across that range. Compare alternative adjustment sets and negative controls where justified. Sensitivity analysis does not reveal the true amount of confounding; it shows what assumptions would be needed for the conclusion to change.",
+      },
+      {
+        id: "cgei-ds-510-5-7",
+        kind: "worked-example",
+        title: "Trees, heat, and language discipline",
+        body: "Question: “Do street trees cool neighbourhoods?” Observational NDVI–LST association supports “higher vegetation index is associated with lower land-surface temperature in this sample,” not “planting trees caused a specified °C reduction citywide,” unless a design addresses confounding (income, density, irrigation), interference, and the target estimand. Policy/burning questions need the same discipline: state the intervention, units, and assumptions before causal verbs.",
+      },
+      {
+        id: "cgei-ds-510-5-8",
+        kind: "checklist",
+        title: "Causal reporting checklist",
+        items: [
+          "Causal question and estimand stated before results",
+          "DAG or adjustment set justified",
+          "Design assumptions named (e.g. parallel trends, no unmeasured confounding)",
+          "Sensitivity or negative-control discussion present",
+          "Language uses associated with unless design supports caused",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-510-sensitivity"],
+    assessmentIds: ["cgei-ds-assess-510-sensitivity"],
+    resourceIds: ["cgei-ds-r-510-hernan", "cgei-ds-r-510-did"],
+    deliverableIds: ["cgei-ds-d-510-causal-report"],
+  },
+  {
+    id: "cgei-ds-lesson-5-11-1",
+    kind: "lesson",
+    title: "Version control as research provenance",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-511-vcs",
+        statement:
+          "Use version control to create traceable, reviewable changes to environmental analysis code and documentation.",
+        action: "commit and review",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-511-1-1",
+        kind: "prose",
+        title: "A repository is an audit trail, not scientific proof",
+        body: "Git records changes to code and documentation and helps reviewers understand why a method changed. It does not establish that a conclusion is true. Use meaningful branches, inspect diffs, keep commits focused, and record methodological reasons alongside implementation changes.",
+      },
+      {
+        id: "cgei-ds-511-1-2",
+        kind: "worked-example",
+        title: "A reviewable change to an environmental workflow",
+        body: "A temperature-processing change should identify the product version, scale-factor rationale, expected output change and tests that protect against regression. A focused pull request makes these claims reviewable and lets a reviewer distinguish a scientific change from incidental formatting.",
+      },
+      {
+        id: "cgei-ds-511-1-3",
+        kind: "key-points",
+        title: "Repository hygiene",
+        items: [
+          "Use a branch for a bounded change and inspect the staged diff.",
+          "Never commit credentials, tokens or private data.",
+          "Record source-data provenance and licence constraints.",
+          "Keep large derived data and generated outputs under an explicit repository policy.",
+        ],
+      },
+      {
+        id: "cgei-ds-511-1-4",
+        kind: "checklist",
+        title: "Pre-commit checklist",
+        items: [
+          "Diff reviewed",
+          "Secrets and private data excluded",
+          "Methodological reason recorded",
+          "Relevant tests run",
+          "Commit scope coherent",
+        ],
+      },
+      {
+        id: "cgei-ds-511-1-5",
+        kind: "prose",
+        title: "Git operations and review workflow",
+        body: "Use commit, branch, merge, and tag as distinct tools: commits capture intent, branches isolate work, merges integrate reviewed changes, tags mark releases. Prefer short-lived feature branches and pull requests even solo so the review diff is explicit. Commit messages state why, not only what. Never commit credentials, API keys, or large raw data—use .gitignore and secret scanning.",
+      },
+      {
+        id: "cgei-ds-511-1-6",
+        kind: "checklist",
+        title: "Commit hygiene checklist",
+        items: [
+          "One logical change per commit when practical",
+          "Message explains reviewer-relevant why",
+          "No secrets, tokens, or personal paths",
+          "No bulk binary data that belongs in release assets",
+          "Local tests relevant to the change were run",
+        ],
+      },
+      {
+        id: "cgei-ds-511-1-contract",
+        kind: "worked-example",
+        title: "Manifest and checksum as provenance",
+        body: "A research release should list input paths, code commit, environment lockfile, and checksums of primary outputs. Fixture unit_5_11_manifest_checksum_check.py verifies that a deterministic synthetic manifest matches expected SHA-256 digests and rejects silent path swaps. A green checksum proves byte identity of listed artefacts—not scientific correctness of the analysis.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-511-vcs"],
+    assessmentIds: ["cgei-ds-assess-511-vcs"],
+    resourceIds: ["cgei-ds-r-511-git"],
+    deliverableIds: ["cgei-ds-d-511-repository"],
+  },
+  {
+    id: "cgei-ds-lesson-5-11-2",
+    kind: "lesson",
+    title: "Modular design and data contracts",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-511-design",
+        statement:
+          "Refactor an analysis into modular functions with explicit data contracts, configuration and actionable failure behaviour.",
+        action: "design and refactor",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-511-2-1",
+        kind: "prose",
+        title: "Separate pipeline responsibilities",
+        body: "Separate ingestion, validation, transformation, analysis and presentation. Functions should make inputs, outputs, units, coordinate systems, time conventions, missing-value rules and failure behaviour explicit. Validate assumptions at boundaries instead of silently coercing scientifically meaningful values.",
+      },
+      {
+        id: "cgei-ds-511-2-2",
+        kind: "worked-example",
+        title: "A spatial join with incompatible grids",
+        body: "A raster and station table may contain plausible numbers while differing in CRS, pixel alignment, time zone or measurement units. A data contract checks these conditions before a join or model fit and fails with an actionable message when the contract is violated.",
+      },
+      {
+        id: "cgei-ds-511-2-3",
+        kind: "key-points",
+        title: "Useful contract fields",
+        items: [
+          "Required columns, data types and uniqueness constraints",
+          "Units, coordinate reference system and spatial resolution",
+          "Timestamp convention, time zone and expected frequency",
+          "Missingness policy, plausible ranges and output schema",
+          "Configuration and paths supplied outside reusable core logic",
+        ],
+      },
+      {
+        id: "cgei-ds-511-2-4",
+        kind: "checklist",
+        title: "Function design review",
+        items: [
+          "One clear responsibility",
+          "Inputs and outputs documented",
+          "Invalid inputs rejected clearly",
+          "Side effects and file writes explicit",
+          "Small example can be run independently",
+        ],
+      },
+      {
+        id: "cgei-ds-511-2-5",
+        kind: "prose",
+        title:
+          "Project layout, configuration, logging and command-line entry points",
+        body: "Keep reusable transformation logic in src/, exploratory analysis in notebooks/, automated checks in tests/, documentation in docs/, and raw/interim/processed data in separate locations with explicit access policies. Store environment-specific paths and parameters in a configuration file or command-line arguments rather than hard-coding them. Use logging with levels and run identifiers for operational diagnostics; avoid printing credentials or sensitive payloads. A command-line entry point should validate arguments, call reusable functions and return a meaningful exit status.",
+      },
+      {
+        id: "cgei-ds-511-2-6",
+        kind: "checklist",
+        title: "Repository structure and execution contract",
+        items: [
+          "Notebook explains the question; repeated logic lives in tested modules",
+          "Raw data are immutable and separated from derived outputs",
+          "Configuration and CLI arguments are documented",
+          "Logs identify run, stage and failure without exposing secrets",
+          "Clean top-to-bottom execution has a documented command",
+        ],
+      },
+      {
+        id: "cgei-ds-511-2-7",
+        kind: "prose",
+        title: "Notebook versus module and project layout",
+        body: "Notebooks are for exploration and narrative; modules under src/ hold tested, importable functions. Prefer CLI entry points (python -m package.cli) for batch runs. A clear layout—data_raw, data_interim, data_processed, notebooks, src, tests, outputs, docs—keeps inputs immutable and results regenerable. Configuration files and logging belong outside hard-coded notebook cells.",
+      },
+      {
+        id: "cgei-ds-511-2-8",
+        kind: "prose",
+        title: "Functions, config and logging",
+        body: "Pure functions with explicit inputs are easier to test than notebook cells that read ambient state. Put paths, dates, and thresholds in config (YAML/TOML/env) and log decisions that affect scientific outputs. Fail loudly on missing required config rather than silently using defaults that change results.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-511-contract"],
+    assessmentIds: ["cgei-ds-assess-511-contract"],
+    resourceIds: ["cgei-ds-r-511-packaging"],
+    deliverableIds: ["cgei-ds-d-511-contract"],
+  },
+  {
+    id: "cgei-ds-lesson-5-11-3",
+    kind: "lesson",
+    title: "Scientific testing and numerical invariants",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 50,
+    objectives: [
+      {
+        id: "cgei-ds-o-511-testing",
+        statement:
+          "Construct unit, integration and regression tests for data transformations and scientifically meaningful invariants.",
+        action: "test and diagnose",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-quantitative-reasoning",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-511-3-1",
+        kind: "prose",
+        title: "Choose a test that matches the failure mode",
+        body: "Unit tests cover small functions; integration tests cover connected stages; regression tests preserve a known correction. Property-based tests can explore many generated inputs. A test passing means the asserted property held for tested cases, not that the scientific model or data source is universally valid.",
+      },
+      {
+        id: "cgei-ds-511-3-2",
+        kind: "worked-example",
+        title: "Test scientific invariants",
+        body: "For a unit conversion, test known reference values and round trips within a justified tolerance. For a time-index validator, test duplicates, missing periods and irregular frequency. For a spatial join, test CRS mismatch and alignment failures instead of checking only that a file was produced.",
+      },
+      {
+        id: "cgei-ds-511-3-3",
+        kind: "key-points",
+        title: "Numerical and data-quality testing",
+        items: [
+          "Use tolerances appropriate to numerical precision and scientific scale.",
+          "Test empty subsets, all-missing groups, duplicated keys and extreme values.",
+          "Use conservation, bounds or monotonicity only when the mathematics warrants them.",
+          "Include at least one regression test for each important discovered bug.",
+        ],
+      },
+      {
+        id: "cgei-ds-511-3-4",
+        kind: "checklist",
+        title: "Test adequacy checklist",
+        items: [
+          "Expected case and edge case covered",
+          "Assertion expresses a meaningful property",
+          "Failure message helps locate the problem",
+          "Floating-point tolerance justified",
+          "Test data are synthetic or licensed appropriately",
+        ],
+      },
+      {
+        id: "cgei-ds-511-3-5",
+        kind: "code",
+        title: "Test a unit conversion and validate a data contract",
+        language: "python",
+        code: "def c_to_k(c):\n    if c < -273.15:\n        raise ValueError('below absolute zero')\n    return c + 273.15\n\ndef test_reference_values():\n    assert abs(c_to_k(0) - 273.15) < 1e-10\n\ndef validate_precip(values):\n    if (values < 0).any():\n        raise ValueError('precipitation must be non-negative')\n    return True",
+        body: "Use pytest to run deterministic unit tests and add schema/range/unit checks at ingestion boundaries. Libraries such as Pandera or Great Expectations-style checks can express column types, ranges, nullability and cross-field constraints; tests still need scientifically justified tolerances and expected failure cases.",
+      },
+      {
+        id: "cgei-ds-511-3-6",
+        kind: "code",
+        title: "Make stochastic tests reproducible",
+        language: "python",
+        code: "import numpy as np\n\ndef simulate(seed: int = 42, n: int = 1000) -> np.ndarray:\n    rng = np.random.default_rng(seed)\n    return rng.normal(size=n)\n\nassert np.array_equal(simulate(), simulate())",
+        body: "Pass a local generator or seed explicitly and record it with run parameters. Determinism makes regression tests interpretable, but a fixed seed is not a substitute for testing multiple seeds when Monte Carlo variability is itself part of the scientific question.",
+      },
+      {
+        id: "cgei-ds-511-3-lab",
+        kind: "worked-example",
+        title: "Lab: manifest fields and SHA-256 integrity",
+        body: "Fixture unit_5_11_manifest_checksum_check.py validates a synthetic tabular input under repro_lab/manifest.json. Required fields include dataset_id, source, retrieval_date, licence, relative_path and sha256. Matching digest confirms byte integrity of the recorded file; a changed byte or missing licence field fails. A checksum is not authenticity, scientific quality or redistribution permission.",
+      },
+      {
+        id: "cgei-ds-511-3-7",
+        kind: "prose",
+        title: "pytest, seeds and domain tests",
+        body: "Unit tests with pytest should cover pure functions first: unit conversions, date boundaries, mask logic, and derived indicators. Fix random seeds for stochastic helpers. Prefer small synthetic fixtures with known analytic answers over opaque snapshot files. Data-validation checks (schema, range, units)—in the style of pandera or Great Expectations—belong in the pipeline, not only in prose QA.",
+      },
+      {
+        id: "cgei-ds-511-3-8",
+        kind: "code",
+        title: "Minimal pytest-style invariant (conceptual)",
+        language: "python",
+        code: "def celsius_to_kelvin(t_c: float) -> float:\n    return t_c + 273.15\n\ndef test_freezing_point():\n    assert abs(celsius_to_kelvin(0.0) - 273.15) < 1e-12",
+        body: "Tiny, named tests with analytic expectations beat large golden files that drift without explanation.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-511-tests"],
+    assessmentIds: ["cgei-ds-assess-511-tests"],
+    resourceIds: ["cgei-ds-r-511-pytest", "cgei-ds-r-511-scientific"],
+    deliverableIds: ["cgei-ds-d-511-tests"],
+  },
+  {
+    id: "cgei-ds-lesson-5-11-4",
+    kind: "lesson",
+    title: "Environments, dependencies and reproducibility",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-511-environment",
+        statement:
+          "Specify dependencies, runtime, data provenance and execution steps to reproduce an analysis in a clean environment.",
+        action: "specify and reproduce",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-511-4-1",
+        kind: "prose",
+        title: "Reproduce the environment and the inputs",
+        body: "Record a supported runtime and direct dependencies; use a lockfile or sufficiently pinned environment where appropriate. Document clean installation and execution. Reproducibility also depends on data versions, licences, source identifiers, random seeds, spatial and temporal conventions, and external services.",
+      },
+      {
+        id: "cgei-ds-511-4-2",
+        kind: "worked-example",
+        title: "A clean rerun on a second machine",
+        body: "A notebook can work in a stale kernel while the documented environment fails. Recreate the environment from the repository, acquire data through documented steps, run the workflow and compare expected outputs. Record nondeterminism or hardware/library differences rather than promising bitwise identity without evidence.",
+      },
+      {
+        id: "cgei-ds-511-4-3",
+        kind: "key-points",
+        title: "Reproducibility record",
+        items: [
+          "Runtime and dependency versions",
+          "Data source, version, licence and retrieval instructions",
+          "Configuration and secrets handling",
+          "Expected outputs and validation steps",
+          "Known nondeterminism and platform-specific limitations",
+        ],
+      },
+      {
+        id: "cgei-ds-511-4-4",
+        kind: "checklist",
+        title: "Clean-environment checklist",
+        items: [
+          "Fresh environment created",
+          "Dependencies installed from declared specification",
+          "Data provenance and licences recorded",
+          "Workflow run without undocumented manual steps",
+          "Outputs and known limitations documented",
+        ],
+      },
+      {
+        id: "cgei-ds-511-4-5",
+        kind: "prose",
+        title: "Licences, citations and dependency security",
+        body: "Code and data have separate licence obligations; verify that redistribution and derived products are permitted instead of assuming a public download is unrestricted. Include CITATION.cff or an equivalent software citation record, and document data citation requirements. Pin or lock dependencies for reproducibility, but also review vulnerability alerts and planned updates; pinning an insecure dependency forever is not a security strategy. Keep credentials in a secret manager or environment configuration, never in tracked files.",
+      },
+      {
+        id: "cgei-ds-511-4-7",
+        kind: "prose",
+        title: "Lockfiles, containers and task runners",
+        body: "Pin dependencies with lockfiles (conda-lock, uv.lock, poetry.lock) so installs replay. Containers (Docker, devcontainers) capture system libraries when pure Python pins are not enough. Makefile, Snakemake, or nox document the commands reviewers must run. Schedule dependency updates and act on vulnerability alerts—pinned does not mean never updated.",
+      },
+      {
+        id: "cgei-ds-511-4-6",
+        kind: "prose",
+        title: "Licences and software citation",
+        body: "Choose a code licence (MIT, Apache-2.0, GPL) deliberately; data often needs a separate licence. CITATION.cff and a clear citation section help others credit the software. Dependency security means knowing what you ship and updating when advisories land.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-511-env"],
+    assessmentIds: ["cgei-ds-assess-511-env"],
+    resourceIds: ["cgei-ds-r-511-packaging", "cgei-ds-r-511-git"],
+    deliverableIds: ["cgei-ds-d-511-env"],
+  },
+  {
+    id: "cgei-ds-lesson-5-11-5",
+    kind: "lesson",
+    title: "Documentation, CI and scientific releases",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-511-release",
+        statement:
+          "Configure automated quality checks and prepare documentation and release notes that accurately describe validation evidence and limits.",
+        action: "automate and release",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-511-5-1",
+        kind: "prose",
+        title: "Automate checks without confusing them with validation",
+        body: "Continuous integration can run formatting, linting, unit tests, type checks, data validators and builds on a pull request. Keep failure messages actionable and do not weaken meaningful tests just to obtain a green status. CI verifies configured checks in its environment; it does not certify scientific validity.",
+      },
+      {
+        id: "cgei-ds-511-5-2",
+        kind: "worked-example",
+        title: "A release note with bounded claims",
+        body: "A release record should name the code and data versions, method changes, checks executed, outputs reviewed, limitations and known issues. State exactly what passed and what was not tested. Link the workflow and reproducibility instructions so a reviewer can rerun the analysis.",
+      },
+      {
+        id: "cgei-ds-511-5-3",
+        kind: "key-points",
+        title: "Release evidence",
+        items: [
+          "README with setup, minimal example and expected outputs",
+          "Automated checks with clear pass/fail criteria",
+          "Data provenance, licence and configuration guidance",
+          "Method-change summary and known limitations",
+          "Human scientific review for assumptions and interpretation",
+        ],
+      },
+      {
+        id: "cgei-ds-511-5-4",
+        kind: "checklist",
+        title: "Scientific software release checklist",
+        items: [
+          "Clean rerun attempted",
+          "Relevant automated checks pass",
+          "Source and data versions documented",
+          "Scientific assumptions and limitations reviewed",
+          "Release notes make no claims beyond evidence",
+        ],
+      },
+      {
+        id: "cgei-ds-511-5-5",
+        kind: "prose",
+        title: "Documentation formats and FAIR software practice",
+        body: "A README should answer the research question, data sources and versions, environment setup, reproduction steps, outputs and limitations. Docstrings explain reusable functions; a documentation site or executable report can scale the material, but must be reproducible. FAIR-oriented practice makes software findable, accessible under its terms, interoperable and reusable; this requires metadata, identifiers, licences and clear interfaces, not merely uploading a repository.",
+      },
+      {
+        id: "cgei-ds-511-5-6",
+        kind: "prose",
+        title: "Data cards, manifests and archival release evidence",
+        body: "A data card or manifest should identify assets, source versions, time ranges, filters, scale factors, QA masks, export parameters, licences and checksums. A release should link the exact code tag, environment specification, data manifest and regenerated outputs; where a persistent research snapshot is appropriate, archive it with a DOI and citation metadata. A release label alone does not prove that the data or results can be reproduced.",
+      },
+      {
+        id: "cgei-ds-511-5-7",
+        kind: "prose",
+        title: "CI, pre-commit and documentation sites",
+        body: "GitHub Actions should run tests, linting, formatting, and type checks on every push/PR. Pre-commit hooks catch secrets and style issues before review. Documentation spans README, docstrings, and optional MkDocs/Sphinx or Quarto/Jupyter Book reports. Good-enough scientific computing plus FAIR software principles favour findable, cited, runnable research code.",
+      },
+      {
+        id: "cgei-ds-511-5-8",
+        kind: "checklist",
+        title: "Student repository repair checklist",
+        items: [
+          "Notebook/script runs top-to-bottom with cleared outputs and re-run evidence",
+          "Environment file with pinned versions; Earth Engine auth notes without secrets",
+          "README: question, data sources/versions, workflow, reproduce steps, outputs, limitations",
+          "Data card/manifest: asset IDs, date ranges, filters, scaling, export parameters",
+          "Results regenerated by code; licence; CITATION; release path toward DOI",
+          "Short validation and sensitivity section for reviewers",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-511-release"],
+    assessmentIds: ["cgei-ds-assess-511-release"],
+    resourceIds: ["cgei-ds-r-511-actions", "cgei-ds-r-511-scientific"],
+    deliverableIds: ["cgei-ds-d-511-release"],
+  },
+  {
+    id: "cgei-ds-lesson-5-12-1",
+    kind: "lesson",
+    title: "Labeled arrays and multidimensional data models",
+    order: 1,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectives: [
+      {
+        id: "cgei-ds-o-512-model",
+        statement:
+          "Inspect a multidimensional xarray Dataset/DataArray and interpret dimensions, coordinates, variables, attributes, units and encodings.",
+        action: "inspect and interpret",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-512-1-1",
+        kind: "prose",
+        title: "Read the data model before computing",
+        body: "An xarray DataArray stores values with named dimensions, coordinates and attributes; a Dataset groups related variables that share dimensions or coordinates. Inspect shapes, coordinate values, units, time encoding, CRS metadata and missing-value conventions before analysis.",
+      },
+      {
+        id: "cgei-ds-512-1-2",
+        kind: "worked-example",
+        title: "Inventory a time–space product",
+        body: "For a time × latitude × longitude temperature cube, record variable names, dimensions, coordinate ranges, units, calendar/frequency, grid description, missingness and provenance. Dimension names alone do not prove that two arrays use the same grid or temporal support.",
+      },
+      {
+        id: "cgei-ds-512-1-3",
+        kind: "key-points",
+        title: "Dataset inspection essentials",
+        items: [
+          "Dimensions describe array axes; coordinates locate values along them.",
+          "Attributes and encodings can carry units, fill values, calendars and grid metadata.",
+          "Check monotonicity, uniqueness, coordinate bounds and missingness.",
+          "Preserve source identifiers and licence/provenance information.",
+        ],
+      },
+      {
+        id: "cgei-ds-512-1-4",
+        kind: "checklist",
+        title: "Multidimensional data inventory",
+        items: [
+          "Variables and shapes recorded",
+          "Dimensions distinguished from coordinates",
+          "Units and metadata inspected",
+          "Time and spatial conventions documented",
+          "Missing values and provenance recorded",
+        ],
+      },
+      {
+        id: "cgei-ds-512-1-5",
+        kind: "prose",
+        title: "Use rioxarray only after validating geospatial metadata",
+        body: "rioxarray adds geospatial raster operations to xarray, but reprojection and clipping depend on a valid CRS, transform, spatial dimensions and nodata convention. Check these metadata explicitly, preserve coordinate/reference information, and distinguish a metadata declaration from verified grid alignment. Compare a small known location or raster fixture after a reprojection rather than assuming that a successful call preserved the intended geography.",
+      },
+      {
+        id: "cgei-ds-512-1-lab",
+        kind: "worked-example",
+        title: "Lab: multidimensional bookkeeping without xarray execution",
+        body: "Fixture unit_5_12_multidim_contract_check.py builds a regular 3×2×2 time–lat–lon cube in pure Python. Selecting the second time yields an unweighted spatial mean of 22.0 °C after dropping NaN; treating NaN as zero would bias the mean. Equal cell weights are a toy assumption—not cosine-latitude or true cell-area weighting. This locks coordinate/selection discipline; it is not an xarray Dataset API test.",
+      },
+      {
+        id: "cgei-ds-512-1-contract",
+        kind: "worked-example",
+        title: "Dimension contract before reduction",
+        body: 'Before mean(dim="time"), state the expected dimension order, calendar, and missing-value policy. Fixture unit_5_12_multidim_contract_check.py locks a synthetic (time, y, x) shape, rejects reductions that drop coordinates silently, and checks that a masked mean excludes fill values. Passing the contract test is not validation of a real NetCDF product.',
+      },
+    ],
+    activityIds: ["cgei-ds-a-512-inventory"],
+    assessmentIds: ["cgei-ds-assess-512-inventory"],
+    resourceIds: ["cgei-ds-r-512-xarray", "cgei-ds-r-512-cf"],
+    deliverableIds: ["cgei-ds-d-512-inventory"],
+  },
+  {
+    id: "cgei-ds-lesson-5-12-2",
+    kind: "lesson",
+    title: "Coordinate alignment, selection and aggregation",
+    order: 2,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-512-alignment",
+        statement:
+          "Select, align, aggregate or combine arrays while explicitly checking spatial and temporal support.",
+        action: "align and validate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-quantitative-reasoning",
+          "cgei-comp-uncertainty",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-512-2-1",
+        kind: "prose",
+        title: "Alignment is scientific, not just technical",
+        body: "xarray arithmetic aligns by coordinate labels rather than only positional index. This can prevent some silent index errors but can also introduce missing values or intersect coordinates unexpectedly. Inspect alignment before arithmetic or merging and distinguish selection, interpolation, reprojection and aggregation.",
+      },
+      {
+        id: "cgei-ds-512-2-2",
+        kind: "worked-example",
+        title: "Align arrays with a missing coordinate",
+        body: "Create two synthetic time–space arrays with a deliberately missing timestamp or grid coordinate. Inspect the aligned coordinates and resulting missing values, then choose a justified strategy: restrict to common support, reindex with an explicit fill policy, or interpolate only if scientifically appropriate.",
+      },
+      {
+        id: "cgei-ds-512-2-3",
+        kind: "key-points",
+        title: "Support checks",
+        items: [
+          "Check CRS, grid transform, resolution, extent and cell alignment.",
+          "State calendar, time zone, frequency and aggregation window.",
+          "Reprojection and interpolation change support/values; they are not metadata-only operations.",
+          "Use area weighting when the target statistic and grid geometry require it.",
+        ],
+      },
+      {
+        id: "cgei-ds-512-2-4",
+        kind: "checklist",
+        title: "Before combining arrays",
+        items: [
+          "Coordinates and dimensions compared",
+          "Units and variable meanings compatible",
+          "Spatial grid and temporal support checked",
+          "Missing-coordinate behaviour understood",
+          "Alignment/aggregation choice documented",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-512-align"],
+    assessmentIds: ["cgei-ds-assess-512-align"],
+    resourceIds: [
+      "cgei-ds-r-512-xarray",
+      "cgei-ds-r-512-cf",
+      "cgei-ds-r-512-rasterio",
+    ],
+    deliverableIds: ["cgei-ds-d-512-alignment"],
+  },
+  {
+    id: "cgei-ds-lesson-5-12-3",
+    kind: "lesson",
+    title: "Lazy computation, chunking and Dask",
+    order: 3,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 50,
+    objectives: [
+      {
+        id: "cgei-ds-o-512-chunking",
+        statement:
+          "Choose lazy-computation and chunking strategies suited to data layout, operation and available resources.",
+        action: "design and benchmark",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-mathematical-modeling",
+          "cgei-comp-reproducibility",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-512-3-1",
+        kind: "prose",
+        title: "Lazy execution is a plan, not a speed guarantee",
+        body: "Dask-backed arrays can defer work and represent it as tasks. Small chunks can add scheduler overhead; large chunks can exceed memory. Global reductions, rechunking and shuffles can be expensive. Choose chunks based on access patterns and operations, and benchmark representative workloads.",
+      },
+      {
+        id: "cgei-ds-512-3-2",
+        kind: "worked-example",
+        title: "Compare eager and lazy calculation",
+        body: "Compute a synthetic temporal mean and anomaly with NumPy/xarray and with a Dask-backed array. Compare results within a justified numerical tolerance, then record chunk dimensions, scheduler, data size, elapsed time and available hardware. Avoid repeated computation of the same expensive intermediate.",
+      },
+      {
+        id: "cgei-ds-512-3-3",
+        kind: "key-points",
+        title: "Chunking decisions",
+        items: [
+          "Match chunks to common reads and reductions.",
+          "Inspect task graphs or execution diagnostics when performance is surprising.",
+          "Measure I/O, memory and scheduler overhead as well as wall time.",
+          "Persist/cache only when reuse and available memory justify it.",
+        ],
+      },
+      {
+        id: "cgei-ds-512-3-4",
+        kind: "checklist",
+        title: "Performance evidence checklist",
+        items: [
+          "Eager and lazy results compared",
+          "Chunk sizes and scheduler recorded",
+          "Data size and environment documented",
+          "Timing repeated or interpreted cautiously",
+          "Memory/I/O limitations stated",
+        ],
+      },
+      {
+        id: "cgei-ds-512-3-5",
+        kind: "prose",
+        title: "When to use orchestration, HPC or cloud compute",
+        body: "Use a simple script or CI schedule for small, bounded workflows; introduce a workflow manager such as Snakemake, Prefect, Airflow or Dagster when dependencies, retries, parallel tasks and monitoring justify the operational cost. HPC schedulers and cloud services add queue, memory, storage, GPU and cost constraints. Request resources explicitly, make tasks restartable, bound retries and send failure notifications. Do not add orchestration before the pipeline's data contracts and idempotence are reliable.",
+      },
+      {
+        id: "cgei-ds-512-3-7",
+        kind: "prose",
+        title: "Workflow managers and when to use them",
+        body: "Snakemake, Prefect, Airflow, and Dagster orchestrate multi-step graphs with retries and schedules. Prefer them after steps are idempotent and contracts are tested. CI can schedule lightweight validation; HPC/cloud job schedulers and GPUs need explicit cost and queue planning. Failure notification matters as much as success paths.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-512-chunking"],
+    assessmentIds: ["cgei-ds-assess-512-chunking"],
+    resourceIds: ["cgei-ds-r-512-dask", "cgei-ds-r-512-xarray"],
+    deliverableIds: ["cgei-ds-d-512-performance"],
+  },
+  {
+    id: "cgei-ds-lesson-5-12-4",
+    kind: "lesson",
+    title: "Robust spatiotemporal feature pipelines",
+    order: 4,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 50,
+    objectives: [
+      {
+        id: "cgei-ds-o-512-pipeline",
+        statement:
+          "Build a validated spatiotemporal feature pipeline with explicit transformations, metadata and missing-data rules.",
+        action: "build and validate",
+        level: "L3",
+        competencyIds: [
+          "cgei-comp-reproducibility",
+          "cgei-comp-quantitative-reasoning",
+        ],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-512-4-1",
+        kind: "prose",
+        title: "Separate source, transformation and feature stages",
+        body: "A robust pipeline separates source discovery, ingestion, validation, transformations, feature calculation, aggregation and export. For each derived variable, record formula, units, spatial/temporal support and missing-data behaviour. Preserve time coordinates and source metadata through each stage.",
+      },
+      {
+        id: "cgei-ds-512-4-2",
+        kind: "worked-example",
+        title: "A synthetic seasonal-anomaly pipeline",
+        body: "Build a synthetic time × y × x array, validate coordinates and units, compute a declared seasonal baseline and anomaly, then aggregate over a documented region. Include checks for unexpected missingness and coordinate drift; preserve the method and source metadata in the output.",
+      },
+      {
+        id: "cgei-ds-512-4-3",
+        kind: "key-points",
+        title: "Pipeline design rules",
+        items: [
+          "Validate each input before transformations.",
+          "Keep transformation formulas and unit changes explicit.",
+          "Distinguish grid aggregation from reprojection/resampling.",
+          "Preserve provenance, processing version and relevant metadata.",
+        ],
+      },
+      {
+        id: "cgei-ds-512-4-4",
+        kind: "checklist",
+        title: "Feature pipeline review",
+        items: [
+          "Input contract checked",
+          "Baseline and aggregation window declared",
+          "Units/support of derived features documented",
+          "Missingness and coordinate drift checked",
+          "Output schema and provenance preserved",
+        ],
+      },
+      {
+        id: "cgei-ds-512-4-5",
+        kind: "worked-example",
+        title: "Capture a run manifest and provenance graph",
+        body: "For each pipeline run, record source asset identifiers and versions, date range, filters, scaling/QA rules, parameters, code commit, environment lockfile, run timestamp and output checksums. A machine-readable manifest is a practical starting point; PROV or RO-Crate can represent richer provenance and relationships between data, software and outputs. Preserve the manifest with the output so a later user can distinguish rerunning the workflow from reproducing or independently replicating the result.",
+      },
+      {
+        id: "cgei-ds-512-4-6",
+        kind: "prose",
+        title: "Make pipeline stages idempotent and failures observable",
+        body: "An idempotent stage can be rerun with the same declared inputs without silently duplicating or corrupting outputs. Write to temporary paths and publish only after validation, use checksums or manifests to detect changed inputs, and log stage, run ID, elapsed time and exception context. Retries should be bounded and limited to transient failures; schema violations or impossible units should fail fast rather than be retried indefinitely.",
+      },
+      {
+        id: "cgei-ds-512-4-7",
+        kind: "prose",
+        title: "Idempotence, schema and checksums",
+        body: "An idempotent step yields the same outputs for the same inputs and parameters—safe to restart after failure. Validate schemas and units at boundaries; store checksums (e.g. SHA-256) for inputs and key products. Logging should record parameters, software versions, and failure modes without embedding secrets.",
+      },
+      {
+        id: "cgei-ds-512-4-8",
+        kind: "worked-example",
+        title: "Run manifest fields (synthetic)",
+        body: "A minimal run manifest lists: input asset IDs and checksums, parameter dict, code commit SHA, environment lockfile hash, start/end timestamps, and output paths with checksums. Without this, a green plot is not a reproducible result.",
+      },
+    ],
+    activityIds: ["cgei-ds-a-512-pipeline"],
+    assessmentIds: ["cgei-ds-assess-512-pipeline"],
+    resourceIds: ["cgei-ds-r-512-xarray", "cgei-ds-r-512-zarr"],
+    deliverableIds: ["cgei-ds-d-512-pipeline"],
+  },
+  {
+    id: "cgei-ds-lesson-5-12-5",
+    kind: "lesson",
+    title: "Validation, performance and reproducible outputs",
+    order: 5,
+    readiness: "draft",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectives: [
+      {
+        id: "cgei-ds-o-512-release",
+        statement:
+          "Compare eager and lazy results and report performance, provenance and limitations with reproducible evidence.",
+        action: "compare and report",
+        level: "L3",
+        competencyIds: ["cgei-comp-uncertainty", "cgei-comp-reproducibility"],
+      },
+    ],
+    content: [
+      {
+        id: "cgei-ds-512-5-1",
+        kind: "prose",
+        title: "Validate content and execution behaviour",
+        body: "Check dimensions, coordinate uniqueness/monotonicity, units, valid ranges, expected missingness, aggregation consistency and output schema. Compare eager and lazy results on a bounded fixture. A pipeline is not validated merely because it completed without an exception.",
+      },
+      {
+        id: "cgei-ds-512-5-2",
+        kind: "worked-example",
+        title: "A release-ready pipeline report",
+        body: "Record data size, chunks, environment, hardware, elapsed time and peak memory when available. Attach numerical agreement, coordinate-integrity, missingness and metadata-preservation checks. Report failed checks and known limitations instead of silently accepting suspect outputs.",
+      },
+      {
+        id: "cgei-ds-512-5-3",
+        kind: "key-points",
+        title: "Evidence to retain",
+        items: [
+          "Source identifiers, versions and licences",
+          "Coordinate and metadata checks",
+          "Eager/lazy numerical comparison",
+          "Performance context and hardware limits",
+          "Output schema, known failures and non-claims",
+        ],
+      },
+      {
+        id: "cgei-ds-512-5-4",
+        kind: "checklist",
+        title: "Pipeline release checklist",
+        items: [
+          "Clean environment and documented dependencies",
+          "Coordinate/support checks pass",
+          "Numerical results independently compared",
+          "Performance evidence includes workload context",
+          "Limitations and provenance included",
+        ],
+      },
+      {
+        id: "cgei-ds-512-5-5",
+        kind: "checklist",
+        title: "Freeze and archive a reproducible study snapshot",
+        items: [
+          "Tag a code release using semantic-versioning conventions",
+          "Separate large data from ordinary Git history and reference it by stable identifiers/manifests",
+          "Record data/model versions and experiment metadata where relevant",
+          "Archive a frozen snapshot with an appropriate DOI service such as Zenodo",
+          "Include environment, licences, data manifest, contact and known limitations",
+          "Verify the archive can be retrieved and the documented workflow can be rerun",
+        ],
+      },
+      {
+        id: "cgei-ds-512-5-7",
+        kind: "prose",
+        title: "Reproducibility levels and provenance",
+        body: "Re-run: same code and data on similar hardware. Reproduce: independent team obtains comparable results from the same materials. Replicate: new data or setting supports the scientific claim. Provenance (PROV, RO-Crate, run metadata) records what actually executed—not only what was intended.",
+      },
+      {
+        id: "cgei-ds-512-5-8",
+        kind: "checklist",
+        title: "Release and archive checklist",
+        items: [
+          "Semantic version of code and tagged release",
+          "Environment lockfile and notes (no secrets)",
+          "Data/manifest separate from Git; large blobs via DOI or object store",
+          "Licence, CITATION, contact",
+          "DOI path (e.g. Zenodo) for frozen snapshot",
+          "Known limitations and sensitivity notes",
+        ],
+      },
+    ],
+    activityIds: ["cgei-ds-a-512-validation"],
+    assessmentIds: ["cgei-ds-assess-512-validation"],
+    resourceIds: [
+      "cgei-ds-r-512-xarray",
+      "cgei-ds-r-512-zarr",
+      "cgei-ds-r-512-cf",
+    ],
+    deliverableIds: ["cgei-ds-d-512-report"],
+  },
 ] as const;
 
 export const activities: CurriculumActivity[] = [
   {
-    "id": "cgei-cl-a-22-energy",
-    "kind": "coding-lab",
-    "title": "Greenhouse and latent-heat lab",
-    "instructions": "Run unit_2_2_climate_system_processes_check.py. Report Te, one-layer Ts, and how increasing Q_E changes the surface residual.",
-    "level": "L2",
-    "estimatedMinutes": 25,
-    "objectiveIds": [
-      "cgei-cl-o-22-energy"
-    ]
+    id: "cgei-ds-a-unit-audit",
+    kind: "independent-practice",
+    title: "Environmental units audit",
+    instructions:
+      "Create a short units sheet for temperature, precipitation, land-surface temperature and energy flux. Convert at least two values, distinguish a depth from a rate, and record one plausibility check.",
+    level: "L2",
+    estimatedMinutes: 20,
+    objectiveIds: ["cgei-ds-o-quantities"],
+    expectedEvidence: [
+      "Units sheet",
+      "Two checked conversions",
+      "One order-of-magnitude note",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-22-feedback",
-    "kind": "guided-practice",
-    "title": "Feedback polarity chain",
-    "instructions": "Write the ice–albedo causal chain and classify Planck feedback as stabilising or amplifying.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-22-feedback"
-    ]
+    id: "cgei-ds-a-rate-gradient",
+    kind: "guided-practice",
+    title: "Rates and gradients in a spatial field",
+    instructions:
+      "Calculate a finite difference for a short temperature series, then interpret the gradient of a simple two-dimensional temperature field with coordinate units.",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-calculus"],
+    expectedEvidence: [
+      "Calculation with units",
+      "One-sentence directional interpretation",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-22-regional",
-    "kind": "reflection",
-    "title": "Regional process note",
-    "instructions": "In five sentences, contrast monsoon moisture pathways with western-disturbance winter precipitation for northern Pakistan without inventing event statistics.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-22-regional"
-    ]
+    id: "cgei-ds-a-least-squares",
+    kind: "coding-lab",
+    title: "Least squares as a projection",
+    instructions:
+      "Reproduce the small least-squares fit with an intercept in a notebook, calculate fitted values and residuals, and verify residual orthogonality.",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-linear-algebra"],
+    expectedEvidence: ["Notebook cell or calculation sheet", "Residual check"],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-22-uhi",
-    "kind": "guided-practice",
-    "title": "UHI definition drill",
-    "instructions": "Define surface vs canopy UHI and give one reason the rural reference can flip the sign in arid cities.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-22-uhi"
-    ]
+    id: "cgei-ds-a-eigen-check",
+    kind: "coding-lab",
+    title: "Verify an eigenpair and inspect SVD",
+    instructions:
+      "Use NumPy to calculate eigenvalues/eigenvectors of the 2×2 covariance example, verify Av = λv, and compare singular values of the centred data matrix.",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-eigen-svd"],
+    expectedEvidence: [
+      "Runnable notebook",
+      "Eigenpair check",
+      "Brief distinction between eigenvalues and singular values",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-24-qc",
-    "kind": "coding-lab",
-    "title": "Station QC lab",
-    "instructions": "Run unit_2_4_data_products_check.py. List which indices fail range, step, spike and persistence checks, and state why missing must not become zero.",
-    "level": "L2",
-    "estimatedMinutes": 25,
-    "objectiveIds": [
-      "cgei-cl-o-24-station"
-    ]
+    id: "cgei-ds-a-stock-flux",
+    kind: "guided-practice",
+    title: "Stock–flux model and steady state",
+    instructions:
+      "Write the units of every term in the lake mass-balance ODE, calculate the steady-state mass, then compare one Euler step against the expected direction of change.",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-odes"],
+    expectedEvidence: [
+      "Equation with units",
+      "Steady-state calculation",
+      "Numerical limitation note",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-24-products",
-    "kind": "guided-practice",
-    "title": "Point vs grid comparison",
-    "instructions": "Using the fixture grid mean and station value, explain why they may legitimately differ without either being a coding error.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-24-products"
-    ]
+    id: "cgei-ds-a-water-balance",
+    kind: "independent-practice",
+    title: "Close a catchment water balance",
+    instructions:
+      "Estimate the missing storage term from precipitation, evapotranspiration and runoff. State the control volume, time period and omitted-flux caveat.",
+    level: "L2",
+    estimatedMinutes: 20,
+    objectiveIds: ["cgei-ds-o-water-balance"],
+    expectedEvidence: ["Balance calculation", "Boundary and limitation note"],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-24-select",
-    "kind": "critique",
-    "title": "Fitness-for-purpose memo",
-    "instructions": "For a local heat-threshold analysis, choose between a nearby station series and a coarse reanalysis grid and justify with the checklist (coverage, support, licence, bias).",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-24-select"
-    ]
+    id: "cgei-ds-a-energy-signs",
+    kind: "independent-practice",
+    title: "Energy-balance sign convention",
+    instructions:
+      "Solve the surface energy balance under the stated sign convention, then rewrite the explanation for a convention with the flux direction reversed without mixing signs.",
+    level: "L2",
+    estimatedMinutes: 20,
+    objectiveIds: ["cgei-ds-o-energy-balance"],
+    expectedEvidence: [
+      "Equation and signed calculation",
+      "Explanation of sign convention",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-25-time",
-    "kind": "coding-lab",
-    "title": "UTC vs PKT daily max lab",
-    "instructions": "Run unit_2_5_climate_data_handling_check.py. Explain which local day owns the 42°C spike under PKT=UTC+5.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-25-time"
-    ]
+    id: "cgei-ds-a-uncertainty-audit",
+    kind: "critique",
+    title: "Uncertainty and dependence audit",
+    instructions:
+      "Calculate a conventional standard error for an independent sample, then critique whether the same formula is justified for autocorrelated daily temperatures or neighbouring pixels.",
+    level: "L2",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-uncertainty"],
+    expectedEvidence: ["Standard-error calculation", "Dependence critique"],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-25-aggregate",
-    "kind": "coding-lab",
-    "title": "Completeness and anomaly lab",
-    "instructions": "From the fixture, report the incomplete-month result, the dense mean, and the +3°C anomaly calculation with baseline stated.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-25-aggregate",
-      "cgei-cl-o-25-anomaly"
-    ]
+    id: "cgei-ds-a-div-curl",
+    kind: "independent-practice",
+    title: "Divergence and curl field check",
+    instructions:
+      "For a stated 2D velocity sketch, identify a region of positive divergence and a region of non-zero curl, and write one environmental interpretation for each.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-div-curl"],
+    expectedEvidence: [
+      "One divergence and one curl region with environmental meaning.",
+    ],
   },
   {
-    "id": "cgei-cl-a-25-workflow",
-    "kind": "critique",
-    "title": "Processing record draft",
-    "instructions": "Write a six-field processing record for a hypothetical Multan Tmax anomaly workflow without inventing downloaded data.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-25-anomaly"
-    ]
+    id: "cgei-ds-a-taylor-error",
+    kind: "guided-practice",
+    title: "First-order error propagation",
+    instructions:
+      "Linearise a smooth scalar function at a reference point and propagate a small input uncertainty through the derivative scale.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-taylor-error"],
+    expectedEvidence: ["Linearised increment and scaled uncertainty."],
   },
   {
-    "id": "cgei-cl-a-26-threshold",
-    "kind": "coding-lab",
-    "title": "Threshold and spell lab",
-    "instructions": "Run unit_2_6_extremes_trend_analysis_check.py. Report the 90th percentile threshold, exceedance count, and max spell length 3 from the binary pattern.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-26-threshold"
-    ]
+    id: "cgei-ds-a-num-stability",
+    kind: "guided-practice",
+    title: "Time-step and float diagnostic",
+    instructions:
+      "Given a simple Euler update, state one stability constraint on the time step and one floating-point risk in the accumulation.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-num-stability"],
+    expectedEvidence: ["Stability bound and float risk named."],
   },
   {
-    "id": "cgei-cl-a-26-trend",
-    "kind": "coding-lab",
-    "title": "Slope lab",
-    "instructions": "Confirm OLS and Sen slopes equal 0.2°C/year and write one sentence on why dependence still matters for uncertainty on real series.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-26-trend"
-    ]
+    id: "cgei-ds-a-optimisation",
+    kind: "guided-practice",
+    title: "Least squares vs gradient step",
+    instructions:
+      "Contrast a closed-form least-squares slope with one gradient-descent update on a quadratic loss and note when a box constraint would bind.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-optimisation"],
+    expectedEvidence: [
+      "One LS expression, one GD update, one constraint remark.",
+    ],
   },
   {
-    "id": "cgei-cl-a-26-inference",
-    "kind": "critique",
-    "title": "Claim rewrite",
-    "instructions": "Rewrite “A 100-year flood is due next year” into a statement that uses probability language and record-length limits.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-26-inference"
-    ]
+    id: "cgei-ds-a-continuity",
+    kind: "guided-practice",
+    title: "Continuity and transport terms",
+    instructions:
+      "Write a continuity balance for a fixed control volume and identify the diffusion and advection contributions in a given PDE form.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-continuity"],
+    expectedEvidence: ["Balance statement with named terms."],
   },
   {
-    "id": "cgei-cl-a-28-seasons",
-    "kind": "coding-lab",
-    "title": "Season definition lab",
-    "instructions": "Run unit_2_8_regional_climate_literacy_check.py. Contrast PMD-style September with JJA and state why analyses must declare the season definition.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-28-seasons"
-    ]
+    id: "cgei-ds-a-buckingham",
+    kind: "guided-practice",
+    title: "Buckingham Pi sketch",
+    instructions:
+      "List base dimensions for a stated problem and form at least one non-dimensional group; interpret it physically.",
+    level: "L2",
+    estimatedMinutes: 15,
+    objectiveIds: ["cgei-ds-o-buckingham"],
+    expectedEvidence: ["Dimension table and one Pi group with meaning."],
   },
   {
-    "id": "cgei-cl-a-28-multan",
-    "kind": "guided-practice",
-    "title": "Multan context sketch",
-    "instructions": "In six sentences, describe arid plain + irrigation setting and why a station and a grid cell can differ without either being a coding error.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-28-multan"
-    ]
+    id: "cgei-ds-a-heat-transfer",
+    kind: "guided-practice",
+    title: "Heat pathway identification",
+    instructions:
+      "For a surface energy sketch, label conduction, convection and radiation pathways and state which term Stefan–Boltzmann governs.",
+    level: "L2",
+    estimatedMinutes: 12,
+    objectiveIds: ["cgei-ds-o-heat-transfer"],
+    expectedEvidence: ["Three pathways labeled; radiation law linked."],
   },
   {
-    "id": "cgei-cl-a-28-evidence",
-    "kind": "critique",
-    "title": "Regional literacy brief",
-    "instructions": "Write a one-page brief for a Multan pre-monsoon heat question: geography, season definition, variable, evidence type, period/baseline, limits, next data need—without inventing station numbers.",
-    "level": "L2",
-    "estimatedMinutes": 25,
-    "objectiveIds": [
-      "cgei-cl-o-28-evidence"
-    ]
+    id: "cgei-ds-a-clt-lln",
+    kind: "guided-practice",
+    title: "LLN/CLT applicability check",
+    instructions:
+      "Given a sampling scenario, state whether LLN and CLT are plausible and name one distribution family that may model the observations.",
+    level: "L2",
+    estimatedMinutes: 12,
+    objectiveIds: ["cgei-ds-o-clt-lln"],
+    expectedEvidence: ["Applicability judgment and one named distribution."],
   },
   {
-    "id": "cgei-cl-a-27-theory",
-    "kind": "guided-practice",
-    "title": "EVT family choice",
-    "instructions": "For a daily rainfall maxima series, state whether a GEV (block maxima) or GPD (peaks-over-threshold) framing is more appropriate and name one diagnostic you would plot before fitting.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-27-theory"
-    ]
+    id: "cgei-ds-a-52-functions",
+    kind: "coding-lab",
+    title: "Refactor a notebook transformation into a tested module",
+    instructions:
+      "Extract a repeated unit conversion or QA-mask operation into src/project/preprocess.py. Add a docstring with units and missing-value behaviour, at least three assertions or unit tests, and a guarded script entry point. Restart the notebook kernel and run the analysis from top to bottom.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-52-structure"],
+    resourceIds: ["cgei-ds-r-52-good-practices"],
+    expectedEvidence: [
+      "Importable module",
+      "Tests for typical and invalid inputs",
+      "Clean-kernel execution note",
+    ],
+    hints: [
+      "Separate file loading from pure transformation functions.",
+      "Test a boundary case and a missing-value case.",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-27-estimate",
-    "kind": "coding-lab",
-    "title": "Return level reporting",
-    "instructions": "Given a fitted GEV (or fixture output), report the 20-year return level with an interval and state how many years of record support that extrapolation.",
-    "level": "L2",
-    "estimatedMinutes": 25,
-    "objectiveIds": [
-      "cgei-cl-o-27-estimate"
-    ]
+    id: "cgei-ds-a-52-numpy",
+    kind: "coding-lab",
+    title: "Array-shape and missing-value audit",
+    instructions:
+      "Create a small (time, latitude, longitude) array from a spatial baseline and a time offset. Assert its shape, demonstrate an intentionally incompatible shape, and compare mean with nanmean after masking a missing observation and a fill value.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-52-arrays"],
+    resourceIds: ["cgei-ds-r-52-numpy-broadcast"],
+    expectedEvidence: [
+      "Shape assertions",
+      "Captured or explained ValueError",
+      "Valid-count and NaN-safe summary",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-27-extend",
-    "kind": "critique",
-    "title": "Nonstationarity caution",
-    "instructions": "Rewrite a claim that \"the 100-year flood is now the 20-year flood\" into a statement that separates observed frequency change from a fitted nonstationary model assumption.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-27-extend"
-    ]
+    id: "cgei-ds-a-52-pkt-daily",
+    kind: "data-lab",
+    title: "Build Pakistan-local daily maxima from hourly UTC data",
+    instructions:
+      "Use the synthetic hourly fixture or a small hand-built table. Convert UTC timestamps to Asia/Karachi before grouping by local date; include an observation at 19:00 UTC and explain why it belongs to the following PKT date. Report valid-hour counts and check duplicate timestamps.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-52-time"],
+    resourceIds: ["cgei-ds-r-52-pandas-time"],
+    expectedEvidence: [
+      "Runnable daily aggregation",
+      "Boundary-case assertion",
+      "Valid-observation count",
+      "Join/duplicate checks",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-27-apply",
-    "kind": "guided-practice",
-    "title": "Design value communication",
-    "instructions": "List three pieces of metadata a planner needs alongside a return level (series length, threshold/block choice, climate nonstationarity note).",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-27-apply"
-    ]
+    id: "cgei-ds-a-52-package",
+    kind: "independent-practice",
+    title: "Package a reproducible mini research table",
+    instructions:
+      "Create a project with raw/interim/processed folders, a module, tests, pinned requirements, a README, a data dictionary and a provenance manifest. Write a CSV and Parquet output and verify that the read-back schema and row count match.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-52-environment"],
+    resourceIds: [
+      "cgei-ds-r-52-python-venv",
+      "cgei-ds-r-52-parquet",
+      "cgei-ds-r-52-good-practices",
+    ],
+    expectedEvidence: [
+      "Project tree",
+      "Recreation instructions",
+      "Schema/row-count check",
+      "Data dictionary and provenance manifest",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-hierarchy",
-    "kind": "guided-practice",
-    "title": "Model hierarchy map",
-    "instructions": "Place GCM, RCM, and a statistical downscaling step on a hierarchy diagram for a Multan heat question and name one uncertainty each layer adds.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-29-hierarchy"
-    ]
+    id: "cgei-ds-a-52-regex",
+    kind: "coding-lab",
+    title: "Test a metadata filename parser",
+    instructions:
+      "Write a named-group regex for a documented filename pattern, parse sensor/date/band fields, validate the date separately, and test at least three malformed names. Export the resulting metadata table to CSV or Parquet with a column dictionary suitable for a Python–R hand-off.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-52-metadata"],
+    resourceIds: ["cgei-ds-r-52-python-regex", "cgei-ds-r-52-parquet"],
+    expectedEvidence: [
+      "Parser function",
+      "Positive and negative tests",
+      "Calendar-date validation",
+      "Interoperability note",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-eval",
-    "kind": "critique",
-    "title": "Evaluation before ensemble count",
-    "instructions": "Critique a statement that prefers a 30-model mean over a 5-model subset without historical skill metrics for the target variable.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-29-evaluation"
-    ]
+    id: "cgei-ds-a-53-question-plan",
+    kind: "independent-practice",
+    title: "Write an EDA question plan",
+    instructions:
+      "For one environmental table, state the research question, observational unit/support, time and spatial coverage, missingness questions, plausibility checks and the claim/non-claim pair that will guide the first figures.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-53-eda-questions"],
+    resourceIds: ["cgei-ds-r-53-pandas-eda"],
+    expectedEvidence: [
+      "One-page EDA question plan",
+      "Observational unit definition",
+      "Ranked data-quality checks",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-bias",
-    "kind": "guided-practice",
-    "title": "Bias-adjustment limits",
-    "instructions": "Name one bias-adjustment method and one extreme-value property it can distort; state how you would check the distortion.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-29-bias-adjust"
-    ]
+    id: "cgei-ds-a-53-distribution",
+    kind: "coding-lab",
+    title: "Compare distribution and relationship displays",
+    instructions:
+      "Produce a histogram and ECDF for a skewed environmental variable, plus a scatterplot or hexbin for a relationship. Change the histogram bin width, inspect overplotting, and write what each graphic reveals or hides.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-53-distributions"],
+    resourceIds: [
+      "cgei-ds-r-53-seaborn-distributions",
+      "cgei-ds-r-53-seaborn-relational",
+    ],
+    expectedEvidence: [
+      "Three labelled figures",
+      "Bin-width or overplotting comparison",
+      "Interpretation and limitation note",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-scenarios",
-    "kind": "guided-practice",
-    "title": "SSP and forced-vs-internal literacy",
-    "instructions": "In four sentences, distinguish a historical experiment from an SSP projection, state what internal variability still contributes at regional scale, and name one reason the highest-emission scenario is debated for plausibility — without inventing concentration pathways.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-29-scenarios"
-    ]
+    id: "cgei-ds-a-53-time",
+    kind: "coding-lab",
+    title: "Plot a climate anomaly with a declared baseline",
+    instructions:
+      "Create a monthly or seasonal anomaly plot against an explicit baseline period. Label the baseline and season rule, show missing periods, and inspect a lag plot or ACF before writing an inferential statement.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-53-temporal"],
+    resourceIds: ["cgei-ds-r-53-matplotlib"],
+    expectedEvidence: [
+      "Anomaly figure and caption",
+      "Baseline definition",
+      "Dependence diagnostic",
+      "Missing-data note",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-downscale",
-    "kind": "critique",
-    "title": "Downscaling assumption check",
-    "instructions": "Compare dynamical and statistical downscaling on stationarity/transfer assumptions and cost. State one failure mode of each for a Multan heat question.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-29-downscale"
-    ]
+    id: "cgei-ds-a-53-map-caption",
+    kind: "independent-practice",
+    title: "Audit a Multan LST map caption",
+    instructions:
+      "Write or critique a caption that identifies LST rather than air temperature, units, scene/composite date, product/sensor, resolution, CRS, colour limits, palette rationale, QA/fill masking and no-data treatment. If district summaries appear, include valid-pixel counts and dispersion.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-53-maps"],
+    resourceIds: ["cgei-ds-r-53-cartopy", "cgei-ds-r-53-colormaps"],
+    expectedEvidence: [
+      "Complete map caption",
+      "Missing-metadata checklist",
+      "Colour-scale justification",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-29-use",
-    "kind": "guided-practice",
-    "title": "Projection uncertainty decomposition",
-    "instructions": "For a 20-year local heat projection, rank scenario, model structural, and internal-variability uncertainty by expected contribution and justify the ranking in three sentences.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-29-use"
-    ]
+    id: "cgei-ds-a-53-uncertainty",
+    kind: "critique",
+    title: "Figure claim and uncertainty audit",
+    instructions:
+      "Critique a figure for uncertainty, dependence, truncated axes, missing data and causal overclaim. Redraft its caption with one supported claim and at least one explicit non-claim.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-53-communication"],
+    resourceIds: ["cgei-ds-r-53-wilke"],
+    expectedEvidence: [
+      "Figure audit checklist",
+      "Revised caption",
+      "Claim/non-claim pair",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-210-families",
-    "kind": "guided-practice",
-    "title": "Product family choice",
-    "instructions": "For a southern Punjab seasonal rainfall question, choose between a CMIP ensemble, a CORDEX RCM set, or a national service product and justify with resolution and documentation needs.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-210-families"
-    ]
+    id: "cgei-ds-a-54-distributions",
+    kind: "coding-lab",
+    title: "Fit and critique environmental distribution models",
+    instructions:
+      "Define the variable support and sample period, inspect histogram/ECDF/QQ diagnostics, fit two plausible candidate distributions, and explain how zeros, parameter estimation and dependence affect the conclusion. Submit reproducible code and a short model-choice note.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-54-distributions"],
+    resourceIds: ["cgei-ds-r-54-scipy-bootstrap"],
+    expectedEvidence: [
+      "Sample-definition note",
+      "Two candidate fits and diagnostics",
+      "Model-choice rationale and limitations",
+      "Reproducible notebook or script",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-210-select",
-    "kind": "critique",
-    "title": "Documentation checklist",
-    "instructions": "Write a 5-line product card: source, experiment/scenario, variable, grid, access date—using placeholders only where the real value is unknown.",
-    "level": "L1",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-210-select"
-    ]
+    id: "cgei-ds-a-54-sampling",
+    kind: "independent-practice",
+    title: "Define the target population and support",
+    instructions:
+      "Choose one environmental dataset. Define its target population, observational unit, spatial/temporal support, sampling mechanism and main dependence concern. Explain which population claims are and are not defensible.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-54-sampling"],
+    resourceIds: ["cgei-ds-r-54-wilks"],
+    expectedEvidence: [
+      "Population/support statement",
+      "Sampling design classification",
+      "Generalisation limitation",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-210-cmip7",
-    "kind": "guided-practice",
-    "title": "CMIP7 transition awareness",
-    "instructions": "State one planning implication of the CMIP7 Assessment Fast Track for a thesis that currently uses CMIP6, without claiming specific unavailable datasets.",
-    "level": "L1",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-210-cmip7"
-    ]
+    id: "cgei-ds-a-54-interval",
+    kind: "coding-lab",
+    title: "Calculate and interpret a confidence interval",
+    instructions:
+      "Reproduce the n=30, mean=0.8 °C, SD=1.2 °C worked example. Calculate SE and the approximate 95% interval, then write one sentence explaining what 95% means and one limitation if observations are dependent.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-54-intervals"],
+    resourceIds: ["cgei-ds-r-54-scipy-bootstrap"],
+    expectedEvidence: [
+      "Calculation with units",
+      "Interpretation/non-interpretation pair",
+      "Dependence caveat",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-211-concepts",
-    "kind": "guided-practice",
-    "title": "Detection vs attribution",
-    "instructions": "In one paragraph, separate a detection statement (observed change) from an attribution statement (causes) for regional heat, using IPCC-style caution.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-211-concepts"
-    ]
+    id: "cgei-ds-a-54-tests",
+    kind: "independent-practice",
+    title: "Write an honest test interpretation",
+    instructions:
+      "Given a null hypothesis, a p-value and an estimated effect, write a plain-language interpretation. Identify the Type I/II error trade-off and determine whether a family of tests needs an FDR adjustment.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-54-tests"],
+    resourceIds: ["cgei-ds-r-54-statsmodels-multitest"],
+    expectedEvidence: [
+      "Correct conditional p-value statement",
+      "Effect-size interpretation",
+      "Multiple-testing decision",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-211-event",
-    "kind": "critique",
-    "title": "Event attribution reading",
-    "instructions": "List what an extreme-event attribution study must define (event class, region, metric, counterfactual) and one claim it still cannot support alone.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-211-event"
-    ]
+    id: "cgei-ds-a-54-regression",
+    kind: "coding-lab",
+    title: "Fit LST ~ NDVI and inspect residuals",
+    instructions:
+      "Fit a simple OLS model to a sample table. Report slope units, confidence interval and R², then produce residual-vs-fitted and QQ plots. State why the slope is descriptive and what dependence may invalidate default standard errors.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-54-regression"],
+    resourceIds: ["cgei-ds-r-54-statsmodels-ols"],
+    expectedEvidence: [
+      "Runnable regression notebook",
+      "Residual plots",
+      "Effect-size and limitation paragraph",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-211-limits",
-    "kind": "guided-practice",
-    "title": "Single-event limits",
-    "instructions": "Rewrite \"this heatwave was caused by climate change\" into a probabilistically honest sentence that a methods section could defend.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-211-limits"
-    ]
+    id: "cgei-ds-a-54-effect-size",
+    kind: "critique",
+    title: "Compare effect sizes and categorical evidence",
+    instructions:
+      "Compare two reported effects with different sample sizes and p-values. Explain which effect is practically meaningful for an environmental decision, choose between a rank method and ANOVA for a group comparison, and construct a hits/misses/false-alarms/correct-negatives table before explaining what a chi-square test can and cannot establish.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-54-effect-size", "cgei-ds-o-54-categorical"],
+    resourceIds: ["cgei-ds-r-54-nist"],
+    expectedEvidence: [
+      "Effect-size comparison",
+      "Method-choice rationale",
+      "Assumptions and non-claims",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-212-ml",
-    "kind": "critique",
-    "title": "ML vs baseline",
-    "instructions": "Specify a simple baseline (e.g. quantile mapping or analog day) that an ML downscaler must beat under spatial or temporal holdout before adoption.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-212-ml"
-    ]
+    id: "cgei-ds-a-55-workflow",
+    kind: "independent-practice",
+    title: "Design an idempotent acquisition workflow",
+    instructions:
+      "Draw the acquire → validate → transform → analyse → publish flow for a climate or EO dataset. Define raw/interim/processed paths, a stable key, rerun behaviour and a manifest.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-55-workflow"],
+    resourceIds: ["cgei-ds-r-55-good-practices"],
+    expectedEvidence: [
+      "Workflow diagram or README section",
+      "Manifest draft",
+      "Rerun and duplicate-handling rule",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-212-services",
-    "kind": "guided-practice",
-    "title": "Climate service brief",
-    "instructions": "Draft a 6-line service brief for a heat early-warning product: user, lead time, metric, uncertainty language, update cadence, non-claim.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-212-services"
-    ]
+    id: "cgei-ds-a-55-sql",
+    kind: "guided-practice",
+    title: "Query and validate station observations",
+    instructions:
+      "1) Run unit_5_5_sql_practice_check.py and reproduce the INNER JOIN June means (A=42.0 n=3, B=35.0 n=2). 2) Write the LEFT JOIN form with date predicates in ON; confirm Station C appears with NULL mean and n_valid=0. 3) Explain why moving d.date filters to WHERE would drop Station C. 4) Report the orphan-key diagnostic query result after the deliberate station_id=999 insert.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-55-sql"],
+    resourceIds: ["cgei-ds-r-55-sqlite"],
+    expectedEvidence: [
+      "SQL query",
+      "Validation checklist",
+      "Expected output grain",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-212-baseline",
-    "kind": "guided-practice",
-    "title": "Open AI forecast caution",
-    "instructions": "Name two verification questions you would ask before using an open AI weather/climate forecast in a Multan case study.",
-    "level": "L1",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-212-ai-forecast"
-    ]
+    id: "cgei-ds-a-55-api",
+    kind: "coding-lab",
+    title: "Build a polite API client and cache",
+    instructions:
+      "Implement a GET request with timeouts, status validation and bounded retry/backoff. Save the exact request metadata and response under data/raw/; demonstrate a failed status and a repeatable cached run.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-55-api"],
+    resourceIds: ["cgei-ds-r-55-requests"],
+    expectedEvidence: [
+      "Tested request function",
+      "Recorded request metadata",
+      "Raw cache and validation result",
+    ],
+    hints: [
+      "Use Retry-After when the provider supplies it.",
+      "Do not retry non-idempotent operations without understanding their semantics.",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-212-prob",
-    "kind": "guided-practice",
-    "title": "Brier skill vs climatology",
-    "instructions": "Explain why a raw Brier score can look favourable for a rare-event forecast that is barely better than climatology, and write the BSS formula relative to a climatological reference in one line.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-212-prob"
-    ]
+    id: "cgei-ds-a-55-provenance",
+    kind: "critique",
+    title: "Licence and credential audit",
+    instructions:
+      "Review a public environmental-data repository or a synthetic example. Identify missing licence attribution, hard-coded credentials, undocumented endpoints and sensitive location exposure; rank each issue by severity.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-55-provenance"],
+    resourceIds: ["cgei-ds-r-55-cds-licence", "cgei-ds-r-55-secret-scanning"],
+    expectedEvidence: [
+      "Licence/attribution note",
+      "Secret-handling plan",
+      "Severity-ranked findings",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-212-digital",
-    "kind": "critique",
-    "title": "Kilometre-scale data cost",
-    "instructions": "State what convection-permitting resolution resolves that a 50 km grid cannot, and give one order-of-magnitude data-volume implication for a user who needs hourly multi-variable fields.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-212-digital-twin"
-    ]
-  },
-
-  {
-    "id": "cgei-cl-a-213-systems",
-    "kind": "guided-practice",
-    "title": "S2S system card",
-    "instructions": "Identify one operational S2S system and record: forecast type (probabilistic/deterministic), typical lead range, and a variable relevant to Multan heat or monsoon.",
-    "level": "L1",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-213-systems"
-    ]
+    id: "cgei-ds-a-55-package",
+    kind: "project-milestone",
+    title: "Assemble a reproducible acquisition package",
+    instructions:
+      "Package a script, permitted sample or synthetic stub, manifest, licence note, README rerun instructions and .env.example. Run from a clean environment and verify the expected outputs.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-55-package"],
+    resourceIds: ["cgei-ds-r-55-good-practices", "cgei-ds-r-55-cds-licence"],
+    expectedEvidence: [
+      "Acquisition script",
+      "Manifest and licence note",
+      "README and safe .env.example",
+      "Clean-run validation log",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-213-skill",
-    "kind": "critique",
-    "title": "Skill horizon",
-    "instructions": "Explain why skill for local daily rainfall at week 3 may be near climatology even when large-scale index skill exists, and what that means for a decision product.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-213-skill"
-    ]
+    id: "cgei-ds-a-56-multiple",
+    kind: "guided-practice",
+    title: "Interpret a regression with an interaction",
+    instructions:
+      "Write a model formula for LST, NDVI, built fraction and season. State the reference season, interpret the NDVI slope in both seasons from a coefficient table, and give slope units.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-56-multiple"],
+    resourceIds: ["cgei-ds-r-56-statsmodels-ols"],
+    expectedEvidence: [
+      "Model formula",
+      "Coefficient interpretation with units",
+      "One non-causal limitation",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-213-decisions",
-    "kind": "guided-practice",
-    "title": "Decision lead alignment",
-    "instructions": "Match one agricultural or health decision in southern Punjab to a lead window and state whether S2S or seasonal climatology is the more honest input.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-213-decisions"
-    ]
+    id: "cgei-ds-a-56-diagnostics",
+    kind: "independent-practice",
+    title: "Diagnose a problematic regression",
+    instructions:
+      "Inspect residual-versus-fitted and residual-versus-time plots plus a supplied VIF table. Identify the strongest warning, propose one defensible revision, and state what evidence would change your decision.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-56-diagnostics"],
+    resourceIds: ["cgei-ds-r-56-vif"],
+    expectedEvidence: [
+      "Diagnostic interpretation",
+      "Justified model revision",
+      "Before/after comparison plan",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-21-baseline",
-    "kind": "coding-lab",
-    "title": "Normal and anomaly lab",
-    "instructions": "Run unit_2_1_weather_climate_timescales_check.py. Report the year-1 normal and month-18 anomaly, and explain why the cold spike month does not reverse the full-series trend sign.",
-    "level": "L2",
-    "estimatedMinutes": 25,
-    "objectiveIds": [
-      "cgei-cl-o-21-weather-climate"
-    ]
+    id: "cgei-ds-a-56-uncertainty",
+    kind: "guided-practice",
+    title: "Choose the interval for the question",
+    instructions:
+      "For the mean LST in a stratum, a new pixel observation, and uncertainty under spatial sampling, choose an interval or resampling design and list assumptions.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-56-uncertainty"],
+    resourceIds: ["cgei-ds-r-56-statsmodels-ols"],
+    expectedEvidence: [
+      "Interval-choice table",
+      "Named uncertainty sources",
+      "Assumptions and exclusions",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-21-stats",
-    "kind": "coding-lab",
-    "title": "Window sensitivity lab",
-    "instructions": "Compare full-series and first-12-month slopes from the fixture output and state which window is more seasonal-dominated.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-21-stats"
-    ]
+    id: "cgei-ds-a-56-dependence",
+    kind: "coding-lab",
+    title: "Compare random and grouped validation",
+    instructions:
+      "On a synthetic dataset with repeated observations per district, compare random K-fold with GroupKFold by district. Check group overlap, compare metrics and explain which split matches a claim about unseen districts.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-56-dependence"],
+    resourceIds: ["cgei-ds-r-56-groupkfold"],
+    expectedEvidence: [
+      "Split audit",
+      "Metric comparison",
+      "Defended evaluation target",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-21-evidence",
-    "kind": "critique",
-    "title": "Climate claim critique",
-    "instructions": "Rewrite a vague claim (\"it is getting hotter\") into a checklist-complete statement with variable, domain, period, baseline and statistic—without inventing data.",
-    "level": "L1",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-21-evidence"
-    ]
+    id: "cgei-ds-a-56-leakage",
+    kind: "coding-lab",
+    title: "Leakage split lab",
+    instructions:
+      "Run unit_5_6_leakage_split_check.py. Report rmse_random, rmse_group, and whether groups overlapped under the random split. State the generalization claim each protocol supports.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-56-dependence"],
   },
   {
-    "id": "cgei-cl-a-23-moisture",
-    "kind": "coding-lab",
-    "title": "Clausius–Clapeyron ratio",
-    "instructions": "Run unit_2_3_atmosphere_check.py. Record e_sat at 300 K and 301 K and the fractional increase. Explain why ~7%/K matters for humid heat and short-duration rainfall potential, and one reason local rainfall need not scale the same way.",
-    "level": "L2",
-    "estimatedMinutes": 20,
-    "objectiveIds": [
-      "cgei-cl-o-23-moisture"
-    ]
+    id: "cgei-ds-a-56-comparison",
+    kind: "project-milestone",
+    title: "Write a leakage-aware model comparison memo",
+    instructions:
+      "Compare a simple baseline and a multiple-regression candidate on identical blocked folds. Report MAE, RMSE, bias, subgroup performance, uncertainty and at least one failure case.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-56-comparison"],
+    resourceIds: ["cgei-ds-r-56-groupkfold"],
+    expectedEvidence: [
+      "Validation design",
+      "Metrics table",
+      "Failure-case note",
+      "Non-claims",
+    ],
+    required: true,
   },
   {
-    "id": "cgei-cl-a-23-pbl",
-    "kind": "critique",
-    "title": "Urban night cooling factors",
-    "instructions": "List geometry, heat storage, and stability as factors that can keep urban nights warmer. State why LST-based SUHI is not air-temperature UHI.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-23-pbl"
-    ]
+    id: "cgei-ds-a-56-baseline-lab",
+    kind: "coding-lab",
+    title: "Baseline comparison lab",
+    instructions:
+      "Run unit_5_6_baseline_compare_check.py. Report MAE/RMSE for mean baseline and linear candidate. State why both must use the same test rows.",
+    level: "L3",
+    estimatedMinutes: 20,
+    objectiveIds: ["cgei-ds-o-56-comparison"],
   },
   {
-    "id": "cgei-cl-a-23-nwp",
-    "kind": "critique",
-    "title": "Ensemble vs single forecast",
-    "instructions": "Explain why an ensemble of convection-permitting members is preferred over one deterministic run, and what ensemble spread does not automatically provide.",
-    "level": "L2",
-    "estimatedMinutes": 15,
-    "objectiveIds": [
-      "cgei-cl-o-23-nwp"
-    ]
-  }
+    id: "cgei-ds-a-58-matrix",
+    kind: "coding-lab",
+    title: "Matrix construction and scaling audit",
+    instructions:
+      "Build a time-by-space matrix, define orientation, centre columns, document missing values and compare covariance with correlation scaling.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-58-matrix"],
+    expectedEvidence: [
+      "Runnable analysis or calculation",
+      "Method and assumptions documented",
+      "Interpretation and limitations stated",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-58-weighting",
+    kind: "coding-lab",
+    title: "Area-weighted EOF comparison",
+    instructions:
+      "Run synthetic EOF with and without sqrt(area) weights; compare patterns and variance fractions and document the grid convention.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-58-weighting"],
+    expectedEvidence: [
+      "Runnable analysis or calculation",
+      "Method and assumptions documented",
+      "Interpretation and limitations stated",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-58-svd",
+    kind: "coding-lab",
+    title: "PCA/EOF notebook",
+    instructions:
+      "Compute singular values, scores, patterns and variance fractions; verify dimensions and sign-invariant reconstruction.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-58-modes"],
+    expectedEvidence: [
+      "Runnable analysis or calculation",
+      "Method and assumptions documented",
+      "Interpretation and limitations stated",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-58-stability",
+    kind: "coding-lab",
+    title: "Mode stability challenge",
+    instructions:
+      "Compare modes across split periods or bootstrap samples, align signs and report eigenvalue gaps and instability.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-58-stability"],
+    expectedEvidence: [
+      "Runnable analysis or calculation",
+      "Method and assumptions documented",
+      "Interpretation and limitations stated",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-58-maps",
+    kind: "coding-lab",
+    title: "Composite and field-significance brief",
+    instructions:
+      "Create a composite/regression map; report group counts, uncertainty, multiplicity treatment and non-causal interpretation.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-58-maps"],
+    expectedEvidence: [
+      "Runnable analysis or calculation",
+      "Method and assumptions documented",
+      "Interpretation and limitations stated",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-57-audit",
+    kind: "guided-practice",
+    title: "Audit a monthly series",
+    instructions:
+      "Given a synthetic monthly series with a duplicate timestamp and missing month, produce a time-index QA table, state the expected frequency, and document how gaps will be handled.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-57-structure"],
+    expectedEvidence: [
+      "Duplicate and missing periods are reported; no silent imputation; units and frequency stated.",
+    ],
+    hints: [
+      "Start with a transparent baseline.",
+      "Keep the evaluation timestamps and assumptions explicit.",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-57-decompose",
+    kind: "guided-practice",
+    title: "Build baseline anomalies and decomposition",
+    instructions:
+      "Create monthly anomalies against a pre-declared baseline and compare the observed series with STL trend, seasonal and remainder components.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-57-decompose"],
+    expectedEvidence: [
+      "Baseline and seasonal rule stated; decomposition period justified; missingness caveat included.",
+    ],
+    hints: [
+      "Start with a transparent baseline.",
+      "Keep the evaluation timestamps and assumptions explicit.",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-57-trend",
+    kind: "guided-practice",
+    title: "Estimate a dependence-aware trend",
+    instructions:
+      "Fit a linear trend to a deterministic synthetic AR(1)-like series, inspect residual ACF and compare conventional versus HAC uncertainty.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-57-dependence"],
+    expectedEvidence: [
+      "Slope units correct; residual dependence discussed; HAC lag sensitivity noted; no attribution claim.",
+    ],
+    hints: [
+      "Start with a transparent baseline.",
+      "Keep the evaluation timestamps and assumptions explicit.",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-57-temporal",
+    kind: "coding-lab",
+    title: "Evaluate forecasts with rolling origin",
+    instructions:
+      "Compare a seasonal-naïve baseline with a candidate forecast using expanding chronological folds; assert train timestamps precede test timestamps.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-57-forecast"],
+    expectedEvidence: [
+      "No shuffled folds; identical test timestamps; preprocessing fit inside training folds.",
+    ],
+    hints: [
+      "Start with a transparent baseline.",
+      "Keep the evaluation timestamps and assumptions explicit.",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-57-failure",
+    kind: "project-milestone",
+    title: "Write a forecast failure memo",
+    instructions:
+      "Report MAE, RMSE and bias for overall data and a synthetic extreme-period subgroup; explain a model failure under distribution shift.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-57-compare"],
+    expectedEvidence: [
+      "Baseline comparison is fair; subgroup failure visible; limitations and non-claims explicit.",
+    ],
+    hints: [
+      "Start with a transparent baseline.",
+      "Keep the evaluation timestamps and assumptions explicit.",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-59-family",
+    kind: "coding-lab",
+    title: "GLM family and link comparison",
+    instructions:
+      "Fit two plausible GLM specifications to a documented environmental response, justify family/link from outcome support and mean–variance behaviour, and compare diagnostics and interpretable contrasts rather than p-values alone.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-59-family"],
+    expectedEvidence: [
+      "Model family decision table",
+      "Reproducible fit",
+      "Interpretable effect contrast",
+      "Limitations",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-59-mixed",
+    kind: "coding-lab",
+    title: "Repeated-station mixed-model audit",
+    instructions:
+      "Draw the grouping structure, fit a defensible random-intercept model, inspect convergence and residual dependence, and explain what the random effect does not address.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-59-dependence"],
+    expectedEvidence: [
+      "Sampling hierarchy",
+      "Model formula",
+      "Diagnostic record",
+      "Interpretation",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-59-bayes",
+    kind: "guided-practice",
+    title: "Prior predictive and posterior reporting",
+    instructions:
+      "Specify likelihood and priors for a small environmental example, simulate prior predictive outcomes, state convergence checks and draft a sensitivity note.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-59-bayes"],
+    expectedEvidence: [
+      "Prior rationale",
+      "Prior predictive plot or table",
+      "Diagnostics checklist",
+      "Sensitivity statement",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-59-diagnostics",
+    kind: "coding-lab",
+    title: "Residual and deployment-aligned validation",
+    instructions:
+      "Audit residual patterns, dispersion, influence and convergence; select a holdout strategy matching intended use and document model failures.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-59-diagnostics"],
+    expectedEvidence: [
+      "Diagnostic plots",
+      "Validation rationale",
+      "Failure-case comparison",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-59-report",
+    kind: "independent-practice",
+    title: "Environmental model card",
+    instructions:
+      "Produce a concise model card with response support, sampling unit, family/link, grouping or priors, validation, diagnostics, effect scale, uncertainty, limitations and explicit non-claims.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-59-report"],
+    expectedEvidence: [
+      "Model card",
+      "Interpretable contrast",
+      "Reproducibility information",
+      "Non-claims",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-510-dag",
+    kind: "guided-practice",
+    title: "Draw and critique an environmental causal DAG",
+    instructions:
+      "Choose an exposure–outcome question in climate or urban ecology. Draw a DAG, mark confounders, mediators, colliders and selection, then propose at least one plausible alternative graph.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-510-dag"],
+    expectedEvidence: [
+      "Annotated DAG",
+      "Variable-role table",
+      "Assumption note",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-510-estimand",
+    kind: "independent-practice",
+    title: "Write a target-trial estimand",
+    instructions:
+      "Specify eligibility, exposure strategies, time zero, follow-up, outcome, target population and causal contrast for a proposed environmental intervention.",
+    level: "L3",
+    estimatedMinutes: 25,
+    objectiveIds: ["cgei-ds-o-510-estimand"],
+    expectedEvidence: ["One-page estimand sheet", "Explicit time alignment"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-510-adjustment",
+    kind: "guided-practice",
+    title: "Justify an adjustment set",
+    instructions:
+      "Use your DAG to identify a defensible adjustment set and explain why tempting mediators or colliders are excluded. State positivity, consistency and exchangeability concerns.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-510-identification"],
+    expectedEvidence: ["Adjustment rationale", "Identification checklist"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-510-designs",
+    kind: "critique",
+    title: "Compare causal evaluation designs",
+    instructions:
+      "Compare a matching/weighting approach with difference-in-differences for a hypothetical heat-action intervention. List design assumptions, diagnostics, clustering needs and failure modes.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-510-designs"],
+    expectedEvidence: [
+      "Design comparison matrix",
+      "Pre-analysis diagnostic plan",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-510-sensitivity",
+    kind: "independent-practice",
+    title: "Build a causal sensitivity and reporting plan",
+    instructions:
+      "Propose at least two sensitivity analyses and a negative control, explain what each can and cannot detect, and draft a transparent causal-results paragraph.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-510-sensitivity"],
+    expectedEvidence: [
+      "Sensitivity matrix",
+      "Limitations-first results paragraph",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-511-vcs",
+    kind: "guided-practice",
+    title: "Create a reviewable research change",
+    instructions:
+      "Create a repository, branch for one bounded change, inspect the diff, record the methodological rationale and commit without credentials or private data.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-511-vcs"],
+    expectedEvidence: ["Focused commit", "Reviewed diff", "Provenance note"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-511-contract",
+    kind: "independent-practice",
+    title: "Write a data contract",
+    instructions:
+      "Specify schema, units, CRS, temporal conventions, missingness and failure behaviour for one environmental input table or raster stack.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-511-design"],
+    expectedEvidence: [
+      "Contract document",
+      "Validation function",
+      "Invalid-input test",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-511-tests",
+    kind: "coding-lab",
+    title: "Test scientific invariants and edge cases",
+    instructions:
+      "Write tests for a conversion or data transformation, including reference values, justified numerical tolerance, missing data and a known regression case.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-511-testing"],
+    expectedEvidence: [
+      "Runnable tests",
+      "Edge-case coverage",
+      "Rationale for assertions",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-511-env",
+    kind: "coding-lab",
+    title: "Recreate a clean execution environment",
+    instructions:
+      "Create a clean environment from the declared specification, follow documented data acquisition steps, run the analysis and record outputs and non-determinism.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-511-environment"],
+    expectedEvidence: [
+      "Environment file or lockfile",
+      "Clean-rerun record",
+      "Data provenance note",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-511-release",
+    kind: "project-milestone",
+    title: "Prepare a scientific software release",
+    instructions:
+      "Configure CI checks and draft a release note listing code/data versions, checks run, scientific review evidence, limitations and known issues.",
+    level: "L3",
+    estimatedMinutes: 40,
+    objectiveIds: ["cgei-ds-o-511-release"],
+    expectedEvidence: [
+      "CI workflow",
+      "Release checklist",
+      "Evidence-bounded release note",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-512-inventory",
+    kind: "guided-practice",
+    title: "Inventory a multidimensional environmental dataset",
+    instructions:
+      "Inspect a small gridded dataset and record variables, dimensions, coordinate ranges, units, calendar/frequency, grid metadata, missingness and provenance.",
+    level: "L3",
+    estimatedMinutes: 30,
+    objectiveIds: ["cgei-ds-o-512-model"],
+    expectedEvidence: [
+      "Dataset inventory",
+      "Coordinate/metadata audit",
+      "Provenance note",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-512-align",
+    kind: "coding-lab",
+    title: "Diagnose coordinate alignment",
+    instructions:
+      "Create two synthetic arrays with a deliberately missing timestamp or grid coordinate. Inspect alignment results and justify a common-support, reindexing or interpolation decision.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-512-alignment"],
+    expectedEvidence: [
+      "Runnable alignment example",
+      "Missing-coordinate explanation",
+      "Method decision",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-512-chunking",
+    kind: "coding-lab",
+    title: "Benchmark eager and lazy computation",
+    instructions:
+      "Compare a bounded NumPy/xarray calculation with a Dask-backed version. Check numerical agreement and record data size, chunk sizes, scheduler, runtime and environment.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-512-chunking"],
+    expectedEvidence: [
+      "Comparison notebook",
+      "Tolerance rationale",
+      "Performance context",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-512-pipeline",
+    kind: "coding-lab",
+    title: "Build a validated spatiotemporal feature pipeline",
+    instructions:
+      "Build a synthetic time × y × x pipeline with coordinate checks, a declared seasonal baseline, anomaly calculation, regional aggregation and metadata-preserving output.",
+    level: "L3",
+    estimatedMinutes: 45,
+    objectiveIds: ["cgei-ds-o-512-pipeline"],
+    expectedEvidence: [
+      "Runnable pipeline",
+      "Coordinate/missingness checks",
+      "Output metadata",
+    ],
+    required: true,
+  },
+  {
+    id: "cgei-ds-a-512-validation",
+    kind: "project-milestone",
+    title: "Prepare a pipeline validation report",
+    instructions:
+      "Summarize numerical agreement, coordinate integrity, units, missingness, provenance and performance context. Record failures and explicit non-claims.",
+    level: "L3",
+    estimatedMinutes: 35,
+    objectiveIds: ["cgei-ds-o-512-release"],
+    expectedEvidence: [
+      "Validation report",
+      "Performance table",
+      "Limitations and provenance",
+    ],
+    required: true,
+  },
 ] as const;
 
 export const assessments: CurriculumAssessment[] = [
   {
-    "id": "cgei-cl-assess-22-energy",
-    "kind": "formative",
-    "title": "Energy processes",
-    "purpose": "Assess greenhouse model and latent heat.",
-    "objectiveIds": [
-      "cgei-cl-o-22-energy"
+    id: "cgei-ds-assess-unit-diagnostic",
+    kind: "diagnostic",
+    title: "Unit 5.1 entry diagnostic",
+    purpose:
+      "Identify prerequisite gaps in algebra, units, rates and probability before the unit.",
+    objectiveIds: [
+      "cgei-ds-o-quantities",
+      "cgei-ds-o-calculus",
+      "cgei-ds-o-linear-algebra",
+      "cgei-ds-o-eigen-svd",
+      "cgei-ds-o-odes",
+      "cgei-ds-o-water-balance",
+      "cgei-ds-o-energy-balance",
+      "cgei-ds-o-uncertainty",
+      "cgei-ds-o-div-curl",
+      "cgei-ds-o-taylor-error",
+      "cgei-ds-o-num-stability",
+      "cgei-ds-o-optimisation",
+      "cgei-ds-o-continuity",
+      "cgei-ds-o-buckingham",
+      "cgei-ds-o-heat-transfer",
+      "cgei-ds-o-clt-lln",
     ],
-    "questionIds": [
-      "cgei-cl-q-22-001",
-      "cgei-cl-q-22-002"
-    ],
-    "required": true
+    required: false,
   },
   {
-    "id": "cgei-cl-assess-22-feedback",
-    "kind": "formative",
-    "title": "Feedbacks and sensitivity",
-    "purpose": "Assess feedback polarity and AR6 ranges.",
-    "objectiveIds": [
-      "cgei-cl-o-22-feedback"
+    id: "cgei-ds-assess-unit-quiz",
+    kind: "quiz",
+    title: "Unit 5.1 concept and calculation check",
+    purpose:
+      "Check conceptual understanding and short calculations across the sixteen substantive lessons.",
+    objectiveIds: [
+      "cgei-ds-o-quantities",
+      "cgei-ds-o-calculus",
+      "cgei-ds-o-linear-algebra",
+      "cgei-ds-o-eigen-svd",
+      "cgei-ds-o-odes",
+      "cgei-ds-o-water-balance",
+      "cgei-ds-o-energy-balance",
+      "cgei-ds-o-uncertainty",
+      "cgei-ds-o-div-curl",
+      "cgei-ds-o-taylor-error",
+      "cgei-ds-o-num-stability",
+      "cgei-ds-o-optimisation",
+      "cgei-ds-o-continuity",
+      "cgei-ds-o-buckingham",
+      "cgei-ds-o-heat-transfer",
+      "cgei-ds-o-clt-lln",
     ],
-    "questionIds": [
-      "cgei-cl-q-22-003"
+    questionIds: [
+      "CGEI-05-Q001",
+      "CGEI-05-Q002",
+      "CGEI-05-Q003",
+      "CGEI-05-Q004",
+      "CGEI-05-Q005",
+      "CGEI-05-Q006",
+      "CGEI-05-Q007",
+      "CGEI-05-Q008",
+      "CGEI-05-Q009",
+      "CGEI-05-Q010",
+      "CGEI-05-Q011",
+      "CGEI-05-Q012",
+      "CGEI-05-Q013",
+      "CGEI-05-Q014",
+      "CGEI-05-Q015",
+      "CGEI-05-Q016",
+      "CGEI-05-Q017",
+      "CGEI-05-Q018",
+      "CGEI-05-Q019",
+      "CGEI-05-Q020",
+      "CGEI-05-Q021",
+      "CGEI-05-Q022",
+      "CGEI-05-Q023",
+      "CGEI-05-Q024",
+      "CGEI-05-Q025",
+      "CGEI-05-Q026",
+      "CGEI-05-Q027",
+      "CGEI-05-Q028",
+      "CGEI-05-Q029",
+      "CGEI-05-Q030",
+      "CGEI-05-Q031",
+      "CGEI-05-Q032",
+      "CGEI-05-Q033",
+      "CGEI-05-Q034",
+      "CGEI-05-Q035",
+      "CGEI-05-Q036",
+      "CGEI-05-Q037",
+      "CGEI-05-Q038",
+      "CGEI-05-Q039",
+      "CGEI-05-Q040",
+      "CGEI-05-Q041",
+      "CGEI-05-Q042",
+      "CGEI-05-Q043",
+      "CGEI-05-Q044",
+      "CGEI-05-Q045",
+      "CGEI-05-Q046",
+      "CGEI-05-Q047",
+      "CGEI-05-Q048",
+      "CGEI-05-Q049",
+      "CGEI-05-Q050",
+      "CGEI-05-Q051",
+      "CGEI-05-Q052",
+      "CGEI-05-Q053",
+      "CGEI-05-Q054",
+      "CGEI-05-Q055",
+      "CGEI-05-Q056",
+      "CGEI-05-Q057",
+      "CGEI-05-Q058",
+      "CGEI-05-Q059",
     ],
-    "required": true
+    passThreshold: 0.8,
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-22-regional",
-    "kind": "formative",
-    "title": "Regional systems",
-    "purpose": "Assess monsoon/WD process knowledge.",
-    "objectiveIds": [
-      "cgei-cl-o-22-regional"
-    ],
-    "questionIds": [
-      "cgei-cl-q-22-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-unit-check",
+    kind: "formative",
+    title: "Units and dimensional analysis checkpoint",
+    purpose: "Check conversions, dimensions and plausibility reasoning.",
+    objectiveIds: ["cgei-ds-o-quantities"],
+    questionIds: ["CGEI-05-Q001", "CGEI-05-Q027"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-22-uhi",
-    "kind": "formative",
-    "title": "UHI definitions",
-    "purpose": "Assess surface vs canopy UHI.",
-    "objectiveIds": [
-      "cgei-cl-o-22-uhi"
-    ],
-    "questionIds": [
-      "cgei-cl-q-22-005"
-    ],
-    "required": true
+    id: "cgei-ds-assess-calculus-check",
+    kind: "formative",
+    title: "Rates and fields checkpoint",
+    purpose: "Check accumulation and derivative units.",
+    objectiveIds: ["cgei-ds-o-calculus"],
+    questionIds: ["CGEI-05-Q027", "CGEI-05-Q028"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-24-qc",
-    "kind": "formative",
-    "title": "Station QC",
-    "purpose": "Assess QC rule application.",
-    "objectiveIds": [
-      "cgei-cl-o-24-station"
-    ],
-    "questionIds": [
-      "cgei-cl-q-24-001",
-      "cgei-cl-q-24-002"
-    ],
-    "required": true
+    id: "cgei-ds-assess-linear-algebra",
+    kind: "formative",
+    title: "Least-squares checkpoint",
+    purpose: "Check coefficient calculation and residual geometry.",
+    objectiveIds: ["cgei-ds-o-linear-algebra"],
+    questionIds: ["CGEI-05-Q029", "CGEI-05-Q030"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-24-products",
-    "kind": "formative",
-    "title": "Product types",
-    "purpose": "Assess observation vs product distinction.",
-    "objectiveIds": [
-      "cgei-cl-o-24-products"
-    ],
-    "questionIds": [
-      "cgei-cl-q-24-003"
-    ],
-    "required": true
+    id: "cgei-ds-assess-eigen-svd",
+    kind: "formative",
+    title: "Eigenvalue and SVD checkpoint",
+    purpose: "Check eigenpair reasoning and matrix-factorisation distinctions.",
+    objectiveIds: ["cgei-ds-o-eigen-svd"],
+    questionIds: ["CGEI-05-Q031"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-24-select",
-    "kind": "formative",
-    "title": "Product selection",
-    "purpose": "Assess fitness-for-purpose reasoning.",
-    "objectiveIds": [
-      "cgei-cl-o-24-select"
-    ],
-    "questionIds": [
-      "cgei-cl-q-24-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-ode-check",
+    kind: "formative",
+    title: "Stock–flux checkpoint",
+    purpose: "Check units and steady-state interpretation.",
+    objectiveIds: ["cgei-ds-o-odes"],
+    questionIds: ["CGEI-05-Q032"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-25-time",
-    "kind": "formative",
-    "title": "Time conventions",
-    "purpose": "Assess UTC/local and accumulation awareness.",
-    "objectiveIds": [
-      "cgei-cl-o-25-time"
-    ],
-    "questionIds": [
-      "cgei-cl-q-25-001",
-      "cgei-cl-q-25-002"
-    ],
-    "required": true
+    id: "cgei-ds-assess-water-check",
+    kind: "formative",
+    title: "Water-balance checkpoint",
+    purpose: "Check missing-flux calculation and boundary assumptions.",
+    objectiveIds: ["cgei-ds-o-water-balance"],
+    questionIds: ["CGEI-05-Q033"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-25-aggregate",
-    "kind": "formative",
-    "title": "Aggregation and anomalies",
-    "purpose": "Assess completeness and anomaly definition.",
-    "objectiveIds": [
-      "cgei-cl-o-25-aggregate",
-      "cgei-cl-o-25-anomaly"
-    ],
-    "questionIds": [
-      "cgei-cl-q-25-003"
-    ],
-    "required": true
+    id: "cgei-ds-assess-energy-check",
+    kind: "formative",
+    title: "Energy-balance checkpoint",
+    purpose: "Check signed arithmetic under an explicit convention.",
+    objectiveIds: ["cgei-ds-o-energy-balance"],
+    questionIds: ["CGEI-05-Q034"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-25-workflow",
-    "kind": "formative",
-    "title": "Workflow provenance",
-    "purpose": "Assess processing-record completeness.",
-    "objectiveIds": [
-      "cgei-cl-o-25-anomaly"
-    ],
-    "questionIds": [
-      "cgei-cl-q-25-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-probability-check",
+    kind: "formative",
+    title: "Uncertainty checkpoint",
+    purpose: "Check standard error and the independent-sample assumption.",
+    objectiveIds: ["cgei-ds-o-uncertainty"],
+    questionIds: ["CGEI-05-Q035"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-26-threshold",
-    "kind": "formative",
-    "title": "Thresholds",
-    "purpose": "Assess threshold and duration concepts.",
-    "objectiveIds": [
-      "cgei-cl-o-26-threshold"
-    ],
-    "questionIds": [
-      "cgei-cl-q-26-001",
-      "cgei-cl-q-26-002"
-    ],
-    "required": true
+    id: "cgei-ds-assess-div-curl",
+    kind: "formative",
+    title: "Divergence and curl checkpoint",
+    purpose: "Check divergence/curl interpretation in environmental flows.",
+    objectiveIds: ["cgei-ds-o-div-curl"],
+    questionIds: ["CGEI-05-Q036", "CGEI-05-Q037", "CGEI-05-Q038"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-26-trend",
-    "kind": "formative",
-    "title": "Trends",
-    "purpose": "Assess slope interpretation.",
-    "objectiveIds": [
-      "cgei-cl-o-26-trend"
-    ],
-    "questionIds": [
-      "cgei-cl-q-26-003"
-    ],
-    "required": true
+    id: "cgei-ds-assess-taylor-error",
+    kind: "formative",
+    title: "Taylor and error propagation checkpoint",
+    purpose: "Check linearisation and derivative-based uncertainty scaling.",
+    objectiveIds: ["cgei-ds-o-taylor-error"],
+    questionIds: ["CGEI-05-Q039", "CGEI-05-Q040", "CGEI-05-Q041"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-26-inference",
-    "kind": "formative",
-    "title": "Inference discipline",
-    "purpose": "Assess return-period and reporting discipline.",
-    "objectiveIds": [
-      "cgei-cl-o-26-inference"
-    ],
-    "questionIds": [
-      "cgei-cl-q-26-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-num-stability",
+    kind: "formative",
+    title: "Numerical stability checkpoint",
+    purpose: "Check time-step limits and floating-point error reasoning.",
+    objectiveIds: ["cgei-ds-o-num-stability"],
+    questionIds: ["CGEI-05-Q042", "CGEI-05-Q043", "CGEI-05-Q044"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-28-seasons",
-    "kind": "formative",
-    "title": "Seasons",
-    "purpose": "Assess season-definition discipline.",
-    "objectiveIds": [
-      "cgei-cl-o-28-seasons"
-    ],
-    "questionIds": [
-      "cgei-cl-q-28-001",
-      "cgei-cl-q-28-002"
-    ],
-    "required": true
+    id: "cgei-ds-assess-optimisation",
+    kind: "formative",
+    title: "Optimisation concepts checkpoint",
+    purpose: "Check least-squares versus gradient-descent concepts.",
+    objectiveIds: ["cgei-ds-o-optimisation"],
+    questionIds: ["CGEI-05-Q045", "CGEI-05-Q046", "CGEI-05-Q047"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-28-multan",
-    "kind": "formative",
-    "title": "Multan context",
-    "purpose": "Assess regional setting literacy.",
-    "objectiveIds": [
-      "cgei-cl-o-28-multan"
-    ],
-    "questionIds": [
-      "cgei-cl-q-28-003"
-    ],
-    "required": true
+    id: "cgei-ds-assess-continuity",
+    kind: "formative",
+    title: "Continuity and transport checkpoint",
+    purpose: "Check continuity, diffusion and advection forms.",
+    objectiveIds: ["cgei-ds-o-continuity"],
+    questionIds: ["CGEI-05-Q048", "CGEI-05-Q049", "CGEI-05-Q050"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-28-evidence",
-    "kind": "formative",
-    "title": "Evidence practice",
-    "purpose": "Assess institution and evidence-type awareness.",
-    "objectiveIds": [
-      "cgei-cl-o-28-evidence"
-    ],
-    "questionIds": [
-      "cgei-cl-q-28-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-buckingham",
+    kind: "formative",
+    title: "Buckingham Pi checkpoint",
+    purpose: "Check dimensional analysis and non-dimensional groups.",
+    objectiveIds: ["cgei-ds-o-buckingham"],
+    questionIds: ["CGEI-05-Q051", "CGEI-05-Q052", "CGEI-05-Q053"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-21-baseline",
-    "kind": "formative",
-    "title": "Weather vs climate",
-    "purpose": "Assess baseline and anomaly reasoning.",
-    "objectiveIds": [
-      "cgei-cl-o-21-weather-climate"
-    ],
-    "questionIds": [
-      "cgei-cl-q-21-001",
-      "cgei-cl-q-21-002"
-    ],
-    "required": true
+    id: "cgei-ds-assess-heat-transfer",
+    kind: "formative",
+    title: "Heat transfer pathways checkpoint",
+    purpose: "Distinguish conduction, convection and radiation pathways.",
+    objectiveIds: ["cgei-ds-o-heat-transfer"],
+    questionIds: ["CGEI-05-Q054", "CGEI-05-Q055", "CGEI-05-Q056"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-21-stats",
-    "kind": "formative",
-    "title": "Windows and missing data",
-    "purpose": "Assess window sensitivity and missing-data handling.",
-    "objectiveIds": [
-      "cgei-cl-o-21-stats"
-    ],
-    "questionIds": [
-      "cgei-cl-q-21-003"
-    ],
-    "required": true
+    id: "cgei-ds-assess-clt-lln",
+    kind: "formative",
+    title: "LLN, CLT and distributions checkpoint",
+    purpose: "Check LLN/CLT conditions and common distributions.",
+    objectiveIds: ["cgei-ds-o-clt-lln"],
+    questionIds: ["CGEI-05-Q057", "CGEI-05-Q058", "CGEI-05-Q059"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-21-evidence",
-    "kind": "formative",
-    "title": "Evidence language",
-    "purpose": "Assess claim completeness and attribution caution.",
-    "objectiveIds": [
-      "cgei-cl-o-21-evidence"
-    ],
-    "questionIds": [
-      "cgei-cl-q-21-004"
-    ],
-    "required": true
+    id: "cgei-ds-assess-52-structure",
+    kind: "practical",
+    title: "Scientific Python structure check",
+    purpose:
+      "Evaluate whether a transformation is importable, unit-aware, tested, and independent of hidden notebook state.",
+    objectiveIds: ["cgei-ds-o-52-structure"],
+    questionIds: ["cgei-ds-q-52-001", "cgei-ds-q-52-002"],
+    activityIds: ["cgei-ds-a-52-functions"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-23-moisture",
-    "kind": "formative",
-    "title": "Moist thermodynamics",
-    "purpose": "Assess humidity and CC scaling literacy.",
-    "objectiveIds": [
-      "cgei-cl-o-23-moisture"
-    ],
-    "questionIds": [
-      "cgei-cl-q-23-cc",
-      "cgei-cl-q-23-tw"
-    ],
-    "required": true
+    id: "cgei-ds-assess-52-arrays",
+    kind: "formative",
+    title: "Array shapes and missingness check",
+    purpose:
+      "Diagnose shape alignment, broadcasting errors, fill values and NaN-safe reductions.",
+    objectiveIds: ["cgei-ds-o-52-arrays"],
+    questionIds: ["cgei-ds-q-52-003", "cgei-ds-q-52-004", "cgei-ds-q-52-010"],
+    activityIds: ["cgei-ds-a-52-numpy"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-23-pbl",
-    "kind": "formative",
-    "title": "Boundary layer and urban night",
-    "purpose": "Assess PBL and urban energy concepts.",
-    "objectiveIds": [
-      "cgei-cl-o-23-pbl"
-    ],
-    "questionIds": [
-      "cgei-cl-q-23-pbl"
-    ],
-    "required": true
+    id: "cgei-ds-assess-52-time",
+    kind: "practical",
+    title: "Timezone-safe daily aggregation check",
+    purpose:
+      "Verify local-date assignment, timestamp parsing, valid observation counts and safe join assumptions.",
+    objectiveIds: ["cgei-ds-o-52-time"],
+    questionIds: ["cgei-ds-q-52-005", "cgei-ds-q-52-006"],
+    activityIds: ["cgei-ds-a-52-pkt-daily"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-23-nwp",
-    "kind": "formative",
-    "title": "NWP concepts",
-    "purpose": "Assess ensemble and parameterisation literacy.",
-    "objectiveIds": [
-      "cgei-cl-o-23-nwp"
-    ],
-    "questionIds": [
-      "cgei-cl-q-23-ens"
-    ],
-    "required": true
+    id: "cgei-ds-assess-52-package",
+    kind: "portfolio-review",
+    title: "Reproducible package review",
+    purpose:
+      "Check the environment, project structure, data dictionary, provenance, open-format outputs and clean recreation instructions.",
+    objectiveIds: ["cgei-ds-o-52-environment"],
+    questionIds: ["cgei-ds-q-52-007", "cgei-ds-q-52-008"],
+    activityIds: ["cgei-ds-a-52-package"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-27-theory",
-    "kind": "formative",
-    "title": "EVT theory",
-    "purpose": "Assess GEV/GPD framing, return levels and declustering concepts.",
-    "objectiveIds": [
-      "cgei-cl-o-27-theory"
-    ],
-    "questionIds": [
-      "cgei-cl-q-27-001",
-      "cgei-cl-q-27-002"
-    ],
-    "required": false
+    id: "cgei-ds-assess-52-metadata",
+    kind: "practical",
+    title: "Metadata parser and interoperability check",
+    purpose:
+      "Check filename parsing, malformed-input handling, calendar validation and cross-language hand-off documentation.",
+    objectiveIds: ["cgei-ds-o-52-metadata"],
+    questionIds: ["cgei-ds-q-52-009", "cgei-ds-q-52-011"],
+    activityIds: ["cgei-ds-a-52-regex"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-27-estimate",
-    "kind": "formative",
-    "title": "EVT estimation",
-    "purpose": "Assess fit diagnostics and extrapolation limits.",
-    "objectiveIds": [
-      "cgei-cl-o-27-estimate"
-    ],
-    "questionIds": [
-      "cgei-cl-q-27-003"
-    ],
-    "required": false
+    id: "cgei-ds-assess-53-questions",
+    kind: "formative",
+    title: "EDA question and data-quality check",
+    purpose:
+      "Check observational-unit thinking, missingness and distributional summaries before plotting.",
+    objectiveIds: ["cgei-ds-o-53-eda-questions"],
+    questionIds: ["cgei-ds-q-53-001", "cgei-ds-q-53-002"],
+    activityIds: ["cgei-ds-a-53-question-plan"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-27-extend",
-    "kind": "formative",
-    "title": "EVT extensions",
-    "purpose": "Assess non-stationarity and dependence language.",
-    "objectiveIds": [
-      "cgei-cl-o-27-extend"
-    ],
-    "questionIds": [
-      "cgei-cl-q-27-004"
-    ],
-    "required": false
+    id: "cgei-ds-assess-53-distribution",
+    kind: "formative",
+    title: "Distribution and relationship check",
+    purpose:
+      "Check chart selection, binning, overplotting and residual diagnostics.",
+    objectiveIds: ["cgei-ds-o-53-distributions"],
+    questionIds: ["cgei-ds-q-53-003", "cgei-ds-q-53-004"],
+    activityIds: ["cgei-ds-a-53-distribution"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-27-apply",
-    "kind": "formative",
-    "title": "EVT communication",
-    "purpose": "Assess responsible return-level reporting.",
-    "objectiveIds": [
-      "cgei-cl-o-27-apply"
-    ],
-    "questionIds": [
-      "cgei-cl-q-27-005"
-    ],
-    "required": false
+    id: "cgei-ds-assess-53-time",
+    kind: "practical",
+    title: "Climate anomaly and dependence check",
+    purpose:
+      "Check baseline transparency, missing-period handling and temporal dependence interpretation.",
+    objectiveIds: ["cgei-ds-o-53-temporal"],
+    questionIds: ["cgei-ds-q-53-005", "cgei-ds-q-53-006"],
+    activityIds: ["cgei-ds-a-53-time"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-hierarchy",
-    "kind": "formative",
-    "title": "Model hierarchy",
-    "purpose": "Assess GCM/RCM/reanalysis distinctions.",
-    "objectiveIds": [
-      "cgei-cl-o-29-hierarchy"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-001"
-    ],
-    "required": false
+    id: "cgei-ds-assess-53-maps",
+    kind: "practical",
+    title: "Analytical map metadata check",
+    purpose:
+      "Check map variable semantics, CRS/resolution, colour-scale logic and missing-data representation.",
+    objectiveIds: ["cgei-ds-o-53-maps"],
+    questionIds: ["cgei-ds-q-53-007", "cgei-ds-q-53-008"],
+    activityIds: ["cgei-ds-a-53-map-caption"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-scenarios",
-    "kind": "formative",
-    "title": "Scenarios and ensembles",
-    "purpose": "Assess SSP/RCP and forced-vs-internal literacy.",
-    "objectiveIds": [
-      "cgei-cl-o-29-scenarios"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-002"
-    ],
-    "required": false
+    id: "cgei-ds-assess-53-communication",
+    kind: "portfolio-review",
+    title: "Figure communication review",
+    purpose:
+      "Check uncertainty visibility, non-causal wording and explicit limitations in the EDA report.",
+    objectiveIds: ["cgei-ds-o-53-communication"],
+    questionIds: ["cgei-ds-q-53-009", "cgei-ds-q-53-010"],
+    activityIds: ["cgei-ds-a-53-uncertainty"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-evaluation",
-    "kind": "formative",
-    "title": "Model evaluation",
-    "purpose": "Assess skill metrics and process-based checks.",
-    "objectiveIds": [
-      "cgei-cl-o-29-evaluation"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-003"
-    ],
-    "required": false
+    id: "cgei-ds-assess-54-distributions",
+    kind: "practical",
+    title: "Probability distributions and fit diagnostics",
+    purpose:
+      "Check support, moments, distribution-family choice and goodness-of-fit limitations.",
+    objectiveIds: ["cgei-ds-o-54-distributions"],
+    questionIds: ["cgei-ds-q-54-011", "cgei-ds-q-54-012"],
+    activityIds: ["cgei-ds-a-54-distributions"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-bias",
-    "kind": "formative",
-    "title": "Bias adjustment",
-    "purpose": "Assess methods, stationarity assumptions and artefacts.",
-    "objectiveIds": [
-      "cgei-cl-o-29-bias-adjust"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-004"
-    ],
-    "required": false
+    id: "cgei-ds-assess-54-sampling",
+    kind: "formative",
+    title: "Population and sampling check",
+    purpose:
+      "Check population definition, sample support, sampling design and dependence-aware generalisation.",
+    objectiveIds: ["cgei-ds-o-54-sampling"],
+    questionIds: ["cgei-ds-q-54-001", "cgei-ds-q-54-002", "cgei-ds-q-54-016"],
+    activityIds: ["cgei-ds-a-54-sampling"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-downscale",
-    "kind": "formative",
-    "title": "Downscaling approaches",
-    "purpose": "Assess dynamical vs statistical vs ML trade-offs.",
-    "objectiveIds": [
-      "cgei-cl-o-29-downscale"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-005"
-    ],
-    "required": false
+    id: "cgei-ds-assess-54-intervals",
+    kind: "practical",
+    title: "Interval estimation check",
+    purpose:
+      "Check standard-error calculations, confidence-interval interpretation and the consequences of dependence.",
+    objectiveIds: ["cgei-ds-o-54-intervals"],
+    questionIds: ["cgei-ds-q-54-003", "cgei-ds-q-54-004"],
+    activityIds: ["cgei-ds-a-54-interval"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-29-use",
-    "kind": "formative",
-    "title": "Using projections",
-    "purpose": "Assess uncertainty decomposition and responsible framing.",
-    "objectiveIds": [
-      "cgei-cl-o-29-use"
-    ],
-    "questionIds": [
-      "cgei-cl-q-29-006"
-    ],
-    "required": false
+    id: "cgei-ds-assess-54-tests",
+    kind: "formative",
+    title: "Hypothesis testing and FDR check",
+    purpose:
+      "Check conditional p-value interpretation, Type I/II errors and multiple-testing adjustment.",
+    objectiveIds: ["cgei-ds-o-54-tests"],
+    questionIds: ["cgei-ds-q-54-005", "cgei-ds-q-54-006"],
+    activityIds: ["cgei-ds-a-54-tests"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-210-families",
-    "kind": "formative",
-    "title": "Product families",
-    "purpose": "Assess CORDEX/NEX/ISIMIP/WorldClim comparison.",
-    "objectiveIds": [
-      "cgei-cl-o-210-families"
-    ],
-    "questionIds": [
-      "cgei-cl-q-210-001"
-    ],
-    "required": false
+    id: "cgei-ds-assess-54-regression",
+    kind: "practical",
+    title: "Regression diagnostics check",
+    purpose:
+      "Check slope units, residual diagnostics and the distinction between association and causation.",
+    objectiveIds: ["cgei-ds-o-54-regression"],
+    questionIds: ["cgei-ds-q-54-007", "cgei-ds-q-54-008"],
+    activityIds: ["cgei-ds-a-54-regression"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-210-select",
-    "kind": "formative",
-    "title": "Model selection and manifest",
-    "purpose": "Assess documentation and ensemble-reporting discipline.",
-    "objectiveIds": [
-      "cgei-cl-o-210-select"
+    id: "cgei-ds-assess-54-effect-size",
+    kind: "portfolio-review",
+    title: "Effect-size and method-choice review",
+    purpose:
+      "Check practical interpretation and whether alternative methods address the stated problem and assumptions.",
+    objectiveIds: ["cgei-ds-o-54-effect-size", "cgei-ds-o-54-categorical"],
+    questionIds: [
+      "cgei-ds-q-54-009",
+      "cgei-ds-q-54-010",
+      "cgei-ds-q-54-013",
+      "cgei-ds-q-54-017",
     ],
-    "questionIds": [
-      "cgei-cl-q-210-002"
-    ],
-    "required": false
+    activityIds: ["cgei-ds-a-54-effect-size"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-210-cmip7",
-    "kind": "formative",
-    "title": "CMIP7 awareness",
-    "purpose": "Assess transition planning and verification flags.",
-    "objectiveIds": [
-      "cgei-cl-o-210-cmip7"
-    ],
-    "questionIds": [
-      "cgei-cl-q-210-003"
-    ],
-    "required": false
+    id: "cgei-ds-assess-55-workflow",
+    kind: "formative",
+    title: "Workflow and idempotence check",
+    purpose:
+      "Check stage ordering, raw-data preservation, manifest completeness and safe reruns.",
+    objectiveIds: ["cgei-ds-o-55-workflow"],
+    questionIds: ["cgei-ds-q-55-001", "cgei-ds-q-55-002"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-211-concepts",
-    "kind": "formative",
-    "title": "Detection vs attribution",
-    "purpose": "Assess signal/noise/fingerprint and single-record limits.",
-    "objectiveIds": [
-      "cgei-cl-o-211-concepts"
+    id: "cgei-ds-assess-55-sql",
+    kind: "formative",
+    title: "Relational query and join check",
+    purpose:
+      "Check date filtering, grouping, stable keys and row-count diagnostics.",
+    objectiveIds: ["cgei-ds-o-55-sql"],
+    questionIds: [
+      "cgei-ds-q-55-003",
+      "cgei-ds-q-55-004",
+      "cgei-ds-q-55-018",
+      "cgei-ds-q-55-019",
     ],
-    "questionIds": [
-      "cgei-cl-q-211-001"
-    ],
-    "required": false
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-211-event",
-    "kind": "formative",
-    "title": "Event attribution framing",
-    "purpose": "Assess PR/FAR and rapid-protocol stages.",
-    "objectiveIds": [
-      "cgei-cl-o-211-event"
-    ],
-    "questionIds": [
-      "cgei-cl-q-211-002"
-    ],
-    "required": false
+    id: "cgei-ds-assess-55-api",
+    kind: "formative",
+    title: "API acquisition reliability check",
+    purpose:
+      "Check status handling, bounded retries, timeouts and response validation.",
+    objectiveIds: ["cgei-ds-o-55-api"],
+    questionIds: ["cgei-ds-q-55-005", "cgei-ds-q-55-006", "cgei-ds-q-55-011"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-211-limits",
-    "kind": "formative",
-    "title": "Attribution limits and language",
-    "purpose": "Assess hard cases and calibrated likelihood language.",
-    "objectiveIds": [
-      "cgei-cl-o-211-limits"
-    ],
-    "questionIds": [
-      "cgei-cl-q-211-003"
-    ],
-    "required": false
+    id: "cgei-ds-assess-55-provenance",
+    kind: "formative",
+    title: "Licence and credential safety check",
+    purpose:
+      "Check that learners distinguish public access from reuse permission and separate templates from secrets.",
+    objectiveIds: ["cgei-ds-o-55-provenance"],
+    questionIds: ["cgei-ds-q-55-007", "cgei-ds-q-55-008", "cgei-ds-q-55-012"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-212-ml",
-    "kind": "formative",
-    "title": "ML vs statistical baselines",
-    "purpose": "Assess required baselines before claiming ML skill.",
-    "objectiveIds": [
-      "cgei-cl-o-212-ml"
-    ],
-    "questionIds": [
-      "cgei-cl-q-212-001"
-    ],
-    "required": false
+    id: "cgei-ds-assess-55-package",
+    kind: "formative",
+    title: "Reproducible package acceptance check",
+    purpose:
+      "Check manifest completeness, rerun instructions, safe configuration and clean-environment reproducibility.",
+    objectiveIds: ["cgei-ds-o-55-package"],
+    questionIds: ["cgei-ds-q-55-009", "cgei-ds-q-55-010"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-212-prob",
-    "kind": "formative",
-    "title": "Probabilistic skill",
-    "purpose": "Assess Brier decomposition and rare-event skill.",
-    "objectiveIds": [
-      "cgei-cl-o-212-prob"
+    id: "cgei-ds-assess-56-multiple",
+    kind: "formative",
+    title: "Regression specification checkpoint",
+    purpose:
+      "Check interaction interpretation, reference categories and coefficient units.",
+    objectiveIds: ["cgei-ds-o-56-multiple"],
+    questionIds: [
+      "cgei-ds-q-56-001",
+      "cgei-ds-q-56-002",
+      "cgei-ds-q-56-011",
+      "cgei-ds-q-56-012",
     ],
-    "questionIds": [
-      "cgei-cl-q-212-002"
-    ],
-    "required": false
+    activityIds: ["cgei-ds-a-56-multiple"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-212-ai",
-    "kind": "formative",
-    "title": "Open AI forecast use",
-    "purpose": "Assess post-processing and blending discipline.",
-    "objectiveIds": [
-      "cgei-cl-o-212-ai-forecast"
-    ],
-    "questionIds": [
-      "cgei-cl-q-212-003"
-    ],
-    "required": false
+    id: "cgei-ds-assess-56-diagnostics",
+    kind: "formative",
+    title: "Diagnostics checkpoint",
+    purpose:
+      "Check interpretation of residual patterns and collinearity indicators.",
+    objectiveIds: ["cgei-ds-o-56-diagnostics"],
+    questionIds: ["cgei-ds-q-56-003", "cgei-ds-q-56-004"],
+    activityIds: ["cgei-ds-a-56-diagnostics"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-212-services",
-    "kind": "formative",
-    "title": "Climate services",
-    "purpose": "Assess service design dimensions and co-production.",
-    "objectiveIds": [
-      "cgei-cl-o-212-services"
+    id: "cgei-ds-assess-56-uncertainty",
+    kind: "formative",
+    title: "Uncertainty checkpoint",
+    purpose:
+      "Distinguish confidence intervals, prediction intervals and dependence-aware resampling.",
+    objectiveIds: ["cgei-ds-o-56-uncertainty"],
+    questionIds: [
+      "cgei-ds-q-56-005",
+      "cgei-ds-q-56-006",
+      "cgei-ds-q-56-013",
+      "cgei-ds-q-56-014",
     ],
-    "questionIds": [
-      "cgei-cl-q-212-004"
-    ],
-    "required": false
+    activityIds: ["cgei-ds-a-56-uncertainty"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-212-digital",
-    "kind": "formative",
-    "title": "Digital twins and km-scale",
-    "purpose": "Assess resolution gains and data-volume constraints.",
-    "objectiveIds": [
-      "cgei-cl-o-212-digital-twin"
+    id: "cgei-ds-assess-56-dependence",
+    kind: "formative",
+    title: "Dependence and validation checkpoint",
+    purpose:
+      "Check effective sample size reasoning and group-aware validation.",
+    objectiveIds: ["cgei-ds-o-56-dependence"],
+    questionIds: [
+      "cgei-ds-q-56-007",
+      "cgei-ds-q-56-008",
+      "cgei-ds-q-56-015",
+      "cgei-ds-q-56-017",
     ],
-    "questionIds": [
-      "cgei-cl-q-212-005"
-    ],
-    "required": false
+    activityIds: ["cgei-ds-a-56-dependence", "cgei-ds-a-56-leakage"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-213-systems",
-    "kind": "formative",
-    "title": "S2S systems",
-    "purpose": "Assess seasonal/subseasonal systems and lead conventions.",
-    "objectiveIds": [
-      "cgei-cl-o-213-systems"
+    id: "cgei-ds-assess-56-comparison",
+    kind: "formative",
+    title: "Model comparison checkpoint",
+    purpose:
+      "Check fair baseline comparison, metric interpretation and non-causal reporting.",
+    objectiveIds: ["cgei-ds-o-56-comparison"],
+    questionIds: [
+      "cgei-ds-q-56-009",
+      "cgei-ds-q-56-010",
+      "cgei-ds-q-56-016",
+      "cgei-ds-q-56-018",
     ],
-    "questionIds": [
-      "cgei-cl-q-213-001"
-    ],
-    "required": false
+    activityIds: ["cgei-ds-a-56-comparison", "cgei-ds-a-56-baseline-lab"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-213-skill",
-    "kind": "formative",
-    "title": "S2S skill and verification",
-    "purpose": "Assess RPSS/ROC and region/season/variable dependence.",
-    "objectiveIds": [
-      "cgei-cl-o-213-skill"
-    ],
-    "questionIds": [
-      "cgei-cl-q-213-002"
-    ],
-    "required": false
+    id: "cgei-ds-assess-58-matrix",
+    kind: "formative",
+    title: "Matrix and scaling checkpoint",
+    purpose:
+      "Orientation, centring, scaling and missing-data decisions are explicit.",
+    objectiveIds: ["cgei-ds-o-58-matrix"],
+    questionIds: ["cgei-ds-q-58-001", "cgei-ds-q-58-002", "cgei-ds-q-58-020"],
+    activityIds: ["cgei-ds-a-58-matrix"],
+    required: true,
   },
   {
-    "id": "cgei-cl-assess-213-decisions",
-    "kind": "formative",
-    "title": "S2S decision use",
-    "purpose": "Assess cost-loss thresholds and outlook communication.",
-    "objectiveIds": [
-      "cgei-cl-o-213-decisions"
+    id: "cgei-ds-assess-58-weighting",
+    kind: "formative",
+    title: "Area weighting checkpoint",
+    purpose:
+      "Weighting is justified for the grid and inverse display convention is stated.",
+    objectiveIds: ["cgei-ds-o-58-weighting"],
+    questionIds: ["cgei-ds-q-58-003", "cgei-ds-q-58-004"],
+    activityIds: ["cgei-ds-a-58-weighting"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-58-svd",
+    kind: "formative",
+    title: "PCA/EOF computation checkpoint",
+    purpose:
+      "Scores, patterns and variance fractions are interpreted under a declared convention.",
+    objectiveIds: ["cgei-ds-o-58-modes"],
+    questionIds: ["cgei-ds-q-58-005", "cgei-ds-q-58-006"],
+    activityIds: ["cgei-ds-a-58-svd"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-58-stability",
+    kind: "formative",
+    title: "Mode retention checkpoint",
+    purpose:
+      "Variance is considered alongside uncertainty, eigenvalue gaps and stability.",
+    objectiveIds: ["cgei-ds-o-58-stability"],
+    questionIds: ["cgei-ds-q-58-007", "cgei-ds-q-58-008"],
+    activityIds: ["cgei-ds-a-58-stability"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-58-maps",
+    kind: "formative",
+    title: "Composite and field-significance checkpoint",
+    purpose:
+      "Group counts, uncertainty and multiplicity are reported without causal overclaim.",
+    objectiveIds: ["cgei-ds-o-58-maps"],
+    questionIds: ["cgei-ds-q-58-009", "cgei-ds-q-58-010"],
+    activityIds: ["cgei-ds-a-58-maps"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-57-audit",
+    kind: "formative",
+    title: "Time-index audit checkpoint",
+    purpose:
+      "Duplicate and missing periods are reported; no silent imputation; units and frequency stated.",
+    objectiveIds: ["cgei-ds-o-57-structure"],
+    questionIds: ["cgei-ds-q-57-001", "cgei-ds-q-57-002"],
+    activityIds: ["cgei-ds-a-57-audit"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-57-decompose",
+    kind: "formative",
+    title: "Decomposition and anomaly checkpoint",
+    purpose:
+      "Baseline and seasonal rule stated; decomposition period justified; missingness caveat included.",
+    objectiveIds: ["cgei-ds-o-57-decompose"],
+    questionIds: ["cgei-ds-q-57-002", "cgei-ds-q-57-004"],
+    activityIds: ["cgei-ds-a-57-decompose"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-57-trend",
+    kind: "formative",
+    title: "Dependence-aware trend checkpoint",
+    purpose:
+      "Slope units correct; residual dependence discussed; HAC lag sensitivity noted; pedagogical ADF interpretation; no attribution claim.",
+    objectiveIds: ["cgei-ds-o-57-dependence"],
+    questionIds: [
+      "cgei-ds-q-57-003",
+      "cgei-ds-q-57-004",
+      "cgei-ds-q-57-011",
+      "cgei-ds-q-57-020",
     ],
-    "questionIds": [
-      "cgei-cl-q-213-003"
+    activityIds: ["cgei-ds-a-57-trend"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-57-temporal",
+    kind: "formative",
+    title: "Temporal validation checkpoint",
+    purpose:
+      "No shuffled folds; identical test timestamps; preprocessing fit inside training folds.",
+    objectiveIds: ["cgei-ds-o-57-forecast"],
+    questionIds: ["cgei-ds-q-57-005", "cgei-ds-q-57-006"],
+    activityIds: ["cgei-ds-a-57-temporal"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-57-failure",
+    kind: "formative",
+    title: "Forecast comparison and failure checkpoint",
+    purpose:
+      "Baseline comparison is fair; subgroup failure visible; limitations and non-claims explicit.",
+    objectiveIds: ["cgei-ds-o-57-compare"],
+    questionIds: ["cgei-ds-q-57-007", "cgei-ds-q-57-009"],
+    activityIds: ["cgei-ds-a-57-failure"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-59-family",
+    kind: "formative",
+    title: "GLM specification checkpoint",
+    purpose:
+      "Assess whether outcome support, denominator, mean–variance behaviour and target contrast justify the selected family/link.",
+    objectiveIds: ["cgei-ds-o-59-family"],
+    questionIds: ["cgei-ds-q-59-001", "cgei-ds-q-59-002", "cgei-ds-q-59-020"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-59-mixed",
+    kind: "formative",
+    title: "Grouped-data model checkpoint",
+    purpose:
+      "Check mapping from sampling hierarchy to fixed/random effects and interpretation of convergence or singular-fit warnings.",
+    objectiveIds: ["cgei-ds-o-59-dependence"],
+    questionIds: ["cgei-ds-q-59-003", "cgei-ds-q-59-004"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-59-bayes",
+    kind: "formative",
+    title: "Bayesian workflow checkpoint",
+    purpose:
+      "Check prior predictive reasoning, posterior interpretation and computational diagnostics.",
+    objectiveIds: ["cgei-ds-o-59-bayes"],
+    questionIds: ["cgei-ds-q-59-005", "cgei-ds-q-59-006"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-59-diagnostics",
+    kind: "formative",
+    title: "Diagnostics and validation checkpoint",
+    purpose:
+      "Check overdispersion reasoning, residual assessment and deployment-aligned validation.",
+    objectiveIds: ["cgei-ds-o-59-diagnostics"],
+    questionIds: ["cgei-ds-q-59-007", "cgei-ds-q-59-008"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-59-report",
+    kind: "formative",
+    title: "Effect interpretation and model-card checkpoint",
+    purpose:
+      "Check that link-scale effects are translated carefully and reporting includes uncertainty and limitations.",
+    objectiveIds: ["cgei-ds-o-59-report"],
+    questionIds: ["cgei-ds-q-59-009", "cgei-ds-q-59-010"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-511-vcs",
+    kind: "formative",
+    title: "Version-control provenance checkpoint",
+    purpose:
+      "Check repository hygiene, diff review and traceable methodological changes.",
+    objectiveIds: ["cgei-ds-o-511-vcs"],
+    questionIds: ["cgei-ds-q-511-001", "cgei-ds-q-511-002"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-511-contract",
+    kind: "formative",
+    title: "Data-contract checkpoint",
+    purpose:
+      "Check that input assumptions and failure conditions are explicit and testable.",
+    objectiveIds: ["cgei-ds-o-511-design"],
+    questionIds: ["cgei-ds-q-511-003", "cgei-ds-q-511-004"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-511-tests",
+    kind: "formative",
+    title: "Scientific testing checkpoint",
+    purpose:
+      "Check test selection, numerical tolerance and limits of test evidence.",
+    objectiveIds: ["cgei-ds-o-511-testing"],
+    questionIds: ["cgei-ds-q-511-005", "cgei-ds-q-511-006"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-511-env",
+    kind: "formative",
+    title: "Reproducible environment checkpoint",
+    purpose: "Check dependencies, provenance and secure configuration.",
+    objectiveIds: ["cgei-ds-o-511-environment"],
+    questionIds: ["cgei-ds-q-511-007", "cgei-ds-q-511-008"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-511-release",
+    kind: "formative",
+    title: "Release evidence checkpoint",
+    purpose: "Check CI interpretation and bounded scientific release claims.",
+    objectiveIds: ["cgei-ds-o-511-release"],
+    questionIds: ["cgei-ds-q-511-009", "cgei-ds-q-511-010"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-512-inventory",
+    kind: "formative",
+    title: "Multidimensional data-model checkpoint",
+    purpose:
+      "Check understanding of dimensions, coordinates, units and metadata.",
+    objectiveIds: ["cgei-ds-o-512-model"],
+    questionIds: ["cgei-ds-q-512-001", "cgei-ds-q-512-002"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-512-align",
+    kind: "formative",
+    title: "Coordinate alignment checkpoint",
+    purpose:
+      "Check alignment semantics and the difference between reprojection and metadata changes.",
+    objectiveIds: ["cgei-ds-o-512-alignment"],
+    questionIds: ["cgei-ds-q-512-003", "cgei-ds-q-512-004"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-512-chunking",
+    kind: "formative",
+    title: "Chunking and lazy-computation checkpoint",
+    purpose: "Check performance trade-offs and the limits of lazy execution.",
+    objectiveIds: ["cgei-ds-o-512-chunking"],
+    questionIds: ["cgei-ds-q-512-005", "cgei-ds-q-512-006"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-512-pipeline",
+    kind: "formative",
+    title: "Feature-pipeline checkpoint",
+    purpose: "Check derived-feature documentation and coordinate integrity.",
+    objectiveIds: ["cgei-ds-o-512-pipeline"],
+    questionIds: ["cgei-ds-q-512-007", "cgei-ds-q-512-008"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-512-validation",
+    kind: "formative",
+    title: "Pipeline validation checkpoint",
+    purpose:
+      "Check eager/lazy comparison evidence and bounded scientific claims.",
+    objectiveIds: ["cgei-ds-o-512-release"],
+    questionIds: ["cgei-ds-q-512-009", "cgei-ds-q-512-010"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-510-dag",
+    kind: "formative",
+    title: "DAG and variable-role checkpoint",
+    purpose:
+      "Assess whether the learner distinguishes causal assumptions and common variable roles.",
+    objectiveIds: ["cgei-ds-o-510-dag"],
+    questionIds: [
+      "cgei-ds-q-510-001",
+      "cgei-ds-q-510-002",
+      "cgei-ds-q-510-020",
     ],
-    "required": false
-  }
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-510-estimand",
+    kind: "formative",
+    title: "Estimand specification checkpoint",
+    purpose:
+      "Check completeness of the target population, contrast, outcome and time horizon.",
+    objectiveIds: ["cgei-ds-o-510-estimand"],
+    questionIds: ["cgei-ds-q-510-003", "cgei-ds-q-510-004"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-510-adjustment",
+    kind: "formative",
+    title: "Identification and adjustment checkpoint",
+    purpose:
+      "Check assumptions behind adjustment and identify collider/mediator hazards.",
+    objectiveIds: ["cgei-ds-o-510-identification"],
+    questionIds: ["cgei-ds-q-510-005", "cgei-ds-q-510-006"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-510-designs",
+    kind: "formative",
+    title: "Causal design assumptions checkpoint",
+    purpose:
+      "Check design-specific assumptions and the limits of propensity methods.",
+    objectiveIds: ["cgei-ds-o-510-designs"],
+    questionIds: ["cgei-ds-q-510-007", "cgei-ds-q-510-008"],
+    required: true,
+  },
+  {
+    id: "cgei-ds-assess-510-sensitivity",
+    kind: "formative",
+    title: "Sensitivity and reporting checkpoint",
+    purpose:
+      "Check interpretation of negative controls and transparent causal claims.",
+    objectiveIds: ["cgei-ds-o-510-sensitivity"],
+    questionIds: ["cgei-ds-q-510-009", "cgei-ds-q-510-010"],
+    required: true,
+  },
 ] as const;
 
 export const outcomes: CurriculumOutcome[] = [
   {
-    "id": "cgei-cl-o-21-weather-climate",
-    "statement": "Distinguish weather from climate, select and justify a baseline normal, and compute anomalies with explicit units, period, domain and time zone, without treating a single extreme as climate disproof.",
-    "action": "distinguish, select and compute",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
+    id: "cgei-ds-o-reproducible-analysis",
+    statement:
+      "Build an analysis that can be rerun, checked, and understood by another researcher.",
+    action: "build and document",
+    level: "L3",
+    competencyIds: ["cgei-comp-reproducibility"],
   },
   {
-    "id": "cgei-cl-o-21-stats",
-    "statement": "Describe a climate series with mean, spread, percentiles and threshold exceedances; demonstrate that trend estimates and return-period interpretations depend on window, event definition and stationarity assumptions.",
-    "action": "describe and demonstrate",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
+    id: "cgei-ds-o-environmental-inference",
+    statement:
+      "Choose and critique quantitative methods for environmental data while stating assumptions and limitations.",
+    action: "select and critique",
+    level: "L3",
+    competencyIds: ["cgei-comp-uncertainty", "cgei-comp-mathematical-modeling"],
   },
   {
-    "id": "cgei-cl-o-21-evidence",
-    "statement": "Assemble the metadata required for a climate claim, use teleconnection indices without causal over-reading, and separate descriptive trend language from attribution language.",
-    "action": "document and separate",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
+    id: "cgei-ds-o-data-product",
+    statement:
+      "Produce a documented scientific artefact such as a validated notebook, analysis table, plot, or pipeline.",
+    action: "produce and validate",
+    level: "L3",
+    competencyIds: ["cgei-comp-reproducibility"],
   },
-  {
-    "id": "cgei-cl-o-22-energy",
-    "statement": "Explain the planetary energy budget and greenhouse effect with a one-layer teaching model, write the surface energy balance with a stated sign convention, and show how latent heat changes the residual available for sensible heat and storage.",
-    "action": "explain and compute",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-mathematical-modeling"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-22-feedback",
-    "statement": "Distinguish major climate feedbacks from forcings, state AR6 assessed ranges for ECS and TCR as ranges rather than point truths, and link TCRE conceptually to cumulative carbon without recomputing budgets.",
-    "action": "distinguish and state",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-22-regional",
-    "statement": "Describe South Asian monsoon drivers, western disturbances, intraseasonal active/break structure and land–atmosphere modifiers (irrigation, dust) at process level, and apply a case-study template without claiming attribution.",
-    "action": "describe and apply",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-22-uhi",
-    "statement": "Distinguish surface and canopy-layer UHI, justify rural-reference choice (including arid-city cool-island cases), and list the main urban energy-balance controls including anthropogenic heat.",
-    "action": "distinguish and justify",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-23-moisture",
-    "statement": "Apply ideal-gas and hydrostatic relations at conceptual level, distinguish humidity variables, and use Clausius–Clapeyron scaling to reason about humid heat and extreme rainfall capacity.",
-    "action": "apply and distinguish",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-23-pbl",
-    "statement": "Explain diurnal boundary-layer evolution, turbulent flux partition (including Bowen ratio), and why urban night-time temperatures depend on storage, geometry and stability.",
-    "action": "explain",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-23-nwp",
-    "statement": "Describe cloud/precipitation process families, NWP grids and parameterisation, ensembles, and the difference between initial-condition and model uncertainty without treating high resolution as guaranteed skill.",
-    "action": "describe and critique",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-24-station",
-    "statement": "Apply basic station QC checks (range, step, spike, persistence, internal consistency), distinguish missing values from valid zeros, and state why homogenisation is needed without claiming to have applied SNHT/Pettitt.",
-    "action": "apply and distinguish",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-reproducibility",
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-24-products",
-    "statement": "Distinguish in-situ observations, gridded observational products and reanalysis estimates; explain why a grid-cell value is not a station observation; and use cross-product spread as an uncertainty signal.",
-    "action": "distinguish and explain",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-24-select",
-    "statement": "Select a climate data product using a fitness-for-purpose checklist (variable, resolution, record length, licence, known limitations, spatial support) and document provenance before comparison.",
-    "action": "select and justify",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-25-time",
-    "statement": "Distinguish accumulated versus instantaneous variables, apply CF-style metadata checks, and show how UTC versus local (PKT) day boundaries change daily maxima and rainfall-day assignment.",
-    "action": "distinguish and demonstrate",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-25-aggregate",
-    "statement": "Aggregate climate series with variable-specific rules and completeness thresholds, without treating missing values as zero, and compute area-aware regional means when appropriate.",
-    "action": "aggregate and validate",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-25-anomaly",
-    "statement": "Compute monthly anomalies against a pre-declared baseline, document units, baseline period and processing steps, and maintain a provenance record sufficient for independent re-execution.",
-    "action": "compute and document",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-26-threshold",
-    "statement": "Define absolute and percentile thresholds with a declared baseline, count exceedances and spell durations, and state when day-to-day dependence makes independent-event assumptions invalid.",
-    "action": "define and count",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-26-trend",
-    "statement": "Estimate ordinary least-squares and Sen slopes with explicit units, and explain why autocorrelation affects uncertainty even when the slope point estimate is unchanged.",
-    "action": "estimate and interpret",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-26-inference",
-    "statement": "Report trend and extreme results with baseline, product, period and limitations, distinguishing description from attribution and empirical return periods from fitted EVT levels.",
-    "action": "report with limits",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-27-theory",
-    "statement": "State the GEV family (location, scale, shape) as the limit of block maxima and the GPD as the limit of peaks-over-threshold, define return period/level/exceedance probability with appropriate confidence-interval methods, and quantify exceedance clustering via the extremal index.",
-    "action": "state and quantify",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-mathematical-modeling"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-27-estimate",
-    "statement": "Fit a GEV/Gumbel model by a stated method, assess fit using named diagnostic plots and a leave-out check, and state how far a small-sample fit can be extrapolated defensibly.",
-    "action": "fit and diagnose",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-27-extend",
-    "statement": "Incorporate a covariate into a non-stationary GEV location parameter, describe regional frequency analysis and Bayesian extensions, and distinguish copula-based joint-extreme modelling from simple co-occurrence counting.",
-    "action": "extend and distinguish",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-mathematical-modeling",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-27-apply",
-    "statement": "Apply EVT to heat, rainfall and flood-peak extremes and communicate return levels and horizon probabilities, including the named software ecosystem, without implying a return period is a fixed calendar schedule.",
-    "action": "apply and communicate",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-28-seasons",
-    "statement": "Justify local seasonal definitions for Pakistan analyses, distinguish PMD-style season bins from default JJA, and treat ENSO/IOD as context rather than one-line local causes.",
-    "action": "justify and distinguish",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-28-multan",
-    "statement": "Describe Multan/southern Punjab climate–land context (arid plain, irrigation, canal/river network) and what station versus gridded series can represent, with explicit baseline and support statements.",
-    "action": "describe",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-28-evidence",
-    "statement": "Identify appropriate national data institutions and evidence types, document access limits, and keep synthetic, observed and assessed claims in separate evidence classes.",
-    "action": "identify and document",
-    "level": "L3",
-    "competencyIds": [
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-hierarchy",
-    "statement": "Distinguish GCMs/ESMs from RCMs by resolution, domain, and process coverage, and explain how both relate to — and differ from — reanalysis and direct observations.",
-    "action": "distinguish and explain",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-mathematical-modeling"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-scenarios",
-    "statement": "Describe historical experiments and the forced-versus-internal-variability distinction, the SSP naming convention and SSP–RCP matrix including the plausibility debate around the highest-emission scenario, and CMIP6 ensemble and metadata conventions.",
-    "action": "describe and interpret",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-evaluation",
-    "statement": "Evaluate model output against observations across mean, seasonal cycle, variability, trends, extremes and spatial pattern, correctly separating regridding/resolution artefacts from genuine skill, and apply process-based evaluation criteria.",
-    "action": "evaluate and diagnose",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-bias-adjust",
-    "statement": "Apply and critique named bias-adjustment methods, state what each assumes about stationarity, identify adjustment artefacts, and evaluate adjusted output on independent periods and on extremes rather than only on means.",
-    "action": "apply and critique",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-mathematical-modeling",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-downscale",
-    "statement": "Compare dynamical, statistical and machine-learning downscaling approaches on their stationarity and transfer assumptions, operational cost, and failure modes.",
-    "action": "compare and assess",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-mathematical-modeling",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-29-use",
-    "statement": "Decompose projection uncertainty into its named sources, use baselines/anomalies/time slices and global warming levels appropriately, distinguish projections from forecasts and short observed trends, and apply screening and complementary (storyline, emergent-constraint, Interactive Atlas) approaches responsibly.",
-    "action": "decompose and apply",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-210-families",
-    "statement": "Identify the major downscaled and bias-adjusted climate product families (CORDEX South Asia, NEX-GDDP-CMIP6, ISIMIP, WorldClim/CHELSA future layers), compare them on method, base period, variables, ensemble size and licence, and locate their access routes and file conventions.",
-    "action": "identify and compare",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-210-select",
-    "statement": "Select models and members for a given application using regional-evaluation criteria, document exclusions and full provenance in a manifest, and report ensemble ranges and agreement rather than a bare mean.",
-    "action": "select and document",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-reproducibility",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-210-cmip7",
-    "statement": "Describe the CMIP7/AR7 transition at a planning level, anticipate new scenario, forcing and data-request conventions by designing model- and scenario-agnostic code, and identify the IPCC Cities Special Report as an emerging source for urban-heat information, while flagging time-sensitive details for independent verification.",
-    "action": "describe and plan for",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-reproducibility",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-211-concepts",
-    "statement": "Distinguish detection from attribution via the signal/noise/fingerprint framing, distinguish observed from attributed trends and hazard from impact attribution, and explain why a single observed record cannot by itself separate forced response from internal variability.",
-    "action": "distinguish and explain",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-211-event",
-    "statement": "Apply the probabilistic factual/counterfactual framing to compute a probability ratio and fraction of attributable risk, describe the stages of a rapid-attribution protocol, and distinguish storyline/thermodynamic-dynamic decomposition from a full probabilistic attribution.",
-    "action": "apply and describe",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-mathematical-modeling"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-211-limits",
-    "statement": "Identify why convective rainfall, compound events, and data-poor regions make attribution harder, explain why heat attribution is generally stronger than rainfall or drought attribution, and communicate attribution results using calibrated likelihood language alongside an explicit event definition.",
-    "action": "identify and communicate",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-uncertainty",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-212-ml",
-    "statement": "Evaluate ML bias-correction and downscaling methods against required statistical baselines (delta change, quantile mapping, regression) and against ML emulators of full climate models, quantifying skill improvement and computational speed-up.",
-    "action": "evaluate and quantify",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-mathematical-modeling"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-212-prob",
-    "statement": "Decompose probabilistic forecast skill into reliability, resolution, and uncertainty components, compute a Brier Skill Score relative to a climatological reference, and interpret reliability and sharpness diagnostics for probabilistic climate output.",
-    "action": "decompose and interpret",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-212-ai-forecast",
-    "statement": "Describe how an open operational AI forecast (e.g. ECMWF AIFS) is verified against stations and used as input to local post-processing, apply station-based post-processing correction, and compute an uncertainty-weighted blend of model and observational estimates.",
-    "action": "describe and apply",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-212-services",
-    "statement": "Characterise a climate service by its users, decisions, timescale, format, provenance, trust requirements and update cadence, distinguish co-produced from supply-driven products, and identify the role of Regional Climate Outlook Forums and national outlook products.",
-    "action": "characterise and distinguish",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-reproducibility",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-212-digital-twin",
-    "statement": "Describe digital-twin and kilometre-scale modelling initiatives as emerging data sources, explain what kilometre-scale resolution resolves that coarser models cannot, and quantify the resulting data-volume and access constraints for users.",
-    "action": "describe and quantify",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-213-systems",
-    "statement": "Describe seasonal multi-model ensemble systems (e.g. Copernicus C3S) and subseasonal products, explain the role of hindcasts in calibration, distinguish statistical/hybrid outlook approaches from dynamical ones, and state lead-time and initialisation-date conventions precisely enough to avoid ambiguity.",
-    "action": "describe and distinguish",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-reproducibility"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-213-skill",
-    "statement": "Compute and interpret tercile-based skill scores (RPSS) and discrimination diagnostics (ROC), state that skill is region-, season-, and variable-dependent with South Asian monsoon rainfall skill modest relative to temperature, and distinguish deterministic from probabilistic verification metrics.",
-    "action": "compute and interpret",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  },
-  {
-    "id": "cgei-cl-o-213-decisions",
-    "statement": "Apply cost-loss reasoning to translate a forecast probability into an action threshold, communicate seasonal outlooks without implying false certainty, and apply tercile-outlook-weighted expected-value reasoning to a worked sowing or irrigation decision.",
-    "action": "apply and communicate",
-    "level": "L2",
-    "competencyIds": [
-      "cgei-comp-quantitative-reasoning",
-      "cgei-comp-uncertainty"
-    ]
-  }
 ] as const;
 
 export const resources: CurriculumResource[] = [
   {
-    id: "cgei-cl-res-ipcc-ar6-wg1",
-    kind: "assessment-report",
-    title: "IPCC AR6 Working Group I — The Physical Science Basis",
-    description:
-      "Authoritative assessed ranges for ECS/TCR, detection and attribution headlines, regional fact sheets, and the Interactive Atlas. Use for calibrated likelihood language and for stating what is assessed versus what a learner recomputes from a short series.",
-    url: "https://www.ipcc.ch/report/ar6/wg1/",
-    access: "open",
-    citation:
-      "IPCC, 2021: Climate Change 2021: The Physical Science Basis. Contribution of Working Group I to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change.",
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-2",
-      "cgei-cl-unit-2-9",
-      "cgei-cl-unit-2-11"
-    ],
-    tags: ["attribution", "sensitivity", "regional", "likelihood-language"]
-  },
-  {
-    id: "cgei-cl-res-ipcc-atlas",
-    kind: "portal",
-    title: "IPCC Interactive Atlas",
-    description:
-      "First-look regional maps of observed and projected changes. Orientation only — not a substitute for local product evaluation, bias adjustment, or station verification.",
-    url: "https://interactive-atlas.ipcc.ch/",
-    access: "open",
-    citation: "IPCC Interactive Atlas (AR6).",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["projections", "regional", "screening"]
-  },
-  {
-    id: "cgei-cl-res-era5-cds",
-    kind: "dataset",
-    title: "ERA5 reanalysis via Copernicus Climate Data Store",
-    description:
-      "Global reanalysis (≈0.25°) used throughout this subject for teaching workflows. Always record variable short name, units, accumulation, grid, and download date. Precipitation is in metres of water equivalent.",
-    url: "https://cds.climate.copernicus.eu/",
-    access: "open-registration",
-    citation:
-      "Hersbach, H., et al. (2020). The ERA5 global reanalysis. QJRMS. CDS: ERA5 hourly/monthly products.",
-    unitIds: [
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
-    tags: ["reanalysis", "ERA5", "CDS", "Multan-workflow"]
-  },
-  {
-    id: "cgei-cl-res-era5-doc",
+    id: "cgei-ds-r-usgs-l2-scaling",
     kind: "documentation",
-    title: "ERA5 documentation — variables, accumulation, known issues",
-    description:
-      "Essential before any quantitative notebook: accumulation conventions, temperature units (often kelvin), land-sea mask behaviour, and version notes that affect trends.",
-    url: "https://confluence.ecmwf.int/display/CKB/ERA5",
-    access: "open",
-    citation: "ECMWF ERA5 documentation (Climate Knowledge Base).",
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5"],
-    tags: ["metadata", "units", "QC"]
+    title: "USGS: Landsat Level-2 scale factors and offsets",
+    url: "https://www.usgs.gov/faqs/how-do-i-use-a-scale-factor-landsat-level-2-science-products",
+    purpose:
+      "Verify product-specific scale factors, offsets, fill values and valid ranges before converting stored Landsat values.",
+    authorOrPublisher: "U.S. Geological Survey",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-wmo-normals",
-    kind: "guidance",
-    title: "WMO climatological standard normals",
-    description:
-      "Defines successive 30-year normals (current standard 1991–2020) and practice for anomalies. Changing the normal changes every anomaly value without changing raw observations.",
-    url: "https://community.wmo.int/en/activity-areas/climate/wmo-climate-normals",
-    access: "open",
-    citation: "WMO Guidelines on the Calculation of Climate Normals (WMO-No. 1203) and updates.",
-    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-6"],
-    tags: ["baseline", "normals", "anomaly"]
+    id: "cgei-ds-r-era5-precipitation",
+    kind: "documentation",
+    title: "ECMWF parameter database: total precipitation",
+    url: "https://codes.ecmwf.int/grib/param-db/228",
+    purpose:
+      "Confirm that total precipitation is an accumulated depth in metres and inspect the variable definition before temporal aggregation.",
+    authorOrPublisher: "European Centre for Medium-Range Weather Forecasts",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-etccdi",
-    kind: "index-definition",
-    title: "ETCCDI / Climdex extreme indices",
-    description:
-      "Standard definitions for Rx1day, CDD, CWD, R95pTOT, percentile-based hot days, and related indices. Threshold, duration and baseline period are part of the definition — report them.",
-    url: "https://www.climdex.org/learn/indices/",
-    access: "open",
-    citation: "Expert Team on Climate Change Detection and Indices (ETCCDI); Climdex index list.",
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
-    tags: ["extremes", "indices", "thresholds"]
+    id: "cgei-ds-r-numpy-linalg",
+    kind: "documentation",
+    title: "NumPy: linear algebra routines",
+    url: "https://numpy.org/doc/stable/reference/routines.linalg.html",
+    purpose:
+      "Reference for matrix operations, eigenvalue routines and singular-value decomposition used in the linear algebra notebook.",
+    authorOrPublisher: "NumPy developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-cordex-sa",
-    kind: "dataset",
-    title: "CORDEX South Asia (ESGF)",
-    description:
-      "Dynamically downscaled RCM simulations over the South Asian domain (commonly 0.44° / 0.22°). Cite RCM–GCM pair; evaluate regional monsoon and heat processes before ensemble averaging.",
-    url: "https://cordex.org/domains/region-6-south-asia-was/",
-    access: "open-via-ESGF",
-    citation: "CORDEX South Asia; access via ESGF nodes. Cite driving GCM and RCM.",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["downscaling", "RCM", "South-Asia"]
+    id: "cgei-ds-r-scipy-solve-ivp",
+    kind: "documentation",
+    title: "SciPy: solve_ivp ordinary differential equation solver",
+    url: "https://docs.scipy.org/doc/scipy/reference/generated/scipy.integrate.solve_ivp.html",
+    purpose:
+      "Reference for numerical initial-value problem solving, solver selection, tolerances and returned diagnostics.",
+    authorOrPublisher: "SciPy developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-nex-gddp",
-    kind: "dataset",
-    title: "NEX-GDDP-CMIP6",
-    description:
-      "Statistically downscaled (BCSD-type) daily CMIP6 fields on a global ~0.25° grid for core variables (tasmax, tasmin, precip). Different method class from CORDEX — do not treat as interchangeable.",
-    url: "https://www.nccs.nasa.gov/services/data-collections/land-based-products/nex-gddp-cmip6",
-    access: "open",
-    citation: "Thrasher et al., NEX-GDDP-CMIP6; NASA NCCS / Earthdata access.",
-    unitIds: ["cgei-cl-unit-2-10"],
-    tags: ["statistical-downscaling", "CMIP6", "daily"]
+    id: "cgei-ds-r-52-python-venv",
+    kind: "documentation",
+    title: "Python documentation: virtual environments",
+    url: "https://docs.python.org/3/library/venv.html",
+    purpose:
+      "Create isolated, disposable environments and record how a project environment is recreated.",
+    authorOrPublisher: "Python Software Foundation",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-isimip",
-    kind: "dataset",
-    title: "ISIMIP bias-adjusted forcing",
-    description:
-      "Protocol-standardised, bias-adjusted climate forcing designed as input to impact models. Document protocol round, observational reference, and which CMIP subset is included.",
-    url: "https://www.isimip.org/",
-    access: "open",
-    citation: "ISIMIP protocol and input-data documentation (cite round and reference dataset).",
-    unitIds: ["cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
-    tags: ["bias-adjustment", "impacts", "forcing"]
+    id: "cgei-ds-r-52-good-practices",
+    kind: "paper",
+    title: "Good enough practices in scientific computing",
+    url: "https://doi.org/10.1371/journal.pcbi.1005510",
+    purpose:
+      "Evidence-informed baseline for project structure, meaningful names, functions, explicit dependencies, data management and reproducibility.",
+    authorOrPublisher: "Wilson et al., PLOS Computational Biology (2017)",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-c3s-seasonal",
-    kind: "portal",
-    title: "Copernicus C3S seasonal multi-model products",
-    description:
-      "Operational seasonal multi-model ensemble outlooks and hindcast-based verification context. State issuing system, initialisation, lead definition, and variable before decision use.",
-    url: "https://climate.copernicus.eu/seasonal-forecasts",
-    access: "open",
-    citation: "Copernicus Climate Change Service (C3S) seasonal forecast products.",
-    unitIds: ["cgei-cl-unit-2-13"],
-    tags: ["S2S", "seasonal", "multi-model"]
+    id: "cgei-ds-r-52-numpy-broadcast",
+    kind: "documentation",
+    title: "NumPy documentation: broadcasting",
+    url: "https://numpy.org/doc/stable/user/basics.broadcasting.html",
+    purpose:
+      "Reference for shape compatibility rules, vectorised operations and memory-aware broadcasting.",
+    authorOrPublisher: "NumPy developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-sascof",
-    kind: "outlook",
-    title: "South Asian Climate Outlook Forum (SASCOF)",
-    description:
-      "Regional consensus seasonal outlooks for South Asia. National services (e.g. PMD) tailor these for sector decisions — co-production belongs at that national/local step.",
-    url: "https://www.imdpune.gov.in/Casweb/Sascof/",
-    access: "open-summary",
-    citation: "SASCOF consensus statements (issue date and season must be recorded).",
-    unitIds: ["cgei-cl-unit-2-12", "cgei-cl-unit-2-13", "cgei-cl-unit-2-8"],
-    tags: ["RCOF", "seasonal-outlook", "South-Asia"]
+    id: "cgei-ds-r-52-pandas-time",
+    kind: "documentation",
+    title: "pandas documentation: time series and timezone conversion",
+    url: "https://pandas.pydata.org/docs/user_guide/timeseries.html",
+    purpose:
+      "Reference for parsing datetimes, timezone localization/conversion, resampling and time-indexed aggregation.",
+    authorOrPublisher: "pandas developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-pmd-access",
-    kind: "institutional",
-    title: "Pakistan Meteorological Department — data access practice",
-    description:
-      "National authority for meteorological records. Public versus restricted products must be verified per series; listing PMD is not a download right. Prefer documented request trails and licences; use global layers with honest representativeness limits when local series are unavailable.",
-    url: "https://www.pmd.gov.pk/",
-    access: "mixed-verify-per-product",
-    citation: "Pakistan Meteorological Department (PMD). Access terms vary by product.",
-    unitIds: ["cgei-cl-unit-2-8", "cgei-cl-unit-2-4"],
-    tags: ["Pakistan", "national-data", "access-limits"]
+    id: "cgei-ds-r-52-parquet",
+    kind: "documentation",
+    title: "pandas documentation: DataFrame.to_parquet",
+    url: "https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_parquet.html",
+    purpose:
+      "Reference for writing typed tabular data to Parquet for efficient storage and cross-language workflows.",
+    authorOrPublisher: "pandas developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-cf-conventions",
-    kind: "standard",
-    title: "CF (Climate and Forecast) metadata conventions",
-    description:
-      "Standard names, units, cell methods, and time encodings for NetCDF climate data. CF-style checks catch accumulation and calendar errors before analysis.",
+    id: "cgei-ds-r-52-python-regex",
+    kind: "documentation",
+    title: "Python documentation: regular expression operations",
+    url: "https://docs.python.org/3/library/re.html",
+    purpose:
+      "Reference for raw regex strings, compiled patterns, named groups and full-string matching.",
+    authorOrPublisher: "Python Software Foundation",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-pandas-eda",
+    kind: "documentation",
+    title: "pandas documentation: working with missing data",
+    url: "https://pandas.pydata.org/docs/user_guide/missing_data.html",
+    purpose:
+      "Reference for detecting, representing and handling missing observations without silently treating missingness as zero.",
+    authorOrPublisher: "pandas developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-seaborn-distributions",
+    kind: "documentation",
+    title: "seaborn documentation: visualizing distributions",
+    url: "https://seaborn.pydata.org/tutorial/distributions.html",
+    purpose:
+      "Compare histogram, ECDF, KDE and categorical distribution displays and understand their trade-offs.",
+    authorOrPublisher: "seaborn developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-seaborn-relational",
+    kind: "documentation",
+    title: "seaborn documentation: relational plots",
+    url: "https://seaborn.pydata.org/tutorial/relational.html",
+    purpose:
+      "Reference for scatter/relational displays, grouping and the distinction between visual association and causal evidence.",
+    authorOrPublisher: "seaborn developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-matplotlib",
+    kind: "documentation",
+    title: "Matplotlib: pyplot tutorial",
+    url: "https://matplotlib.org/stable/tutorials/pyplot.html",
+    purpose:
+      "Build figures with explicit axes, labels, units, titles and layout for reproducible scientific communication.",
+    authorOrPublisher: "Matplotlib developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-cartopy",
+    kind: "documentation",
+    title: "Cartopy documentation",
+    url: "https://cartopy.readthedocs.io/stable/",
+    purpose:
+      "Reference for map projections and geospatial plotting; verify CRS and transformation choices when making maps.",
+    authorOrPublisher: "Cartopy developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-colormaps",
+    kind: "documentation",
+    title: "Matplotlib: choosing colormaps",
+    url: "https://matplotlib.org/stable/users/explain/colors/colormaps.html",
+    purpose:
+      "Choose sequential, diverging or cyclic colour maps appropriate to the semantics of the variable and colour vision.",
+    authorOrPublisher: "Matplotlib developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-53-wilke",
+    kind: "book",
+    title: "Fundamentals of Data Visualization",
+    url: "https://clauswilke.com/dataviz/",
+    purpose:
+      "Practical reference for visual encodings, distributions, uncertainty, colour and honest presentation of data.",
+    authorOrPublisher: "Claus O. Wilke",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-54-wilks",
+    kind: "book",
+    title: "Statistical Methods in the Atmospheric Sciences",
+    url: "https://www.sciencedirect.com/book/monograph/9780128158234/statistical-methods-in-the-atmospheric-sciences",
+    purpose:
+      "Domain-specific reference for sampling, uncertainty, nonparametric tests, multiple testing and environmental inference.",
+    authorOrPublisher: "Daniel S. Wilks; Elsevier, 4th edition (2020)",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-54-scipy-bootstrap",
+    kind: "documentation",
+    title: "SciPy: bootstrap confidence intervals",
+    url: "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.bootstrap.html",
+    purpose:
+      "Reference for resampling-based confidence intervals, confidence levels, methods and reproducibility controls.",
+    authorOrPublisher: "SciPy developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-54-statsmodels-multitest",
+    kind: "documentation",
+    title: "statsmodels: multiple testing procedures",
+    url: "https://www.statsmodels.org/stable/generated/statsmodels.stats.multitest.multipletests.html",
+    purpose:
+      "Reference for family-wise and false-discovery-rate adjustments across multiple hypothesis tests.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-54-statsmodels-ols",
+    kind: "documentation",
+    title: "statsmodels: linear regression",
+    url: "https://www.statsmodels.org/stable/regression.html",
+    purpose:
+      "Reference for OLS, regression results, model assumptions and diagnostic workflows.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-54-nist",
+    kind: "documentation",
+    title: "NIST/SEMATECH e-Handbook of Statistical Methods",
+    url: "https://www.itl.nist.gov/div898/handbook/",
+    purpose:
+      "Reference for exploratory statistics, distributions, estimation and the interpretation of statistical methods.",
+    authorOrPublisher: "National Institute of Standards and Technology",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-55-good-practices",
+    kind: "paper",
+    title: "Good enough practices in scientific computing",
+    url: "https://doi.org/10.1371/journal.pcbi.1005510",
+    purpose:
+      "Evidence-informed practices for organizing projects, documenting workflows, managing data and making scientific computing reproducible.",
+    authorOrPublisher: "Wilson et al., PLOS Computational Biology",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-55-sqlite",
+    kind: "documentation",
+    title: "SQLite SELECT statement reference",
+    url: "https://www.sqlite.org/lang_select.html",
+    purpose:
+      "Official reference for filters, joins, grouping, ordering and query semantics used in the SQL lesson.",
+    authorOrPublisher: "SQLite",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-55-requests",
+    kind: "documentation",
+    title: "Requests Quickstart",
+    url: "https://requests.readthedocs.io/en/stable/user/quickstart/",
+    purpose:
+      "Official guidance on query parameters, JSON responses, status checks, exceptions and request timeouts.",
+    authorOrPublisher: "Requests project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-55-cds-licence",
+    kind: "documentation",
+    title: "Terms of use of the Copernicus Climate Data Store",
+    url: "https://cds.climate.copernicus.eu/licences/terms-of-use-cds",
+    purpose:
+      "Check current terms and dataset-specific licences before acquiring, publishing or redistributing Copernicus Climate Data Store products.",
+    authorOrPublisher: "Copernicus Climate Data Store / ECMWF",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-55-secret-scanning",
+    kind: "documentation",
+    title: "GitHub secret scanning",
+    url: "https://docs.github.com/en/code-security/concepts/secret-security/secret-scanning",
+    purpose:
+      "Understand how exposed API keys and credentials can be detected; scanning complements but does not replace safe secret handling.",
+    authorOrPublisher: "GitHub Docs",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-56-statsmodels-ols",
+    kind: "documentation",
+    title: "statsmodels: Regression models and OLS",
+    url: "https://www.statsmodels.org/stable/regression.html",
+    purpose:
+      "Reference for OLS fitting, coefficient interpretation and model diagnostics; verify the installed API version.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-56-vif",
+    kind: "documentation",
+    title: "statsmodels: Variance inflation factor",
+    url: "https://www.statsmodels.org/stable/generated/statsmodels.stats.outliers_influence.variance_inflation_factor.html",
+    purpose:
+      "Definition and implementation reference for VIF as a collinearity diagnostic; a threshold is not an automatic variable-selection rule.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-56-groupkfold",
+    kind: "documentation",
+    title: "scikit-learn: GroupKFold",
+    url: "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html",
+    purpose:
+      "Reference for cross-validation that keeps each group in one fold when evaluation must hold out stations, scenes or districts.",
+    authorOrPublisher: "scikit-learn developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-58-sklearn",
+    kind: "documentation",
+    title: "scikit-learn: PCA",
+    url: "https://scikit-learn.org/stable/modules/generated/sklearn.decomposition.PCA.html",
+    purpose:
+      "Official PCA API reference for components and explained variance.",
+    authorOrPublisher: "scikit-learn developers",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-58-numpy",
+    kind: "documentation",
+    title: "NumPy: Singular Value Decomposition",
+    url: "https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html",
+    purpose: "Official SVD API reference used for low-rank component analysis.",
+    authorOrPublisher: "NumPy developers",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-58-climatebook",
+    kind: "book",
+    title: "Statistical Methods in the Atmospheric Sciences",
+    url: "https://www.sciencedirect.com/book/9780128158234/statistical-methods-in-the-atmospheric-sciences",
+    purpose:
+      "Reference text for multivariate climate statistics and field significance.",
+    authorOrPublisher: "Daniel S. Wilks",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-57-statsmodels",
+    kind: "documentation",
+    title: "statsmodels: Time series analysis",
+    url: "https://www.statsmodels.org/stable/tsa.html",
+    purpose:
+      "Official API and user-guide reference for time-series methods and diagnostics.",
+    authorOrPublisher: "statsmodels",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-57-timeseriescv",
+    kind: "documentation",
+    title: "scikit-learn: TimeSeriesSplit",
+    url: "https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html",
+    purpose:
+      "Official reference for chronological cross-validation splits and gap/test-size behaviour.",
+    authorOrPublisher: "scikit-learn",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-57-fpp3",
+    kind: "book",
+    title: "Forecasting: Principles and Practice, 3rd edition",
+    url: "https://otexts.com/fpp3/",
+    purpose:
+      "Open textbook covering time-series exploration, decomposition, forecasting baselines and evaluation.",
+    authorOrPublisher: "Hyndman and Athanasopoulos",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-59-statsmodels",
+    kind: "documentation",
+    title: "statsmodels: Generalized Linear Models",
+    url: "https://www.statsmodels.org/stable/glm.html",
+    purpose:
+      "Reference GLM families, links, estimation and Python API details.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-59-r-glm",
+    kind: "documentation",
+    title: "R: Fitting Generalized Linear Models",
+    url: "https://stat.ethz.ch/R-manual/R-devel/library/stats/html/glm.html",
+    purpose:
+      "Cross-check GLM family and link concepts in a widely used statistical environment.",
+    authorOrPublisher: "R Core Team",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: false,
+  },
+  {
+    id: "cgei-ds-r-59-lme4",
+    kind: "documentation",
+    title: "lme4: Linear mixed-effects models",
+    url: "https://lme4.github.io/lme4/",
+    purpose:
+      "Reference random-effects formulas, fitting and convergence guidance for mixed models.",
+    authorOrPublisher: "lme4 developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: false,
+  },
+  {
+    id: "cgei-ds-r-59-stan",
+    kind: "documentation",
+    title: "Stan User’s Guide",
+    url: "https://mc-stan.org/docs/stan-users-guide/",
+    purpose:
+      "Reference Bayesian specification, posterior computation, diagnostics and predictive checking.",
+    authorOrPublisher: "Stan Development Team",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-59-bda",
+    kind: "book",
+    title: "Bayesian Data Analysis, 3rd edition",
+    url: "http://www.stat.columbia.edu/~gelman/book/",
+    purpose:
+      "Ground Bayesian modelling, prior predictive reasoning, posterior summaries and model checking.",
+    authorOrPublisher: "Gelman, Carlin, Stern, Dunson, Vehtari and Rubin",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: false,
+  },
+  {
+    id: "cgei-ds-r-59-diagnostics",
+    kind: "documentation",
+    title: "statsmodels: Regression diagnostics and influence",
+    url: "https://www.statsmodels.org/stable/diagnostic.html",
+    purpose:
+      "Reference diagnostics and influence tools, interpreted in light of family and design.",
+    authorOrPublisher: "statsmodels developers",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: false,
+  },
+  {
+    id: "cgei-ds-r-510-hernan",
+    kind: "book",
+    title: "Causal Inference: What If",
+    url: "https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/",
+    purpose:
+      "Core reference for causal estimands, exchangeability, g-methods and observational study design.",
+    authorOrPublisher: "Miguel A. Hernán and James M. Robins",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-510-dagitty",
+    kind: "tool",
+    title: "DAGitty: causal diagrams",
+    url: "https://www.dagitty.net/",
+    purpose:
+      "Draw causal DAGs and examine implications for adjustment sets; tool output does not validate the scientific graph.",
+    authorOrPublisher: "DAGitty project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-510-did",
+    kind: "documentation",
+    title: "Difference-in-differences resources",
+    url: "https://www.nber.org/papers/w31186",
+    purpose:
+      "Reference for contemporary difference-in-differences designs and the assumptions needed under staggered treatment timing.",
+    authorOrPublisher: "National Bureau of Economic Research",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-511-git",
+    kind: "documentation",
+    title: "Git documentation",
+    url: "https://git-scm.com/doc",
+    purpose:
+      "Reference for version control, branches, commits and repository history.",
+    authorOrPublisher: "Git project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-511-packaging",
+    kind: "documentation",
+    title: "Python Packaging User Guide",
+    url: "https://packaging.python.org/",
+    purpose:
+      "Reference for project structure, dependencies, packaging and reproducible installation.",
+    authorOrPublisher: "Python Packaging Authority",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-511-pytest",
+    kind: "documentation",
+    title: "pytest documentation",
+    url: "https://docs.pytest.org/",
+    purpose: "Reference for unit, fixture-based and parameterized testing.",
+    authorOrPublisher: "pytest project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-511-scientific",
+    kind: "documentation",
+    title: "Scientific Python Development Guide",
+    url: "https://learn.scientific-python.org/development/",
+    purpose:
+      "Reference for maintainable scientific Python projects, testing and development workflows.",
+    authorOrPublisher: "Scientific Python community",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-511-actions",
+    kind: "documentation",
+    title: "GitHub Actions documentation",
+    url: "https://docs.github.com/actions",
+    purpose:
+      "Reference for automating project checks in continuous integration.",
+    authorOrPublisher: "GitHub",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-512-xarray",
+    kind: "documentation",
+    title: "xarray documentation",
+    url: "https://docs.xarray.dev/",
+    purpose:
+      "Reference for labeled multidimensional arrays, coordinate alignment and data operations.",
+    authorOrPublisher: "xarray project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-512-dask",
+    kind: "documentation",
+    title: "Dask Array documentation",
+    url: "https://docs.dask.org/en/stable/array.html",
+    purpose:
+      "Reference for chunked arrays, lazy computation and parallel execution.",
+    authorOrPublisher: "Dask project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-512-zarr",
+    kind: "documentation",
+    title: "Zarr documentation",
+    url: "https://zarr.readthedocs.io/",
+    purpose:
+      "Reference for chunked, compressed array storage and interoperable data layouts.",
+    authorOrPublisher: "Zarr project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
+  },
+  {
+    id: "cgei-ds-r-512-cf",
+    kind: "documentation",
+    title: "CF Conventions",
     url: "https://cfconventions.org/",
-    access: "open",
-    citation: "CF Conventions and Metadata (current version as of access date).",
-    unitIds: ["cgei-cl-unit-2-5"],
-    tags: ["metadata", "NetCDF", "units"]
+    purpose:
+      "Reference for metadata conventions used in climate and forecast data.",
+    authorOrPublisher: "CF Conventions community",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
   {
-    id: "cgei-cl-res-extremes-guidance",
-    kind: "guidance",
-    title: "WMO Guidelines on extreme weather and climate events",
-    description:
-      "Supports consistent event definitions, threshold choices, and monitoring language — aligned with the subject’s insistence that threshold, duration and baseline are part of every extremes claim.",
-    url: "https://library.wmo.int/",
-    access: "open",
-    citation: "WMO Guidelines on the Definition and Monitoring of Extreme Weather and Climate Events (current edition).",
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
-    tags: ["extremes", "definitions", "monitoring"]
+    id: "cgei-ds-r-512-rasterio",
+    kind: "documentation",
+    title: "Rasterio documentation",
+    url: "https://rasterio.readthedocs.io/",
+    purpose:
+      "Reference for raster geospatial metadata, grid transforms and raster operations.",
+    authorOrPublisher: "Rasterio project",
+    accessedOn: "2026-10-22",
+    verificationStatus: "checked",
+    required: true,
   },
-  {
-    id: "cgei-cl-res-worldclim-chelsa",
-    kind: "dataset",
-    title: "WorldClim / CHELSA future climatological layers",
-    description:
-      "Fine-resolution downscaled climatological normals for ecological applications — not daily impact-model forcing. Different access pattern (GeoTIFF tiles, no internal time dimension).",
-    url: "https://www.worldclim.org/",
-    access: "open",
-    citation: "WorldClim; CHELSA (cite version and base period).",
-    unitIds: ["cgei-cl-unit-2-10"],
-    tags: ["climatology", "ecology", "fine-grid"]
-  }
 ] as const;
 
 export const deliverables: CurriculumDeliverable[] = [
   {
-    id: "cgei-cl-del-provenance-record",
-    kind: "processing-record",
-    title: "Climate-data processing and provenance record",
+    id: "cgei-ds-d-unit-sheet",
+    title: "Environmental units and plausibility sheet",
     description:
-      "A structured record sufficient for independent re-execution: product name and version, variable and units, spatial domain and support, time zone/calendar rule, baseline period, completeness threshold, aggregation method, access date, licence, and checksum or script commit hash. No fabricated station numbers.",
-    format: "markdown-table or YAML sidecar",
-    estimatedMinutes: 25,
-    objectiveIds: [
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+      "A compact reference with conversions, dimensions, spatial/temporal support and plausibility checks.",
+    artefactTypes: ["table", "report"],
     acceptanceCriteria: [
-      "Every field listed in the Unit 2.5 workflow checklist is present",
-      "UTC vs PKT (or other local) convention is explicit",
-      "Missing-data rule is stated (missing ≠ zero)",
-      "A second analyst could re-run the path from the record alone"
-    ]
+      "Each value has quantity and unit",
+      "Depth and rate are not conflated",
+      "At least two conversions are checked",
+      "One plausible-range check is documented",
+    ],
   },
   {
-    id: "cgei-cl-del-product-manifest",
-    kind: "manifest",
-    title: "Product and model-member selection manifest",
+    id: "cgei-ds-d-rate-note",
+    title: "Rate and gradient note",
     description:
-      "For any multi-product or multi-model comparison: list models/products considered, those retained, those excluded and why (regional skill, implausible trend, hot-model concern, licence), grid, scenario/experiment, bias-adjustment method and reference, download date and DOI/URL.",
-    format: "table (CSV or markdown)",
-    estimatedMinutes: 30,
-    objectiveIds: [
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-210-select",
-      "cgei-cl-o-29-evaluation"
-    ],
-    unitIds: ["cgei-cl-unit-2-4", "cgei-cl-unit-2-9", "cgei-cl-unit-2-10"],
+      "A short worked note that reports derivative/gradient units and the direction of change.",
+    artefactTypes: ["report", "table"],
     acceptanceCriteria: [
-      "Exclusions are reasoned, not silent",
-      "Ensemble range and agreement fraction appear alongside any mean",
-      "No bare multi-model mean as the sole reported number"
-    ]
+      "Finite-difference method stated",
+      "Units are carried through",
+      "Interpretation is tied to the coordinate system",
+    ],
   },
   {
-    id: "cgei-cl-del-baseline-anomaly-brief",
-    kind: "analysis-brief",
-    title: "Baseline, season and anomaly definition brief",
+    id: "cgei-ds-d-linear-algebra-notebook",
+    title: "Linear algebra and PCA notebook",
     description:
-      "One-page statement of the normal period, season definition (PMD-style vs JJA/JJAS), domain, variable, units, and the exact anomaly formula used. Required before any trend or extremes count in the exit notebook.",
-    format: "one-page markdown or PDF",
-    estimatedMinutes: 20,
-    objectiveIds: [
-      "cgei-cl-o-21-weather-climate",
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-28-seasons"
-    ],
-    unitIds: ["cgei-cl-unit-2-1", "cgei-cl-unit-2-5", "cgei-cl-unit-2-8"],
+      "A runnable notebook for least squares, residual orthogonality, and covariance eigenstructure.",
+    artefactTypes: ["notebook"],
     acceptanceCriteria: [
-      "Baseline period is named and justified",
-      "Season months are listed explicitly",
-      "Domain/support (station, grid, district) is stated",
-      "No claim that a single extreme falsifies the climate distribution"
-    ]
+      "Notebook runs from a clean kernel",
+      "Eigenpair is numerically checked",
+      "Eigenvalues and singular values are distinguished",
+      "Variance share is interpreted",
+    ],
   },
   {
-    id: "cgei-cl-del-extremes-trend-card",
-    kind: "results-card",
-    title: "Extremes and trend results card",
+    id: "cgei-ds-d-balance-notebook",
+    title: "Environmental balance calculations",
     description:
-      "Threshold definition (absolute or percentile + baseline), exceedance counts and max spell length, OLS and Sen slopes with units, and a one-paragraph note on autocorrelation/multiplicity limits. Distinguishes description from attribution and empirical return periods from fitted EVT levels.",
-    format: "structured card (markdown sections)",
-    estimatedMinutes: 35,
-    objectiveIds: [
-      "cgei-cl-o-26-threshold",
-      "cgei-cl-o-26-trend",
-      "cgei-cl-o-26-inference"
-    ],
-    unitIds: ["cgei-cl-unit-2-6", "cgei-cl-unit-2-7"],
+      "A small calculation notebook covering stock–flux equilibrium, water balance and surface energy signs.",
+    artefactTypes: ["notebook", "table"],
     acceptanceCriteria: [
-      "Threshold, duration rule and baseline are reported",
-      "Slopes carry explicit units and window",
-      "Return-period language is non-calendar (no “due next year”)",
-      "Product and period appear in the same card as the numbers"
-    ]
+      "All terms have compatible units",
+      "Control volume and period are stated",
+      "Sign convention is explicit",
+      "Residuals and limitations are interpreted",
+    ],
   },
   {
-    id: "cgei-cl-del-cautious-conclusions",
-    kind: "conclusions-note",
-    title: "Cautious conclusions and non-claims note",
+    id: "cgei-ds-d-uncertainty-note",
+    title: "Uncertainty and dependence note",
     description:
-      "Explicit list of what the analysis supports (descriptive, product-scoped statements) and what it does not support (attribution, flood causation from area-average reanalysis alone, long-term climate-change proof from a short window). Uses calibrated language.",
-    format: "half-page markdown",
-    estimatedMinutes: 20,
-    objectiveIds: [
-      "cgei-cl-o-21-evidence",
-      "cgei-cl-o-26-inference",
-      "cgei-cl-o-28-evidence",
-      "cgei-cl-o-211-limits"
-    ],
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8",
-      "cgei-cl-unit-2-11"
-    ],
+      "A concise explanation of standard error and when independence assumptions are implausible.",
+    artefactTypes: ["report"],
     acceptanceCriteria: [
-      "At least three explicit non-claims are listed",
-      "Evidence classes (synthetic / observed / assessed) are not mixed",
-      "No sentence equates a short local trend with global attribution"
-    ]
+      "Standard error calculation shown",
+      "Sampling assumptions stated",
+      "Spatial or temporal dependence considered",
+    ],
   },
   {
-    id: "cgei-cl-del-regional-literacy-brief",
-    kind: "regional-brief",
-    title: "Multan / southern Punjab regional literacy brief",
+    id: "cgei-ds-d-52-module",
+    title: "Tested scientific Python module",
     description:
-      "Geography (arid plain, irrigation, canal/river network), season definition, heat/dust/fog/smog as named regional features, what station vs grid can represent, institutions and access limits, and the next data need — without inventing station statistics.",
-    format: "one-page brief",
-    estimatedMinutes: 30,
-    objectiveIds: [
-      "cgei-cl-o-28-seasons",
-      "cgei-cl-o-28-multan",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: ["cgei-cl-unit-2-8"],
+      "An importable module extracted from a notebook, with explicit units, checks and reproducible execution.",
+    artefactTypes: ["repository", "script", "notebook"],
     acceptanceCriteria: [
-      "Season definition is declared",
-      "Heat, dust, fog/smog appear as process features, not decoration",
-      "Access limits for national data are documented",
-      "No fabricated Multan station means"
-    ]
+      "Inputs and outputs are named and documented",
+      "At least three checks cover typical and invalid inputs",
+      "Notebook runs from a clean kernel",
+      "No personal machine paths or secrets",
+    ],
   },
   {
-    id: "cgei-cl-del-notebook-repro",
-    kind: "executable-notebook",
-    title: "Reproducible climate-data notebook (exit artefact)",
+    id: "cgei-ds-d-52-daily-package",
+    title: "Timezone-safe environmental daily table",
     description:
-      "Executable notebook (or script + README) that: loads a declared product, applies QC/completeness rules, builds fixed-baseline anomalies, computes at least one extremes index and one trend diagnostic, writes the provenance record, and ends with the cautious conclusions note. Synthetic fixtures are allowed when live restricted data cannot be used; label evidence class clearly.",
-    format: "Jupyter notebook or plain script + README + sidecar manifest",
-    estimatedMinutes: 180,
-    objectiveIds: [
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-25-time",
-      "cgei-cl-o-25-aggregate",
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-26-threshold",
-      "cgei-cl-o-26-trend",
-      "cgei-cl-o-26-inference",
-      "cgei-cl-o-28-evidence"
-    ],
-    unitIds: [
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
+      "A table package with local-date summaries, valid observation counts, a data dictionary and provenance.",
+    artefactTypes: ["dataset", "table", "repository"],
     acceptanceCriteria: [
-      "Runs end-to-end from a clean environment with pinned dependencies",
-      "Provenance record and conclusions note are generated or attached",
-      "Baseline, season, product and units appear in outputs",
-      "Evidence class of every plotted series is labelled (synthetic / open product / restricted)"
-    ]
-  }
+      "UTC-to-PKT conversion precedes local-date grouping",
+      "Boundary timestamp is tested",
+      "Valid observation counts accompany summaries",
+      "Join keys and row counts are checked",
+      "Units and missingness are documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-52-mini-package",
+    title: "Reproducible mini research table package",
+    description:
+      "A small project that another researcher can recreate and use from Python or R.",
+    artefactTypes: ["repository", "dataset", "script", "report"],
+    acceptanceCriteria: [
+      "Raw inputs remain unchanged",
+      "Environment dependencies are recorded",
+      "CSV and Parquet outputs are verified on read-back",
+      "Filename parser has positive and negative tests",
+      "README states execution order and expected outputs",
+      "Manifest records source/version, retrieval time, timezone and code revision",
+    ],
+  },
+  {
+    id: "cgei-ds-d-53-eda-notebook",
+    title: "Environmental EDA notebook",
+    description:
+      "A reproducible notebook that profiles one environmental table and answers explicit distributional, relational and temporal questions.",
+    artefactTypes: ["notebook", "plot", "table"],
+    acceptanceCriteria: [
+      "Observational unit and question are explicit",
+      "Missingness and plausible ranges are checked",
+      "Figures state units and valid sample size",
+      "Interpretations include limitations and non-claims",
+    ],
+  },
+  {
+    id: "cgei-ds-d-53-figure-audit",
+    title: "Analytical figure and map audit",
+    description:
+      "A checklist and revised caption for a scientific figure or map.",
+    artefactTypes: ["report", "presentation"],
+    acceptanceCriteria: [
+      "Map or figure metadata are complete",
+      "Colour scale matches variable semantics",
+      "Missingness and uncertainty are visible or stated",
+      "Claims do not exceed evidence",
+      "Dependence and sample support are acknowledged",
+    ],
+  },
+  {
+    id: "cgei-ds-d-53-eda-memo",
+    title: "EDA report and one-page memo",
+    description:
+      "A short scientific memo summarizing data-quality flags, key plots, supported findings and unresolved questions.",
+    artefactTypes: ["report", "notebook"],
+    acceptanceCriteria: [
+      "Question plan is linked to figures",
+      "At least one distributional and one relational/temporal display are included",
+      "An uncertainty or dependence limitation is discussed",
+      "The memo distinguishes association from causation",
+    ],
+  },
+  {
+    id: "cgei-ds-d-54-brief",
+    title: "Statistical brief",
+    description:
+      "A short report containing one estimation problem and one regression, with intervals, effect sizes, diagnostics and limitations.",
+    artefactTypes: ["report", "notebook", "table"],
+    acceptanceCriteria: [
+      "Population and sample support are explicit",
+      "Estimate and interval include units",
+      "Effect size is interpreted practically",
+      "Assumptions and dependence are discussed",
+      "Conclusions avoid causal overclaim",
+    ],
+  },
+  {
+    id: "cgei-ds-d-54-inference-checklist",
+    title: "Inference and test-decision checklist",
+    description:
+      "A reusable checklist for selecting and interpreting environmental statistical tests.",
+    artefactTypes: ["report"],
+    acceptanceCriteria: [
+      "Null/alternative and estimand are stated",
+      "Test assumptions are checked",
+      "Multiple testing is considered",
+      "P-value is interpreted conditionally",
+      "Effect size is reported alongside uncertainty",
+    ],
+  },
+  {
+    id: "cgei-ds-d-54-regression-notebook",
+    title: "Regression diagnostics notebook",
+    description:
+      "A reproducible OLS analysis with units, effect size, confidence interval and residual diagnostics.",
+    artefactTypes: ["notebook", "plot", "report"],
+    acceptanceCriteria: [
+      "Predictor/response units are explicit",
+      "Residual-vs-fitted and QQ diagnostics are included",
+      "Sample support and dependence are stated",
+      "Slope is interpreted as association unless a causal design exists",
+    ],
+  },
+  {
+    id: "cgei-ds-d-55-acquisition-package",
+    title: "Reproducible environmental-data acquisition package",
+    description:
+      "A shareable package containing an acquisition script, raw sample or synthetic stub, manifest, licence note, README and safe environment template.",
+    artefactTypes: ["repository", "script", "dataset", "report"],
+    acceptanceCriteria: [
+      "Raw inputs are preserved and transformations are deterministic",
+      "Request parameters, source/version, units, extent, retrieval time and checksum are recorded",
+      "Timeouts, status checks, validation and useful failure messages are present",
+      "README reproduces the workflow from a clean environment",
+      "No credentials or restricted data are committed",
+    ],
+  },
+  {
+    id: "cgei-ds-d-55-sql-query",
+    title: "Validated station-summary SQL query",
+    description:
+      "A query and short note that returns mean June maximum temperature by station with join and completeness checks.",
+    artefactTypes: ["script", "table", "report"],
+    acceptanceCriteria: [
+      "Date interval and output grain are explicit",
+      "Stable primary/foreign keys are used",
+      "Unmatched keys and duplicate metadata IDs are checked",
+      "Counts and valid-day rules are reported",
+    ],
+  },
+  {
+    id: "cgei-ds-d-55-provenance-note",
+    title: "Data provenance, licence and secrets note",
+    description:
+      "A concise record of dataset terms, attribution, credential handling and ethical limits for a specific acquisition.",
+    artefactTypes: ["report"],
+    acceptanceCriteria: [
+      "Exact dataset licence is identified and dated",
+      "Attribution and redistribution constraints are stated",
+      "Secrets are externalised and .env.example contains no real key",
+      "Sensitive data and location risks are considered",
+    ],
+  },
+  {
+    id: "cgei-ds-d-56-model-memo",
+    title: "Multiple-regression specification memo",
+    description:
+      "A concise model specification and interpretation with predictor units, reference levels, interaction interpretation and explicit non-causal limits.",
+    artefactTypes: ["report", "table"],
+    acceptanceCriteria: [
+      "Target and observational support are explicit",
+      "Coefficient interpretation includes units and conditioning",
+      "Interaction reference level is named",
+      "Causal claims are not inferred from adjustment alone",
+    ],
+  },
+  {
+    id: "cgei-ds-d-56-diagnostic-sheet",
+    title: "Regression diagnostics sheet",
+    description:
+      "A reproducible record of residual checks, collinearity diagnostics, influential cases and justified revisions.",
+    artefactTypes: ["notebook", "plot", "report"],
+    acceptanceCriteria: [
+      "Residual patterns are inspected",
+      "Collinearity is a diagnostic rather than a blind cutoff",
+      "Influential cases are investigated, not automatically removed",
+      "Revision decisions are documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-56-validation-memo",
+    title: "Leakage-aware model comparison memo",
+    description:
+      "A baseline-versus-candidate evaluation using a validation design that matches the intended spatial or temporal transfer claim.",
+    artefactTypes: ["notebook", "table", "report"],
+    acceptanceCriteria: [
+      "Split design is specified before tuning",
+      "Baseline and candidate use identical held-out folds",
+      "MAE, RMSE and bias are reported in interpretable units",
+      "At least one subgroup or failure case is reported",
+      "Limitations and non-claims are explicit",
+    ],
+  },
+  {
+    id: "cgei-ds-d-58-notebook",
+    title: "Weighted PCA/EOF notebook",
+    description:
+      "Reproducible PCA/EOF analysis with variance table, patterns and cautious interpretation.",
+    artefactTypes: ["notebook", "plot", "table"],
+    acceptanceCriteria: [
+      "Preprocessing documented",
+      "Weights justified and consistent",
+      "Variance fractions and retained modes reported",
+      "Limitations stated",
+    ],
+  },
+  {
+    id: "cgei-ds-d-58-weighting",
+    title: "Spatial weighting note",
+    description:
+      "Comparison of weighted and unweighted results for a specified grid.",
+    artefactTypes: ["report", "plot"],
+    acceptanceCriteria: [
+      "Grid and area convention stated",
+      "Patterns compared",
+      "Display convention documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-58-stability",
+    title: "EOF mode stability memo",
+    description:
+      "Resampling or split-period stability check with a justified retention decision.",
+    artefactTypes: ["notebook", "report"],
+    acceptanceCriteria: [
+      "Eigenvalue gaps considered",
+      "Pattern stability assessed",
+      "Unstable modes acknowledged",
+    ],
+  },
+  {
+    id: "cgei-ds-d-58-map-brief",
+    title: "Composite map interpretation brief",
+    description:
+      "Composite or regression map with sample sizes, uncertainty and multiplicity-aware interpretation.",
+    artefactTypes: ["plot", "report"],
+    acceptanceCriteria: [
+      "Threshold and sample sizes stated",
+      "Uncertainty/multiplicity method reported",
+      "No unsupported causal claim",
+    ],
+  },
+  {
+    id: "cgei-ds-d-57-audit",
+    title: "Time-series data audit",
+    description:
+      "A compact audit table and data dictionary for a defined environmental series.",
+    artefactTypes: ["table", "report"],
+    acceptanceCriteria: [
+      "Timestamp uniqueness and frequency checked",
+      "Missingness and units documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-57-anomaly",
+    title: "Anomaly and decomposition notebook",
+    description:
+      "A reproducible notebook with baseline anomalies, decomposition plots and a defensible caption.",
+    artefactTypes: ["notebook", "plot"],
+    acceptanceCriteria: [
+      "Baseline fixed and named",
+      "Seasonal rule and decomposition assumptions stated",
+    ],
+  },
+  {
+    id: "cgei-ds-d-57-trend",
+    title: "Dependence-aware trend note",
+    description:
+      "A trend estimate with residual-dependence diagnostics, uncertainty method and sensitivity note.",
+    artefactTypes: ["notebook", "report"],
+    acceptanceCriteria: [
+      "Slope units and period stated",
+      "Dependence and product limitations discussed",
+    ],
+  },
+  {
+    id: "cgei-ds-d-57-validation",
+    title: "Rolling-origin forecast comparison",
+    description:
+      "A reproducible evaluation table comparing a baseline and candidate on identical chronological folds.",
+    artefactTypes: ["notebook", "table"],
+    acceptanceCriteria: [
+      "No future-to-past leakage",
+      "Metrics by horizon and fold documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-57-memo",
+    title: "Forecast model comparison and failure memo",
+    description:
+      "A short scientific memo comparing forecasts, subgroup failures and non-claims.",
+    artefactTypes: ["report", "table"],
+    acceptanceCriteria: [
+      "MAE, RMSE and bias reported",
+      "Extreme-period failures discussed",
+      "No causal claim from predictive skill",
+    ],
+  },
+  {
+    id: "cgei-ds-d-59-model-card",
+    title: "Environmental model card",
+    description:
+      "Auditable summary of model question, response support, sampling unit, specification, validation, diagnostics, effects and limitations.",
+    artefactTypes: ["report", "notebook"],
+    acceptanceCriteria: [
+      "Response and target population defined",
+      "Family/link or hierarchical structure justified",
+      "Interpretable contrast with uncertainty shown",
+      "Diagnostics and validation recorded",
+      "Non-claims and limitations stated",
+    ],
+  },
+  {
+    id: "cgei-ds-d-59-bayes-note",
+    title: "Bayesian prior and posterior note",
+    description:
+      "Reproducible note describing prior rationale, prior predictive implications, posterior summaries and computational checks.",
+    artefactTypes: ["report", "notebook"],
+    acceptanceCriteria: [
+      "Likelihood and priors stated",
+      "Prior predictive implications inspected",
+      "Sampler diagnostics recorded where relevant",
+      "Sensitivity and posterior predictive checks discussed",
+    ],
+  },
+  {
+    id: "cgei-ds-d-59-diagnostics",
+    title: "Model diagnostics and validation record",
+    description:
+      "Evidence-backed diagnostic record covering residual structure, dispersion, convergence, influence and validation design.",
+    artefactTypes: ["notebook", "report"],
+    acceptanceCriteria: [
+      "Family-appropriate diagnostics included",
+      "Validation mimics intended deployment",
+      "Failure cases disclosed",
+      "Alternative specification considered",
+    ],
+  },
+  {
+    id: "cgei-ds-d-59-report",
+    title: "Interpretable environmental model report",
+    description:
+      "Decision-facing summary of a defensible model with effect scale, uncertainty, subgroup performance and limitations.",
+    artefactTypes: ["report", "table"],
+    acceptanceCriteria: [
+      "Reference categories and contrast defined",
+      "Effect reported on interpretable scale",
+      "Uncertainty and practical relevance discussed",
+      "Association is not overstated as causation",
+    ],
+  },
+  {
+    id: "cgei-ds-d-510-dag-memo",
+    title: "Environmental causal DAG memo",
+    description:
+      "A diagram and concise rationale for variable roles and plausible alternative structures.",
+    artefactTypes: ["other", "report"],
+    acceptanceCriteria: [
+      "Exposure and outcome defined",
+      "Variable roles explained",
+      "Alternative DAG or uncertainty noted",
+      "No claim that graph is data-proven",
+    ],
+  },
+  {
+    id: "cgei-ds-d-510-estimand-sheet",
+    title: "Causal estimand and target-trial sheet",
+    description:
+      "A pre-analysis statement of target population, strategies, time zero, outcome and contrast.",
+    artefactTypes: ["report", "table"],
+    acceptanceCriteria: [
+      "All estimand components explicit",
+      "Time alignment defensible",
+      "Target contrast interpretable",
+    ],
+  },
+  {
+    id: "cgei-ds-d-510-identification-memo",
+    title: "Identification and adjustment memo",
+    description:
+      "A DAG-grounded adjustment rationale with assumptions and positivity concerns.",
+    artefactTypes: ["report"],
+    acceptanceCriteria: [
+      "Adjustment set justified",
+      "Mediator/collider risks discussed",
+      "Identification assumptions and limits stated",
+    ],
+  },
+  {
+    id: "cgei-ds-d-510-design-critique",
+    title: "Causal design comparison",
+    description:
+      "A comparison of plausible observational designs and their diagnostics for an environmental intervention.",
+    artefactTypes: ["table", "report"],
+    acceptanceCriteria: [
+      "Design-specific assumptions listed",
+      "Diagnostics and clustering considered",
+      "Failure modes described",
+    ],
+  },
+  {
+    id: "cgei-ds-d-510-causal-report",
+    title: "Transparent causal analysis report",
+    description:
+      "A report that combines estimand, design, diagnostics, sensitivity and bounded causal interpretation.",
+    artefactTypes: ["report", "notebook"],
+    acceptanceCriteria: [
+      "Reproducible workflow linked",
+      "Sensitivity results reported",
+      "Uncertainty and limitations explicit",
+      "Causal claims match design strength",
+    ],
+  },
+  {
+    id: "cgei-ds-d-511-repository",
+    title: "Version-controlled environmental analysis repository",
+    description:
+      "A repository with focused history, a clear README, environment declaration and data-source notes.",
+    artefactTypes: ["repository", "report"],
+    acceptanceCriteria: [
+      "Changes are traceable",
+      "No secrets/private data committed",
+      "Method and provenance are documented",
+    ],
+  },
+  {
+    id: "cgei-ds-d-511-contract",
+    title: "Module and data-contract design note",
+    description:
+      "A small architecture note describing module boundaries and input/output contracts.",
+    artefactTypes: ["report", "other"],
+    acceptanceCriteria: [
+      "Contracts state schema and units",
+      "CRS/time conventions explicit where relevant",
+      "Failure behaviour described",
+    ],
+  },
+  {
+    id: "cgei-ds-d-511-tests",
+    title: "Scientific testing suite",
+    description:
+      "Runnable tests for transformations, edge cases and numerical or data invariants.",
+    artefactTypes: ["repository", "notebook"],
+    acceptanceCriteria: [
+      "Assertions reflect meaningful properties",
+      "Tolerance rationale documented",
+      "At least one regression/edge case covered",
+    ],
+  },
+  {
+    id: "cgei-ds-d-511-env",
+    title: "Environment and reproducibility record",
+    description:
+      "A documented clean rerun with dependencies, input provenance and expected outputs.",
+    artefactTypes: ["report", "repository"],
+    acceptanceCriteria: [
+      "Runtime/dependencies recorded",
+      "Data source/licence recorded",
+      "Execution steps work in a clean environment",
+    ],
+  },
+  {
+    id: "cgei-ds-d-511-release",
+    title: "Scientific software release record",
+    description:
+      "CI configuration, release checklist and evidence-bounded release notes.",
+    artefactTypes: ["repository", "report"],
+    acceptanceCriteria: [
+      "Automated checks named",
+      "Scientific review and limitations recorded",
+      "Claims match evidence actually collected",
+    ],
+  },
+  {
+    id: "cgei-ds-d-512-inventory",
+    title: "Multidimensional dataset inventory",
+    description:
+      "A compact inventory of variables, dimensions, coordinates, units, missingness and provenance.",
+    artefactTypes: ["table", "report"],
+    acceptanceCriteria: [
+      "Dimensions and coordinates distinguished",
+      "Units and grid/time conventions documented",
+      "Provenance recorded",
+    ],
+  },
+  {
+    id: "cgei-ds-d-512-alignment",
+    title: "Coordinate-alignment decision record",
+    description:
+      "A reproducible example and rationale for alignment, common support or interpolation.",
+    artefactTypes: ["notebook", "report"],
+    acceptanceCriteria: [
+      "Mismatch demonstrated",
+      "Alignment result explained",
+      "Chosen operation justified scientifically",
+    ],
+  },
+  {
+    id: "cgei-ds-d-512-performance",
+    title: "Eager-versus-lazy performance notebook",
+    description:
+      "A bounded numerical comparison with chunk, scheduler and environment details.",
+    artefactTypes: ["notebook", "table"],
+    acceptanceCriteria: [
+      "Outputs compared with justified tolerance",
+      "Chunk sizes and workload stated",
+      "Performance claims are bounded",
+    ],
+  },
+  {
+    id: "cgei-ds-d-512-pipeline",
+    title: "Validated spatiotemporal feature pipeline",
+    description:
+      "A synthetic multidimensional workflow with coordinate checks, declared transformations and metadata-preserving outputs.",
+    artefactTypes: ["repository", "notebook"],
+    acceptanceCriteria: [
+      "Coordinate and missingness checks included",
+      "Feature units/support documented",
+      "Output metadata preserved",
+    ],
+  },
+  {
+    id: "cgei-ds-d-512-report",
+    title: "Pipeline reproducibility and performance report",
+    description:
+      "A release report documenting provenance, numerical validation, performance context and limitations.",
+    artefactTypes: ["report", "table"],
+    acceptanceCriteria: [
+      "Source/environment recorded",
+      "Numerical and metadata checks reported",
+      "Known failures and non-claims explicit",
+    ],
+  },
+  {
+    id: "cgei-ds-d-capstone-repository",
+    title: "Capstone repository",
+    description:
+      "A reproducible repository containing source, environment, documentation, outputs and scientific interpretation.",
+    artefactTypes: ["repository", "notebook", "report"],
+    acceptanceCriteria: [
+      "Clean rerun is possible",
+      "Data sources and licences are recorded",
+      "Validation is reproducible",
+      "Results are communicated with uncertainty",
+    ],
+    rubricId: "cgei-ds-rubric-capstone",
+  },
 ] as const;
 
 export const projects: CurriculumProject[] = [
   {
-    id: "cgei-cl-proj-exit-notebook",
-    kind: "exit-gate",
-    title: "Subject 2 exit gate — reproducible Multan / southern Punjab climate notebook",
-    summary:
-      "Produce one reproducible analysis package that demonstrates weather–climate discipline, product selection, correct clocks and units, baseline anomalies, extremes and trend diagnostics, and cautious conclusions for a Multan or southern Punjab question.",
-    description:
-      "This is the competence target named across Core unit notes: a reproducible climate-data notebook (or script package) with metadata, baseline/season, trend or extremes diagnostics, validation note, and cautious conclusions. Learners choose a focused question (e.g. pre-monsoon heat threshold exceedances, monsoon rainfall variability in a declared season window, or dry-spell statistics) over Multan or a clearly defined southern Punjab domain. Open products (ERA5 or documented blends) are the default when PMD series are restricted; synthetic fixtures from unit labs may support method checks but must be labelled as synthetic. The package must not invent station numbers, must not equate a short product window with attribution, and must separate description from causal language.",
-    estimatedHours: 12,
+    id: "cgei-ds-capstone",
+    kind: "capstone",
+    title: "Environmental data analysis: reproducible portfolio capstone",
+    problemStatement:
+      "Answer a bounded environmental question with a reproducible quantitative workflow, and make it possible for another researcher to inspect, rerun and critique the result.",
+    purpose:
+      "Demonstrate integrated scientific computing practice rather than course completion alone.",
+    readiness: "outlined",
     level: "L3",
+    prerequisiteUnitIds: [
+      "cgei-ds-unit-5-1",
+      "cgei-ds-unit-5-2",
+      "cgei-ds-unit-5-3",
+      "cgei-ds-unit-5-4",
+      "cgei-ds-unit-5-5",
+    ],
     objectiveIds: [
-      "cgei-cl-o-21-weather-climate",
-      "cgei-cl-o-21-evidence",
-      "cgei-cl-o-24-select",
-      "cgei-cl-o-25-time",
-      "cgei-cl-o-25-aggregate",
-      "cgei-cl-o-25-anomaly",
-      "cgei-cl-o-26-threshold",
-      "cgei-cl-o-26-trend",
-      "cgei-cl-o-26-inference",
-      "cgei-cl-o-28-seasons",
-      "cgei-cl-o-28-multan",
-      "cgei-cl-o-28-evidence"
+      "cgei-ds-o-reproducible-analysis",
+      "cgei-ds-o-environmental-inference",
+      "cgei-ds-o-data-product",
     ],
-    deliverableIds: [
-      "cgei-cl-del-provenance-record",
-      "cgei-cl-del-product-manifest",
-      "cgei-cl-del-baseline-anomaly-brief",
-      "cgei-cl-del-extremes-trend-card",
-      "cgei-cl-del-cautious-conclusions",
-      "cgei-cl-del-regional-literacy-brief",
-      "cgei-cl-del-notebook-repro"
+    milestones: [
+      {
+        id: "cgei-ds-capstone-m1",
+        title: "Question, data and provenance",
+        instructions:
+          "Define a bounded question, source appropriate data, document licence/limits and specify a reproducible data dictionary.",
+        deliverableIds: ["cgei-ds-d-capstone-repository"],
+        acceptanceCriteria: [
+          "Question and estimand/target are explicit",
+          "Data provenance and constraints are recorded",
+          "Analysis plan names assumptions",
+        ],
+      },
+      {
+        id: "cgei-ds-capstone-m2",
+        title: "Validated analysis workflow",
+        instructions:
+          "Build a clean, rerunnable workflow with explicit transformations, checks and diagnostic outputs.",
+        deliverableIds: ["cgei-ds-d-capstone-repository"],
+        acceptanceCriteria: [
+          "Workflow runs from documented setup",
+          "Data checks and tests are included",
+          "Intermediate and final outputs are traceable",
+        ],
+      },
+      {
+        id: "cgei-ds-capstone-m3",
+        title: "Interpretation, uncertainty and release",
+        instructions:
+          "Write an evidence-aligned report, discuss uncertainty and limitations, and prepare a reviewable release.",
+        deliverableIds: ["cgei-ds-d-capstone-repository"],
+        acceptanceCriteria: [
+          "Interpretations do not exceed evidence",
+          "Uncertainty and limitations are explicit",
+          "Repository includes instructions and a release note",
+        ],
+      },
     ],
-    resourceIds: [
-      "cgei-cl-res-era5-cds",
-      "cgei-cl-res-era5-doc",
-      "cgei-cl-res-wmo-normals",
-      "cgei-cl-res-etccdi",
-      "cgei-cl-res-pmd-access",
-      "cgei-cl-res-cf-conventions",
-      "cgei-cl-res-ipcc-ar6-wg1"
+    deliverables: [
+      {
+        id: "cgei-ds-d-capstone-repository",
+        title: "Capstone repository",
+        description:
+          "A reproducible repository containing source, environment, documentation, outputs and scientific interpretation.",
+        artefactTypes: ["repository", "notebook", "report"],
+        acceptanceCriteria: [
+          "Clean rerun is possible",
+          "Data sources and licences are recorded",
+          "Validation is reproducible",
+          "Results are communicated with uncertainty",
+        ],
+        rubricId: "cgei-ds-rubric-capstone",
+      },
     ],
-    unitIds: [
-      "cgei-cl-unit-2-1",
-      "cgei-cl-unit-2-4",
-      "cgei-cl-unit-2-5",
-      "cgei-cl-unit-2-6",
-      "cgei-cl-unit-2-8"
-    ],
-    exitCriteria: [
-      "Executable package runs from a clean environment",
-      "All seven linked deliverables are present and consistent with each other",
-      "Baseline, season definition, product, domain and units are stated wherever numbers appear",
-      "Cautious conclusions list explicit non-claims (no short-window attribution; no gauge-equivalence for area averages; no invented observations)",
-      "Evidence classes are never mixed in a single plot or sentence without a label"
-    ],
-    failureModes: [
-      "Calling a 10-year ERA5 window a climate-change proof",
-      "UTC daily extremes presented as local PKT impact statistics without disclosure",
-      "Missing values zero-filled",
-      "Bare multi-model or multi-product mean without range or exclusion log",
-      "Fabricated Multan station series"
-    ]
-  }
+    rubricId: "cgei-ds-rubric-capstone",
+  },
 ] as const;
