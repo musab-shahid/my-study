@@ -74,10 +74,10 @@ function CGEILearningHomeScreen() {
     <PageContainer width="wide">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="relative overflow-hidden rounded-card border border-slate-200 bg-white p-card-pad sm:p-card-pad-lg mb-6">
-        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-teal-600 via-cyan-500 to-blue-600" aria-hidden />
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-brand-700 via-brand-600 to-success-600" aria-hidden />
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.14em] text-teal-800">Climate & Geospatial Intelligence</p>
+            <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-800">Climate & Geospatial Intelligence</p>
             <h1 className="text-page-title sm:text-page-title-lg font-semibold tracking-tight text-ink mt-1">CGEI Learning</h1>
             <p className="text-sm text-muted leading-relaxed mt-2 max-w-2xl">A connected progression from environmental foundations to applied intelligence, research and professional practice. Choose a domain, then follow its units and lessons in order.</p>
           </div>
@@ -217,7 +217,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
         <div className="flex items-start gap-3">
           <div className={`rounded-xl ${style.tint} p-3 shrink-0`}><Icon className={`w-6 h-6 ${style.text}`} aria-hidden /></div>
           <div className="min-w-0">
-            <p className="text-xs font-bold uppercase tracking-wide text-teal-800">CGEI domain</p>
+            <p className="text-xs font-bold uppercase tracking-wide text-brand-800">CGEI domain</p>
             <h1 className="text-page-title sm:text-page-title-lg font-semibold tracking-tight text-ink mt-1">{subjectDefinition.title}</h1>
             {subject && <p className="text-sm font-medium text-muted mt-1">{subject.subtitle}</p>}
           </div>
