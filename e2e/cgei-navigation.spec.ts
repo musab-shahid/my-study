@@ -121,7 +121,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     const next = page.getByRole('button', { name: /Next lesson/ });
     await expect(next).toBeEnabled({ timeout: 20_000 });
     await next.click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-ds-lesson-5-1-2$/);
     await expect(page.getByRole('button', { name: /Previous lesson/ })).toBeEnabled();
     await expect(page.getByText('This lesson is marked as studied.', { exact: true })).toHaveCount(0);
   });
@@ -153,12 +153,12 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await page.goto('/learn/cgei-data-science');
     await expect(page.getByText(/^0 of \d+ authored lessons marked studied$/, { exact: true })).toBeVisible();
     await page.getByRole('button', { name: /Mathematical and physical foundations/ }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-ds-unit-5-1$/);
     await expect(page.getByRole('heading', { name: 'Mathematical and physical foundations', exact: true })).toBeVisible();
     await expect(page.getByRole('heading', { name: 'Assessments', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: /Quantities, units and dimensional analysis/ }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-ds-lesson-5-1-1$/);
     await expect(page.getByRole('heading', { name: 'Learning objectives', exact: true })).toBeVisible();
     await expect(page.getByText('Unrecorded knowledge check', { exact: true }).first()).toBeVisible();
     await expect(page.getByText(/does not establish mastery/).first()).toBeVisible();
@@ -172,7 +172,7 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await seedCgeiWorkspace(page);
     await page.goto('/topic/cgei-env-systems-roadmap');
 
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/learn\/cgei-env-systems$/);
     const orientation = page.locator('details').filter({ hasText: 'Before you begin' });
     await expect(orientation).toBeVisible({ timeout: 20_000 });
     await expect(orientation.locator('summary')).toContainText('expand for goals');
@@ -229,9 +229,9 @@ test.describe('CGEI curriculum navigation and orientation', () => {
     await expect(page.getByText('All 7 checks', { exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: 'Unit overview', exact: true }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/curriculum\/unit\/cgei-cl-unit-2-4$/);
     await page.getByRole('button', { name: /Gridded products and reanalysis/ }).click();
-    await expect(page).toHaveURL(/\/learn\/track\/cgei$/);
+    await expect(page).toHaveURL(/\/curriculum\/lesson\/cgei-cl-lesson-2-4-2$/);
     await expect(page.getByText('Showing 3 of 3', { exact: true })).toBeVisible({ timeout: 30_000 });
     await expect(page.getByRole('button', { name: /Show all/ })).toHaveCount(0);
   });
