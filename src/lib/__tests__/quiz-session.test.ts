@@ -54,22 +54,22 @@ describe('validateDraftShape', () => {
   it('rejects non-object', () => {
     assert.equal(validateDraftShape(null).ok, false);
   });
-  it('rejects duplicate question ids', () => {
+  it('allows repeated question ids for re-queued items', () => {
     const r = validateDraftShape({
       questionIds: ['q1', 'q1'],
       answers: [],
       currentIdx: 0,
       mode: 'quick',
     });
-    assert.equal(r.ok, false);
+    assert.equal(r.ok, true);
   });
   it('preserves repeated submitted attempts separately from unique aggregate answers', () => {
     const r = validateDraftShape({
       questionIds: ['q1', 'q2'],
       answers: [{ questionId: 'q1', correct: true, selectedIndices: [0] }],
       reviewAttempts: [
-        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900 },
-        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700 },
+        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900, optionOrder: [0, 1] },
+        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0] },
       ],
       currentIdx: 1,
       mode: 'quick',
