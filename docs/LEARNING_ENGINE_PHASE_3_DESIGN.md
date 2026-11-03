@@ -11,7 +11,7 @@ The baseline for the work below is `main` at `0703a9e1ea2d8cf612072ed8f99d1f4999
 - `IndexedDbReviewLog` is append-only, validates batches, and treats same-ID/same-payload appends as idempotent. Atomic batch append protects against multi-tab duplicate-ID races.
 - A separate IndexedDB outbox stores exact event IDs and payloads before primary-log append. Transient failures remain queued; recovery retries on startup, connectivity restoration, and tab visibility. The production path does not claim durable recovery through a memory-only fallback when IndexedDB is unavailable.
 - Review persistence status is exposed through an accessible in-app notice. A failed event write does not roll back a completed quiz or its aggregate progress.
-- Review records remain browser-local IndexedDB data. They are not part of JSON export or the account-wide `AppData` cloud snapshot. Clearing this site's browser data removes them.
+- Review records remain browser-local IndexedDB data. They are not part of JSON export or the account-wide `AppData` cloud snapshot. Clearing this site's browser data removes them. Device attribution may still be the `unknown-device` placeholder; this pipeline does not establish cross-device identity or synchronization.
 - `shadow-fsrs.ts` remains a simplified FSRS-inspired proxy, not ts-fsrs. It does not control learner-visible due dates.
 
 ## 2. Reliability work completed
@@ -58,7 +58,7 @@ Phase 3C does not change quiz scoring formulas, existing aggregates, mastery cal
 - Repeated attempts remain individually represented, while only the designated final outcome participates in AppData aggregate replay.
 - Unanswered timeout slots are distinguishable from learner-submitted answers and carry no invented confidence or latency.
 - Event-log failure is visible and recoverable, not silently described as success.
-- Browser-local review history is not described as cross-device sync or account-wide backup.
+- Browser-local review history is not described as cross-device sync or account-wide backup. `unknown-device` is not treated as a durable learner/device identity.
 - Existing question IDs, subject IDs, formulas, progress aggregates, routes, authentication, and the CGEI two-data-file-per-subject boundary remain unchanged unless a separate, evidence-backed proposal is approved.
 - No FSRS efficacy claim is inferred from passing CI, synthetic fixtures, or a shadow-model comparison alone.
 - No scheduler cutover occurs as part of a reliability or instrumentation PR.
