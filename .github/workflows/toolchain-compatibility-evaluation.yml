@@ -1,6 +1,9 @@
 name: Toolchain compatibility evaluation
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/toolchain-compatibility-evaluation.yml
   push:
     branches:
       - compatibility/phase5-toolchain-evaluation
