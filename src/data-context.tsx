@@ -9,6 +9,7 @@ import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
 import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index-helpers';
+import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 
 export interface DataContextValue {
   data: AppData;
@@ -81,7 +82,38 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
-    setData((prev) => recordQuizResult(prev, topicId, answers, questions, mode, subjectId, difficultyFilter));
+    // Compute from the latest committed ref and pass a concrete value to setState.
+    // React may replay updater functions in Strict Mode; event creation must not live there.
+    const now = Date.now();
+    const current = dataRef.current;
+    const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now);
+    dataRef.current = next;
+    setData(next);
+
+    const questionTopicMap = new Map(questions.map((question) => [question.id, question.topicId]));
+    const questionById = new Map(questions.map((question) => [question.id, question]));
+    dualWriteQuizAttemptsFireAndForget({
+      answers: answers.map((answer) => ({
+        questionId: answer.questionId,
+        correct: answer.correct,
+        skillId: questionTopicMap.get(answer.questionId) ?? answer.questionId,
+        confidence: answer.confidence,
+        latencyMs: answer.latencyMs,
+        chosenOption: (() => {
+          if (!answer.selectedIndices || answer.selectedIndices.length === 0) return undefined;
+          const question = questionById.get(answer.questionId);
+          if (question?.options?.length) {
+            return answer.selectedIndices
+              .map((index) => question.options[index] ?? String(index))
+              .join(' | ');
+          }
+          return answer.selectedIndices.join(',');
+        })(),
+      })),
+      mode,
+      sessionId: `quiz_${now}`,
+      ts: now,
+    });
   }, []);
 
   const setLastTopic = useCallback((topicId: string) => {
