@@ -28,6 +28,8 @@ import { buildTopicContext, buildStudentContext, consumePendingExplain } from '@
 import { isTopicMastered } from '@/lib/attention';
 import { getTopicStatusFromProgress } from '@/lib/constants';
 import { selectContinueLearningTopic } from '@/lib/continue-learning';
+import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
+import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import {
   IdiomGroupsBlock,
   SubstitutionGroupsBlock,
@@ -392,28 +394,35 @@ function GenericStudyScreen() {
                 </div>
               </div>
               <div className="space-y-2">
-                {curriculumUnits.map((unit) => (
-                  <Button
-                    key={unit.id}
-                    type="button"
-                    variant="secondary"
-                    onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
-                    className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left"
-                  >
-                    <div className="flex items-start gap-3">
-                      <span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span>
-                      <span className="min-w-0 flex-1">
-                        <span className="flex flex-wrap items-center gap-2">
-                          <span className="font-semibold text-sm text-ink">{unit.title}</span>
-                          <Badge color={unit.readiness === 'review' ? 'amber' : unit.readiness === 'outlined' ? 'sky' : 'slate'}>{unit.readiness}</Badge>
+                {curriculumUnits.map((unit) => {
+                  const hasSubstantiveContent = unit.lessonIds.some((lessonId) => {
+                    const lesson = cgeiCurriculum.lessons.find((item) => item.id === lessonId);
+                    return lesson ? hasSubstantiveLessonContent(lesson) : false;
+                  });
+                  const readiness = getLearnerReadinessPresentation(unit.readiness, hasSubstantiveContent);
+                  return (
+                    <Button
+                      key={unit.id}
+                      type="button"
+                      variant="secondary"
+                      onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
+                      className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left"
+                    >
+                      <div className="flex items-start gap-3">
+                        <span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span>
+                        <span className="min-w-0 flex-1">
+                          <span className="flex flex-wrap items-center gap-2">
+                            <span className="font-semibold text-sm text-ink">{unit.title}</span>
+                            <Badge color={readiness.tone === 'preview' ? 'amber' : readiness.tone === 'coming-soon' ? 'sky' : 'slate'}>{readiness.label}</Badge>
+                          </span>
+                          <span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span>
+                          <span className="block text-xs text-muted mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
                         </span>
-                        <span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span>
-                        <span className="block text-xs text-muted mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
-                      </span>
-                      <ChevronRight className="w-4 h-4 text-success-700 shrink-0 mt-1" />
-                    </div>
-                  </Button>
-                ))}
+                        <ChevronRight className="w-4 h-4 text-success-700 shrink-0 mt-1" />
+                      </div>
+                    </Button>
+                  );
+                })}
               </div>
               {curriculumSubject.projectIds.map((projectId) => {
                 const project = cgeiCurriculum.projects.find((item) => item.id === projectId);
@@ -682,9 +691,12 @@ export function SectionScreen({ sectionId }: { sectionId: string }) {
                   <p className="font-medium text-ink text-sm sm:text-base leading-snug">{topic.title}</p>
                   {(() => {
                     const lesson = cgeiCurriculum.lessons.find((item) => item.sourceTopicId === topic.id);
+                    const readiness = lesson
+                      ? getLearnerReadinessPresentation(lesson.readiness, hasSubstantiveLessonContent(lesson))
+                      : null;
                     return (
                       <span className="text-xs text-muted">
-                        {lesson ? `${lesson.level} · ~${lesson.estimatedMinutes ?? 0} min · ${lesson.readiness}` : topic.content ? 'Content available' : 'Content coming soon'}
+                        {lesson ? `${lesson.level} · ~${lesson.estimatedMinutes ?? 0} min · ${readiness?.label}` : topic.content ? 'Content available' : 'Content coming soon'}
                       </span>
                     );
                   })()}
@@ -829,7 +841,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-muted">
             <span className="rounded-full bg-brand-50 text-brand-700 px-2.5 py-1 font-semibold">{curriculumLesson.level}</span>
             {curriculumLesson.estimatedMinutes ? <span>Estimated time: {curriculumLesson.estimatedMinutes} min</span> : null}
-            <span className="capitalize">Content status: {curriculumLesson.readiness}</span>
+            <span>Content status: {getLearnerReadinessPresentation(curriculumLesson.readiness, hasSubstantiveLessonContent(curriculumLesson)).label}</span>
           </div>
         )}
         {curriculumLesson?.objectives.length ? (
