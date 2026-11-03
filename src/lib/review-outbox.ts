@@ -127,7 +127,9 @@ let defaultOutbox: ReviewOutbox | null = null;
 
 export function getDefaultReviewOutbox(): ReviewOutbox {
   if (!defaultOutbox) {
-    defaultOutbox = typeof indexedDB !== 'undefined' ? new IndexedDbReviewOutbox() : new MemoryReviewOutbox();
+    // Never use an in-memory queue in production: reporting it as durable
+    // would falsely promise reload recovery when IndexedDB is unavailable.
+    defaultOutbox = new IndexedDbReviewOutbox();
   }
   return defaultOutbox;
 }
