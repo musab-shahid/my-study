@@ -162,84 +162,81 @@ function eventKeyFromDb(e: ReviewEvent): string {
 /** Browser IndexedDB-backed append-only log. */
 export class IndexedDbReviewLog implements ReviewLog {
   async append(event: ReviewEvent): Promise<void> {
-    const validation = validateReviewEvent(event);
-    if (!validation.valid) {
-      throw new ReviewLogPersistenceError('invalid_event', `Event validation failed: ${validation.errors.join(', ')}`);
-    }
-    const db = await openDb();
-    try {
-      // Check for existing event with same ID
-      const existing = await new Promise<ReviewEvent | undefined>((resolve, reject) => {
-        const tx = db.transaction(STORE, 'readonly');
-        const req = tx.objectStore(STORE).get(event.id);
-        req.onsuccess = () => resolve(req.result as ReviewEvent | undefined);
-        req.onerror = () => reject(new ReviewLogPersistenceError('idb_transaction_failed', req.error?.message ?? 'idb get failed'));
-      });
-      if (existing) {
-        if (eventKeyFromDb(existing) === eventKey(event)) return; // idempotent
-        throw new ReviewLogPersistenceError('duplicate_id_conflict', `Event id ${event.id} already exists with different payload`, event.id);
-      }
-      await new Promise<void>((resolve, reject) => {
-        const tx = db.transaction(STORE, 'readwrite');
-        tx.oncomplete = () => resolve();
-        tx.onerror = () => reject(new ReviewLogPersistenceError('idb_transaction_failed', tx.error?.message ?? 'idb append failed'));
-        tx.objectStore(STORE).put(event);
-      });
-    } finally {
-      db.close();
-    }
+    await this.appendMany([event]);
   }
 
   async appendMany(events: ReviewEvent[]): Promise<void> {
     if (events.length === 0) return;
-    // Validate all events first
-    for (const e of events) {
-      const validation = validateReviewEvent(e);
+    // Validate and deduplicate before opening the transaction.
+    const batch = new Map<string, ReviewEvent>();
+    for (const event of events) {
+      const validation = validateReviewEvent(event);
       if (!validation.valid) {
         throw new ReviewLogPersistenceError('invalid_event', `Event validation failed: ${validation.errors.join(', ')}`);
       }
-    }
-    // Deduplicate within batch: check for conflicting payloads on same ID
-    const batchKeys = new Map<string, string>();
-    for (const e of events) {
-      const existing = batchKeys.get(e.id);
-      if (existing !== undefined && existing !== eventKey(e)) {
-        throw new ReviewLogPersistenceError('batch_conflict', `Batch contains conflicting events with id ${e.id}`, e.id);
+      const previous = batch.get(event.id);
+      if (previous && eventKey(previous) !== eventKey(event)) {
+        throw new ReviewLogPersistenceError('batch_conflict', `Batch contains conflicting events with id ${event.id}`, event.id);
       }
-      batchKeys.set(e.id, eventKey(e));
+      if (!previous) batch.set(event.id, event);
     }
 
     const db = await openDb();
     try {
-      // Check existing events for conflicts
-      const existingEvents = new Map<string, ReviewEvent>();
-      for (const id of batchKeys.keys()) {
-        const existing = await new Promise<ReviewEvent | undefined>((resolve, reject) => {
-          const tx = db.transaction(STORE, 'readonly');
-          const req = tx.objectStore(STORE).get(id);
-          req.onsuccess = () => resolve(req.result as ReviewEvent | undefined);
-          req.onerror = () => reject(new ReviewLogPersistenceError('idb_transaction_failed', req.error?.message ?? 'idb get failed'));
-        });
-        if (existing) existingEvents.set(id, existing);
-      }
-      for (const [id, key] of batchKeys) {
-        const existing = existingEvents.get(id);
-        if (existing && eventKeyFromDb(existing) !== key) {
-          throw new ReviewLogPersistenceError('duplicate_id_conflict', `Event id ${id} already exists with different payload`, id);
-        }
-      }
-
-      // Write all new events in a single transaction
+      // Conflict check and inserts share one readwrite transaction. IndexedDB
+      // serializes readwrite transactions on this store, closing the race where
+      // two tabs could both observe a missing ID and then overwrite one another.
       await new Promise<void>((resolve, reject) => {
         const tx = db.transaction(STORE, 'readwrite');
-        tx.oncomplete = () => resolve();
-        tx.onerror = () => reject(new ReviewLogPersistenceError('idb_transaction_failed', tx.error?.message ?? 'idb appendMany failed'));
         const store = tx.objectStore(STORE);
-        for (const [id] of batchKeys) {
-          if (!existingEvents.has(id)) {
-            const e = events.find((ev) => ev.id === id)!;
-            store.put(e);
+        const rows = [...batch.entries()];
+        let settled = false;
+
+        const fail = (error: ReviewLogPersistenceError) => {
+          if (settled) return;
+          settled = true;
+          try { tx.abort(); } catch { /* transaction may already be inactive */ }
+          reject(error);
+        };
+
+        tx.oncomplete = () => {
+          if (!settled) {
+            settled = true;
+            resolve();
           }
+        };
+        tx.onerror = () => {
+          if (!settled) {
+            settled = true;
+            reject(new ReviewLogPersistenceError('idb_transaction_failed', tx.error?.message ?? 'idb appendMany failed'));
+          }
+        };
+        tx.onabort = () => {
+          if (!settled) {
+            settled = true;
+            reject(new ReviewLogPersistenceError('idb_transaction_failed', tx.error?.message ?? 'idb appendMany aborted'));
+          }
+        };
+
+        // Each read is followed immediately by its conditional insert while
+        // this readwrite transaction remains active. Readwrite transactions
+        // for this object store are serialized across tabs, so a competing
+        // append cannot slip between the existence check and the insert.
+        for (const [id, event] of rows) {
+          const request = store.get(id);
+          request.onerror = () => fail(new ReviewLogPersistenceError('idb_transaction_failed', request.error?.message ?? 'idb get failed'));
+          request.onsuccess = () => {
+            if (settled) return;
+            const existing = request.result as ReviewEvent | undefined;
+            if (existing) {
+              if (eventKey(existing) !== eventKey(event)) {
+                fail(new ReviewLogPersistenceError('duplicate_id_conflict', `Event id ${id} already exists with different payload`, id));
+              }
+              return;
+            }
+            const insert = store.add(event);
+            insert.onerror = () => fail(new ReviewLogPersistenceError('idb_transaction_failed', insert.error?.message ?? 'idb insert failed'));
+          };
         }
       });
     } finally {
