@@ -17,6 +17,7 @@ import {
   setDefaultReviewLogForTests,
   type ReviewLog,
 } from '../review-log.ts';
+import { MemoryReviewOutbox } from '../review-outbox.ts';
 import { dualWriteQuizAttempts, dualWriteQuizAttemptsFireAndForget, type DualWriteResult } from '../dual-write.ts';
 import {
   diffAggregates,
@@ -329,6 +330,7 @@ describe('PR1: dual-write structured result and retry', () => {
       mode: 'topic',
       ts: 100,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.status, 'persisted');
     assert.equal(result.attempts, 1);
@@ -358,7 +360,7 @@ describe('PR1: dual-write structured result and retry', () => {
       ts: 100,
       log,
     });
-    assert.equal(result.status, 'failed');
+    assert.equal(result.status, 'pending'); // durable outbox retains events for recovery
     assert.equal(result.errorCategory, 'idb_transaction_failed');
     assert.ok(result.attempts <= 3); // initial + 2 retries
     assert.ok(result.attempts >= 1);
@@ -426,8 +428,9 @@ describe('PR1: aggregate preservation on event failure', () => {
       mode: 'topic',
       ts: 100,
       log: failingLog,
+      outbox: new MemoryReviewOutbox(),
     });
-    assert.equal(result.status, 'failed');
+    assert.equal(result.status, 'pending'); // failed event write is retained in the durable outbox
     // Live aggregate unchanged
     assert.deepEqual(liveBefore, liveSnapshot);
   });
