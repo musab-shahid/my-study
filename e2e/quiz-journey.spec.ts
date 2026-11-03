@@ -237,4 +237,76 @@ test.describe('Quiz completion journey', () => {
     const after = await page.evaluate((key) => localStorage.getItem(key), APP_DATA_KEY);
     expect(hasProgressSignal(after), 'expected progress to survive reload').toBeTruthy();
   });
+  test('exit preserves an answered quiz draft and Home resumes the same attempt', async ({ page }) => {
+    test.setTimeout(240_000);
+    await seedEnrolledWorkspace(page);
+
+    await page.getByText('Practice', { exact: true }).first().click();
+    await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({
+      timeout: 20_000,
+    });
+
+    await expect
+      .poll(
+        async () => {
+          const el = page.getByText(/\d+ questions? available/i).first();
+          if (!(await el.isVisible().catch(() => false))) return 0;
+          const text = (await el.textContent()) || '';
+          const match = text.match(/(\d+)/);
+          return match ? Number(match[1]) : 0;
+        },
+        { timeout: 90_000, message: 'question bank did not load for practice scope' },
+      )
+      .toBeGreaterThan(0);
+
+    await page.getByRole('button', { name: /Quick Practice/i }).first().click();
+    const startNew = page.getByRole('button', { name: /Start New/i });
+    if (await startNew.isVisible().catch(() => false)) await startNew.click();
+
+    await expect(page.getByRole('button', { name: /^Check Answer$/i })).toBeVisible({
+      timeout: 90_000,
+    });
+    await answerCurrentQuestion(page);
+
+    await expect
+      .poll(
+        async () => page.evaluate((key) => {
+          const raw = localStorage.getItem(key);
+          if (!raw) return false;
+          const saved = JSON.parse(raw);
+          return Array.isArray(saved.answers) && saved.answers.length > 0 && saved.currentIdx > 0;
+        }, QUIZ_PROGRESS_KEY),
+        { timeout: 10_000, message: 'answered quiz draft was not saved before exit' },
+      )
+      .toBeTruthy();
+    const savedBeforeExit = await page.evaluate((key) => {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    }, QUIZ_PROGRESS_KEY);
+    const questionIds = savedBeforeExit.questionIds as string[];
+
+    await page.getByRole('button', { name: 'Exit quiz' }).click();
+    const exitDialog = page.getByRole('dialog', { name: 'Exit quiz?' });
+    await expect(exitDialog.getByText(/saved on this device.*resume this quiz from Home/i)).toBeVisible();
+    await exitDialog.getByRole('button', { name: 'Exit', exact: true }).click();
+
+    await page.getByRole('button', { name: 'Home', exact: true }).click();
+    await expect(page.getByText('Resume your quiz', { exact: true })).toBeVisible();
+    await page.getByRole('button', { name: 'Resume quiz', exact: true }).click();
+
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible({
+      timeout: 30_000,
+    });
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await expect(page.getByText(/^Q 2 of \d+$/)).toBeVisible({ timeout: 30_000 });
+
+    const savedAfterResume = await page.evaluate((key) => {
+      const raw = localStorage.getItem(key);
+      return raw ? JSON.parse(raw) : null;
+    }, QUIZ_PROGRESS_KEY);
+    expect(savedAfterResume?.questionIds).toEqual(questionIds);
+    expect(savedAfterResume?.answers?.length).toBe(savedBeforeExit.answers.length);
+    expect(savedAfterResume?.currentIdx).toBe(savedBeforeExit.currentIdx);
+  });
+
 });
