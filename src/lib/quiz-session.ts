@@ -60,18 +60,8 @@ export function validateQuizRequest(params: QuizRequest): QuizRequestValidation 
   return { ok: true, request: params };
 }
 
-export function isValidOptionPermutation(order: number[], optionCount: number): boolean {
-  if (!Array.isArray(order) || order.length !== optionCount) return false;
-  if (optionCount === 0) return order.length === 0;
-  const seen = new Set<number>();
-  for (const n of order) {
-    if (!Number.isInteger(n) || n < 0 || n >= optionCount) return false;
-    if (seen.has(n)) return false;
-    seen.add(n);
-  }
-  return seen.size === optionCount;
-}
-
+export { isValidOptionPermutation, applyOptionOrderPure } from './quiz-option-order.ts';
+import { applyOptionOrderPure } from './quiz-option-order.ts';
 export type SavedAnswerRecord = {
   questionId: string;
   correct: boolean;
@@ -559,34 +549,6 @@ export function reconcileRestoredDraft(
     return { ok: false, reason: 'invalid-review-attempts' };
   }
   return { ok: true, questions: restored, optionOrders, answers, reviewAttempts };
-}
-
-/** Pure option-order apply (mirrors QuizScreen). */
-export function applyOptionOrderPure(q: Question, order: number[]): Question {
-  if (!q.options?.length || order.length !== q.options.length) return q;
-  if (!isValidOptionPermutation(order, q.options.length)) return q;
-  const options = order.map((oi) => q.options[oi]);
-  const inv: number[] = new Array(order.length);
-  order.forEach((oi, newIdx) => {
-    inv[oi] = newIdx;
-  });
-
-  let correctAnswer: number | number[];
-  if (q.type === 'matching' && Array.isArray(q.correctAnswer)) {
-    const mapped = order.map((oi) => (q.correctAnswer as number[])[oi]);
-    if (mapped.some((v) => v === undefined)) return q; // fail closed
-    correctAnswer = mapped;
-  } else if (Array.isArray(q.correctAnswer)) {
-    const mapped = (q.correctAnswer as number[]).map((oi) => inv[oi]);
-    if (mapped.some((v) => v === undefined)) return q; // fail closed — no silent drop
-    correctAnswer = mapped.sort((a, b) => a - b);
-  } else {
-    const mapped = inv[q.correctAnswer as number];
-    // Never retain the bank index after a failed inverse (would grade the wrong option)
-    if (mapped === undefined) return q;
-    correctAnswer = mapped;
-  }
-  return { ...q, options, correctAnswer };
 }
 
 export function questionsMatchRequest(
