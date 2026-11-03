@@ -207,7 +207,9 @@ export function useSubjectData(): SubjectDataLayer {
   const totalQuestions = useMemo(() => {
     // Only trust live cache counts when every track subject is loaded;
     // otherwise section metadata is the stable source of truth (avoids totals shrinking).
-    const allQuestionsLoaded = trackSubjectIdList.every((s) => getCachedQuestions(s) !== undefined);
+    const allQuestionsLoaded = trackSubjectIdList.every(
+      (subjectId) => loadedQuestionSubjects.has(subjectId) || getCachedQuestions(subjectId) !== undefined,
+    );
     if (allQuestionsLoaded) {
       return getAllCachedQuestions().filter((q) => {
         const subjId = sectionMap[q.sectionId]?.subjectId;
