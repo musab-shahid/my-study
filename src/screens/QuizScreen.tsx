@@ -41,6 +41,7 @@ import { pickAdaptiveQuestions, recentQuestionIdsFromResults } from '@/lib/adapt
 import { instantiatePool } from '@/lib/quant-template';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
 import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
+import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 import { MatchingOptions, packMatchSelect, unpackMatchSelect } from '@/components/quiz/MatchingOptions';
 
 const VALID_MODES: PracticeMode[] = ['topic', 'quick', 'mock', 'review', 'challenge'];
@@ -233,6 +234,8 @@ interface QuizState {
   awaitingConfidence: boolean;
   /** Epoch ms when the current item was shown (for latency). */
   itemShownAt: number;
+  /** Stable identity for all submitted answers in this mounted quiz session. */
+  reviewSessionId: string;
   answers: AnswerRecord[];
   startTime: number;
   elapsed: number;
@@ -383,6 +386,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   const TAP_DEBOUNCE_MS = 280;
   // Guard against StrictMode double-invocation of setState updaters
   const recordedRef = useRef(false);
+  const submittedReviewAttemptsRef = useRef<Set<string>>(new Set());
 
   const [questionsLoading, setQuestionsLoading] = useState(true);
   const [questionsLoadError, setQuestionsLoadError] = useState(false);
@@ -425,7 +429,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       optionOrders.push(order);
       return question;
     });
-    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: Date.now(), answers: [], startTime: Date.now(), elapsed: 0, requeuedIds: [], requeueNotice: null });
+    const startedAt = Date.now();
+    const reviewSessionId = `quiz_${startedAt}_${Math.random().toString(36).slice(2, 10)}`;
+    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: startedAt, reviewSessionId, answers: [], startTime: startedAt, elapsed: 0, requeuedIds: [], requeueNotice: null });
     setFinished(false);
     setResults(null);
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool]);
@@ -554,6 +560,8 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     }
     recordedRef.current = false;
     const resumedElapsed = Math.max(0, saved.elapsedSeconds ?? 0);
+    const resumedAt = Date.now();
+    const reviewSessionId = `quiz_resume_${resumedAt}_${Math.random().toString(36).slice(2, 10)}`;
     setState({
       questions: reconciled.questions,
       optionOrders: reconciled.optionOrders,
@@ -561,12 +569,13 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       selectedIndices: [],
       checked: false,
       awaitingConfidence: false,
-      itemShownAt: Date.now(),
+      itemShownAt: resumedAt,
+      reviewSessionId,
       requeuedIds: [],
       requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
-      startTime: Date.now() - resumedElapsed * 1000,
+      startTime: resumedAt - resumedElapsed * 1000,
       elapsed: resumedElapsed,
     });
     setFinished(false);
@@ -739,65 +748,84 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }, []);
 
   const handleConfidence = useCallback((confidence: 1 | 2 | 3) => {
-    setState((prev) => {
-      if (!prev || !prev.awaitingConfidence || prev.checked) return prev;
-      const q = prev.questions[prev.currentIdx];
-      const correct = isCorrect(q, prev.selectedIndices);
-      const latencyMs = Math.max(0, Date.now() - (prev.itemShownAt || prev.startTime));
-      const record: AnswerRecord = {
+    // Read one committed snapshot and perform persistence outside React state updaters.
+    const prev = stateRef.current;
+    if (!prev || !prev.awaitingConfidence || prev.checked) return;
+    const q = prev.questions[prev.currentIdx];
+    const attemptKey = `${prev.reviewSessionId}:${prev.currentIdx}:${q.id}`;
+    if (submittedReviewAttemptsRef.current.has(attemptKey)) return;
+    submittedReviewAttemptsRef.current.add(attemptKey);
+
+    const now = Date.now();
+    const correct = isCorrect(q, prev.selectedIndices);
+    const latencyMs = Math.max(0, now - (prev.itemShownAt || prev.startTime));
+    const record: AnswerRecord = {
+      questionId: q.id,
+      correct,
+      selectedIndices: [...prev.selectedIndices],
+      confidence,
+      latencyMs,
+    };
+    const already = prev.answers.some((a) => a.questionId === q.id);
+    const answers = already
+      ? prev.answers.map((a) => (a.questionId === q.id ? record : a))
+      : [...prev.answers, record];
+
+    let questions = prev.questions;
+    let optionOrders = prev.optionOrders;
+    let requeuedIds = prev.requeuedIds ?? [];
+    let requeueNotice: string | null = null;
+    let scheduleHypercorrectionMiss = false;
+
+    if (shouldRequeueHighConfidenceMiss(correct, confidence, requeuedIds, q.id)) {
+      const { insertAt } = planRequeueInsert({
+        currentIdx: prev.currentIdx,
+        questionCount: prev.questions.length,
+        gap: 2,
+      });
+      const { question: reshown, order } = shuffleQuestionOptions(cloneQuestionForRequeue(q));
+      questions = insertQuestionAt(prev.questions, insertAt, reshown);
+      optionOrders = insertQuestionAt(prev.optionOrders, insertAt, order);
+      requeuedIds = [...requeuedIds, q.id];
+      const steps = insertAt - prev.currentIdx;
+      requeueNotice =
+        steps <= 1
+          ? 'High-confidence miss — you will see this item again next.'
+          : `High-confidence miss — scheduled again in about ${steps - 1} question${steps - 1 === 1 ? '' : 's'}.`;
+      scheduleHypercorrectionMiss = true;
+    }
+
+    setState({
+      ...prev,
+      questions,
+      optionOrders,
+      requeuedIds,
+      requeueNotice,
+      awaitingConfidence: false,
+      checked: true,
+      answers,
+    });
+
+    // Each learner submission is a distinct event, including a re-queued repeat.
+    // Unanswered timeout placeholders are never passed to this event path.
+    dualWriteQuizAttemptsFireAndForget({
+      answers: [{
         questionId: q.id,
         correct,
-        selectedIndices: [...prev.selectedIndices],
-        confidence,
+        skillId: q.topicId,
         latencyMs,
-      };
-      const already = prev.answers.some((a) => a.questionId === q.id);
-      const answers = already
-        ? prev.answers.map((a) => (a.questionId === q.id ? record : a))
-        : [...prev.answers, record];
-
-      let questions = prev.questions;
-      let optionOrders = prev.optionOrders;
-      let requeuedIds = prev.requeuedIds ?? [];
-      let requeueNotice: string | null = null;
-
-      if (
-        shouldRequeueHighConfidenceMiss(
-          correct,
-          confidence,
-          requeuedIds,
-          q.id,
-        )
-      ) {
-        const { insertAt } = planRequeueInsert({
-          currentIdx: prev.currentIdx,
-          questionCount: prev.questions.length,
-          gap: 2,
-        });
-        const { question: reshown, order } = shuffleQuestionOptions(cloneQuestionForRequeue(q));
-        questions = insertQuestionAt(prev.questions, insertAt, reshown);
-        optionOrders = insertQuestionAt(prev.optionOrders, insertAt, order);
-        requeuedIds = [...requeuedIds, q.id];
-        const steps = insertAt - prev.currentIdx;
-        requeueNotice =
-          steps <= 1
-            ? 'High-confidence miss — you will see this item again next.'
-            : `High-confidence miss — scheduled again in about ${steps - 1} question${steps - 1 === 1 ? '' : 's'}.`;
-        scheduleNextDayHcMiss(q.id, q.topicId);
-      }
-
-      return {
-        ...prev,
-        questions,
-        optionOrders,
-        requeuedIds,
-        requeueNotice,
-        awaitingConfidence: false,
-        checked: true,
-        answers,
-      };
+        confidence,
+        chosenOption: prev.selectedIndices
+          .map((index) => q.options?.[index] ?? String(index))
+          .join(' | '),
+      }],
+      mode,
+      sessionId: prev.reviewSessionId,
+      ts: now,
     });
-  }, []);
+
+    if (scheduleHypercorrectionMiss) scheduleNextDayHcMiss(q.id, q.topicId);
+  }, [mode]);
 
   const handleNext = useCallback(() => {
     lastTapRef.current = null;
