@@ -686,7 +686,16 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     const lastAttemptByQuestion = new Map<string, number>();
     submittedAttempts.forEach((answer, index) => lastAttemptByQuestion.set(answer.questionId, index));
     const questionById = new Map(s.questions.map((question) => [question.id, question]));
-    const reviewAnswers = submittedAttempts.map((answer, index) => {
+    const reviewAnswers: Array<{
+      questionId: string;
+      correct: boolean;
+      skillId: string;
+      latencyMs?: number;
+      confidence?: 1 | 2 | 3;
+      chosenOption?: string;
+      responseStatus: 'submitted' | 'unanswered';
+      aggregateEligible: boolean;
+    }> = submittedAttempts.map((answer, index) => {
       const question = questionById.get(answer.questionId);
       return {
         questionId: answer.questionId,
