@@ -120,8 +120,8 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
-    // Compute from the latest committed ref and pass a concrete value to setState.
-    // React may replay updater functions in Strict Mode; event creation must not live there.
+    // Aggregate-only calculation. Per-attempt review events are assembled once
+    // from submitted quiz responses by QuizScreen after the session finishes.
     const now = Date.now();
     const current = dataRef.current;
     const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now);
