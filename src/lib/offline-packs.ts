@@ -125,6 +125,13 @@ export async function prepareTrackOfflinePack(
     throw new Error('This track has no available subjects to save offline.');
   }
 
+  // CGEI's canonical unit/lesson hierarchy is assembled from the per-subject
+  // topics-* modules in this lazy curriculum boundary. The quiz loader alone
+  // does not fetch those modules, so explicitly include the canonical registry.
+  if (trackId === 'cgei') {
+    await import('@/data/cgei/curriculum');
+  }
+
   for (let index = 0; index < subjects.length; index += 1) {
     const subjectId = subjects[index].id;
     await Promise.all([
