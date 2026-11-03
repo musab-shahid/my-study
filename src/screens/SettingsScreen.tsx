@@ -31,6 +31,7 @@ import {
 import { sections } from '@/data/sections';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
 import { clearTutorData, getTutorMemoryRecords } from '@/lib/ai-tutor-storage';
+import { requestPersistentStorage } from '@/lib/storage-persistence';
 import type { SubjectId } from '@/types';
 
 function cloudSyncErrorMessage(error: string | undefined, action: 'upload' | 'download'): string {
@@ -87,6 +88,7 @@ export function SettingsScreen() {
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [confirmClearTutorData, setConfirmClearTutorData] = useState(false);
   const [tutorDataMsg, setTutorDataMsg] = useState<string | null>(null);
+  const [storagePersistenceMsg, setStoragePersistenceMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
   const [installMsg, setInstallMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -501,6 +503,47 @@ export function SettingsScreen() {
             </div>
           )}
           {tutorDataMsg && <p className="text-xs text-ink-muted" role="status" aria-live="polite">{tutorDataMsg}</p>}
+        </div>
+      </Card>
+
+      <Card className="p-card-pad mb-4">
+        <div className="space-y-2">
+          <div>
+            <p className="font-semibold text-ink text-sm">Browser storage protection</p>
+            <p className="mt-1 text-xs leading-relaxed text-ink-muted">
+              My Study flushes pending progress writes when the page is hidden or closed. You can also ask
+              your browser to protect this site's storage from automatic eviction when device storage is
+              under pressure. This does not prevent you or the browser from clearing site data, and it does
+              not protect against device loss or hardware failure. Keep a downloadable backup for important progress.
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="secondary"
+            className="self-start"
+            onClick={async () => {
+              setStoragePersistenceMsg('Checking browser storage protection…');
+              const result = await requestPersistentStorage(
+                typeof navigator !== 'undefined' ? navigator.storage : null,
+              );
+              const usage = result.usage !== undefined && result.quota !== undefined
+                ? ` Site storage usage: ${(result.usage / 1024 / 1024).toFixed(1)} MB of ${(result.quota / 1024 / 1024).toFixed(1)} MB.`
+                : '';
+              const messages = {
+                'already-persisted': 'This browser has already marked My Study storage as persistent. Automatic eviction risk is reduced, but this is not a backup.',
+                granted: 'Your browser granted persistent storage. Automatic eviction risk is reduced, but manual clearing and device failure can still remove data.',
+                denied: 'Your browser did not grant persistent storage. Progress remains saved best-effort; download a backup regularly.',
+                unsupported: 'This browser does not support persistent storage requests. Download a backup regularly.',
+                error: 'The browser could not complete the persistent-storage request. Your existing local save behavior is unchanged.',
+              } as const;
+              setStoragePersistenceMsg(messages[result.status] + usage);
+            }}
+          >
+            Request persistent storage
+          </Button>
+          {storagePersistenceMsg && (
+            <p className="text-xs text-ink-muted" role="status" aria-live="polite">{storagePersistenceMsg}</p>
+          )}
         </div>
       </Card>
 
