@@ -756,6 +756,14 @@ export function getAvailableModels(): ModelOption[] {
 }
 
 export function isTutorAvailable(): boolean {
+  // The Playwright build may expose the real dialog shell for axe scans without
+  // configuring a provider or enabling network requests. This flag is absent
+  // from production builds and additionally requires the explicit test URL.
+  if (
+    env.E2E_TUTOR_UI &&
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('axe-tutor') === '1'
+  ) return true;
   if (isAiProxyConfigured()) return true;
   return Boolean(
     env.GEMINI_API_KEY ||
