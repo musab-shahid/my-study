@@ -80,7 +80,7 @@ describe('durable review outbox', () => {
   it('preserves explicit flashcard grades without inventing confidence', async () => {
     const log = new MemoryReviewLog();
     const result = await dualWriteQuizAttempts({
-      answers: [{ questionId: 'card-1', correct: true, grade: 'hard', skillId: 'topic-1' }],
+      answers: [{ questionId: 'card-1', correct: true, grade: 'hard', skillId: 'topic-1', ts: 10950 }],
       mode: 'flashcard',
       sessionId: 'flash-session',
       ts: 11000,
@@ -93,6 +93,7 @@ describe('durable review outbox', () => {
     assert.equal(event?.confidence, undefined);
     assert.equal(event?.responseStatus, 'submitted');
     assert.equal(event?.aggregateEligible, false);
+    assert.equal(event?.ts, 10950);
   });
 
   it('records lesson-check outcomes without fabricating confidence or latency', async () => {
