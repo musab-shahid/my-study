@@ -131,4 +131,36 @@ test.describe('route-change focus and announcements', () => {
     await expect(page.locator('#route-announcement')).toContainText((await destinationHeading.innerText()).trim());
   });
 
+
+  test('skip link and More dialog keyboard path works at all target viewports', async ({ page }) => {
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 768, height: 1024 },
+      { width: 1280, height: 800 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto('/');
+
+      const skipLink = page.getByRole('link', { name: 'Skip to content' });
+      await skipLink.focus();
+      await page.keyboard.press('Enter');
+      await expect(page.locator('#main-content')).toBeFocused();
+
+      const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ }).first();
+      await trigger.focus();
+      await page.keyboard.press('Enter');
+      const dialog = page.getByRole('dialog', { name: 'More' });
+      await expect(dialog).toBeVisible();
+
+      await page.keyboard.press('Shift+Tab');
+      await expect.poll(() => dialog.evaluate((node) => node.contains(document.activeElement))).toBe(true);
+      await page.keyboard.press('Tab');
+      await expect.poll(() => dialog.evaluate((node) => node.contains(document.activeElement))).toBe(true);
+
+      await page.keyboard.press('Escape');
+      await expect(dialog).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+    }
+  });
+
 });
