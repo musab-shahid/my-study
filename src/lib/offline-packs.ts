@@ -2,7 +2,7 @@ import type { TrackId } from '@/data/tracks';
 import { loadSubjectQuestions, loadSubjectTopics } from '@/data/lazy-data';
 import { subjectsForScope } from '@/lib/track-scope';
 
-export const OFFLINE_PACK_CACHE_PREFIX = 'examprep-v3-pack-';
+export const OFFLINE_PACK_CACHE_PREFIX = 'my-study-offline-pack-examprep-v3-';
 
 export type OfflinePackStatus = {
   installed: boolean;
