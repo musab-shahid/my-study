@@ -35,7 +35,7 @@ export function useRouteAnnouncer(routeKey: string, title: string): string {
 
       // Announce route changes behind a modal without stealing its focus.
       if (hasOpenModal()) {
-        setAnnouncement(pageName ? `Navigated to ${pageName}` : 'Page changed');
+        setAnnouncement(title ? `Navigated to ${title}` : 'Page changed');
         return true;
       }
 
