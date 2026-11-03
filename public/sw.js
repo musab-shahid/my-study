@@ -72,7 +72,7 @@ self.addEventListener('message', (e) => {
       await Promise.all(
         cacheNames
           .filter((name) => name.startsWith(`${PACK_CACHE_PREFIX}${trackId}-`) && name !== cacheName)
-          .map((name) => caches.delete(name))
+          .map((name) => caches.delete(name).catch(() => false))
       );
 
       return { ok: true, cacheName, cachedCount: normalizedUrls.length };
