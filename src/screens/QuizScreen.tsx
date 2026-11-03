@@ -1,4 +1,3 @@
-import type { TrackId } from '@/data/tracks';
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
 import { CheckCircle2, XCircle, Check, ChevronRight, RotateCcw, ArrowLeft, Clock, Brain, AlertTriangle, BookOpen, Dumbbell, TrendingUp, Target, Keyboard, X, Sparkles } from 'lucide-react';
@@ -29,10 +28,8 @@ import {
 } from '@/lib/hypercorrection-requeue';
 import { resolveLearningScope, scopeInputFromData } from '@/lib/learning-scope';
 import {
-  validateDraftShape,
   validateQuizRequest,
   questionsMatchRequest,
-  isValidOptionPermutation,
   reconcileRestoredDraft,
   gradeAnswer,
   type QuizSessionSnapshot,
@@ -40,8 +37,9 @@ import {
 import { pickAdaptiveQuestions, recentQuestionIdsFromResults } from '@/lib/adaptive-select';
 import { instantiatePool } from '@/lib/quant-template';
 import { applyOptionOrder } from '@/lib/quiz-option-order';
+import { buildBreakdown, clearQuizProgress, loadQuizProgress, saveQuizProgress, type QuizProgressSnapshot, type ReviewAttemptRecord, type SavedQuizProgress } from '@/lib/quiz-progress';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
-import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
+import { QuizResults, type ResultsData } from '@/components/quiz/QuizResults';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 import { MatchingOptions, packMatchSelect, unpackMatchSelect } from '@/components/quiz/MatchingOptions';
 
@@ -174,126 +172,21 @@ function isCorrect(question: Question, selectedIndex: number[]): boolean {
   return gradeAnswer(question, selectedIndex);
 }
 
-type ReviewAttemptRecord = AnswerRecord & { optionOrder: number[]; questionIndex: number };
-
-interface QuizState {
-  questions: Question[];
-  /** Parallel to questions: order[i] = original option index at display slot i */
-  optionOrders: number[][];
-  currentIdx: number;
+interface QuizState extends QuizProgressSnapshot {
   selectedIndices: number[];
   checked: boolean;
   /** True while waiting for optional confidence before revealing feedback. */
   awaitingConfidence: boolean;
   /** Epoch ms when the current item was shown (for latency). */
   itemShownAt: number;
-  /** Stable identity for all submitted answers in this mounted quiz session. */
-  reviewSessionId: string;
-  answers: AnswerRecord[];
-  /** Every submitted response, including repeats from hypercorrection re-queues. */
-  reviewAttempts: ReviewAttemptRecord[];
   startTime: number;
-  elapsed: number;
   /** Question ids already re-inserted this session (at most once each). */
   requeuedIds: string[];
   /** Banner after scheduling a hypercorrection re-show. */
   requeueNotice: string | null;
 }
 
-function buildBreakdown(questions: Question[], answers: AnswerRecord[]) {
-  const byId = new Map(answers.map((a) => [a.questionId, a]));
-  const perTopic: Record<string, { correct: number; total: number }> = {};
-  const perDifficulty: Record<string, { correct: number; total: number }> = {};
-  for (const q of questions) {
-    const ans = byId.get(q.id);
-    if (!perTopic[q.topicId]) perTopic[q.topicId] = { correct: 0, total: 0 };
-    perTopic[q.topicId].total++;
-    if (ans?.correct) perTopic[q.topicId].correct++;
-    if (!perDifficulty[q.difficulty]) perDifficulty[q.difficulty] = { correct: 0, total: 0 };
-    perDifficulty[q.difficulty].total++;
-    if (ans?.correct) perDifficulty[q.difficulty].correct++;
-  }
-  return { perTopic, perDifficulty };
-}
 
-const QUIZ_PROGRESS_KEY = 'examprep-quiz-progress';
-
-interface SavedQuizProgress {
-  questionIds: string[];
-  /** Parallel to questionIds; session-stable option permutation */
-  optionOrders?: number[][];
-  answers: AnswerRecord[];
-  reviewAttempts?: ReviewAttemptRecord[];
-  reviewSessionId?: string;
-  /** Seconds already elapsed when progress was saved (timer resume) */
-  elapsedSeconds?: number;
-  currentIdx: number;
-  mode: PracticeMode;
-  topicId?: string;
-  topicIds?: string[];
-  scope?: 'subject' | 'all';
-  subjectId?: string;
-  count?: number | 'all';
-  difficulty?: DifficultyFilter;
-  timeLimit?: TimeLimitSetting;
-  wrongPool?: boolean;
-  track?: TrackId;
-  examId?: string | null;
-}
-
-function saveQuizProgress(
-  state: QuizState,
-  mode: PracticeMode,
-  topicId?: string,
-  subjectId?: string,
-  topicIds?: string[],
-  scope?: 'subject' | 'all',
-  count?: number | 'all',
-  difficulty?: DifficultyFilter,
-  timeLimit?: TimeLimitSetting,
-  wrongPool?: boolean,
-  track?: TrackId | null,
-  examId?: string | null,
-): void {
-  try {
-    const progress: SavedQuizProgress = {
-      questionIds: state.questions.map((q) => q.id),
-      optionOrders: state.optionOrders,
-      answers: state.answers,
-      reviewAttempts: state.reviewAttempts,
-      reviewSessionId: state.reviewSessionId,
-      elapsedSeconds: state.elapsed,
-      currentIdx: state.currentIdx,
-      mode,
-      topicId,
-      subjectId,
-      topicIds,
-      scope,
-      count,
-      difficulty,
-      timeLimit,
-      wrongPool,
-      track: track ?? undefined,
-      examId: examId ?? null,
-    };
-    localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
-  } catch { /* ignore */ }
-}
-
-function loadQuizProgress(): SavedQuizProgress | null {
-  try {
-    const raw = localStorage.getItem(QUIZ_PROGRESS_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    const v = validateDraftShape(parsed);
-    if (!v.ok) return null;
-    return v.draft as SavedQuizProgress;
-  } catch { return null; }
-}
-
-function clearQuizProgress(): void {
-  try { localStorage.removeItem(QUIZ_PROGRESS_KEY); } catch { /* ignore */ }
-}
 
 export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, difficulty, timeLimit, wrongPool }: {
   mode: PracticeMode;
