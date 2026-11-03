@@ -38,3 +38,33 @@ export function clearTutorData(): ClearedTutorData {
     return { ok: false, chatThreads, memoryTopics };
   }
 }
+
+export interface TutorMemoryRecord {
+  topicKey: string;
+  notes: string[];
+}
+
+/** Read the locally saved tutor-memory notes so learners can inspect them. */
+export function getTutorMemoryRecords(): TutorMemoryRecord[] {
+  try {
+    const records: TutorMemoryRecord[] = [];
+    for (let index = 0; index < localStorage.length; index += 1) {
+      const key = localStorage.key(index);
+      if (!key?.startsWith(TUTOR_MEMORY_STORAGE_KEY_PREFIX)) continue;
+      const raw = localStorage.getItem(key);
+      if (!raw) continue;
+      const parsed: unknown = JSON.parse(raw);
+      if (!Array.isArray(parsed)) continue;
+      const notes = parsed
+        .filter((item) => item && typeof item.note === "string" && typeof item.at === "number")
+        .slice(-4)
+        .map((item) => (item as { note: string }).note);
+      if (notes.length > 0) {
+        records.push({ topicKey: key.slice(TUTOR_MEMORY_STORAGE_KEY_PREFIX.length), notes });
+      }
+    }
+    return records.sort((a, b) => a.topicKey.localeCompare(b.topicKey));
+  } catch {
+    return [];
+  }
+}
