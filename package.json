@@ -54,7 +54,8 @@
     "lint:cgei-questions": "tsx --tsconfig tsconfig.app.json scripts/lint-cgei-questions.ts",
     "snapshot:cgei-question-lints": "tsx --tsconfig tsconfig.app.json scripts/lint-cgei-questions.ts --snapshot",
     "check:cgei-subject-boundary": "node scripts/check-cgei-subject-boundary.mjs",
-    "check:cgei-authoring": "node scripts/check-cgei-authoring.mjs"
+    "check:cgei-authoring": "node scripts/check-cgei-authoring.mjs",
+    "build:e2e": "vite build --mode e2e && node scripts/security-headers.mjs --write && node scripts/check-bundle-budget.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

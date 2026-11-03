@@ -101,7 +101,7 @@ export function QuizResults({
                   <button
                     type="button"
                     onClick={() => onNavigateToTopic(topicId)}
-                    className="min-h-10 w-full min-w-0 rounded-md text-left text-brand-600 hover:text-brand-700 break-words whitespace-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 sm:flex-1"
+                    className="min-h-10 w-full min-w-0 rounded-md text-left text-brand-700 hover:text-brand-800 break-words whitespace-normal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 sm:flex-1"
                   >
                     {topic?.title ?? topicId}
                   </button>
@@ -184,7 +184,7 @@ export function QuizResults({
                       })}
                     </div>
                   )}
-                  <button onClick={() => onNavigateToTopic(q.topicId)} type="button" className="mt-3 inline-flex min-h-10 items-center gap-1 rounded-md text-sm font-medium text-brand-600 hover:text-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
+                  <button onClick={() => onNavigateToTopic(q.topicId)} type="button" className="mt-3 inline-flex min-h-10 items-center gap-1 rounded-md text-sm font-medium text-brand-700 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                     Review topic <ChevronRight className="w-3 h-3" />
                   </button>
                 </div>

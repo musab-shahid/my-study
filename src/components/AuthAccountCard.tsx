@@ -123,7 +123,7 @@ export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => v
               In Bolt, create a file named <span className="font-mono">.env</span> next to{' '}
               <span className="font-mono">package.json</span> with exactly:
             </p>
-            <pre className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-warning-100 rounded-btn p-2 overflow-x-auto text-ink">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
+            <pre tabIndex={0} className="mt-2 text-[11px] leading-relaxed bg-white/80 border border-warning-100 rounded-btn p-2 overflow-x-auto text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">{`VITE_SUPABASE_URL=https://YOUR_REF.supabase.co
 VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
             <p className="text-xs text-warning-800 mt-2 leading-relaxed">
               No quotes, no spaces around <span className="font-mono">=</span>, then fully restart the preview (stop and run again).

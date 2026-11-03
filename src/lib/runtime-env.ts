@@ -68,4 +68,6 @@ export const env = {
   OPENAI_API_KEY: devKey('VITE_OPENAI_API_KEY'),
   XAI_API_KEY: devKey('VITE_XAI_API_KEY'),
   ANTHROPIC_API_KEY: devKey('VITE_ANTHROPIC_API_KEY'),
+  /** Test-build-only UI switch; it never enables a provider or sends requests. */
+  E2E_TUTOR_UI: import.meta.env.VITE_E2E_TUTOR_UI === '1',
 } as const;

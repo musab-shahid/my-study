@@ -45,7 +45,7 @@ export default defineConfig({
   },
   projects: process.env.CI ? [chromiumProject] : [chromiumProject, mobileProject],
   webServer: {
-    command: 'npm run build && npm run preview -- --host 127.0.0.1 --port 4173',
+    command: 'npm run build:e2e && npm run preview -- --host 127.0.0.1 --port 4173',
     url: 'http://127.0.0.1:4173',
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,
