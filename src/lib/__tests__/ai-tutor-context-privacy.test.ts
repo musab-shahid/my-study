@@ -16,7 +16,7 @@ describe('AI tutor performance context privacy', () => {
 
     assert.deepEqual(lines, [
       'Performance band: developing',
-      'Weak topics overall: Weak topic (needs practice)',
+      'Weak topics overall: Weak topic (needs practice), Current topic (developing)',
     ]);
     assert.doesNotMatch(context, /70%|7\/10|40%|2\/5|1245\.67|Elo|review stage|next review/i);
     assert.doesNotMatch(context, /Insufficient evidence/);
