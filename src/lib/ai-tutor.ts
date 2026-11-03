@@ -458,7 +458,7 @@ export function appendTutorMemory(topicId: string, note: string): void {
   try {
     const prev = loadTutorMemory(topicId);
     const next = [...prev, { at: Date.now(), note: clip(cleaned, 200) }].slice(-MAX_MEMORY_NOTES);
-    localStorage.setItem(TUTOR_MEMORY_PREFIX + topicId, JSON.stringify(next));
+    localStorage.setItem(TUTOR_MEMORY_STORAGE_KEY_PREFIX + topicId, JSON.stringify(next));
   } catch {
     /* storage full */
   }
