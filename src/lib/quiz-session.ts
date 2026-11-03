@@ -127,9 +127,13 @@ export function validateDraftShape(raw: unknown): DraftValidation {
   }
   const questionIds: string[] = [];
   const seenQ = new Set<string>();
+  const questionIdCounts = new Map<string, number>();
   for (const id of p.questionIds) {
     if (typeof id !== 'string' || id === '') return { ok: false, reason: 'bad-question-id' };
-    // Repeated ids are intentional when a high-confidence miss is re-queued.
+    // A high-confidence miss can be re-queued once, so at most two copies are valid.
+    const count = (questionIdCounts.get(id) ?? 0) + 1;
+    if (count > 2) return { ok: false, reason: 'question-requeued-too-many-times' };
+    questionIdCounts.set(id, count);
     seenQ.add(id);
     questionIds.push(id);
   }
@@ -178,12 +182,16 @@ export function validateDraftShape(raw: unknown): DraftValidation {
   if (p.reviewAttempts !== undefined) {
     if (!Array.isArray(p.reviewAttempts)) return { ok: false, reason: 'review-attempts-not-array' };
     reviewAttempts = [];
+    const reviewAttemptCounts = new Map<string, number>();
     for (const attempt of p.reviewAttempts) {
       if (!attempt || typeof attempt !== 'object') return { ok: false, reason: 'bad-review-attempt' };
       const ar = attempt as Record<string, unknown>;
       if (typeof ar.questionId !== 'string' || !seenQ.has(ar.questionId)) {
         return { ok: false, reason: 'review-attempt-unknown-question' };
       }
+      const attemptCount = (reviewAttemptCounts.get(ar.questionId) ?? 0) + 1;
+      if (attemptCount > 2) return { ok: false, reason: 'review-attempt-requeued-too-many-times' };
+      reviewAttemptCounts.set(ar.questionId, attemptCount);
       if (typeof ar.correct !== 'boolean' || !Array.isArray(ar.selectedIndices)) {
         return { ok: false, reason: 'bad-review-attempt-outcome' };
       }
