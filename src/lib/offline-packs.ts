@@ -52,7 +52,8 @@ export async function getTrackOfflinePackStatus(
   storage: OfflinePackCacheStorage = caches,
 ): Promise<OfflinePackStatus> {
   const names = await storage.keys();
-  const currentBuildCache = names.find((name) => /^examprep-[a-f0-9]{8}$/.test(name));
+  const buildCaches = names.filter((name) => /^examprep-[a-f0-9]{8}$/.test(name));
+  const currentBuildCache = buildCaches[buildCaches.length - 1];
   if (!currentBuildCache) return { installed: false, resourceCount: 0 };
 
   const currentPackPrefix = `my-study-offline-pack-${currentBuildCache}-`;
