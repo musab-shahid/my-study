@@ -1,10 +1,11 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { findUnaccountedScripts } from '../lib/gate-script-coverage.mjs';
 
 const allowlist = {
   check: 'CI expands the aggregate into explicit named steps.',
-  'audit:core-leaves': 'This is a transitional local report; CI runs the strict gate separately.',
 };
 
 test('accounts for every check, audit, lint, and validate script', () => {
@@ -70,5 +71,22 @@ test('allowlist entries require a non-empty one-line reason and stale entries fa
       allowlist: { 'check:removed': 'obsolete exception' },
     }),
     ['check:removed (stale allowlist entry)'],
+  );
+});
+
+test('the real package gate scripts are all reachable from CI/CGEI or reasoned allowlist', () => {
+  const root = resolve(import.meta.dirname, '../..');
+  const packageJson = JSON.parse(readFileSync(resolve(root, 'package.json'), 'utf8'));
+  const workflow = readFileSync(resolve(root, '.github/workflows/ci.yml'), 'utf8');
+  const checkCgei = readFileSync(resolve(root, 'scripts/check-cgei.mjs'), 'utf8');
+  const reasons = JSON.parse(readFileSync(resolve(root, 'scripts/ci-gate-allowlist.json'), 'utf8'));
+  assert.deepEqual(
+    findUnaccountedScripts({
+      scripts: packageJson.scripts ?? {},
+      workflow,
+      checkCgei,
+      allowlist: reasons,
+    }),
+    [],
   );
 });
