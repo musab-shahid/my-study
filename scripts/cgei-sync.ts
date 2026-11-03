@@ -143,5 +143,6 @@ for (const item of replacements.sort((a, b) => b.start - a.start)) {
 writeFileSync(sectionsPath, updatedSections, 'utf8');
 
 run(['run', 'generate:cgei-index']);
+run(['run', 'snapshot:cgei-registry']);
 run(['run', 'snapshot:cgei-question-ids', '--', '--record-new-ids', '--reason=' + reason]);
 console.log('CGEI sync complete: question quality, quiz-topic metadata, section counts, navigation index, permanent ID ledger.');
