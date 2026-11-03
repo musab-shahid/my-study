@@ -1,6 +1,6 @@
 /**
  * Phase C4 helpers: lesson-page questions from the subject engine bank.
- * Shuffle is stable for a given attempt key; answers stay unrecorded.
+ * Lesson-check submissions are recorded as review evidence, not Progress or mastery.
  */
 import type { Question, QuestionType } from '@/types';
 import type { CurriculumQuestion } from '@/types/curriculum';
@@ -24,6 +24,8 @@ export type LessonCheckItem = {
   cognitiveLevel?: string;
   explanation: string;
   source: 'curriculum' | 'bank';
+  /** Lesson-level skill key used to group submitted checks. */
+  skillId: string;
 };
 
 /** Fisher–Yates shuffle; returns remapped correct index. */
@@ -56,6 +58,7 @@ export function curriculumQuestionToCheck(q: CurriculumQuestion): LessonCheckIte
     cognitiveLevel: q.cognitiveLevel,
     explanation: q.explanation,
     source: 'curriculum',
+    skillId: q.lessonId ?? q.id,
   };
 }
 
@@ -72,6 +75,7 @@ export function bankQuestionToCheck(q: Question): LessonCheckItem | null {
     cognitiveLevel: q.cognitiveLevel,
     explanation: q.explanation,
     source: 'bank',
+    skillId: q.lessonId ?? q.id,
   };
 }
 
@@ -89,14 +93,14 @@ export function collectLessonChecks(args: {
 
   for (const q of args.curriculumQuestions) {
     if (args.assessmentQuestionIds.includes(q.id) || q.lessonId === args.lessonId) {
-      byId.set(q.id, curriculumQuestionToCheck(q));
+      byId.set(q.id, { ...curriculumQuestionToCheck(q), skillId: args.lessonId });
     }
   }
 
   for (const q of args.bankQuestions) {
     if (q.lessonId === args.lessonId) {
       const item = bankQuestionToCheck(q);
-      if (item) byId.set(q.id, item);
+      if (item) byId.set(q.id, { ...item, skillId: args.lessonId });
     }
   }
 
