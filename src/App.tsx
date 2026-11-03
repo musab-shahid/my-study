@@ -245,7 +245,8 @@ function AppContent() {
 
       // Wait for lazy screens to replace the loading status before choosing
       // the heading; main remains the safe fallback for screens without an h1.
-      if (!heading && main.querySelector('[role="status"]')) return false;
+      const loadingStatus = main.querySelector<HTMLElement>('[role="status"]');
+      if (!heading && loadingStatus?.textContent?.includes('Loading study material')) return false;
 
       if (heading && !heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
       (heading ?? main).focus({ preventScroll: true });
