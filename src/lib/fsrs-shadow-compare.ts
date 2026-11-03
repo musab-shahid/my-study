@@ -11,6 +11,7 @@ export {
   schedulerEvaluationEvents,
   updateSm2Shadow,
   predictSm2Recall,
+  sm2Evaluate,
   evaluateSchedulersChronologically,
   requiredRecallSampleSize,
 } from './fsrs-evaluation.ts';
