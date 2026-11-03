@@ -340,6 +340,22 @@ export function predictSm2Recall(state: Sm2ShadowState, atTs: number): number {
   return predictRecall(Math.max(0.5, state.intervalDays), elapsedDays);
 }
 
+export function sm2Evaluate(events: readonly ReviewEvent[]): { logLoss: number | null; n: number } {
+  const ordered = schedulerEvaluationEvents(events);
+  const states = new Map<string, Sm2ShadowState>();
+  let sum = 0;
+  let n = 0;
+  for (const event of ordered) {
+    const previous = states.get(event.itemId);
+    if (previous) {
+      sum += logLoss(predictSm2Recall(previous, event.ts), event.correct);
+      n += 1;
+    }
+    states.set(event.itemId, updateSm2Shadow(previous, event));
+  }
+  return { logLoss: n ? sum / n : null, n };
+}
+
 function updateProductionPolicy(
   prev: ProductionPolicyState | undefined,
   event: ReviewEvent,
