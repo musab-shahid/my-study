@@ -6,21 +6,27 @@ import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../../..');
 const studyScreen = readFileSync(join(root, 'src/screens/StudyScreen.tsx'), 'utf8');
+const genericStudyScreen = readFileSync(join(root, 'src/screens/study/GenericStudyScreen.tsx'), 'utf8');
 
 describe('CGEI Learn path coherence', () => {
+  it('keeps CGEI route precedence in the route-level StudyScreen', () => {
+    assert.match(studyScreen, /CGEILearningScreen/);
+    assert.match(studyScreen, /return <GenericStudyScreen \/>/);
+  });
+
   it('uses a single collapsible orientation with an informative summary', () => {
-    assert.match(studyScreen, /Before you begin/);
-    assert.match(studyScreen, /expand for goals and how to study/);
-    assert.match(studyScreen, /What you will be able to do/);
-    assert.match(studyScreen, /How the subject is organised/);
-    assert.match(studyScreen, /curriculumSubject\.overview/);
-    assert.match(studyScreen, /curriculumSubject\.purpose/);
+    assert.match(genericStudyScreen, /Before you begin/);
+    assert.match(genericStudyScreen, /expand for goals and how to study/);
+    assert.match(genericStudyScreen, /What you will be able to do/);
+    assert.match(genericStudyScreen, /How the subject is organised/);
+    assert.match(genericStudyScreen, /curriculumSubject\.overview/);
+    assert.match(genericStudyScreen, /curriculumSubject\.purpose/);
   });
 
   it('keeps the learning path (units) outside orientation details', () => {
-    const orientStart = studyScreen.indexOf('Before you begin');
-    const orientEnd = studyScreen.indexOf('</details>', orientStart);
-    const pathHeading = studyScreen.indexOf('Learning path', orientStart);
+    const orientStart = genericStudyScreen.indexOf('Before you begin');
+    const orientEnd = genericStudyScreen.indexOf('</details>', orientStart);
+    const pathHeading = genericStudyScreen.indexOf('Learning path', orientStart);
     assert.ok(orientStart >= 0);
     assert.ok(orientEnd > orientStart);
     assert.ok(pathHeading > orientEnd, 'Learning path must be outside orientation details');
@@ -28,19 +34,19 @@ describe('CGEI Learn path coherence', () => {
 
   it('hides legacy topic groups when canonical units exist', () => {
     assert.match(
-      studyScreen,
+      genericStudyScreen,
       /subjectSections\.length > 0 && !\(curriculumSubject && curriculumUnits\.length > 0\)/,
     );
-    assert.doesNotMatch(studyScreen, /Legacy topic groups/);
+    assert.doesNotMatch(genericStudyScreen, /Legacy topic groups/);
   });
 
   it('restores domain orientation content inside the expanded orientation', () => {
-    assert.match(studyScreen, /roadmapTopic\.explanationSections/);
-    assert.match(studyScreen, /roadmapTopic\.keyFacts/);
-    assert.match(studyScreen, /roadmapTopic\.examPoints/);
+    assert.match(genericStudyScreen, /roadmapTopic\.explanationSections/);
+    assert.match(genericStudyScreen, /roadmapTopic\.keyFacts/);
+    assert.match(genericStudyScreen, /roadmapTopic\.examPoints/);
   });
 
   it('keeps orientation records out of the primary lesson framing', () => {
-    assert.match(studyScreen, /Orientation records are loaded separately/);
+    assert.match(genericStudyScreen, /Orientation records are loaded separately/);
   });
 });
