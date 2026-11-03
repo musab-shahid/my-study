@@ -12,6 +12,8 @@ export interface AnswerRecord {
   confidence?: 1 | 2 | 3;
   /** Ms from item shown to check/confidence submit. */
   latencyMs?: number;
+  /** Epoch ms when the learner submitted this response. */
+  submittedAt?: number;
   /** Display-position to bank-option mapping captured for safe draft restoration. */
   optionOrder?: number[];
   /** Selected option text captured before any later shuffle. */
