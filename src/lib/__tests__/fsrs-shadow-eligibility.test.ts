@@ -9,8 +9,12 @@ describe('scheduler evaluation event eligibility', () => {
   it('uses only submitted final quiz outcomes and excludes non-quiz evidence', () => {
     const events = [
       buildReviewEvent({
+        itemId: 'quiz-q1', skillId: 'quiz-skill', correct: true,
+        mode: 'topic', aggregateEligible: true, ts: 1,
+      }),
+      buildReviewEvent({
         itemId: 'quiz-q1', skillId: 'quiz-skill', correct: false,
-        mode: 'topic', aggregateEligible: false, ts: 1,
+        mode: 'topic', aggregateEligible: false, ts: 1 + 2 * DAY,
       }),
       buildReviewEvent({
         itemId: 'quiz-q1', skillId: 'quiz-skill', correct: true,
