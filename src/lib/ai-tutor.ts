@@ -4,6 +4,7 @@ import type { Topic, Formula, WorkedExample, MethodChooser, MethodChooserStep, L
 import { getEffectiveQuizStats, deriveStatus, MASTERY_ACCURACY_THRESHOLD } from '@/lib/constants';
 import { getTopic } from '@/data/topics';
 import { formatAiRateLimitMessage } from './ai-rate-limit-message.ts';
+import { TUTOR_MEMORY_STORAGE_KEY_PREFIX } from './ai-tutor-storage.ts';
 
 const SYSTEM_PROMPT = ATTEMPT_FIRST_SYSTEM_PROMPT;
 
@@ -289,7 +290,6 @@ export function buildTopicContext(topic: Topic): string {
 /** Cap student-state context (chars). */
 const MAX_STUDENT_CONTEXT_CHARS = 2500;
 
-const TUTOR_MEMORY_PREFIX = 'ai-tutor-memory:';
 const PENDING_EXPLAIN_KEY = 'ai-tutor-pending-explain';
 const MAX_MEMORY_NOTES = 4;
 
@@ -440,7 +440,7 @@ export function buildMistakePrompt(q: Question, selectedIndices: number[]): stri
 
 export function loadTutorMemory(topicId: string): TutorMemoryNote[] {
   try {
-    const raw = localStorage.getItem(TUTOR_MEMORY_PREFIX + topicId);
+    const raw = localStorage.getItem(TUTOR_MEMORY_STORAGE_KEY_PREFIX + topicId);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (!Array.isArray(parsed)) return [];
@@ -458,7 +458,7 @@ export function appendTutorMemory(topicId: string, note: string): void {
   try {
     const prev = loadTutorMemory(topicId);
     const next = [...prev, { at: Date.now(), note: clip(cleaned, 200) }].slice(-MAX_MEMORY_NOTES);
-    localStorage.setItem(TUTOR_MEMORY_PREFIX + topicId, JSON.stringify(next));
+    localStorage.setItem(TUTOR_MEMORY_STORAGE_KEY_PREFIX + topicId, JSON.stringify(next));
   } catch {
     /* storage full */
   }

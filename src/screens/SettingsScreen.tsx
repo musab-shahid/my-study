@@ -30,6 +30,7 @@ import {
 } from '@/lib/error-reporting';
 import { sections } from '@/data/sections';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
+import { clearTutorData, getTutorMemoryRecords } from '@/lib/ai-tutor-storage';
 import type { SubjectId } from '@/types';
 
 function cloudSyncErrorMessage(error: string | undefined, action: 'upload' | 'download'): string {
@@ -84,6 +85,8 @@ export function SettingsScreen() {
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [pendingCloudUploadAt, setPendingCloudUploadAt] = useState<string | null>(null);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
+  const [confirmClearTutorData, setConfirmClearTutorData] = useState(false);
+  const [tutorDataMsg, setTutorDataMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
   const [installMsg, setInstallMsg] = useState<string | null>(null);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -91,6 +94,7 @@ export function SettingsScreen() {
 
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
+  const tutorMemoryRecords = getTutorMemoryRecords();
 
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
@@ -413,9 +417,13 @@ export function SettingsScreen() {
           </p>
           <p>
             <strong className="font-medium">AI tutor.</strong>{' '}
-            When you use the tutor, the question text and a short learning-state summary are sent
-            through our proxy to third-party model providers. We do not send your password. Avoid
-            pasting sensitive personal data into tutor messages.
+            When you send a message, the current conversation, relevant topic material, and study context
+            (which can include recent missed questions, quiz performance, and saved struggle notes) are
+            sent to the selected third-party model provider. Depending on deployment configuration, the
+            request passes through our Supabase proxy or goes directly from your browser to the provider.
+            Chat transcripts (up to 40 messages per topic) and tutor-memory notes (up to four per topic)
+            are stored in this browser. The provider's own privacy and retention terms apply to requests
+            it receives. Avoid sending sensitive personal information.
           </p>
           <p>
             <strong className="font-medium">Deletion.</strong>{' '}
@@ -423,6 +431,76 @@ export function SettingsScreen() {
             &quot;Delete cloud account&quot; on the Account card to remove the cloud account and
             synced backups (requires the delete-account function to be deployed).
           </p>
+        </div>
+      </Card>
+
+      <Card className="p-card-pad mb-4">
+        <div className="flex flex-col gap-2">
+          <div>
+            <p className="font-semibold text-ink text-sm">AI tutor history &amp; memory</p>
+            <p className="mt-1 text-xs leading-relaxed text-ink-muted">
+              Clear chat transcripts and automatically saved struggle notes for every topic on this device.
+              This does not delete information already sent to an external AI provider or affect study progress.
+            </p>
+          </div>
+          <details className="rounded-lg border border-border px-3 py-2">
+            <summary className="cursor-pointer text-xs font-medium text-ink-muted">
+              View saved tutor memory ({tutorMemoryRecords.reduce((sum, record) => sum + record.notes.length, 0)} notes)
+            </summary>
+            {tutorMemoryRecords.length > 0 ? (
+              <div className="mt-2 space-y-3">
+                {tutorMemoryRecords.map((record) => (
+                  <div key={record.topicKey}>
+                    <p className="text-xs font-semibold text-ink">{record.topicKey}</p>
+                    <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-ink-muted">
+                      {record.notes.map((note, index) => <li key={index}>{note}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-2 text-xs text-ink-muted">No saved tutor-memory notes on this device.</p>
+            )}
+          </details>
+          {!confirmClearTutorData ? (
+            <Button
+              type="button"
+              variant="danger"
+              className="self-start"
+              onClick={() => {
+                setTutorDataMsg(null);
+                setConfirmClearTutorData(true);
+              }}
+            >
+              Clear all tutor history and memory
+            </Button>
+          ) : (
+            <div className="rounded-xl border border-danger-200 bg-danger-50 p-3" role="group" aria-label="Confirm clearing AI tutor data">
+              <p className="text-xs leading-relaxed text-danger-900">
+                This removes all locally stored AI tutor conversations and memory notes across topics from this browser.
+                Copies already sent to model providers cannot be recalled by this action.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => {
+                    const result = clearTutorData();
+                    setTutorDataMsg(result.ok
+                      ? `Cleared ${result.chatThreads} chat histories and ${result.memoryTopics} tutor-memory records from this device.`
+                      : 'Some tutor data could not be cleared. Check browser storage permissions and try again.');
+                    setConfirmClearTutorData(false);
+                  }}
+                >
+                  Confirm clear
+                </Button>
+                <Button type="button" variant="secondary" onClick={() => setConfirmClearTutorData(false)}>
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          )}
+          {tutorDataMsg && <p className="text-xs text-ink-muted" role="status" aria-live="polite">{tutorDataMsg}</p>}
         </div>
       </Card>
 
