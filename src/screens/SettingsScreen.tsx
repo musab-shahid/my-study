@@ -48,6 +48,8 @@ function cloudSyncErrorMessage(error: string | undefined, action: 'upload' | 'do
       return 'Cloud backup is invalid or incompatible. Local data was not changed.';
     case 'invalid-token':
       return 'Sign-in token is invalid. Sign out, sign in again, then retry.';
+    case 'cloud-conflict':
+      return 'The account backup changed on another device. Review the latest backup and retry.';
     default:
       return action === 'upload'
         ? `Upload failed: ${error ?? 'unknown'}`
