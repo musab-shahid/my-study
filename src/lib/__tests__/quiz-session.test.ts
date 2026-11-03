@@ -63,6 +63,16 @@ describe('validateDraftShape', () => {
     });
     assert.equal(r.ok, true);
   });
+  it('rejects more than one high-confidence re-queue for the same item', () => {
+    const r = validateDraftShape({
+      questionIds: ['q1', 'q1', 'q1'],
+      answers: [],
+      currentIdx: 0,
+      mode: 'quick',
+    });
+    assert.equal(r.ok, false);
+  });
+
   it('preserves repeated submitted attempts separately from unique aggregate answers', () => {
     const r = validateDraftShape({
       questionIds: ['q1', 'q2'],
