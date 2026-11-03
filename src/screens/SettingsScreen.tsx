@@ -80,6 +80,7 @@ export function SettingsScreen() {
   const [, setSessionTick] = useState(0);
   const [errorReporting, setErrorReporting] = useState(isErrorReportingEnabled);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
+  const [pendingCloudUploadAt, setPendingCloudUploadAt] = useState<string | null>(null);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [updateMsg, setUpdateMsg] = useState<string | null>(null);
   const [installMsg, setInstallMsg] = useState<string | null>(null);
@@ -261,7 +262,7 @@ export function SettingsScreen() {
             <div>
               <p className="font-semibold text-ink text-sm">Cloud backup</p>
               <p className="text-muted text-xs mt-0.5">
-                Optional per-device backup of local progress. Requires network and a signed-in account.
+                Optional account-wide backup of local progress, available across your signed-in devices. Requires network and a signed-in account.
                 {!getProgressSyncAccessToken() && (
                   <span className="block mt-1 text-warning-800">
                     Sign in with the Account card above to enable upload and restore.
@@ -276,10 +277,23 @@ export function SettingsScreen() {
                 onClick={async () => {
                   setSyncBusy(true);
                   setSyncMsg(null);
-                  const r = await pushProgress(data);
-                  setSyncMsg(
-                    r.ok ? 'Uploaded to cloud.' : cloudSyncErrorMessage(r.error, 'upload'),
-                  );
+                  setPendingCloudUploadAt(null);
+                  const cloud = await pullProgress();
+                  if (cloud.ok && cloud.source === 'account' && cloud.updatedAt) {
+                    setPendingCloudUploadAt(cloud.updatedAt);
+                    setSyncMsg('An account backup already exists. Review the timestamp and confirm before replacing it.');
+                    setSyncBusy(false);
+                    return;
+                  }
+                  if (!cloud.ok && cloud.error !== 'empty') {
+                    setSyncMsg(cloudSyncErrorMessage(cloud.error, 'upload'));
+                    setSyncBusy(false);
+                    return;
+                  }
+                  const result = await pushProgress(data, null);
+                  setSyncMsg(result.ok ? 'Uploaded an account-wide backup.' : result.error === 'cloud-conflict'
+                    ? 'A backup was created on another device. Select Upload again to review it before replacing.'
+                    : cloudSyncErrorMessage(result.error, 'upload'));
                   setSyncBusy(false);
                 }}
               >
@@ -293,11 +307,40 @@ export function SettingsScreen() {
                 Restore from cloud
               </Button>
             </div>
+            {pendingCloudUploadAt && (
+              <div className="rounded-xl border border-warning-200 bg-warning-50 p-3" role="group" aria-label="Confirm account backup replacement">
+                <p className="text-sm font-semibold text-warning-900">Replace the existing account-wide backup?</p>
+                <p className="mt-1 text-xs leading-5 text-warning-800">
+                  Last saved {new Date(pendingCloudUploadAt).toLocaleString()}. This replaces the shared backup for all devices. If another device updates it first, the upload will be stopped and you can review the newer version.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    variant="danger"
+                    disabled={syncBusy}
+                    onClick={async () => {
+                      setSyncBusy(true);
+                      setSyncMsg(null);
+                      const result = await pushProgress(data, pendingCloudUploadAt);
+                      setSyncMsg(result.ok ? 'Account-wide backup replaced.' : result.error === 'cloud-conflict'
+                        ? 'The cloud backup changed on another device. Select Upload again to review the latest version.'
+                        : cloudSyncErrorMessage(result.error, 'upload'));
+                      setPendingCloudUploadAt(null);
+                      setSyncBusy(false);
+                    }}
+                  >
+                    Replace account backup
+                  </Button>
+                  <Button variant="secondary" disabled={syncBusy} onClick={() => setPendingCloudUploadAt(null)}>
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            )}
             {confirmCloudRestore && (
               <div className="rounded-xl border border-warning-200 bg-warning-50 p-3" role="group" aria-label="Confirm cloud restore">
                 <p className="text-sm font-semibold text-warning-900">Replace local progress with the cloud backup?</p>
                 <p className="mt-1 text-xs leading-5 text-warning-800">
-                  A recovery copy of your current local data will be saved first.
+                  A recovery copy of your current local data will be saved first. The account-wide backup may have been updated from another device.
                   {getLocalMutationAt()
                     ? ' If this device was edited after the last cloud upload, restoring will overwrite those edits.'
                     : ''}
@@ -364,9 +407,7 @@ export function SettingsScreen() {
           </p>
           <p>
             <strong className="font-medium">Cloud backup (optional).</strong>{' '}
-            If you sign in, a copy of that progress can be uploaded to our database under your
-            account so you can restore it on another device. Sync is snapshot-based; the last
-            successful upload for a device wins.
+            If you sign in, one account-wide snapshot can be uploaded and restored on your other devices. Replacing an existing snapshot requires confirmation and uses a version check so a concurrent upload is not silently overwritten. Older per-device snapshots remain available on the device that created them until an account-wide snapshot is created.
           </p>
           <p>
             <strong className="font-medium">AI tutor.</strong>{' '}
