@@ -19,6 +19,8 @@ test.describe('Axe accessibility scans', () => {
   for (const route of routes) {
     test(`${route.name} has no serious or critical axe violations`, async ({ page }) => {
       await page.setViewportSize({ width: 1280, height: 900 });
+      // Avoid sampling transient entrance-animation opacity rather than the settled UI.
+      await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto(route.path, { waitUntil: 'domcontentloaded' });
       await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
 
