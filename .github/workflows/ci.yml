@@ -77,6 +77,8 @@ jobs:
           fi
       - name: Contrast WCAG spot-check
         run: npm run check:contrast
+      - name: CI check-script coverage guard
+        run: node scripts/check-ci-gate-coverage.mjs
       - name: Learner-facing readiness presentation guard
         run: npm run check:readiness-presentation
       - name: Branding guard
