@@ -111,7 +111,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
 
   const questionsReady = sd.isQuestionsReady(subjectId);
   const questionsFor = sd.questionsFor;
-  const pool = useMemo(() => questionsFor(subjectId), [subjectId, questionsReady, questionsFor]);
+  const pool = useMemo(() => questionsFor(subjectId), [subjectId, questionsFor]);
   const totalAvailable = pool.length;
   /** Metadata-backed count so mock gating matches Dashboard before banks finish loading */
   const authoredQuestionCount = sd.statsFor(subjectId).totalQuestions;
