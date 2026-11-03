@@ -138,7 +138,7 @@ export async function prepareTrackOfflinePack(
   }
 
   const registration = await navigator.serviceWorker.ready;
-  const worker = navigator.serviceWorker.controller ?? registration.active;
+  const worker = registration.waiting ?? navigator.serviceWorker.controller ?? registration.active;
   if (!worker) {
     throw new Error('The service worker is not active yet. Reload the app once, then retry.');
   }
