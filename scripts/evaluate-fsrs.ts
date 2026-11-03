@@ -23,6 +23,9 @@ function main(): void {
     const output = `${JSON.stringify(report, null, 2)}\n`;
     const outputIndex = process.argv.indexOf('--output');
     const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : undefined;
+    if (outputIndex >= 0 && !outputPath) {
+      throw new Error('--output requires a destination path');
+    }
 
     if (outputPath) {
       // Refuse to overwrite an existing report accidentally.
