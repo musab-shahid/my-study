@@ -91,7 +91,7 @@ export function TrackSubjectRow({
   return (
     <div
       className={`flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 px-3 py-3 border-b border-slate-100 last:border-b-0 ${
-        disabled ? 'opacity-60' : 'hover:bg-slate-50'
+        disabled ? 'bg-slate-50' : 'hover:bg-slate-50'
       }`}
     >
       {icon ?? (dotClass ? <span className={`mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full ${dotClass}`} aria-hidden /> : null)}

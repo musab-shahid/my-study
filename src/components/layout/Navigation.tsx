@@ -52,7 +52,7 @@ export function Sidebar() {
       <div className="px-6 py-5 border-b border-slate-800">
         <AppBrand inverse />
       </div>
-      <nav className="flex-1 px-3 py-4 overflow-y-auto">
+      <nav aria-label="Primary" className="flex-1 px-3 py-4 overflow-y-auto">
         {/* Home */}
         <button
           type="button"

@@ -126,7 +126,7 @@ export function ToolsTray({ isOpen, onClose, idPrefix }: ToolsTrayProps) {
                   >
                     <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted'}`} aria-hidden />
                     <span className="font-medium text-sm">{item.label}</span>
-                    {active && <span className="ml-auto text-xs font-semibold">Current</span>}
+                    {active && <span className="ml-auto text-xs font-semibold" aria-hidden="true">Current</span>}
                   </button>
                 );
               })}
@@ -148,7 +148,7 @@ export function ToolsTray({ isOpen, onClose, idPrefix }: ToolsTrayProps) {
                   >
                     <item.icon className={`w-5 h-5 shrink-0 ${active ? 'text-brand-700' : 'text-ink-muted'}`} aria-hidden />
                     <span className="font-medium text-sm">{item.label}</span>
-                    {active && <span className="ml-auto text-xs font-semibold">Current</span>}
+                    {active && <span className="ml-auto text-xs font-semibold" aria-hidden="true">Current</span>}
                   </button>
                 );
               })}
@@ -168,7 +168,7 @@ export function ToolsTray({ isOpen, onClose, idPrefix }: ToolsTrayProps) {
                 >
                   <row.icon className={`w-5 h-5 shrink-0 ${row.active ? 'text-brand-700' : row.accentText}`} aria-hidden />
                   <span className="font-medium text-sm">{row.label}</span>
-                  {row.active && <span className="ml-auto text-xs font-semibold">Current</span>}
+                  {row.active && <span className="ml-auto text-xs font-semibold" aria-hidden="true">Current</span>}
                 </button>
               ))}
             </div>
