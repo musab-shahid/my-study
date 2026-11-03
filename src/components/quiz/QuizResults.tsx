@@ -12,6 +12,10 @@ export interface AnswerRecord {
   confidence?: 1 | 2 | 3;
   /** Ms from item shown to check/confidence submit. */
   latencyMs?: number;
+  /** Display-position to bank-option mapping captured for safe draft restoration. */
+  optionOrder?: number[];
+  /** Selected option text captured before any later shuffle. */
+  chosenOption?: string;
 }
 
 export interface ResultsData {
