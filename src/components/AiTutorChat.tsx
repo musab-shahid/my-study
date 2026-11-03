@@ -12,6 +12,10 @@ import {
   type ModelOption,
 } from '@/lib/ai-tutor';
 import { ChatMarkdown } from '@/components/ChatMarkdown';
+import {
+  TUTOR_CHAT_STORAGE_KEY_PREFIX,
+  TUTOR_DATA_CLEARED_EVENT,
+} from '@/lib/ai-tutor-storage';
 
 interface ChatMessage {
   id: string;
@@ -48,7 +52,6 @@ const WEAK_SUGGESTED_PROMPTS = [
 const COOLDOWN_MS = 3000;
 const MAX_INPUT_LENGTH = 2000;
 const MAX_STORED_MESSAGES = 40;
-const STORAGE_KEY_PREFIX = 'ai-tutor-chat:';
 
 function makeId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -56,7 +59,7 @@ function makeId(): string {
 
 function loadStoredMessages(topicKey: string): ChatMessage[] {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY_PREFIX + topicKey);
+    const raw = localStorage.getItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicKey);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
     if (Array.isArray(parsed)) return parsed.slice(-MAX_STORED_MESSAGES);
@@ -68,7 +71,7 @@ function loadStoredMessages(topicKey: string): ChatMessage[] {
 
 function saveMessages(topicKey: string, msgs: ChatMessage[]) {
   try {
-    localStorage.setItem(STORAGE_KEY_PREFIX + topicKey, JSON.stringify(msgs.slice(-MAX_STORED_MESSAGES)));
+    localStorage.setItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicKey, JSON.stringify(msgs.slice(-MAX_STORED_MESSAGES)));
   } catch {
     /* storage full or unavailable */
   }
@@ -117,8 +120,8 @@ export function AiTutorChat({ topicId, topicTitle, topicContext, studentContext,
       if (legacy.length > 0) {
         stored = legacy;
         try {
-          localStorage.setItem(STORAGE_KEY_PREFIX + topicKey, JSON.stringify(legacy.slice(-MAX_STORED_MESSAGES)));
-          localStorage.removeItem(STORAGE_KEY_PREFIX + topicTitle);
+          localStorage.setItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicKey, JSON.stringify(legacy.slice(-MAX_STORED_MESSAGES)));
+          localStorage.removeItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicTitle);
         } catch { /* noop */ }
       }
     }
@@ -136,9 +139,21 @@ export function AiTutorChat({ topicId, topicTitle, topicContext, studentContext,
     if (messages.length > 0) {
       saveMessages(topicKey, messages);
     } else {
-      try { localStorage.removeItem(STORAGE_KEY_PREFIX + topicKey); } catch { /* noop */ }
+      try { localStorage.removeItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicKey); } catch { /* noop */ }
     }
   }, [messages, topicKey]);
+
+  useEffect(() => {
+    const handleTutorDataCleared = () => {
+      abortRef.current?.abort();
+      setMessages([]);
+      setError(null);
+      lastFailedRef.current = null;
+      isMistakeThreadRef.current = false;
+    };
+    window.addEventListener(TUTOR_DATA_CLEARED_EVENT, handleTutorDataCleared);
+    return () => window.removeEventListener(TUTOR_DATA_CLEARED_EVENT, handleTutorDataCleared);
+  }, []);
 
   const handleEscape = useCallback(() => {
     setIsOpen(false);
@@ -443,7 +458,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
   const resetChat = () => {
     setMessages([]);
     setError(null);
-    try { localStorage.removeItem(STORAGE_KEY_PREFIX + topicKey); } catch { /* noop */ }
+    try { localStorage.removeItem(TUTOR_CHAT_STORAGE_KEY_PREFIX + topicKey); } catch { /* noop */ }
   };
 
   if (!isTutorAvailable()) {
@@ -628,6 +643,18 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
           </div>
         )}
       </div>
+
+      <details className="border-b border-slate-200 bg-white px-4 py-2 text-xs text-ink-muted">
+        <summary className="cursor-pointer font-medium text-ink-muted">How tutor data is used</summary>
+        <p className="mt-2 leading-relaxed">
+          Your conversation, current topic material, and relevant study context (such as recent missed questions,
+          quiz performance, and saved struggle notes) may be sent to the selected {availableModels.find((model) => model.id === modelId)?.provider ?? 'AI'} provider.
+          Depending on this deployment, requests go through My Study's Supabase proxy or directly from your browser.
+          This browser stores up to 40 chat messages and four tutor-memory notes per topic. The provider's own
+          privacy and retention terms apply to requests it receives. You can clear locally stored tutor chats and
+          memory for all topics in Settings → Data &amp; privacy.
+        </p>
+      </details>
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-slate-50">
