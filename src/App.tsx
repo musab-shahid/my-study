@@ -206,7 +206,7 @@ function AppContent() {
   const routeFocusKey = `${currentIdentity}|${parentRouteFocusKey(currentRoute.parent, currentIdentity)}`;
   const routeAnnouncement = useRouteAnnouncer(routeFocusKey, title);
   const { getActiveSubject } = useSubjectSelection();
-  const { trackMembership } = useData();
+  const { trackMembership, data } = useData();
   const showHeader = route.screen !== 'quiz';
 
   // Workspace chrome: active track (+ exam profile) for enrolled learners
@@ -275,6 +275,24 @@ function AppContent() {
   const [reviewPersistenceNotice, setReviewPersistenceNotice] = useState<{ message: string; urgent: boolean } | null>(null);
 
   useEffect(() => {
+    const onStorageWarning = (event: Event) => {
+      const detail = (event as CustomEvent<{ message?: string }>).detail;
+      const message = detail?.message ?? consumeStorageWarning();
+      consumeStorageWarning();
+      if (message) setStorageWarning(message);
+    };
+    const onStorageSaved = () => {
+      setStorageWarning((current) => current?.startsWith('Could not save progress') ? null : current);
+    };
+    window.addEventListener('my-study-storage-warning', onStorageWarning);
+    window.addEventListener('my-study-storage-saved', onStorageSaved);
+    return () => {
+      window.removeEventListener('my-study-storage-warning', onStorageWarning);
+      window.removeEventListener('my-study-storage-saved', onStorageSaved);
+    };
+  }, []);
+
+  useEffect(() => {
     const onReviewPersistence = (event: Event) => {
       const detail = (event as CustomEvent<{ status: string; count?: number; recoveryQueued?: boolean; errorCategory?: string }>).detail;
       if (!detail) return;
@@ -339,7 +357,7 @@ function AppContent() {
                 <button
                   type="button"
                   className="rounded-btn bg-warning-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-warning-700"
-                  onClick={() => downloadBackupFile()}
+                  onClick={() => downloadBackupFile(data)}
                 >
                   Download backup
                 </button>
