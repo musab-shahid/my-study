@@ -126,7 +126,7 @@ async function main() {
   const url = 'http://127.0.0.1:4177/';
   try {
     await playwrightFloor(url);
-    const scores = runLighthouse ? await runLighthouse(url) : null;
+    const scores = await runLighthouse(url);
     const accepted = enforceLighthouseFloors(scores, {
       minPerformance: MIN_PERF,
       minAccessibility: MIN_A11Y,
