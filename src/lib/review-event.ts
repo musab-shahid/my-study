@@ -93,8 +93,12 @@ export function validateReviewEvent(e: unknown): { valid: true } | { valid: fals
   if (typeof o.correct !== 'boolean') errors.push('invalid_correct');
   if (typeof o.algoVersion !== 'string' || o.algoVersion.length === 0) errors.push('invalid_algoVersion');
   if (o.confidence != null && ![1, 2, 3].includes(o.confidence as number)) errors.push('invalid_confidence');
-  if (o.grade != null && !['again', 'hard', 'good', 'easy'].includes(o.grade as string)) errors.push('invalid_grade');
+  if (o.grade != null && (!['again', 'hard', 'good', 'easy'].includes(o.grade as string) || o.mode !== 'flashcard')) errors.push('invalid_grade');
   if (o.responseStatus != null && !['submitted', 'unanswered'].includes(o.responseStatus as string)) errors.push('invalid_responseStatus');
+  if (o.responseStatus === 'unanswered' && (
+    !['topic', 'quick', 'mock', 'review', 'challenge'].includes(String(o.mode)) ||
+    o.confidence != null || o.latencyMs != null || o.chosenOption != null
+  )) errors.push('invalid_responseStatus');
   if (o.aggregateEligible != null && typeof o.aggregateEligible !== 'boolean') errors.push('invalid_aggregateEligible');
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) errors.push('invalid_latencyMs');
 
