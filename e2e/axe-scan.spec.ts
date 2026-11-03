@@ -263,9 +263,9 @@ test.describe('quiz progress and results accessibility across viewports', () => 
       await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Practice', exact: true }).click();
       await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
       await expect.poll(async () => {
-        const label = page.getByText(/\\d+ questions? available/i).first();
+        const label = page.getByText(/\d+ questions? available/i).first();
         if (!(await label.isVisible().catch(() => false))) return 0;
-        const match = (await label.textContent())?.match(/(\\d+)/);
+        const match = (await label.textContent())?.match(/(\d+)/);
         return match ? Number(match[1]) : 0;
       }, { timeout: 90_000 }).toBeGreaterThan(0);
 
@@ -291,7 +291,7 @@ test.describe('AI tutor dialog accessibility across viewports', () => {
     test(`AI tutor dialog at ${viewport.name} stays within the accessibility baseline`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await page.emulateMedia({ reducedMotion: 'reduce' });
-      await page.route(/\\/functions\\/v1\\/ai-tutor|openrouter\\.ai|api\\.groq\\.com|api\\.anthropic\\.com/, async (route) => {
+      await page.route(/\/functions\/v1\/ai-tutor|openrouter\.ai|api\.groq\.com|api\.anthropic\.com/, async (route) => {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
