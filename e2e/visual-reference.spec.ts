@@ -159,7 +159,7 @@ test('captures active quiz focus chrome after starting quick practice', async ({
   await seedEnrolledWorkspace(page);
 
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.getByText('Practice', { exact: true }).first().click();
+  await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Practice', exact: true }).click();
   await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
 
   await expect
