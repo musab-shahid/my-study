@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm
       - name: Install locked project dependencies
         run: npm ci
@@ -35,13 +35,27 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: npm
       - name: Install locked project dependencies
         run: npm ci
       - name: Install React 19 and matching type definitions without changing the lockfile
-        run: npm install --no-save --package-lock=false react@19.3.1 react-dom@19.3.1 @types/react@19.3.0 @types/react-dom@19.3.0
+        run: npm install --no-save --package-lock=false react@19.3.1 react-dom@19.3.1 @types/react@19.3.0 @types/react-dom@19.3.0 lighthouse@12.8.2
+      - name: Unit tests against React 19
+        run: npm test
       - name: Typecheck against React 19
         run: npm run typecheck
       - name: Build against React 19
         run: npm run build
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Playwright E2E against React 19
+        env:
+          CI: true
+          PLAYWRIGHT_FORCE_BUNDLED: "1"
+        run: npm run test:e2e
+      - name: Lighthouse performance and accessibility floors against React 19
+        env:
+          CI: true
+          PLAYWRIGHT_FORCE_BUNDLED: "1"
+        run: node scripts/run-lighthouse-ci.mjs
