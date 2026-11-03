@@ -1,6 +1,9 @@
 name: Resolve ts-fsrs package metadata
 
 on:
+  pull_request:
+    paths:
+      - .github/workflows/resolve-ts-fsrs-metadata.yml
   push:
     branches:
       - tooling/resolve-ts-fsrs-metadata
