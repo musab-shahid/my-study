@@ -109,8 +109,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
   const hasContent = subjectTopics.length > 0;
   const subjectTitle = activeSubject === 'all' ? 'All Subjects' : (subjectMap[activeSubject as string]?.title ?? 'Subject');
 
-  const questionsFor = sd.questionsFor;
-  const pool = useMemo(() => questionsFor(subjectId), [subjectId, questionsFor]);
+  const pool = sd.questionsFor(subjectId);
   const totalAvailable = pool.length;
   /** Metadata-backed count so mock gating matches Dashboard before banks finish loading */
   const authoredQuestionCount = sd.statsFor(subjectId).totalQuestions;
