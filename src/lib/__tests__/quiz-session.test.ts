@@ -63,6 +63,21 @@ describe('validateDraftShape', () => {
     });
     assert.equal(r.ok, false);
   });
+  it('preserves repeated submitted attempts separately from unique aggregate answers', () => {
+    const r = validateDraftShape({
+      questionIds: ['q1', 'q2'],
+      answers: [{ questionId: 'q1', correct: true, selectedIndices: [0] }],
+      reviewAttempts: [
+        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900 },
+        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700 },
+      ],
+      currentIdx: 1,
+      mode: 'quick',
+    });
+    assert.equal(r.ok, true);
+    if (r.ok) assert.equal(r.draft.reviewAttempts?.length, 2);
+  });
+
   it('rejects empty examId string', () => {
     const r = validateDraftShape({
       questionIds: ['q1'],
