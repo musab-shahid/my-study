@@ -175,4 +175,33 @@ describe('service worker explicit track offline packs', () => {
       'examprep-v3-pack-fpsc-20',
     ]);
   });
+  it('serves a cached pack asset when the network is unavailable', async () => {
+    const packedAsset = response();
+    const { handlers } = createHarness(
+      async () => { throw new Error('offline'); },
+      {
+        'examprep-v3-pack-fpsc-20': {
+          'https://app.test/assets/fpsc-topics.js': packedAsset,
+        },
+      },
+    );
+    const fetchHandler = handlers.get('fetch');
+    assert.ok(fetchHandler);
+    const request = {
+      method: 'GET',
+      url: 'https://app.test/assets/fpsc-topics.js',
+      mode: 'cors',
+    };
+    const lifetime: Promise<unknown>[] = [];
+    let responsePromise: Promise<ResponseLike> | undefined;
+    fetchHandler!({
+      request,
+      respondWith: (promise: Promise<ResponseLike>) => { responsePromise = promise; },
+      waitUntil: (promise: Promise<unknown>) => lifetime.push(promise),
+    });
+
+    assert.equal(await responsePromise, packedAsset);
+    await Promise.all(lifetime);
+  });
+
 });
