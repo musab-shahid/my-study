@@ -227,7 +227,7 @@ test.describe('Axe WCAG 2.2 AA route matrix', () => {
 });
 
 test.describe('More dialog accessibility across viewports', () => {
-  for (const viewport of viewports.filter((item) => item.width < 1024)) {
+  for (const viewport of viewports) {
     test(`More dialog at ${viewport.name} stays within the accessibility baseline`, async ({ page }) => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await page.emulateMedia({ reducedMotion: 'reduce' });
