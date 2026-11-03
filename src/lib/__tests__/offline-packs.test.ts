@@ -38,12 +38,12 @@ describe('track offline pack helpers', () => {
 
   it('reports the newest complete pack and its cached resource count', async () => {
     const { storage } = memoryStorage({
-      'my-study-offline-pack-examprep-v3-fpsc-100': ['https://app.test/assets/old.js'],
-      'my-study-offline-pack-examprep-v3-fpsc-200': [
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/old.js'],
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-200': [
         'https://app.test/assets/topics.js',
         'https://app.test/assets/questions.js',
       ],
-      'my-study-offline-pack-examprep-v3-hat-150': ['https://app.test/assets/hat.js'],
+      'my-study-offline-pack-examprep-a1b2c3d4-hat-150': ['https://app.test/assets/hat.js'],
     });
 
     assert.deepEqual(await getTrackOfflinePackStatus('fpsc', storage), {
@@ -58,9 +58,9 @@ describe('track offline pack helpers', () => {
 
   it('removes only the selected track packs and preserves other tracks', async () => {
     const { storage, stores } = memoryStorage({
-      'my-study-offline-pack-examprep-v3-fpsc-100': ['https://app.test/assets/fpsc-old.js'],
-      'my-study-offline-pack-examprep-v3-fpsc-200': ['https://app.test/assets/fpsc-current.js'],
-      'my-study-offline-pack-examprep-v3-hat-150': ['https://app.test/assets/hat.js'],
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/fpsc-old.js'],
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-200': ['https://app.test/assets/fpsc-current.js'],
+      'my-study-offline-pack-examprep-a1b2c3d4-hat-150': ['https://app.test/assets/hat.js'],
       'examprep-v3': ['https://app.test/index.html'],
     });
 
@@ -68,7 +68,7 @@ describe('track offline pack helpers', () => {
 
     assert.deepEqual([...stores.keys()].sort(), [
       'examprep-v3',
-      'my-study-offline-pack-examprep-v3-hat-150',
+      'my-study-offline-pack-examprep-a1b2c3d4-hat-150',
     ]);
   });
 });
