@@ -39,7 +39,7 @@ import { instantiatePool } from '@/lib/quant-template';
 import { applyOptionOrder } from '@/lib/quiz-option-order';
 import { buildBreakdown, clearQuizProgress, loadQuizProgress, saveQuizProgress, type QuizProgressSnapshot, type ReviewAttemptRecord, type SavedQuizProgress } from '@/lib/quiz-progress';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
-import { QuizResults, type ResultsData } from '@/components/quiz/QuizResults';
+import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 import { MatchingOptions, packMatchSelect, unpackMatchSelect } from '@/components/quiz/MatchingOptions';
 
