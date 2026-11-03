@@ -11,7 +11,8 @@ export type ReviewMode =
   | 'mock'
   | 'review'
   | 'challenge'
-  | 'flashcard';
+  | 'flashcard'
+  | 'lesson-check';
 
 export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
 
@@ -22,6 +23,7 @@ const VALID_MODES: readonly string[] = [
   'review',
   'challenge',
   'flashcard',
+  'lesson-check',
 ];
 
 export interface ReviewEvent {
@@ -41,6 +43,8 @@ export interface ReviewEvent {
   latencyMs?: number;
   /** Optional metacognitive rating before feedback. */
   confidence?: ReviewConfidence;
+  /** Explicit learner-selected flashcard grade; never inferred from correctness/confidence. */
+  grade?: ReviewGrade;
   /** Selected option id/key for distractor analytics. */
   chosenOption?: string;
   /** Scheduler / dual-write schema tag. */
@@ -81,6 +85,7 @@ export function validateReviewEvent(e: unknown): { valid: true } | { valid: fals
   if (typeof o.correct !== 'boolean') errors.push('invalid_correct');
   if (typeof o.algoVersion !== 'string' || o.algoVersion.length === 0) errors.push('invalid_algoVersion');
   if (o.confidence != null && ![1, 2, 3].includes(o.confidence as number)) errors.push('invalid_confidence');
+  if (o.grade != null && !['again', 'hard', 'good', 'easy'].includes(o.grade as string)) errors.push('invalid_grade');
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) errors.push('invalid_latencyMs');
 
   return errors.length === 0 ? { valid: true } : { valid: false, errors };
@@ -110,6 +115,7 @@ export interface AttemptInput {
   mode: ReviewMode;
   latencyMs?: number;
   confidence?: ReviewConfidence;
+  grade?: ReviewGrade;
   chosenOption?: string;
   ts?: number;
   deviceId?: string;
@@ -129,6 +135,7 @@ export function buildReviewEvent(input: AttemptInput): ReviewEvent {
     correct: input.correct,
     latencyMs: input.latencyMs,
     confidence: input.confidence,
+    grade: input.grade,
     chosenOption: input.chosenOption,
     algoVersion: input.algoVersion ?? REVIEW_EVENT_ALGO_VERSION,
   };
