@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { RouterProvider, useRouter, routeLabel, type Route } from '@/router';
 import { DataProvider } from '@/data-context';
 import { useData } from '@/hooks/useData';
@@ -168,6 +168,8 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
 
 function AppContent() {
   const { route, currentRoute } = useRouter();
+  const previousRouteScreen = useRef(route.screen);
+  const [routeAnnouncement, setRouteAnnouncement] = useState('');
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
   const { title, subtitle } = getHeaderTitle(route);
@@ -207,6 +209,64 @@ function AppContent() {
   } else if (workspaceLabel && (route.screen === 'progress' || route.screen === 'review' || route.screen === 'search')) {
     finalSubtitle = workspaceLabel;
   }
+
+  // Move focus to the new page heading after a screen-level route change.
+  // Initial deep links and same-screen state/parameter changes deliberately do not steal focus.
+  useEffect(() => {
+    if (previousRouteScreen.current === route.screen) return;
+    previousRouteScreen.current = route.screen;
+
+    const main = document.getElementById('main-content');
+    if (!main) return;
+
+    let observer: MutationObserver | null = null;
+    let frame = 0;
+    let cancelled = false;
+
+    const hasOpenModal = () =>
+      Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]')).some(
+        (dialog) =>
+          dialog.getClientRects().length > 0 &&
+          window.getComputedStyle(dialog).visibility !== 'hidden',
+      );
+
+    const focusDestination = () => {
+      if (cancelled) return true;
+
+      const heading = main.querySelector<HTMLElement>('h1');
+      const pageName = heading?.textContent?.trim() || title;
+
+      // A route may change behind an open More sheet or tutor dialog. Announce
+      // the destination, but leave focus inside the modal's own focus trap.
+      if (hasOpenModal()) {
+        setRouteAnnouncement(pageName ? `Navigated to ${pageName}` : 'Page changed');
+        return true;
+      }
+
+      // Wait for lazy screens to replace the loading status before choosing
+      // the heading; main remains the safe fallback for screens without an h1.
+      if (!heading && main.querySelector('[role="status"]')) return false;
+
+      if (heading && !heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
+      (heading ?? main).focus({ preventScroll: true });
+      setRouteAnnouncement(pageName ? `Navigated to ${pageName}` : 'Page changed');
+      return true;
+    };
+
+    observer = new MutationObserver(() => {
+      if (focusDestination()) observer?.disconnect();
+    });
+    observer.observe(main, { childList: true, subtree: true });
+    frame = window.requestAnimationFrame(() => {
+      if (focusDestination()) observer?.disconnect();
+    });
+
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+      observer?.disconnect();
+    };
+  }, [route.screen, title]);
 
   // Keep browser tab title in sync
   useEffect(() => {
@@ -299,6 +359,9 @@ function AppContent() {
             </Suspense>
           </ErrorBoundary>
         </main>
+      </div>
+      <div id="route-announcement" role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+        {routeAnnouncement}
       </div>
       <MobileNav />
       <OfflineIndicator />
