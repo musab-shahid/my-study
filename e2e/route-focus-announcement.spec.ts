@@ -82,4 +82,57 @@ test.describe('route-change focus and announcements', () => {
     await page.keyboard.press('Enter');
     await expect(main).toBeFocused();
   });
+
+  test('focuses and announces Learn → Practice → Revision queue → Progress in order', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    const now = new Date().toISOString();
+    await page.goto('/');
+    await page.evaluate(({ appKey, subjectKey, enrolledAt }) => {
+      localStorage.setItem(appKey, JSON.stringify({
+        studiedTopics: [],
+        topicProgress: {},
+        questionResults: {},
+        quizHistory: [],
+        revisionDates: {},
+        lastOpenedTopic: '',
+        trackMembership: {
+          schemaVersion: 1,
+          enrollments: {
+            fpsc: {
+              enrolledAt,
+              source: 'explicit',
+              lastOpenedAt: enrolledAt,
+              activeExamId: null,
+            },
+          },
+          activeTrackId: 'fpsc',
+        },
+      }));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'fpsc',
+        byTrack: {
+          fpsc: {
+            perScreen: { learn: 'meteo-climatology' },
+            lastSelected: 'meteo-climatology',
+            prefersAll: false,
+          },
+        },
+      }));
+    }, {
+      appKey: 'examprep-data',
+      subjectKey: 'examprep-subject-selection',
+      enrolledAt: now,
+    });
+    await page.reload();
+
+    for (const destination of ['Learn', 'Practice', 'Revision queue', 'Progress']) {
+      await primaryNavigation(page).getByRole('button', { name: destination, exact: true }).click();
+      const heading = page.locator('#main-content h1').first();
+      await expect(heading, destination + ' must expose its primary heading').toBeVisible();
+      await expect(heading, destination + ' heading must receive focus').toBeFocused();
+      const headingText = (await heading.innerText()).trim();
+      await expect(page.locator('#route-announcement')).toHaveText('Navigated to ' + headingText);
+    }
+  });
+
 });
