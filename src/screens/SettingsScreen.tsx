@@ -357,7 +357,7 @@ export function SettingsScreen() {
       <section id="data-settings" aria-labelledby="data-settings-heading" className="scroll-mt-24 mb-6 space-y-3">
       <h2 id="data-settings-heading" className="text-sm font-bold uppercase tracking-wide text-muted">Data & privacy</h2>
       <Card className="p-card-pad mb-4">
-        <h2 className="font-semibold text-ink text-sm">Privacy &amp; data</h2>
+        <p className="font-semibold text-ink text-sm">Privacy &amp; data</p>
         <div className="mt-2 space-y-2 text-xs leading-relaxed text-ink-muted">
           <p>
             <strong className="font-medium">On this device.</strong>{' '}

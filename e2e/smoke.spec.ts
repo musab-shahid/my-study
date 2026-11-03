@@ -108,7 +108,8 @@ test.describe('Mobile More menu consistency', () => {
 
     await expect(dialog.getByRole('button', { name: 'Learn', exact: true })).toHaveCount(0);
     await expect(dialog.getByRole('button', { name: 'Practice', exact: true })).toHaveCount(0);
-    await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(1);
+    await expect(dialog.getByRole('button', { name: 'Revision queue', exact: true })).toHaveCount(0);
+    await expect(dialog.getByRole('button', { name: 'Progress', exact: true })).toHaveCount(0);
     await expect(dialog.getByRole('region', { name: 'Study' })).toBeVisible();
     await expect(dialog.getByRole('region', { name: 'App' })).toBeVisible();
     await expect(dialog.getByRole('region', { name: 'Learning tracks' })).toBeVisible();
@@ -124,13 +125,14 @@ test.describe('Mobile More menu consistency', () => {
     const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ });
     await trigger.click();
     const dialog = page.getByRole('dialog', { name: 'More' });
-    await dialog.getByRole('button', { name: 'Review', exact: true }).click();
+    // Revision queue is on the primary bar; Formulas is a stable secondary More destination.
+    await dialog.getByRole('button', { name: 'Formulas', exact: true }).click();
     await expect(dialog).toBeHidden();
 
     await trigger.click();
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveAttribute('aria-current', 'page');
-    await expect(dialog.getByRole('button', { name: /Review/ })).toHaveClass(/bg-brand-50/);
+    await expect(dialog.getByRole('button', { name: /Formulas/ })).toHaveAttribute('aria-current', 'page');
+    await expect(dialog.getByRole('button', { name: /Formulas/ })).toHaveClass(/bg-brand-50/);
   });
 
   test('marks Mock Exam current without duplicating the primary Practice destination', async ({ page }) => {

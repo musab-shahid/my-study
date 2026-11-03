@@ -74,3 +74,118 @@ test('captures visual references for representative routes at mobile and desktop
     }
   }
 });
+
+
+
+const APP_DATA_KEY = 'examprep-data';
+const QUIZ_PROGRESS_KEY = 'examprep-quiz-progress';
+const SUBJECT_SELECTION_KEY = 'examprep-subject-selection';
+
+function enrolledFpscAppData() {
+  const now = new Date().toISOString();
+  return {
+    studiedTopics: [],
+    topicProgress: {},
+    questionResults: {},
+    quizHistory: [],
+    revisionDates: {},
+    lastOpenedTopic: '',
+    trackMembership: {
+      schemaVersion: 1,
+      enrollments: {
+        fpsc: {
+          enrolledAt: now,
+          source: 'explicit',
+          lastOpenedAt: now,
+          activeExamId: null,
+        },
+      },
+      activeTrackId: 'fpsc',
+    },
+  };
+}
+
+/** Seed enrolled FPSC workspace with English practice scope. */
+async function seedEnrolledWorkspace(page: import('@playwright/test').Page) {
+  await page.goto('/');
+  await page.evaluate(
+    ({ appKey, quizKey, subjectKey, data }) => {
+      localStorage.removeItem(quizKey);
+      localStorage.setItem(appKey, JSON.stringify(data));
+      localStorage.setItem(
+        subjectKey,
+        JSON.stringify({
+          activeTrack: 'fpsc',
+          byTrack: {
+            fpsc: {
+              perScreen: { practice: 'english' },
+              lastSelected: 'english',
+              prefersAll: false,
+            },
+          },
+        }),
+      );
+    },
+    {
+      appKey: APP_DATA_KEY,
+      quizKey: QUIZ_PROGRESS_KEY,
+      subjectKey: SUBJECT_SELECTION_KEY,
+      data: enrolledFpscAppData(),
+    },
+  );
+  await page.reload();
+  await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
+}
+
+test('captures enrolled dashboard at mobile, tablet, and desktop widths', async ({ page }, testInfo) => {
+  test.setTimeout(180_000);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedEnrolledWorkspace(page);
+
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport);
+    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
+    const path = testInfo.outputPath('visual-reference-seeded', `enrolled-dashboard-${viewport.width}.png`);
+    mkdirSync(testInfo.outputPath('visual-reference-seeded'), { recursive: true });
+    await page.screenshot({ path, fullPage: true, animations: 'disabled' });
+    await testInfo.attach(`enrolled-dashboard-${viewport.width}`, { path, contentType: 'image/png' });
+  }
+});
+
+test('captures active quiz focus chrome after starting quick practice', async ({ page }, testInfo) => {
+  test.setTimeout(240_000);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedEnrolledWorkspace(page);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.getByText('Practice', { exact: true }).first().click();
+  await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
+
+  await expect
+    .poll(
+      async () => {
+        const el = page.getByText(/\d+ questions? available/i).first();
+        if (!(await el.isVisible().catch(() => false))) return 0;
+        const text = (await el.textContent()) || '';
+        const m = text.match(/(\d+)/);
+        return m ? parseInt(m[1], 10) : 0;
+      },
+      { timeout: 90_000, message: 'question bank did not load for practice scope' },
+    )
+    .toBeGreaterThan(0);
+
+  await page.getByRole('button', { name: /Quick Practice/i }).first().click();
+  const startNew = page.getByRole('button', { name: /Start New/i });
+  if (await startNew.isVisible().catch(() => false)) {
+    await startNew.click();
+  }
+
+  const check = page.getByRole('button', { name: /^Check Answer$/i });
+  await expect(check).toBeVisible({ timeout: 90_000 });
+
+  mkdirSync(testInfo.outputPath('visual-reference-seeded'), { recursive: true });
+  const path = testInfo.outputPath('visual-reference-seeded', 'active-quiz-390.png');
+  await page.screenshot({ path, fullPage: false, animations: 'disabled' });
+  await testInfo.attach('active-quiz-390', { path, contentType: 'image/png' });
+});
