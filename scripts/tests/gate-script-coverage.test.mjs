@@ -70,7 +70,7 @@ test('allowlist entries require a non-empty one-line reason and stale entries fa
       checkCgei: '',
       allowlist: { 'check:removed': 'obsolete exception' },
     }),
-    ['check:removed (stale allowlist entry)'],
+    ['audit:present', 'check:removed (stale allowlist entry)'],
   );
 });
 
