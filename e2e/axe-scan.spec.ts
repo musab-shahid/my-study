@@ -43,6 +43,18 @@ async function scanAxe(page: Page, scenario: string) {
   const moderateDetails = moderate.map((violation) =>
     `${violation.id} (${violation.nodes.length}): ${violation.help}\n${violation.nodes.map((node) => node.target.join(' ')).join('\n')}`,
   ).join('\n');
+  if (increases.length > 0) {
+    console.error(`[axe-baseline] ${scenario}: ${JSON.stringify(moderate.map((violation) => ({
+      id: violation.id,
+      impact: violation.impact,
+      help: violation.help,
+      nodes: violation.nodes.map((node) => ({
+        target: node.target,
+        html: node.html,
+        failureSummary: node.failureSummary,
+      })),
+    }))) }`);
+  }
 
   expect(
     blocking,
