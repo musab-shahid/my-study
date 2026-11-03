@@ -237,6 +237,8 @@ interface QuizState {
   /** Stable identity for all submitted answers in this mounted quiz session. */
   reviewSessionId: string;
   answers: AnswerRecord[];
+  /** Every submitted response, including repeats from hypercorrection re-queues. */
+  reviewAttempts: AnswerRecord[];
   startTime: number;
   elapsed: number;
   /** Question ids already re-inserted this session (at most once each). */
@@ -268,6 +270,7 @@ interface SavedQuizProgress {
   /** Parallel to questionIds; session-stable option permutation */
   optionOrders?: number[][];
   answers: AnswerRecord[];
+  reviewAttempts?: AnswerRecord[];
   /** Seconds already elapsed when progress was saved (timer resume) */
   elapsedSeconds?: number;
   currentIdx: number;
@@ -303,6 +306,7 @@ function saveQuizProgress(
       questionIds: state.questions.map((q) => q.id),
       optionOrders: state.optionOrders,
       answers: state.answers,
+      reviewAttempts: state.reviewAttempts,
       elapsedSeconds: state.elapsed,
       currentIdx: state.currentIdx,
       mode,
@@ -431,7 +435,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     });
     const startedAt = Date.now();
     const reviewSessionId = `quiz_${startedAt}_${Math.random().toString(36).slice(2, 10)}`;
-    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: startedAt, reviewSessionId, answers: [], startTime: startedAt, elapsed: 0, requeuedIds: [], requeueNotice: null });
+    setState({ questions: qs, optionOrders, currentIdx: 0, selectedIndices: [], checked: false, awaitingConfidence: false, itemShownAt: startedAt, reviewSessionId, answers: [], reviewAttempts: [], startTime: startedAt, elapsed: 0, requeuedIds: [], requeueNotice: null });
     setFinished(false);
     setResults(null);
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool]);
@@ -468,7 +472,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     }
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool, activeTrack, activeExamId, timeLimit]);
 
-  // Save quiz progress whenever answers or currentIdx changes
+  // Save quiz progress whenever submitted answers, attempt history, or currentIdx changes
   useEffect(() => {
     if (state && !finished && state.questions.length > 0) {
       const sess = sessionRef.current;
@@ -479,7 +483,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         sess.examId,
       );
     }
-  }, [state?.answers, state?.currentIdx, finished, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool]);
+  }, [state?.answers, state?.reviewAttempts, state?.currentIdx, finished, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool]);
 
   const resumeQuiz = useCallback(async () => {
     const saved = resumeOffer;
@@ -575,6 +579,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
+      reviewAttempts: saved.reviewAttempts ?? reconciled.answers,
       startTime: resumedAt - resumedElapsed * 1000,
       elapsed: resumedElapsed,
     });
@@ -672,6 +677,51 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     const { perTopic, perDifficulty } = buildBreakdown(s.questions, finalAnswers);
     const effectiveTopicId = topicId ?? null;
     recordQuiz(effectiveTopicId, finalAnswers, s.questions, mode, subjectId, difficulty);
+
+    // Keep every actual submission, but designate only the last submitted attempt
+    // for each item as the outcome that mirrors the existing AppData aggregate.
+    const submittedAttempts = s.reviewAttempts.length > 0
+      ? s.reviewAttempts
+      : finalAnswers.filter((answer) => answer.selectedIndices.length > 0);
+    const lastAttemptByQuestion = new Map<string, number>();
+    submittedAttempts.forEach((answer, index) => lastAttemptByQuestion.set(answer.questionId, index));
+    const questionById = new Map(s.questions.map((question) => [question.id, question]));
+    const reviewAnswers = submittedAttempts.map((answer, index) => {
+      const question = questionById.get(answer.questionId);
+      return {
+        questionId: answer.questionId,
+        correct: answer.correct,
+        skillId: question?.topicId ?? answer.questionId,
+        latencyMs: answer.latencyMs,
+        confidence: answer.confidence,
+        chosenOption: answer.selectedIndices
+          .map((optionIndex) => question?.options?.[optionIndex] ?? String(optionIndex))
+          .join(' | '),
+        responseStatus: 'submitted' as const,
+        aggregateEligible: lastAttemptByQuestion.get(answer.questionId) === index,
+      };
+    });
+    const submittedIds = new Set(submittedAttempts.map((answer) => answer.questionId));
+    for (const answer of finalAnswers) {
+      if (submittedIds.has(answer.questionId)) continue;
+      const question = questionById.get(answer.questionId);
+      reviewAnswers.push({
+        questionId: answer.questionId,
+        correct: false,
+        skillId: question?.topicId ?? answer.questionId,
+        responseStatus: 'unanswered' as const,
+        aggregateEligible: true,
+      });
+    }
+    if (reviewAnswers.length > 0) {
+      dualWriteQuizAttemptsFireAndForget({
+        answers: reviewAnswers,
+        mode,
+        sessionId: s.reviewSessionId,
+        ts: Date.now(),
+      });
+    }
+
     setResults({
       score: correctCount,
       total: s.questions.length,
@@ -717,8 +767,11 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         clearInterval(interval);
         setState((prev) => (prev ? { ...prev, elapsed: totalSeconds } : prev));
         const finalAnswers: AnswerRecord[] = [...currentState.answers];
-        for (let i = finalAnswers.length; i < currentState.questions.length; i++) {
-          finalAnswers.push({ questionId: currentState.questions[i].id, correct: false, selectedIndices: [] });
+        const answeredIds = new Set(finalAnswers.map((answer) => answer.questionId));
+        for (const question of currentState.questions) {
+          if (answeredIds.has(question.id)) continue;
+          finalAnswers.push({ questionId: question.id, correct: false, selectedIndices: [] });
+          answeredIds.add(question.id);
         }
         finishQuizRef.current(currentState, finalAnswers);
       } else {
@@ -804,24 +857,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       awaitingConfidence: false,
       checked: true,
       answers,
-    });
-
-    // Each learner submission is a distinct event, including a re-queued repeat.
-    // Unanswered timeout placeholders are never passed to this event path.
-    dualWriteQuizAttemptsFireAndForget({
-      answers: [{
-        questionId: q.id,
-        correct,
-        skillId: q.topicId,
-        latencyMs,
-        confidence,
-        chosenOption: prev.selectedIndices
-          .map((index) => q.options?.[index] ?? String(index))
-          .join(' | '),
-      }],
-      mode,
-      sessionId: prev.reviewSessionId,
-      ts: now,
+      reviewAttempts: [...prev.reviewAttempts, record],
     });
 
     if (scheduleHypercorrectionMiss) scheduleNextDayHcMiss(q.id, q.topicId);
