@@ -1,0 +1,44 @@
+name: Toolchain compatibility evaluation
+
+on:
+  push:
+    branches:
+      - compatibility/phase5-toolchain-evaluation
+
+permissions:
+  contents: read
+
+jobs:
+  eslint-10:
+    name: ESLint 10 compatibility (non-production install)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked project dependencies
+        run: npm ci
+      - name: Install ESLint 10 without changing the lockfile
+        run: npm install --no-save --package-lock=false eslint@10.14.0
+      - name: Run the repository lint command
+        run: npm run lint
+
+  react-19:
+    name: React 19 compatibility (non-production install)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked project dependencies
+        run: npm ci
+      - name: Install React 19 and matching type definitions without changing the lockfile
+        run: npm install --no-save --package-lock=false react@19.3.1 react-dom@19.3.1 @types/react@19.3.0 @types/react-dom@19.3.0
+      - name: Typecheck against React 19
+        run: npm run typecheck
+      - name: Build against React 19
+        run: npm run build
