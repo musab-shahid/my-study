@@ -576,6 +576,7 @@ describe('PR1: backward compatibility', () => {
       answers: [{ questionId: 'q1', correct: true }],
       mode: 'topic',
       ts: 100,
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.events.length, 1);
     assert.equal(result.status, 'persisted');
