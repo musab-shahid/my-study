@@ -22,6 +22,8 @@ export interface DualWriteAnswer {
   grade?: ReviewGrade;
   responseStatus?: 'submitted' | 'unanswered';
   aggregateEligible?: boolean;
+  /** Actual learner submission time, when known. */
+  ts?: number;
   chosenOption?: string;
 }
 
@@ -99,7 +101,7 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
       responseStatus: a.responseStatus,
       aggregateEligible: a.aggregateEligible,
       chosenOption: a.chosenOption,
-      ts: ts + i,
+      ts: a.ts ?? ts + i,
       deviceId,
       sessionId,
     }),
