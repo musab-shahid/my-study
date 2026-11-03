@@ -182,7 +182,7 @@ jobs:
           output="$(python scripts/audit_core_leaf_coverage.py --report /tmp/core-leaf-coverage-failcheck.csv 2>&1)"
           status=$?
           set -e
-          printf '%s\\n' "$output"
+          printf '%s\n' "$output"
           if [ "$status" -eq 0 ]; then
             echo "Strict gate clear: no unmapped Core leaves and no blocking stale IDs."
             exit 0
