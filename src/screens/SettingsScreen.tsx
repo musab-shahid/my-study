@@ -12,6 +12,7 @@ import {
 } from '@/data/subjects';
 import { PageContainer, Card, Button, ScreenHeader } from '@/components/ui';
 import { WorkspaceSettingsCard } from '@/components/track/WorkspaceSettingsCard';
+import { OfflinePacksCard } from '@/components/OfflinePacksCard';
 import { ExamScheduleSettings } from '@/components/ExamScheduleSettings';
 import { AuthAccountCard } from '@/components/AuthAccountCard';
 import { downloadBackupFile, getLocalMutationAt } from '@/lib/storage';
@@ -632,6 +633,8 @@ export function SettingsScreen() {
           </div>
         </div>
       </Card>
+
+      <OfflinePacksCard />
 
       {showInstall && (
         <Card className="p-card-pad mb-4">
