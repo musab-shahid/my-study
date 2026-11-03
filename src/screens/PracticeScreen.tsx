@@ -109,7 +109,6 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
   const hasContent = subjectTopics.length > 0;
   const subjectTitle = activeSubject === 'all' ? 'All Subjects' : (subjectMap[activeSubject as string]?.title ?? 'Subject');
 
-  const questionsReady = sd.isQuestionsReady(subjectId);
   const questionsFor = sd.questionsFor;
   const pool = useMemo(() => questionsFor(subjectId), [subjectId, questionsFor]);
   const totalAvailable = pool.length;
