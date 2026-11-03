@@ -56,6 +56,7 @@ export function isValidReviewEvent(e: unknown): e is ReviewEvent {
     o.confidence != null || o.latencyMs != null || o.chosenOption != null
   )) return false;
   if (o.aggregateEligible != null && typeof o.aggregateEligible !== 'boolean') return false;
+  if (o.aggregateEligible === true && !['topic', 'quick', 'mock', 'review', 'challenge'].includes(String(o.mode))) return false;
   return true;
 }
 
