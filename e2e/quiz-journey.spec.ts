@@ -268,12 +268,22 @@ test.describe('Quiz completion journey', () => {
     });
     await answerCurrentQuestion(page);
 
+    await expect
+      .poll(
+        async () => page.evaluate((key) => {
+          const raw = localStorage.getItem(key);
+          if (!raw) return false;
+          const saved = JSON.parse(raw);
+          return Array.isArray(saved.answers) && saved.answers.length > 0 && saved.currentIdx > 0;
+        }, QUIZ_PROGRESS_KEY),
+        { timeout: 10_000, message: 'answered quiz draft was not saved before exit' },
+      )
+      .toBeTruthy();
     const savedBeforeExit = await page.evaluate((key) => {
       const raw = localStorage.getItem(key);
       return raw ? JSON.parse(raw) : null;
     }, QUIZ_PROGRESS_KEY);
-    expect(savedBeforeExit?.answers?.length).toBeGreaterThan(0);
-    expect(savedBeforeExit?.currentIdx).toBeGreaterThan(0);
+    const questionIds = savedBeforeExit.questionIds as string[];
     const questionIds = savedBeforeExit.questionIds as string[];
 
     await page.getByRole('button', { name: 'Exit quiz' }).click();
