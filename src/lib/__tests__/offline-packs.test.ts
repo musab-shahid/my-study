@@ -38,6 +38,8 @@ describe('track offline pack helpers', () => {
 
   it('reports the newest complete pack and its cached resource count', async () => {
     const { storage } = memoryStorage({
+      'examprep-a1b2c3d4': [],
+      'my-study-offline-pack-examprep-old00001-fpsc-300': ['https://app.test/assets/stale.js'],
       'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/old.js'],
       'my-study-offline-pack-examprep-a1b2c3d4-fpsc-200': [
         'https://app.test/assets/topics.js',
@@ -61,13 +63,13 @@ describe('track offline pack helpers', () => {
       'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/fpsc-old.js'],
       'my-study-offline-pack-examprep-a1b2c3d4-fpsc-200': ['https://app.test/assets/fpsc-current.js'],
       'my-study-offline-pack-examprep-a1b2c3d4-hat-150': ['https://app.test/assets/hat.js'],
-      'examprep-v3': ['https://app.test/index.html'],
+      'examprep-a1b2c3d4': ['https://app.test/index.html'],
     });
 
     await removeTrackOfflinePack('fpsc', storage);
 
     assert.deepEqual([...stores.keys()].sort(), [
-      'examprep-v3',
+      'examprep-a1b2c3d4',
       'my-study-offline-pack-examprep-a1b2c3d4-hat-150',
     ]);
   });
