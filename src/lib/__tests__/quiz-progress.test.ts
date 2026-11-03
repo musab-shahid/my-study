@@ -100,7 +100,14 @@ describe('quiz progress persistence', () => {
       assert.ok(saved);
       assert.deepEqual(saved.questionIds, ['q1']);
       assert.deepEqual(saved.optionOrders, [[2, 0, 1]]);
-      assert.deepEqual(saved.answers, answers);
+      assert.equal(saved.answers.length, 1);
+      assert.equal(saved.answers[0].questionId, 'q1');
+      assert.equal(saved.answers[0].correct, true);
+      assert.deepEqual(saved.answers[0].selectedIndices, [1]);
+      assert.deepEqual(saved.answers[0].optionOrder, [2, 0, 1]);
+      assert.equal(saved.answers[0].confidence, 3);
+      assert.equal(saved.answers[0].latencyMs, 1250);
+      assert.equal(saved.answers[0].submittedAt, 1700000000000);
       assert.deepEqual(saved.reviewAttempts, []);
       assert.equal(saved.reviewSessionId, 'session-1');
       assert.equal(saved.elapsedSeconds, 25);
