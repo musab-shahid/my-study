@@ -196,7 +196,7 @@ export function useSubjectData(): SubjectDataLayer {
       weakestTopics: weakest,
       todayRevision: revision,
     };
-  }, [data, topicsFor, questionsFor, sectionsFor, questionCountFor]);
+  }, [data, topicsFor, questionsFor, sectionsFor, questionCountFor, trackSubjectIdList]);
 
   const allSubjectsStats = useCallback((): SubjectStats[] => {
     // Active track + exam profile subjects only (same set as topicsFor('all'))
@@ -215,7 +215,7 @@ export function useSubjectData(): SubjectDataLayer {
       }).length;
     }
     return trackSections.reduce((sum, s) => sum + s.questionCount, 0);
-  }, [trackSections, trackSubjectIds, trackSubjectIdList, loadedQuestionSubjects]);
+  }, [trackSections, trackSubjectIds, trackSubjectIdList]);
   const totalFormulas = useMemo(() => {
     return trackSubjectIdList.reduce((sum, sid) => sum + getFormulasForSubject(sid).length, 0);
   }, [trackSubjectIdList]);
@@ -226,7 +226,7 @@ export function useSubjectData(): SubjectDataLayer {
     }
     if (!trackSubjectIds.has(id)) return [];
     return getFormulasForSubject(id);
-  }, [trackSubjectIdList, trackSubjectIds]);
+  }, [trackSubjectIdList]);
 
   const revisionQueueAll = useCallback(() => {
     const today = new Date();
@@ -281,7 +281,7 @@ export function useSubjectData(): SubjectDataLayer {
       if (!subjectId) return [];
       return [{ topic: r.topic, subjectId, match: r.match, type: r.type }];
     });
-  }, [trackSubjectIds, loadedSubjects, activeTrack, activeExamId]);
+  }, [trackSubjectIds, activeTrack, activeExamId]);
 
   const getTopicById = useCallback((topicId: string): Topic | undefined => {
     const cached = getTopicFromCache(topicId);
