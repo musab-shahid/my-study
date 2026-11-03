@@ -670,7 +670,7 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
               Ask me anything about <span className="font-semibold">{topicTitle}</span>
             </p>
             <div className="space-y-2">
-              {(studentContext && /accuracy: [0-6]\d%/i.test(studentContext)
+              {(studentContext && /Performance band: needs practice/i.test(studentContext)
                 ? WEAK_SUGGESTED_PROMPTS
                 : DEFAULT_SUGGESTED_PROMPTS
               ).map((prompt) => (
