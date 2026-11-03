@@ -223,7 +223,7 @@ function isCorrect(question: Question, selectedIndex: number[]): boolean {
   return gradeAnswer(question, selectedIndex);
 }
 
-type ReviewAttemptRecord = AnswerRecord & { optionOrder: number[] };
+type ReviewAttemptRecord = AnswerRecord & { optionOrder: number[]; questionIndex: number };
 
 interface QuizState {
   questions: Question[];
@@ -584,6 +584,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       reviewAttempts: reconciled.reviewAttempts ?? reconciled.answers.map((answer) => ({
         ...answer,
         optionOrder: answer.optionOrder ?? reconciled.optionOrders[saved.questionIds.lastIndexOf(answer.questionId)] ?? [],
+        questionIndex: saved.questionIds.lastIndexOf(answer.questionId),
       })),
       startTime: resumedAt - resumedElapsed * 1000,
       elapsed: resumedElapsed,
@@ -714,17 +715,20 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       };
     });
     const submittedIds = new Set(submittedAttempts.map((answer) => answer.questionId));
-    for (const answer of finalAnswers) {
-      if (submittedIds.has(answer.questionId)) continue;
-      const question = questionById.get(answer.questionId);
+    const submittedQuestionIndexes = new Set(submittedAttempts.map((answer) => answer.questionIndex));
+    const unansweredAggregateItems = new Set<string>();
+    s.questions.forEach((question, questionIndex) => {
+      if (submittedQuestionIndexes.has(questionIndex)) return;
+      const aggregateEligible = !submittedIds.has(question.id) && !unansweredAggregateItems.has(question.id);
+      if (aggregateEligible) unansweredAggregateItems.add(question.id);
       reviewAnswers.push({
-        questionId: answer.questionId,
+        questionId: question.id,
         correct: false,
-        skillId: question?.topicId ?? answer.questionId,
+        skillId: question.topicId ?? question.id,
         responseStatus: 'unanswered' as const,
-        aggregateEligible: true,
+        aggregateEligible,
       });
-    }
+    });
     if (reviewAnswers.length > 0) {
       dualWriteQuizAttemptsFireAndForget({
         answers: reviewAnswers,
@@ -831,6 +835,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       confidence,
       latencyMs,
       optionOrder: [...(prev.optionOrders[prev.currentIdx] ?? (q.options ?? []).map((_, index) => index))],
+      questionIndex: prev.currentIdx,
       chosenOption: prev.selectedIndices.map((index) => q.options?.[index] ?? String(index)).join(' | '),
     };
     const already = prev.answers.some((a) => a.questionId === q.id);
