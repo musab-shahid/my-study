@@ -152,7 +152,7 @@ function GenericStudyScreen() {
             const color = getSubjectColor(subject.id);
             const Icon = BookCopy;
             return (
-              <Card key={subject.id} className="p-3.5 sm:p-4 transition-colors hover:border-slate-300">
+              <Card key={subject.id} className="p-3.5 sm:p-4 transition-colors hover:border-brand-200">
                 <button type="button" onClick={() => handleSubjectChange(subject.id as SubjectId)} className="group w-full flex items-center gap-4 rounded-xl text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <div className={`w-12 h-12 rounded-xl ${color.tint} flex items-center justify-center shrink-0 transition-transform group-hover:scale-[1.03]`}>
                     {Icon && <Icon className={`w-6 h-6 ${color.text}`} />}
@@ -229,14 +229,14 @@ function GenericStudyScreen() {
           {(showFormulaVault || subjectId === 'meteo-climatology') && (
             <div className={`grid gap-2 sm:gap-3 mb-3 sm:mb-6 ${subjectId === 'meteo-climatology' ? 'grid-cols-2' : 'grid-cols-1'}`}>
               {showFormulaVault && (
-                <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-muted" /></div>
+                <button onClick={() => navigate({ screen: 'formulas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[color:var(--border-subtle)] hover:bg-[color:var(--surface-muted)] transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-[color:var(--surface-muted)] flex items-center justify-center shrink-0"><Calculator className="w-5 h-5 text-muted" /></div>
                   <div className="min-w-0"><p className="font-semibold text-ink text-sm">Formula Vault</p><p className="text-muted text-xs">All formulas in {subjectTitle}</p></div>
                 </button>
               )}
               {subjectId === 'meteo-climatology' && (
-                <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 transition-colors text-left">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-muted" /></div>
+                <button onClick={() => navigate({ screen: 'cloud-atlas' })} className="flex items-center gap-3 p-4 rounded-2xl bg-white border border-[color:var(--border-subtle)] hover:bg-[color:var(--surface-muted)] transition-colors text-left">
+                  <div className="w-10 h-10 rounded-xl bg-[color:var(--surface-muted)] flex items-center justify-center shrink-0"><Cloud className="w-5 h-5 text-muted" /></div>
                   <div className="min-w-0"><p className="font-semibold text-ink text-sm">Cloud Atlas</p><p className="text-muted text-xs">10 cloud genera</p></div>
                 </button>
               )}
@@ -244,14 +244,14 @@ function GenericStudyScreen() {
           )}
 
           {roadmapTopicId && !roadmapTopic && subjectTopics.length === 0 && (
-            <Card className="mb-4 sm:mb-6 p-4 border border-slate-200">
+            <Card className="mb-4 sm:mb-6 p-4 border border-[color:var(--border-subtle)]">
               <div className="flex items-center gap-3"><LoadingSpinner /><p className="text-sm text-muted">Loading domain orientation…</p></div>
             </Card>
           )}
 
           {/* Supporting orientation — collapsed by default; full content when expanded */}
           {(roadmapTopic || curriculumSubject) && (
-            <Card className="mb-3 p-3 sm:p-4 border border-slate-200 bg-slate-50/50">
+            <Card className="mb-3 p-3 sm:p-4 border border-[color:var(--border-subtle)] bg-[color:var(--surface-muted)]/50">
               <details>
                 <summary className="cursor-pointer list-none flex items-center justify-between gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
                   <span className="min-w-0">
@@ -266,7 +266,7 @@ function GenericStudyScreen() {
                   </span>
                   <ChevronDown className="w-4 h-4 shrink-0 text-muted" aria-hidden />
                 </summary>
-                <div className="pt-4 space-y-5 border-t border-slate-200 mt-3">
+                <div className="pt-4 space-y-5 border-t border-[color:var(--border-subtle)] mt-3">
                   {curriculumSubject && (
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-wide text-success-700 mb-1">This subject</p>
@@ -318,7 +318,7 @@ function GenericStudyScreen() {
                     </div>
                   )}
                   {roadmapTopic && (
-                    <div className={curriculumSubject ? 'pt-2 border-t border-slate-100' : ''}>
+                    <div className={curriculumSubject ? 'pt-2 border-t border-[color:var(--border-subtle)]' : ''}>
                       {curriculumSubject ? (
                         <p className="text-xs font-semibold uppercase tracking-wide text-brand-700 mb-2">Domain context</p>
                       ) : (
@@ -384,7 +384,7 @@ function GenericStudyScreen() {
                       type="button"
                       variant="secondary"
                       onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })}
-                      className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left"
+                      className="w-full justify-start rounded-xl bg-[color:var(--surface-muted)]/80 p-3 text-left"
                     >
                       <div className="flex items-start gap-3">
                         <span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span>
@@ -452,7 +452,7 @@ function GenericStudyScreen() {
                       aria-expanded={isExpanded}
                       aria-controls={`section-topics-${section.id}`}
                       onClick={() => setExpandedSection(isExpanded ? null : section.id)}
-                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
+                      className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-[color:var(--surface-muted)] transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                     >
                       <SectionBadge section={section} />
                       <div className="flex-1 min-w-0">
@@ -473,7 +473,7 @@ function GenericStudyScreen() {
                               key={topic.id}
                               type="button"
                               onClick={() => navigate({ screen: 'topic', topicId: topic.id })}
-                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-slate-50 transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
+                              className="w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-[color:var(--surface-muted)] transition-colors text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-inset"
                             >
                               <TopicStatusIcon status={status} />
                               <span className="min-w-0 flex-1 break-words whitespace-normal text-muted text-sm font-medium">{topic.title}</span>
