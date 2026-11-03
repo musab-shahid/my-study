@@ -345,6 +345,7 @@ describe('PR1: dual-write structured result and retry', () => {
       mode: 'topic',
       ts: 100,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.status, 'failed');
     assert.ok(result.errorCategory);
@@ -359,6 +360,7 @@ describe('PR1: dual-write structured result and retry', () => {
       mode: 'topic',
       ts: 100,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.status, 'pending'); // durable outbox retains events for recovery
     assert.equal(result.errorCategory, 'idb_transaction_failed');
@@ -386,6 +388,7 @@ describe('PR1: dual-write structured result and retry', () => {
       mode: 'topic',
       ts: 100,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.status, 'persisted');
     // All retries should have used the same event ID
@@ -401,6 +404,7 @@ describe('PR1: dual-write structured result and retry', () => {
       mode: 'topic',
       ts: 100,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
   });
 });
