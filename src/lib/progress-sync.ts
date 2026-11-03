@@ -38,6 +38,9 @@ export function isProgressSyncConfigured(): boolean {
   return Boolean(env.SUPABASE_URL && env.SUPABASE_ANON_KEY);
 }
 
+/** A single account-wide snapshot is shared across all of a user's devices. Legacy per-device rows remain readable. */
+export const ACCOUNT_PROGRESS_DEVICE_ID = '__my_study_account__';
+
 /** Matches DB check app_progress_payload_size_chk (5 MiB). */
 export const MAX_PROGRESS_PAYLOAD_BYTES = 5 * 1024 * 1024;
 
@@ -101,7 +104,7 @@ async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | {
 }
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
-export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?: string }> {
+export async function pushProgress(data: AppData, expectedUpdatedAt: string | null = null): Promise<{ ok: boolean; error?: string }> {
   // Do not persist a malformed local snapshot to cloud storage where it could
   // later become an unusable restore source. Keep this check independent of auth
   // configuration so invalid payloads fail deterministically before any request.
@@ -118,28 +121,54 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
   if (!auth.ok) return auth;
   const userId = userIdFromAccessToken(auth.token);
   if (!userId) return { ok: false, error: 'invalid-token' };
-  const deviceId = getDeviceId();
-  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
-
   try {
-    const res = await fetch(restUrl('app_progress?on_conflict=user_id,device_id'), {
-      method: 'POST',
-      headers: {
-        ...headers(auth.token),
-        Prefer: 'resolution=merge-duplicates,return=minimal',
+    const row = {
+      user_id: userId,
+      device_id: ACCOUNT_PROGRESS_DEVICE_ID,
+      payload: data,
+      updated_at: new Date().toISOString(),
+    };
+    let res: Response;
+    if (expectedUpdatedAt === null) {
+      // Insert only. If another device already created the account snapshot,
+      // ignore-duplicates returns no row and we report a conflict rather than overwrite.
+      res = await fetch(restUrl('app_progress?on_conflict=user_id,device_id'), {
+        method: 'POST',
+        headers: {
+          ...headers(auth.token),
+          Prefer: 'resolution=ignore-duplicates,return=representation',
+        },
+        body: JSON.stringify(row),
+      });
+      if (!res.ok) {
+        const t = await res.text().catch(() => '');
+        return { ok: false, error: t || `HTTP ${res.status}` };
+      }
+      const inserted = await res.json().catch(() => []);
+      return Array.isArray(inserted) && inserted.length > 0
+        ? { ok: true }
+        : { ok: false, error: 'cloud-conflict' };
+    }
+
+    // Compare-and-swap update: only replace the exact cloud version the user
+    // reviewed in the confirmation UI. A concurrent device update becomes a conflict.
+    const expected = encodeURIComponent(expectedUpdatedAt);
+    res = await fetch(
+      restUrl(`app_progress?device_id=eq.${encodeURIComponent(ACCOUNT_PROGRESS_DEVICE_ID)}&updated_at=eq.${expected}`),
+      {
+        method: 'PATCH',
+        headers: { ...headers(auth.token), Prefer: 'return=representation' },
+        body: JSON.stringify({ payload: data, updated_at: row.updated_at }),
       },
-      body: JSON.stringify({
-        user_id: userId,
-        device_id: deviceId,
-        payload: data,
-        updated_at: new Date().toISOString(),
-      }), // payload size pre-checked against MAX_PROGRESS_PAYLOAD_BYTES
-    });
+    );
     if (!res.ok) {
       const t = await res.text().catch(() => '');
       return { ok: false, error: t || `HTTP ${res.status}` };
     }
-    return { ok: true };
+    const updated = await res.json().catch(() => []);
+    return Array.isArray(updated) && updated.length > 0
+      ? { ok: true }
+      : { ok: false, error: 'cloud-conflict' };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : 'push-failed' };
   }
@@ -147,36 +176,42 @@ export async function pushProgress(data: AppData): Promise<{ ok: boolean; error?
 
 /** Pull cloud snapshot for this user + device. */
 export type PullProgressResult =
-  | { ok: true; data: AppData; updatedAt: string | null }
+  | { ok: true; data: AppData; updatedAt: string | null; source: 'account' | 'legacy-device' }
   | { ok: false; error: string };
 
 /** Pull cloud snapshot for this user + device (includes cloud updated_at for conflict UX). */
 export async function pullProgress(): Promise<PullProgressResult> {
   const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
-  const deviceId = getDeviceId();
-  if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
-
   try {
-    const id = encodeURIComponent(deviceId);
-    const res = await fetch(
-      restUrl(`app_progress?device_id=eq.${id}&select=payload,updated_at`),
+    const accountRes = await fetch(
+      restUrl(`app_progress?device_id=eq.${encodeURIComponent(ACCOUNT_PROGRESS_DEVICE_ID)}&select=payload,updated_at`),
       { headers: headers(auth.token) },
     );
-    if (!res.ok) {
-      return { ok: false, error: `HTTP ${res.status}` };
+    if (!accountRes.ok) return { ok: false, error: `HTTP ${accountRes.status}` };
+    const accountRows = await accountRes.json();
+    if (Array.isArray(accountRows) && accountRows.length > 0) {
+      const payload: unknown = accountRows[0]?.payload;
+      if (!validateCloudRestoreData(payload)) return { ok: false, error: 'invalid-cloud-data' };
+      const updatedAt = typeof accountRows[0]?.updated_at === 'string' ? accountRows[0].updated_at : null;
+      return { ok: true, data: payload as AppData, updatedAt, source: 'account' };
     }
-    const rows = await res.json();
-    if (!Array.isArray(rows) || rows.length === 0) {
-      return { ok: false, error: 'empty' };
-    }
+
+    // Backward compatibility: if the account snapshot has not been created yet,
+    // allow this browser to restore its older per-device snapshot.
+    const deviceId = getDeviceId();
+    if (!deviceId) return { ok: false, error: 'device-id-unavailable' };
+    const legacyRes = await fetch(
+      restUrl(`app_progress?device_id=eq.${encodeURIComponent(deviceId)}&select=payload,updated_at`),
+      { headers: headers(auth.token) },
+    );
+    if (!legacyRes.ok) return { ok: false, error: `HTTP ${legacyRes.status}` };
+    const rows = await legacyRes.json();
+    if (!Array.isArray(rows) || rows.length === 0) return { ok: false, error: 'empty' };
     const payload: unknown = rows[0]?.payload;
-    if (!validateCloudRestoreData(payload)) {
-      return { ok: false, error: 'invalid-cloud-data' };
-    }
-    const updatedAt =
-      typeof rows[0]?.updated_at === 'string' ? (rows[0].updated_at as string) : null;
-    return { ok: true, data: payload as AppData, updatedAt };
+    if (!validateCloudRestoreData(payload)) return { ok: false, error: 'invalid-cloud-data' };
+    const updatedAt = typeof rows[0]?.updated_at === 'string' ? rows[0].updated_at : null;
+    return { ok: true, data: payload as AppData, updatedAt, source: 'legacy-device' };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : 'pull-failed' };
   }
