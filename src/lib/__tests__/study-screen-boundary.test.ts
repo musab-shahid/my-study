@@ -4,8 +4,8 @@ import assert from 'node:assert/strict';
 describe('study screen module boundary', () => {
   it('keeps the legacy TopicScreen export pointed at the extracted screen', async () => {
     const [legacyModule, topicModule] = await Promise.all([
-      import('@/screens/StudyScreen'),
-      import('@/screens/study/TopicScreen'),
+      import('../../screens/StudyScreen'),
+      import('../../screens/study/TopicScreen'),
     ]);
 
     assert.equal(legacyModule.TopicScreen, topicModule.TopicScreen);
