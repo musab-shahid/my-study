@@ -249,10 +249,10 @@ test.describe('Quiz completion journey', () => {
     await expect
       .poll(
         async () => {
-          const el = page.getByText(/\\d+ questions? available/i).first();
+          const el = page.getByText(/\d+ questions? available/i).first();
           if (!(await el.isVisible().catch(() => false))) return 0;
           const text = (await el.textContent()) || '';
-          const match = text.match(/(\\d+)/);
+          const match = text.match(/(\d+)/);
           return match ? Number(match[1]) : 0;
         },
         { timeout: 90_000, message: 'question bank did not load for practice scope' },
@@ -289,7 +289,7 @@ test.describe('Quiz completion journey', () => {
       timeout: 30_000,
     });
     await page.getByRole('button', { name: 'Resume', exact: true }).click();
-    await expect(page.getByText(/^Q 2 of \\d+$/)).toBeVisible({ timeout: 30_000 });
+    await expect(page.getByText(/^Q 2 of \d+$/)).toBeVisible({ timeout: 30_000 });
 
     const savedAfterResume = await page.evaluate((key) => {
       const raw = localStorage.getItem(key);
