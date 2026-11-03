@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { clearTutorData } from '../ai-tutor-storage.ts';
+import { clearTutorData, getTutorMemoryRecords } from '../ai-tutor-storage.ts';
 
 function makeStorage(seed: Record<string, string>): Storage {
   const values = new Map(Object.entries(seed));
@@ -22,7 +22,7 @@ describe('AI tutor local data controls', () => {
       value: makeStorage({
         'ai-tutor-chat:topic-a': '[{"role":"user","content":"hello"}]',
         'ai-tutor-chat:topic-b': '[]',
-        'ai-tutor-memory:topic-a': '[{"note":"struggle"}]',
+        'ai-tutor-memory:topic-a': '[{"at":100,"note":"struggle"}]',
         'ai-tutor-memory:topic-c': '[]',
         'my-study-app-data': '{"progress":true}',
         'examprep-supabase-access-token': 'session-token',
@@ -30,6 +30,9 @@ describe('AI tutor local data controls', () => {
     });
 
     try {
+      const records = getTutorMemoryRecords();
+      assert.deepEqual(records, [{ topicKey: 'topic-a', notes: ['struggle'] }]);
+
       const result = clearTutorData();
       assert.deepEqual(result, { ok: true, chatThreads: 2, memoryTopics: 2 });
       assert.equal(localStorage.getItem('ai-tutor-chat:topic-a'), null);
