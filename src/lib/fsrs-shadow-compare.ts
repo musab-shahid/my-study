@@ -131,9 +131,10 @@ export interface SchedulerCompareResult {
  * Safe on empty logs (null metrics).
  */
 export function compareSchedulersOnLog(events: ReviewEvent[]): SchedulerCompareResult {
-  const fsrs = shadowEvaluate(events);
-  const sm2 = sm2Evaluate(events);
-  const c68 = constantLogLoss(events, 0.68);
+  const eligibleEvents = schedulerEvaluationEvents(events);
+  const fsrs = shadowEvaluate(eligibleEvents);
+  const sm2 = sm2Evaluate(eligibleEvents);
+  const c68 = constantLogLoss(eligibleEvents, 0.68);
   const n = fsrs.predictions.length;
 
   return {
