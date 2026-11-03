@@ -3,7 +3,6 @@ import { ensureTrackMembership, normalizeTrackMembership, emptyTrackMembership, 
 import { STORAGE_KEYS, getEffectiveQuizStats, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
 import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/lib/adaptive-select';
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
-import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 import { applyExamAwareInterval, daysUntilIsoDate } from '@/lib/exam-aware-schedule';
 import { getNextSession, DEFAULT_EXAM_SESSIONS, normalizeExamSessionsByProfile } from '@/lib/exam-schedule';
 import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
@@ -636,11 +635,10 @@ export function recordQuizResult(
   mode: PracticeMode,
   subjectId?: string,
   difficultyFilter?: DifficultyFilter,
+  now: number = Date.now(),
 ): AppData {
   const correctCount = answers.filter((a) => a.correct).length;
   const totalCount = answers.length;
-  const now = Date.now();
-
   const questionResults = { ...data.questionResults };
   const qSectionMap = new Map(questions.map((q) => [q.id, q.sectionId]));
   for (const a of answers) {
@@ -737,29 +735,7 @@ export function recordQuizResult(
     topicProgress = { ...topicProgress, [tid]: prog };
   }
 
-  // Phase 0: append-only review events (best-effort; aggregates remain authoritative)
-  dualWriteQuizAttemptsFireAndForget({
-    answers: answers.map((a) => ({
-      questionId: a.questionId,
-      correct: a.correct,
-      skillId: questionTopicMap.get(a.questionId) ?? a.questionId,
-      confidence: a.confidence,
-      latencyMs: a.latencyMs,
-      chosenOption: (() => {
-        if (!a.selectedIndices || a.selectedIndices.length === 0) return undefined;
-        const qq = questionById.get(a.questionId);
-        if (qq?.options?.length) {
-          return a.selectedIndices
-            .map((i) => qq.options[i] ?? String(i))
-            .join(' | ');
-        }
-        return a.selectedIndices.join(',');
-      })(),
-    })),
-    mode,
-    sessionId: `quiz_${now}`,
-    ts: now,
-  });
+
 
   return {
     ...data,
