@@ -170,6 +170,7 @@ async function seedMeteorologyWorkspace(page: Page) {
           },
         },
       }));
+      sessionStorage.setItem('axe-tutor-ui', '1');
     },
     {
       appKey: APP_DATA_KEY,
@@ -281,7 +282,7 @@ test('AI tutor dialog stays within the desktop accessibility baseline', async ({
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await seedMeteorologyWorkspace(page);
-  await page.goto('/topic/meteo-origin-evolution?axe-tutor=1');
+  await page.goto('/topic/meteo-origin-evolution');
 
   await expect(page.getByRole('heading', { name: 'Origin & Chemical Evolution of the Atmosphere', exact: true })).toBeVisible({ timeout: 20_000 });
   await page.getByRole('button', { name: 'Ask AI Tutor', exact: true }).click();
