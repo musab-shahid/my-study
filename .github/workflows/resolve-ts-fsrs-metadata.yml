@@ -1,0 +1,23 @@
+name: Resolve ts-fsrs package metadata
+
+on:
+  push:
+    branches:
+      - tooling/resolve-ts-fsrs-metadata
+
+permissions:
+  contents: read
+
+jobs:
+  npm-metadata:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Resolve stable ts-fsrs package metadata
+        run: |
+          npm view ts-fsrs@5.4.2 dist.integrity
+          npm view ts-fsrs@5.4.2 dist.tarball
+          npm view ts-fsrs@5.4.2 engines --json
