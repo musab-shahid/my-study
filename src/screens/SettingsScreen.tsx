@@ -30,7 +30,7 @@ import {
 } from '@/lib/error-reporting';
 import { sections } from '@/data/sections';
 import { claimInstallPrompt, INSTALL_PROMPT_CONSUMED_EVENT } from '@/lib/install-prompt';
-import { clearTutorData } from '@/lib/ai-tutor-storage';
+import { clearTutorData, getTutorMemoryRecords } from '@/lib/ai-tutor-storage';
 import type { SubjectId } from '@/types';
 
 function cloudSyncErrorMessage(error: string | undefined, action: 'upload' | 'download'): string {
@@ -94,6 +94,7 @@ export function SettingsScreen() {
 
   const globalTopicCount = sections.reduce((sum, s) => sum + s.topicCount, 0);
   const globalQuestionCount = sections.reduce((sum, s) => sum + s.questionCount, 0);
+  const tutorMemoryRecords = getTutorMemoryRecords();
 
   const allSelected = selectedSubjects.size === subjects.length;
   const noneSelected = selectedSubjects.size === 0;
@@ -442,6 +443,25 @@ export function SettingsScreen() {
               This does not delete information already sent to an external AI provider or affect study progress.
             </p>
           </div>
+          <details className="rounded-lg border border-border px-3 py-2">
+            <summary className="cursor-pointer text-xs font-medium text-ink-muted">
+              View saved tutor memory ({tutorMemoryRecords.reduce((sum, record) => sum + record.notes.length, 0)} notes)
+            </summary>
+            {tutorMemoryRecords.length > 0 ? (
+              <div className="mt-2 space-y-3">
+                {tutorMemoryRecords.map((record) => (
+                  <div key={record.topicKey}>
+                    <p className="text-xs font-semibold text-ink">{record.topicKey}</p>
+                    <ul className="mt-1 list-disc space-y-1 pl-4 text-xs text-ink-muted">
+                      {record.notes.map((note, index) => <li key={index}>{note}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="mt-2 text-xs text-ink-muted">No saved tutor-memory notes on this device.</p>
+            )}
+          </details>
           {!confirmClearTutorData ? (
             <Button
               type="button"
