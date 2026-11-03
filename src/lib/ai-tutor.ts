@@ -1,7 +1,8 @@
 import { ATTEMPT_FIRST_SYSTEM_PROMPT } from '@/lib/ai-tutor-safeguards';
 import { env, isAiProxyConfigured } from '@/lib/runtime-env';
 import type { Topic, Formula, WorkedExample, MethodChooser, MethodChooserStep, LimitCase, ComparisonTable, AppData, Question } from '@/types';
-import { getEffectiveQuizStats, deriveStatus, MASTERY_ACCURACY_THRESHOLD } from '@/lib/constants';
+import { getEffectiveQuizStats, deriveStatus } from '@/lib/constants';
+import { buildTutorPerformanceContext } from './ai-tutor-performance.ts';
 import { getTopic } from '@/data/topics';
 import { formatAiRateLimitMessage } from './ai-rate-limit-message.ts';
 import { TUTOR_MEMORY_STORAGE_KEY_PREFIX } from './ai-tutor-storage.ts';
@@ -317,22 +318,18 @@ export function buildStudentContext(
   const status = deriveStatus(studied, eff.total, eff.accuracy);
 
   lines.push(`Status: ${status}`);
-  if (eff.total > 0) {
-    lines.push(
-      `Recent quiz accuracy: ${eff.accuracy}% (${eff.correct}/${eff.total}${eff.fromWindow ? ', last sessions' : ', lifetime'})`,
-    );
-  } else {
-    lines.push('No quiz attempts on this topic yet.');
-  }
-  if (prog?.nextReview) {
-    lines.push(`Next spaced review: ${prog.nextReview}`);
-  }
-  if (typeof prog?.reviewStage === 'number' && prog.reviewStage >= 0) {
-    lines.push(`Review stage index: ${prog.reviewStage}`);
-  }
-  if (typeof prog?.abilityElo === 'number' && Number.isFinite(prog.abilityElo)) {
-    lines.push(`Adaptive ability estimate (Elo-scale): ${prog.abilityElo.toFixed(2)}`);
-  }
+  const topicPerformance = buildTutorPerformanceContext(
+    { accuracy: eff.accuracy, total: eff.total },
+    Object.entries(data.topicProgress ?? {}).map(([id, progress]) => {
+      const stats = getEffectiveQuizStats(progress);
+      return {
+        title: getTopic(id)?.title ?? id,
+        accuracy: stats.accuracy,
+        total: stats.total,
+      };
+    }),
+  );
+  lines.push(...topicPerformance);
 
   // Recent wrong questions on this topic — most recent first
   const qs = topicQuestions ?? [];
@@ -354,26 +351,6 @@ export function buildStudentContext(
     }
   }
 
-  // Lifetime weak signal across subjects (top 3 by accuracy among attempted)
-  const weak: { id: string; title: string; acc: number; total: number }[] = [];
-  for (const [tid, p] of Object.entries(data.topicProgress ?? {})) {
-    const e = getEffectiveQuizStats(p);
-    if (e.total < 3) continue;
-    if (e.accuracy < MASTERY_ACCURACY_THRESHOLD) {
-      const title = getTopic(tid)?.title ?? tid;
-      weak.push({ id: tid, title, acc: e.accuracy, total: e.total });
-    }
-  }
-  weak.sort((a, b) => a.acc - b.acc);
-  if (weak.length) {
-    lines.push(
-      'Weak topics overall (lowest accuracy): ' +
-        weak
-          .slice(0, 3)
-          .map((w) => `${w.title} (${w.acc}%)`)
-          .join(', '),
-    );
-  }
 
   const memory = loadTutorMemory(topicId);
   if (memory.length) {
