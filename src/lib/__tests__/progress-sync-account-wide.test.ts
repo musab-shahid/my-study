@@ -5,6 +5,7 @@ import { resolve } from 'node:path';
 
 describe('account-wide progress sync contract', () => {
   const sync = readFileSync(resolve(process.cwd(), 'src/lib/progress-sync.ts'), 'utf8');
+  const http = readFileSync(resolve(process.cwd(), 'src/lib/progress-sync-http.ts'), 'utf8');
   const settings = readFileSync(resolve(process.cwd(), 'src/screens/SettingsScreen.tsx'), 'utf8');
 
   it('uses one stable account row while retaining legacy per-device restore', () => {
@@ -15,8 +16,8 @@ describe('account-wide progress sync contract', () => {
   });
 
   it('inserts a missing account snapshot without overwriting a concurrent insert', () => {
-    assert.match(sync, /resolution=ignore-duplicates,return=representation/);
-    assert.match(sync, /error: 'cloud-conflict'/);
+    assert.match(http, /resolution=ignore-duplicates,return=representation/);
+    assert.match(http, /error: 'cloud-conflict'/);
   });
 
   it('updates an existing snapshot only when its reviewed timestamp still matches', () => {
