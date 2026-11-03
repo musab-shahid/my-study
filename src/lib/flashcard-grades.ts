@@ -44,7 +44,7 @@ export function recordFlashcardGrade(args: {
     mode: 'flashcard',
     sessionId: `flash_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
   });
-
+}
 
 /** Lint: flag multi-fact prompts that are too long for atomic recall. */
 export function lintFlashcardPrompt(prompt: string): string[] {
