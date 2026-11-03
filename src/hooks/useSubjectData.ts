@@ -228,7 +228,7 @@ export function useSubjectData(): SubjectDataLayer {
     }
     if (!trackSubjectIds.has(id)) return [];
     return getFormulasForSubject(id);
-  }, [trackSubjectIdList]);
+  }, [trackSubjectIdList, trackSubjectIds]);
 
   const revisionQueueAll = useCallback(() => {
     const today = new Date();
