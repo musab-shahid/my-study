@@ -14,6 +14,8 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
@@ -101,6 +103,25 @@ jobs:
           name: temporary-cgei-registry-manifest
           path: docs/cgei/registry-manifest.json
           if-no-files-found: error
+      - name: Temporary commit of generated CGEI registry manifest
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
+        run: |
+          set -euo pipefail
+          cp docs/cgei/registry-manifest.json "$RUNNER_TEMP/registry-manifest.json"
+          git fetch origin "$PR_HEAD_REF"
+          git checkout -B "$PR_HEAD_REF" "origin/$PR_HEAD_REF"
+          cp "$RUNNER_TEMP/registry-manifest.json" docs/cgei/registry-manifest.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/cgei/registry-manifest.json
+          if git diff --cached --quiet; then
+            echo "Registry manifest already current on the PR branch."
+            exit 0
+          fi
+          git commit -m "chore: refresh CGEI registry manifest"
+          git push origin "HEAD:refs/heads/$PR_HEAD_REF"
       - name: Unit tests
         run: npm test
       - name: Typecheck
