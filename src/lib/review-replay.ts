@@ -50,6 +50,8 @@ export function isValidReviewEvent(e: unknown): e is ReviewEvent {
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) return false;
   if (o.confidence != null && ![1, 2, 3].includes(o.confidence as number)) return false;
   if (o.grade != null && !['again', 'hard', 'good', 'easy'].includes(o.grade as string)) return false;
+  if (o.responseStatus != null && !['submitted', 'unanswered'].includes(o.responseStatus as string)) return false;
+  if (o.aggregateEligible != null && typeof o.aggregateEligible !== 'boolean') return false;
   return true;
 }
 
@@ -58,8 +60,13 @@ export function isValidReviewEvent(e: unknown): e is ReviewEvent {
  * Invalid events are skipped (reported separately by the caller).
  */
 export function replayItemEvents(events: ReviewEvent[]): ReplayedQuestionAggregate | null {
-  if (events.length === 0) return null;
-  const ordered = deterministicEventSort(events);
+  // Only final quiz outcomes mirror AppData aggregates. Earlier re-queued attempts,
+  // flashcard grades, and lesson checks remain review evidence but are not aggregate inputs.
+  const aggregateEvents = events.filter((event) =>
+    ['topic', 'quick', 'mock', 'review', 'challenge'].includes(event.mode) && event.aggregateEligible !== false,
+  );
+  if (aggregateEvents.length === 0) return null;
+  const ordered = deterministicEventSort(aggregateEvents);
 
   let attempts = 0;
   let correctCount = 0;
