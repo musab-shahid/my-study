@@ -78,8 +78,8 @@ describe('validateDraftShape', () => {
       questionIds: ['q1', 'q2'],
       answers: [{ questionId: 'q1', correct: true, selectedIndices: [0] }],
       reviewAttempts: [
-        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900, optionOrder: [0, 1] },
-        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0] },
+        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900, optionOrder: [0, 1], questionIndex: 0 },
+        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0], questionIndex: 0 },
       ],
       currentIdx: 1,
       mode: 'quick',
@@ -306,8 +306,8 @@ describe('reconcileRestoredDraft', () => {
         optionOrder: secondOrder,
       }],
       reviewAttempts: [
-        { questionId: 'q1', correct: true, selectedIndices: [0], optionOrder: firstOrder },
-        { questionId: 'q1', correct: false, selectedIndices: [0], optionOrder: secondOrder },
+        { questionId: 'q1', correct: true, selectedIndices: [0], optionOrder: firstOrder, questionIndex: 0 },
+        { questionId: 'q1', correct: false, selectedIndices: [0], optionOrder: secondOrder, questionIndex: 1 },
       ],
       currentIdx: 1,
       mode: 'quick' as const,
