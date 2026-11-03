@@ -116,7 +116,7 @@ function isNonEmptyString(v: unknown): v is string {
 
 /**
  * Structural draft validation (no live question bank required).
- * Rejects duplicate answer records for the same questionId.
+ * Re-queued question ids may repeat; aggregate answer records remain unique.
  */
 export function validateDraftShape(raw: unknown): DraftValidation {
   if (!raw || typeof raw !== 'object') return { ok: false, reason: 'not-object' };
