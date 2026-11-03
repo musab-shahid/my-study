@@ -51,10 +51,16 @@ export async function getTrackOfflinePackStatus(
   trackId: TrackId,
   storage: OfflinePackCacheStorage = caches,
 ): Promise<OfflinePackStatus> {
-  const names = packNamesForTrack(await storage.keys(), trackId);
-  if (names.length === 0) return { installed: false, resourceCount: 0 };
+  const names = await storage.keys();
+  const currentBuildCache = names.find((name) => /^examprep-[a-f0-9]{8}$/.test(name));
+  if (!currentBuildCache) return { installed: false, resourceCount: 0 };
 
-  const cache = await storage.open(names[names.length - 1]);
+  const currentPackPrefix = `my-study-offline-pack-${currentBuildCache}-`;
+  const currentPacks = packNamesForTrack(names, trackId)
+    .filter((name) => name.startsWith(currentPackPrefix));
+  if (currentPacks.length === 0) return { installed: false, resourceCount: 0 };
+
+  const cache = await storage.open(currentPacks[currentPacks.length - 1]);
   return { installed: true, resourceCount: (await cache.keys()).length };
 }
 
