@@ -12,7 +12,7 @@ export const FLASHCARD_GRADES: { grade: ReviewGrade; label: string; hint: string
   { grade: 'easy', label: 'Easy', hint: 'Easy' },
 ];
 
-/** Map grade to a synthetic correct flag + confidence for the shared event log. */
+/** Compatibility projection for the legacy binary replay field; the explicit grade is stored too. */
 export function gradeToAttempt(grade: ReviewGrade): { correct: boolean } {
   switch (grade) {
     case 'again':
