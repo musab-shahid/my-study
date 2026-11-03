@@ -273,6 +273,7 @@ interface SavedQuizProgress {
   optionOrders?: number[][];
   answers: AnswerRecord[];
   reviewAttempts?: ReviewAttemptRecord[];
+  reviewSessionId?: string;
   /** Seconds already elapsed when progress was saved (timer resume) */
   elapsedSeconds?: number;
   currentIdx: number;
@@ -309,6 +310,7 @@ function saveQuizProgress(
       optionOrders: state.optionOrders,
       answers: state.answers,
       reviewAttempts: state.reviewAttempts,
+      reviewSessionId: state.reviewSessionId,
       elapsedSeconds: state.elapsed,
       currentIdx: state.currentIdx,
       mode,
@@ -567,7 +569,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     recordedRef.current = false;
     const resumedElapsed = Math.max(0, saved.elapsedSeconds ?? 0);
     const resumedAt = Date.now();
-    const reviewSessionId = `quiz_resume_${resumedAt}_${Math.random().toString(36).slice(2, 10)}`;
+    const reviewSessionId = saved.reviewSessionId ?? `quiz_resume_${resumedAt}_${Math.random().toString(36).slice(2, 10)}`;
     setState({
       questions: reconciled.questions,
       optionOrders: reconciled.optionOrders,
