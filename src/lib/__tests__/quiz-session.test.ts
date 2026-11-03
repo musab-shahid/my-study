@@ -283,7 +283,7 @@ describe('reconcileRestoredDraft', () => {
   });
 
   it('restores repeated-item attempt history with per-attempt option permutations', () => {
-    const bank = [makeQ({ id: 'q1', correctAnswer: 1 })];
+    const question = makeQ({ id: 'q1', correctAnswer: 1 });
     const firstOrder = [0, 1, 2, 3];
     const secondOrder = [1, 0, 2, 3];
     const draft = {
@@ -302,7 +302,7 @@ describe('reconcileRestoredDraft', () => {
       currentIdx: 1,
       mode: 'quick' as const,
     };
-    const result = reconcileRestoredDraft([bank[0], bank[0]], draft);
+    const result = reconcileRestoredDraft([question, question], draft);
     assert.equal(result.ok, true);
     if (result.ok) {
       assert.equal(result.answers[0].correct, true);
