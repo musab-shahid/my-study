@@ -27,6 +27,17 @@ describe('mandatory Lighthouse performance gate', () => {
     );
   });
 
+  it('fails closed for incomplete or non-numeric score reports', () => {
+    assert.throws(
+      () => enforceLighthouseFloors({ performance: 0.9 }, { minPerformance: 0.4, minAccessibility: 0.85 }),
+      /must both be finite numbers/,
+    );
+    assert.throws(
+      () => enforceLighthouseFloors({ performance: Number.NaN, accessibility: 0.9 }, { minPerformance: 0.4, minAccessibility: 0.85 }),
+      /must both be finite numbers/,
+    );
+  });
+
   it('accepts scores meeting both floors', () => {
     assert.doesNotThrow(() => enforceLighthouseFloors(
       { performance: 0.4, accessibility: 0.85 },
