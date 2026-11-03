@@ -581,7 +581,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
-      reviewAttempts: saved.reviewAttempts ?? reconciled.answers.map((answer) => ({
+      reviewAttempts: reconciled.reviewAttempts ?? reconciled.answers.map((answer) => ({
         ...answer,
         optionOrder: answer.optionOrder ?? reconciled.optionOrders[saved.questionIds.lastIndexOf(answer.questionId)] ?? [],
       })),
