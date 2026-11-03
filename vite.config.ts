@@ -26,8 +26,6 @@ const previewCsp = [
 export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(packageJson.version || '0.0.0'),
-    // Expose the tutor shell only in the isolated Playwright build; production stays disabled.
-    'import.meta.env.VITE_E2E_TUTOR_UI': JSON.stringify(process.env.PLAYWRIGHT_E2E === '1' ? '1' : '0'),
   },
   plugins: [react(), swPrecachePlugin()],
   resolve: {
