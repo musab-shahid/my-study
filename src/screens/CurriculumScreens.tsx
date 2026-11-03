@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
@@ -19,11 +19,15 @@ import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
 import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { PageContainer, Card, EmptyState, Button, Heading } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
+import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
 
 function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
   const [attempt, setAttempt] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const reviewSessionId = useRef(
+    `lesson_check_${item.id}_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+  );
   const shuffled = useMemo(
     () => shuffleOptions(item.options, item.correctAnswer),
     // attempt forces a new shuffle; item identity covers content changes
@@ -35,10 +39,10 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
     <Card className="p-card-pad border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
         <span className="text-label uppercase tracking-wide font-semibold text-muted">{item.difficulty}{item.cognitiveLevel ? ` · ${item.cognitiveLevel}` : ''}</span>
-        <span className="text-label text-muted">Unrecorded knowledge check</span>
+        <span className="text-label text-muted">Review outcome</span>
       </div>
       <p className="font-medium text-sm sm:text-base text-ink leading-relaxed">{item.prompt}</p>
-      <p className="text-xs text-muted mt-1">Options are shuffled each attempt. Your answer is checked on this screen only. It is not saved to Progress and does not establish mastery.</p>
+      <p className="text-xs text-muted mt-1">Options are shuffled each attempt. Submitted outcomes are stored in browser-local review history; they do not count toward Progress or establish mastery.</p>
       <div className="space-y-2 mt-3" role="radiogroup" aria-label="Answer options">
         {shuffled.options.map((option, index) => {
           const isSelected = selected === index;
@@ -61,7 +65,28 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {!submitted ? (
-          <Button type="button" disabled={selected === null} onClick={() => setSubmitted(true)}>Check answer</Button>
+          <Button
+            type="button"
+            disabled={selected === null}
+            onClick={() => {
+              if (selected === null) return;
+              const correct = selected === shuffled.correctAnswer;
+              setSubmitted(true);
+              dualWriteQuizAttemptsFireAndForget({
+                answers: [{
+                  questionId: item.id,
+                  correct,
+                  skillId: item.skillId,
+                  chosenOption: shuffled.options[selected],
+                }],
+                mode: 'lesson-check',
+                sessionId: reviewSessionId.current,
+                ts: Date.now(),
+              });
+            }}
+          >
+            Check answer
+          </Button>
         ) : (
           <>
             <p className={`text-sm font-medium ${isCorrect ? 'text-success-700' : 'text-danger-700'}`}>{isCorrect ? 'Correct' : 'Not quite'}</p>
@@ -253,7 +278,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
 
       {activities.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">Practice and application</Heading><div className="space-y-3">{activities.map((activity) => <Card key={activity.id} className="p-card-pad border border-slate-200"><div className="flex flex-wrap items-center gap-2"><h3 className="font-semibold text-ink text-sm">{activity.title}</h3><span className="rounded-full bg-slate-100 text-muted px-2 py-0.5 text-label">{activity.level}</span>{activity.estimatedMinutes ? <span className="text-xs text-muted">{activity.estimatedMinutes} min</span> : null}</div><p className="text-sm text-muted leading-relaxed mt-2">{activity.instructions}</p>{activity.expectedEvidence?.length ? <p className="text-xs text-brand-800 mt-2"><strong>Evidence to produce:</strong> {activity.expectedEvidence.join(' · ')}</p> : null}{activity.hints?.length ? <details className="mt-3"><summary className="cursor-pointer text-xs font-semibold text-brand-800">Hints</summary><ul className="list-disc pl-5 mt-2 text-sm text-muted space-y-1">{activity.hints.map((hint) => <li key={hint}>{hint}</li>)}</ul></details> : null}</Card>)}</div></section>}
 
-      {lessonChecks.length > 0 && <section className="mb-6"><div className="flex flex-wrap items-end justify-between gap-2 mb-3"><Heading level={2} className="text-lg font-semibold">Check your understanding</Heading><span className="text-xs text-muted">{showAllLessonChecks ? `All ${lessonChecks.length} checks` : `Showing ${visibleLessonChecks.length} of ${lessonChecks.length}`}</span></div><div className="space-y-3">{visibleLessonChecks.map((item) => <CurriculumQuestionCard key={item.id} item={item} />)}</div>{lessonChecks.length > LESSON_CHECK_DISPLAY_LIMIT && <div className="mt-3 flex justify-center"><Button type="button" variant="secondary" size="sm" onClick={() => setExpandedLessonId(showAllLessonChecks ? null : lesson.id)}>{showAllLessonChecks ? 'Show fewer questions' : `Show all ${lessonChecks.length} questions`}</Button></div>}<p className="text-xs text-muted mt-3">Single-choice and true/false items for this lesson. Other types stay in the quiz engine. Answers are not recorded.</p></section>}
+      {lessonChecks.length > 0 && <section className="mb-6"><div className="flex flex-wrap items-end justify-between gap-2 mb-3"><Heading level={2} className="text-lg font-semibold">Check your understanding</Heading><span className="text-xs text-muted">{showAllLessonChecks ? `All ${lessonChecks.length} checks` : `Showing ${visibleLessonChecks.length} of ${lessonChecks.length}`}</span></div><div className="space-y-3">{visibleLessonChecks.map((item) => <CurriculumQuestionCard key={item.id} item={item} />)}</div>{lessonChecks.length > LESSON_CHECK_DISPLAY_LIMIT && <div className="mt-3 flex justify-center"><Button type="button" variant="secondary" size="sm" onClick={() => setExpandedLessonId(showAllLessonChecks ? null : lesson.id)}>{showAllLessonChecks ? 'Show fewer questions' : `Show all ${lessonChecks.length} questions`}</Button></div>}<p className="text-xs text-muted mt-3">Single-choice and true/false items for this lesson. Other types stay in the quiz engine. Submitted outcomes are stored in browser-local review history only; they do not count toward Progress or mastery.</p></section>}
 
       {resources.length > 0 && <section className="mb-6"><Heading level={2} className="text-lg font-semibold mb-3">References and tools</Heading><div className="space-y-2">{resources.map((resource) => <Card key={resource.id} className="p-card-pad border border-slate-200"><div className="flex items-start gap-2"><Link2 className="w-4 h-4 text-brand-700 mt-0.5 shrink-0" />{resource.url ? <a href={resource.url} target="_blank" rel="noreferrer" className="font-medium text-sm text-brand-800 hover:underline">{resource.title}</a> : <span className="font-medium text-sm text-ink">{resource.title}</span>}</div><p className="text-sm text-muted mt-2">{resource.purpose}</p></Card>)}</div></section>}
 
