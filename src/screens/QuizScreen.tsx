@@ -223,6 +223,8 @@ function isCorrect(question: Question, selectedIndex: number[]): boolean {
   return gradeAnswer(question, selectedIndex);
 }
 
+type ReviewAttemptRecord = AnswerRecord & { optionOrder: number[] };
+
 interface QuizState {
   questions: Question[];
   /** Parallel to questions: order[i] = original option index at display slot i */
@@ -238,7 +240,7 @@ interface QuizState {
   reviewSessionId: string;
   answers: AnswerRecord[];
   /** Every submitted response, including repeats from hypercorrection re-queues. */
-  reviewAttempts: AnswerRecord[];
+  reviewAttempts: ReviewAttemptRecord[];
   startTime: number;
   elapsed: number;
   /** Question ids already re-inserted this session (at most once each). */
@@ -270,7 +272,7 @@ interface SavedQuizProgress {
   /** Parallel to questionIds; session-stable option permutation */
   optionOrders?: number[][];
   answers: AnswerRecord[];
-  reviewAttempts?: AnswerRecord[];
+  reviewAttempts?: ReviewAttemptRecord[];
   /** Seconds already elapsed when progress was saved (timer resume) */
   elapsedSeconds?: number;
   currentIdx: number;
@@ -579,7 +581,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
-      reviewAttempts: saved.reviewAttempts ?? reconciled.answers,
+      reviewAttempts: saved.reviewAttempts ?? reconciled.answers.map((answer) => ({
+        ...answer,
+        optionOrder: answer.optionOrder ?? reconciled.optionOrders[saved.questionIds.lastIndexOf(answer.questionId)] ?? [],
+      })),
       startTime: resumedAt - resumedElapsed * 1000,
       elapsed: resumedElapsed,
     });
@@ -703,9 +708,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         skillId: question?.topicId ?? answer.questionId,
         latencyMs: answer.latencyMs,
         confidence: answer.confidence,
-        chosenOption: answer.selectedIndices
-          .map((optionIndex) => question?.options?.[optionIndex] ?? String(optionIndex))
-          .join(' | '),
+        chosenOption: answer.chosenOption,
         responseStatus: 'submitted' as const,
         aggregateEligible: lastAttemptByQuestion.get(answer.questionId) === index,
       };
@@ -821,12 +824,14 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     const now = Date.now();
     const correct = isCorrect(q, prev.selectedIndices);
     const latencyMs = Math.max(0, now - (prev.itemShownAt || prev.startTime));
-    const record: AnswerRecord = {
+    const record: ReviewAttemptRecord = {
       questionId: q.id,
       correct,
       selectedIndices: [...prev.selectedIndices],
       confidence,
       latencyMs,
+      optionOrder: [...(prev.optionOrders[prev.currentIdx] ?? (q.options ?? []).map((_, index) => index))],
+      chosenOption: prev.selectedIndices.map((index) => q.options?.[index] ?? String(index)).join(' | '),
     };
     const already = prev.answers.some((a) => a.questionId === q.id);
     const answers = already
