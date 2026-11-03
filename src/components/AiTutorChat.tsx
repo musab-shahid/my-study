@@ -145,7 +145,10 @@ export function AiTutorChat({ topicId, topicTitle, topicContext, studentContext,
 
   useEffect(() => {
     const handleTutorDataCleared = () => {
-      abortRef.current?.abort();
+      if (abortRef.current) {
+        userCancelledRef.current = true;
+        abortRef.current.abort();
+      }
       setMessages([]);
       setError(null);
       lastFailedRef.current = null;
