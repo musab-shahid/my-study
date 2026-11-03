@@ -6,6 +6,7 @@ import { consumeStorageWarning, flushPendingSave, loadData, resetData, saveData 
 
 const BACKUP_KEY = 'examprep-data-backup';
 const originalLocalStorage = Object.getOwnPropertyDescriptor(globalThis, 'localStorage');
+const originalWindow = Object.getOwnPropertyDescriptor(globalThis, 'window');
 
 function installLocalStorage(initial: Record<string, string> = {}, failOnKey?: string) {
   const values = new Map(Object.entries(initial));
@@ -34,6 +35,11 @@ afterEach(() => {
     Reflect.deleteProperty(globalThis, 'localStorage');
   }
   consumeStorageWarning();
+  if (originalWindow) {
+    Object.defineProperty(globalThis, 'window', originalWindow);
+  } else {
+    Reflect.deleteProperty(globalThis, 'window');
+  }
 });
 
 describe('storage reset safety', () => {
@@ -187,4 +193,28 @@ describe('storage reset safety', () => {
     assert.equal(storage.getItem(STORAGE_KEYS.quizProgress), null);
     assert.equal(storage.getItem(STORAGE_KEYS.sidebarExpanded), null);
   });
+  it('dispatches a visible warning when a debounced progress write fails', () => {
+    const warnings: string[] = [];
+    const fakeWindow = new EventTarget() as unknown as Window;
+    fakeWindow.setTimeout = (() => 0) as unknown as typeof window.setTimeout;
+    fakeWindow.addEventListener('my-study-storage-warning', (event) => {
+      warnings.push((event as CustomEvent<{ message: string }>).detail.message);
+    });
+    Object.defineProperty(globalThis, 'window', { configurable: true, value: fakeWindow });
+
+    installLocalStorage({}, STORAGE_KEYS.appData);
+    const data = loadData();
+    data.studiedTopics = ['unsaved-topic'];
+    saveData(data);
+
+    assert.equal(flushPendingSave(), false);
+    assert.equal(warnings.length, 1);
+    assert.match(warnings[0] ?? '', /Could not save progress/);
+
+    // Clear the failed pending write after the assertion so this test leaves no
+    // module-level save state for later tests.
+    installLocalStorage();
+    assert.equal(flushPendingSave(), true);
+  });
+
 });
