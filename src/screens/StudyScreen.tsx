@@ -818,7 +818,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     return (
       <PageContainer>
           <div className="mb-4">
-          <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
+          <span className="text-xs font-bold text-brand-800 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
           <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink leading-tight mt-2">{topic.title}</h1>
         </div>
         <Card className="p-8">
@@ -835,7 +835,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
     <PageContainer className="max-w-3xl">
       <div className="flex items-center gap-2 mb-4"><BackButton /><Breadcrumbs /></div>
       <div className="mb-6 sm:mb-8">
-        <span className="text-xs font-bold text-brand-600 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
+        <span className="text-xs font-bold text-brand-800 bg-brand-100 px-2 py-0.5 rounded">{topicPositionLabel}</span>
         <h1 className="text-page-title sm:text-page-title-lg font-semibold text-ink leading-tight mt-2">{topic.title}</h1>
         {curriculumLesson && (
           <div className="flex flex-wrap items-center gap-2 mt-3 text-xs text-muted">
@@ -936,7 +936,7 @@ export function TopicScreen({ topicId }: { topicId: string }) {
         )}
         {topic.examPoints && topic.examPoints.length > 0 && (
           <Card className="p-3.5 sm:p-5 border-l-4 border-l-warning-500 bg-warning-50/50">
-            <div className="flex items-center gap-2 mb-3"><span className="text-warning-600 font-semibold text-sm uppercase tracking-wide">Exam Points</span></div>
+            <div className="flex items-center gap-2 mb-3"><span className="text-warning-700 font-semibold text-sm uppercase tracking-wide">Exam Points</span></div>
             <ul className="space-y-2">{topic.examPoints.map((point, i) => <li key={i} className="flex items-start gap-2 text-ink text-base leading-7"><Star className="w-3.5 h-3.5 text-warning-500 mt-0.5 shrink-0 fill-warning-500" /><MathText text={point} /></li>)}</ul>
           </Card>
         )}
