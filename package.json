@@ -46,7 +46,7 @@
     "cgei:sync": "tsx --tsconfig tsconfig.app.json scripts/cgei-sync.ts",
     "report:cgei-unit": "tsx --tsconfig tsconfig.app.json scripts/cgei-unit-report.ts",
     "check:cgei-readiness-transitions": "tsx --tsconfig tsconfig.app.json scripts/check-cgei-readiness-transitions.ts",
-    "check:cgei-sync": "node scripts/check-cgei-sync-idempotence.mjs",
+    "check:cgei-sync": "node --test scripts/tests/cgei-registry-sync.test.mjs && node scripts/check-cgei-sync-idempotence.mjs",
     "check:cgei-question-ids": "tsx --tsconfig tsconfig.app.json scripts/cgei-question-id-ledger.ts --check",
     "new:question": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-question.ts",
     "new:lesson": "tsx --tsconfig tsconfig.app.json scripts/cgei-new-lesson.ts",
