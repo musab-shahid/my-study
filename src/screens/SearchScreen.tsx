@@ -13,6 +13,7 @@ import type { SubjectId } from '@/types';
 export function SearchScreen() {
   const { navigate } = useRouter();
   const sd = useSubjectData();
+  const ensureTopicsLoaded = sd.ensureTopicsLoaded;
   const { getActiveSubject, setActiveSubjectForScreen } = useSubjectSelection();
   const [query, setQuery] = useState('');
   const deferredQuery = useDeferredValue(query);
@@ -34,7 +35,7 @@ export function SearchScreen() {
     setLoading(true);
     setLoadError(false);
     // Scoped loader — only active track/profile subjects
-    sd.ensureTopicsLoaded(isAllSubjects ? 'all' : (activeSubject as SubjectId))
+    ensureTopicsLoaded(isAllSubjects ? 'all' : (activeSubject as SubjectId))
       .then(() => {
         if (!cancelled) setLoading(false);
       })
@@ -47,7 +48,7 @@ export function SearchScreen() {
     return () => {
       cancelled = true;
     };
-  }, [isAllSubjects, activeSubject, sd.ensureTopicsLoaded]);
+  }, [isAllSubjects, activeSubject, ensureTopicsLoaded]);
 
   // Shared learning-scope search (metadata + cache, track + profile filtered)
   const results = useMemo(() => {
