@@ -29,7 +29,8 @@ export function applyOptionOrder(question: Question, order: number[]): Question 
   let correctAnswer: number | number[];
   if (question.type === 'matching' && Array.isArray(question.correctAnswer)) {
     // Each prompt option carries its corresponding match-option index.
-    const mapped = order.map((originalIndex) => question.correctAnswer[originalIndex]);
+    const matchingAnswers = question.correctAnswer as number[];
+    const mapped = order.map((originalIndex) => matchingAnswers[originalIndex]);
     if (mapped.some((value) => !Number.isInteger(value))) return question;
     correctAnswer = mapped;
   } else if (Array.isArray(question.correctAnswer)) {
