@@ -1,0 +1,9 @@
+{
+  "check": "CI expands the local aggregate into named steps and adds CI-only checks.",
+  "audit:core-leaves": "CI invokes the underlying Python audit directly in transitional and strict modes.",
+  "audit:full-source": "CI invokes the underlying Python disposition gate directly.",
+  "check:design-system": "CI invokes the underlying ratchet and PR-diff commands directly to supply the correct comparison base.",
+  "check:perf-gate": "CI invokes the underlying Lighthouse gate directly after its production build.",
+  "check:cgei-legacy-freeze": "CI invokes the underlying shell gate directly to supply BASE_REF.",
+  "lint:cgei-questions": "Optional authoring-time lint; the strict CGEI authoring and data validation gates remain CI-enforced."
+}
