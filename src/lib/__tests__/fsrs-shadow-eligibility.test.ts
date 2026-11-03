@@ -45,7 +45,7 @@ describe('scheduler evaluation event eligibility', () => {
 
     const result = compareSchedulersOnLog(events);
     assert.equal(result.predictionCount, 1);
-    assert.deepEqual(Object.keys(finalFsrsStates(events)), ['quiz-q1']);
+    assert.deepEqual(Object.keys(finalFsrsStates(events)), ['quiz-q1', 'timeout-q2']);
   });
 
   it('does not treat a legacy unanswered quiz slot as a recall failure', () => {
@@ -62,6 +62,6 @@ describe('scheduler evaluation event eligibility', () => {
 
     const result = compareSchedulersOnLog(events);
     assert.equal(result.predictionCount, 0);
-    assert.deepEqual(Object.keys(finalFsrsStates(events)), []);
+    assert.deepEqual(Object.keys(finalFsrsStates(events)), ['q-timeout']);
   });
 });
