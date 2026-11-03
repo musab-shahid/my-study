@@ -194,7 +194,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
         return { ok: false, reason: 'review-attempt-question-index' };
       }
       const attemptCount = (reviewAttemptCounts.get(ar.questionId) ?? 0) + 1;
-      if (attemptCount > 2) return { ok: false, reason: 'review-attempt-requeued-too-many-times' };
+      if (attemptCount > Math.min(2, questionIdCounts.get(ar.questionId) ?? 0)) return { ok: false, reason: 'review-attempt-requeued-too-many-times' };
       reviewAttemptCounts.set(ar.questionId, attemptCount);
       if (typeof ar.correct !== 'boolean' || !Array.isArray(ar.selectedIndices)) {
         return { ok: false, reason: 'bad-review-attempt-outcome' };
