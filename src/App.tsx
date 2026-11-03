@@ -1,5 +1,5 @@
-import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { RouterProvider, useRouter, routeLabel, type Route } from '@/router';
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { RouterProvider, useRouter, routeLabel, type Route, type RouteState } from '@/router';
 import { DataProvider } from '@/data-context';
 import { useData } from '@/hooks/useData';
 import { SubjectSelectionProvider, useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
@@ -36,6 +36,7 @@ import { getTopic } from '@/data/topics';
 import { subjectMap } from '@/data/subjects';
 import { STAGE_SCREENS } from '@/lib/constants';
 import { flushPendingSave, consumeStorageWarning, downloadBackupFile, getBackupRaw } from '@/lib/storage';
+import { useRouteAnnouncer } from '@/hooks/useRouteAnnouncer';
 
 function ScreenRouter() {
   const { route } = useRouter();
@@ -166,13 +167,46 @@ function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
   }
 }
 
+function routeFocusIdentity(route: Route): string {
+  switch (route.screen) {
+    case 'topic':
+      return `topic:${route.topicId}`;
+    case 'section':
+      return `section:${route.sectionId}`;
+    case 'curriculum-unit':
+      return `curriculum-unit:${route.unitId}`;
+    case 'curriculum-lesson':
+      return `curriculum-lesson:${route.lessonId}`;
+    case 'track':
+      return `track:${route.trackId}`;
+    case 'flashcards':
+      return route.topicId ? `flashcards:${route.topicId}` : 'flashcards';
+    // Subject, mode, and other same-screen selections are filters/state,
+    // not new pages. Their changes must not steal focus.
+    default:
+      return route.screen;
+  }
+}
+
+function parentRouteFocusKey(parent: RouteState | null, currentIdentity: string): string {
+  if (!parent) return '';
+  const identity = routeFocusIdentity(parent.route);
+  const ancestorKey = parentRouteFocusKey(parent.parent, currentIdentity);
+  // Ignore an identical same-screen parent (e.g. Learn subject filters), but
+  // include a distinct parent content route (e.g. Topic A → Topic B).
+  return identity === currentIdentity
+    ? ancestorKey
+    : [identity, ancestorKey].filter(Boolean).join('>');
+}
+
 function AppContent() {
   const { route, currentRoute } = useRouter();
-  const previousRouteScreen = useRef(route.screen);
-  const [routeAnnouncement, setRouteAnnouncement] = useState('');
+  const { title, subtitle } = getHeaderTitle(route);
+  const currentIdentity = routeFocusIdentity(route);
+  const routeFocusKey = `${currentIdentity}|${parentRouteFocusKey(currentRoute.parent, currentIdentity)}`;
+  const routeAnnouncement = useRouteAnnouncer(routeFocusKey, title);
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
-  const { title, subtitle } = getHeaderTitle(route);
   const showHeader = route.screen !== 'quiz';
 
   // Workspace chrome: active track (+ exam profile) for enrolled learners
@@ -210,64 +244,7 @@ function AppContent() {
     finalSubtitle = workspaceLabel;
   }
 
-  // Move focus to the new page heading after a screen-level route change.
-  // Initial deep links and same-screen state/parameter changes deliberately do not steal focus.
-  useEffect(() => {
-    if (previousRouteScreen.current === route.screen) return;
-    previousRouteScreen.current = route.screen;
 
-    const main = document.getElementById('main-content');
-    if (!main) return;
-
-    let observer: MutationObserver | null = null;
-    let frame = 0;
-    let cancelled = false;
-
-    const hasOpenModal = () =>
-      Array.from(document.querySelectorAll<HTMLElement>('[role="dialog"][aria-modal="true"]')).some(
-        (dialog) =>
-          dialog.getClientRects().length > 0 &&
-          window.getComputedStyle(dialog).visibility !== 'hidden',
-      );
-
-    const focusDestination = () => {
-      if (cancelled) return true;
-
-      const heading = main.querySelector<HTMLElement>('h1');
-      const pageName = heading?.textContent?.trim() || title;
-
-      // A route may change behind an open More sheet or tutor dialog. Announce
-      // the destination, but leave focus inside the modal's own focus trap.
-      if (hasOpenModal()) {
-        setRouteAnnouncement(pageName ? `Navigated to ${pageName}` : 'Page changed');
-        return true;
-      }
-
-      // Wait for lazy screens to replace the loading status before choosing
-      // the heading; main remains the safe fallback for screens without an h1.
-      const loadingStatus = main.querySelector<HTMLElement>('[role="status"]');
-      if (!heading && loadingStatus?.textContent?.includes('Loading study material')) return false;
-
-      if (heading && !heading.hasAttribute('tabindex')) heading.setAttribute('tabindex', '-1');
-      (heading ?? main).focus({ preventScroll: true });
-      setRouteAnnouncement(pageName ? `Navigated to ${pageName}` : 'Page changed');
-      return true;
-    };
-
-    observer = new MutationObserver(() => {
-      if (focusDestination()) observer?.disconnect();
-    });
-    observer.observe(main, { childList: true, subtree: true });
-    frame = window.requestAnimationFrame(() => {
-      if (focusDestination()) observer?.disconnect();
-    });
-
-    return () => {
-      cancelled = true;
-      window.cancelAnimationFrame(frame);
-      observer?.disconnect();
-    };
-  }, [route.screen, title]);
 
   // Keep browser tab title in sync
   useEffect(() => {

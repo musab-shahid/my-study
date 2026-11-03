@@ -82,4 +82,86 @@ test.describe('route-change focus and announcements', () => {
     await page.keyboard.press('Enter');
     await expect(main).toBeFocused();
   });
+
+  test('focuses and announces Learn → Practice → Revision queue → Progress in order', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/');
+    for (const destination of ['Learn', 'Practice', 'Revision queue', 'Progress']) {
+      await primaryNavigation(page).getByRole('button', { name: destination, exact: true }).click();
+      const heading = page.locator('#main-content h1').first();
+      await expect(heading, destination + ' must expose its primary heading').toBeVisible();
+      await expect(heading, destination + ' heading must receive focus').toBeFocused();
+      const headingText = (await heading.innerText()).trim();
+      await expect(page.locator('#route-announcement')).toHaveText('Navigated to ' + headingText);
+    }
+  });
+
+
+  test('moves focus when the parent route changes while the screen stays the same', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    const now = new Date().toISOString();
+    await page.goto('/');
+    await page.evaluate(({ appKey, subjectKey, enrolledAt }) => {
+      localStorage.setItem(appKey, JSON.stringify({
+        studiedTopics: [], topicProgress: {}, questionResults: {}, quizHistory: [],
+        revisionDates: {}, lastOpenedTopic: '',
+        trackMembership: { schemaVersion: 1, enrollments: { fpsc: {
+          enrolledAt, source: 'explicit', lastOpenedAt: enrolledAt, activeExamId: null,
+        } }, activeTrackId: 'fpsc' },
+      }));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'fpsc',
+        byTrack: { fpsc: { perScreen: { learn: 'meteo-climatology' }, lastSelected: 'meteo-climatology', prefersAll: false } },
+      }));
+    }, { appKey: 'examprep-data', subjectKey: 'examprep-subject-selection', enrolledAt: now });
+    await page.reload();
+    await page.goto('/topic/meteo-origin-evolution');
+    const initialHeading = page.locator('#main-content h1').first();
+    await expect(initialHeading).toBeVisible();
+    const initialHeadingText = (await initialHeading.innerText()).trim();
+
+    const nextTopicLabel = page.locator('#main-content').getByText('Next', { exact: true });
+    await expect(nextTopicLabel).toBeVisible();
+    await nextTopicLabel.locator('xpath=ancestor::button[1]').click();
+
+    const destinationHeading = page.locator('#main-content h1').first();
+    await expect(destinationHeading).toBeVisible();
+    await expect(destinationHeading).not.toHaveText(initialHeadingText);
+    await expect(destinationHeading).toBeFocused();
+    await expect(page.locator('#route-announcement')).toContainText((await destinationHeading.innerText()).trim());
+  });
+
+
+  test('skip link and More dialog keyboard path works at all target viewports', async ({ page }) => {
+    for (const viewport of [
+      { width: 390, height: 844 },
+      { width: 768, height: 1024 },
+      { width: 1280, height: 800 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto('/');
+
+      const skipLink = page.getByRole('link', { name: 'Skip to content' });
+      await page.keyboard.press('Tab');
+      await expect(skipLink).toBeFocused();
+      await page.keyboard.press('Enter');
+      await expect(page.locator('#main-content')).toBeFocused();
+
+      const trigger = page.getByRole('button', { name: /^More(?:,.*)?$/ }).first();
+      await trigger.focus();
+      await page.keyboard.press('Enter');
+      const dialog = page.getByRole('dialog', { name: 'More' });
+      await expect(dialog).toBeVisible();
+
+      await page.keyboard.press('Shift+Tab');
+      await expect.poll(() => dialog.evaluate((node) => node.contains(document.activeElement))).toBe(true);
+      await page.keyboard.press('Tab');
+      await expect.poll(() => dialog.evaluate((node) => node.contains(document.activeElement))).toBe(true);
+
+      await page.keyboard.press('Escape');
+      await expect(dialog).toHaveCount(0);
+      await expect(trigger).toBeFocused();
+    }
+  });
+
 });
