@@ -1,36 +1,28 @@
 import { useState, useEffect, useMemo } from 'react';
 import { CGEILearningScreen } from '@/screens/CGEILearningScreen';
-import { BookOpen, ChevronRight, ChevronLeft, ChevronDown, Cloud, Calculator, MapIcon, GraduationCap, ArrowRight, AlertTriangle, BookCopy, Star, XCircle } from 'lucide-react';
+import { ChevronRight, ChevronDown, Cloud, Calculator, MapIcon, GraduationCap, ArrowRight, BookCopy } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
-import { SubjectSelector, SubjectFilterValue } from '@/components/subject/SubjectSelector';
+import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/SubjectSelector';
 import { useData } from '@/hooks/useData';
 import { subjectMap } from '@/data/subjects';
 import { subjectsForScope } from '@/lib/track-scope';
 import { getTrackDefinition, isTrackId } from '@/data/tracks';
-import { topicsBySection, getTopic, topicsBySubject } from '@/data/topics';
-import { sectionMap, sections } from '@/data/sections';
+import { topicsBySection, getTopic } from '@/data/topics';
+import { sectionMap } from '@/data/sections';
 import { SectionBadge } from '@/components/SectionBadge';
 import { getSubjectColor } from '@/data/subject-colors';
 import { PageContainer, Card, EmptyState, ProgressBar, ActionCard, TopicStatusIcon, LoadingSpinner, Button, Badge, ScreenHeader } from '@/components/ui';
-import { MathText } from '@/components/MathText';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { getTopicAsync } from '@/data/topics';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
 import { cgeiOverviewTopicIdForSubject, isCgeiOverviewTopic } from '@/data/cgei/overview';
-import { CurriculumLessonContent } from '@/components/curriculum/CurriculumLessonContent';
-import { loadQuestionsForTopic } from '@/data/lazy-data';
-import { SubjectId, Topic, Question, MethodChooser } from '@/types';
-import { QuantFormulaEntry } from '@/components/study/TopicContentBlocks';
-import { AiTutorChat } from '@/components/AiTutorChat';
-import { buildTopicContext, buildStudentContext, consumePendingExplain } from '@/lib/ai-tutor';
-import { isTopicMastered } from '@/lib/attention';
+import type { SubjectId, Topic } from '@/types';
 import { getTopicStatusFromProgress } from '@/lib/constants';
 import { selectContinueLearningTopic } from '@/lib/continue-learning';
 import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { hasSubstantiveLessonContent } from '@/data/cgei/readiness';
-import { IdiomGroupsBlock, SubstitutionGroupsBlock, VocabularyGroupsBlock, PrefixGroupsBlock, SuffixGroupsBlock, RootGroupsBlock, GrammarRulesBlock, SubtopicsBlock, QuantFormulasBlock, ComparisonTableBlock } from '@/components/study/TopicContentBlocks';
 
 // ---- Learn Landing ----
 function GenericStudyScreen() {
