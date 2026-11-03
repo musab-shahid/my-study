@@ -14,7 +14,7 @@ export type OfflinePackProgress = (completedSubjects: number, totalSubjects: num
 
 export type OfflinePackCacheStorage = {
   keys: () => Promise<string[]>;
-  open: (name: string) => Promise<{ keys: () => Promise<unknown[]> }>;
+  open: (name: string) => Promise<{ keys: () => Promise<readonly unknown[]> }>;
   delete: (name: string) => Promise<boolean>;
 };
 
