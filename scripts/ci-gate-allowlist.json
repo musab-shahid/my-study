@@ -5,5 +5,5 @@
   "check:design-system": "CI invokes the underlying ratchet and PR-diff commands directly to supply the correct comparison base.",
   "check:perf-gate": "CI invokes the underlying Lighthouse gate directly after its production build.",
   "check:cgei-legacy-freeze": "CI invokes the underlying shell gate directly to supply BASE_REF.",
-  "lint:cgei-questions": "Optional authoring-time lint; the strict CGEI authoring and data validation gates remain CI-enforced."
+  "lint:cgei-questions": "Invoked by scripts/cgei-sync.ts as a preflight through spawnSync; the current static npm-script graph treats that TypeScript runner as a delegated boundary."
 }
