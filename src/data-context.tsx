@@ -42,26 +42,43 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
   const isFirst = useRef(true);
 
-  // Recover queued review events on startup. Aggregate progress is independent:
-  // recovery never rewrites quiz history, mastery, or scheduler state.
+  // Recover queued review events on startup and when the tab becomes active
+  // again. Aggregate progress is independent and is never rewritten by replay.
   useEffect(() => {
     let active = true;
-    void import('@/lib/dual-write').then(({ recoverPendingReviewEvents }) =>
-      recoverPendingReviewEvents(),
-    ).then((result) => {
-      if (!active || result.status === 'clean') return;
-      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
-        detail: result.status === 'recovered'
-          ? { status: 'recovered', count: result.recovered }
-          : { status: result.status, count: result.pending, errorCategory: result.errorCategory, recoveryQueued: result.pending > 0 },
-      }));
-    }).catch(() => {
-      if (!active) return;
-      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
-        detail: { status: 'failed', errorCategory: 'recovery_unexpected_error' },
-      }));
-    });
-    return () => { active = false; };
+    let recovering = false;
+    const recover = async () => {
+      if (recovering) return;
+      recovering = true;
+      try {
+        const { recoverPendingReviewEvents } = await import('@/lib/dual-write');
+        const result = await recoverPendingReviewEvents();
+        if (!active || result.status === 'clean') return;
+        window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+          detail: result.status === 'recovered'
+            ? { status: 'recovered', count: result.recovered }
+            : { status: result.status, count: result.pending, errorCategory: result.errorCategory, recoveryQueued: result.pending > 0 },
+        }));
+      } catch {
+        if (!active) return;
+        window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+          detail: { status: 'failed', errorCategory: 'recovery_unexpected_error', recoveryQueued: false },
+        }));
+      } finally {
+        recovering = false;
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') void recover();
+    };
+    window.addEventListener('online', recover);
+    document.addEventListener('visibilitychange', onVisibility);
+    void recover();
+    return () => {
+      active = false;
+      window.removeEventListener('online', recover);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
   }, []);
 
   // Persist outside setState updaters (StrictMode-safe: one effect per committed data)
