@@ -78,10 +78,16 @@ export type SavedAnswerRecord = {
   selectedIndices: number[];
 };
 
+export type SavedReviewAttemptRecord = SavedAnswerRecord & {
+  confidence?: 1 | 2 | 3;
+  latencyMs?: number;
+};
+
 export type SavedDraftShape = {
   questionIds: string[];
   optionOrders?: number[][];
   answers: SavedAnswerRecord[];
+  reviewAttempts?: SavedReviewAttemptRecord[];
   elapsedSeconds?: number;
   currentIdx: number;
   mode: PracticeMode;
@@ -152,6 +158,42 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       correct: ar.correct,
       selectedIndices,
     });
+  }
+
+  let reviewAttempts: SavedReviewAttemptRecord[] | undefined;
+  if (p.reviewAttempts !== undefined) {
+    if (!Array.isArray(p.reviewAttempts)) return { ok: false, reason: 'review-attempts-not-array' };
+    reviewAttempts = [];
+    for (const attempt of p.reviewAttempts) {
+      if (!attempt || typeof attempt !== 'object') return { ok: false, reason: 'bad-review-attempt' };
+      const ar = attempt as Record<string, unknown>;
+      if (typeof ar.questionId !== 'string' || !seenQ.has(ar.questionId)) {
+        return { ok: false, reason: 'review-attempt-unknown-question' };
+      }
+      if (typeof ar.correct !== 'boolean' || !Array.isArray(ar.selectedIndices)) {
+        return { ok: false, reason: 'bad-review-attempt-outcome' };
+      }
+      const selectedIndices: number[] = [];
+      for (const idx of ar.selectedIndices) {
+        if (typeof idx !== 'number' || !Number.isInteger(idx) || idx < 0) {
+          return { ok: false, reason: 'review-attempt-index-range' };
+        }
+        selectedIndices.push(idx);
+      }
+      if (ar.confidence !== undefined && ![1, 2, 3].includes(ar.confidence as number)) {
+        return { ok: false, reason: 'review-attempt-confidence' };
+      }
+      if (ar.latencyMs !== undefined && (typeof ar.latencyMs !== 'number' || !Number.isFinite(ar.latencyMs) || ar.latencyMs < 0)) {
+        return { ok: false, reason: 'review-attempt-latency' };
+      }
+      reviewAttempts.push({
+        questionId: ar.questionId,
+        correct: ar.correct,
+        selectedIndices,
+        confidence: ar.confidence as 1 | 2 | 3 | undefined,
+        latencyMs: ar.latencyMs as number | undefined,
+      });
+    }
   }
 
   if (typeof p.currentIdx !== 'number' || !Number.isInteger(p.currentIdx) || p.currentIdx < 0) {
@@ -233,6 +275,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       questionIds,
       optionOrders: p.optionOrders as number[][] | undefined,
       answers,
+      reviewAttempts,
       elapsedSeconds: p.elapsedSeconds as number | undefined,
       currentIdx: p.currentIdx as number,
       mode: p.mode as PracticeMode,
