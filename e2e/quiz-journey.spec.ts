@@ -290,7 +290,7 @@ test.describe('Quiz completion journey', () => {
     await expect(exitDialog.getByText(/saved on this device.*resume this quiz from Home/i)).toBeVisible();
     await exitDialog.getByRole('button', { name: 'Exit', exact: true }).click();
 
-    await page.getByRole('button', { name: 'Home', exact: true }).click();
+    await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Home', exact: true }).click();
     await expect(page.getByText('Resume your quiz', { exact: true })).toBeVisible();
     await page.getByRole('button', { name: 'Resume quiz', exact: true }).click();
 
