@@ -11,7 +11,7 @@ afterEach(() => {
 });
 
 describe('quiz aggregate calculation boundary', () => {
-  it('calculates quiz aggregates without creating review events as a side effect', () => {
+  it('calculates quiz aggregates without creating review events as a side effect', async () => {
     setDefaultReviewLogForTests(reviewLog);
 
     const initial = {
