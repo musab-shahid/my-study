@@ -92,6 +92,7 @@ export type SavedDraftShape = {
   optionOrders?: number[][];
   answers: SavedAnswerRecord[];
   reviewAttempts?: SavedReviewAttemptRecord[];
+  reviewSessionId?: string;
   elapsedSeconds?: number;
   currentIdx: number;
   mode: PracticeMode;
@@ -234,6 +235,10 @@ export function validateDraftShape(raw: unknown): DraftValidation {
   }
   if (p.currentIdx >= questionIds.length) return { ok: false, reason: 'currentIdx-oob' };
 
+  if (p.reviewSessionId !== undefined && (typeof p.reviewSessionId !== 'string' || p.reviewSessionId.length === 0 || p.reviewSessionId.length > 256)) {
+    return { ok: false, reason: 'bad-review-session-id' };
+  }
+
   if (p.elapsedSeconds !== undefined) {
     if (typeof p.elapsedSeconds !== 'number' || !Number.isFinite(p.elapsedSeconds) || p.elapsedSeconds < 0) {
       return { ok: false, reason: 'bad-elapsed' };
@@ -309,6 +314,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       optionOrders: p.optionOrders as number[][] | undefined,
       answers,
       reviewAttempts,
+      reviewSessionId: p.reviewSessionId as string | undefined,
       elapsedSeconds: p.elapsedSeconds as number | undefined,
       currentIdx: p.currentIdx as number,
       mode: p.mode as PracticeMode,
