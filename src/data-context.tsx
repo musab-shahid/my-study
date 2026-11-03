@@ -9,7 +9,7 @@ import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
 import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index-helpers';
-import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
+import { dualWriteQuizAttempts } from '@/lib/dual-write';
 
 export interface DataContextValue {
   data: AppData;
@@ -41,6 +41,28 @@ export function DataProvider({ children }: { children: ReactNode }) {
   dataRef.current = data;
 
   const isFirst = useRef(true);
+
+  // Recover queued review events on startup. Aggregate progress is independent:
+  // recovery never rewrites quiz history, mastery, or scheduler state.
+  useEffect(() => {
+    let active = true;
+    void import('@/lib/dual-write').then(({ recoverPendingReviewEvents }) =>
+      recoverPendingReviewEvents(),
+    ).then((result) => {
+      if (!active || result.status === 'clean') return;
+      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+        detail: result.status === 'recovered'
+          ? { status: 'recovered', count: result.recovered }
+          : { status: 'pending', count: result.pending, errorCategory: result.errorCategory },
+      }));
+    }).catch(() => {
+      if (!active) return;
+      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+        detail: { status: 'failed', errorCategory: 'recovery_unexpected_error' },
+      }));
+    });
+    return () => { active = false; };
+  }, []);
 
   // Persist outside setState updaters (StrictMode-safe: one effect per committed data)
   useEffect(() => {
@@ -92,7 +114,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
     const questionTopicMap = new Map(questions.map((question) => [question.id, question.topicId]));
     const questionById = new Map(questions.map((question) => [question.id, question]));
-    dualWriteQuizAttemptsFireAndForget({
+    void dualWriteQuizAttempts({
       answers: answers.map((answer) => ({
         questionId: answer.questionId,
         correct: answer.correct,
@@ -113,6 +135,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
       mode,
       sessionId: `quiz_${now}`,
       ts: now,
+    }).then((result) => {
+      if (result.status === 'persisted') return;
+      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+        detail: {
+          status: result.status,
+          count: result.events.length,
+          errorCategory: result.errorCategory,
+        },
+      }));
     });
   }, []);
 
