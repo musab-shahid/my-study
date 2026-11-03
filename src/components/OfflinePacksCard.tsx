@@ -68,7 +68,10 @@ export function OfflinePacksCard() {
         kind: 'success',
         message: `${definition.shortTitle} pack ready: ${result.subjectCount} subjects and ${result.cachedCount} app assets saved on this device.`,
       });
-      await refreshStatuses();
+      setStatuses((previous) => ({
+        ...previous,
+        [trackId]: { installed: true, resourceCount: result.cachedCount },
+      }));
     } catch (error) {
       setFeedback({
         kind: 'error',
@@ -128,7 +131,7 @@ export function OfflinePacksCard() {
                     <div className="flex flex-wrap items-center justify-between gap-2">
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-ink">{definition.shortTitle}</p>
-                        <p className="text-xs text-ink-muted">
+                        <p className="text-xs text-ink-muted" aria-live="polite" aria-atomic="true">
                           {busy && currentProgress
                             ? currentProgress.total > 0
                               ? `Loading subjects ${currentProgress.completed} of ${currentProgress.total}…`
@@ -144,6 +147,7 @@ export function OfflinePacksCard() {
                           size="sm"
                           variant="secondary"
                           disabled={!online || busyTrack !== null}
+                          aria-label={`${busy ? 'Preparing' : status?.installed ? 'Refresh' : 'Download'} ${definition.shortTitle} offline pack`}
                           onClick={() => void download(trackId)}
                         >
                           <Download className="mr-1.5 h-3.5 w-3.5" aria-hidden />
@@ -155,6 +159,7 @@ export function OfflinePacksCard() {
                             size="sm"
                             variant="danger"
                             disabled={busyTrack !== null}
+                            aria-label={`Remove ${definition.shortTitle} offline pack`}
                             onClick={() => void remove(trackId)}
                           >
                             <Trash2 className="mr-1.5 h-3.5 w-3.5" aria-hidden />
