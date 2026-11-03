@@ -47,27 +47,3 @@ export function applyOptionOrder(question: Question, order: number[]): Question 
 
 /** Backward-compatible name used by quiz-session draft reconciliation. */
 export const applyOptionOrderPure = applyOptionOrder;
-
-/**
- * Restore display orders by question ID. Missing IDs in a filtered bank must
- * never shift the saved order for subsequent questions.
- */
-export function applySavedOptionOrders(
-  questions: Question[],
-  questionIds: string[],
-  optionOrders?: number[][],
-): Question[] {
-  const orderById = new Map<string, number[]>();
-  if (optionOrders?.length) {
-    questionIds.forEach((id, index) => {
-      const order = optionOrders[index];
-      if (order) orderById.set(id, order);
-    });
-  }
-
-  return questions.map((question) => {
-    const order = orderById.get(question.id);
-    if (!order || !isValidOptionPermutation(order, question.options?.length ?? 0)) return question;
-    return applyOptionOrder(question, order);
-  });
-}
