@@ -513,7 +513,7 @@ export function SettingsScreen() {
             </Button>
           ))}
         </div>
-        <div role="group" aria-label="Subjects to clear" tabIndex={0} className="flex flex-wrap gap-2 mb-3 max-h-40 overflow-y-auto">
+        <div role="group" aria-label="Subjects to clear" tabIndex={0} className="flex flex-wrap gap-2 mb-3 max-h-40 overflow-y-auto rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2">
           {subjects.map((s) => {
             const selected = selectedSubjects.has(s.id as SubjectId);
             return (
