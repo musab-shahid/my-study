@@ -208,20 +208,3 @@ jobs:
           retention-days: 14
       - name: Curriculum activity/assessment integrity
         run: python fixtures/cgei/curriculum_activity_assessment_integrity_check.py
-
-  registry-snapshot:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
-      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7
-        with:
-          node-version: "20"
-          cache: npm
-      - name: Install
-        run: npm ci
-      - name: Emit generated registry manifest for synchronization
-        run: |
-          npm run snapshot:cgei-registry
-          echo "BEGIN_CGEI_REGISTRY_MANIFEST"
-          cat docs/cgei/registry-manifest.json
-          echo "END_CGEI_REGISTRY_MANIFEST"
