@@ -129,7 +129,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
   const seenQ = new Set<string>();
   for (const id of p.questionIds) {
     if (typeof id !== 'string' || id === '') return { ok: false, reason: 'bad-question-id' };
-    if (seenQ.has(id)) return { ok: false, reason: 'duplicate-question-id' };
+    // Repeated ids are intentional when a high-confidence miss is re-queued.
     seenQ.add(id);
     questionIds.push(id);
   }
