@@ -711,6 +711,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       skillId: string;
       latencyMs?: number;
       confidence?: 1 | 2 | 3;
+      ts?: number;
       chosenOption?: string;
       responseStatus: 'submitted' | 'unanswered';
       aggregateEligible: boolean;
@@ -722,6 +723,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         skillId: question?.topicId ?? answer.questionId,
         latencyMs: answer.latencyMs,
         confidence: answer.confidence,
+        ts: answer.submittedAt,
         chosenOption: answer.chosenOption,
         responseStatus: 'submitted' as const,
         aggregateEligible: lastAttemptByQuestion.get(answer.questionId) === index,
@@ -847,6 +849,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       selectedIndices: [...prev.selectedIndices],
       confidence,
       latencyMs,
+      submittedAt: now,
       optionOrder: [...(prev.optionOrders[prev.currentIdx] ?? (q.options ?? []).map((_, index) => index))],
       questionIndex: prev.currentIdx,
       chosenOption: prev.selectedIndices.map((index) => q.options?.[index] ?? String(index)).join(' | '),
