@@ -19,8 +19,8 @@ describe('CGEI Learn path coherence', () => {
     assert.match(genericStudyScreen, /expand for goals and how to study/);
     assert.match(genericStudyScreen, /What you will be able to do/);
     assert.match(genericStudyScreen, /How the subject is organised/);
-    assert.match(studyScreen, /curriculumSubject\.overview/);
-    assert.match(studyScreen, /curriculumSubject\.purpose/);
+    assert.match(genericStudyScreen, /curriculumSubject\.overview/);
+    assert.match(genericStudyScreen, /curriculumSubject\.purpose/);
   });
 
   it('keeps the learning path (units) outside orientation details', () => {
@@ -41,9 +41,9 @@ describe('CGEI Learn path coherence', () => {
   });
 
   it('restores domain orientation content inside the expanded orientation', () => {
-    assert.match(studyScreen, /roadmapTopic\.explanationSections/);
-    assert.match(studyScreen, /roadmapTopic\.keyFacts/);
-    assert.match(studyScreen, /roadmapTopic\.examPoints/);
+    assert.match(genericStudyScreen, /roadmapTopic\.explanationSections/);
+    assert.match(genericStudyScreen, /roadmapTopic\.keyFacts/);
+    assert.match(genericStudyScreen, /roadmapTopic\.examPoints/);
   });
 
   it('keeps orientation records out of the primary lesson framing', () => {
