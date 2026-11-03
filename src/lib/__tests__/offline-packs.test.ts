@@ -38,6 +38,7 @@ describe('track offline pack helpers', () => {
 
   it('reports the newest complete pack and its cached resource count', async () => {
     const { storage } = memoryStorage({
+      'examprep-deadbeef': [],
       'examprep-a1b2c3d4': [],
       'my-study-offline-pack-examprep-old00001-fpsc-300': ['https://app.test/assets/stale.js'],
       'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/old.js'],
