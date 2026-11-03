@@ -39,6 +39,7 @@ import {
 } from '@/lib/quiz-session';
 import { pickAdaptiveQuestions, recentQuestionIdsFromResults } from '@/lib/adaptive-select';
 import { instantiatePool } from '@/lib/quant-template';
+import { applyOptionOrder, applySavedOptionOrders } from '@/lib/quiz-option-order';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
 import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
@@ -88,64 +89,6 @@ function shuffleArray<T>(arr: T[]): T[] {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
-}
-
-/**
- * Session-stable option order: order[i] = original bank index of the option
- * shown at display position i. Remaps correctAnswer so grading stays correct.
- */
-function applyOptionOrder(q: Question, order: number[]): Question {
-  if (!q.options?.length || order.length !== q.options.length) return q;
-  const options = order.map((oi) => q.options[oi]);
-  const inv: number[] = new Array(order.length);
-  order.forEach((oi, newIdx) => {
-    inv[oi] = newIdx;
-  });
-
-  let correctAnswer: number | number[];
-  if (q.type === 'matching' && Array.isArray(q.correctAnswer)) {
-    // correctAnswer[i] = matchOptions index for options[i]; permute with options
-    const mapped = order.map((oi) => (q.correctAnswer as number[])[oi]);
-    if (mapped.some((v) => v === undefined)) return q;
-    correctAnswer = mapped;
-  } else if (Array.isArray(q.correctAnswer)) {
-    const mapped = (q.correctAnswer as number[]).map((oi) => inv[oi]);
-    if (mapped.some((v) => v === undefined)) return q;
-    correctAnswer = mapped.sort((a, b) => a - b);
-  } else {
-    const mapped = inv[q.correctAnswer as number];
-    if (mapped === undefined) return q; // fail closed — never keep bank index after shuffle
-    correctAnswer = mapped;
-  }
-  return { ...q, options, correctAnswer };
-}
-
-function shuffleQuestionOptions(q: Question): { question: Question; order: number[] } {
-  if (!q.options || q.options.length < 2) {
-    return { question: q, order: (q.options ?? []).map((_, i) => i) };
-  }
-  const order = shuffleArray(q.options.map((_, i) => i));
-  return { question: applyOptionOrder(q, order), order };
-}
-
-function applySavedOptionOrders(
-  questions: Question[],
-  questionIds: string[],
-  optionOrders?: number[][],
-): Question[] {
-  // Align orders by question id — not by filtered array index (missing bank IDs would shift rows)
-  const orderById = new Map<string, number[]>();
-  if (optionOrders?.length) {
-    questionIds.forEach((id, i) => {
-      const order = optionOrders[i];
-      if (order) orderById.set(id, order);
-    });
-  }
-  return questions.map((q) => {
-    const order = orderById.get(q.id);
-    if (!order || !isValidOptionPermutation(order, q.options?.length ?? 0)) return q;
-    return applyOptionOrder(q, order);
-  });
 }
 
 function pickQuestions(
