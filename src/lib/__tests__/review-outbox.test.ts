@@ -92,6 +92,7 @@ describe('durable review outbox', () => {
     assert.equal(event?.grade, 'hard');
     assert.equal(event?.confidence, undefined);
     assert.equal(event?.responseStatus, 'submitted');
+    assert.equal(event?.aggregateEligible, false);
   });
 
   it('records lesson-check outcomes without fabricating confidence or latency', async () => {
