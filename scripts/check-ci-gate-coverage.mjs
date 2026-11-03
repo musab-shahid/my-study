@@ -68,7 +68,8 @@ if (!workflow.includes('node scripts/check-ci-gate-coverage.mjs')) {
 }
 
 for (const name of checkScripts) {
-  if (workflow.includes(`npm run ${name}`)) continue;
+  const directInvocation = new RegExp(`npm\\\\s+run\\\\s+${name.replace(/[.*+?^\\${}()|[\\]\\\\]/g, '\\\\  if (workflow.includes(`npm run ${name}`)) continue;')}(?:\\\\s|$)`);
+  if (directInvocation.test(workflow)) continue;
 
   const delegation = delegatedChecks[name];
   if (!delegation) {
