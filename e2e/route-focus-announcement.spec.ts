@@ -47,8 +47,9 @@ test.describe('route-change focus and announcements', () => {
 
     await page.goBack();
     await expect(page).toHaveURL(/\/$/);
-    await expect(page.locator('#main-content h1').first()).toBeFocused();
-    await expect(page.locator('#route-announcement')).toContainText('Home');
+    const homeHeading = page.locator('#main-content h1').first();
+    await expect(homeHeading).toBeFocused();
+    await expect(page.locator('#route-announcement')).toContainText((await homeHeading.innerText()).trim());
 
     await page.goForward();
     await expect(page).toHaveURL(/\/learn$/);
