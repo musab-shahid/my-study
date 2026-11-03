@@ -75,13 +75,13 @@ describe('validateDraftShape', () => {
 
   it('preserves repeated submitted attempts separately from unique aggregate answers', () => {
     const r = validateDraftShape({
-      questionIds: ['q1', 'q2'],
+      questionIds: ['q1', 'q1', 'q2'],
       answers: [{ questionId: 'q1', correct: true, selectedIndices: [0] }],
       reviewAttempts: [
         { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900, optionOrder: [0, 1], questionIndex: 0 },
-        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0], questionIndex: 0 },
+        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0], questionIndex: 1 },
       ],
-      currentIdx: 1,
+      currentIdx: 2,
       mode: 'quick',
     });
     assert.equal(r.ok, true);
