@@ -295,6 +295,37 @@ function AppContent() {
   }, []);
 
   const [storageWarning, setStorageWarning] = useState<string | null>(() => consumeStorageWarning());
+  const [reviewPersistenceNotice, setReviewPersistenceNotice] = useState<{ message: string; urgent: boolean } | null>(null);
+
+  useEffect(() => {
+    const onReviewPersistence = (event: Event) => {
+      const detail = (event as CustomEvent<{ status: string; count?: number; recoveryQueued?: boolean; errorCategory?: string }>).detail;
+      if (!detail) return;
+      if (detail.status === 'recovered') {
+        setReviewPersistenceNotice({
+          message: `Recovered ${detail.count ?? 0} pending review records. Your quiz progress was already saved.`,
+          urgent: false,
+        });
+      } else if (detail.status === 'pending') {
+        setReviewPersistenceNotice({
+          message: 'Your quiz progress is saved. Some review records are safely queued and will be retried automatically.',
+          urgent: false,
+        });
+      } else if (detail.status === 'failed' && detail.recoveryQueued) {
+        setReviewPersistenceNotice({
+          message: 'Your quiz progress is saved. A review record is preserved in the recovery queue, but a data conflict needs attention before it can be synchronized.',
+          urgent: true,
+        });
+      } else if (detail.status === 'failed') {
+        setReviewPersistenceNotice({
+          message: 'Your quiz progress is saved, but review records could not be placed in the recovery queue. Check available browser storage before closing this tab.',
+          urgent: true,
+        });
+      }
+    };
+    window.addEventListener('my-study-review-persistence', onReviewPersistence);
+    return () => window.removeEventListener('my-study-review-persistence', onReviewPersistence);
+  }, []);
   const [isOffline, setIsOffline] = useState(!navigator.onLine);
   // Re-read after storageWarning updates (recovery path may create a backup).
   const hasBackup = Boolean(getBackupRaw()) || Boolean(storageWarning);
@@ -340,6 +371,25 @@ function AppContent() {
                 type="button"
                 className="rounded-btn border border-warning-300 bg-white px-3 py-1.5 text-xs font-medium text-warning-900 hover:bg-warning-100"
                 onClick={() => setStorageWarning(null)}
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        )}
+        {reviewPersistenceNotice && (
+          <div
+            role={reviewPersistenceNotice.urgent ? 'alert' : 'status'}
+            aria-live={reviewPersistenceNotice.urgent ? 'assertive' : 'polite'}
+            className={`mx-3 mt-3 lg:mx-6 rounded-btn border px-4 py-3 text-sm shadow-sm ${reviewPersistenceNotice.urgent ? 'border-warning-200 bg-warning-50 text-warning-950' : 'border-[var(--border-default)] bg-[var(--surface-card)] text-[var(--text-primary)]'}`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <p>{reviewPersistenceNotice.message}</p>
+              <button
+                type="button"
+                className="shrink-0 rounded-btn px-2 py-1 text-xs font-medium hover:bg-black/5"
+                onClick={() => setReviewPersistenceNotice(null)}
+                aria-label="Dismiss review data notice"
               >
                 Dismiss
               </button>

@@ -6,6 +6,7 @@ import {
   ReviewLogPersistenceError,
   type ReviewLog,
 } from '../review-log.ts';
+import { MemoryReviewOutbox } from '../review-outbox.ts';
 import type { ReviewEvent } from '../review-event.ts';
 
 describe('dual-write persistence contract', () => {
@@ -38,6 +39,7 @@ describe('dual-write persistence contract', () => {
       sessionId: 'session-stable',
       ts: 1234,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
 
     assert.equal(result.status, 'persisted');
@@ -67,6 +69,7 @@ describe('dual-write persistence contract', () => {
       mode: 'quick',
       ts: 1234,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
 
     assert.equal(result.status, 'failed');
@@ -81,6 +84,7 @@ describe('dual-write persistence contract', () => {
       mode: 'quick',
       ts: 1234,
       log: new MemoryReviewLog(),
+      outbox: new MemoryReviewOutbox(),
     });
     assert.equal(result.status, 'persisted');
     assert.equal(result.attempts, 1);

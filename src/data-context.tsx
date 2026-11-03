@@ -9,7 +9,7 @@ import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
 import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index-helpers';
-import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
+import { dualWriteQuizAttempts } from '@/lib/dual-write';
 
 export interface DataContextValue {
   data: AppData;
@@ -41,6 +41,45 @@ export function DataProvider({ children }: { children: ReactNode }) {
   dataRef.current = data;
 
   const isFirst = useRef(true);
+
+  // Recover queued review events on startup and when the tab becomes active
+  // again. Aggregate progress is independent and is never rewritten by replay.
+  useEffect(() => {
+    let active = true;
+    let recovering = false;
+    const recover = async () => {
+      if (recovering) return;
+      recovering = true;
+      try {
+        const { recoverPendingReviewEvents } = await import('@/lib/dual-write');
+        const result = await recoverPendingReviewEvents();
+        if (!active || result.status === 'clean') return;
+        window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+          detail: result.status === 'recovered'
+            ? { status: 'recovered', count: result.recovered }
+            : { status: result.status, count: result.pending, errorCategory: result.errorCategory, recoveryQueued: result.pending > 0 },
+        }));
+      } catch {
+        if (!active) return;
+        window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+          detail: { status: 'failed', errorCategory: 'recovery_unexpected_error', recoveryQueued: false },
+        }));
+      } finally {
+        recovering = false;
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') void recover();
+    };
+    window.addEventListener('online', recover);
+    document.addEventListener('visibilitychange', onVisibility);
+    void recover();
+    return () => {
+      active = false;
+      window.removeEventListener('online', recover);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, []);
 
   // Persist outside setState updaters (StrictMode-safe: one effect per committed data)
   useEffect(() => {
@@ -92,7 +131,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
 
     const questionTopicMap = new Map(questions.map((question) => [question.id, question.topicId]));
     const questionById = new Map(questions.map((question) => [question.id, question]));
-    dualWriteQuizAttemptsFireAndForget({
+    void dualWriteQuizAttempts({
       answers: answers.map((answer) => ({
         questionId: answer.questionId,
         correct: answer.correct,
@@ -113,6 +152,16 @@ export function DataProvider({ children }: { children: ReactNode }) {
       mode,
       sessionId: `quiz_${now}`,
       ts: now,
+    }).then((result) => {
+      if (result.status === 'persisted') return;
+      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+        detail: {
+          status: result.status,
+          count: result.events.length,
+          errorCategory: result.errorCategory,
+          recoveryQueued: result.recoveryQueued,
+        },
+      }));
     });
   }, []);
 
