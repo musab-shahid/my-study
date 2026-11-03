@@ -85,46 +85,7 @@ test.describe('route-change focus and announcements', () => {
 
   test('focuses and announces Learn → Practice → Revision queue → Progress in order', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
-    const now = new Date().toISOString();
     await page.goto('/');
-    await page.evaluate(({ appKey, subjectKey, enrolledAt }) => {
-      localStorage.setItem(appKey, JSON.stringify({
-        studiedTopics: [],
-        topicProgress: {},
-        questionResults: {},
-        quizHistory: [],
-        revisionDates: {},
-        lastOpenedTopic: '',
-        trackMembership: {
-          schemaVersion: 1,
-          enrollments: {
-            fpsc: {
-              enrolledAt,
-              source: 'explicit',
-              lastOpenedAt: enrolledAt,
-              activeExamId: null,
-            },
-          },
-          activeTrackId: 'fpsc',
-        },
-      }));
-      localStorage.setItem(subjectKey, JSON.stringify({
-        activeTrack: 'fpsc',
-        byTrack: {
-          fpsc: {
-            perScreen: { learn: 'meteo-climatology' },
-            lastSelected: 'meteo-climatology',
-            prefersAll: false,
-          },
-        },
-      }));
-    }, {
-      appKey: 'examprep-data',
-      subjectKey: 'examprep-subject-selection',
-      enrolledAt: now,
-    });
-    await page.reload();
-
     for (const destination of ['Learn', 'Practice', 'Revision queue', 'Progress']) {
       await primaryNavigation(page).getByRole('button', { name: destination, exact: true }).click();
       const heading = page.locator('#main-content h1').first();
@@ -138,14 +99,30 @@ test.describe('route-change focus and announcements', () => {
 
   test('moves focus when the parent route changes while the screen stays the same', async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 800 });
+    const now = new Date().toISOString();
+    await page.goto('/');
+    await page.evaluate(({ appKey, subjectKey, enrolledAt }) => {
+      localStorage.setItem(appKey, JSON.stringify({
+        studiedTopics: [], topicProgress: {}, questionResults: {}, quizHistory: [],
+        revisionDates: {}, lastOpenedTopic: '',
+        trackMembership: { schemaVersion: 1, enrollments: { fpsc: {
+          enrolledAt, source: 'explicit', lastOpenedAt: enrolledAt, activeExamId: null,
+        } }, activeTrackId: 'fpsc' },
+      }));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'fpsc',
+        byTrack: { fpsc: { perScreen: { learn: 'meteo-climatology' }, lastSelected: 'meteo-climatology', prefersAll: false } },
+      }));
+    }, { appKey: 'examprep-data', subjectKey: 'examprep-subject-selection', enrolledAt: now });
+    await page.reload();
     await page.goto('/topic/meteo-origin-evolution');
     const initialHeading = page.locator('#main-content h1').first();
     await expect(initialHeading).toBeVisible();
     const initialHeadingText = (await initialHeading.innerText()).trim();
 
-    const nextTopic = page.getByRole('button', { name: /^Next /i });
-    await expect(nextTopic).toBeVisible();
-    await nextTopic.click();
+    const nextTopicLabel = page.locator('#main-content').getByText('Next', { exact: true });
+    await expect(nextTopicLabel).toBeVisible();
+    await nextTopicLabel.locator('xpath=ancestor::button[1]').click();
 
     const destinationHeading = page.locator('#main-content h1').first();
     await expect(destinationHeading).toBeVisible();
