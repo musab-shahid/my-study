@@ -190,7 +190,6 @@ export class IndexedDbReviewLog implements ReviewLog {
         const tx = db.transaction(STORE, 'readwrite');
         const store = tx.objectStore(STORE);
         const rows = [...batch.entries()];
-        let remaining = rows.length;
         let settled = false;
 
         const fail = (error: ReviewLogPersistenceError) => {
@@ -219,27 +218,24 @@ export class IndexedDbReviewLog implements ReviewLog {
           }
         };
 
+        // Each read is followed immediately by its conditional insert while
+        // this readwrite transaction remains active. Readwrite transactions
+        // for this object store are serialized across tabs, so a competing
+        // append cannot slip between the existence check and the insert.
         for (const [id, event] of rows) {
           const request = store.get(id);
           request.onerror = () => fail(new ReviewLogPersistenceError('idb_transaction_failed', request.error?.message ?? 'idb get failed'));
           request.onsuccess = () => {
             if (settled) return;
             const existing = request.result as ReviewEvent | undefined;
-            if (existing && eventKey(existing) !== eventKey(event)) {
-              fail(new ReviewLogPersistenceError('duplicate_id_conflict', `Event id ${id} already exists with different payload`, id));
+            if (existing) {
+              if (eventKey(existing) !== eventKey(event)) {
+                fail(new ReviewLogPersistenceError('duplicate_id_conflict', `Event id ${id} already exists with different payload`, id));
+              }
               return;
             }
-            remaining -= 1;
-            if (remaining === 0) {
-              for (const [eventId, candidate] of rows) {
-                if (!candidate || false) continue;
-                const check = store.get(eventId);
-                check.onsuccess = () => {
-                  if (check.result === undefined) store.add(candidate);
-                };
-                check.onerror = () => fail(new ReviewLogPersistenceError('idb_transaction_failed', check.error?.message ?? 'idb conflict recheck failed'));
-              }
-            }
+            const insert = store.add(event);
+            insert.onerror = () => fail(new ReviewLogPersistenceError('idb_transaction_failed', insert.error?.message ?? 'idb insert failed'));
           };
         }
       });
