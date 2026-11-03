@@ -413,7 +413,7 @@ function GenericStudyScreen() {
                         <span className="min-w-0 flex-1">
                           <span className="flex flex-wrap items-center gap-2">
                             <span className="font-semibold text-sm text-ink">{unit.title}</span>
-                            <Badge color={readiness.tone === 'preview' ? 'amber' : readiness.tone === 'coming-soon' ? 'sky' : 'slate'}>{readiness.label}</Badge>
+                            {readiness.tone !== 'ready' && <Badge color={readiness.tone === 'preview' ? 'amber' : 'slate'}>{readiness.label}</Badge>}
                           </span>
                           <span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span>
                           <span className="block text-xs text-muted mt-1">{unit.lessonIds.length ? `${unit.lessonIds.length} lessons` : 'Lessons not yet integrated'}</span>
