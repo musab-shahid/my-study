@@ -69,6 +69,7 @@ describe('dual-write persistence contract', () => {
       mode: 'quick',
       ts: 1234,
       log,
+      outbox: new MemoryReviewOutbox(),
     });
 
     assert.equal(result.status, 'failed');
