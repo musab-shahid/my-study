@@ -37,7 +37,7 @@ describe('CGEI Learn path coherence', () => {
       genericStudyScreen,
       /subjectSections\.length > 0 && !\(curriculumSubject && curriculumUnits\.length > 0\)/,
     );
-    assert.doesNotMatch(studyScreen, /Legacy topic groups/);
+    assert.doesNotMatch(genericStudyScreen, /Legacy topic groups/);
   });
 
   it('restores domain orientation content inside the expanded orientation', () => {
