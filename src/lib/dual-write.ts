@@ -140,8 +140,8 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
 /** Fire-and-forget wrapper for use from synchronous storage paths. */
 export function dualWriteQuizAttemptsFireAndForget(params: DualWriteParams): void {
   void dualWriteQuizAttempts(params).then((result) => {
-    if (result.status === 'failed' && typeof console !== 'undefined') {
-      console.warn('[review-log] dual-write failed (aggregates still saved)', result.errorCategory);
+    if (result.status !== 'persisted' && typeof console !== 'undefined') {
+      console.warn('[review-log] review events were not fully synchronized; quiz progress remains saved', result.status, result.errorCategory);
     }
   });
 }
