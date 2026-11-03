@@ -686,9 +686,20 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
     // Keep every actual submission, but designate only the last submitted attempt
     // for each item as the outcome that mirrors the existing AppData aggregate.
-    const submittedAttempts = s.reviewAttempts.length > 0
+    const lastQuestionIndex = new Map<string, number>();
+    s.questions.forEach((question, index) => lastQuestionIndex.set(question.id, index));
+    const submittedAttempts: ReviewAttemptRecord[] = s.reviewAttempts.length > 0
       ? s.reviewAttempts
-      : finalAnswers.filter((answer) => answer.selectedIndices.length > 0);
+      : finalAnswers
+          .filter((answer) => answer.selectedIndices.length > 0)
+          .map((answer) => {
+            const questionIndex = lastQuestionIndex.get(answer.questionId) ?? 0;
+            return {
+              ...answer,
+              optionOrder: answer.optionOrder ?? s.optionOrders[questionIndex] ?? [],
+              questionIndex,
+            };
+          });
     const lastAttemptByQuestion = new Map<string, number>();
     submittedAttempts.forEach((answer, index) => lastAttemptByQuestion.set(answer.questionId, index));
     const questionById = new Map(s.questions.map((question) => [question.id, question]));
