@@ -142,6 +142,34 @@ async function seedFpscWorkspace(page: Page) {
   await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
 }
 
+async function seedMeteorologyWorkspace(page: Page) {
+  await page.goto('/');
+  await page.evaluate(
+    ({ appKey, quizKey, subjectKey, data }) => {
+      localStorage.removeItem(quizKey);
+      localStorage.setItem(appKey, JSON.stringify(data));
+      localStorage.setItem(subjectKey, JSON.stringify({
+        activeTrack: 'fpsc',
+        byTrack: {
+          fpsc: {
+            perScreen: { learn: 'meteo-climatology' },
+            lastSelected: 'meteo-climatology',
+            prefersAll: false,
+          },
+        },
+      }));
+    },
+    {
+      appKey: APP_DATA_KEY,
+      quizKey: QUIZ_PROGRESS_KEY,
+      subjectKey: SUBJECT_SELECTION_KEY,
+      data: enrolledFpscAppData(),
+    },
+  );
+  await page.reload();
+  await expect(page.locator('main')).toBeVisible({ timeout: 15_000 });
+}
+
 async function answerCurrentQuestion(page: Page) {
   const check = page.getByRole('button', { name: /^Check Answer$/i });
   await expect(check).toBeVisible({ timeout: 20_000 });
@@ -235,4 +263,17 @@ test('quiz progress and results stay within the desktop accessibility baseline',
   }
   await expect(resultsHeading).toBeVisible({ timeout: 30_000 });
   await scanAxe(page, 'quiz-results@desktop-1280x800');
+});
+
+test('AI tutor dialog stays within the desktop accessibility baseline', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedMeteorologyWorkspace(page);
+  await page.goto('/topic/meteo-origin-evolution?axe-tutor=1');
+
+  await expect(page.getByRole('heading', { name: 'Origin & Chemical Evolution of the Atmosphere', exact: true })).toBeVisible({ timeout: 20_000 });
+  await page.getByRole('button', { name: 'Ask AI Tutor', exact: true }).click();
+  const dialog = page.getByRole('dialog', { name: 'AI tutor for Origin & Chemical Evolution of the Atmosphere' });
+  await expect(dialog).toBeVisible();
+  await scanAxe(page, 'ai-tutor-dialog@desktop-1280x800');
 });
