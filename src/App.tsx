@@ -299,7 +299,7 @@ function AppContent() {
 
   useEffect(() => {
     const onReviewPersistence = (event: Event) => {
-      const detail = (event as CustomEvent<{ status: string; count?: number }>).detail;
+      const detail = (event as CustomEvent<{ status: string; count?: number; recoveryQueued?: boolean; errorCategory?: string }>).detail;
       if (!detail) return;
       if (detail.status === 'recovered') {
         setReviewPersistenceNotice({
@@ -311,9 +311,14 @@ function AppContent() {
           message: 'Your quiz progress is saved. Some review records are safely queued and will be retried automatically.',
           urgent: false,
         });
+      } else if (detail.status === 'failed' && detail.recoveryQueued) {
+        setReviewPersistenceNotice({
+          message: 'Your quiz progress is saved. A review record is preserved in the recovery queue, but a data conflict needs attention before it can be synchronized.',
+          urgent: true,
+        });
       } else if (detail.status === 'failed') {
         setReviewPersistenceNotice({
-          message: 'Your quiz progress is saved, but review records could not be queued for recovery. Keep this tab open and check your browser storage.',
+          message: 'Your quiz progress is saved, but review records could not be placed in the recovery queue. Check available browser storage before closing this tab.',
           urgent: true,
         });
       }
