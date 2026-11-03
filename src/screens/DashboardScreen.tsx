@@ -73,10 +73,12 @@ export function DashboardScreen() {
   const activeWorkspaceProfileId = activeWorkspaceTrack
     ? (trackMembership.enrollments[activeWorkspaceTrack]?.activeExamId ?? null)
     : null;
-  const configuredSessions = activeWorkspaceTrack
-    ? (data.examSessionsByProfile?.[getExamSessionConfigKey(activeWorkspaceTrack, activeWorkspaceProfileId)] ?? [])
-    : [];
-  const nextExam = useMemo(() => getNextSession(configuredSessions, now), [configuredSessions, now]);
+  const nextExam = useMemo(() => {
+    const configuredSessions = activeWorkspaceTrack
+      ? (data.examSessionsByProfile?.[getExamSessionConfigKey(activeWorkspaceTrack, activeWorkspaceProfileId)] ?? [])
+      : [];
+    return getNextSession(configuredSessions, now);
+  }, [activeWorkspaceTrack, activeWorkspaceProfileId, data.examSessionsByProfile, now]);
   const examTarget = useMemo(
     () => (nextExam ? getExamCountdownTarget(nextExam, now) : null),
     [nextExam, now],
@@ -109,21 +111,22 @@ export function DashboardScreen() {
   const recSubtext = rec.subtext;
   const recAction = rec.action;
 
-  const workspaceFocus = trackMembership.activeTrackId
-    ? {
-        trackId: trackMembership.activeTrackId,
-        examId: trackMembership.enrollments[trackMembership.activeTrackId]?.activeExamId ?? null,
-      }
+  const workspaceTrackId = trackMembership.activeTrackId;
+  const workspaceExamId = workspaceTrackId
+    ? (trackMembership.enrollments[workspaceTrackId]?.activeExamId ?? null)
     : null;
 
   const draftAssessment = useMemo(() => {
     try {
       const raw = localStorage.getItem('examprep-quiz-progress');
+      const workspaceFocus = workspaceTrackId
+        ? { trackId: workspaceTrackId, examId: workspaceExamId }
+        : null;
       return assessSavedDraftForResume(raw ? JSON.parse(raw) : null, workspaceFocus);
     } catch {
       return { status: 'none' as const };
     }
-  }, [data.quizHistory, workspaceFocus?.trackId, workspaceFocus?.examId]);
+  }, [data.quizHistory, workspaceTrackId, workspaceExamId]);
 
   const resumableDraft = draftAssessment.status === 'eligible' ? draftAssessment.draft : null;
 
