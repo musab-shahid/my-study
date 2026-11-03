@@ -23,6 +23,22 @@ export interface Sm2ShadowState {
   lastTs: number;
 }
 
+const QUIZ_REVIEW_MODES = new Set(['topic', 'quick', 'mock', 'review', 'challenge']);
+
+/**
+ * Binary recall evaluation is currently defined only for submitted quiz answers.
+ * Keep final aggregate-eligible attempts; exclude re-queued attempts, unanswered
+ * timeout slots, flashcard grades, and lesson checks until they have dedicated
+ * outcome adapters and evaluation targets.
+ */
+export function schedulerEvaluationEvents(events: ReviewEvent[]): ReviewEvent[] {
+  return events.filter((event) =>
+    QUIZ_REVIEW_MODES.has(event.mode) &&
+    event.responseStatus !== 'unanswered' &&
+    event.aggregateEligible !== false,
+  );
+}
+
 function clampEase(e: number): number {
   return Math.max(1.3, Math.min(3.0, e));
 }
@@ -76,7 +92,7 @@ export function sm2Evaluate(events: ReviewEvent[]): {
   logLoss: number | null;
   n: number;
 } {
-  const ordered = [...events].sort((a, b) => a.ts - b.ts);
+  const ordered = schedulerEvaluationEvents(events).sort((a, b) => a.ts - b.ts);
   const states: Record<string, Sm2ShadowState> = {};
   const eps = 1e-7;
   let sum = 0;
@@ -134,5 +150,5 @@ export function compareSchedulersOnLog(events: ReviewEvent[]): SchedulerCompareR
 
 /** Export card states after walking the log (for diagnostics). */
 export function finalFsrsStates(events: ReviewEvent[]): Record<string, ShadowCardState> {
-  return shadowEvaluate(events).states;
+  return shadowEvaluate(schedulerEvaluationEvents(events)).states;
 }
