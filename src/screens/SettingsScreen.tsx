@@ -411,7 +411,9 @@ export function SettingsScreen() {
           <p>
             <strong className="font-medium">On this device.</strong>{' '}
             Study progress, quiz history, and preferences are stored in your browser
-            (localStorage). They stay on the device until you clear site data or restore a backup.
+            (localStorage). Detailed per-question review records and their recovery queue are stored separately
+            in this browser's IndexedDB. Review records are currently device-local and are not included in the
+            JSON export or account-wide cloud backup. Clearing this site's browser data removes both stores.
           </p>
           <p>
             <strong className="font-medium">Cloud backup (optional).</strong>{' '}
