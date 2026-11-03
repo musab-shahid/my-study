@@ -135,4 +135,22 @@ test.describe('route-change focus and announcements', () => {
     }
   });
 
+
+  test('moves focus when the parent route changes while the screen stays the same', async ({ page }) => {
+    await page.setViewportSize({ width: 1280, height: 800 });
+    await page.goto('/topic/meteo-origin-evolution');
+    const initialHeading = page.locator('#main-content h1').first();
+    await expect(initialHeading).toBeVisible();
+
+    const nextTopic = page.getByRole('button', { name: /^Next /i });
+    await expect(nextTopic).toBeVisible();
+    await nextTopic.click();
+
+    const destinationHeading = page.locator('#main-content h1').first();
+    await expect(destinationHeading).toBeVisible();
+    await expect(destinationHeading).not.toHaveText((await initialHeading.innerText()).trim());
+    await expect(destinationHeading).toBeFocused();
+    await expect(page.locator('#route-announcement')).toContainText((await destinationHeading.innerText()).trim());
+  });
+
 });
