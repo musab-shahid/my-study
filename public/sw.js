@@ -1,6 +1,16 @@
 const CACHE = 'examprep-v3';
 const PACK_CACHE_PREFIX = `my-study-offline-pack-${CACHE}-`;
-const PRECACHE = ['/', '/index.html', '/manifest.json', '/favicon.svg'];
+const PRECACHE = [
+  '/',
+  '/index.html',
+  '/manifest.json',
+  '/favicon.svg',
+  '/fonts/inter/inter-latin-400-normal.woff2',
+  '/fonts/inter/inter-latin-500-normal.woff2',
+  '/fonts/inter/inter-latin-600-normal.woff2',
+  '/fonts/inter/inter-latin-700-normal.woff2',
+  '/fonts/inter/inter-latin-800-normal.woff2',
+];
 const OFFLINE_PACK_TRACKS = new Set(['fpsc', 'hat', 'cgei']);
 
 self.addEventListener('install', (e) => {
