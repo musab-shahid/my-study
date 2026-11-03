@@ -58,6 +58,7 @@
     "build:e2e": "vite build --mode e2e && node scripts/security-headers.mjs --write && node scripts/check-bundle-budget.mjs"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@eslint/js": "^9.39.5",
     "@playwright/test": "^1.64.1",
     "@types/katex": "^0.16.8",
@@ -72,10 +73,10 @@
     "playwright": "^1.49.1",
     "postcss": "^8.5.31",
     "tailwindcss": "^3.4.19",
+    "ts-fsrs": "5.4.2",
     "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.72.0",
-    "vite": "^7.1.12",
-    "@axe-core/playwright": "^4.10.1"
+    "vite": "^7.1.12"
   }
 }
