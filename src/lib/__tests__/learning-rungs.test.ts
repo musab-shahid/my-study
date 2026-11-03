@@ -46,8 +46,11 @@ describe('fsrs shadow compare', () => {
       }),
     ];
     const r = compareSchedulersOnLog(events);
-    assert.ok(r.predictionCount >= 2);
+    // The default 80/20 chronological holdout scores only future events
+    // with prior item history; this fixture therefore has one held-out prediction.
+    assert.equal(r.predictionCount, 1);
     assert.ok(r.fsrsLogLoss != null && r.fsrsLogLoss > 0);
+    assert.ok(r.productionPolicyLogLoss != null && r.productionPolicyLogLoss > 0);
     assert.ok(r.sm2LogLoss != null && r.sm2LogLoss > 0);
     assert.ok(r.constant68LogLoss != null);
   });
