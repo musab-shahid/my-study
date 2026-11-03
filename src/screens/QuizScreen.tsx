@@ -39,7 +39,7 @@ import {
 } from '@/lib/quiz-session';
 import { pickAdaptiveQuestions, recentQuestionIdsFromResults } from '@/lib/adaptive-select';
 import { instantiatePool } from '@/lib/quant-template';
-import { applyOptionOrder, applySavedOptionOrders } from '@/lib/quiz-option-order';
+import { applyOptionOrder } from '@/lib/quiz-option-order';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
 import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
