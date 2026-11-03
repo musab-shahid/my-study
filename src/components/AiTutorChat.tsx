@@ -647,17 +647,27 @@ _…reply may have been cut off by the model length limit. Ask “continue” to
         )}
       </div>
 
-      <details className="border-b border-slate-200 bg-white px-4 py-2 text-xs text-ink-muted">
-        <summary className="cursor-pointer font-medium text-ink-muted">How tutor data is used</summary>
-        <p className="mt-2 leading-relaxed">
-          Your conversation, current topic material, and relevant study context (such as recent missed questions,
-          quiz performance, and saved struggle notes) may be sent to the selected {availableModels.find((model) => model.id === modelId)?.provider ?? 'AI'} provider.
-          Depending on this deployment, requests go through My Study's Supabase proxy or directly from your browser.
-          This browser stores up to 40 chat messages and four tutor-memory notes per topic. The provider's own
-          privacy and retention terms apply to requests it receives. You can clear locally stored tutor chats and
-          memory for all topics in Settings → Data &amp; privacy.
+      <section
+        role="note"
+        aria-label="Before sending data to the AI tutor"
+        className="border-b border-brand-100 bg-brand-50/60 px-4 py-3 text-xs text-ink"
+      >
+        <p className="font-semibold text-ink">Before you send a message</p>
+        <p className="mt-1 leading-relaxed">
+          The selected {availableModels.find((model) => model.id === modelId)?.provider ?? 'AI'} provider receives your
+          current message and earlier messages in this tutor conversation; the current topic title and selected study
+          material (which may include definitions, key facts, explanations, formulas, worked examples, and common
+          mistakes); up to five recent missed question stems for this topic; coarse performance bands for this topic
+          and up to three topics flagged for practice; and up to four saved struggle notes for this topic.
+          Exact percentages, answer counts, ability estimates, review stages, and review dates are not sent.
         </p>
-      </details>
+        <p className="mt-1 leading-relaxed">
+          Depending on this deployment, requests go through My Study's Supabase proxy or directly from your browser.
+          The selected provider's own privacy and retention terms apply. This browser stores up to 40 chat messages
+          and four tutor-memory notes per topic. You can clear locally stored tutor chats and memory for all topics in
+          Settings → Data &amp; privacy.
+        </p>
+      </section>
 
       {/* Messages */}
       <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-slate-50">
