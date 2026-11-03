@@ -1,18 +1,33 @@
 /**
- * Resolve the package scripts reachable from CI and the unified CGEI gate.
- * Script names are discovered from npm-run references rather than a second
- * hand-maintained list of delegated checks.
+ * Resolve package scripts reachable from CI and the unified CGEI gate.
+ * Recognizes both shell-form npm run commands and spawnSync argument arrays.
  */
 const GATED_SCRIPT = /^(?:check(?::.*)?|audit:.*|lint:.*|validate:.*)$/;
 
 function npmRunReferences(source) {
-  return [...source.matchAll(/\bnpm\s+run\s+([a-zA-Z0-9:_-]+)/g)].map((match) => match[1]);
+  return [...source.matchAll(
+    /(?:\bnpm\s+run\s+([a-zA-Z0-9:_-]+)|['"]npm['"]\s*,\s*\[\s*['"]run['"]\s*,\s*['"]([a-zA-Z0-9:_-]+)['"])/g,
+  )].map((match) => match[1] ?? match[2]);
+}
+
+function directScriptFiles(source) {
+  return new Set([...source.matchAll(/['"](scripts\/[^'"]+\.mjs)['"]/g)].map((match) => match[1]));
+}
+
+function scriptFile(command) {
+  return command.match(/(scripts\/[^\s"']+\.mjs)/)?.[1];
 }
 
 export function findUnaccountedScripts({ scripts, workflow, checkCgei, allowlist }) {
   const names = Object.keys(scripts).filter((name) => GATED_SCRIPT.test(name));
   const reachable = new Set();
   const queue = [...npmRunReferences(workflow), ...npmRunReferences(checkCgei)];
+  const cgeiFiles = directScriptFiles(checkCgei);
+
+  for (const name of names) {
+    const file = scriptFile(scripts[name]);
+    if (file && cgeiFiles.has(file)) reachable.add(name);
+  }
 
   while (queue.length) {
     const name = queue.shift();
