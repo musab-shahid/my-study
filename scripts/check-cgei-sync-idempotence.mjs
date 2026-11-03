@@ -50,4 +50,13 @@ if (changed) {
   console.error('CGEI sync is not idempotent — commit the regenerated files.');
   process.exit(1);
 }
-console.log('CGEI sync idempotence OK.');
+const registryCheck = spawnSync('npm', ['run', 'check:cgei-registry'], {
+  cwd: root,
+  stdio: 'inherit',
+  shell: process.platform === 'win32',
+});
+if (registryCheck.status !== 0) {
+  console.error('CGEI registry manifest is stale after sync.');
+  process.exit(registryCheck.status ?? 1);
+}
+console.log('CGEI sync idempotence and registry manifest checks OK.');
