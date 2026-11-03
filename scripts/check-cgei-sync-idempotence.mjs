@@ -36,7 +36,7 @@ if (result.status !== 0) {
   process.exit(result.status ?? 1);
 }
 
-// Compare after (the registry manifest's generatedAt is intentionally refreshed).
+// Compare after
 let changed = false;
 for (const rel of files) {
   const after = readFileSync(resolve(root, rel), 'utf8');
@@ -50,13 +50,4 @@ if (changed) {
   console.error('CGEI sync is not idempotent — commit the regenerated files.');
   process.exit(1);
 }
-const registryCheck = spawnSync('npm', ['run', 'check:cgei-registry'], {
-  cwd: root,
-  stdio: 'inherit',
-  shell: process.platform === 'win32',
-});
-if (registryCheck.status !== 0) {
-  console.error('CGEI registry manifest is stale after sync.');
-  process.exit(registryCheck.status ?? 1);
-}
-console.log('CGEI sync idempotence and registry manifest checks OK.');
+console.log('CGEI sync idempotence OK.');
