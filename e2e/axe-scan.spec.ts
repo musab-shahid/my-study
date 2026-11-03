@@ -1,8 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { allowedModerateCounts, findModerateIncreases } from '../scripts/lib/axe-moderate-baseline.mjs';
 
-type ModerateBaseline = Record<string, Record<string, number>>;
+type ModerateBaseline = { version: number; moderate: Record<string, Record<string, number>> };
 const baseline = JSON.parse(
   readFileSync(new URL('./axe-moderate-baseline.json', import.meta.url), 'utf8'),
 ) as ModerateBaseline;
@@ -37,9 +38,9 @@ async function scanAxe(page: Page, scenario: string) {
     violation.impact === 'serious' || violation.impact === 'critical',
   );
   const moderate = results.violations.filter((violation) => violation.impact === 'moderate');
-  const allowed = baseline[scenario] ?? {};
+  const allowed = allowedModerateCounts(baseline, scenario);
   const actual = Object.fromEntries(moderate.map((violation) => [violation.id, violation.nodes.length]));
-  const increases = Object.entries(actual).filter(([id, count]) => count > (allowed[id] ?? 0));
+  const increases = findModerateIncreases(actual, allowed);
   const moderateDetails = moderate.map((violation) =>
     `${violation.id} (${violation.nodes.length}): ${violation.help}\n${violation.nodes.map((node) => node.target.join(' ')).join('\n')}`,
   ).join('\n');
