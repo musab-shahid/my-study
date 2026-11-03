@@ -359,10 +359,10 @@ function AppContent() {
               <ScreenRouter />
             </Suspense>
           </ErrorBoundary>
+          <div id="route-announcement" role="status" aria-live="polite" aria-atomic="true" className="sr-only">
+            {routeAnnouncement}
+          </div>
         </main>
-      </div>
-      <div id="route-announcement" role="status" aria-live="polite" aria-atomic="true" className="sr-only">
-        {routeAnnouncement}
       </div>
       <MobileNav />
       <OfflineIndicator />
