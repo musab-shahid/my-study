@@ -141,6 +141,7 @@ test.describe('route-change focus and announcements', () => {
     await page.goto('/topic/meteo-origin-evolution');
     const initialHeading = page.locator('#main-content h1').first();
     await expect(initialHeading).toBeVisible();
+    const initialHeadingText = (await initialHeading.innerText()).trim();
 
     const nextTopic = page.getByRole('button', { name: /^Next /i });
     await expect(nextTopic).toBeVisible();
@@ -148,7 +149,7 @@ test.describe('route-change focus and announcements', () => {
 
     const destinationHeading = page.locator('#main-content h1').first();
     await expect(destinationHeading).toBeVisible();
-    await expect(destinationHeading).not.toHaveText((await initialHeading.innerText()).trim());
+    await expect(destinationHeading).not.toHaveText(initialHeadingText);
     await expect(destinationHeading).toBeFocused();
     await expect(page.locator('#route-announcement')).toContainText((await destinationHeading.innerText()).trim());
   });
