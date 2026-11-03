@@ -1,5 +1,5 @@
 const CACHE = 'examprep-v3';
-const PACK_CACHE_PREFIX = `${CACHE}-pack-`;
+const PACK_CACHE_PREFIX = `my-study-offline-pack-${CACHE}-`;
 const PRECACHE = ['/', '/index.html', '/manifest.json', '/favicon.svg'];
 const OFFLINE_PACK_TRACKS = new Set(['fpsc', 'hat', 'cgei']);
 
