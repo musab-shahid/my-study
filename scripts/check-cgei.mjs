@@ -17,6 +17,7 @@ const steps = [
   ['npm', ['run', 'check:cgei-sync']],
   ['npm', ['run', 'report:cgei-unit', '--', '--unit', 'cgei-cl-unit-2-4', '--check-structure']],
   ['npm', ['run', 'check:cgei-readiness-transitions']],
+  ['npm', ['run', 'check:cgei-registry']],
   ['npm', ['run', 'validate:data']],
   ['npm', ['run', 'audit:core-leaf-evidence']],
   ['npm', ['run', 'check:cgei-question-ids']],
