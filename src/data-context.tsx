@@ -53,7 +53,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
       window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
         detail: result.status === 'recovered'
           ? { status: 'recovered', count: result.recovered }
-          : { status: 'pending', count: result.pending, errorCategory: result.errorCategory },
+          : { status: result.status, count: result.pending, errorCategory: result.errorCategory, recoveryQueued: result.pending > 0 },
       }));
     }).catch(() => {
       if (!active) return;
@@ -142,6 +142,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
           status: result.status,
           count: result.events.length,
           errorCategory: result.errorCategory,
+          recoveryQueued: result.recoveryQueued,
         },
       }));
     });
