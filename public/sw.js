@@ -1,5 +1,7 @@
 const CACHE = 'examprep-v3';
+const PACK_CACHE_PREFIX = `${CACHE}-pack-`;
 const PRECACHE = ['/', '/index.html', '/manifest.json', '/favicon.svg'];
+const OFFLINE_PACK_TRACKS = new Set(['fpsc', 'hat', 'cgei']);
 
 self.addEventListener('install', (e) => {
   // Precache shell URLs individually so one 404 does not fail the whole install
@@ -22,13 +24,82 @@ self.addEventListener('install', (e) => {
 self.addEventListener('message', (e) => {
   if (e.data && e.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
+    return;
   }
+
+  if (!e.data || e.data.type !== 'CACHE_OFFLINE_PACK') return;
+
+  const replyPort = e.ports && e.ports[0];
+  const { trackId, urls } = e.data;
+  const task = (async () => {
+    if (!OFFLINE_PACK_TRACKS.has(trackId)) {
+      throw new Error('Unknown track for offline pack');
+    }
+    if (!Array.isArray(urls) || urls.length === 0) {
+      throw new Error('Offline pack contains no app assets');
+    }
+
+    const normalizedUrls = [...new Set(urls.map((value) => {
+      if (typeof value !== 'string' || value.length === 0) {
+        throw new Error('Offline pack contains an invalid asset URL');
+      }
+      const url = new URL(value, location.origin);
+      if (
+        url.origin !== location.origin ||
+        !url.pathname.startsWith('/assets/') ||
+        !/\\.(?:js|css|woff2|svg|png|webp|jpe?g|avif)$/i.test(url.pathname)
+      ) {
+        throw new Error('Offline packs may contain only same-origin app assets');
+      }
+      return url.href;
+    }))];
+
+    // Write into a new cache first. A failed download never destroys the last
+    // complete pack; old versions are removed only after every new asset lands.
+    const cacheName = `${PACK_CACHE_PREFIX}${trackId}-${Date.now()}`;
+    const cache = await caches.open(cacheName);
+    try {
+      for (const url of normalizedUrls) {
+        const existing = await caches.match(url);
+        const response = existing || await fetch(url, { credentials: 'same-origin' });
+        if (!response || !response.ok) {
+          throw new Error('An offline-pack asset could not be downloaded');
+        }
+        await cache.put(url, response.clone());
+      }
+
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames
+          .filter((name) => name.startsWith(`${PACK_CACHE_PREFIX}${trackId}-`) && name !== cacheName)
+          .map((name) => caches.delete(name))
+      );
+
+      return { ok: true, cacheName, cachedCount: normalizedUrls.length };
+    } catch (error) {
+      await caches.delete(cacheName);
+      throw error;
+    }
+  })();
+
+  e.waitUntil(
+    task
+      .then((result) => replyPort && replyPort.postMessage(result))
+      .catch((error) => replyPort && replyPort.postMessage({
+        ok: false,
+        error: error instanceof Error ? error.message : 'Could not prepare offline pack',
+      }))
+  );
 });
 
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k)))
+      Promise.all(
+        keys
+          .filter((key) => key !== CACHE && !key.startsWith(PACK_CACHE_PREFIX))
+          .map((key) => caches.delete(key))
+      )
     ).then(() => self.clients.claim())
   );
 });
