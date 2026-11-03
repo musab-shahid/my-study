@@ -114,7 +114,7 @@ export function ExamScheduleSettings() {
   useEffect(() => {
     if (trackMembership.activeTrackId && isTrackId(trackMembership.activeTrackId)) {
       setTrackValue(trackMembership.activeTrackId);
-      setProfileValue(trackMembership.enrollments[trackMembership.activeTrackId]?.activeExamId ?? 'general');
+      setProfileValue(activeProfileForTrack ?? 'general');
     }
   }, [trackMembership.activeTrackId, activeProfileForTrack]);
 
