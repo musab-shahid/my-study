@@ -8,6 +8,8 @@ import { sectionMap } from '../data/sections.ts';
 import { getTopic } from '../data/topics.ts';
 import { contentEligibleForScope } from './track-scope.ts';
 import { isTrackId, type TrackId } from '../data/tracks.ts';
+import { applyOptionOrderPure, isValidOptionPermutation } from './quiz-option-order.ts';
+export { applyOptionOrderPure, isValidOptionPermutation } from './quiz-option-order.ts';
 
 export type QuizSessionSnapshot = {
   trackId: TrackId;
@@ -60,8 +62,6 @@ export function validateQuizRequest(params: QuizRequest): QuizRequestValidation 
   return { ok: true, request: params };
 }
 
-export { isValidOptionPermutation, applyOptionOrderPure } from './quiz-option-order.ts';
-import { applyOptionOrderPure } from './quiz-option-order.ts';
 export type SavedAnswerRecord = {
   questionId: string;
   correct: boolean;
