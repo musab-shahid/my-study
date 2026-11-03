@@ -1,4 +1,4 @@
-import { createEmptyCard, fsrs, Rating } from 'ts-fsrs';
+import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
 import type { ReviewEvent } from './review-event.ts';
 import { gradeFromAttempt, validateReviewEvent } from './review-event.ts';
 import { scheduleAfterReview } from './spaced-repetition.ts';
@@ -20,7 +20,7 @@ const EPSILON = 1e-7;
 const Z_95 = 1.96;
 
 type SourceKind = 'synthetic' | 'unverified' | 'real';
-type FsrsCard = ReturnType<typeof createEmptyCard>;
+type FsrsCard = Card;
 
 export interface EvaluationOptions {
   trainFraction?: number;
