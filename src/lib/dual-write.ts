@@ -42,6 +42,8 @@ export interface DualWriteResult {
   errorCategory?: string;
   /** Number of persistence attempts made (including the initial attempt). */
   attempts: number;
+  /** True when an exact copy remains in the durable outbox for later recovery. */
+  recoveryQueued: boolean;
 }
 
 const MAX_RETRIES = 2;
@@ -78,6 +80,7 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
     deviceId,
     ts = Date.now(),
     log = getDefaultReviewLog(),
+    outbox = getDefaultReviewOutbox(),
   } = params;
 
   const events: ReviewEvent[] = answers.map((a, i) =>
@@ -102,7 +105,7 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
     await outbox.enqueueMany(events);
   } catch (err) {
     const errorCategory = err instanceof ReviewLogPersistenceError ? err.category : 'outbox_unavailable';
-    return { events, status: 'failed', errorCategory, attempts: 0 };
+    return { events, status: 'failed', errorCategory, attempts: 0, recoveryQueued: false };
   }
 
   let attempt = 0;
@@ -113,18 +116,18 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
       await log.appendMany(events);
       try {
         await outbox.removeMany(events.map((event) => event.id));
-        return { events, status: 'persisted', attempts: attempt + 1 };
+        return { events, status: 'persisted', attempts: attempt + 1, recoveryQueued: false };
       } catch (err) {
         // The primary log is safe; leaving the outbox entry is also safe
         // because replay is idempotent and cleanup can be retried later.
         const errorCategory = err instanceof ReviewLogPersistenceError ? err.category : 'outbox_cleanup_failed';
-        return { events, status: 'pending', errorCategory, attempts: attempt + 1 };
+        return { events, status: 'pending', errorCategory, attempts: attempt + 1, recoveryQueued: true };
       }
     } catch (err) {
       lastError = err;
       if (!isTransientError(err)) {
         const errorCategory = err instanceof ReviewLogPersistenceError ? err.category : 'unknown';
-        return { events, status: 'pending', errorCategory, attempts: attempt + 1 };
+        return { events, status: 'failed', errorCategory, attempts: attempt + 1, recoveryQueued: true };
       }
       if (attempt < MAX_RETRIES) {
         await sleep(RETRY_BASE_DELAY_MS * Math.pow(2, attempt));
@@ -134,7 +137,7 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
   }
 
   const errorCategory = lastError instanceof ReviewLogPersistenceError ? lastError.category : 'unknown';
-  return { events, status: 'pending', errorCategory, attempts: attempt };
+  return { events, status: 'pending', errorCategory, attempts: attempt, recoveryQueued: true };
 }
 
 /** Fire-and-forget wrapper for use from synchronous storage paths. */
