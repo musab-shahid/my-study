@@ -306,6 +306,10 @@ test.describe('AI tutor dialog accessibility across viewports', () => {
       await page.getByRole('button', { name: 'Ask AI Tutor', exact: true }).click();
       const dialog = page.getByRole('dialog', { name: 'AI tutor for Origin & Chemical Evolution of the Atmosphere' });
       await expect(dialog).toBeVisible();
+      await expect(dialog.getByText('Before you send a message', { exact: true })).toBeVisible();
+      await expect(dialog.getByText(/up to five recent missed question stems/i)).toBeVisible();
+      await expect(dialog.getByText(/coarse performance bands/i)).toBeVisible();
+      await expect(dialog.getByText(/up to four saved struggle notes/i)).toBeVisible();
       await scanAxe(page, `ai-tutor-dialog@${viewport.name}`);
     });
   }
