@@ -17,7 +17,7 @@
 import { env, isAiProxyConfigured } from './runtime-env.ts';
 import type { AppData } from '../types.ts';
 import { validateCloudRestoreData } from './cloud-restore.ts';
-import { pullAccountProgressSnapshot, pushAccountProgressSnapshot, type PullProgressResult } from './progress-sync-http.ts';
+import { MAX_PROGRESS_PAYLOAD_BYTES, pullAccountProgressSnapshot, pushAccountProgressSnapshot, type PullProgressResult } from './progress-sync-http.ts';
 import { getDeviceId } from './device-id.ts';
 import { isAccessTokenExpired, userIdFromAccessToken } from './access-token.ts';
 import {
@@ -91,6 +91,10 @@ async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | {
 export async function pushProgress(data: AppData, expectedUpdatedAt: string | null = null): Promise<{ ok: boolean; error?: string }> {
   // Reject malformed local state before auth refresh or any network request.
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
+  const encoded = JSON.stringify(data);
+  if (new TextEncoder().encode(encoded).byteLength > MAX_PROGRESS_PAYLOAD_BYTES) {
+    return { ok: false, error: 'payload-too-large' };
+  }
 
   const auth = await ensureFreshAccessToken();
   if (!auth.ok) return auth;
