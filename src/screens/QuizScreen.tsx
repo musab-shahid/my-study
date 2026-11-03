@@ -478,11 +478,12 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
   // Save quiz progress whenever submitted answers, attempt history, or currentIdx changes
   useEffect(() => {
-    if (state && !finished && state.questions.length > 0) {
+    const currentState = stateRef.current;
+    if (currentState && !finished && currentState.questions.length > 0) {
       const sess = sessionRef.current;
       if (!sess) return;
       saveQuizProgress(
-        state, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool,
+        currentState, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool,
         sess.trackId,
         sess.examId,
       );
@@ -620,7 +621,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     }
     setRetakeEmpty(false);
     initQuiz();
-  }, [wrongPool, data.questionResults, mode, topicId, topicIds, scope, subjectId, count, difficulty, initQuiz]);
+  }, [wrongPool, data.questionResults, data.topicProgress, mode, topicId, topicIds, scope, subjectId, count, difficulty, initQuiz]);
 
   // Load questions first, then init quiz.
   // Param-key change starts a *new* session (clears snapshot). Membership-only
@@ -783,8 +784,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }, [showExitConfirm]);
 
   // Timer: depends only on startTime / finished / timeLimit (finish via ref)
+  const quizStartTime = state?.startTime;
   useEffect(() => {
-    if (!state || finished || showExitConfirm) return;
+    if (quizStartTime === undefined || finished || showExitConfirm) return;
     if (timeLimit === 'none' || timeLimit === undefined) return;
     if (timeLimit === 'auto') return;
     if (typeof timeLimit !== 'number') return;
@@ -810,7 +812,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       }
     }, 1000);
     return () => clearInterval(interval);
-  }, [state?.startTime, finished, timeLimit, showExitConfirm]);
+  }, [quizStartTime, finished, timeLimit, showExitConfirm]);
 
   // Shared focus trap for exit confirmation modal
   useFocusTrap(exitModalRef, showExitConfirm, {
@@ -896,7 +898,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     });
 
     if (scheduleHypercorrectionMiss) scheduleNextDayHcMiss(q.id, q.topicId);
-  }, [mode]);
+  }, []);
 
   const handleNext = useCallback(() => {
     lastTapRef.current = null;
