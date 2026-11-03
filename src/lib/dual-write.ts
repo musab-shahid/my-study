@@ -183,7 +183,7 @@ export async function recoverPendingReviewEvents(
     return {
       recovered: 0,
       pending: pending.length,
-      status: 'pending',
+      status: err instanceof ReviewLogPersistenceError && PERMANENT_ERRORS.has(err.category) ? 'failed' : 'pending',
       errorCategory: err instanceof ReviewLogPersistenceError ? err.category : 'recovery_failed',
     };
   }
