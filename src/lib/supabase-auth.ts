@@ -239,7 +239,9 @@ export async function deleteAccount(): Promise<{ ok: true } | { ok: false; error
     );
     if (!res.ok) {
       if (res.status === 401) return { ok: false, error: 'Session expired. Sign in again, then retry.' };
-      if (res.status === 503) return { ok: false, error: 'Account deletion is not available in this deployment yet.' };
+      if (res.status === 403) return { ok: false, error: 'Recent password verification is required. Enter your password and try again.' };
+      if (res.status === 429) return { ok: false, error: 'Too many deletion attempts. Wait 15 minutes before trying again.' };
+      if (res.status === 503) return { ok: false, error: 'Account deletion is temporarily unavailable. Try again later.' };
       return { ok: false, error: 'Could not delete the account. Try again later.' };
     }
     setSessionTokens(null);

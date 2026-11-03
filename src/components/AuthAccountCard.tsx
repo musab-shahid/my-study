@@ -20,6 +20,7 @@ import {
 export function AuthAccountCard({ onSessionChange }: { onSessionChange?: () => void }) {
   const [email, setEmail] = useState(getStoredUserEmail() ?? '');
   const [password, setPassword] = useState('');
+  const [deletionPassword, setDeletionPassword] = useState('');
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
@@ -161,22 +162,44 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                 <p className="text-xs text-danger-800 leading-relaxed">
                   This permanently deletes your cloud account and synced progress backups.
                   Local data on this device is not removed automatically. This cannot be undone.
+                  To protect your account, verify your password again before deletion.
                 </p>
+                <label className="block">
+                  <span className="text-xs font-medium text-danger-900">Current password</span>
+                  <input
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    minLength={MIN_PASSWORD_LENGTH}
+                    value={deletionPassword}
+                    onChange={(e) => setDeletionPassword(e.target.value)}
+                    className="mt-1 w-full rounded-btn border border-danger-200 bg-white px-3 py-2 text-sm text-ink min-h-touch focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-danger-700"
+                    placeholder="Enter your password to confirm"
+                  />
+                </label>
                 <div className="flex flex-wrap gap-2">
                   <Button
                     type="button"
                     variant="secondary"
-                    disabled={busy}
+                    disabled={busy || deletionPassword.length < MIN_PASSWORD_LENGTH}
                     onClick={async () => {
                       setBusy(true);
                       setErr(null);
                       setMsg(null);
+                      const reauth = await signInWithPassword(getStoredUserEmail() || email, deletionPassword);
+                      setDeletionPassword('');
+                      if (!reauth.ok) {
+                        setBusy(false);
+                        setErr('Password verification failed. Check your password and try again.');
+                        return;
+                      }
                       const result = await deleteAccount();
                       setBusy(false);
                       if (result.ok) {
                         setConfirmDelete(false);
                         setSignedIn(false);
                         setPassword('');
+                        setDeletionPassword('');
                         setMsg('Cloud account deleted. Local study data on this device was kept.');
                         refresh();
                         onSessionChange?.();
@@ -185,13 +208,16 @@ VITE_SUPABASE_ANON_KEY=eyJ...`}</pre>
                       }
                     }}
                   >
-                    {busy ? 'Deleting…' : 'Yes, delete my account'}
+                    {busy ? 'Verifying and deleting…' : 'Verify password and delete'}
                   </Button>
                   <Button
                     type="button"
                     variant="ghost"
                     disabled={busy}
-                    onClick={() => setConfirmDelete(false)}
+                    onClick={() => {
+                      setConfirmDelete(false);
+                      setDeletionPassword('');
+                    }}
                   >
                     Cancel
                   </Button>
