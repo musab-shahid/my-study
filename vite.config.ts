@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import { getCgeiSubjectChunkName } from './scripts/lib/cgei-subject-chunks.mjs';
 import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 import { swPrecachePlugin } from './vite-sw-plugin.js';
@@ -51,6 +52,10 @@ export default defineConfig({
             if (id.includes('lucide-react')) return 'vendor-icons';
             return 'vendor';
           }
+          // Keep the canonical topics/questions pair together per CGEI subject.
+          // The curriculum assembler and shared registry wiring remain outside these chunks.
+          const cgeiSubjectChunk = getCgeiSubjectChunkName(id);
+          if (cgeiSubjectChunk) return cgeiSubjectChunk;
           if (id.includes('/src/lib/')) return 'app-lib';
           // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (
