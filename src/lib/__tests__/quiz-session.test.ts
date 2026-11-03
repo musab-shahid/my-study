@@ -282,6 +282,34 @@ describe('reconcileRestoredDraft', () => {
     }
   });
 
+  it('restores repeated-item attempt history with per-attempt option permutations', () => {
+    const bank = [makeQ({ id: 'q1', correctAnswer: 1 })];
+    const firstOrder = [0, 1, 2, 3];
+    const secondOrder = [1, 0, 2, 3];
+    const draft = {
+      questionIds: ['q1', 'q1'],
+      optionOrders: [firstOrder, secondOrder],
+      answers: [{
+        questionId: 'q1',
+        correct: false,
+        selectedIndices: [0],
+        optionOrder: secondOrder,
+      }],
+      reviewAttempts: [
+        { questionId: 'q1', correct: true, selectedIndices: [0], optionOrder: firstOrder },
+        { questionId: 'q1', correct: false, selectedIndices: [0], optionOrder: secondOrder },
+      ],
+      currentIdx: 1,
+      mode: 'quick' as const,
+    };
+    const result = reconcileRestoredDraft([bank[0], bank[0]], draft);
+    assert.equal(result.ok, true);
+    if (result.ok) {
+      assert.equal(result.answers[0].correct, true);
+      assert.deepEqual(result.reviewAttempts?.map((attempt) => attempt.correct), [false, true]);
+    }
+  });
+
   it('rejects invalid option order when answers present', () => {
     const bank = [makeQ({ id: 'q1' })];
     const draft = {
