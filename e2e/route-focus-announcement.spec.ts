@@ -142,7 +142,8 @@ test.describe('route-change focus and announcements', () => {
       await page.goto('/');
 
       const skipLink = page.getByRole('link', { name: 'Skip to content' });
-      await skipLink.focus();
+      await page.keyboard.press('Tab');
+      await expect(skipLink).toBeFocused();
       await page.keyboard.press('Enter');
       await expect(page.locator('#main-content')).toBeFocused();
 
