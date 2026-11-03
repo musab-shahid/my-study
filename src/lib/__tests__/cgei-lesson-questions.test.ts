@@ -39,7 +39,7 @@ describe('cgei-lesson-questions', () => {
   it('caps the initial lesson-page list but preserves an explicit show-all path', () => {
     const items = Array.from({ length: 8 }, (_, index) => ({
       id: `q${index + 1}`, prompt: `Question ${index + 1}`, options: ['a', 'b'],
-      correctAnswer: 0, difficulty: 'easy', explanation: '', source: 'bank' as const,
+      correctAnswer: 0, difficulty: 'easy', explanation: '', source: 'bank' as const, skillId: 'lesson-1',
     }));
     assert.equal(LESSON_CHECK_DISPLAY_LIMIT, 5);
     assert.equal(getVisibleLessonChecks(items, false).length, 5);
@@ -72,5 +72,6 @@ describe('cgei-lesson-questions', () => {
     assert.equal(items.length, 1);
     assert.equal(items[0]?.prompt, 'Bank prompt');
     assert.equal(items[0]?.source, 'bank');
+    assert.equal(items[0]?.skillId, 'lesson-1');
   });
 });
