@@ -2,7 +2,8 @@ import type { TrackId } from '@/data/tracks';
 import { loadSubjectQuestions, loadSubjectTopics } from '@/data/lazy-data';
 import { subjectsForScope } from '@/lib/track-scope';
 
-export const OFFLINE_PACK_CACHE_PREFIX = 'my-study-offline-pack-examprep-v3-';
+// The service-worker plugin hashes CACHE per build; match the stable app-owned namespace.
+export const OFFLINE_PACK_CACHE_PREFIX = 'my-study-offline-pack-examprep-';
 
 export type OfflinePackStatus = {
   installed: boolean;
@@ -42,7 +43,7 @@ export function collectOfflineAssetUrls(
 
 function packNamesForTrack(names: string[], trackId: TrackId): string[] {
   return names
-    .filter((name) => name.startsWith(`${OFFLINE_PACK_CACHE_PREFIX}${trackId}-`))
+    .filter((name) => name.startsWith(OFFLINE_PACK_CACHE_PREFIX) && name.includes(`-${trackId}-`))
     .sort();
 }
 
