@@ -762,7 +762,7 @@ export function isTutorAvailable(): boolean {
   if (
     env.E2E_TUTOR_UI &&
     typeof window !== 'undefined' &&
-    new URLSearchParams(window.location.search).get('axe-tutor') === '1'
+    window.sessionStorage.getItem('axe-tutor-ui') === '1'
   ) return true;
   if (isAiProxyConfigured()) return true;
   return Boolean(
