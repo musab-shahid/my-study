@@ -84,6 +84,7 @@ export type SavedAnswerRecord = {
 
 export type SavedReviewAttemptRecord = SavedAnswerRecord & {
   optionOrder: number[];
+  questionIndex: number;
 };
 
 export type SavedDraftShape = {
@@ -189,6 +190,9 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       if (typeof ar.questionId !== 'string' || !seenQ.has(ar.questionId)) {
         return { ok: false, reason: 'review-attempt-unknown-question' };
       }
+      if (!Number.isInteger(ar.questionIndex) || (ar.questionIndex as number) < 0 || (ar.questionIndex as number) >= questionIds.length || questionIds[ar.questionIndex as number] !== ar.questionId) {
+        return { ok: false, reason: 'review-attempt-question-index' };
+      }
       const attemptCount = (reviewAttemptCounts.get(ar.questionId) ?? 0) + 1;
       if (attemptCount > 2) return { ok: false, reason: 'review-attempt-requeued-too-many-times' };
       reviewAttemptCounts.set(ar.questionId, attemptCount);
@@ -219,6 +223,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
         confidence: ar.confidence as 1 | 2 | 3 | undefined,
         latencyMs: ar.latencyMs as number | undefined,
         optionOrder: ar.optionOrder as number[],
+        questionIndex: ar.questionIndex as number,
         chosenOption: ar.chosenOption as string | undefined,
       });
     }
@@ -532,6 +537,9 @@ export function reconcileRestoredDraft(
     if (!selectionsValidForQuestion(displayed, attempt.selectedIndices)) {
       throw new Error('invalid-review-attempt-selection');
     }
+      if (!Number.isInteger(attempt.questionIndex) || attempt.questionIndex < 0 || attempt.questionIndex >= draft.questionIds.length || draft.questionIds[attempt.questionIndex] !== attempt.questionId) {
+        throw new Error('invalid-review-attempt-question-index');
+      }
       return { ...attempt, correct: gradeAnswer(displayed, attempt.selectedIndices), optionOrder: [...attempt.optionOrder] };
     });
   } catch {
