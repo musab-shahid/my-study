@@ -1,6 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { hasRecentAuthentication } from "../../../../supabase/functions/_shared/recent-auth.ts";
+import { hasRecentAuthentication } from "../../../supabase/functions/_shared/recent-auth.ts";
 
 function tokenFor(claims: Record<string, unknown>): string {
   const payload = btoa(JSON.stringify(claims))
