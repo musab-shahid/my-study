@@ -126,7 +126,7 @@ export function DashboardScreen() {
     } catch {
       return { status: 'none' as const };
     }
-  }, [data.quizHistory, workspaceTrackId, workspaceExamId]);
+  }, [workspaceTrackId, workspaceExamId]);
 
   const resumableDraft = draftAssessment.status === 'eligible' ? draftAssessment.draft : null;
 
