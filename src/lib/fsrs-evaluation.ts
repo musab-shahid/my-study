@@ -740,7 +740,6 @@ export function evaluateSchedulersChronologically(
   if (data.conflictingEventIds.length > 0) reasons.push('conflicting duplicate event IDs were excluded; resolve event-log integrity before promotion');
   reasons.push('learner-cohort analysis is unavailable because review events do not contain a durable privacy-safe learner cohort identifier');
 
-  const timestamps = data.eligibleEvents.map((event) => event.ts);
   return {
     reportVersion: 1,
     sourceKind,
