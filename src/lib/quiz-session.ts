@@ -78,6 +78,7 @@ export type SavedAnswerRecord = {
   selectedIndices: number[];
   confidence?: 1 | 2 | 3;
   latencyMs?: number;
+  submittedAt?: number;
   optionOrder?: number[];
   chosenOption?: string;
 };
@@ -168,6 +169,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
     }
     if (ar.confidence !== undefined && ![1, 2, 3].includes(ar.confidence as number)) return { ok: false, reason: 'answer-confidence' };
     if (ar.latencyMs !== undefined && (typeof ar.latencyMs !== 'number' || !Number.isFinite(ar.latencyMs) || ar.latencyMs < 0)) return { ok: false, reason: 'answer-latency' };
+    if (ar.submittedAt !== undefined && (typeof ar.submittedAt !== 'number' || !Number.isFinite(ar.submittedAt) || ar.submittedAt < 0)) return { ok: false, reason: 'answer-submitted-at' };
     if (ar.chosenOption !== undefined && typeof ar.chosenOption !== 'string') return { ok: false, reason: 'answer-chosen-option' };
     answers.push({
       questionId: ar.questionId,
@@ -175,6 +177,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       selectedIndices,
       confidence: ar.confidence as 1 | 2 | 3 | undefined,
       latencyMs: ar.latencyMs as number | undefined,
+      submittedAt: ar.submittedAt as number | undefined,
       optionOrder: optionOrder as number[] | undefined,
       chosenOption: ar.chosenOption as string | undefined,
     });
@@ -213,6 +216,9 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       if (ar.latencyMs !== undefined && (typeof ar.latencyMs !== 'number' || !Number.isFinite(ar.latencyMs) || ar.latencyMs < 0)) {
         return { ok: false, reason: 'review-attempt-latency' };
       }
+      if (ar.submittedAt !== undefined && (typeof ar.submittedAt !== 'number' || !Number.isFinite(ar.submittedAt) || ar.submittedAt < 0)) {
+        return { ok: false, reason: 'review-attempt-submitted-at' };
+      }
       if (ar.chosenOption !== undefined && typeof ar.chosenOption !== 'string') return { ok: false, reason: 'review-attempt-chosen-option' };
       if (!Array.isArray(ar.optionOrder) || ar.optionOrder.some((n) => typeof n !== 'number' || !Number.isInteger(n) || n < 0) || new Set(ar.optionOrder).size !== ar.optionOrder.length) {
         return { ok: false, reason: 'review-attempt-option-order' };
@@ -223,6 +229,7 @@ export function validateDraftShape(raw: unknown): DraftValidation {
         selectedIndices,
         confidence: ar.confidence as 1 | 2 | 3 | undefined,
         latencyMs: ar.latencyMs as number | undefined,
+        submittedAt: ar.submittedAt as number | undefined,
         optionOrder: ar.optionOrder as number[],
         questionIndex: ar.questionIndex as number,
         chosenOption: ar.chosenOption as string | undefined,
