@@ -55,6 +55,8 @@ function eventKey(e: ReviewEvent): string {
     latencyMs: e.latencyMs,
     confidence: e.confidence,
     grade: e.grade,
+    responseStatus: e.responseStatus,
+    aggregateEligible: e.aggregateEligible,
     chosenOption: e.chosenOption,
     algoVersion: e.algoVersion,
   });
