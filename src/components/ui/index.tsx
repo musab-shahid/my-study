@@ -510,7 +510,7 @@ export function AppBrand({
       <span className="min-w-0">
         <span className={`block truncate font-semibold leading-tight ${inverse ? 'text-white' : 'text-ink'}`}>My Study</span>
         {!compact && (
-          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-ink-muted' : 'text-ink-muted'}`}>
+          <span className={`mt-0.5 block text-xs leading-snug ${inverse ? 'text-white/80' : 'text-ink-muted'}`}>
             Learning and assessment
           </span>
         )}
