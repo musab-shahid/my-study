@@ -201,12 +201,12 @@ function parentRouteFocusKey(parent: RouteState | null, currentIdentity: string)
 
 function AppContent() {
   const { route, currentRoute } = useRouter();
+  const { title, subtitle } = getHeaderTitle(route);
   const currentIdentity = routeFocusIdentity(route);
   const routeFocusKey = `${currentIdentity}|${parentRouteFocusKey(currentRoute.parent, currentIdentity)}`;
   const routeAnnouncement = useRouteAnnouncer(routeFocusKey, title);
   const { getActiveSubject } = useSubjectSelection();
   const { trackMembership } = useData();
-  const { title, subtitle } = getHeaderTitle(route);
   const showHeader = route.screen !== 'quiz';
 
   // Workspace chrome: active track (+ exam profile) for enrolled learners
