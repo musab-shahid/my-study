@@ -74,3 +74,54 @@ test('captures visual references for representative routes at mobile and desktop
     }
   }
 });
+
+
+/** Seed minimal enrolled workspace so Home is not the empty membership shell. */
+async function seedEnrolledDashboard(page: import('@playwright/test').Page) {
+  await page.addInitScript(() => {
+    const key = 'examprep-data';
+    const existing = localStorage.getItem(key);
+    let data: Record<string, unknown> = {};
+    try {
+      data = existing ? JSON.parse(existing) : {};
+    } catch {
+      data = {};
+    }
+    data.trackMembership = {
+      schemaVersion: 1,
+      activeTrackId: 'fpsc',
+      enrollments: {
+        fpsc: { enrolledAt: new Date().toISOString(), activeExamId: null },
+      },
+    };
+    localStorage.setItem(key, JSON.stringify(data));
+  });
+}
+
+test('captures enrolled dashboard and compact quiz focus chrome', async ({ page }, testInfo) => {
+  test.setTimeout(120_000);
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await seedEnrolledDashboard(page);
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
+
+  const outputDir = testInfo.outputPath('visual-reference-seeded');
+  mkdirSync(outputDir, { recursive: true });
+  const dashPath = testInfo.outputPath('visual-reference-seeded', 'enrolled-dashboard-390.png');
+  await page.screenshot({ path: dashPath, fullPage: true, animations: 'disabled' });
+  await testInfo.attach('enrolled-dashboard-390', { path: dashPath, contentType: 'image/png' });
+
+  // Start a short practice quiz to capture compact focus chrome when available.
+  await page.goto('/practice/quick', { waitUntil: 'domcontentloaded' });
+  await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
+  const start = page.getByRole('button', { name: /start|begin|quick/i }).first();
+  if (await start.isVisible().catch(() => false)) {
+    await start.click();
+    await page.waitForTimeout(500);
+  }
+  const quizPath = testInfo.outputPath('visual-reference-seeded', 'quiz-or-practice-390.png');
+  await page.screenshot({ path: quizPath, fullPage: false, animations: 'disabled' });
+  await testInfo.attach('quiz-or-practice-390', { path: quizPath, contentType: 'image/png' });
+});
