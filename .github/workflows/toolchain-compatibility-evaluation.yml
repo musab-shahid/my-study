@@ -24,7 +24,7 @@ jobs:
       - name: Install locked project dependencies
         run: npm ci
       - name: Install ESLint 10 without changing the lockfile
-        run: npm install --no-save --package-lock=false eslint@10.14.0
+        run: npm install --no-save --package-lock=false eslint@10.14.0 @eslint/js@10.0.1 eslint-plugin-react-hooks@7.1.1 typescript-eslint@8.72.1
       - name: Run the repository lint command
         run: npm run lint
 
