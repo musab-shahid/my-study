@@ -76,11 +76,14 @@ export type SavedAnswerRecord = {
   questionId: string;
   correct: boolean;
   selectedIndices: number[];
+  confidence?: 1 | 2 | 3;
+  latencyMs?: number;
+  optionOrder?: number[];
+  chosenOption?: string;
 };
 
 export type SavedReviewAttemptRecord = SavedAnswerRecord & {
-  confidence?: 1 | 2 | 3;
-  latencyMs?: number;
+  optionOrder: number[];
 };
 
 export type SavedDraftShape = {
@@ -153,10 +156,21 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       }
       selectedIndices.push(idx);
     }
+    const optionOrder = ar.optionOrder;
+    if (optionOrder !== undefined && (!Array.isArray(optionOrder) || optionOrder.some((n) => typeof n !== 'number' || !Number.isInteger(n) || n < 0) || new Set(optionOrder).size !== optionOrder.length)) {
+      return { ok: false, reason: 'answer-option-order' };
+    }
+    if (ar.confidence !== undefined && ![1, 2, 3].includes(ar.confidence as number)) return { ok: false, reason: 'answer-confidence' };
+    if (ar.latencyMs !== undefined && (typeof ar.latencyMs !== 'number' || !Number.isFinite(ar.latencyMs) || ar.latencyMs < 0)) return { ok: false, reason: 'answer-latency' };
+    if (ar.chosenOption !== undefined && typeof ar.chosenOption !== 'string') return { ok: false, reason: 'answer-chosen-option' };
     answers.push({
       questionId: ar.questionId,
       correct: ar.correct,
       selectedIndices,
+      confidence: ar.confidence as 1 | 2 | 3 | undefined,
+      latencyMs: ar.latencyMs as number | undefined,
+      optionOrder: optionOrder as number[] | undefined,
+      chosenOption: ar.chosenOption as string | undefined,
     });
   }
 
@@ -186,12 +200,18 @@ export function validateDraftShape(raw: unknown): DraftValidation {
       if (ar.latencyMs !== undefined && (typeof ar.latencyMs !== 'number' || !Number.isFinite(ar.latencyMs) || ar.latencyMs < 0)) {
         return { ok: false, reason: 'review-attempt-latency' };
       }
+      if (ar.chosenOption !== undefined && typeof ar.chosenOption !== 'string') return { ok: false, reason: 'review-attempt-chosen-option' };
+      if (!Array.isArray(ar.optionOrder) || ar.optionOrder.some((n) => typeof n !== 'number' || !Number.isInteger(n) || n < 0) || new Set(ar.optionOrder).size !== ar.optionOrder.length) {
+        return { ok: false, reason: 'review-attempt-option-order' };
+      }
       reviewAttempts.push({
         questionId: ar.questionId,
         correct: ar.correct,
         selectedIndices,
         confidence: ar.confidence as 1 | 2 | 3 | undefined,
         latencyMs: ar.latencyMs as number | undefined,
+        optionOrder: ar.optionOrder as number[],
+        chosenOption: ar.chosenOption as string | undefined,
       });
     }
   }
@@ -416,6 +436,7 @@ export type RestoredDraftResult =
       questions: Question[];
       optionOrders: number[][];
       answers: SavedAnswerRecord[];
+      reviewAttempts?: SavedReviewAttemptRecord[];
     }
   | { ok: false; reason: string };
 
@@ -474,23 +495,41 @@ export function reconcileRestoredDraft(
     restored.push(applyOptionOrderPure(q, order));
   }
 
-  const byId = new Map(restored.map((q) => [q.id, q]));
+  const byId = new Map(bankQuestions.map((q) => [q.id, q]));
+  const lastPositionById = new Map<string, number>();
+  draft.questionIds.forEach((id, index) => lastPositionById.set(id, index));
   const answers: SavedAnswerRecord[] = [];
   for (const a of draft.answers) {
-    const q = byId.get(a.questionId);
-    if (!q) return { ok: false, reason: 'answer-unknown-question' };
-    if (!selectionsValidForQuestion(q, a.selectedIndices)) {
+    const base = byId.get(a.questionId);
+    if (!base) return { ok: false, reason: 'answer-unknown-question' };
+    const fallbackOrder = optionOrders[lastPositionById.get(a.questionId) ?? 0] ?? (base.options ?? []).map((_, i) => i);
+    const order = a.optionOrder ?? fallbackOrder;
+    if (!isValidOptionPermutation(order, base.options?.length ?? 0)) return { ok: false, reason: 'invalid-answer-option-order' };
+    const displayed = applyOptionOrderPure(base, order);
+    if (!selectionsValidForQuestion(displayed, a.selectedIndices)) {
       return { ok: false, reason: 'invalid-selection-for-type' };
     }
-    const correct = gradeAnswer(q, a.selectedIndices);
-    answers.push({
-      questionId: a.questionId,
-      selectedIndices: a.selectedIndices,
-      correct,
-    });
+    const correct = gradeAnswer(displayed, a.selectedIndices);
+    answers.push({ ...a, correct, optionOrder: [...order] });
   }
 
-  return { ok: true, questions: restored, optionOrders, answers };
+  let reviewAttempts: SavedReviewAttemptRecord[] | undefined;
+  try {
+    reviewAttempts = draft.reviewAttempts?.map((attempt) => {
+    const base = byId.get(attempt.questionId);
+    if (!base || !isValidOptionPermutation(attempt.optionOrder, base.options?.length ?? 0)) {
+      throw new Error('invalid-review-attempt-option-order');
+    }
+    const displayed = applyOptionOrderPure(base, attempt.optionOrder);
+    if (!selectionsValidForQuestion(displayed, attempt.selectedIndices)) {
+      throw new Error('invalid-review-attempt-selection');
+    }
+      return { ...attempt, correct: gradeAnswer(displayed, attempt.selectedIndices), optionOrder: [...attempt.optionOrder] };
+    });
+  } catch {
+    return { ok: false, reason: 'invalid-review-attempts' };
+  }
+  return { ok: true, questions: restored, optionOrders, answers, reviewAttempts };
 }
 
 /** Pure option-order apply (mirrors QuizScreen). */
