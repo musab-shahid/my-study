@@ -107,13 +107,13 @@ describe('service worker explicit track offline packs', () => {
     assert.equal(replies.length, 1);
     const reply = replies[0] as { ok: boolean; cacheName: string; cachedCount: number };
     assert.equal(reply.ok, true);
-    assert.match(reply.cacheName, /^examprep-v3-pack-fpsc-/);
+    assert.match(reply.cacheName, /^my-study-offline-pack-examprep-v3-fpsc-/);
     assert.equal(reply.cachedCount, 2);
     assert.equal(stores.get(reply.cacheName)?.size, 2);
   });
 
   it('rolls back a failed new pack without deleting the previous complete pack', async () => {
-    const oldName = 'examprep-v3-pack-fpsc-100';
+    const oldName = 'my-study-offline-pack-examprep-v3-fpsc-100';
     const oldResponse = response();
     const { handlers, stores } = createHarness(async (url) => (
       url.endsWith('broken.js') ? response(false) : response()
@@ -133,7 +133,7 @@ describe('service worker explicit track offline packs', () => {
     assert.equal((replies[0] as { ok: boolean }).ok, false);
     assert.equal(stores.has(oldName), true);
     assert.equal(stores.get(oldName)?.get('https://app.test/assets/old-complete-pack.js'), oldResponse);
-    assert.equal([...stores.keys()].filter((name) => name.startsWith('examprep-v3-pack-fpsc-')).length, 1);
+    assert.equal([...stores.keys()].filter((name) => name.startsWith('my-study-offline-pack-examprep-v3-fpsc-')).length, 1);
   });
 
   it('rejects foreign-origin and non-asset URLs without fetching or caching them', async () => {
@@ -162,7 +162,7 @@ describe('service worker explicit track offline packs', () => {
       'examprep-v2': {},
       'examprep-v2-pack-fpsc-10': {},
       'examprep-v3': {},
-      'examprep-v3-pack-fpsc-20': {},
+      'my-study-offline-pack-examprep-v3-fpsc-20': {},
     });
     const activate = handlers.get('activate');
     assert.ok(activate);
@@ -172,7 +172,7 @@ describe('service worker explicit track offline packs', () => {
 
     assert.deepEqual([...stores.keys()].sort(), [
       'examprep-v3',
-      'examprep-v3-pack-fpsc-20',
+      'my-study-offline-pack-examprep-v3-fpsc-20',
     ]);
   });
   it('serves a cached pack asset when the network is unavailable', async () => {
@@ -180,7 +180,7 @@ describe('service worker explicit track offline packs', () => {
     const { handlers } = createHarness(
       async () => { throw new Error('offline'); },
       {
-        'examprep-v3-pack-fpsc-20': {
+        'my-study-offline-pack-examprep-v3-fpsc-20': {
           'https://app.test/assets/fpsc-topics.js': packedAsset,
         },
       },
