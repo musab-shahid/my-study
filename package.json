@@ -20,7 +20,7 @@
     "lint": "eslint src --max-warnings 115",
     "check:readiness-presentation": "node scripts/check-readiness-presentation.mjs",
     "check": "npm run check:readiness-presentation && npm run validate:data && npm test && npm run typecheck && npm run lint && npm run build",
-    "test": "node --test scripts/tests/gate-script-coverage.test.mjs && tsx --tsconfig tsconfig.app.json --test src/lib/__tests__/*.test.ts src/router/__tests__/*.test.ts src/__tests__/data/*.test.ts",
+    "test": "node --test scripts/tests/gate-script-coverage.test.mjs scripts/tests/axe-moderate-baseline.test.mjs && tsx --tsconfig tsconfig.app.json --test src/lib/__tests__/*.test.ts src/router/__tests__/*.test.ts src/__tests__/data/*.test.ts",
     "test:e2e": "playwright test",
     "test:e2e:install": "playwright install chromium",
     "test:e2e:ui": "playwright test --ui",
