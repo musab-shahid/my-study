@@ -79,7 +79,13 @@ export function ProgressScreen() {
   const weakTopics = getWeakTopics(data, allTopicIds, 5, 5);
   const weeklyData = getWeeklyAccuracy(data, 8, scopedSubjectIds);
 
-  const qrAgg = aggregateQuestionResults(data.questionResults ?? {});
+  const scopedQuestionIds = new Set(
+    sd.questionsFor(isAllSubjects ? 'all' : (activeSubject as SubjectId)).map((q) => q.id),
+  );
+  const scopedQuestionResults = Object.fromEntries(
+    Object.entries(data.questionResults ?? {}).filter(([id]) => scopedQuestionIds.has(id)),
+  );
+  const qrAgg = aggregateQuestionResults(scopedQuestionResults);
   const coverageCompetence = computeCoverageCompetence({
     studiedTopics: currentStats.studiedTopics,
     totalTopics: currentStats.totalTopics,

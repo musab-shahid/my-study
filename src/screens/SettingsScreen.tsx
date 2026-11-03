@@ -6,7 +6,6 @@ import {
 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useData } from '@/hooks/useData';
-import { useSubjectData } from '@/hooks/useSubjectData';
 import {
   subjects, subjectsByTrack,
   examTracks,
@@ -73,7 +72,6 @@ interface BeforeInstallPromptEvent extends Event {
 
 export function SettingsScreen() {
   const { data, reset, resetSubjects } = useData();
-  const _sd = useSubjectData();
   const [selectedSubjects, setSelectedSubjects] = useState<Set<SubjectId>>(new Set());
   const [confirming, setConfirming] = useState(false);
   const [resetDone, setResetDone] = useState<{ message: string; kind: 'success' | 'error' } | null>(null);

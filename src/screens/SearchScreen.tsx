@@ -59,7 +59,7 @@ export function SearchScreen() {
 
   const hasContent = isAllSubjects
     ? sd.totalTopics > 0
-    : sd.topicsFor(activeSubject as SubjectId).length > 0 || sd.totalTopics > 0;
+    : loading || sd.topicsFor(activeSubject as SubjectId).length > 0;
 
   if (loadError) {
     return (

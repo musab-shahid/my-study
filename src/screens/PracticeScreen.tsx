@@ -76,7 +76,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
   const activeSubject = getActiveSubject('practice');
   const subjectId = activeSubject === 'all' ? 'all' : (activeSubject as SubjectId);
 
-  const [view, setView] = useState<'modes' | 'focus'>('modes');
+  const [view, setView] = useState<'modes' | 'focus'>(initialMode === 'topic' ? 'focus' : 'modes');
   const [selectedFocusTopics, setSelectedFocusTopics] = useState<Set<string>>(new Set());
   const [prefs, setPrefs] = useState<PracticePrefs>(() => loadPrefs());
   const [expandedMode, setExpandedMode] = useState<ModeType | null>(initialMode === 'mock' ? 'mock' : null);
