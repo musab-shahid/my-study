@@ -21,7 +21,7 @@ type MoreNavItem =
 
 
 const studyTools: MoreNavItem[] = [
-  { icon: FEATURE_ICONS.review, label: 'Revision queue', screen: 'review' as const },
+  // Revision queue lives on primary nav (desktop task list + mobile bar) — not duplicated here.
   { icon: FEATURE_ICONS.formulas, label: 'Formulas', screen: 'formulas' as const },
   { icon: FEATURE_ICONS.flashcards, label: 'Flashcards', screen: 'flashcards' as const },
   { icon: Cloud, label: 'Cloud Atlas', screen: 'cloud-atlas' as const },
