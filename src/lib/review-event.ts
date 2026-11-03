@@ -100,6 +100,7 @@ export function validateReviewEvent(e: unknown): { valid: true } | { valid: fals
     o.confidence != null || o.latencyMs != null || o.chosenOption != null
   )) errors.push('invalid_responseStatus');
   if (o.aggregateEligible != null && typeof o.aggregateEligible !== 'boolean') errors.push('invalid_aggregateEligible');
+  if (o.aggregateEligible === true && !['topic', 'quick', 'mock', 'review', 'challenge'].includes(String(o.mode))) errors.push('invalid_aggregateEligible');
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) errors.push('invalid_latencyMs');
 
   return errors.length === 0 ? { valid: true } : { valid: false, errors };
@@ -153,7 +154,7 @@ export function buildReviewEvent(input: AttemptInput): ReviewEvent {
     confidence: input.confidence,
     grade: input.grade,
     responseStatus: input.responseStatus ?? 'submitted',
-    aggregateEligible: input.aggregateEligible ?? true,
+    aggregateEligible: input.aggregateEligible ?? ['topic', 'quick', 'mock', 'review', 'challenge'].includes(input.mode),
     chosenOption: input.chosenOption,
     algoVersion: input.algoVersion ?? REVIEW_EVENT_ALGO_VERSION,
   };
