@@ -20,6 +20,8 @@ export interface DualWriteAnswer {
   latencyMs?: number;
   confidence?: ReviewConfidence;
   grade?: ReviewGrade;
+  responseStatus?: 'submitted' | 'unanswered';
+  aggregateEligible?: boolean;
   chosenOption?: string;
 }
 
@@ -94,6 +96,8 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
       latencyMs: a.latencyMs,
       confidence: a.confidence,
       grade: a.grade,
+      responseStatus: a.responseStatus,
+      aggregateEligible: a.aggregateEligible,
       chosenOption: a.chosenOption,
       ts: ts + i,
       deviceId,
