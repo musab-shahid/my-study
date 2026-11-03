@@ -226,13 +226,17 @@ test.describe('Axe WCAG 2.2 AA route matrix', () => {
   }
 });
 
-test('More dialog stays within the accessibility baseline at mobile width', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/');
-  await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: /^More/ }).click();
-  await expect(page.getByRole('dialog', { name: 'More' })).toBeVisible();
-  await scanAxe(page, 'more-dialog@mobile-390x844');
+test.describe('More dialog accessibility across viewports', () => {
+  for (const viewport of viewports) {
+    test(`More dialog at ${viewport.name} stays within the accessibility baseline`, async ({ page }) => {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.goto('/');
+      await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: /^More/ }).click();
+      await expect(page.getByRole('dialog', { name: 'More' })).toBeVisible();
+      await scanAxe(page, `more-dialog@${viewport.name}`);
+    });
+  }
 });
 
 test.describe('CGEI lesson reader accessibility', () => {
@@ -248,45 +252,60 @@ test.describe('CGEI lesson reader accessibility', () => {
   }
 });
 
-test('quiz progress and results stay within the desktop accessibility baseline', async ({ page }) => {
-  test.setTimeout(240_000);
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await seedFpscWorkspace(page);
+test.describe('quiz progress and results accessibility across viewports', () => {
+  for (const viewport of viewports) {
+    test(`quiz progress and results at ${viewport.name} stay within the accessibility baseline`, async ({ page }) => {
+      test.setTimeout(240_000);
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await seedFpscWorkspace(page);
 
-  await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Practice', exact: true }).click();
-  await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
-  await expect.poll(async () => {
-    const label = page.getByText(/\d+ questions? available/i).first();
-    if (!(await label.isVisible().catch(() => false))) return 0;
-    const match = (await label.textContent())?.match(/(\d+)/);
-    return match ? Number(match[1]) : 0;
-  }, { timeout: 90_000 }).toBeGreaterThan(0);
+      await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Practice', exact: true }).click();
+      await expect(page.getByText('Quick Practice', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
+      await expect.poll(async () => {
+        const label = page.getByText(/\\d+ questions? available/i).first();
+        if (!(await label.isVisible().catch(() => false))) return 0;
+        const match = (await label.textContent())?.match(/(\\d+)/);
+        return match ? Number(match[1]) : 0;
+      }, { timeout: 90_000 }).toBeGreaterThan(0);
 
-  await page.getByRole('button', { name: /Quick Practice/i }).first().click();
-  const startNew = page.getByRole('button', { name: /Start New/i });
-  if (await startNew.isVisible().catch(() => false)) await startNew.click();
-  await expect(page.getByRole('button', { name: /^Check Answer$/i })).toBeVisible({ timeout: 90_000 });
-  await scanAxe(page, 'quiz-progress@desktop-1280x800');
+      await page.getByRole('button', { name: /Quick Practice/i }).first().click();
+      const startNew = page.getByRole('button', { name: /Start New/i });
+      if (await startNew.isVisible().catch(() => false)) await startNew.click();
+      await expect(page.getByRole('button', { name: /^Check Answer$/i })).toBeVisible({ timeout: 90_000 });
+      await scanAxe(page, `quiz-progress@${viewport.name}`);
 
-  const resultsHeading = page.getByText(/% correct · (?:Quiz|Mock Exam) complete/i);
-  for (let index = 0; index < 20; index += 1) {
-    if (await resultsHeading.isVisible().catch(() => false)) break;
-    await answerCurrentQuestion(page);
+      const resultsHeading = page.getByText(/% correct · (?:Quiz|Mock Exam) complete/i);
+      for (let index = 0; index < 20; index += 1) {
+        if (await resultsHeading.isVisible().catch(() => false)) break;
+        await answerCurrentQuestion(page);
+      }
+      await expect(resultsHeading).toBeVisible({ timeout: 30_000 });
+      await scanAxe(page, `quiz-results@${viewport.name}`);
+    });
   }
-  await expect(resultsHeading).toBeVisible({ timeout: 30_000 });
-  await scanAxe(page, 'quiz-results@desktop-1280x800');
 });
 
-test('AI tutor dialog stays within the desktop accessibility baseline', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await seedMeteorologyWorkspace(page);
-  await page.goto('/topic/meteo-origin-evolution');
+test.describe('AI tutor dialog accessibility across viewports', () => {
+  for (const viewport of viewports) {
+    test(`AI tutor dialog at ${viewport.name} stays within the accessibility baseline`, async ({ page }) => {
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.route(/\\/functions\\/v1\\/ai-tutor|openrouter\\.ai|api\\.groq\\.com|api\\.anthropic\\.com/, async (route) => {
+        await route.fulfill({
+          status: 200,
+          contentType: 'application/json',
+          body: JSON.stringify({ text: 'Stubbed tutor response', choices: [{ message: { content: 'Stubbed tutor response' } }] }),
+        });
+      });
+      await seedMeteorologyWorkspace(page);
+      await page.goto('/topic/meteo-origin-evolution');
 
-  await expect(page.getByRole('heading', { name: 'Origin & Chemical Evolution of the Atmosphere', exact: true })).toBeVisible({ timeout: 20_000 });
-  await page.getByRole('button', { name: 'Ask AI Tutor', exact: true }).click();
-  const dialog = page.getByRole('dialog', { name: 'AI tutor for Origin & Chemical Evolution of the Atmosphere' });
-  await expect(dialog).toBeVisible();
-  await scanAxe(page, 'ai-tutor-dialog@desktop-1280x800');
+      await expect(page.getByRole('heading', { name: 'Origin & Chemical Evolution of the Atmosphere', exact: true })).toBeVisible({ timeout: 20_000 });
+      await page.getByRole('button', { name: 'Ask AI Tutor', exact: true }).click();
+      const dialog = page.getByRole('dialog', { name: 'AI tutor for Origin & Chemical Evolution of the Atmosphere' });
+      await expect(dialog).toBeVisible();
+      await scanAxe(page, `ai-tutor-dialog@${viewport.name}`);
+    });
+  }
 });
