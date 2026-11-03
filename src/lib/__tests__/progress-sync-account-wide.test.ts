@@ -9,10 +9,11 @@ describe('account-wide progress sync contract', () => {
   const settings = readFileSync(resolve(process.cwd(), 'src/screens/SettingsScreen.tsx'), 'utf8');
 
   it('uses one stable account row while retaining legacy per-device restore', () => {
-    assert.match(sync, /ACCOUNT_PROGRESS_DEVICE_ID\s*=\s*'__my_study_account__'/);
-    assert.match(sync, /source: 'account'/);
-    assert.match(sync, /source: 'legacy-device'/);
-    assert.match(sync, /Backward compatibility:[\s\S]*?older per-device snapshot/);
+    assert.match(http, /export const ACCOUNT_PROGRESS_DEVICE_ID\s*=\s*'__my_study_account__'/);
+    assert.match(sync, /export\s+\{\s*ACCOUNT_PROGRESS_DEVICE_ID,\s*MAX_PROGRESS_PAYLOAD_BYTES\s*\}\s+from\s+['"]\.\/progress-sync-http\.ts['"]/);
+    assert.match(http, /source: 'account'/);
+    assert.match(http, /source: 'legacy-device'/);
+    assert.match(http, /account snapshot first, then legacy per-device fallback/);
   });
 
   it('inserts a missing account snapshot without overwriting a concurrent insert', () => {
@@ -21,9 +22,9 @@ describe('account-wide progress sync contract', () => {
   });
 
   it('updates an existing snapshot only when its reviewed timestamp still matches', () => {
-    assert.match(sync, /updated_at=eq\.\$\{expected\}/);
-    assert.match(sync, /method: 'PATCH'/);
-    assert.match(sync, /return=representation/);
+    assert.match(http, /updated_at=eq\.\$\{expected\}/);
+    assert.match(http, /method: 'PATCH'/);
+    assert.match(http, /return=representation/);
   });
 
   it('requires explicit confirmation before replacing an existing account snapshot', () => {
