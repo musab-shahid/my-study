@@ -91,6 +91,14 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
+function shuffleQuestionOptions(q: Question): { question: Question; order: number[] } {
+  if (!q.options || q.options.length < 2) {
+    return { question: q, order: (q.options ?? []).map((_, i) => i) };
+  }
+  const order = shuffleArray(q.options.map((_, i) => i));
+  return { question: applyOptionOrder(q, order), order };
+}
+
 function pickQuestions(
   mode: PracticeMode,
   topicId: string | undefined,
