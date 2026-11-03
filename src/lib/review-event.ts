@@ -70,6 +70,7 @@ export type EventValidationError =
   | 'invalid_correct'
   | 'invalid_algoVersion'
   | 'invalid_confidence'
+  | 'invalid_grade'
   | 'invalid_latencyMs';
 
 export function validateReviewEvent(e: unknown): { valid: true } | { valid: false; errors: EventValidationError[] } {
