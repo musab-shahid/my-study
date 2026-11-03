@@ -232,7 +232,7 @@ test.describe('More dialog accessibility across viewports', () => {
       await page.setViewportSize({ width: viewport.width, height: viewport.height });
       await page.emulateMedia({ reducedMotion: 'reduce' });
       await page.goto('/');
-      await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: /^More/ }).click();
+      await page.getByRole('button', { name: /^More(?:,.*)?$/ }).first().click();
       await expect(page.getByRole('dialog', { name: 'More' })).toBeVisible();
       await scanAxe(page, `more-dialog@${viewport.name}`);
     });
