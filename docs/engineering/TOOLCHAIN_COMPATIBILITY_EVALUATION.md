@@ -11,11 +11,14 @@
 | Types | `@types/react@19.3.0`, `@types/react-dom@19.3.0` |
 | Environment | Node 22.23.4, npm 10.9.9 |
 | Install | Pass |
+| Unit tests | 540 passed, 1 skipped, 0 failed |
 | `npm run typecheck` | Pass |
 | `npm run build` | Pass |
-| Unit / browser runtime suites | Not run in this lane |
+| Playwright E2E | 135 passed |
 
-**Decision:** technically compatible at install, TypeScript, and production-build level. This is not sufficient evidence to upgrade production: run the full unit, Playwright, Lighthouse, and real-device checks against React 19 before changing the lockfile.
+**Decision:** React 19 passes the complete unit, typecheck, build, and Playwright E2E checks in the isolated dependency swap. This is strong compatibility evidence, but it is still not an automatic production upgrade authorization: keep the lockfile unchanged until a separately reviewed upgrade PR runs the required checks on its exact head and verifies supported browsers/real-device behavior.
+
+The React 19 lane intentionally excludes Lighthouse from the experimental package install so that unrelated transitive tool typings do not contaminate the React-only compatibility result. No React 19 Lighthouse claim is made.
 
 ## ESLint 10
 
