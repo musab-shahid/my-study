@@ -94,6 +94,13 @@ jobs:
         env:
           CGEI_EVIDENCE_REPORT: docs/cgei/source-toc/core-leaf-evidence-report.csv
         run: npm run check:cgei
+      - name: Temporary generated registry manifest capture
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
+        with:
+          name: temporary-cgei-registry-manifest
+          path: docs/cgei/registry-manifest.json
+          if-no-files-found: error
       - name: Unit tests
         run: npm test
       - name: Typecheck
