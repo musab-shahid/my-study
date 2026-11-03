@@ -77,6 +77,10 @@ jobs:
           fi
       - name: Contrast WCAG spot-check
         run: npm run check:contrast
+      - name: CI check-script coverage guard
+        run: node scripts/check-ci-gate-coverage.mjs
+      - name: Learner-facing readiness presentation guard
+        run: npm run check:readiness-presentation
       - name: Branding guard
         run: npm run check:branding
       - name: Feature icons and logo mark
@@ -204,6 +208,3 @@ jobs:
           retention-days: 14
       - name: Curriculum activity/assessment integrity
         run: python fixtures/cgei/curriculum_activity_assessment_integrity_check.py
-
-
-
