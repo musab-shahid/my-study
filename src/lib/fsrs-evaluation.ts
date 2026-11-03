@@ -201,21 +201,8 @@ export function mapAttemptToFsrsRating(event: ReviewEvent): Rating {
 }
 
 function eventSignature(event: ReviewEvent): string {
-  return JSON.stringify([
-    event.ts,
-    event.deviceId,
-    event.sessionId,
-    event.itemId,
-    event.skillId,
-    event.mode,
-    event.correct,
-    event.responseStatus ?? null,
-    event.aggregateEligible ?? null,
-    event.latencyMs ?? null,
-    event.confidence ?? null,
-    event.grade ?? null,
-    event.algoVersion,
-  ]);
+  const record = event as unknown as Record<string, unknown>;
+  return JSON.stringify(Object.keys(record).sort().map((key) => [key, record[key]]));
 }
 
 function sanitizeReviewEvents(input: readonly unknown[]): DataQualityResult {
