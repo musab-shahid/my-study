@@ -1,6 +1,6 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import type { Question } from '../types.ts';
+import type { Question } from '../../types.ts';
 import { applyOptionOrder, applySavedOptionOrders } from '../quiz-option-order.ts';
 
 function question(overrides: Partial<Question> = {}): Question {
