@@ -77,6 +77,43 @@ describe('durable review outbox', () => {
     assert.equal(await primary.count(), 0);
   });
 
+  it('preserves explicit flashcard grades without inventing confidence', async () => {
+    const log = new MemoryReviewLog();
+    const result = await dualWriteQuizAttempts({
+      answers: [{ questionId: 'card-1', correct: true, grade: 'hard', skillId: 'topic-1', ts: 10950 }],
+      mode: 'flashcard',
+      sessionId: 'flash-session',
+      ts: 11000,
+      log,
+      outbox: new MemoryReviewOutbox(),
+    });
+    assert.equal(result.status, 'persisted');
+    const [event] = await log.getAll();
+    assert.equal(event?.grade, 'hard');
+    assert.equal(event?.confidence, undefined);
+    assert.equal(event?.responseStatus, 'submitted');
+    assert.equal(event?.aggregateEligible, false);
+    assert.equal(event?.ts, 10950);
+  });
+
+  it('records lesson-check outcomes without fabricating confidence or latency', async () => {
+    const log = new MemoryReviewLog();
+    const result = await dualWriteQuizAttempts({
+      answers: [{ questionId: 'lesson-q1', correct: false, skillId: 'lesson-1' }],
+      mode: 'lesson-check',
+      sessionId: 'lesson-check-session',
+      ts: 12000,
+      log,
+      outbox: new MemoryReviewOutbox(),
+    });
+    assert.equal(result.status, 'persisted');
+    const [event] = await log.getAll();
+    assert.equal(event?.mode, 'lesson-check');
+    assert.equal(event?.confidence, undefined);
+    assert.equal(event?.latencyMs, undefined);
+    assert.equal(event?.skillId, 'lesson-1');
+  });
+
   it('keeps an outbox record if primary persistence succeeds but cleanup fails', async () => {
     const primary = new MemoryReviewLog();
     const outbox = new MemoryReviewOutbox();

@@ -7,6 +7,7 @@ import {
   type ReviewConfidence,
   type ReviewEvent,
   type ReviewMode,
+  type ReviewGrade,
 } from './review-event.ts';
 import { getDefaultReviewLog, ReviewLogPersistenceError, type ReviewLog } from './review-log.ts';
 import { getDefaultReviewOutbox, type ReviewOutbox } from './review-outbox.ts';
@@ -18,6 +19,11 @@ export interface DualWriteAnswer {
   skillId?: string;
   latencyMs?: number;
   confidence?: ReviewConfidence;
+  grade?: ReviewGrade;
+  responseStatus?: 'submitted' | 'unanswered';
+  aggregateEligible?: boolean;
+  /** Actual learner submission time, when known. */
+  ts?: number;
   chosenOption?: string;
 }
 
@@ -91,8 +97,11 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
       mode,
       latencyMs: a.latencyMs,
       confidence: a.confidence,
+      grade: a.grade,
+      responseStatus: a.responseStatus,
+      aggregateEligible: a.aggregateEligible,
       chosenOption: a.chosenOption,
-      ts: ts + i,
+      ts: a.ts ?? ts + i,
       deviceId,
       sessionId,
     }),
@@ -143,8 +152,20 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
 /** Fire-and-forget wrapper for use from synchronous storage paths. */
 export function dualWriteQuizAttemptsFireAndForget(params: DualWriteParams): void {
   void dualWriteQuizAttempts(params).then((result) => {
-    if (result.status !== 'persisted' && typeof console !== 'undefined') {
-      console.warn('[review-log] review events were not fully synchronized; quiz progress remains saved', result.status, result.errorCategory);
+    if (result.status !== 'persisted') {
+      if (typeof console !== 'undefined') {
+        console.warn('[review-log] review events were not fully synchronized', result.status, result.errorCategory);
+      }
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
+          detail: {
+            status: result.status,
+            count: result.events.length,
+            errorCategory: result.errorCategory,
+            recoveryQueued: result.recoveryQueued,
+          },
+        }));
+      }
     }
   });
 }

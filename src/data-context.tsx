@@ -9,7 +9,6 @@ import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
 import { cgeiLessonIdsForSubjects } from '@/data/cgei/curriculum-index-helpers';
-import { dualWriteQuizAttempts } from '@/lib/dual-write';
 
 export interface DataContextValue {
   data: AppData;
@@ -121,48 +120,15 @@ export function DataProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
-    // Compute from the latest committed ref and pass a concrete value to setState.
-    // React may replay updater functions in Strict Mode; event creation must not live there.
+    // Aggregate-only calculation. Per-attempt review events are assembled once
+    // from submitted quiz responses by QuizScreen after the session finishes.
     const now = Date.now();
     const current = dataRef.current;
     const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now);
     dataRef.current = next;
     setData(next);
 
-    const questionTopicMap = new Map(questions.map((question) => [question.id, question.topicId]));
-    const questionById = new Map(questions.map((question) => [question.id, question]));
-    void dualWriteQuizAttempts({
-      answers: answers.map((answer) => ({
-        questionId: answer.questionId,
-        correct: answer.correct,
-        skillId: questionTopicMap.get(answer.questionId) ?? answer.questionId,
-        confidence: answer.confidence,
-        latencyMs: answer.latencyMs,
-        chosenOption: (() => {
-          if (!answer.selectedIndices || answer.selectedIndices.length === 0) return undefined;
-          const question = questionById.get(answer.questionId);
-          if (question?.options?.length) {
-            return answer.selectedIndices
-              .map((index) => question.options[index] ?? String(index))
-              .join(' | ');
-          }
-          return answer.selectedIndices.join(',');
-        })(),
-      })),
-      mode,
-      sessionId: `quiz_${now}`,
-      ts: now,
-    }).then((result) => {
-      if (result.status === 'persisted') return;
-      window.dispatchEvent(new CustomEvent('my-study-review-persistence', {
-        detail: {
-          status: result.status,
-          count: result.events.length,
-          errorCategory: result.errorCategory,
-          recoveryQueued: result.recoveryQueued,
-        },
-      }));
-    });
+
   }, []);
 
   const setLastTopic = useCallback((topicId: string) => {

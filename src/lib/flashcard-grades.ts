@@ -2,7 +2,7 @@
  * Four-grade flashcard outcomes → review events (L-08).
  */
 
-import { buildReviewEvent, type ReviewGrade, type ReviewEvent } from './review-event.ts';
+import type { ReviewGrade } from './review-event.ts';
 import { dualWriteQuizAttemptsFireAndForget } from './dual-write.ts';
 
 export const FLASHCARD_GRADES: { grade: ReviewGrade; label: string; hint: string }[] = [
@@ -12,20 +12,17 @@ export const FLASHCARD_GRADES: { grade: ReviewGrade; label: string; hint: string
   { grade: 'easy', label: 'Easy', hint: 'Easy' },
 ];
 
-/** Map grade to a synthetic correct flag + confidence for the shared event log. */
-export function gradeToAttempt(grade: ReviewGrade): {
-  correct: boolean;
-  confidence: 1 | 2 | 3;
-} {
+/** Compatibility projection for the legacy binary replay field; the explicit grade is stored too. */
+export function gradeToAttempt(grade: ReviewGrade): { correct: boolean } {
   switch (grade) {
     case 'again':
-      return { correct: false, confidence: 3 };
+      return { correct: false };
     case 'hard':
-      return { correct: true, confidence: 1 };
+      return { correct: true };
     case 'good':
-      return { correct: true, confidence: 2 };
+      return { correct: true };
     case 'easy':
-      return { correct: true, confidence: 3 };
+      return { correct: true };
   }
 }
 
@@ -33,28 +30,20 @@ export function recordFlashcardGrade(args: {
   cardId: string;
   topicId: string;
   grade: ReviewGrade;
-}): ReviewEvent {
-  const { correct, confidence } = gradeToAttempt(args.grade);
-  const event = buildReviewEvent({
-    itemId: args.cardId,
-    skillId: args.topicId,
-    correct,
-    confidence,
-    mode: 'flashcard',
-  });
+}): void {
+  const { correct } = gradeToAttempt(args.grade);
   dualWriteQuizAttemptsFireAndForget({
     answers: [
       {
         questionId: args.cardId,
         correct,
-        confidence,
+        grade: args.grade,
         skillId: args.topicId,
       },
     ],
     mode: 'flashcard',
-    sessionId: `flash_${Date.now()}`,
+    sessionId: `flash_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
   });
-  return event;
 }
 
 /** Lint: flag multi-fact prompts that are too long for atomic recall. */

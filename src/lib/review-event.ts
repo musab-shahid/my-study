@@ -11,7 +11,8 @@ export type ReviewMode =
   | 'mock'
   | 'review'
   | 'challenge'
-  | 'flashcard';
+  | 'flashcard'
+  | 'lesson-check';
 
 export type ReviewGrade = 'again' | 'hard' | 'good' | 'easy';
 
@@ -22,6 +23,7 @@ const VALID_MODES: readonly string[] = [
   'review',
   'challenge',
   'flashcard',
+  'lesson-check',
 ];
 
 export interface ReviewEvent {
@@ -36,18 +38,25 @@ export interface ReviewEvent {
   /** Skill unit: variantGroupId when known, else topicId, else itemId. */
   skillId: string;
   mode: ReviewMode;
+  /** Binary correctness projection. For flashcards, the explicit grade is authoritative. */
   correct: boolean;
+  /** Whether this was a learner submission or an unanswered timeout slot. */
+  responseStatus?: 'submitted' | 'unanswered';
+  /** Only the final outcome per question mirrors AppData aggregates. */
+  aggregateEligible?: boolean;
   /** Time from item shown to answer, if measured. */
   latencyMs?: number;
   /** Optional metacognitive rating before feedback. */
   confidence?: ReviewConfidence;
+  /** Explicit learner-selected flashcard grade; never inferred from correctness/confidence. */
+  grade?: ReviewGrade;
   /** Selected option id/key for distractor analytics. */
   chosenOption?: string;
   /** Scheduler / dual-write schema tag. */
   algoVersion: string;
 }
 
-export const REVIEW_EVENT_ALGO_VERSION = 'dual-write-v1';
+export const REVIEW_EVENT_ALGO_VERSION = 'dual-write-v2';
 
 export function createReviewEventId(): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -66,6 +75,9 @@ export type EventValidationError =
   | 'invalid_correct'
   | 'invalid_algoVersion'
   | 'invalid_confidence'
+  | 'invalid_grade'
+  | 'invalid_responseStatus'
+  | 'invalid_aggregateEligible'
   | 'invalid_latencyMs';
 
 export function validateReviewEvent(e: unknown): { valid: true } | { valid: false; errors: EventValidationError[] } {
@@ -81,6 +93,14 @@ export function validateReviewEvent(e: unknown): { valid: true } | { valid: fals
   if (typeof o.correct !== 'boolean') errors.push('invalid_correct');
   if (typeof o.algoVersion !== 'string' || o.algoVersion.length === 0) errors.push('invalid_algoVersion');
   if (o.confidence != null && ![1, 2, 3].includes(o.confidence as number)) errors.push('invalid_confidence');
+  if (o.grade != null && (!['again', 'hard', 'good', 'easy'].includes(o.grade as string) || o.mode !== 'flashcard')) errors.push('invalid_grade');
+  if (o.responseStatus != null && !['submitted', 'unanswered'].includes(o.responseStatus as string)) errors.push('invalid_responseStatus');
+  if (o.responseStatus === 'unanswered' && (
+    !['topic', 'quick', 'mock', 'review', 'challenge'].includes(String(o.mode)) ||
+    o.confidence != null || o.latencyMs != null || o.chosenOption != null
+  )) errors.push('invalid_responseStatus');
+  if (o.aggregateEligible != null && typeof o.aggregateEligible !== 'boolean') errors.push('invalid_aggregateEligible');
+  if (o.aggregateEligible === true && !['topic', 'quick', 'mock', 'review', 'challenge'].includes(String(o.mode))) errors.push('invalid_aggregateEligible');
   if (o.latencyMs != null && (typeof o.latencyMs !== 'number' || !Number.isFinite(o.latencyMs))) errors.push('invalid_latencyMs');
 
   return errors.length === 0 ? { valid: true } : { valid: false, errors };
@@ -110,6 +130,9 @@ export interface AttemptInput {
   mode: ReviewMode;
   latencyMs?: number;
   confidence?: ReviewConfidence;
+  grade?: ReviewGrade;
+  responseStatus?: 'submitted' | 'unanswered';
+  aggregateEligible?: boolean;
   chosenOption?: string;
   ts?: number;
   deviceId?: string;
@@ -129,6 +152,9 @@ export function buildReviewEvent(input: AttemptInput): ReviewEvent {
     correct: input.correct,
     latencyMs: input.latencyMs,
     confidence: input.confidence,
+    grade: input.grade,
+    responseStatus: input.responseStatus ?? 'submitted',
+    aggregateEligible: input.aggregateEligible ?? ['topic', 'quick', 'mock', 'review', 'challenge'].includes(input.mode),
     chosenOption: input.chosenOption,
     algoVersion: input.algoVersion ?? REVIEW_EVENT_ALGO_VERSION,
   };

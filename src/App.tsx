@@ -303,22 +303,22 @@ function AppContent() {
       if (!detail) return;
       if (detail.status === 'recovered') {
         setReviewPersistenceNotice({
-          message: `Recovered ${detail.count ?? 0} pending review records. Your quiz progress was already saved.`,
+          message: `Recovered ${detail.count ?? 0} pending review records. Saved study progress was not changed.`,
           urgent: false,
         });
       } else if (detail.status === 'pending') {
         setReviewPersistenceNotice({
-          message: 'Your quiz progress is saved. Some review records are safely queued and will be retried automatically.',
+          message: 'Some review records are safely queued and will be retried automatically.',
           urgent: false,
         });
       } else if (detail.status === 'failed' && detail.recoveryQueued) {
         setReviewPersistenceNotice({
-          message: 'Your quiz progress is saved. A review record is preserved in the recovery queue, but a data conflict needs attention before it can be synchronized.',
+          message: 'A review record is preserved in the recovery queue, but a data conflict needs attention before it can be synchronized.',
           urgent: true,
         });
       } else if (detail.status === 'failed') {
         setReviewPersistenceNotice({
-          message: 'Your quiz progress is saved, but review records could not be placed in the recovery queue. Check available browser storage before closing this tab.',
+          message: 'A review record could not be placed in durable browser storage and may be missing from review history. Check available browser storage.',
           urgent: true,
         });
       }

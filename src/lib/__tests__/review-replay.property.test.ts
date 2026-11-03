@@ -61,6 +61,28 @@ describe('review replay property', () => {
     assert.deepEqual(mismatches, []);
   });
 
+  it('excludes flashcard and lesson-check evidence from AppData aggregate replay', () => {
+    const flashcard = buildReviewEvent({
+      itemId: 'card-1', skillId: 'topic-1', correct: false, grade: 'again', mode: 'flashcard', ts: 1,
+    });
+    const lessonCheck = buildReviewEvent({
+      itemId: 'lesson-q1', skillId: 'lesson-1', correct: true, mode: 'lesson-check', ts: 2,
+    });
+    assert.equal(replayItemEvents([flashcard, lessonCheck]), null);
+  });
+
+  it('replays only the aggregate-eligible final answer after a repeated item', () => {
+    const first = buildReviewEvent({
+      itemId: 'q1', skillId: 'skill-a', correct: false, mode: 'topic', ts: 1, aggregateEligible: false,
+    });
+    const final = buildReviewEvent({
+      itemId: 'q1', skillId: 'skill-a', correct: true, mode: 'topic', ts: 2, aggregateEligible: true,
+    });
+    const replayed = replayItemEvents([first, final]);
+    assert.equal(replayed?.attempts, 1);
+    assert.equal(replayed?.correct, true);
+  });
+
   it('MemoryReviewLog preserves append order by ts', async () => {
     const log = new MemoryReviewLog();
     await log.append(buildReviewEvent({ itemId: 'x', skillId: 's', correct: true, mode: 'quick', ts: 2 }));

@@ -54,15 +54,40 @@ describe('validateDraftShape', () => {
   it('rejects non-object', () => {
     assert.equal(validateDraftShape(null).ok, false);
   });
-  it('rejects duplicate question ids', () => {
+  it('allows repeated question ids for re-queued items', () => {
     const r = validateDraftShape({
       questionIds: ['q1', 'q1'],
       answers: [],
       currentIdx: 0,
       mode: 'quick',
     });
+    assert.equal(r.ok, true);
+  });
+  it('rejects more than one high-confidence re-queue for the same item', () => {
+    const r = validateDraftShape({
+      questionIds: ['q1', 'q1', 'q1'],
+      answers: [],
+      currentIdx: 0,
+      mode: 'quick',
+    });
     assert.equal(r.ok, false);
   });
+
+  it('preserves repeated submitted attempts separately from unique aggregate answers', () => {
+    const r = validateDraftShape({
+      questionIds: ['q1', 'q1', 'q2'],
+      answers: [{ questionId: 'q1', correct: true, selectedIndices: [0] }],
+      reviewAttempts: [
+        { questionId: 'q1', correct: false, selectedIndices: [1], confidence: 3, latencyMs: 900, optionOrder: [0, 1], questionIndex: 0 },
+        { questionId: 'q1', correct: true, selectedIndices: [0], confidence: 2, latencyMs: 700, optionOrder: [1, 0], questionIndex: 1 },
+      ],
+      currentIdx: 2,
+      mode: 'quick',
+    });
+    assert.equal(r.ok, true);
+    if (r.ok) assert.equal(r.draft.reviewAttempts?.length, 2);
+  });
+
   it('rejects empty examId string', () => {
     const r = validateDraftShape({
       questionIds: ['q1'],
@@ -264,6 +289,34 @@ describe('reconcileRestoredDraft', () => {
     if (r.ok) {
       assert.equal(r.answers[0].correct, false);
       assert.equal(gradeAnswer(r.questions[0], [0]), false);
+    }
+  });
+
+  it('restores repeated-item attempt history with per-attempt option permutations', () => {
+    const question = makeQ({ id: 'q1', correctAnswer: 1 });
+    const firstOrder = [0, 1, 2, 3];
+    const secondOrder = [1, 0, 2, 3];
+    const draft = {
+      questionIds: ['q1', 'q1'],
+      optionOrders: [firstOrder, secondOrder],
+      answers: [{
+        questionId: 'q1',
+        correct: false,
+        selectedIndices: [0],
+        optionOrder: secondOrder,
+      }],
+      reviewAttempts: [
+        { questionId: 'q1', correct: true, selectedIndices: [0], optionOrder: firstOrder, questionIndex: 0 },
+        { questionId: 'q1', correct: false, selectedIndices: [0], optionOrder: secondOrder, questionIndex: 1 },
+      ],
+      currentIdx: 1,
+      mode: 'quick' as const,
+    };
+    const result = reconcileRestoredDraft([question, question], draft);
+    assert.equal(result.ok, true);
+    if (result.ok) {
+      assert.equal(result.answers[0].correct, true);
+      assert.deepEqual(result.reviewAttempts?.map((attempt) => attempt.correct), [false, true]);
     }
   });
 
