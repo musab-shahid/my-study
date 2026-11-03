@@ -47,7 +47,7 @@ self.addEventListener('message', (e) => {
       if (
         url.origin !== location.origin ||
         !url.pathname.startsWith('/assets/') ||
-        !/\\.(?:js|css|woff2|svg|png|webp|jpe?g|avif)$/i.test(url.pathname)
+        !/\.(?:js|css|woff2|svg|png|webp|jpe?g|avif)$/i.test(url.pathname)
       ) {
         throw new Error('Offline packs may contain only same-origin app assets');
       }
