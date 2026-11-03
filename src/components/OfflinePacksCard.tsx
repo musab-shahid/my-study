@@ -104,7 +104,7 @@ export function OfflinePacksCard() {
         <div className="min-w-0 flex-1">
           <p className="font-semibold text-ink text-sm">Offline study packs</p>
           <p className="mt-1 text-xs leading-relaxed text-ink-muted">
-            Save an enrolled track's topics, question banks, and app code in this browser. Packs are device-local,
+            Save an enrolled track&apos;s topics, question banks, and app code in this browser. Packs are device-local,
             not backups; clearing site data removes them. External media, embedded resources, cloud sync, and live
             tutor features may still need an internet connection.
           </p>
