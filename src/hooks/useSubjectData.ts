@@ -320,7 +320,7 @@ export function useSubjectData(): SubjectDataLayer {
       }
       return next;
     });
-  }, [trackSubjectIdList, trackSubjectIds]);
+  }, [trackSubjectIdList]);
 
   const ensureQuestionsLoaded = useCallback(async (id: SubjectId | 'all') => {
     if (id !== 'all' && !trackSubjectIds.has(id)) return;
