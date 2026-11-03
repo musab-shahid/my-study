@@ -4,8 +4,17 @@ import { join } from 'node:path';
 const root = process.cwd();
 const packageJson = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
 const workflow = readFileSync(join(root, '.github/workflows/ci.yml'), 'utf8');
+const invokedByCi = new Set(
+  [...workflow.matchAll(/\bnpm\s+run\s+([a-zA-Z0-9:_-]+)/g)].map((match) => match[1]),
+);
 
+// Exceptions are explicit, evidence-backed delegations—not silently ignored checks.
 const delegatedChecks = {
+  check: {
+    file: '.github/workflows/ci.yml',
+    marker: 'npm run typecheck',
+    reason: 'CI expands the local aggregate into named steps and adds CI-only checks; PR-specific design-system diff context is also supplied here.',
+  },
   'check:design-system': {
     file: '.github/workflows/ci.yml',
     marker: 'node scripts/check-design-system.mjs',
@@ -68,15 +77,13 @@ if (!workflow.includes('node scripts/check-ci-gate-coverage.mjs')) {
 }
 
 for (const name of checkScripts) {
-  const directInvocation = new RegExp(`npm\\\\s+run\\\\s+${name.replace(/[.*+?^\\${}()|[\\]\\\\]/g, '\\\\  if (workflow.includes(`npm run ${name}`)) continue;')}(?:\\\\s|$)`);
-  if (directInvocation.test(workflow)) continue;
+  if (invokedByCi.has(name)) continue;
 
   const delegation = delegatedChecks[name];
   if (!delegation) {
     violations.push(`${name} is neither invoked directly by CI nor documented as a delegated check.`);
     continue;
   }
-
   if (!delegation.reason.trim()) {
     violations.push(`${name} has no documented reason for its CI delegation.`);
   }
