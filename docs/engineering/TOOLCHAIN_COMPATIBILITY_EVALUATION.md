@@ -1,0 +1,43 @@
+# Toolchain compatibility evaluation
+
+**Date:** 2026-11-04  
+**Scope:** isolated evaluation only; no production dependency or lockfile changes.
+
+## React 19
+
+| Item | Result |
+|---|---|
+| Runtime | `react@19.3.1`, `react-dom@19.3.1` |
+| Types | `@types/react@19.3.0`, `@types/react-dom@19.3.0` |
+| Environment | Node 22.23.4, npm 10.9.9 |
+| Install | Pass |
+| `npm run typecheck` | Pass |
+| `npm run build` | Pass |
+| Unit / browser runtime suites | Not run in this lane |
+
+**Decision:** technically compatible at install, TypeScript, and production-build level. This is not sufficient evidence to upgrade production: run the full unit, Playwright, Lighthouse, and real-device checks against React 19 before changing the lockfile.
+
+## ESLint 10
+
+| Item | Result |
+|---|---|
+| ESLint | `eslint@10.14.0` |
+| Core config | `@eslint/js@10.0.1` |
+| TypeScript integration | `typescript-eslint@8.72.1` |
+| React Hooks plugin | `eslint-plugin-react-hooks@7.1.1` |
+| Install | Pass |
+| Existing `npm run lint` | Fail: 45 errors, 104 warnings |
+
+The first install attempt exposed the expected peer conflict: the locked `eslint-plugin-react-hooks@5.2.0` declares ESLint support only through v9. The current React Hooks plugin v7.1.1 adds ESLint 10 peer support, so the evaluation used it rather than bypassing npm's peer-dependency check.
+
+With the supported plugin, lint executes but the newer recommended rules report significant existing debt. The 45 errors include:
+- ESLint 10 recommended-core changes such as `no-useless-assignment` and `preserve-caught-error`.
+- React Hooks Compiler diagnostics such as `react-hooks/set-state-in-effect`, `react-hooks/purity`, `react-hooks/refs`, and `react-hooks/preserve-manual-memoization`.
+
+These are not safe to silence wholesale. Each finding needs a behavior-aware fix or a narrowly justified rule decision. The experiment intentionally did not modify the production ESLint config or disable any rule.
+
+**Decision:** do not upgrade ESLint 10 as a version-only change. First plan a separate React Hooks plugin/config migration and triage the new diagnostics, then rerun the full lint suite and existing CI.
+
+## Reproducibility and scope
+
+The compatibility workflow starts from `npm ci` and installs experimental versions with `--no-save --package-lock=false`. Neither `package.json` nor `package-lock.json` is changed by the experiment. The workflow is scoped to the compatibility branch and is not part of required production CI.
