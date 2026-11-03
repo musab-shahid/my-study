@@ -250,11 +250,13 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
     ? data.studiedTopics.includes(lesson.sourceTopicId)
     : Boolean(lesson && (data.studiedCurriculumLessons ?? []).includes(lesson.id));
 
+  const lessonId = lesson?.id;
+  const lessonSourceTopicId = lesson?.sourceTopicId;
   useEffect(() => {
-    if (!lesson) return;
-    if (lesson.sourceTopicId) setLastTopic(lesson.sourceTopicId);
-    else setLastCurriculumLesson(lesson.id);
-  }, [lesson?.id, lesson?.sourceTopicId, setLastTopic, setLastCurriculumLesson]);
+    if (!lessonId) return;
+    if (lessonSourceTopicId) setLastTopic(lessonSourceTopicId);
+    else setLastCurriculumLesson(lessonId);
+  }, [lessonId, lessonSourceTopicId, setLastTopic, setLastCurriculumLesson]);
 
   if (!lesson) return <PageContainer><BackButton /><EmptyState title="Curriculum lesson not found" message="This lesson is not registered in the current curriculum." action={<Button variant="secondary" onClick={() => navigate({ screen: 'learn' })}>Back to Learn</Button>} /></PageContainer>;
 
