@@ -43,6 +43,25 @@ export function consumeStorageWarning(): string | null {
   return msg;
 }
 
+let pendingSaveWarning = false;
+
+function publishStorageWarning(message: string, retryableWrite = false): void {
+  lastStorageWarning = message;
+  if (retryableWrite) pendingSaveWarning = true;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent('my-study-storage-warning', { detail: { message } }));
+  }
+}
+
+function publishStorageSaved(): void {
+  if (!pendingSaveWarning) return;
+  pendingSaveWarning = false;
+  if (lastStorageWarning?.startsWith('Could not save progress')) lastStorageWarning = null;
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new Event('my-study-storage-saved'));
+  }
+}
+
 /** Raw backup JSON if present (for user export) */
 export function getBackupRaw(): string | null {
   try {
@@ -58,7 +77,7 @@ export function createRecoveryBackup(data: AppData): boolean {
     localStorage.setItem(BACKUP_KEY, JSON.stringify(sanitizeForSave(data)));
     return true;
   } catch {
-    lastStorageWarning = 'Could not create a recovery backup before reset (storage full). Reset cancelled so your data is not lost.';
+    publishStorageWarning('Could not create a recovery backup before reset (storage full). Reset cancelled so your data is not lost.');
     return false;
   }
 }
@@ -169,10 +188,13 @@ function flushSave(): boolean {
     pendingData = null;
     saveTimer = null;
     saveRetryCount = 0;
+    publishStorageSaved();
     return true;
   } catch {
-    lastStorageWarning =
-      'Could not save progress (browser storage may be full). Free space or export a backup — your latest changes may be lost on reload.';
+    publishStorageWarning(
+      'Could not save progress (browser storage may be full). Free space or export a backup — your latest changes may be lost on reload.',
+      true,
+    );
     saveTimer = null;
     if (typeof window !== 'undefined' && saveRetryCount < MAX_SAVE_RETRIES) {
       saveRetryCount += 1;
