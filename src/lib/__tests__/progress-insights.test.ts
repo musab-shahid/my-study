@@ -35,7 +35,9 @@ describe('flashcard grades', () => {
   it('maps again to incorrect', () => {
     assert.equal(gradeToAttempt('again').correct, false);
     assert.equal(gradeToAttempt('easy').correct, true);
-    assert.equal(gradeToAttempt('hard').confidence, 1);
+    const hard = gradeToAttempt('hard');
+    assert.equal(hard.correct, true);
+    assert.equal('confidence' in hard, false, 'flashcard grades must not fabricate confidence');
   });
 
   it('lints long prompts', () => {
