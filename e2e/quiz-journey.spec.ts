@@ -284,7 +284,6 @@ test.describe('Quiz completion journey', () => {
       return raw ? JSON.parse(raw) : null;
     }, QUIZ_PROGRESS_KEY);
     const questionIds = savedBeforeExit.questionIds as string[];
-    const questionIds = savedBeforeExit.questionIds as string[];
 
     await page.getByRole('button', { name: 'Exit quiz' }).click();
     const exitDialog = page.getByRole('dialog', { name: 'Exit quiz?' });
