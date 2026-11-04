@@ -26,6 +26,7 @@ export function OfflinePacksCard() {
   const [progress, setProgress] = useState<{ trackId: TrackId; completed: number; total: number } | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine);
+  const [backgroundRefreshing, setBackgroundRefreshing] = useState<TrackId | null>(null);
 
   const refreshStatuses = useCallback(async () => {
     if (typeof caches === 'undefined') {
