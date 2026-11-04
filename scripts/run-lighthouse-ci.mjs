@@ -4,10 +4,11 @@
  * A missing Lighthouse install/report is a hard failure, never a fallback.
  */
 import { createServer } from 'node:http';
-import { readFileSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DEFAULT_LIGHTHOUSE_FLOORS, enforceLighthouseFloors } from './lighthouse-gate.mjs';
+import { extractLighthouseMetrics } from './lighthouse-metrics.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
@@ -110,12 +111,8 @@ async function runLighthouse(url) {
         disabled: false,
       },
     });
-    const categories = result?.lhr?.categories;
-    if (!categories) throw new Error('Lighthouse did not return category scores');
-    return {
-      performance: categories.performance?.score,
-      accessibility: categories.accessibility?.score,
-    };
+    if (!result?.lhr) throw new Error('Lighthouse did not return a report');
+    return result.lhr;
   } finally {
     await chrome.kill();
   }
@@ -126,7 +123,16 @@ async function main() {
   const url = 'http://127.0.0.1:4177/';
   try {
     await playwrightFloor(url);
-    const scores = await runLighthouse(url);
+    const lhr = await runLighthouse(url);
+    const { scores, metrics } = extractLighthouseMetrics(lhr);
+    const reportDir = path.join(root, 'artifacts', 'lighthouse');
+    mkdirSync(reportDir, { recursive: true });
+    const reportPath = path.join(reportDir, 'lighthouse-report.json');
+    writeFileSync(reportPath, JSON.stringify(lhr));
+    console.log(`[perf-gate] full Lighthouse JSON report: ${path.relative(root, reportPath)}`);
+    for (const [key, metric] of Object.entries(metrics)) {
+      console.log(`[perf-gate] ${key}=${metric.displayValue} (raw=${metric.numericValue} ${metric.numericUnit ?? ''}; score=${metric.score ?? 'n/a'})`);
+    }
     const accepted = enforceLighthouseFloors(scores, {
       minPerformance: MIN_PERF,
       minAccessibility: MIN_A11Y,
