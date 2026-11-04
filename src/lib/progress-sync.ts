@@ -1,4 +1,4 @@
-/** 
+/**
  * Optional cloud backup of AppData via Supabase (app_progress table).
  *
  * Security (P0):
@@ -41,8 +41,10 @@ export function isProgressSyncConfigured(): boolean {
 
 export { ACCOUNT_PROGRESS_DEVICE_ID, MAX_PROGRESS_PAYLOAD_BYTES } from './progress-sync-http.ts';
 
+
 /** Persist session access token after Supabase Auth login. */
 export function setProgressSyncAccessToken(token: string | null): void {
+  // Clearing access token also clears refresh (full sign-out).
   if (!token) setSessionTokens(null);
   else setAccessToken(token);
 }
@@ -54,10 +56,19 @@ export function getProgressSyncAccessToken(): string | null {
 function requireAuth(): { ok: true; token: string } | { ok: false; error: string } {
   if (!isProgressSyncConfigured()) return { ok: false, error: 'not-configured' };
   const token = getProgressSyncAccessToken();
-  if (!token) return { ok: false, error: 'auth-required' };
-  if (isAccessTokenExpired(token)) return { ok: false, error: 'token-expired' };
+  if (!token) {
+    return {
+      ok: false,
+      error: 'auth-required',
+    };
+  }
+  if (isAccessTokenExpired(token)) {
+    return { ok: false, error: 'token-expired' };
+  }
   return { ok: true, token };
 }
+
+
 
 /** Prefer a non-expired access token; attempt refresh when exp is past. */
 async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | { ok: false; error: string }> {
@@ -76,12 +87,9 @@ async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | {
   }
 }
 
-/** Push local AppData using revision CAS; timestamp remains for display and old-schema fallback. */
-export async function pushProgress(
-  data: AppData,
-  expectedUpdatedAt: string | null = null,
-  expectedRevision: number | null = null,
-): Promise<{ ok: boolean; error?: string }> {
+/** Push local AppData snapshot to Supabase (authenticated only). */
+export async function pushProgress(data: AppData, expectedUpdatedAt: string | null = null, expectedRevision: number | null = null): Promise<{ ok: boolean; error?: string }> {
+  // Reject malformed local state before auth refresh or any network request.
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
   const encoded = JSON.stringify(data);
   if (new TextEncoder().encode(encoded).byteLength > MAX_PROGRESS_PAYLOAD_BYTES) {
@@ -106,7 +114,7 @@ export async function pushProgress(
   );
 }
 
-/** Pull account snapshot, including display timestamp and server revision for compare-and-swap. */
+/** Pull cloud snapshot for this user + device (includes cloud updated_at for conflict UX). */
 export type { PullProgressResult } from './progress-sync-http.ts';
 
 export async function pullProgress(): Promise<PullProgressResult> {
@@ -119,5 +127,6 @@ export async function pullProgress(): Promise<PullProgressResult> {
     deviceId: getDeviceId(),
   });
 }
+
 
 export { isAiProxyConfigured };

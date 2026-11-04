@@ -31,6 +31,6 @@ describe('account-wide progress sync contract', () => {
   it('requires explicit confirmation before replacing an existing account snapshot', () => {
     assert.match(settings, /Confirm account backup replacement/);
     assert.match(settings, /Replace account backup/);
-    assert.match(settings, /pushProgress\(data, pendingCloudUploadAt\)/);
+    assert.match(settings, /pushProgress\(data, pendingCloudUploadAt, pendingCloudUploadRevision\)/);
   });
 });
