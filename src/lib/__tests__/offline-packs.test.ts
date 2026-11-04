@@ -2,6 +2,9 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   collectOfflineAssetUrls,
+  getRememberedOfflineTracks,
+  rememberTrackOfflinePack,
+  forgetTrackOfflinePack,
   getTrackOfflinePackStatus,
   removeTrackOfflinePack,
   type OfflinePackCacheStorage,
