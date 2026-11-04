@@ -99,4 +99,22 @@ describe('revision-based account progress sync', () => {
     assert.equal(patch?.url.searchParams.get('updated_at'), 'eq.2026-11-04T11:00:00.000Z');
     assert.equal(patch?.url.searchParams.has('revision'), false);
   });
+  it('retries a legacy projection when the server schema has no revision column yet', async () => {
+    const server = revisionServer({ payload: data('pre-migration'), updated_at: '2026-11-04T10:00:00.000Z' });
+    const requests: string[] = [];
+    const fetcher: typeof fetch = async (input, init) => {
+      const url = new URL(input instanceof Request ? input.url : String(input));
+      requests.push(url.searchParams.get('select') ?? '');
+      if (url.searchParams.get('select') === 'payload,updated_at,revision') {
+        return new Response('{"code":"42703","message":"column app_progress.revision does not exist"}', { status: 400 });
+      }
+      return server.fetcher(input, init);
+    };
+    const pulled = await pullAccountProgressSnapshot({ ...config, fetcher });
+    assert.equal(pulled.ok, true);
+    if (!pulled.ok) return;
+    assert.equal(pulled.revision, null);
+    assert.deepEqual(requests, ['payload,updated_at,revision', 'payload,updated_at']);
+  });
+
 });

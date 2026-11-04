@@ -21,8 +21,9 @@ describe('account-wide progress sync contract', () => {
     assert.match(http, /error: 'cloud-conflict'/);
   });
 
-  it('updates an existing snapshot only when its reviewed timestamp still matches', () => {
-    assert.match(http, /updated_at=eq\.\$\{expected\}/);
+  it('updates an existing snapshot with revision CAS and keeps timestamp fallback', () => {
+    assert.match(http, /revision=eq\.\$\{expectedRevision\}/);
+    assert.match(http, /updated_at=eq\.\$\{encodeURIComponent\(expectedUpdatedAt\)\}/);
     assert.match(http, /method: 'PATCH'/);
     assert.match(http, /return=representation/);
   });

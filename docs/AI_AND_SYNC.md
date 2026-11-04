@@ -19,7 +19,7 @@ Production builds do not embed provider API keys; optional direct-provider keys 
 
 ## Progress sync (optional)
 
-1. Apply migrations `20261020_progress_sync.sql` and `20261021_progress_sync_rls_harden.sql` in order.
+1. Apply migrations `20261020_progress_sync.sql`, `20261021_progress_sync_rls_harden.sql`, and `20261104_app_progress_revision.sql` in order. Apply the revision migration before deploying the revision-aware client; the client temporarily falls back to timestamp compare-and-swap when an older schema does not expose `revision`.
 2. Configure the same Supabase URL and anon key in the client.
 3. Sign in through Supabase Auth; cloud sync requires a user access token. The device ID is only a label and must never be used as an ownership secret.
 4. The hardened migration removes legacy device-only access paths and applies authenticated-user ownership policies to `app_progress`. Verify the migration was actually applied to the deployed project; repository SQL alone does not prove remote database state.

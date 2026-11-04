@@ -86,6 +86,7 @@ export function SettingsScreen() {
   const [errorReporting, setErrorReporting] = useState(isErrorReportingEnabled);
   const [confirmCloudRestore, setConfirmCloudRestore] = useState(false);
   const [pendingCloudUploadAt, setPendingCloudUploadAt] = useState<string | null>(null);
+  const [pendingCloudUploadRevision, setPendingCloudUploadRevision] = useState<number | null>(null);
   const [backupMsg, setBackupMsg] = useState<string | null>(null);
   const [confirmClearTutorData, setConfirmClearTutorData] = useState(false);
   const [tutorDataMsg, setTutorDataMsg] = useState<string | null>(null);
@@ -287,9 +288,11 @@ export function SettingsScreen() {
                   setSyncBusy(true);
                   setSyncMsg(null);
                   setPendingCloudUploadAt(null);
+                  setPendingCloudUploadRevision(null);
                   const cloud = await pullProgress();
                   if (cloud.ok && cloud.source === 'account' && cloud.updatedAt) {
                     setPendingCloudUploadAt(cloud.updatedAt);
+                    setPendingCloudUploadRevision(cloud.revision);
                     setSyncMsg('An account backup already exists. Review the timestamp and confirm before replacing it.');
                     setSyncBusy(false);
                     return;
@@ -329,17 +332,18 @@ export function SettingsScreen() {
                     onClick={async () => {
                       setSyncBusy(true);
                       setSyncMsg(null);
-                      const result = await pushProgress(data, pendingCloudUploadAt);
+                      const result = await pushProgress(data, pendingCloudUploadAt, pendingCloudUploadRevision);
                       setSyncMsg(result.ok ? 'Account-wide backup replaced.' : result.error === 'cloud-conflict'
                         ? 'The cloud backup changed on another device. Select Upload again to review the latest version.'
                         : cloudSyncErrorMessage(result.error, 'upload'));
                       setPendingCloudUploadAt(null);
+                      setPendingCloudUploadRevision(null);
                       setSyncBusy(false);
                     }}
                   >
                     Replace account backup
                   </Button>
-                  <Button variant="secondary" disabled={syncBusy} onClick={() => setPendingCloudUploadAt(null)}>
+                  <Button variant="secondary" disabled={syncBusy} onClick={() => { setPendingCloudUploadAt(null); setPendingCloudUploadRevision(null); }}>
                     Cancel
                   </Button>
                 </div>

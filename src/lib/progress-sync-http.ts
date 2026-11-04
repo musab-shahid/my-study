@@ -15,10 +15,10 @@ export interface ProgressSyncHttpConfig {
 }
 
 export type PullProgressResult =
-  | { ok: true; data: AppData; updatedAt: string | null; source: 'account' | 'legacy-device' }
+  | { ok: true; data: AppData; updatedAt: string | null; revision: number | null; source: 'account' | 'legacy-device' }
   | { ok: false; error: string };
 
-type SnapshotRow = { payload?: unknown; updated_at?: unknown };
+type SnapshotRow = { payload?: unknown; updated_at?: unknown; revision?: unknown };
 
 function restUrl(config: ProgressSyncHttpConfig, path: string): string {
   return `${config.supabaseUrl.replace(/\/$/, '')}/rest/v1/${path}`;
@@ -48,11 +48,52 @@ async function responseRows(response: Response): Promise<SnapshotRow[]> {
   return Array.isArray(value) ? value as SnapshotRow[] : [];
 }
 
+function rowRevision(row: SnapshotRow | undefined): number | null {
+  const revision = row?.revision;
+  return typeof revision === 'number' && Number.isSafeInteger(revision) && revision >= 1
+    ? revision
+    : null;
+}
+
+function isMissingRevisionColumn(response: Response): Promise<boolean> {
+  if (response.status !== 400 && response.status !== 406 && response.status !== 500) {
+    return Promise.resolve(false);
+  }
+  return response.clone().text().then((body) =>
+    /(?:column[^\n]*revision[^\n]*(?:does not exist|not found)|revision[^\n]*(?:schema cache|does not exist|not found))/i.test(body),
+  ).catch(() => false);
+}
+
+async function readSnapshotRows(
+  config: ProgressSyncHttpConfig,
+  deviceId: string,
+  fetcher: typeof fetch,
+): Promise<{ response: Response; rows: SnapshotRow[] }> {
+  const base = `app_progress?device_id=eq.${encodeURIComponent(deviceId)}&`;
+  const revisionResponse = await fetcher(
+    restUrl(config, `${base}select=payload,updated_at,revision`),
+    { headers: requestHeaders(config) },
+  );
+  if (!revisionResponse.ok && await isMissingRevisionColumn(revisionResponse)) {
+    // Client-first deployment remains safe: old schemas use timestamp CAS until migration is applied.
+    const legacyResponse = await fetcher(
+      restUrl(config, `${base}select=payload,updated_at`),
+      { headers: requestHeaders(config) },
+    );
+    return { response: legacyResponse, rows: legacyResponse.ok ? await responseRows(legacyResponse) : [] };
+  }
+  return {
+    response: revisionResponse,
+    rows: revisionResponse.ok ? await responseRows(revisionResponse) : [],
+  };
+}
+
 /** Dependency-injected PostgREST writer; auth refresh and RLS ownership stay in progress-sync.ts. */
 export async function pushAccountProgressSnapshot(
   config: ProgressSyncHttpConfig,
   data: AppData,
   expectedUpdatedAt: string | null,
+  expectedRevision: number | null = null,
 ): Promise<{ ok: boolean; error?: string }> {
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
   const encoded = JSON.stringify(data);
@@ -81,9 +122,11 @@ export async function pushAccountProgressSnapshot(
       return inserted.length > 0 ? { ok: true } : { ok: false, error: 'cloud-conflict' };
     }
 
-    const expected = encodeURIComponent(expectedUpdatedAt);
+    const compareAndSwap = expectedRevision !== null && Number.isSafeInteger(expectedRevision) && expectedRevision >= 1
+      ? `revision=eq.${expectedRevision}`
+      : `updated_at=eq.${encodeURIComponent(expectedUpdatedAt)}`;
     const response = await fetcher(
-      restUrl(config, `app_progress?device_id=eq.${encodeURIComponent(ACCOUNT_PROGRESS_DEVICE_ID)}&updated_at=eq.${expected}`),
+      restUrl(config, `app_progress?device_id=eq.${encodeURIComponent(ACCOUNT_PROGRESS_DEVICE_ID)}&${compareAndSwap}`),
       {
         method: 'PATCH',
         headers: requestHeaders(config, 'return=representation'),
@@ -102,31 +145,23 @@ export async function pushAccountProgressSnapshot(
 export async function pullAccountProgressSnapshot(config: ProgressSyncHttpConfig): Promise<PullProgressResult> {
   try {
     const fetcher = config.fetcher ?? fetch;
-    const accountResponse = await fetcher(
-      restUrl(config, `app_progress?device_id=eq.${encodeURIComponent(ACCOUNT_PROGRESS_DEVICE_ID)}&select=payload,updated_at`),
-      { headers: requestHeaders(config) },
-    );
-    if (!accountResponse.ok) return { ok: false, error: `HTTP ${accountResponse.status}` };
-    const accountRows = await responseRows(accountResponse);
-    if (accountRows.length > 0) {
-      const payload = accountRows[0]?.payload;
-      if (!validateCloudRestoreData(payload)) return { ok: false, error: 'invalid-cloud-data' };
-      const updatedAt = typeof accountRows[0]?.updated_at === 'string' ? accountRows[0].updated_at : null;
-      return { ok: true, data: payload, updatedAt, source: 'account' };
+    const account = await readSnapshotRows(config, ACCOUNT_PROGRESS_DEVICE_ID, fetcher);
+    if (!account.response.ok) return { ok: false, error: `HTTP ${account.response.status}` };
+    if (account.rows.length > 0) {
+      const row = account.rows[0];
+      if (!validateCloudRestoreData(row?.payload)) return { ok: false, error: 'invalid-cloud-data' };
+      const updatedAt = typeof row?.updated_at === 'string' ? row.updated_at : null;
+      return { ok: true, data: row.payload, updatedAt, revision: rowRevision(row), source: 'account' };
     }
 
     if (!config.deviceId) return { ok: false, error: 'device-id-unavailable' };
-    const legacyResponse = await fetcher(
-      restUrl(config, `app_progress?device_id=eq.${encodeURIComponent(config.deviceId)}&select=payload,updated_at`),
-      { headers: requestHeaders(config) },
-    );
-    if (!legacyResponse.ok) return { ok: false, error: `HTTP ${legacyResponse.status}` };
-    const legacyRows = await responseRows(legacyResponse);
-    if (legacyRows.length === 0) return { ok: false, error: 'empty' };
-    const payload = legacyRows[0]?.payload;
-    if (!validateCloudRestoreData(payload)) return { ok: false, error: 'invalid-cloud-data' };
-    const updatedAt = typeof legacyRows[0]?.updated_at === 'string' ? legacyRows[0].updated_at : null;
-    return { ok: true, data: payload, updatedAt, source: 'legacy-device' };
+    const legacy = await readSnapshotRows(config, config.deviceId, fetcher);
+    if (!legacy.response.ok) return { ok: false, error: `HTTP ${legacy.response.status}` };
+    if (legacy.rows.length === 0) return { ok: false, error: 'empty' };
+    const row = legacy.rows[0];
+    if (!validateCloudRestoreData(row?.payload)) return { ok: false, error: 'invalid-cloud-data' };
+    const updatedAt = typeof row?.updated_at === 'string' ? row.updated_at : null;
+    return { ok: true, data: row.payload, updatedAt, revision: rowRevision(row), source: 'legacy-device' };
   } catch (error) {
     return { ok: false, error: error instanceof Error ? error.message : 'pull-failed' };
   }

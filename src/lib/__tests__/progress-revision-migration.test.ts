@@ -11,8 +11,10 @@ describe('account progress revision migration', () => {
   const normalized = sql.replace(/--[^\n]*/g, '').replace(/\s+/g, ' ').toLowerCase();
 
   it('adds and backfills a non-null revision with a stable initial value', () => {
-    assert.match(normalized, /add column if not exists revision bigint not null default 1/);
+    assert.match(normalized, /add column if not exists revision bigint/);
     assert.match(normalized, /update public\.app_progress set revision = 1 where revision is null/);
+    assert.match(normalized, /alter column revision set default 1/);
+    assert.match(normalized, /alter column revision set not null/);
   });
 
   it('installs a rerunnable trigger that increments the old revision and ignores client input', () => {
