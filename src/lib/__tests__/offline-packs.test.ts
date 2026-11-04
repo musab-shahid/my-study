@@ -5,6 +5,7 @@ import {
   getRememberedOfflineTracks,
   rememberTrackOfflinePack,
   forgetTrackOfflinePack,
+  canRefreshOfflinePacks,
   getTrackOfflinePackStatus,
   removeTrackOfflinePack,
   type OfflinePackCacheStorage,
@@ -99,5 +100,24 @@ describe('track offline pack helpers', () => {
       removeItem: () => undefined,
     };
     assert.deepEqual(getRememberedOfflineTracks(storage), []);
+  });
+  it('skips background refresh when Save-Data is enabled or storage headroom is insufficient', async () => {
+    const saveData = {
+      connection: { saveData: true },
+      storage: { estimate: async () => ({ usage: 1, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(saveData, 1_000), false);
+
+    const lowStorage = {
+      connection: { saveData: false },
+      storage: { estimate: async () => ({ usage: 95_000_000, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(lowStorage, 10_000_000), false);
+
+    const available = {
+      connection: { saveData: false },
+      storage: { estimate: async () => ({ usage: 1_000, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(available, 10_000_000), true);
   });
 });
