@@ -56,7 +56,7 @@
     "check:cgei-subject-boundary": "node scripts/check-cgei-subject-boundary.mjs",
     "check:cgei-authoring": "node scripts/check-cgei-authoring.mjs",
     "build:e2e": "vite build --mode e2e && node scripts/security-headers.mjs --write && node scripts/check-bundle-budget.mjs",
-    "evaluate:fsrs": "tsx --tsconfig tsconfig.node.json scripts/evaluate-fsrs.ts"
+    "evaluate:fsrs": "tsx scripts/evaluate-fsrs.mjs"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.1",
