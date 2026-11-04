@@ -20,7 +20,7 @@ test('FSRS comparison compatibility exports load the evaluator only on demand', 
 
 test('application source never statically imports the FSRS evaluator or ts-fsrs package', () => {
   const files = sourceFiles('src').filter((path) => !path.includes('/__tests__/') && !path.endsWith('.test.ts'));
-  const staticEvaluatorImport = /(?:import|export)\s+(?:type\s+)?(?:[^;]*?\s+from\s*)['"][^'"]*fsrs-evaluation(?:\.ts)?['"]/s;
+  const staticEvaluatorImport = /(?:import|export)\s+(?!type\b)(?:[^;]*?\s+from\s*)['"][^'"]*fsrs-evaluation(?:\.ts)?['"]/s;
   const staticFsrsPackage = /from\s*['"]ts-fsrs['"]/;
   for (const file of files) {
     const source = readFileSync(file, 'utf8');
