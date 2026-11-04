@@ -1,6 +1,7 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { resolve } from 'node:path';
 
 describe('lint warning ratchet', () => {
@@ -19,5 +20,27 @@ describe('lint warning ratchet', () => {
       warningLimit <= 89,
       `ESLint warning limit must not exceed the measured baseline of 89 (received ${warningLimit})`,
     );
+  });
+  it('keeps QuizScreen and DashboardScreen free of unused-variable warnings', () => {
+    const output = execFileSync(
+      process.execPath,
+      [
+        'node_modules/eslint/bin/eslint.js',
+        'src/screens/QuizScreen.tsx',
+        'src/screens/DashboardScreen.tsx',
+        '--format',
+        'json',
+      ],
+      { cwd: process.cwd(), encoding: 'utf8' },
+    );
+    const results = JSON.parse(output) as Array<{
+      filePath: string;
+      messages: Array<{ ruleId: string | null; severity: number; message: string }>;
+    }>;
+    const unused = results.flatMap((result) => result.messages
+      .filter((message) => message.ruleId === '@typescript-eslint/no-unused-vars')
+      .map((message) => `${result.filePath}: ${message.message}`));
+
+    assert.deepEqual(unused, [], 'target screens must have no unused-variable warnings');
   });
 });
