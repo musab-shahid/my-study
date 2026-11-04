@@ -47,6 +47,7 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
+            if (id.includes('/node_modules/ts-fsrs/')) return 'vendor-fsrs';
             if (id.includes('react-dom') || id.includes('/react/')) return 'vendor-react';
             if (id.includes('katex')) return 'vendor-katex';
             if (id.includes('lucide-react')) return 'vendor-icons';
@@ -56,6 +57,8 @@ export default defineConfig({
           // The curriculum assembler and shared registry wiring remain outside these chunks.
           const cgeiSubjectChunk = getCgeiSubjectChunkName(id);
           if (cgeiSubjectChunk) return cgeiSubjectChunk;
+          // The evaluator is reached only through a dynamic import; do not fold it into eager app-lib.
+          if (id.endsWith('/src/lib/fsrs-evaluation.ts')) return undefined;
           if (id.includes('/src/lib/')) return 'app-lib';
           // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (

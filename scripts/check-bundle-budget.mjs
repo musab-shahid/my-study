@@ -47,6 +47,17 @@ if (entryPoints.length === 0) {
 let failed = false;
 const jsAssets = Object.entries(manifest).filter(([, item]) => item.file?.endsWith('.js'));
 const curriculumMarker = 'cgei-ds-q-51-001';
+// The real FSRS evaluator must be emitted as a separate dynamic-import chunk.
+const fsrsEvaluatorAssets = jsAssets.filter(([key, item]) =>
+  key.endsWith('src/lib/fsrs-evaluation.ts') || item.file?.includes('fsrs-evaluation'),
+);
+const fsrsVendorAssets = jsAssets.filter(([key, item]) =>
+  key.includes('vendor-fsrs') || item.file?.includes('vendor-fsrs'),
+);
+if (fsrsEvaluatorAssets.length === 0 || fsrsVendorAssets.length === 0) {
+  console.error('[bundle-budget] Expected separate fsrs-evaluation and vendor-fsrs lazy chunks in the production manifest.');
+  failed = true;
+}
 const curriculumAssets = jsAssets.filter(([, item]) => {
   const absolutePath = path.join(outDir, item.file);
   return fs.existsSync(absolutePath) && fs.readFileSync(absolutePath, 'utf8').includes(curriculumMarker);
@@ -67,6 +78,13 @@ for (const [entryKey, entry] of entryPoints) {
   if (initialContainsCurriculum) {
     console.error(
       `[bundle-budget] Canonical CGEI curriculum content is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind a lazy screen boundary.`,
+    );
+    failed = true;
+  }
+  const fsrsEvaluatorInInitialGraph = [...fsrsEvaluatorAssets, ...fsrsVendorAssets].some(([, item]) => initialFiles.includes(item.file));
+  if (fsrsEvaluatorInInitialGraph) {
+    console.error(
+      `[bundle-budget] FSRS evaluator chunk is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind its dynamic-import boundary.`,
     );
     failed = true;
   }

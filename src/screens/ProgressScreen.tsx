@@ -109,7 +109,7 @@ export function ProgressScreen() {
           (s) =>
             `${s.itemId}: “${s.chosenOption}” (${s.wrongCount}× wrong)`,
         );
-        const cmp = compareSchedulersOnLog(events);
+        const cmp = await compareSchedulersOnLog(events);
         let note: string | null = null;
         if (cmp.predictionCount >= 5 && cmp.fsrsLogLoss != null && cmp.sm2LogLoss != null) {
           note = cmp.fsrsBeatsSm2
