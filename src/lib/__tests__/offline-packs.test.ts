@@ -77,4 +77,27 @@ describe('track offline pack helpers', () => {
       'my-study-offline-pack-examprep-a1b2c3d4-hat-150',
     ]);
   });
+  it('remembers only explicitly downloaded tracks and Remove clears the opt-in', () => {
+    const values = new Map<string, string>();
+    const storage = {
+      getItem: (key: string) => values.get(key) ?? null,
+      setItem: (key: string, value: string) => { values.set(key, value); },
+      removeItem: (key: string) => { values.delete(key); },
+    };
+    assert.deepEqual(getRememberedOfflineTracks(storage), []);
+    rememberTrackOfflinePack('fpsc', storage);
+    rememberTrackOfflinePack('cgei', storage);
+    assert.deepEqual(getRememberedOfflineTracks(storage), ['fpsc', 'cgei']);
+    forgetTrackOfflinePack('fpsc', storage);
+    assert.deepEqual(getRememberedOfflineTracks(storage), ['cgei']);
+  });
+
+  it('ignores malformed preference storage without opting tracks in', () => {
+    const storage = {
+      getItem: () => '{bad json',
+      setItem: () => { throw new Error('storage unavailable'); },
+      removeItem: () => undefined,
+    };
+    assert.deepEqual(getRememberedOfflineTracks(storage), []);
+  });
 });
