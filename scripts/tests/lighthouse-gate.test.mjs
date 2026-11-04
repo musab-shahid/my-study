@@ -1,8 +1,11 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
-import { enforceLighthouseFloors } from '../lighthouse-gate.mjs';
+import { DEFAULT_LIGHTHOUSE_FLOORS, enforceLighthouseFloors } from '../lighthouse-gate.mjs';
 
 describe('mandatory Lighthouse performance gate', () => {
+  it('uses floors just below the measured production scores', () => {
+    assert.deepEqual(DEFAULT_LIGHTHOUSE_FLOORS, { performance: 0.5, accessibility: 0.95 });
+  });
   it('fails when Lighthouse did not return scores', () => {
     assert.throws(
       () => enforceLighthouseFloors(null, { minPerformance: 0.4, minAccessibility: 0.85 }),

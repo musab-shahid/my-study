@@ -20,3 +20,18 @@ test('service worker precaches the shipped Inter fonts as WOFF2 only', () => {
   assert.deepEqual(fontUrls, expected);
   assert.ok(fontUrls.every((url) => url.endsWith('.woff2')));
 });
+
+test('KaTeX CSS declares WOFF2 first and the service-worker plugin precaches only WOFF2 fonts', () => {
+  const css = readFileSync('node_modules/katex/dist/katex.min.css', 'utf8');
+  const plugin = readFileSync('vite-sw-plugin.js', 'utf8');
+  const fontFaces = [...css.matchAll(/@font-face\s*\{[^}]*\}/g)].map((match) => match[0]);
+  assert.ok(fontFaces.length > 0, 'KaTeX font-face declarations must be present');
+  for (const face of fontFaces) {
+    const src = face.match(/src:([^;]+);/i)?.[1];
+    if (!src) continue;
+    const firstUrl = src.match(/url\(([^)]+)\)/i)?.[1] ?? '';
+    assert.match(firstUrl, /\.woff2(?:[?#].*)?$/i, 'WOFF2 must be the first font source');
+  }
+  assert.match(plugin, /PRECACHE_EXTENSIONS\s*=\s*new Set\(\['\.js', '\.css', '\.woff2'\]\)/);
+  assert.doesNotMatch(plugin, /PRECACHE_EXTENSIONS[^;]*['"]\.woff['"]|PRECACHE_EXTENSIONS[^;]*['"]\.ttf['"]/);
+});
