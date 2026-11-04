@@ -1,9 +1,9 @@
 /**
- * Shadow scheduler comparison (Phase 2 precursor).
- * Does not change what learners see. Compares a simple stability model’s
- * predicted recall against actual review outcomes from the event log.
+ * Legacy simplified stability proxy retained only as an offline comparator.
+ * This is not FSRS and must never be labelled or promoted as the FSRS model.
+ * The real scheduler adapter lives in fsrs-evaluation.ts and uses ts-fsrs@5.4.2.
  *
- * Full ts-fsrs integration can replace `predictRecall` later without changing callers.
+ * Does not change what learners see or the production review scheduler.
  */
 
 import type { ReviewEvent } from './review-event.ts';
