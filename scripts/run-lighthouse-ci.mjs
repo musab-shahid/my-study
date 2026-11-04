@@ -7,15 +7,15 @@ import { createServer } from 'node:http';
 import { readFileSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { enforceLighthouseFloors } from './lighthouse-gate.mjs';
+import { DEFAULT_LIGHTHOUSE_FLOORS, enforceLighthouseFloors } from './lighthouse-gate.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, '..');
 const dist = path.join(root, 'dist');
 
 const MAX_LOAD_MS = Number(process.env.LH_MAX_LOAD_MS || 12000);
-const MIN_PERF = Number(process.env.LH_MIN_PERFORMANCE || 0.4);
-const MIN_A11Y = Number(process.env.LH_MIN_ACCESSIBILITY || 0.85);
+const MIN_PERF = Number(process.env.LH_MIN_PERFORMANCE ?? DEFAULT_LIGHTHOUSE_FLOORS.performance);
+const MIN_A11Y = Number(process.env.LH_MIN_ACCESSIBILITY ?? DEFAULT_LIGHTHOUSE_FLOORS.accessibility);
 
 if (!existsSync(path.join(dist, 'index.html'))) {
   throw new Error('[perf-gate] dist/ missing — run npm run build first');
