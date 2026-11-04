@@ -29,3 +29,9 @@ test('application source never statically imports the FSRS evaluator or ts-fsrs 
     assert.doesNotMatch(source, staticFsrsPackage, `static ts-fsrs import in ${relative('src', file)}`);
   }
 });
+
+test('production bundle check requires the evaluator as a non-initial lazy chunk', () => {
+  const bundleCheck = readFileSync('scripts/check-bundle-budget.mjs', 'utf8');
+  assert.match(bundleCheck, /fsrs-evaluation/);
+  assert.match(bundleCheck, /initialFiles\\.includes/);
+});
