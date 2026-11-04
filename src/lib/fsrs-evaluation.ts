@@ -1,4 +1,4 @@
-import { createEmptyCard, fsrs, Rating, type Card } from 'ts-fsrs';
+import { createEmptyCard, fsrs, Grade, type Card } from 'ts-fsrs';
 import type { ReviewEvent } from './review-event.ts';
 import { gradeFromAttempt, validateReviewEvent } from './review-event.ts';
 import { scheduleAfterReview } from './spaced-repetition.ts';
@@ -190,13 +190,13 @@ export interface Sm2ShadowState {
   lastTs: number;
 }
 
-export function mapAttemptToFsrsRating(event: ReviewEvent): Rating {
+export function mapAttemptToFsrsRating(event: ReviewEvent): Grade {
   const grade = gradeFromAttempt(event.correct, event.confidence);
   switch (grade) {
-    case 'again': return Rating.Again;
-    case 'hard': return Rating.Hard;
-    case 'good': return Rating.Good;
-    case 'easy': return Rating.Easy;
+    case 'again': return Grade.Again;
+    case 'hard': return Grade.Hard;
+    case 'good': return Grade.Good;
+    case 'easy': return Grade.Easy;
   }
 }
 
@@ -600,7 +600,7 @@ function updateAllStates(
   lastSeen: Map<string, number>,
 ): void {
   const at = new Date(event.ts);
-  const card = fsrsStates.get(event.itemId) ?? createEmptyCard(at);
+  const card = fsrsStates.get(event.itemId) ?? createEmptyCard(at) as Card;
   fsrsStates.set(event.itemId, scheduler.next(card, at, mapAttemptToFsrsRating(event)).card);
   sm2States.set(event.itemId, updateSm2Shadow(sm2States.get(event.itemId), event));
   legacyStates.set(event.itemId, updateShadowState(legacyStates.get(event.itemId), event));
@@ -806,7 +806,7 @@ export function finalFsrsStates(events: readonly ReviewEvent[]): Record<string, 
   const scheduler = fsrs(FSRS_OPTIONS);
   const states: Record<string, FsrsCard> = {};
   for (const event of eligible) {
-    const card = states[event.itemId] ?? createEmptyCard(new Date(event.ts));
+    const card = states[event.itemId] ?? createEmptyCard(new Date(event.ts)) as Card;
     states[event.itemId] = scheduler.next(card, new Date(event.ts), mapAttemptToFsrsRating(event)).card;
   }
   return states;
