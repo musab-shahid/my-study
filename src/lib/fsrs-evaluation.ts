@@ -1,4 +1,4 @@
-import { createEmptyCard, fsrs, Grade, type Card } from 'ts-fsrs';
+import { createEmptyCard, fsrs, type Card, type Grade } from 'ts-fsrs';
 import type { ReviewEvent } from './review-event.ts';
 import { gradeFromAttempt, validateReviewEvent } from './review-event.ts';
 import { scheduleAfterReview } from './spaced-repetition.ts';
@@ -193,10 +193,10 @@ export interface Sm2ShadowState {
 export function mapAttemptToFsrsRating(event: ReviewEvent): Grade {
   const grade = gradeFromAttempt(event.correct, event.confidence);
   switch (grade) {
-    case 'again': return Grade.Again;
-    case 'hard': return Grade.Hard;
-    case 'good': return Grade.Good;
-    case 'easy': return Grade.Easy;
+    case 'again': return 1;
+    case 'hard': return 2;
+    case 'good': return 3;
+    case 'easy': return 4;
   }
 }
 
