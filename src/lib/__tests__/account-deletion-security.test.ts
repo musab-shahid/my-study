@@ -1,5 +1,6 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { hasRecentAuthentication } from "../../../supabase/functions/_shared/recent-auth.ts";
 import { mapDeleteAccountError } from "../delete-account-errors.ts";
 
@@ -86,6 +87,19 @@ describe("account deletion recent-authentication guard", () => {
     );
   });
 
+  it("rejects a future-dated newest password event even if an older one is recent", () => {
+    assert.equal(
+      hasRecentAuthentication(tokenFor({
+        sub: "user-1",
+        amr: [
+          { method: "password", timestamp: now - 10 },
+          { method: "password", timestamp: now + 61 },
+        ],
+      }), "user-1", now),
+      false,
+    );
+  });
+
   it("allows at most 60 seconds of clock skew", () => {
     assert.equal(
       hasRecentAuthentication(tokenFor({
@@ -101,6 +115,22 @@ describe("account deletion recent-authentication guard", () => {
       }), "user-1", now),
       false,
     );
+  });
+});
+
+describe("delete-account request ordering", () => {
+  it("validates recent password authentication before consuming the rate limit", () => {
+    const source = readFileSync(
+      new URL("../../../supabase/functions/delete-account/index.ts", import.meta.url),
+      "utf8",
+    );
+    const userValidation = source.indexOf("userClient.auth.getUser(token)");
+    const recentAuth = source.indexOf("hasRecentAuthentication(token, userId");
+    const rateLimit = source.indexOf("consumeDeletionAttempt(userId)");
+    const deletion = source.indexOf("admin.auth.admin.deleteUser(userId)");
+    assert.ok(userValidation >= 0 && userValidation < recentAuth);
+    assert.ok(recentAuth < rateLimit);
+    assert.ok(rateLimit < deletion);
   });
 });
 
