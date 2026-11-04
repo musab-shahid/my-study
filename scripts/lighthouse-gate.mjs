@@ -1,3 +1,5 @@
+export const DEFAULT_LIGHTHOUSE_FLOORS = Object.freeze({ performance: 0.5, accessibility: 0.95 });
+
 /**
  * Enforce the CI Lighthouse score floors.
  *

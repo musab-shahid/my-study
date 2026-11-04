@@ -2,7 +2,7 @@ import { readdir, readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join, extname, basename } from 'node:path';
 import { createHash } from 'node:crypto';
 
-const PRECACHE_EXTENSIONS = new Set(['.js', '.css', '.woff2', '.woff', '.ttf']);
+const PRECACHE_EXTENSIONS = new Set(['.js', '.css', '.woff2']);
 
 /**
  * Lazy subject banks are huge and should load on demand, not at install.

@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { gzipSync } from 'node:zlib';
+import { INITIAL_JS_GZIP_BUDGET_BYTES, LARGEST_JS_CHUNK_GZIP_BUDGET_BYTES } from './lib/bundle-budget.mjs';
 
 const outDir = path.resolve('dist');
 const manifestPath = path.join(outDir, '.vite', 'manifest.json');
@@ -89,9 +90,9 @@ for (const [entryKey, entry] of entryPoints) {
   console.log(
     `[bundle-budget] Initial JS for ${entry.file ?? entryKey}: ${(totals.raw / 1024).toFixed(1)} KiB raw / ${(totals.gzip / 1024).toFixed(1)} KiB gzip`,
   );
-  // Baseline on 2026-10-24 is approximately 500 KiB gzip across the initial JS graph.
-  if (totals.gzip > 600 * 1024) {
-    console.error('[bundle-budget] Initial JavaScript exceeds the 600 KiB gzip budget.');
+  // 2026-11-04 CI measurement: 292.2 KiB initial gzip; cap is rounded-up measured +10%.
+  if (totals.gzip > INITIAL_JS_GZIP_BUDGET_BYTES) {
+    console.error(`[bundle-budget] Initial JavaScript exceeds the ${(INITIAL_JS_GZIP_BUDGET_BYTES / 1024).toFixed(0)} KiB gzip budget.`);
     failed = true;
   }
 }
@@ -100,10 +101,9 @@ if (largest) {
   console.log(
     `[bundle-budget] Largest JS chunk ${largest.file}: ${(largest.raw / 1024).toFixed(1)} KiB raw / ${(largest.gzip / 1024).toFixed(1)} KiB gzip`,
   );
-  // B3 thin assembler packs all subject topics modules into one lazy curriculum graph.
-  // Keep it behind the lazy screen boundary; allow headroom for full-track content.
-  if (largest.gzip > 420 * 1024) {
-    console.error('[bundle-budget] A single JavaScript chunk exceeds the 420 KiB gzip budget.');
+  // 2026-11-04 CI measurement: 176.7 KiB largest chunk gzip; cap is rounded-up measured +10%.
+  if (largest.gzip > LARGEST_JS_CHUNK_GZIP_BUDGET_BYTES) {
+    console.error(`[bundle-budget] A single JavaScript chunk exceeds the ${(LARGEST_JS_CHUNK_GZIP_BUDGET_BYTES / 1024).toFixed(0)} KiB gzip budget.`);
     failed = true;
   }
 }
