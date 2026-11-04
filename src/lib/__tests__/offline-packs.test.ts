@@ -2,6 +2,10 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 import {
   collectOfflineAssetUrls,
+  getRememberedOfflineTracks,
+  rememberTrackOfflinePack,
+  forgetTrackOfflinePack,
+  canRefreshOfflinePacks,
   getTrackOfflinePackStatus,
   removeTrackOfflinePack,
   type OfflinePackCacheStorage,
@@ -52,10 +56,25 @@ describe('track offline pack helpers', () => {
     assert.deepEqual(await getTrackOfflinePackStatus('fpsc', storage), {
       installed: true,
       resourceCount: 2,
+      needsRefresh: false,
     });
     assert.deepEqual(await getTrackOfflinePackStatus('cgei', storage), {
       installed: false,
       resourceCount: 0,
+      needsRefresh: false,
+    });
+  });
+
+  it('keeps an older build pack visible and marks it for refresh after a new shell activates', async () => {
+    const { storage } = memoryStorage({
+      'examprep-a1b2c3d4': [],
+      'examprep-deadbeef': [],
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/old.js'],
+    });
+    assert.deepEqual(await getTrackOfflinePackStatus('fpsc', storage), {
+      installed: true,
+      resourceCount: 1,
+      needsRefresh: true,
     });
   });
 
@@ -73,5 +92,47 @@ describe('track offline pack helpers', () => {
       'examprep-a1b2c3d4',
       'my-study-offline-pack-examprep-a1b2c3d4-hat-150',
     ]);
+  });
+  it('remembers only explicitly downloaded tracks and Remove clears the opt-in', () => {
+    const values = new Map<string, string>();
+    const storage = {
+      getItem: (key: string) => values.get(key) ?? null,
+      setItem: (key: string, value: string) => { values.set(key, value); },
+      removeItem: (key: string) => { values.delete(key); },
+    };
+    assert.deepEqual(getRememberedOfflineTracks(storage), []);
+    rememberTrackOfflinePack('fpsc', storage);
+    rememberTrackOfflinePack('cgei', storage);
+    assert.deepEqual(getRememberedOfflineTracks(storage), ['fpsc', 'cgei']);
+    forgetTrackOfflinePack('fpsc', storage);
+    assert.deepEqual(getRememberedOfflineTracks(storage), ['cgei']);
+  });
+
+  it('ignores malformed preference storage without opting tracks in', () => {
+    const storage = {
+      getItem: () => '{bad json',
+      setItem: () => { throw new Error('storage unavailable'); },
+      removeItem: () => undefined,
+    };
+    assert.deepEqual(getRememberedOfflineTracks(storage), []);
+  });
+  it('skips background refresh when Save-Data is enabled or storage headroom is insufficient', async () => {
+    const saveData = {
+      connection: { saveData: true },
+      storage: { estimate: async () => ({ usage: 1, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(saveData, 1_000), false);
+
+    const lowStorage = {
+      connection: { saveData: false },
+      storage: { estimate: async () => ({ usage: 95_000_000, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(lowStorage, 10_000_000), false);
+
+    const available = {
+      connection: { saveData: false },
+      storage: { estimate: async () => ({ usage: 1_000, quota: 100_000_000 }) },
+    };
+    assert.equal(await canRefreshOfflinePacks(available, 10_000_000), true);
   });
 });

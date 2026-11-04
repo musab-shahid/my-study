@@ -7,6 +7,8 @@ import {
   getTrackOfflinePackStatus,
   prepareTrackOfflinePack,
   removeTrackOfflinePack,
+  rememberTrackOfflinePack,
+  forgetTrackOfflinePack,
   type OfflinePackStatus,
 } from '@/lib/offline-packs';
 import { Button, Card } from '@/components/ui';
@@ -24,6 +26,7 @@ export function OfflinePacksCard() {
   const [progress, setProgress] = useState<{ trackId: TrackId; completed: number; total: number } | null>(null);
   const [feedback, setFeedback] = useState<Feedback | null>(null);
   const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine);
+  const [backgroundRefreshing, setBackgroundRefreshing] = useState<TrackId | null>(null);
 
   const refreshStatuses = useCallback(async () => {
     if (typeof caches === 'undefined') {
@@ -54,6 +57,31 @@ export function OfflinePacksCard() {
     };
   }, []);
 
+
+  useEffect(() => {
+    const onRefresh = (event: Event) => {
+      const detail = (event as CustomEvent<{ trackId: TrackId; status: 'updating' | 'updated' | 'failed'; resourceCount?: number; message?: string }>).detail;
+      if (!detail) return;
+      if (detail.status === 'updating') {
+        setBackgroundRefreshing(detail.trackId);
+        setFeedback(null);
+      } else if (detail.status === 'updated') {
+        setBackgroundRefreshing(null);
+        setFeedback({ kind: 'success', message: `${getTrackDefinition(detail.trackId).shortTitle} offline pack updated.` });
+        void refreshStatuses();
+      } else {
+        setBackgroundRefreshing(null);
+        setFeedback({
+          kind: 'error',
+          message: detail.message || 'Update failed; your previous offline pack is still available. Retry the refresh when ready.',
+        });
+        void refreshStatuses();
+      }
+    };
+    window.addEventListener('my-study-offline-pack-refresh', onRefresh);
+    return () => window.removeEventListener('my-study-offline-pack-refresh', onRefresh);
+  }, [refreshStatuses]);
+
   const download = async (trackId: TrackId) => {
     const definition = getTrackDefinition(trackId);
     const examId = trackMembership.enrollments[trackId]?.activeExamId ?? null;
@@ -68,9 +96,10 @@ export function OfflinePacksCard() {
         kind: 'success',
         message: `${definition.shortTitle} pack ready: ${result.subjectCount} subjects and ${result.cachedCount} app assets saved on this device.`,
       });
+      rememberTrackOfflinePack(trackId);
       setStatuses((previous) => ({
         ...previous,
-        [trackId]: { installed: true, resourceCount: result.cachedCount },
+        [trackId]: { installed: true, resourceCount: result.cachedCount, needsRefresh: false },
       }));
     } catch (error) {
       setFeedback({
@@ -89,6 +118,7 @@ export function OfflinePacksCard() {
     setFeedback(null);
     try {
       await removeTrackOfflinePack(trackId);
+      forgetTrackOfflinePack(trackId);
       await refreshStatuses();
       setFeedback({ kind: 'success', message: `${definition.shortTitle} offline pack removed from this device.` });
     } catch {
@@ -132,13 +162,15 @@ export function OfflinePacksCard() {
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-ink">{definition.shortTitle}</p>
                         <p className="text-xs text-ink-muted" aria-live="polite" aria-atomic="true">
-                          {busy && currentProgress
-                            ? currentProgress.total > 0
-                              ? `Loading subjects ${currentProgress.completed} of ${currentProgress.total}…`
-                              : 'Preparing subject content…'
-                            : status?.installed
-                              ? `Saved on this device · ${status.resourceCount} cached assets`
-                              : 'Not downloaded'}
+                          {backgroundRefreshing === trackId
+                            ? 'Updating offline pack…'
+                            : busy && currentProgress
+                              ? currentProgress.total > 0
+                                ? `Loading subjects ${currentProgress.completed} of ${currentProgress.total}…`
+                                : 'Preparing subject content…'
+                              : status?.installed
+                                ? `Saved on this device · ${status.resourceCount} cached assets${status.needsRefresh ? ' · update available' : ''}`
+                                : 'Not downloaded'}
                         </p>
                       </div>
                       <div className="flex flex-wrap gap-2">

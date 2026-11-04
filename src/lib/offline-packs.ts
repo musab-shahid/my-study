@@ -1,4 +1,4 @@
-import type { TrackId } from '@/data/tracks';
+import { TRACK_IDS, isTrackId, type TrackId } from '@/data/tracks';
 import { loadSubjectQuestions, loadSubjectTopics } from '@/data/lazy-data';
 import { subjectsForScope } from '@/lib/track-scope';
 
@@ -8,7 +8,76 @@ export const OFFLINE_PACK_CACHE_PREFIX = 'my-study-offline-pack-examprep-';
 export type OfflinePackStatus = {
   installed: boolean;
   resourceCount: number;
+  needsRefresh: boolean;
 };
+
+export type OfflinePackPreferenceStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
+export const OFFLINE_PACK_PREFERENCE_KEY = 'my-study-offline-pack-opt-in-v1';
+
+function preferenceStorage(storage?: OfflinePackPreferenceStorage): OfflinePackPreferenceStorage | null {
+  if (storage) return storage;
+  return typeof localStorage === 'undefined' ? null : localStorage;
+}
+
+export function getRememberedOfflineTracks(storage?: OfflinePackPreferenceStorage): TrackId[] {
+  try {
+    const raw = preferenceStorage(storage)?.getItem(OFFLINE_PACK_PREFERENCE_KEY);
+    if (!raw) return [];
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    const selected = new Set(parsed.filter(isTrackId));
+    return TRACK_IDS.filter((trackId) => selected.has(trackId));
+  } catch {
+    return [];
+  }
+}
+
+export function rememberTrackOfflinePack(trackId: TrackId, storage?: OfflinePackPreferenceStorage): void {
+  try {
+    const target = preferenceStorage(storage);
+    if (!target) return;
+    const tracks = new Set(getRememberedOfflineTracks(target));
+    tracks.add(trackId);
+    target.setItem(OFFLINE_PACK_PREFERENCE_KEY, JSON.stringify(TRACK_IDS.filter((id) => tracks.has(id))));
+  } catch {
+    // Offline packs still work when localStorage is unavailable; auto-refresh is opt-in best effort.
+  }
+}
+
+export function forgetTrackOfflinePack(trackId: TrackId, storage?: OfflinePackPreferenceStorage): void {
+  try {
+    const target = preferenceStorage(storage);
+    if (!target) return;
+    const tracks = getRememberedOfflineTracks(target).filter((id) => id !== trackId);
+    if (tracks.length) target.setItem(OFFLINE_PACK_PREFERENCE_KEY, JSON.stringify(tracks));
+    else target.removeItem(OFFLINE_PACK_PREFERENCE_KEY);
+  } catch {
+    // Cache removal remains authoritative even if preference cleanup is unavailable.
+  }
+}
+
+export type OfflineRefreshNavigator = {
+  connection?: { saveData?: boolean };
+  storage?: { estimate?: () => Promise<{ usage?: number; quota?: number }> };
+};
+
+export async function canRefreshOfflinePacks(
+  nav: OfflineRefreshNavigator,
+  estimatedBytes: number,
+): Promise<boolean> {
+  if (nav.connection?.saveData) return false;
+  try {
+    const estimate = await nav.storage?.estimate?.();
+    if (typeof estimate?.quota === 'number' && typeof estimate.usage === 'number') {
+      const freeBytes = Math.max(0, estimate.quota - estimate.usage);
+      const requiredBytes = Math.max(10 * 1024 * 1024, Math.ceil(Math.max(0, estimatedBytes) * 1.25));
+      if (freeBytes < requiredBytes) return false;
+    }
+  } catch {
+    // Quota APIs are advisory and not available in every supported browser.
+  }
+  return true;
+}
 
 export type OfflinePackProgress = (completedSubjects: number, totalSubjects: number) => void;
 
@@ -53,16 +122,19 @@ export async function getTrackOfflinePackStatus(
 ): Promise<OfflinePackStatus> {
   const names = await storage.keys();
   const buildCaches = names.filter((name) => /^examprep-[a-f0-9]{8}$/.test(name));
-  const currentBuildCache = buildCaches[buildCaches.length - 1];
-  if (!currentBuildCache) return { installed: false, resourceCount: 0 };
+  const currentBuildCache = buildCaches[buildCaches.length - 1] ?? null;
+  const currentPackPrefix = currentBuildCache ? `my-study-offline-pack-${currentBuildCache}-` : null;
+  const trackPacks = names.filter((name) => name.startsWith(OFFLINE_PACK_CACHE_PREFIX) && name.includes(`-${trackId}-`));
+  const currentPacks = currentPackPrefix ? trackPacks.filter((name) => name.startsWith(currentPackPrefix)) : [];
+  const selectedPack = currentPacks[currentPacks.length - 1] ?? trackPacks[trackPacks.length - 1];
+  if (!selectedPack) return { installed: false, resourceCount: 0, needsRefresh: false };
 
-  const currentPackPrefix = `my-study-offline-pack-${currentBuildCache}-`;
-  const currentPacks = packNamesForTrack(names, trackId)
-    .filter((name) => name.startsWith(currentPackPrefix));
-  if (currentPacks.length === 0) return { installed: false, resourceCount: 0 };
-
-  const cache = await storage.open(currentPacks[currentPacks.length - 1]);
-  return { installed: true, resourceCount: (await cache.keys()).length };
+  const cache = await storage.open(selectedPack);
+  return {
+    installed: true,
+    resourceCount: (await cache.keys()).length,
+    needsRefresh: !currentPackPrefix || !selectedPack.startsWith(currentPackPrefix),
+  };
 }
 
 export async function removeTrackOfflinePack(
@@ -126,10 +198,25 @@ export async function prepareTrackOfflinePack(
   trackId: TrackId,
   examId: string | null,
   onProgress?: OfflinePackProgress,
+  options: { background?: boolean } = {},
 ): Promise<{ subjectCount: number; cachedCount: number }> {
   const subjects = subjectsForScope({ trackId, examId });
   if (subjects.length === 0) {
     throw new Error('This track has no available subjects to save offline.');
+  }
+
+  if (options.background && typeof navigator !== 'undefined') {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; storage?: { estimate?: () => Promise<{ usage?: number; quota?: number }> } };
+    if (!(await canRefreshOfflinePacks(nav, 0))) {
+      throw new Error('Offline pack update paused by Save-Data or low device storage. Your previous pack is still available.');
+    }
+  }
+
+  if (options.background && typeof navigator !== 'undefined') {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; storage?: { estimate?: () => Promise<{ usage?: number; quota?: number }> } };
+    if (!(await canRefreshOfflinePacks(nav, 0))) {
+      throw new Error('Offline pack update paused by Save-Data or low device storage. Your previous pack is still available.');
+    }
   }
 
   // CGEI's canonical unit/lesson hierarchy is assembled from the per-subject
@@ -163,6 +250,17 @@ export async function prepareTrackOfflinePack(
   const urls = collectOfflineAssetUrls(entries, origin);
   if (urls.length === 0) {
     throw new Error('No downloadable app assets were found. Connect to the internet and retry.');
+  }
+
+  if (options.background) {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; storage?: { estimate?: () => Promise<{ usage?: number; quota?: number }> } };
+    const estimatedBytes = entries.reduce((sum, entry) => {
+      const timing = entry as PerformanceResourceTiming;
+      return sum + (urls.includes(timing.name) ? Math.max(timing.encodedBodySize || 0, timing.transferSize || 0) : 0);
+    }, 0);
+    if (!(await canRefreshOfflinePacks(nav, estimatedBytes))) {
+      throw new Error('Offline pack update paused by Save-Data or low device storage. Your previous pack is still available.');
+    }
   }
 
   const result = await requestServiceWorkerPack(worker, trackId, urls);

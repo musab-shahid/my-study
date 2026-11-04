@@ -1,5 +1,6 @@
 const CACHE = 'examprep-v3';
-const PACK_CACHE_PREFIX = `my-study-offline-pack-${CACHE}-`;
+const PACK_CACHE_ROOT_PREFIX = 'my-study-offline-pack-';
+const PACK_CACHE_PREFIX = `${PACK_CACHE_ROOT_PREFIX}${CACHE}-`;
 const PRECACHE = [
   '/',
   '/index.html',
@@ -81,7 +82,7 @@ self.addEventListener('message', (e) => {
       const cacheNames = await caches.keys();
       await Promise.all(
         cacheNames
-          .filter((name) => name.startsWith(`${PACK_CACHE_PREFIX}${trackId}-`) && name !== cacheName)
+          .filter((name) => name.startsWith(PACK_CACHE_ROOT_PREFIX) && new RegExp(`^my-study-offline-pack-examprep-[a-f0-9]{8}-${trackId}-`).test(name) && name !== cacheName)
           .map((name) => caches.delete(name).catch(() => false))
       );
 
@@ -107,7 +108,7 @@ self.addEventListener('activate', (e) => {
     caches.keys().then((keys) =>
       Promise.all(
         keys
-          .filter((key) => key !== CACHE && !key.startsWith(PACK_CACHE_PREFIX))
+          .filter((key) => key !== CACHE && !key.startsWith(PACK_CACHE_ROOT_PREFIX))
           .map((key) => caches.delete(key))
       )
     ).then(() => self.clients.claim())

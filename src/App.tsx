@@ -30,6 +30,7 @@ import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { UpdatePrompt } from '@/components/UpdatePrompt';
 import { OfflineIndicator } from '@/components/OfflineIndicator';
+import { OfflinePackAutoRefresh } from '@/components/OfflinePackAutoRefresh';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import { sectionMap } from '@/data/sections';
 import { getTopic } from '@/data/topics';
@@ -412,6 +413,7 @@ function AppContent() {
       <MobileNav />
       <OfflineIndicator />
       <UpdatePrompt offlineVisible={isOffline} />
+      <OfflinePackAutoRefresh />
       <InstallPrompt />
     </div>
   );
