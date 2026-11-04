@@ -51,8 +51,7 @@ const fsrsEvaluatorAssets = jsAssets.filter(([key, item]) =>
   key.endsWith('src/lib/fsrs-evaluation.ts') || item.file?.includes('fsrs-evaluation'),
 );
 if (fsrsEvaluatorAssets.length === 0) {
-  console.error('[bundle-budget] FSRS evaluator lazy chunk is missing from the production manifest.');
-  failed = true;
+  console.log('[bundle-budget] FSRS evaluator is not shipped in the browser bundle (CLI/test-only).');
 }
 const curriculumAssets = jsAssets.filter(([, item]) => {
   const absolutePath = path.join(outDir, item.file);

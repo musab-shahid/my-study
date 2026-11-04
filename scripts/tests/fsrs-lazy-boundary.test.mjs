@@ -30,7 +30,7 @@ test('application source never statically imports the FSRS evaluator or ts-fsrs 
   }
 });
 
-test('production bundle check requires the evaluator as a non-initial lazy chunk', () => {
+test('production bundle check keeps the evaluator out of the initial JS graph', () => {
   const bundleCheck = readFileSync('scripts/check-bundle-budget.mjs', 'utf8');
   assert.match(bundleCheck, /fsrs-evaluation/);
   assert.match(bundleCheck, /initialFiles\.includes/);
