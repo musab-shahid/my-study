@@ -6,7 +6,7 @@ import { compareSchedulersOnLog, finalFsrsStates } from '../fsrs-shadow-compare.
 const DAY = 86_400_000;
 
 describe('scheduler evaluation event eligibility', () => {
-  it('uses only submitted final quiz outcomes and excludes non-quiz evidence', () => {
+  it('uses only submitted final quiz outcomes and excludes non-quiz evidence', async () => {
     const events = [
       buildReviewEvent({
         itemId: 'quiz-q1', skillId: 'quiz-skill', correct: true,
@@ -47,12 +47,12 @@ describe('scheduler evaluation event eligibility', () => {
       }),
     ];
 
-    const result = compareSchedulersOnLog(events);
+    const result = await compareSchedulersOnLog(events);
     assert.equal(result.predictionCount, 1);
-    assert.deepEqual(Object.keys(finalFsrsStates(events)), ['quiz-q1', 'timeout-q2']);
+    assert.deepEqual(Object.keys(await finalFsrsStates(events)), ['quiz-q1', 'timeout-q2']);
   });
 
-  it('does not treat a legacy unanswered quiz slot as a recall failure', () => {
+  it('does not treat a legacy unanswered quiz slot as a recall failure', async () => {
     const events = [
       buildReviewEvent({
         itemId: 'q-timeout', skillId: 's', correct: false,
@@ -64,8 +64,8 @@ describe('scheduler evaluation event eligibility', () => {
       }),
     ];
 
-    const result = compareSchedulersOnLog(events);
+    const result = await compareSchedulersOnLog(events);
     assert.equal(result.predictionCount, 0);
-    assert.deepEqual(Object.keys(finalFsrsStates(events)), ['q-timeout']);
+    assert.deepEqual(Object.keys(await finalFsrsStates(events)), ['q-timeout']);
   });
 });
