@@ -56,10 +56,25 @@ describe('track offline pack helpers', () => {
     assert.deepEqual(await getTrackOfflinePackStatus('fpsc', storage), {
       installed: true,
       resourceCount: 2,
+      needsRefresh: false,
     });
     assert.deepEqual(await getTrackOfflinePackStatus('cgei', storage), {
       installed: false,
       resourceCount: 0,
+      needsRefresh: false,
+    });
+  });
+
+  it('keeps an older build pack visible and marks it for refresh after a new shell activates', async () => {
+    const { storage } = memoryStorage({
+      'examprep-a1b2c3d4': [],
+      'examprep-deadbeef': [],
+      'my-study-offline-pack-examprep-a1b2c3d4-fpsc-100': ['https://app.test/assets/old.js'],
+    });
+    assert.deepEqual(await getTrackOfflinePackStatus('fpsc', storage), {
+      installed: true,
+      resourceCount: 1,
+      needsRefresh: true,
     });
   });
 

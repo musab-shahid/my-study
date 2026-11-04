@@ -175,6 +175,39 @@ describe('service worker explicit track offline packs', () => {
       'my-study-offline-pack-examprep-v3-fpsc-20',
     ]);
   });
+
+  it('preserves explicitly saved packs from the previous build during activation', async () => {
+    const oldPack = 'my-study-offline-pack-examprep-a1b2c3d4-fpsc-10';
+    const newShell = 'examprep-deadbeef';
+    const { handlers, stores } = createHarness(async () => response(), {
+      'examprep-a1b2c3d4': {},
+      [oldPack]: { 'https://app.test/assets/old-build.js': response() },
+      [newShell]: {},
+    });
+    const activate = handlers.get('activate');
+    assert.ok(activate);
+    const lifetime: Promise<unknown>[] = [];
+    activate!({ waitUntil: (promise: Promise<unknown>) => lifetime.push(promise) });
+    await Promise.all(lifetime);
+    assert.equal(stores.has(oldPack), true);
+    assert.equal(stores.has(newShell), true);
+    assert.equal(stores.has('examprep-a1b2c3d4'), false);
+  });
+
+  it('keeps the previous-build pack when refreshing the new build fails', async () => {
+    const oldPack = 'my-study-offline-pack-examprep-a1b2c3d4-fpsc-10';
+    const { handlers, stores } = createHarness(async () => response(false), {
+      [oldPack]: { 'https://app.test/assets/old-build.js': response() },
+    });
+    const replies = await dispatchMessage(handlers.get('message'), {
+      type: 'CACHE_OFFLINE_PACK',
+      trackId: 'fpsc',
+      urls: ['https://app.test/assets/new-build.js'],
+    });
+    assert.equal((replies[0] as { ok: boolean }).ok, false);
+    assert.equal(stores.has(oldPack), true);
+  });
+
   it('serves a cached pack asset when the network is unavailable', async () => {
     const packedAsset = response();
     const { handlers } = createHarness(
