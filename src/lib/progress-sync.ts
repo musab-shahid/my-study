@@ -8,7 +8,7 @@
  *
  * Requires:
  * - VITE_SUPABASE_URL + VITE_SUPABASE_ANON_KEY
- * - Migration applied (20261020 + 20261021 harden)
+ * - Progress migrations, including app_progress revision migration
  * - A user access token in localStorage key examprep-supabase-access-token
  *   (set after Supabase Auth sign-in; clear on sign-out)
  *
@@ -88,7 +88,7 @@ async function ensureFreshAccessToken(): Promise<{ ok: true; token: string } | {
 }
 
 /** Push local AppData snapshot to Supabase (authenticated only). */
-export async function pushProgress(data: AppData, expectedUpdatedAt: string | null = null): Promise<{ ok: boolean; error?: string }> {
+export async function pushProgress(data: AppData, expectedUpdatedAt: string | null = null, expectedRevision: number | null = null): Promise<{ ok: boolean; error?: string }> {
   // Reject malformed local state before auth refresh or any network request.
   if (!validateCloudRestoreData(data)) return { ok: false, error: 'invalid-local-data' };
   const encoded = JSON.stringify(data);
@@ -110,6 +110,7 @@ export async function pushProgress(data: AppData, expectedUpdatedAt: string | nu
     },
     data,
     expectedUpdatedAt,
+    expectedRevision,
   );
 }
 
