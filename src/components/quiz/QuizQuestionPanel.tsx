@@ -5,6 +5,7 @@ import { MatchingOptions } from '@/components/quiz/MatchingOptions';
 
 interface QuizQuestionPanelProps {
   question: Question;
+  showTopicMetadata: boolean;
   questionIndex: number;
   totalQuestions: number;
   selectedIndices: number[];
@@ -22,6 +23,7 @@ interface QuizQuestionPanelProps {
 /** Presentational question, answer-feedback, and progression controls. */
 export function QuizQuestionPanel({
   question,
+  showTopicMetadata,
   questionIndex,
   totalQuestions,
   selectedIndices,
@@ -39,6 +41,7 @@ export function QuizQuestionPanel({
 
   return (
     <>
+      {showTopicMetadata && (
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         <span
           className={`text-xs font-medium px-2 py-1 rounded-full ${
@@ -55,6 +58,7 @@ export function QuizQuestionPanel({
           <span className="text-xs text-muted italic">{question.sourceCitation}</span>
         )}
       </div>
+      )}
 
       <Card className="p-card-pad sm:p-card-pad-lg mb-4">
         <h1 className="text-ink text-section-title sm:text-page-title font-semibold leading-7 sm:leading-8 tracking-tight mb-6">
