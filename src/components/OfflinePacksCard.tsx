@@ -81,6 +81,8 @@ export function OfflinePacksCard() {
       try {
         for (const trackId of candidates) {
           if (cancelled) break;
+          const nav = navigator as Navigator & { connection?: { saveData?: boolean } };
+          if (nav.connection?.saveData) continue;
           backgroundRefreshAttempted.current.add(trackId);
           const examId = trackMembership.enrollments[trackId]?.activeExamId ?? null;
           setBusyTrack(trackId);

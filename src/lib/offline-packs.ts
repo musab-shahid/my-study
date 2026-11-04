@@ -212,6 +212,13 @@ export async function prepareTrackOfflinePack(
     }
   }
 
+  if (options.background && typeof navigator !== 'undefined') {
+    const nav = navigator as Navigator & { connection?: { saveData?: boolean }; storage?: { estimate?: () => Promise<{ usage?: number; quota?: number }> } };
+    if (!(await canRefreshOfflinePacks(nav, 0))) {
+      throw new Error('Offline pack update paused by Save-Data or low device storage. Your previous pack is still available.');
+    }
+  }
+
   // CGEI's canonical unit/lesson hierarchy is assembled from the per-subject
   // topics-* modules in this lazy curriculum boundary. The quiz loader alone
   // does not fetch those modules, so explicitly include the canonical registry.

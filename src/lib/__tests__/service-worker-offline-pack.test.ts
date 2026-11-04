@@ -178,7 +178,7 @@ describe('service worker explicit track offline packs', () => {
 
   it('preserves explicitly saved packs from the previous build during activation', async () => {
     const oldPack = 'my-study-offline-pack-examprep-a1b2c3d4-fpsc-10';
-    const newShell = 'examprep-deadbeef';
+    const newShell = 'examprep-v3';
     const { handlers, stores } = createHarness(async () => response(), {
       'examprep-a1b2c3d4': {},
       [oldPack]: { 'https://app.test/assets/old-build.js': response() },
