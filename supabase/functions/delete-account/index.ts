@@ -115,17 +115,17 @@ Deno.serve(async (req) => {
   }
   const userId = userData.user.id;
 
+  // getUser() validates this exact JWT with Supabase Auth before its signed claims are read.
+  if (!hasRecentAuthentication(token, userId, Date.now() / 1000, RECENT_AUTH_SECONDS)) {
+    return json(req, 403, { error: "recent-auth-required" });
+  }
+
   const rateLimit = await consumeDeletionAttempt(userId);
   if (rateLimit === "limited") {
     return json(req, 429, { error: "rate-limited" }, { "Retry-After": String(DELETE_WINDOW_MS / 1000) });
   }
   if (rateLimit === "unavailable") {
     return json(req, 503, { error: "deletion-protection-unavailable" });
-  }
-
-  // getUser() validates this exact JWT with Supabase Auth before its signed claims are read.
-  if (!hasRecentAuthentication(token, userId, Date.now() / 1000, RECENT_AUTH_SECONDS)) {
-    return json(req, 403, { error: "recent-auth-required" });
   }
 
   const admin = createClient(supabaseUrl, serviceKey, {
