@@ -1133,6 +1133,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }
 
   const currentQ = state.questions[state.currentIdx];
+  const currentAnswer = state.answers.find((answer) => answer.questionId === currentQ.id);
   const difficultyLabel = currentQ.difficulty.charAt(0).toUpperCase() + currentQ.difficulty.slice(1);
   const topicInfo = getTopic(currentQ.topicId);
   const subjectInfo = subjectId ? subjectMap[subjectId] : undefined;
@@ -1198,9 +1199,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         checked={state.checked}
         awaitingConfidence={state.awaitingConfidence}
         correct={isCorrect(currentQ, state.selectedIndices)}
-        highConfidenceMiss={state.answers.some((answer) =>
-          answer.questionId === currentQ.id && !answer.correct && answer.confidence === 3
-        )}
+        highConfidenceMiss={Boolean(currentAnswer && !currentAnswer.correct && currentAnswer.confidence === 3)}
         requeueNotice={state.requeueNotice}
         onSelect={toggleOption}
         onCheck={handleCheck}
