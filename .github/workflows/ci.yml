@@ -126,7 +126,7 @@ jobs:
           PLAYWRIGHT_FORCE_BUNDLED: "1"
         run: npm run test:e2e
       - name: Lighthouse gate unit tests
-        run: node --test scripts/tests/lighthouse-gate.test.mjs
+        run: node --test scripts/tests/lighthouse-gate.test.mjs scripts/tests/lighthouse-metrics.test.mjs
       - name: Build for Lighthouse floors
         run: npm run build
       - name: Lighthouse performance and accessibility floors
