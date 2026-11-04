@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 
 describe('account progress revision migration', () => {
   const sql = readFileSync(
-    resolve(process.cwd(), 'supabase/migrations/20261104_app_progress_revision.sql'),
+    resolve(process.cwd(), 'supabase/migrations/20261104130000_app_progress_revision.sql'),
     'utf8',
   );
   const normalized = sql.replace(/--[^\n]*/g, '').replace(/\s+/g, ' ').toLowerCase();
