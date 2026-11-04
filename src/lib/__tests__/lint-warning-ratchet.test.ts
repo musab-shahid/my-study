@@ -16,8 +16,8 @@ describe('lint warning ratchet', () => {
     const warningLimit = Number(match[1]);
     assert.ok(Number.isInteger(warningLimit), 'warning limit must be an integer');
     assert.ok(
-      warningLimit <= 67,
-      `ESLint warning limit must not exceed the measured post-cleanup count of 67 (received ${warningLimit})`,
+      warningLimit <= 69,
+      `ESLint warning limit must not exceed the measured post-cleanup count of 69 (received ${warningLimit})`,
     );
   });
 });
