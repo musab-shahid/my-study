@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
-import { CheckCircle2, XCircle, Check, ChevronRight, RotateCcw, ArrowLeft, Clock, Brain, AlertTriangle, BookOpen, Dumbbell, TrendingUp, Target, Keyboard, X, Sparkles } from 'lucide-react';
+import { CheckCircle2, RotateCcw, ArrowLeft, Clock, Brain, AlertTriangle, BookOpen, Dumbbell, TrendingUp, Target, Keyboard, X, Sparkles } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { buildMistakePrompt, isTutorAvailable, buildTopicContext, buildStudentContext } from '@/lib/ai-tutor';
@@ -40,8 +40,9 @@ import { applyOptionOrder } from '@/lib/quiz-option-order';
 import { buildBreakdown, clearQuizProgress, loadQuizProgress, saveQuizProgress, type QuizProgressSnapshot, type ReviewAttemptRecord, type SavedQuizProgress } from '@/lib/quiz-progress';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
 import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
+import { QuizQuestionPanel } from '@/components/quiz/QuizQuestionPanel';
 import { dualWriteQuizAttemptsFireAndForget } from '@/lib/dual-write';
-import { MatchingOptions, packMatchSelect, unpackMatchSelect } from '@/components/quiz/MatchingOptions';
+import { unpackMatchSelect } from '@/components/quiz/MatchingOptions';
 
 const VALID_MODES: PracticeMode[] = ['topic', 'quick', 'mock', 'review', 'challenge'];
 const VALID_SUBJECT_IDS = Object.keys(subjectMap);
@@ -1132,7 +1133,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }
 
   const currentQ = state.questions[state.currentIdx];
-  const correctAns = isCorrect(currentQ, state.selectedIndices);
+  const currentAnswer = state.answers.find((answer) => answer.questionId === currentQ.id);
   const difficultyLabel = currentQ.difficulty.charAt(0).toUpperCase() + currentQ.difficulty.slice(1);
   const topicInfo = getTopic(currentQ.topicId);
   const subjectInfo = subjectId ? subjectMap[subjectId] : undefined;
@@ -1189,242 +1190,22 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         <ProgressBar value={state.answers.length} max={state.questions.length} color="sky" />
       </div>
 
-      {/* Topic + difficulty + source citation */}
-      {topicInfo && (
-        <div className="flex items-center gap-2 mb-3 flex-wrap">
-          <span
-            className={`text-xs font-medium px-2 py-1 rounded-full ${
-              currentQ.difficulty === 'easy'
-                ? 'bg-success-100 text-success-700'
-                : currentQ.difficulty === 'medium'
-                  ? 'bg-warning-100 text-warning-700'
-                  : 'bg-danger-100 text-danger-700'
-            }`}
-          >
-            {difficultyLabel}
-          </span>
-          {currentQ.sourceCitation && (
-            <span className="text-xs text-muted italic">{currentQ.sourceCitation}</span>
-          )}
-        </div>
-      )}
-
-      {/* Question */}
-      <Card className="p-card-pad sm:p-card-pad-lg mb-4">
-        <h1 className="text-ink text-section-title sm:text-page-title font-semibold leading-7 sm:leading-8 tracking-tight mb-6">{currentQ.question}</h1>
-        {currentQ.type === 'matching' ? (
-          <MatchingOptions question={currentQ} selectedIndices={state.selectedIndices} checked={state.checked} onSelect={toggleOption} />
-        ) : (
-        <div className="space-y-2" role={currentQ.type === 'multi' ? 'group' : 'radiogroup'} aria-label="Answer options">
-          {currentQ.options.map((opt, idx) => {
-            const isSelected = state.selectedIndices.includes(idx);
-            const isCorrectOption =
-              currentQ.type === 'multi'
-                ? (currentQ.correctAnswer as number[]).includes(idx)
-                : currentQ.correctAnswer === idx;
-            let bgClass = 'bg-white border-slate-200 hover:border-brand-300 hover:bg-brand-50/50';
-            if (state.checked) {
-              if (isCorrectOption) bgClass = 'bg-success-50 border-success-500';
-              else if (isSelected && !isCorrectOption) bgClass = 'bg-danger-50 border-danger-500';
-              else bgClass = 'bg-white border-slate-200 opacity-60';
-            } else if (isSelected) {
-              bgClass = 'bg-brand-50 border-brand-500';
-            }
-            const ariaExtra = state.checked
-              ? isCorrectOption
-                ? ' (correct)'
-                : isSelected
-                  ? ' (your selection, incorrect)'
-                  : ''
-              : '';
-            // Multi stays disabled after check; single allows 3rd-tap → next
-            const optionDisabled = state.checked && currentQ.type === 'multi';
-            return (
-              <button
-                key={idx}
-                onClick={() => toggleOption(idx)}
-                disabled={optionDisabled}
-                role={currentQ.type === 'multi' ? 'checkbox' : 'radio'}
-                aria-checked={isSelected}
-                aria-label={`Option ${idx + 1}: ${opt}${ariaExtra}${state.checked && currentQ.type !== 'multi' ? ' — tap to continue' : ''}`}
-                className={`w-full flex items-center gap-3 p-3.5 rounded-btn border-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-1 text-left transition-all ${bgClass} ${state.checked && currentQ.type !== 'multi' ? 'cursor-pointer' : ''}`}
-              >
-                <div
-                  className={`w-6 h-6 shrink-0 flex items-center justify-center text-xs font-bold ${
-                    currentQ.type === 'multi' ? 'rounded' : 'rounded-full'
-                  } ${
-                    isSelected || (state.checked && isCorrectOption)
-                      ? state.checked && isCorrectOption
-                        ? 'bg-success-700 text-white'
-                        : state.checked && isSelected && !isCorrectOption
-                          ? 'bg-danger-700 text-white'
-                          : 'bg-brand-700 text-white'
-                      : 'bg-slate-100 text-muted'
-                  }`}
-                >
-                  {currentQ.type === 'multi' ? (isSelected ? <Check className="w-3 h-3" /> : '') : String.fromCharCode(65 + idx)}
-                </div>
-                <span className="text-ink text-sm flex-1">{opt}</span>
-                {state.checked && isCorrectOption && <CheckCircle2 className="w-5 h-5 text-success-500 shrink-0" />}
-                {state.checked && isSelected && !isCorrectOption && <XCircle className="w-5 h-5 text-danger-500 shrink-0" />}
-              </button>
-            );
-          })}
-        </div>
-        )}
-      </Card>
-
-
-      {state.requeueNotice && (
-        <div
-          className="rounded-card border border-brand-100 bg-brand-50/80 p-3 mb-3 text-sm text-ink"
-          role="status"
-          aria-live="polite"
-        >
-          {state.requeueNotice}
-        </div>
-      )}
-
-      {/* Confidence before feedback (hypercorrection / calibration) */}
-      {state.awaitingConfidence && !state.checked && (
-        <div
-          className="rounded-card border border-brand-100 bg-white shadow-card p-3.5 sm:p-5 mb-4"
-          role="group"
-          aria-label="How sure are you?"
-        >
-          <p className="text-sm font-semibold text-ink mb-1">How sure are you?</p>
-          <p className="text-xs text-ink-muted mb-3">
-            Answer before we show whether you were right — this improves later review.
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            {(
-              [
-                { c: 1 as const, label: 'Guess', hint: 'Not sure' },
-                { c: 2 as const, label: 'Think so', hint: 'Somewhat sure' },
-                { c: 3 as const, label: 'Sure', hint: 'Confident' },
-              ] as const
-            ).map(({ c, label, hint }) => (
-              <Button
-                key={c}
-                type="button"
-                variant="secondary"
-                onClick={() => handleConfidence(c)}
-                className="flex flex-col items-center justify-center min-h-12 px-2 py-2"
-                aria-label={`${label}: ${hint}`}
-              >
-                <span className="text-sm font-medium text-ink">{label}</span>
-                <span className="text-xs font-normal text-ink-muted">{hint}</span>
-              </Button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* After-answer feedback — live region + multi-correct + tap to advance */}
-      {state.checked && (
-        <div
-          className={`rounded-card border bg-white shadow-card p-3.5 sm:p-5 mb-4 cursor-pointer select-none ${correctAns ? 'border-success-100 hover:border-success-100' : 'border-danger-100 hover:border-danger-100'}`}
-          role="button"
-          tabIndex={0}
-          aria-live="polite"
-          aria-atomic="true"
-          aria-label="Tap or press Enter to continue to next question"
-          onClick={handleNext}
-          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleNext(); } }}
-          title="Tap or press Enter to continue"
-        >
-          <div className="flex items-center gap-2 mb-3">
-            {correctAns ? (
-              <>
-                <CheckCircle2 className="w-5 h-5 text-success-500" />
-                <span className="font-semibold text-success-700">Correct!</span>
-              </>
-            ) : (
-              <>
-                <XCircle className="w-5 h-5 text-danger-500" />
-                <span className="font-semibold text-danger-700">Incorrect</span>
-              </>
-            )}
-            {(() => {
-              const last = state.answers.find((a) => a.questionId === currentQ.id);
-              if (last && !last.correct && last.confidence === 3) {
-                return (
-                  <span className="ml-2 text-xs font-medium text-danger-700 rounded-full px-2 py-0.5">
-                    High-confidence miss — review carefully
-                  </span>
-                );
-              }
-              return null;
-            })()}
-            <span className="ml-auto text-xs text-muted font-medium">Tap or press Enter to continue →</span>
-          </div>
-          {!correctAns && (currentQ.type === 'multi') && (
-            <div className="mb-3 space-y-1">
-              <p className="text-muted text-sm">
-                You answered:{' '}
-                <span className="font-medium text-danger-600">
-                  {state.selectedIndices.map((i) => currentQ.options[i]).join(', ') || 'None'}
-                </span>
-              </p>
-              <p className="text-muted text-sm">
-                Correct answer(s):{' '}
-                <span className="font-medium text-success-600">
-                  {(currentQ.correctAnswer as number[]).map((i) => currentQ.options[i]).join(', ')}
-                </span>
-              </p>
-            </div>
-          )}
-          {!correctAns && currentQ.type === 'matching' && (
-            <div className="mb-3 space-y-1">
-              <p className="text-muted text-sm">
-                You matched:{' '}
-                <span className="font-medium text-danger-600">
-                  {currentQ.options.map((opt, i) => `${opt} → ${currentQ.matchOptions?.[state.selectedIndices[i] ?? -1] ?? '—'}`).join(', ')}
-                </span>
-              </p>
-              <p className="text-muted text-sm">
-                Correct matches:{' '}
-                <span className="font-medium text-success-600">
-                  {currentQ.options.map((opt, i) => `${opt} → ${currentQ.matchOptions?.[(currentQ.correctAnswer as number[])[i]] ?? '—'}`).join(', ')}
-                </span>
-              </p>
-            </div>
-          )}
-          {!correctAns && currentQ.type !== 'multi' && currentQ.type !== 'matching' && (
-            <div className="mb-3 space-y-1">
-              <p className="text-muted text-sm">
-                You answered:{' '}
-                <span className="font-medium text-danger-600">
-                  {currentQ.options[state.selectedIndices[0]] ?? 'None'}
-                </span>
-              </p>
-              <p className="text-muted text-sm">
-                Correct answer:{' '}
-                <span className="font-medium text-success-600">
-                  {currentQ.options[currentQ.correctAnswer as number]}
-                </span>
-              </p>
-            </div>
-          )}
-          <p className="text-muted text-sm leading-relaxed">{currentQ.explanation}</p>
-        </div>
-      )}
-
-      {/* Action buttons */}
-      <div className="flex gap-3">
-        {!state.checked && !state.awaitingConfidence ? (
-          <Button onClick={handleCheck} disabled={state.selectedIndices.length === 0 || (currentQ.type === 'matching' && (state.selectedIndices.length !== currentQ.options.length || state.selectedIndices.some((i) => i === undefined || i === null || i < 0)))} className="flex-1">
-            Check Answer
-          </Button>
-        ) : state.checked ? (
-          <Button onClick={handleNext} className="flex-1">
-            {state.currentIdx + 1 >= state.questions.length ? 'View Results' : 'Next Question'}
-            <ChevronRight className="w-4 h-4 inline ml-1" />
-          </Button>
-        ) : (
-          <p className="flex-1 text-center text-sm text-ink-muted py-2">Select how sure you are to continue</p>
-        )}
-      </div>
+      <QuizQuestionPanel
+        question={currentQ}
+        showTopicMetadata={Boolean(topicInfo)}
+        questionIndex={state.currentIdx}
+        totalQuestions={state.questions.length}
+        selectedIndices={state.selectedIndices}
+        checked={state.checked}
+        awaitingConfidence={state.awaitingConfidence}
+        correct={isCorrect(currentQ, state.selectedIndices)}
+        highConfidenceMiss={Boolean(currentAnswer && !currentAnswer.correct && currentAnswer.confidence === 3)}
+        requeueNotice={state.requeueNotice}
+        onSelect={toggleOption}
+        onCheck={handleCheck}
+        onNext={handleNext}
+        onConfidence={handleConfidence}
+      />
 
       {/* Exit confirmation */}
       
