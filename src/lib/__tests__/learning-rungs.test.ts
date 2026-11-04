@@ -20,15 +20,15 @@ function ev(
 }
 
 describe('fsrs shadow compare', () => {
-  it('returns null metrics on empty or single-touch log', () => {
-    const r = compareSchedulersOnLog([
+  it('returns null metrics on empty or single-touch log', async () => {
+    const r = await compareSchedulersOnLog([
       ev({ itemId: 'a', correct: true, ts: 1 }),
     ]);
     assert.equal(r.predictionCount, 0);
     assert.equal(r.fsrsLogLoss, null);
   });
 
-  it('produces comparable log loss when items are reviewed twice', () => {
+  it('produces comparable log loss when items are reviewed twice', async () => {
     const events = [
       ev({ itemId: 'a', correct: true, ts: 1, confidence: 2 }),
       ev({ itemId: 'b', correct: false, ts: 2, confidence: 3 }),
@@ -45,7 +45,7 @@ describe('fsrs shadow compare', () => {
         confidence: 1,
       }),
     ];
-    const r = compareSchedulersOnLog(events);
+    const r = await compareSchedulersOnLog(events);
     // The default 80/20 chronological holdout scores only future events
     // with prior item history; this fixture therefore has one held-out prediction.
     assert.equal(r.predictionCount, 1);
@@ -55,11 +55,11 @@ describe('fsrs shadow compare', () => {
     assert.ok(r.constant68LogLoss != null);
   });
 
-  it('grows SM-2 interval after good reviews', () => {
-    let s = updateSm2Shadow(undefined, ev({ itemId: 'x', correct: true, ts: 0, confidence: 3 }));
-    s = updateSm2Shadow(s, ev({ itemId: 'x', correct: true, ts: 86_400_000, confidence: 3 }));
+  it('grows SM-2 interval after good reviews', async () => {
+    let s = await updateSm2Shadow(undefined, ev({ itemId: 'x', correct: true, ts: 0, confidence: 3 }));
+    s = await updateSm2Shadow(s, ev({ itemId: 'x', correct: true, ts: 86_400_000, confidence: 3 }));
     assert.ok(s.intervalDays >= 1);
-    const p = predictSm2Recall(s, s.lastTs + s.intervalDays * 86_400_000);
+    const p = await predictSm2Recall(s, s.lastTs + s.intervalDays * 86_400_000);
     assert.ok(p > 0.2 && p < 1);
   });
 });
