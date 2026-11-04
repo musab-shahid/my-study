@@ -7,14 +7,14 @@ import {
 } from '../lib/bundle-budget.mjs';
 
 test('production gzip budgets are a tight ratchet over the measured baseline', () => {
-  assert.equal(INITIAL_JS_GZIP_BUDGET_BYTES, 323 * 1024);
+  assert.equal(INITIAL_JS_GZIP_BUDGET_BYTES, 322 * 1024);
   assert.equal(LARGEST_JS_CHUNK_GZIP_BUDGET_BYTES, 195 * 1024);
-  assert.ok(INITIAL_JS_GZIP_BUDGET_BYTES <= 293.3 * 1024 * 1.104);
+  assert.ok(INITIAL_JS_GZIP_BUDGET_BYTES <= 292.2 * 1024 * 1.104);
   assert.ok(LARGEST_JS_CHUNK_GZIP_BUDGET_BYTES <= 176.7 * 1024 * 1.104);
 });
 
 test('bundle budget helper fails above either measured ceiling', () => {
-  assert.equal(withinBundleBudgets(323 * 1024, 195 * 1024), true);
-  assert.equal(withinBundleBudgets(323 * 1024 + 1, 195 * 1024), false);
-  assert.equal(withinBundleBudgets(323 * 1024, 195 * 1024 + 1), false);
+  assert.equal(withinBundleBudgets(322 * 1024, 195 * 1024), true);
+  assert.equal(withinBundleBudgets(322 * 1024 + 1, 195 * 1024), false);
+  assert.equal(withinBundleBudgets(322 * 1024, 195 * 1024 + 1), false);
 });

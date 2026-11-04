@@ -90,7 +90,7 @@ for (const [entryKey, entry] of entryPoints) {
   console.log(
     `[bundle-budget] Initial JS for ${entry.file ?? entryKey}: ${(totals.raw / 1024).toFixed(1)} KiB raw / ${(totals.gzip / 1024).toFixed(1)} KiB gzip`,
   );
-  // 2026-11-04 CI measurement: 293.3 KiB initial gzip; cap is rounded-up measured +10%.
+  // 2026-11-04 CI measurement: 292.2 KiB initial gzip; cap is rounded-up measured +10%.
   if (totals.gzip > INITIAL_JS_GZIP_BUDGET_BYTES) {
     console.error(`[bundle-budget] Initial JavaScript exceeds the ${(INITIAL_JS_GZIP_BUDGET_BYTES / 1024).toFixed(0)} KiB gzip budget.`);
     failed = true;
