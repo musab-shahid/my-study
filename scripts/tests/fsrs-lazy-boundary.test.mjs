@@ -30,8 +30,15 @@ test('application source never statically imports the FSRS evaluator or ts-fsrs 
   }
 });
 
-test('production bundle check keeps the evaluator out of the initial JS graph', () => {
+test('production bundle check requires evaluator and dependency chunks outside the initial JS graph', () => {
   const bundleCheck = readFileSync('scripts/check-bundle-budget.mjs', 'utf8');
   assert.match(bundleCheck, /fsrs-evaluation/);
   assert.match(bundleCheck, /initialFiles\.includes/);
+});
+
+test('Vite keeps the evaluator and ts-fsrs dependency in separate lazy chunks', () => {
+  const viteConfig = readFileSync('vite.config.ts', 'utf8');
+  assert.ok(viteConfig.includes("id.includes('/node_modules/ts-fsrs/')"));
+  assert.ok(viteConfig.includes("return 'vendor-fsrs'"));
+  assert.ok(viteConfig.includes("id.endsWith('/src/lib/fsrs-evaluation.ts')"));
 });

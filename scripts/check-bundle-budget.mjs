@@ -50,8 +50,12 @@ const curriculumMarker = 'cgei-ds-q-51-001';
 const fsrsEvaluatorAssets = jsAssets.filter(([key, item]) =>
   key.endsWith('src/lib/fsrs-evaluation.ts') || item.file?.includes('fsrs-evaluation'),
 );
-if (fsrsEvaluatorAssets.length === 0) {
-  console.log('[bundle-budget] FSRS evaluator is not shipped in the browser bundle (CLI/test-only).');
+const fsrsVendorAssets = jsAssets.filter(([key, item]) =>
+  key.includes('vendor-fsrs') || item.file?.includes('vendor-fsrs'),
+);
+if (fsrsEvaluatorAssets.length === 0 || fsrsVendorAssets.length === 0) {
+  console.error('[bundle-budget] Expected separate fsrs-evaluation and vendor-fsrs lazy chunks in the production manifest.');
+  failed = true;
 }
 const curriculumAssets = jsAssets.filter(([, item]) => {
   const absolutePath = path.join(outDir, item.file);
@@ -76,7 +80,7 @@ for (const [entryKey, entry] of entryPoints) {
     );
     failed = true;
   }
-  const fsrsEvaluatorInInitialGraph = fsrsEvaluatorAssets.some(([, item]) => initialFiles.includes(item.file));
+  const fsrsEvaluatorInInitialGraph = [...fsrsEvaluatorAssets, ...fsrsVendorAssets].some(([, item]) => initialFiles.includes(item.file));
   if (fsrsEvaluatorInInitialGraph) {
     console.error(
       `[bundle-budget] FSRS evaluator chunk is in the initial JS graph for ${entry.file ?? entryKey}; it must remain behind its dynamic-import boundary.`,
