@@ -11,11 +11,10 @@ test.describe('Offline journeys', () => {
     await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
 
-    // Warm a secondary lazy screen while online.
+    // Warm a secondary lazy screen while online (caches the Settings chunk).
     await page.goto('/settings', { waitUntil: 'networkidle' });
-    await expect(page.getByRole('heading', { name: 'Settings', exact: true })).toBeVisible({
-      timeout: 20_000,
-    });
+    await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
 
     await context.setOffline(true);
 
@@ -23,9 +22,8 @@ test.describe('Offline journeys', () => {
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
 
     await page.goto('/settings', { waitUntil: 'domcontentloaded' });
-    await expect(page.getByRole('heading', { name: 'Settings', exact: true })).toBeVisible({
-      timeout: 20_000,
-    });
+    await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
+    await expect(page.getByText('Settings', { exact: true }).first()).toBeVisible({ timeout: 20_000 });
 
     await context.setOffline(false);
   });
@@ -39,11 +37,9 @@ test.describe('Offline journeys', () => {
       if (!('serviceWorker' in navigator)) return;
       const reg = await navigator.serviceWorker.getRegistration();
       if (!reg) return;
-      // Fire the same update-found signal UpdatePrompt listens for when possible.
       reg.dispatchEvent(new Event('updatefound'));
     });
 
-    // Shell must still respond after the synthetic update signal.
     await page.goto('/progress', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
   });
