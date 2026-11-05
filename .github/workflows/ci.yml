@@ -126,7 +126,7 @@ jobs:
           PLAYWRIGHT_FORCE_BUNDLED: "1"
         run: npm run test:e2e
       - name: Lighthouse gate unit tests
-        run: node --test scripts/tests/lighthouse-gate.test.mjs
+        run: node --test scripts/tests/lighthouse-gate.test.mjs scripts/tests/lighthouse-metrics.test.mjs
       - name: Build for Lighthouse floors
         run: npm run build
       - name: Lighthouse performance and accessibility floors
@@ -134,6 +134,14 @@ jobs:
           CI: true
           PLAYWRIGHT_FORCE_BUNDLED: "1"
         run: node scripts/run-lighthouse-ci.mjs
+      - name: Upload Lighthouse raw report
+        if: always()
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
+        with:
+          name: lighthouse-lab-report
+          path: artifacts/lighthouse/lighthouse-report.json
+          if-no-files-found: warn
+          retention-days: 14
       - name: Upload design-system visual references
         if: always()
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7
