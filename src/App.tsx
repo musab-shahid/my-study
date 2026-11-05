@@ -1,1 +1,27 @@
-PLACEHOLDER_DO_NOT_USE
+import { lazy, Suspense, useEffect, useState } from 'react';
+import { RouterProvider, useRouter, routeLabel, type Route, type RouteState } from '@/router';
+import { DataProvider } from '@/data-context';
+import { useData } from '@/hooks/useData';
+import { SubjectSelectionProvider, useSubjectSelection, type StageScreen } from '@/contexts/subject-selection-context';
+import { Sidebar, MobileNav } from '@/components/layout/Navigation';
+import { Header } from '@/components/layout/Header';
+import { DashboardScreen } from '@/screens/DashboardScreen';
+// Secondary screens are route-lazy so the home shell stays out of their graphs.
+const StudyScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.StudyScreen })));
+const SectionScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.SectionScreen })));
+const TopicScreen = lazy(() => import('@/screens/StudyScreen').then((module) => ({ default: module.TopicScreen })));
+const CurriculumUnitScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumUnitScreen })));
+const CurriculumLessonScreen = lazy(() => import('@/screens/CurriculumScreens').then((module) => ({ default: module.CurriculumLessonScreen })));
+const FormulaVaultScreen = lazy(() => import('@/screens/FormulaVaultScreen').then((module) => ({ default: module.FormulaVaultScreen })));
+const FlashcardsScreen = lazy(() => import('@/screens/FlashcardsScreen').then((module) => ({ default: module.FlashcardsScreen })));
+const CloudAtlasScreen = lazy(() => import('@/screens/CloudAtlasScreen').then((module) => ({ default: module.CloudAtlasScreen })));
+const PracticeScreen = lazy(() => import('@/screens/PracticeScreen').then((module) => ({ default: module.PracticeScreen })));
+const QuizScreen = lazy(() => import('@/screens/QuizScreen').then((module) => ({ default: module.QuizScreen })));
+const RevisionScreen = lazy(() => import('@/screens/RevisionScreen').then((module) => ({ default: module.RevisionScreen })));
+const ProgressScreen = lazy(() => import('@/screens/ProgressScreen').then((module) => ({ default: module.ProgressScreen })));
+const SearchScreen = lazy(() => import('@/screens/SearchScreen').then((module) => ({ default: module.SearchScreen })));
+const SettingsScreen = lazy(() => import('@/screens/SettingsScreen').then((module) => ({ default: module.SettingsScreen })));
+const HatLandingScreen = lazy(() => import('@/screens/hat/HatLandingScreen').then((module) => ({ default: module.HatLandingScreen })));
+const FpscLandingScreen = lazy(() => import('@/screens/fpsc/FpscLandingScreen').then((module) => ({ default: module.FpscLandingScreen })));
+const TrackOverviewScreen = lazy(() => import('@/screens/TrackOverviewScreen').then((module) => ({ default: module.TrackOverviewScreen })));
+const CGEITrackOverviewScreen = lazy(() => import('@/screens/CGEITrackOverviewScreen').then((module) => ({ default: module.CGEITrackOverviewScreen })));
