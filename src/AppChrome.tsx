@@ -16,6 +16,7 @@ import { isTrackId, getTrackDefinition, getExamProfile } from '@/data/tracks';
 import { STAGE_SCREENS } from '@/lib/constants';
 import { flushPendingSave, consumeStorageWarning, downloadBackupFile, getBackupRaw } from '@/lib/storage';
 import { useRouteAnnouncer } from '@/hooks/useRouteAnnouncer';
+import { Button } from '@/components/ui';
 
 /** Header title/subtitle — richer than routeLabel (includes section/topic detail). */
 function getHeaderTitle(route: Route): { title: string; subtitle?: string } {
@@ -234,21 +235,24 @@ export function AppChrome({ children }: { children: ReactNode }) {
             <p className="font-medium">{storageWarning}</p>
             <div className="mt-2 flex flex-wrap gap-2">
               {hasBackup && (
-                <button
+                <Button
                   type="button"
-                  className="rounded-btn bg-warning-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-warning-700"
+                  size="sm"
+                  className="bg-warning-600 text-white hover:bg-warning-700"
                   onClick={() => downloadBackupFile(data)}
                 >
                   Download backup
-                </button>
+                </Button>
               )}
-              <button
+              <Button
                 type="button"
-                className="rounded-btn border border-warning-300 bg-white px-3 py-1.5 text-xs font-medium text-warning-900 hover:bg-warning-100"
+                size="sm"
+                variant="secondary"
+                className="border-warning-300 text-warning-900 hover:bg-warning-100"
                 onClick={() => setStorageWarning(null)}
               >
                 Dismiss
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -260,14 +264,16 @@ export function AppChrome({ children }: { children: ReactNode }) {
           >
             <div className="flex items-start justify-between gap-3">
               <p>{reviewPersistenceNotice.message}</p>
-              <button
+              <Button
                 type="button"
-                className="shrink-0 rounded-btn px-2 py-1 text-xs font-medium hover:bg-black/5"
+                size="sm"
+                variant="ghost"
+                className="shrink-0"
                 onClick={() => setReviewPersistenceNotice(null)}
                 aria-label="Dismiss review data notice"
               >
                 Dismiss
-              </button>
+              </Button>
             </div>
           </div>
         )}
@@ -280,7 +286,7 @@ export function AppChrome({ children }: { children: ReactNode }) {
         )}
         <main id="main-content" className="pb-mobile-nav min-h-screen bg-[var(--surface-page)]" tabIndex={-1}>
           <ErrorBoundary>
-            <Suspense fallback={<div className="p-6 text-sm text-slate-600" role="status" aria-live="polite">Loading…</div>}>
+            <Suspense fallback={<div className="p-6 text-sm text-ink-muted" role="status" aria-live="polite">Loading…</div>}>
               {children}
             </Suspense>
           </ErrorBoundary>
