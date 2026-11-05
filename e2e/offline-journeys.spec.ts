@@ -3,8 +3,8 @@ import { test, expect } from '@playwright/test';
 /**
  * Offline + lazy-route journeys.
  * Lazy content chunks are runtime-cached (not precached). Offline coverage is
- * the app shell (home). Secondary routes are verified online so the lazy
- * graph still loads under Suspense.
+ * the app shell (home) via service-worker cache. Playwright's context offline
+ * mode blocks a fresh page.goto, so we reload a controlled document instead.
  */
 test.describe('Offline journeys', () => {
   test('home shell remains available offline after warm visit', async ({ page, context }) => {
@@ -12,8 +12,15 @@ test.describe('Offline journeys', () => {
     await page.goto('/', { waitUntil: 'networkidle' });
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
 
+    // Ensure a controlling service worker is active before cutting the network.
+    await page.waitForFunction(
+      () => Boolean(navigator.serviceWorker?.controller),
+      undefined,
+      { timeout: 30_000 },
+    );
+
     await context.setOffline(true);
-    await page.goto('/', { waitUntil: 'domcontentloaded' });
+    await page.reload({ waitUntil: 'domcontentloaded' });
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
     await context.setOffline(false);
   });
@@ -39,7 +46,6 @@ test.describe('Offline journeys', () => {
       reg.dispatchEvent(new Event('updatefound'));
     });
 
-    // Home remains usable after the signal (avoid enrollment-gated routes).
     await page.goto('/', { waitUntil: 'domcontentloaded' });
     await expect(page.locator('main')).toBeVisible({ timeout: 20_000 });
   });
