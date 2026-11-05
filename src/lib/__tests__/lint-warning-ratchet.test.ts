@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 describe('lint warning ratchet', () => {
-  it('keeps the ESLint warning budget at or below the measured baseline', () => {
+  it('keeps the ESLint warning budget at or below the measured post-cleanup count', () => {
     const packageJson = JSON.parse(readFileSync(resolve(process.cwd(), 'package.json'), 'utf8')) as {
       scripts: Record<string, string>;
     };
@@ -16,8 +16,8 @@ describe('lint warning ratchet', () => {
     const warningLimit = Number(match[1]);
     assert.ok(Number.isInteger(warningLimit), 'warning limit must be an integer');
     assert.ok(
-      warningLimit <= 89,
-      `ESLint warning limit must not exceed the measured baseline of 89 (received ${warningLimit})`,
+      warningLimit <= 69,
+      `ESLint warning limit must not exceed the measured post-cleanup count of 69 (received ${warningLimit})`,
     );
   });
 });

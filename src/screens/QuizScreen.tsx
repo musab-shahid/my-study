@@ -1,16 +1,13 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { useFocusTrap } from '@/hooks/useFocusTrap';
-import { CheckCircle2, RotateCcw, ArrowLeft, Clock, Brain, AlertTriangle, BookOpen, Dumbbell, TrendingUp, Target, Keyboard, X, Sparkles } from 'lucide-react';
+import { CheckCircle2, RotateCcw, ArrowLeft, Clock, Brain, AlertTriangle, Keyboard, X } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
-import { buildMistakePrompt, isTutorAvailable, buildTopicContext, buildStudentContext } from '@/lib/ai-tutor';
-import { AiTutorChat } from '@/components/AiTutorChat';
-import { allQuestions, questionsByTopic } from '@/data/questions';
+import { allQuestions } from '@/data/questions';
 import { getTopic } from '@/data/topics';
-import { sectionMap } from '@/data/sections';
 import { useSubjectData } from '@/hooks/useSubjectData';
-import { subjectsByTrack, subjectMap } from '@/data/subjects';
-import { BackButton, Breadcrumbs, HomeButton } from '@/components/layout/Breadcrumbs';
+import { subjectMap } from '@/data/subjects';
+import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { PageContainer, Card, ProgressBar, Button, EmptyState, LoadingSpinner, IconButton } from '@/components/ui';
 import { loadAllQuestions, loadSubjectQuestions, loadQuestionsForTopic } from '@/data/lazy-data';
 import type { Question, DifficultyFilter, PracticeMode, TimeLimitSetting, SubjectId, TopicProgress } from '@/types';
@@ -26,7 +23,7 @@ import {
   listDueHcMisses,
   clearHcMisses,
 } from '@/lib/hypercorrection-requeue';
-import { resolveLearningScope, scopeInputFromData } from '@/lib/learning-scope';
+import { resolveLearningScope } from '@/lib/learning-scope';
 import {
   validateQuizRequest,
   questionsMatchRequest,
@@ -1134,7 +1131,6 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
   const currentQ = state.questions[state.currentIdx];
   const currentAnswer = state.answers.find((answer) => answer.questionId === currentQ.id);
-  const difficultyLabel = currentQ.difficulty.charAt(0).toUpperCase() + currentQ.difficulty.slice(1);
   const topicInfo = getTopic(currentQ.topicId);
   const subjectInfo = subjectId ? subjectMap[subjectId] : undefined;
   const focusContextLabel = topicInfo?.title ?? subjectInfo?.title ?? (mode === 'mock' ? 'Mock exam' : 'Practice');

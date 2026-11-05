@@ -8,7 +8,6 @@ import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { useData } from '@/hooks/useData';
 import { listTrackDefinitions, getExamProfile, getTrackDefinition, type TrackId } from '@/data/tracks';
 import { enrolledTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
-import type { SubjectId, PracticeMode } from '@/types';
 import { getTopic } from '@/data/topics';
 import { sectionMap } from '@/data/sections';
 import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from '@/components/ui';
@@ -51,7 +50,6 @@ export function DashboardScreen() {
 
   const stats = sd.statsFor('all');
   const globalStats = stats;
-  const allStats = useMemo(() => sd.allSubjectsStats(), [sd]);
 
   const reviewDue = sd.revisionQueueAll();
   const trackTopicIds = workspaceTopicIds;
