@@ -3,11 +3,9 @@
 // inside any string field (explanationSections, keyFacts, etc.).
 // Usage: $...$ for inline, $$...$$ for block math. Plain text passes through.
 //
-// KaTeX JS is lazy-loaded: only imported when text actually contains
-// math delimiters. The CSS loads eagerly (small). Plain text never
-// triggers the KaTeX import at all.
+// KaTeX JS and CSS are lazy-loaded only when text contains math delimiters.
+// Plain text never triggers the KaTeX import.
 
-import 'katex/dist/katex.min.css';
 import { useEffect, useState } from 'react';
 
 interface MathTextProps {
@@ -19,7 +17,10 @@ let katexPromise: Promise<typeof import('katex').default> | null = null;
 
 function getKatex(): Promise<typeof import('katex').default> {
   if (!katexPromise) {
-    katexPromise = import('katex').then((m) => m.default);
+    katexPromise = Promise.all([
+      import('katex'),
+      import('katex/dist/katex.min.css'),
+    ]).then(([m]) => m.default);
   }
   return katexPromise;
 }
