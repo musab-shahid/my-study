@@ -57,9 +57,9 @@ export default defineConfig({
           // The curriculum assembler and shared registry wiring remain outside these chunks.
           const cgeiSubjectChunk = getCgeiSubjectChunkName(id);
           if (cgeiSubjectChunk) return cgeiSubjectChunk;
-          // The evaluator is reached only through a dynamic import; do not fold it into eager app-lib.
+          // Do not force every /src/lib module into a single app-lib chunk.
+          // Lazy screens should pull only the lib modules they need.
           if (id.endsWith('/src/lib/fsrs-evaluation.ts')) return undefined;
-          if (id.includes('/src/lib/')) return 'app-lib';
           // Keep CGEI assembler + shared modules out of the eager app-data chunk.
           if (
             id.includes('/src/data/cgei/curriculum') ||

@@ -117,7 +117,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Install pinned Lighthouse CI runner
-        run: npm install --no-save --package-lock=false lighthouse@12.8.2
+        run: |
+          # Install outside the workspace so lighthouse cannot rewrite
+          # node_modules/playwright to a non-existent playwright-core release.
+          mkdir -p "$RUNNER_TEMP/lighthouse-runner"
+          npm install --prefix "$RUNNER_TEMP/lighthouse-runner" --no-package-lock lighthouse@12.8.2
+          # Expose packages for node ESM import resolution in run-lighthouse-ci.mjs
+          ln -sfn "$RUNNER_TEMP/lighthouse-runner/node_modules/lighthouse" node_modules/lighthouse
+          if [ -d "$RUNNER_TEMP/lighthouse-runner/node_modules/chrome-launcher" ]; then
+            ln -sfn "$RUNNER_TEMP/lighthouse-runner/node_modules/chrome-launcher" node_modules/chrome-launcher
+          fi
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
       - name: E2E tests
@@ -133,6 +142,7 @@ jobs:
         env:
           CI: true
           PLAYWRIGHT_FORCE_BUNDLED: "1"
+          NODE_PATH: ${{ runner.temp }}/lighthouse-runner/node_modules
         run: node scripts/run-lighthouse-ci.mjs
       - name: Upload Lighthouse raw report
         if: always()
