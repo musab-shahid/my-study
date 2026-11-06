@@ -51,7 +51,6 @@ export function QuizResults({
   const { score, total, answers, questions, perTopic, perDifficulty } = results;
   const pct = total > 0 ? Math.round((score / total) * 100) : 0;
   const wrongAnswers = answers.filter((a) => !a.correct);
-  const byId = new Map(answers.map((a) => [a.questionId, a]));
 
   return (
     <PageContainer width="focused">
@@ -135,7 +134,6 @@ export function QuizResults({
             {wrongAnswers.map((ans) => {
               const q = questions.find((x) => x.id === ans.questionId);
               if (!q) return null;
-              const correctIdx = Array.isArray(q.correctAnswer) ? q.correctAnswer[0] : q.correctAnswer;
               return (
                 <div key={ans.questionId} className="border border-slate-200 rounded-lg p-3">
                   <p className="text-ink text-sm font-medium mb-2">{q.question}</p>
