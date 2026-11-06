@@ -16,10 +16,6 @@ export interface InstantiatedQuant {
   baseId: string;
 }
 
-function _clamp(n: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, n));
-}
-
 /** Deterministic RNG from string seed (mulberry32) */
 export function rngFromSeed(seed: string): () => number {
   let h = 2166136261;
