@@ -1,5 +1,4 @@
 import type { CurriculumLesson, CurriculumSubject, CurriculumUnit } from '@/types/curriculum';
-import { hasSubstantiveLessonContent } from './readiness';
 
 /**
  * Source-to-app audit contract for Subject 5.
