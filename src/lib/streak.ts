@@ -1,5 +1,5 @@
 import type { AppData } from '@/types';
-import { deriveAccuracy, getEffectiveQuizStats, WEAK_TOPIC_MIN_ATTEMPTS } from '@/lib/constants';
+import { getEffectiveQuizStats, WEAK_TOPIC_MIN_ATTEMPTS } from '@/lib/constants';
 export interface StreakInfo {
   streak: number;
   atRisk: boolean;

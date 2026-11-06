@@ -29,8 +29,8 @@ export function setErrorReportingEnabled(enabled: boolean): void {
 
 function scrub(text: string, max: number): string {
   let s = text.slice(0, max);
-  s = s.replace(/Bearer\s+[A-Za-z0-9._\-]+/gi, 'Bearer [redacted]');
-  s = s.replace(/eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]+\.[A-Za-z0-9_\-]+/g, '[jwt-redacted]');
+  s = s.replace(/Bearer\s+[A-Za-z0-9._-]+/gi, 'Bearer [redacted]');
+  s = s.replace(/eyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g, '[jwt-redacted]');
   s = s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[email-redacted]');
   s = s.replace(/examprep-supabase-[a-z-]+/gi, '[storage-key]');
   return s;

@@ -10,7 +10,6 @@ import {
   formatQuestionCountLabel,
 } from '../track-catalog.ts';
 import { resolveSubjectsForScope } from '../track-scope.ts';
-import { sectionsBySubject } from '../../data/sections.ts';
 import type { Question } from '../../types.ts';
 
 describe('getTrackCatalog — FPSC active', () => {

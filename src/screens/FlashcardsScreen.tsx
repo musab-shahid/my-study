@@ -100,12 +100,6 @@ export function FlashcardsScreen({ topicId }: { topicId?: string }) {
     [total],
   );
 
-  const markKnown = () => {
-    if (!card) return;
-    setKnownIds((prev) => new Set(prev).add(card.id));
-    go(1);
-  };
-
   const gradeCard = (grade: (typeof FLASHCARD_GRADES)[number]['grade']) => {
     if (!card) return;
     recordFlashcardGrade({ cardId: card.id, topicId: card.topicId, grade });

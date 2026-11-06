@@ -214,18 +214,6 @@ export function MobileNav() {
     activeEnrolled && isTrackId(activeEnrolled)
       ? getTrackStyle(activeEnrolled).navIndicator
       : 'bg-brand-400';
-  const tracksClick = () => {
-    if (activeEnrolled && isTrackId(activeEnrolled)) {
-      navigate({ ...openTrackOptions(activeEnrolled) });
-    } else {
-      // No active workspace → Home membership shell / explore
-      navigate({ screen: 'home', parent: null });
-    }
-  };
-  const tracksActive =
-    currentScreen === 'track' ||
-    currentScreen === 'fpsc' ||
-    currentScreen === 'hat';
   // Primary study loop first: Home → Learn → Practice; Tracks for enrollment/switching.
   const navItems = [
     { icon: FEATURE_ICONS.home, label: 'Home', screen: 'home' as ScreenName, onClick: () => navigate({ screen: 'home', parent: null }) },

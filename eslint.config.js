@@ -21,7 +21,28 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
-        { allowConstantExport: true },
+        {
+          allowConstantExport: true,
+          // Context providers, router helpers, and quiz option tables co-export
+          // non-components by design; keep the rule for pure UI modules only.
+          allowExportNames: [
+            'useSubjectSelection',
+            'useData',
+            'useRouter',
+            'routeLabel',
+            'navigate',
+            'MATCHING_PAIRS',
+            'LEFT_ITEMS',
+            'CGEI_DOMAIN_GROUPS',
+            'packMatchSelect',
+            'unpackMatchSelect',
+            'MATCH_PACK',
+            'openTrackOptions',
+            'RouterProvider',
+            'DataProvider',
+            'SubjectSelectionProvider',
+          ],
+        },
       ],
       // Measured legacy debt: keep as warnings under max-warnings budget (CI)
       '@typescript-eslint/no-unused-vars': ['warn', {
@@ -34,5 +55,14 @@ export default tseslint.config(
       'no-useless-escape': 'warn',
       'prefer-const': 'warn',
     },
-  }
+  },
+
+  // Curriculum content strings often include LaTeX-style escapes that are
+  // intentional in authored text; keep the rule for app code only.
+  {
+    files: ['src/data/**/*.{ts,tsx}'],
+    rules: {
+      'no-useless-escape': 'off',
+    },
+  },
 );

@@ -186,11 +186,6 @@ function readHistoryRouteState(raw: unknown): RouteState | null {
   return s.routeState as RouteState;
 }
 
-function isSpaHistoryState(raw: unknown): boolean {
-  return !!(raw && typeof raw === 'object' && (raw as Partial<HistoryPayload>).spa === true
-    && (raw as Partial<HistoryPayload>).v === 1);
-}
-
 function pushRouteHistory(
   routeState: RouteState,
   mode: 'push' | 'replace',

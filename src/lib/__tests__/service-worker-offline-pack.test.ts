@@ -4,12 +4,19 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
 
 type ResponseLike = { ok: boolean; clone: () => ResponseLike };
+type SwHandler = (event: {
+  data?: unknown;
+  ports?: Array<{ postMessage: (value: unknown) => void }>;
+  waitUntil?: (promise: Promise<unknown>) => void;
+  request?: unknown;
+  respondWith?: (r: unknown) => void;
+}) => void;
 
 function createHarness(
   fetchImpl: (url: string) => Promise<ResponseLike>,
   initialCaches: Record<string, Record<string, ResponseLike>> = {},
 ) {
-  const handlers = new Map<string, (event: any) => void>();
+  const handlers = new Map<string, SwHandler>();
   const stores = new Map<string, Map<string, ResponseLike>>(
     Object.entries(initialCaches).map(([name, entries]) => [name, new Map(Object.entries(entries))]),
   );
@@ -44,7 +51,7 @@ function createHarness(
     delete: async (name: string) => stores.delete(name),
   };
   const self = {
-    addEventListener: (type: string, handler: (event: any) => void) => handlers.set(type, handler),
+    addEventListener: (type: string, handler: SwHandler) => handlers.set(type, handler),
     skipWaiting: () => undefined,
     clients,
   };
@@ -68,7 +75,7 @@ function response(ok = true): ResponseLike {
 }
 
 async function dispatchMessage(
-  handler: ((event: any) => void) | undefined,
+  handler: SwHandler | undefined,
   data: unknown,
 ) {
   assert.ok(handler, 'service worker must register a message handler');

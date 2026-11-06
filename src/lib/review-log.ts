@@ -158,10 +158,6 @@ function openDb(): Promise<IDBDatabase> {
   });
 }
 
-function eventKeyFromDb(e: ReviewEvent): string {
-  return eventKey(e);
-}
-
 /** Browser IndexedDB-backed append-only log. */
 export class IndexedDbReviewLog implements ReviewLog {
   async append(event: ReviewEvent): Promise<void> {

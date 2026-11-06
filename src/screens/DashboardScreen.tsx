@@ -22,6 +22,7 @@ import {
 } from '@/lib/exam-schedule';
 import { computeReadiness, readinessLabel } from '@/lib/readiness';
 import { assessSavedDraftForResume } from '@/lib/quiz-session';
+import type { DifficultyFilter, TimeLimitSetting } from '@/types';
 
 function getGreeting(): string {
   const h = new Date().getHours();
@@ -138,8 +139,8 @@ export function DashboardScreen() {
       scope: resumableDraft.scope,
       subjectId: resumableDraft.subjectId,
       count: resumableDraft.count,
-      difficulty: resumableDraft.difficulty as any,
-      timeLimit: resumableDraft.timeLimit as any,
+      difficulty: resumableDraft.difficulty as DifficultyFilter | undefined,
+      timeLimit: resumableDraft.timeLimit as TimeLimitSetting | undefined,
       wrongPool: resumableDraft.wrongPool,
     });
   };
@@ -442,47 +443,39 @@ export function DashboardScreen() {
       )}
 
       {/* Workspace-scoped exam countdown; never invent a default date. */}
-      {activeWorkspaceTrack && (
+      {activeWorkspaceTrack && examCountdown && examTarget && (
         <Card className="p-4 mb-5">
-          {nextExam && examCountdown && examTarget && !examCountdown.started ? (
-            <>
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  <p className="text-xs text-muted">Upcoming exam</p>
-                  <p className="text-sm font-semibold text-ink">{nextExam.label}</p>
-                  <p className="text-xs text-muted mt-0.5">
-                    {new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short', timeZone: nextExam.timeZone }).format(new Date(examTarget.iso))} · {examTarget.label}
-                  </p>
-                </div>
-                <p className="text-sm font-medium text-muted tabular-nums">
-                  {formatCountdownShort(examCountdown)}
-                </p>
-              </div>
-              {readiness && (
-                <p className="text-xs text-muted mt-2">
-                  Readiness {readiness.score}% — {readinessLabel(readiness.score)}
-                </p>
-              )}
-            </>
-          ) : (
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div>
-                <p className="text-sm font-semibold text-ink">No upcoming exam configured</p>
-                <p className="mt-1 text-xs text-muted">Add a date for this workspace to enable a truthful countdown.</p>
-              </div>
-              <Button size="sm" variant="secondary" onClick={() => navigate({ screen: 'settings' })}>Set exam date</Button>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-ink">Exam countdown</p>
+              <p className="text-xs text-muted mt-0.5">{formatCountdownShort(examCountdown)}</p>
             </div>
-          )}
+            <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'settings' })}>
+              Sessions
+            </Button>
+          </div>
         </Card>
       )}
 
-      {/* Secondary destinations — low visual weight */}
+      {hasHistory && (
+        <Card className="p-4 mb-5">
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-sm font-semibold text-ink">Readiness</p>
+              <p className="text-xs text-muted mt-0.5">{readinessLabel(readiness)}</p>
+            </div>
+            <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'progress' })}>
+              Progress
+            </Button>
+          </div>
+        </Card>
+      )}
+
       <div className="flex flex-wrap gap-2">
-        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'practice' })}>Practice</Button>
-        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'progress' })}>Progress</Button>
-        <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'learn' })}>Learn</Button>
-        {activeId && (
-          <Button variant="secondary" size="sm" onClick={() => navigate({ ...openTrackOptions(activeId as TrackId) })}>
+        <Button onClick={() => navigate({ screen: 'learn' })}>Continue learning</Button>
+        <Button variant="secondary" onClick={() => navigate({ screen: 'practice' })}>Practice</Button>
+        {activeWorkspaceTrack && (
+          <Button variant="ghost" onClick={() => navigate({ ...openTrackOptions(activeWorkspaceTrack) })}>
             Track catalog
           </Button>
         )}
@@ -490,4 +483,3 @@ export function DashboardScreen() {
     </PageContainer>
   );
 }
-

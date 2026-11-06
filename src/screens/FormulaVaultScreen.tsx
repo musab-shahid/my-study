@@ -5,7 +5,6 @@ import { useRouter } from '@/router';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { SubjectSelector, type SubjectFilterValue } from '@/components/subject/SubjectSelector';
-import { getFormulasForSubject, refreshFormulaVault } from '@/data/formulas';
 import { subjectMap } from '@/data/subjects';
 import { getTrackForSubject } from '@/lib/exam-track';
 import { PageContainer, Card, EmptyState, LoadingSpinner, Button, ScreenHeader } from '@/components/ui';
