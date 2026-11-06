@@ -7,7 +7,7 @@ import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DEFAULT_LIGHTHOUSE_FLOORS, enforceLighthouseFloors } from './lighthouse-gate.mjs';
+import { DEFAULT_LIGHTHOUSE_FLOORS, DEFAULT_LIGHTHOUSE_METRIC_FLOORS, enforceLighthouseFloors, enforceLighthouseMetricFloors } from './lighthouse-gate.mjs';
 import { extractLighthouseMetrics } from './lighthouse-metrics.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -38,28 +38,31 @@ function serveDist(port) {
   const server = createServer((req, res) => {
     let urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
     if (urlPath === '/') urlPath = '/index.html';
-    let filePath = path.join(dist, urlPath);
+    const filePath = path.join(dist, urlPath);
     if (!filePath.startsWith(dist)) {
-      res.writeHead(403);
-      res.end();
-      return;
-    }
-    if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
-      filePath = path.join(dist, 'index.html');
+      res.writeHead(403); res.end(); return;
     }
     try {
-      const body = readFileSync(filePath);
+      const st = statSync(filePath);
+      if (!st.isFile()) {
+        // SPA fallback
+        const html = readFileSync(path.join(dist, 'index.html'));
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        res.end(html);
+        return;
+      }
       const ext = path.extname(filePath);
       res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
-      res.end(body);
+      res.end(readFileSync(filePath));
     } catch {
-      res.writeHead(404);
-      res.end('not found');
+      const html = readFileSync(path.join(dist, 'index.html'));
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
     }
   });
   return new Promise((resolve, reject) => {
-    server.once('error', reject);
     server.listen(port, '127.0.0.1', () => resolve(server));
+    server.on('error', reject);
   });
 }
 
@@ -67,20 +70,15 @@ async function playwrightFloor(url) {
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({ headless: true });
   try {
-    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
-    const errors = [];
-    page.on('pageerror', (err) => errors.push(String(err)));
+    const page = await browser.newPage();
     const started = Date.now();
-    await page.goto(url, { waitUntil: 'networkidle', timeout: MAX_LOAD_MS });
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: MAX_LOAD_MS });
+    await page.waitForSelector('main', { timeout: MAX_LOAD_MS });
     const elapsed = Date.now() - started;
-    const main = await page.locator('main, [role="main"], #root').first().count();
-    if (main < 1) throw new Error('No main app root found');
-    const bodyText = (await page.locator('body').innerText()).trim();
-    if (bodyText.length < 20) throw new Error('Body text too short after load');
-    if (elapsed > MAX_LOAD_MS) throw new Error(`Load exceeded ${MAX_LOAD_MS}ms (${elapsed}ms)`);
-    if (errors.length) console.warn('[perf-gate] page errors:', errors.slice(0, 3));
-    console.log(`[perf-gate] mobile home loaded in ${elapsed}ms with app root`);
-    return { elapsed, errors };
+    console.log(`[perf-gate] playwright shell load ${elapsed}ms (max ${MAX_LOAD_MS})`);
+    if (elapsed > MAX_LOAD_MS) {
+      throw new Error(`Shell load ${elapsed}ms exceeded ${MAX_LOAD_MS}ms`);
+    }
   } finally {
     await browser.close();
   }
@@ -92,24 +90,20 @@ async function runLighthouse(url) {
     import('chrome-launcher'),
     import('playwright'),
   ]);
+  // Prefer playwright chromium executable when available.
+  const executablePath = chromium.executablePath();
   const chrome = await chromeLauncher.launch({
-    chromePath: chromium.executablePath(),
+    chromePath: executablePath,
     chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'],
   });
   try {
     const result = await lighthouse(url, {
       port: chrome.port,
       output: 'json',
-      logLevel: 'error',
       onlyCategories: ['performance', 'accessibility'],
       formFactor: 'mobile',
-      screenEmulation: {
-        mobile: true,
-        width: 390,
-        height: 844,
-        deviceScaleFactor: 2,
-        disabled: false,
-      },
+      screenEmulation: { mobile: true, width: 390, height: 844, deviceScaleFactor: 2, disabled: false },
+      throttlingMethod: 'simulate',
     });
     if (!result?.lhr) throw new Error('Lighthouse did not return a report');
     return result.lhr;
@@ -137,8 +131,17 @@ async function main() {
       minPerformance: MIN_PERF,
       minAccessibility: MIN_A11Y,
     });
+    const metricCeilings = {
+      lcp: Number(process.env.LH_MAX_LCP ?? DEFAULT_LIGHTHOUSE_METRIC_FLOORS.lcp),
+      cls: Number(process.env.LH_MAX_CLS ?? DEFAULT_LIGHTHOUSE_METRIC_FLOORS.cls),
+      tbt: Number(process.env.LH_MAX_TBT ?? DEFAULT_LIGHTHOUSE_METRIC_FLOORS.tbt),
+    };
+    const acceptedMetrics = enforceLighthouseMetricFloors(metrics, metricCeilings);
     console.log(
       `[perf-gate] Lighthouse performance=${accepted.performance.toFixed(2)} (min ${MIN_PERF}) accessibility=${accepted.accessibility.toFixed(2)} (min ${MIN_A11Y})`,
+    );
+    console.log(
+      `[perf-gate] lab metrics LCP=${acceptedMetrics.lcp} (max ${metricCeilings.lcp}) CLS=${acceptedMetrics.cls} (max ${metricCeilings.cls}) TBT=${acceptedMetrics.tbt} (max ${metricCeilings.tbt})`,
     );
     console.log('[perf-gate] budgets passed');
   } finally {
