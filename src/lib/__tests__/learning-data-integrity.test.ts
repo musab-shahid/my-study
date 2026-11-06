@@ -9,7 +9,6 @@ import {
   createReviewEventId,
   REVIEW_EVENT_ALGO_VERSION,
   type ReviewEvent,
-  type ReviewMode,
 } from '../review-event.ts';
 import {
   MemoryReviewLog,
@@ -18,7 +17,7 @@ import {
   type ReviewLog,
 } from '../review-log.ts';
 import { MemoryReviewOutbox } from '../review-outbox.ts';
-import { dualWriteQuizAttempts, dualWriteQuizAttemptsFireAndForget, type DualWriteResult } from '../dual-write.ts';
+import { dualWriteQuizAttempts, dualWriteQuizAttemptsFireAndForget } from '../dual-write.ts';
 import {
   diffAggregates,
   diffAggregatesDetailed,
@@ -116,7 +115,7 @@ describe('PR1: mastery-bayesian input validation', () => {
 // -- B. Complete replay verification --
 
 describe('PR1: bidirectional replay diff', () => {
-  function makeEvent(itemId: string, correct: boolean, ts: number, id?: string): ReviewEvent {
+  function makeEvent(itemId: string, correct: boolean, ts: number, _id?: string): ReviewEvent {
     return buildReviewEvent({
       itemId,
       skillId: 'skill-a',
