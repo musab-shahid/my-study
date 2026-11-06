@@ -2,7 +2,7 @@
  * User-facing item analytics derived from local questionResults.
  * Not author CI — helps the learner see sticky misses and fragile wins.
  */
-import type { AppData, Question, QuestionResult } from '@/types';
+import type { AppData, Question } from '@/types';
 import { resolveStrength } from '@/lib/adaptive-select';
 
 export interface StickyMiss {
