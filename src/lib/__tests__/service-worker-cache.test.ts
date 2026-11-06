@@ -5,13 +5,20 @@ import assert from 'node:assert/strict';
 
 type RequestLike = { method: string; url: string; mode: string };
 type ResponseLike = { ok: boolean; clone: () => ResponseLike };
+type SwHandler = (event: {
+  data?: unknown;
+  ports?: Array<{ postMessage: (value: unknown) => void }>;
+  waitUntil?: (promise: Promise<unknown>) => void;
+  request?: RequestLike;
+  respondWith?: (r: Promise<ResponseLike> | ResponseLike) => void;
+}) => void;
 
 function loadServiceWorker(
   fetchImpl: (request: RequestLike) => Promise<ResponseLike>,
   initialCache: Map<string, ResponseLike> = new Map(),
   cachePutImpl?: (request: RequestLike, response: ResponseLike) => Promise<void>,
 ) {
-  const handlers = new Map<string, (event: any) => void>();
+  const handlers = new Map<string, SwHandler>();
   const writes: string[] = [];
   const lifetimePromises: Promise<unknown>[] = [];
   const cache = {
@@ -33,7 +40,7 @@ function loadServiceWorker(
     delete: async () => true,
   };
   const self = {
-    addEventListener: (type: string, handler: (event: any) => void) => handlers.set(type, handler),
+    addEventListener: (type: string, handler: SwHandler) => handlers.set(type, handler),
     skipWaiting: () => undefined,
     clients: { claim: async () => undefined },
   };
