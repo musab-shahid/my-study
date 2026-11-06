@@ -4,7 +4,7 @@ import { buildReviewEvent } from '../review-event.ts';
 import { MemoryReviewLog } from '../review-log.ts';
 import { MemoryReviewOutbox } from '../review-outbox.ts';
 import { dualWriteQuizAttempts } from '../dual-write.ts';
-import { diffAggregates, diffAggregatesDetailed, replayItemEvents } from '../review-replay.ts';
+import { diffAggregates, replayItemEvents } from '../review-replay.ts';
 import { updateQuestionStrength } from '../adaptive-select.ts';
 
 describe('review replay property', () => {
