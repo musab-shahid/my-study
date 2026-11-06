@@ -221,7 +221,7 @@ function validateTopicProgress(p: unknown): p is TopicProgress {
 }
 
 
-function migrateAppDataDocument(data: Record<string, unknown>): Record<string, unknown> {
+function _migrateAppDataDocument(data: Record<string, unknown>): Record<string, unknown> {
   const v = typeof data.schemaVersion === 'number' ? data.schemaVersion : 0;
   if (v > APP_DATA_SCHEMA_VERSION) {
     return data; // reject later in validate if we choose
