@@ -38,31 +38,28 @@ function serveDist(port) {
   const server = createServer((req, res) => {
     let urlPath = decodeURIComponent((req.url || '/').split('?')[0]);
     if (urlPath === '/') urlPath = '/index.html';
-    const filePath = path.join(dist, urlPath);
+    let filePath = path.join(dist, urlPath);
     if (!filePath.startsWith(dist)) {
-      res.writeHead(403); res.end(); return;
+      res.writeHead(403);
+      res.end();
+      return;
+    }
+    if (!existsSync(filePath) || statSync(filePath).isDirectory()) {
+      filePath = path.join(dist, 'index.html');
     }
     try {
-      const st = statSync(filePath);
-      if (!st.isFile()) {
-        // SPA fallback
-        const html = readFileSync(path.join(dist, 'index.html'));
-        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-        res.end(html);
-        return;
-      }
+      const body = readFileSync(filePath);
       const ext = path.extname(filePath);
       res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' });
-      res.end(readFileSync(filePath));
+      res.end(body);
     } catch {
-      const html = readFileSync(path.join(dist, 'index.html'));
-      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-      res.end(html);
+      res.writeHead(404);
+      res.end('not found');
     }
   });
   return new Promise((resolve, reject) => {
+    server.once('error', reject);
     server.listen(port, '127.0.0.1', () => resolve(server));
-    server.on('error', reject);
   });
 }
 
@@ -70,15 +67,20 @@ async function playwrightFloor(url) {
   const { chromium } = await import('playwright');
   const browser = await chromium.launch({ headless: true });
   try {
-    const page = await browser.newPage();
+    const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+    const errors = [];
+    page.on('pageerror', (err) => errors.push(String(err)));
     const started = Date.now();
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: MAX_LOAD_MS });
-    await page.waitForSelector('main', { timeout: MAX_LOAD_MS });
+    await page.goto(url, { waitUntil: 'networkidle', timeout: MAX_LOAD_MS });
     const elapsed = Date.now() - started;
-    console.log(`[perf-gate] playwright shell load ${elapsed}ms (max ${MAX_LOAD_MS})`);
-    if (elapsed > MAX_LOAD_MS) {
-      throw new Error(`Shell load ${elapsed}ms exceeded ${MAX_LOAD_MS}ms`);
-    }
+    const main = await page.locator('main, [role="main"], #root').first().count();
+    if (main < 1) throw new Error('No main app root found');
+    const bodyText = (await page.locator('body').innerText()).trim();
+    if (bodyText.length < 20) throw new Error('Body text too short after load');
+    if (elapsed > MAX_LOAD_MS) throw new Error(`Load exceeded ${MAX_LOAD_MS}ms (${elapsed}ms)`);
+    if (errors.length) console.warn('[perf-gate] page errors:', errors.slice(0, 3));
+    console.log(`[perf-gate] mobile home loaded in ${elapsed}ms with app root`);
+    return { elapsed, errors };
   } finally {
     await browser.close();
   }
@@ -90,20 +92,24 @@ async function runLighthouse(url) {
     import('chrome-launcher'),
     import('playwright'),
   ]);
-  // Prefer playwright chromium executable when available.
-  const executablePath = chromium.executablePath();
   const chrome = await chromeLauncher.launch({
-    chromePath: executablePath,
+    chromePath: chromium.executablePath(),
     chromeFlags: ['--headless', '--no-sandbox', '--disable-gpu'],
   });
   try {
     const result = await lighthouse(url, {
       port: chrome.port,
       output: 'json',
+      logLevel: 'error',
       onlyCategories: ['performance', 'accessibility'],
       formFactor: 'mobile',
-      screenEmulation: { mobile: true, width: 390, height: 844, deviceScaleFactor: 2, disabled: false },
-      throttlingMethod: 'simulate',
+      screenEmulation: {
+        mobile: true,
+        width: 390,
+        height: 844,
+        deviceScaleFactor: 2,
+        disabled: false,
+      },
     });
     if (!result?.lhr) throw new Error('Lighthouse did not return a report');
     return result.lhr;
