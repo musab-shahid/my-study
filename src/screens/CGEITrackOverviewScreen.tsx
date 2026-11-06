@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, CheckCircle2, Compass, FlaskConical, Layers3, Route, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Compass, FlaskConical, Layers3 } from 'lucide-react';
 import { useData } from '@/hooks/useData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
 import { useRouter } from '@/router';
