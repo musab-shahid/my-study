@@ -4,8 +4,6 @@
 // inline LaTeX math ($...$, $$...$, \(...\), \[...\]), and paragraphs.
 
 import { type ReactNode, useEffect, useState } from 'react';
-import 'katex/dist/katex.min.css';
-
 interface MarkdownProps {
   text: string;
   className?: string;
@@ -15,7 +13,10 @@ let katexPromise: Promise<typeof import('katex').default> | null = null;
 
 function getKatex(): Promise<typeof import('katex').default> {
   if (!katexPromise) {
-    katexPromise = import('katex').then((m) => m.default);
+    katexPromise = Promise.all([
+      import('katex'),
+      import('katex/dist/katex.min.css'),
+    ]).then(([m]) => m.default);
   }
   return katexPromise;
 }
