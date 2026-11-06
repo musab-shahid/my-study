@@ -13,6 +13,7 @@ import { sectionMap } from '@/data/sections';
 import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from '@/components/ui';
 import { computeStreak, getWeakTopics } from '@/lib/streak';
 import { openTrackOptions } from '@/router/openTrack';
+import { isTrackId } from '@/data/tracks';
 import {
   getExamSessionConfigKey,
   getCountdownParts,
@@ -462,7 +463,7 @@ export function DashboardScreen() {
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-sm font-semibold text-ink">Readiness</p>
-              <p className="text-xs text-muted mt-0.5">{readinessLabel(readiness)}</p>
+              <p className="text-xs text-muted mt-0.5">{readinessLabel(readiness.score)}</p>
             </div>
             <Button variant="secondary" size="sm" onClick={() => navigate({ screen: 'progress' })}>
               Progress
@@ -474,7 +475,7 @@ export function DashboardScreen() {
       <div className="flex flex-wrap gap-2">
         <Button onClick={() => navigate({ screen: 'learn' })}>Continue learning</Button>
         <Button variant="secondary" onClick={() => navigate({ screen: 'practice' })}>Practice</Button>
-        {activeWorkspaceTrack && (
+        {isTrackId(activeWorkspaceTrack) && (
           <Button variant="ghost" onClick={() => navigate({ ...openTrackOptions(activeWorkspaceTrack) })}>
             Track catalog
           </Button>

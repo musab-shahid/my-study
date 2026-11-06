@@ -2,7 +2,7 @@ import { createContext, useState, useCallback, useEffect, useRef, type ReactNode
 import type { AppData, Question, DifficultyFilter, PracticeMode, SubjectId, TrackMembershipState } from '@/types';
 import { emptyTrackMembership, normalizeTrackMembership, setActiveExamProfile as setActiveExamProfilePure, leaveTrack as leaveTrackPure } from '@/lib/track-membership';
 import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
-import { isTrackId, type TrackId } from '@/data/tracks';
+import { type TrackId } from '@/data/tracks';
 import { getExamSessionConfigKey, validateExamSessions, type ExamSession } from '@/lib/exam-schedule';
 import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
 import { STORAGE_KEYS } from '@/lib/constants';

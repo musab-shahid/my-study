@@ -6,7 +6,7 @@ import { isCgeiOverviewTopic } from '@/data/cgei/overview';
 import { sectionMap, sectionsBySubject, sections } from '@/data/sections';
 import { topics, topicsBySubject, getTopic } from '@/data/topics';
 import { questionsByTopic } from '@/data/questions';
-import { subjectMap, subjectsByTrack } from '@/data/subjects';
+import { subjectMap } from '@/data/subjects';
 import { getFormulasForSubject } from '@/data/formulas';
 import { getOverallStats, getWeakestTopics, getTodayRevision } from '@/lib/stats';
 import { searchTopics, type SearchResult } from '@/lib/search';

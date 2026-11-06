@@ -36,11 +36,6 @@ function practicedSubjectsNote(isAll: boolean): string {
 }
 
 
-/** Display accuracy: distinguish unmeasured from genuine 0%. */
-function formatAccuracy(accuracy: number | null | undefined, attempts?: number): string {
-  if (attempts === 0 || accuracy === null || accuracy === undefined) return 'No quiz attempts yet';
-  return `${accuracy}% accuracy`;
-}
 
 export function ProgressScreen() {
   const { data, trackMembership } = useData();
@@ -93,7 +88,7 @@ export function ProgressScreen() {
     attempts: qrAgg.attempts,
   });
   // Legacy combined score for subject rows (still listed as /100 exposure blend)
-  const masteryScore = currentStats.totalTopics > 0
+  const _masteryScore = currentStats.totalTopics > 0
     ? computeMasteryScore(currentStats.studiedTopics, currentStats.totalTopics, currentStats.accuracy)
     : 0;
 

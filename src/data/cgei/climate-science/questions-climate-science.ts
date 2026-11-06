@@ -3,8 +3,6 @@ import type { Question, Topic } from '@/types';
 /** Legacy Climate Science bank: preserve permanent IDs and engine routing; lesson links are explicit. */
 
 const SRC = 'Master Study TOC · Unit 2.6 Extremes and trend analysis';
-const TID = 'cgei-extremes-and-trend-analysis';
-const SID = 'CGEI-02';
 
 /**
  * Legacy Climate Science questions retained in their original section/topic groups.

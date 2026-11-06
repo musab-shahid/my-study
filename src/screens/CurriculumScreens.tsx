@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ChevronDown, ChevronRight, Clock3, Link2 } from 'lucide-react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
 import { cgeiCurriculum } from '@/data/cgei/curriculum';
@@ -207,7 +207,7 @@ export function CurriculumLessonScreen({ lessonId }: { lessonId: string }) {
   const lessonSequenceIndex = navigableLessonSequence.findIndex((item) => item.id === lessonId);
   const previousLesson = lessonSequenceIndex > 0 ? navigableLessonSequence[lessonSequenceIndex - 1] : undefined;
   const nextLesson = lessonSequenceIndex >= 0 ? navigableLessonSequence[lessonSequenceIndex + 1] : undefined;
-  const subjectId = (subject?.subjectId ?? '') as SubjectId;
+  const _subjectId = (subject?.subjectId ?? '') as SubjectId;
   const [bankQuestions, setBankQuestions] = useState<Question[]>([]);
   const [expandedLessonId, setExpandedLessonId] = useState<string | null>(null);
   const showAllLessonChecks = expandedLessonId === lesson?.id;
