@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Card } from '@/components/ui';
 import { MathText } from '@/components/MathText';
 import { ChevronDown, ChevronRight, Calculator } from 'lucide-react';
