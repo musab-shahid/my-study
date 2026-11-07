@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 /**
- * Client catalog model strings (src/lib/ai-tutor.ts) must be a subset of
+ * Client catalog model strings (src/lib/ai-tutor-providers.ts) must be a subset of
  * the Edge Function ALLOWED_MODELS set, or proxy requests fail with
  * "Model not allowed" after the user picks a listed option.
  */
@@ -31,7 +31,7 @@ function extractServerAllowlist(src: string): Set<string> {
 
 describe('AI model catalog ↔ edge allowlist', () => {
   const root = resolve(process.cwd());
-  const clientSrc = readFileSync(resolve(root, 'src/lib/ai-tutor.ts'), 'utf8');
+  const clientSrc = readFileSync(resolve(root, 'src/lib/ai-tutor-providers.ts'), 'utf8');
   const serverSrc = readFileSync(
     resolve(root, 'supabase/functions/ai-tutor/index.ts'),
     'utf8',
