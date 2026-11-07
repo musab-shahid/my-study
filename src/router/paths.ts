@@ -285,7 +285,7 @@ function routeLabelFallback(route: PathRoute): string {
 /** True if path is one of our app routes (not an unknown URL). */
 export function isAppPath(pathname: string): boolean {
   const cleaned = (pathname.replace(/\/+$/, '') || '/');
-  let decoded = cleaned;
+  let decoded: string;
   try {
     decoded = decodeURIComponent(cleaned);
   } catch {

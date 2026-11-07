@@ -136,7 +136,7 @@ export function localDateTimeToIso(value: string, timeZone: string): string {
     return new Date(candidate).toISOString();
   } catch (error) {
     if (error instanceof RangeError) throw error;
-    throw new RangeError('Choose a valid IANA time zone.');
+    throw Object.assign(new RangeError('Choose a valid IANA time zone.'), { cause: error });
   }
 }
 

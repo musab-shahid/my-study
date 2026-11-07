@@ -221,6 +221,22 @@ const PROVIDER_KEYS: Record<ProviderKey, keyof typeof env> = {
   anthropic: 'ANTHROPIC_API_KEY',
 };
 
+
+async function readErrorDetail(res: Response): Promise<string> {
+  try {
+    const errData = await res.json();
+    if (typeof errData?.error === 'string') return errData.error;
+    if (typeof errData?.error?.message === 'string') return errData.error.message;
+    return '';
+  } catch {
+    try {
+      return await res.text();
+    } catch {
+      return '';
+    }
+  }
+}
+
 function isProviderAvailable(provider: ProviderKey): boolean {
   // Proxy mode: all catalog models are offered; server rejects missing secrets.
   if (isAiProxyConfigured()) return true;
@@ -263,7 +279,7 @@ async function callViaProxy(
 ): Promise<{ text: string; truncated: boolean }> {
   const url = `${env.SUPABASE_URL.replace(/\/$/, '')}/functions/v1/ai-tutor`;
   // Prefer user session JWT (required by hardened edge function). Anon key alone is rejected.
-  let userJwt: string | null = null;
+  let userJwt: string | null;
   try {
     userJwt = localStorage.getItem('examprep-supabase-access-token');
   } catch {
@@ -285,17 +301,14 @@ async function callViaProxy(
     signal,
   });
   if (!res.ok) {
-    let detail = '';
     let retryAfterSec: number | undefined;
+    const detail = await readErrorDetail(res.clone());
     try {
-      const errData = await res.json();
-      detail = errData?.error || '';
+      const errData = await res.clone().json();
       if (typeof errData?.retryAfterSec === 'number' && Number.isFinite(errData.retryAfterSec)) {
         retryAfterSec = Math.max(1, Math.round(errData.retryAfterSec));
       }
-    } catch {
-      /* ignore */
-    }
+    } catch { /* ignore */ }
     const retryHeader = res.headers.get('Retry-After');
     if (retryAfterSec === undefined && retryHeader) {
       const n = Number(retryHeader);
@@ -341,8 +354,7 @@ async function callGemini(messages: TutorMessage[], preamble: string, model: str
   );
 
   if (!res.ok) {
-    let detail = '';
-    try { const errData = await res.json(); detail = errData?.error?.message || ''; } catch { detail = await res.text().catch(() => ''); }
+    const detail = await readErrorDetail(res);
     throw new Error(detail || `Gemini request failed (${res.status}). Please try again.`);
   }
   const data = await res.json();
@@ -384,8 +396,7 @@ async function callOpenRouter(
   });
 
   if (!res.ok) {
-    let detail = '';
-    try { const errData = await res.json(); detail = errData?.error?.message || ''; } catch { detail = await res.text().catch(() => ''); }
+    const detail = await readErrorDetail(res);
     throw new Error(detail || `Request failed (${res.status}). Please try again.`);
   }
   const data = await res.json();
@@ -425,8 +436,7 @@ async function callGroq(
   });
 
   if (!res.ok) {
-    let detail = '';
-    try { const errData = await res.json(); detail = errData?.error?.message || ''; } catch { detail = await res.text().catch(() => ''); }
+    const detail = await readErrorDetail(res);
     throw new Error(detail || `Groq request failed (${res.status}). Please try again.`);
   }
   const data = await res.json();
@@ -467,7 +477,7 @@ function callOpenAICompatible(
     signal,
   }).then(async (res) => {
     if (!res.ok) {
-      let detail = '';
+      let detail: string;
       try { const errData = await res.json(); detail = errData?.error?.message || ''; } catch { detail = await res.text().catch(() => ''); }
       throw new Error(detail || `${providerLabel || 'Request'} failed (${res.status}). Please try again.`);
     }
@@ -575,8 +585,7 @@ async function callAnthropic(
   });
 
   if (!res.ok) {
-    let detail = '';
-    try { const errData = await res.json(); detail = errData?.error?.message || ''; } catch { detail = await res.text().catch(() => ''); }
+    const detail = await readErrorDetail(res);
     throw new Error(detail || `Anthropic request failed (${res.status}). Please try again.`);
   }
   const data = await res.json();
@@ -661,7 +670,7 @@ export async function askTutor(
     return { reply: result.text, modelLabel: modelOption.label, truncated: result.truncated };
   } catch (err) {
     if (controller.signal.aborted && (!signal || !signal.aborted)) {
-      throw new Error('The AI took too long to respond (over 90 seconds). Please try again or pick a different model.');
+      throw Object.assign(new Error('The AI took too long to respond (over 90 seconds). Please try again or pick a different model.'), { cause: err });
     }
     throw err;
   } finally {

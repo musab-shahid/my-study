@@ -238,7 +238,7 @@ export function Tabs({
     const enabled = items.map((item, itemIndex) => ({ item, itemIndex })).filter(({ item }) => !item.disabled);
     if (!enabled.length) return;
     const currentPosition = enabled.findIndex(({ itemIndex }) => itemIndex === index);
-    let nextPosition = currentPosition;
+    let nextPosition: number;
     if (event.key === 'Home') nextPosition = 0;
     else if (event.key === 'End') nextPosition = enabled.length - 1;
     else if (event.key === 'ArrowRight') nextPosition = (currentPosition + 1 + enabled.length) % enabled.length;
