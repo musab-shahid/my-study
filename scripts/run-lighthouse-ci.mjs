@@ -7,7 +7,12 @@ import { createServer } from 'node:http';
 import { readFileSync, writeFileSync, mkdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DEFAULT_LIGHTHOUSE_FLOORS, enforceLighthouseFloors } from './lighthouse-gate.mjs';
+import {
+  DEFAULT_LIGHTHOUSE_FLOORS,
+  DEFAULT_LIGHTHOUSE_METRIC_CEILINGS,
+  enforceLighthouseFloors,
+  enforceLighthouseMetricCeilings,
+} from './lighthouse-gate.mjs';
 import { extractLighthouseMetrics } from './lighthouse-metrics.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -17,6 +22,9 @@ const dist = path.join(root, 'dist');
 const MAX_LOAD_MS = Number(process.env.LH_MAX_LOAD_MS || 12000);
 const MIN_PERF = Number(process.env.LH_MIN_PERFORMANCE ?? DEFAULT_LIGHTHOUSE_FLOORS.performance);
 const MIN_A11Y = Number(process.env.LH_MIN_ACCESSIBILITY ?? DEFAULT_LIGHTHOUSE_FLOORS.accessibility);
+const MAX_LCP_MS = Number(process.env.LH_MAX_LCP_MS ?? DEFAULT_LIGHTHOUSE_METRIC_CEILINGS.maxLcpMs);
+const MAX_CLS = Number(process.env.LH_MAX_CLS ?? DEFAULT_LIGHTHOUSE_METRIC_CEILINGS.maxCls);
+const MAX_TBT_MS = Number(process.env.LH_MAX_TBT_MS ?? DEFAULT_LIGHTHOUSE_METRIC_CEILINGS.maxTbtMs);
 
 if (!existsSync(path.join(dist, 'index.html'))) {
   throw new Error('[perf-gate] dist/ missing — run npm run build first');
@@ -139,6 +147,14 @@ async function main() {
     });
     console.log(
       `[perf-gate] Lighthouse performance=${accepted.performance.toFixed(2)} (min ${MIN_PERF}) accessibility=${accepted.accessibility.toFixed(2)} (min ${MIN_A11Y})`,
+    );
+    const metricsAccepted = enforceLighthouseMetricCeilings(metrics, {
+      maxLcpMs: MAX_LCP_MS,
+      maxCls: MAX_CLS,
+      maxTbtMs: MAX_TBT_MS,
+    });
+    console.log(
+      `[perf-gate] metrics LCP=${metricsAccepted.lcp}ms (max ${MAX_LCP_MS}), CLS=${metricsAccepted.cls} (max ${MAX_CLS}), TBT=${metricsAccepted.tbt}ms (max ${MAX_TBT_MS})`,
     );
     console.log('[perf-gate] budgets passed');
   } finally {
