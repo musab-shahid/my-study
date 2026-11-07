@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "exportedAt": "2026-11-08T00:00:00.000Z",
+  "source": "my-study-review-log",
+  "eventCount": 3,
+  "events": [
+    {
+      "id": "e1",
+      "ts": 1700000000000,
+      "deviceId": "fixture-device",
+      "sessionId": "s1",
+      "itemId": "q-a",
+      "skillId": "skill-a",
+      "mode": "quick",
+      "correct": true,
+      "latencyMs": 1500,
+      "algoVersion": "dual-write-v2"
+    },
+    {
+      "id": "e2",
+      "ts": 1700003600000,
+      "deviceId": "fixture-device",
+      "sessionId": "s1",
+      "itemId": "q-b",
+      "skillId": "skill-a",
+      "mode": "quick",
+      "correct": false,
+      "latencyMs": 2200,
+      "algoVersion": "dual-write-v2"
+    },
+    {
+      "id": "e3",
+      "ts": 1700080000000,
+      "deviceId": "fixture-device",
+      "sessionId": "s2",
+      "itemId": "q-a",
+      "skillId": "skill-a",
+      "mode": "review",
+      "correct": true,
+      "latencyMs": 1100,
+      "algoVersion": "dual-write-v2"
+    }
+  ]
+}

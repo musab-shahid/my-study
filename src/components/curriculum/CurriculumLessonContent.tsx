@@ -45,7 +45,7 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
         );
       case 'worked-example':
         return (
-          <Card key={block.id} className="p-4 sm:p-5 border-l-4 border-l-success-500 bg-success-50/40">
+          <Card key={block.id} className="p-3.5 sm:p-5 border-l-4 border-l-success-500 bg-success-50/40">
             {heading}
             {block.body && <div className="text-ink-muted text-sm sm:text-base leading-relaxed whitespace-pre-line"><MathText text={block.body} /></div>}
           </Card>
@@ -153,5 +153,5 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
     }
   };
 
-  return <div className="space-y-6 sm:space-y-8">{lesson.content.map(renderBlock)}</div>;
+  return <div className="curriculum-reader space-y-5 sm:space-y-8 max-w-prose">{lesson.content.map(renderBlock)}</div>;
 }

@@ -237,6 +237,17 @@ export const lessons: CurriculumLesson[] = [
     ],
     "content": [
       {
+        "id": "cgei-pol-101-1-pre",
+        "kind": "pretest",
+        "title": "Before you start",
+        "body": "Check what you already know. Wrong guesses are useful — they show where the lesson should focus.",
+        "items": [
+          "What is an NDC under the Paris Agreement, and who submits it?",
+          "Name one reason a COP decision headline can be easy to misquote a week later.",
+          "After Pakistan's 18th Amendment, is climate policy purely federal?"
+        ]
+      },
+      {
         "id": "cgei-pol-101-1-1",
         "kind": "prose",
         "title": "UNFCCC to Paris",
@@ -253,6 +264,19 @@ export const lessons: CurriculumLesson[] = [
         "kind": "prose",
         "title": "Pakistan institutional interface (teaching frame)",
         "body": "After the 18th Amendment, climate and environment roles are shared across federal and provincial institutions. Policy documents such as the Pakistan Climate Change Act (2017), National Climate Change Policy (2021), National Adaptation Plan and the latest NDC submission are starting points—verify the current official text and version before operational use. Energy-policy interfaces (renewables policy, net-metering) illustrate how climate goals meet grid and distributional constraints."
+      },
+      {
+        "id": "cgei-pol-101-1-fade",
+        "kind": "faded-example",
+        "title": "Reading an NDC headline",
+        "body": "A news brief says: \"Country X raises ambition in its new NDC.\" Reconstruct a careful analyst checklist.",
+        "fadeFromStep": 2,
+        "steps": [
+          "Identify the document: official NDC text vs. press release vs. secondary summary.",
+          "Note base year, target year, and whether the target is absolute, intensity-based, or conditional.",
+          "Check {{blank}} (unconditional vs conditional elements) and what finance or technology support is assumed.",
+          "Confirm the claim against the {{blank}} UNFCCC record before citing the COP-week headline as settled policy."
+        ]
       }
     ],
     "activityIds": [

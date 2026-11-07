@@ -262,3 +262,15 @@ textarea.form-control {
   min-height: 4.5rem;
   resize: vertical;
 }
+
+/* Curriculum reader: keep long lessons comfortable on narrow screens */
+.curriculum-reader pre {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.curriculum-reader table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}

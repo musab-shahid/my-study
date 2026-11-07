@@ -70,7 +70,7 @@ These are minimum precision targets, not performance claims or a substitute for 
 
 `npm run evaluate:fsrs -- <review-events.json> [--confirm-real-data] [--output <report.json>]`
 
-The input must be a locally supplied JSON array of review events. The script does not read browser IndexedDB automatically, export events, or upload data. Without the explicit `--confirm-real-data` declaration, the report is marked unverified and promotion is blocked. The declaration is an operator assertion, not automatic proof that a dataset is real or representative.
+The input must be a locally supplied JSON array of review events, or a Settings review-log export (`{ schemaVersion, events }`). The script does not read browser IndexedDB automatically, export events, or upload data. Without the explicit `--confirm-real-data` declaration, the report is marked unverified and promotion is blocked. The declaration is an operator assertion, not automatic proof that a dataset is real or representative.
 
 ### Promotion gate and current decision
 
