@@ -28,7 +28,7 @@ export type CurriculumNodeKind = 'orientation' | 'unit' | 'lesson' | 'review' | 
 export type ResourceKind = 'documentation' | 'paper' | 'book' | 'dataset' | 'notebook' | 'video' | 'tool' | 'reference' | 'other';
 export type ActivityKind = 'guided-practice' | 'independent-practice' | 'coding-lab' | 'data-lab' | 'reflection' | 'critique' | 'debugging' | 'field-task' | 'project-milestone';
 export type AssessmentKind = 'diagnostic' | 'formative' | 'quiz' | 'practical' | 'summative' | 'portfolio-review';
-export type ContentBlockKind = 'prose' | 'key-points' | 'equation' | 'worked-example' | 'code' | 'table' | 'figure' | 'callout' | 'reflection' | 'checklist';
+export type ContentBlockKind = 'prose' | 'key-points' | 'equation' | 'worked-example' | 'faded-example' | 'pretest' | 'code' | 'table' | 'figure' | 'callout' | 'reflection' | 'checklist';
 
 export interface CurriculumOutcome {
   id: string;
@@ -77,6 +77,14 @@ export interface CurriculumContentBlock {
   /** Optional accessible description / figure caption. */
   caption?: string;
   tone?: 'info' | 'warning' | 'success' | 'critical';
+  /**
+   * Faded-example steps: earlier steps are shown in full; later steps may use
+   * `{{blank}}` markers or omit text for the learner to complete.
+   * For pretest blocks, optional prompt items shown as self-check questions.
+   */
+  steps?: string[];
+  /** Index of the first faded (partially blanked) step; steps before are complete. */
+  fadeFromStep?: number;
 }
 
 export type CurriculumQuestionDifficulty = 'easy' | 'medium' | 'hard';

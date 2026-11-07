@@ -1,4 +1,5 @@
 import { cloudSyncErrorMessage, isStandalone, isIOS } from '@/lib/settings-helpers';
+import { downloadReviewLogExport } from '@/lib/review-log-export';
 import {
   RefreshCw,
   BookOpenCheck, BookOpen,
@@ -387,6 +388,32 @@ export function SettingsScreen() {
             are stored separately in this browser's IndexedDB. Review records are currently device-local and are not included in the
             JSON export or account-wide cloud backup. Clearing this site's browser data removes both stores.
           </p>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:items-center">
+            <Button
+              type="button"
+              variant="secondary"
+              size="sm"
+              onClick={() => {
+                void (async () => {
+                  try {
+                    const n = await downloadReviewLogExport();
+                    setSyncMsg(
+                      n === 0
+                        ? 'Review log is empty — downloaded an empty export for analysis tools.'
+                        : `Downloaded review log (${n} event${n === 1 ? '' : 's'}).`,
+                    );
+                  } catch {
+                    setSyncMsg('Could not export the review log from this browser.');
+                  }
+                })();
+              }}
+            >
+              Download review log
+            </Button>
+            <p className="text-xs text-ink-muted leading-relaxed">
+              Optional JSON for offline analysis (for example the FSRS evaluation harness). Does not change your schedule or progress.
+            </p>
+          </div>
           <p>
             <strong className="font-medium">Cloud backup (optional).</strong>{' '}
             If you sign in, one account-wide snapshot can be uploaded and restored on your other devices. Replacing an existing snapshot requires confirmation and uses a version check so a concurrent upload is not silently overwritten. Older per-device snapshots remain available on the device that created them until an account-wide snapshot is created.

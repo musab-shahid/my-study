@@ -50,6 +50,70 @@ export function CurriculumLessonContent({ lesson }: { lesson: CurriculumLesson }
             {block.body && <div className="text-ink-muted text-sm sm:text-base leading-relaxed whitespace-pre-line"><MathText text={block.body} /></div>}
           </Card>
         );
+      case 'faded-example': {
+        const steps = block.steps?.length ? block.steps : (block.items ?? []);
+        const fadeFrom = typeof block.fadeFromStep === 'number' && block.fadeFromStep >= 0
+          ? block.fadeFromStep
+          : Math.max(1, Math.floor(steps.length / 2));
+        return (
+          <Card key={block.id} className="p-4 sm:p-5 border-l-4 border-l-brand-500 bg-brand-50/30">
+            {heading}
+            {block.body && (
+              <p className="text-sm sm:text-base font-medium text-ink mb-3 leading-relaxed">
+                <MathText text={block.body} />
+              </p>
+            )}
+            <ol className="space-y-2 list-decimal pl-5">
+              {steps.map((step, index) => {
+                const faded = index >= fadeFrom;
+                const display = faded
+                  ? step.replace(/\{\{blank\}\}/g, '____').replace(/_+/g, (m) => (m.length >= 2 ? m : '____'))
+                  : step;
+                return (
+                  <li
+                    key={index}
+                    className={`text-sm sm:text-base leading-relaxed ${faded ? 'text-ink-muted' : 'text-ink'}`}
+                  >
+                    {faded && (
+                      <span className="sr-only">Faded step — complete the blanks: </span>
+                    )}
+                    <MathText text={display} />
+                  </li>
+                );
+              })}
+            </ol>
+            {steps.length === 0 && (
+              <p className="text-sm text-ink-muted">No steps provided for this faded example.</p>
+            )}
+          </Card>
+        );
+      }
+      case 'pretest':
+        return (
+          <aside
+            key={block.id}
+            className="rounded-xl border border-warning-200 bg-warning-50/50 p-4 sm:p-5"
+            aria-label={block.title ?? 'Pretest'}
+          >
+            <p className="text-xs font-semibold uppercase tracking-wide text-warning-800 mb-2">
+              {block.title ?? 'Before you start'}
+            </p>
+            {block.body && (
+              <p className="text-sm sm:text-base text-ink leading-relaxed mb-3">
+                <MathText text={block.body} />
+              </p>
+            )}
+            {(block.items?.length || block.steps?.length) ? (
+              <ul className="space-y-2 list-disc pl-5">
+                {(block.items ?? block.steps ?? []).map((item, index) => (
+                  <li key={index} className="text-sm text-ink-muted leading-relaxed">
+                    <MathText text={item} />
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </aside>
+        );
       case 'table':
         return (
           <section key={block.id} className="rounded-xl border border-slate-200 bg-white p-4 overflow-x-auto">
