@@ -236,3 +236,29 @@
     color: var(--text-muted);
   }
 }
+
+/* Shared form controls — consistent focus, touch target, and border language */
+.form-control {
+  display: block;
+  width: 100%;
+  min-height: 2.75rem;
+  border-radius: var(--radius-btn, 0.5rem);
+  border: 1px solid rgb(203 213 225); /* slate-300 */
+  background-color: #fff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--color-ink, #0f172a);
+}
+.form-control:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-brand-700, #0369a1);
+}
+.form-control:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+textarea.form-control {
+  min-height: 4.5rem;
+  resize: vertical;
+}

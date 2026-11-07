@@ -250,9 +250,12 @@ export function EmptyState({
   action?: ReactNode;
 }) {
   return (
-    <div className="flex flex-col items-center justify-center py-14 sm:py-20 px-6 text-center">
+    <div
+      className="flex flex-col items-center justify-center py-14 sm:py-20 px-6 text-center"
+      role="status"
+    >
       {icon && (
-        <div className="mb-5 text-ink-muted flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card">
+        <div className="mb-5 text-ink-muted flex items-center justify-center w-16 h-16 rounded-card bg-slate-50 ring-1 ring-slate-100/80 shadow-card" aria-hidden>
           {icon}
         </div>
       )}

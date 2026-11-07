@@ -30,7 +30,7 @@ export function ExamProfilePicker({ trackId, enrolled }: Props) {
       </p>
       <select
         id={`exam-profile-${trackId}`}
-        className="w-full sm:w-auto max-w-full rounded-btn border border-slate-300 bg-white px-3 py-2 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-brand-700 focus:ring-offset-2"
+        className="form-control w-full sm:w-auto max-w-full sm:inline-block"
         value={current ?? ""}
         onChange={(e) => {
           const v = e.target.value;

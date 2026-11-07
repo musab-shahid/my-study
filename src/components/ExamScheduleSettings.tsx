@@ -283,19 +283,19 @@ export function ExamScheduleSettings() {
         <div className="mt-3 grid gap-3 sm:grid-cols-2">
           <label className="block text-xs font-medium text-ink sm:col-span-2">
             Exam name
-            <input required maxLength={120} className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.label} onChange={(event) => setDraft({ ...draft, label: event.target.value })} placeholder="e.g. Meteorologist paper" />
+            <input required maxLength={120} className="form-control mt-1" value={draft.label} onChange={(event) => setDraft({ ...draft, label: event.target.value })} placeholder="e.g. Meteorologist paper" />
           </label>
           <label className="block text-xs font-medium text-ink">
             Exam date
-            <input required type="date" className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} />
+            <input required type="date" className="form-control mt-1" value={draft.date} onChange={(event) => setDraft({ ...draft, date: event.target.value })} />
           </label>
           <label className="block text-xs font-medium text-ink">
             Start time
-            <input required type="time" className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.startTime} onChange={(event) => setDraft({ ...draft, startTime: event.target.value })} />
+            <input required type="time" className="form-control mt-1" value={draft.startTime} onChange={(event) => setDraft({ ...draft, startTime: event.target.value })} />
           </label>
           <label className="block text-xs font-medium text-ink sm:col-span-2">
             Time zone (IANA)
-            <input required className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.timeZone} onChange={(event) => setDraft({ ...draft, timeZone: event.target.value })} placeholder="Asia/Karachi" list="exam-time-zone-options" />
+            <input required className="form-control mt-1" value={draft.timeZone} onChange={(event) => setDraft({ ...draft, timeZone: event.target.value })} placeholder="Asia/Karachi" list="exam-time-zone-options" />
             <datalist id="exam-time-zone-options">
               <option value="Asia/Karachi" />
               <option value="UTC" />
@@ -307,23 +307,23 @@ export function ExamScheduleSettings() {
           </label>
           <label className="block text-xs font-medium text-ink">
             End time (optional)
-            <input type="time" className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.endTime} onChange={(event) => setDraft({ ...draft, endTime: event.target.value })} />
+            <input type="time" className="form-control mt-1" value={draft.endTime} onChange={(event) => setDraft({ ...draft, endTime: event.target.value })} />
           </label>
           <label className="block text-xs font-medium text-ink">
             Report-by time (optional)
-            <input type="time" className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.reportTime} onChange={(event) => setDraft({ ...draft, reportTime: event.target.value })} />
+            <input type="time" className="form-control mt-1" value={draft.reportTime} onChange={(event) => setDraft({ ...draft, reportTime: event.target.value })} />
           </label>
           <label className="block text-xs font-medium text-ink">
             Doors-close time (optional)
-            <input type="time" className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.doorsCloseTime} onChange={(event) => setDraft({ ...draft, doorsCloseTime: event.target.value })} />
+            <input type="time" className="form-control mt-1" value={draft.doorsCloseTime} onChange={(event) => setDraft({ ...draft, doorsCloseTime: event.target.value })} />
           </label>
           <label className="block text-xs font-medium text-ink">
             Venue (optional)
-            <input maxLength={180} className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.venue} onChange={(event) => setDraft({ ...draft, venue: event.target.value })} placeholder="Test centre or online" />
+            <input maxLength={180} className="form-control mt-1" value={draft.venue} onChange={(event) => setDraft({ ...draft, venue: event.target.value })} placeholder="Test centre or online" />
           </label>
           <label className="block text-xs font-medium text-ink sm:col-span-2">
             Notes (optional)
-            <textarea rows={2} maxLength={500} className="mt-1 block w-full rounded-btn border border-slate-300 px-3 py-2 text-sm" value={draft.note} onChange={(event) => setDraft({ ...draft, note: event.target.value })} placeholder="Materials to bring, reporting instructions, etc." />
+            <textarea rows={2} maxLength={500} className="form-control mt-1" value={draft.note} onChange={(event) => setDraft({ ...draft, note: event.target.value })} placeholder="Materials to bring, reporting instructions, etc." />
           </label>
         </div>
         {message && (

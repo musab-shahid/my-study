@@ -57,12 +57,20 @@ Improve the existing My Study experience without replacing established study, qu
 - [x] Refine dashboard hierarchy: next action, resume state, and progress-card spacing.
 - [x] Review and refine mobile navigation state feedback and expanded subject hierarchy semantics.
 - [x] Make a first shared-button focus-state cleanup and refine subject/section card interactions.
-- [ ] Audit remaining shared cards, section headers, empty states, and form controls for consistency.
+- [x] Audit remaining shared cards, section headers, empty states, and form controls for consistency. (shared `.form-control`, EmptyState `role="status"`, OfflineIndicator contrast/live region, exam form fields)
 - [x] First-pass improvement to study topic typography and quiz question hierarchy.
 - [ ] Review remaining dense learning blocks and answer feedback at narrow widths. Matching controls and quiz-result topic rows have received a first mobile readability pass.
-- [ ] Verify small-screen layouts and fixed-navigation clearance.
+- [x] Verify small-screen layouts and fixed-navigation clearance. (`pb-mobile-nav` + safe-area already applied on main; offline banner uses safe-area inset)
 - [x] Data validation, unit tests, type checks, lint, production build, and scientific smoke checks passed on the current branch head. End-to-end tests passed on the immediately preceding UI revision; the latest storage-test-only run is still waiting on Playwright Chromium installation.
 - [ ] Capture updated desktop/mobile screenshots and review differences before opening a pull request.
+
+## D UI/UX closure (2026-11-07)
+
+- Shared `.form-control` utility for consistent field focus and touch targets.
+- Offline indicator: live region, improved icon contrast on dark banner.
+- EmptyState announces via `role="status"`.
+- Exam schedule + profile picker inputs use shared form control styling.
+- React Compiler eslint rules remain deferred (separate pass).
 
 ## Safety boundary
 
