@@ -2,12 +2,16 @@
 
 Learning and assessment app for multi-track study (CGEI curriculum and civil-service exam preparation).
 
-## Status
+## Checks available
 
-- TypeScript typecheck clean
+These checks are configured in the repository; this portfolio documentation pass did not rerun them.
+
+- TypeScript typechecking
 - Unit tests and data validators enforced in CI
 - Production build with bundle budget check
 - Design-system guard, secret scan, and content evidence gates in CI
+
+[Portfolio case study](https://musab-shahid-earth-observation.brinycourt4.chatgpt.site/projects/my-study.html)
 
 ## CGEI curriculum
 
@@ -41,10 +45,6 @@ Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` (see `.env.example`). Provi
 ## Accessibility
 
 Contrast against WCAG AA, keyboard focus, and shared UI primitives are project acceptance criteria. Prefer semantic tokens (`--text-muted`, brand/success/warning/danger steps) over raw slate/sky palette classes for text.
-
-## License
-
-No license file is published yet. All rights reserved unless a license is added.
 
 ## Privacy
 
