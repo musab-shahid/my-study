@@ -12,7 +12,7 @@ import { subjectsByTrack } from '@/data/subjects';
 import { isTrackEnrolled } from '@/lib/track-access';
 import { getLearnerReadinessPresentation } from '@/lib/learner-readiness-presentation';
 import { getSubjectStyle } from '@/data/subject-colors';
-import { PageContainer, Card, Button, Badge, ProgressBar } from '@/components/ui';
+import { PageContainer, Card, Button, Badge, ProgressBar, EmptyState } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import { CGEI_DOMAIN_GROUPS } from '@/screens/CGEITrackOverviewScreen';
 
@@ -199,10 +199,12 @@ function CGEILearningHomeScreen() {
           </section>
         ))}
         {filteredDomainGroups.length === 0 && (
-          <Card className="border border-dashed border-border p-5 text-center">
-            <p className="font-semibold text-ink">No matching domains</p>
-            <p className="mt-1 text-sm text-muted">Try another name or clear your search.</p>
-            <Button type="button" variant="secondary" size="sm" className="mt-3" onClick={() => setDomainQuery('')}>Clear search</Button>
+          <Card className="border border-dashed border-border">
+            <EmptyState
+              title="No matching domains"
+              message="Try another name or clear your search."
+              action={<Button type="button" variant="secondary" size="sm" onClick={() => setDomainQuery('')}>Clear search</Button>}
+            />
           </Card>
         )}
       </div>
@@ -317,7 +319,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
           return <Button key={unit.id} type="button" variant="secondary" onClick={() => navigate({ screen: 'curriculum-unit', unitId: unit.id })} className="w-full justify-start rounded-xl bg-slate-50/80 p-3 text-left">
             <span className="flex items-start gap-3 w-full"><span className="text-xs font-bold text-success-700 w-10 shrink-0 pt-0.5">{unit.code}</span><span className="min-w-0 flex-1"><span className="flex flex-wrap items-center gap-2"><span className="font-semibold text-sm text-ink">{unit.title}</span><Badge color={getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).tone === 'ready' ? 'green' : getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).tone === 'preview' ? 'amber' : 'slate'}>{getLearnerReadinessPresentation(unit.readiness, unitAuthored > 0).label}</Badge></span><span className="block text-xs text-muted leading-relaxed mt-1">{unit.summary}</span><span className="block text-xs text-muted mt-1">{unitAuthored} authored / {unitLessons.length} lessons · {unitStudied} studied</span></span><ArrowRight className="w-4 h-4 text-success-700 shrink-0 mt-1" /></span>
           </Button>;
-        })}</div> : <div className="rounded-xl border border-dashed border-border p-5 text-center"><Clock3 className="w-6 h-6 text-muted mx-auto mb-2" /><p className="font-medium text-sm text-ink">Canonical units are being authored</p><p className="text-xs text-muted mt-1">This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons.</p></div>}
+        })}</div> : <div className="rounded-xl border border-dashed border-border"><EmptyState title="Canonical units are being authored" message="This domain remains in the pathway catalogue, but no unit sequence is registered yet. Orientation does not substitute for lessons." icon={<Clock3 className="w-8 h-8" />} /></div>}
       </Card>
     </PageContainer>
   );

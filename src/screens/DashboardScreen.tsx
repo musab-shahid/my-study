@@ -10,7 +10,7 @@ import { listTrackDefinitions, getExamProfile, getTrackDefinition, type TrackId 
 import { enrolledTrackIds, trackIcon, trackAccentClasses } from '@/lib/track-chrome';
 import { getTopic } from '@/data/topics';
 import { sectionMap } from '@/data/sections';
-import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow } from '@/components/ui';
+import { PageContainer, Card, ProgressBar, ScreenHeader, Button, ListRow, EmptyState } from '@/components/ui';
 import { computeStreak, getWeakTopics } from '@/lib/streak';
 import { openTrackOptions } from '@/router/openTrack';
 import { isTrackId } from '@/data/tracks';
@@ -389,11 +389,12 @@ export function DashboardScreen() {
           </div>
         </div>
       ) : (
-        <Card className="p-4 mb-5 border-dashed border-slate-200">
-          <p className="text-sm font-medium text-ink">No study history yet</p>
-          <p className="text-sm text-muted mt-1">
-            Open a subject and mark topics studied, or start a short practice session. Metrics appear after real activity — not zeros that look like scores.
-          </p>
+        <Card className="mb-5 border-dashed border-slate-200">
+          <EmptyState
+            title="No study history yet"
+            message="Open a subject and mark topics studied, or start a short practice session. Metrics appear after real activity — not zeros that look like scores."
+            icon={<Zap className="w-8 h-8" />}
+          />
         </Card>
       )}
 

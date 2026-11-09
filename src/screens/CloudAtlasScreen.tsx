@@ -1,8 +1,7 @@
-import { useState, useRef, useCallback } from 'react';
-import { Cloud, ChevronRight, X } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { Cloud, ChevronRight } from 'lucide-react';
 import { clouds } from '@/data/clouds';
-import { PageContainer, Card, ScreenHeader } from '@/components/ui';
-import { useFocusTrap } from '@/hooks/useFocusTrap';
+import { PageContainer, Card, ScreenHeader, Dialog } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
 import type { CloudEntry } from '@/types';
 
@@ -17,18 +16,8 @@ const levelColors: Record<CloudEntry['level'], string> = {
 
 export function CloudAtlasScreen() {
   const [selected, setSelected] = useState<CloudEntry | null>(null);
-  const openerRef = useRef<HTMLElement | null>(null);
 
-  const openCloud = useCallback((cloud: CloudEntry, el: HTMLElement | null) => {
-    openerRef.current = el;
-    setSelected(cloud);
-  }, []);
-
-  const closeCloud = useCallback(() => {
-    setSelected(null);
-    // Focus restore is handled by useFocusTrap; also re-focus stored opener if still mounted
-    requestAnimationFrame(() => openerRef.current?.focus());
-  }, []);
+  const closeCloud = useCallback(() => setSelected(null), []);
 
   return (
     <PageContainer width="analytics">
@@ -53,7 +42,7 @@ export function CloudAtlasScreen() {
                   <Card key={cloud.name} elevation="interactive" className="p-4">
                     <button
                       type="button"
-                      onClick={(e) => openCloud(cloud, e.currentTarget)}
+                      onClick={() => setSelected(cloud)}
                       className="w-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2 rounded-btn"
                     >
                       <div className="flex items-center justify-between mb-2">
@@ -70,68 +59,33 @@ export function CloudAtlasScreen() {
         })}
       </div>
 
-      {selected && (
-        <CloudModal cloud={selected} levelColors={levelColors} onClose={closeCloud} />
-      )}
+      <Dialog
+        open={Boolean(selected)}
+        onClose={closeCloud}
+        title={selected?.name ?? ''}
+        size="sm"
+        closeLabel="Close cloud details"
+      >
+        {selected && (
+          <div className="space-y-4">
+            <span className={`inline-block px-2 py-1 rounded-full text-xs font-medium border ${levelColors[selected.level]}`}>
+              {selected.level}
+            </span>
+            <div>
+              <p className="text-ink-muted text-xs font-medium uppercase tracking-wide mb-1">Altitude</p>
+              <p className="text-ink-muted text-sm">{selected.altitude}</p>
+            </div>
+            <div>
+              <p className="text-ink-muted text-xs font-medium uppercase tracking-wide mb-1">Composition</p>
+              <p className="text-ink-muted text-sm">{selected.composition}</p>
+            </div>
+            <div>
+              <p className="text-ink-muted text-xs font-medium uppercase tracking-wide mb-1">Appearance</p>
+              <p className="text-ink-muted text-sm leading-relaxed">{selected.appearance}</p>
+            </div>
+          </div>
+        )}
+      </Dialog>
     </PageContainer>
-  );
-}
-
-function CloudModal({ cloud, levelColors, onClose }: {
-  cloud: CloudEntry;
-  levelColors: Record<CloudEntry['level'], string>;
-  onClose: () => void;
-}) {
-  const modalRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
-  useFocusTrap(modalRef, true, { initialFocusRef: closeButtonRef, onEscape: onClose });
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
-      onClick={onClose}
-    >
-      <Card className="max-w-md w-full p-6" >
-        <div
-          ref={modalRef}
-          onClick={(e) => e.stopPropagation()}
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="cloud-modal-title"
-        >
-          <div className="flex items-start justify-between mb-4">
-            <div>
-              <h3 id="cloud-modal-title" className="text-xl font-bold text-ink">{cloud.name}</h3>
-              <span className={`inline-block mt-1 px-2 py-1 rounded-full text-xs font-medium border ${levelColors[cloud.level]}`}>
-                {cloud.level}
-              </span>
-            </div>
-            <button
-              ref={closeButtonRef}
-              type="button"
-              onClick={onClose}
-              className="flex min-h-11 min-w-11 items-center justify-center text-muted hover:text-ink rounded-btn focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 focus-visible:ring-offset-2"
-              aria-label="Close"
-            >
-              <X className="w-5 h-5" />
-            </button>
-          </div>
-          <div className="space-y-3">
-            <div>
-              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Altitude</p>
-              <p className="text-muted text-sm">{cloud.altitude}</p>
-            </div>
-            <div>
-              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Composition</p>
-              <p className="text-muted text-sm">{cloud.composition}</p>
-            </div>
-            <div>
-              <p className="text-muted text-xs font-medium uppercase tracking-wide mb-1">Appearance</p>
-              <p className="text-muted text-sm leading-relaxed">{cloud.appearance}</p>
-            </div>
-          </div>
-        </div>
-      </Card>
-    </div>
   );
 }

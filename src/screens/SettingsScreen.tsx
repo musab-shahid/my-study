@@ -43,6 +43,12 @@ interface BeforeInstallPromptEvent extends Event {
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
+const SETTINGS_SECTIONS: ReadonlyArray<readonly [string, string]> = [
+  ['workspace-settings', 'Workspace'], ['exam-settings', 'Exam planning'],
+  ['account-settings', 'Account & sync'], ['data-settings', 'Data & privacy'],
+  ['app-settings', 'App'], ['reset-settings', 'Reset'], ['about-settings', 'About'],
+];
+
 export function SettingsScreen() {
   const { data, reset, resetSubjects } = useData();
   const [selectedSubjects, setSelectedSubjects] = useState<Set<SubjectId>>(new Set());
@@ -137,6 +143,26 @@ export function SettingsScreen() {
     }
   };
 
+  const [activeSection, setActiveSection] = useState<string>(SETTINGS_SECTIONS[0][0]);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+    const visible = new Set<string>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target.id);
+        else visible.delete(entry.target.id);
+      }
+      const first = SETTINGS_SECTIONS.find(([id]) => visible.has(id));
+      if (first) setActiveSection(first[0]);
+    }, { rootMargin: '-120px 0px -55% 0px' });
+    SETTINGS_SECTIONS.forEach(([id]) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     if (isStandalone()) {
       setShowInstall(false);
@@ -211,13 +237,19 @@ export function SettingsScreen() {
       )}
 
       <nav aria-label="Settings sections" className="mb-6 flex flex-wrap gap-2 border-b border-border pb-3">
-        {[
-          ['workspace-settings', 'Workspace'], ['exam-settings', 'Exam planning'],
-          ['account-settings', 'Account & sync'], ['data-settings', 'Data & privacy'],
-          ['app-settings', 'App'], ['reset-settings', 'Reset'], ['about-settings', 'About'],
-        ].map(([id, label]) => (
-          <a key={id} href={`#${id}`} className="rounded-full border border-border bg-white px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700">{label}</a>
-        ))}
+        {SETTINGS_SECTIONS.map(([id, label]) => {
+          const active = activeSection === id;
+          return (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={active ? 'location' : undefined}
+              className={`rounded-full border px-3 py-2 text-xs font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-700 ${active ? 'border-brand-700 bg-brand-700 text-white' : 'border-border bg-white text-ink-muted hover:border-brand-300 hover:bg-brand-50 hover:text-brand-800'}`}
+            >
+              {label}
+            </a>
+          );
+        })}
       </nav>
 
       <section id="workspace-settings" aria-labelledby="workspace-settings-heading" className="scroll-mt-24 mb-6 space-y-4">

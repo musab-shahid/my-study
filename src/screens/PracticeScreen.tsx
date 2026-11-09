@@ -416,7 +416,7 @@ export function PracticeScreen({ mode: initialMode }: { mode?: 'topic' | 'quick'
           <Card className="p-5">
             <h3 className="font-semibold text-ink mb-3">Your last 3 sessions</h3>
             {recentSessions.length === 0 ? (
-              <p className="text-muted text-sm text-center py-4">No sessions yet — start a quiz to see your history here.</p>
+              <EmptyState title="No sessions yet" message="Start a quiz to see your history here." icon={<Target className="w-8 h-8" />} />
             ) : (
               <div className="space-y-3">
                 {recentSessions.map((quiz, i) => {

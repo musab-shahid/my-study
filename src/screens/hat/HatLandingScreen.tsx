@@ -35,6 +35,7 @@ export function HatLandingScreen() {
   const [enrollError, setEnrollError] = useState<string | null>(null);
   const [hatTopics, setHatTopics] = useState<Topic[]>([]);
   const [hatQuestions, setHatQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
@@ -45,6 +46,7 @@ export function HatLandingScreen() {
           setHatTopics(t);
           setHatQuestions(q);
           setLoadError(false);
+          setLoading(false);
         }
       })
       .catch(() => {
@@ -52,6 +54,7 @@ export function HatLandingScreen() {
           setHatTopics([]);
           setHatQuestions([]);
           setLoadError(true);
+          setLoading(false);
         }
       });
     return () => {
@@ -105,19 +108,23 @@ export function HatLandingScreen() {
           <p className="text-danger-200" role="alert">
             Could not load HAT content. Refresh and try again.
           </p>
+        ) : loading ? (
+          <div className="flex items-center gap-2 text-white/90" role="status" aria-live="polite">
+            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            <span className="text-sm">Loading content…</span>
+          </div>
+        ) : hatTopics.length === 0 ? (
+          <p className="text-white/90">
+            <span className="font-semibold text-white">{sections.length}</span> sections
+            <span className="text-white/70 text-xs"> · content being prepared</span>
+          </p>
         ) : (
           <p className="text-white/90">
             <span className="font-semibold text-white">{sections.length}</span> sections
             {' · '}
-            <span className="font-semibold text-white">{hatTopics.length || '—'}</span> topics
+            <span className="font-semibold text-white">{hatTopics.length}</span> topics
             {' · '}
-            <span className="font-semibold text-white">
-              {hatQuestions.length > 0 ? hatQuestions.length : hatTopics.length === 0 ? '—' : '0'}
-            </span>{' '}
-            questions
-            {hatTopics.length === 0 && !loadError && (
-              <span className="text-white/70 text-xs"> (loading…)</span>
-            )}
+            <span className="font-semibold text-white">{hatQuestions.length}</span> questions
           </p>
         )
       }
