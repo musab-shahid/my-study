@@ -83,7 +83,8 @@ describe('FSRS lazy bundle boundary', () => {
     const collect = (directory: string): string[] => readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
       const path = join(directory, entry.name);
       if (entry.isDirectory()) return collect(path);
-      return /\.tsx?$/.test(entry.name) ? [path] : [];
+      // Keep the source-boundary exclusions identical on Windows and POSIX.
+      return /\.tsx?$/.test(entry.name) ? [path.replaceAll('\\', '/')] : [];
     });
     const files = collect('src').filter((path) => !path.includes('/__tests__/') && !path.endsWith('.test.ts'));
     const staticEvaluatorImport = /(?:import|export)\s+(?!type\b)(?:[^;]*?\s+from\s*)['"][^'"]*fsrs-evaluation(?:\.ts)?['"]/s;

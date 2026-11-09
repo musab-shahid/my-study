@@ -1,8 +1,10 @@
 """Unit 6.4 spatial/temporal leakage teaching checks (stdlib).
 
-Demonstrates that random splits can look better than blocked splits when
-neighbours share signal — a synthetic leakage illustration, not a claim about
-any particular EO product.
+Separates geographic generalization difficulty from information leakage.
+The mixed/blocked mean-predictor comparison changes the evaluation population;
+it does not itself demonstrate leakage. A separate preprocessing check shows
+how using held-out covariates contaminates fitted training parameters.
+Synthetic teaching examples, not validation of any EO product.
 """
 from __future__ import annotations
 
@@ -24,13 +26,13 @@ def main() -> None:
     y = [0.0, 0.2, 0.1, 0.0, 5.0, 5.1, 4.9, 5.2]
     region = [0, 0, 0, 0, 1, 1, 1, 1]
 
-    # Random-ish interleaved split (leaky): train/test both mix regions
+    # Interleaved split: train/test both mix regions; no held-out labels are used.
     train_idx = [0, 2, 4, 6]
     test_idx = [1, 3, 5, 7]
     train_y = [y[i] for i in train_idx]
     test_y = [y[i] for i in test_idx]
-    pred_leaky = mean_predict(train_y, len(test_idx))
-    mae_leaky = mae(test_y, pred_leaky)
+    pred_mixed = mean_predict(train_y, len(test_idx))
+    mae_mixed = mae(test_y, pred_mixed)
 
     # Blocked: train region 0, test region 1
     train_b = [i for i, r in enumerate(region) if r == 0]
@@ -38,8 +40,8 @@ def main() -> None:
     pred_block = mean_predict([y[i] for i in train_b], len(test_b))
     mae_block = mae([y[i] for i in test_b], pred_block)
 
-    # Blocked should be harder when regions differ
-    assert mae_block > mae_leaky
+    # In this example a held-out region is harder. This is not proof of leakage.
+    assert mae_block > mae_mixed
 
     # Chronological future holdout
     series = list(range(20))
@@ -52,12 +54,22 @@ def main() -> None:
     mu = sum(train_vals) / len(train_vals)
     sd = (sum((v - mu) ** 2 for v in train_vals) / len(train_vals)) ** 0.5
     scaled_test = [(v - mu) / sd for v in test_vals]
-    # If scaled using test stats, mean would be 0 — must not happen
     assert not isclose(scaled_test[0], 0.0, abs_tol=1e-9)
 
+    # Actual contamination: fitting preprocessing on train + held-out inputs.
+    # Change only the held-out covariate. A train-only mean stays fixed, while
+    # the incorrectly pooled fitted mean changes. No accuracy gain is assumed.
+    altered_test_vals = [100.0]
+    pooled_mean = sum(train_vals + test_vals) / (len(train_vals) + len(test_vals))
+    altered_pooled_mean = sum(train_vals + altered_test_vals) / (len(train_vals) + len(altered_test_vals))
+    assert isclose(mu, 2.0)
+    assert isclose(sum(train_vals) / len(train_vals), mu)
+    assert not isclose(pooled_mean, mu)
+    assert not isclose(altered_pooled_mean, pooled_mean)
+
     print(
-        "Unit 6.4 leakage-split checks passed "
-        f"(mae_leaky={mae_leaky:.3f}, mae_block={mae_block:.3f})."
+        "Unit 6.4 generalization and preprocessing-leakage checks passed "
+        f"(mae_mixed={mae_mixed:.3f}, mae_block={mae_block:.3f})."
     )
 
 

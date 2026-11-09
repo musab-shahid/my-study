@@ -181,22 +181,23 @@ test.describe('Mobile More menu consistency', () => {
 });
 
 test.describe('Track enrollment surface', () => {
-  test('FPSC landing shows Begin or enrolled workspace actions', async ({ page }) => {
-    await page.goto('/');
-    const fpsc = page.getByRole('button', { name: /FPSC/i }).first();
-    if (await fpsc.isVisible().catch(() => false)) {
-      await fpsc.click();
-    } else {
-      const explore = page.getByText(/Explore.*FPSC|FPSC Exam/i).first();
-      if (await explore.isVisible().catch(() => false)) {
-        await explore.click();
-      }
-    }
-    const begin = page.getByRole('button', { name: /Begin/i });
-    const enrolledCue = page.getByText(/My Tracks|Continue learning|Subjects in this track/i);
-    const sawBegin = await begin.first().isVisible().catch(() => false);
-    const sawEnrolled = await enrolledCue.first().isVisible().catch(() => false);
-    expect(sawBegin || sawEnrolled, 'expected Begin CTA or enrolled workspace cues').toBeTruthy();
+  test('FPSC preview enrolls explicitly and restores workspace actions after reload', async ({ page }) => {
+    // A fresh browser context starts unenrolled. Navigate deterministically and
+    // wait for the lazy screen instead of probing optional links immediately.
+    await page.goto('/fpsc');
+    const main = page.locator('#main-content');
+    await expect(main.getByRole('heading', { name: 'FPSC Exam', exact: true })).toBeVisible();
+    const begin = main.getByRole('button', { name: 'Begin FPSC Exam', exact: true });
+    await expect(begin).toBeVisible();
+    await expect(main.getByText('Not started', { exact: true })).toBeVisible();
+    await begin.click();
+    await expect(main.getByText('Enrolled · Active workspace', { exact: true })).toBeVisible();
+    await expect(begin).toHaveCount(0);
+    await expect(main.getByRole('button', { name: 'Practice', exact: true })).toBeEnabled();
+
+    await page.reload();
+    await expect(main.getByText('Enrolled · Active workspace', { exact: true })).toBeVisible();
+    await expect(main.getByRole('button', { name: 'Practice', exact: true })).toBeEnabled();
   });
 });
 
