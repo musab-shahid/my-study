@@ -74,11 +74,11 @@ function renderParts(text: string, katex: typeof import('katex').default): strin
     .map((part) => {
       if (part.startsWith('$$') && part.endsWith('$$') && part.length > 4) {
         const expr = part.slice(2, -2).trim();
-        return katex.renderToString(expr, { displayMode: true, throwOnError: false });
+        return katex.renderToString(expr, { displayMode: true, throwOnError: false, trust: false });
       }
       if (part.startsWith('$') && part.endsWith('$') && part.length > 2) {
         const expr = part.slice(1, -1).trim();
-        return katex.renderToString(expr, { displayMode: false, throwOnError: false });
+        return katex.renderToString(expr, { displayMode: false, throwOnError: false, trust: false });
       }
       // Preserve prose between formulas (escaped for safe HTML injection)
       return escapeHtml(part);

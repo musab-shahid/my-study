@@ -137,7 +137,7 @@ function MathSpan({ expr, display }: { expr: string; display?: boolean }) {
     getKatex().then((katex) => {
       if (cancelled) return;
       try {
-        setHtml(katex.renderToString(expr, { displayMode: !!display, throwOnError: false }));
+        setHtml(katex.renderToString(expr, { displayMode: !!display, throwOnError: false, trust: false }));
       } catch {
         setHtml(null);
       }
