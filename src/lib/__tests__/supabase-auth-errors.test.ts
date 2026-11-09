@@ -51,8 +51,8 @@ describe('mapAuthError', () => {
     );
   });
 
-  it('surfaces unexpected server errors without a duplicate-account message', () => {
-    assert.equal(mapAuthError(500, { msg: 'Database error saving new user' }), 'Database error saving new user');
-    assert.equal(mapAuthError(503, null), 'Auth failed (HTTP 503)');
+  it('surfaces a generic message for unexpected server errors without leaking details', () => {
+    assert.equal(mapAuthError(500, { msg: 'Database error saving new user' }), 'Sign-in failed. Please try again.');
+    assert.equal(mapAuthError(503, null), 'Sign-in failed. Please try again.');
   });
 });

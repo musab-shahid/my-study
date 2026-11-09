@@ -232,8 +232,12 @@
   .text-ink {
     color: var(--text-primary);
   }
-  .text-ink-muted {
+  .text-ink-muted,
+  .text-muted {
     color: var(--text-muted);
+  }
+  .border-border {
+    border-color: var(--border-subtle);
   }
 }
 

@@ -24,5 +24,5 @@ export function mapAuthError(status: number, body: unknown): string {
   if (status === 400 && /invalid login credentials|invalid.*credentials/i.test(msg)) {
     return INCORRECT_CREDENTIALS;
   }
-  return msg || `Auth failed (HTTP ${status})`;
+  return 'Sign-in failed. Please try again.';
 }

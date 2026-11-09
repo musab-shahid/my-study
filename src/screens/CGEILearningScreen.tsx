@@ -1,4 +1,4 @@
-import { ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3, Search } from 'lucide-react';
+import { AlertTriangle, ArrowRight, BookOpen, CheckCircle2, Clock3, GraduationCap, Layers3, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useRouter } from '@/router';
 import { useData } from '@/hooks/useData';
@@ -217,14 +217,16 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
   const { subject, units, lessons } = subjectLessons(subjectId);
   const roadmapTopicId = cgeiOverviewTopicIdForSubject(subjectId as SubjectId);
   const [roadmapTopic, setRoadmapTopic] = useState<Topic | null>(null);
+  const [roadmapError, setRoadmapError] = useState(false);
 
   useEffect(() => {
     let active = true;
     setRoadmapTopic(null);
+    setRoadmapError(false);
     if (!roadmapTopicId) return () => { active = false; };
     getTopicAsync(roadmapTopicId)
       .then((topic) => { if (active) setRoadmapTopic(topic ?? null); })
-      .catch(() => { if (active) setRoadmapTopic(null); });
+      .catch(() => { if (active) { setRoadmapTopic(null); setRoadmapError(true); } });
     return () => { active = false; };
   }, [roadmapTopicId]);
 
@@ -297,6 +299,7 @@ function CGEISubjectOverviewScreen({ subjectId }: { subjectId: string }) {
             {roadmapTopic?.explanationSections?.map((section) => <div key={section.heading}><h3 className="text-sm font-semibold text-ink">{section.heading}</h3><p className="text-sm text-muted leading-relaxed mt-1">{section.body}</p></div>)}
             {roadmapTopic?.keyFacts?.length ? <div><h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Orientation notes</h3><ul className="space-y-1.5">{roadmapTopic.keyFacts.map((fact) => <li key={fact} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{fact}</span></li>)}</ul></div> : null}
             {roadmapTopic?.examPoints?.length ? <div><h3 className="text-xs font-semibold uppercase tracking-wide text-muted mb-1">Learning principles</h3><ul className="space-y-1.5">{roadmapTopic.examPoints.map((point) => <li key={point} className="text-sm text-muted flex gap-2"><span className="text-brand-700 font-bold">•</span><span>{point}</span></li>)}</ul></div> : null}
+            {roadmapError ? <p className="text-sm text-danger-700 flex items-center gap-1.5"><AlertTriangle className="w-4 h-4 shrink-0" />Orientation content failed to load. You can still continue through the units below.</p> : null}
             <p className="text-xs text-muted">Orientation is context only. It is not counted as a lesson or mastery item. Continue through the canonical units below.</p>
           </div>
         </details>
