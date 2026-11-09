@@ -448,7 +448,7 @@ export const lessons: CurriculumLesson[] = [
         "id": "cgei-ml-61-2-2",
         "kind": "prose",
         "title": "Leakage, label scarcity, applicability",
-        "body": "Feature leakageoccurs when predictors encode future or target information not available at prediction time. Labels may be scarce or biased toward cities and accessible sites. Area of applicability restricts predictions to regions similar to training coverage; dissimilarity indices help, but do not create new physics."
+        "body": "Feature leakage occurs when predictors encode future or target information not available at prediction time. Labels may be scarce or biased toward cities and accessible sites. Area of applicability restricts predictions to regions similar to training coverage; dissimilarity indices help, but do not create new physics."
       }
     ],
     "activityIds": [
