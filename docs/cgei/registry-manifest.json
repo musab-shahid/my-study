@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-11-03T18:13:22.479Z",
+  "generatedAt": "2026-11-09T15:27:08.449Z",
   "counts": {
     "subjects": 13,
     "units": 97,
@@ -2233,7 +2233,7 @@
     "cgei-dspt-lesson-9-1-1": "37c8d031a088100e226e6ac220e72684848c54231b4d0ba1a315b9aad87c82c0",
     "cgei-dspt-lesson-9-3-1": "1216f3b6ecd8f4b0acf096f80b151c3cafa67cb3aab790401373621af27458a7",
     "cgei-dspt-lesson-9-4-1": "53afe0128cd518f5cc1dd8bcf7a983907d845e825fb1d384f33e6857124889d1",
-    "cgei-pol-lesson-10-1-1": "9b17c28285abfb91f37726d6091bb2bfe7d87394eb8eea06495e8aafa00343e4",
+    "cgei-pol-lesson-10-1-1": "7cd80a8668308bd62fe230a8206595d4c5c7da47a6e44283beca6ea0674eaf52",
     "cgei-pol-lesson-10-1-2": "30ce55ba67e13e82407a4adef30536ffcb4d6c2da7cc66c05265b3eee5cd0af7",
     "cgei-pol-lesson-10-2-1": "97138691c9997ce30d171da888641a9d419b9c3c602567e0731d79e0ec3b9f77",
     "cgei-pol-lesson-10-6-1": "e24dfc918e11f3f4ecaa89f835aa6ffb086390df79afd25e90a540070f9eebc5",
@@ -2497,7 +2497,7 @@
     "cgei-ml-a-63-models": "317f30c3a80fc852ddd2c28306962c701e3d56f994bf223d195c9e01c697b024",
     "cgei-ml-a-62-features": "0f34d0473d2f084f1a08c36941d2128152a3fafc5407d7e29b9f7fddf247be61",
     "cgei-ml-a-61-problem": "58c50b891fcfc4236f9b4667b5a9c144621d3fa52f4fd277aa194c753fa07a58",
-    "cgei-ml-a-64-leakage": "04b53625ae0369e33ca6857dad7b587d9dc2f23cf8feb9c8ed3196740bfca545",
+    "cgei-ml-a-64-leakage": "6a03f1c37e298959773407aa278d0a06a6317e59e9111c057afc7f58c5748bf3",
     "cgei-risk-a-71-vocab": "5f6f015999b1c4e556646170adbaea122fd338775ceb0fb334cbead419227c8f",
     "cgei-risk-a-71-framework": "6d1bf1c78f85680dd4ae08499570c674bfe1381596dce60687a4d230b491fc21",
     "cgei-risk-a-73-heat": "8e385219ff09818670db56ad16b986ce67687ce912eae3416d3c4ba055cbaaba",

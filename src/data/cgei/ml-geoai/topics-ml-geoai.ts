@@ -975,7 +975,7 @@ export const activities: CurriculumActivity[] = [
     "id": "cgei-ml-a-64-leakage",
     "kind": "coding-lab",
     "title": "Blocked vs random split lab",
-    "instructions": "Run unit_6_4_leakage_split_check.py. Explain why blocked MAE is higher and when random splits overstate skill for gridded data.",
+    "instructions": "Run fixtures/cgei/unit_6_4_leakage_split_check.py. Explain why held-region MAE is higher for this mean predictor: the test population differs, so the error difference alone does not establish leakage. Separately inspect how fitting a preprocessing mean on train plus held-out covariates changes the fitted parameter when only held-out inputs change. State the intended deployment region/time and when a random split fails to represent it.",
     "level": "L3",
     "estimatedMinutes": 25,
     "objectiveIds": [

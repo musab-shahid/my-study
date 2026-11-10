@@ -142,6 +142,10 @@ test.describe('route-change focus and announcements', () => {
       await page.goto('/');
 
       const skipLink = page.getByRole('link', { name: 'Skip to content' });
+      // Wait for React to mount the keyboard entry point before sending Tab.
+      // Do not focus the link programmatically: this checks real tab order.
+      await expect(skipLink).toBeAttached();
+      await expect(page.locator('#main-content h1').first()).toBeVisible();
       await page.keyboard.press('Tab');
       await expect(skipLink).toBeFocused();
       await page.keyboard.press('Enter');
