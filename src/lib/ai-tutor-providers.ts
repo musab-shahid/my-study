@@ -16,7 +16,8 @@ export type ProviderKey =
   | 'deepseek'
   | 'openai'
   | 'xai'
-  | 'anthropic';
+  | 'anthropic'
+  | 'kimi';
 
 export interface ModelOption {
   id: string;
@@ -208,6 +209,20 @@ export const MODEL_OPTIONS: ModelOption[] = [
     model: 'claude-haiku-4-5',
     badge: 'Anthropic',
   },
+  {
+    id: 'kimi-k2',
+    label: 'Kimi K2',
+    provider: 'kimi',
+    model: 'kimi-k2-0905-preview',
+    badge: 'Moonshot',
+  },
+  {
+    id: 'kimi-k2-mini',
+    label: 'Kimi K2 Mini',
+    provider: 'kimi',
+    model: 'moonshot-v1-8k',
+    badge: 'Moonshot',
+  },
 ];
 
 const PROVIDER_KEYS: Record<ProviderKey, keyof typeof env> = {
@@ -219,6 +234,7 @@ const PROVIDER_KEYS: Record<ProviderKey, keyof typeof env> = {
   openai: 'OPENAI_API_KEY',
   xai: 'XAI_API_KEY',
   anthropic: 'ANTHROPIC_API_KEY',
+  kimi: 'KIMI_API_KEY',
 };
 
 
@@ -265,7 +281,8 @@ export function isTutorAvailable(): boolean {
       env.DEEPSEEK_API_KEY ||
       env.OPENAI_API_KEY ||
       env.XAI_API_KEY ||
-      env.ANTHROPIC_API_KEY,
+      env.ANTHROPIC_API_KEY ||
+      env.KIMI_API_KEY,
   );
 }
 
@@ -558,6 +575,23 @@ async function callXAI(
   );
 }
 
+async function callKimi(
+  messages: TutorMessage[],
+  preamble: string,
+  model: string,
+  signal?: AbortSignal,
+): Promise<{ text: string; truncated: boolean }> {
+  return callOpenAICompatible(
+    'https://api.moonshot.ai/v1',
+    env.KIMI_API_KEY,
+    messages,
+    preamble,
+    model,
+    signal,
+    'Kimi',
+  );
+}
+
 async function callAnthropic(
   messages: TutorMessage[],
   preamble: string,
@@ -662,6 +696,9 @@ export async function askTutor(
         break;
       case 'anthropic':
         result = await callAnthropic(messages, preamble, modelOption.model, controller.signal);
+        break;
+      case 'kimi':
+        result = await callKimi(messages, preamble, modelOption.model, controller.signal);
         break;
       default:
         throw new Error('Unknown AI provider.');

@@ -4,7 +4,8 @@
  *
  * Secrets (Dashboard → Edge Functions → Secrets), never VITE_*:
  *   GEMINI_API_KEY, OPENROUTER_API_KEY, GROQ_API_KEY, MISTRAL_API_KEY,
- *   DEEPSEEK_API_KEY, OPENAI_API_KEY, XAI_API_KEY, ANTHROPIC_API_KEY
+ *   DEEPSEEK_API_KEY, OPENAI_API_KEY, XAI_API_KEY, ANTHROPIC_API_KEY,
+ *   KIMI_API_KEY
  *   SUPABASE_URL, SUPABASE_ANON_KEY (auto-injected on hosted Supabase)
  *
  * Security (P0):
@@ -67,6 +68,7 @@ const ALLOWED_PROVIDERS = new Set([
   "openai",
   "xai",
   "anthropic",
+  "kimi",
 ]);
 
 /** Restrict to known tutor models — keep aligned with src/lib/ai-tutor.ts catalog. */
@@ -117,6 +119,10 @@ const ALLOWED_MODELS = new Set([
   "nvidia/nemotron-3-ultra-550b-a55b:free",
   "nvidia/nemotron-3-super-120b-a12b:free",
   "nvidia/nemotron-3.5-lightning:free",
+  "kimi-k2-0905-preview",
+  "moonshot-v1-8k",
+  "moonshot-v1-32k",
+  "moonshot-v1-128k",
 ]);
 
 const SERVER_SYSTEM_PROMPT = "You are the My Study learning tutor for the study material supplied with each request.\nHelp learners understand the specific material in context. The app supports multiple tracks, including climate and geospatial intelligence (CGEI) and Pakistani civil-service exam preparation; do not assume every learner is studying FPSC or HAT.\n\nGuidelines:\n- Prioritize the supplied lesson/topic, definitions, learning outcomes, worked examples, and assessment evidence over generic explanations.\n- Explain concepts clearly and accurately; break difficult ideas into steps and define technical terms.\n- For climate, environmental data, GIS, remote sensing, statistics, coding, and geospatial workflows, use domain-appropriate examples and explain assumptions, units, uncertainty, and limitations where relevant.\n- For civil-service exam material, use Pakistan-relevant context when appropriate.\n- If asked for practice, generate 2–3 targeted questions with options and identify the correct answer after the questions.\n- When explaining a wrong answer, diagnose the likely misconception, explain the correct reasoning, and finish with a concise takeaway.\n- If the learner asks for a drill after a mistake, create three short questions focused on that exact gap.\n- Use learner-state context, when present, to target weak areas without exposing unnecessary raw progress data.\n- Stay within the study context. If the question is unrelated, briefly help where appropriate and guide the learner back to the material.\n- Use concise structured Markdown with clear headings, bullets, bold key terms, and inline code for formulas or technical terms.\n- Be encouraging, precise, and transparent about uncertainty. Never invent sources, results, or course requirements.";
@@ -412,6 +418,14 @@ async function routeProvider(
       );
     case "anthropic":
       return callAnthropic(model, preamble, messages);
+    case "kimi":
+      return callOpenAICompat(
+        "https://api.moonshot.ai/v1/chat/completions",
+        Deno.env.get("KIMI_API_KEY"),
+        model,
+        preamble,
+        messages,
+      );
     default:
       throw new Error("Unknown provider");
   }
