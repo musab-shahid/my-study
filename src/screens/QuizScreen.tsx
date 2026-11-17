@@ -110,9 +110,12 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   const [questionsLoading, setQuestionsLoading] = useState(true);
   const [questionsLoadError, setQuestionsLoadError] = useState(false);
   const [resumeOffer, setResumeOffer] = useState<SavedQuizProgress | null>(null);
+  const resumePendingRef = useRef(false);
+  const exitPauseStartedRef = useRef<number | null>(null);
   const [retakeEmpty, setRetakeEmpty] = useState(false);
 
   const initQuiz = useCallback(() => {
+    if (resumePendingRef.current) return;
     recordedRef.current = false;
     // Prefer existing locked session workspace (mid-session membership changes must not re-scope)
     let snap = sessionRef.current;
@@ -158,7 +161,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   // Check for saved quiz progress on mount — only offer resume if full signature matches
   useEffect(() => {
     const saved = loadQuizProgress();
-    if (!saved || saved.answers.length === 0) return;
+    if (!saved || (saved.answers.length === 0 && !saved.elapsedSeconds)) return;
     // Without an active workspace, do not discard a potentially valid draft
     if (!activeTrack) return;
     const currentSig = quizSignature({
@@ -179,8 +182,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       timeLimit: saved.timeLimit,
     });
     if (currentSig === savedSig) {
+      resumePendingRef.current = true;
       setResumeOffer(saved);
     } else {
+      resumePendingRef.current = false;
       // Only clear when we can positively prove mismatch against a real workspace
       clearQuizProgress();
       setResumeOffer(null);
@@ -188,18 +193,37 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }, [mode, topicId, topicIds, scope, subjectId, count, difficulty, wrongPool, activeTrack, activeExamId, timeLimit]);
 
   // Save quiz progress whenever submitted answers, attempt history, or currentIdx changes
-  useEffect(() => {
+  const checkpointQuiz = useCallback(() => {
     const currentState = stateRef.current;
-    if (currentState && !finished && currentState.questions.length > 0) {
+    if (currentState && !finishedRef.current && !recordedRef.current && !resumePendingRef.current && currentState.questions.length > 0) {
       const sess = sessionRef.current;
       if (!sess) return;
+      const now = exitPauseStartedRef.current ?? Date.now();
+      const elapsed = Math.max(currentState.elapsed, Math.floor((now - currentState.startTime) / 1000));
       saveQuizProgress(
-        currentState, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool,
+        { ...currentState, elapsed }, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool,
         sess.trackId,
         sess.examId,
       );
     }
-  }, [state?.answers, state?.reviewAttempts, state?.currentIdx, finished, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool]);
+  }, [mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool]);
+
+  useEffect(() => {
+    checkpointQuiz();
+  }, [checkpointQuiz, state?.answers, state?.reviewAttempts, state?.currentIdx, finished]);
+
+  useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') checkpointQuiz();
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('pagehide', checkpointQuiz);
+    return () => {
+      checkpointQuiz();
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pagehide', checkpointQuiz);
+    };
+  }, [checkpointQuiz]);
 
   const resumeQuiz = useCallback(async () => {
     const saved = resumeOffer;
@@ -217,10 +241,10 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     } catch (err) {
       console.error('Failed to load questions for resume:', err);
       setQuestionsLoading(false);
-      clearQuizProgress();
-      initQuiz();
+      setResumeOffer(saved);
       return;
     }
+    resumePendingRef.current = false;
     const ls = resolveLearningScope(data);
     if (!ls) {
       clearQuizProgress();
@@ -282,16 +306,17 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     const resumedElapsed = Math.max(0, saved.elapsedSeconds ?? 0);
     const resumedAt = Date.now();
     const reviewSessionId = saved.reviewSessionId ?? `quiz_resume_${resumedAt}_${Math.random().toString(36).slice(2, 10)}`;
+    const currentAttempt = reconciled.reviewAttempts?.find((attempt) => attempt.questionIndex === saved.currentIdx);
     setState({
       questions: reconciled.questions,
       optionOrders: reconciled.optionOrders,
       currentIdx: Math.min(saved.currentIdx, reconciled.questions.length - 1),
-      selectedIndices: [],
-      checked: false,
+      selectedIndices: currentAttempt?.selectedIndices ?? [],
+      checked: Boolean(currentAttempt),
       awaitingConfidence: false,
       itemShownAt: resumedAt,
       reviewSessionId,
-      requeuedIds: [],
+      requeuedIds: saved.questionIds.filter((id, index) => saved.questionIds.indexOf(id) !== index),
       requeueNotice: null,
       // Correctness recomputed — never trust stored boolean alone
       answers: reconciled.answers,
@@ -309,6 +334,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }, [resumeOffer, initQuiz, data]);
 
   const declineResume = useCallback(() => {
+    resumePendingRef.current = false;
     setResumeOffer(null);
     clearQuizProgress();
   }, []);
@@ -467,9 +493,13 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
 
     setResults({
       score: correctCount,
-      total: s.questions.length,
+      total: new Set(s.questions.map((question) => question.id)).size,
       answers: finalAnswers,
-      questions: s.questions,
+      questions: Array.from(new Set(s.questions.map((question) => question.id))).map((id) => {
+        const attemptIndex = lastAttemptByQuestion.get(id);
+        const questionIndex = attemptIndex === undefined ? lastQuestionIndex.get(id)! : submittedAttempts[attemptIndex].questionIndex;
+        return s.questions[questionIndex];
+      }),
       perTopic,
       perDifficulty,
     });
@@ -479,7 +509,6 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   finishQuizRef.current = finishQuiz;
 
   // Pause wall-clock when exit modal is open so confirm time does not burn the quiz timer
-  const exitPauseStartedRef = useRef<number | null>(null);
   useEffect(() => {
     if (showExitConfirm) {
       if (exitPauseStartedRef.current === null) exitPauseStartedRef.current = Date.now();
@@ -584,7 +613,9 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         questionCount: prev.questions.length,
         gap: 2,
       });
-      const { question: reshown, order } = shuffleQuestionOptions(cloneQuestionForRequeue(q));
+      const { question: reshown, order: repeatOrder } = shuffleQuestionOptions(cloneQuestionForRequeue(q));
+      const originalOrder = prev.optionOrders[prev.currentIdx];
+      const order = repeatOrder.map((index) => originalOrder[index]);
       questions = insertQuestionAt(prev.questions, insertAt, reshown);
       optionOrders = insertQuestionAt(prev.optionOrders, insertAt, order);
       requeuedIds = [...requeuedIds, q.id];
@@ -709,13 +740,14 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   }, [handleCheck, handleNext]);
 
   const handleExit = useCallback(() => {
+    checkpointQuiz();
     const s = stateRef.current;
     if (s && (s.answers.length > 0 || s.currentIdx > 0) && !finishedRef.current) {
       setShowExitConfirm(true);
     } else {
       exitToOrigin();
     }
-  }, [exitToOrigin]);
+  }, [exitToOrigin, checkpointQuiz]);
 
   // Keyboard shortcuts
   useEffect(() => {

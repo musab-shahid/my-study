@@ -223,6 +223,28 @@ function makeQ(over: Partial<Question> & { id: string }): Question {
 }
 
 describe('answer record uniqueness', () => {
+  it('migrates a legacy repeat and preserves its displayed answer when saved again', () => {
+    const question = makeQ({ id: 'q1', correctAnswer: 0 });
+    const firstOrder = [1, 2, 0, 3];
+    const repeatOrder = [2, 0, 1, 3];
+    const displayed = applyOptionOrderPure(applyOptionOrderPure(question, firstOrder), repeatOrder);
+    const answer = { questionId: 'q1', correct: true, selectedIndices: [0], optionOrder: repeatOrder };
+    const draft = {
+      questionIds: ['q1', 'q1'], optionOrders: [firstOrder, repeatOrder],
+      answers: [answer], reviewAttempts: [{ ...answer, questionIndex: 1 }],
+      currentIdx: 1, mode: 'quick' as const,
+    };
+    const restored = reconcileRestoredDraft([question, question], draft);
+    assert.ok(restored.ok);
+    assert.deepEqual(restored.questions[1], displayed);
+    assert.equal(restored.answers[0].correct, true);
+    assert.equal(restored.reviewAttempts?.[0].correct, true);
+    const resumed = reconcileRestoredDraft([question, question], {
+      ...draft, optionOrderVersion: 1, optionOrders: restored.optionOrders,
+      answers: restored.answers, reviewAttempts: restored.reviewAttempts,
+    });
+    assert.deepEqual(resumed, restored);
+  });
   it('rejects duplicate answer records for same question', () => {
     const r = validateDraftShape({
       questionIds: ['q1', 'q2'],

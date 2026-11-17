@@ -16,6 +16,7 @@ export interface QuizProgressSnapshot {
 }
 
 export interface SavedQuizProgress {
+  optionOrderVersion?: 1;
   questionIds: string[];
   /** Parallel to questionIds; session-stable option permutation */
   optionOrders?: number[][];
@@ -42,7 +43,7 @@ export function buildBreakdown(questions: Question[], answers: AnswerRecord[]) {
   const byId = new Map(answers.map((answer) => [answer.questionId, answer]));
   const perTopic: Record<string, { correct: number; total: number }> = {};
   const perDifficulty: Record<string, { correct: number; total: number }> = {};
-  for (const question of questions) {
+  for (const question of new Map(questions.map((item) => [item.id, item])).values()) {
     const answer = byId.get(question.id);
     if (!perTopic[question.topicId]) perTopic[question.topicId] = { correct: 0, total: 0 };
     perTopic[question.topicId].total++;
@@ -72,6 +73,7 @@ export function saveQuizProgress(
 ): void {
   try {
     const progress: SavedQuizProgress = {
+      optionOrderVersion: 1,
       questionIds: state.questions.map((question) => question.id),
       optionOrders: state.optionOrders,
       answers: state.answers,

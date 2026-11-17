@@ -237,6 +237,29 @@ test.describe('Quiz completion journey', () => {
     const after = await page.evaluate((key) => localStorage.getItem(key), APP_DATA_KEY);
     expect(hasProgressSignal(after), 'expected progress to survive reload').toBeTruthy();
   });
+  test('timed quiz checkpoints thinking time before any answer', async ({ page }) => {
+    await seedEnrolledWorkspace(page);
+    await page.getByText('Practice', { exact: true }).first().click();
+    const mock = page.getByRole('button', { name: /Mock Exam/i }).first();
+    await expect(mock).toBeEnabled({ timeout: 90_000 });
+    await mock.click();
+    await page.getByRole('button', { name: 'Start Mock', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Check Answer', exact: true })).toBeVisible();
+    await page.clock.install();
+    await page.clock.fastForward(12_000);
+    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide')));
+    const saved = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), QUIZ_PROGRESS_KEY);
+    expect(saved.answers).toEqual([]);
+    expect(saved.elapsedSeconds).toBeGreaterThanOrEqual(12);
+    await page.reload();
+    await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Home', exact: true }).click();
+    await page.getByRole('button', { name: 'Resume quiz', exact: true }).click();
+    await page.getByRole('button', { name: 'Resume', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Check Answer', exact: true })).toBeVisible();
+    const resumed = await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), QUIZ_PROGRESS_KEY);
+    expect(resumed.elapsedSeconds).toBeGreaterThanOrEqual(saved.elapsedSeconds);
+  });
+
   test('exit preserves an answered quiz draft and Home resumes the same attempt', async ({ page }) => {
     test.setTimeout(240_000);
     await seedEnrolledWorkspace(page);
@@ -297,6 +320,16 @@ test.describe('Quiz completion journey', () => {
     await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible({
       timeout: 30_000,
     });
+    // Waiting at the prompt must never initialize and autosave an empty quiz.
+    await page.waitForTimeout(1500);
+    expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).answers, QUIZ_PROGRESS_KEY))
+      .toEqual(savedBeforeExit.answers);
+    await page.reload();
+    await page.getByRole('navigation', { name: 'Primary' }).getByRole('button', { name: 'Home', exact: true }).click();
+    await page.getByRole('button', { name: 'Resume quiz', exact: true }).click();
+    await expect(page.getByRole('button', { name: 'Resume', exact: true })).toBeVisible();
+    expect(await page.evaluate((key) => JSON.parse(localStorage.getItem(key)!).questionIds, QUIZ_PROGRESS_KEY))
+      .toEqual(questionIds);
     await page.getByRole('button', { name: 'Resume', exact: true }).click();
     await expect(page.getByText(/^Q 2 of \d+$/)).toBeVisible({ timeout: 30_000 });
 

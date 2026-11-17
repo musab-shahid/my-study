@@ -79,6 +79,7 @@ export type SavedReviewAttemptRecord = SavedAnswerRecord & {
 };
 
 export type SavedDraftShape = {
+  optionOrderVersion?: 1;
   questionIds: string[];
   optionOrders?: number[][];
   answers: SavedAnswerRecord[];
@@ -304,9 +305,14 @@ export function validateDraftShape(raw: unknown): DraftValidation {
     }
   }
 
+  if (p.optionOrderVersion !== undefined && p.optionOrderVersion !== 1) {
+    return { ok: false, reason: 'unsupported-option-order-version' };
+  }
+
   return {
     ok: true,
     draft: {
+      optionOrderVersion: p.optionOrderVersion as 1 | undefined,
       questionIds,
       optionOrders: p.optionOrders as number[][] | undefined,
       answers,
@@ -495,6 +501,42 @@ export function reconcileRestoredDraft(
     }
   } else if (draft.optionOrders && draft.optionOrders.length > 0) {
     return { ok: false, reason: 'optionOrders-length' };
+  }
+
+  // Older clients saved a repeat's permutation relative to its first display.
+  // Convert that permutation and its submissions back to bank indices once.
+  if (draft.optionOrderVersion === undefined && hasOrders) {
+    const firstPosition = new Map<string, number>();
+    const orders = draft.optionOrders!.map((order, index) => {
+      order ??= bankQuestions[index].options.map((_, position) => position);
+      const id = draft.questionIds[index];
+      const first = firstPosition.get(id);
+      if (first === undefined) {
+        firstPosition.set(id, index);
+        return order;
+      }
+      const initialOrder = draft.optionOrders![first] ?? bankQuestions[first].options.map((_, position) => position);
+      return order.map((position) => initialOrder[position]);
+    });
+    const migrateAttempt = (attempt: SavedReviewAttemptRecord): SavedReviewAttemptRecord => {
+      const first = firstPosition.get(attempt.questionId);
+      if (first === undefined || first === attempt.questionIndex ||
+          !isValidOptionPermutation(attempt.optionOrder, bankQuestions[first].options.length)) return attempt;
+      return { ...attempt, optionOrder: attempt.optionOrder.map((position) => orders[first][position]) };
+    };
+    const attempts = draft.reviewAttempts?.map(migrateAttempt);
+    const answers = draft.answers.map((answer) => {
+      const matchingAttempts = attempts?.filter((attempt) => attempt.questionId === answer.questionId) ?? [];
+      const lastAttempt = matchingAttempts[matchingAttempts.length - 1];
+      if (lastAttempt) return { ...answer, optionOrder: lastAttempt.optionOrder };
+      // Pre-attempt-log drafts use the current item's position and its recorded order.
+      const first = firstPosition.get(answer.questionId)!;
+      const last = draft.questionIds.lastIndexOf(answer.questionId);
+      const repeated = last !== first && last <= draft.currentIdx &&
+        JSON.stringify(answer.optionOrder) !== JSON.stringify(draft.optionOrders![first]);
+      return { ...answer, optionOrder: repeated ? orders[last] : answer.optionOrder ?? orders[first] };
+    });
+    draft = { ...draft, optionOrderVersion: 1, optionOrders: orders, answers, reviewAttempts: attempts };
   }
 
   const restored: Question[] = [];
