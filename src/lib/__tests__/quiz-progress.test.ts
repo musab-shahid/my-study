@@ -48,6 +48,14 @@ function question(id: string, topicId: string, difficulty: Question['difficulty'
 }
 
 describe('quiz progress persistence', () => {
+  it('counts each distinct question once after a corrected repeat', () => {
+    const repeated = question('q1', 'topic-a', 'easy');
+    const result = buildBreakdown([repeated, repeated], [
+      { questionId: 'q1', correct: true, selectedIndices: [0] },
+    ]);
+    assert.deepEqual(result.perTopic, { 'topic-a': { correct: 1, total: 1 } });
+    assert.deepEqual(result.perDifficulty, { easy: { correct: 1, total: 1 } });
+  });
   it('builds per-topic and per-difficulty breakdowns from question IDs', () => {
     const questions = [
       question('q1', 'topic-a', 'easy'),
