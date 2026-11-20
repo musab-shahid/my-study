@@ -57,6 +57,7 @@ export function buildBreakdown(questions: Question[], answers: AnswerRecord[]) {
 
 const QUIZ_PROGRESS_KEY = 'examprep-quiz-progress';
 
+/** @returns false when the draft could not be written (storage full/denied) */
 export function saveQuizProgress(
   state: QuizProgressSnapshot,
   mode: PracticeMode,
@@ -70,7 +71,7 @@ export function saveQuizProgress(
   wrongPool?: boolean,
   track?: TrackId | null,
   examId?: string | null,
-): void {
+): boolean {
   try {
     const progress: SavedQuizProgress = {
       optionOrderVersion: 1,
@@ -94,8 +95,11 @@ export function saveQuizProgress(
       examId: examId ?? null,
     };
     localStorage.setItem(QUIZ_PROGRESS_KEY, JSON.stringify(progress));
+    return true;
   } catch {
-    // Progress storage is best-effort; the active in-memory quiz remains usable.
+    // The active in-memory quiz remains usable; the caller must surface the
+    // failed checkpoint so the learner knows resume data was not written.
+    return false;
   }
 }
 

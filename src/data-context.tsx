@@ -124,11 +124,22 @@ export function DataProvider({ children }: { children: ReactNode }) {
     // from submitted quiz responses by QuizScreen after the session finishes.
     const now = Date.now();
     const current = dataRef.current;
-    const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now);
+    // Exam-aware compression must see the ACTIVE workspace's configured sessions,
+    // not the intentionally-empty default list.
+    const mem = normalizeTrackMembership(current.trackMembership ?? emptyTrackMembership());
+    const activeExamId = mem.activeTrackId
+      ? (mem.enrollments[mem.activeTrackId]?.activeExamId ?? null)
+      : null;
+    const examSessions = mem.activeTrackId
+      ? (current.examSessionsByProfile?.[getExamSessionConfigKey(mem.activeTrackId, activeExamId)] ?? [])
+      : [];
+    const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now, examSessions);
     dataRef.current = next;
     setData(next);
-
-
+    // Durable before the draft is cleared: the finish path must know whether
+    // the recorded history actually landed in storage.
+    saveData(next);
+    return flushPendingSave();
   }, []);
 
   const setLastTopic = useCallback((topicId: string) => {

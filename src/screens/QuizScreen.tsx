@@ -30,6 +30,7 @@ import {
 } from '@/lib/quiz-session';
 import { instantiatePool } from '@/lib/quant-template';
 import { buildBreakdown, clearQuizProgress, loadQuizProgress, saveQuizProgress, type QuizProgressSnapshot, type ReviewAttemptRecord, type SavedQuizProgress } from '@/lib/quiz-progress';
+import { flushPendingSave } from '@/lib/storage';
 import { resolveQuizInitUiPhase } from '@/lib/quiz-init-ui';
 import { validateQuizParams, shuffleQuestionOptions, pickQuestions } from '@/lib/quiz-selection';
 import { QuizResults, type ResultsData, type AnswerRecord } from '@/components/quiz/QuizResults';
@@ -113,6 +114,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
   const resumePendingRef = useRef(false);
   const exitPauseStartedRef = useRef<number | null>(null);
   const [retakeEmpty, setRetakeEmpty] = useState(false);
+  const [draftSaveFailed, setDraftSaveFailed] = useState(false);
 
   const initQuiz = useCallback(() => {
     if (resumePendingRef.current) return;
@@ -200,11 +202,12 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       if (!sess) return;
       const now = exitPauseStartedRef.current ?? Date.now();
       const elapsed = Math.max(currentState.elapsed, Math.floor((now - currentState.startTime) / 1000));
-      saveQuizProgress(
+      const saved = saveQuizProgress(
         { ...currentState, elapsed }, mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool,
         sess.trackId,
         sess.examId,
       );
+      setDraftSaveFailed(!saved);
     }
   }, [mode, topicId, subjectId, topicIds, scope, count, difficulty, timeLimit, wrongPool]);
 
@@ -504,7 +507,14 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       perDifficulty,
     });
     setFinished(true);
-    clearQuizProgress();
+    // Retirement of the draft must follow acknowledged persistence. If the
+    // AppData write failed, the draft is the only recoverable copy of the session.
+    if (flushPendingSave()) {
+      clearQuizProgress();
+      setDraftSaveFailed(false);
+    } else {
+      setDraftSaveFailed(true);
+    }
   }, [recordQuiz, topicId, mode, subjectId, difficulty]);
   finishQuizRef.current = finishQuiz;
 

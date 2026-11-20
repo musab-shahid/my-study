@@ -1,10 +1,10 @@
 import type { AppData, TopicProgress, Question, DifficultyFilter, PracticeMode } from '@/types';
 import { ensureTrackMembership, normalizeTrackMembership, emptyTrackMembership, TRACK_MEMBERSHIP_SCHEMA_VERSION } from '@/lib/track-membership';
-import { STORAGE_KEYS, getEffectiveQuizStats, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
+import { STORAGE_KEYS, parseLocalDate, RECENT_QUIZ_SESSION_WINDOW } from '@/lib/constants';
 import { updateTopicAbility, getTopicAbility, updateQuestionStrength } from '@/lib/adaptive-select';
 import { resolveReviewStage, reviewDateForStage, scheduleAfterReview } from '@/lib/spaced-repetition';
 import { applyExamAwareInterval, daysUntilIsoDate } from '@/lib/exam-aware-schedule';
-import { getNextSession, DEFAULT_EXAM_SESSIONS, normalizeExamSessionsByProfile } from '@/lib/exam-schedule';
+import { getNextSession, normalizeExamSessionsByProfile, type ExamSession } from '@/lib/exam-schedule';
 import { CLOUD_RESTORE_RECOVERY_SUFFIX } from './cloud-restore';
 import { sectionMap } from '@/data/sections';
 import { resolveTopicId } from '@/lib/topic-id-aliases';
@@ -658,6 +658,8 @@ export function recordQuizResult(
   subjectId?: string,
   difficultyFilter?: DifficultyFilter,
   now: number = Date.now(),
+  /** Learner's configured sessions for the active workspace (exam-aware compression). */
+  examSessions?: readonly ExamSession[],
 ): AppData {
   const correctCount = answers.filter((a) => a.correct).length;
   const totalCount = answers.length;
@@ -708,20 +710,23 @@ export function recordQuizResult(
     prog.lastQuizDate = new Date(now).toISOString();
     const prev = prog.recentSessions ?? [];
     prog.recentSessions = [...prev, { correct, total, at: now }].slice(-RECENT_QUIZ_SESSION_WINDOW);
-    const accuracy = getEffectiveQuizStats(prog).accuracy;
+    // Schedule from THIS session's outcome: pooled recent accuracy lets older
+    // success override a present failure (a 0% review after 9/9 history would
+    // otherwise extend the interval). Lapse policy lives in scheduleAfterReview.
+    const sessionAccuracy = total > 0 ? Math.round((correct / total) * 100) : 0;
     const quizStage = resolveReviewStage(prog.reviewStage, prog.nextReview);
     const scheduled = scheduleAfterReview({
       intervalDays: prog.intervalDays,
       easeFactor: prog.easeFactor,
       reviewStage: quizStage,
-      accuracy,
+      accuracy: sessionAccuracy,
     });
     prog.reviewStage = scheduled.reviewStage;
     prog.nextReview = scheduled.nextReview;
     prog.intervalDays = scheduled.intervalDays;
     // Exam-aware compression when a future session date is known (display schedule).
     try {
-      const next = getNextSession(DEFAULT_EXAM_SESSIONS, new Date(now));
+      const next = getNextSession(examSessions ?? [], new Date(now));
       const examIso = next?.startsAtIso;
       if (examIso) {
         const days = daysUntilIsoDate(examIso, now, next?.timeZone ?? 'UTC');
