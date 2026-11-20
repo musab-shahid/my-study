@@ -114,10 +114,10 @@ export function SettingsScreen() {
     setResetDone(null);
   };
 
-  const handleReset = () => {
+  const handleReset = async () => {
     try {
       if (isFullReset) {
-        const didReset = reset();
+        const didReset = await reset();
         if (!didReset) {
           setResetDone({ kind: 'error', message: 'Reset cancelled because a recovery backup could not be saved. Free browser storage and try again.' });
           setConfirming(false);

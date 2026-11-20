@@ -19,7 +19,7 @@ export interface DataContextValue {
   recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter, sessionId?: string) => void;
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
-  reset: () => boolean;
+  reset: () => Promise<boolean>;
   resetSubjects: (subjectIds: SubjectId[]) => boolean;
   /** Explicit track enrollment; sets track active on success */
   enrollInTrack: (trackId: TrackId) => { ok: boolean; reason?: string };
@@ -152,29 +152,34 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => setLastOpenedCurriculumLessonPure(prev, lessonId));
   }, []);
 
-  const reset = useCallback(() => {
+  const reset = useCallback(async () => {
     if (!resetData()) return false;
     // A full reset must also retire detailed review evidence: otherwise old
     // events keep feeding calibration, delayed retention, and sticky distractors
     // after the app reports that everything was cleared.
     const log = getDefaultReviewLog();
     const outbox = getDefaultReviewOutbox();
-    void log.clear().catch((err) => console.warn('[reset] review log clear failed', err));
-    void (async () => {
-      try {
-        const pending = await outbox.getAll();
-        await outbox.removeMany(pending.map((e) => e.id));
-      } catch (err) {
-        console.warn('[reset] outbox clear failed', err);
-      }
-    })();
+    let clearsOk = true;
+    try {
+      await log.clear();
+    } catch (err) {
+      console.warn('[reset] review log clear failed', err);
+      clearsOk = false;
+    }
+    try {
+      const pending = await outbox.getAll();
+      await outbox.removeMany(pending.map((e) => e.id));
+    } catch (err) {
+      console.warn('[reset] outbox clear failed', err);
+      clearsOk = false;
+    }
     const fresh = loadData();
     setData(fresh);
     dataRef.current = fresh;
     try {
       window.dispatchEvent(new CustomEvent('examprep-subject-selection-reset'));
     } catch { /* ignore */ }
-    return true;
+    return clearsOk;
   }, []);
 
   /**

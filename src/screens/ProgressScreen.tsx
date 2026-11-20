@@ -340,8 +340,8 @@ return (
 
           {/* Exam plan + distractors + shadow scheduler (learning-science rungs) */}
           {(() => {
-            const dueCount = Object.values(data.topicProgress ?? {}).filter(
-              (p) => p.nextReview && p.nextReview <= new Date().toISOString().slice(0, 10),
+            const dueCount = Object.entries(data.topicProgress ?? {}).filter(
+              ([tid, p]) => allTopicIds.has(tid) && p.nextReview && p.nextReview <= new Date().toISOString().slice(0, 10),
             ).length;
             // Same selector Dashboard uses: the active workspace's configured sessions.
             const mem = normalizeTrackMembership(data.trackMembership ?? emptyTrackMembership());

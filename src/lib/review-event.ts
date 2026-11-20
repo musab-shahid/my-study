@@ -140,9 +140,16 @@ export interface AttemptInput {
   algoVersion?: string;
 }
 
-export function buildReviewEvent(input: AttemptInput): ReviewEvent {
+export function deterministicReviewEventId(sessionId: string, itemId: string, index: number): string {
+  return `${sessionId}:${itemId}:${index}`;
+}
+
+export function buildReviewEvent(input: AttemptInput, index?: number): ReviewEvent {
+  const id = (input.sessionId && typeof index === 'number')
+    ? deterministicReviewEventId(input.sessionId, input.itemId, index)
+    : createReviewEventId();
   return {
-    id: createReviewEventId(),
+    id,
     ts: input.ts ?? Date.now(),
     deviceId: input.deviceId ?? 'unknown-device',
     sessionId: input.sessionId ?? `session_${input.ts ?? Date.now()}`,

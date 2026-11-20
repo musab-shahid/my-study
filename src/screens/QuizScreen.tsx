@@ -425,7 +425,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
     const correctCount = finalAnswers.filter((a) => a.correct).length;
     const { perTopic, perDifficulty } = buildBreakdown(s.questions, finalAnswers);
     const effectiveTopicId = topicId ?? null;
-    recordQuiz(effectiveTopicId, finalAnswers, s.questions, mode, subjectId, difficulty);
+    recordQuiz(effectiveTopicId, finalAnswers, s.questions, mode, subjectId, difficulty, s.reviewSessionId);
 
     // Keep every actual submission, but designate only the last submitted attempt
     // for each item as the outcome that mirrors the existing AppData aggregate.

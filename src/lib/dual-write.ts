@@ -104,7 +104,7 @@ export async function dualWriteQuizAttempts(params: DualWriteParams): Promise<Du
       ts: a.ts ?? ts + i,
       deviceId,
       sessionId,
-    }),
+    }, i),
   );
 
   // Persist the exact event payloads to a separate durable outbox before
