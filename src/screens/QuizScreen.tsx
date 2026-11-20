@@ -1031,6 +1031,7 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
       <QuizResults
         results={results}
         mode={mode}
+        saveFailed={draftSaveFailed}
         onRetry={handleRetry}
         onNavigateToTopic={(tid: string) => navigate({ screen: 'topic', topicId: tid })}
         onPracticeTopic={(tid: string) => navigate({ screen: 'quiz', mode: 'topic', topicId: tid, count: 5 })}
@@ -1092,6 +1093,12 @@ export function QuizScreen({ mode, topicId, topicIds, scope, subjectId, count, d
         {mockShortPool && (
           <p className="text-warning-700 bg-warning-50 border border-warning-100 rounded-btn px-3 py-2 text-xs mb-2">
             Only {state.questions.length} questions available for this mock (full mock targets 60). Continuing with the full available set.
+          </p>
+        )}
+        {draftSaveFailed && (
+          <p className="text-danger-700 bg-danger-50 border border-danger-100 rounded-btn px-3 py-2 text-xs mb-2" role="alert">
+            <AlertTriangle className="w-3.5 h-3.5 inline mr-1 -mt-0.5" aria-hidden />
+            This device could not save your resume checkpoint (storage may be full). Your answers are safe in this session — if you leave now, you may lose this attempt.
           </p>
         )}
         <ProgressBar value={state.answers.length} max={state.questions.length} color="sky" />

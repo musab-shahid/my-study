@@ -1,7 +1,7 @@
 import type { Question, PracticeMode } from '@/types';
 import { PageContainer, Card, Button, ProgressBar } from '@/components/ui';
 import { BackButton, Breadcrumbs } from '@/components/layout/Breadcrumbs';
-import { CheckCircle2, XCircle, RotateCcw, TrendingUp, ChevronRight } from 'lucide-react';
+import { CheckCircle2, XCircle, RotateCcw, TrendingUp, ChevronRight, AlertTriangle } from 'lucide-react';
 import { getTopic } from '@/data/topics';
 
 export interface AnswerRecord {
@@ -32,6 +32,7 @@ export interface ResultsData {
 interface Props {
   results: ResultsData;
   mode: PracticeMode;
+  saveFailed?: boolean;
   onRetry: () => void;
   onNavigateToTopic: (topicId: string) => void;
   onPracticeTopic: (topicId: string) => void;
@@ -42,6 +43,7 @@ interface Props {
 export function QuizResults({
   results,
   mode,
+  saveFailed = false,
   onRetry,
   onNavigateToTopic,
   onPracticeTopic,
@@ -55,6 +57,12 @@ export function QuizResults({
   return (
     <PageContainer width="focused">
       <div className="flex items-center gap-2 mb-4"><BackButton fallbackToHome /><Breadcrumbs /></div>
+      {saveFailed && (
+        <p className="text-danger-700 bg-danger-50 border border-danger-100 rounded-btn px-3 py-2 text-sm mb-4" role="alert">
+          <AlertTriangle className="w-4 h-4 inline mr-1 -mt-0.5" aria-hidden />
+          Your score is shown below, but this device could not save it (storage may be full). Free up space or export a backup before closing this page.
+        </p>
+      )}
       <Card className="p-4 sm:p-8 mb-4">
         <div className="text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-3 bg-brand-50">

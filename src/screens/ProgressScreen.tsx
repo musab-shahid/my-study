@@ -19,6 +19,8 @@ import { computeCoverageCompetence, aggregateQuestionResults, loadCalibrationBin
 import type { CalibrationBin } from '@/lib/calibration';
 import type { EfficacySnapshot } from '@/lib/efficacy-metrics';
 import { planDailyWorkload } from '@/lib/exam-planner';
+import { getExamSessionConfigKey } from '@/lib/exam-schedule';
+import { normalizeTrackMembership, emptyTrackMembership } from '@/lib/track-membership';
 import { stickyDistractors } from '@/lib/distractor-analytics';
 import { getDefaultReviewLog } from '@/lib/review-log';
 import { compareSchedulersOnLog } from '@/lib/fsrs-shadow-compare';
@@ -331,7 +333,15 @@ return (
             const dueCount = Object.values(data.topicProgress ?? {}).filter(
               (p) => p.nextReview && p.nextReview <= new Date().toISOString().slice(0, 10),
             ).length;
-            const plan = planDailyWorkload({ dueTopicCount: dueCount });
+            // Same selector Dashboard uses: the active workspace's configured sessions.
+            const mem = normalizeTrackMembership(data.trackMembership ?? emptyTrackMembership());
+            const activeProfileId = mem.activeTrackId
+              ? (mem.enrollments[mem.activeTrackId]?.activeExamId ?? null)
+              : null;
+            const configuredSessions = mem.activeTrackId
+              ? (data.examSessionsByProfile?.[getExamSessionConfigKey(mem.activeTrackId, activeProfileId)] ?? [])
+              : [];
+            const plan = planDailyWorkload({ dueTopicCount: dueCount, sessions: configuredSessions, now: new Date() });
             return (
               <Card className="p-3.5 sm:p-5 mb-4">
                 <h3 className="font-semibold text-ink mb-1">Exam-aware plan</h3>
