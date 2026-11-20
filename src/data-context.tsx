@@ -150,8 +150,25 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => setLastOpenedCurriculumLessonPure(prev, lessonId));
   }, []);
 
+import { getDefaultReviewLog } from '@/lib/review-log';
+import { getDefaultReviewOutbox } from '@/lib/review-outbox';
+
   const reset = useCallback(() => {
     if (!resetData()) return false;
+    // A full reset must also retire detailed review evidence: otherwise old
+    // events keep feeding calibration, delayed retention, and sticky distractors
+    // after the app reports that everything was cleared.
+    const log = getDefaultReviewLog();
+    const outbox = getDefaultReviewOutbox();
+    void log.clear().catch((err) => console.warn('[reset] review log clear failed', err));
+    void (async () => {
+      try {
+        const pending = await outbox.getAll();
+        await outbox.removeMany(pending.map((e) => e.id));
+      } catch (err) {
+        console.warn('[reset] outbox clear failed', err);
+      }
+    })();
     const fresh = loadData();
     setData(fresh);
     dataRef.current = fresh;

@@ -3,6 +3,7 @@
  */
 
 import type { QuestionResult } from '@/types';
+import type { ReviewEvent } from './review-event.ts';
 import {
   computeBayesianMastery,
   compositeReadiness,
@@ -21,7 +22,16 @@ export interface CoverageCompetence {
   competence: MasteryPosterior;
   /** Explicit composite that does NOT treat “studied” as half of mastery. */
   readinessScore: number;
+  /**
+   * True only when there is enough real attempt evidence to justify showing a
+   * numeric readiness score. With near-zero attempts the Bayesian prior alone
+   * yields ~38/100, which would present a cold start as measured readiness.
+   */
+  readinessEvidenceSufficient: boolean;
 }
+
+/** Below this many scored attempts, a readiness number is prior-dominated, not evidence. */
+export const READINESS_MIN_ATTEMPTS = 5;
 
 export function computeCoverageCompetence(args: {
   studiedTopics: number;
@@ -45,6 +55,7 @@ export function computeCoverageCompetence(args: {
     coveragePct: Math.round(coverageShare * 100),
     competence,
     readinessScore: Math.round(readiness.score),
+    readinessEvidenceSufficient: args.attempts >= READINESS_MIN_ATTEMPTS,
   };
 }
 
@@ -65,18 +76,34 @@ export function aggregateQuestionResults(
   return { correct, attempts };
 }
 
-export async function loadCalibrationBins(): Promise<CalibrationBin[]> {
+export interface EfficacyLoaderOptions {
+  /** Restrict events to these item IDs (active workspace scope). Undefined = all. */
+  itemIds?: ReadonlySet<string>;
+}
+
+/**
+ * Scope the raw event log to the active workspace before computing analytics.
+ * Unknown/historical item IDs are excluded rather than attributed to the
+ * active subject; pass undefined itemIds to opt out of scoping.
+ */
+async function loadScopedEvents(options?: EfficacyLoaderOptions): Promise<ReviewEvent[]> {
+  const events = await getDefaultReviewLog().getAll();
+  if (!options?.itemIds) return events;
+  return events.filter((event) => options.itemIds!.has(event.itemId));
+}
+
+export async function loadCalibrationBins(options?: EfficacyLoaderOptions): Promise<CalibrationBin[]> {
   try {
-    const events = await getDefaultReviewLog().getAll();
+    const events = await loadScopedEvents(options);
     return computeCalibration(events);
   } catch {
     return [];
   }
 }
 
-export async function loadEfficacySnapshot(minDelayDays = 7): Promise<EfficacySnapshot> {
+export async function loadEfficacySnapshot(minDelayDays = 7, options?: EfficacyLoaderOptions): Promise<EfficacySnapshot> {
   try {
-    const events = await getDefaultReviewLog().getAll();
+    const events = await loadScopedEvents(options);
     return computeEfficacySnapshot(events, minDelayDays);
   } catch {
     return computeEfficacySnapshot([], minDelayDays);

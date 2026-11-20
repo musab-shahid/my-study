@@ -1,5 +1,5 @@
 import { TrendingUp, Brain, Target, GraduationCap, Award } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useData } from '@/hooks/useData';
 import { useSubjectData } from '@/hooks/useSubjectData';
 import { useSubjectSelection } from '@/contexts/subject-selection-context';
@@ -76,8 +76,11 @@ export function ProgressScreen() {
   const weakTopics = getWeakTopics(data, allTopicIds, 5, 5);
   const weeklyData = getWeeklyAccuracy(data, 8, scopedSubjectIds);
 
-  const scopedQuestionIds = new Set(
-    sd.questionsFor(isAllSubjects ? 'all' : (activeSubject as SubjectId)).map((q) => q.id),
+  const scopedQuestionIds = useMemo(
+    () => new Set(
+      sd.questionsFor(isAllSubjects ? 'all' : (activeSubject as SubjectId)).map((q) => q.id),
+    ),
+    [sd, isAllSubjects, activeSubject],
   );
   const scopedQuestionResults = Object.fromEntries(
     Object.entries(data.questionResults ?? {}).filter(([id]) => scopedQuestionIds.has(id)),
@@ -98,15 +101,16 @@ export function ProgressScreen() {
     let cancelled = false;
     void (async () => {
       try {
-        const bins = await loadCalibrationBins();
-        const efficacySnap = await loadEfficacySnapshot(7);
+        const bins = await loadCalibrationBins({ itemIds: scopedQuestionIds });
+        const efficacySnap = await loadEfficacySnapshot(7, { itemIds: scopedQuestionIds });
         const events = await getDefaultReviewLog().getAll();
-        const sticky = stickyDistractors(events, { minWrong: 2, minShare: 0.25, limit: 5 });
+        const scopedEvents = events.filter((e) => scopedQuestionIds.has(e.itemId));
+        const sticky = stickyDistractors(scopedEvents, { minWrong: 2, minShare: 0.25, limit: 5 });
         const lines = sticky.map(
           (s) =>
             `${s.itemId}: “${s.chosenOption}” (${s.wrongCount}× wrong)`,
         );
-        const cmp = await compareSchedulersOnLog(events);
+        const cmp = await compareSchedulersOnLog(scopedEvents);
         let note: string | null = null;
         if (cmp.predictionCount >= 5 && cmp.fsrsLogLoss != null && cmp.sm2LogLoss != null) {
           note = cmp.fsrsBeatsSm2
@@ -129,7 +133,7 @@ export function ProgressScreen() {
     return () => {
       cancelled = true;
     };
-  }, [data.quizHistory.length]);
+  }, [data.quizHistory.length, scopedQuestionIds]);
 
   // Achievements
   const totalQuestionsAll = allStats.reduce((s, st) => s + st.questionsAnswered, 0);
@@ -225,8 +229,14 @@ return (
             </div>
             <div className="rounded-card border border-border bg-surface-muted p-3">
               <p className="text-xs text-ink-muted mb-1">Readiness (recall-weighted)</p>
-              <p className="text-lg font-semibold text-ink">{coverageCompetence.readinessScore}/100</p>
-              <ProgressBar value={coverageCompetence.readinessScore} max={100} color="sky" />
+              {coverageCompetence.readinessEvidenceSufficient ? (
+                <>
+                  <p className="text-lg font-semibold text-ink">{coverageCompetence.readinessScore}/100</p>
+                  <ProgressBar value={coverageCompetence.readinessScore} max={100} color="sky" />
+                </>
+              ) : (
+                <p className="text-sm text-ink-muted pt-1">Not enough evidence yet — answer more questions to see a readiness estimate.</p>
+              )}
             </div>
           </div>
           <p className="text-xs leading-5 text-ink-muted mb-4">
