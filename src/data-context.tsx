@@ -5,6 +5,8 @@ import { withEnrollAndFocus, withFocusTrack } from '@/lib/track-focus';
 import { type TrackId } from '@/data/tracks';
 import { getExamSessionConfigKey, validateExamSessions, type ExamSession } from '@/lib/exam-schedule';
 import { loadData, saveData, flushPendingSave, createRecoveryBackup, markTopicStudied, markCurriculumLessonStudied as markCurriculumLessonStudiedPure, recordQuizResult, setLastOpenedTopic, setLastOpenedCurriculumLesson as setLastOpenedCurriculumLessonPure, resetData } from '@/lib/storage';
+import { getDefaultReviewLog } from '@/lib/review-log';
+import { getDefaultReviewOutbox } from '@/lib/review-outbox';
 import { STORAGE_KEYS } from '@/lib/constants';
 import { sections } from '@/data/sections';
 import { topics } from '@/data/topics';
@@ -149,9 +151,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const setLastCurriculumLesson = useCallback((lessonId: string) => {
     setData((prev) => setLastOpenedCurriculumLessonPure(prev, lessonId));
   }, []);
-
-import { getDefaultReviewLog } from '@/lib/review-log';
-import { getDefaultReviewOutbox } from '@/lib/review-outbox';
 
   const reset = useCallback(() => {
     if (!resetData()) return false;
