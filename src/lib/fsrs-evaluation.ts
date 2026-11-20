@@ -191,6 +191,10 @@ export interface Sm2ShadowState {
 }
 
 export function mapAttemptToFsrsRating(event: ReviewEvent): Grade {
+  // FSRS-6: Hard means "recalled with difficulty". An incorrect answer must be
+  // Again regardless of confidence, or a confident guess that failed would be
+  // scored as a (difficult) successful recall and inflate the interval.
+  if (!event.correct) return 1;
   const grade = gradeFromAttempt(event.correct, event.confidence);
   switch (grade) {
     case 'again': return 1;

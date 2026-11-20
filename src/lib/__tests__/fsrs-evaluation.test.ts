@@ -53,7 +53,10 @@ function syntheticHistory(itemCount = 8, reviewsPerItem = 10): ReviewEvent[] {
 describe('real ts-fsrs chronological evaluation', () => {
   it('maps the existing attempt-grade contract to the four FSRS ratings', () => {
     assert.equal(mapAttemptToFsrsRating(event('a', 'item-1', 1, false, { confidence: 3 })), Rating.Again);
-    assert.equal(mapAttemptToFsrsRating(event('b', 'item-1', 2, false, { confidence: 1 })), Rating.Hard);
+    // Incorrect answers are always Again: FSRS Hard means difficult SUCCESSFUL recall.
+    assert.equal(mapAttemptToFsrsRating(event('b', 'item-1', 2, false, { confidence: 1 })), Rating.Again);
+    assert.equal(mapAttemptToFsrsRating(event('b2', 'item-1', 2, false, { confidence: 2 })), Rating.Again);
+    assert.equal(mapAttemptToFsrsRating(event('b3', 'item-1', 2, false, {})), Rating.Again);
     assert.equal(mapAttemptToFsrsRating(event('c', 'item-1', 3, true, { confidence: 1 })), Rating.Hard);
     assert.equal(mapAttemptToFsrsRating(event('d', 'item-1', 4, true, { confidence: 2 })), Rating.Good);
     assert.equal(mapAttemptToFsrsRating(event('e', 'item-1', 5, true, { confidence: 3 })), Rating.Easy);
