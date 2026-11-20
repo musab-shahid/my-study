@@ -16,7 +16,7 @@ export interface DataContextValue {
   data: AppData;
   markStudied: (topicId: string) => void;
   markCurriculumLessonStudied: (lessonId: string) => void;
-  recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => void;
+  recordQuiz: (topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter, sessionId?: string) => void;
   setLastTopic: (topicId: string) => void;
   setLastCurriculumLesson: (lessonId: string) => void;
   reset: () => boolean;
@@ -121,7 +121,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     setData((prev) => markCurriculumLessonStudiedPure(prev, lessonId));
   }, []);
 
-  const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter) => {
+  const recordQuiz = useCallback((topicId: string | null, answers: { questionId: string; correct: boolean; confidence?: 1 | 2 | 3; latencyMs?: number; selectedIndices?: number[] }[], questions: Question[], mode: PracticeMode, subjectId?: string, difficultyFilter?: DifficultyFilter, sessionId?: string) => {
     // Aggregate-only calculation. Per-attempt review events are assembled once
     // from submitted quiz responses by QuizScreen after the session finishes.
     const now = Date.now();
@@ -135,7 +135,7 @@ export function DataProvider({ children }: { children: ReactNode }) {
     const examSessions = mem.activeTrackId
       ? (current.examSessionsByProfile?.[getExamSessionConfigKey(mem.activeTrackId, activeExamId)] ?? [])
       : [];
-    const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now, examSessions);
+    const next = recordQuizResult(current, topicId, answers, questions, mode, subjectId, difficultyFilter, now, examSessions, sessionId);
     dataRef.current = next;
     setData(next);
     // Durable before the draft is cleared: the finish path must know whether
