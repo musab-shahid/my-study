@@ -83,17 +83,21 @@ describe('scoped efficacy loaders', () => {
   });
 
   it('efficacy snapshot excludes out-of-scope items', async () => {
-    const base = 1000;
-    await log.append(makeEvent('scoped-item', base, true));
-    await log.append(makeEvent('other-subject-item', base + 90 * 24 * 3600 * 1000, true));
+    const day = 24 * 3600 * 1000;
+    // Each item needs a first exposure plus a delayed repeat to qualify as a
+    // delayed-retention observation.
+    await log.append(makeEvent('scoped-item', 0 * day, true));
+    await log.append(makeEvent('scoped-item', 14 * day, true));
+    await log.append(makeEvent('other-subject-item', 0 * day, true));
+    await log.append(makeEvent('other-subject-item', 14 * day, true));
 
     const scoped = await loadEfficacySnapshot(7, { itemIds: new Set(['scoped-item']) });
     const unscoped = await loadEfficacySnapshot(7);
 
     assert.ok(unscoped.delayedRetention.n >= 1);
-    assert.equal(scoped.delayedRetention.n, 0, 'single in-scope item cannot form a delayed-retention pair');
-    assert.equal(scoped.totalEvents, 1);
-    assert.equal(unscoped.totalEvents, 2);
+    assert.equal(scoped.delayedRetention.n, 1, 'out-of-scope items must not contribute observations');
+    assert.equal(scoped.totalEvents, 2);
+    assert.equal(unscoped.totalEvents, 4);
   });
 
   it('scoped loaders fall back safely on an empty log', async () => {
