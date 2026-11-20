@@ -490,6 +490,12 @@ export interface QuizHistoryEntry {
   topicId?: string;
   subjectId?: string;
   difficultyFilter?: DifficultyFilter;
+  /**
+   * Stable per-attempt identity (the review session id). A completed session
+   * that was re-finished after a failed-save recovery must not append twice.
+   * Absent on legacy entries.
+   */
+  sessionId?: string;
 }
 
 

@@ -660,7 +660,14 @@ export function recordQuizResult(
   now: number = Date.now(),
   /** Learner's configured sessions for the active workspace (exam-aware compression). */
   examSessions?: readonly ExamSession[],
+  /** Stable per-attempt identity; a re-finished session records exactly once. */
+  sessionId?: string,
 ): AppData {
+  if (sessionId && data.quizHistory.some((entry) => entry.sessionId === sessionId)) {
+    // This session is already recorded (failed-save recovery + resume + re-finish).
+    // AppData aggregates must not double-count; the review log dedupes by ID.
+    return data;
+  }
   const correctCount = answers.filter((a) => a.correct).length;
   const totalCount = answers.length;
   const questionResults = { ...data.questionResults };
@@ -677,7 +684,7 @@ export function recordQuizResult(
     );
   }
 
-  const quizHistory = [
+  const quizHistory: QuizHistoryEntry[] = [
     ...data.quizHistory,
     {
       date: now,
@@ -687,6 +694,7 @@ export function recordQuizResult(
       topicId: topicId ?? undefined,
       subjectId,
       difficultyFilter,
+      ...(sessionId ? { sessionId } : {}),
     },
   ];
 
