@@ -48,10 +48,26 @@ export function firstSeenByItem(events: ReviewEvent[]): Map<string, number> {
 }
 
 /**
- * Accuracy on attempts at least minDelayDays after first exposure.
- * Multiple delayed attempts for the same item each contribute an observation;
- * uniqueEligibleItems reports breadth separately.
+ * Explicit delayed-retention eligibility (audit finding 7).
+ * Included: learner-submitted quiz/review answers (topic, quick, mock, review,
+ * challenge) at least minDelayDays after the item's first recorded event.
+ * Excluded: unanswered timeout slots (no learner attempt to measure),
+ * flashcards (self-graded, no correctness feedback from the app), and
+ * lesson-checks (immediate in-lesson feedback with same-session retries).
+ * Legacy events without responseStatus were submissions by construction.
+ * Repeated observations within one session count once per session/item, so a
+ * same-session retry burst cannot multiply the denominator.
+ * The delay reference is the item's first recorded event; assistance/feedback
+ * exposure timestamps are not yet recorded and are never invented here.
  */
+const DELAYED_ELIGIBLE_MODES: ReadonlySet<string> = new Set(['topic', 'quick', 'mock', 'review', 'challenge']);
+
+export function isDelayedRetentionEligible(event: ReviewEvent): boolean {
+  if (!DELAYED_ELIGIBLE_MODES.has(event.mode)) return false;
+  if (event.responseStatus === 'unanswered') return false;
+  return true;
+}
+
 export function computeDelayedRetention(
   events: ReviewEvent[],
   minDelayDays = 7,
@@ -62,10 +78,15 @@ export function computeDelayedRetention(
   let n = 0;
   let correct = 0;
   const eligibleItems = new Set<string>();
+  const countedSessionItems = new Set<string>();
 
   for (const event of events) {
+    if (!isDelayedRetentionEligible(event)) continue;
     const firstSeen = first.get(event.itemId);
     if (firstSeen == null || event.ts - firstSeen < minDelayMs) continue;
+    const sessionItemKey = `${event.sessionId}\u0000${event.itemId}`;
+    if (countedSessionItems.has(sessionItemKey)) continue;
+    countedSessionItems.add(sessionItemKey);
     n += 1;
     eligibleItems.add(event.itemId);
     if (event.correct) correct += 1;
@@ -92,6 +113,7 @@ export function computeEfficacySnapshot(
   let latencyN = 0;
 
   for (const event of events) {
+    if (!isDelayedRetentionEligible(event)) continue;
     const firstSeen = first.get(event.itemId);
     if (firstSeen == null || event.ts - firstSeen < minDelayMs) continue;
     if (

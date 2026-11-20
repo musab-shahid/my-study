@@ -312,7 +312,7 @@ return (
           <Card className="p-3.5 sm:p-5 mb-4">
             <h3 className="font-semibold text-ink mb-1">Delayed retention</h3>
             <p className="text-xs text-ink-muted mb-3">
-              Accuracy on items you first saw at least 7 days earlier (north-star style). Same-session scores are excluded.
+              Accuracy on submitted quiz answers at least 7 days after the item's first attempt. Timeout slots, flashcard grades, and in-lesson checks are excluded; retries within one session count once.
             </p>
             {efficacy && efficacy.delayedRetention.n > 0 ? (
               <div>

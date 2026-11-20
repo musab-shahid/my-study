@@ -4,6 +4,7 @@ import type { ReviewEvent } from '../review-event.ts';
 import {
   computeDelayedRetention,
   computeEfficacySnapshot,
+  isDelayedRetentionEligible,
   brierScore,
 } from '../efficacy-metrics.ts';
 
@@ -38,10 +39,10 @@ describe('efficacy metrics', () => {
   it('counts qualifying attempts and reports distinct eligible items separately', () => {
     const events = [
       ev({ itemId: 'a', correct: true, ts: 0 }),
-      ev({ itemId: 'a', correct: true, ts: 8 * DAY }),
-      ev({ itemId: 'a', correct: false, ts: 10 * DAY }),
+      ev({ itemId: 'a', correct: true, ts: 8 * DAY, sessionId: 's2' }),
+      ev({ itemId: 'a', correct: false, ts: 10 * DAY, sessionId: 's3' }),
       ev({ itemId: 'b', correct: true, ts: 0 }),
-      ev({ itemId: 'b', correct: true, ts: 8 * DAY }),
+      ev({ itemId: 'b', correct: true, ts: 8 * DAY, sessionId: 's2' }),
     ];
     const stats = computeDelayedRetention(events, 7);
     assert.equal(stats.n, 3);
@@ -79,5 +80,68 @@ describe('efficacy metrics', () => {
     assert.throws(() => computeDelayedRetention(events, -1), RangeError);
     assert.throws(() => computeDelayedRetention(events, Number.NaN), RangeError);
     assert.throws(() => computeEfficacySnapshot(events, Number.POSITIVE_INFINITY), RangeError);
+  });
+
+  describe('delayed-retention eligibility (audit finding 7)', () => {
+    it('excludes unanswered timeout slots', () => {
+      const events = [
+        ev({ itemId: 'a', correct: true, ts: 0 }),
+        ev({ itemId: 'a', correct: false, ts: 8 * DAY, responseStatus: 'unanswered' }),
+      ];
+      const stats = computeDelayedRetention(events, 7);
+      assert.equal(stats.n, 0);
+      assert.equal(isDelayedRetentionEligible(events[1]), false);
+    });
+
+    it('excludes flashcard self-grades even when marked correct', () => {
+      const events = [
+        ev({ itemId: 'a', correct: true, ts: 0 }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY, mode: 'flashcard', grade: 'easy' }),
+      ];
+      const stats = computeDelayedRetention(events, 7);
+      assert.equal(stats.n, 0);
+      assert.equal(isDelayedRetentionEligible(events[1]), false);
+    });
+
+    it('excludes lesson-check events with immediate in-lesson feedback', () => {
+      const events = [
+        ev({ itemId: 'a', correct: true, ts: 0 }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY, mode: 'lesson-check' }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY + 60_000, mode: 'lesson-check' }),
+      ];
+      const stats = computeDelayedRetention(events, 7);
+      assert.equal(stats.n, 0);
+      assert.equal(stats.uniqueEligibleItems, 0);
+    });
+
+    it('counts one observation per session/item so retry bursts cannot multiply the denominator', () => {
+      const events = [
+        ev({ itemId: 'a', correct: true, ts: 0 }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY, sessionId: 's1' }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY + 5_000, sessionId: 's1' }),
+        ev({ itemId: 'a', correct: true, ts: 8 * DAY + 9_000, sessionId: 's1' }),
+      ];
+      const stats = computeDelayedRetention(events, 7);
+      assert.equal(stats.n, 1);
+      assert.equal(stats.correct, 1);
+      assert.equal(stats.uniqueEligibleItems, 1);
+    });
+
+    it('counts separate sessions as separate observations', () => {
+      const events = [
+        ev({ itemId: 'a', correct: true, ts: 0 }),
+        ev({ itemId: 'a', correct: false, ts: 8 * DAY, sessionId: 's1' }),
+        ev({ itemId: 'a', correct: true, ts: 10 * DAY, sessionId: 's2' }),
+      ];
+      const stats = computeDelayedRetention(events, 7);
+      assert.equal(stats.n, 2);
+      assert.equal(stats.correct, 1);
+    });
+
+    it('treats legacy events without responseStatus as submitted', () => {
+      const legacy = ev({ itemId: 'a', correct: true, ts: 8 * DAY });
+      delete (legacy as { responseStatus?: unknown }).responseStatus;
+      assert.equal(isDelayedRetentionEligible(legacy), true);
+    });
   });
 });

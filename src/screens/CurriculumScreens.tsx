@@ -35,6 +35,7 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
     [item.id, attempt],
   );
   const isCorrect = selected === shuffled.correctAnswer;
+  const optionRefs = useRef<(HTMLButtonElement | null)[]>([]);
   return (
     <Card className="p-card-pad border border-slate-200">
       <div className="flex flex-wrap items-center gap-2 mb-2">
@@ -43,7 +44,24 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
       </div>
       <p className="font-medium text-sm sm:text-base text-ink leading-relaxed">{item.prompt}</p>
       <p className="text-xs text-muted mt-1">Options are shuffled each attempt. Submitted outcomes are stored in browser-local review history; they do not count toward Progress or establish mastery.</p>
-      <div className="space-y-2 mt-3" role="radiogroup" aria-label="Answer options">
+      <div
+        className="space-y-2 mt-3"
+        role="radiogroup"
+        aria-label="Answer options"
+        onKeyDown={(e) => {
+          if (submitted) return;
+          const delta = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+          if (delta === 0) return;
+          e.preventDefault();
+          setSelected((prev) => {
+            const base = prev === null ? (delta === 1 ? -1 : 0) : prev;
+            return (base + delta + shuffled.options.length) % shuffled.options.length;
+          });
+          optionRefs.current[
+            (selected === null ? (delta === 1 ? 0 : shuffled.options.length - 1) : (selected + delta + shuffled.options.length) % shuffled.options.length)
+          ]?.focus();
+        }}
+      >
         {shuffled.options.map((option, index) => {
           const isSelected = selected === index;
           const isAnswer = submitted && index === shuffled.correctAnswer;
@@ -51,9 +69,11 @@ function CurriculumQuestionCard({ item }: { item: LessonCheckItem }) {
           return (
             <button
               key={`${attempt}-${index}-${option.slice(0, 32)}`}
+              ref={(el) => { optionRefs.current[index] = el; }}
               type="button"
               role="radio"
               aria-checked={isSelected}
+              tabIndex={isSelected || (selected === null && index === 0) ? 0 : -1}
               aria-label={`Option ${index + 1}: ${option}`}
               onClick={() => { if (!submitted) setSelected(index); }}
               className={`w-full rounded-lg border px-3 py-2.5 text-left text-sm transition-colors ${isAnswer ? 'border-success-400 bg-success-50 text-success-900' : isWrongSelection ? 'border-danger-300 bg-danger-50 text-danger-900' : isSelected ? 'border-brand-400 bg-brand-50 text-brand-900' : 'border-slate-200 bg-white text-muted hover:bg-slate-50'}`}
