@@ -720,6 +720,7 @@ export function recordQuizResult(
       easeFactor: prog.easeFactor,
       reviewStage: quizStage,
       accuracy: sessionAccuracy,
+      from: new Date(now),
     });
     prog.reviewStage = scheduled.reviewStage;
     prog.nextReview = scheduled.nextReview;

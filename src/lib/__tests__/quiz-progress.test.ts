@@ -153,4 +153,40 @@ describe('quiz progress persistence', () => {
       assert.equal(storage.getItem('unrelated-key'), 'keep');
     });
   });
+
+  it('reports save failure instead of failing silently (storage full)', () => {
+    withStorage((storage) => {
+      storage.setItem = () => {
+        const err = new Error('quota');
+        err.name = 'QuotaExceededError';
+        throw err;
+      };
+      const snapshot: QuizProgressSnapshot = {
+        questions: [question('q1', 'topic-a', 'medium')],
+        optionOrders: [[0, 1, 2]],
+        answers: [],
+        reviewAttempts: [],
+        reviewSessionId: 'session-1',
+        elapsed: 10,
+        currentIdx: 0,
+      };
+      assert.equal(saveQuizProgress(snapshot, 'quick'), false);
+      assert.equal(loadQuizProgress(), null);
+    });
+  });
+
+  it('reports save success on a writable store', () => {
+    withStorage(() => {
+      const snapshot: QuizProgressSnapshot = {
+        questions: [question('q1', 'topic-a', 'medium')],
+        optionOrders: [[0, 1, 2]],
+        answers: [],
+        reviewAttempts: [],
+        reviewSessionId: 'session-1',
+        elapsed: 10,
+        currentIdx: 0,
+      };
+      assert.equal(saveQuizProgress(snapshot, 'quick'), true);
+    });
+  });
 });
